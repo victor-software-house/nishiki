@@ -1,13 +1,17 @@
-//! The per-line engine: it runs the grammar's rules the way a `TextMate` engine
-//! does, with hand-written matchers instead of regular expressions.
+//! The per-line engine.
+//! It runs the grammar's rules the way a `TextMate` engine does, with
+//! hand-written matchers instead of regular expressions.
 //!
-//! At each position the engine tries the end pattern of the innermost rule and
-//! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position. A begin match opens a rule, an end match closes it, and
-//! a capture may be lexed again with its own pattern list. The corner cases of
-//! `TextMate` engines are kept because Shiki's output depends on them: `\G`
-//! matches only where the enclosing begin ended, and a rule that opens or
-//! closes without advancing stops the line.
+//! At each position the engine tries the end pattern of the innermost rule,
+//! then the rule's patterns in order.
+//! It takes the first that matches at the earliest position.
+//! A begin match opens a rule, and an end match closes it.
+//! A capture may be lexed again with its own pattern list.
+//!
+//! The corner cases of `TextMate` engines are kept, because Shiki's output
+//! depends on them.
+//! `\G` matches only where the enclosing begin ended.
+//! A rule that opens or closes without advancing stops the line.
 
 use std::cell::Cell;
 
@@ -43,8 +47,8 @@ pub(crate) struct Span {
 #[derive(Clone, Copy, Debug)]
 struct Frame {
     rule: Rule,
-    /// Where the rule opened in this line; `None` for a rule that an earlier
-    /// line opened.
+    /// Where the rule opened in this line.
+    /// It is `None` for a rule that an earlier line opened.
     enter: Option<usize>,
     /// The `\G` position when the rule opened.
     anchor: Option<usize>,
@@ -52,8 +56,8 @@ struct Frame {
     name: u32,
     /// Interned scope stack of the rule's content.
     content: u32,
-    /// The interned state with this rule on top. A rule that a limit kept
-    /// out of the arena has its parent's.
+    /// The interned state with this rule on top.
+    /// A rule that a limit kept out of the arena has its parent's.
     state: u32,
     /// What the rule carries: a here-document's delimiter, as a string
     /// number.
@@ -73,8 +77,9 @@ struct Find {
     valid: bool,
 }
 
-/// The searches with a lazy `.+?` that scan ahead, each answered from the
-/// last search of its kind; see [`Lexer::find_from`].
+/// The searches with a lazy `.+?` that scan ahead.
+/// Each is answered from the last search of its kind; see
+/// [`Lexer::find_from`].
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Lazy {
     /// The word of a `case`, up to `in`.
@@ -145,11 +150,12 @@ struct Flags {
     /// A node limit kept something from being made since the flag was last
     /// cleared.
     failed: bool,
-    /// A rule closed without advancing, which keeps its begin scopes for the
-    /// rest of the line.
+    /// A rule closed without advancing.
+    /// It keeps its begin scopes for the rest of the line.
     /// The next line takes the rule over with its content scopes put back.
     kept: bool,
-    /// A node limit denied a rule its own state, so it shares its parent's.
+    /// A node limit denied a rule its own state.
+    /// The rule then shares its parent's.
     /// Only then do two open rules share a state at the end of a line.
     /// The frames that [`Lexer::retokenise`] adds are gone by then.
     shared: bool,
@@ -175,9 +181,11 @@ struct PathEntry {
     node: u32,
 }
 
-/// A cached `push_frame`: what opening `code` with `payload` on `parent`,
-/// whose text has the stack `scopes`, made. A rule opened inside a lexed-again
-/// capture has its parent's state but not its parent's stack, so both key it.
+/// A cached `push_frame`: what opening `code` with `payload` on `parent`
+/// made, where the text has the stack `scopes`.
+/// A rule opened inside a lexed-again capture has its parent's state but not
+/// its parent's stack.
+/// Both therefore key it.
 #[derive(Clone, Copy, Debug)]
 struct PushEntry {
     parent: u32,
@@ -193,18 +201,20 @@ const PATH_ENTRIES: usize = 512;
 const PUSH_ENTRIES: usize = 256;
 
 /// Odd multipliers that spread the parts of a cache key over the slots
-/// before they are combined: the high bits of the golden ratio
-/// (`0x9e3779b9`) and of a `MurmurHash3` finaliser constant (`0x85ebca6b`),
-/// and a small prime. Any odd constants keep the caches correct; these
-/// only make collisions rarer.
+/// before they are combined.
+/// They are the high bits of the golden ratio (`0x9e3779b9`) and of a
+/// `MurmurHash3` finaliser constant (`0x85ebca6b`), and a small prime.
+/// Any odd constants keep the caches correct.
+/// These only make collisions rarer.
 const MIX_STATE: usize = 0x9e37;
 const MIX_SCOPES: usize = 0x85eb;
 const MIX_CODE: usize = 31;
 
-/// What a highlighter keeps from line to line, so that lexing a line
-/// allocates nothing once it has grown, and the hot lookups of the arena are
-/// not repeated. It belongs to one arena: every id it holds names a node
-/// that arena made and never removes.
+/// What a highlighter keeps from line to line.
+/// Lexing a line then allocates nothing once it has grown, and the hot
+/// lookups of the arena are not repeated.
+/// It belongs to one arena.
+/// Every id it holds names a node that arena made and never removes.
 #[derive(Debug)]
 pub(crate) struct Scratch {
     frames: Vec<Frame>,
@@ -213,7 +223,8 @@ pub(crate) struct Scratch {
     ends: Vec<usize>,
     name: String,
     /// The state the last line ended in, when `frames` still holds its open
-    /// rules, which the next line starts from when it continues that state.
+    /// rules.
+    /// The next line starts from those rules when it continues that state.
     resume: Option<u32>,
     paths: Vec<Option<PathEntry>>,
     pushes: Vec<Option<PushEntry>>,
@@ -237,10 +248,12 @@ impl Default for Scratch {
 /// Lexes one line.
 pub(crate) struct Lexer<'a> {
     pub(crate) s: &'a [u8],
-    /// The text ends here; a retokenised capture ends before the line does.
+    /// The text ends here.
+    /// A retokenised capture ends before the line does.
     pub(crate) lim: usize,
-    /// Whether a line feed follows the text, which the regular expressions of
-    /// the grammar see at the end of a line but not at the end of a capture.
+    /// Whether a line feed follows the text.
+    /// The grammar's regular expressions see it at the end of a line, but not
+    /// at the end of a capture.
     pub(crate) nl: bool,
     out: &'a mut Vec<Token>,
     arena: &'a mut Arena,
@@ -258,8 +271,8 @@ pub(crate) struct Lexer<'a> {
     /// The open rules, the root first.
     frames: Vec<Frame>,
     spans: Vec<Span>,
-    /// The spans of the current match start here; a retokenised capture
-    /// matches above them.
+    /// The spans of the current match start here.
+    /// A retokenised capture matches above them.
     span_base: usize,
     /// The rule a begin pattern chose, for [`Act::BeginChosen`].
     pub(crate) chosen: Rule,
@@ -281,24 +294,28 @@ pub(crate) struct Lexer<'a> {
     /// The searches that scan ahead, one per kind of search.
     finds: Finds,
     /// The last run of function-name characters found: where it starts and
-    /// ends, and the end of the text. A search from inside it ends where it
-    /// does.
+    /// ends, and the end of the text.
+    /// A search from inside the run ends where the run does.
     pub(crate) function_name_run: Cell<NameRun>,
     /// The last [`Lexer::name_run`] answer: where it was asked, the end of
-    /// the text, and the answer. Several rules ask about the same word.
+    /// the text, and the answer.
+    /// Several rules ask about the same word.
     pub(crate) names: Cell<NameAnswer>,
     /// Where the language that embeds shell takes the text back, while only
-    /// the root is open: before shell's patterns at a place, and after they
-    /// fail there (see [`Halt`]).
+    /// the root is open.
+    /// It tests before shell's patterns at a place, and after they fail there.
+    /// See [`Halt`].
     halts: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
 }
 
 impl<'a> Lexer<'a> {
-    /// A lexer for one line from `state`. Its open rules are the ones the
-    /// last line left in `scratch` when that line ended in `state`, and
-    /// otherwise the state's chain of frames, rebuilt from its root down.
+    /// A lexer for one line from `state`.
+    /// Its open rules are the ones the last line left in `scratch`, when that
+    /// line ended in `state`.
+    /// Otherwise they are the state's chain of frames, rebuilt from its root
+    /// down.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
@@ -415,8 +432,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// The halts a scan tests at each place: the line's, while only the root
-    /// is open, and `None` otherwise. A scan does not open or close rules,
-    /// so it asks once.
+    /// is open, and `None` otherwise.
+    /// A scan does not open or close rules, so it asks once.
     fn root_halts(&self) -> Option<&'a Halts<'a>> {
         self.halts.filter(|_| self.frames.len() == 1)
     }
@@ -431,7 +448,8 @@ impl<'a> Lexer<'a> {
     ///
     /// The next line may resume the open rules only when they are the
     /// state's chain.
-    /// They are when each has a state of its own, which a node limit can deny.
+    /// They are when each has a state of its own.
+    /// A node limit can deny a rule its own state.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
@@ -499,8 +517,9 @@ impl<'a> Lexer<'a> {
         i == self.lim || (self.nl && i == self.lim + 1)
     }
 
-    /// Whether the text at `i` starts with `text`. The first byte decides
-    /// almost always, so it is compared before the rest.
+    /// Whether the text at `i` starts with `text`.
+    /// The first byte decides almost always, so it is compared before the
+    /// rest.
     pub(crate) fn starts(&self, i: usize, text: &[u8]) -> bool {
         text.first().is_some_and(|b| self.s.get(i) == Some(b))
             && self
@@ -518,8 +537,10 @@ impl<'a> Lexer<'a> {
         i
     }
 
-    /// The end of the blanks from `i`. Most positions are not blank, and a
-    /// matcher asks at every candidate position, so that case returns first.
+    /// The end of the blanks from `i`.
+    /// Most positions are not blank, and a matcher asks at every candidate
+    /// position.
+    /// That case therefore returns first.
     #[inline]
     pub(crate) fn blanks(&self, i: usize) -> usize {
         if i < self.lim && matches!(self.s[i], b' ' | b'\t') {
@@ -537,10 +558,11 @@ impl<'a> Lexer<'a> {
     /// The first position from `from` to the end of the text where `test`
     /// holds, stepping a character at a time.
     ///
-    /// A pattern with a lazy `.+?` scans ahead like this, and a line made of
-    /// such tokens would scan to its end for each. `lazy` names the test: the
-    /// answer of the last search of that kind answers a later one that starts
-    /// no earlier and no later than the answer.
+    /// A pattern with a lazy `.+?` scans ahead like this.
+    /// A line made of such tokens would scan to its end for each.
+    /// `lazy` names the test.
+    /// The answer of the last search of that kind answers a later one that
+    /// starts no earlier and no later than the answer.
     pub(crate) fn find_from(
         &self,
         lazy: Lazy,
@@ -577,7 +599,8 @@ impl<'a> Lexer<'a> {
         answer
     }
 
-    /// The end of the character at `i`, which is a whole UTF-8 sequence.
+    /// The end of the character at `i`.
+    /// The character is a whole UTF-8 sequence.
     pub(crate) fn char_end(&self, i: usize) -> usize {
         (i + char_len(self.s[i])).min(self.lim)
     }
@@ -655,11 +678,12 @@ impl<'a> Lexer<'a> {
         self.limits.depth.is_some_and(|max| self.depth() >= max)
     }
 
-    /// The stack `base` with `scopes` on top. A scope the node limit keeps
-    /// from being made is left out.
+    /// The stack `base` with `scopes` on top.
+    /// A scope the node limit keeps from being made is left out.
     ///
-    /// The cache keys a list by its address, which names one list only
-    /// because every list is a static of the grammar's tables.
+    /// The cache keys a list by its address.
+    /// The address names one list only, because every list is a static of the
+    /// grammar's tables.
     fn path(&mut self, base: u32, scopes: &'static [S]) -> u32 {
         if scopes.is_empty() {
             return base;
@@ -697,9 +721,10 @@ impl<'a> Lexer<'a> {
     }
 
     /// The stack `base` with the scopes `prefix`, `text` and `suffix` spell
-    /// out on top. A name with spaces is several scopes, and leading dots of
-    /// the text are dropped, as a `TextMate` engine does for the text of a
-    /// capture.
+    /// out on top.
+    /// A name with spaces is several scopes.
+    /// Leading dots of the text are dropped, as a `TextMate` engine does for
+    /// the text of a capture.
     fn dynamic_path(&mut self, base: u32, prefix: &str, text: &str, suffix: &str) -> u32 {
         self.name.clear();
         self.name.push_str(prefix);
@@ -831,9 +856,9 @@ impl<'a> Lexer<'a> {
         self.last = to;
     }
 
-    /// Emits the spans of the current match on `base`. An argument whose
-    /// text is a plain word is emitted whole: no pattern of the argument's
-    /// list can match in it.
+    /// Emits the spans of the current match on `base`.
+    /// An argument whose text is a plain word is emitted whole.
+    /// No pattern of the argument's list can match in it.
     fn emit_spans(&mut self, base: u32) {
         for i in self.span_base..self.spans.len() {
             let span = self.spans[i];
@@ -861,7 +886,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes `start..end` again with the patterns of `rule`, in a stack whose
-    /// innermost scopes are `node`. Whatever it opens is dropped at `end`.
+    /// innermost scopes are `node`.
+    /// Whatever it opens is dropped at `end`.
     fn retokenise(&mut self, rule: Rule, start: usize, end: usize, node: u32) {
         if self.at_depth_limit() {
             self.report.record(Limit::Depth);
@@ -895,8 +921,15 @@ impl<'a> Lexer<'a> {
 
     // The loop.
 
-    /// Runs from `pos` until the text ends or the line stops. When the work
-    /// runs out, the rest of the line is the innermost rule's.
+    /// Runs from `pos` until the text ends or the line stops.
+    /// When the work runs out, the rest of the line is the innermost rule's.
+    ///
+    /// Each step that does not advance opens or closes a rule at its byte.
+    /// A rule that repeats ends the line.
+    /// A run of such steps is therefore at most one open and one close per
+    /// rule of the grammar, about 120 steps.
+    /// The debug assertion's 4096 is far above that.
+    /// Reaching it means a rule matches empty without being guarded.
     fn tokenize(&mut self) {
         let line_length = self.lim + usize::from(self.nl);
         let mut stalled = 0_u32;
@@ -943,11 +976,6 @@ impl<'a> Lexer<'a> {
                 stalled = 0;
             } else {
                 stalled += 1;
-                // Each step that does not advance opens or closes a rule at
-                // this byte, and a rule that repeats ends the line, so a run
-                // is at most one open and one close per rule of the grammar,
-                // about 120 steps. 4096 is far above that: reaching it means a
-                // rule matches empty without being guarded.
                 debug_assert!(
                     stalled < 4096,
                     "the shell lexer made no progress at byte {}",
@@ -957,9 +985,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Closes the innermost rule. True when the line stops: a rule that
-    /// opened and closed without advancing would loop, so it stays open and
-    /// the rest of the line is its.
+    /// Closes the innermost rule; true when the line stops.
+    /// A rule that opened and closed without advancing would loop.
+    /// It therefore stays open, and the rest of the line is its.
     fn end_rule(&mut self, start: usize, end: usize, advanced: bool, line_length: usize) -> bool {
         let top = *self.top();
         self.emit(start, top.content);
@@ -979,8 +1007,8 @@ impl<'a> Lexer<'a> {
         false
     }
 
-    /// Opens `rule`, with its content scopes after its begin tokens. True
-    /// when the line stops.
+    /// Opens `rule`, with its content scopes after its begin tokens.
+    /// It returns true when the line stops.
     fn begin_rule(
         &mut self,
         rule: Rule,
@@ -1031,9 +1059,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Names the text of a match rule. True when the line stops: an empty
-    /// match that is not at an advance would loop, so the enclosing rule is
-    /// dropped and the line stops.
+    /// Names the text of a match rule; true when the line stops.
+    /// An empty match that is not at an advance would loop.
+    /// The enclosing rule is therefore dropped, and the line stops.
     fn match_rule(
         &mut self,
         name: &'static [S],
@@ -1074,17 +1102,20 @@ impl<'a> Lexer<'a> {
     /// visits in `visited` so that the work is spent once, not per position.
     ///
     /// Each position tries only the patterns that can start there, or all
-    /// of them where the text ends without a line feed. A begin the depth
-    /// limit keeps closed leaves its text plain. A pattern that fails at a
-    /// blank fails at the blanks after it, because the blanks are consumed
-    /// first and what follows decides; the position after the first blank is
-    /// the exception, because `normal_statement` may look back over a
-    /// keyword and one space. A match starts at the start of a character.
+    /// of them where the text ends without a line feed.
+    /// A begin the depth limit keeps closed leaves its text plain.
+    /// A pattern that fails at a blank fails at the blanks after it, because
+    /// the blanks are consumed first and what follows decides.
+    /// The position after the first blank is the exception, because
+    /// `normal_statement` may look back over a keyword and one space.
+    /// A match starts at the start of a character.
     ///
-    /// When `HALTING`, a language that embeds shell takes the text back where
-    /// `halt` holds before the patterns at a place or `after` holds once they
-    /// fail there; only the root is open then. Without it the tests compile
-    /// out, so shell that nothing embeds pays nothing for them.
+    /// When `HALTING`, a language that embeds shell takes the text back at a
+    /// place where `halt` holds before the patterns.
+    /// It also takes it back where `after` holds once the patterns fail there.
+    /// Only the root is open then.
+    /// Without `HALTING` the tests compile out.
+    /// Shell that nothing embeds pays nothing for them.
     fn scan_positions<const HALTING: bool>(
         &mut self,
         visited: &mut usize,
@@ -1170,7 +1201,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// Interns the text `start..end` as the delimiter of the here-document
-    /// that begins; `None` when the node limit keeps it from being interned.
+    /// that begins.
+    /// It is `None` when the node limit keeps it from being interned.
     pub(crate) fn set_delimiter(&mut self, start: usize, end: usize) -> Option<()> {
         let s = self.s;
         let text = std::str::from_utf8(&s[start..end]).ok()?;

@@ -286,7 +286,8 @@ impl Lexer<'_> {
         Some(e)
     }
 
-    /// A backslash and one byte of `set`; `\n` stands for the line feed.
+    /// A backslash and one byte of `set`.
+    /// `\n` stands for the line feed.
     pub(in crate::shell) fn m_escape_in(&mut self, p: usize, set: &[u8]) -> Option<usize> {
         if self.at(p) != b'\\' || !self.avail(p + 1) || !set.contains(&self.at(p + 1)) {
             return None;
@@ -320,7 +321,8 @@ impl Lexer<'_> {
         Some(p + 2)
     }
 
-    /// `\\[0-9]{3}"`, which the grammar spells with the closing quote.
+    /// `\\[0-9]{3}"`.
+    /// The grammar spells it with the closing quote.
     pub(in crate::shell) fn m_ansi_octal(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\'
             || !(1..=3).all(|k| self.at(p + k).is_ascii_digit())
@@ -536,8 +538,9 @@ impl Lexer<'_> {
     }
 
     /// The arithmetic operators, in the grammar's order, including the `^`
-    /// that is an empty match at the start of a line. `\+{1,2}`, `-{1,2}` and
-    /// `\*{1,2}` come before that `^`, and `\|{1,2}` and `&{1,2}` after it.
+    /// that is an empty match at the start of a line.
+    /// `\+{1,2}`, `-{1,2}` and `\*{1,2}` come before that `^`.
+    /// `\|{1,2}` and `&{1,2}` come after it.
     pub(in crate::shell) fn m_math_op(&mut self, p: usize) -> Option<usize> {
         let c = self.at(p);
         let next = self.at(p + 1);

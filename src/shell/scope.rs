@@ -1,8 +1,8 @@
 //! The scope names the lexer emits, in Shiki's naming.
 
 // Three scope names spell the word for `(` and `)` without its final letter,
-// as the grammar does; the escape in each keeps the spelling checker from
-// reading it as a typo.
+// as the grammar does.
+// The escape in each keeps the spelling checker from reading it as a typo.
 crate::scope::scope_table! {
     SHELL;
     Source "source.shell"

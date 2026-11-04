@@ -6,8 +6,8 @@ use crate::shell::scope::S;
 use crate::shell::state::Rule;
 
 /// The two-letter tests of `[ ]`.
+/// The second is spelt with an escape, so that the spelling checker passes it.
 const TEST_PAIRS: [&[u8]; 9] = [
-    // The second is spelt with an escape, which the spelling checker needs.
     b"nt", b"\x6ft", b"ef", b"eq", b"ne", b"le", b"lt", b"ge", b"gt",
 ];
 
@@ -77,8 +77,9 @@ impl Lexer<'_> {
             })
     }
 
-    /// `(?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)`. The variable is
-    /// lazy: it ends where white space and `in` follow.
+    /// `(?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)`.
+    /// The variable is lazy.
+    /// It ends where white space and `in` follow.
     pub(in crate::shell) fn m_loop_for(&mut self, p: usize) -> Option<usize> {
         if !self.after_separator(p) || !self.starts(p, b"for") {
             return None;
@@ -298,9 +299,10 @@ impl Lexer<'_> {
         )
     }
 
-    /// The end of the function-name characters from `i`. The run is
-    /// remembered, so a search from inside it, as a pattern tried at every
-    /// byte of a long word makes, does not scan it again.
+    /// The end of the function-name characters from `i`.
+    /// The run is remembered.
+    /// A search from inside it, as a pattern tried at every byte of a long
+    /// word makes, then does not scan it again.
     fn function_name_end(&self, i: usize) -> usize {
         let run = self.function_name_run.get();
         if run.lim == self.lim && run.start <= i && i < run.end {
@@ -465,9 +467,10 @@ impl Lexer<'_> {
         Some(self.lim)
     }
 
-    /// `<<` and an unquoted delimiter. Where no line feed follows, the
-    /// lookahead after the delimiter needs one of `&;<`, so the delimiter
-    /// ends before the last of them.
+    /// `<<` and an unquoted delimiter.
+    /// Where no line feed follows, the lookahead after the delimiter needs one
+    /// of `&;<`.
+    /// The delimiter therefore ends before the last of them.
     pub(in crate::shell) fn m_heredoc_plain(
         &mut self,
         p: usize,

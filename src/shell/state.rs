@@ -1,4 +1,5 @@
-//! The rules the shell lexer opens, which are frames of the interned state.
+//! The rules the shell lexer opens.
+//! Each is a frame of the interned state.
 
 /// The high byte that marks a frame as one of the shell lexer's.
 const TAG: u16 = crate::tag::SHELL;

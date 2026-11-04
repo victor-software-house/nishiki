@@ -133,10 +133,11 @@ fn an_unterminated_string_keeps_later_lines() {
     );
 }
 
+/// A statement left open at the end of a line stays open over blank lines,
+/// as it does in Shiki.
+/// `*a*` is therefore a command name and not a glob.
 #[test]
 fn an_empty_line_leaves_the_state_alone() {
-    // A statement left open at the end of a line stays open over blank lines,
-    // as it does in Shiki, so `*a*` is a command name and not a glob.
     let (rows, _) = lex_with_states(indoc! {"
         x;
 
@@ -155,10 +156,10 @@ fn an_argument_gives_back_a_character_before_a_redirection() {
     assert_eq!(texts, ["echo", " ", "a", "b", ">", "c"]);
 }
 
+/// `✓` ends the variable name inside `${…}`.
+/// The `\w` of the grammar's regular expressions does not match it.
 #[test]
 fn a_symbol_is_not_a_word_character() {
-    // `✓` ends the variable name inside `${…}` as the `\w` of the grammar's
-    // regular expressions does not match it.
     let scopes = scopes_of("echo \"${GRE✓ x}\"", "GRE");
     assert_eq!(
         scopes.last().map(String::as_str),
@@ -177,9 +178,11 @@ fn a_long_delimiter_is_a_here_document() {
 }
 
 /// Each line lexed again from its state gives the same tokens and state.
-/// The lines run backwards first, so that each starts from a state the last
-/// line did not end in and the open rules are rebuilt from the arena, and
-/// then forwards, so that each resumes the rules the line before left.
+/// The lines run backwards first.
+/// Each then starts from a state the last line did not end in, and the open
+/// rules are rebuilt from the arena.
+/// The lines then run forwards, so that each resumes the rules the line
+/// before left.
 #[test]
 fn a_state_resumes_the_line_after_it() {
     let text = indoc! {"
@@ -221,11 +224,11 @@ fn lazy_expressions_are_found_once() {
     assert_eq!(rows.len(), 1);
 }
 
+/// The first line opens a double-quoted string under an argument.
+/// The second opens one inside the here-string's word.
+/// That word has the same state but another scope stack.
 #[test]
 fn a_rule_opened_in_a_captured_word_keeps_the_words_scopes() {
-    // The first line opens a double-quoted string under an argument; the
-    // second opens one inside the here-string's word, which has the same
-    // state but another scope stack.
     let rows = lex("echo \"a\"\necho <<<x\"b");
     let quote = &rows[1][rows[1].len() - 2];
     assert_eq!(quote.0, "\"");

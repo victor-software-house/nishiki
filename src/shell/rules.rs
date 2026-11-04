@@ -2,8 +2,9 @@
 //! ends and which patterns it tries, in the grammar's order.
 //!
 //! A [`Pat`] is one regular expression of the grammar, written as a matcher in
-//! the sibling modules. The pattern lists below flatten the grammar's
-//! `include`s, so the first pattern that matches at the earliest position wins
+//! the sibling modules.
+//! The pattern lists below flatten the grammar's `include`s.
+//! The first pattern that matches at the earliest position therefore wins
 //! exactly as in a `TextMate` engine.
 
 use std::collections::HashMap;
@@ -154,9 +155,11 @@ pub(crate) enum Pat {
 /// What a pattern does when it matches.
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Act {
-    /// A match rule; `name` goes on all of its text.
+    /// A match rule.
+    /// `name` goes on all of its text.
     Match(&'static [S]),
-    /// A begin rule; it opens the rule.
+    /// A begin rule.
+    /// It opens the rule.
     Begin(Rule),
     /// A begin rule the matcher chooses.
     BeginChosen,
@@ -303,10 +306,11 @@ impl Pat {
 }
 
 /// Where a pattern can start to match, for skipping the positions where no
-/// pattern of a rule can. Each variant over-approximates: a position it
-/// excludes cannot match. The engine always tries the first position of a
-/// search, the start of the line and the end of the text, so patterns that
-/// need `\\G`, `^` or `$` say [`Start::Never`].
+/// pattern of a rule can.
+/// Each variant over-approximates: a position it excludes cannot match.
+/// The engine always tries the first position of a search, the start of the
+/// line and the end of the text.
+/// Patterns that need `\\G`, `^` or `$` therefore say [`Start::Never`].
 #[derive(Clone, Copy)]
 pub(crate) enum Start {
     /// The byte at the position is one of these.
@@ -536,9 +540,9 @@ pub(crate) struct RuleInfo {
     pub(crate) end_lit: &'static [u8],
     /// For [`Pat::EndLit`]: the scopes of that text.
     pub(crate) end_scopes: &'static [S],
-    /// The end pattern and the patterns, in the order they are tried. A
-    /// rule's builder leaves the patterns alone here, and [`with_tables`]
-    /// places the end among them.
+    /// The end pattern and the patterns, in the order they are tried.
+    /// A rule's builder leaves the patterns alone here.
+    /// [`with_tables`] places the end among them.
     pub(crate) order: Box<[Pat]>,
     /// For the byte before a position: which zero-width patterns can match
     /// there, as a slot of [`RuleInfo::candidates`].
@@ -554,8 +558,9 @@ pub(crate) struct RuleInfo {
 
 impl RuleInfo {
     /// The patterns that can match at a position with `byte` and `prev` at and
-    /// before it, in order. `first` is whether it is the first position of a
-    /// search, and `bol` whether it starts the line.
+    /// before it, in order.
+    /// `first` is whether it is the first position of a search, and `bol`
+    /// whether it starts the line.
     pub(crate) fn candidates(&self, first: bool, bol: bool, prev: u8, byte: u8) -> &[Pat] {
         let variant = usize::from(first) | (usize::from(bol) << 1);
         let slot = usize::from(self.after[usize::from(prev)]);
@@ -1263,16 +1268,17 @@ fn build(rule: Rule) -> RuleInfo {
     }
 }
 
-/// Fills the candidate lists of `info`: for each byte at a position and each
-/// byte before it, the patterns that can match there. Positions whose list is
-/// empty are skipped without trying anything.
 /// Builds the candidate tables of `info`.
+/// For each byte at a position and each byte before it, they list the
+/// patterns that can match there.
+/// Positions whose list is empty are skipped without trying anything.
 ///
 /// The zero-width patterns that depend on the byte before are listed in
-/// order, and each byte before a position activates a set of them, a bit
-/// each: at most eight, and at most 256 distinct sets, which
-/// `every_rule_fits_its_tables` checks, so the fallbacks never apply. What
-/// each pattern needs is computed once, so the lists only look it up.
+/// order.
+/// Each byte before a position activates a set of them, a bit each.
+/// There are at most eight such patterns and at most 256 distinct sets.
+/// `every_rule_fits_its_tables` checks both, so the fallbacks never apply.
+/// What each pattern needs is computed once, so the lists only look it up.
 fn with_tables(mut info: RuleInfo) -> RuleInfo {
     let mut order: Vec<Pat> = Vec::new();
     if let Some(end) = info.end

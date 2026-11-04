@@ -25,7 +25,8 @@ pub(super) fn is_name(b: u8) -> bool {
     NAME_BYTES[usize::from(b)]
 }
 
-/// [`is_name`] for every byte, so a scan is one load a byte.
+/// [`is_name`] for every byte.
+/// A scan is then one load a byte.
 #[expect(
     clippy::as_conversions,
     reason = "b < 256 and the table is built in a const"
@@ -258,7 +259,8 @@ impl Lexer<'_> {
 
     // Shared building blocks.
 
-    /// The character that starts at `i`, which is a character boundary.
+    /// The character that starts at `i`.
+    /// `i` is a character boundary.
     fn char_at(&self, i: usize) -> Option<char> {
         if !self.avail(i) {
             return None;
@@ -379,10 +381,11 @@ impl Lexer<'_> {
         end
     }
 
-    /// [`Lexer::name_run`] without the cache. An ASCII byte before decides
-    /// `(?<!\w)` without decoding. `(?!\w)` fails before a non-ASCII word
-    /// character, and then the run gives back characters until a `-`, which
-    /// is no word character, follows.
+    /// [`Lexer::name_run`] without the cache.
+    /// An ASCII byte before decides `(?<!\w)` without decoding.
+    /// `(?!\w)` fails before a non-ASCII word character.
+    /// The run then gives back characters until a `-` follows, which is no
+    /// word character.
     fn scan_name_run(&self, p: usize) -> Option<usize> {
         if p >= self.lim || !is_name(self.s[p]) {
             return None;

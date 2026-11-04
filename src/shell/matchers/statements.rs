@@ -213,8 +213,9 @@ impl Lexer<'_> {
         Some(j)
     }
 
-    /// `` [\t ]*+([^\t\n "$\&-);<>\\`|]+(?!>)) ``. Before a `>`, the `+`
-    /// gives back one character so that `>` does not follow.
+    /// `` [\t ]*+([^\t\n "$\&-);<>\\`|]+(?!>)) ``.
+    /// Before a `>`, the `+` gives back one character, so that `>` does not
+    /// follow.
     pub(in crate::shell) fn m_argument_word(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
         let mut e = self.skip(w, is_unquoted);
@@ -552,8 +553,9 @@ impl Lexer<'_> {
         Some(open + 1)
     }
 
-    /// `alias_statement`'s begin. The options, each `-\w+` and its blanks,
-    /// are greedy, and give back options when the rest then fails.
+    /// `alias_statement`'s begin.
+    /// The options, each `-\w+` and its blanks, are greedy.
+    /// They give back options when the rest then fails.
     pub(in crate::shell) fn m_alias(&mut self, p: usize) -> Option<usize> {
         let a = self.blanks(p);
         if !self.starts(a, b"alias") {
@@ -655,8 +657,9 @@ impl Lexer<'_> {
         Some(e + 1)
     }
 
-    /// `(\[)(.+?)(])(=)` in an array. The text between the brackets is
-    /// lazy: it ends at the first `]=`.
+    /// `(\[)(.+?)(])(=)` in an array.
+    /// The text between the brackets is lazy.
+    /// It ends at the first `]=`.
     pub(in crate::shell) fn m_array_bracket_eq(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'[' || !self.avail(p) {
             return None;
