@@ -205,18 +205,22 @@ It is worth revisiting if cache-miss counts are ever needed.
 ### 11. Machine and noise
 
 1. A probe picks the host class.
-   It measures throughput twice on one commit (an A/A run) on each candidate, with today's `examples/bench.rs`, so it need not wait for the new benches:
-   an instabox box, a Namespace 4x8, and a Namespace 8x16 with the harness pinned to one core.
-   The cheapest whose A/A medians agree within 2% on every language becomes the reference.
-   The probe also checks whether `perf stat -e instructions:u` works there.
+   It measures throughput six times per mode on one commit (an A/A run) on each candidate, unpinned and pinned to one core:
+   an instabox box, a Namespace 4x8, a Namespace 8x16 and a Boat `large`.
+   A candidate passes when its A/A medians agree within 2% on every language.
    The result is a research note.
-2. Each recorded session pins the harness to one core with `taskset` where the host allows.
-3. Each session measures an anchor at its start and end: one fixed file, lexed for 2 seconds.
-   A session whose anchor moves more than 2% is rejected and rerun.
-4. At least five rounds of every figure; the median, with the minimum and maximum beside it.
-5. Where the host exposes `instructions:u`, the record carries it next to wall time.
-6. If no candidate passes the probe, records carry their measured spread, and speed claims rest on instructions alone.
-   The first probe, with today's harness, found no candidate within 2% ([probe note][probe]); task 3.2 repeats it with the Criterion harness.
+2. No candidate passes, with the old harness ([first probe][probe]) or with Criterion ([second probe][probe-criterion]).
+   So wall-clock records are indicative, and speed decisions rest on Callgrind instruction counts (decision 9).
+3. The reference class is the least noisy candidate: Namespace 8x16, unpinned (lead, 2026-11-04).
+   Its figures spread by 8.5% over six runs (median over languages), and pinning widened its drift.
+   `bench/record.ts` writes a record only there: it checks the host's shape (8 CPUs, 2 threads a core, about 16 GB) and Namespace's `/nsc` directory, and refuses anywhere else.
+   Boat stays fine for Callgrind, which does not depend on the host's speed, but its 37% spread rules it out for wall-clock work.
+4. Each session measures an anchor at its start and end: one fixed file, lexed for 2 seconds.
+   A session whose anchor moves more than the reference class's measured first-to-last drift, 11% (its 90th percentile over languages, rounded up), is rejected and rerun.
+   The record carries that bound beside its anchor drift.
+5. At least five rounds of every figure; the median, with the minimum and maximum beside it, and its spread.
+6. Where the host exposes `instructions:u`, the record carries it next to wall time.
+   Neither instabox nor Namespace was shown to expose it ([first probe][probe]).
 
 ### 12. Results are data first
 
@@ -338,7 +342,7 @@ This replaces today's three runs and a median.
 - [Criterion's dependencies slow the bench build] → default features off, and the bench workspace builds only in bench jobs.
 - [The bench workspace drifts from the crate's API, because verify does not build it] → the bench job builds it and runs each program once, on pull requests labelled `bench` or touching `bench/`.
 - [A comparator is set up unfairly by mistake] → the fidelity column exposes an engine that does less work, and the harness is committed beside the results.
-- [No host class passes the probe] → decision 11, point 6.
+- [No host class passes the probe] → decision 11, point 2: records are indicative, and speed decisions rest on instructions.
 - [Forty-six languages make the Callgrind job slower] → parallel valgrind runs; the task that adds them measures the job and keeps it under its step timeout.
 - [giallo's EUPL-1.2] → it is built only on the bench host and never distributed, the condition the operator set on 2026-11-03.
 - [The corpus costs licence work] → `bench/corpus.toml` holds each file's licence source, and `check:corpus` refuses any licence off the permissive list.
@@ -373,3 +377,4 @@ Rollback is reverting a pull request; the crate never depends on any of this.
 [ts-bench]: https://github.com/tree-sitter/tree-sitter/blob/9632b561db2f647e9c0be9e61cf91f10671a6491/crates/cli/benches/benchmark.rs
 [run-242]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41754856763
 [probe]: ../../research/2026-11-04-bench-host-probe.md
+[probe-criterion]: ../../research/2026-11-04-bench-host-probe-criterion.md

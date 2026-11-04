@@ -1,0 +1,7 @@
+build 43s /home/user/work/tgt/release/deps/throughput-3c0fbffb53e5afe6
+run 1 503s
+run 2 967s
+run 3 1426s
+run 4 1885s
+run 5 2347s
+run 6 2804s

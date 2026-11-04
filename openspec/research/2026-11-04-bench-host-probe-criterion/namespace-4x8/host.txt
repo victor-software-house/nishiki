@@ -1,0 +1,10 @@
+2026-11-04T05:37:30Z
+model name	: AMD EPYC
+4
+Thread(s) per core:                      2
+Core(s) per socket:                      2
+Socket(s):                               1
+               total        used        free      shared  buff/cache   available
+Mem:            8001         869        4635           0        2757        7131
+7.1.4
+ 05:37:30 up 46 min,  0 users,  load average: 1.28, 1.24, 1.09

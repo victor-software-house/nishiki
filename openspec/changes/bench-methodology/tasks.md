@@ -35,7 +35,10 @@ No new dependency.
 - [x] 3.1 Run the A/A probe of design decision 11 on an instabox box, a Namespace 4x8 and a Namespace 8x16 pinned to one core, and check `perf stat -e instructions:u` on each → verify: a research note under `openspec/research/` names the reference host class, each candidate's A/A spread per language, and each run's minutes and cost
   - 2026-11-04 UTC: [the probe note](../../research/2026-11-04-bench-host-probe.md): no candidate passed; 14 to 33 of 46 languages moved by more than 2% between the halves of one session on every host and mode, and pinning did not fix it.
     instabox has no `perf` for its kernel; on Namespace the `perf` install failed silently. Compute: about 36 Namespace unit minutes ($0.06) and 460 s of instabox.
-- [ ] 3.2 Run the same probe with the Criterion harness of task 5.1, before the first record (task 6.3) → verify: a research note gives each candidate's A/A gap and spread per language under the new harness, and names the reference host class or confirms decision 11, point 6
+- [x] 3.2 Run the same probe with the Criterion harness of task 5.1, before the first record (task 6.3) → verify: a research note gives each candidate's A/A gap and spread per language under the new harness, and names the reference host class or confirms that no host passes
+  - 2026-11-04 UTC: [the second probe note](../../research/2026-11-04-bench-host-probe-criterion.md), with each host's per-language lines beside it: no host passed; 13 to 46 of 46 languages moved by more than 2% on every host and mode, Boat `large` included.
+    Namespace 8x16, unpinned, is the reference class as the least noisy (8.5% median spread, first-to-last drift 1.9% median and 10.2% p90), and the anchor bound is 11% (decision 11, points 3 and 4, lead).
+    Compute: about 565 Namespace unit minutes ($0.85), 2,940 s of instabox, and 4,686 s of Boat `large`, of which 1,836 s was a run lost to `boat exec`'s timeout.
 
 The probe uses the current `examples/bench.rs` throughput figure, so it does not wait for group 5.
 
@@ -59,7 +62,7 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 - [ ] 6.1 The JSON record of design decision 12, `bench/report.ts` to render a record and the README summary, and a check that the README matches the newest record → verify: CI passes, and the pull request shows the check failing when the README summary is edited by hand
 - [ ] 6.2 Rewrite `bench/AGENTS.md` as design decision 16 says, and update `targets.toml` to the new figures (steady p99 and first-contact maximum) → verify: every kept rule is still present, and `rg` finds no rule naming `examples/bench.rs` or `research/`
-- [ ] 6.3 The first record under this method, on the reference host, with the `bench/<full sha>` tag pushed; set the throughput floors in `targets.toml` by a dated decision → verify: the record's anchor drift is under 2%, the rendered summary matches the JSON, and `git ls-remote` shows the tag
+- [ ] 6.3 The first record under this method, on the reference host, with the `bench/<full sha>` tag pushed; set the throughput floors in `targets.toml` by a dated decision → verify: the record's anchor drift is under the reference class's bound (decision 11, point 4), the rendered summary matches the JSON, and `git ls-remote` shows the tag
 
 ## 7. The comparison
 
@@ -74,7 +77,7 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 - [ ] 7.3 Shiki 4.6.0 in Bun, with both engines and its limits off, and `@pierre/highlights` if 1.1 allows it → verify: the same output as 7.1 for each
   - 2026-11-04 UTC: `shiki.ts reference` wrote the colours of all 111 corpus files, and `shiki.ts time 1` printed setup, first document and warm MiB/s for both engines on all of them (222 rows) on an instabox box.
     Not done: `time` prints no token count and no agreement, so the JavaScript engine is not yet scored against Oniguruma; `@pierre/highlights` is not added.
-- [ ] 7.4 The first recorded comparison on the reference host, rendered into `bench/compare/README.md` → verify: the record lists every engine's version, features and backend, the languages left out, and the rounds; its anchor drift is under 2%
+- [ ] 7.4 The first recorded comparison on the reference host, rendered into `bench/compare/README.md` → verify: the record lists every engine's version, features and backend, the languages left out, and the rounds; its anchor drift is under the reference class's bound
 
 ## 8. Later questions
 

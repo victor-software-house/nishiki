@@ -138,12 +138,17 @@ No CI job SHALL fail on a wall-clock figure.
 
 ### Requirement: A recorded run comes from a measured host
 
-A recorded run SHALL come from the reference host class chosen by an A/A noise probe, SHALL measure an anchor workload at its start and end, and SHALL be rejected when the anchor moves more than 2%.
+A recorded run SHALL come from the reference host class chosen by an A/A noise probe, SHALL measure an anchor workload at its start and end, and SHALL be rejected when the anchor moves more than the reference class's measured drift bound, which the record carries.
 
 #### Scenario: The host drifts during a session
 
-- **WHEN** the anchor workload is 3% slower at the end of a session than at its start
+- **WHEN** the anchor workload moves by more than the reference class's bound between the start and the end of a session
 - **THEN** the session is rejected and not recorded
+
+#### Scenario: A session runs on another host class
+
+- **WHEN** the recorder runs on a host that is not of the reference class
+- **THEN** it records nothing and names the reference class
 
 ### Requirement: A record is data with a rendered summary
 

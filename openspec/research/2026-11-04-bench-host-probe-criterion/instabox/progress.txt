@@ -1,0 +1,7 @@
+build 60s /data/home/work/tgt/release/deps/throughput-6bcc78686cd428ee
+run 1 523s
+run 2 976s
+run 3 1434s
+run 4 1895s
+run 5 2360s
+run 6 2819s

@@ -1,0 +1,10 @@
+2026-11-04T05:39:23Z
+model name	: AMD EPYC
+4
+Thread(s) per core:                      1
+Core(s) per socket:                      4
+Socket(s):                               1
+               total        used        free      shared  buff/cache   available
+Mem:            7964         383        6264           0        1561        7580
+6.18.60-instabox
+ 05:39:23 up 48 min,  1 user,  load average: 1.00, 1.00, 1.00

@@ -1,0 +1,7 @@
+build 46s /root/work/tgt/release/deps/throughput-ba327435f1cf6aa2
+run 1 499s
+run 2 951s
+run 3 1407s
+run 4 1864s
+run 5 2319s
+run 6 2774s
