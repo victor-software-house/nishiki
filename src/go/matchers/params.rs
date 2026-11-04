@@ -25,9 +25,9 @@ enum Params {
 }
 
 impl Lexer<'_> {
-    /// The end of the last name of `name(?:,\s*name)*` at `p`, where `name`
-    /// gives the end of a name. A comma that no name follows ends the list
-    /// before it.
+    /// The end of the last name of `name(?:,\s*name)*` at `p`.
+    /// `name` gives the end of a name.
+    /// A comma that no name follows ends the list before it.
     pub(in crate::go) fn names(
         &self,
         p: usize,
@@ -65,8 +65,9 @@ impl Lexer<'_> {
     }
 
     /// `(?:\b\w+,\s*)+{0,1}\b\w+` at `p`: the names before a parameter's
-    /// type. A shorter list leaves a comma, which the blanks after it cannot
-    /// take, so only the whole list is tried.
+    /// type.
+    /// A shorter list leaves a comma, and the blanks after it cannot take one.
+    /// Only the whole list is therefore tried.
     fn parameter_names(&self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;
@@ -135,10 +136,11 @@ impl Lexer<'_> {
     /// Names, blanks, then a type: the shared shape of the two expressions
     /// above.
     ///
-    /// The second group is not optional, so a shorter list of names would
-    /// leave a comma where the blanks must be; and blanks given back leave
-    /// the type before a blank, where only a `chan` prefix could start, as
-    /// it does after them.
+    /// The second group is not optional.
+    /// A shorter list of names would leave a comma where the blanks must be.
+    /// Blanks given back leave the type before a blank.
+    /// Only a `chan` prefix could start there, and it starts after the blanks
+    /// too.
     fn parameter(&mut self, p: usize, params: Params) -> Option<usize> {
         let names = self.parameter_names(p)?;
         let start = self.spaces(names);
@@ -160,9 +162,10 @@ impl Lexer<'_> {
     /// R `(?:[*.\w]+|\([^)]+{0,1}\))` for a generic type's parameters and
     /// `(?:[]*.\[\w]+|\([^)]+{0,1}\))` for a function's.
     ///
-    /// `func` ends the run before it only where `(` follows it, which the run
-    /// cannot take; the repeats and the result then end the expression and
-    /// are taken when they match.
+    /// `func` ends the run before it only where `(` follows it.
+    /// The run cannot take that `(`.
+    /// The repeats and the result then end the expression.
+    /// They are taken when they match.
     fn function_types(&self, p: usize, params: Params) -> Option<usize> {
         let run = self.type_run(p);
         let word = run.checked_sub(4).filter(|&at| at >= p)?;

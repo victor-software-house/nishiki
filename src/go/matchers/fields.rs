@@ -77,7 +77,8 @@ impl Lexer<'_> {
     }
 
     /// `(?:\w+,\s*)+{0,1}\w+\s+` at `p`: field names and the blanks after
-    /// them, where the end of the blanks.
+    /// them.
+    /// It returns the end of the blanks.
     fn field_names(&self, p: usize) -> Option<usize> {
         let names = self.names(p, Self::word_name, Commas::Tight)?;
         let blank = self.spaces(names);
@@ -274,8 +275,9 @@ impl Lexer<'_> {
         p == word.len() && self.starts(0, word) && self.word_at(p).is_none()
     }
 
-    /// Where `[\s\S]+` starts after `\s+` at `p`: after the blanks, or on
-    /// the last of them when they reach the end.
+    /// Where `[\s\S]+` starts after `\s+` at `p`.
+    /// It starts after the blanks, or on the last of them when they reach the
+    /// end.
     fn rest_after_blanks(&self, p: usize) -> Option<usize> {
         let blank = self.spaces(p);
         if blank == p {

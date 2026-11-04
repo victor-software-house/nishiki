@@ -23,10 +23,12 @@ impl Lexer<'_> {
     /// %(\[\d+])?([- #+0]{0,2}((\d+|\*)?(\.?(\d+|\*|(\[\d+])\*?)?(\[\d+])?)?))?[%EFGTUXb-gopqstvwx]
     /// ```
     ///
-    /// Between the `%` and the verb every part is optional and takes only
-    /// digits, brackets, `*`, `.` and flags, none of them a verb. Taking each
-    /// part greedily therefore reaches the one place a verb can follow, and a
-    /// part given back would leave a character no verb is.
+    /// Between the `%` and the verb every part is optional.
+    /// Each takes only digits, brackets, `*`, `.` and flags, none of them a
+    /// verb.
+    /// Taking each part greedily therefore reaches the one place a verb can
+    /// follow.
+    /// A part given back would leave a character no verb is.
     pub(in crate::go) fn string_placeholder_at0(&mut self, p: usize) -> Option<usize> {
         if p >= self.lim() || self.at(p) != b'%' {
             return None;

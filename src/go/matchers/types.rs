@@ -1,12 +1,14 @@
 //! The type expressions: the `chan` prefixes, type arguments and bracketed
-//! lists that the grammar's long expressions repeat, and the matchers of the
-//! type declarations built from them.
+//! lists that the grammar's long expressions repeat.
+//! The module also holds the matchers of the type declarations built from
+//! them.
 //!
 //! A `chan` prefix is `(?:\s*CH)+{0,1}` or `(?:CH)+{0,1}`, where CH is
-//! `[]*\[]+{0,1}(?:<-\s*)?\bchan\b(?:\s*<-)?\s*`. What follows it in an
-//! expression may fail after the longest prefix and match after a shorter
-//! one, so [`Lexer::after_chans`] tries the ends a backtracking matcher would,
-//! in its order.
+//! `[]*\[]+{0,1}(?:<-\s*)?\bchan\b(?:\s*<-)?\s*`.
+//! What follows it in an expression may fail after the longest prefix and
+//! match after a shorter one.
+//! [`Lexer::after_chans`] therefore tries the ends a backtracking matcher
+//! would, in its order.
 
 use super::super::engine::Lexer;
 use crate::rules::Chars;
@@ -31,15 +33,18 @@ pub(in crate::go) enum Prefix {
 const CHECKPOINTS: usize = 16;
 
 impl Lexer<'_> {
-    /// Visits the `count` positions of a chain from `first`, the last
-    /// first, with each one's index, and returns the first visit that
-    /// matches. `step` gives the position after one.
+    /// Visits the `count` positions of a chain from `first`, the last first,
+    /// with each one's index.
+    /// It returns the first visit that matches.
+    /// `step` gives the position after one.
     ///
-    /// The positions are found again from checkpoints rather than kept: a
-    /// chain longer than [`CHECKPOINTS`] keeps that many evenly spaced
-    /// positions and walks each stretch between them the same way, from the
-    /// last. So a hostile line costs no allocation and its walk stays near
-    /// linear: each level of checkpoints walks the chain once.
+    /// The positions are found again from checkpoints, not kept.
+    /// A chain longer than [`CHECKPOINTS`] keeps that many evenly spaced
+    /// positions.
+    /// It walks each stretch between them the same way, from the last.
+    /// A hostile line therefore costs no allocation.
+    /// Its walk stays near linear, because each level of checkpoints walks
+    /// the chain once.
     fn backwards<T>(
         &self,
         first: usize,
@@ -83,7 +88,8 @@ impl Lexer<'_> {
     /// taken, and where it ends without it when there is one.
     ///
     /// The marks before `<-` or `chan` are a run of characters neither can
-    /// start with, so they are taken whole.
+    /// start with.
+    /// They are therefore taken whole.
     fn chan_unit(&self, p: usize, lead: Lead) -> Option<(usize, Option<usize>)> {
         let start = match lead {
             Lead::Spaces => self.spaces(p),
@@ -113,14 +119,18 @@ impl Lexer<'_> {
     }
 
     /// Tries `rest` after a `chan` prefix at `p` at each end the prefix can
-    /// have, in a backtracking matcher's order, and returns its first match.
+    /// have, in a backtracking matcher's order.
+    /// It returns the first match.
     ///
-    /// The matcher takes each unit with its arrow and as many units as it
-    /// can, and gives them back from the last. A unit's ends without its
-    /// arrow and with less of its white space lead `rest` to the places the
-    /// longer ends did, except the end before the arrow, which is tried after
-    /// the units that follow it. White space given back leaves `rest` before
-    /// white space, where it fails or skips to where it was.
+    /// The matcher takes each unit with its arrow, and as many units as it
+    /// can.
+    /// It gives them back from the last.
+    /// A unit's ends without its arrow, and with less of its white space,
+    /// lead `rest` to the places the longer ends did.
+    /// The exception is the end before the arrow.
+    /// It is tried after the units that follow it.
+    /// White space given back leaves `rest` before white space.
+    /// There `rest` fails, or skips to where it was.
     pub(in crate::go) fn after_chans<T>(
         &self,
         p: usize,
@@ -160,11 +170,13 @@ impl Lexer<'_> {
 
     /// Tries `rest` at each end of the type arguments
     /// `(?:\[(?:K+(?:,\s*K+)*)?])?` at `p`, with K `[]*.\[{}\w]`, in a
-    /// backtracking matcher's order, and returns its first match.
+    /// backtracking matcher's order.
+    /// It returns the first match.
     ///
-    /// Each item takes the whole run of K, `]` included, so the list closes
-    /// at a `]` given back from the last item, tried from the right; the
-    /// earlier items reach a comma only whole.
+    /// Each item takes the whole run of K, `]` included.
+    /// The list therefore closes at a `]` given back from the last item,
+    /// tried from the right.
+    /// The earlier items reach a comma only whole.
     pub(in crate::go) fn after_type_args<T>(
         &self,
         p: usize,
@@ -214,9 +226,10 @@ impl Lexer<'_> {
     /// The end of the bracketed list
     /// `\[(?:[*.\w]+{0,1}(?:\[[^]]+{0,1}])?(?:,\s+)?)+]` at `p`.
     ///
-    /// No part of an item can take a `]` except the inner brackets, which
-    /// close at the first one, so the items are taken whole and the list
-    /// closes where they stop or not at all.
+    /// No part of an item can take a `]` except the inner brackets.
+    /// Those close at the first `]`.
+    /// The items are therefore taken whole.
+    /// The list closes where they stop, or not at all.
     pub(in crate::go) fn type_list(&self, p: usize) -> Option<usize> {
         if p >= self.lim() || self.at(p) != b'[' {
             return None;
@@ -349,8 +362,9 @@ impl Lexer<'_> {
     /// ```
     ///
     /// When `struct` or `interface` follows the blanks, the matcher gives
-    /// one blank back and starts the last group on it, where the lookahead
-    /// cannot match.
+    /// one blank back.
+    /// It starts the last group on that blank, where the lookahead cannot
+    /// match.
     pub(in crate::go) fn single_type_at0(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;

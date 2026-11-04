@@ -1,10 +1,11 @@
 //! The numeric literals: the decimal, hexadecimal, binary and octal forms of
-//! the grammar's two long expressions, each anchored at `\G` and held to the
-//! end of the line.
+//! the grammar's two long expressions.
+//! Each is anchored at `\G` and held to the end of the line.
 //!
-//! Every run of digits is followed by a character it cannot take (a point,
-//! an exponent letter, `i` or the end of the line), so no run gives digits
-//! back, and an alternative either reaches the end of the line or fails.
+//! Every run of digits is followed by a character it cannot take: a point,
+//! an exponent letter, `i` or the end of the line.
+//! No run therefore gives digits back.
+//! An alternative either reaches the end of the line or fails.
 
 use super::super::engine::Lexer;
 use crate::rules::Chars;
@@ -14,7 +15,8 @@ use crate::rules::Chars;
 struct Digits {
     start: usize,
     end: usize,
-    /// The last separator the run took, which the expressions capture.
+    /// The last separator the run took.
+    /// The expressions capture it.
     separator: Option<usize>,
 }
 
@@ -155,11 +157,16 @@ impl Lexer<'_> {
     }
 
     /// The decimal and hexadecimal floating-point literals:
-    /// `\G(?:(?:(?:(?:(?:D1|D2)|D3)|H1)|H2)|H3)`, where D1 is digits, a point
-    /// and optional digits and exponent; D2 digits and an exponent; D3 a
-    /// point, digits and an optional exponent; H1 a hexadecimal mantissa with
-    /// a point and a `p` exponent; H2 one without the point; H3 one that
-    /// starts with the point. Each ends with `(i(?!\w))?(?:\n|$)`.
+    /// `\G(?:(?:(?:(?:(?:D1|D2)|D3)|H1)|H2)|H3)`.
+    ///
+    /// - D1 is digits, a point, and optional digits and exponent.
+    /// - D2 is digits and an exponent.
+    /// - D3 is a point, digits and an optional exponent.
+    /// - H1 is a hexadecimal mantissa with a point and a `p` exponent.
+    /// - H2 is one without the point.
+    /// - H3 is one that starts with the point.
+    ///
+    /// Each ends with `(i(?!\w))?(?:\n|$)`.
     pub(in crate::go) fn nested4_at0_at0(&mut self, p: usize) -> Option<usize> {
         if !self.at_anchor(p) {
             return None;
@@ -291,10 +298,14 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// The integer literals: `\G(?:(?:(?:D|B)|O)|X)`, where D is decimal
-    /// digits, B `0b` and binary digits, O `0`, an optional `o` and octal
-    /// digits, and X `0x` and hexadecimal digits. Each ends with
-    /// `(i(?!\w))?(?:\n|$)`.
+    /// The integer literals: `\G(?:(?:(?:D|B)|O)|X)`.
+    ///
+    /// - D is decimal digits.
+    /// - B is `0b` and binary digits.
+    /// - O is `0`, an optional `o` and octal digits.
+    /// - X is `0x` and hexadecimal digits.
+    ///
+    /// Each ends with `(i(?!\w))?(?:\n|$)`.
     pub(in crate::go) fn nested4_at0_at1(&mut self, p: usize) -> Option<usize> {
         if !self.at_anchor(p) {
             return None;

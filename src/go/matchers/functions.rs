@@ -14,8 +14,8 @@ const BUILT_INS: &[&[u8]] = &[
 impl Lexer<'_> {
     /// `^\b(func)\b\s*(\([^)]+\)\s*)?(?:(\w+)(?=[(\[]))?`
     ///
-    /// The optional groups end the expression, so each is taken when it
-    /// matches and skipped otherwise.
+    /// The optional groups end the expression.
+    /// Each is taken when it matches and skipped otherwise.
     pub(in crate::go) fn function_declaration(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;
@@ -138,8 +138,8 @@ impl Lexer<'_> {
     /// B is `(?:B(?!\bfunc\b)[*.\w]+L?[*.\w]+{0,1}|\([^)]+{0,1}\))`, with L
     /// the bracketed list of [`Lexer::type_list`].
     ///
-    /// Both groups are optional and end the expression, so the first takes
-    /// the longest prefix.
+    /// Both groups are optional and end the expression.
+    /// The first group therefore takes the longest prefix.
     pub(in crate::go) fn functions_end(&mut self, p: usize) -> Option<usize> {
         if !self.after_close_paren(p) {
             return None;
@@ -266,9 +266,10 @@ impl Lexer<'_> {
     /// The end of `\[(?:\S+(?:,\s*\S+)*)?]` at `p`.
     ///
     /// Each `\S+` first takes a whole run of non-blanks, `]` and commas
-    /// included. The list closes at the last `]` of the deepest run reached
-    /// through runs that end with a comma, and failing that at the last `]`
-    /// of an earlier one.
+    /// included.
+    /// The list closes at the last `]` of the deepest run reached through runs
+    /// that end with a comma.
+    /// Failing that, it closes at the last `]` of an earlier run.
     fn make_size(&self, p: usize) -> Option<usize> {
         if p >= self.lim() || self.at(p) != b'[' {
             return None;

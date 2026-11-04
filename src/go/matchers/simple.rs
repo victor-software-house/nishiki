@@ -217,8 +217,10 @@ impl Lexer<'_> {
         self.eol_end(p)
     }
 
-    /// The end of `(?:\n|$)` at `p`. The line feed is there on a line and not
-    /// in the text of a capture group, where `$` is zero-width.
+    /// The end of `(?:\n|$)` at `p`.
+    /// The line feed is there on a line.
+    /// It is not there in the text of a capture group, where `$` is
+    /// zero-width.
     pub(in crate::go) fn eol_end(&self, p: usize) -> Option<usize> {
         (p == self.lim()).then(|| p + usize::from(self.nl))
     }

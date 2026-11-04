@@ -27,8 +27,9 @@ fn a_package_clause_names_its_package() {
     assert_eq!(leaf_in(&row, "main"), "entity.name.type.package.go");
 }
 
-/// The begin takes the line feed, so `\G` holds at the start of the next
-/// line, where the end `(?!\G)` cannot match.
+/// The begin takes the line feed.
+/// `\G` then holds at the start of the next line, where the end `(?!\G)`
+/// cannot match.
 #[test]
 fn a_package_name_on_the_next_line_is_still_the_package() {
     let rows = lex_lines(&["package ", "main"]);

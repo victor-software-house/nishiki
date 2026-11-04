@@ -45,8 +45,8 @@ impl Lexer<'_> {
     /// `(?<=\brange\b|;|...)\s*((?![]\[]+)[-\]!%*+./:<=>\[_[:alnum:]]+)\s*
     /// (?=\{)`
     ///
-    /// The run and the blanks around it share no character, so each
-    /// quantifier has one end that lets the rest match.
+    /// The run and the blanks around it share no character.
+    /// Each quantifier therefore has one end that lets the rest match.
     pub(in crate::go) fn after_control_variables(&mut self, p: usize) -> Option<usize> {
         if !self.after_control_behind(p) {
             return None;
@@ -145,8 +145,9 @@ impl Lexer<'_> {
         Some(after)
     }
 
-    /// The end of the run of characters `class` accepts from `p`, which the
-    /// cache `slot` remembers: a search from inside a run ends where it does.
+    /// The end of the run of characters `class` accepts from `p`.
+    /// The cache `slot` remembers the run.
+    /// A search from inside a run ends where the run does.
     fn run_of(&self, slot: usize, p: usize, class: impl Fn(&Self, usize) -> bool) -> usize {
         self.sync_runs();
         let (from, to) = self.x.runs[slot].get();
@@ -163,9 +164,9 @@ impl Lexer<'_> {
         i
     }
 
-    /// The end of the comma list `item(?:,\s*item)*` from `p`, where `item`
-    /// is a run of characters `class` accepts. `slot` caches the list and
-    /// `item_slot` its items.
+    /// The end of the comma list `item(?:,\s*item)*` from `p`.
+    /// An `item` is a run of characters `class` accepts.
+    /// `slot` caches the list, and `item_slot` caches its items.
     fn comma_list(
         &self,
         slot: usize,

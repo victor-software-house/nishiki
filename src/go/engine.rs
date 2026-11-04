@@ -1,6 +1,7 @@
-//! Go on the shared rule engine ([`crate::rules`]): the grammar's types and
-//! the answers its lookaheads keep for a line, so that scanning a run of the
-//! line stays linear.
+//! Go on the shared rule engine ([`crate::rules`]).
+//! The module holds the grammar's types and the answers its lookaheads keep
+//! for a line.
+//! Those answers keep the scan of a run of the line linear.
 
 use std::cell::Cell;
 
@@ -26,8 +27,8 @@ pub(crate) struct Extra {
     pub(crate) runs_end: Cell<usize>,
     /// The run of `\w` characters found last.
     pub(crate) word: Runs,
-    /// The last run of white space found: where it starts and ends. A search
-    /// from inside it ends where it does.
+    /// The last run of white space found: where it starts and ends.
+    /// A search from inside the run ends where the run does.
     pub(crate) space_run: Cell<(usize, usize)>,
     /// The last run found of each class the hot matchers scan, kept the same
     /// way: `\w` and `[*.\w]` items, the comma lists of both, and `[.\w]`.

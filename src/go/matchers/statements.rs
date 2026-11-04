@@ -37,9 +37,9 @@ fn operator(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// The end of `\s*/[*/]\s*.*` at `p`: a comment after a statement, which
-    /// reaches the end of the line, or the line feed when only blanks follow
-    /// its opening.
+    /// The end of `\s*/[*/]\s*.*` at `p`: a comment after a statement.
+    /// The comment reaches the end of the line.
+    /// It reaches the line feed when only blanks follow its opening.
     fn spaced_comment(&self, p: usize) -> Option<usize> {
         let slash = self.spaces(p);
         self.trailing_comment(slash)?;
@@ -110,8 +110,8 @@ impl Lexer<'_> {
 
     /// `^\s*\b(case)\b\s+([!*,.<=>\w\s]+)(:)(\s*/[*/]\s*.*)?$`
     ///
-    /// The second group's run cannot take `:`, so it is taken whole; when it
-    /// is empty, the matcher gives a blank back to it.
+    /// The second group's run cannot take `:`, so it is taken whole.
+    /// When it is empty, the matcher gives a blank back to it.
     pub(in crate::go) fn switch_types_at0(&mut self, p: usize) -> Option<usize> {
         let (word, end, blank) = self.case_start(p)?;
         let mut run = blank;
@@ -199,8 +199,9 @@ impl Lexer<'_> {
     /// operand character and E `[.\w]+(?:\s*P+\s*[.\w]+)*\s*P+` for P an
     /// operator character.
     ///
-    /// No part of the first group takes `{`, so it ends at the first one,
-    /// and the expression matches when the text before it parses.
+    /// No part of the first group takes `{`.
+    /// The group therefore ends at the first `{`.
+    /// The expression matches when the text before it parses.
     pub(in crate::go) fn switch_variables_at1(&mut self, p: usize) -> Option<usize> {
         if !self.word_ends_at(p, b"switch") {
             return None;
@@ -219,9 +220,10 @@ impl Lexer<'_> {
     /// [`Lexer::switch_variables_at1`].
     ///
     /// The names of E are whole runs, since an operator or a blank follows
-    /// each; so is each operator run but the last, which a name follows; the
-    /// last may stop anywhere, leaving the operand characters among the
-    /// operators to the operand.
+    /// each.
+    /// Each operator run but the last is whole too, since a name follows it.
+    /// The last may stop anywhere.
+    /// It leaves the operand characters among the operators to the operand.
     fn switch_header(&self, start: usize, brace: usize) -> bool {
         let operands = |at: usize| {
             let blank = self.spaces(self.operand(self.spaces(at)));
@@ -389,8 +391,9 @@ impl Lexer<'_> {
     /// `(?<=\w\[)((?:\bK+:|:\bK+)(?:\bK+)?(?::\bK+)?)(?=])`, with K
     /// `[-%&*+./<>|\w]`.
     ///
-    /// Each run of K ends at a character K lacks, which only `:` or `]` may
-    /// be, so every run is taken whole.
+    /// Each run of K ends at a character K lacks.
+    /// Only `:` or `]` may be that character.
+    /// Every run is therefore taken whole.
     pub(in crate::go) fn slice_index_variables(&mut self, p: usize) -> Option<usize> {
         if p < 2 || p > self.lim() || self.at(p - 1) != b'[' || !self.word_before(p - 1) {
             return None;
