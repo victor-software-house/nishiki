@@ -12,6 +12,7 @@ use std::sync::Mutex;
 
 use regex_automata::meta::{self, Cache};
 use regex_automata::{Input, MatchKind};
+use regex_syntax::hir::Hir;
 
 use super::grammar::Cells;
 use super::regex::Regex;
@@ -43,7 +44,7 @@ pub(crate) struct Scanner {
 const SPARE: usize = 4;
 
 /// The widened patterns as one automaton, or the first error.
-fn compile(sources: &[&str]) -> Result<meta::Regex, Box<meta::BuildError>> {
+fn compile(hirs: &[&Hir]) -> Result<meta::Regex, Box<meta::BuildError>> {
     meta::Regex::builder()
         .configure(
             meta::Config::new()
@@ -51,7 +52,7 @@ fn compile(sources: &[&str]) -> Result<meta::Regex, Box<meta::BuildError>> {
                 .nfa_size_limit(Some(1 << 24))
                 .hybrid_cache_capacity(1 << 22),
         )
-        .build_many(sources)
+        .build_many_from_hir(hirs)
         .map_err(Box::new)
 }
 
@@ -63,24 +64,24 @@ impl Scanner {
     /// when the automaton refuses the patterns together, each is tried alone
     /// and the ones it refuses are searched alone.
     pub(crate) fn build(cells: &Cells, rules: &'static [usize]) -> Scanner {
-        let mut widened: Vec<(usize, &str, &Regex)> = Vec::new();
+        let mut widened: Vec<(usize, &Hir, &Regex)> = Vec::new();
         let mut residual = Vec::new();
         for (position, &rule) in rules.iter().enumerate() {
-            let regex = cells
-                .grammar
-                .rules
-                .get(rule)
-                .and_then(|rule| cells.regex(rule.begin));
-            let Some(regex) = regex else { continue };
-            match regex.relaxed() {
-                Some(source) => widened.push((position, source, regex)),
+            let Some(begin) = cells.grammar.rules.get(rule).map(|rule| rule.begin) else {
+                continue;
+            };
+            let Some(regex) = cells.regex(begin) else {
+                continue;
+            };
+            match cells.relaxed(begin) {
+                Some(relaxed) => widened.push((position, relaxed, regex)),
                 None => residual.push(position),
             }
         }
         let mut meta = compile(&widened.iter().map(|w| w.1).collect::<Vec<_>>());
         if meta.is_err() {
-            widened.retain(|&(position, source, _)| {
-                let fits = compile(&[source]).is_ok();
+            widened.retain(|&(position, relaxed, _)| {
+                let fits = compile(&[relaxed]).is_ok();
                 if !fits {
                     residual.push(position);
                 }

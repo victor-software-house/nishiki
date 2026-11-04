@@ -15,6 +15,8 @@
 
 use std::sync::OnceLock;
 
+use regex_syntax::hir::Hir;
+
 use super::regex::{LineKind, Regex};
 use super::scanner::Scanner;
 
@@ -97,6 +99,11 @@ impl List {
 /// Where a pattern's compiled form is kept once a search needs it: `None`
 /// inside for text the engine cannot compile, which never matches.
 pub(crate) type RegexCell = OnceLock<Option<Regex>>;
+
+/// Where a pattern's relaxed expression is kept, set when the pattern is
+/// compiled: `None` inside for a pattern no automaton can take. Boxed, so a
+/// cell is two words.
+pub(crate) type RelaxedCell = OnceLock<Option<Box<Hir>>>;
 
 /// Where a list's scanner is kept once a search needs it.
 pub(crate) type ScannerCell = OnceLock<Scanner>;
@@ -205,6 +212,9 @@ pub(crate) struct Cells {
     pub(crate) kind: LineKind,
     /// The cell of each pattern's compiled form, by the pattern's index.
     pub(crate) regexes: Box<[RegexCell]>,
+    /// The cell of each pattern's relaxed expression, by the pattern's index,
+    /// apart from its compiled form, which the machine reads on every search.
+    pub(crate) relaxed: Box<[RelaxedCell]>,
     /// The cell of each list's scanner, by the list's index.
     pub(crate) scanners: Box<[ScannerCell]>,
 }
@@ -216,6 +226,7 @@ impl Grammar {
             grammar: self,
             kind,
             regexes: self.patterns.iter().map(|_| RegexCell::new()).collect(),
+            relaxed: self.patterns.iter().map(|_| RelaxedCell::new()).collect(),
             scanners: self.lists.iter().map(|_| ScannerCell::new()).collect(),
         })
     }
@@ -247,12 +258,22 @@ impl Cells {
         self.regexes
             .get(index)?
             .get_or_init(move || {
-                self.grammar
-                    .patterns
-                    .get(index)
-                    .and_then(|pattern| Regex::for_grammar(pattern.source, self.kind).ok())
+                let pattern = self.grammar.patterns.get(index)?;
+                let (regex, relaxed) = Regex::for_scanner(pattern.source, self.kind).ok()?;
+                if let Some(cell) = self.relaxed.get(index) {
+                    let _ = cell.set(relaxed.map(Box::new));
+                }
+                Some(regex)
             })
             .as_ref()
+    }
+
+    /// The relaxed expression of the pattern at `index`, compiling the
+    /// pattern first if no search has, or `None` for a pattern no automaton
+    /// can take.
+    pub(crate) fn relaxed(&self, index: usize) -> Option<&Hir> {
+        self.regex(index)?;
+        self.relaxed.get(index)?.get()?.as_deref()
     }
 
     /// The scanner of the list at `index`, built on first use, or `None`

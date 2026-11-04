@@ -896,6 +896,10 @@ impl Tokenizer<'_> {
     }
 
     /// The pattern of an `end` or `while`: the table's, or the built one.
+    ///
+    /// Never inlined: measured at one codegen unit, inlining its map lookup
+    /// into `tokenize_string` cost that loop registers on every step.
+    #[inline(never)]
     fn end_pat(&mut self, pattern: usize, end: u32) -> Pat {
         if end == 0 {
             return Pat::Table(pattern);
@@ -903,11 +907,21 @@ impl Tokenizer<'_> {
         if let Some(&index) = self.s.dynamic_ids.get(&end) {
             return Pat::Built(index);
         }
+        Pat::Built(self.build_end(end))
+    }
+
+    /// Compiles the `end` or `while` pattern built from a match, keeps it,
+    /// and gives its index. Out of line, because a line compiles one rarely
+    /// and looks one up often, and the compile's registers would otherwise
+    /// widen every lookup's call.
+    #[cold]
+    #[inline(never)]
+    fn build_end(&mut self, end: u32) -> usize {
         let regex = Regex::for_grammar(self.arena.string(end), LineKind::Full).ok();
         self.s.dynamic.push(regex);
         let index = self.s.dynamic.len() - 1;
         self.s.dynamic_ids.insert(end, index);
-        Pat::Built(index)
+        index
     }
 
     /// Offers the rules of the injections that apply to the scopes of `stack`

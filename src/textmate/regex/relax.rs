@@ -9,7 +9,7 @@
 //! automaton reports is then a position a match may start at, and the exact
 //! machine decides.
 
-use std::fmt::Write as _;
+use regex_syntax::hir::{self, ClassUnicode, ClassUnicodeRange, Dot, Hir, Look, Repetition};
 
 use super::ast::{Anchor, Class, Item, Kind, Node};
 
@@ -61,65 +61,47 @@ pub(super) fn widen(node: &Node) -> Node {
     }
 }
 
-/// The widened pattern as source for `regex-automata`.
-pub(super) fn source(node: &Node) -> String {
-    let mut out = String::new();
-    print(node, &mut out);
-    out
-}
-
-fn print(node: &Node, out: &mut String) {
+/// The widened pattern as an expression for `regex-automata`, built without
+/// a round trip through its source.
+pub(super) fn hir(node: &Node) -> Hir {
     match node {
         Node::Empty
         | Node::Look { .. }
         | Node::Anchor(
             Anchor::StartText | Anchor::Search | Anchor::WordBoundary | Anchor::NotWordBoundary,
-        ) => {}
-        Node::Char(c) => {
-            let _ = write!(out, "\\x{{{:x}}}", u32::from(*c));
-        }
-        Node::Any(true) => out.push_str("(?s:.)"),
-        Node::Any(false) => out.push_str("[^\\x{a}]"),
-        Node::Class(class) => class_source(class, out),
-        Node::Seq(items) => items.iter().for_each(|item| print(item, out)),
-        Node::Alt(alts) | Node::Folds(alts) => {
-            out.push_str("(?:");
-            for (index, alt) in alts.iter().enumerate() {
-                if index > 0 {
-                    out.push('|');
-                }
-                print(alt, out);
-            }
-            out.push(')');
-        }
+        ) => Hir::empty(),
+        Node::Char(c) => Hir::literal(c.encode_utf8(&mut [0; 4]).as_bytes()),
+        Node::Any(true) => Hir::dot(Dot::AnyChar),
+        Node::Any(false) => Hir::dot(Dot::AnyCharExceptLF),
+        Node::Class(class) => class_hir(class),
+        Node::Seq(items) => Hir::concat(items.iter().map(hir).collect()),
+        Node::Alt(alts) | Node::Folds(alts) => Hir::alternation(alts.iter().map(hir).collect()),
         Node::Repeat {
             node,
             min,
             max,
             kind,
-        } => {
-            out.push_str("(?:");
-            print(node, out);
-            out.push(')');
-            let _ = match max {
-                Some(max) => write!(out, "{{{min},{max}}}"),
-                None => write!(out, "{{{min},}}"),
-            };
-            if *kind == Kind::Lazy {
-                out.push('?');
-            }
-        }
-        Node::Group { node, .. } | Node::Atomic(node) => {
-            out.push_str("(?:");
-            print(node, out);
-            out.push(')');
-        }
+        } => Hir::repetition(Repetition {
+            min: *min,
+            max: *max,
+            greedy: match kind {
+                Kind::Greedy | Kind::Possessive => true,
+                Kind::Lazy => false,
+            },
+            sub: Box::new(hir(node)),
+        }),
+        Node::Group { node, .. } | Node::Atomic(node) => hir(node),
         Node::Backref(..) | Node::NamedBackref(..) | Node::Call(_) | Node::NamedCall(_) => {
-            out.push_str("(?s:.*)");
+            Hir::repetition(Repetition {
+                min: 0,
+                max: None,
+                greedy: true,
+                sub: Box::new(Hir::dot(Dot::AnyChar)),
+            })
         }
-        Node::Anchor(Anchor::Caret) => out.push_str("(?m:^)"),
-        Node::Anchor(Anchor::Dollar | Anchor::EndTextNewline) => out.push_str("(?m:$)"),
-        Node::Anchor(Anchor::EndText) => out.push_str("\\z"),
+        Node::Anchor(Anchor::Caret) => Hir::look(Look::StartLF),
+        Node::Anchor(Anchor::Dollar | Anchor::EndTextNewline) => Hir::look(Look::EndLF),
+        Node::Anchor(Anchor::EndText) => Hir::look(Look::End),
     }
 }
 
@@ -136,12 +118,11 @@ fn reaches_beyond_ascii(class: &Class) -> bool {
 /// A class with its exact ASCII members, and beyond ASCII its ranges when it
 /// is a union of ranges, or every other character when it can have any.
 ///
-/// A class with no member becomes one that matches nothing.
-fn class_source(class: &Class, out: &mut String) {
-    out.push('[');
+/// A class with no member matches nothing.
+fn class_hir(class: &Class) -> Hir {
     let members = class.ascii();
-    let member = |byte: u32| members >> byte & 1 == 1;
-    let mut empty = true;
+    let member = |byte: u8| members >> byte & 1 == 1;
+    let mut ranges = Vec::new();
     let mut byte = 0;
     while byte < 128 {
         if !member(byte) {
@@ -152,26 +133,19 @@ fn class_source(class: &Class, out: &mut String) {
         while byte + 1 < 128 && member(byte + 1) {
             byte += 1;
         }
-        let _ = write!(out, "\\x{{{lo:x}}}-\\x{{{byte:x}}}");
-        empty = false;
+        ranges.push(ClassUnicodeRange::new(char::from(lo), char::from(byte)));
         byte += 1;
     }
-    if let Some(ranges) = class.ranges() {
-        for item in ranges {
+    if let Some(items) = class.ranges() {
+        for item in items {
             if let Item::Range(lo, hi) = item
                 && !hi.is_ascii()
             {
-                let lo = u32::from(*lo).max(0x80);
-                let _ = write!(out, "\\x{{{lo:x}}}-\\x{{{:x}}}", u32::from(*hi));
-                empty = false;
+                ranges.push(ClassUnicodeRange::new((*lo).max('\u{80}'), *hi));
             }
         }
     } else if reaches_beyond_ascii(class) {
-        out.push_str("\\x{80}-\\x{10ffff}");
-        empty = false;
+        ranges.push(ClassUnicodeRange::new('\u{80}', char::MAX));
     }
-    if empty {
-        out.push_str("^\\x{0}-\\x{10ffff}");
-    }
-    out.push(']');
+    Hir::class(hir::Class::Unicode(ClassUnicode::new(ranges)))
 }

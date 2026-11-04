@@ -146,7 +146,7 @@ The decisions that created nishiki live in a private planning repository:
 2. Every language gets a hand-written lexer, in order of use, several in parallel (operator, 2026-11-02, revising the 2026-10-24 decision).
    With the oracle and a Shiki differential, Python took under an hour, not the days its line count suggested.
 3. nishiki's own TextMate engine is built in parallel, as fast as it can be made.
-   - Its one approved dependency beyond `memchr` is `regex-automata`.
+   - Its approved dependencies beyond `memchr` are `regex-automata` and `regex-syntax` (operator, 2026-11-04).
    - It covers every bundled language not yet hand-written.
    - It checks the hand lexers as a second oracle.
    - Every grammar it compiles has its licence, read at its source, in `oracle/licences.ts`, and a table the crate ships holds only grammars allowed there; `oracle/engine-tables.ts` checks both.

@@ -1,5 +1,7 @@
 use std::collections::BTreeSet;
 
+use regex_syntax::hir::Hir;
+
 use super::ast::orbit;
 use super::folds::{MULTI, UNFOLD};
 use super::parse::{self, Dialect};
@@ -376,6 +378,13 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
     let expected = read("expected.tsv");
     let compiled: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::new(p).ok()).collect();
     let lean: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::lean(p).ok()).collect();
+    let relaxed_of = |kind| -> Vec<Option<Hir>> {
+        patterns
+            .iter()
+            .map(|p| Regex::relaxed_of(p, kind))
+            .collect()
+    };
+    let (relaxed_full, relaxed_lean) = (relaxed_of(LineKind::Full), relaxed_of(LineKind::Lean));
     let mut differ = Vec::new();
     let mut scratch = Scratch::default();
     for (case, want) in cases.lines().zip(expected.lines()) {
@@ -387,19 +396,23 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
         let text = format!("{}\n", lines[line]);
         let programs = match LineKind::of(lines[line].as_bytes()) {
             LineKind::Lean => [
-                Some((&compiled[pattern], "full")),
-                Some((&lean[pattern], "lean")),
+                Some((&compiled[pattern], &relaxed_full[pattern], "full")),
+                Some((&lean[pattern], &relaxed_lean[pattern], "lean")),
             ],
-            LineKind::Full => [Some((&compiled[pattern], "full")), None],
+            LineKind::Full => [
+                Some((&compiled[pattern], &relaxed_full[pattern], "full")),
+                None,
+            ],
         };
-        for (program, kind) in programs.into_iter().flatten() {
+        for (program, relaxed, kind) in programs.into_iter().flatten() {
             let Some(regex) = program else {
                 differ.push(format!("{source} does not compile as {kind}"));
                 continue;
             };
             if want != "-"
-                && let Some(relaxed) = regex.relaxed()
-                && !regex_automata::meta::Regex::new(relaxed)
+                && let Some(relaxed) = relaxed
+                && !regex_automata::meta::Regex::builder()
+                    .build_from_hir(relaxed)
                     .is_ok_and(|automaton| automaton.is_match(&text.as_bytes()[from..]))
             {
                 differ.push(format!(
