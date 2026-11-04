@@ -21,6 +21,7 @@ cargo check --locked --tests --no-default-features --features lang-c
 cargo check --locked --tests --no-default-features --features lang-cpp
 cargo check --locked --tests --no-default-features --features lang-csharp
 cargo check --locked --tests --no-default-features --features lang-css
+cargo check --locked --tests --no-default-features --features lang-dart
 cargo check --locked --tests --no-default-features --features lang-diff
 cargo check --locked --tests --no-default-features --features lang-dockerfile
 cargo check --locked --tests --no-default-features --features lang-erb
@@ -41,6 +42,7 @@ cargo check --locked --tests --no-default-features --features lang-markdown
 cargo check --locked --tests --no-default-features --features lang-python
 cargo check --locked --tests --no-default-features --features lang-ruby
 cargo check --locked --tests --no-default-features --features lang-rust
+cargo check --locked --tests --no-default-features --features lang-scala
 cargo check --locked --tests --no-default-features --features lang-scss
 cargo check --locked --tests --no-default-features --features lang-shell
 cargo check --locked --tests --no-default-features --features lang-sql

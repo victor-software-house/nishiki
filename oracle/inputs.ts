@@ -39,6 +39,7 @@ import rubyJsHeredocs from "./inputs/ruby-js-heredocs.rb" with { type: "text" };
 import rubyXmlHeredocs from "./inputs/ruby-xml-heredocs.rb" with { type: "text" };
 import rubyYamlHeredocs from "./inputs/ruby-yaml-heredocs.rb" with { type: "text" };
 import rustCoverage from "./inputs/rust-coverage.rs" with { type: "text" };
+import scalaCoverage from "./inputs/scala-coverage.scala" with { type: "text" };
 import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
 import shellscriptCoverage from "./inputs/shellscript-coverage.sh" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
@@ -1118,6 +1119,7 @@ export const inputs: Input[] = [
   // Scala runs on the TextMate engine.
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
   { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },
+  { lang: "scala", name: "coverage", text: scalaCoverage },
   { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
   { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
   { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },

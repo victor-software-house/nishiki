@@ -1042,7 +1042,7 @@ express or implied warranty, and with no claim as to its
 suitability for any purpose.
 ```
 
-Its TextMate engine runs the Scala TextMate grammar in [scala/vscode-scala-syntax](https://github.com/scala/vscode-scala-syntax), which Shiki bundles as `scala`, with its rules compiled into tables (`src/scala/grammar.rs`).
+Its Scala lexer emits the scope names of the Scala TextMate grammar in [scala/vscode-scala-syntax](https://github.com/scala/vscode-scala-syntax), which Shiki bundles as `scala`, and tries that grammar's rules in its order, from tables generated from it (`src/scala/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

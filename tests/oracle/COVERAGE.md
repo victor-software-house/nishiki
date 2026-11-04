@@ -42,6 +42,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
+| Scala | `scala` | 153 of 155 | 98.7% | 140 of 147 | 95.2% | 9 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 172 of 174 | 98.9% | 188 of 199 | 94.5% | 13 | 0 | yes |
 | SQL | `sql` | 72 of 75 | 96.0% | 75 of 79 | 94.9% | 7 | 0 | yes |
@@ -736,6 +737,17 @@ patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it 
 
 ```text
 #functions.patterns[1].match  \b(pub)(\()  waived: `\b(pub)\b`, the pattern before it, matches wherever `\b(pub)(\()` does
+```
+
+### `scala`
+
+```text
+#comments.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#exports.patterns[5].patterns[2].match  groups 1 (waived: `\b(given)\b`, before it in the same list, matches at every `given` that would start the group)
+#imports.patterns[6].patterns[2].match  groups 1 (waived: `\b(given)\b`, before it in the same list, matches at every `given` that would start the group)
+#meta-bounds.match  <%|=:=|<:<|<%<|>:|<:  waived: `#keywords`, before it in `#code`, takes every run of two or more operator characters, and each bound is such a run
+#meta-brackets.patterns[0].match  \{  waived: `#curly-braces`, before it in `#code`, opens at every `{`
+#xml-literal.patterns[1].end  groups 2 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group), 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group), 5 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group)
 ```
 
 ### `scss`

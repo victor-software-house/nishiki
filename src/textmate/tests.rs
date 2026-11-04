@@ -437,8 +437,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::proto::grammar::GRAMMAR, "proto"),
     #[cfg(feature = "lang-sass")]
     (&crate::sass::grammar::GRAMMAR, "sass"),
-    #[cfg(feature = "lang-scala")]
-    (&crate::scala::grammar::GRAMMAR, "scala"),
     #[cfg(feature = "lang-zig")]
     (&crate::zig::grammar::GRAMMAR, "zig"),
 ];

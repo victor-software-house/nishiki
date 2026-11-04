@@ -692,15 +692,18 @@ languages! {
     /// - Keywords, commands and operators match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
     /// - `\w`, `\s`, `\d`, `\p{L}` and `\p{N}` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
     PowerShell { feature: "lang-powershell", names: ["powershell", "ps", "ps1", "pwsh"], module: powershell }
-    /// Scala, with the scopes of Shiki's `scala` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Scala {
-        feature: "lang-scala",
-        names: ["scala"],
-        engine: crate::scala::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Scala, with the scopes of Shiki's `scala` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    /// - Upper-case, lower-case and operator names beyond ASCII use three more tables measured on Shiki 4.6.0, in `oracle/classes.ts`.
+    /// - In an interpolated string, `$` before a character that starts no name, such as `$1`, ends the string.
+    /// - In a single-line interpolated string, `$$` is an escape, because the grammar lists `\$["$]` before the interpolation patterns.
+    /// - In a triple-quoted interpolated string, `$$` is an interpolation, because there the interpolation patterns come first.
+    /// - Bounds such as `<:`, `>:` and `<%` are operators.
+    ///   The grammar's keyword rule comes before its bounds rule and takes every run of two or more operator characters.
+    Scala { feature: "lang-scala", names: ["scala"], module: scala }
     /// HTML, with the scopes of Shiki's `html` grammar.
     ///
     /// # Behaviour kept from Shiki

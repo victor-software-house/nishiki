@@ -1240,6 +1240,33 @@ export const waivers: Waiver[] = [
     reason: "`#pipeline`, before it in every context that includes both, takes the first `|` of every `||` with `[!|]`",
   },
   { grammar: "shellscript", path: "#option.begin", group: 2, reason: lookahead },
+  { grammar: "scala", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
+  ...["#exports.patterns[5].patterns[2].match", "#imports.patterns[6].patterns[2].match"].map(
+    (path): Waiver => ({
+      grammar: "scala",
+      path,
+      group: 1,
+      reason: "`\\b(given)\\b`, before it in the same list, matches at every `given` that would start the group",
+    }),
+  ),
+  {
+    grammar: "scala",
+    path: "#meta-bounds.match",
+    reason: "`#keywords`, before it in `#code`, takes every run of two or more operator characters, and each bound is such a run",
+  },
+  {
+    grammar: "scala",
+    path: "#meta-brackets.patterns[0].match",
+    reason: "`#curly-braces`, before it in `#code`, opens at every `{`",
+  },
+  ...[2, 3, 4, 5].map(
+    (group): Waiver => ({
+      grammar: "scala",
+      path: "#xml-literal.patterns[1].end",
+      group,
+      reason: "the rule's `captures` name the begin's groups for its end too, and the end's expression has one group",
+    }),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1272,6 +1299,7 @@ export const complete: string[] = [
   "python",
   "ruby",
   "rust",
+  "scala",
   "scss",
   "shellscript",
   "sql",

@@ -122,6 +122,8 @@ tables! {
     RUBY = ruby;
     #[cfg(feature = "lang-rust")]
     RUST = rust;
+    #[cfg(feature = "lang-scala")]
+    SCALA = scala;
     #[cfg(feature = "lang-scss")]
     SCSS = scss;
     #[cfg(feature = "lang-shell")]

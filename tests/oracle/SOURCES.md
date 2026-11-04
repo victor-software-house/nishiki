@@ -445,6 +445,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `scala/scala3-source-position` | [`compiler/src/dotty/tools/dotc/util/SourcePosition.scala`][scala3-source-position] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `scala/circe-json` | [`modules/core/shared/src/main/scala/io/circe/Json.scala`][circe-json] in circe/circe | [Apache-2.0][circe-licence] |
 | `scala/circe-build` | [`build.sbt`][circe-build] in circe/circe | [Apache-2.0][circe-licence] |
+| `scala/coverage` | `oracle/inputs/scala-coverage.scala`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/scala3-givens` | [`docs/_docs/reference/contextual/givens.md`][scala3-givens] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `markdown/scala3-enums` | [`docs/_docs/reference/enums/enums.md`][scala3-enums] in scala/scala3 | [Apache-2.0][scala3-licence] |
 | `zig/sample` | [`samples/zig.sample`][zig-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -755,6 +756,7 @@ PowerShell runs on nishiki's TextMate engine, not on a hand-written lexer.
 Scala runs on nishiki's TextMate engine as well.
 `scala/sample` and `scala/scala3-boundary` are its development inputs, and `markdown/scala3-givens` is the development input for Scala fences.
 `scala/scala3-source-position`, `scala/circe-json`, `scala/circe-build` and `markdown/scala3-enums` are held out.
+`scala/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 Zig runs on nishiki's TextMate engine as well.
 `zig/sample` and `zig/std-allocator` are its development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
 Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.

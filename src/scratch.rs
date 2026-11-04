@@ -68,6 +68,10 @@ pub(crate) struct Scratch {
     /// The Ruby lexer's, for Ruby documents.
     #[cfg(feature = "lang-ruby")]
     pub(crate) ruby: crate::ruby::Scratch,
+    /// The Scala lexer's, for Scala documents and Markdown Scala fences.
+    /// It is boxed and allocated by the first Scala line, as Dart's is.
+    #[cfg(feature = "lang-scala")]
+    pub(crate) scala: Option<Box<crate::scala::Scratch>>,
     /// The SCSS lexer's, for SCSS documents and Markdown SCSS fences.
     #[cfg(feature = "lang-scss")]
     pub(crate) scss: crate::scss::Scratch,

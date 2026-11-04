@@ -1,5 +1,7 @@
 //! The regex classes `\d`, `\w`, `\s`, `[[:alpha:]]`, `\p{upper}`, `\p{L}`,
 //! `\p{N}` and `\p{M}` for a character, as Shiki's regex engine reads them.
+//! Scala adds three unions of categories: `[\p{Lt}\p{Lu}]`,
+//! `[\p{Lo}\p{Nl}\p{Ll}]` and `[\p{Sm}\p{So}]`.
 //!
 //! Every grammar Shiki runs shares one engine, so every lexer shares these.
 //! ASCII is decided here; the rest comes from tables measured on Shiki.
@@ -102,6 +104,41 @@ pub(crate) fn is_number(c: char) -> bool {
 /// character is.
 pub(crate) fn is_mark(c: char) -> bool {
     !c.is_ascii() && table::is_mark(c)
+}
+
+/// The regex `[\p{Lt}\p{Lu}]` for a character: a title-case or upper-case
+/// letter.
+/// In ASCII, `A` to `Z`.
+#[cfg(feature = "lang-scala")]
+pub(crate) fn is_title_or_upper(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_uppercase()
+    } else {
+        table::is_title_or_upper(c)
+    }
+}
+
+/// The regex `[\p{Lo}\p{Nl}\p{Ll}]` for a character: a lower-case letter, an
+/// other letter or a letter number.
+/// In ASCII, `a` to `z`.
+#[cfg(feature = "lang-scala")]
+pub(crate) fn is_lower_or_other_letter(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_lowercase()
+    } else {
+        table::is_lower_or_other_letter(c)
+    }
+}
+
+/// The regex `[\p{Sm}\p{So}]` for a character: a math or other symbol.
+/// In ASCII, `+`, `<`, `=`, `>`, `|` and `~`.
+#[cfg(feature = "lang-scala")]
+pub(crate) fn is_symbol(c: char) -> bool {
+    if c.is_ascii() {
+        matches!(c, '+' | '<' | '=' | '>' | '|' | '~')
+    } else {
+        table::is_symbol(c)
+    }
 }
 
 /// The regex `\s` for an ASCII byte.

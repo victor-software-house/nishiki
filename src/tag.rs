@@ -111,6 +111,9 @@ tags! {
     /// Rust.
     #[cfg(feature = "lang-rust")]
     RUST = 0x0100,
+    /// Scala.
+    #[cfg(feature = "lang-scala")]
+    SCALA = 0x3200,
     /// SCSS.
     #[cfg(feature = "lang-scss")]
     SCSS = 0x2e00,
