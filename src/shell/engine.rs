@@ -148,6 +148,10 @@ struct Flags {
     /// A rule closed without advancing, which keeps its begin scopes for the
     /// rest of the line.
     kept: bool,
+    /// A node limit denied a rule a state of its own, so it shares its
+    /// parent's: the only way two open rules share a state once the line is
+    /// lexed, since the frames [`Lexer::retokenise`] adds are dropped by then.
+    shared: bool,
 }
 
 /// Whether no pattern that lexes an argument's word again can match in `word`:
@@ -207,10 +211,9 @@ pub(crate) struct Scratch {
     chain: Vec<(u32, crate::arena::Frame)>,
     ends: Vec<usize>,
     name: String,
-    /// The state the last line ended in and the open rules of it, which the
-    /// next line starts from when it continues that state.
+    /// The state the last line ended in, when `frames` still holds its open
+    /// rules, which the next line starts from when it continues that state.
     resume: Option<u32>,
-    resume_frames: Vec<Frame>,
     paths: Vec<Option<PathEntry>>,
     pushes: Vec<Option<PushEntry>>,
 }
@@ -224,7 +227,6 @@ impl Default for Scratch {
             ends: Vec::new(),
             name: String::new(),
             resume: None,
-            resume_frames: Vec::new(),
             paths: vec![None; PATH_ENTRIES],
             pushes: vec![None; PUSH_ENTRIES],
         }
@@ -312,11 +314,13 @@ impl<'a> Lexer<'a> {
         let anchor = text.anchored.then_some(start);
         let steps = Steps::new(limits, s.len());
         let mut frames = std::mem::take(&mut scratch.frames);
-        frames.clear();
+        let resume = scratch.resume == Some(state);
+        if !resume {
+            frames.clear();
+        }
         let mut spans = std::mem::take(&mut scratch.spans);
         spans.clear();
         let mut chain = std::mem::take(&mut scratch.chain);
-        let resume = scratch.resume == Some(state);
         let mut lexer = Lexer {
             s,
             lim: s.len(),
@@ -355,9 +359,7 @@ impl<'a> Lexer<'a> {
             halts: None,
             halted: None,
         };
-        if resume {
-            lexer.frames.extend_from_slice(&scratch.resume_frames);
-        } else {
+        if !resume {
             chain.clear();
             let mut id = state;
             loop {
@@ -432,21 +434,12 @@ impl<'a> Lexer<'a> {
     pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
-        let exact = !self.flags.kept
-            && self
-                .frames
-                .windows(2)
-                .all(|pair| pair[0].state != pair[1].state);
+        let exact = !self.flags.kept && !self.flags.shared;
         scratch.resume = exact.then_some(state);
         if exact {
-            scratch.resume_frames.clear();
-            scratch
-                .resume_frames
-                .extend(self.frames.iter().map(|frame| Frame {
-                    enter: None,
-                    anchor: None,
-                    ..*frame
-                }));
+            for frame in &mut self.frames {
+                (frame.enter, frame.anchor) = (None, None);
+            }
         }
         scratch.frames = self.frames;
         scratch.spans = self.spans;
@@ -778,6 +771,7 @@ impl<'a> Lexer<'a> {
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
+                self.flags.shared = true;
                 parent_state
             });
         if !self.flags.failed {
