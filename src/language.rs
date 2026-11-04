@@ -1,6 +1,17 @@
 //! The languages nishiki highlights: one table of rows, from which the
 //! `Language` enum and every function that has an arm per language are
 //! generated.
+//!
+//! Past fifty languages, LLVM treats each arm of a dispatch as a cold call
+//! site, with an inline threshold of 45.
+//! A language's entry wrapper costs more than that, so it would become a
+//! call once its arm turned cold.
+//! Each arm of [`Language::start`] and [`Language::lex_embedded`] therefore
+//! calls a nested function of its own, whose one caller is that arm.
+//! Inside the nested function, the wrapper sits on a warm path.
+//! LLVM then decides it as it did at fewer languages.
+//! The nested function itself may stay a call.
+//! Each arm then costs at most one call, whatever the number of languages.
 
 use crate::Token;
 use crate::arena::Arena;
@@ -175,7 +186,13 @@ macro_rules! languages {
             /// `base`.
             pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@start [$($module)?] [$($grammar)?] [$($dialect)?] arena base),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => {
+                        /// This arm's start, with the arm as its one caller.
+                        fn start_arm(arena: &mut Arena, base: u32) -> u32 {
+                            languages!(@start [$($module)?] [$($grammar)?] [$($dialect)?] arena base)
+                        }
+                        start_arm(arena, base)
+                    })*
                 }
             }
 
@@ -226,7 +243,13 @@ macro_rules! languages {
                 state: u32,
             ) -> Finished {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($from_start)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => {
+                        /// This arm's lexer, with the arm as its one caller.
+                        fn embedded_arm(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
+                            languages!(@embedded [$($from_start)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state)
+                        }
+                        embedded_arm(cx, line, state)
+                    })*
                 }
             }
 
