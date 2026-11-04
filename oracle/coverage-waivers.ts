@@ -71,6 +71,297 @@ const unloadedFences = [
   ["yang", "source.yang"],
 ] as const;
 
+/** A group of a gap that opens its expression. Such a gap holds a comment only
+ * when the match starts at the comment, where `#block_comment` or
+ * `#inline_comment` also starts, and one of them comes first in every list
+ * that holds the expression. */
+const leadingGap = "the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it";
+
+/** A group of the gap that opens `#member_access` or `#method_access`. A
+ * comment rule comes first in every list that holds them except the patterns
+ * of their own chain captures, `#member_access.captures[11]` and
+ * `#method_access.beginCaptures[13]`, whose text is names, dots, arrows and
+ * blanks only. */
+const leadingGapChain = "the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment";
+
+/** A group of the gap that opens `#typename`. A comment rule comes first in
+ * every list that holds it except the patterns of type captures. In a type
+ * capture, names and scopes exclude the keyword, and template arguments go to
+ * `#template_call_range`, which starts at the `<` and lists a comment rule
+ * first. */
+const leadingGapTypename = "the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first";
+
+/** An expression that only scans one group of its owner, where that group is
+ * a gap that opens the owner's expression, so the group never holds a
+ * comment for it to scan. */
+const scansLeading = "it scans only a gap that opens its owner's expression, and that gap never holds a comment";
+
+/** An expression that only scans group 9 of `#over_qualified_types`, a gap
+ * that follows the gap of group 5 with nothing between them. */
+const scansAdjacent = "it scans only group 9, a gap that the gap just before it leaves without a comment";
+
+/** An expression that scans group 3 of a C inline comment expression that
+ * never matches. */
+const scansNeverMatching = "it scans a group of an expression that never matches";
+
+/** An expression that scans group 16 of `#simple_constructor_call`, which
+ * sits in a lookahead after the end of the match. */
+const pastMatchEnd = "it scans group 16, which sits in a lookahead past the end of the match, and vscode-textmate applies no capture that starts after the match ends";
+
+/** The begin of a block's tail rule, `patterns[2]`, which starts right after
+ * the body's closing brace. The block's own end matches there too. */
+const tailBegin = "the rule's own end, `(?<=}|%>|\\?\\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns";
+
+/** The end of a block's tail rule, whose begin never matches. */
+const tailEnd = "its begin never matches";
+
+/** A group of a gap that directly follows another gap. Both gaps try comments
+ * first, so the earlier one takes every comment, and the later one can match
+ * empty after it. */
+const adjacentGap = "the gap just before it, with nothing between them, takes every comment first";
+
+/** A group of the gap inside the negative lookahead that ends `#lambdas`'
+ * capture list. */
+const negativeLookahead = "the group sits inside a negative lookahead, so it never holds text";
+
+/** A group of the gap that follows the specifiers of a function pointer, after
+ * a lookahead that allows only blanks before `;`, `=`, `{` or the line end. */
+const blanksLookahead = "the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment";
+
+/** A group of a gap in the pattern that scans a member chain, the names before
+ * the last `.` or `->` of `#member_access` and `#method_access`. */
+const chainNoComment = "the chain group it scans holds only names, dots, arrows and blanks, never a comment";
+
+/** The second pattern of a member chain's capture, the first pattern without
+ * its lookbehind for `.` or `->`. */
+const chainLookbehind = "`patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first";
+
+/** `#exception_keywords`, whose keywords `#control_flow_keywords` also lists. */
+const exceptionShadow = "`#control_flow_keywords` has the same gap, lists `throw`, `catch` and `try` too, and comes before it in every list that holds it";
+
+/** `#string_escaped_char`, a copy of `#backslash_escapes`. */
+const escapeShadow = "it is the same expression as `#backslash_escapes`, which comes before it in its only list";
+
+/** Group 2 of `#operators.patterns[12]`, the compound bitwise assignments. */
+const operatorShadow = "`patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of its alternatives at the same place, earlier in the same list";
+
+/** The pattern of `#assembly` for a line that holds only a gap, in a macro
+ * body. */
+const macroAsmLine = "in a macro body a `\\` or the macro's end follows `asm`, so the begin never reaches the line end, the next line starts without `\\G`, and `(?!\\G)` ends the rule before this `^` pattern";
+
+/** A type list of C's root list: `anon_pattern_8` (36 words), `_9` (10) or
+ * `_10` (28). */
+const cTypeShadow = "every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it";
+
+/** The second rule of C's `#block_comment` or `#line_comment`, a copy of the
+ * first. */
+const repeatsFirst = "it repeats `patterns[0]`, which comes first in the same list";
+
+/** The end of a C comment rule whose begin never matches. */
+const beginNeverMatches = "its begin never matches";
+
+/** A copy of C's inline comment expression. */
+const inlineEquivalent = "it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of atomic groups, so it matches the same text, and that pattern comes first";
+
+/** One C or C++ waiver row: the groups waived, or `null` for the whole
+ * expression, and the oracle/onig.ts probe where the grammar has one. */
+type CRow = [grammar: string, path: string, groups: number[] | null, probe?: string];
+
+/** The C and C++ waivers, grouped by their reason. */
+const cFamily: [reason: string, rows: CRow[]][] = [
+  [cTypeShadow, [
+    ["c", "#anon_pattern_10.match", null],
+    ["c", "#anon_pattern_8.match", null],
+    ["c", "#anon_pattern_9.match", null],
+  ]],
+  [leadingGap, [
+    ["c", "#anon_pattern_range_1.begin", [1, 2, 3, 4]],
+    ["c", "#storage_types.patterns[3].patterns[2].begin", [2, 3, 4, 5]],
+    ["c", "#switch_statement.begin", [2, 3, 4, 5]],
+    ["cpp-macro", "#assembly.patterns[2].begin", [1, 2, 3, 4], "AssemblyAt2"],
+    ["cpp-macro", "#destructor_root.begin", [1, 2, 3, 4], "DestructorRoot"],
+    ["cpp-macro", "#extern_block.begin", [1, 2, 3, 4], "ExternBlock"],
+    ["cpp-macro", "#parameter.begin", [1, 2, 3, 4], "Parameter"],
+    ["cpp-macro", "#parameter.patterns[11].match", [1, 2, 3, 4], "ParameterAt11"],
+    ["cpp-macro", "#parameter.patterns[16].match", [1, 2, 3, 4], "ParameterAt16"],
+    ["cpp-macro", "#parameter_or_maybe_value.begin", [1, 2, 3, 4], "Parameter"],
+    ["cpp-macro", "#parameter_or_maybe_value.patterns[13].match", [1, 2, 3, 4], "ParameterOrMaybeValueAt13"],
+    ["cpp-macro", "#parameter_or_maybe_value.patterns[18].match", [1, 2, 3, 4], "ParameterAt16"],
+    ["cpp-macro", "#switch_statement.begin", [1, 2, 3, 4], "SwitchStatement"],
+    ["cpp", "#access_control_keywords.match", [1, 2], "AccessControlKeywords"],
+    ["cpp", "#assembly.patterns[2].begin", [1, 2, 3, 4], "AssemblyAt2"],
+    ["cpp", "#control_flow_keywords.match", [1, 2], "ControlFlowKeywords"],
+    ["cpp", "#destructor_root.begin", [1, 2, 3, 4], "DestructorRoot"],
+    ["cpp", "#extern_block.begin", [1, 2, 3, 4], "ExternBlock"],
+    ["cpp", "#goto_statement.match", [1, 2], "GotoStatement"],
+    ["cpp", "#label.match", [1, 2], "Label"],
+    ["cpp", "#memory_operators.match", [1, 2], "MemoryOperators"],
+    ["cpp", "#misc_keywords.match", [1, 2], "MiscKeywords"],
+    ["cpp", "#parameter.begin", [1, 2, 3, 4], "Parameter"],
+    ["cpp", "#parameter.patterns[11].match", [1, 2, 3, 4], "ParameterAt11"],
+    ["cpp", "#parameter.patterns[16].match", [1, 2, 3, 4], "ParameterAt16"],
+    ["cpp", "#parameter_or_maybe_value.begin", [1, 2, 3, 4], "Parameter"],
+    ["cpp", "#parameter_or_maybe_value.patterns[13].match", [1, 2, 3, 4], "ParameterOrMaybeValueAt13"],
+    ["cpp", "#parameter_or_maybe_value.patterns[18].match", [1, 2, 3, 4], "ParameterAt16"],
+    ["cpp", "#switch_statement.begin", [1, 2, 3, 4], "SwitchStatement"],
+    ["cpp", "#type_casting_operators.match", [1, 2], "TypeCastingOperators"],
+  ]],
+  [scansLeading, [
+    ["c", "#anon_pattern_range_1.beginCaptures[4].patterns[0].match", null],
+    ["c", "#anon_pattern_range_1.beginCaptures[4].patterns[1].match", null],
+    ["c", "#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[0].match", null],
+    ["c", "#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[1].match", null],
+    ["c", "#switch_statement.beginCaptures[5].patterns[0].match", null],
+    ["c", "#switch_statement.beginCaptures[5].patterns[1].match", null],
+    ["cpp", "#access_control_keywords.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#control_flow_keywords.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#exception_keywords.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#goto_statement.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#label.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#member_access.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#memory_operators.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#misc_keywords.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#type_casting_operators.captures[2].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#typename.captures[3].patterns[0].match", null, "PragmaMarkCap3At0"],
+  ]],
+  [repeatsFirst, [
+    ["c", "#block_comment.patterns[1].begin", null],
+    ["c", "#line_comment.patterns[1].begin", null],
+  ]],
+  [beginNeverMatches, [
+    ["c", "#block_comment.patterns[1].end", null],
+    ["c", "#line_comment.patterns[1].end", null],
+  ]],
+  [blanks, [
+    ["c", "#comments.patterns[0].patterns[0].patterns[6].begin", [1]],
+  ]],
+  [inlineEquivalent, [
+    ["c", "#inline_comment.patterns[0].patterns[1].match", null],
+    ["c", "#inline_comment.patterns[1].match", null],
+  ]],
+  [scansNeverMatching, [
+    ["c", "#inline_comment.patterns[0].patterns[1].captures[3].patterns[0].match", null],
+    ["c", "#inline_comment.patterns[0].patterns[1].captures[3].patterns[1].match", null],
+    ["c", "#inline_comment.patterns[1].captures[3].patterns[0].match", null],
+    ["c", "#inline_comment.patterns[1].captures[3].patterns[1].match", null],
+  ]],
+  [missing(2), [
+    ["c", "#preprocessor-rule-enabled.patterns[0].begin", [3]],
+  ]],
+  [tailBegin, [
+    ["c", "#switch_statement.patterns[2].begin", null],
+    ["cpp-macro", "#constructor_inline.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#constructor_root.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#destructor_inline.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#destructor_root.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#function_definition.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#namespace_block.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#operator_overload.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp-macro", "#switch_statement.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#constructor_inline.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#constructor_root.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#destructor_inline.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#destructor_root.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#function_definition.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#namespace_block.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#operator_overload.patterns[2].begin", null, "ConstructorRootAt2"],
+    ["cpp", "#switch_statement.patterns[2].begin", null, "ConstructorRootAt2"],
+  ]],
+  [tailEnd, [
+    ["c", "#switch_statement.patterns[2].end", null],
+    ["cpp-macro", "#constructor_inline.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#constructor_root.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#destructor_inline.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#destructor_root.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#function_definition.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#namespace_block.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#operator_overload.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp-macro", "#switch_statement.patterns[2].end", null, "MacroConstructorInlineAt2End"],
+    ["cpp", "#constructor_inline.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#constructor_root.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#destructor_inline.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#destructor_root.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#function_definition.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#namespace_block.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#operator_overload.patterns[2].end", null, "ConstructorRootAt2End"],
+    ["cpp", "#switch_statement.patterns[2].end", null, "ConstructorRootAt2End"],
+  ]],
+  [macroAsmLine, [
+    ["cpp-macro", "#assembly.patterns[0].match", null, "AssemblyAt0"],
+  ]],
+  [adjacentGap, [
+    ["cpp-macro", "#class_block.begin", [16, 17, 18, 19], "TypedefClassAt0"],
+    ["cpp-macro", "#operator_overload.begin", [41, 42, 43, 44], "OperatorOverload"],
+    ["cpp-macro", "#parameter.patterns[5].match", [7, 8, 9, 10], "ParameterAt5"],
+    ["cpp-macro", "#parameter_or_maybe_value.patterns[7].match", [7, 8, 9, 10], "ParameterAt5"],
+    ["cpp-macro", "#struct_block.begin", [16, 17, 18, 19], "TypedefStructAt0"],
+    ["cpp-macro", "#typedef_class.patterns[0].begin", [16, 17, 18, 19], "TypedefClassAt0"],
+    ["cpp-macro", "#typedef_struct.patterns[0].begin", [16, 17, 18, 19], "TypedefStructAt0"],
+    ["cpp-macro", "#typedef_union.patterns[0].begin", [16, 17, 18, 19], "TypedefUnionAt0"],
+    ["cpp-macro", "#union_block.begin", [16, 17, 18, 19], "TypedefUnionAt0"],
+    ["cpp", "#class_block.begin", [16, 17, 18, 19], "TypedefClassAt0"],
+    ["cpp", "#operator_overload.begin", [41, 42, 43, 44], "OperatorOverload"],
+    ["cpp", "#over_qualified_types.patterns[0].match", [8, 9], "OverQualifiedTypesAt0"],
+    ["cpp", "#over_qualified_types.patterns[1].match", [8, 9], "OverQualifiedTypesAt1"],
+    ["cpp", "#over_qualified_types.patterns[2].match", [8, 9], "OverQualifiedTypesAt2"],
+    ["cpp", "#over_qualified_types.patterns[3].match", [8, 9], "OverQualifiedTypesAt3"],
+    ["cpp", "#parameter.patterns[5].match", [7, 8, 9, 10], "ParameterAt5"],
+    ["cpp", "#parameter_or_maybe_value.patterns[7].match", [7, 8, 9, 10], "ParameterAt5"],
+    ["cpp", "#struct_block.begin", [16, 17, 18, 19], "TypedefStructAt0"],
+    ["cpp", "#typedef_class.patterns[0].begin", [16, 17, 18, 19], "TypedefClassAt0"],
+    ["cpp", "#typedef_struct.patterns[0].begin", [16, 17, 18, 19], "TypedefStructAt0"],
+    ["cpp", "#typedef_union.patterns[0].begin", [16, 17, 18, 19], "TypedefUnionAt0"],
+    ["cpp", "#union_block.begin", [16, 17, 18, 19], "TypedefUnionAt0"],
+  ]],
+  [blanksLookahead, [
+    ["cpp-macro", "#function_pointer.end", [11, 12, 13, 14], "MacroFunctionPointerParameterEnd"],
+    ["cpp-macro", "#function_pointer_parameter.end", [11, 12, 13, 14], "MacroFunctionPointerParameterEnd"],
+    ["cpp", "#function_pointer.end", [11, 12, 13, 14], "FunctionPointerParameterEnd"],
+    ["cpp", "#function_pointer_parameter.end", [11, 12, 13, 14], "FunctionPointerParameterEnd"],
+  ]],
+  [negativeLookahead, [
+    ["cpp-macro", "#lambdas.begin", [5, 6, 7, 8], "Lambdas"],
+    ["cpp", "#lambdas.begin", [5, 6, 7, 8], "Lambdas"],
+  ]],
+  [leadingGapChain, [
+    ["cpp-macro", "#method_access.begin", [1, 2, 3, 4], "MethodAccess"],
+    ["cpp", "#member_access.match", [1, 2], "MemberAccess"],
+    ["cpp", "#method_access.begin", [1, 2, 3, 4], "MethodAccess"],
+  ]],
+  [chainNoComment, [
+    ["cpp-macro", "#method_access.beginCaptures[13].patterns[0].match", [1, 2, 3, 4], "MethodAccessCap13At0"],
+    ["cpp", "#member_access.captures[11].patterns[0].match", [1, 2, 3, 4], "MethodAccessCap13At0"],
+    ["cpp", "#method_access.beginCaptures[13].patterns[0].match", [1, 2, 3, 4], "MethodAccessCap13At0"],
+  ]],
+  [chainLookbehind, [
+    ["cpp-macro", "#method_access.beginCaptures[13].patterns[1].match", null, "MethodAccessCap13At1"],
+    ["cpp", "#member_access.captures[11].patterns[1].match", null, "MethodAccessCap13At1"],
+    ["cpp", "#method_access.beginCaptures[13].patterns[1].match", null, "MethodAccessCap13At1"],
+  ]],
+  [operatorShadow, [
+    ["cpp-macro", "#operators.patterns[12].match", [2], "OperatorsAt12"],
+    ["cpp", "#operators.patterns[12].match", [2], "OperatorsAt12"],
+  ]],
+  [exceptionShadow, [
+    ["cpp", "#exception_keywords.match", null, "ExceptionKeywords"],
+  ]],
+  [scansAdjacent, [
+    ["cpp", "#over_qualified_types.patterns[0].captures[9].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#over_qualified_types.patterns[1].captures[9].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#over_qualified_types.patterns[2].captures[9].patterns[0].match", null, "PragmaMarkCap3At0"],
+    ["cpp", "#over_qualified_types.patterns[3].captures[9].patterns[0].match", null, "PragmaMarkCap3At0"],
+  ]],
+  [pastMatchEnd, [
+    ["cpp", "#simple_constructor_call.captures[16].patterns[0].match", null, "PragmaMarkCap3At0"],
+  ]],
+  [escapeShadow, [
+    ["cpp", "#string_escaped_char.match", null, "StringEscapesContextCAt0"],
+  ]],
+  [leadingGapTypename, [
+    ["cpp", "#typename.match", [2, 3], "Typename"],
+  ]],
+];
+
 export const waivers: Waiver[] = [
   {
     grammar: "rust",
@@ -639,11 +930,20 @@ export const waivers: Waiver[] = [
       }),
     ),
   ),
+  ...cFamily.flatMap(([reason, rows]) =>
+    rows.flatMap(([grammar, path, groups, probe]): Waiver[] => {
+      const waiver: Waiver = { grammar, path, reason, ...(probe === undefined ? {} : { probe }) };
+      return groups === null ? [waiver] : groups.map((group) => ({ ...waiver, group }));
+    }),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
  * pull request that closes its last gap. */
 export const complete: string[] = [
+  "c",
+  "cpp",
+  "cpp-macro",
   "csharp",
   "css",
   "javascript",

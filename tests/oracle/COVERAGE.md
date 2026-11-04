@@ -13,9 +13,9 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
-| C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 0 | 0 |  |
-| C++ | `cpp` | 877 of 912 | 96.2% | 2480 of 2679 | 92.6% | 0 | 0 |  |
-| C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 0 | 0 |  |
+| C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
+| C++ | `cpp` | 877 of 912 | 96.2% | 2480 of 2679 | 92.6% | 234 | 0 | yes |
+| C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 131 | 0 | yes |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
 | CSS | `css` | 219 of 222 | 98.6% | 181 of 184 | 98.4% | 6 | 0 | yes |
 | diff | `diff` | 10 of 16 | 62.5% | 10 of 23 | 43.5% | 0 | 1 |  |
@@ -59,159 +59,159 @@ The groups of an unexercised expression count as unexercised and are not listed.
 ### `c`
 
 ```text
-#anon_pattern_10.match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…
-#anon_pattern_8.match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…
-#anon_pattern_9.match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…
-#anon_pattern_range_1.begin  groups 1, 2, 3, 4
-#anon_pattern_range_1.beginCaptures[4].patterns[0].match  \*/
-#anon_pattern_range_1.beginCaptures[4].patterns[1].match  \*
-#block_comment.patterns[1].begin  \s*+(/\*)
-#block_comment.patterns[1].end  \*/
-#comments.patterns[0].patterns[0].patterns[6].begin  groups 1
-#inline_comment.patterns[0].patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))
-#inline_comment.patterns[0].patterns[1].captures[3].patterns[0].match  \*/
-#inline_comment.patterns[0].patterns[1].captures[3].patterns[1].match  \*
-#inline_comment.patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))
-#inline_comment.patterns[1].captures[3].patterns[0].match  \*/
-#inline_comment.patterns[1].captures[3].patterns[1].match  \*
-#line_comment.patterns[1].begin  \s*+(//)
-#line_comment.patterns[1].end  (?<=\n)(?<!\\\n)
-#preprocessor-rule-enabled.patterns[0].begin  groups 3
-#storage_types.patterns[3].patterns[2].begin  groups 2, 3, 4, 5
-#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[0].match  \*/
-#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[1].match  \*
-#switch_statement.begin  groups 2, 3, 4, 5
-#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)[\n\s]*
-#switch_statement.patterns[2].end  [\n\s]*(?=;)
-#switch_statement.beginCaptures[5].patterns[0].match  \*/
-#switch_statement.beginCaptures[5].patterns[1].match  \*
+#anon_pattern_10.match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it
+#anon_pattern_8.match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it
+#anon_pattern_9.match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it
+#anon_pattern_range_1.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#anon_pattern_range_1.beginCaptures[4].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#anon_pattern_range_1.beginCaptures[4].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#block_comment.patterns[1].begin  \s*+(/\*)  waived: it repeats `patterns[0]`, which comes first in the same list
+#block_comment.patterns[1].end  \*/  waived: its begin never matches
+#comments.patterns[0].patterns[0].patterns[6].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#inline_comment.patterns[0].patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))  waived: it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of atomic groups, so it matches the same text, and that pattern comes first
+#inline_comment.patterns[0].patterns[1].captures[3].patterns[0].match  \*/  waived: it scans a group of an expression that never matches
+#inline_comment.patterns[0].patterns[1].captures[3].patterns[1].match  \*  waived: it scans a group of an expression that never matches
+#inline_comment.patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))  waived: it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of atomic groups, so it matches the same text, and that pattern comes first
+#inline_comment.patterns[1].captures[3].patterns[0].match  \*/  waived: it scans a group of an expression that never matches
+#inline_comment.patterns[1].captures[3].patterns[1].match  \*  waived: it scans a group of an expression that never matches
+#line_comment.patterns[1].begin  \s*+(//)  waived: it repeats `patterns[0]`, which comes first in the same list
+#line_comment.patterns[1].end  (?<=\n)(?<!\\\n)  waived: its begin never matches
+#preprocessor-rule-enabled.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#storage_types.patterns[3].patterns[2].begin  groups 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 5 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#switch_statement.begin  groups 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 5 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)[\n\s]*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: its begin never matches
+#switch_statement.beginCaptures[5].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#switch_statement.beginCaptures[5].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
 ```
 
 ### `cpp`
 
 ```text
-#access_control_keywords.match  groups 1, 2
-#access_control_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#assembly.patterns[2].begin  groups 1, 2, 3, 4
-#class_block.begin  groups 16, 17, 18, 19
-#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#constructor_inline.patterns[2].end  \s*(?=;)
-#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#constructor_root.patterns[2].end  \s*(?=;)
-#control_flow_keywords.match  groups 1, 2
-#control_flow_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#destructor_inline.patterns[2].end  \s*(?=;)
-#destructor_root.begin  groups 1, 2, 3, 4
-#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#destructor_root.patterns[2].end  \s*(?=;)
-#exception_keywords.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…
-#exception_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#extern_block.begin  groups 1, 2, 3, 4
-#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#function_definition.patterns[2].end  \s*(?=;)
-#function_pointer.end  groups 11, 12, 13, 14
-#function_pointer_parameter.end  groups 11, 12, 13, 14
-#goto_statement.match  groups 1, 2
-#goto_statement.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#label.match  groups 1, 2
-#label.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#lambdas.begin  groups 5, 6, 7, 8
-#member_access.match  groups 1, 2
-#member_access.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#member_access.captures[11].patterns[0].match  groups 1, 2, 3, 4
-#member_access.captures[11].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#memory_operators.match  groups 1, 2
-#memory_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#method_access.begin  groups 1, 2, 3, 4
-#method_access.beginCaptures[13].patterns[0].match  groups 1, 2, 3, 4
-#method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#misc_keywords.match  groups 1, 2
-#misc_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#namespace_block.patterns[2].end  \s*(?=;)
-#operator_overload.begin  groups 41, 42, 43, 44
-#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#operator_overload.patterns[2].end  \s*(?=;)
-#operators.patterns[12].match  groups 2
-#over_qualified_types.patterns[0].match  groups 8, 9
-#over_qualified_types.patterns[0].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[1].match  groups 8, 9
-#over_qualified_types.patterns[1].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[2].match  groups 8, 9
-#over_qualified_types.patterns[2].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#over_qualified_types.patterns[3].match  groups 8, 9
-#over_qualified_types.patterns[3].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#parameter.begin  groups 1, 2, 3, 4
-#parameter.patterns[5].match  groups 7, 8, 9, 10
-#parameter.patterns[11].match  groups 1, 2, 3, 4
-#parameter.patterns[16].match  groups 1, 2, 3, 4
-#parameter_or_maybe_value.begin  groups 1, 2, 3, 4
-#parameter_or_maybe_value.patterns[7].match  groups 7, 8, 9, 10
-#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4
-#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4
-#simple_constructor_call.captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#string_escaped_char.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…
-#struct_block.begin  groups 16, 17, 18, 19
-#switch_statement.begin  groups 1, 2, 3, 4
-#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#switch_statement.patterns[2].end  \s*(?=;)
-#type_casting_operators.match  groups 1, 2
-#type_casting_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#typedef_class.patterns[0].begin  groups 16, 17, 18, 19
-#typedef_struct.patterns[0].begin  groups 16, 17, 18, 19
-#typedef_union.patterns[0].begin  groups 16, 17, 18, 19
-#typename.match  groups 2, 3
-#typename.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
-#union_block.begin  groups 16, 17, 18, 19
+#access_control_keywords.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#access_control_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#assembly.patterns[2].begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#class_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#constructor_inline.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#constructor_root.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#control_flow_keywords.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#control_flow_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#destructor_inline.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#destructor_root.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#destructor_root.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#exception_keywords.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…  waived: `#control_flow_keywords` has the same gap, lists `throw`, `catch` and `try` too, and comes before it in every list that holds it
+#exception_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#extern_block.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#function_definition.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#function_pointer.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
+#function_pointer_parameter.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
+#goto_statement.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#goto_statement.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#label.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#label.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#lambdas.begin  groups 5 (waived: the group sits inside a negative lookahead, so it never holds text), 6 (waived: the group sits inside a negative lookahead, so it never holds text), 7 (waived: the group sits inside a negative lookahead, so it never holds text), 8 (waived: the group sits inside a negative lookahead, so it never holds text)
+#member_access.match  groups 1 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 2 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment)
+#member_access.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#member_access.captures[11].patterns[0].match  groups 1 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 2 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 3 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 4 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment)
+#member_access.captures[11].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first
+#memory_operators.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#memory_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#method_access.begin  groups 1 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 2 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 3 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 4 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment)
+#method_access.beginCaptures[13].patterns[0].match  groups 1 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 2 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 3 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 4 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment)
+#method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first
+#misc_keywords.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#misc_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#namespace_block.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#operator_overload.begin  groups 41 (waived: the gap just before it, with nothing between them, takes every comment first), 42 (waived: the gap just before it, with nothing between them, takes every comment first), 43 (waived: the gap just before it, with nothing between them, takes every comment first), 44 (waived: the gap just before it, with nothing between them, takes every comment first)
+#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#operator_overload.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#operators.patterns[12].match  groups 2 (waived: `patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of its alternatives at the same place, earlier in the same list)
+#over_qualified_types.patterns[0].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
+#over_qualified_types.patterns[0].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#over_qualified_types.patterns[1].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
+#over_qualified_types.patterns[1].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#over_qualified_types.patterns[2].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
+#over_qualified_types.patterns[2].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#over_qualified_types.patterns[3].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
+#over_qualified_types.patterns[3].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#parameter.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter.patterns[5].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
+#parameter.patterns[11].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter.patterns[16].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter_or_maybe_value.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter_or_maybe_value.patterns[7].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
+#parameter_or_maybe_value.patterns[13].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter_or_maybe_value.patterns[18].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#simple_constructor_call.captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans group 16, which sits in a lookahead past the end of the match, and vscode-textmate applies no capture that starts after the match ends
+#string_escaped_char.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…  waived: it is the same expression as `#backslash_escapes`, which comes before it in its only list
+#struct_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#switch_statement.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#switch_statement.patterns[2].end  \s*(?=;)  waived: its begin never matches
+#type_casting_operators.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#type_casting_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#typedef_class.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#typedef_struct.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#typedef_union.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#typename.match  groups 2 (waived: the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first), 3 (waived: the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first)
+#typename.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#union_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
 ```
 
 ### `cpp-macro`
 
 ```text
-#assembly.patterns[0].match  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
-#assembly.patterns[2].begin  groups 1, 2, 3, 4
-#class_block.begin  groups 16, 17, 18, 19
-#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#constructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#constructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#destructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#destructor_root.begin  groups 1, 2, 3, 4
-#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#destructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#extern_block.begin  groups 1, 2, 3, 4
-#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#function_definition.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#function_pointer.end  groups 11, 12, 13, 14
-#function_pointer_parameter.end  groups 11, 12, 13, 14
-#lambdas.begin  groups 5, 6, 7, 8
-#method_access.begin  groups 1, 2, 3, 4
-#method_access.beginCaptures[13].patterns[0].match  groups 1, 2, 3, 4
-#method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
-#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#namespace_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#operator_overload.begin  groups 41, 42, 43, 44
-#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#operator_overload.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#operators.patterns[12].match  groups 2
-#parameter.begin  groups 1, 2, 3, 4
-#parameter.patterns[5].match  groups 7, 8, 9, 10
-#parameter.patterns[11].match  groups 1, 2, 3, 4
-#parameter.patterns[16].match  groups 1, 2, 3, 4
-#parameter_or_maybe_value.begin  groups 1, 2, 3, 4
-#parameter_or_maybe_value.patterns[7].match  groups 7, 8, 9, 10
-#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4
-#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4
-#struct_block.begin  groups 16, 17, 18, 19
-#switch_statement.begin  groups 1, 2, 3, 4
-#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*
-#switch_statement.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
-#typedef_class.patterns[0].begin  groups 16, 17, 18, 19
-#typedef_struct.patterns[0].begin  groups 16, 17, 18, 19
-#typedef_union.patterns[0].begin  groups 16, 17, 18, 19
-#union_block.begin  groups 16, 17, 18, 19
+#assembly.patterns[0].match  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…  waived: in a macro body a `\` or the macro's end follows `asm`, so the begin never reaches the line end, the next line starts without `\G`, and `(?!\G)` ends the rule before this `^` pattern
+#assembly.patterns[2].begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#class_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#constructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#constructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#destructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#destructor_root.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#destructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#extern_block.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#function_definition.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#function_pointer.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
+#function_pointer_parameter.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
+#lambdas.begin  groups 5 (waived: the group sits inside a negative lookahead, so it never holds text), 6 (waived: the group sits inside a negative lookahead, so it never holds text), 7 (waived: the group sits inside a negative lookahead, so it never holds text), 8 (waived: the group sits inside a negative lookahead, so it never holds text)
+#method_access.begin  groups 1 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 2 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 3 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 4 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment)
+#method_access.beginCaptures[13].patterns[0].match  groups 1 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 2 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 3 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 4 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment)
+#method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first
+#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#namespace_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#operator_overload.begin  groups 41 (waived: the gap just before it, with nothing between them, takes every comment first), 42 (waived: the gap just before it, with nothing between them, takes every comment first), 43 (waived: the gap just before it, with nothing between them, takes every comment first), 44 (waived: the gap just before it, with nothing between them, takes every comment first)
+#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#operator_overload.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#operators.patterns[12].match  groups 2 (waived: `patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of its alternatives at the same place, earlier in the same list)
+#parameter.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter.patterns[5].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
+#parameter.patterns[11].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter.patterns[16].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter_or_maybe_value.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter_or_maybe_value.patterns[7].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
+#parameter_or_maybe_value.patterns[13].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#parameter_or_maybe_value.patterns[18].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#struct_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#switch_statement.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
+#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
+#switch_statement.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
+#typedef_class.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#typedef_struct.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#typedef_union.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#union_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
 ```
 
 ### `csharp`
