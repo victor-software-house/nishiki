@@ -6,9 +6,9 @@ name: Generated tables
 #   Oniguruma (`mise run check:case-folds`).
 # - src/css/words.rs: oracle/css-words.ts reads it from the css grammar
 #   (`mise run check:css-words`).
-# - Swift's rule-engine tables: oracle/swift-grammar.ts writes them and
-#   formats them with rustfmt (`mise run check:swift-grammar`).
-#   Every rule-engine generator shares that round trip.
+# - Each rule-engine language's tables: its oracle/<language>-grammar.ts
+#   writes them and formats them with rustfmt
+#   (`mise run check:rule-grammars`).
 # Bun fetches Shiki from npm.
 # The checks therefore sit outside the offline verify in ci.yml.
 # The template renders ci.yml.
@@ -26,12 +26,12 @@ on:
       - oracle/css-words.ts
       - src/css/words.rs
       - mise-tasks/check/css-words.sh
-      - oracle/rule-grammar.ts
-      - oracle/swift-grammar.ts
-      - src/swift/grammar.rs
-      - src/swift/scope.rs
+      - oracle/*-grammar.ts
+      - src/*/grammar.rs
+      - src/*/scope.rs
+      - src/cpp/types.rs
       - src/swift/dispatch.rs
-      - mise-tasks/check/swift-grammar.sh
+      - mise-tasks/check/rule-grammars.sh
 
 permissions:
   contents: read
@@ -98,11 +98,11 @@ jobs:
         timeout-minutes: 3
         run: mise run check:css-words
 
-  swift-grammar:
-    name: Swift grammar tables
+  rule-grammars:
+    name: Rule-engine grammar tables
     if: ${{ !github.event.pull_request.draft }}
     runs-on: nscloud-ubuntu-24.04-amd64-2x4
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         timeout-minutes: 3
@@ -119,6 +119,6 @@ jobs:
       - name: Install bun and the formatting nightly
         timeout-minutes: 5
         run: mise install --locked bun@1.4.4 rust@nightly-2026-11-01
-      - name: Compare the Swift tables with what their script writes
-        timeout-minutes: 3
-        run: mise run check:swift-grammar
+      - name: Compare each rule-engine table with what its script writes
+        timeout-minutes: 12
+        run: mise run check:rule-grammars
