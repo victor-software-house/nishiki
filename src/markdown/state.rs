@@ -86,7 +86,7 @@ pub(crate) enum Kind {
 impl Kind {
     /// The kinds whose code is their own, not a language's, in code order.
     /// A test checks that [`Kind::code`] agrees.
-    const FIXED: &[Kind] = &[
+    pub(super) const FIXED: &[Kind] = &[
         Kind::Base,
         Kind::Quote,
         Kind::ListBullet,

@@ -481,12 +481,7 @@ impl<'a> Lexer<'a> {
             return false;
         }
         let from = (self.pos, self.frames.len());
-        if self
-            .frames
-            .last()
-            .and_then(|frame| embedded_language(frame.rule))
-            .is_some()
-        {
+        if self.frames.last().is_some_and(|frame| embeds(frame.rule)) {
             self.embedded();
         }
         let Some(hit) = self.find(caps) else {
@@ -1314,6 +1309,29 @@ impl<'a> Lexer<'a> {
     }
 }
 
+/// Whether a language's lexer takes the rest of each line inside `rule`.
+/// It agrees with [`embedded_language`].
+///
+/// It reads only the rule's kind and builds no `Language`.
+/// `step` tests it before every match.
+/// Its lowering must not depend on the `Language` table.
+/// With `embedded_language` there, one `Language` row's flags could change
+/// that lowering.
+/// Batch's row turned the bit mask into a copy of the frame and a jump table.
+/// `step` then ran 2.2% more of its own instructions.
+const fn embeds(rule: Rule) -> bool {
+    match rule {
+        Rule::Open(Kind::Body(lang)) => !matches!(lang, Language::Markdown),
+        #[cfg(feature = "lang-html")]
+        Rule::Open(Kind::BodyPhp) => true,
+        #[cfg(feature = "lang-yaml")]
+        Rule::Open(Kind::FrontMatterBody) => true,
+        #[cfg(feature = "lang-html-derivative")]
+        Rule::Open(Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap) => true,
+        Rule::Open(_) | Rule::Capture(_) => false,
+    }
+}
+
 /// The language whose lexer takes the rest of each line inside `rule`: an
 /// embedded fence's, YAML in front matter, or html-derivative in HTML. A
 /// `markdown` fence takes Markdown's own rules instead.
@@ -1455,4 +1473,28 @@ fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) 
         rebuilt = arena.push(rebuilt, frame.kind, frame.payload, frame.stack)?;
     }
     Some(rebuilt)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{Kind, Language, List, Rule, embedded_language, embeds};
+
+    /// `step`'s guard and `embedded` agree on every rule a frame can hold:
+    /// each kind, a fence and a body for every language in the build, and a
+    /// capture group.
+    #[test]
+    fn embeds_agrees_with_embedded_language() {
+        let languages = Language::ALL
+            .iter()
+            .flat_map(|&lang| [Kind::Fence(lang), Kind::Body(lang)]);
+        let rules = Kind::FIXED
+            .iter()
+            .copied()
+            .chain(languages)
+            .map(Rule::Open)
+            .chain([Rule::Capture(List::Inline)]);
+        for rule in rules {
+            assert_eq!(embeds(rule), embedded_language(rule).is_some(), "{rule:?}");
+        }
+    }
 }
