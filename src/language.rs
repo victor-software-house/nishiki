@@ -720,15 +720,17 @@ languages! {
     ///   The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
     /// - A Markdown fence names the languages `html`, `htm`, `shtml`, `xhtml`, `inc`, `tmpl` and `tpl`.
     Html { feature: "lang-html", names: ["html"], module: html, halts: true }
-    /// Zig, with the scopes of Shiki's `zig` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Zig {
-        feature: "lang-zig",
-        names: ["zig"],
-        engine: crate::zig::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Zig, with the scopes of Shiki's `zig` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - `and` and `or` are keywords, never comparison operators.
+    /// - `inline` before `fn` is a storage keyword, and a loop keyword anywhere else.
+    /// - The comparison rule comes before the bitwise one, so `<<` is two `<` operators, and `<<%=` is `<`, `<` and `%=`.
+    /// - A whole number such as `2` is a float.
+    /// - `1e+` is the invalid number `1e` and an operator.
+    ///   `1.e` is the number `1`, an accessor and the name `e`.
+    Zig { feature: "lang-zig", names: ["zig"], module: zig }
     /// ERB, with the scopes of Shiki's `erb` grammar: HTML whose `<% %>`
     /// tags hold Ruby.
     ///

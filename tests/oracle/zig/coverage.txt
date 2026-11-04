@@ -1,0 +1,143 @@
+L //! Written for nishiki: Zig that reaches the grammar's rarer rules.
+T 3 source.zig comment.line.documentation.zig
+T 68 source.zig comment.line.documentation.zig
+L const c = @cImport(@cInclude("stdio.h"));
+T 5 source.zig keyword.default.zig
+T 6 source.zig
+T 7 source.zig variable.zig
+T 8 source.zig
+T 9 source.zig keyword.operator.assignment.zig
+T 10 source.zig
+T 18 source.zig support.function.builtin.zig
+T 19 source.zig
+T 28 source.zig support.function.builtin.zig
+T 29 source.zig
+T 30 source.zig string.quoted.double.zig
+T 37 source.zig string.quoted.double.zig
+T 38 source.zig string.quoted.double.zig
+T 40 source.zig
+T 41 source.zig punctuation.terminator.statement.zig
+L 
+L fn @"quoted name"(x: c_int, y: c_ulonglong) c_long {
+T 2 source.zig entity.name.function.string.zig storage.type.function.zig
+T 5 source.zig entity.name.function.string.zig
+T 16 source.zig entity.name.function.string.zig
+T 17 source.zig entity.name.function.string.zig
+T 18 source.zig
+T 19 source.zig variable.zig
+T 20 source.zig punctuation.separator.key-value.zig
+T 21 source.zig
+T 26 source.zig keyword.type.c.zig
+T 27 source.zig punctuation.comma.zig
+T 28 source.zig
+T 29 source.zig variable.zig
+T 30 source.zig punctuation.separator.key-value.zig
+T 31 source.zig
+T 42 source.zig keyword.type.c.zig
+T 44 source.zig
+T 50 source.zig keyword.type.c.zig
+T 52 source.zig
+L     inline for (.{ 1, 2 }) |v| {
+T 4 source.zig
+T 10 source.zig keyword.control.repeat.zig
+T 11 source.zig
+T 14 source.zig keyword.control.repeat.zig
+T 16 source.zig
+T 17 source.zig punctuation.accessor.zig
+T 19 source.zig
+T 20 source.zig constant.numeric.float.zig
+T 21 source.zig punctuation.comma.zig
+T 22 source.zig
+T 23 source.zig constant.numeric.float.zig
+T 27 source.zig
+T 28 source.zig keyword.operator.bitwise.zig
+T 29 source.zig variable.zig
+T 30 source.zig keyword.operator.bitwise.zig
+T 32 source.zig
+L         _ = v;
+T 8 source.zig
+T 9 source.zig variable.zig
+T 10 source.zig
+T 11 source.zig keyword.operator.assignment.zig
+T 12 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig punctuation.terminator.statement.zig
+L     }
+T 5 source.zig
+L     const frame = async run();
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 15 source.zig variable.zig
+T 16 source.zig
+T 17 source.zig keyword.operator.assignment.zig
+T 18 source.zig
+T 23 source.zig variable.zig
+T 24 source.zig
+T 27 source.zig entity.name.function.zig
+T 29 source.zig
+T 30 source.zig punctuation.terminator.statement.zig
+L     suspend {}
+T 4 source.zig
+T 11 source.zig keyword.control.async.zig
+T 14 source.zig
+L     resume frame;
+T 4 source.zig
+T 10 source.zig keyword.control.async.zig
+T 11 source.zig
+T 16 source.zig variable.zig
+T 17 source.zig punctuation.terminator.statement.zig
+L     nosuspend run();
+T 4 source.zig
+T 13 source.zig keyword.control.async.zig
+T 14 source.zig
+T 17 source.zig entity.name.function.zig
+T 19 source.zig
+T 20 source.zig punctuation.terminator.statement.zig
+L     const bad = "\q \x41 \u{1F600}";
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig
+T 15 source.zig keyword.operator.assignment.zig
+T 16 source.zig
+T 17 source.zig string.quoted.double.zig
+T 19 source.zig string.quoted.double.zig invalid.illegal.unrecognized-string-escape.zig
+T 20 source.zig string.quoted.double.zig
+T 24 source.zig string.quoted.double.zig constant.character.escape.zig
+T 25 source.zig string.quoted.double.zig
+T 34 source.zig string.quoted.double.zig constant.character.escape.zig
+T 35 source.zig string.quoted.double.zig
+T 36 source.zig punctuation.terminator.statement.zig
+L     const odd = 1x + 0x_1F + 2e9z;
+T 4 source.zig
+T 9 source.zig keyword.default.zig
+T 10 source.zig
+T 13 source.zig variable.zig
+T 14 source.zig
+T 15 source.zig keyword.operator.assignment.zig
+T 16 source.zig
+T 18 source.zig constant.numeric.invalid.zig
+T 19 source.zig
+T 20 source.zig keyword.operator.arithmetic.zig
+T 21 source.zig
+T 26 source.zig constant.numeric.hexadecimal.zig
+T 27 source.zig
+T 28 source.zig keyword.operator.arithmetic.zig
+T 29 source.zig
+T 33 source.zig constant.numeric.invalid.zig
+T 34 source.zig punctuation.terminator.statement.zig
+L     return x == y;
+T 4 source.zig
+T 10 source.zig keyword.control.flow.zig
+T 11 source.zig
+T 12 source.zig variable.zig
+T 13 source.zig
+T 15 source.zig keyword.operator.comparison.zig
+T 16 source.zig
+T 17 source.zig variable.zig
+T 18 source.zig punctuation.terminator.statement.zig
+L }
+T 1 source.zig
+L 

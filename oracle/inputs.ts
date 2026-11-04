@@ -55,6 +55,7 @@ import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "t
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
 import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
+import zigCoverage from "./inputs/zig-coverage.zig" with { type: "text" };
 
 /** One source file the oracle tokenizes: a third-party file, fetched from
  * its pinned `url`, or one written for nishiki under `inputs/`, imported as
@@ -1376,8 +1377,8 @@ export const inputs: Input[] = [
   { lang: "yaml", name: "yaml-test-suite-c4hz", url: `${yamlTestSuite}/C4HZ/in.yaml` },
   { lang: "yaml", name: "yaml-test-suite-kk5p", url: `${yamlTestSuite}/KK5P/in.yaml` },
   { lang: "yaml", name: "yaml-test-suite-w4tn", url: `${yamlTestSuite}/W4TN/in.yaml` },
-  // Zig runs on the TextMate engine. Shiki's Markdown grammar has no Zig
-  // fence, so no Markdown input embeds it.
+  // Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
+  { lang: "zig", name: "coverage", text: zigCoverage },
   { lang: "zig", name: "sample", url: `${samples}/zig.sample` },
   { lang: "zig", name: "std-allocator", url: `${zig}/lib/std/mem/Allocator.zig` },
   { lang: "zig", name: "std-fmt", url: `${zig}/lib/std/fmt.zig` },

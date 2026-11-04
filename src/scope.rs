@@ -151,6 +151,8 @@ tables! {
     XML = xml;
     #[cfg(feature = "lang-yaml")]
     YAML = yaml;
+    #[cfg(feature = "lang-zig")]
+    ZIG = zig;
 }
 
 // No table is longer than its slot.

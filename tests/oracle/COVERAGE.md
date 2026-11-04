@@ -55,6 +55,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
 | XML | `xml` | 32 of 32 | 100.0% | 55 of 66 | 83.3% | 11 | 0 | yes |
 | YAML | `yaml` | 60 of 62 | 96.8% | 51 of 55 | 92.7% | 6 | 0 | yes |
+| Zig | `zig` | 54 of 56 | 96.4% | 5 of 5 | 100.0% | 2 | 0 | yes |
 
 ## Units no fixture exercises
 
@@ -899,6 +900,13 @@ patterns[4].end  groups 2 (waived: the rule's `captures` name the group for its 
 #flow-pair.patterns[0].patterns[3].begin  :(?=\s|$|[],\[{}])  waived: `#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, whose begin is the same expression
 #flow-pair.patterns[0].patterns[3].end  (?=[],}])  waived: its begin never matches
 #flow-pair.patterns[3].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+```
+
+### `zig`
+
+```text
+#numbers.patterns[2].match  \b[0-9][0-9_]*\b  waived: `#numbers.patterns[1]`, before it, matches every one of its matches, since its fraction and exponent are optional
+#operators.patterns[4].match  (==|\+\+|\*\*|->)  waived: the comparison and arithmetic rules before it match the first byte of `==`, `++`, `**` and `->`
 ```
 
 ## Units no root reaches

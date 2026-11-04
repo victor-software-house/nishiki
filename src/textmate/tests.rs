@@ -435,8 +435,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::proto::grammar::GRAMMAR, "proto"),
     #[cfg(feature = "lang-sass")]
     (&crate::sass::grammar::GRAMMAR, "sass"),
-    #[cfg(feature = "lang-zig")]
-    (&crate::zig::grammar::GRAMMAR, "zig"),
 ];
 
 /// Lines whose text beyond ASCII starts with every UTF-8 lead byte from

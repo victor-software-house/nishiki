@@ -113,6 +113,10 @@ pub(crate) struct Scratch {
     /// The XML lexer's, for XML documents and Markdown XML fences.
     #[cfg(feature = "lang-xml")]
     pub(crate) xml: crate::xml::Scratch,
+    /// The Zig lexer's, for Zig documents.
+    /// It is boxed and allocated by the first Zig line, as Dart's is.
+    #[cfg(feature = "lang-zig")]
+    pub(crate) zig: Option<Box<crate::zig::Scratch>>,
 }
 
 impl Scratch {

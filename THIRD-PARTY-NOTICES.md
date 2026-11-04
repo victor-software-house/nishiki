@@ -1971,7 +1971,7 @@ IN THE SOFTWARE.
 
 ## Zig
 
-Its TextMate engine runs the Zig TextMate grammar in [ziglang/vscode-zig](https://github.com/ziglang/vscode-zig), which Shiki bundles as `zig`, with its rules compiled into tables (`src/zig/grammar.rs`).
+Its Zig lexer emits the scope names of the Zig TextMate grammar in [ziglang/vscode-zig](https://github.com/ziglang/vscode-zig), which Shiki bundles as `zig`, and tries that grammar's rules in its order, from tables generated from it (`src/zig/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

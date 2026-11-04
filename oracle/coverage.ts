@@ -92,6 +92,7 @@ const handLexed = new Map([
   ["typescript", "TypeScript"],
   ["xml", "XML"],
   ["yaml", "YAML"],
+  ["zig", "Zig"],
 ]);
 
 /** A rule of a TextMate grammar, as far as coverage reads it. */

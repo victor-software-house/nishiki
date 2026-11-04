@@ -61,7 +61,6 @@ mod toml;
 mod typescript;
 mod xml;
 mod yaml;
-#[cfg(feature = "lang-zig")]
 mod zig;
 
 use nishiki::{Highlighter, Language, Limit, Limits, LineReport, State, Token, Work};

@@ -105,7 +105,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | TypeScript | `Language::TypeScript` | `lang-typescript` | `all` | `typescript`, `ts`, `cts`, `mts` |
 | XML | `Language::Xml` | `lang-xml` | `all` | `xml` |
 | YAML | `Language::Yaml` | `lang-yaml` | `all` | `yaml`, `yml` |
-| Zig | `Language::Zig` | `lang-zig` | `textmate` | `zig` |
+| Zig | `Language::Zig` | `lang-zig` | `all` | `zig` |
 
 ## Status
 

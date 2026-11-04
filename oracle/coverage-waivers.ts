@@ -1084,6 +1084,16 @@ export const waivers: Waiver[] = [
       reason: "the enclosing rule's end, `(?=([]),;}]|\\b(else|then)\\b))`, matches before every `,`, and an end is tried before the patterns",
     }),
   ),
+  {
+    grammar: "zig",
+    path: "#numbers.patterns[2].match",
+    reason: "`#numbers.patterns[1]`, before it, matches every one of its matches, since its fraction and exponent are optional",
+  },
+  {
+    grammar: "zig",
+    path: "#operators.patterns[4].match",
+    reason: "the comparison and arithmetic rules before it match the first byte of `==`, `++`, `**` and `->`",
+  },
   { grammar: "powershell", path: "#commentLine.end", group: 1, reason: missing(0) },
   ...[1, 2, 3].map(
     (index): Waiver => ({
@@ -1319,4 +1329,5 @@ export const complete: string[] = [
   "typescript",
   "xml",
   "yaml",
+  "zig",
 ];

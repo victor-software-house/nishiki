@@ -656,6 +656,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `yaml/yaml-test-suite-c4hz` | [`C4HZ/in.yaml`][yaml-test-suite-c4hz] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
 | `yaml/yaml-test-suite-kk5p` | [`KK5P/in.yaml`][yaml-test-suite-kk5p] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
 | `yaml/yaml-test-suite-w4tn` | [`W4TN/in.yaml`][yaml-test-suite-w4tn] in yaml/yaml-test-suite, data branch | [MIT][yaml-test-suite-licence] |
+| `zig/coverage` | `oracle/inputs/zig-coverage.zig`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `zig/sample` | [`samples/zig.sample`][zig-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `zig/std-allocator` | [`lib/std/mem/Allocator.zig`][zig-std-allocator] in ziglang/zig | [MIT][zig-licence] |
 | `zig/std-fmt` | [`lib/std/fmt.zig`][zig-std-fmt] in ziglang/zig | [MIT][zig-licence] |
@@ -768,13 +769,11 @@ Two causes made them differ: `\G` holds at the start of every line in a fence, w
 `scala/sample` and `scala/scala3-boundary` are Scala's development inputs, and `markdown/scala3-givens` is the development input for Scala fences.
 `scala/scala3-source-position`, `scala/circe-json`, `scala/circe-build` and `markdown/scala3-enums` are held out.
 `scala/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
-Zig runs on nishiki's TextMate engine.
-`zig/sample` and `zig/std-allocator` are its development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
+`zig/sample`, `zig/std-allocator` and `zig/coverage` are Zig's development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
 Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
-CMake runs on nishiki's TextMate engine as well.
-`cmake/sample`, `cmake/json-lists` and `cmake/coverage` are its development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
+`cmake/sample`, `cmake/json-lists` and `cmake/coverage` are CMake's development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
 Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
-Protobuf runs on nishiki's TextMate engine as well.
+Protobuf runs on nishiki's TextMate engine.
 `proto/sample` and `proto/googleapis-http` are its development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
 Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Protobuf.
 `bat/sample` and `bat/gradlew` are Batch's development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.

@@ -155,6 +155,9 @@ tags! {
     /// YAML.
     #[cfg(feature = "lang-yaml")]
     YAML = 0x0800,
+    /// Zig.
+    #[cfg(feature = "lang-zig")]
+    ZIG = 0x3800,
 }
 
 /// Two ranges overlap when some code lies in both: when their values agree on
