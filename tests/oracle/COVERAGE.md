@@ -38,7 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
 | Markdown | `markdown` | 145 of 311 | 46.6% | 158 of 373 | 42.4% | 0 | 8 |  |
 | Python | `python` | 163 of 350 | 46.6% | 125 of 372 | 33.6% | 0 | 27 |  |
-| Ruby | `ruby` | 156 of 336 | 46.4% | 133 of 293 | 45.4% | 0 | 8 |  |
+| Ruby | `ruby` | 164 of 336 | 48.8% | 137 of 293 | 46.8% | 0 | 8 |  |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 90 of 168 | 53.6% | 81 of 179 | 45.3% | 0 | 10 |  |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
@@ -4290,18 +4290,10 @@ patterns[88].begin  ^__END__\n
 patterns[88].end  (?=not)impossible
 patterns[88].patterns[0].begin  (?=<?xml|<(?i:html\b)|!DOCTYPE (?i:html\b))
 patterns[88].patterns[0].end  (?=not)impossible
-patterns[89].begin  (?=(?><<[-~]?(["'`]?)((?:[_\w]+_|)HTML)\b\1))
-patterns[89].end  ^\s*((?:[_\w]+_|)HTML)$\n?
-patterns[89].patterns[0].begin  (?><<[-~]?(["'`]?)((?:[_\w]+_|)HTML)\b\1)
-patterns[89].patterns[0].while  ^(?!\s*((?:[_\w]+_|)HTML)\s*$)
 patterns[90].begin  (?=(?><<[-~]?(["'`]?)((?:[_\w]+_|)HAML)\b\1))
 patterns[90].end  ^\s*((?:[_\w]+_|)HAML)$\n?
 patterns[90].patterns[0].begin  (?><<[-~]?(["'`]?)((?:[_\w]+_|)HAML)\b\1)
 patterns[90].patterns[0].while  ^(?!\s*((?:[_\w]+_|)HAML)\s*$)
-patterns[91].begin  (?=(?><<[-~]?(["'`]?)((?:[_\w]+_|)XML)\b\1))
-patterns[91].end  ^\s*((?:[_\w]+_|)XML)$\n?
-patterns[91].patterns[0].begin  (?><<[-~]?(["'`]?)((?:[_\w]+_|)XML)\b\1)
-patterns[91].patterns[0].while  ^(?!\s*((?:[_\w]+_|)XML)\s*$)
 patterns[102].begin  (?=(?><<[-~]?(["'`]?)((?:[_\w]+_|)YA?ML)\b\1))
 patterns[102].end  ^\s*((?:[_\w]+_|)YA?ML)$\n?
 patterns[102].patterns[0].begin  (?><<[-~]?(["'`]?)((?:[_\w]+_|)YA?ML)\b\1)

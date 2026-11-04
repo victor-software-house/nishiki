@@ -1,0 +1,189 @@
+L # Here documents named for XML, which nishiki lexes as XML, with
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 64 source.ruby comment.line.number-sign.ruby
+L # interpolation and escapes where the XML has nothing open.
+T 1 source.ruby comment.line.number-sign.ruby punctuation.definition.comment.ruby
+T 59 source.ruby comment.line.number-sign.ruby
+L feed = <<~XML
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 13 source.ruby meta.embedded.block.xml string.definition.begin.ruby
+L   <?xml version="1.0" encoding="UTF-8"?>
+T 2 source.ruby meta.embedded.block.xml text.xml
+T 4 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 7 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 15 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 16 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml
+T 17 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 20 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 21 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 30 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 31 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml
+T 32 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 37 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 38 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 40 source.ruby meta.embedded.block.xml text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L   <feed xmlns="http://www.w3.org/2005/Atom">
+T 2 source.ruby meta.embedded.block.xml text.xml
+T 3 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 13 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 14 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 15 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 42 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml
+T 43 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 44 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L     x #{a} <b>y</b> &amp;
+T 6 source.ruby meta.embedded.block.xml text.xml
+T 8 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 9 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby source.ruby
+T 10 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 11 source.ruby meta.embedded.block.xml text.xml
+T 12 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 13 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 14 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 15 source.ruby meta.embedded.block.xml text.xml
+T 17 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 19 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 20 source.ruby meta.embedded.block.xml text.xml
+T 21 source.ruby meta.embedded.block.xml text.xml constant.character.entity.xml punctuation.definition.constant.xml
+T 24 source.ruby meta.embedded.block.xml text.xml constant.character.entity.xml
+T 25 source.ruby meta.embedded.block.xml text.xml constant.character.entity.xml punctuation.definition.constant.xml
+L     <entry id="#{entry.id}">
+T 4 source.ruby meta.embedded.block.xml text.xml
+T 5 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 13 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 14 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 15 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 26 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml
+T 27 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 28 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L       <title type="text"
+T 6 source.ruby meta.embedded.block.xml text.xml
+T 7 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 17 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 19 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 23 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml
+T 24 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+L              lang="#{locale}">#{title}</title>
+T 13 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 17 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 18 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 19 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 28 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml
+T 29 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 30 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 32 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 37 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby source.ruby
+T 38 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 40 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 45 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 46 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L     </entry>
+T 4 source.ruby meta.embedded.block.xml text.xml
+T 6 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <!-- c #{c} --> #{d}
+T 4 source.ruby meta.embedded.block.xml text.xml
+T 8 source.ruby meta.embedded.block.xml text.xml comment.block.xml punctuation.definition.comment.xml
+T 16 source.ruby meta.embedded.block.xml text.xml comment.block.xml
+T 19 source.ruby meta.embedded.block.xml text.xml comment.block.xml punctuation.definition.comment.xml
+T 20 source.ruby meta.embedded.block.xml text.xml
+T 22 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 23 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby source.ruby
+T 24 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+L     <![CDATA[ #{e} ]]> #{f}
+T 4 source.ruby meta.embedded.block.xml text.xml
+T 13 source.ruby meta.embedded.block.xml text.xml string.unquoted.cdata.xml punctuation.definition.string.begin.xml
+T 19 source.ruby meta.embedded.block.xml text.xml string.unquoted.cdata.xml
+T 22 source.ruby meta.embedded.block.xml text.xml string.unquoted.cdata.xml punctuation.definition.string.end.xml
+T 23 source.ruby meta.embedded.block.xml text.xml
+T 25 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 26 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby source.ruby
+T 27 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+L     <!-- a comment
+T 4 source.ruby meta.embedded.block.xml text.xml
+T 8 source.ruby meta.embedded.block.xml text.xml comment.block.xml punctuation.definition.comment.xml
+T 18 source.ruby meta.embedded.block.xml text.xml comment.block.xml
+L          across lines #{g} -->
+T 27 source.ruby meta.embedded.block.xml text.xml comment.block.xml
+T 30 source.ruby meta.embedded.block.xml text.xml comment.block.xml punctuation.definition.comment.xml
+L     a \n b #@ivar
+T 6 source.ruby meta.embedded.block.xml text.xml
+T 8 source.ruby meta.embedded.block.xml text.xml constant.character.escape.ruby
+T 11 source.ruby meta.embedded.block.xml text.xml
+T 13 source.ruby meta.embedded.block.xml text.xml variable.other.readwrite.instance.ruby punctuation.definition.variable.ruby
+T 17 source.ruby meta.embedded.block.xml text.xml variable.other.readwrite.instance.ruby
+L   </feed>
+T 2 source.ruby meta.embedded.block.xml text.xml
+T 4 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 8 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 9 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML
+T 3 source.ruby meta.embedded.block.xml string.definition.end.ruby
+L 
+L config = <<-APP_XML
+T 6 source.ruby variable.ruby
+T 7 source.ruby
+T 8 source.ruby keyword.operator.assignment.ruby
+T 9 source.ruby
+T 19 source.ruby meta.embedded.block.xml string.definition.begin.ruby
+L   <setting name="timeout" value="#{timeout}"/>
+T 2 source.ruby meta.embedded.block.xml text.xml
+T 3 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 15 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 16 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 17 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 24 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml
+T 25 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 26 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 31 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 32 source.ruby meta.embedded.block.xml text.xml meta.tag.xml
+T 33 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 43 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml
+T 44 source.ruby meta.embedded.block.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 46 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L APP_XML
+T 7 source.ruby meta.embedded.block.xml string.definition.end.ruby
+L 
+L pair = [<<~XML, <<~SQL]
+T 4 source.ruby variable.ruby
+T 5 source.ruby
+T 6 source.ruby keyword.operator.assignment.ruby
+T 7 source.ruby
+T 8 source.ruby punctuation.section.array.begin.ruby
+T 14 source.ruby meta.embedded.block.xml string.definition.begin.ruby
+T 23 source.ruby meta.embedded.block.xml text.xml
+L   <item>#{item}</item>
+T 2 source.ruby meta.embedded.block.xml text.xml
+T 3 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 8 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.begin.ruby
+T 14 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby source.ruby
+T 15 source.ruby meta.embedded.block.xml text.xml meta.embedded.line.ruby punctuation.section.embedded.end.ruby
+T 17 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 21 source.ruby meta.embedded.block.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 22 source.ruby meta.embedded.block.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML
+T 3 source.ruby meta.embedded.block.xml string.definition.end.ruby
+L   SELECT 1
+T 2 source.ruby
+T 8 source.ruby variable.other.constant.ruby
+T 9 source.ruby
+T 10 source.ruby constant.numeric.ruby
+L SQL
+T 3 source.ruby variable.other.constant.ruby
+L 

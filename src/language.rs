@@ -502,8 +502,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, JavaScript, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
-    /// - One named for YAML, HAML, Slim or XML, such as `<<~YAML`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
+    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, JavaScript, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
+    /// - One named for YAML, HAML or Slim, such as `<<~YAML`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
     ///   Shiki lexes them in that language.
     /// - The text after `__END__` is plain, where Shiki lexes it as HTML when it starts like HTML.
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby }

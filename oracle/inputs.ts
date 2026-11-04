@@ -824,6 +824,11 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
   { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
   { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
+  {
+    lang: "ruby",
+    name: "xml-heredocs",
+    url: new URL("inputs/ruby-xml-heredocs.rb", import.meta.url).href,
+  },
   { lang: "rust", name: "core-macros", url: `${rustc}/library/core/src/macros/mod.rs` },
   {
     lang: "rust",
