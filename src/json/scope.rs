@@ -1,13 +1,15 @@
 //! The scope names the lexer emits, in Shiki's naming.
 //!
 //! The `json`, `jsonc` and `jsonl` grammars differ only in the suffix of
-//! their names, so one table holds the three spellings one after another: a
-//! scope's number is its index plus a whole table's length for each dialect
+//! their names.
+//! One table therefore holds the three spellings one after another.
+//! A scope's number is its index plus a whole table's length for each dialect
 //! before its own.
 
 macro_rules! scopes {
     ($($id:ident $json:literal $comments:literal $lines:literal)*) => {
-        /// A scope name; the discriminant indexes the table of each dialect.
+        /// A scope name.
+        /// The discriminant indexes the table of each dialect.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u8)]
         pub(crate) enum S { $($id),* }

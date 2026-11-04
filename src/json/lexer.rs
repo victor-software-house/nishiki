@@ -11,8 +11,9 @@ use crate::language::Context;
 use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_at;
 
-/// Lexes one line. `pos` is the end of the last token; the bytes between it
-/// and the cursor are plain text of the current context.
+/// Lexes one line.
+/// `pos` is the end of the last token.
+/// The bytes between it and the cursor are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     s: &'a [u8],
     /// The tokens, the contexts and the end of the last token.
@@ -89,15 +90,17 @@ impl<'a> Lexer<'a> {
         Kind::from_code(self.em.frame.kind)
     }
 
-    /// Opens a context; false when a limit keeps it closed.
+    /// Opens a context.
+    /// It returns false when a limit keeps the context closed.
     fn push(&mut self, kind: Kind) -> bool {
         let dialect = self.dialect;
         let scopes = kind.scopes().iter().map(|scope| scope.scope(dialect));
         self.em.push(kind.code(), 0, scopes)
     }
 
-    /// Opens `kind` at `p`, whose begin text ends at `end` and carries
-    /// `leaf`; the text stays plain when a limit keeps the context closed.
+    /// Opens `kind` at `p`.
+    /// Its begin text ends at `end` and carries `leaf`.
+    /// The text stays plain when a limit keeps the context closed.
     fn begin(&mut self, p: usize, end: usize, kind: Kind, leaf: S) -> usize {
         self.gap(p);
         if self.push(kind) {
@@ -118,6 +121,8 @@ impl<'a> Lexer<'a> {
 
     /// Takes the next match at or after `p` in an array, object, value or
     /// document context.
+    ///
+    /// Strings and comments take their text in `run`, never here.
     fn in_code(&mut self, p: usize) -> usize {
         let b = self.s[p];
         if b < 0x80 {
@@ -134,7 +139,6 @@ impl<'a> Lexer<'a> {
             Kind::Top => self.value(p, b).unwrap_or(p + self.width_at(p)),
             Kind::Array => self.in_array(p, b),
             Kind::Object => self.in_object(p, b),
-            // Strings and comments take their text in `run`, never here.
             Kind::Pair | Kind::Key | Kind::Str | Kind::Block | Kind::Doc => self.in_pair(p, b),
         }
     }
@@ -293,6 +297,10 @@ impl<'a> Lexer<'a> {
     // Strings and comments.
 
     /// Takes the text of a string up to its next escape or closing quote.
+    ///
+    /// `\\(?:["/\\bfnrt]|u\h{4})` is an escape.
+    /// `\\.` is any other escape.
+    /// A backslash at the end of the line is no escape.
     fn in_string(&mut self, p: usize) -> usize {
         let Some(offset) = memchr2(b'"', b'\\', &self.s[p..]) else {
             self.steps.spend(self.s.len() - p);
@@ -308,8 +316,6 @@ impl<'a> Lexer<'a> {
             };
             return self.finish(q, q + 1, leaf);
         }
-        // `\\(?:["/\\bfnrt]|u\h{4})` is an escape; `\\.` any other one,
-        // which a backslash at the end of the line is not.
         let escape = match self.at(q + 1) {
             b'"' | b'/' | b'\\' | b'b' | b'f' | b'n' | b'r' | b't' => Some((2, S::Escape)),
             b'u' if (2..6).all(|k| self.at(q + k).is_ascii_hexdigit()) => Some((6, S::Escape)),

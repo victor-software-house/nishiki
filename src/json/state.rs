@@ -1,4 +1,5 @@
-//! The contexts the JSON lexer opens, which are frames of the interned state.
+//! The contexts the JSON lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
