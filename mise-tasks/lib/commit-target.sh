@@ -1,11 +1,17 @@
-# Sourced by the tasks that build another commit beside this tree.
+# Sourced by callgrind.sh and identity.sh.
 #
-# `commit_target <dir> <side> <commit>` prints the cargo target directory for
-# building <commit> as <side> ("base" or "head") under <dir>: one per commit.
-# The base tree comes from `git archive`, which dates every file at its
-# commit, so cargo would take a directory that last built another commit as
-# up to date and hand back that commit's binary. Each commit's own directory
-# stays cached for the next run on the same commit.
+# Their builds run without mbx (MBX_DISABLE=1).
+# mbx can compile one source two ways at one codegen unit.
+# The two binaries differ by about 2% in instruction count.
+# A comparison would then measure mbx, not the code.
+export MBX_DISABLE=1
+
+# `commit_target <dir> <side> <commit>` prints a cargo target directory.
+# The directory is `<dir>/<commit sha>/<side>`, where <side> is "base" or "head".
+# Each commit gets its own directory.
+# `git archive` dates every file at its commit.
+# In a shared directory, cargo would treat another commit's build as up to date.
+# A repeat run on the same commit reuses its directory.
 commit_target() {
   local dir=$1 side=$2 commit=$3 sha
   if ! sha=$(git rev-parse --verify --quiet "$commit^{commit}"); then
@@ -15,9 +21,9 @@ commit_target() {
   printf '%s/%s/%s\n' "$dir" "$sha" "$side"
 }
 
-# `keep_commit_targets <dir> <target>…` removes every commit's directory under
-# <dir> but those holding the given targets, so a kept machine holds the
-# builds of the commits the task compares now and no others.
+# `keep_commit_targets <dir> <target>…` removes old build directories.
+# It removes every commit directory under <dir> that holds none of the targets.
+# Disk use then stays at the two builds the task compares.
 keep_commit_targets() {
   local dir=$1 entry target kept
   shift
