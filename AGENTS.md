@@ -118,7 +118,9 @@ The decisions that created nishiki live in a private planning repository:
    - headers that name their content, never vague ones like "Piece" or "What it holds".
 4. A directory a reader browses on GitHub has a `README.md` that says what it holds.
    Where it has rules for working there, an `AGENTS.md` sits beside it.
-5. A language's section under "Behaviour kept from Shiki" in the README is a bullet list, one quirk per bullet.
+5. Each language's quirks sit in the docs of its `Language` variant, in the `languages!` rows of `src/language.rs`.
+   They go under a "Behaviour kept from Shiki" heading, as a bullet list, one quirk per bullet.
+   A variant that shares another's lexer links to it, as `Language::Jsx` links to `Language::TypeScript`.
 
 ### Release
 
@@ -166,7 +168,7 @@ The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](test
 1. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
 2. Defaults may follow the resources the caller has, such as memory or a time budget.
    A caller that pins the limits gets the same output on every machine.
-3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the README's section for that language (operator, 2026-11-03).
+3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the docs of its `Language` variant, under "Behaviour kept from Shiki" (operator, 2026-11-03).
    Adding them to `Limits` and `Limit` breaks the public API, so the next minor does it once, with the `feat/non-exhaustive-next-minor` branch:
    - it marks both `#[non_exhaustive]`;
    - it adds a builder;

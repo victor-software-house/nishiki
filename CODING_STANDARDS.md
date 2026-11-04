@@ -94,7 +94,7 @@ No lexer has a hidden limit that changes output.
 
 - Nesting depth, work, line length and interned nodes come from the caller's `Limits`.
 - A recursion guard that cannot be configured is a named constant in the language's `limits.rs`, with its reason.
-  The README lists it.
+  Its `Language` variant's docs list it.
 - Every scan that reads ahead of the cursor counts its bytes with `spend`.
   The main loop checks the budget each turn.
 - When a limit is reached:

@@ -32,5 +32,8 @@
 - [x] 4.1 Make the crate-root docs the docs.rs landing page, with a quick start and the cargo features → verify: the docs job builds them as docs.rs does
   - 2026-11-04 UTC: `src/lib.rs` holds the quick start, themes, limits, cargo features and tiers, and Markdown fences, moved from the README with their examples as doctests and intra-doc links.
     The docs job (`mise run doc`: nightly rustdoc, `--cfg docsrs`, every feature, warnings denied) and `test:doc` run in the pull request's CI.
-- [ ] 4.2 Move each language's behaviour notes onto its `Language` variant → verify: every "Behaviour kept from Shiki" bullet appears on docs.rs and nowhere else
+- [x] 4.2 Move each language's behaviour notes onto its `Language` variant → verify: every "Behaviour kept from Shiki" bullet appears on docs.rs and nowhere else
+  - 2026-11-04 UTC: the 31 sections, 226 lines, moved to their variants' docs in the `languages!` rows of `src/language.rs`; a check of each line found it there before two edits: "the JSON table above" became "the table measured for JSON", and `KDoc` and `SassDoc` took backticks for clippy. The README no longer has the section.
+    The macro passes every `#[doc]` line of a row to its `#[cfg(feature = …)]` variant, as Markdown's two-line doc already showed; the docs job builds them with every feature, as docs.rs does.
+    JavaScript, JSX and TSX link to `Language::TypeScript`, and JSONC and JSON Lines to `Language::Json`.
 - [ ] 4.3 Cut the README to the GitHub page: what nishiki is, how to add it, one example, the language table and links → verify: the README holds no API reference and its example runs as a doctest

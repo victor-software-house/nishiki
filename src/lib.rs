@@ -128,6 +128,8 @@
 //! | `MAX_INSTS` (40,000) | The instructions one pattern compiles to. | The pattern never matches. |
 //! | `MAX_CALLS` (256) | The subroutine calls nested in one match. | The match fails. |
 //!
+//! A language's own bounds are listed on its [`Language`] variant.
+//!
 //! # Cargo features
 //!
 //! Every language with a lexer of its own is on by default.
@@ -188,6 +190,7 @@
 //! # Fidelity
 //!
 //! The scopes match Shiki's, quirks included.
+//! Each [`Language`] variant lists the quirks of its language.
 
 // docs.rs labels feature-gated items, such as `Theme::from_json`, with their
 // feature.
