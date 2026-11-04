@@ -754,14 +754,12 @@ Two causes made them differ: `\G` holds at the start of every line in a fence, w
 `go/sample`, `go/go-sort`, `go/cobra-command`, `go/gin-context` and `go/testify-assertions` are the development inputs for Go.
 `go/go-slices`, `go/go-json-decode`, `go/kubernetes-sets`, `go/zap-logger`, `go/viper-viper` and `go/prometheus-storage` are held out.
 `markdown/gin-readme` is the development input for `go` fences and `markdown/cobra-user-guide` is held out; `markdown/httparser-readme` has a `go` fence too.
-PowerShell runs on nishiki's TextMate engine, not on a hand-written lexer.
-`powershell/sample`, `powershell/install-powershell` and `powershell/coverage` are its development inputs, and `markdown/powershell-windows-build` is the development input for PowerShell fences.
+`powershell/sample`, `powershell/install-powershell` and `powershell/coverage` are PowerShell's development inputs, and `markdown/powershell-windows-build` is the development input for PowerShell fences.
 `powershell/dotnet-install`, `powershell/set-release-tag` and `markdown/powershell-releasing` are held out.
-Scala runs on nishiki's TextMate engine as well.
-`scala/sample` and `scala/scala3-boundary` are its development inputs, and `markdown/scala3-givens` is the development input for Scala fences.
+`scala/sample` and `scala/scala3-boundary` are Scala's development inputs, and `markdown/scala3-givens` is the development input for Scala fences.
 `scala/scala3-source-position`, `scala/circe-json`, `scala/circe-build` and `markdown/scala3-enums` are held out.
 `scala/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
-Zig runs on nishiki's TextMate engine as well.
+Zig runs on nishiki's TextMate engine.
 `zig/sample` and `zig/std-allocator` are its development inputs, and `zig/std-fmt`, `zig/zls-offsets` and `zig/zls-build` are held out.
 Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 CMake runs on nishiki's TextMate engine as well.
@@ -776,8 +774,7 @@ Shiki's Markdown grammar has no Batch fence, so no Markdown input embeds Batch.
 Nix runs on nishiki's TextMate engine as well.
 `nix/sample` and `nix/nixpkgs-ripgrep` are its development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
 Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
-Dart runs on nishiki's TextMate engine as well.
-`dart/sample`, `dart/http-client` and `dart/coverage` are its development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
+`dart/sample`, `dart/http-client` and `dart/coverage` are Dart's development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
 `dart/http-base-request`, `dart/collection-algorithms` and `markdown/dart-args-readme` are held out.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.

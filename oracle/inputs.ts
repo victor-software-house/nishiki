@@ -1125,7 +1125,6 @@ export const inputs: Input[] = [
   { lang: "sass", name: "bulma-mixins", url: `${bulmaSass}/sass/utilities/mixins.sass` },
   { lang: "sass", name: "bulma-navbar", url: `${bulmaSass}/sass/components/navbar.sass` },
   { lang: "sass", name: "sample", url: `${samples}/sass.sample` },
-  // Scala runs on the TextMate engine.
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
   { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },
   { lang: "scala", name: "coverage", text: scalaCoverage },
