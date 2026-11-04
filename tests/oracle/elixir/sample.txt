@@ -1,0 +1,297 @@
+L # [] can be used, first match returned
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 38 source.elixir comment.line.number-sign.elixir
+L 1 = [a: 1, b: 2, a: 3][:a]
+T 1 source.elixir constant.numeric.integer.elixir
+T 2 source.elixir
+T 3 source.elixir keyword.operator.assignment.elixir
+T 4 source.elixir
+T 5 source.elixir punctuation.section.array.elixir
+T 6 source.elixir constant.other.keywords.elixir
+T 7 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 8 source.elixir
+T 9 source.elixir constant.numeric.integer.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 11 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir constant.numeric.integer.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 17 source.elixir
+T 18 source.elixir constant.other.keywords.elixir
+T 19 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 20 source.elixir
+T 21 source.elixir constant.numeric.integer.elixir
+T 22 source.elixir punctuation.section.array.elixir
+T 23 source.elixir punctuation.section.array.elixir
+T 24 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 25 source.elixir constant.other.symbol.elixir
+T 26 source.elixir punctuation.section.array.elixir
+L 
+L # [] missing value is nil
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 25 source.elixir comment.line.number-sign.elixir
+L nil = [a: 1, b: 2, a: 3][:c]
+T 3 source.elixir constant.language.elixir
+T 4 source.elixir
+T 5 source.elixir keyword.operator.assignment.elixir
+T 6 source.elixir
+T 7 source.elixir punctuation.section.array.elixir
+T 8 source.elixir constant.other.keywords.elixir
+T 9 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 10 source.elixir
+T 11 source.elixir constant.numeric.integer.elixir
+T 12 source.elixir punctuation.separator.object.elixir
+T 13 source.elixir
+T 14 source.elixir constant.other.keywords.elixir
+T 15 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 16 source.elixir
+T 17 source.elixir constant.numeric.integer.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 19 source.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 22 source.elixir
+T 23 source.elixir constant.numeric.integer.elixir
+T 24 source.elixir punctuation.section.array.elixir
+T 25 source.elixir punctuation.section.array.elixir
+T 26 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 27 source.elixir constant.other.symbol.elixir
+T 28 source.elixir punctuation.section.array.elixir
+L 
+L # Keyword get also works
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 24 source.elixir comment.line.number-sign.elixir
+L 1 = Keyword.get([a: 1, b: 2, a: 3], :a)
+T 1 source.elixir constant.numeric.integer.elixir
+T 2 source.elixir
+T 3 source.elixir keyword.operator.assignment.elixir
+T 4 source.elixir
+T 11 source.elixir entity.name.type.class.elixir
+T 12 source.elixir punctuation.separator.method.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir punctuation.section.array.elixir
+T 18 source.elixir constant.other.keywords.elixir
+T 19 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 20 source.elixir
+T 21 source.elixir constant.numeric.integer.elixir
+T 22 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir constant.other.keywords.elixir
+T 25 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 26 source.elixir
+T 27 source.elixir constant.numeric.integer.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 30 source.elixir constant.other.keywords.elixir
+T 31 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 32 source.elixir
+T 33 source.elixir constant.numeric.integer.elixir
+T 34 source.elixir punctuation.section.array.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 37 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 38 source.elixir constant.other.symbol.elixir
+T 39 source.elixir punctuation.section.function.elixir
+L 
+L # missing value is nil
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 22 source.elixir comment.line.number-sign.elixir
+L nil = Keyword.get([a: 1, b: 2, a: 3], :c)
+T 3 source.elixir constant.language.elixir
+T 4 source.elixir
+T 5 source.elixir keyword.operator.assignment.elixir
+T 6 source.elixir
+T 13 source.elixir entity.name.type.class.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir punctuation.section.array.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 22 source.elixir
+T 23 source.elixir constant.numeric.integer.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 26 source.elixir constant.other.keywords.elixir
+T 27 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 28 source.elixir
+T 29 source.elixir constant.numeric.integer.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 32 source.elixir constant.other.keywords.elixir
+T 33 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir
+T 35 source.elixir constant.numeric.integer.elixir
+T 36 source.elixir punctuation.section.array.elixir
+T 37 source.elixir punctuation.separator.object.elixir
+T 38 source.elixir
+T 39 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 40 source.elixir constant.other.symbol.elixir
+T 41 source.elixir punctuation.section.function.elixir
+L 
+L # an optional default value can be specified
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 44 source.elixir comment.line.number-sign.elixir
+L # for missing keys
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 18 source.elixir comment.line.number-sign.elixir
+L "missing" = Keyword.get([a: 1, b: 2, a: 3], :c, "missing")
+T 1 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 8 source.elixir string.quoted.double.elixir
+T 9 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 19 source.elixir entity.name.type.class.elixir
+T 20 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 25 source.elixir punctuation.section.array.elixir
+T 26 source.elixir constant.other.keywords.elixir
+T 27 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 28 source.elixir
+T 29 source.elixir constant.numeric.integer.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 32 source.elixir constant.other.keywords.elixir
+T 33 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir
+T 35 source.elixir constant.numeric.integer.elixir
+T 36 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 38 source.elixir constant.other.keywords.elixir
+T 39 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 40 source.elixir
+T 41 source.elixir constant.numeric.integer.elixir
+T 42 source.elixir punctuation.section.array.elixir
+T 43 source.elixir punctuation.separator.object.elixir
+T 44 source.elixir
+T 45 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 46 source.elixir constant.other.symbol.elixir
+T 47 source.elixir punctuation.separator.object.elixir
+T 48 source.elixir
+T 49 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 56 source.elixir string.quoted.double.elixir
+T 57 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 58 source.elixir punctuation.section.function.elixir
+L 
+L # Keyword.take returns a list of matching pairs
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 47 source.elixir comment.line.number-sign.elixir
+L [a: 1, a: 3] = Keyword.take([a: 1, b: 2, a: 3], [:a])
+T 1 source.elixir punctuation.section.array.elixir
+T 2 source.elixir constant.other.keywords.elixir
+T 3 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 4 source.elixir
+T 5 source.elixir constant.numeric.integer.elixir
+T 6 source.elixir punctuation.separator.object.elixir
+T 7 source.elixir
+T 8 source.elixir constant.other.keywords.elixir
+T 9 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 10 source.elixir
+T 11 source.elixir constant.numeric.integer.elixir
+T 12 source.elixir punctuation.section.array.elixir
+T 13 source.elixir
+T 14 source.elixir keyword.operator.assignment.elixir
+T 15 source.elixir
+T 22 source.elixir entity.name.type.class.elixir
+T 23 source.elixir punctuation.separator.method.elixir
+T 27 source.elixir entity.name.function.elixir
+T 28 source.elixir punctuation.section.function.elixir
+T 29 source.elixir punctuation.section.array.elixir
+T 30 source.elixir constant.other.keywords.elixir
+T 31 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 32 source.elixir
+T 33 source.elixir constant.numeric.integer.elixir
+T 34 source.elixir punctuation.separator.object.elixir
+T 35 source.elixir
+T 36 source.elixir constant.other.keywords.elixir
+T 37 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 38 source.elixir
+T 39 source.elixir constant.numeric.integer.elixir
+T 40 source.elixir punctuation.separator.object.elixir
+T 41 source.elixir
+T 42 source.elixir constant.other.keywords.elixir
+T 43 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 44 source.elixir
+T 45 source.elixir constant.numeric.integer.elixir
+T 46 source.elixir punctuation.section.array.elixir
+T 47 source.elixir punctuation.separator.object.elixir
+T 48 source.elixir
+T 49 source.elixir punctuation.section.array.elixir
+T 50 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 51 source.elixir constant.other.symbol.elixir
+T 52 source.elixir punctuation.section.array.elixir
+T 53 source.elixir punctuation.section.function.elixir
+L 
+L [] = Keyword.take([a: 1, b: 2, a: 3], [:c])
+T 1 source.elixir punctuation.section.array.elixir
+T 2 source.elixir punctuation.section.array.elixir
+T 3 source.elixir
+T 4 source.elixir keyword.operator.assignment.elixir
+T 5 source.elixir
+T 12 source.elixir entity.name.type.class.elixir
+T 13 source.elixir punctuation.separator.method.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir punctuation.section.array.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 22 source.elixir
+T 23 source.elixir constant.numeric.integer.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 26 source.elixir constant.other.keywords.elixir
+T 27 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 28 source.elixir
+T 29 source.elixir constant.numeric.integer.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 32 source.elixir constant.other.keywords.elixir
+T 33 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir
+T 35 source.elixir constant.numeric.integer.elixir
+T 36 source.elixir punctuation.section.array.elixir
+T 37 source.elixir punctuation.separator.object.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.section.array.elixir
+T 40 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 41 source.elixir constant.other.symbol.elixir
+T 42 source.elixir punctuation.section.array.elixir
+T 43 source.elixir punctuation.section.function.elixir
+L 
+L # dot syntax does NOT work
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 26 source.elixir comment.line.number-sign.elixir
+L # results in compile error
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 26 source.elixir comment.line.number-sign.elixir
+L [a: 1, b: 2, a: 3].a
+T 1 source.elixir punctuation.section.array.elixir
+T 2 source.elixir constant.other.keywords.elixir
+T 3 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 4 source.elixir
+T 5 source.elixir constant.numeric.integer.elixir
+T 6 source.elixir punctuation.separator.object.elixir
+T 7 source.elixir
+T 8 source.elixir constant.other.keywords.elixir
+T 9 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 10 source.elixir
+T 11 source.elixir constant.numeric.integer.elixir
+T 12 source.elixir punctuation.separator.object.elixir
+T 13 source.elixir
+T 14 source.elixir constant.other.keywords.elixir
+T 15 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 16 source.elixir
+T 17 source.elixir constant.numeric.integer.elixir
+T 18 source.elixir punctuation.section.array.elixir
+T 19 source.elixir punctuation.separator.method.elixir
+T 20 source.elixir
+L 
+L # From https://elixir-examples.github.io/single-page
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 52 source.elixir comment.line.number-sign.elixir
+L 

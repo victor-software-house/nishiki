@@ -1,0 +1,2530 @@
+L defmodule Phoenix.LiveDashboard.TableComponent do
+T 9 source.elixir meta.module.elixir keyword.control.module.elixir
+T 10 source.elixir meta.module.elixir
+T 17 source.elixir meta.module.elixir entity.other.inherited-class.elixir
+T 18 source.elixir meta.module.elixir
+T 31 source.elixir meta.module.elixir entity.other.inherited-class.elixir
+T 32 source.elixir meta.module.elixir
+T 46 source.elixir meta.module.elixir entity.name.type.class.elixir
+T 47 source.elixir meta.module.elixir
+T 49 source.elixir meta.module.elixir keyword.control.module.elixir
+L   use Phoenix.LiveDashboard.Web, :live_component
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+T 6 source.elixir
+T 13 source.elixir entity.name.type.class.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 27 source.elixir entity.name.type.class.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 31 source.elixir entity.name.type.class.elixir
+T 32 source.elixir punctuation.separator.object.elixir
+T 33 source.elixir
+T 34 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 48 source.elixir constant.other.symbol.elixir
+L 
+L   alias Phoenix.LiveDashboard.PageBuilder
+T 2 source.elixir
+T 7 source.elixir keyword.control.elixir
+T 8 source.elixir
+T 15 source.elixir entity.name.type.class.elixir
+T 16 source.elixir punctuation.separator.method.elixir
+T 29 source.elixir entity.name.type.class.elixir
+T 30 source.elixir punctuation.separator.method.elixir
+T 41 source.elixir entity.name.type.class.elixir
+L 
+L   @limit [50, 100, 500, 1000, 5000]
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 8 source.elixir variable.other.readwrite.module.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.section.array.elixir
+T 12 source.elixir constant.numeric.integer.elixir
+T 13 source.elixir punctuation.separator.object.elixir
+T 14 source.elixir
+T 17 source.elixir constant.numeric.integer.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 19 source.elixir
+T 22 source.elixir constant.numeric.integer.elixir
+T 23 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 28 source.elixir constant.numeric.integer.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+T 30 source.elixir
+T 34 source.elixir constant.numeric.integer.elixir
+T 35 source.elixir punctuation.section.array.elixir
+L 
+L   @type params() :: %{
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 19 source.elixir keyword.operator.other.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.scope.elixir
+L           limit: pos_integer(),
+T 10 source.elixir
+T 15 source.elixir constant.other.keywords.elixir
+T 16 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 17 source.elixir
+T 28 source.elixir entity.name.function.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 30 source.elixir punctuation.section.function.elixir
+T 31 source.elixir punctuation.separator.object.elixir
+L           sort_by: :atom,
+T 10 source.elixir
+T 17 source.elixir constant.other.keywords.elixir
+T 18 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 19 source.elixir
+T 20 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 24 source.elixir constant.other.symbol.elixir
+T 25 source.elixir punctuation.separator.object.elixir
+L           sort_dir: :desc | :asc,
+T 10 source.elixir
+T 18 source.elixir constant.other.keywords.elixir
+T 19 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 20 source.elixir
+T 21 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 25 source.elixir constant.other.symbol.elixir
+T 26 source.elixir
+T 27 source.elixir keyword.operator.other.elixir
+T 28 source.elixir
+T 29 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 32 source.elixir constant.other.symbol.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+L           search: binary(),
+T 10 source.elixir
+T 16 source.elixir constant.other.keywords.elixir
+T 17 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 18 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+L           hint: binary() | nil
+T 10 source.elixir
+T 14 source.elixir constant.other.keywords.elixir
+T 15 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 16 source.elixir
+T 22 source.elixir entity.name.function.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 25 source.elixir
+T 26 source.elixir keyword.operator.other.elixir
+T 27 source.elixir
+T 30 source.elixir constant.language.elixir
+L         }
+T 8 source.elixir
+T 9 source.elixir punctuation.section.scope.elixir
+L 
+L   @impl true
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 12 source.elixir constant.language.elixir
+L   def mount(socket) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 11 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 12 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 18 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     {:ok, socket}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 6 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 8 source.elixir constant.other.symbol.elixir
+T 9 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @impl true
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 12 source.elixir constant.language.elixir
+L   def update(assigns, socket) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     assigns = normalize_update(assigns)
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 30 source.elixir entity.name.function.elixir
+T 31 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.section.function.elixir
+L     apply_update(socket, assigns)
+T 4 source.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp normalize_update(assigns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 31 source.elixir meta.function.private.elixir
+T 32 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 33 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     assigns
+T 11 source.elixir
+L     |> normalize_columns()
+T 4 source.elixir
+T 6 source.elixir keyword.operator.other.elixir
+T 7 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+L     |> validate_required_one_sortable_column()
+T 4 source.elixir
+T 6 source.elixir keyword.operator.other.elixir
+T 7 source.elixir
+T 44 source.elixir entity.name.function.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir punctuation.section.function.elixir
+L     |> Map.put_new(:search, true)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 26 source.elixir constant.other.symbol.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 32 source.elixir constant.language.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L     |> Map.put_new(:limit, @limit)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 25 source.elixir constant.other.symbol.elixir
+T 26 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 33 source.elixir variable.other.readwrite.module.elixir
+T 34 source.elixir punctuation.section.function.elixir
+L     |> Map.put_new(:row_attrs, [])
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 29 source.elixir constant.other.symbol.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.section.array.elixir
+T 33 source.elixir punctuation.section.array.elixir
+T 34 source.elixir punctuation.section.function.elixir
+L     |> Map.put_new(:hint, nil)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 24 source.elixir constant.other.symbol.elixir
+T 25 source.elixir punctuation.separator.object.elixir
+T 26 source.elixir
+T 29 source.elixir constant.language.elixir
+T 30 source.elixir punctuation.section.function.elixir
+L     |> Map.put_new(:dom_id, nil)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 26 source.elixir constant.other.symbol.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 31 source.elixir constant.language.elixir
+T 32 source.elixir punctuation.section.function.elixir
+L     |> Map.update(:default_sort_by, nil, &(&1 && to_string(&1)))
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 34 source.elixir constant.other.symbol.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 39 source.elixir constant.language.elixir
+T 40 source.elixir punctuation.separator.object.elixir
+T 41 source.elixir
+T 42 source.elixir variable.other.anonymous.elixir
+T 43 source.elixir punctuation.section.function.elixir
+T 44 source.elixir variable.other.anonymous.elixir punctuation.definition.variable.elixir
+T 45 source.elixir variable.other.anonymous.elixir
+T 46 source.elixir
+T 48 source.elixir keyword.operator.sigils_2.elixir
+T 49 source.elixir
+T 58 source.elixir entity.name.function.elixir
+T 59 source.elixir punctuation.section.function.elixir
+T 60 source.elixir variable.other.anonymous.elixir punctuation.definition.variable.elixir
+T 61 source.elixir variable.other.anonymous.elixir
+T 62 source.elixir punctuation.section.function.elixir
+T 63 source.elixir punctuation.section.function.elixir
+T 64 source.elixir punctuation.section.function.elixir
+L     |> Map.put_new_lazy(:rows_name, fn ->
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 25 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 34 source.elixir constant.other.symbol.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 38 source.elixir keyword.control.elixir
+T 39 source.elixir
+T 41 source.elixir keyword.operator.other.elixir
+L       Phoenix.Naming.humanize(assigns.title) |> String.downcase()
+T 6 source.elixir
+T 13 source.elixir entity.name.type.class.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 20 source.elixir entity.name.type.class.elixir
+T 21 source.elixir punctuation.separator.method.elixir
+T 29 source.elixir entity.name.function.elixir
+T 30 source.elixir punctuation.section.function.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.separator.method.elixir
+T 43 source.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 45 source.elixir
+T 47 source.elixir keyword.operator.sigils_1.elixir
+T 48 source.elixir
+T 54 source.elixir entity.name.type.class.elixir
+T 55 source.elixir punctuation.separator.method.elixir
+T 63 source.elixir entity.name.function.elixir
+T 64 source.elixir punctuation.section.function.elixir
+T 65 source.elixir punctuation.section.function.elixir
+L     end)
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+T 8 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp normalize_columns(%{col: columns} = params) when is_list(columns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 24 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 25 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 26 source.elixir meta.function.private.elixir
+T 27 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 30 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 31 source.elixir meta.function.private.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 39 source.elixir meta.function.private.elixir
+T 40 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 41 source.elixir meta.function.private.elixir
+T 42 source.elixir meta.function.private.elixir keyword.operator.assignment.elixir
+T 49 source.elixir meta.function.private.elixir
+T 50 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 51 source.elixir meta.function.private.elixir
+T 55 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 56 source.elixir meta.function.private.elixir
+T 63 source.elixir meta.function.private.elixir entity.name.function.elixir
+T 64 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 71 source.elixir meta.function.private.elixir
+T 72 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 73 source.elixir meta.function.private.elixir
+T 75 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     %{params | col: Enum.map(columns, &normalize_column/1)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 13 source.elixir
+T 14 source.elixir keyword.operator.other.elixir
+T 15 source.elixir
+T 18 source.elixir constant.other.keywords.elixir
+T 19 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 20 source.elixir
+T 24 source.elixir entity.name.type.class.elixir
+T 25 source.elixir punctuation.separator.method.elixir
+T 28 source.elixir entity.name.function.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 36 source.elixir
+T 37 source.elixir punctuation.separator.object.elixir
+T 38 source.elixir
+T 39 source.elixir variable.other.anonymous.elixir
+T 55 source.elixir
+T 56 source.elixir keyword.operator.arithmetic.elixir
+T 57 source.elixir constant.numeric.integer.elixir
+T 58 source.elixir punctuation.section.function.elixir
+T 59 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp normalize_column(column) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 32 source.elixir meta.function.private.elixir
+T 34 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     case Access.fetch(column, :field) do
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+T 9 source.elixir
+T 15 source.elixir entity.name.type.class.elixir
+T 16 source.elixir punctuation.separator.method.elixir
+T 21 source.elixir entity.name.function.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+T 30 source.elixir
+T 31 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 36 source.elixir constant.other.symbol.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 40 source.elixir keyword.control.elixir
+L       {:ok, nil} ->
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 12 source.elixir
+T 15 source.elixir constant.language.elixir
+T 16 source.elixir punctuation.section.scope.elixir
+T 17 source.elixir
+T 19 source.elixir keyword.operator.other.elixir
+L         msg = ":field parameter must not be nil, got: #{inspect(column)}"
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 54 source.elixir string.quoted.double.elixir
+T 56 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 63 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir entity.name.function.elixir
+T 64 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 70 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 71 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 72 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 73 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L         raise ArgumentError, msg
+T 8 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 14 source.elixir
+T 27 source.elixir entity.name.type.class.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+L 
+L       {:ok, field} when is_atom(field) or is_binary(field) ->
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.section.scope.elixir
+T 19 source.elixir
+T 23 source.elixir keyword.control.elixir
+T 24 source.elixir
+T 31 source.elixir entity.name.function.elixir
+T 32 source.elixir punctuation.section.function.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.section.function.elixir
+T 39 source.elixir
+T 41 source.elixir keyword.operator.elixir
+T 42 source.elixir
+T 51 source.elixir entity.name.function.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 57 source.elixir
+T 58 source.elixir punctuation.section.function.elixir
+T 59 source.elixir
+T 60 source.elixir keyword.operator.arithmetic.elixir
+T 61 source.elixir keyword.operator.comparison.elixir
+L         column
+T 14 source.elixir
+L         |> Map.new()
+T 8 source.elixir
+T 10 source.elixir keyword.operator.sigils_1.elixir
+T 11 source.elixir
+T 14 source.elixir entity.name.type.class.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+L         |> Map.put_new_lazy(:header, fn -> Phoenix.Naming.humanize(field) end)
+T 8 source.elixir
+T 10 source.elixir keyword.operator.sigils_1.elixir
+T 11 source.elixir
+T 14 source.elixir entity.name.type.class.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 27 source.elixir entity.name.function.elixir
+T 28 source.elixir punctuation.section.function.elixir
+T 29 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 35 source.elixir constant.other.symbol.elixir
+T 36 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 39 source.elixir keyword.control.elixir
+T 40 source.elixir
+T 42 source.elixir keyword.operator.other.elixir
+T 43 source.elixir
+T 50 source.elixir entity.name.type.class.elixir
+T 51 source.elixir punctuation.separator.method.elixir
+T 57 source.elixir entity.name.type.class.elixir
+T 58 source.elixir punctuation.separator.method.elixir
+T 66 source.elixir entity.name.function.elixir
+T 67 source.elixir punctuation.section.function.elixir
+T 72 source.elixir
+T 73 source.elixir punctuation.section.function.elixir
+T 74 source.elixir
+T 77 source.elixir keyword.control.elixir
+T 78 source.elixir punctuation.section.function.elixir
+L         |> Map.put_new(:sortable, nil)
+T 8 source.elixir
+T 10 source.elixir keyword.operator.sigils_1.elixir
+T 11 source.elixir
+T 14 source.elixir entity.name.type.class.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 22 source.elixir entity.name.function.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 32 source.elixir constant.other.symbol.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 37 source.elixir constant.language.elixir
+T 38 source.elixir punctuation.section.function.elixir
+L         |> Map.put_new(:text_align, nil)
+T 8 source.elixir
+T 10 source.elixir keyword.operator.sigils_1.elixir
+T 11 source.elixir
+T 14 source.elixir entity.name.type.class.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 22 source.elixir entity.name.function.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 34 source.elixir constant.other.symbol.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 39 source.elixir constant.language.elixir
+T 40 source.elixir punctuation.section.function.elixir
+L 
+L       {:ok, _} ->
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 12 source.elixir
+T 13 source.elixir comment.wildcard.elixir
+T 14 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 17 source.elixir keyword.operator.other.elixir
+L         msg = ":field parameter must be an atom or a string, got: "
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 66 source.elixir string.quoted.double.elixir
+T 67 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L         raise ArgumentError, msg <> inspect(column)
+T 8 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 14 source.elixir
+T 27 source.elixir entity.name.type.class.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 33 source.elixir
+T 35 source.elixir keyword.operator.sigils_1.elixir
+T 36 source.elixir
+T 43 source.elixir entity.name.function.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 50 source.elixir
+T 51 source.elixir punctuation.section.function.elixir
+L 
+L       :error ->
+T 6 source.elixir
+T 7 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 12 source.elixir constant.other.symbol.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+L         msg = "the :field parameter is expected, got: #{inspect(column)}"
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 54 source.elixir string.quoted.double.elixir
+T 56 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 63 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir entity.name.function.elixir
+T 64 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 70 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 71 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 72 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 73 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L         raise ArgumentError, msg
+T 8 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 14 source.elixir
+T 27 source.elixir entity.name.type.class.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp validate_required_one_sortable_column(%{col: columns} = params) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 44 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 45 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 46 source.elixir meta.function.private.elixir
+T 47 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 50 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 51 source.elixir meta.function.private.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 59 source.elixir meta.function.private.elixir
+T 60 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 61 source.elixir meta.function.private.elixir
+T 62 source.elixir meta.function.private.elixir keyword.operator.assignment.elixir
+T 69 source.elixir meta.function.private.elixir
+T 70 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 71 source.elixir meta.function.private.elixir
+T 73 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     if sortable_columns(columns) == [] do
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 7 source.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.section.function.elixir
+T 33 source.elixir
+T 35 source.elixir keyword.operator.comparison.elixir
+T 36 source.elixir
+T 37 source.elixir punctuation.section.array.elixir
+T 38 source.elixir punctuation.section.array.elixir
+T 39 source.elixir
+T 41 source.elixir keyword.control.elixir
+L       raise ArgumentError, "must have at least one column with :sortable parameter"
+T 6 source.elixir
+T 11 source.elixir keyword.control.elixir
+T 12 source.elixir
+T 25 source.elixir entity.name.type.class.elixir
+T 26 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 82 source.elixir string.quoted.double.elixir
+T 83 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L     else
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+L       params
+T 12 source.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp apply_update(socket, assigns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 19 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 20 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 26 source.elixir meta.function.private.elixir
+T 27 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 35 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 37 source.elixir meta.function.private.elixir
+T 39 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     assigns = normalize_table_params(assigns)
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 36 source.elixir entity.name.function.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir punctuation.section.function.elixir
+L 
+L     %{
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+L       table_params: table_params,
+T 6 source.elixir
+T 18 source.elixir constant.other.keywords.elixir
+T 19 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+L       page: page,
+T 6 source.elixir
+T 10 source.elixir constant.other.keywords.elixir
+T 11 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+L       row_fetcher: row_fetcher
+T 6 source.elixir
+T 17 source.elixir constant.other.keywords.elixir
+T 18 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 30 source.elixir
+L     } = assigns
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 6 source.elixir
+T 7 source.elixir keyword.operator.assignment.elixir
+T 15 source.elixir
+L 
+L     {rows, total, socket} = fetch_rows(row_fetcher, table_params, page.node, socket)
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.scope.elixir
+T 26 source.elixir
+T 27 source.elixir keyword.operator.assignment.elixir
+T 28 source.elixir
+T 38 source.elixir entity.name.function.elixir
+T 39 source.elixir punctuation.section.function.elixir
+T 50 source.elixir
+T 51 source.elixir punctuation.separator.object.elixir
+T 64 source.elixir
+T 65 source.elixir punctuation.separator.object.elixir
+T 70 source.elixir
+T 71 source.elixir punctuation.separator.method.elixir
+T 75 source.elixir
+T 76 source.elixir punctuation.separator.object.elixir
+T 83 source.elixir
+T 84 source.elixir punctuation.section.function.elixir
+L     assigns = Map.merge(assigns, %{rows: rows, total: total})
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 17 source.elixir entity.name.type.class.elixir
+T 18 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.scope.elixir
+T 39 source.elixir constant.other.keywords.elixir
+T 40 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 45 source.elixir
+T 46 source.elixir punctuation.separator.object.elixir
+T 47 source.elixir
+T 52 source.elixir constant.other.keywords.elixir
+T 53 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 59 source.elixir
+T 60 source.elixir punctuation.section.scope.elixir
+T 61 source.elixir punctuation.section.function.elixir
+L     {:ok, assign(socket, assigns)}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 6 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 8 source.elixir constant.other.symbol.elixir
+T 9 source.elixir punctuation.separator.object.elixir
+T 10 source.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+T 34 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp fetch_rows(row_fetcher, table_params, page_node, socket)
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 17 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 18 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir
+T 30 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 43 source.elixir meta.function.private.elixir
+T 44 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 54 source.elixir meta.function.private.elixir
+T 55 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 62 source.elixir meta.function.private.elixir
+T 63 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+L        when is_function(row_fetcher, 2) do
+T 7 source.elixir meta.function.private.elixir
+T 11 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 12 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 35 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 37 source.elixir meta.function.private.elixir
+T 38 source.elixir meta.function.private.elixir constant.numeric.integer.elixir
+T 39 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 40 source.elixir meta.function.private.elixir
+T 42 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     {rows, total} = row_fetcher.(table_params, page_node)
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.section.scope.elixir
+T 18 source.elixir
+T 19 source.elixir keyword.operator.assignment.elixir
+T 20 source.elixir
+T 31 source.elixir entity.name.function.elixir
+T 32 source.elixir punctuation.separator.method.elixir
+T 33 source.elixir punctuation.section.function.elixir
+T 45 source.elixir
+T 46 source.elixir punctuation.separator.object.elixir
+T 56 source.elixir
+T 57 source.elixir punctuation.section.function.elixir
+L     {rows, total, socket}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp fetch_rows({row_fetcher, initial_state}, table_params, page_node, socket)
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 17 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 18 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 19 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 45 source.elixir meta.function.private.elixir
+T 46 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 47 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 60 source.elixir meta.function.private.elixir
+T 61 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 71 source.elixir meta.function.private.elixir
+T 72 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 79 source.elixir meta.function.private.elixir
+T 80 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+L        when is_function(row_fetcher, 3) do
+T 7 source.elixir meta.function.private.elixir
+T 11 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 12 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 35 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 37 source.elixir meta.function.private.elixir
+T 38 source.elixir meta.function.private.elixir constant.numeric.integer.elixir
+T 39 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 40 source.elixir meta.function.private.elixir
+T 42 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     state = Map.get(socket.assigns, :row_fetcher_state, initial_state)
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 15 source.elixir entity.name.type.class.elixir
+T 16 source.elixir punctuation.separator.method.elixir
+T 19 source.elixir entity.name.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.method.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 37 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 54 source.elixir constant.other.symbol.elixir
+T 55 source.elixir punctuation.separator.object.elixir
+T 69 source.elixir
+T 70 source.elixir punctuation.section.function.elixir
+L     {rows, total, state} = row_fetcher.(table_params, page_node, state)
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.section.scope.elixir
+T 25 source.elixir
+T 26 source.elixir keyword.operator.assignment.elixir
+T 27 source.elixir
+T 38 source.elixir entity.name.function.elixir
+T 39 source.elixir punctuation.separator.method.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.separator.object.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.separator.object.elixir
+T 70 source.elixir
+T 71 source.elixir punctuation.section.function.elixir
+L     {rows, total, assign(socket, :row_fetcher_state, state)}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 18 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.separator.object.elixir
+T 33 source.elixir
+T 34 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 51 source.elixir constant.other.symbol.elixir
+T 52 source.elixir punctuation.separator.object.elixir
+T 58 source.elixir
+T 59 source.elixir punctuation.section.function.elixir
+T 60 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp normalize_table_params(assigns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 29 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 30 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 37 source.elixir meta.function.private.elixir
+T 38 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 39 source.elixir meta.function.private.elixir
+T 41 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     %{col: columns, page: %{params: all_params}, default_sort_by: sort_by} = assigns
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 9 source.elixir constant.other.keywords.elixir
+T 10 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 18 source.elixir
+T 19 source.elixir punctuation.separator.object.elixir
+T 20 source.elixir
+T 24 source.elixir constant.other.keywords.elixir
+T 25 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.scope.elixir
+T 34 source.elixir constant.other.keywords.elixir
+T 35 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 46 source.elixir
+T 47 source.elixir punctuation.section.scope.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 49 source.elixir
+T 64 source.elixir constant.other.keywords.elixir
+T 65 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 73 source.elixir
+T 74 source.elixir punctuation.section.scope.elixir
+T 75 source.elixir
+T 76 source.elixir keyword.operator.assignment.elixir
+T 84 source.elixir
+L     sortable_columns = sortable_columns(columns)
+T 21 source.elixir
+T 22 source.elixir keyword.operator.assignment.elixir
+T 23 source.elixir
+T 39 source.elixir entity.name.function.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.function.elixir
+L 
+L     sort_by =
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+L       all_params
+T 16 source.elixir
+L       |> get_in_or_first("sort_by", sort_by, sortable_columns)
+T 6 source.elixir
+T 8 source.elixir keyword.operator.other.elixir
+T 9 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 33 source.elixir string.quoted.double.elixir
+T 34 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 43 source.elixir
+T 44 source.elixir punctuation.separator.object.elixir
+T 61 source.elixir
+T 62 source.elixir punctuation.section.function.elixir
+L       |> String.to_atom()
+T 6 source.elixir
+T 8 source.elixir keyword.operator.sigils_1.elixir
+T 9 source.elixir
+T 15 source.elixir entity.name.type.class.elixir
+T 16 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+L 
+L     sort_dir =
+T 13 source.elixir
+T 14 source.elixir keyword.operator.assignment.elixir
+L       all_params
+T 16 source.elixir
+L       |> get_in_or_first("sort_dir", sortable_dirs(columns, sort_by))
+T 6 source.elixir
+T 8 source.elixir keyword.operator.other.elixir
+T 9 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 34 source.elixir string.quoted.double.elixir
+T 35 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 36 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 50 source.elixir entity.name.function.elixir
+T 51 source.elixir punctuation.section.function.elixir
+T 58 source.elixir
+T 59 source.elixir punctuation.separator.object.elixir
+T 67 source.elixir
+T 68 source.elixir punctuation.section.function.elixir
+T 69 source.elixir punctuation.section.function.elixir
+L       |> String.to_atom()
+T 6 source.elixir
+T 8 source.elixir keyword.operator.sigils_1.elixir
+T 9 source.elixir
+T 15 source.elixir entity.name.type.class.elixir
+T 16 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+L 
+L     limit =
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+L       if assigns.limit do
+T 6 source.elixir
+T 8 source.elixir keyword.control.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir
+T 25 source.elixir keyword.control.elixir
+L         all_params
+T 18 source.elixir
+L         |> get_in_or_first("limit", Enum.map(assigns.limit, &to_string/1))
+T 8 source.elixir
+T 10 source.elixir keyword.operator.other.elixir
+T 11 source.elixir
+T 26 source.elixir entity.name.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 28 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 33 source.elixir string.quoted.double.elixir
+T 34 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 40 source.elixir entity.name.type.class.elixir
+T 41 source.elixir punctuation.separator.method.elixir
+T 44 source.elixir entity.name.function.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.separator.method.elixir
+T 58 source.elixir
+T 59 source.elixir punctuation.separator.object.elixir
+T 60 source.elixir
+T 61 source.elixir variable.other.anonymous.elixir
+T 70 source.elixir
+T 71 source.elixir keyword.operator.arithmetic.elixir
+T 72 source.elixir constant.numeric.integer.elixir
+T 73 source.elixir punctuation.section.function.elixir
+T 74 source.elixir punctuation.section.function.elixir
+L         |> String.to_integer()
+T 8 source.elixir
+T 10 source.elixir keyword.operator.sigils_1.elixir
+T 11 source.elixir
+T 17 source.elixir entity.name.type.class.elixir
+T 18 source.elixir punctuation.separator.method.elixir
+T 28 source.elixir entity.name.function.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 30 source.elixir punctuation.section.function.elixir
+L       end
+T 6 source.elixir
+T 9 source.elixir keyword.control.elixir
+L 
+L     search = all_params["search"]
+T 11 source.elixir
+T 12 source.elixir keyword.operator.assignment.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.section.array.elixir
+T 25 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 31 source.elixir string.quoted.double.elixir
+T 32 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 33 source.elixir punctuation.section.array.elixir
+L     search = if search == "", do: nil, else: search
+T 11 source.elixir
+T 12 source.elixir keyword.operator.assignment.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.control.elixir
+T 23 source.elixir
+T 25 source.elixir keyword.operator.comparison.elixir
+T 26 source.elixir
+T 27 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 28 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+T 30 source.elixir
+T 32 source.elixir constant.other.keywords.elixir
+T 33 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir
+T 37 source.elixir constant.language.elixir
+T 38 source.elixir punctuation.separator.object.elixir
+T 39 source.elixir
+T 43 source.elixir constant.other.keywords.elixir
+T 44 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 51 source.elixir
+L 
+L     table_params = %{sort_by: sort_by, sort_dir: sort_dir, limit: limit, search: search}
+T 17 source.elixir
+T 18 source.elixir keyword.operator.assignment.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.scope.elixir
+T 28 source.elixir constant.other.keywords.elixir
+T 29 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.separator.object.elixir
+T 39 source.elixir
+T 47 source.elixir constant.other.keywords.elixir
+T 48 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 57 source.elixir
+T 58 source.elixir punctuation.separator.object.elixir
+T 59 source.elixir
+T 64 source.elixir constant.other.keywords.elixir
+T 65 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 71 source.elixir
+T 72 source.elixir punctuation.separator.object.elixir
+T 73 source.elixir
+T 79 source.elixir constant.other.keywords.elixir
+T 80 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 87 source.elixir
+T 88 source.elixir punctuation.section.scope.elixir
+L 
+L     assigns
+T 11 source.elixir
+L     |> Map.put(:table_params, table_params)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 28 source.elixir constant.other.symbol.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+T 42 source.elixir
+T 43 source.elixir punctuation.section.function.elixir
+L     |> Map.delete(:col)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 22 source.elixir constant.other.symbol.elixir
+T 23 source.elixir punctuation.section.function.elixir
+L     |> Map.put(:columns, columns)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 23 source.elixir constant.other.symbol.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp sortable_columns(columns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 31 source.elixir meta.function.private.elixir
+T 32 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 33 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     for column <- columns, column[:sortable], do: to_string(column.field)
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+T 15 source.elixir
+T 17 source.elixir keyword.operator.sigils_3.elixir
+T 25 source.elixir
+T 26 source.elixir punctuation.separator.object.elixir
+T 33 source.elixir
+T 34 source.elixir punctuation.section.array.elixir
+T 35 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 43 source.elixir constant.other.symbol.elixir
+T 44 source.elixir punctuation.section.array.elixir
+T 45 source.elixir punctuation.separator.object.elixir
+T 46 source.elixir
+T 48 source.elixir constant.other.keywords.elixir
+T 49 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 50 source.elixir
+T 59 source.elixir entity.name.function.elixir
+T 60 source.elixir punctuation.section.function.elixir
+T 66 source.elixir
+T 67 source.elixir punctuation.separator.method.elixir
+T 72 source.elixir
+T 73 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp sortable_dirs(columns, field) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 20 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 21 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 28 source.elixir meta.function.private.elixir
+T 29 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 35 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 37 source.elixir meta.function.private.elixir
+T 39 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     case Enum.find(columns, &(&1.field == field)) do
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+T 9 source.elixir
+T 13 source.elixir entity.name.type.class.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 29 source.elixir variable.other.anonymous.elixir
+T 30 source.elixir punctuation.section.function.elixir
+T 31 source.elixir variable.other.anonymous.elixir punctuation.definition.variable.elixir
+T 32 source.elixir variable.other.anonymous.elixir
+T 33 source.elixir punctuation.separator.method.elixir
+T 39 source.elixir
+T 41 source.elixir keyword.operator.comparison.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.function.elixir
+T 49 source.elixir punctuation.section.function.elixir
+T 50 source.elixir
+T 52 source.elixir keyword.control.elixir
+L       %{sortable: :desc} -> ~w(desc asc)
+T 7 source.elixir
+T 8 source.elixir punctuation.section.scope.elixir
+T 16 source.elixir constant.other.keywords.elixir
+T 17 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 18 source.elixir
+T 19 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 23 source.elixir constant.other.symbol.elixir
+T 24 source.elixir punctuation.section.scope.elixir
+T 25 source.elixir
+T 27 source.elixir keyword.operator.other.elixir
+T 28 source.elixir
+T 31 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 39 source.elixir string.quoted.other.sigil.elixir
+T 40 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+L       %{sortable: :asc} -> ~w(asc desc)
+T 7 source.elixir
+T 8 source.elixir punctuation.section.scope.elixir
+T 16 source.elixir constant.other.keywords.elixir
+T 17 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 18 source.elixir
+T 19 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 22 source.elixir constant.other.symbol.elixir
+T 23 source.elixir punctuation.section.scope.elixir
+T 24 source.elixir
+T 26 source.elixir keyword.operator.other.elixir
+T 27 source.elixir
+T 30 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 38 source.elixir string.quoted.other.sigil.elixir
+T 39 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp get_in_or_first(params, key, default \\ nil, valid) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 22 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 23 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir
+T 30 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 43 source.elixir meta.function.private.elixir
+T 44 source.elixir meta.function.private.elixir
+T 46 source.elixir meta.function.private.elixir keyword.operator.other.elixir
+T 47 source.elixir meta.function.private.elixir
+T 50 source.elixir meta.function.private.elixir constant.language.elixir
+T 51 source.elixir meta.function.private.elixir
+T 57 source.elixir meta.function.private.elixir
+T 58 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 59 source.elixir meta.function.private.elixir
+T 61 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     value = params[key]
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 18 source.elixir
+T 19 source.elixir punctuation.section.array.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.section.array.elixir
+L     if value in valid, do: value, else: default || hd(valid)
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.operator.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 25 source.elixir constant.other.keywords.elixir
+T 26 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 38 source.elixir constant.other.keywords.elixir
+T 39 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 48 source.elixir
+T 50 source.elixir keyword.operator.logical.elixir
+T 51 source.elixir
+T 53 source.elixir entity.name.function.elixir
+T 54 source.elixir punctuation.section.function.elixir
+T 59 source.elixir
+T 60 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @impl true
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 12 source.elixir constant.language.elixir
+L   def render(assigns) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     ~H"""
+T 9 source.elixir sigil.heex
+L     <div id={@dom_id} class="tabular">
+T 4 source.elixir sigil.heex
+T 5 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 8 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 9 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 11 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 12 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 21 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.id.html string.unquoted.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 27 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 28 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 29 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 37 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L       <Phoenix.LiveDashboard.PageBuilder.card_title title={@title} hint={@hint} />
+T 6 source.elixir sigil.heex
+T 7 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html punctuation.definition.tag.begin.html
+T 51 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 52 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html
+T 57 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html meta.attribute.unrecognized.title.html entity.other.attribute-name.html
+T 58 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html meta.attribute.unrecognized.title.html punctuation.separator.key-value.html
+T 66 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html meta.attribute.unrecognized.title.html string.unquoted.html
+T 67 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html
+T 71 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html meta.attribute.unrecognized.hint.html entity.other.attribute-name.html
+T 72 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html meta.attribute.unrecognized.hint.html punctuation.separator.key-value.html
+T 79 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html meta.attribute.unrecognized.hint.html string.unquoted.html
+T 82 source.elixir sigil.heex meta.tag.other.Phoenix.LiveDashboard.PageBuilder.card_title.html punctuation.definition.tag.end.html
+L       <div :if={@search} class="tabular-search">
+T 6 source.elixir sigil.heex
+T 7 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 10 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 11 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 14 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.unrecognized.:if.html entity.other.attribute-name.html
+T 15 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.unrecognized.:if.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.unrecognized.:if.html string.unquoted.html
+T 25 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 30 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 31 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 46 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 47 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 48 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L         <form phx-change="search" phx-submit="search" phx-target={@myself} class="form-inline">
+T 8 source.elixir sigil.heex
+T 9 source.elixir sigil.heex meta.tag.structure.form.start.html punctuation.definition.tag.begin.html
+T 13 source.elixir sigil.heex meta.tag.structure.form.start.html entity.name.tag.html
+T 14 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 24 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html entity.other.attribute-name.html
+T 25 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html punctuation.separator.key-value.html
+T 26 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html string.quoted.double.html
+T 33 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 44 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-submit.html entity.other.attribute-name.html
+T 45 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-submit.html punctuation.separator.key-value.html
+T 46 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-submit.html string.quoted.double.html punctuation.definition.string.begin.html
+T 52 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-submit.html string.quoted.double.html
+T 53 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-submit.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 64 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-target.html entity.other.attribute-name.html
+T 65 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-target.html punctuation.separator.key-value.html
+T 74 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-target.html string.unquoted.html
+T 75 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 80 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 81 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 82 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 93 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html string.quoted.double.html
+T 94 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 95 source.elixir sigil.heex meta.tag.structure.form.start.html punctuation.definition.tag.end.html
+L           <div class="form-row align-items-center">
+T 10 source.elixir sigil.heex
+T 11 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 14 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 15 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 20 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 21 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 49 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 50 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 51 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L             <div class="col-auto">
+T 12 source.elixir sigil.heex
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L               <input
+T 14 source.elixir sigil.heex
+T 15 source.elixir sigil.heex meta.tag.structure.input.void.html punctuation.definition.tag.begin.html
+T 20 source.elixir sigil.heex meta.tag.structure.input.void.html entity.name.tag.html
+L                 type="search"
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 20 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.type.html entity.other.attribute-name.html
+T 21 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.type.html punctuation.separator.key-value.html
+T 22 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html
+T 29 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.type.html string.quoted.double.html punctuation.definition.string.end.html
+L                 name="search"
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 20 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.name.html entity.other.attribute-name.html
+T 21 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.name.html punctuation.separator.key-value.html
+T 22 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.name.html string.quoted.double.html
+T 29 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+L                 class="form-control form-control-sm"
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 21 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.class.html entity.other.attribute-name.html
+T 22 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.class.html punctuation.separator.key-value.html
+T 23 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 51 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html
+T 52 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+L                 value={@table_params.search}
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 21 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.value.html entity.other.attribute-name.html
+T 22 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.value.html punctuation.separator.key-value.html
+T 44 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.value.html string.unquoted.html
+L                 placeholder="Search"
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 27 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.placeholder.html entity.other.attribute-name.html
+T 28 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.placeholder.html punctuation.separator.key-value.html
+T 29 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.placeholder.html string.quoted.double.html punctuation.definition.string.begin.html
+T 35 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.placeholder.html string.quoted.double.html
+T 36 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.placeholder.html string.quoted.double.html punctuation.definition.string.end.html
+L                 phx-debounce="300"
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 28 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.unrecognized.phx-debounce.html entity.other.attribute-name.html
+T 29 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.unrecognized.phx-debounce.html punctuation.separator.key-value.html
+T 30 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.unrecognized.phx-debounce.html string.quoted.double.html punctuation.definition.string.begin.html
+T 33 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.unrecognized.phx-debounce.html string.quoted.double.html
+T 34 source.elixir sigil.heex meta.tag.structure.input.void.html meta.attribute.unrecognized.phx-debounce.html string.quoted.double.html punctuation.definition.string.end.html
+L               />
+T 14 source.elixir sigil.heex meta.tag.structure.input.void.html
+T 16 source.elixir sigil.heex meta.tag.structure.input.void.html punctuation.definition.tag.end.html
+L             </div>
+T 12 source.elixir sigil.heex
+T 14 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L           </div>
+T 10 source.elixir sigil.heex
+T 12 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 15 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L         </form>
+T 8 source.elixir sigil.heex
+T 10 source.elixir sigil.heex meta.tag.structure.form.end.html punctuation.definition.tag.begin.html
+T 14 source.elixir sigil.heex meta.tag.structure.form.end.html entity.name.tag.html
+T 15 source.elixir sigil.heex meta.tag.structure.form.end.html punctuation.definition.tag.end.html
+L       </div>
+T 6 source.elixir sigil.heex
+T 8 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 11 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 12 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L       <form phx-change="select_limit" phx-target={@myself} class="form-inline">
+T 6 source.elixir sigil.heex
+T 7 source.elixir sigil.heex meta.tag.structure.form.start.html punctuation.definition.tag.begin.html
+T 11 source.elixir sigil.heex meta.tag.structure.form.start.html entity.name.tag.html
+T 12 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 22 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html entity.other.attribute-name.html
+T 23 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html string.quoted.double.html
+T 37 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-change.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 48 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-target.html entity.other.attribute-name.html
+T 49 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-target.html punctuation.separator.key-value.html
+T 58 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.unrecognized.phx-target.html string.unquoted.html
+T 59 source.elixir sigil.heex meta.tag.structure.form.start.html
+T 64 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 65 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 66 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 77 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html string.quoted.double.html
+T 78 source.elixir sigil.heex meta.tag.structure.form.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 79 source.elixir sigil.heex meta.tag.structure.form.start.html punctuation.definition.tag.end.html
+L         <div class="form-row align-items-center">
+T 8 source.elixir sigil.heex
+T 9 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 12 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 19 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 20 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 47 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 48 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 49 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L           <%= if @limit do %>
+T 29 source.elixir sigil.heex
+L             <div class="col-auto">Showing at most</div>
+T 12 source.elixir sigil.heex
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 49 source.elixir sigil.heex
+T 51 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 54 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 55 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L             <div class="col-auto">
+T 12 source.elixir sigil.heex
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L               <div class="input-group input-group-sm">
+T 14 source.elixir sigil.heex
+T 15 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 19 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 25 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 26 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 52 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 53 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 54 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L                 <select name="limit" class="custom-select" id="limit-select">
+T 16 source.elixir sigil.heex
+T 17 source.elixir sigil.heex meta.tag.structure.select.start.html punctuation.definition.tag.begin.html
+T 23 source.elixir sigil.heex meta.tag.structure.select.start.html entity.name.tag.html
+T 24 source.elixir sigil.heex meta.tag.structure.select.start.html
+T 28 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.name.html entity.other.attribute-name.html
+T 29 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.name.html punctuation.separator.key-value.html
+T 30 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.begin.html
+T 35 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.name.html string.quoted.double.html
+T 36 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.name.html string.quoted.double.html punctuation.definition.string.end.html
+T 37 source.elixir sigil.heex meta.tag.structure.select.start.html
+T 42 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 43 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 44 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.class.html string.quoted.double.html
+T 58 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 59 source.elixir sigil.heex meta.tag.structure.select.start.html
+T 61 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 62 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 63 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 75 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.id.html string.quoted.double.html
+T 76 source.elixir sigil.heex meta.tag.structure.select.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 77 source.elixir sigil.heex meta.tag.structure.select.start.html punctuation.definition.tag.end.html
+L                   <%= options_for_select(@limit, @table_params.limit) %>
+T 72 source.elixir sigil.heex
+L                 </select>
+T 16 source.elixir sigil.heex
+T 18 source.elixir sigil.heex meta.tag.structure.select.end.html punctuation.definition.tag.begin.html
+T 24 source.elixir sigil.heex meta.tag.structure.select.end.html entity.name.tag.html
+T 25 source.elixir sigil.heex meta.tag.structure.select.end.html punctuation.definition.tag.end.html
+L               </div>
+T 14 source.elixir sigil.heex
+T 16 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 19 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 20 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L             </div>
+T 12 source.elixir sigil.heex
+T 14 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L             <div class="col-auto">
+T 12 source.elixir sigil.heex
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L               <%= @rows_name %> out of <%= @total %>
+T 52 source.elixir sigil.heex
+L             </div>
+T 12 source.elixir sigil.heex
+T 14 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L           <% else %>
+T 20 source.elixir sigil.heex
+L             <div class="col-auto">
+T 12 source.elixir sigil.heex
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 23 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 24 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 34 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L               Showing <%= @total %> <%= @rows_name %>
+T 53 source.elixir sigil.heex
+L             </div>
+T 12 source.elixir sigil.heex
+T 14 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L           <% end %>
+T 19 source.elixir sigil.heex
+L         </div>
+T 8 source.elixir sigil.heex
+T 10 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 13 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 14 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L       </form>
+T 6 source.elixir sigil.heex
+T 8 source.elixir sigil.heex meta.tag.structure.form.end.html punctuation.definition.tag.begin.html
+T 12 source.elixir sigil.heex meta.tag.structure.form.end.html entity.name.tag.html
+T 13 source.elixir sigil.heex meta.tag.structure.form.end.html punctuation.definition.tag.end.html
+L 
+L       <div class="card tabular-card mb-4 mt-4">
+T 6 source.elixir sigil.heex
+T 7 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 10 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 11 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 17 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 45 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 46 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 47 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L         <div class="card-body p-0">
+T 8 source.elixir sigil.heex
+T 9 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 12 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 13 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 18 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 19 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 20 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 34 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 35 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L           <div class="dash-table-wrapper">
+T 10 source.elixir sigil.heex
+T 11 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 14 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 15 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 20 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 21 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 22 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 40 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 41 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 42 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L             <table class="table table-hover mt-0 dash-table">
+T 12 source.elixir sigil.heex
+T 13 source.elixir sigil.heex meta.tag.structure.table.start.html punctuation.definition.tag.begin.html
+T 18 source.elixir sigil.heex meta.tag.structure.table.start.html entity.name.tag.html
+T 19 source.elixir sigil.heex meta.tag.structure.table.start.html
+T 24 source.elixir sigil.heex meta.tag.structure.table.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 25 source.elixir sigil.heex meta.tag.structure.table.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 26 source.elixir sigil.heex meta.tag.structure.table.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 59 source.elixir sigil.heex meta.tag.structure.table.start.html meta.attribute.class.html string.quoted.double.html
+T 60 source.elixir sigil.heex meta.tag.structure.table.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 61 source.elixir sigil.heex meta.tag.structure.table.start.html punctuation.definition.tag.end.html
+L               <thead>
+T 14 source.elixir sigil.heex
+T 15 source.elixir sigil.heex meta.tag.structure.thead.start.html punctuation.definition.tag.begin.html
+T 20 source.elixir sigil.heex meta.tag.structure.thead.start.html entity.name.tag.html
+T 21 source.elixir sigil.heex meta.tag.structure.thead.start.html punctuation.definition.tag.end.html
+L                 <tr>
+T 16 source.elixir sigil.heex
+T 17 source.elixir sigil.heex meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 19 source.elixir sigil.heex meta.tag.structure.tr.start.html entity.name.tag.html
+T 20 source.elixir sigil.heex meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
+L                   <th :for={column <- @columns} class={col_class(@dom_id, column)}>
+T 18 source.elixir sigil.heex
+T 19 source.elixir sigil.heex meta.tag.structure.th.start.html punctuation.definition.tag.begin.html
+T 21 source.elixir sigil.heex meta.tag.structure.th.start.html entity.name.tag.html
+T 22 source.elixir sigil.heex meta.tag.structure.th.start.html
+T 26 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.unrecognized.:for.html entity.other.attribute-name.html
+T 27 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.unrecognized.:for.html punctuation.separator.key-value.html
+T 34 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.unrecognized.:for.html string.unquoted.html
+T 35 source.elixir sigil.heex meta.tag.structure.th.start.html
+T 37 source.elixir sigil.heex meta.tag.structure.th.start.html invalid.illegal.character-not-allowed-here.html
+T 38 source.elixir sigil.heex meta.tag.structure.th.start.html
+T 47 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.unrecognized.@columns}.html entity.other.attribute-name.html
+T 48 source.elixir sigil.heex meta.tag.structure.th.start.html
+T 53 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 54 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 73 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.class.html string.unquoted.html
+T 74 source.elixir sigil.heex meta.tag.structure.th.start.html
+T 82 source.elixir sigil.heex meta.tag.structure.th.start.html meta.attribute.unrecognized.column)}.html entity.other.attribute-name.html
+T 83 source.elixir sigil.heex meta.tag.structure.th.start.html punctuation.definition.tag.end.html
+L                     <%= if column[:sortable] do %>
+T 50 source.elixir sigil.heex
+L                       <.sort_link
+T 33 source.elixir sigil.heex
+L                         socket={@socket}
+T 40 source.elixir sigil.heex
+L                         page={@page}
+T 36 source.elixir sigil.heex
+L                         table_params={@table_params}
+T 52 source.elixir sigil.heex
+L                         column={column}
+T 39 source.elixir sigil.heex
+L                       />
+T 24 source.elixir sigil.heex
+L                     <% else %>
+T 30 source.elixir sigil.heex
+L                       <%= column[:header] || column[:field] %>
+T 62 source.elixir sigil.heex
+L                     <% end %>
+T 29 source.elixir sigil.heex
+L                   </th>
+T 18 source.elixir sigil.heex
+T 20 source.elixir sigil.heex meta.tag.structure.th.end.html punctuation.definition.tag.begin.html
+T 22 source.elixir sigil.heex meta.tag.structure.th.end.html entity.name.tag.html
+T 23 source.elixir sigil.heex meta.tag.structure.th.end.html punctuation.definition.tag.end.html
+L                 </tr>
+T 16 source.elixir sigil.heex
+T 18 source.elixir sigil.heex meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 20 source.elixir sigil.heex meta.tag.structure.tr.end.html entity.name.tag.html
+T 21 source.elixir sigil.heex meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
+L               </thead>
+T 14 source.elixir sigil.heex
+T 16 source.elixir sigil.heex meta.tag.structure.thead.end.html punctuation.definition.tag.begin.html
+T 21 source.elixir sigil.heex meta.tag.structure.thead.end.html entity.name.tag.html
+T 22 source.elixir sigil.heex meta.tag.structure.thead.end.html punctuation.definition.tag.end.html
+L               <tbody>
+T 14 source.elixir sigil.heex
+T 15 source.elixir sigil.heex meta.tag.structure.tbody.start.html punctuation.definition.tag.begin.html
+T 20 source.elixir sigil.heex meta.tag.structure.tbody.start.html entity.name.tag.html
+T 21 source.elixir sigil.heex meta.tag.structure.tbody.start.html punctuation.definition.tag.end.html
+L                 <tr :for={row <- @rows} {calc_attrs(@row_attrs, [row])}>
+T 16 source.elixir sigil.heex
+T 17 source.elixir sigil.heex meta.tag.structure.tr.start.html punctuation.definition.tag.begin.html
+T 19 source.elixir sigil.heex meta.tag.structure.tr.start.html entity.name.tag.html
+T 20 source.elixir sigil.heex meta.tag.structure.tr.start.html
+T 24 source.elixir sigil.heex meta.tag.structure.tr.start.html meta.attribute.unrecognized.:for.html entity.other.attribute-name.html
+T 25 source.elixir sigil.heex meta.tag.structure.tr.start.html meta.attribute.unrecognized.:for.html punctuation.separator.key-value.html
+T 29 source.elixir sigil.heex meta.tag.structure.tr.start.html meta.attribute.unrecognized.:for.html string.unquoted.html
+T 30 source.elixir sigil.heex meta.tag.structure.tr.start.html
+T 32 source.elixir sigil.heex meta.tag.structure.tr.start.html invalid.illegal.character-not-allowed-here.html
+T 33 source.elixir sigil.heex meta.tag.structure.tr.start.html
+T 39 source.elixir sigil.heex meta.tag.structure.tr.start.html meta.attribute.unrecognized.@rows}.html entity.other.attribute-name.html
+T 40 source.elixir sigil.heex meta.tag.structure.tr.start.html
+T 63 source.elixir sigil.heex meta.tag.structure.tr.start.html meta.attribute.unrecognized.{calc_attrs(@row_attrs,.html entity.other.attribute-name.html
+T 64 source.elixir sigil.heex meta.tag.structure.tr.start.html
+T 71 source.elixir sigil.heex meta.tag.structure.tr.start.html meta.attribute.unrecognized.[row])}.html entity.other.attribute-name.html
+T 72 source.elixir sigil.heex meta.tag.structure.tr.start.html punctuation.definition.tag.end.html
+L                   <td :for={column <- @columns} class={col_class(@dom_id, column)}>
+T 18 source.elixir sigil.heex
+T 19 source.elixir sigil.heex meta.tag.structure.td.start.html punctuation.definition.tag.begin.html
+T 21 source.elixir sigil.heex meta.tag.structure.td.start.html entity.name.tag.html
+T 22 source.elixir sigil.heex meta.tag.structure.td.start.html
+T 26 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.unrecognized.:for.html entity.other.attribute-name.html
+T 27 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.unrecognized.:for.html punctuation.separator.key-value.html
+T 34 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.unrecognized.:for.html string.unquoted.html
+T 35 source.elixir sigil.heex meta.tag.structure.td.start.html
+T 37 source.elixir sigil.heex meta.tag.structure.td.start.html invalid.illegal.character-not-allowed-here.html
+T 38 source.elixir sigil.heex meta.tag.structure.td.start.html
+T 47 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.unrecognized.@columns}.html entity.other.attribute-name.html
+T 48 source.elixir sigil.heex meta.tag.structure.td.start.html
+T 53 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 54 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 73 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.class.html string.unquoted.html
+T 74 source.elixir sigil.heex meta.tag.structure.td.start.html
+T 82 source.elixir sigil.heex meta.tag.structure.td.start.html meta.attribute.unrecognized.column)}.html entity.other.attribute-name.html
+T 83 source.elixir sigil.heex meta.tag.structure.td.start.html punctuation.definition.tag.end.html
+L                     <%= if column[:inner_block] do %>
+T 53 source.elixir sigil.heex
+L                       <%= render_slot(column, row) %>
+T 53 source.elixir sigil.heex
+L                     <% else %>
+T 30 source.elixir sigil.heex
+L                       <%= row[column.field] |> to_string() %>
+T 61 source.elixir sigil.heex
+L                     <% end %>
+T 29 source.elixir sigil.heex
+L                   </td>
+T 18 source.elixir sigil.heex
+T 20 source.elixir sigil.heex meta.tag.structure.td.end.html punctuation.definition.tag.begin.html
+T 22 source.elixir sigil.heex meta.tag.structure.td.end.html entity.name.tag.html
+T 23 source.elixir sigil.heex meta.tag.structure.td.end.html punctuation.definition.tag.end.html
+L                 </tr>
+T 16 source.elixir sigil.heex
+T 18 source.elixir sigil.heex meta.tag.structure.tr.end.html punctuation.definition.tag.begin.html
+T 20 source.elixir sigil.heex meta.tag.structure.tr.end.html entity.name.tag.html
+T 21 source.elixir sigil.heex meta.tag.structure.tr.end.html punctuation.definition.tag.end.html
+L               </tbody>
+T 14 source.elixir sigil.heex
+T 16 source.elixir sigil.heex meta.tag.structure.tbody.end.html punctuation.definition.tag.begin.html
+T 21 source.elixir sigil.heex meta.tag.structure.tbody.end.html entity.name.tag.html
+T 22 source.elixir sigil.heex meta.tag.structure.tbody.end.html punctuation.definition.tag.end.html
+L             </table>
+T 12 source.elixir sigil.heex
+T 14 source.elixir sigil.heex meta.tag.structure.table.end.html punctuation.definition.tag.begin.html
+T 19 source.elixir sigil.heex meta.tag.structure.table.end.html entity.name.tag.html
+T 20 source.elixir sigil.heex meta.tag.structure.table.end.html punctuation.definition.tag.end.html
+L           </div>
+T 10 source.elixir sigil.heex
+T 12 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 15 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L         </div>
+T 8 source.elixir sigil.heex
+T 10 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 13 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 14 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L       </div>
+T 6 source.elixir sigil.heex
+T 8 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 11 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 12 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L     </div>
+T 4 source.elixir sigil.heex
+T 6 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 9 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 10 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L     """
+T 7 source.elixir sigil.heex
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def col_class(dom_id, col) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     [col_custom_class(dom_id, col), class_text_align(col[:text_align])]
+T 4 source.elixir
+T 5 source.elixir punctuation.section.array.elixir
+T 21 source.elixir entity.name.function.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+T 33 source.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 52 source.elixir entity.name.function.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 56 source.elixir
+T 57 source.elixir punctuation.section.array.elixir
+T 58 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 68 source.elixir constant.other.symbol.elixir
+T 69 source.elixir punctuation.section.array.elixir
+T 70 source.elixir punctuation.section.function.elixir
+T 71 source.elixir punctuation.section.array.elixir
+L     |> Enum.reject(&is_nil/1)
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 11 source.elixir entity.name.type.class.elixir
+T 12 source.elixir punctuation.separator.method.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir variable.other.anonymous.elixir
+T 26 source.elixir
+T 27 source.elixir keyword.operator.arithmetic.elixir
+T 28 source.elixir constant.numeric.integer.elixir
+T 29 source.elixir punctuation.section.function.elixir
+L     |> Enum.join(" ")
+T 4 source.elixir
+T 6 source.elixir keyword.operator.sigils_1.elixir
+T 7 source.elixir
+T 11 source.elixir entity.name.type.class.elixir
+T 12 source.elixir punctuation.separator.method.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 18 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 19 source.elixir string.quoted.double.elixir
+T 20 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 21 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp col_custom_class(nil, _), do: nil
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 27 source.elixir meta.function.private.elixir constant.language.elixir
+T 28 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 29 source.elixir meta.function.private.elixir
+T 30 source.elixir meta.function.private.elixir comment.wildcard.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 32 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 33 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 37 source.elixir
+T 40 source.elixir constant.language.elixir
+L   defp col_custom_class(dom_id, col), do: "#{dom_id}-#{col[:field]}"
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 35 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 37 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 38 source.elixir meta.function.private.elixir
+T 41 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 42 source.elixir
+T 43 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 45 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 51 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 52 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 53 source.elixir string.quoted.double.elixir
+T 55 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 58 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 59 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.array.elixir
+T 60 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 65 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir constant.other.symbol.elixir
+T 66 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.array.elixir
+T 67 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 68 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L 
+L   defp class_text_align(nil), do: nil
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 27 source.elixir meta.function.private.elixir constant.language.elixir
+T 28 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 30 source.elixir meta.function.private.elixir
+T 33 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 34 source.elixir
+T 37 source.elixir constant.language.elixir
+L   defp class_text_align(align), do: "text-#{align}"
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir
+T 30 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 32 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 36 source.elixir
+T 37 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 42 source.elixir string.quoted.double.elixir
+T 44 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 49 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 50 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 51 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L 
+L   defp calc_attrs(falsy, _) when falsy in [nil, false], do: []
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 17 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 18 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 23 source.elixir meta.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 25 source.elixir meta.function.private.elixir
+T 26 source.elixir meta.function.private.elixir comment.wildcard.elixir
+T 27 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 28 source.elixir meta.function.private.elixir
+T 32 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 39 source.elixir meta.function.private.elixir
+T 41 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 42 source.elixir meta.function.private.elixir
+T 43 source.elixir meta.function.private.elixir punctuation.section.array.elixir
+T 46 source.elixir meta.function.private.elixir constant.language.elixir
+T 47 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 48 source.elixir meta.function.private.elixir
+T 53 source.elixir meta.function.private.elixir constant.language.elixir
+T 54 source.elixir meta.function.private.elixir punctuation.section.array.elixir
+T 55 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 56 source.elixir meta.function.private.elixir
+T 59 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 60 source.elixir
+T 61 source.elixir punctuation.section.array.elixir
+T 62 source.elixir punctuation.section.array.elixir
+L   defp calc_attrs(list, _) when is_list(list), do: list
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 17 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 18 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 24 source.elixir meta.function.private.elixir
+T 25 source.elixir meta.function.private.elixir comment.wildcard.elixir
+T 26 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 27 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 32 source.elixir meta.function.private.elixir
+T 39 source.elixir meta.function.private.elixir entity.name.function.elixir
+T 40 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 44 source.elixir meta.function.private.elixir
+T 45 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 46 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 47 source.elixir meta.function.private.elixir
+T 50 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 55 source.elixir
+L   defp calc_attrs(fun, args) when is_function(fun), do: apply(fun, args)
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 17 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 18 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 21 source.elixir meta.function.private.elixir
+T 22 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 27 source.elixir meta.function.private.elixir
+T 28 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir
+T 33 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 34 source.elixir meta.function.private.elixir
+T 45 source.elixir meta.function.private.elixir entity.name.function.elixir
+T 46 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 49 source.elixir meta.function.private.elixir
+T 50 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 51 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 52 source.elixir meta.function.private.elixir
+T 55 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 56 source.elixir
+T 61 source.elixir entity.name.function.elixir
+T 62 source.elixir punctuation.section.function.elixir
+T 65 source.elixir
+T 66 source.elixir punctuation.separator.object.elixir
+T 71 source.elixir
+T 72 source.elixir punctuation.section.function.elixir
+L 
+L   @impl true
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 12 source.elixir constant.language.elixir
+L   def handle_event("search", %{"search" => search}, socket) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 26 source.elixir meta.function.public.elixir string.quoted.double.elixir
+T 27 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 30 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 32 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 38 source.elixir meta.function.public.elixir string.quoted.double.elixir
+T 39 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 40 source.elixir meta.function.public.elixir
+T 42 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 49 source.elixir meta.function.public.elixir
+T 50 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 51 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 58 source.elixir meta.function.public.elixir
+T 59 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 60 source.elixir meta.function.public.elixir
+T 62 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     table_params = %{socket.assigns.table_params | search: search}
+T 17 source.elixir
+T 18 source.elixir keyword.operator.assignment.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.scope.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.separator.method.elixir
+T 49 source.elixir
+T 50 source.elixir keyword.operator.other.elixir
+T 51 source.elixir
+T 57 source.elixir constant.other.keywords.elixir
+T 58 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 65 source.elixir
+T 66 source.elixir punctuation.section.scope.elixir
+L     to = PageBuilder.live_dashboard_path(socket, socket.assigns.page, table_params)
+T 7 source.elixir
+T 8 source.elixir keyword.operator.assignment.elixir
+T 9 source.elixir
+T 20 source.elixir entity.name.type.class.elixir
+T 21 source.elixir punctuation.separator.method.elixir
+T 40 source.elixir entity.name.function.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 55 source.elixir
+T 56 source.elixir punctuation.separator.method.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.separator.method.elixir
+T 68 source.elixir
+T 69 source.elixir punctuation.separator.object.elixir
+T 82 source.elixir
+T 83 source.elixir punctuation.section.function.elixir
+L     {:noreply, push_patch(socket, to: to)}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 6 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 13 source.elixir constant.other.symbol.elixir
+T 14 source.elixir punctuation.separator.object.elixir
+T 15 source.elixir
+T 25 source.elixir entity.name.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 36 source.elixir constant.other.keywords.elixir
+T 37 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 40 source.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 42 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def handle_event("select_limit", %{"limit" => limit}, socket) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 32 source.elixir meta.function.public.elixir string.quoted.double.elixir
+T 33 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 34 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 36 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 38 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 43 source.elixir meta.function.public.elixir string.quoted.double.elixir
+T 44 source.elixir meta.function.public.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 45 source.elixir meta.function.public.elixir
+T 47 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 53 source.elixir meta.function.public.elixir
+T 54 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 55 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 62 source.elixir meta.function.public.elixir
+T 63 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 64 source.elixir meta.function.public.elixir
+T 66 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     table_params = %{socket.assigns.table_params | limit: limit}
+T 17 source.elixir
+T 18 source.elixir keyword.operator.assignment.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.scope.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.separator.method.elixir
+T 49 source.elixir
+T 50 source.elixir keyword.operator.other.elixir
+T 51 source.elixir
+T 56 source.elixir constant.other.keywords.elixir
+T 57 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.section.scope.elixir
+L     to = PageBuilder.live_dashboard_path(socket, socket.assigns.page, table_params)
+T 7 source.elixir
+T 8 source.elixir keyword.operator.assignment.elixir
+T 9 source.elixir
+T 20 source.elixir entity.name.type.class.elixir
+T 21 source.elixir punctuation.separator.method.elixir
+T 40 source.elixir entity.name.function.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 55 source.elixir
+T 56 source.elixir punctuation.separator.method.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.separator.method.elixir
+T 68 source.elixir
+T 69 source.elixir punctuation.separator.object.elixir
+T 82 source.elixir
+T 83 source.elixir punctuation.section.function.elixir
+L     {:noreply, push_patch(socket, to: to)}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 6 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 13 source.elixir constant.other.symbol.elixir
+T 14 source.elixir punctuation.separator.object.elixir
+T 15 source.elixir
+T 25 source.elixir entity.name.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 36 source.elixir constant.other.keywords.elixir
+T 37 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 40 source.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 42 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp sort_link(assigns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 16 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 17 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 24 source.elixir meta.function.private.elixir
+T 25 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 26 source.elixir meta.function.private.elixir
+T 28 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     if assigns.table_params.sort_by == assigns.column.field do
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 36 source.elixir
+T 38 source.elixir keyword.operator.comparison.elixir
+T 46 source.elixir
+T 47 source.elixir punctuation.separator.method.elixir
+T 53 source.elixir
+T 54 source.elixir punctuation.separator.method.elixir
+T 60 source.elixir
+T 62 source.elixir keyword.control.elixir
+L       ~H"""
+T 11 source.elixir sigil.heex
+L       <.link patch={PageBuilder.live_dashboard_path(@socket, @page, reverse_sort_dir(@table_params))}>
+T 102 source.elixir sigil.heex
+L         <%= column_header(@column) %>
+T 37 source.elixir sigil.heex
+L         <.sort_link_icon dir={@table_params.sort_dir} />
+T 56 source.elixir sigil.heex
+L       </.link>
+T 14 source.elixir sigil.heex
+L       """
+T 9 source.elixir sigil.heex
+L     else
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+L       ~H"""
+T 11 source.elixir sigil.heex
+L       <.link patch={
+T 20 source.elixir sigil.heex
+L         PageBuilder.live_dashboard_path(@socket, @page, replace_sort_dir(@table_params, @column))
+T 97 source.elixir sigil.heex
+L       }>
+T 8 source.elixir sigil.heex
+L         <%= column_header(@column) %>
+T 37 source.elixir sigil.heex
+L       </.link>
+T 14 source.elixir sigil.heex
+L       """
+T 9 source.elixir sigil.heex
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp column_header(column) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 20 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 21 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 27 source.elixir meta.function.private.elixir
+T 28 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     column[:header] || column.field |> to_string() |> :string.titlecase()
+T 10 source.elixir
+T 11 source.elixir punctuation.section.array.elixir
+T 12 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 18 source.elixir constant.other.symbol.elixir
+T 19 source.elixir punctuation.section.array.elixir
+T 20 source.elixir
+T 22 source.elixir keyword.operator.logical.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.separator.method.elixir
+T 36 source.elixir
+T 38 source.elixir keyword.operator.other.elixir
+T 39 source.elixir
+T 48 source.elixir entity.name.function.elixir
+T 49 source.elixir punctuation.section.function.elixir
+T 50 source.elixir punctuation.section.function.elixir
+T 51 source.elixir
+T 53 source.elixir keyword.operator.sigils_1.elixir
+T 54 source.elixir
+T 61 source.elixir constant.other.symbol.elixir
+T 62 source.elixir punctuation.separator.method.elixir
+T 71 source.elixir entity.name.function.elixir
+T 72 source.elixir punctuation.section.function.elixir
+T 73 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp sort_link_icon(assigns) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 21 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 22 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.private.elixir
+T 30 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 31 source.elixir meta.function.private.elixir
+T 33 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     ~H"""
+T 9 source.elixir sigil.heex
+L     <div class="dash-table-icon">
+T 4 source.elixir sigil.heex
+T 5 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 8 source.elixir sigil.heex meta.tag.structure.div.start.html entity.name.tag.html
+T 9 source.elixir sigil.heex meta.tag.structure.div.start.html
+T 14 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 15 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 16 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 31 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 32 source.elixir sigil.heex meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 33 source.elixir sigil.heex meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L       <span class={"icon-sort icon-#{@dir}"}></span>
+T 6 source.elixir sigil.heex
+T 7 source.elixir sigil.heex meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 11 source.elixir sigil.heex meta.tag.inline.span.start.html entity.name.tag.html
+T 12 source.elixir sigil.heex meta.tag.inline.span.start.html
+T 17 source.elixir sigil.heex meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 18 source.elixir sigil.heex meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 19 source.elixir sigil.heex meta.tag.inline.span.start.html meta.attribute.class.html string.unquoted.html
+T 29 source.elixir sigil.heex meta.tag.inline.span.start.html invalid.illegal.character-not-allowed-here.html
+T 30 source.elixir sigil.heex meta.tag.inline.span.start.html
+T 42 source.elixir sigil.heex meta.tag.inline.span.start.html meta.attribute.unrecognized.icon-#{@dir}.html entity.other.attribute-name.html
+T 44 source.elixir sigil.heex meta.tag.inline.span.start.html invalid.illegal.character-not-allowed-here.html
+T 45 source.elixir sigil.heex meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 47 source.elixir sigil.heex meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 51 source.elixir sigil.heex meta.tag.inline.span.end.html entity.name.tag.html
+T 52 source.elixir sigil.heex meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L     </div>
+T 4 source.elixir sigil.heex
+T 6 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 9 source.elixir sigil.heex meta.tag.structure.div.end.html entity.name.tag.html
+T 10 source.elixir sigil.heex meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L     """
+T 7 source.elixir sigil.heex
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp opposite_sort_dir(:desc), do: :asc
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 24 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 25 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 26 source.elixir meta.function.private.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 30 source.elixir meta.function.private.elixir constant.other.symbol.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 32 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 33 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 37 source.elixir
+T 38 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 41 source.elixir constant.other.symbol.elixir
+L   defp opposite_sort_dir(:asc), do: :desc
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 24 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 25 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 26 source.elixir meta.function.private.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 29 source.elixir meta.function.private.elixir constant.other.symbol.elixir
+T 30 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 32 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 36 source.elixir
+T 37 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 41 source.elixir constant.other.symbol.elixir
+L   defp reverse_sort_dir(params), do: %{params | sort_dir: opposite_sort_dir(params.sort_dir)}
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 32 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 33 source.elixir meta.function.private.elixir
+T 36 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.section.scope.elixir
+T 46 source.elixir
+T 47 source.elixir keyword.operator.other.elixir
+T 48 source.elixir
+T 56 source.elixir constant.other.keywords.elixir
+T 57 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 58 source.elixir
+T 75 source.elixir entity.name.function.elixir
+T 76 source.elixir punctuation.section.function.elixir
+T 82 source.elixir
+T 83 source.elixir punctuation.separator.method.elixir
+T 91 source.elixir
+T 92 source.elixir punctuation.section.function.elixir
+T 93 source.elixir punctuation.section.scope.elixir
+L 
+L   defp replace_sort_dir(params, %{sortable: direction, field: field}),
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 24 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 33 source.elixir meta.function.private.elixir
+T 34 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 42 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 43 source.elixir meta.function.private.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 53 source.elixir meta.function.private.elixir
+T 54 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 55 source.elixir meta.function.private.elixir
+T 60 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 61 source.elixir meta.function.private.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 67 source.elixir meta.function.private.elixir
+T 68 source.elixir meta.function.private.elixir punctuation.section.scope.elixir
+T 69 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 70 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+L     do: %{params | sort_dir: direction, sort_by: field}
+T 4 source.elixir meta.function.private.elixir
+T 7 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 9 source.elixir
+T 10 source.elixir punctuation.section.scope.elixir
+T 17 source.elixir
+T 18 source.elixir keyword.operator.other.elixir
+T 19 source.elixir
+T 27 source.elixir constant.other.keywords.elixir
+T 28 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.separator.object.elixir
+T 40 source.elixir
+T 47 source.elixir constant.other.keywords.elixir
+T 48 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 54 source.elixir
+T 55 source.elixir punctuation.section.scope.elixir
+L end
+T 3 source.elixir keyword.control.elixir
+L 

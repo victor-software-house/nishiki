@@ -949,6 +949,17 @@ languages! {
         halts: true,
         hands_off: true,
     }
+    /// Elixir, with the scopes of Shiki's `elixir` grammar, which nishiki's
+    /// `TextMate` engine runs. HTML in its `~H` and `~L` sigils goes to
+    /// HTML's lexer.
+    Elixir {
+        feature: "lang-elixir",
+        names: ["elixir"],
+        engine: crate::elixir::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+        hands_off: true,
+    }
 }
 
 impl Language {

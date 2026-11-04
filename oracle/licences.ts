@@ -50,6 +50,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "BSD-3-Clause",
     file: "LICENSE",
   },
+  elixir: {
+    bundled: "elixir-editors/elixir-tmbundle@43c8cd957d5ac6e1abbd8730fc7a08c81a6e76c9",
+    origin: "elixir-editors/elixir-tmbundle",
+    licence: "Apache-2.0",
+    file: "LICENSE",
+  },
   haml: {
     bundled: "karuna/haml-vscode@aa45415aefd691af0a501ea4f98e434490623e0d",
     origin: "karuna/haml-vscode",

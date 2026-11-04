@@ -38,7 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
-| Markdown | `markdown` | 217 of 311 | 69.8% | 278 of 373 | 74.5% | 189 | 0 | yes |
+| Markdown | `markdown` | 221 of 311 | 71.1% | 282 of 373 | 75.6% | 181 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
@@ -550,10 +550,6 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #fenced_code_block_clojure.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_clojure.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_clojure.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_elixir.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(elixir)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_elixir.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_elixir.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_elixir.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_erlang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(erlang)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_erlang.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_erlang.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule

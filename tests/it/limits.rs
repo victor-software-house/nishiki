@@ -13,6 +13,8 @@ mod css;
 mod dart;
 mod diff;
 mod dockerfile;
+#[cfg(feature = "lang-elixir")]
+mod elixir;
 mod erb;
 mod go;
 mod graphql;

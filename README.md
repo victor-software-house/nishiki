@@ -63,6 +63,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Dart | `Language::Dart` | `lang-dart` | `all` | `dart` |
 | Diff | `Language::Diff` | `lang-diff` | `all` | `diff` |
 | Dockerfile | `Language::Dockerfile` | `lang-dockerfile` | `all` | `docker`, `dockerfile` |
+| Elixir | `Language::Elixir` | `lang-elixir` | `textmate` | `elixir` |
 | ERB | `Language::Erb` | `lang-erb` | `all` | `erb` |
 | Go | `Language::Go` | `lang-go` | `all` | `go`, `golang` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `all` | `graphql`, `gql` |

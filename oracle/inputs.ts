@@ -14,6 +14,7 @@ import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import dartCoverage from "./inputs/dart-coverage.dart" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
+import elixirEmbedded from "./inputs/elixir-embedded.ex" with { type: "text" };
 import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
@@ -155,6 +156,8 @@ const dotnetInstall =
   "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
 const dotnetRuntime =
   "https://raw.githubusercontent.com/dotnet/runtime/6375d63af99b6812f11b4dd8c4a18d227e277d73";
+const elixirLang =
+  "https://raw.githubusercontent.com/elixir-lang/elixir/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde";
 const eslint =
   "https://raw.githubusercontent.com/eslint/eslint/11c66ba08381cb7cff7679d662c9f6654b6fe712";
 const exposed =
@@ -247,6 +250,8 @@ const libuv =
   "https://raw.githubusercontent.com/libuv/libuv/7228e05f3e407ed3fa59edba920b8cd825b5d83d";
 const linenoise =
   "https://raw.githubusercontent.com/antirez/linenoise/a473823d74b93eab2ba83480df16ed37617493f2";
+const liveDashboard =
+  "https://raw.githubusercontent.com/phoenixframework/phoenix_live_dashboard/83a0bd137ed3e4c66b8037b140a2744803a48e13";
 const lua =
   "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
 const luaLanguageServer =
@@ -580,6 +585,13 @@ export const inputs: Input[] = [
   { lang: "docker", name: "prometheus", url: `${prometheus}/Dockerfile` },
   { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },
   { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
+  // Elixir runs on the TextMate engine. Its `~H` and `~L` sigils hand HTML
+  // to its lexer.
+  { lang: "elixir", name: "elixir-keyword", url: `${elixirLang}/lib/elixir/lib/keyword.ex` },
+  { lang: "elixir", name: "embedded", text: elixirEmbedded },
+  { lang: "elixir", name: "live-dashboard-nav-bar", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/nav_bar_component.ex` },
+  { lang: "elixir", name: "live-dashboard-table", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/table_component.ex` },
+  { lang: "elixir", name: "sample", url: `${samples}/elixir.sample` },
   { lang: "erb", name: "coverage", text: erbCoverage },
   { lang: "erb", name: "devise-confirmation-instructions", url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb` },
   { lang: "erb", name: "devise-error-messages", url: `${devise}/app/views/devise/shared/_error_messages.html.erb` },

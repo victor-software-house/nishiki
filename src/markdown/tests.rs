@@ -637,6 +637,28 @@ fn pl_fences_embed_perl() {
     );
 }
 
+/// An `elixir` fence embeds Elixir under Elixir's embedded scope, as Shiki
+/// does.
+#[cfg(feature = "lang-elixir")]
+#[test]
+fn elixir_fences_embed_elixir() {
+    let text = indoc! {r"
+        ```elixir
+        defmodule A do
+        end
+        ```
+    "};
+    assert_eq!(
+        stack_of(text, "defmodule").last().map(String::as_str),
+        Some("keyword.control.module.elixir")
+    );
+    assert!(
+        stack_of(text, "defmodule")
+            .iter()
+            .any(|scope| scope == "meta.embedded.block.elixir")
+    );
+}
+
 /// Batch runs on the engine, whose `lex` takes the fence's body line by
 /// line while Markdown finds the closing fence.
 #[cfg(feature = "lang-bat")]

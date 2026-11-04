@@ -125,6 +125,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `docker/prometheus` | [`Dockerfile`][prometheus-docker] in prometheus/prometheus | [Apache-2.0][prometheus-make-licence] |
 | `docker/python-slim-bookworm` | [`3.13/slim-bookworm/Dockerfile`][python-docker] in docker-library/python | [MIT][python-docker-licence] |
 | `docker/sample` | [`samples/docker.sample`][docker-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `elixir/elixir-keyword` | [`lib/elixir/lib/keyword.ex`][elixir-keyword] in elixir-lang/elixir | [Apache-2.0][elixir-lang-licence] |
+| `elixir/embedded` | `oracle/inputs/elixir-embedded.ex`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `elixir/live-dashboard-nav-bar` | [`lib/phoenix/live_dashboard/components/nav_bar_component.ex`][live-dashboard-nav-bar] in phoenixframework/phoenix_live_dashboard | [MIT][live-dashboard-licence] |
+| `elixir/live-dashboard-table` | [`lib/phoenix/live_dashboard/components/table_component.ex`][live-dashboard-table] in phoenixframework/phoenix_live_dashboard | [MIT][live-dashboard-licence] |
+| `elixir/sample` | [`samples/elixir.sample`][elixir-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `erb/coverage` | `oracle/inputs/erb-coverage.erb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `erb/devise-confirmation-instructions` | [`app/views/devise/mailer/confirmation_instructions.html.erb`][devise-confirmation-instructions] in heartcombo/devise | [MIT][devise-licence] |
 | `erb/devise-error-messages` | [`app/views/devise/shared/_error_messages.html.erb`][devise-error-messages] in heartcombo/devise | [MIT][devise-licence] |
@@ -1005,6 +1010,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [dotnet-install]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/src/dotnet-install.ps1
 [dotnet-install-licence]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/LICENSE.TXT
 [dotnet-runtime-licence]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/LICENSE.TXT
+[elixir-keyword]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/keyword.ex
+[elixir-lang-licence]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/LICENSE
+[elixir-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/elixir.sample
 [erb-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/erb.sample
 [eslint-imports]: https://github.com/eslint/eslint/blob/11c66ba08381cb7cff7679d662c9f6654b6fe712/docs/src/rules/no-restricted-imports.md
 [eslint-licence]: https://github.com/eslint/eslint/blob/11c66ba08381cb7cff7679d662c9f6654b6fe712/LICENSE
@@ -1185,6 +1193,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [libuv-licence]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/LICENSE
 [linenoise]: https://github.com/antirez/linenoise/blob/a473823d74b93eab2ba83480df16ed37617493f2/linenoise.c
 [linenoise-licence]: https://github.com/antirez/linenoise/blob/a473823d74b93eab2ba83480df16ed37617493f2/LICENSE
+[live-dashboard-licence]: https://github.com/phoenixframework/phoenix_live_dashboard/blob/83a0bd137ed3e4c66b8037b140a2744803a48e13/LICENSE.md
+[live-dashboard-nav-bar]: https://github.com/phoenixframework/phoenix_live_dashboard/blob/83a0bd137ed3e4c66b8037b140a2744803a48e13/lib/phoenix/live_dashboard/components/nav_bar_component.ex
+[live-dashboard-table]: https://github.com/phoenixframework/phoenix_live_dashboard/blob/83a0bd137ed3e4c66b8037b140a2744803a48e13/lib/phoenix/live_dashboard/components/table_component.ex
 [lua-licence]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/lua.h
 [lua-literals]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/testes/literals.lua
 [lua-locals]: https://github.com/lua/lua/blob/8cb93bada561977eb370819e39d7d644e5fd0a3f/testes/locals.lua

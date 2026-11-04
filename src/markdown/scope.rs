@@ -47,6 +47,8 @@ crate::scope::scope_table! {
     EmbeddedDockerfile "meta.embedded.block.dockerfile"
     #[cfg(feature = "lang-bat")]
     EmbeddedDosbatch "meta.embedded.block.dosbatch"
+    #[cfg(feature = "lang-elixir")]
+    EmbeddedElixir "meta.embedded.block.elixir"
     #[cfg(feature = "lang-go")]
     EmbeddedGo "meta.embedded.block.go"
     #[cfg(feature = "lang-html")]

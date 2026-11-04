@@ -500,6 +500,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::Diff, &[S::EmbeddedDiff]),
     #[cfg(feature = "lang-dockerfile")]
     (Language::Dockerfile, &[S::EmbeddedDockerfile]),
+    #[cfg(feature = "lang-elixir")]
+    (Language::Elixir, &[S::EmbeddedElixir]),
     #[cfg(feature = "lang-go")]
     (Language::Go, &[S::EmbeddedGo]),
     #[cfg(feature = "lang-html")]

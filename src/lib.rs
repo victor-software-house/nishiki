@@ -236,6 +236,8 @@ mod dart;
 mod diff;
 #[cfg(feature = "lang-dockerfile")]
 mod dockerfile;
+#[cfg(feature = "lang-elixir")]
+mod elixir;
 #[cfg(any(feature = "lang-json", feature = "lang-toml", feature = "lang-yaml"))]
 mod emit;
 #[cfg(feature = "lang-erb")]

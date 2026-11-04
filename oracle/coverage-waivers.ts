@@ -46,7 +46,6 @@ const unloadedFences = [
   ["abap", "source.abap"],
   ["bibtex", "text.bibtex"],
   ["clojure", "source.clojure"],
-  ["elixir", "source.elixir"],
   ["erlang", "source.erlang"],
   ["fsharp", "source.fsharp"],
   ["git_commit", "text.git-commit"],
