@@ -819,6 +819,12 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
   { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
   { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
+  { lang: "rust", name: "core-macros", url: `${rustc}/library/core/src/macros/mod.rs` },
+  {
+    lang: "rust",
+    name: "coverage",
+    url: new URL("inputs/rust-coverage.rs", import.meta.url).href,
+  },
   {
     lang: "rust",
     name: "ripgrep-searcher",

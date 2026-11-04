@@ -1,0 +1,731 @@
+L // Rust that nishiki's other oracle inputs leave out, written to exercise the
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 77 source.rust comment.line.double-slash.rust
+L // rest of Shiki's `rust` grammar.
+T 2 source.rust comment.line.double-slash.rust punctuation.definition.comment.rust
+T 34 source.rust comment.line.double-slash.rust
+L extern crate alloc;
+T 6 source.rust meta.import.rust storage.type.rust
+T 7 source.rust meta.import.rust
+T 12 source.rust meta.import.rust keyword.other.crate.rust
+T 18 source.rust meta.import.rust
+T 19 source.rust meta.import.rust punctuation.semi.rust
+L extern crate core as std_core;
+T 6 source.rust meta.import.rust storage.type.rust
+T 7 source.rust meta.import.rust
+T 12 source.rust meta.import.rust keyword.other.crate.rust
+T 18 source.rust meta.import.rust
+T 20 source.rust meta.import.rust keyword.other.rust
+T 29 source.rust meta.import.rust
+T 30 source.rust meta.import.rust punctuation.semi.rust
+L 
+L /** A block documentation comment. */
+T 3 source.rust comment.block.documentation.rust
+T 35 source.rust comment.block.documentation.rust
+T 37 source.rust comment.block.documentation.rust
+L /**/
+T 4 source.rust comment.block.rust
+L /* A plain block comment. */
+T 2 source.rust comment.block.rust
+T 26 source.rust comment.block.rust
+T 28 source.rust comment.block.rust
+L 
+L pub(crate) const MAX_LEN: usize = 0o777_usize;
+T 3 source.rust storage.modifier.visibility.rust
+T 4 source.rust punctuation.brackets.round.rust
+T 9 source.rust keyword.other.crate.rust
+T 10 source.rust punctuation.brackets.round.rust
+T 11 source.rust
+T 16 source.rust storage.type.rust
+T 17 source.rust
+T 24 source.rust constant.other.caps.rust
+T 25 source.rust keyword.operator.key-value.rust
+T 26 source.rust
+T 31 source.rust entity.name.type.numeric.rust
+T 32 source.rust
+T 33 source.rust keyword.operator.assignment.equal.rust
+T 34 source.rust
+T 40 source.rust constant.numeric.oct.rust
+T 45 source.rust constant.numeric.oct.rust entity.name.type.numeric.rust
+T 46 source.rust punctuation.semi.rust
+L const FLAGS: u8 = 0b1010_u8;
+T 5 source.rust storage.type.rust
+T 6 source.rust
+T 11 source.rust constant.other.caps.rust
+T 12 source.rust keyword.operator.key-value.rust
+T 13 source.rust
+T 15 source.rust entity.name.type.numeric.rust
+T 16 source.rust
+T 17 source.rust keyword.operator.assignment.equal.rust
+T 18 source.rust
+T 25 source.rust constant.numeric.bin.rust
+T 27 source.rust constant.numeric.bin.rust entity.name.type.numeric.rust
+T 28 source.rust punctuation.semi.rust
+L const MASK: u32 = 0xff_u32;
+T 5 source.rust storage.type.rust
+T 6 source.rust
+T 10 source.rust constant.other.caps.rust
+T 11 source.rust keyword.operator.key-value.rust
+T 12 source.rust
+T 15 source.rust entity.name.type.numeric.rust
+T 16 source.rust
+T 17 source.rust keyword.operator.assignment.equal.rust
+T 18 source.rust
+T 23 source.rust constant.numeric.hex.rust
+T 26 source.rust constant.numeric.hex.rust entity.name.type.numeric.rust
+T 27 source.rust punctuation.semi.rust
+L const SMALL: f64 = 1.5e-3f64;
+T 5 source.rust storage.type.rust
+T 6 source.rust
+T 11 source.rust constant.other.caps.rust
+T 12 source.rust keyword.operator.key-value.rust
+T 13 source.rust
+T 16 source.rust entity.name.type.numeric.rust
+T 17 source.rust
+T 18 source.rust keyword.operator.assignment.equal.rust
+T 19 source.rust
+T 20 source.rust constant.numeric.decimal.rust
+T 21 source.rust constant.numeric.decimal.rust punctuation.separator.dot.decimal.rust
+T 22 source.rust constant.numeric.decimal.rust
+T 23 source.rust constant.numeric.decimal.rust keyword.operator.exponent.rust
+T 24 source.rust constant.numeric.decimal.rust keyword.operator.exponent.sign.rust
+T 25 source.rust constant.numeric.decimal.rust constant.numeric.decimal.exponent.mantissa.rust
+T 28 source.rust constant.numeric.decimal.rust entity.name.type.numeric.rust
+T 29 source.rust punctuation.semi.rust
+L static GREETING: &'static str = "hi";
+T 6 source.rust storage.modifier.rust
+T 7 source.rust
+T 15 source.rust constant.other.caps.rust
+T 16 source.rust keyword.operator.key-value.rust
+T 17 source.rust
+T 18 source.rust keyword.operator.borrow.and.rust
+T 19 source.rust punctuation.definition.lifetime.rust
+T 25 source.rust entity.name.type.lifetime.rust
+T 26 source.rust
+T 29 source.rust entity.name.type.primitive.rust
+T 30 source.rust
+T 31 source.rust keyword.operator.assignment.equal.rust
+T 32 source.rust
+T 33 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 35 source.rust string.quoted.double.rust
+T 36 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 37 source.rust punctuation.semi.rust
+L 
+L macro_rules! Shout {
+T 12 source.rust meta.macro.rules.rust entity.name.function.macro.rules.rust
+T 13 source.rust meta.macro.rules.rust
+T 18 source.rust meta.macro.rules.rust entity.name.type.macro.rust
+T 19 source.rust meta.macro.rules.rust
+T 20 source.rust meta.macro.rules.rust punctuation.brackets.curly.rust
+L     ($x:expr) => {
+T 4 source.rust
+T 5 source.rust punctuation.brackets.round.rust
+T 6 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 7 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 8 source.rust meta.macro.metavariable.rust keyword.operator.key-value.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.specifier.rust
+T 13 source.rust punctuation.brackets.round.rust
+T 14 source.rust
+T 16 source.rust keyword.operator.arrow.fat.rust
+T 17 source.rust
+T 18 source.rust punctuation.brackets.curly.rust
+L         $x
+T 8 source.rust
+T 9 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 10 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+L     };
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+T 6 source.rust punctuation.semi.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L macro_rules! whisper {
+T 12 source.rust meta.macro.rules.rust entity.name.function.macro.rules.rust
+T 13 source.rust meta.macro.rules.rust
+T 20 source.rust meta.macro.rules.rust entity.name.function.macro.rust
+T 21 source.rust meta.macro.rules.rust
+T 22 source.rust meta.macro.rules.rust punctuation.brackets.curly.rust
+L     ($($t:tt)*) => {};
+T 4 source.rust
+T 5 source.rust punctuation.brackets.round.rust
+T 6 source.rust keyword.operator.macro.dollar.rust
+T 7 source.rust punctuation.brackets.round.rust
+T 8 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 9 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 10 source.rust meta.macro.metavariable.rust keyword.operator.key-value.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.specifier.rust
+T 13 source.rust punctuation.brackets.round.rust
+T 14 source.rust keyword.operator.math.rust
+T 15 source.rust punctuation.brackets.round.rust
+T 16 source.rust
+T 18 source.rust keyword.operator.arrow.fat.rust
+T 19 source.rust
+T 20 source.rust punctuation.brackets.curly.rust
+T 21 source.rust punctuation.brackets.curly.rust
+T 22 source.rust punctuation.semi.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L pub enum Shape {
+T 3 source.rust storage.modifier.visibility.rust
+T 4 source.rust
+T 8 source.rust keyword.declaration.enum.rust storage.type.rust
+T 9 source.rust
+T 14 source.rust entity.name.type.enum.rust
+T 15 source.rust
+T 16 source.rust punctuation.brackets.curly.rust
+L     Dot,
+T 4 source.rust
+T 7 source.rust entity.name.type.rust
+T 8 source.rust punctuation.comma.rust
+L     Line(u8),
+T 4 source.rust
+T 8 source.rust meta.function.call.rust entity.name.function.rust
+T 9 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 11 source.rust meta.function.call.rust entity.name.type.numeric.rust
+T 12 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 13 source.rust punctuation.comma.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L pub trait Draw {
+T 3 source.rust storage.modifier.visibility.rust
+T 4 source.rust
+T 9 source.rust keyword.declaration.trait.rust storage.type.rust
+T 10 source.rust
+T 14 source.rust entity.name.type.trait.rust
+T 15 source.rust
+T 16 source.rust punctuation.brackets.curly.rust
+L     type Output;
+T 4 source.rust
+T 8 source.rust keyword.declaration.type.rust storage.type.rust
+T 9 source.rust
+T 15 source.rust entity.name.type.declaration.rust
+T 16 source.rust punctuation.semi.rust
+L     fn draw(&self) -> Self::Output;
+T 4 source.rust
+T 6 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 7 source.rust meta.function.definition.rust
+T 11 source.rust meta.function.definition.rust entity.name.function.rust
+T 12 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 13 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 17 source.rust meta.function.definition.rust variable.language.self.rust
+T 18 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 19 source.rust meta.function.definition.rust
+T 21 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 22 source.rust meta.function.definition.rust
+T 26 source.rust meta.function.definition.rust variable.language.self.rust
+T 28 source.rust meta.function.definition.rust keyword.operator.namespace.rust
+T 34 source.rust meta.function.definition.rust entity.name.type.rust
+T 35 source.rust meta.function.definition.rust punctuation.semi.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L pub struct Canvas<'a> {
+T 3 source.rust storage.modifier.visibility.rust
+T 4 source.rust
+T 10 source.rust keyword.declaration.struct.rust storage.type.rust
+T 11 source.rust
+T 17 source.rust entity.name.type.struct.rust
+T 18 source.rust punctuation.brackets.angle.rust
+T 19 source.rust punctuation.definition.lifetime.rust
+T 20 source.rust entity.name.type.lifetime.rust
+T 21 source.rust punctuation.brackets.angle.rust
+T 22 source.rust
+T 23 source.rust punctuation.brackets.curly.rust
+L     cells: &'a [u8],
+T 4 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust keyword.operator.key-value.rust
+T 11 source.rust
+T 12 source.rust keyword.operator.borrow.and.rust
+T 13 source.rust punctuation.definition.lifetime.rust
+T 14 source.rust entity.name.type.lifetime.rust
+T 15 source.rust
+T 16 source.rust punctuation.brackets.square.rust
+T 18 source.rust entity.name.type.numeric.rust
+T 19 source.rust punctuation.brackets.square.rust
+T 20 source.rust punctuation.comma.rust
+L     boxed: Box<[u8]>,
+T 4 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust keyword.operator.key-value.rust
+T 11 source.rust
+T 14 source.rust entity.name.type.rust
+T 15 source.rust punctuation.brackets.angle.rust
+T 16 source.rust punctuation.brackets.square.rust
+T 18 source.rust entity.name.type.numeric.rust
+T 19 source.rust punctuation.brackets.square.rust
+T 20 source.rust punctuation.brackets.angle.rust
+T 21 source.rust punctuation.comma.rust
+L     apply: fn(u8) -> u8,
+T 4 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust keyword.operator.key-value.rust
+T 11 source.rust
+T 13 source.rust meta.function.call.rust entity.name.function.rust
+T 14 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 16 source.rust meta.function.call.rust entity.name.type.numeric.rust
+T 17 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 18 source.rust
+T 20 source.rust keyword.operator.arrow.skinny.rust
+T 21 source.rust
+T 23 source.rust entity.name.type.numeric.rust
+T 24 source.rust punctuation.comma.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L const fn double(n: u8) -> u8 {
+T 5 source.rust storage.modifier.rust
+T 6 source.rust
+T 8 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 9 source.rust meta.function.definition.rust
+T 15 source.rust meta.function.definition.rust entity.name.function.rust
+T 16 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 17 source.rust meta.function.definition.rust variable.other.rust
+T 18 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 19 source.rust meta.function.definition.rust
+T 21 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 22 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 23 source.rust meta.function.definition.rust
+T 25 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 26 source.rust meta.function.definition.rust
+T 28 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 29 source.rust meta.function.definition.rust
+T 30 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     n * 2
+T 4 source.rust
+T 5 source.rust variable.other.rust
+T 6 source.rust
+T 7 source.rust keyword.operator.math.rust
+T 8 source.rust
+T 9 source.rust constant.numeric.decimal.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L fn compare(a: u8, b: u8) -> bool {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 10 source.rust meta.function.definition.rust entity.name.function.rust
+T 11 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 12 source.rust meta.function.definition.rust variable.other.rust
+T 13 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 14 source.rust meta.function.definition.rust
+T 16 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 17 source.rust meta.function.definition.rust punctuation.comma.rust
+T 18 source.rust meta.function.definition.rust
+T 19 source.rust meta.function.definition.rust variable.other.rust
+T 20 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 21 source.rust meta.function.definition.rust
+T 23 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 24 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 25 source.rust meta.function.definition.rust
+T 27 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 28 source.rust meta.function.definition.rust
+T 32 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 33 source.rust meta.function.definition.rust
+T 34 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     (a) < (b) || [a] > [b] || {a} < {b}
+T 4 source.rust
+T 5 source.rust punctuation.brackets.round.rust
+T 6 source.rust variable.other.rust
+T 7 source.rust punctuation.brackets.round.rust
+T 8 source.rust
+T 9 source.rust keyword.operator.comparison.rust
+T 10 source.rust
+T 11 source.rust punctuation.brackets.round.rust
+T 12 source.rust variable.other.rust
+T 13 source.rust punctuation.brackets.round.rust
+T 14 source.rust
+T 15 source.rust keyword.operator.logical.rust
+T 16 source.rust keyword.operator.logical.rust
+T 17 source.rust
+T 18 source.rust punctuation.brackets.square.rust
+T 19 source.rust variable.other.rust
+T 20 source.rust punctuation.brackets.square.rust
+T 21 source.rust
+T 22 source.rust keyword.operator.comparison.rust
+T 23 source.rust
+T 24 source.rust punctuation.brackets.square.rust
+T 25 source.rust variable.other.rust
+T 26 source.rust punctuation.brackets.square.rust
+T 27 source.rust
+T 28 source.rust keyword.operator.logical.rust
+T 29 source.rust keyword.operator.logical.rust
+T 30 source.rust
+T 31 source.rust punctuation.brackets.curly.rust
+T 32 source.rust variable.other.rust
+T 33 source.rust punctuation.brackets.curly.rust
+T 34 source.rust
+T 35 source.rust keyword.operator.comparison.rust
+T 36 source.rust
+T 37 source.rust punctuation.brackets.curly.rust
+T 38 source.rust variable.other.rust
+T 39 source.rust punctuation.brackets.curly.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L fn bind(n: u8) -> u8 {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 7 source.rust meta.function.definition.rust entity.name.function.rust
+T 8 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 9 source.rust meta.function.definition.rust variable.other.rust
+T 10 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 11 source.rust meta.function.definition.rust
+T 13 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 14 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 15 source.rust meta.function.definition.rust
+T 17 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 18 source.rust meta.function.definition.rust
+T 20 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 21 source.rust meta.function.definition.rust
+T 22 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     match n {
+T 4 source.rust
+T 9 source.rust keyword.control.rust
+T 10 source.rust
+T 11 source.rust variable.other.rust
+T 12 source.rust
+T 13 source.rust punctuation.brackets.curly.rust
+L         x @ 1..=9 => x,
+T 8 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust
+T 11 source.rust keyword.operator.subpattern.rust
+T 12 source.rust
+T 13 source.rust constant.numeric.decimal.rust
+T 16 source.rust keyword.operator.range.rust
+T 17 source.rust constant.numeric.decimal.rust
+T 18 source.rust
+T 20 source.rust keyword.operator.arrow.fat.rust
+T 21 source.rust
+T 22 source.rust variable.other.rust
+T 23 source.rust punctuation.comma.rust
+L         _ => 0,
+T 8 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust
+T 12 source.rust keyword.operator.arrow.fat.rust
+T 13 source.rust
+T 14 source.rust constant.numeric.decimal.rust
+T 15 source.rust punctuation.comma.rust
+L     }
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L fn first<'a>(s: &'a str) -> &'a str {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 8 source.rust meta.function.definition.rust entity.name.function.rust
+T 9 source.rust meta.function.definition.rust punctuation.brackets.angle.rust
+T 10 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 11 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 12 source.rust meta.function.definition.rust punctuation.brackets.angle.rust
+T 13 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 14 source.rust meta.function.definition.rust variable.other.rust
+T 15 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 16 source.rust meta.function.definition.rust
+T 17 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 18 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 19 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 20 source.rust meta.function.definition.rust
+T 23 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 24 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 25 source.rust meta.function.definition.rust
+T 27 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 28 source.rust meta.function.definition.rust
+T 29 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 30 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 31 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 32 source.rust meta.function.definition.rust
+T 35 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 36 source.rust meta.function.definition.rust
+T 37 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     s
+T 4 source.rust
+T 5 source.rust variable.other.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L fn texts() -> (&'static [u8], &'static str, &'static str) {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 8 source.rust meta.function.definition.rust entity.name.function.rust
+T 9 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 10 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 11 source.rust meta.function.definition.rust
+T 13 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 14 source.rust meta.function.definition.rust
+T 15 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 16 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 17 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 23 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 24 source.rust meta.function.definition.rust
+T 25 source.rust meta.function.definition.rust punctuation.brackets.square.rust
+T 27 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 28 source.rust meta.function.definition.rust punctuation.brackets.square.rust
+T 29 source.rust meta.function.definition.rust punctuation.comma.rust
+T 30 source.rust meta.function.definition.rust
+T 31 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 32 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 38 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 39 source.rust meta.function.definition.rust
+T 42 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 43 source.rust meta.function.definition.rust punctuation.comma.rust
+T 44 source.rust meta.function.definition.rust
+T 45 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 46 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 52 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 53 source.rust meta.function.definition.rust
+T 56 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 57 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 58 source.rust meta.function.definition.rust
+T 59 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     (b"bytes\x7f", "tab\t\x41\u{00e9}", r#"raw "quoted""#)
+T 4 source.rust
+T 5 source.rust punctuation.brackets.round.rust
+T 6 source.rust string.quoted.double.rust string.quoted.byte.raw.rust
+T 7 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 12 source.rust string.quoted.double.rust
+T 13 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.backslash.rust
+T 16 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.bit.rust
+T 17 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 18 source.rust punctuation.comma.rust
+T 19 source.rust
+T 20 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 23 source.rust string.quoted.double.rust
+T 24 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.backslash.rust
+T 25 source.rust string.quoted.double.rust constant.character.escape.rust
+T 26 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.backslash.rust
+T 29 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.bit.rust
+T 30 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.backslash.rust
+T 31 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.unicode.rust
+T 32 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.unicode.rust constant.character.escape.unicode.punctuation.rust
+T 36 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.unicode.rust
+T 37 source.rust string.quoted.double.rust constant.character.escape.rust constant.character.escape.unicode.rust constant.character.escape.unicode.punctuation.rust
+T 38 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 39 source.rust punctuation.comma.rust
+T 40 source.rust
+T 41 source.rust string.quoted.double.rust string.quoted.byte.raw.rust
+T 42 source.rust string.quoted.double.rust punctuation.definition.string.raw.rust
+T 43 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 55 source.rust string.quoted.double.rust
+T 56 source.rust string.quoted.double.rust punctuation.definition.string.rust
+T 57 source.rust string.quoted.double.rust punctuation.definition.string.raw.rust
+T 58 source.rust punctuation.brackets.round.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L fn calls() {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 8 source.rust meta.function.definition.rust entity.name.function.rust
+T 9 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 10 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 11 source.rust meta.function.definition.rust
+T 12 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     Shout!(1);
+T 4 source.rust
+T 10 source.rust meta.macro.rust entity.name.type.macro.rust
+T 11 source.rust punctuation.brackets.round.rust
+T 12 source.rust constant.numeric.decimal.rust
+T 13 source.rust punctuation.brackets.round.rust
+T 14 source.rust punctuation.semi.rust
+L     whisper!();
+T 4 source.rust
+T 12 source.rust meta.macro.rust entity.name.function.macro.rust
+T 13 source.rust punctuation.brackets.round.rust
+T 14 source.rust punctuation.brackets.round.rust
+T 15 source.rust punctuation.semi.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L macro_rules! declare {
+T 12 source.rust meta.macro.rules.rust entity.name.function.macro.rules.rust
+T 13 source.rust meta.macro.rules.rust
+T 20 source.rust meta.macro.rules.rust entity.name.function.macro.rust
+T 21 source.rust meta.macro.rules.rust
+T 22 source.rust meta.macro.rules.rust punctuation.brackets.curly.rust
+L     ($vis:vis $name:ident, $T:ty) => {
+T 4 source.rust
+T 5 source.rust punctuation.brackets.round.rust
+T 6 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 9 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 10 source.rust meta.macro.metavariable.rust keyword.operator.key-value.rust
+T 13 source.rust meta.macro.metavariable.rust variable.other.metavariable.specifier.rust
+T 14 source.rust
+T 15 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 19 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 20 source.rust meta.macro.metavariable.rust keyword.operator.key-value.rust
+T 25 source.rust meta.macro.metavariable.rust variable.other.metavariable.specifier.rust
+T 26 source.rust punctuation.comma.rust
+T 27 source.rust
+T 28 source.rust meta.macro.metavariable.type.rust keyword.operator.macro.dollar.rust
+T 29 source.rust meta.macro.metavariable.type.rust entity.name.type.metavariable.rust
+T 30 source.rust meta.macro.metavariable.type.rust keyword.operator.key-value.rust
+T 32 source.rust meta.macro.metavariable.type.rust variable.other.metavariable.specifier.rust
+T 33 source.rust punctuation.brackets.round.rust
+T 34 source.rust
+T 36 source.rust keyword.operator.arrow.fat.rust
+T 37 source.rust
+T 38 source.rust punctuation.brackets.curly.rust
+L         $vis struct $name($T);
+T 8 source.rust
+T 9 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 13 source.rust
+T 19 source.rust keyword.declaration.struct.rust storage.type.rust
+T 20 source.rust
+T 21 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 25 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 26 source.rust punctuation.brackets.round.rust
+T 27 source.rust meta.macro.metavariable.type.rust keyword.operator.macro.dollar.rust
+T 28 source.rust meta.macro.metavariable.type.rust entity.name.type.metavariable.rust
+T 29 source.rust punctuation.brackets.round.rust
+T 30 source.rust punctuation.semi.rust
+L         $vis enum $name {}
+T 8 source.rust
+T 9 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 13 source.rust
+T 17 source.rust keyword.declaration.enum.rust storage.type.rust
+T 18 source.rust
+T 19 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 23 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 24 source.rust
+T 25 source.rust punctuation.brackets.curly.rust
+T 26 source.rust punctuation.brackets.curly.rust
+L         $vis trait $name {}
+T 8 source.rust
+T 9 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 13 source.rust
+T 18 source.rust keyword.declaration.trait.rust storage.type.rust
+T 19 source.rust
+T 20 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 24 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 25 source.rust
+T 26 source.rust punctuation.brackets.curly.rust
+T 27 source.rust punctuation.brackets.curly.rust
+L         $vis type $name = $T;
+T 8 source.rust
+T 9 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 13 source.rust
+T 17 source.rust keyword.declaration.type.rust storage.type.rust
+T 18 source.rust
+T 19 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 23 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 24 source.rust
+T 25 source.rust keyword.operator.assignment.equal.rust
+T 26 source.rust
+T 27 source.rust meta.macro.metavariable.type.rust keyword.operator.macro.dollar.rust
+T 28 source.rust meta.macro.metavariable.type.rust entity.name.type.metavariable.rust
+T 29 source.rust punctuation.semi.rust
+L         $vis fn $name() {}
+T 8 source.rust
+T 9 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 12 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 13 source.rust
+T 15 source.rust keyword.other.fn.rust
+T 16 source.rust
+T 17 source.rust meta.macro.metavariable.rust keyword.operator.macro.dollar.rust
+T 21 source.rust meta.macro.metavariable.rust variable.other.metavariable.name.rust
+T 22 source.rust punctuation.brackets.round.rust
+T 23 source.rust punctuation.brackets.round.rust
+T 24 source.rust
+T 25 source.rust punctuation.brackets.curly.rust
+T 26 source.rust punctuation.brackets.curly.rust
+L     };
+T 4 source.rust
+T 5 source.rust punctuation.brackets.curly.rust
+T 6 source.rust punctuation.semi.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 
+L fn lengths<'a>(words: &[&'a str]) -> usize {
+T 2 source.rust meta.function.definition.rust keyword.other.fn.rust
+T 3 source.rust meta.function.definition.rust
+T 10 source.rust meta.function.definition.rust entity.name.function.rust
+T 11 source.rust meta.function.definition.rust punctuation.brackets.angle.rust
+T 12 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 13 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 14 source.rust meta.function.definition.rust punctuation.brackets.angle.rust
+T 15 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 20 source.rust meta.function.definition.rust variable.other.rust
+T 21 source.rust meta.function.definition.rust keyword.operator.key-value.rust
+T 22 source.rust meta.function.definition.rust
+T 23 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 24 source.rust meta.function.definition.rust punctuation.brackets.square.rust
+T 25 source.rust meta.function.definition.rust keyword.operator.borrow.and.rust
+T 26 source.rust meta.function.definition.rust punctuation.definition.lifetime.rust
+T 27 source.rust meta.function.definition.rust entity.name.type.lifetime.rust
+T 28 source.rust meta.function.definition.rust
+T 31 source.rust meta.function.definition.rust entity.name.type.primitive.rust
+T 32 source.rust meta.function.definition.rust punctuation.brackets.square.rust
+T 33 source.rust meta.function.definition.rust punctuation.brackets.round.rust
+T 34 source.rust meta.function.definition.rust
+T 36 source.rust meta.function.definition.rust keyword.operator.arrow.skinny.rust
+T 37 source.rust meta.function.definition.rust
+T 42 source.rust meta.function.definition.rust entity.name.type.numeric.rust
+T 43 source.rust meta.function.definition.rust
+T 44 source.rust meta.function.definition.rust punctuation.brackets.curly.rust
+L     let n = <[u8]>::len(&[1]);
+T 4 source.rust
+T 7 source.rust keyword.other.rust storage.type.rust
+T 8 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust
+T 11 source.rust keyword.operator.assignment.equal.rust
+T 12 source.rust
+T 13 source.rust punctuation.brackets.angle.rust
+T 14 source.rust punctuation.brackets.square.rust
+T 16 source.rust entity.name.type.numeric.rust
+T 17 source.rust punctuation.brackets.square.rust
+T 18 source.rust punctuation.brackets.angle.rust
+T 20 source.rust keyword.operator.namespace.rust
+T 23 source.rust meta.function.call.rust entity.name.function.rust
+T 24 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 25 source.rust meta.function.call.rust keyword.operator.borrow.and.rust
+T 26 source.rust meta.function.call.rust punctuation.brackets.square.rust
+T 27 source.rust meta.function.call.rust constant.numeric.decimal.rust
+T 28 source.rust meta.function.call.rust punctuation.brackets.square.rust
+T 29 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 30 source.rust punctuation.semi.rust
+L     let m = <[&'a str]>::len(words);
+T 4 source.rust
+T 7 source.rust keyword.other.rust storage.type.rust
+T 8 source.rust
+T 9 source.rust variable.other.rust
+T 10 source.rust
+T 11 source.rust keyword.operator.assignment.equal.rust
+T 12 source.rust
+T 13 source.rust punctuation.brackets.angle.rust
+T 14 source.rust punctuation.brackets.square.rust
+T 15 source.rust keyword.operator.borrow.rust
+T 16 source.rust punctuation.definition.lifetime.rust
+T 17 source.rust entity.name.type.lifetime.rust
+T 18 source.rust
+T 21 source.rust entity.name.type.primitive.rust
+T 22 source.rust punctuation.brackets.square.rust
+T 23 source.rust punctuation.brackets.angle.rust
+T 25 source.rust keyword.operator.namespace.rust
+T 28 source.rust meta.function.call.rust entity.name.function.rust
+T 29 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 34 source.rust meta.function.call.rust variable.other.rust
+T 35 source.rust meta.function.call.rust punctuation.brackets.round.rust
+T 36 source.rust punctuation.semi.rust
+L     n + m
+T 4 source.rust
+T 5 source.rust variable.other.rust
+T 6 source.rust
+T 7 source.rust keyword.operator.math.rust
+T 8 source.rust
+T 9 source.rust variable.other.rust
+L }
+T 1 source.rust punctuation.brackets.curly.rust
+L 

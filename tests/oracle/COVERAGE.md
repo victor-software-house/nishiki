@@ -39,7 +39,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Markdown | `markdown` | 145 of 311 | 46.6% | 158 of 373 | 42.4% | 0 | 8 |  |
 | Python | `python` | 163 of 350 | 46.6% | 125 of 372 | 33.6% | 0 | 27 |  |
 | Ruby | `ruby` | 156 of 336 | 46.4% | 133 of 293 | 45.4% | 0 | 8 |  |
-| Rust | `rust` | 70 of 95 | 73.7% | 57 of 99 | 57.6% | 0 | 2 |  |
+| Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 90 of 168 | 53.6% | 81 of 179 | 45.3% | 0 | 10 |  |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
 | SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 4 |  |
@@ -4355,38 +4355,7 @@ patterns[104].end  ^\2$
 ### `rust`
 
 ```text
-patterns[0].begin  (<)(\[)
-patterns[0].end  >
-patterns[1].match  (\$)((crate)|([A-Z]\w*))(\s*(:)\s*(block|expr(?:_2021)?|ide…
-patterns[3].match  groups 4
-patterns[5].begin  \b(extern)\s+(crate)
-patterns[5].end  ;
-#block-comments.patterns[0].match  /\*\*/
-#block-comments.patterns[1].begin  /\*\*
-#block-comments.patterns[1].end  \*/
-#block-comments.patterns[2].begin  /\*(?!\*)
-#block-comments.patterns[2].end  \*/
-#constants.patterns[1].match  \b(const)\s+([A-Z][0-9A-Z_a-z]*)\b
-#constants.patterns[2].match  groups 2, 3, 4
-#constants.patterns[3].match  groups 1
-#constants.patterns[4].match  \b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|u…
-#constants.patterns[5].match  \b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|us…
-#escapes.match  groups 2, 3, 4, 5
-#functions.patterns[1].match  \b(pub)(\()
-#keywords.patterns[2].match  \b(const)\b
-#keywords.patterns[3].match  \b(type)\b
-#keywords.patterns[4].match  \b(enum)\b
-#keywords.patterns[5].match  \b(trait)\b  fuzz
-#keywords.patterns[6].match  \b(struct)\b
-#keywords.patterns[7].match  \b(abstract|static)\b
-#keywords.patterns[9].match  \bfn\b  fuzz
-#keywords.patterns[18].match  groups 1, 2, 3, 5, 6, 7
-#keywords.patterns[21].match  @
-#lifetimes.patterns[1].match  (&)(')([A-Z_a-z][0-9A-Z_a-z]*)(?!')\b
-#macros.patterns[0].match  groups 3
-#strings.patterns[0].begin  groups 1
-#strings.patterns[1].begin  (b?r)(#*)(")
-#strings.patterns[1].end  (")(\2)
+#functions.patterns[1].match  \b(pub)(\()  waived: `\b(pub)\b`, the pattern before it, matches wherever `\b(pub)(\()` does
 ```
 
 ### `scss`

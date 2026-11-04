@@ -21,8 +21,14 @@ export type Waiver = {
   probe?: string;
 };
 
-export const waivers: Waiver[] = [];
+export const waivers: Waiver[] = [
+  {
+    grammar: "rust",
+    path: "#functions.patterns[1].match",
+    reason: "`\\b(pub)\\b`, the pattern before it, matches wherever `\\b(pub)(\\()` does",
+  },
+];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
  * pull request that closes its last gap. */
-export const complete: string[] = [];
+export const complete: string[] = ["rust"];

@@ -133,6 +133,8 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `python/requests-models` | [`src/requests/models.py`][requests-models] in psf/requests | [Apache-2.0][requests-licence] |
 | `python/rich-console` | [`rich/console.py`][rich-console] in Textualize/rich | [MIT][rich-licence] |
 | `python/sample` | [`samples/python.sample`][python-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `rust/core-macros` | [`library/core/src/macros/mod.rs`][rust-core-macros] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
+| `rust/coverage` | `oracle/inputs/rust-coverage.rs`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `rust/ripgrep-searcher` | [`crates/searcher/src/searcher/mod.rs`][ripgrep-searcher] in BurntSushi/ripgrep | [Unlicense or MIT][ripgrep-licence] |
 | `rust/sample` | [`samples/rust.sample`][rust-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `rust/serde-de` | [`serde_core/src/de/mod.rs`][serde-de] in serde-rs/serde | [MIT or Apache-2.0][serde-licence] |
@@ -396,6 +398,7 @@ Each fixture also has one `.colors` file per theme below: Shiki's colour and fon
 | `erb/devise-error-messages` | [`app/views/devise/shared/_error_messages.html.erb`][devise-error-messages] in heartcombo/devise | [MIT][devise-licence] |
 
 `ripgrep-searcher` and `serde-de` are held out: they were not among the inputs the Rust lexer was written against.
+`core-macros` and `coverage` are held out too: they were added to exercise the rest of the `rust` grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/book-ownership`, `markdown/book-strings` and `markdown/clap-readme` are held out in the same way: they were added after the other Markdown inputs passed.
 `markdown/ky-readme` and `markdown/zod-api` are held out for the TypeScript fences, and `markdown/zod-readme` is the development input for them.
 `zod-classic-schemas` and `ky-core` are held out for the TypeScript lexer the same way.
@@ -938,6 +941,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [ruff-pyproject]: https://github.com/astral-sh/ruff/blob/f10755306e3e932fd127960acb2c892fafb87410/pyproject.toml
 [runtime-linq-where]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/src/libraries/System.Linq/src/System/Linq/Where.cs
 [runtime-stack]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs
+[rust-core-macros]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/library/core/src/macros/mod.rs
 [rust-licence]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/LICENSE-MIT
 [rust-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/rust.sample
 [scala-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/scala.sample
