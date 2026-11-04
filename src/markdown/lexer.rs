@@ -230,6 +230,12 @@ pub(crate) struct Scratch {
     /// The line's delimiter runs, found when a code span or a
     /// strikethrough first needs them.
     runs: Runs,
+    /// Whether the line stops at its start once no container is left open,
+    /// because the end of the rule that embeds Markdown holds there.
+    /// Only [`crate::markdown::lex_until`] sets it, for one line.
+    pub(super) stop_at_start: bool,
+    /// Whether the line stopped there, with no tokens.
+    pub(super) stopped: bool,
 }
 
 impl<'a> Lexer<'a> {
@@ -327,9 +333,20 @@ impl<'a> Lexer<'a> {
     /// Lexes the line. A line whose scans spent its work reports the work
     /// limit, though the scan that ran out gave up without a match and the
     /// loop then found nothing more.
+    ///
+    /// A line that another language embeds stops at its start when
+    /// `stop_at_start` is set and the open containers' `while` rules closed
+    /// them all.
+    /// That is the one place the embedding rule's end can hold.
+    /// At the document's level every line opens a block at its start, and
+    /// inside a block the embedding rule's end is not tried.
     pub(crate) fn run(&mut self) {
         let mut caps = Caps::new();
         self.check_whiles(&mut caps);
+        if self.scratch.markdown.stop_at_start && self.frames.len() == 1 {
+            self.scratch.markdown.stopped = true;
+            return;
+        }
         while self.step(&mut caps) {}
         if self.steps.exhausted() {
             self.report.record(Limit::Work);

@@ -129,6 +129,30 @@ pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: &str, state: u32
     lexer.finish()
 }
 
+/// Lexes `line` from byte `line.start` like [`line`], for Markdown that
+/// another language embeds, as Svelte's `@component` comments do.
+/// The line halts at its start when `end` holds there and the open
+/// containers that end there have closed, and the second value is where.
+/// `after` never holds: Markdown's patterns match at the start of every
+/// line, and nowhere else at the document's level.
+///
+/// The halt is tested here, once, and [`line`] reads the answer from the
+/// scratch: a second copy of the line's lexer would keep its parts from
+/// being inlined into [`line`] (2% more instructions on Markdown documents).
+pub(crate) fn lex_until(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    state: u32,
+    end: &dyn crate::language::Halt,
+    _after: Option<&dyn crate::language::Halt>,
+) -> (Finished, Option<usize>) {
+    cx.scratch.markdown.stop_at_start = end.holds(line.text.as_bytes(), line.start);
+    let finished = cx.lex_from_start(line, |cx, rest| self::line(cx, rest, state));
+    cx.scratch.markdown.stop_at_start = false;
+    let stopped = std::mem::take(&mut cx.scratch.markdown.stopped);
+    (finished, stopped.then_some(line.start))
+}
+
 /// The tests that name the languages Markdown embeds, so they need them all.
 #[cfg(all(test, feature = "all"))]
 mod tests;

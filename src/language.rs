@@ -333,6 +333,7 @@ languages! {
         feature: "lang-markdown",
         names: ["markdown", "md"],
         module: markdown,
+        halts: true,
         from_start: true,
         inlined: true,
     }

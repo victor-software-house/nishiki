@@ -1,6 +1,6 @@
 use indoc::{formatdoc, indoc};
 
-use crate::{Highlighter, Language, Limit, Limits, State};
+use crate::{Highlighter, Language, Limit, Limits, State, test_support};
 
 /// Lexes `text` and returns, per line, each token's text with its scope stack.
 fn lex(text: &str) -> Vec<Vec<(String, Vec<String>)>> {
@@ -2187,5 +2187,38 @@ fn a_vue_fence_anchors_the_lines_its_own_rule_starts() {
             "markup.fenced_code.block.markdown",
             "punctuation.definition.tag.begin.html.vue",
         ]
+    );
+}
+
+/// Markdown as another language embeds it, from its start over that
+/// language's scopes.
+const EMBEDDED: test_support::Embedded = test_support::Embedded {
+    start: super::start_embedded,
+    lex: |cx, line, state| cx.lex_from_start(line, |cx, rest| super::line(cx, rest, state)),
+    lex_until: super::lex_until,
+};
+
+/// The end of Svelte's `@component` comment, `(?=-->)`.
+fn comment_end(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p..).is_some_and(|rest| rest.starts_with(b"-->"))
+}
+
+/// A paragraph closes at `-->`, so no block is open at its start and the
+/// comment takes the line back there. Where a block opens first, it keeps
+/// the line.
+#[test]
+fn an_embedding_rule_takes_a_line_back_where_no_block_is_open() {
+    let rows = test_support::lex_embedded(
+        EMBEDDED,
+        &["comment.block.documentation.svelte"],
+        &["Top bar.", "-->", "x -->"],
+        Some((&comment_end, None)),
+    );
+    let halts: Vec<Option<usize>> = rows.iter().map(|(halt, _)| *halt).collect();
+    assert_eq!(halts, [None, Some(0), None]);
+    let (_, paragraph) = &rows[0];
+    assert_eq!(
+        paragraph[0].1.last().map(String::as_str),
+        Some("meta.paragraph.markdown")
     );
 }
