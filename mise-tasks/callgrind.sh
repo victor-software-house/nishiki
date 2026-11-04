@@ -43,7 +43,7 @@ tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
 # Another version stops the task here.
 # So does no valgrind on PATH, when the bench profile is not loaded.
 # Either would otherwise yield empty or shifted counts.
-pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind"')
+pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind".version')
 found=$(valgrind --version 2>/dev/null || echo none)
 if [ "$found" != "valgrind-$pin" ]; then
   echo "valgrind $found is not the pinned $pin (mise.bench.toml); run with MISE_ENV=dev,bench, or ci,bench in CI" >&2

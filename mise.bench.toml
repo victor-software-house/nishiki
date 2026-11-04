@@ -3,6 +3,9 @@
 # .miserc.toml leaves it out of the default, so verify, dev and release never
 # install it. mise's registry has no valgrind; conda-forge builds it for
 # Linux only.
+# `os = ["linux"]` keeps mise from solving valgrind for macOS. Without it, a
+# task's auto-install fills mise.bench.lock for every platform in
+# lockfile_platforms, and the macOS solve fails.
 
 [tools]
-"conda:valgrind" = "3.27.1"
+"conda:valgrind" = { version = "3.27.1", os = ["linux"] }
