@@ -6,8 +6,9 @@ use super::scope::S;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// Emits the tokens of capture group text `from..to`, which sits under
-    /// the stack `base`, and leaves the cursor at `to`.
+    /// Emits the tokens of capture group text `from..to`, and leaves the
+    /// cursor at `to`.
+    /// The text sits under the stack `base`.
     pub(super) fn tokenize_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
         let to = to.min(self.s.len());
         match kind {
@@ -16,8 +17,9 @@ impl Lexer<'_> {
         self.emit(to, base);
     }
 
-    /// Every run of `\w` characters is a type: the grammar's `\b\w+\b` comes
-    /// before its `in` and `out` pattern, so those two words are types too.
+    /// Every run of `\w` characters is a type.
+    /// The grammar's `\b\w+\b` comes before its `in` and `out` pattern.
+    /// Those two words are therefore types too.
     /// A run that starts inside a word, where the capture starts, has no `\b`
     /// before it.
     fn type_parameters(&mut self, from: usize, to: usize, base: u32) {

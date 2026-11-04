@@ -27,9 +27,10 @@ impl Lexer<'_> {
     }
 
     /// `<([^<>]|\g<GROUP>)+>` at `i`: balanced angle brackets with something
-    /// between each pair. The alternatives share no first character, so the
-    /// match is the first place the depth returns to zero, and a pair with
-    /// nothing in it fails the whole group.
+    /// between each pair.
+    /// The alternatives share no first character.
+    /// The match is therefore the first place the depth returns to zero.
+    /// A pair with nothing in it fails the whole group.
     pub(super) fn angle_group(&self, i: usize) -> Option<usize> {
         if self.at(i) != b'<' || self.last_close(&self.x.last_angle_close, b">")? < i {
             return None;

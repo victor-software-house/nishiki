@@ -11,8 +11,8 @@ pub(crate) type Lexer<'a> = rules::Lexer<'a, Kotlin>;
 /// What a highlighter keeps from line to line.
 pub(crate) type Scratch = rules::Scratch<Kotlin>;
 
-/// What the Kotlin matchers remember about a line, so that a lookahead that
-/// scans the rest of the line is asked once.
+/// What the Kotlin matchers remember about a line.
+/// A lookahead that scans the rest of the line is then asked once.
 #[derive(Debug, Default)]
 pub(crate) struct Extra {
     /// The last `>` of the line, once looked for: a balanced angle group
@@ -23,8 +23,8 @@ pub(crate) struct Extra {
     /// The last `}` of the line, once looked for.
     pub(super) last_brace: OnceCell<Option<usize>>,
     /// The last run of characters that are not blanks that a matcher scanned:
-    /// where it starts and ends, and the last `]` in it. A search that starts
-    /// inside the run ends where it does.
+    /// where it starts and ends, and the last `]` in it.
+    /// A search that starts inside the run ends where the run does.
     pub(super) run: Cell<(usize, usize, Option<usize>)>,
 }
 

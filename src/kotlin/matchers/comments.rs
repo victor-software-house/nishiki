@@ -24,9 +24,9 @@ impl Lexer<'_> {
         (self.at(end) != b'*').then_some(end)
     }
 
-    /// The end of the run of `\S` characters from `i`. Searches ask about the
-    /// same run from every start inside it, so the last run is kept, with its
-    /// last `]`.
+    /// The end of the run of `\S` characters from `i`.
+    /// Searches ask about the same run from every start inside it.
+    /// The last run is therefore kept, with its last `]`.
     fn non_space_end(&self, i: usize) -> usize {
         let (start, end, _) = self.x.run.get();
         if start <= i && i < end {
@@ -60,8 +60,9 @@ impl Lexer<'_> {
     }
 
     /// `(@param|@property)\s+(\S+)` and `(@exception|@throws)\s+(\S+)`: the
-    /// tag, its blanks and the run after them. Giving blanks back cannot help,
-    /// because the next character would be a blank and `\S+` needs another.
+    /// tag, its blanks and the run after them.
+    /// Giving blanks back cannot help.
+    /// The next character would be a blank, and `\S+` needs another character.
     pub(super) fn javadoc_named(&mut self, p: usize, tags: &[&[u8]]) -> Option<usize> {
         let tag = tags.iter().find_map(|tag| self.lit(p, tag))?;
         let start = self.space_end(tag);
@@ -77,9 +78,10 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `(@param)\[(\S+)]`: `\S+` takes the whole run and gives back until a
-    /// `]` follows, so the last `]` of the run closes the match, and the name
-    /// has at least one character.
+    /// `(@param)\[(\S+)]`.
+    /// `\S+` takes the whole run and gives back until a `]` follows.
+    /// The last `]` of the run therefore closes the match.
+    /// The name has at least one character.
     pub(super) fn javadoc_bracketed(&mut self, p: usize) -> Option<usize> {
         let tag = self.lit(p, b"@param")?;
         let open = self.lit(tag, b"[")?;
@@ -94,8 +96,10 @@ impl Lexer<'_> {
     /// `\{(@link)\s+(\S+)?#([$\w]+\s*\([^()]*\)).*}`.
     ///
     /// The optional `\S+` takes the whole run and gives back until a `#`
-    /// follows, so the last `#` of the run is tried first and the earlier
-    /// ones after it, and the group is left out last.
+    /// follows.
+    /// The last `#` of the run is therefore tried first, then the earlier
+    /// ones.
+    /// Leaving the group out is tried last.
     pub(super) fn javadoc_link(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'{' {
             return None;
@@ -130,9 +134,9 @@ impl Lexer<'_> {
     }
 
     /// `([$\w]+\s*\([^()]*\)).*}` from `i`, after the `#`: where the group
-    /// ends and where the last `}` of the line ends the match. Giving back
-    /// part of the name or of `[^()]*` cannot help, because the next
-    /// character would be a name character or not a parenthesis.
+    /// ends, and where the last `}` of the line ends the match.
+    /// Giving back part of the name or of `[^()]*` cannot help.
+    /// The next character would be a name character or not a parenthesis.
     fn link_tail(&self, i: usize) -> Option<(usize, usize)> {
         let mut name = i;
         loop {

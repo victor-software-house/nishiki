@@ -21,8 +21,9 @@ impl Lexer<'_> {
     }
 
     /// The end of `[.\w]+\b` from `from`, where the run took its first
-    /// character: the run gives back characters until `\b` holds, and `after`
-    /// rejects the end it is not allowed to have.
+    /// character.
+    /// The run gives back characters until `\b` holds.
+    /// `after` rejects an end the run is not allowed to have.
     fn dotted_name(&self, from: usize, mut after: impl FnMut(usize) -> bool) -> Option<usize> {
         let mut end = self.dotted_end(from);
         while end > from {
@@ -34,8 +35,9 @@ impl Lexer<'_> {
         None
     }
 
-    /// `(?<!\w)@[.\w]+\b(?!:)`: the run gives back characters while a `:`
-    /// follows its end, so `@file:` fails and `@a.b:` keeps `@a.`.
+    /// `(?<!\w)@[.\w]+\b(?!:)`.
+    /// The run gives back characters while a `:` follows its end.
+    /// So `@file:` fails, and `@a.b:` keeps `@a.`.
     pub(super) fn annotation_simple(&self, p: usize) -> Option<usize> {
         if self.at(p) != b'@' || self.word_before(p) {
             return None;
@@ -52,8 +54,9 @@ impl Lexer<'_> {
     }
 
     /// `(?<!\w)(@\w+):\s*\[` for the list form and `(?<!\w)(@\w+):\s*(?!\[)`
-    /// for the other: the target, the colon and the blanks. The second gives
-    /// back one blank when a `[` follows them, and fails when there is none.
+    /// for the other: the target, the colon and the blanks.
+    /// The second gives back one blank when a `[` follows them.
+    /// It fails when there is no blank to give back.
     pub(super) fn annotation_site(&mut self, p: usize, form: SiteForm) -> Option<usize> {
         if self.at(p) != b'@' || self.word_before(p) {
             return None;

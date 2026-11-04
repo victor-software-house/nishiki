@@ -59,8 +59,9 @@ pub(super) const CONTROL_KEYWORDS: &[&[u8]] = &[
 ];
 
 impl Lexer<'_> {
-    /// `\b(this|super)(@\w+)?\b`: when the label is there, its word ends the
-    /// match at a boundary; without it, the keyword's own end must be one.
+    /// `\b(this|super)(@\w+)?\b`.
+    /// When the label is there, its word ends the match at a boundary.
+    /// Without it, the keyword's own end must be a boundary.
     pub(super) fn self_reference(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -76,7 +77,8 @@ impl Lexer<'_> {
     }
 
     /// `\b(import)\b\s*` and `\b(package)\b\s*`: the keyword as group 1, and
-    /// the blanks after it, which can include the line feed.
+    /// the blanks after it.
+    /// The blanks can include the line feed.
     pub(super) fn directive(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
         self.cap(1, p, end);

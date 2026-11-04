@@ -18,8 +18,8 @@ impl Lexer<'_> {
             .then_some(p + 2)
     }
 
-    /// `\\.`: a backslash and the character after it, which is not the line
-    /// feed.
+    /// `\\.`: a backslash and the character after it.
+    /// That character is not the line feed.
     pub(super) fn escape(&self, p: usize) -> Option<usize> {
         (self.at(p) == b'\\' && p + 1 < self.lim()).then(|| self.char_end(p + 1))
     }

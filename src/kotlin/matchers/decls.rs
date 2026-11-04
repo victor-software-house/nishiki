@@ -5,9 +5,10 @@ use crate::rules::Chars;
 
 impl Lexer<'_> {
     /// The `\s*(?<GROUP><…>)?` that ends several expressions: the blanks
-    /// after `from`, then a balanced angle group when one follows. Returns the
-    /// end of the match and the group's range. Without a group the match
-    /// keeps the blanks, because `\s*` is greedy and the group is optional.
+    /// after `from`, then a balanced angle group when one follows.
+    /// It returns the end of the match and the group's range.
+    /// Without a group the match keeps the blanks.
+    /// `\s*` is greedy, and the group is optional.
     fn blanks_and_generics(&self, from: usize) -> (usize, Option<(usize, usize)>) {
         let blanks = self.space_end(from);
         match self.angle_group(blanks) {
@@ -18,8 +19,9 @@ impl Lexer<'_> {
 
     /// `\b(class|(?:fun\s+)?interface)\s+(name)\s*(?<GROUP>…)?`.
     ///
-    /// `\s+` gives blanks back only to a name that starts with a blank, which
-    /// cannot match, so one blank run decides.
+    /// `\s+` gives blanks back only to a name that starts with a blank.
+    /// Such a name cannot match.
+    /// One blank run therefore decides.
     pub(super) fn class_declaration(&mut self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -92,9 +94,11 @@ impl Lexer<'_> {
 
     /// `\b(fun)\b\s*(?<GROUP>…)?\s*(?:(?:(\w+)\.)?(name))?`.
     ///
-    /// The tail is optional, so the first way it matches decides. With a
-    /// receiver the name follows the dot; when no name does, the receiver
-    /// is given up and the word itself is the name.
+    /// The tail is optional.
+    /// The first way it matches decides.
+    /// With a receiver, the name follows the dot.
+    /// When no name follows, the receiver is given up and the word itself is
+    /// the name.
     pub(super) fn function(&mut self, p: usize) -> Option<usize> {
         let keyword = self.keyword(p, b"fun")?;
         let (after_generics, generics) = self.blanks_and_generics(keyword);
@@ -172,10 +176,12 @@ impl Lexer<'_> {
 
     /// `(?<![:?]):\s*([?\w\s]|->|(?<GROUP>[(<]([^"'()<>]|\g<GROUP>)+[)>]))+`.
     ///
-    /// A blank is an item of the repetition as well as a character of
-    /// `\s*`, so the repetition decides: it needs one item, and the blanks
-    /// give one back when nothing else follows them. The items share no first
-    /// character, so each step has one way to match.
+    /// A blank is an item of the repetition as well as a character of `\s*`.
+    /// The repetition therefore decides.
+    /// It needs one item, and the blanks give one back when nothing else
+    /// follows them.
+    /// The items share no first character.
+    /// Each step has one way to match.
     pub(super) fn type_annotation(&self, p: usize) -> Option<usize> {
         if self.at(p) != b':' || self.prev_is(p, b':') || self.prev_is(p, b'?') {
             return None;

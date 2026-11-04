@@ -21,11 +21,13 @@ impl Lexer<'_> {
 
     /// `\b\d[_\d]*(\.[_\d]+)?(([Ee])\d+)?([Uu])?([FLf])?\b`.
     ///
-    /// The runs take everything they can and giving any back cannot help:
-    /// the next character would be a digit or an underscore, which neither
-    /// starts a later part nor makes `\b` hold inside a word. The optional
-    /// parts are tried taken before left out, the last one varying fastest,
-    /// and the first combination that ends at a boundary is the match.
+    /// The runs take everything they can, and giving any back cannot help.
+    /// The next character would be a digit or an underscore.
+    /// That character neither starts a later part nor makes `\b` hold inside
+    /// a word.
+    /// Each optional part is tried taken before left out, the last one varying
+    /// fastest.
+    /// The first combination that ends at a boundary is the match.
     pub(super) fn decimal(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;
