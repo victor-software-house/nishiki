@@ -1,0 +1,2894 @@
+L ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-PPCRE; Base: 10 -*-
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 72 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; $Header: /usr/local/cvsrep/cl-ppcre/optimize.lisp,v 1.36 2009/09/17 19:17:31 edi Exp $
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 90 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; This file contains optimizations which can be applied to converted
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; parse trees.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Copyright (c) 2002-2009, Dr. Edmund Weitz. All rights reserved.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Redistribution and use in source and binary forms, with or without
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; modification, are permitted provided that the following conditions
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; are met:
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 12 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;;   * Redistributions of source code must retain the above copyright
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     notice, this list of conditions and the following disclaimer.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;;   * Redistributions in binary form must reproduce the above
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     copyright notice, this list of conditions and the following
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     disclaimer in the documentation and/or other materials
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     provided with the distribution.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 39 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 65 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 61 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L (in-package :cl-ppcre)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 12 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+L 
+L (defgeneric flatten (regex)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (:documentation "Merges adjacent sequences and alternations, i.e. it
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp
+L transforms #<SEQ #<STR \"a\"> #<SEQ #<STR \"b\"> #<STR \"c\">>> to
+T 23 source.commonlisp string.quoted.double.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 44 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp
+L #<SEQ #<STR \"a\"> #<STR \"b\"> #<STR \"c\">>. This is a destructive
+T 12 source.commonlisp string.quoted.double.commonlisp
+T 14 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp
+T 17 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp
+L operation on REGEX."))
+T 19 source.commonlisp string.quoted.double.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 22 source.commonlisp
+L 
+L (defmethod flatten ((seq seq))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   ;; this looks more complicated than it is because we modify SEQ in
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; place to avoid unnecessary consing
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 39 source.commonlisp comment.line.semicolon.commonlisp
+L   (let ((elements-rest (elements seq)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 39 source.commonlisp
+L     (loop
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L       (unless elements-rest
+T 7 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 27 source.commonlisp
+L         (return))
+T 9 source.commonlisp
+T 15 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L       (let ((flattened-element (flatten (car elements-rest)))
+T 6 source.commonlisp
+T 7 source.commonlisp
+T 10 source.commonlisp keyword.control.commonlisp
+T 41 source.commonlisp
+T 44 source.commonlisp support.function.accessor.commonlisp
+T 61 source.commonlisp
+L             (next-elements-rest (cdr elements-rest)))
+T 33 source.commonlisp
+T 36 source.commonlisp support.function.accessor.commonlisp
+T 53 source.commonlisp
+L         (cond ((typep flattened-element 'seq)
+T 9 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 16 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 40 source.commonlisp
+T 41 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 45 source.commonlisp
+L                 ;; FLATTENED-ELEMENT is a SEQ object, so we "splice"
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                 ;; it into out list of elements
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 47 source.commonlisp comment.line.semicolon.commonlisp
+L                 (let ((flattened-element-elements
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 20 source.commonlisp keyword.control.commonlisp
+T 49 source.commonlisp
+L                         (elements flattened-element)))
+T 54 source.commonlisp
+L                   (setf (car elements-rest)
+T 19 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L                           (car flattened-element-elements)
+T 27 source.commonlisp
+T 30 source.commonlisp support.function.accessor.commonlisp
+T 58 source.commonlisp
+L                         (cdr elements-rest)
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L                           (nconc (cdr flattened-element-elements)
+T 27 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.accessor.commonlisp
+T 65 source.commonlisp
+L                                  (cdr elements-rest)))))
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.accessor.commonlisp
+T 56 source.commonlisp
+L               (t
+T 15 source.commonlisp
+T 16 source.commonlisp constant.language.commonlisp
+L                 ;; otherwise we just replace the current element with
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                 ;; its flattened counterpart
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 44 source.commonlisp comment.line.semicolon.commonlisp
+L                 (setf (car elements-rest) flattened-element)))
+T 17 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 26 source.commonlisp support.function.accessor.commonlisp
+T 62 source.commonlisp
+L         (setq elements-rest next-elements-rest))))
+T 9 source.commonlisp
+T 13 source.commonlisp storage.type.function.specialform.commonlisp
+T 50 source.commonlisp
+L   (let ((elements (elements seq)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 34 source.commonlisp
+L     (cond ((cadr elements)
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp support.function.accessor.commonlisp
+T 26 source.commonlisp
+L             seq)
+T 16 source.commonlisp
+L           ((cdr elements)
+T 12 source.commonlisp
+T 15 source.commonlisp support.function.accessor.commonlisp
+T 25 source.commonlisp
+L             (first elements))
+T 13 source.commonlisp
+T 18 source.commonlisp support.function.accessor.commonlisp
+T 29 source.commonlisp
+L           (t (make-instance 'void)))))
+T 11 source.commonlisp
+T 12 source.commonlisp constant.language.commonlisp
+T 14 source.commonlisp
+T 27 source.commonlisp support.function.sgf.nosideeffects.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 38 source.commonlisp
+L 
+L (defmethod flatten ((alternation alternation))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 46 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   ;; same algorithm as above
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 28 source.commonlisp comment.line.semicolon.commonlisp
+L   (let ((choices-rest (choices alternation)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 45 source.commonlisp
+L     (loop
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L       (unless choices-rest
+T 7 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+L         (return))
+T 9 source.commonlisp
+T 15 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L       (let ((flattened-choice (flatten (car choices-rest)))
+T 6 source.commonlisp
+T 7 source.commonlisp
+T 10 source.commonlisp keyword.control.commonlisp
+T 40 source.commonlisp
+T 43 source.commonlisp support.function.accessor.commonlisp
+T 59 source.commonlisp
+L             (next-choices-rest (cdr choices-rest)))
+T 32 source.commonlisp
+T 35 source.commonlisp support.function.accessor.commonlisp
+T 51 source.commonlisp
+L         (cond ((typep flattened-choice 'alternation)
+T 9 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 16 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 52 source.commonlisp
+L                 (let ((flattened-choice-choices
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 20 source.commonlisp keyword.control.commonlisp
+T 47 source.commonlisp
+L                         (choices flattened-choice)))
+T 52 source.commonlisp
+L                   (setf (car choices-rest)
+T 19 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 42 source.commonlisp
+L                           (car flattened-choice-choices)
+T 27 source.commonlisp
+T 30 source.commonlisp support.function.accessor.commonlisp
+T 56 source.commonlisp
+L                         (cdr choices-rest)
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 42 source.commonlisp
+L                           (nconc (cdr flattened-choice-choices)
+T 27 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.accessor.commonlisp
+T 63 source.commonlisp
+L                                  (cdr choices-rest)))))
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.accessor.commonlisp
+T 55 source.commonlisp
+L               (t
+T 15 source.commonlisp
+T 16 source.commonlisp constant.language.commonlisp
+L                 (setf (car choices-rest) flattened-choice)))
+T 17 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 26 source.commonlisp support.function.accessor.commonlisp
+T 60 source.commonlisp
+L         (setq choices-rest next-choices-rest))))
+T 9 source.commonlisp
+T 13 source.commonlisp storage.type.function.specialform.commonlisp
+T 48 source.commonlisp
+L   (let ((choices (choices alternation)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 40 source.commonlisp
+L     (if (rest choices)
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 7 source.commonlisp keyword.control.commonlisp
+T 9 source.commonlisp
+T 13 source.commonlisp support.function.accessor.commonlisp
+T 22 source.commonlisp
+L         alternation
+T 19 source.commonlisp
+L         (or (first choices)
+T 9 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 18 source.commonlisp support.function.accessor.commonlisp
+T 27 source.commonlisp
+L             (signal-syntax-error "Encountered alternation without choices.")))))
+T 33 source.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 74 source.commonlisp string.quoted.double.commonlisp
+T 75 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 80 source.commonlisp
+L 
+L (defmethod flatten ((branch branch))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 36 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (with-slots (test then-regex else-regex)
+T 3 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 42 source.commonlisp
+L       branch
+T 12 source.commonlisp
+L     (setq test
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.specialform.commonlisp
+T 14 source.commonlisp
+L             (if (numberp test)
+T 12 source.commonlisp
+T 13 source.commonlisp
+T 15 source.commonlisp keyword.control.commonlisp
+T 17 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+L               test
+T 18 source.commonlisp
+L               (flatten test))
+T 29 source.commonlisp
+L           then-regex (flatten then-regex)
+T 41 source.commonlisp
+L           else-regex (flatten else-regex))
+T 42 source.commonlisp
+L     branch))
+T 12 source.commonlisp
+L 
+L (defmethod flatten ((regex regex))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 34 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (typecase regex
+T 3 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L     ((or repetition register lookahead lookbehind standalone)
+T 6 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 61 source.commonlisp
+L       ;; if REGEX contains exactly one inner REGEX object flatten it
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L       (setf (regex regex)
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 25 source.commonlisp
+L               (flatten (regex regex)))
+T 38 source.commonlisp
+L       regex)
+T 12 source.commonlisp
+L     (t
+T 5 source.commonlisp
+T 6 source.commonlisp constant.language.commonlisp
+L       ;; otherwise (ANCHOR, BACK-REFERENCE, CHAR-CLASS, EVERYTHING,
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; LOOKAHEAD, LOOKBEHIND, STR, VOID, FILTER, and WORD-BOUNDARY)
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; do nothing
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp
+L       regex)))
+T 14 source.commonlisp
+L 
+L (defgeneric gather-strings (regex)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 34 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (:documentation "Collects adjacent strings or characters into one
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+L string provided they have the same case mode. This is a destructive
+T 67 source.commonlisp string.quoted.double.commonlisp
+L operation on REGEX."))
+T 19 source.commonlisp string.quoted.double.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 22 source.commonlisp
+L 
+L (defmethod gather-strings ((seq seq))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 37 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   ;; note that GATHER-STRINGS is to be applied after FLATTEN, i.e. it
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; expects SEQ to be flattened already; in particular, SEQ cannot be
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; empty and cannot contain embedded SEQ objects
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 50 source.commonlisp comment.line.semicolon.commonlisp
+L   (let* ((start-point (cons nil (elements seq)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 7 source.commonlisp keyword.control.commonlisp
+T 23 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 28 source.commonlisp
+T 31 source.commonlisp constant.language.commonlisp
+T 48 source.commonlisp
+L          (curr-point start-point)
+T 33 source.commonlisp
+L          old-case-mode
+T 22 source.commonlisp
+L          collector
+T 18 source.commonlisp
+L          collector-start
+T 24 source.commonlisp
+L          (collector-length 0)
+T 27 source.commonlisp
+T 28 source.commonlisp constant.numeric.commonlisp
+T 29 source.commonlisp
+L          skip)
+T 14 source.commonlisp
+L     (declare (fixnum collector-length))
+T 5 source.commonlisp
+T 12 source.commonlisp storage.type.function.symbol.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+T 39 source.commonlisp
+L     (loop
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L       (let ((elements-rest (cdr curr-point)))
+T 6 source.commonlisp
+T 7 source.commonlisp
+T 10 source.commonlisp keyword.control.commonlisp
+T 28 source.commonlisp
+T 31 source.commonlisp support.function.accessor.commonlisp
+T 45 source.commonlisp
+L         (unless elements-rest
+T 9 source.commonlisp
+T 15 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 29 source.commonlisp
+L           (return))
+T 11 source.commonlisp
+T 17 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 19 source.commonlisp
+L         (let* ((element (car elements-rest))
+T 8 source.commonlisp
+T 9 source.commonlisp
+T 13 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 44 source.commonlisp
+L                (case-mode (case-mode element old-case-mode)))
+T 61 source.commonlisp
+L           (cond ((and case-mode
+T 11 source.commonlisp
+T 15 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+L                       (eq case-mode old-case-mode))
+T 23 source.commonlisp
+T 25 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+L                   ;; if ELEMENT is a STR and we have collected a STR of
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; the same case mode in the last iteration we
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; concatenate ELEMENT onto COLLECTOR and remember the
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 72 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; value of its SKIP slot
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 43 source.commonlisp comment.line.semicolon.commonlisp
+L                   (let ((old-collector-length collector-length))
+T 18 source.commonlisp
+T 19 source.commonlisp
+T 22 source.commonlisp keyword.control.commonlisp
+T 64 source.commonlisp
+L                     (unless (and (adjustable-array-p collector)
+T 21 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 29 source.commonlisp
+T 32 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 34 source.commonlisp
+T 52 source.commonlisp support.function.f.sideeffects.commonlisp
+T 63 source.commonlisp
+L                                  (array-has-fill-pointer-p collector))
+T 34 source.commonlisp
+T 58 source.commonlisp support.function.f.sideeffects.commonlisp
+T 70 source.commonlisp
+L                       (setq collector
+T 23 source.commonlisp
+T 27 source.commonlisp storage.type.function.specialform.commonlisp
+T 37 source.commonlisp
+L                               (make-array collector-length
+T 31 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 58 source.commonlisp
+L                                           :initial-contents collector
+T 42 source.commonlisp
+T 59 source.commonlisp entity.name.variable.commonlisp
+T 69 source.commonlisp
+L                                           :element-type 'character
+T 42 source.commonlisp
+T 55 source.commonlisp entity.name.variable.commonlisp
+T 56 source.commonlisp
+T 57 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 66 source.commonlisp
+L                                           :fill-pointer t
+T 42 source.commonlisp
+T 55 source.commonlisp entity.name.variable.commonlisp
+T 56 source.commonlisp
+T 57 source.commonlisp constant.language.commonlisp
+L                                           :adjustable t)
+T 42 source.commonlisp
+T 53 source.commonlisp entity.name.variable.commonlisp
+T 54 source.commonlisp
+T 55 source.commonlisp constant.language.commonlisp
+T 56 source.commonlisp
+L                             collector-start nil))
+T 44 source.commonlisp
+T 47 source.commonlisp constant.language.commonlisp
+T 49 source.commonlisp
+L                     (adjust-array collector
+T 21 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 43 source.commonlisp
+L                                   (incf collector-length (len element))
+T 35 source.commonlisp
+T 39 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 71 source.commonlisp
+L                                   :fill-pointer t)
+T 34 source.commonlisp
+T 47 source.commonlisp entity.name.variable.commonlisp
+T 48 source.commonlisp
+T 49 source.commonlisp constant.language.commonlisp
+T 50 source.commonlisp
+L                     (setf (subseq collector
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 27 source.commonlisp
+T 33 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L                                   old-collector-length)
+T 55 source.commonlisp
+L                             (str element)
+T 41 source.commonlisp
+L                           ;; it suffices to remember the last SKIP slot
+T 26 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 27 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L                           ;; because due to the way MAYBE-ACCUMULATE
+T 26 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 27 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                           ;; works adjacent STR objects have the same
+T 26 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 27 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                           ;; SKIP value
+T 26 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 27 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 39 source.commonlisp comment.line.semicolon.commonlisp
+L                           skip (skip element)))
+T 47 source.commonlisp
+L                   (setf (cdr curr-point) (cdr elements-rest)))
+T 19 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 42 source.commonlisp
+T 45 source.commonlisp support.function.accessor.commonlisp
+T 62 source.commonlisp
+L                 (t
+T 17 source.commonlisp
+T 18 source.commonlisp constant.language.commonlisp
+L                   (let ((collected-string
+T 18 source.commonlisp
+T 19 source.commonlisp
+T 22 source.commonlisp keyword.control.commonlisp
+T 41 source.commonlisp
+L                           (cond (collector-start
+T 27 source.commonlisp
+T 31 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 48 source.commonlisp
+L                                   collector-start)
+T 50 source.commonlisp
+L                                 (collector
+T 42 source.commonlisp
+L                                   ;; if we have collected something already
+T 34 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 35 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 75 source.commonlisp comment.line.semicolon.commonlisp
+L                                   ;; we convert it into a STR
+T 34 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 35 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 61 source.commonlisp comment.line.semicolon.commonlisp
+L                                   (make-instance 'str
+T 35 source.commonlisp
+T 48 source.commonlisp support.function.sgf.nosideeffects.commonlisp
+T 49 source.commonlisp
+T 50 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 53 source.commonlisp
+L                                                  :skip skip
+T 49 source.commonlisp
+T 54 source.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp
+L                                                  :str collector
+T 49 source.commonlisp
+T 53 source.commonlisp entity.name.variable.commonlisp
+T 63 source.commonlisp
+L                                                  :case-insensitive-p
+T 49 source.commonlisp
+T 68 source.commonlisp entity.name.variable.commonlisp
+L                                                  (eq old-case-mode
+T 50 source.commonlisp
+T 52 source.commonlisp support.function.f.sideeffects.commonlisp
+T 66 source.commonlisp
+L                                                      :case-insensitive)))
+T 53 source.commonlisp
+T 70 source.commonlisp entity.name.variable.commonlisp
+T 73 source.commonlisp
+L                                 (t nil))))
+T 33 source.commonlisp
+T 34 source.commonlisp constant.language.commonlisp
+T 35 source.commonlisp
+T 38 source.commonlisp constant.language.commonlisp
+T 42 source.commonlisp
+L                     (cond (case-mode
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 36 source.commonlisp
+L                             ;; if ELEMENT is a string with a different case
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 75 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; mode than the last one we have either just
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 73 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; converted COLLECTOR into a STR or COLLECTOR
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 74 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; is still empty; in both cases we can now
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; begin to fill it anew
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 52 source.commonlisp comment.line.semicolon.commonlisp
+L                             (setq collector (str element)
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.specialform.commonlisp
+T 57 source.commonlisp
+L                                   collector-start element
+T 57 source.commonlisp
+L                                   ;; and we remember the SKIP value as above
+T 34 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 35 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 76 source.commonlisp comment.line.semicolon.commonlisp
+L                                   skip (skip element)
+T 53 source.commonlisp
+L                                   collector-length (len element))
+T 65 source.commonlisp
+L                             (cond (collected-string
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 51 source.commonlisp
+L                                     (setf (car elements-rest)
+T 37 source.commonlisp
+T 41 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 61 source.commonlisp
+L                                             collected-string
+T 60 source.commonlisp
+L                                           curr-point
+T 52 source.commonlisp
+L                                             (cdr curr-point)))
+T 45 source.commonlisp
+T 48 source.commonlisp support.function.accessor.commonlisp
+T 62 source.commonlisp
+L                                   (t
+T 35 source.commonlisp
+T 36 source.commonlisp constant.language.commonlisp
+L                                     (setf (cdr curr-point)
+T 37 source.commonlisp
+T 41 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 58 source.commonlisp
+L                                             (cdr elements-rest)))))
+T 45 source.commonlisp
+T 48 source.commonlisp support.function.accessor.commonlisp
+T 67 source.commonlisp
+L                           (t
+T 27 source.commonlisp
+T 28 source.commonlisp constant.language.commonlisp
+L                             ;; otherwise this is not a STR so we apply
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; GATHER-STRINGS to it and collect it directly
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 75 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; into RESULT
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 42 source.commonlisp comment.line.semicolon.commonlisp
+L                             (cond (collected-string
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 51 source.commonlisp
+L                                     (setf (car elements-rest)
+T 37 source.commonlisp
+T 41 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 61 source.commonlisp
+L                                             collected-string
+T 60 source.commonlisp
+L                                           curr-point
+T 52 source.commonlisp
+L                                             (cdr curr-point)
+T 45 source.commonlisp
+T 48 source.commonlisp support.function.accessor.commonlisp
+T 60 source.commonlisp
+L                                           (cdr curr-point)
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 58 source.commonlisp
+L                                             (cons (gather-strings element)
+T 45 source.commonlisp
+T 49 source.commonlisp support.function.f.sideeffects.commonlisp
+T 74 source.commonlisp
+L                                                   (cdr curr-point))
+T 51 source.commonlisp
+T 54 source.commonlisp support.function.accessor.commonlisp
+T 67 source.commonlisp
+L                                           curr-point
+T 52 source.commonlisp
+L                                             (cdr curr-point)))
+T 45 source.commonlisp
+T 48 source.commonlisp support.function.accessor.commonlisp
+T 62 source.commonlisp
+L                                   (t
+T 35 source.commonlisp
+T 36 source.commonlisp constant.language.commonlisp
+L                                     (setf (car elements-rest)
+T 37 source.commonlisp
+T 41 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 61 source.commonlisp
+L                                             (gather-strings element)
+T 68 source.commonlisp
+L                                           curr-point
+T 52 source.commonlisp
+L                                             (cdr curr-point))))
+T 45 source.commonlisp
+T 48 source.commonlisp support.function.accessor.commonlisp
+T 63 source.commonlisp
+L                             ;; we also have to empty COLLECTOR here in case
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 75 source.commonlisp comment.line.semicolon.commonlisp
+L                             ;; it was still filled from the last iteration
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 74 source.commonlisp comment.line.semicolon.commonlisp
+L                             (setq collector nil
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.specialform.commonlisp
+T 44 source.commonlisp
+T 47 source.commonlisp constant.language.commonlisp
+L                                   collector-start nil))))))
+T 50 source.commonlisp
+T 53 source.commonlisp constant.language.commonlisp
+T 59 source.commonlisp
+L           (setq old-case-mode case-mode))))
+T 11 source.commonlisp
+T 15 source.commonlisp storage.type.function.specialform.commonlisp
+T 43 source.commonlisp
+L     (when collector
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 19 source.commonlisp
+L       (setf (cdr curr-point)
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp support.function.accessor.commonlisp
+T 28 source.commonlisp
+L               (cons
+T 15 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+L                (make-instance 'str
+T 16 source.commonlisp
+T 29 source.commonlisp support.function.sgf.nosideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 34 source.commonlisp
+L                               :skip skip
+T 30 source.commonlisp
+T 35 source.commonlisp entity.name.variable.commonlisp
+T 40 source.commonlisp
+L                               :str collector
+T 30 source.commonlisp
+T 34 source.commonlisp entity.name.variable.commonlisp
+T 44 source.commonlisp
+L                               :case-insensitive-p
+T 30 source.commonlisp
+T 49 source.commonlisp entity.name.variable.commonlisp
+L                               (eq old-case-mode
+T 31 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+L                                   :case-insensitive))
+T 34 source.commonlisp
+T 51 source.commonlisp entity.name.variable.commonlisp
+T 53 source.commonlisp
+L                nil)))
+T 15 source.commonlisp
+T 18 source.commonlisp constant.language.commonlisp
+T 21 source.commonlisp
+L     (setf (elements seq) (cdr start-point))
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 29 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L     seq))
+T 9 source.commonlisp
+L 
+L (defmethod gather-strings ((alternation alternation))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 53 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   ;; loop ON the choices of ALTERNATION so we can modify them directly
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L   (loop for choices-rest on (choices alternation)
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 49 source.commonlisp
+L         while choices-rest
+T 26 source.commonlisp
+L         do (setf (car choices-rest)
+T 8 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 21 source.commonlisp support.function.accessor.commonlisp
+T 35 source.commonlisp
+L                    (gather-strings (car choices-rest))))
+T 36 source.commonlisp
+T 39 source.commonlisp support.function.accessor.commonlisp
+T 56 source.commonlisp
+L   alternation)
+T 14 source.commonlisp
+L 
+L (defmethod gather-strings ((branch branch))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 43 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (with-slots (test then-regex else-regex)
+T 3 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 42 source.commonlisp
+L       branch
+T 12 source.commonlisp
+L     (setq test
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.specialform.commonlisp
+T 14 source.commonlisp
+L             (if (numberp test)
+T 12 source.commonlisp
+T 13 source.commonlisp
+T 15 source.commonlisp keyword.control.commonlisp
+T 17 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+L               test
+T 18 source.commonlisp
+L               (gather-strings test))
+T 36 source.commonlisp
+L           then-regex (gather-strings then-regex)
+T 48 source.commonlisp
+L           else-regex (gather-strings else-regex))
+T 49 source.commonlisp
+L     branch))
+T 12 source.commonlisp
+L 
+L (defmethod gather-strings ((regex regex))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 41 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (typecase regex
+T 3 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L     ((or repetition register lookahead lookbehind standalone)
+T 6 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 61 source.commonlisp
+L       ;; if REGEX contains exactly one inner REGEX object apply
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; GATHER-STRINGS to it
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp
+L       (setf (regex regex)
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 25 source.commonlisp
+L               (gather-strings (regex regex)))
+T 45 source.commonlisp
+L       regex)
+T 12 source.commonlisp
+L     (t
+T 5 source.commonlisp
+T 6 source.commonlisp constant.language.commonlisp
+L       ;; otherwise (ANCHOR, BACK-REFERENCE, CHAR-CLASS, EVERYTHING,
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; LOOKAHEAD, LOOKBEHIND, STR, VOID, FILTER, and WORD-BOUNDARY)
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; do nothing
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp
+L       regex)))
+T 14 source.commonlisp
+L 
+L ;; Note that START-ANCHORED-P will be called after FLATTEN and GATHER-STRINGS.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 78 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L (defgeneric start-anchored-p (regex &optional in-seq-p)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 36 source.commonlisp
+T 45 source.commonlisp keyword.other.lambdalist.commonlisp
+T 55 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (:documentation "Returns T if REGEX starts with a \"real\" start
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp
+L anchor, i.e. one that's not in multi-line mode, NIL otherwise. If
+T 65 source.commonlisp string.quoted.double.commonlisp
+L IN-SEQ-P is true the function will return :ZERO-LENGTH if REGEX is a
+T 68 source.commonlisp string.quoted.double.commonlisp
+L zero-length assertion."))
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 25 source.commonlisp
+L 
+L (defmethod start-anchored-p ((seq seq) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 39 source.commonlisp
+T 48 source.commonlisp keyword.other.lambdalist.commonlisp
+T 58 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   ;; note that START-ANCHORED-P is to be applied after FLATTEN and
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; GATHER-STRINGS, i.e. SEQ cannot be empty and cannot contain
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; embedded SEQ objects
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 25 source.commonlisp comment.line.semicolon.commonlisp
+L   (loop for element in (elements seq)
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 37 source.commonlisp
+L         for anchored-p = (start-anchored-p element t)
+T 23 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp constant.language.commonlisp
+T 53 source.commonlisp
+L         ;; skip zero-length elements because they won't affect the
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; "anchoredness" of the sequence
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 41 source.commonlisp comment.line.semicolon.commonlisp
+L         while (eq anchored-p :zero-length)
+T 15 source.commonlisp
+T 17 source.commonlisp support.function.f.sideeffects.commonlisp
+T 29 source.commonlisp
+T 41 source.commonlisp entity.name.variable.commonlisp
+T 42 source.commonlisp
+L         finally (return (and anchored-p (not (eq anchored-p :zero-length))))))
+T 17 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 41 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 46 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 60 source.commonlisp
+T 72 source.commonlisp entity.name.variable.commonlisp
+T 78 source.commonlisp
+L 
+L (defmethod start-anchored-p ((alternation alternation) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 55 source.commonlisp
+T 64 source.commonlisp keyword.other.lambdalist.commonlisp
+T 74 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   ;; clearly an alternation can only be start-anchored if all of its
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; choices are start-anchored
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp
+L   (loop for choice in (choices alternation)
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+L         always (start-anchored-p choice)))
+T 42 source.commonlisp
+L 
+L (defmethod start-anchored-p ((branch branch) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 45 source.commonlisp
+T 54 source.commonlisp keyword.other.lambdalist.commonlisp
+T 64 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   (and (start-anchored-p (then-regex branch))
+T 3 source.commonlisp
+T 6 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 45 source.commonlisp
+L        (start-anchored-p (else-regex branch))))
+T 47 source.commonlisp
+L 
+L (defmethod start-anchored-p ((repetition repetition) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 53 source.commonlisp
+T 62 source.commonlisp keyword.other.lambdalist.commonlisp
+T 72 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   ;; well, this wouldn't make much sense, but anyway...
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 55 source.commonlisp comment.line.semicolon.commonlisp
+L   (and (plusp (minimum repetition))
+T 3 source.commonlisp
+T 6 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 8 source.commonlisp
+T 13 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+L        (start-anchored-p (regex repetition))))
+T 46 source.commonlisp
+L 
+L (defmethod start-anchored-p ((register register) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 49 source.commonlisp
+T 58 source.commonlisp keyword.other.lambdalist.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   (start-anchored-p (regex register)))
+T 38 source.commonlisp
+L 
+L (defmethod start-anchored-p ((standalone standalone) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 53 source.commonlisp
+T 62 source.commonlisp keyword.other.lambdalist.commonlisp
+T 72 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   (start-anchored-p (regex standalone)))
+T 40 source.commonlisp
+L 
+L (defmethod start-anchored-p ((anchor anchor) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 45 source.commonlisp
+T 54 source.commonlisp keyword.other.lambdalist.commonlisp
+T 64 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore in-seq-p))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 29 source.commonlisp
+L   (and (startp anchor)
+T 3 source.commonlisp
+T 6 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+L        (not (multi-line-p anchor))))
+T 8 source.commonlisp
+T 11 source.commonlisp support.function.f.sideeffects.commonlisp
+T 36 source.commonlisp
+L 
+L (defmethod start-anchored-p ((regex regex) &optional in-seq-p)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 43 source.commonlisp
+T 52 source.commonlisp keyword.other.lambdalist.commonlisp
+T 62 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (typecase regex
+T 3 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L     ((or lookahead lookbehind word-boundary void)
+T 6 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 49 source.commonlisp
+L       ;; zero-length assertions
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp
+L       (if in-seq-p
+T 6 source.commonlisp
+T 7 source.commonlisp
+T 9 source.commonlisp keyword.control.commonlisp
+T 18 source.commonlisp
+L         :zero-length
+T 8 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+L         nil))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.language.commonlisp
+T 13 source.commonlisp
+L     (filter
+T 11 source.commonlisp
+L       (if (and in-seq-p
+T 6 source.commonlisp
+T 7 source.commonlisp
+T 9 source.commonlisp keyword.control.commonlisp
+T 11 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+L                (len regex)
+T 26 source.commonlisp
+L                (zerop (len regex)))
+T 16 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+L         :zero-length
+T 8 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+L         nil))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.language.commonlisp
+T 13 source.commonlisp
+L     (t
+T 5 source.commonlisp
+T 6 source.commonlisp constant.language.commonlisp
+L       ;; BACK-REFERENCE, CHAR-CLASS, EVERYTHING, and STR
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 56 source.commonlisp comment.line.semicolon.commonlisp
+L       nil)))
+T 6 source.commonlisp
+T 9 source.commonlisp constant.language.commonlisp
+T 12 source.commonlisp
+L 
+L ;; Note that END-STRING-AUX will be called after FLATTEN and GATHER-STRINGS.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 76 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L (defgeneric end-string-aux (regex &optional old-case-insensitive-p)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 34 source.commonlisp
+T 43 source.commonlisp keyword.other.lambdalist.commonlisp
+T 67 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (:documentation "Returns the constant string (if it exists) REGEX
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+L ends with wrapped into a STR object, otherwise NIL.
+T 51 source.commonlisp string.quoted.double.commonlisp
+L OLD-CASE-INSENSITIVE-P is the CASE-INSENSITIVE-P slot of the last STR
+T 69 source.commonlisp string.quoted.double.commonlisp
+L collected or :VOID if no STR has been collected yet. (This is a helper
+T 70 source.commonlisp string.quoted.double.commonlisp
+L function called by END-STRING.)"))
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 34 source.commonlisp
+L 
+L (defmethod end-string-aux ((str str)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 36 source.commonlisp
+L                            &optional (old-case-insensitive-p :void))
+T 27 source.commonlisp
+T 36 source.commonlisp keyword.other.lambdalist.commonlisp
+T 61 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (special last-str))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 19 source.commonlisp storage.type.function.declaration.commonlisp
+T 30 source.commonlisp
+L   (cond ((and (not (skip str))          ; avoid constituents of STARTS-WITH
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 15 source.commonlisp
+T 18 source.commonlisp support.function.f.sideeffects.commonlisp
+T 40 source.commonlisp
+T 41 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 75 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; only use STR if nothing has been collected yet or if
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; the collected string has the same value for
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; CASE-INSENSITIVE-P
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 35 source.commonlisp comment.line.semicolon.commonlisp
+L               (or (eq old-case-insensitive-p :void)
+T 15 source.commonlisp
+T 17 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 19 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 45 source.commonlisp
+T 50 source.commonlisp entity.name.variable.commonlisp
+T 51 source.commonlisp
+L                   (eq (case-insensitive-p str) old-case-insensitive-p)))
+T 19 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 72 source.commonlisp
+L           (setf last-str str
+T 11 source.commonlisp
+T 15 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 28 source.commonlisp
+L                 ;; set the SKIP property of this STR
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 52 source.commonlisp comment.line.semicolon.commonlisp
+L                 (skip str) t)
+T 27 source.commonlisp
+T 28 source.commonlisp constant.language.commonlisp
+T 29 source.commonlisp
+L           str)
+T 14 source.commonlisp
+L         (t nil)))
+T 9 source.commonlisp
+T 10 source.commonlisp constant.language.commonlisp
+T 11 source.commonlisp
+T 14 source.commonlisp constant.language.commonlisp
+T 17 source.commonlisp
+L 
+L (defmethod end-string-aux ((seq seq)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 36 source.commonlisp
+L                            &optional (old-case-insensitive-p :void))
+T 27 source.commonlisp
+T 36 source.commonlisp keyword.other.lambdalist.commonlisp
+T 61 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (special continuep))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 19 source.commonlisp storage.type.function.declaration.commonlisp
+T 31 source.commonlisp
+L   (let (case-insensitive-p
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 26 source.commonlisp
+L         concatenated-string
+T 27 source.commonlisp
+L         concatenated-start
+T 26 source.commonlisp
+L         (concatenated-length 0))
+T 29 source.commonlisp
+T 30 source.commonlisp constant.numeric.commonlisp
+T 32 source.commonlisp
+L     (declare (fixnum concatenated-length))
+T 5 source.commonlisp
+T 12 source.commonlisp storage.type.function.symbol.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+T 42 source.commonlisp
+L     (loop for element in (reverse (elements seq))
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 49 source.commonlisp
+L           ;; remember the case-(in)sensitivity of the last relevant
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L           ;; STR object
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 23 source.commonlisp comment.line.semicolon.commonlisp
+L           for loop-old-case-insensitive-p = old-case-insensitive-p
+T 42 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 66 source.commonlisp
+L             then (if skip
+T 17 source.commonlisp
+T 18 source.commonlisp
+T 20 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+L                    loop-old-case-insensitive-p
+T 46 source.commonlisp
+L                    (case-insensitive-p element-end))
+T 52 source.commonlisp
+L           ;; the end-string of the current element
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 50 source.commonlisp comment.line.semicolon.commonlisp
+L           for element-end = (end-string-aux element
+T 26 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+L                                             loop-old-case-insensitive-p)
+T 72 source.commonlisp
+L           ;; whether we encountered a zero-length element
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 57 source.commonlisp comment.line.semicolon.commonlisp
+L           for skip = (if element-end
+T 19 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+L                        (zerop (len element-end))
+T 24 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+L                        nil)
+T 23 source.commonlisp
+T 26 source.commonlisp constant.language.commonlisp
+T 27 source.commonlisp
+L           ;; set CONTINUEP to NIL if we have to stop collecting to
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L           ;; alert END-STRING-AUX methods on enclosing SEQ objects
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L           unless element-end
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 28 source.commonlisp
+L             do (setq continuep nil)
+T 12 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.specialform.commonlisp
+T 31 source.commonlisp
+T 34 source.commonlisp constant.language.commonlisp
+T 35 source.commonlisp
+L           ;; end loop if we neither got a STR nor a zero-length
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L           ;; element
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp
+L           while element-end
+T 27 source.commonlisp
+L           ;; only collect if not zero-length
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 44 source.commonlisp comment.line.semicolon.commonlisp
+L           unless skip
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+L             do (cond (concatenated-string
+T 12 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 41 source.commonlisp
+L                        (when concatenated-start
+T 24 source.commonlisp
+T 28 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 47 source.commonlisp
+L                          (setf concatenated-string
+T 26 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 50 source.commonlisp
+L                                  (make-array concatenated-length
+T 34 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 64 source.commonlisp
+L                                              :initial-contents (reverse (str concatenated-start))
+T 45 source.commonlisp
+T 62 source.commonlisp entity.name.variable.commonlisp
+T 64 source.commonlisp
+T 71 source.commonlisp support.function.f.sideeffects.commonlisp
+T 97 source.commonlisp
+L                                              :element-type 'character
+T 45 source.commonlisp
+T 58 source.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp
+T 60 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 69 source.commonlisp
+L                                              :fill-pointer t
+T 45 source.commonlisp
+T 58 source.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp
+T 60 source.commonlisp constant.language.commonlisp
+L                                              :adjustable t)
+T 45 source.commonlisp
+T 56 source.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp
+T 58 source.commonlisp constant.language.commonlisp
+T 59 source.commonlisp
+L                                concatenated-start nil))
+T 50 source.commonlisp
+T 53 source.commonlisp constant.language.commonlisp
+T 55 source.commonlisp
+L                        (let ((len (len element-end))
+T 23 source.commonlisp
+T 24 source.commonlisp
+T 27 source.commonlisp keyword.control.commonlisp
+T 52 source.commonlisp
+L                              (str (str element-end)))
+T 53 source.commonlisp
+L                          (declare (fixnum len))
+T 26 source.commonlisp
+T 33 source.commonlisp storage.type.function.symbol.commonlisp
+T 35 source.commonlisp
+T 41 source.commonlisp support.type.t.commonlisp
+T 47 source.commonlisp
+L                          (incf concatenated-length len)
+T 26 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 55 source.commonlisp
+L                          (loop for i of-type fixnum downfrom (1- len) to 0
+T 26 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 45 source.commonlisp
+T 51 source.commonlisp support.type.t.commonlisp
+T 62 source.commonlisp
+T 64 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+T 74 source.commonlisp constant.numeric.commonlisp
+L                                do (vector-push-extend (char str i)
+T 31 source.commonlisp
+T 33 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 35 source.commonlisp
+T 53 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+T 59 source.commonlisp support.function.accessor.commonlisp
+T 66 source.commonlisp
+L                                                       concatenated-string))))
+T 77 source.commonlisp
+L                      (t
+T 22 source.commonlisp
+T 23 source.commonlisp constant.language.commonlisp
+L                        (setf concatenated-string
+T 24 source.commonlisp
+T 28 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 48 source.commonlisp
+L                                t
+T 31 source.commonlisp
+T 32 source.commonlisp constant.language.commonlisp
+L                              concatenated-start
+T 47 source.commonlisp
+L                                element-end
+T 42 source.commonlisp
+L                              concatenated-length
+T 48 source.commonlisp
+L                                (len element-end)
+T 48 source.commonlisp
+L                              case-insensitive-p
+T 47 source.commonlisp
+L                                (case-insensitive-p element-end))))
+T 66 source.commonlisp
+L           ;; stop collecting if END-STRING-AUX on inner SEQ has said so
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L           while continuep)
+T 26 source.commonlisp
+L     (cond ((zerop concatenated-length)
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 17 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+L             ;; don't bother to return zero-length strings
+T 12 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 13 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 57 source.commonlisp comment.line.semicolon.commonlisp
+L             nil)
+T 12 source.commonlisp
+T 15 source.commonlisp constant.language.commonlisp
+T 16 source.commonlisp
+L           (concatenated-start
+T 29 source.commonlisp
+L             concatenated-start)
+T 31 source.commonlisp
+L           (t
+T 11 source.commonlisp
+T 12 source.commonlisp constant.language.commonlisp
+L             (make-instance 'str
+T 13 source.commonlisp
+T 26 source.commonlisp support.function.sgf.nosideeffects.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 31 source.commonlisp
+L                            :str (nreverse concatenated-string)
+T 27 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 62 source.commonlisp
+L                            :case-insensitive-p case-insensitive-p)))))
+T 27 source.commonlisp
+T 46 source.commonlisp entity.name.variable.commonlisp
+T 70 source.commonlisp
+L 
+L (defmethod end-string-aux ((register register)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 46 source.commonlisp
+L                            &optional (old-case-insensitive-p :void))
+T 27 source.commonlisp
+T 36 source.commonlisp keyword.other.lambdalist.commonlisp
+T 61 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (end-string-aux (regex register) old-case-insensitive-p))
+T 59 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod end-string-aux ((standalone standalone)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 50 source.commonlisp
+L                            &optional (old-case-insensitive-p :void))
+T 27 source.commonlisp
+T 36 source.commonlisp keyword.other.lambdalist.commonlisp
+T 61 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (end-string-aux (regex standalone) old-case-insensitive-p))
+T 61 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod end-string-aux ((regex regex)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 40 source.commonlisp
+L                            &optional (old-case-insensitive-p :void))
+T 27 source.commonlisp
+T 36 source.commonlisp keyword.other.lambdalist.commonlisp
+T 61 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (special last-str end-anchored-p continuep))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 19 source.commonlisp storage.type.function.declaration.commonlisp
+T 55 source.commonlisp
+L   (typecase regex
+T 3 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L     ((or anchor lookahead lookbehind word-boundary void)
+T 6 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 56 source.commonlisp
+L       ;; a zero-length REGEX object - for the sake of END-STRING-AUX
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; this is a zero-length string
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 37 source.commonlisp comment.line.semicolon.commonlisp
+L       (when (and (typep regex 'anchor)
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 38 source.commonlisp
+L                  (not (startp regex))
+T 18 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 37 source.commonlisp
+L                  (or (no-newline-p regex)
+T 18 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 41 source.commonlisp
+L                      (not (multi-line-p regex)))
+T 22 source.commonlisp
+T 25 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+L                  (eq old-case-insensitive-p :void))
+T 18 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+T 49 source.commonlisp entity.name.variable.commonlisp
+T 51 source.commonlisp
+L         ;; if this is a "real" end-anchor and we haven't collected
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; anything so far we can set END-ANCHORED-P (where 1 or 0
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; indicate whether we accept a #\Newline at the end or not)
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L         (setq end-anchored-p (if (no-newline-p regex) 0 1)))
+T 9 source.commonlisp
+T 13 source.commonlisp storage.type.function.specialform.commonlisp
+T 29 source.commonlisp
+T 30 source.commonlisp
+T 32 source.commonlisp keyword.control.commonlisp
+T 54 source.commonlisp
+T 55 source.commonlisp constant.numeric.commonlisp
+T 56 source.commonlisp
+T 57 source.commonlisp constant.numeric.commonlisp
+T 60 source.commonlisp
+L       (make-instance 'str
+T 7 source.commonlisp
+T 20 source.commonlisp support.function.sgf.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 25 source.commonlisp
+L                      :str ""
+T 21 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L                      :case-insensitive-p :void))
+T 21 source.commonlisp
+T 40 source.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp
+T 46 source.commonlisp entity.name.variable.commonlisp
+T 48 source.commonlisp
+L     (t
+T 5 source.commonlisp
+T 6 source.commonlisp constant.language.commonlisp
+L       ;; (ALTERNATION, BACK-REFERENCE, BRANCH, CHAR-CLASS, EVERYTHING,
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; REPETITION, FILTER)
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 28 source.commonlisp comment.line.semicolon.commonlisp
+L       nil)))
+T 6 source.commonlisp
+T 9 source.commonlisp constant.language.commonlisp
+T 12 source.commonlisp
+L 
+L (defun end-string (regex)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp
+L   (declare (special end-string-offset))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 19 source.commonlisp storage.type.function.declaration.commonlisp
+T 39 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   "Returns the constant string (if it exists) REGEX ends with wrapped
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 69 source.commonlisp string.quoted.double.commonlisp
+L into a STR object, otherwise NIL."
+T 33 source.commonlisp string.quoted.double.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   ;; LAST-STR points to the last STR object (seen from the end) that's
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; part of END-STRING; CONTINUEP is set to T if we stop collecting
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; in the middle of a SEQ
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 27 source.commonlisp comment.line.semicolon.commonlisp
+L   (let ((continuep t)
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 19 source.commonlisp
+T 20 source.commonlisp constant.language.commonlisp
+T 21 source.commonlisp
+L         last-str)
+T 17 source.commonlisp
+L     (declare (special continuep last-str))
+T 5 source.commonlisp
+T 12 source.commonlisp storage.type.function.symbol.commonlisp
+T 14 source.commonlisp
+T 21 source.commonlisp storage.type.function.declaration.commonlisp
+T 42 source.commonlisp
+L     (prog1
+T 5 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L       (end-string-aux regex)
+T 28 source.commonlisp
+L       (when last-str
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 20 source.commonlisp
+L         ;; if we've found something set the START-OF-END-STRING-P of
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; the leftmost STR collected accordingly and remember the
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; OFFSET of this STR (in a special variable provided by the
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; caller of this function)
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 35 source.commonlisp comment.line.semicolon.commonlisp
+L         (setf (start-of-end-string-p last-str) t
+T 9 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 47 source.commonlisp
+T 48 source.commonlisp constant.language.commonlisp
+L               end-string-offset (offset last-str))))))
+T 54 source.commonlisp
+L 
+L (defgeneric compute-min-rest (regex current-min-rest)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 53 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (:documentation "Returns the minimal length of REGEX plus
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp
+L CURRENT-MIN-REST. This is similar to REGEX-MIN-LENGTH except that it
+T 68 source.commonlisp string.quoted.double.commonlisp
+L recurses down into REGEX and sets the MIN-REST slots of REPETITION
+T 66 source.commonlisp string.quoted.double.commonlisp
+L objects."))
+T 8 source.commonlisp string.quoted.double.commonlisp
+T 9 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 11 source.commonlisp
+L 
+L (defmethod compute-min-rest ((seq seq) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 56 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (loop for element in (reverse (elements seq))
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+L         for last-min-rest = current-min-rest then this-min-rest
+T 26 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 63 source.commonlisp
+L         for this-min-rest = (compute-min-rest element last-min-rest)
+T 26 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 68 source.commonlisp
+L         finally (return this-min-rest)))
+T 17 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 40 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((alternation alternation) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 72 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (loop for choice in (choices alternation)
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+L         minimize (compute-min-rest choice current-min-rest)))
+T 61 source.commonlisp
+L 
+L (defmethod compute-min-rest ((branch branch) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 62 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (min (compute-min-rest (then-regex branch) current-min-rest)
+T 3 source.commonlisp
+T 6 source.commonlisp support.function.f.sideeffects.commonlisp
+T 62 source.commonlisp
+L        (compute-min-rest (else-regex branch) current-min-rest)))
+T 64 source.commonlisp
+L 
+L (defmethod compute-min-rest ((str str) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 56 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (+ current-min-rest (len str)))
+T 3 source.commonlisp
+T 4 source.commonlisp support.function.f.sideeffects.commonlisp
+T 33 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((filter filter) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 62 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (+ current-min-rest (or (len filter) 0)))
+T 3 source.commonlisp
+T 4 source.commonlisp support.function.f.sideeffects.commonlisp
+T 23 source.commonlisp
+T 25 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((repetition repetition) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 70 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (setf (min-rest repetition) current-min-rest)
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 47 source.commonlisp
+L   (compute-min-rest (regex repetition) current-min-rest)
+T 56 source.commonlisp
+L   (+ current-min-rest (* (minimum repetition) (min-len repetition))))
+T 3 source.commonlisp
+T 4 source.commonlisp support.function.f.sideeffects.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 69 source.commonlisp
+L 
+L (defmethod compute-min-rest ((register register) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 66 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (compute-min-rest (regex register) current-min-rest))
+T 55 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((standalone standalone) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 70 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore current-min-rest))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 37 source.commonlisp
+L   (compute-min-rest (regex standalone) 0))
+T 39 source.commonlisp
+T 40 source.commonlisp constant.numeric.commonlisp
+T 42 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((lookahead lookahead) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 68 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (compute-min-rest (regex lookahead) 0)
+T 38 source.commonlisp
+T 39 source.commonlisp constant.numeric.commonlisp
+T 40 source.commonlisp
+L   current-min-rest)
+T 19 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((lookbehind lookbehind) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 70 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (compute-min-rest (regex lookbehind) (+ current-min-rest (len lookbehind)))
+T 40 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 77 source.commonlisp
+L   current-min-rest)
+T 19 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defmethod compute-min-rest ((regex regex) current-min-rest)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 60 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (typecase regex
+T 3 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 17 source.commonlisp
+L     ((or char-class everything)
+T 6 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+L       (1+ current-min-rest))
+T 7 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 28 source.commonlisp
+L     (t
+T 5 source.commonlisp
+T 6 source.commonlisp constant.language.commonlisp
+L       ;; zero min-len and no embedded regexes (ANCHOR,
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 54 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; BACK-REFERENCE, VOID, and WORD-BOUNDARY)
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 49 source.commonlisp comment.line.semicolon.commonlisp
+L       current-min-rest)))
+T 25 source.commonlisp
+L 

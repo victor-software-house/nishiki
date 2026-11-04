@@ -254,6 +254,7 @@ static FOLDING: &[&str] = &[
     "source.asp.vb.net",
     "source.batchfile",
     "source.cmake",
+    "source.commonlisp",
     "source.haskell",
     "source.julia",
     "source.pascal",

@@ -1,0 +1,760 @@
+L ;;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 46 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L (in-package :split-sequence)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 12 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+T 28 source.commonlisp
+L 
+L (declaim (inline
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+L           collect-until count-while
+T 35 source.commonlisp
+L           split-list split-list-if split-list-if-not
+T 52 source.commonlisp
+L           split-list-from-end split-list-from-start split-list-internal))
+T 73 source.commonlisp
+L 
+L (declaim (ftype (function (&rest t) (values list unsigned-byte))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 15 source.commonlisp storage.type.function.declaration.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 25 source.commonlisp keyword.control.commonlisp
+T 27 source.commonlisp
+T 32 source.commonlisp keyword.other.lambdalist.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+T 43 source.commonlisp support.function.accessor.commonlisp
+T 44 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 49 source.commonlisp
+T 62 source.commonlisp support.type.t.commonlisp
+T 64 source.commonlisp
+L                 split-list split-list-if split-list-if-not))
+T 60 source.commonlisp
+L 
+L (declaim (ftype (function (function list unsigned-byte (or null unsigned-byte) (or null unsigned-byte)
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 15 source.commonlisp storage.type.function.declaration.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 25 source.commonlisp keyword.control.commonlisp
+T 26 source.commonlisp
+T 27 source.commonlisp
+T 35 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+T 54 source.commonlisp support.type.t.commonlisp
+T 56 source.commonlisp
+T 58 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 59 source.commonlisp
+T 63 source.commonlisp support.function.f.sideeffects.commonlisp
+T 64 source.commonlisp
+T 77 source.commonlisp support.type.t.commonlisp
+T 80 source.commonlisp
+T 82 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 83 source.commonlisp
+T 87 source.commonlisp support.function.f.sideeffects.commonlisp
+T 88 source.commonlisp
+T 101 source.commonlisp support.type.t.commonlisp
+T 102 source.commonlisp
+L                                     boolean)
+T 36 source.commonlisp
+T 43 source.commonlisp support.type.t.commonlisp
+T 44 source.commonlisp
+L                           (values list unsigned-byte))
+T 27 source.commonlisp
+T 33 source.commonlisp support.function.accessor.commonlisp
+T 34 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 52 source.commonlisp support.type.t.commonlisp
+T 54 source.commonlisp
+L                 split-list-from-start split-list-from-end split-list-internal))
+T 79 source.commonlisp
+L 
+L (defun collect-until (predicate list end)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 32 source.commonlisp
+T 36 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+L   "Collect elements from LIST until one that satisfies PREDICATE is found.
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 74 source.commonlisp string.quoted.double.commonlisp
+L 
+L   At most END elements will be examined. If END is null, all elements will be examined.
+T 87 source.commonlisp string.quoted.double.commonlisp
+L 
+L   Returns four values:
+T 22 source.commonlisp string.quoted.double.commonlisp
+L 
+L   * The collected items.
+T 24 source.commonlisp string.quoted.double.commonlisp
+L   * The remaining items.
+T 24 source.commonlisp string.quoted.double.commonlisp
+L   * The number of elements examined.
+T 36 source.commonlisp string.quoted.double.commonlisp
+L   * Whether the search ended by running off the end, instead of by finding a delimiter."
+T 87 source.commonlisp string.quoted.double.commonlisp
+T 88 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (let ((examined 0)
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp constant.numeric.commonlisp
+T 20 source.commonlisp
+L         (found nil))
+T 15 source.commonlisp
+T 18 source.commonlisp constant.language.commonlisp
+T 20 source.commonlisp
+L     (flet ((examine (value)
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 9 source.commonlisp keyword.control.commonlisp
+T 27 source.commonlisp
+L              (incf examined)
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 28 source.commonlisp
+L              (setf found (funcall predicate value))))
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 53 source.commonlisp
+L       (loop :for (value . remaining) :on list
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp variable.other.constant.dot.commonlisp
+T 37 source.commonlisp
+T 40 source.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp
+T 45 source.commonlisp support.function.f.sideeffects.commonlisp
+L             :until (eql examined end)
+T 12 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 20 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 37 source.commonlisp
+L             :until (examine value)
+T 12 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 34 source.commonlisp
+L             :collect value :into result
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 32 source.commonlisp entity.name.variable.commonlisp
+T 39 source.commonlisp
+L             :finally (return (values result
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+T 28 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 30 source.commonlisp
+T 36 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L                                      remaining
+T 46 source.commonlisp
+L                                      examined
+T 45 source.commonlisp
+L                                      (and (not found)
+T 38 source.commonlisp
+T 41 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 53 source.commonlisp
+L                                           (or (null end)
+T 43 source.commonlisp
+T 45 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 47 source.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+L                                               (= end examined)))))))))
+T 47 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 70 source.commonlisp
+L 
+L (defun count-while (predicate list end)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp
+T 34 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+L   "Count the number of elements satisfying PREDICATE at the beginning of LIST.
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 78 source.commonlisp string.quoted.double.commonlisp
+L 
+L   At most END elements will be counted. If END is null, all elements will be examined."
+T 86 source.commonlisp string.quoted.double.commonlisp
+T 87 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (if end
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 5 source.commonlisp keyword.control.commonlisp
+T 9 source.commonlisp
+L       (loop :for value :in list
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+L             :for i :below end
+T 12 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+L             :while (funcall predicate value)
+T 12 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 20 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+L             :summing 1)
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp constant.numeric.commonlisp
+T 23 source.commonlisp
+L       (loop :for value :in list
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+L             :while (funcall predicate value)
+T 12 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 20 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+L             :summing 1)))
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp constant.numeric.commonlisp
+T 25 source.commonlisp
+L 
+L (defun split-list-internal (predicate list start end count remove-empty-subseqs)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 38 source.commonlisp
+T 42 source.commonlisp support.function.f.sideeffects.commonlisp
+T 53 source.commonlisp
+T 58 source.commonlisp support.function.f.sideeffects.commonlisp
+T 80 source.commonlisp
+L   (let ((count count)
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 9 source.commonlisp
+T 14 source.commonlisp support.function.f.sideeffects.commonlisp
+T 15 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 21 source.commonlisp
+L         (done nil)
+T 14 source.commonlisp
+T 17 source.commonlisp constant.language.commonlisp
+T 18 source.commonlisp
+L         (index start)
+T 21 source.commonlisp
+L         (end (when end (- end start)))
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+L         (list (nthcdr start list)))
+T 9 source.commonlisp
+T 13 source.commonlisp support.function.f.sideeffects.commonlisp
+T 15 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 28 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+L     (flet ((should-collect-p (chunk)
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 9 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+L              (unless (and remove-empty-subseqs (null chunk))
+T 14 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+T 25 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 48 source.commonlisp
+T 52 source.commonlisp support.function.f.sideeffects.commonlisp
+T 60 source.commonlisp
+L                (when (numberp count) (decf count))
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 35 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+T 42 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 43 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 50 source.commonlisp
+L                t))
+T 15 source.commonlisp
+T 16 source.commonlisp constant.language.commonlisp
+T 18 source.commonlisp
+L            (gather-chunk ()
+T 27 source.commonlisp
+L              (multiple-value-bind (chunk remaining examined ran-off-end)
+T 14 source.commonlisp
+T 33 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 72 source.commonlisp
+L                  (collect-until predicate list end)
+T 42 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+L                (incf index examined)
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 36 source.commonlisp
+L                (when end (decf end examined))
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 45 source.commonlisp
+L                (setf list remaining
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+L                      done ran-off-end)
+T 38 source.commonlisp
+L                chunk)))
+T 23 source.commonlisp
+L       (values (loop :with chunk
+T 7 source.commonlisp
+T 13 source.commonlisp support.function.accessor.commonlisp
+T 15 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 20 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp
+L                     :until (or done (eql 0 count))
+T 20 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 28 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 37 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+T 42 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 50 source.commonlisp
+L                     :do (setf chunk (gather-chunk))
+T 20 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 29 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 51 source.commonlisp
+L                     :when (should-collect-p chunk)
+T 20 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 50 source.commonlisp
+L                       :collect chunk)
+T 22 source.commonlisp
+T 30 source.commonlisp entity.name.variable.commonlisp
+T 37 source.commonlisp
+L               (+ index
+T 15 source.commonlisp
+T 16 source.commonlisp support.function.f.sideeffects.commonlisp
+T 22 source.commonlisp
+L                  (if remove-empty-subseqs
+T 17 source.commonlisp
+T 18 source.commonlisp
+T 20 source.commonlisp keyword.control.commonlisp
+T 41 source.commonlisp
+L                      (count-while predicate list end) ; chew off remaining empty seqs
+T 44 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 54 source.commonlisp
+T 55 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 85 source.commonlisp comment.line.semicolon.commonlisp
+L                      0))))))
+T 21 source.commonlisp
+T 22 source.commonlisp constant.numeric.commonlisp
+T 28 source.commonlisp
+L 
+L (defun split-list-from-end (predicate list start end count remove-empty-subseqs)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 38 source.commonlisp
+T 42 source.commonlisp support.function.f.sideeffects.commonlisp
+T 53 source.commonlisp
+T 58 source.commonlisp support.function.f.sideeffects.commonlisp
+T 80 source.commonlisp
+L   (let ((length (length list)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 9 source.commonlisp
+T 15 source.commonlisp support.function.f.sideeffects.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 24 source.commonlisp
+T 28 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+L     (multiple-value-bind (result index)
+T 5 source.commonlisp
+T 24 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 39 source.commonlisp
+L         (split-list-internal predicate (reverse list)
+T 40 source.commonlisp
+T 47 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+T 52 source.commonlisp support.function.f.sideeffects.commonlisp
+T 53 source.commonlisp
+L                              (if end (- length end) 0)
+T 29 source.commonlisp
+T 30 source.commonlisp
+T 32 source.commonlisp keyword.control.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp support.function.f.sideeffects.commonlisp
+T 40 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 52 source.commonlisp
+T 53 source.commonlisp constant.numeric.commonlisp
+T 54 source.commonlisp
+L                              (- length start) count remove-empty-subseqs)
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 46 source.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+L       (loop :for cons on result
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+L             :for car := (car cons)
+T 12 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 20 source.commonlisp support.function.accessor.commonlisp
+T 21 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 29 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 34 source.commonlisp
+L             :do (setf (car cons) (nreverse car)))
+T 12 source.commonlisp
+T 15 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 26 source.commonlisp support.function.accessor.commonlisp
+T 27 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 34 source.commonlisp
+T 42 source.commonlisp support.function.f.sideeffects.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 49 source.commonlisp
+L       (values (nreverse result) (- length index)))))
+T 7 source.commonlisp
+T 13 source.commonlisp support.function.accessor.commonlisp
+T 15 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 52 source.commonlisp
+L 
+L (defun split-list-from-start (predicate list start end count remove-empty-subseqs)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 40 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+T 60 source.commonlisp support.function.f.sideeffects.commonlisp
+T 82 source.commonlisp
+L   (split-list-internal predicate list start end count remove-empty-subseqs))
+T 33 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+T 53 source.commonlisp support.function.f.sideeffects.commonlisp
+T 76 source.commonlisp
+L 
+L (defun split-list-if (predicate list start end from-end count remove-empty-subseqs key)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 32 source.commonlisp
+T 36 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+T 61 source.commonlisp support.function.f.sideeffects.commonlisp
+T 87 source.commonlisp
+L   (let ((predicate (lambda (x) (funcall predicate (funcall key x)))))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 20 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 32 source.commonlisp
+T 39 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+T 58 source.commonlisp support.function.f.sideeffects.commonlisp
+T 69 source.commonlisp
+L     (if from-end
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 7 source.commonlisp keyword.control.commonlisp
+T 16 source.commonlisp
+L         (split-list-from-end predicate list start end count remove-empty-subseqs)
+T 39 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 54 source.commonlisp
+T 59 source.commonlisp support.function.f.sideeffects.commonlisp
+T 81 source.commonlisp
+L         (split-list-from-start predicate list start end count remove-empty-subseqs))))
+T 41 source.commonlisp
+T 45 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+T 61 source.commonlisp support.function.f.sideeffects.commonlisp
+T 86 source.commonlisp
+L 
+L (defun split-list-if-not (predicate list start end from-end count remove-empty-subseqs key)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 36 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 60 source.commonlisp
+T 65 source.commonlisp support.function.f.sideeffects.commonlisp
+T 91 source.commonlisp
+L   (split-list-if (complement predicate) list start end from-end count remove-empty-subseqs key))
+T 18 source.commonlisp
+T 28 source.commonlisp support.function.f.sideeffects.commonlisp
+T 40 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 64 source.commonlisp
+T 69 source.commonlisp support.function.f.sideeffects.commonlisp
+T 96 source.commonlisp
+L 
+L (defun split-list
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+L     (delimiter list start end from-end count remove-empty-subseqs test test-not key)
+T 15 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 84 source.commonlisp
+L   (let ((predicate (if test-not
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 19 source.commonlisp
+T 20 source.commonlisp
+T 22 source.commonlisp keyword.control.commonlisp
+T 31 source.commonlisp
+L                        (lambda (x) (not (funcall test-not delimiter (funcall key x))))
+T 24 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 36 source.commonlisp
+T 39 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 69 source.commonlisp
+T 76 source.commonlisp support.function.f.sideeffects.commonlisp
+T 86 source.commonlisp
+L                        (lambda (x) (funcall test delimiter (funcall key x))))))
+T 24 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 36 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 60 source.commonlisp
+T 67 source.commonlisp support.function.f.sideeffects.commonlisp
+T 79 source.commonlisp
+L     (if from-end
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 7 source.commonlisp keyword.control.commonlisp
+T 16 source.commonlisp
+L         (split-list-from-end predicate list start end count remove-empty-subseqs)
+T 39 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 54 source.commonlisp
+T 59 source.commonlisp support.function.f.sideeffects.commonlisp
+T 81 source.commonlisp
+L         (split-list-from-start predicate list start end count remove-empty-subseqs))))
+T 41 source.commonlisp
+T 45 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+T 61 source.commonlisp support.function.f.sideeffects.commonlisp
+T 86 source.commonlisp
+L 

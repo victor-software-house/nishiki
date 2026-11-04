@@ -1050,6 +1050,15 @@ languages! {
         module: postcss,
         halts: true,
     }
+    /// Common Lisp, with the scopes of Shiki's `common-lisp` grammar, which
+    /// nishiki's `TextMate` engine runs.
+    CommonLisp {
+        feature: "lang-common-lisp",
+        names: ["common-lisp", "lisp"],
+        engine: crate::common_lisp::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

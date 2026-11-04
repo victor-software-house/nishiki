@@ -1,0 +1,248 @@
+L (defun print-xapping (xapping stream depth) 
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp
+T 36 source.commonlisp support.class.commonlisp
+T 44 source.commonlisp
+L   (declare (ignore depth)) 
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 27 source.commonlisp
+L   (format stream 
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp support.class.commonlisp
+T 17 source.commonlisp
+L           ;; Are you ready for this one? 
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 41 source.commonlisp comment.line.semicolon.commonlisp
+L           "~:[{~;[~]~:{~S~:[->~S~;~*~]~:^ ~}~:[~; ~]~ 
+T 10 source.commonlisp
+T 11 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 14 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp
+T 16 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 17 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 44 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp
+L            ~{~S->~^ ~}~:[~; ~]~[~*~;->~S~;->~*~]~:[}~;]~]" 
+T 11 source.commonlisp string.quoted.double.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 14 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp string.quoted.double.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 44 source.commonlisp string.quoted.double.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 59 source.commonlisp
+L           ;; Is that clear? 
+T 10 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 11 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 28 source.commonlisp comment.line.semicolon.commonlisp
+L           (xectorp xapping) 
+T 28 source.commonlisp
+L           (do ((vp (xectorp xapping)) 
+T 11 source.commonlisp
+T 13 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 38 source.commonlisp
+L                (sp (finite-part-is-xetp xapping)) 
+T 50 source.commonlisp
+L                (d (xapping-domain xapping) (cdr d)) 
+T 44 source.commonlisp
+T 47 source.commonlisp support.function.accessor.commonlisp
+T 52 source.commonlisp
+L                (r (xapping-range xapping) (cdr r)) 
+T 43 source.commonlisp
+T 46 source.commonlisp support.function.accessor.commonlisp
+T 51 source.commonlisp
+L                (z '() (cons (list (if vp (car r) (car d)) 
+T 18 source.commonlisp
+T 19 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 23 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 29 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 34 source.commonlisp
+T 35 source.commonlisp
+T 37 source.commonlisp keyword.control.commonlisp
+T 42 source.commonlisp
+T 45 source.commonlisp support.function.accessor.commonlisp
+T 50 source.commonlisp
+T 53 source.commonlisp support.function.accessor.commonlisp
+T 58 source.commonlisp
+L                                   (or vp sp) 
+T 35 source.commonlisp
+T 37 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 45 source.commonlisp
+L                                   (car r)) 
+T 35 source.commonlisp
+T 38 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L                             z))) 
+T 33 source.commonlisp
+L               ((null d) (reverse z))) 
+T 16 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 25 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+L           (and (xapping-domain xapping) 
+T 11 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 40 source.commonlisp
+L                (or (xapping-exceptions xapping) 
+T 16 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 48 source.commonlisp
+L                    (xapping-infinite xapping))) 
+T 48 source.commonlisp
+L           (xapping-exceptions xapping) 
+T 39 source.commonlisp
+L           (and (xapping-exceptions xapping) 
+T 11 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 44 source.commonlisp
+L                (xapping-infinite xapping)) 
+T 43 source.commonlisp
+L           (ecase (xapping-infinite xapping) 
+T 11 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 44 source.commonlisp
+L             ((nil) 0) 
+T 14 source.commonlisp
+T 17 source.commonlisp constant.language.commonlisp
+T 19 source.commonlisp
+T 20 source.commonlisp constant.numeric.commonlisp
+T 22 source.commonlisp
+L             (:constant 1) 
+T 13 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp constant.numeric.commonlisp
+T 26 source.commonlisp
+L             (:universal 2)) 
+T 13 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp constant.numeric.commonlisp
+T 28 source.commonlisp
+L           (xapping-default xapping) 
+T 36 source.commonlisp
+L           (xectorp xapping)))
+T 29 source.commonlisp
+L 
+L (defun f (n) (format nil "~@(~R~) error~:P detected." n)) 
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp constant.language.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 58 source.commonlisp

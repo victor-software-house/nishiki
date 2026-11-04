@@ -9,6 +9,8 @@ mod c;
 mod cmake;
 #[cfg(feature = "lang-coffee")]
 mod coffee;
+#[cfg(feature = "lang-common-lisp")]
+mod common_lisp;
 mod cpp;
 mod csharp;
 mod css;

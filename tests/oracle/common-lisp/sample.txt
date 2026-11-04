@@ -1,0 +1,249 @@
+L (with-test (:name :aprof-instance :skipped-on (not :immobile-space))
+T 12 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 33 source.commonlisp entity.name.variable.commonlisp
+T 34 source.commonlisp
+T 45 source.commonlisp entity.name.variable.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 68 source.commonlisp
+L   (let (seen-this seen-that)
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 28 source.commonlisp
+L     (dolist (line (split-string
+T 5 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+L                    (with-output-to-string (s)
+T 20 source.commonlisp
+T 41 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 45 source.commonlisp
+L                      (sb-aprof:aprof-run #'make-structs :stream s))
+T 22 source.commonlisp
+T 30 source.commonlisp support.type.package.commonlisp
+T 41 source.commonlisp
+T 43 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 56 source.commonlisp
+T 63 source.commonlisp entity.name.variable.commonlisp
+T 67 source.commonlisp
+L                    #\newline))
+T 19 source.commonlisp
+T 28 source.commonlisp constant.character.escape.commonlisp
+T 30 source.commonlisp
+L       (when (search "THIS-STRUCT" line) (setq seen-this t))
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 41 source.commonlisp
+T 45 source.commonlisp storage.type.function.specialform.commonlisp
+T 56 source.commonlisp
+T 57 source.commonlisp constant.language.commonlisp
+T 59 source.commonlisp
+L       (when (search "THAT-STRUCT" line) (setq seen-that t)))
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 41 source.commonlisp
+T 45 source.commonlisp storage.type.function.specialform.commonlisp
+T 56 source.commonlisp
+T 57 source.commonlisp constant.language.commonlisp
+T 60 source.commonlisp
+L     (assert (and seen-this seen-that))))
+T 5 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 40 source.commonlisp
+L 
+L (defun my-list (&rest x)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp
+T 21 source.commonlisp keyword.other.lambdalist.commonlisp
+T 24 source.commonlisp
+L   (declare (optimize sb-c::instrument-consing))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp support.type.package.commonlisp
+T 47 source.commonlisp
+L   x)
+T 4 source.commonlisp
+L (compile 'my-list)
+T 1 source.commonlisp
+T 8 source.commonlisp support.function.f.sideeffects.commonlisp
+T 9 source.commonlisp
+T 10 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 18 source.commonlisp
+L 
+L #+nil
+T 2 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 5 source.commonlisp
+L (let ((l (sb-impl::%hash-table-alist sb-c::*checkgen-used-types*)))
+T 1 source.commonlisp
+T 4 source.commonlisp keyword.control.commonlisp
+T 10 source.commonlisp
+T 17 source.commonlisp support.type.package.commonlisp
+T 37 source.commonlisp
+T 41 source.commonlisp support.type.package.commonlisp
+T 43 source.commonlisp
+T 64 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 67 source.commonlisp
+L   (format t "~&Types needed by checkgen: ('+' = has internal error number)~%")
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp constant.language.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 14 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 74 source.commonlisp string.quoted.double.commonlisp
+T 75 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 76 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 77 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 78 source.commonlisp
+L   (setq l (sort l #'> :key #'cadr))
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.specialform.commonlisp
+T 11 source.commonlisp
+T 15 source.commonlisp support.function.f.sideeffects.commonlisp
+T 18 source.commonlisp
+T 20 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 21 source.commonlisp support.function.f.sideeffects.commonlisp
+T 22 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 29 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 33 source.commonlisp support.function.accessor.commonlisp
+T 35 source.commonlisp
+L   (loop for (type-spec . (count . interr-p)) in l
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp variable.other.constant.dot.commonlisp
+T 26 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp variable.other.constant.dot.commonlisp
+T 49 source.commonlisp
+L         do (format t "~:[ ~;+~] ~5D ~S~%" interr-p count type-spec))
+T 8 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp support.function.f.sideeffects.commonlisp
+T 19 source.commonlisp
+T 20 source.commonlisp constant.language.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp variable.other.constant.formattedstring.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+T 56 source.commonlisp support.function.f.sideeffects.commonlisp
+T 68 source.commonlisp
+L   (format t "~&Error numbers not used by checkgen:~%")
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp constant.language.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 14 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 54 source.commonlisp
+L   (loop for (spec symbol) across sb-c:+backend-internal-errors+
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 24 source.commonlisp support.class.commonlisp
+T 33 source.commonlisp
+T 37 source.commonlisp support.type.package.commonlisp
+T 38 source.commonlisp
+T 63 source.commonlisp variable.other.constant.earmuffsplus.commonlisp
+L         when (and (not (stringp spec))
+T 8 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 14 source.commonlisp
+T 17 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 19 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 24 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+L                   (not (gethash spec sb-c::*checkgen-used-types*)))
+T 19 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 24 source.commonlisp
+T 31 source.commonlisp support.function.accessor.commonlisp
+T 37 source.commonlisp
+T 41 source.commonlisp support.type.package.commonlisp
+T 43 source.commonlisp
+T 64 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 67 source.commonlisp
+L           do (format t "       ~S~%" spec)))
+T 10 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp constant.language.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 44 source.commonlisp
+L 
+L ;; From https://github.com/qingpeng9802/vscode-common-lisp/blob/master/syntaxes/fixtures/cases/demo.lsp
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 103 source.commonlisp comment.line.semicolon.commonlisp
+L 

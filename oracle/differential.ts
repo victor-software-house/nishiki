@@ -31,6 +31,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", ",", ";", ".", "..", "...", ":", "::", "<:", ">:", "=", "==", "===", "!=", "≠", "≤", "+=", ".+", "*", "/", "//", "\\", "^", "÷", "%", "|>", "∘", "->", "=>", "&&", "||", "!", "?", "'", ".'", "$", "$x", "$(", "\"", "\"\"\"", "`", "```", "\\n", "\\\"", "#", "#=", "=#", "TODO"],
     heads: ["", "", " ", "    ", "# ", "\"\"\"", "doc\"\"\"", "function ", "for "],
   },
+  "common-lisp": {
+    words: ["defun", "DEFUN", "defmacro", "defvar", "defparameter", "defconstant", "defclass", "defmethod", "defgeneric", "defstruct", "defpackage", "in-package", "define-condition", "define-compiler-macro", "lambda", "let", "let*", "flet", "labels", "if", "when", "unless", "cond", "case", "loop", "for", "in", "collect", "do", "progn", "setf", "setq", "return-from", "block", "handler-case", "format", "car", "cdr", "cons", "list", "mapcar", "funcall", "apply", "nil", "NIL", "t", "&optional", "&rest", "&key", "&body", "&aux", ":keyword", ":test", "*special*", "+const+", "foo", "x", "1", "-1", "1.5", "1/2", "#x1F", "#b101", "1d0", "é", "string", "integer", "error", "simple-error"],
+    marks: ["(", ")", "'", "`", ",", ",@", "#'", "#\\a", "#\\Space", "#(", "#p\"a\"", "#+sbcl", "#-(or a b)", "#.", "|a b|", "\"", "\\\"", "\"~a~%\"", "\"~{~a~^, ~}\"", ";", ";;", "#|", "|#", ":", "::", "."],
+    heads: ["", "", " ", "  ", "; ", ";; ", "(", "(defun f (", "#| "],
+  },
   kotlin: {
     words: ["fun", "class", "interface", "object", "val", "var", "import", "package", "if", "else", "when", "in", "is", "as", "by", "get", "set", "this", "super", "private", "open", "data", "suspend", "true", "false", "null", "Foo", "x", "String", "List", "foo", "1", "0x1F", "1.5f", "@Foo", "@file:JvmName", "@param", "{@link a.B#c(d)}", "`a b`"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "?.", "::", ":", "?", "=", "==", "+", "-", "->", "\"", "\"\"\"", "'", "\"${x}\"", "$x", "/*", "*/", "/**", "//"],

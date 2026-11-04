@@ -417,6 +417,8 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::asm::grammar::GRAMMAR, "asm"),
     #[cfg(feature = "lang-coffee")]
     (&crate::coffee::grammar::GRAMMAR, "coffee"),
+    #[cfg(feature = "lang-common-lisp")]
+    (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
     #[cfg(feature = "lang-elixir")]
     (&crate::elixir::grammar::GRAMMAR, "elixir"),
     #[cfg(feature = "lang-gdscript")]

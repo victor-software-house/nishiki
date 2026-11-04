@@ -37,6 +37,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `coffee/coffeescript-optparse` | [`src/optparse.coffee`][coffeescript-optparse] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-repl` | [`src/repl.coffee`][coffeescript-repl] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/sample` | [`samples/coffee.sample`][coffee-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `common-lisp/cl-ppcre-optimize` | [`optimize.lisp`][cl-ppcre-optimize] in edicl/cl-ppcre | [BSD-2-Clause][cl-ppcre-licence] |
+| `common-lisp/cl-ppcre-scanner` | [`scanner.lisp`][cl-ppcre-scanner] in edicl/cl-ppcre | [BSD-2-Clause][cl-ppcre-licence] |
+| `common-lisp/grammar-demo` | [`syntaxes/fixtures/cases/demo.lsp`][common-lisp-grammar-demo] in qingpeng9802/vscode-common-lisp | [MIT][common-lisp-grammar-licence] |
+| `common-lisp/grammar-format-strings` | [`syntaxes/fixtures/cases/fstr.lsp`][common-lisp-grammar-fstr] in qingpeng9802/vscode-common-lisp | [MIT][common-lisp-grammar-licence] |
+| `common-lisp/quicklisp-http` | [`quicklisp/http.lisp`][quicklisp-http] in quicklisp/quicklisp-client | [MIT][quicklisp-licence] |
+| `common-lisp/sample` | [`samples/common-lisp.sample`][common-lisp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `common-lisp/split-sequence-list` | [`list.lisp`][split-sequence-list] in sharplispers/split-sequence | [MIT][split-sequence-licence] |
+| `common-lisp/woo-response` | [`src/response.lisp`][woo-response] in fukamachi/woo | [MIT][woo-licence] |
 | `cpp/absl-any-invocable` | [`absl/functional/internal/any_invocable.h`][absl-any-invocable] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
 | `cpp/absl-any-invocable-test` | [`absl/functional/any_invocable_test.h`][absl-any-invocable-test] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
 | `cpp/absl-check-op` | [`absl/log/internal/check_op.h`][absl-check-op] in abseil/abseil-cpp | [Apache-2.0][abseil-licence] |
@@ -878,6 +886,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 `postcss/custom-selectors-basic`, `postcss/mixins-arguments` and `postcss/nesting-at-nest` are held out: they were added after the development inputs passed.
 `postcss/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 
+`common-lisp/sample`, `common-lisp/grammar-demo`, `common-lisp/grammar-format-strings`, `common-lisp/split-sequence-list` and `common-lisp/cl-ppcre-scanner` are the development inputs for Common Lisp.
+`common-lisp/cl-ppcre-optimize`, `common-lisp/quicklisp-http` and `common-lisp/woo-response` are held out: they were added after the development inputs passed.
+
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
 [absl-any-invocable-test]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/any_invocable_test.h
@@ -973,6 +984,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [cjson-licence]: https://github.com/DaveGamble/cJSON/blob/6d9f2443ab071f86e5d9b43025a40929ec41c46c/LICENSE
 [cjson-make]: https://github.com/DaveGamble/cJSON/blob/6d9f2443ab071f86e5d9b43025a40929ec41c46c/Makefile
 [cjson-readme]: https://github.com/DaveGamble/cJSON/blob/6d9f2443ab071f86e5d9b43025a40929ec41c46c/README.md
+[cl-ppcre-licence]: https://github.com/edicl/cl-ppcre/blob/a2ea581c23fdc184168423adbd4b4c1f48d42743/LICENSE
+[cl-ppcre-optimize]: https://github.com/edicl/cl-ppcre/blob/a2ea581c23fdc184168423adbd4b4c1f48d42743/optimize.lisp
+[cl-ppcre-scanner]: https://github.com/edicl/cl-ppcre/blob/a2ea581c23fdc184168423adbd4b4c1f48d42743/scanner.lisp
 [clap-licence]: https://github.com/clap-rs/clap/blob/db30b39a55c188763666268447050a0dacba3bf0/LICENSE-MIT
 [clap-manifest]: https://github.com/clap-rs/clap/blob/db30b39a55c188763666268447050a0dacba3bf0/Cargo.toml
 [clap-readme]: https://github.com/clap-rs/clap/blob/db30b39a55c188763666268447050a0dacba3bf0/README.md
@@ -994,6 +1008,10 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [coffeescript-optparse]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/optparse.coffee
 [coffeescript-repl]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/repl.coffee
 [coffeescript-super-this]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/documentation/sections/breaking_changes_super_this.md
+[common-lisp-grammar-demo]: https://github.com/qingpeng9802/vscode-common-lisp/blob/79d04dc9ca80d98e65c4f28b3d67a24a7829b18f/syntaxes/fixtures/cases/demo.lsp
+[common-lisp-grammar-fstr]: https://github.com/qingpeng9802/vscode-common-lisp/blob/79d04dc9ca80d98e65c4f28b3d67a24a7829b18f/syntaxes/fixtures/cases/fstr.lsp
+[common-lisp-grammar-licence]: https://github.com/qingpeng9802/vscode-common-lisp/blob/79d04dc9ca80d98e65c4f28b3d67a24a7829b18f/LICENSE
+[common-lisp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/common-lisp.sample
 [commons-lang-licence]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/LICENSE.txt
 [commons-lang-pom]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/pom.xml
 [commons-lang-range]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/src/main/java/org/apache/commons/lang3/Range.java
@@ -1409,6 +1427,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [python-docker-licence]: https://github.com/docker-library/python/blob/f4c67ece208dead594e43628d22e3c6027dd97ab/LICENSE
 [python-ruff-class]: https://github.com/astral-sh/ruff/blob/f10755306e3e932fd127960acb2c892fafb87410/crates/ruff_python_parser/resources/valid/statement/class.py
 [python-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/python.sample
+[quicklisp-http]: https://github.com/quicklisp/quicklisp-client/blob/6d96fd86c114345bd74d995bb296fae46f1f26ec/quicklisp/http.lisp
+[quicklisp-licence]: https://github.com/quicklisp/quicklisp-client/blob/6d96fd86c114345bd74d995bb296fae46f1f26ec/LICENSE.txt
 [r8brain-dll]: https://github.com/avaneev/r8brain-free-src/blob/cb2abb9977efe2471979b380ed95daa56ab4fdb9/DLL/r8bsrc.pas
 [r8brain-licence]: https://github.com/avaneev/r8brain-free-src/blob/cb2abb9977efe2471979b380ed95daa56ab4fdb9/LICENSE
 [rack-licence]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/MIT-LICENSE
@@ -1522,6 +1542,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [snapshot-testing-licence]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/LICENSE
 [spdlog-licence]: https://github.com/gabime/spdlog/blob/6d9805df3f588402b17073dcd13eb569ceda864d/LICENSE
 [spdlog-logger]: https://github.com/gabime/spdlog/blob/6d9805df3f588402b17073dcd13eb569ceda864d/include/spdlog/logger.h
+[split-sequence-licence]: https://github.com/sharplispers/split-sequence/blob/89a10b4d697f03eb32ade3c373c4fd69800a841a/LICENSE
+[split-sequence-list]: https://github.com/sharplispers/split-sequence/blob/89a10b4d697f03eb32ade3c373c4fd69800a841a/list.lisp
 [sqitch-engine-pg]: https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/lib/App/Sqitch/Engine/pg.pm
 [sqitch-engine-sqlite]: https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/lib/App/Sqitch/Engine/sqlite.pm
 [sqitch-licence]: https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/LICENSE.md
@@ -1664,6 +1686,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [vue-playground-sun]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages-private/sfc-playground/src/icons/Sun.vue
 [vue-playground-version-select]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages-private/sfc-playground/src/VersionSelect.vue
 [vue-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/vue.sample
+[woo-licence]: https://github.com/fukamachi/woo/blob/51b8cb2653116cd05f6a8d0029719ce6ce106711/LICENSE.txt
+[woo-response]: https://github.com/fukamachi/woo/blob/51b8cb2653116cd05f6a8d0029719ce6ce106711/src/response.lisp
 [xerces-design]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/design.xml
 [xerces-licence]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/LICENSE
 [xerces-schedule]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/schedule.xml

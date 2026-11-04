@@ -1,0 +1,2619 @@
+L ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-PPCRE; Base: 10 -*-
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 72 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; $Header: /usr/local/cvsrep/cl-ppcre/scanner.lisp,v 1.36 2009/09/17 19:17:31 edi Exp $
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 89 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Here the scanner for the actual regex as well as utility scanners
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; for the constant start and end strings are created.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 55 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Copyright (c) 2002-2009, Dr. Edmund Weitz. All rights reserved.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Redistribution and use in source and binary forms, with or without
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; modification, are permitted provided that the following conditions
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; are met:
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 12 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;;   * Redistributions of source code must retain the above copyright
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     notice, this list of conditions and the following disclaimer.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;;   * Redistributions in binary form must reproduce the above
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     copyright notice, this list of conditions and the following
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     disclaimer in the documentation and/or other materials
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     provided with the distribution.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 39 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 65 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 61 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L (in-package :cl-ppcre)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 12 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+L 
+L (defmacro bmh-matcher-aux (&key case-insensitive-p)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp
+T 31 source.commonlisp keyword.other.lambdalist.commonlisp
+T 51 source.commonlisp
+L   "Auxiliary macro used by CREATE-BMH-MATCHER."
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (let ((char-compare (if case-insensitive-p 'char-equal 'char=)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 22 source.commonlisp
+T 23 source.commonlisp
+T 25 source.commonlisp keyword.control.commonlisp
+T 45 source.commonlisp
+T 46 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 57 source.commonlisp
+T 58 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 66 source.commonlisp
+L     `(lambda (start-pos)
+T 4 source.commonlisp
+T 5 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 6 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+L        (declare (fixnum start-pos))
+T 8 source.commonlisp
+T 15 source.commonlisp storage.type.function.symbol.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.type.t.commonlisp
+T 35 source.commonlisp
+L        (if (or (minusp start-pos)
+T 7 source.commonlisp
+T 8 source.commonlisp
+T 10 source.commonlisp keyword.control.commonlisp
+T 12 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 16 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 33 source.commonlisp
+L                (> (the fixnum (+ start-pos m)) *end-pos*))
+T 16 source.commonlisp
+T 17 source.commonlisp support.function.f.sideeffects.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp
+T 22 source.commonlisp keyword.control.commonlisp
+T 23 source.commonlisp
+T 29 source.commonlisp support.type.t.commonlisp
+T 31 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+T 56 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 58 source.commonlisp
+L          nil
+T 9 source.commonlisp
+T 12 source.commonlisp constant.language.commonlisp
+L          (loop named bmh-matcher
+T 10 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 32 source.commonlisp
+L                for k of-type fixnum = (+ start-pos m -1)
+T 29 source.commonlisp
+T 35 source.commonlisp support.type.t.commonlisp
+T 36 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 53 source.commonlisp
+T 55 source.commonlisp constant.numeric.commonlisp
+T 56 source.commonlisp
+L                then (+ k (max 1 (aref skip (char-code (schar *string* k)))))
+T 21 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 26 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp constant.numeric.commonlisp
+T 33 source.commonlisp
+T 37 source.commonlisp support.function.accessor.commonlisp
+T 44 source.commonlisp
+T 53 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+T 60 source.commonlisp support.function.accessor.commonlisp
+T 61 source.commonlisp
+T 69 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 76 source.commonlisp
+L                while (< k *end-pos*)
+T 22 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 26 source.commonlisp
+T 35 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 36 source.commonlisp
+L                do (loop for j of-type fixnum downfrom (1- m)
+T 15 source.commonlisp
+T 17 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 19 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 38 source.commonlisp
+T 44 source.commonlisp support.type.t.commonlisp
+T 55 source.commonlisp
+T 57 source.commonlisp support.function.f.sideeffects.commonlisp
+T 60 source.commonlisp
+L                         for i of-type fixnum downfrom k
+T 38 source.commonlisp
+T 44 source.commonlisp support.type.t.commonlisp
+T 55 source.commonlisp
+L                         while (and (>= j 0)
+T 31 source.commonlisp
+T 34 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 36 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+T 42 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+L                                    (,char-compare (schar *string* i)
+T 36 source.commonlisp
+T 37 source.commonlisp variable.other.constant.backquote.commonlisp
+T 51 source.commonlisp
+T 56 source.commonlisp support.function.accessor.commonlisp
+T 57 source.commonlisp
+T 65 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 68 source.commonlisp
+L                                                   (schar pattern j)))
+T 51 source.commonlisp
+T 56 source.commonlisp support.function.accessor.commonlisp
+T 69 source.commonlisp
+L                         finally (if (minusp j)
+T 32 source.commonlisp
+T 33 source.commonlisp
+T 35 source.commonlisp keyword.control.commonlisp
+T 37 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 46 source.commonlisp
+L                                   (return-from bmh-matcher (1+ i)))))))))
+T 34 source.commonlisp
+T 35 source.commonlisp
+T 46 source.commonlisp keyword.control.commonlisp
+T 60 source.commonlisp
+T 62 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+L 
+L (defun create-bmh-matcher (pattern case-insensitive-p)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 54 source.commonlisp
+L   "Returns a Boyer-Moore-Horspool matcher which searches the (special)
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp
+L simple-string *STRING* for the first occurence of the substring
+T 63 source.commonlisp string.quoted.double.commonlisp
+L PATTERN.  The search starts at the position START-POS within *STRING*
+T 69 source.commonlisp string.quoted.double.commonlisp
+L and stops before *END-POS* is reached.  Depending on the second
+T 63 source.commonlisp string.quoted.double.commonlisp
+L argument the search is case-insensitive or not.  If the special
+T 63 source.commonlisp string.quoted.double.commonlisp
+L variable *USE-BMH-MATCHERS* is NIL, use the standard SEARCH function
+T 68 source.commonlisp string.quoted.double.commonlisp
+L instead.  \(BMH matchers are faster but need much more space.)"
+T 10 source.commonlisp string.quoted.double.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   ;; see <http://www-igm.univ-mlv.fr/~lecroq/string/node18.html> for
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; details
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 12 source.commonlisp comment.line.semicolon.commonlisp
+L   (unless *use-bmh-matchers*
+T 3 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 28 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L     (let ((test (if case-insensitive-p #'char-equal #'char=)))
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 8 source.commonlisp keyword.control.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 19 source.commonlisp keyword.control.commonlisp
+T 39 source.commonlisp
+T 41 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 52 source.commonlisp
+T 54 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 59 source.commonlisp support.function.f.sideeffects.commonlisp
+T 62 source.commonlisp
+L       (return-from create-bmh-matcher
+T 6 source.commonlisp
+T 7 source.commonlisp
+T 18 source.commonlisp keyword.control.commonlisp
+T 37 source.commonlisp
+L         (lambda (start-pos)
+T 9 source.commonlisp
+T 15 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 27 source.commonlisp
+L           (declare (fixnum start-pos))
+T 11 source.commonlisp
+T 18 source.commonlisp storage.type.function.symbol.commonlisp
+T 20 source.commonlisp
+T 26 source.commonlisp support.type.t.commonlisp
+T 38 source.commonlisp
+L           (and (not (minusp start-pos))
+T 11 source.commonlisp
+T 14 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 16 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 21 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+L                (search pattern
+T 16 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+L                        *string*
+T 23 source.commonlisp
+T 31 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                        :start2 start-pos
+T 23 source.commonlisp
+T 30 source.commonlisp entity.name.variable.commonlisp
+T 40 source.commonlisp
+L                        :end2 *end-pos*
+T 23 source.commonlisp
+T 28 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+T 38 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                        :test test))))))
+T 23 source.commonlisp
+T 28 source.commonlisp entity.name.variable.commonlisp
+T 39 source.commonlisp
+L   (let* ((m (length pattern))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 7 source.commonlisp keyword.control.commonlisp
+T 13 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 29 source.commonlisp
+L 	 (skip (make-array *regex-char-code-limit*
+T 9 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+T 43 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                            :element-type 'fixnum
+T 27 source.commonlisp
+T 40 source.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp
+T 42 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 48 source.commonlisp
+L                            :initial-element m)))
+T 27 source.commonlisp
+T 43 source.commonlisp entity.name.variable.commonlisp
+T 48 source.commonlisp
+L     (declare (fixnum m))
+T 5 source.commonlisp
+T 12 source.commonlisp storage.type.function.symbol.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+T 24 source.commonlisp
+L     (loop for k of-type fixnum below m
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 30 source.commonlisp support.type.t.commonlisp
+T 38 source.commonlisp
+L           if case-insensitive-p
+T 31 source.commonlisp
+L           do (setf (aref skip (char-code (char-upcase (schar pattern k)))) (- m k 1)
+T 10 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 20 source.commonlisp
+T 24 source.commonlisp support.function.accessor.commonlisp
+T 31 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 42 source.commonlisp
+T 53 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+T 60 source.commonlisp support.function.accessor.commonlisp
+T 76 source.commonlisp
+T 77 source.commonlisp support.function.f.sideeffects.commonlisp
+T 82 source.commonlisp
+T 83 source.commonlisp constant.numeric.commonlisp
+T 84 source.commonlisp
+L                    (aref skip (char-code (char-downcase (schar pattern k)))) (- m k 1))
+T 20 source.commonlisp
+T 24 source.commonlisp support.function.accessor.commonlisp
+T 31 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 42 source.commonlisp
+T 55 source.commonlisp support.function.f.sideeffects.commonlisp
+T 57 source.commonlisp
+T 62 source.commonlisp support.function.accessor.commonlisp
+T 78 source.commonlisp
+T 79 source.commonlisp support.function.f.sideeffects.commonlisp
+T 84 source.commonlisp
+T 85 source.commonlisp constant.numeric.commonlisp
+T 87 source.commonlisp
+L 	  else
+T 7 source.commonlisp
+L           do (setf (aref skip (char-code (schar pattern k))) (- m k 1)))
+T 10 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 20 source.commonlisp
+T 24 source.commonlisp support.function.accessor.commonlisp
+T 31 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 42 source.commonlisp
+T 47 source.commonlisp support.function.accessor.commonlisp
+T 62 source.commonlisp
+T 63 source.commonlisp support.function.f.sideeffects.commonlisp
+T 68 source.commonlisp
+T 69 source.commonlisp constant.numeric.commonlisp
+T 72 source.commonlisp
+L     (if case-insensitive-p
+T 4 source.commonlisp
+T 5 source.commonlisp
+T 7 source.commonlisp keyword.control.commonlisp
+T 26 source.commonlisp
+L       (bmh-matcher-aux :case-insensitive-p t)
+T 23 source.commonlisp
+T 42 source.commonlisp entity.name.variable.commonlisp
+T 43 source.commonlisp
+T 44 source.commonlisp constant.language.commonlisp
+T 45 source.commonlisp
+L       (bmh-matcher-aux))))
+T 26 source.commonlisp
+L 
+L (defmacro char-searcher-aux (&key case-insensitive-p)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 29 source.commonlisp
+T 33 source.commonlisp keyword.other.lambdalist.commonlisp
+T 53 source.commonlisp
+L   "Auxiliary macro used by CREATE-CHAR-SEARCHER."
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (let ((char-compare (if case-insensitive-p 'char-equal 'char=)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 22 source.commonlisp
+T 23 source.commonlisp
+T 25 source.commonlisp keyword.control.commonlisp
+T 45 source.commonlisp
+T 46 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 57 source.commonlisp
+T 58 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 66 source.commonlisp
+L     `(lambda (start-pos)
+T 4 source.commonlisp
+T 5 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 6 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+L       (declare (fixnum start-pos))
+T 7 source.commonlisp
+T 14 source.commonlisp storage.type.function.symbol.commonlisp
+T 16 source.commonlisp
+T 22 source.commonlisp support.type.t.commonlisp
+T 34 source.commonlisp
+L       (and (not (minusp start-pos))
+T 7 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 15 source.commonlisp support.function.f.sideeffects.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+L            (loop for i of-type fixnum from start-pos below *end-pos*
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+T 37 source.commonlisp support.type.t.commonlisp
+T 59 source.commonlisp
+T 68 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                  thereis (and (,char-compare (schar *string* i) chr) i))))))
+T 26 source.commonlisp
+T 29 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+T 32 source.commonlisp variable.other.constant.backquote.commonlisp
+T 46 source.commonlisp
+T 51 source.commonlisp support.function.accessor.commonlisp
+T 52 source.commonlisp
+T 60 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 76 source.commonlisp
+L 
+L (defun create-char-searcher (chr case-insensitive-p)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 52 source.commonlisp
+L   "Returns a function which searches the (special) simple-string
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+L *STRING* for the first occurence of the character CHR. The search
+T 65 source.commonlisp string.quoted.double.commonlisp
+L starts at the position START-POS within *STRING* and stops before
+T 65 source.commonlisp string.quoted.double.commonlisp
+L *END-POS* is reached.  Depending on the second argument the search is
+T 69 source.commonlisp string.quoted.double.commonlisp
+L case-insensitive or not."
+T 24 source.commonlisp string.quoted.double.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (if case-insensitive-p
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 5 source.commonlisp keyword.control.commonlisp
+T 24 source.commonlisp
+L     (char-searcher-aux :case-insensitive-p t)
+T 23 source.commonlisp
+T 42 source.commonlisp entity.name.variable.commonlisp
+T 43 source.commonlisp
+T 44 source.commonlisp constant.language.commonlisp
+T 45 source.commonlisp
+L     (char-searcher-aux)))
+T 25 source.commonlisp
+L 
+L (declaim (inline newline-skipper))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 34 source.commonlisp
+L (defun newline-skipper (start-pos)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 34 source.commonlisp
+L   "Finds the next occurence of a character in *STRING* which is behind
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp
+L a #\Newline."
+T 3 source.commonlisp string.quoted.double.commonlisp
+T 5 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (fixnum start-pos))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp support.type.t.commonlisp
+T 30 source.commonlisp
+L   ;; we can start with (1- START-POS) without testing for (PLUSP
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; START-POS) because we know we'll never call NEWLINE-SKIPPER on
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L   ;; the first iteration
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 24 source.commonlisp comment.line.semicolon.commonlisp
+L   (loop for i of-type fixnum from (1- start-pos) below *end-pos*
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+T 28 source.commonlisp support.type.t.commonlisp
+T 35 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+T 64 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L         thereis (and (char= (schar *string* i)
+T 17 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 29 source.commonlisp
+T 34 source.commonlisp support.function.accessor.commonlisp
+T 35 source.commonlisp
+T 43 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 46 source.commonlisp
+L                             #\Newline)
+T 28 source.commonlisp
+T 37 source.commonlisp constant.character.escape.commonlisp
+T 38 source.commonlisp
+L                      (1+ i))))
+T 22 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+L 
+L (defmacro insert-advance-fn (advance-fn)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 40 source.commonlisp
+L   "Creates the actual closure returned by CREATE-SCANNER-AUX by
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+L replacing '(ADVANCE-FN-DEFINITION) with a suitable definition for
+T 65 source.commonlisp string.quoted.double.commonlisp
+L ADVANCE-FN.  This is a utility macro used by CREATE-SCANNER-AUX."
+T 64 source.commonlisp string.quoted.double.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (subst
+T 3 source.commonlisp
+T 8 source.commonlisp support.function.f.sideeffects.commonlisp
+L    advance-fn '(advance-fn-definition)
+T 14 source.commonlisp
+T 15 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 38 source.commonlisp
+L    '(lambda (string start end)
+T 3 source.commonlisp
+T 4 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 5 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+L      (block scan
+T 5 source.commonlisp
+T 6 source.commonlisp
+T 11 source.commonlisp keyword.control.commonlisp
+T 16 source.commonlisp
+L        ;; initialize a couple of special variables used by the
+T 7 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 8 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L        ;; matchers (see file specials.lisp)
+T 7 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 8 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 43 source.commonlisp comment.line.semicolon.commonlisp
+L        (let* ((*string* string)
+T 7 source.commonlisp
+T 8 source.commonlisp
+T 12 source.commonlisp keyword.control.commonlisp
+T 15 source.commonlisp
+T 23 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 24 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+L               (*start-pos* start)
+T 15 source.commonlisp
+T 26 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 33 source.commonlisp
+L               (*end-pos* end)
+T 15 source.commonlisp
+T 24 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 29 source.commonlisp
+L               ;; we will search forward for END-STRING if this value
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; isn't at least as big as POS (see ADVANCE-FN), so it
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; is safe to start to the left of *START-POS*; note
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; that this value will _never_ be decremented - this
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; is crucial to the scanning process
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 51 source.commonlisp comment.line.semicolon.commonlisp
+L               (*end-string-pos* (1- *start-pos*))
+T 15 source.commonlisp
+T 31 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 33 source.commonlisp
+T 35 source.commonlisp support.function.f.sideeffects.commonlisp
+T 36 source.commonlisp
+T 47 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 49 source.commonlisp
+L               ;; the next five will shadow the variables defined by
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; DEFPARAMETER; at this point, we don't know if we'll
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; actually use them, though
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 42 source.commonlisp comment.line.semicolon.commonlisp
+L               (*repeat-counters* *repeat-counters*)
+T 15 source.commonlisp
+T 32 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 33 source.commonlisp
+T 50 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 51 source.commonlisp
+L               (*last-pos-stores* *last-pos-stores*)
+T 15 source.commonlisp
+T 32 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 33 source.commonlisp
+T 50 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 51 source.commonlisp
+L               (*reg-starts* *reg-starts*)
+T 15 source.commonlisp
+T 27 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 28 source.commonlisp
+T 40 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 41 source.commonlisp
+L               (*regs-maybe-start* *regs-maybe-start*)
+T 15 source.commonlisp
+T 33 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 34 source.commonlisp
+T 52 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 53 source.commonlisp
+L               (*reg-ends* *reg-ends*)
+T 15 source.commonlisp
+T 25 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 26 source.commonlisp
+T 36 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 37 source.commonlisp
+L               ;; we might be able to optimize the scanning process by
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L               ;; (virtually) shifting *START-POS* to the right
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L               (scan-start-pos *start-pos*)
+T 30 source.commonlisp
+T 41 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 42 source.commonlisp
+L               (starts-with-str (if start-string-test
+T 31 source.commonlisp
+T 32 source.commonlisp
+T 34 source.commonlisp keyword.control.commonlisp
+T 52 source.commonlisp
+L                                  (str starts-with)
+T 50 source.commonlisp
+L                                  nil))
+T 33 source.commonlisp
+T 36 source.commonlisp constant.language.commonlisp
+T 38 source.commonlisp
+L               ;; we don't need to try further than MAX-END-POS
+T 14 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 15 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L               (max-end-pos (- *end-pos* min-len)))
+T 28 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 39 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 50 source.commonlisp
+L          (declare (fixnum scan-start-pos)
+T 10 source.commonlisp
+T 17 source.commonlisp storage.type.function.symbol.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp support.type.t.commonlisp
+T 41 source.commonlisp
+L                   (function match-fn))
+T 18 source.commonlisp
+T 19 source.commonlisp
+T 27 source.commonlisp keyword.control.commonlisp
+T 38 source.commonlisp
+L          ;; definition of ADVANCE-FN will be inserted here by macrology
+T 9 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 10 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L          (labels ((advance-fn-definition))
+T 9 source.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp keyword.control.commonlisp
+T 42 source.commonlisp
+L            (declare (inline advance-fn))
+T 12 source.commonlisp
+T 19 source.commonlisp storage.type.function.symbol.commonlisp
+T 21 source.commonlisp
+T 27 source.commonlisp storage.type.function.declaration.commonlisp
+T 40 source.commonlisp
+L            (when (plusp rep-num)
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+L              ;; we have at least one REPETITION which needs to count
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L              ;; the number of repetitions
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 41 source.commonlisp comment.line.semicolon.commonlisp
+L              (setq *repeat-counters* (make-array rep-num
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.specialform.commonlisp
+T 19 source.commonlisp
+T 36 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 38 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+L                                                  :initial-element 0
+T 49 source.commonlisp
+T 65 source.commonlisp entity.name.variable.commonlisp
+T 66 source.commonlisp
+T 67 source.commonlisp constant.numeric.commonlisp
+L                                                  :element-type 'fixnum)))
+T 49 source.commonlisp
+T 62 source.commonlisp entity.name.variable.commonlisp
+T 63 source.commonlisp
+T 64 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 73 source.commonlisp
+L            (when (plusp zero-length-num)
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 40 source.commonlisp
+L              ;; we have at least one REPETITION which needs to watch
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L              ;; out for zero-length repetitions
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 47 source.commonlisp comment.line.semicolon.commonlisp
+L              (setq *last-pos-stores* (make-array zero-length-num
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.specialform.commonlisp
+T 19 source.commonlisp
+T 36 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 38 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 64 source.commonlisp
+L                                                  :initial-element nil)))
+T 49 source.commonlisp
+T 65 source.commonlisp entity.name.variable.commonlisp
+T 66 source.commonlisp
+T 69 source.commonlisp constant.language.commonlisp
+T 72 source.commonlisp
+L            (when (plusp reg-num)
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+L              ;; we have registers in our regular expression
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 59 source.commonlisp comment.line.semicolon.commonlisp
+L              (setq *reg-starts* (make-array reg-num :initial-element nil)
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.specialform.commonlisp
+T 19 source.commonlisp
+T 31 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 33 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 52 source.commonlisp
+T 68 source.commonlisp entity.name.variable.commonlisp
+T 69 source.commonlisp
+T 72 source.commonlisp constant.language.commonlisp
+T 73 source.commonlisp
+L                    *regs-maybe-start* (make-array reg-num :initial-element nil)
+T 19 source.commonlisp
+T 37 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 39 source.commonlisp
+T 49 source.commonlisp support.function.f.sideeffects.commonlisp
+T 58 source.commonlisp
+T 74 source.commonlisp entity.name.variable.commonlisp
+T 75 source.commonlisp
+T 78 source.commonlisp constant.language.commonlisp
+T 79 source.commonlisp
+L                    *reg-ends* (make-array reg-num :initial-element nil)))
+T 19 source.commonlisp
+T 29 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 31 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 50 source.commonlisp
+T 66 source.commonlisp entity.name.variable.commonlisp
+T 67 source.commonlisp
+T 70 source.commonlisp constant.language.commonlisp
+T 73 source.commonlisp
+L            (when end-anchored-p
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+L              ;; the regular expression has a constant end string which
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L              ;; is anchored at the very end of the target string
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L              ;; (perhaps modulo a #\Newline)
+T 13 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 14 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 44 source.commonlisp comment.line.semicolon.commonlisp
+L              (let ((end-test-pos (- *end-pos* (the fixnum end-string-len))))
+T 13 source.commonlisp
+T 14 source.commonlisp
+T 17 source.commonlisp keyword.control.commonlisp
+T 34 source.commonlisp
+T 35 source.commonlisp support.function.f.sideeffects.commonlisp
+T 36 source.commonlisp
+T 45 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 46 source.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp keyword.control.commonlisp
+T 51 source.commonlisp
+T 57 source.commonlisp support.type.t.commonlisp
+T 76 source.commonlisp
+L                (declare (fixnum end-test-pos)
+T 16 source.commonlisp
+T 23 source.commonlisp storage.type.function.symbol.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 45 source.commonlisp
+L                         (function end-string-test))
+T 24 source.commonlisp
+T 25 source.commonlisp
+T 33 source.commonlisp keyword.control.commonlisp
+T 51 source.commonlisp
+L                (unless (setq *end-string-pos* (funcall end-string-test
+T 16 source.commonlisp
+T 22 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 28 source.commonlisp storage.type.function.specialform.commonlisp
+T 29 source.commonlisp
+T 45 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 47 source.commonlisp
+T 54 source.commonlisp support.function.f.sideeffects.commonlisp
+T 70 source.commonlisp
+L                                                        end-test-pos))
+T 69 source.commonlisp
+L                  (when (and (= 1 (the fixnum end-anchored-p))
+T 18 source.commonlisp
+T 22 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 29 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+T 32 source.commonlisp constant.numeric.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp
+T 37 source.commonlisp keyword.control.commonlisp
+T 38 source.commonlisp
+T 44 source.commonlisp support.type.t.commonlisp
+T 61 source.commonlisp
+L                             (> *end-pos* scan-start-pos)
+T 29 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+T 40 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 56 source.commonlisp
+L                             (char= #\Newline (schar *string* (1- *end-pos*))))
+T 29 source.commonlisp
+T 34 source.commonlisp support.function.f.sideeffects.commonlisp
+T 35 source.commonlisp
+T 44 source.commonlisp constant.character.escape.commonlisp
+T 46 source.commonlisp
+T 51 source.commonlisp support.function.accessor.commonlisp
+T 52 source.commonlisp
+T 60 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 62 source.commonlisp
+T 64 source.commonlisp support.function.f.sideeffects.commonlisp
+T 65 source.commonlisp
+T 74 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 78 source.commonlisp
+L                    ;; if we didn't find an end string candidate from
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; END-TEST-POS and if a #\Newline at the end is
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; allowed we try it again from one position to the
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; left
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 26 source.commonlisp comment.line.semicolon.commonlisp
+L                    (setq *end-string-pos* (funcall end-string-test
+T 20 source.commonlisp
+T 24 source.commonlisp storage.type.function.specialform.commonlisp
+T 25 source.commonlisp
+T 41 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 43 source.commonlisp
+T 50 source.commonlisp support.function.f.sideeffects.commonlisp
+T 66 source.commonlisp
+L                                                    (1- end-test-pos))))))
+T 52 source.commonlisp
+T 54 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+L              (unless (and *end-string-pos*
+T 14 source.commonlisp
+T 20 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+T 25 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 42 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                           (<= *start-pos* *end-string-pos*))
+T 27 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 41 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 42 source.commonlisp
+T 58 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 60 source.commonlisp
+L                ;; no end string candidate found, so give up
+T 15 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 59 source.commonlisp comment.line.semicolon.commonlisp
+L                (return-from scan nil))
+T 15 source.commonlisp
+T 16 source.commonlisp
+T 27 source.commonlisp keyword.control.commonlisp
+T 33 source.commonlisp
+T 36 source.commonlisp constant.language.commonlisp
+T 38 source.commonlisp
+L              (when end-string-offset
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 36 source.commonlisp
+L                ;; if the offset of the constant end string from the
+T 15 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                ;; left of the regular expression is known we can start
+T 15 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                ;; scanning further to the right; this is similar to
+T 15 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                ;; what we might do in ADVANCE-FN
+T 15 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 48 source.commonlisp comment.line.semicolon.commonlisp
+L                (setq scan-start-pos (max scan-start-pos
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.specialform.commonlisp
+T 37 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+L                                          (- (the fixnum *end-string-pos*)
+T 42 source.commonlisp
+T 43 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+T 45 source.commonlisp
+T 48 source.commonlisp keyword.control.commonlisp
+T 49 source.commonlisp
+T 55 source.commonlisp support.type.t.commonlisp
+T 56 source.commonlisp
+T 72 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 73 source.commonlisp
+L                                             (the fixnum end-string-offset))))))
+T 44 source.commonlisp
+T 45 source.commonlisp
+T 48 source.commonlisp keyword.control.commonlisp
+T 49 source.commonlisp
+T 55 source.commonlisp support.type.t.commonlisp
+T 79 source.commonlisp
+L              (cond
+T 14 source.commonlisp
+T 18 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L                (start-anchored-p
+T 32 source.commonlisp
+L                  ;; we're anchored at the start of the target string,
+T 17 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 18 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                  ;; so no need to try again after first failure
+T 17 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 18 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L                  (when (or (/= *start-pos* scan-start-pos)
+T 18 source.commonlisp
+T 22 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 28 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+T 42 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 58 source.commonlisp
+L                            (< max-end-pos *start-pos*))
+T 28 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 42 source.commonlisp
+T 53 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 55 source.commonlisp
+L                    ;; if END-STRING-OFFSET has proven that we don't
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; need to bother to scan from *START-POS* or if the
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; minimal length of the regular expression is
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 65 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; longer than the target string we give up
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L                    (return-from scan nil))
+T 19 source.commonlisp
+T 20 source.commonlisp
+T 31 source.commonlisp keyword.control.commonlisp
+T 37 source.commonlisp
+T 40 source.commonlisp constant.language.commonlisp
+T 42 source.commonlisp
+L                  (when starts-with-str
+T 18 source.commonlisp
+T 22 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 38 source.commonlisp
+L                    (locally
+T 19 source.commonlisp
+T 20 source.commonlisp
+T 27 source.commonlisp keyword.control.commonlisp
+L                      (declare (fixnum starts-with-len))
+T 22 source.commonlisp
+T 29 source.commonlisp storage.type.function.symbol.commonlisp
+T 31 source.commonlisp
+T 37 source.commonlisp support.type.t.commonlisp
+T 55 source.commonlisp
+L                      (cond ((and (case-insensitive-p starts-with)
+T 22 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 29 source.commonlisp
+T 32 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 65 source.commonlisp
+L                                  (not (*string*-equal starts-with-str
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 69 source.commonlisp
+L                                                       *start-pos*
+T 54 source.commonlisp
+T 65 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                                       (+ *start-pos*
+T 55 source.commonlisp
+T 56 source.commonlisp support.function.f.sideeffects.commonlisp
+T 57 source.commonlisp
+T 68 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                                          starts-with-len)
+T 73 source.commonlisp
+L                                                       0 starts-with-len)))
+T 54 source.commonlisp
+T 55 source.commonlisp constant.numeric.commonlisp
+T 74 source.commonlisp
+L                              ;; the regular expression has a
+T 29 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                              ;; case-insensitive constant start string
+T 29 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                              ;; and we didn't find it
+T 29 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 53 source.commonlisp comment.line.semicolon.commonlisp
+L                              (return-from scan nil))
+T 29 source.commonlisp
+T 30 source.commonlisp
+T 41 source.commonlisp keyword.control.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp constant.language.commonlisp
+T 52 source.commonlisp
+L                            ((and (not (case-insensitive-p starts-with))
+T 29 source.commonlisp
+T 32 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 71 source.commonlisp
+L                                  (not (*string*= starts-with-str
+T 34 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 64 source.commonlisp
+L                                             *start-pos*
+T 44 source.commonlisp
+T 55 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                             (+ *start-pos* starts-with-len)
+T 45 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+T 58 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 75 source.commonlisp
+L                                             0 starts-with-len)))
+T 44 source.commonlisp
+T 45 source.commonlisp constant.numeric.commonlisp
+T 64 source.commonlisp
+L                              ;; the regular expression has a
+T 29 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                              ;; case-sensitive constant start string
+T 29 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                              ;; and we didn't find it
+T 29 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 53 source.commonlisp comment.line.semicolon.commonlisp
+L                              (return-from scan nil))
+T 29 source.commonlisp
+T 30 source.commonlisp
+T 41 source.commonlisp keyword.control.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp constant.language.commonlisp
+T 52 source.commonlisp
+L                            (t nil))))
+T 28 source.commonlisp
+T 29 source.commonlisp constant.language.commonlisp
+T 30 source.commonlisp
+T 33 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L                  (when (and end-string-test
+T 18 source.commonlisp
+T 22 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 24 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 43 source.commonlisp
+L                             (not end-anchored-p))
+T 29 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 49 source.commonlisp
+L                    ;; the regular expression has a constant end string
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; which isn't anchored so we didn't check for it
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                    ;; already
+T 19 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 20 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp
+L                    (block end-string-loop
+T 19 source.commonlisp
+T 20 source.commonlisp
+T 25 source.commonlisp keyword.control.commonlisp
+T 41 source.commonlisp
+L                      ;; we temporarily use *END-STRING-POS* as our
+T 21 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 22 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L                      ;; starting position to look for end string
+T 21 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 22 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                      ;; candidates
+T 21 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 22 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp
+L                      (setq *end-string-pos* *start-pos*)
+T 22 source.commonlisp
+T 26 source.commonlisp storage.type.function.specialform.commonlisp
+T 27 source.commonlisp
+T 43 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 44 source.commonlisp
+T 55 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 56 source.commonlisp
+L                      (loop
+T 22 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L                        (unless (setq *end-string-pos*
+T 24 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 32 source.commonlisp
+T 36 source.commonlisp storage.type.function.specialform.commonlisp
+T 37 source.commonlisp
+T 53 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                        (funcall (the function end-string-test)
+T 40 source.commonlisp
+T 47 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+T 49 source.commonlisp
+T 52 source.commonlisp keyword.control.commonlisp
+T 78 source.commonlisp
+L                                                 *end-string-pos*))
+T 48 source.commonlisp
+T 64 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 66 source.commonlisp
+L                          ;; no end string candidate found, so give up
+T 25 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 26 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                          (return-from scan nil))
+T 25 source.commonlisp
+T 26 source.commonlisp
+T 37 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+T 46 source.commonlisp constant.language.commonlisp
+T 48 source.commonlisp
+L                        (unless end-string-offset
+T 24 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 48 source.commonlisp
+L                          ;; end string doesn't have an offset so we
+T 25 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 26 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                          ;; can start scanning now
+T 25 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 26 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 50 source.commonlisp comment.line.semicolon.commonlisp
+L                          (return-from end-string-loop))
+T 25 source.commonlisp
+T 26 source.commonlisp
+T 37 source.commonlisp keyword.control.commonlisp
+T 55 source.commonlisp
+L                        (let ((maybe-start-pos (- (the fixnum *end-string-pos*)
+T 23 source.commonlisp
+T 24 source.commonlisp
+T 27 source.commonlisp keyword.control.commonlisp
+T 47 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 49 source.commonlisp
+T 50 source.commonlisp
+T 53 source.commonlisp keyword.control.commonlisp
+T 54 source.commonlisp
+T 60 source.commonlisp support.type.t.commonlisp
+T 61 source.commonlisp
+T 77 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 78 source.commonlisp
+L                                                  (the fixnum end-string-offset))))
+T 49 source.commonlisp
+T 50 source.commonlisp
+T 53 source.commonlisp keyword.control.commonlisp
+T 54 source.commonlisp
+T 60 source.commonlisp support.type.t.commonlisp
+T 82 source.commonlisp
+L                          (cond ((= maybe-start-pos *start-pos*)
+T 26 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+T 62 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 63 source.commonlisp
+L                                  ;; offset of end string into regular
+T 33 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                                  ;; expression matches start anchor -
+T 33 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                                  ;; fine...
+T 33 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 43 source.commonlisp comment.line.semicolon.commonlisp
+L                                  (return-from end-string-loop))
+T 33 source.commonlisp
+T 34 source.commonlisp
+T 45 source.commonlisp keyword.control.commonlisp
+T 63 source.commonlisp
+L                                ((and (< maybe-start-pos *start-pos*)
+T 33 source.commonlisp
+T 36 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+T 67 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 68 source.commonlisp
+L                                      (< (+ *end-string-pos* end-string-len) *end-pos*))
+T 38 source.commonlisp
+T 39 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+T 42 source.commonlisp support.function.f.sideeffects.commonlisp
+T 43 source.commonlisp
+T 59 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 76 source.commonlisp
+T 85 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 87 source.commonlisp
+L                                  ;; no match but maybe we find another
+T 33 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                                  ;; one to the right - try again
+T 33 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                                  (incf *end-string-pos*))
+T 34 source.commonlisp
+T 38 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 39 source.commonlisp
+T 55 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 57 source.commonlisp
+L                                (t
+T 32 source.commonlisp
+T 33 source.commonlisp constant.language.commonlisp
+L                                  ;; otherwise give up
+T 33 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 34 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 53 source.commonlisp comment.line.semicolon.commonlisp
+L                                  (return-from scan nil)))))))
+T 33 source.commonlisp
+T 34 source.commonlisp
+T 45 source.commonlisp keyword.control.commonlisp
+T 51 source.commonlisp
+T 54 source.commonlisp constant.language.commonlisp
+T 61 source.commonlisp
+L                  ;; if we got here we scan exactly once
+T 17 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 18 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 55 source.commonlisp comment.line.semicolon.commonlisp
+L                  (let ((next-pos (funcall match-fn *start-pos*)))
+T 17 source.commonlisp
+T 18 source.commonlisp
+T 21 source.commonlisp keyword.control.commonlisp
+T 34 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+T 62 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 65 source.commonlisp
+L                    (when next-pos
+T 20 source.commonlisp
+T 24 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 33 source.commonlisp
+L                      (values (if next-pos *start-pos* nil)
+T 22 source.commonlisp
+T 28 source.commonlisp support.function.accessor.commonlisp
+T 29 source.commonlisp
+T 30 source.commonlisp
+T 32 source.commonlisp keyword.control.commonlisp
+T 42 source.commonlisp
+T 53 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 54 source.commonlisp
+T 57 source.commonlisp constant.language.commonlisp
+T 58 source.commonlisp
+L                              next-pos
+T 37 source.commonlisp
+L                              *reg-starts*
+T 29 source.commonlisp
+T 41 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                              *reg-ends*))))
+T 29 source.commonlisp
+T 39 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 43 source.commonlisp
+L                (t
+T 16 source.commonlisp
+T 17 source.commonlisp constant.language.commonlisp
+L                  (loop for pos = (if starts-with-everything
+T 18 source.commonlisp
+T 22 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 31 source.commonlisp
+T 32 source.commonlisp support.function.f.sideeffects.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp
+T 36 source.commonlisp keyword.control.commonlisp
+T 59 source.commonlisp
+L                                    ;; don't jump to the next
+T 35 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 36 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                                    ;; #\Newline on the first
+T 35 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 36 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                                    ;; iteration
+T 35 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 36 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 47 source.commonlisp comment.line.semicolon.commonlisp
+L                                    scan-start-pos
+T 49 source.commonlisp
+L                                    (advance-fn scan-start-pos))
+T 63 source.commonlisp
+L                            then (advance-fn pos)
+T 48 source.commonlisp
+L                        ;; give up if the regular expression can't fit
+T 23 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 24 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                        ;; into the rest of the target string
+T 23 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 24 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                        while (and pos
+T 30 source.commonlisp
+T 33 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 37 source.commonlisp
+L                                   (<= (the fixnum pos) max-end-pos))
+T 35 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp
+T 42 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+T 49 source.commonlisp support.type.t.commonlisp
+T 68 source.commonlisp
+L                        do (let ((next-pos (funcall match-fn pos)))
+T 23 source.commonlisp
+T 25 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 27 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+T 50 source.commonlisp support.function.f.sideeffects.commonlisp
+T 66 source.commonlisp
+L                             (when next-pos
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 42 source.commonlisp
+L                               (return-from scan (values pos
+T 30 source.commonlisp
+T 31 source.commonlisp
+T 42 source.commonlisp keyword.control.commonlisp
+T 49 source.commonlisp
+T 55 source.commonlisp support.function.accessor.commonlisp
+T 59 source.commonlisp
+L                                                         next-pos
+T 64 source.commonlisp
+L                                                         *reg-starts*
+T 56 source.commonlisp
+T 68 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                                         *reg-ends*)))
+T 56 source.commonlisp
+T 66 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 69 source.commonlisp
+L                             ;; not yet found, increment POS
+T 28 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 29 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 59 source.commonlisp comment.line.semicolon.commonlisp
+L                             #-cormanlisp (incf (the fixnum pos))
+T 28 source.commonlisp
+T 30 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+T 46 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 47 source.commonlisp
+T 48 source.commonlisp
+T 51 source.commonlisp keyword.control.commonlisp
+T 52 source.commonlisp
+T 58 source.commonlisp support.type.t.commonlisp
+T 64 source.commonlisp
+L                             #+cormanlisp (incf pos)))))))))
+T 28 source.commonlisp
+T 30 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+T 46 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 59 source.commonlisp
+L     :test #'equalp))
+T 4 source.commonlisp
+T 9 source.commonlisp entity.name.variable.commonlisp
+T 10 source.commonlisp
+T 12 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 18 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+L 
+L (defun create-scanner-aux (match-fn
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 35 source.commonlisp
+L                            min-len
+T 34 source.commonlisp
+L                            start-anchored-p
+T 43 source.commonlisp
+L                            starts-with
+T 38 source.commonlisp
+L                            start-string-test
+T 44 source.commonlisp
+L                            end-anchored-p
+T 41 source.commonlisp
+L                            end-string-test
+T 42 source.commonlisp
+L                            end-string-len
+T 41 source.commonlisp
+L                            end-string-offset
+T 44 source.commonlisp
+L                            rep-num
+T 34 source.commonlisp
+L                            zero-length-num
+T 42 source.commonlisp
+L                            reg-num)
+T 35 source.commonlisp
+L   "Auxiliary function to create and return a scanner \(which is
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+L actually a closure).  Used by CREATE-SCANNER."
+T 45 source.commonlisp string.quoted.double.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (fixnum min-len zero-length-num rep-num reg-num))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp support.type.t.commonlisp
+T 60 source.commonlisp
+L   (let ((starts-with-len (if (typep starts-with 'str)
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp
+T 28 source.commonlisp keyword.control.commonlisp
+T 30 source.commonlisp
+T 35 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+T 49 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 53 source.commonlisp
+L                            (len starts-with)))
+T 46 source.commonlisp
+L         (starts-with-everything (typep starts-with 'everything)))
+T 33 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 65 source.commonlisp
+L     (cond
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L       ;; this COND statement dispatches on the different versions we
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; have for ADVANCE-FN and creates different closures for each;
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; note that you see only the bodies of ADVANCE-FN below - the
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; actual scanner is defined in INSERT-ADVANCE-FN above; (we
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; could have done this with closures instead of macrology but
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L       ;; would have consed a lot more)
+T 6 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 7 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 38 source.commonlisp comment.line.semicolon.commonlisp
+L       ((and start-string-test end-string-test end-string-offset)
+T 8 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 64 source.commonlisp
+L         ;; we know that the regular expression has constant start and
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; end strings and we know the end string's offset (from the
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; left)
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 16 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (declare (fixnum end-string-offset starts-with-len)
+T 13 source.commonlisp
+T 20 source.commonlisp storage.type.function.symbol.commonlisp
+T 22 source.commonlisp
+T 28 source.commonlisp support.type.t.commonlisp
+T 63 source.commonlisp
+L                      (function start-string-test end-string-test))
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 66 source.commonlisp
+L             (loop
+T 13 source.commonlisp
+T 17 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L               (unless (setq pos (funcall start-string-test pos))
+T 15 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 27 source.commonlisp storage.type.function.specialform.commonlisp
+T 33 source.commonlisp
+T 40 source.commonlisp support.function.f.sideeffects.commonlisp
+T 64 source.commonlisp
+L                 ;; give up completely if we can't find a start string
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                 ;; candidate
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 28 source.commonlisp comment.line.semicolon.commonlisp
+L                 (return-from scan nil))
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 28 source.commonlisp keyword.control.commonlisp
+T 34 source.commonlisp
+T 37 source.commonlisp constant.language.commonlisp
+T 39 source.commonlisp
+L               (locally
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 22 source.commonlisp keyword.control.commonlisp
+L                 ;; from here we know that POS is a FIXNUM
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 57 source.commonlisp comment.line.semicolon.commonlisp
+L                 (declare (fixnum pos))
+T 17 source.commonlisp
+T 24 source.commonlisp storage.type.function.symbol.commonlisp
+T 26 source.commonlisp
+T 32 source.commonlisp support.type.t.commonlisp
+T 38 source.commonlisp
+L                 (when (= pos (- (the fixnum *end-string-pos*) end-string-offset))
+T 17 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp
+T 36 source.commonlisp keyword.control.commonlisp
+T 37 source.commonlisp
+T 43 source.commonlisp support.type.t.commonlisp
+T 44 source.commonlisp
+T 60 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 81 source.commonlisp
+L                   ;; if we already found an end string candidate the
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; position of which matches the start string
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; candidate we're done
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 41 source.commonlisp comment.line.semicolon.commonlisp
+L                   (return-from advance-fn pos))
+T 18 source.commonlisp
+T 19 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 47 source.commonlisp
+L                 (let ((try-pos (+ pos starts-with-len)))
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 20 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp support.function.f.sideeffects.commonlisp
+T 56 source.commonlisp
+L                   ;; otherwise try (again) to find an end string
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; candidate which starts behind the start string
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; candidate
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 30 source.commonlisp comment.line.semicolon.commonlisp
+L                   (loop
+T 19 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L                     (unless (setq *end-string-pos*
+T 21 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.specialform.commonlisp
+T 34 source.commonlisp
+T 50 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                     (funcall end-string-test try-pos))
+T 37 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 70 source.commonlisp
+L                       ;; no end string candidate found, so give up
+T 22 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 23 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L                       (return-from scan nil))
+T 22 source.commonlisp
+T 23 source.commonlisp
+T 34 source.commonlisp keyword.control.commonlisp
+T 40 source.commonlisp
+T 43 source.commonlisp constant.language.commonlisp
+T 45 source.commonlisp
+L                     ;; NEW-POS is where we should start scanning
+T 20 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 21 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                     ;; according to the end string candidate
+T 20 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 21 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                     (let ((new-pos (- (the fixnum *end-string-pos*)
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp
+T 42 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+T 49 source.commonlisp support.type.t.commonlisp
+T 50 source.commonlisp
+T 66 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 67 source.commonlisp
+L                                       end-string-offset)))
+T 58 source.commonlisp
+L                       (declare (fixnum new-pos *end-string-pos*))
+T 23 source.commonlisp
+T 30 source.commonlisp storage.type.function.symbol.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp support.type.t.commonlisp
+T 47 source.commonlisp
+T 63 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 65 source.commonlisp
+L                       (cond ((= new-pos pos)
+T 23 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+L                               ;; if POS and NEW-POS are equal then the
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; two candidates agree so we're fine
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                               (return-from advance-fn pos))
+T 30 source.commonlisp
+T 31 source.commonlisp
+T 42 source.commonlisp keyword.control.commonlisp
+T 59 source.commonlisp
+L                             ((> new-pos pos)
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+L                               ;; if NEW-POS is further to the right we
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; advance POS and try again, i.e. we go
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; back to the start of the outer LOOP
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                               (setq pos new-pos)
+T 31 source.commonlisp
+T 35 source.commonlisp storage.type.function.specialform.commonlisp
+T 48 source.commonlisp
+L                               ;; this means "return from inner LOOP"
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                               (return))
+T 31 source.commonlisp
+T 37 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 39 source.commonlisp
+L                             (t
+T 29 source.commonlisp
+T 30 source.commonlisp constant.language.commonlisp
+L                               ;; otherwise NEW-POS is smaller than POS,
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; so we have to redo the inner LOOP to
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; find another end string candidate
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; further to the right
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 53 source.commonlisp comment.line.semicolon.commonlisp
+L                               (setq try-pos (1+ *end-string-pos*))))))))))))
+T 31 source.commonlisp
+T 35 source.commonlisp storage.type.function.specialform.commonlisp
+T 45 source.commonlisp
+T 47 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+T 64 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 76 source.commonlisp
+L       ((and starts-with-everything end-string-test end-string-offset)
+T 8 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 69 source.commonlisp
+L         ;; we know that the regular expression starts with ".*" (which
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; is not in single-line-mode, see CREATE-SCANNER-AUX) and ends
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; with a constant end string and we know the end string's
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; offset (from the left)
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 33 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (declare (fixnum end-string-offset)
+T 13 source.commonlisp
+T 20 source.commonlisp storage.type.function.symbol.commonlisp
+T 22 source.commonlisp
+T 28 source.commonlisp support.type.t.commonlisp
+T 47 source.commonlisp
+L                      (function end-string-test))
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 48 source.commonlisp
+L             (loop
+T 13 source.commonlisp
+T 17 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L               (unless (setq pos (newline-skipper pos))
+T 15 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 27 source.commonlisp storage.type.function.specialform.commonlisp
+T 54 source.commonlisp
+L                 ;; if we can't find a #\Newline we give up immediately
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                 (return-from scan nil))
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 28 source.commonlisp keyword.control.commonlisp
+T 34 source.commonlisp
+T 37 source.commonlisp constant.language.commonlisp
+T 39 source.commonlisp
+L               (locally
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 22 source.commonlisp keyword.control.commonlisp
+L                 ;; from here we know that POS is a FIXNUM
+T 16 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 17 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 57 source.commonlisp comment.line.semicolon.commonlisp
+L                 (declare (fixnum pos))
+T 17 source.commonlisp
+T 24 source.commonlisp storage.type.function.symbol.commonlisp
+T 26 source.commonlisp
+T 32 source.commonlisp support.type.t.commonlisp
+T 38 source.commonlisp
+L                 (when (= pos (- (the fixnum *end-string-pos*) end-string-offset))
+T 17 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp
+T 36 source.commonlisp keyword.control.commonlisp
+T 37 source.commonlisp
+T 43 source.commonlisp support.type.t.commonlisp
+T 44 source.commonlisp
+T 60 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 81 source.commonlisp
+L                   ;; if we already found an end string candidate the
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; position of which matches the place behind the
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; #\Newline we're done
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 41 source.commonlisp comment.line.semicolon.commonlisp
+L                   (return-from advance-fn pos))
+T 18 source.commonlisp
+T 19 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 47 source.commonlisp
+L                 (let ((try-pos pos))
+T 16 source.commonlisp
+T 17 source.commonlisp
+T 20 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+L                   ;; otherwise try (again) to find an end string
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                   ;; candidate which starts behind the #\Newline
+T 18 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 19 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                   (loop
+T 19 source.commonlisp
+T 23 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L                     (unless (setq *end-string-pos*
+T 21 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 29 source.commonlisp
+T 33 source.commonlisp storage.type.function.specialform.commonlisp
+T 34 source.commonlisp
+T 50 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                                     (funcall end-string-test try-pos))
+T 37 source.commonlisp
+T 44 source.commonlisp support.function.f.sideeffects.commonlisp
+T 70 source.commonlisp
+L                       ;; no end string candidate found, so we give up
+T 22 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 23 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                       (return-from scan nil))
+T 22 source.commonlisp
+T 23 source.commonlisp
+T 34 source.commonlisp keyword.control.commonlisp
+T 40 source.commonlisp
+T 43 source.commonlisp constant.language.commonlisp
+T 45 source.commonlisp
+L                     ;; NEW-POS is where we should start scanning
+T 20 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 21 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L                     ;; according to the end string candidate
+T 20 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 21 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                     (let ((new-pos (- (the fixnum *end-string-pos*)
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+T 37 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp
+T 42 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+T 49 source.commonlisp support.type.t.commonlisp
+T 50 source.commonlisp
+T 66 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 67 source.commonlisp
+L                                       end-string-offset)))
+T 58 source.commonlisp
+L                       (declare (fixnum new-pos *end-string-pos*))
+T 23 source.commonlisp
+T 30 source.commonlisp storage.type.function.symbol.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp support.type.t.commonlisp
+T 47 source.commonlisp
+T 63 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 65 source.commonlisp
+L                       (cond ((= new-pos pos)
+T 23 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+L                               ;; if POS and NEW-POS are equal then the
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; the end string candidate agrees with
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; the #\Newline so we're fine
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 60 source.commonlisp comment.line.semicolon.commonlisp
+L                               (return-from advance-fn pos))
+T 30 source.commonlisp
+T 31 source.commonlisp
+T 42 source.commonlisp keyword.control.commonlisp
+T 59 source.commonlisp
+L                             ((> new-pos pos)
+T 30 source.commonlisp
+T 31 source.commonlisp support.function.f.sideeffects.commonlisp
+T 44 source.commonlisp
+L                               ;; if NEW-POS is further to the right we
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; advance POS and try again, i.e. we go
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; back to the start of the outer LOOP
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                               (setq pos new-pos)
+T 31 source.commonlisp
+T 35 source.commonlisp storage.type.function.specialform.commonlisp
+T 48 source.commonlisp
+L                               ;; this means "return from inner LOOP"
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L                               (return))
+T 31 source.commonlisp
+T 37 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 39 source.commonlisp
+L                             (t
+T 29 source.commonlisp
+T 30 source.commonlisp constant.language.commonlisp
+L                               ;; otherwise NEW-POS is smaller than POS,
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; so we have to redo the inner LOOP to
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; find another end string candidate
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L                               ;; further to the right
+T 30 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 31 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 53 source.commonlisp comment.line.semicolon.commonlisp
+L                               (setq try-pos (1+ *end-string-pos*))))))))))))
+T 31 source.commonlisp
+T 35 source.commonlisp storage.type.function.specialform.commonlisp
+T 45 source.commonlisp
+T 47 source.commonlisp support.function.f.sideeffects.commonlisp
+T 48 source.commonlisp
+T 64 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 76 source.commonlisp
+L       ((and start-string-test end-string-test)
+T 8 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 46 source.commonlisp
+L         ;; we know that the regular expression has constant start and
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; end strings; similar to the first case but we only need to
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; check for the end string, it doesn't provide enough
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; information to advance POS
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 37 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (declare (function start-string-test end-string-test))
+T 13 source.commonlisp
+T 20 source.commonlisp storage.type.function.symbol.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 66 source.commonlisp
+L             (unless (setq pos (funcall start-string-test pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 31 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 62 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             (if (<= (the fixnum pos)
+T 12 source.commonlisp
+T 13 source.commonlisp
+T 15 source.commonlisp keyword.control.commonlisp
+T 17 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 36 source.commonlisp
+L                     (the fixnum *end-string-pos*))
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 32 source.commonlisp
+T 48 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 50 source.commonlisp
+L               (return-from advance-fn pos))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+L             (unless (setq *end-string-pos* (funcall end-string-test pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 26 source.commonlisp
+T 42 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 44 source.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             pos)))
+T 18 source.commonlisp
+L       ((and starts-with-everything end-string-test)
+T 8 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 51 source.commonlisp
+L         ;; we know that the regular expression starts with ".*" (which
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; is not in single-line-mode, see CREATE-SCANNER-AUX) and ends
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; with a constant end string; similar to the second case but we
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 72 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; only need to check for the end string, it doesn't provide
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 68 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; enough information to advance POS
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 44 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (declare (function end-string-test))
+T 13 source.commonlisp
+T 20 source.commonlisp storage.type.function.symbol.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 48 source.commonlisp
+L             (unless (setq pos (newline-skipper pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 52 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             (if (<= (the fixnum pos)
+T 12 source.commonlisp
+T 13 source.commonlisp
+T 15 source.commonlisp keyword.control.commonlisp
+T 17 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 36 source.commonlisp
+L                     (the fixnum *end-string-pos*))
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 32 source.commonlisp
+T 48 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 50 source.commonlisp
+L               (return-from advance-fn pos))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+L             (unless (setq *end-string-pos* (funcall end-string-test pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 26 source.commonlisp
+T 42 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 44 source.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             pos)))
+T 18 source.commonlisp
+L       (start-string-test
+T 24 source.commonlisp
+L         ;; just check for constant start string candidate
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 57 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (declare (function start-string-test))
+T 13 source.commonlisp
+T 20 source.commonlisp storage.type.function.symbol.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 50 source.commonlisp
+L             (unless (setq pos (funcall start-string-test pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 31 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 62 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             pos)))
+T 18 source.commonlisp
+L       (starts-with-everything
+T 29 source.commonlisp
+L         ;; just advance POS with NEWLINE-SKIPPER
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 48 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (unless (setq pos (newline-skipper pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 52 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             pos)))
+T 18 source.commonlisp
+L       (end-string-test
+T 22 source.commonlisp
+L         ;; just check for the next end string candidate if POS has
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 66 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; advanced beyond the last one
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 39 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             (declare (function end-string-test))
+T 13 source.commonlisp
+T 20 source.commonlisp storage.type.function.symbol.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp
+T 30 source.commonlisp keyword.control.commonlisp
+T 48 source.commonlisp
+L             (if (<= (the fixnum pos)
+T 12 source.commonlisp
+T 13 source.commonlisp
+T 15 source.commonlisp keyword.control.commonlisp
+T 17 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 36 source.commonlisp
+L                     (the fixnum *end-string-pos*))
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp keyword.control.commonlisp
+T 25 source.commonlisp
+T 31 source.commonlisp support.type.t.commonlisp
+T 32 source.commonlisp
+T 48 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 50 source.commonlisp
+L               (return-from advance-fn pos))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 43 source.commonlisp
+L             (unless (setq *end-string-pos* (funcall end-string-test pos))
+T 13 source.commonlisp
+T 19 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+T 25 source.commonlisp storage.type.function.specialform.commonlisp
+T 26 source.commonlisp
+T 42 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 44 source.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 73 source.commonlisp
+L               (return-from scan nil))
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+T 32 source.commonlisp
+T 35 source.commonlisp constant.language.commonlisp
+T 37 source.commonlisp
+L             pos)))
+T 18 source.commonlisp
+L       (t
+T 7 source.commonlisp
+T 8 source.commonlisp constant.language.commonlisp
+L         ;; not enough optimization information about the regular
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L         ;; expression to optimize so we just return POS
+T 8 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 9 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 55 source.commonlisp comment.line.semicolon.commonlisp
+L         (insert-advance-fn
+T 26 source.commonlisp
+L           (advance-fn (pos)
+T 27 source.commonlisp
+L             pos))))))
+T 21 source.commonlisp
+L 

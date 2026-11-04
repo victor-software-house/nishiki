@@ -44,6 +44,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.md",
   },
+  "common-lisp": {
+    bundled: "qingpeng9802/vscode-common-lisp@79d04dc9ca80d98e65c4f28b3d67a24a7829b18f",
+    origin: "qingpeng9802/vscode-common-lisp",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   css: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "microsoft/vscode-css",

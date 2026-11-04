@@ -1,0 +1,1784 @@
+L (in-package :cl-user)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+L (defpackage woo.response
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 24 source.commonlisp entity.name.type.commonlisp
+L   (:use :cl)
+T 3 source.commonlisp
+T 7 source.commonlisp entity.name.variable.commonlisp
+T 8 source.commonlisp
+T 11 source.commonlisp entity.name.variable.commonlisp
+T 12 source.commonlisp
+L   (:import-from :trivial-utf-8
+T 3 source.commonlisp
+T 15 source.commonlisp entity.name.variable.commonlisp
+T 16 source.commonlisp
+T 30 source.commonlisp entity.name.variable.commonlisp
+L                 :string-to-utf-8-bytes
+T 16 source.commonlisp
+T 38 source.commonlisp entity.name.variable.commonlisp
+L                 :utf-8-byte-length)
+T 16 source.commonlisp
+T 34 source.commonlisp entity.name.variable.commonlisp
+T 35 source.commonlisp
+L   (:export :*empty-chunk*
+T 3 source.commonlisp
+T 10 source.commonlisp entity.name.variable.commonlisp
+T 11 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L            :*empty-bytes*
+T 11 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L            :*crlf*
+T 11 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+L            :write-socket-string
+T 11 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+L            :write-socket-crlf
+T 11 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+L            :response-headers-bytes
+T 11 source.commonlisp
+T 34 source.commonlisp entity.name.variable.commonlisp
+L            :write-response-headers
+T 11 source.commonlisp
+T 34 source.commonlisp entity.name.variable.commonlisp
+L            :write-body-chunk
+T 11 source.commonlisp
+T 28 source.commonlisp entity.name.variable.commonlisp
+L            :write-string-body-chunk
+T 11 source.commonlisp
+T 35 source.commonlisp entity.name.variable.commonlisp
+L            :start-chunked-response
+T 11 source.commonlisp
+T 34 source.commonlisp entity.name.variable.commonlisp
+L            :finish-response))
+T 11 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+L (in-package :woo.response)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 12 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+L 
+L (declaim (inline wev:write-socket-data wev:write-socket-byte))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 17 source.commonlisp
+T 20 source.commonlisp support.type.package.commonlisp
+T 39 source.commonlisp
+T 42 source.commonlisp support.type.package.commonlisp
+T 62 source.commonlisp
+L 
+L (defun status-code-to-text (code)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 33 source.commonlisp
+L   (cond
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+L     ((< code 200)
+T 6 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp constant.numeric.commonlisp
+T 17 source.commonlisp
+L      (case code
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 15 source.commonlisp
+L        (100 "Continue")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 23 source.commonlisp
+L        (101 "Switching Protocols")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 34 source.commonlisp
+L        (102 "Processing")))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 27 source.commonlisp
+L     ((< code 300)
+T 6 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp constant.numeric.commonlisp
+T 17 source.commonlisp
+L      (case code
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 15 source.commonlisp
+L        (200 "OK")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp
+T 16 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 17 source.commonlisp
+L        (201 "Created")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 22 source.commonlisp
+L        (202 "Accepted")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 23 source.commonlisp
+L        (203 "Non-Authoritative Information")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 44 source.commonlisp
+L        (204 "No Content")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 25 source.commonlisp
+L        (205 "Reset Content")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 28 source.commonlisp
+L        (206 "Partial Content")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 30 source.commonlisp
+L        (207 "Multi-Status")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 27 source.commonlisp
+L        (208 "Already Reported")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L        (226 "IM Used")))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 24 source.commonlisp
+L     ((< code 400)
+T 6 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp constant.numeric.commonlisp
+T 17 source.commonlisp
+L      (case code
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 15 source.commonlisp
+L        (300 "Multiple Choices")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L        (301 "Moved Permanently")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 32 source.commonlisp
+L        (302 "Found")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 20 source.commonlisp
+L        (303 "See Other")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 24 source.commonlisp
+L        (304 "Not Modified")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 27 source.commonlisp
+L        (305 "Use Proxy")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 24 source.commonlisp
+L        (307 "Temporary Redirect")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 33 source.commonlisp
+L        (308 "Permanent Redirect")))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 35 source.commonlisp
+L     ((< code 500)
+T 6 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 13 source.commonlisp
+T 16 source.commonlisp constant.numeric.commonlisp
+T 17 source.commonlisp
+L      (case code
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 15 source.commonlisp
+L        (400 "Bad Request")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 26 source.commonlisp
+L        (401 "Unauthorized")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 27 source.commonlisp
+L        (402 "Payment Required")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L        (403 "Forbidden")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 24 source.commonlisp
+L        (404 "Not Found")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 24 source.commonlisp
+L        (405 "Method Not Allowed")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 33 source.commonlisp
+L        (406 "Not Acceptable")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 29 source.commonlisp
+L        (407 "Proxy Authentication Required")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 44 source.commonlisp
+L        (408 "Request Time-out")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L        (409 "Conflict")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 23 source.commonlisp
+L        (410 "Gone")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 17 source.commonlisp string.quoted.double.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 19 source.commonlisp
+L        (411 "Length Required")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 30 source.commonlisp
+L        (412 "Precondition Failed")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 34 source.commonlisp
+L        (413 "Request Entity Too Large")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 39 source.commonlisp
+L        (414 "Request-URI Too Large")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 36 source.commonlisp
+L        (415 "Unsupported Media Type")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 37 source.commonlisp
+L        (416 "Requested range not satisfiable")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 44 source.commonlisp string.quoted.double.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 46 source.commonlisp
+L        (417 "Expectation Failed")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 33 source.commonlisp
+L        (418 "I'm a teapot")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 27 source.commonlisp
+L        (421 "Misdirected Request")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 34 source.commonlisp
+L        (422 "Unprocessable Entity")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 35 source.commonlisp
+L        (423 "Locked")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 21 source.commonlisp
+L        (424 "Failed Dependency")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 32 source.commonlisp
+L        (426 "Upgrade Required")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L        (451 "Unavailable For Legal Reasons")))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 46 source.commonlisp
+L     (T
+T 5 source.commonlisp
+T 6 source.commonlisp constant.language.commonlisp
+L      (case code
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 15 source.commonlisp
+L        (500 "Internal Server Error")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 36 source.commonlisp
+L        (501 "Not Implemented")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 30 source.commonlisp
+L        (502 "Bad Gateway")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 26 source.commonlisp
+L        (503 "Service Unavailable")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 34 source.commonlisp
+L        (504 "Gateway Time-out")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L        (505 "HTTP Version not supported")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 41 source.commonlisp
+L        (506 "Variant Also Negotiates")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 38 source.commonlisp
+L        (507 "Insufficient Storage")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 35 source.commonlisp
+L        (508 "Loop Detected")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 28 source.commonlisp
+L        (509 "Bandwidth Limit Exceeded")
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 39 source.commonlisp
+L        (510 "Not Extended")))))
+T 8 source.commonlisp
+T 11 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 31 source.commonlisp
+L 
+L (defvar *status-line* (make-hash-table :test 'eql))
+T 1 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 8 source.commonlisp
+T 21 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 23 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 44 source.commonlisp entity.name.variable.commonlisp
+T 45 source.commonlisp
+T 46 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 51 source.commonlisp
+L 
+L (defun http/1.1 (code)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp
+L   (let ((status-text (status-code-to-text code)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 49 source.commonlisp
+L     (when status-text
+T 5 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 21 source.commonlisp
+L       (format nil "HTTP/1.1 ~A ~A~C~C"
+T 7 source.commonlisp
+T 13 source.commonlisp support.function.f.sideeffects.commonlisp
+T 14 source.commonlisp
+T 17 source.commonlisp constant.language.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L               code
+T 18 source.commonlisp
+L               status-text
+T 25 source.commonlisp
+L               #\Return
+T 14 source.commonlisp
+T 22 source.commonlisp constant.character.escape.commonlisp
+L               #\Linefeed))))
+T 14 source.commonlisp
+T 24 source.commonlisp constant.character.escape.commonlisp
+T 28 source.commonlisp
+L 
+L (loop for status from 100 to 510
+T 1 source.commonlisp
+T 5 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+T 25 source.commonlisp constant.numeric.commonlisp
+T 29 source.commonlisp
+T 32 source.commonlisp constant.numeric.commonlisp
+L       for status-line = (http/1.1 status)
+T 22 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+L       when status-line
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 22 source.commonlisp
+L         do (setf (gethash status *status-line*)
+T 8 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 18 source.commonlisp
+T 25 source.commonlisp support.function.accessor.commonlisp
+T 33 source.commonlisp
+T 46 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 47 source.commonlisp
+L                  (trivial-utf-8:string-to-utf-8-bytes status-line)))
+T 18 source.commonlisp
+T 31 source.commonlisp support.type.package.commonlisp
+T 68 source.commonlisp
+L 
+L (defvar *empty-chunk*
+T 1 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 8 source.commonlisp
+T 21 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L   #.(trivial-utf-8:string-to-utf-8-bytes (format nil "0~C~C~C~C"
+T 2 source.commonlisp
+T 4 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 5 source.commonlisp
+T 18 source.commonlisp support.type.package.commonlisp
+T 42 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 49 source.commonlisp
+T 52 source.commonlisp constant.language.commonlisp
+T 53 source.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 61 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L                                                  #\Return #\Linefeed
+T 49 source.commonlisp
+T 57 source.commonlisp constant.character.escape.commonlisp
+T 58 source.commonlisp
+T 68 source.commonlisp constant.character.escape.commonlisp
+L                                                  #\Return #\Linefeed)))
+T 49 source.commonlisp
+T 57 source.commonlisp constant.character.escape.commonlisp
+T 58 source.commonlisp
+T 68 source.commonlisp constant.character.escape.commonlisp
+T 71 source.commonlisp
+L 
+L (defvar *empty-bytes*
+T 1 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 8 source.commonlisp
+T 21 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L   #.(trivial-utf-8:string-to-utf-8-bytes ""))
+T 2 source.commonlisp
+T 4 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 5 source.commonlisp
+T 18 source.commonlisp support.type.package.commonlisp
+T 41 source.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 45 source.commonlisp
+L 
+L (defvar *crlf*
+T 1 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 8 source.commonlisp
+T 14 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L   (trivial-utf-8:string-to-utf-8-bytes (format nil "~C~C" #\Return #\Linefeed)))
+T 3 source.commonlisp
+T 16 source.commonlisp support.type.package.commonlisp
+T 40 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp constant.language.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 58 source.commonlisp
+T 66 source.commonlisp constant.character.escape.commonlisp
+T 67 source.commonlisp
+T 77 source.commonlisp constant.character.escape.commonlisp
+T 80 source.commonlisp
+L 
+L (declaim (inline write-socket-string write-socket-crlf))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 56 source.commonlisp
+L 
+L (defun write-socket-string (socket string)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 35 source.commonlisp
+T 41 source.commonlisp support.function.f.sideeffects.commonlisp
+T 42 source.commonlisp
+L   (declare (optimize (speed 3) (safety 0)))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 22 source.commonlisp
+T 27 source.commonlisp storage.type.function.declaration.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp constant.numeric.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp storage.type.function.declaration.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+L   (loop for char of-type character across string
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp support.function.accessor.commonlisp
+T 25 source.commonlisp
+T 34 source.commonlisp support.function.f.sideeffects.commonlisp
+T 42 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+L         do (wev:write-socket-byte socket (char-code char))))
+T 8 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 15 source.commonlisp support.type.package.commonlisp
+T 42 source.commonlisp
+T 51 source.commonlisp support.function.f.sideeffects.commonlisp
+T 52 source.commonlisp
+T 56 source.commonlisp support.function.accessor.commonlisp
+T 60 source.commonlisp
+L 
+L (defun write-socket-crlf (socket)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 33 source.commonlisp
+L   (declare (optimize (speed 3) (safety 0)))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 22 source.commonlisp
+T 27 source.commonlisp storage.type.function.declaration.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp constant.numeric.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp storage.type.function.declaration.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+L   (wev:write-socket-data socket *crlf*))
+T 3 source.commonlisp
+T 6 source.commonlisp support.type.package.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 40 source.commonlisp
+L 
+L (declaim (type (simple-array character (29)) *date-header*))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 14 source.commonlisp storage.type.function.declaration.commonlisp
+T 16 source.commonlisp
+T 28 source.commonlisp support.type.t.commonlisp
+T 29 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 40 source.commonlisp
+T 42 source.commonlisp constant.numeric.commonlisp
+T 45 source.commonlisp
+T 58 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 60 source.commonlisp
+L (defvar *date-header*
+T 1 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 8 source.commonlisp
+T 21 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L   (make-array 29
+T 3 source.commonlisp
+T 13 source.commonlisp support.function.f.sideeffects.commonlisp
+T 14 source.commonlisp
+T 16 source.commonlisp constant.numeric.commonlisp
+L               :element-type 'character
+T 14 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 38 source.commonlisp
+L               :initial-contents "Thu, 01 Jan 1970 00:00:00 GMT"))
+T 14 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 65 source.commonlisp
+L 
+L (declaim (inline integer-to-character))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 39 source.commonlisp
+L (defun integer-to-character (int)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 33 source.commonlisp
+L   (declare (type fixnum int)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.type.t.commonlisp
+T 28 source.commonlisp
+L            (optimize (speed 3) (safety 0)))
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 22 source.commonlisp
+T 27 source.commonlisp storage.type.function.declaration.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp constant.numeric.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp storage.type.function.declaration.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+L   (the character (code-char (+ 48 int))))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 7 source.commonlisp
+T 16 source.commonlisp support.function.f.sideeffects.commonlisp
+T 18 source.commonlisp
+T 27 source.commonlisp support.function.f.sideeffects.commonlisp
+T 29 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+T 33 source.commonlisp constant.numeric.commonlisp
+T 41 source.commonlisp
+L 
+L (defun current-rfc-1123-timestamp ()
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 29 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp entity.name.function.commonlisp
+T 31 source.commonlisp entity.name.function.commonlisp
+T 32 source.commonlisp entity.name.function.commonlisp
+T 33 source.commonlisp entity.name.function.commonlisp
+T 36 source.commonlisp
+L   (declare (optimize (speed 3) (safety 0)))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 22 source.commonlisp
+T 27 source.commonlisp storage.type.function.declaration.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp constant.numeric.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp storage.type.function.declaration.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp constant.numeric.commonlisp
+T 43 source.commonlisp
+L   (macrolet ((write-date (val start &optional (len '*))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 11 source.commonlisp keyword.control.commonlisp
+T 36 source.commonlisp
+T 45 source.commonlisp keyword.other.lambdalist.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 55 source.commonlisp
+L                `(replace *date-header*
+T 15 source.commonlisp
+T 16 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 17 source.commonlisp
+T 24 source.commonlisp support.function.f.sideeffects.commonlisp
+T 25 source.commonlisp
+T 38 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+L                          (the (simple-array character (,len)) ,val)
+T 25 source.commonlisp
+T 26 source.commonlisp
+T 29 source.commonlisp keyword.control.commonlisp
+T 31 source.commonlisp
+T 43 source.commonlisp support.type.t.commonlisp
+T 44 source.commonlisp
+T 53 source.commonlisp support.function.f.sideeffects.commonlisp
+T 55 source.commonlisp
+T 56 source.commonlisp variable.other.constant.backquote.commonlisp
+T 62 source.commonlisp
+T 63 source.commonlisp variable.other.constant.backquote.commonlisp
+T 67 source.commonlisp
+L                          :start1 ,start))
+T 25 source.commonlisp
+T 32 source.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp variable.other.constant.backquote.commonlisp
+T 41 source.commonlisp
+L              (write-char-to-date (char idx)
+T 34 source.commonlisp
+T 38 source.commonlisp support.function.accessor.commonlisp
+T 43 source.commonlisp
+L                `(setf (aref *date-header* ,idx) ,char))
+T 15 source.commonlisp
+T 16 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 23 source.commonlisp
+T 27 source.commonlisp support.function.accessor.commonlisp
+T 28 source.commonlisp
+T 41 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 42 source.commonlisp
+T 43 source.commonlisp variable.other.constant.backquote.commonlisp
+T 48 source.commonlisp
+T 49 source.commonlisp variable.other.constant.backquote.commonlisp
+T 55 source.commonlisp
+L              (write-int-to-date (val start)
+T 43 source.commonlisp
+L                (check-type start integer)
+T 16 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 33 source.commonlisp
+T 40 source.commonlisp support.class.commonlisp
+T 41 source.commonlisp
+L                `(if (< ,val 10)
+T 15 source.commonlisp
+T 16 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 17 source.commonlisp
+T 19 source.commonlisp keyword.control.commonlisp
+T 21 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp variable.other.constant.backquote.commonlisp
+T 28 source.commonlisp
+T 30 source.commonlisp constant.numeric.commonlisp
+T 31 source.commonlisp
+L                     (progn
+T 20 source.commonlisp
+T 21 source.commonlisp
+T 26 source.commonlisp keyword.control.commonlisp
+L                       (write-char-to-date #\0 ,start)
+T 42 source.commonlisp
+T 45 source.commonlisp constant.character.escape.commonlisp
+T 46 source.commonlisp
+T 47 source.commonlisp variable.other.constant.backquote.commonlisp
+T 53 source.commonlisp
+L                       (write-char-to-date (integer-to-character ,val) ,(1+ start)))
+T 64 source.commonlisp
+T 65 source.commonlisp variable.other.constant.backquote.commonlisp
+T 70 source.commonlisp
+T 71 source.commonlisp variable.other.constant.backquote.commonlisp
+T 72 source.commonlisp
+T 74 source.commonlisp support.function.f.sideeffects.commonlisp
+T 83 source.commonlisp
+L                     (multiple-value-bind (quotient remainder)
+T 21 source.commonlisp
+T 40 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 61 source.commonlisp
+L                         (floor ,val 10)
+T 25 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+T 32 source.commonlisp variable.other.constant.backquote.commonlisp
+T 36 source.commonlisp
+T 38 source.commonlisp constant.numeric.commonlisp
+T 39 source.commonlisp
+L                       (write-char-to-date (integer-to-character quotient) ,start)
+T 74 source.commonlisp
+T 75 source.commonlisp variable.other.constant.backquote.commonlisp
+T 81 source.commonlisp
+L                       (write-char-to-date (integer-to-character remainder) ,(1+ start))))))
+T 75 source.commonlisp
+T 76 source.commonlisp variable.other.constant.backquote.commonlisp
+T 77 source.commonlisp
+T 79 source.commonlisp support.function.f.sideeffects.commonlisp
+T 91 source.commonlisp
+L     (multiple-value-bind (sec minute hour day month year weekday)
+T 5 source.commonlisp
+T 24 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 65 source.commonlisp
+L         (decode-universal-time (get-universal-time) 0)
+T 9 source.commonlisp
+T 30 source.commonlisp support.function.f.sideeffects.commonlisp
+T 32 source.commonlisp
+T 50 source.commonlisp support.function.f.sideeffects.commonlisp
+T 52 source.commonlisp
+T 53 source.commonlisp constant.numeric.commonlisp
+T 54 source.commonlisp
+L       (declare (type fixnum sec minute hour day month year weekday))
+T 7 source.commonlisp
+T 14 source.commonlisp storage.type.function.symbol.commonlisp
+T 16 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 21 source.commonlisp
+T 27 source.commonlisp support.type.t.commonlisp
+T 68 source.commonlisp
+L       (write-date (svref #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun") weekday)
+T 19 source.commonlisp
+T 24 source.commonlisp support.function.accessor.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp
+T 44 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 45 source.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 57 source.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 61 source.commonlisp string.quoted.double.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 63 source.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 78 source.commonlisp
+L                   0 3)
+T 18 source.commonlisp
+T 19 source.commonlisp constant.numeric.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp constant.numeric.commonlisp
+T 22 source.commonlisp
+L       (write-int-to-date day 5)
+T 29 source.commonlisp
+T 30 source.commonlisp constant.numeric.commonlisp
+T 31 source.commonlisp
+L       (write-date (svref #("" "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec")
+T 19 source.commonlisp
+T 24 source.commonlisp support.function.accessor.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 36 source.commonlisp
+T 37 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 42 source.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 48 source.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 54 source.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 60 source.commonlisp
+T 61 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 66 source.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp
+T 71 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 72 source.commonlisp
+T 73 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 76 source.commonlisp string.quoted.double.commonlisp
+T 77 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 78 source.commonlisp
+T 79 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 82 source.commonlisp string.quoted.double.commonlisp
+T 83 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 84 source.commonlisp
+T 85 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 88 source.commonlisp string.quoted.double.commonlisp
+T 89 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 90 source.commonlisp
+T 91 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 94 source.commonlisp string.quoted.double.commonlisp
+T 95 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 96 source.commonlisp
+T 97 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 100 source.commonlisp string.quoted.double.commonlisp
+T 101 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 102 source.commonlisp
+L                          month)
+T 31 source.commonlisp
+L                   8 3)
+T 18 source.commonlisp
+T 19 source.commonlisp constant.numeric.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp constant.numeric.commonlisp
+T 22 source.commonlisp
+L       (multiple-value-bind (quotient remainder)
+T 7 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 47 source.commonlisp
+L           (floor (the (unsigned-byte 64) year) 1000)
+T 11 source.commonlisp
+T 16 source.commonlisp support.function.f.sideeffects.commonlisp
+T 17 source.commonlisp
+T 18 source.commonlisp
+T 21 source.commonlisp keyword.control.commonlisp
+T 23 source.commonlisp
+T 36 source.commonlisp support.type.t.commonlisp
+T 37 source.commonlisp
+T 39 source.commonlisp constant.numeric.commonlisp
+T 47 source.commonlisp
+T 51 source.commonlisp constant.numeric.commonlisp
+T 52 source.commonlisp
+L         (write-char-to-date (integer-to-character quotient) 12)
+T 60 source.commonlisp
+T 62 source.commonlisp constant.numeric.commonlisp
+T 63 source.commonlisp
+L         (multiple-value-bind (quotient remainder)
+T 9 source.commonlisp
+T 28 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 49 source.commonlisp
+L             (floor remainder 100)
+T 13 source.commonlisp
+T 18 source.commonlisp support.function.f.sideeffects.commonlisp
+T 29 source.commonlisp
+T 32 source.commonlisp constant.numeric.commonlisp
+T 33 source.commonlisp
+L           (write-char-to-date (integer-to-character quotient) 13)
+T 62 source.commonlisp
+T 64 source.commonlisp constant.numeric.commonlisp
+T 65 source.commonlisp
+L           (multiple-value-bind (quotient remainder)
+T 11 source.commonlisp
+T 30 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 51 source.commonlisp
+L               (floor remainder 10)
+T 15 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+T 33 source.commonlisp constant.numeric.commonlisp
+T 34 source.commonlisp
+L             (write-char-to-date (integer-to-character quotient) 14)
+T 64 source.commonlisp
+T 66 source.commonlisp constant.numeric.commonlisp
+T 67 source.commonlisp
+L             (write-char-to-date (integer-to-character remainder) 15))))
+T 65 source.commonlisp
+T 67 source.commonlisp constant.numeric.commonlisp
+T 71 source.commonlisp
+L       (write-int-to-date hour 17)
+T 30 source.commonlisp
+T 32 source.commonlisp constant.numeric.commonlisp
+T 33 source.commonlisp
+L       (write-int-to-date minute 20)
+T 32 source.commonlisp
+T 34 source.commonlisp constant.numeric.commonlisp
+T 35 source.commonlisp
+L       (write-int-to-date sec 23)))
+T 29 source.commonlisp
+T 31 source.commonlisp constant.numeric.commonlisp
+T 34 source.commonlisp
+L   *date-header*)
+T 2 source.commonlisp
+T 15 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 16 source.commonlisp
+L 
+L (defun response-headers-bytes (socket status headers &optional keep-alive-p)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 29 source.commonlisp entity.name.function.commonlisp
+T 53 source.commonlisp
+T 62 source.commonlisp keyword.other.lambdalist.commonlisp
+T 76 source.commonlisp
+L   (wev:write-socket-data socket (gethash status *status-line*))
+T 3 source.commonlisp
+T 6 source.commonlisp support.type.package.commonlisp
+T 33 source.commonlisp
+T 40 source.commonlisp support.function.accessor.commonlisp
+T 48 source.commonlisp
+T 61 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 63 source.commonlisp
+L   ;; Send default headers
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 25 source.commonlisp comment.line.semicolon.commonlisp
+L   (wev:write-socket-data socket #.(string-to-utf-8-bytes "Date: "))
+T 3 source.commonlisp
+T 6 source.commonlisp support.type.package.commonlisp
+T 32 source.commonlisp
+T 34 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 57 source.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 67 source.commonlisp
+L   (write-socket-string socket (the simple-string (current-rfc-1123-timestamp)))
+T 30 source.commonlisp
+T 31 source.commonlisp
+T 34 source.commonlisp keyword.control.commonlisp
+T 35 source.commonlisp
+T 48 source.commonlisp support.type.t.commonlisp
+T 79 source.commonlisp
+L   (write-socket-crlf socket)
+T 28 source.commonlisp
+L 
+L   (when keep-alive-p
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 20 source.commonlisp
+L     (wev:write-socket-data
+T 5 source.commonlisp
+T 8 source.commonlisp support.type.package.commonlisp
+T 26 source.commonlisp
+L      socket
+T 11 source.commonlisp
+L      #.(string-to-utf-8-bytes
+T 5 source.commonlisp
+T 7 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 29 source.commonlisp
+L         (format nil "Connection: keep-alive~C~C" #\Return #\Linefeed))))
+T 9 source.commonlisp
+T 15 source.commonlisp support.function.f.sideeffects.commonlisp
+T 16 source.commonlisp
+T 19 source.commonlisp constant.language.commonlisp
+T 20 source.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp
+T 44 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 49 source.commonlisp
+T 57 source.commonlisp constant.character.escape.commonlisp
+T 58 source.commonlisp
+T 68 source.commonlisp constant.character.escape.commonlisp
+T 72 source.commonlisp
+L 
+L   (loop for (k v) on headers by #'cddr
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 32 source.commonlisp
+T 34 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 38 source.commonlisp support.function.accessor.commonlisp
+L         when v
+T 8 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 14 source.commonlisp
+L           do (write-socket-string socket (format nil "~:(~A~): ~A" k v))
+T 10 source.commonlisp
+T 12 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 42 source.commonlisp
+T 48 source.commonlisp support.function.f.sideeffects.commonlisp
+T 49 source.commonlisp
+T 52 source.commonlisp constant.language.commonlisp
+T 53 source.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 61 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 72 source.commonlisp
+L              (write-socket-crlf socket)))
+T 41 source.commonlisp
+L 
+L (defun write-response-headers (socket status headers &optional keep-alive-p)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 29 source.commonlisp entity.name.function.commonlisp
+T 53 source.commonlisp
+T 62 source.commonlisp keyword.other.lambdalist.commonlisp
+T 76 source.commonlisp
+L   (response-headers-bytes socket status headers keep-alive-p)
+T 61 source.commonlisp
+L   (write-socket-crlf socket))
+T 29 source.commonlisp
+L 
+L (defun write-body-chunk (socket chunk &key (start 0) (end (length chunk)))
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 38 source.commonlisp
+T 42 source.commonlisp keyword.other.lambdalist.commonlisp
+T 50 source.commonlisp
+T 51 source.commonlisp constant.numeric.commonlisp
+T 59 source.commonlisp
+T 65 source.commonlisp support.function.f.sideeffects.commonlisp
+T 74 source.commonlisp
+L   (declare (optimize speed)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 21 source.commonlisp
+T 26 source.commonlisp storage.type.function.declaration.commonlisp
+T 27 source.commonlisp
+L            (type fixnum start end)
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.type.t.commonlisp
+T 34 source.commonlisp
+L            (type vector chunk))
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+L   (unless (= start end)
+T 3 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp support.function.f.sideeffects.commonlisp
+T 23 source.commonlisp
+L     (wev:write-socket-data socket (map '(simple-array (unsigned-byte 8) (*))
+T 5 source.commonlisp
+T 8 source.commonlisp support.type.package.commonlisp
+T 35 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 41 source.commonlisp
+T 53 source.commonlisp support.type.t.commonlisp
+T 55 source.commonlisp
+T 68 source.commonlisp support.type.t.commonlisp
+T 69 source.commonlisp
+T 70 source.commonlisp constant.numeric.commonlisp
+T 73 source.commonlisp
+T 74 source.commonlisp support.function.f.sideeffects.commonlisp
+T 76 source.commonlisp
+L                                        #'char-code
+T 39 source.commonlisp
+T 41 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 50 source.commonlisp support.function.f.sideeffects.commonlisp
+L                                        (format nil "~X~C~C" (the fixnum (- end start)) #\Return #\Linefeed)))
+T 40 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp constant.language.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 60 source.commonlisp
+T 61 source.commonlisp
+T 64 source.commonlisp keyword.control.commonlisp
+T 65 source.commonlisp
+T 71 source.commonlisp support.type.t.commonlisp
+T 73 source.commonlisp
+T 74 source.commonlisp support.function.f.sideeffects.commonlisp
+T 87 source.commonlisp
+T 95 source.commonlisp constant.character.escape.commonlisp
+T 96 source.commonlisp
+T 106 source.commonlisp constant.character.escape.commonlisp
+T 109 source.commonlisp
+L     (wev:write-socket-data socket chunk :start start :end end)
+T 5 source.commonlisp
+T 8 source.commonlisp support.type.package.commonlisp
+T 40 source.commonlisp
+T 46 source.commonlisp entity.name.variable.commonlisp
+T 53 source.commonlisp
+T 57 source.commonlisp entity.name.variable.commonlisp
+T 62 source.commonlisp
+L     (wev:write-socket-data socket *crlf*)))
+T 5 source.commonlisp
+T 8 source.commonlisp support.type.package.commonlisp
+T 34 source.commonlisp
+T 40 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 43 source.commonlisp
+L 
+L (defun write-string-body-chunk (socket chunk)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 29 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp entity.name.function.commonlisp
+T 45 source.commonlisp
+L   (declare (optimize speed)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 20 source.commonlisp storage.type.function.declaration.commonlisp
+T 21 source.commonlisp
+T 26 source.commonlisp storage.type.function.declaration.commonlisp
+T 27 source.commonlisp
+L            (type string chunk))
+T 12 source.commonlisp
+T 16 source.commonlisp storage.type.function.declaration.commonlisp
+T 17 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 31 source.commonlisp
+L   (unless (= 0 (length chunk))
+T 3 source.commonlisp
+T 9 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp support.function.f.sideeffects.commonlisp
+T 13 source.commonlisp
+T 14 source.commonlisp constant.numeric.commonlisp
+T 16 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+L     (wev:write-socket-data socket (map '(simple-array (unsigned-byte 8) (*))
+T 5 source.commonlisp
+T 8 source.commonlisp support.type.package.commonlisp
+T 35 source.commonlisp
+T 38 source.commonlisp support.function.f.sideeffects.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 41 source.commonlisp
+T 53 source.commonlisp support.type.t.commonlisp
+T 55 source.commonlisp
+T 68 source.commonlisp support.type.t.commonlisp
+T 69 source.commonlisp
+T 70 source.commonlisp constant.numeric.commonlisp
+T 73 source.commonlisp
+T 74 source.commonlisp support.function.f.sideeffects.commonlisp
+T 76 source.commonlisp
+L                                        #'char-code
+T 39 source.commonlisp
+T 41 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 50 source.commonlisp support.function.f.sideeffects.commonlisp
+L                                        (format nil "~X~C~C" (utf-8-byte-length chunk) #\Return #\Linefeed)))
+T 40 source.commonlisp
+T 46 source.commonlisp support.function.f.sideeffects.commonlisp
+T 47 source.commonlisp
+T 50 source.commonlisp constant.language.commonlisp
+T 51 source.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 86 source.commonlisp
+T 94 source.commonlisp constant.character.escape.commonlisp
+T 95 source.commonlisp
+T 105 source.commonlisp constant.character.escape.commonlisp
+T 108 source.commonlisp
+L     (write-socket-string socket chunk)
+T 38 source.commonlisp
+L     (wev:write-socket-data socket *crlf*)))
+T 5 source.commonlisp
+T 8 source.commonlisp support.type.package.commonlisp
+T 34 source.commonlisp
+T 40 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 43 source.commonlisp
+L 
+L (defun finish-response (socket &optional (body *empty-bytes*))
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 31 source.commonlisp
+T 40 source.commonlisp keyword.other.lambdalist.commonlisp
+T 47 source.commonlisp
+T 60 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 62 source.commonlisp
+L   (wev:write-socket-data socket body
+T 3 source.commonlisp
+T 6 source.commonlisp support.type.package.commonlisp
+T 36 source.commonlisp
+L                          :write-cb (lambda (socket)
+T 25 source.commonlisp
+T 34 source.commonlisp entity.name.variable.commonlisp
+T 36 source.commonlisp
+T 42 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 51 source.commonlisp
+L                                      (wev:close-socket socket))))
+T 38 source.commonlisp
+T 41 source.commonlisp support.type.package.commonlisp
+T 65 source.commonlisp
+L 
+L (declaim (notinline wev:write-socket-data wev:write-socket-byte))
+T 1 source.commonlisp
+T 8 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 10 source.commonlisp
+T 19 source.commonlisp storage.type.function.declaration.commonlisp
+T 20 source.commonlisp
+T 23 source.commonlisp support.type.package.commonlisp
+T 42 source.commonlisp
+T 45 source.commonlisp support.type.package.commonlisp
+T 65 source.commonlisp
+L 

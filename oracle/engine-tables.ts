@@ -404,7 +404,13 @@ function gate(spec: string, used: Set<string>) {
 // may hold in a cache (`Grammar::dfa_cache`). It is a ceiling, not an
 // allocation. Past it, the lazy DFA builds its states again, and each new
 // state allocates. A grammar takes 4 MiB unless its fixtures need more.
-const dfaCache: Record<string, string> = {};
+const dfaCache: Record<string, string> = {
+  // At 4 MiB, the held-out `quicklisp-http` fixture rebuilt states past the
+  // cap on its second pass. The other Common Lisp fixtures had filled the
+  // pooled caches first. The pass allocated 1,217 times. At 8 MiB, every
+  // fixture lexes again with no allocation.
+  "common-lisp": "1 << 23",
+};
 const DFA_CACHE = "1 << 22";
 
 // A Markdown fence whose rule includes more than one grammar gets a second

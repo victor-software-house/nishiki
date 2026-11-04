@@ -10,6 +10,7 @@ extend-exclude = [
   "src/asm/grammar.rs",
   "src/bat/grammar.rs",
   "src/coffee/grammar.rs",
+  "src/common_lisp/grammar.rs",
   "src/haml/grammar.rs",
   "src/html/words.rs",
   "src/julia/grammar.rs",

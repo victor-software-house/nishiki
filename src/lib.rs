@@ -228,6 +228,8 @@ mod classes;
 mod cmake;
 #[cfg(feature = "lang-coffee")]
 mod coffee;
+#[cfg(feature = "lang-common-lisp")]
+mod common_lisp;
 #[cfg(feature = "lang-cpp")]
 mod cpp;
 #[cfg(feature = "lang-csharp")]

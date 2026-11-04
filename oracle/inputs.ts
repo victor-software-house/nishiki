@@ -134,12 +134,16 @@ const clap =
   "https://raw.githubusercontent.com/clap-rs/clap/db30b39a55c188763666268447050a0dacba3bf0";
 const clickMan =
   "https://raw.githubusercontent.com/click-contrib/click-man/be9eac7642e32a43a93ec2c1f5deea7047bb7288";
+const clPpcre =
+  "https://raw.githubusercontent.com/edicl/cl-ppcre/a2ea581c23fdc184168423adbd4b4c1f48d42743";
 const cobra =
   "https://raw.githubusercontent.com/spf13/cobra/adbc8813901bba65827259daa8e22ff94ec1f30e";
 const codegen =
   "https://raw.githubusercontent.com/dotansimha/graphql-code-generator/11ac951a30b79369d3b0aa78f83a79d309ffcc77";
 const coffeescript =
   "https://raw.githubusercontent.com/jashkenas/coffeescript/116890ee072305d3f4ad2686b70c9f28b967c11d";
+const commonLispGrammar =
+  "https://raw.githubusercontent.com/qingpeng9802/vscode-common-lisp/79d04dc9ca80d98e65c4f28b3d67a24a7829b18f";
 const commonsLang =
   "https://raw.githubusercontent.com/apache/commons-lang/d8470d57fda340864acf5194bb56305a133fba0e";
 const composable =
@@ -344,6 +348,8 @@ const pyenv =
   "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
 const pytest =
   "https://raw.githubusercontent.com/pytest-dev/pytest/1211245aa72f1efe07bcfce63a7c543156cee976";
+const quicklispClient =
+  "https://raw.githubusercontent.com/quicklisp/quicklisp-client/6d96fd86c114345bd74d995bb296fae46f1f26ec";
 const r8brain =
   "https://raw.githubusercontent.com/avaneev/r8brain-free-src/cb2abb9977efe2471979b380ed95daa56ab4fdb9";
 const rack =
@@ -392,6 +398,8 @@ const snapshotTesting =
   "https://raw.githubusercontent.com/pointfreeco/swift-snapshot-testing/0c6380dd46cd45e00f2bf87cf6002f3478e84452";
 const spdlog =
   "https://raw.githubusercontent.com/gabime/spdlog/6d9805df3f588402b17073dcd13eb569ceda864d";
+const splitSequence =
+  "https://raw.githubusercontent.com/sharplispers/split-sequence/89a10b4d697f03eb32ade3c373c4fd69800a841a";
 const sqitch =
   "https://raw.githubusercontent.com/sqitchers/sqitch/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e";
 const sqlalchemy =
@@ -446,6 +454,8 @@ const vscode =
   "https://raw.githubusercontent.com/microsoft/vscode/a4e689ae13ef7a1fe9b515656b51c9be7c274294";
 const vue =
   "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
+const woo =
+  "https://raw.githubusercontent.com/fukamachi/woo/51b8cb2653116cd05f6a8d0029719ce6ce106711";
 const xerces =
   "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
 const xv6 =
@@ -500,6 +510,15 @@ export const inputs: Input[] = [
   { lang: "coffee", name: "coffeescript-optparse", url: `${coffeescript}/src/optparse.coffee` },
   { lang: "coffee", name: "coffeescript-repl", url: `${coffeescript}/src/repl.coffee` },
   { lang: "coffee", name: "sample", url: `${samples}/coffee.sample` },
+  // Common Lisp runs on the TextMate engine.
+  { lang: "common-lisp", name: "cl-ppcre-optimize", url: `${clPpcre}/optimize.lisp` },
+  { lang: "common-lisp", name: "cl-ppcre-scanner", url: `${clPpcre}/scanner.lisp` },
+  { lang: "common-lisp", name: "grammar-demo", url: `${commonLispGrammar}/syntaxes/fixtures/cases/demo.lsp` },
+  { lang: "common-lisp", name: "grammar-format-strings", url: `${commonLispGrammar}/syntaxes/fixtures/cases/fstr.lsp` },
+  { lang: "common-lisp", name: "quicklisp-http", url: `${quicklispClient}/quicklisp/http.lisp` },
+  { lang: "common-lisp", name: "sample", url: `${samples}/common-lisp.sample` },
+  { lang: "common-lisp", name: "split-sequence-list", url: `${splitSequence}/list.lisp` },
+  { lang: "common-lisp", name: "woo-response", url: `${woo}/src/response.lisp` },
   { lang: "cpp", name: "absl-any-invocable", url: `${abseil}/absl/functional/internal/any_invocable.h` },
   { lang: "cpp", name: "absl-any-invocable-test", url: `${abseil}/absl/functional/any_invocable_test.h` },
   { lang: "cpp", name: "absl-check-op", url: `${abseil}/absl/log/internal/check_op.h` },
