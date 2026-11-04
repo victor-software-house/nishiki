@@ -131,6 +131,14 @@ impl Lexer<'_> {
 
     /// `\b` word `\b` with no `.` before it: a keyword the grammar does not
     /// take for a member name. The end of the word.
+    ///
+    /// Always inlined, as `Chars::keyword` is.
+    /// It holds that body, and without the mark it went out of line.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one and sixteen codegen units: holding keyword's body, it stopped being inlined into try_match, at a call per word pattern"
+    )]
+    #[inline(always)]
     pub(in crate::csharp) fn non_member_keyword(&self, p: usize, word: &[u8]) -> Option<usize> {
         self.keyword(p, word).filter(|_| !self.prev_is(p, b'.'))
     }

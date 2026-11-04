@@ -46,6 +46,12 @@ pub(crate) trait Chars {
     /// The end of the word `text` at `i`, with `\b` before and after it.
     fn keyword(&self, i: usize, text: &[u8]) -> Option<usize>;
 
+    /// [`Chars::keyword`], kept out of line.
+    ///
+    /// Less, Lua, SCSS and Ruby call it.
+    /// Their matchers absorb an inlined `keyword` and compile worse.
+    fn keyword_out_of_line(&self, i: usize, text: &[u8]) -> Option<usize>;
+
     /// The end of the word at `i` when `\b` holds before it and the whole word
     /// is one of `words`, which is what `\b(a|b|c)\b` accepts when no word of
     /// the list is a prefix of a word that follows it.
@@ -169,10 +175,30 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// The end of the word `text` at `i`, with `\b` before and after it.
-    #[inline]
+    ///
+    /// Always inlined.
+    /// C#'s `try_match` holds its hand matchers too, and is large.
+    /// LLVM kept `keyword` out of line there, at a call per word pattern.
+    /// Go, Swift, Java and Kotlin also run fewer instructions with it inlined.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one and sixteen codegen units: inside C#'s large try_match, keyword stopped being inlined, at a call per word pattern"
+    )]
+    #[inline(always)]
     fn keyword(&self, i: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(i, text)?;
         (self.boundary(i) && self.word_at(end).is_none()).then_some(end)
+    }
+
+    /// [`Chars::keyword`], kept out of line.
+    ///
+    /// Less, Lua, SCSS and Ruby call it.
+    /// With `keyword` inlined, Less, Lua and SCSS each ran about 6% more
+    /// instructions: each language's matcher absorbed its body.
+    /// Ruby ran 0.06% more, and two of its matchers went out of line.
+    #[inline(never)]
+    fn keyword_out_of_line(&self, i: usize, text: &[u8]) -> Option<usize> {
+        self.keyword(i, text)
     }
 
     /// The end of the word at `i` when `\b` holds before it and the whole word

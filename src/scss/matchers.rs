@@ -150,7 +150,7 @@ impl Lexer<'_> {
             Pat::ParentSelectorSuffix => self.parent_selector_suffix(p),
             Pat::AtRuleContent => self.at_keyword(p, b"content", Tail::Spaces),
             Pat::AtRuleMediaAt0 => self.line_at_keyword(p, b"media", Tail::None),
-            Pat::AtRuleMediaAt0At3 => self.keyword(p, b"only"),
+            Pat::AtRuleMediaAt0At3 => self.keyword_out_of_line(p, b"only"),
             Pat::AtRuleMediaAt0At4At0 | Pat::PropertiesAt0 => self.at_rule_media_at0_at4_at0(p),
             Pat::AtRuleMediaAt0At4At0End | Pat::PropertiesAt0End => {
                 self.at_rule_media_at0_at4_at0_end(p)

@@ -326,7 +326,7 @@ impl Lexer<'_> {
             Pat::LessVariableComparisonAt0At0 | Pat::LessLogicalComparisonsAt0 => {
                 self.comparison_operator(p)
             }
-            Pat::LessVariableComparisonAt0At1 => self.keyword(p, b"true"),
+            Pat::LessVariableComparisonAt0At1 => self.keyword_out_of_line(p, b"true"),
             Pat::AttrFunction => self.func(p, &[b"attr"]),
             Pat::QualifiedName => self.qualified_name(p),
             Pat::LiteralStringAt0 => self.lit(p, b"'"),
@@ -553,11 +553,11 @@ impl Lexer<'_> {
             Pat::LocalFunction => self.func(p, &[b"local"]),
             Pat::RegexpFunction => self.func(p, &[b"regexp"]),
             Pat::ShapeFunctionsAt0 => self.func(p, &[b"rect"]),
-            Pat::ShapeFunctionsAt0At0At0 => self.keyword(p, b"auto"),
+            Pat::ShapeFunctionsAt0At0At0 => self.keyword_out_of_line(p, b"auto"),
             Pat::ShapeFunctionsAt1 => self.func(p, &[b"inset"]),
-            Pat::ShapeFunctionsAt1At0At0 => self.keyword(p, b"round"),
+            Pat::ShapeFunctionsAt1At0At0 => self.keyword_out_of_line(p, b"round"),
             Pat::ShapeFunctionsAt2 => self.func(p, &[b"circle", b"ellipse"]),
-            Pat::ShapeFunctionsAt2At0At0 => self.keyword(p, b"at"),
+            Pat::ShapeFunctionsAt2At0At0 => self.keyword_out_of_line(p, b"at"),
             Pat::ShapeFunctionsAt2At0At1 => self.alt(
                 p,
                 &[
@@ -624,7 +624,7 @@ impl Lexer<'_> {
                 &[b"normal", b"alternate-reverse", b"alternate", b"reverse"],
             ),
             Pat::PropertyValueConstantsAt7 => self.alt(p, &[b"forwards", b"backwards", b"both"]),
-            Pat::PropertyValueConstantsAt8 => self.keyword(p, b"infinite"),
+            Pat::PropertyValueConstantsAt8 => self.keyword_out_of_line(p, b"infinite"),
             Pat::PropertyValueConstantsAt9 => self.alt(p, &[b"running", b"paused"]),
             Pat::PropertyValueConstantsAt10 => {
                 self.alt(p, &[b"entry-crossing", b"entry", b"exit-crossing", b"exit"])
@@ -646,7 +646,7 @@ impl Lexer<'_> {
             Pat::LessMathAt0 => matches!(self.at(p), b'-' | b'*' | b'+' | b'/').then_some(p + 1),
             Pat::Important => self.important(p),
             Pat::LessMiscFunctionsAt6At0At5 | Pat::GradientFunctionsAt0At0At7 => {
-                self.keyword(p, b"to")
+                self.keyword_out_of_line(p, b"to")
             }
             Pat::LessMiscFunctionsAt6At0At6 => {
                 self.alt(p, &[b"top", b"right", b"bottom", b"left", b"center"])
@@ -684,7 +684,7 @@ impl Lexer<'_> {
             ),
             Pat::FilterFunctionsAt3 => self.func(p, &[b"drop-shadow"]),
             Pat::FilterFunctionsAt4 => self.func(p, &[b"hue-rotate"]),
-            Pat::LessColorOperationFunctionsAt2At0At3 => self.keyword(p, b"relative"),
+            Pat::LessColorOperationFunctionsAt2At0At3 => self.keyword_out_of_line(p, b"relative"),
             Pat::SelectorsAt0 => self.custom_element(p),
             Pat::SelectorsAt1 => self.table_word(p, words::TAG_NAMES),
             Pat::SelectorsAt2 => self.group_lit(p, b"."),
@@ -721,7 +721,7 @@ impl Lexer<'_> {
             Pat::PseudoSelectorsAt8 => self.pseudo_element(p),
             Pat::PseudoSelectorsAt9 => self.vendor_pseudo(p),
             Pat::LessExtend => self.pseudo_func(p, &[b"extend"]),
-            Pat::LessExtendAt0At0 => self.keyword(p, b"all"),
+            Pat::LessExtendAt0At0 => self.keyword_out_of_line(p, b"all"),
             Pat::SelectorsAt7 => self.combinator(p),
             Pat::SelectorsAt8 => self.combinator_run(p),
             Pat::SelectorsAt9 => self.lit(p, b"/deep/"),
@@ -867,7 +867,7 @@ impl Lexer<'_> {
             Pat::RuleListBodyAt5At4 => self.var_property(p),
             Pat::RuleListBodyAt5At5 => self.font_property(p),
             Pat::RuleListBodyAt5At5At2 => self.family_name(p),
-            Pat::RuleListBodyAt5At6 => self.keyword(p, b"animation-timeline"),
+            Pat::RuleListBodyAt5At6 => self.keyword_out_of_line(p, b"animation-timeline"),
             Pat::ScrollFunction => self.func_open(p, &[b"scroll"]),
             Pat::ScrollFunctionAt0 => self.first_of(p, &[b"root", b"nearest", b"self"]),
             Pat::ScrollFunctionAt1 => self.first_of(p, &[b"block", b"inline", b"x", b"y"]),
@@ -889,7 +889,7 @@ impl Lexer<'_> {
             ),
             Pat::RuleListBodyAt5At9 => self.alt(p, &[b"backdrop-filter", b"filter"]),
             Pat::RuleListBodyAt5At9At1 => self.alt(p, &[b"inherit", b"initial", b"unset", b"none"]),
-            Pat::RuleListBodyAt5At10 => self.keyword(p, b"will-change"),
+            Pat::RuleListBodyAt5At10 => self.keyword_out_of_line(p, b"will-change"),
             Pat::RuleListBodyAt5At10At1 => self.first_of(
                 p,
                 &[
@@ -912,7 +912,7 @@ impl Lexer<'_> {
                 self.first_of(p, &[b"unset", b"initial", b"inherit", b"auto"])
             }
             Pat::RuleListBodyAt5At12 => self.container_property(p),
-            Pat::RuleListBodyAt5At12At0At0 => self.keyword(p, b"default"),
+            Pat::RuleListBodyAt5At12At0At0 => self.keyword_out_of_line(p, b"default"),
             Pat::RuleListBodyAt5At13 => self.table_word(p, words::PROPERTY_NAMES),
             Pat::RuleListBodyAt5At14 => self.size_property(p),
             Pat::SelectorAt0 => self.selector_ahead(p),

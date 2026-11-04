@@ -34,17 +34,13 @@ pub(super) type ProbeGroups =
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`, and where its match ends.
     ///
-    /// `#[inline]`, with `try_match`, because the rule engine's scan, in
-    /// another module, calls it for every candidate pattern: at the default
-    /// sixteen codegen units the two land in different units, and a function
-    /// that is not `#[inline]` cannot be inlined across them
-    /// (`bench/AGENTS.md` rule 13).
-    #[inline]
+    /// It has no `#[inline]`, as Java's matcher has none.
+    /// The rule engine's scan then calls it, and `try_match` and `hand` inline
+    /// into it here, in the same codegen unit.
     pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
         self.try_match(pat, p)
     }
 
-    #[inline]
     fn try_match(&mut self, pat: Pat, p: usize) -> Option<usize> {
         match pat.how() {
             How::Lit(text) => self.lit(p, text),

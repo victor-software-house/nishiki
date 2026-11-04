@@ -356,7 +356,7 @@ impl Lexer<'_> {
 
     /// `\b(in|,)\b`.
     pub(super) fn at_rule_each_at0(&mut self, p: usize) -> Option<usize> {
-        if let Some(end) = self.keyword(p, b"in") {
+        if let Some(end) = self.keyword_out_of_line(p, b"in") {
             return Some(end);
         }
         (self.at(p) == b',' && self.word_before(p) && self.word_at(p + 1).is_some())

@@ -349,7 +349,9 @@ impl Lexer<'_> {
         let at = self.space_end(p);
         self.at(at) == b'='
             && at < self.lim()
-            && self.keyword(self.space_end(at + 1), b"function").is_some()
+            && self
+                .keyword_out_of_line(self.space_end(at + 1), b"function")
+                .is_some()
     }
 
     /// `\b(table\.(member|...))\b` at `p` for one of `tables`: the end of the

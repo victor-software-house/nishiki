@@ -110,7 +110,8 @@ impl Lexer<'_> {
 
     /// `\bword\b(?![!?])`.
     fn plain_word(&self, p: usize, word: &[u8]) -> Option<usize> {
-        self.keyword(p, word).filter(|&end| self.no_bang(end))
+        self.keyword_out_of_line(p, word)
+            .filter(|&end| self.no_bang(end))
     }
 
     /// `(?<!\.)\belse(\s)+if\b`
@@ -123,7 +124,7 @@ impl Lexer<'_> {
         if word == blank {
             return None;
         }
-        self.keyword(word, b"if")
+        self.keyword_out_of_line(word, b"if")
     }
 
     /// `(?<!\.)\b(BEGIN|begin|…|while)\b(?![!?])`
@@ -134,7 +135,7 @@ impl Lexer<'_> {
     /// `(?<!\.)\bdo\b`
     pub(in crate::ruby) fn do_word(&mut self, p: usize) -> Option<usize> {
         self.not_after_dot(p)
-            .then(|| self.keyword(p, b"do"))
+            .then(|| self.keyword_out_of_line(p, b"do"))
             .flatten()
     }
 

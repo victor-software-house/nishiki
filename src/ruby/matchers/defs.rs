@@ -100,7 +100,7 @@ impl Lexer<'_> {
         if !self.after_blank_or_start(p) {
             return None;
         }
-        self.keyword(p, b"def")
+        self.keyword_out_of_line(p, b"def")
     }
 
     /// The end of a method's name at `p`, the first of the atomic group's
