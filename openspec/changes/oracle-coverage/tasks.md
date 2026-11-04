@@ -55,14 +55,24 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
   - 2026-11-04 UTC, [PR 259][pr259]: `rust/core-macros` and `rust/coverage` added.
     Rust is complete with one waiver.
     On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
-- [ ] 3.9 Ruby: `ruby`
-- [ ] 3.10 Kotlin: `kotlin`
+- [x] 3.9 Ruby: `ruby`
+  - 2026-11-04 UTC, [PR 327][pr327] and [PR 328][pr328]: rack, rake and RuboCop inputs and a written input added.
+    Ruby is complete with 17 waived units.
+    On `6c824aab` the [oracle test][run-328-ci] and the [coverage check][run-328-cov] passed.
+- [x] 3.10 Kotlin: `kotlin`
+  - 2026-11-04 UTC, [PR 334][pr334]: a written input added.
+    Kotlin is complete with 2 waived units.
+    On `49a7c05f` the [oracle test][run-334-ci] and the [coverage check][run-334-cov] passed.
 - [x] 3.11 Lua: `lua`
   - 2026-11-04 UTC, [PR 315][pr315] and [PR 425][pr425]: lua/lua and LuaLS inputs and a written input added.
     The Lua lexer now lexes an `ffi.cdef[[ ]]` body as C.
     Lua is complete with 7 waived units.
     On `ceba1f88` the [oracle test][run-425-ci] and the [coverage check][run-425-cov] passed.
-- [ ] 3.12 shell: `shellscript`
+- [x] 3.12 shell: `shellscript`
+  - 2026-11-04 UTC, [PR 439][pr439] and [PR 440][pr440]: bats-core, docker-install, Homebrew and Oh My Zsh inputs and a written input added.
+    The TextMate engine now splits a filled scope name at spaces only.
+    shell is complete with 13 waived units.
+    On `30c22c12` the [oracle test][run-440-ci] and the [coverage check][run-440-cov] passed.
 - [x] 3.13 Markdown: `markdown`
   - 2026-11-04 UTC, [PR 303][pr303], [PR 298][pr298] and [PR 299][pr299]: two markdownlint test files and a written input added.
     PHP, Batch and XSL fences now read as Shiki reads them.
@@ -75,13 +85,19 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     On `dd3a3df5` the [oracle test][run-287-ci] and the [coverage check][run-287-cov] passed.
 - [ ] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
 - [ ] 3.16 ERB: `erb`
-- [ ] 3.17 JSON: `json`, `jsonc`, `jsonl`
+- [x] 3.17 JSON: `json`, `jsonc`, `jsonl`
+  - 2026-11-04 UTC, [PR 436][pr436]: a written input per grammar added.
+    The three grammars are complete with no waived unit.
+    On `95304367` the [oracle test][run-436-ci] and the [coverage check][run-436-cov] passed.
 - [x] 3.18 YAML and TOML: `yaml`, `toml`
   - 2026-11-04 UTC, [PR 306][pr306] and [PR 307][pr307]: toml-test and YAML test suite files and a written input per language added.
     The YAML lexer now reads a directive's name without a copy.
     TOML and YAML are complete with 14 and 6 waived units.
     On `bf5e8ec5` the [oracle test][run-307-ci] and the [coverage check][run-307-cov] passed.
-- [ ] 3.19 SQL: `sql`
+- [x] 3.19 SQL: `sql`
+  - 2026-11-04 UTC, [PR 437][pr437]: a written input added.
+    SQL is complete with 7 waived units.
+    On `804cf8fa` the [oracle test][run-437-ci] and the [coverage check][run-437-cov] passed.
 - [ ] 3.20 GraphQL: `graphql`
 - [x] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
   - 2026-11-04 UTC, [PR 320][pr320]: a written input per language added.
@@ -133,3 +149,20 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr425]: https://github.com/victor-software-house/nishiki-archive/pull/425
 [run-425-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41852238500
 [run-425-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41852237629
+[pr327]: https://github.com/victor-software-house/nishiki-archive/pull/327
+[pr328]: https://github.com/victor-software-house/nishiki-archive/pull/328
+[run-328-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41806968953
+[run-328-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41806968342
+[pr334]: https://github.com/victor-software-house/nishiki-archive/pull/334
+[run-334-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41802551825
+[run-334-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41802551709
+[pr436]: https://github.com/victor-software-house/nishiki-archive/pull/436
+[run-436-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41852933916
+[run-436-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41852932938
+[pr437]: https://github.com/victor-software-house/nishiki-archive/pull/437
+[run-437-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41854493283
+[run-437-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41854492140
+[pr439]: https://github.com/victor-software-house/nishiki-archive/pull/439
+[pr440]: https://github.com/victor-software-house/nishiki-archive/pull/440
+[run-440-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41856223286
+[run-440-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41856222637
