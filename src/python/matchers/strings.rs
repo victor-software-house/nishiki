@@ -13,6 +13,9 @@ enum Close {
     Quote,
     /// The quote text, or a line feed that no backslash precedes.
     QuoteOrNewline,
+    /// The quote text, or any line feed: a single-quoted docstring, whose
+    /// end `(\1)|(\n)` closes it at the line feed after a backslash too.
+    QuoteOrAnyNewline,
 }
 
 impl Lexer<'_> {
@@ -36,8 +39,8 @@ impl Lexer<'_> {
             | StringPat::StringBinQuotedSingleLineEnd
             | StringPat::StringRawQuotedSingleLineEnd
             | StringPat::StringRawBinQuotedSingleLineEnd
-            | StringPat::DocstringAt2End
             | StringPat::DocstringAt3End => self.string_end(p, Close::QuoteOrNewline),
+            StringPat::DocstringAt2End => self.string_end(p, Close::QuoteOrAnyNewline),
             StringPat::DocstringAt0 => self.docstring_triple(p),
             StringPat::DocstringAt1 => self.docstring_raw(p, Quotes::Three),
             StringPat::DocstringAt2 => self.docstring_single(p),
@@ -193,7 +196,12 @@ impl Lexer<'_> {
             self.cap(1, p, p + width);
             return Some(p + width);
         }
-        if close == Close::QuoteOrNewline && p == self.lim() && !self.prev_is(p, b'\\') {
+        let newline = match close {
+            Close::Quote => false,
+            Close::QuoteOrNewline => !self.prev_is(p, b'\\'),
+            Close::QuoteOrAnyNewline => true,
+        };
+        if newline && p == self.lim() {
             self.cap(2, p, p + 1);
             return Some(p + 1);
         }

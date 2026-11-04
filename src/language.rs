@@ -314,6 +314,7 @@ languages! {
     ///
     /// - `def` opens a function after the end of any word, as in `x def f(): pass`.
     /// - An empty line leaves the state as it is.
+    /// - A single-quoted docstring ends at the line end even after a backslash, so the next line is code; a single-quoted string goes on.
     /// - `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/classes.ts`).
     ///   A later Unicode version in Shiki's engine would need them regenerated.
     Python { feature: "lang-python", names: ["python", "py"], module: python }

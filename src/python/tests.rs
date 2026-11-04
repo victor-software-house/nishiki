@@ -124,6 +124,22 @@ fn a_docstring_is_a_statement_that_starts_a_line() {
     assert_eq!(last(text, "not"), "string.quoted.multi.python");
 }
 
+/// `(\1)|(\n)`: a single-quoted docstring closes at the line feed after a
+/// backslash, where a single-quoted string goes on, so the next line is code.
+#[test]
+fn a_single_quoted_docstring_closes_at_a_line_feed_after_a_backslash() {
+    let text = indoc! {r#"
+        '\n\
+        The \"quick\"\n\
+    "#};
+    let rows = lex(text);
+    let end = rows[0]
+        .last()
+        .map(|(t, s)| (t.as_str(), s.last().map(String::as_str)));
+    assert_eq!(end, Some(("\\", Some("constant.language.python"))));
+    assert_eq!(scopes_of(text, "The"), ["source.python"]);
+}
+
 #[test]
 fn a_triple_quoted_string_continues_across_lines() {
     let text = indoc! {"
