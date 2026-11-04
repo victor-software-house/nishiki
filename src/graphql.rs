@@ -65,10 +65,10 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// Shiki does not tokenize empty lines.
 /// Otherwise the grammar would close a rule the line before left open.
 /// An interpolation's text goes to the JavaScript lexer, up to its `}`
-/// ([`crate::rules::lex_embedding_until`]).
+/// ([`crate::rules::lex_embedding`]).
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
-    crate::rules::lex_embedding_until::<GraphQl>(cx, line, state, buffers, None).0
+    crate::rules::lex_embedding::<GraphQl>(cx, line, state, buffers)
 }
 
 /// Lexes `line` like [`lex`], for GraphQL that another language embeds.
@@ -83,7 +83,7 @@ pub(crate) fn lex_until(
     end: &dyn Halt,
     after: Option<&dyn Halt>,
 ) -> (Finished, Option<usize>) {
-    crate::rules::lex_embedding_until::<GraphQl>(cx, line, state, buffers, Some((end, after)))
+    crate::rules::lex_embedding_until::<GraphQl>(cx, line, state, buffers, (end, after))
 }
 
 #[cfg(test)]

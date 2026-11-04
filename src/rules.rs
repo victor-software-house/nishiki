@@ -355,7 +355,7 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
     line: Line<'_>,
     state: u32,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
-    outer: Option<Halts<'_>>,
+    outer: Halts<'_>,
 ) -> (Finished, Option<usize>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
@@ -366,16 +366,14 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
         anchored: line.embedded,
     };
     let (parts, buffers) = cx.parts();
-    let lexer = Lexer::new(parts, text, state, scratch(buffers));
-    let (first, stop) = match &outer {
-        Some(halts) => lexer.halting(halts).run_embedding_halting(),
-        None => lexer.run_embedding_halting(),
-    };
+    let (first, stop) = Lexer::new(parts, text, state, scratch(buffers))
+        .halting(&outer)
+        .run_embedding_halting();
     match stop {
         Stop::Line => (first, None),
         Stop::Halted(at) => (first, Some(at)),
         Stop::Embedding(embedding) => {
-            hand_over::<G, true>(cx, line, scratch, outer.as_ref(), first, embedding)
+            hand_over::<G, true>(cx, line, scratch, Some(&outer), first, embedding)
         }
     }
 }
