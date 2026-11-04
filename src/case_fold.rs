@@ -92,14 +92,18 @@ pub(crate) fn lower_into(text: &[u8], buf: &mut [u8]) -> Option<usize> {
     Some(len)
 }
 
-/// The end of the text at `at` of `text` that `word`, a text matched before,
-/// matches as a back-reference does under `(?i)`: an ASCII letter in either
-/// case, a character above ASCII as the letters it folds to, and any other
-/// character as itself, so `ﬁlter` and `FILTER` match each other.
+/// The end of the text at `at` of `text` that `word` matches as a
+/// back-reference does under `(?i)`. `word` is a text matched before.
 ///
-/// Text that equals `word` but for ASCII case, as nearly every end tag does,
-/// is answered by one slice comparison; only text or a word with a byte above
-/// ASCII is read character by character, in [`folded_reference_end`].
+/// - An ASCII letter matches in either case.
+/// - A character above ASCII matches as the letters it folds to.
+/// - Any other character matches itself.
+///
+/// So `ﬁlter` and `FILTER` match each other.
+///
+/// Nearly every end tag equals `word` but for ASCII case. One slice
+/// comparison answers that case. Only text or a word with a byte above ASCII
+/// is read character by character, in [`folded_reference_end`].
 #[inline]
 pub(crate) fn reference_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> {
     let same = text.get(at..at + word.len());

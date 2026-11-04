@@ -85,7 +85,9 @@ The decisions that created nishiki live in a private planning repository:
 
 3. A pull request that means to change output says so in a body line, `identity: changes <languages>`, such as `identity: changes python java`.
    - Identity lexes the merged tree's fixtures with the pull request's base.
-     When it names languages the pull request never touched, main has changed them since that base: rebase, even with no conflict.
+     It may name languages the pull request never touched.
+     Then main has changed them since that base.
+     Rebase, even with no conflict.
 4. Callgrind counts the lexing of every language's oracle fixtures, as a table in the job summary.
    - Label a pull request that touches a hot path.
    - The gate builds both sides at one codegen unit, so the counts follow the code and not its layout.
@@ -170,7 +172,8 @@ The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](test
    `mise run bench:latency` gives the cost of each streamed line: steady p50, p99 and maximum, and the first contact.
    `mise run bench:cold` gives the first line and the first document in a fresh process.
 2. It is not part of `verify`, because timings depend on the machine.
-   [bench/README.md](bench/README.md) says what each figure answers; `bench/AGENTS.md` says where a run counts and how it is recorded.
+   [bench/README.md](bench/README.md) says what each figure answers.
+   `bench/AGENTS.md` says where a run counts and how it is recorded.
 
 ### Limits
 

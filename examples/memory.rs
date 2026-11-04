@@ -3,9 +3,9 @@
 //! and the most bytes held at once by any one document, as
 //! `<allocations> <bytes> <peak>`.
 //!
-//! `mise run callgrind` runs it at a pull request's base and head and shows
+//! `mise run callgrind` runs it at a pull request's base and head. It shows
 //! the counts beside the instruction table, for information. The counts are
-//! exact, so any difference comes from the code.
+//! exact. Any difference comes from the code.
 //!
 //! A first pass fills what a process builds once, such as each rule's
 //! pattern tables, and is not counted. Each document's highlighter and token

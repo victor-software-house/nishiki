@@ -2,8 +2,9 @@
 // grammar spell out, expanded and sorted, so a matcher can test a whole word
 // against a list.
 //
-// Run with `bun run oracle/c-words.ts`, which formats what it writes, and
-// commit the result; the output is generated, do not edit it.
+// Run with `bun run oracle/c-words.ts`, and commit the result.
+// The script formats what it writes.
+// The output is generated: do not edit it.
 import c from "@shikijs/langs@4.6.0/c";
 import { writeRust } from "./rule-grammar.ts";
 

@@ -103,7 +103,8 @@ fn hostile_html_lines_finish_within_the_default_limits() {
 
 /// The steps a line of event handlers spends grow with its length and no
 /// faster. Each handler is a JavaScript text of its own that ends where the
-/// handler does, so a search per handler would read the line up to each one.
+/// handler does. A search per handler would read the line up to each
+/// handler.
 #[test]
 fn a_line_of_event_handlers_spends_work_linear_in_its_length() {
     let short = steps_spent(Language::Html, &"<a onclick=\"".repeat(1_000));

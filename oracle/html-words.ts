@@ -1,11 +1,14 @@
 // Writes src/html/words.rs: the words that the big alternations of the `html`
-// grammar spell out, expanded and sorted, so a matcher can test a whole word
-// against a list: tag names (matched without regard to case, so lower-cased
-// here), attribute names, event handler names and character entity names
-// (matched as written).
+// grammar spell out, expanded and sorted.
+// A matcher can then test a whole word against a list.
+// The lists are tag names, attribute names, event handler names and
+// character entity names.
+// Tag names are matched without regard to case, so they are lower-cased here.
+// The other names are matched as written.
 //
-// Run with `bun run oracle/html-words.ts`, which formats what it writes, and
-// commit the result; the output is generated, do not edit it.
+// Run with `bun run oracle/html-words.ts`, and commit the result.
+// The script formats what it writes.
+// The output is generated: do not edit it.
 import html from "@shikijs/langs@4.6.0/html";
 
 import { expand } from "./alternation.ts";

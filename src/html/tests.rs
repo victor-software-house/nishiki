@@ -246,9 +246,9 @@ fn an_html_after_halt_yields_to_a_root_match_at_its_place() {
 /// on its line.
 ///
 /// `Onig` folds `ß` to `ss`, each Latin ligature to its letters and `ſ` to
-/// `s` under `(?i)`, so the cases that use it read a character that folds
-/// to letters as those letters. The `c` of `ſcript` is written `\u{63}` so
-/// that the spelling check passes it.
+/// `s` under `(?i)`. The cases that use it read a character that folds to
+/// letters as those letters. The `c` of `ſcript` is written `\u{63}`, so the
+/// spelling check passes it.
 fn assert_html_scopes(cases: &[(&str, &str, &[&str])]) {
     for &(text, token, scopes) in cases {
         assert_eq!(
@@ -353,8 +353,8 @@ fn a_case_fold_stands_for_its_letters_in_end_tags() {
 }
 
 /// The `style` and `script` wrappers open at each fold that can start
-/// their names, `ſ`, `ﬆ` and `ﬅ`, at the start of the name, where the
-/// root looks for one.
+/// their names: `ſ`, `ﬆ` and `ﬅ`. The fold stands at the start of the
+/// name, where the root looks for a wrapper.
 #[test]
 fn a_case_fold_stands_for_its_letters_in_wrapper_names() {
     assert_html_scopes(&[

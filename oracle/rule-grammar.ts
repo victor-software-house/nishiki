@@ -8,10 +8,10 @@
 
 import { $ } from "bun";
 
-/** Writes a generated Rust file and formats it as `mise run format` does,
- * with the repository's `rustfmt.toml` and the formatting nightly that
- * `RUSTFMT_TOOLCHAIN` names in `mise.toml`, so a run leaves a committed table
- * unchanged. */
+/** Writes a generated Rust file and formats it as `mise run format` does.
+ * It uses the repository's `rustfmt.toml` and the formatting nightly that
+ * `RUSTFMT_TOOLCHAIN` names in `mise.toml`.
+ * A run then leaves a committed table unchanged. */
 export async function writeRust(path: string, text: string): Promise<void> {
   const toolchain = Bun.env["RUSTFMT_TOOLCHAIN"];
   if (toolchain === undefined) {

@@ -3,20 +3,21 @@
 // decisions 11 and 12): `mise run bench:record`.
 //
 // It runs only on the reference host class, Namespace 8x16, unpinned
-// (design decision 11; openspec/research/2026-11-04-bench-host-probe-criterion.md),
-// and refuses on any other host, naming that class. On a clean tree at one
-// commit, it builds the bench workspace, then runs:
+// (design decision 11; openspec/research/2026-11-04-bench-host-probe-criterion.md).
+// On any other host it refuses and names that class.
+// On a clean tree at one commit, it builds the bench workspace, then runs:
 //
 // - the anchor, lex/python/medium for 2 s, at the start and at the end;
 // - `--rounds` rounds (5 at least) of every Criterion bench and of the
 //   latency program;
 // - the cold-start runner once, whose samples are its own rounds.
 //
-// It writes bench/results/<class>/<date>-<sha8>.json, the record, and the
-// harness output beside it as .txt. A session whose anchor moves more than
-// the class's measured drift bound writes no record and fails: rerun it.
-// The host cannot know its own bill, so `compute` starts null and
-// `bench/report.ts compute` fills it.
+// It writes the record, bench/results/<class>/<date>-<sha8>.json.
+// The harness output goes beside it as .txt.
+// A session whose anchor moves more than the class's measured drift bound
+// writes no record and fails. Rerun it.
+// The host cannot know its own bill.
+// `compute` starts null, and `bench/report.ts compute` fills it.
 
 import { $ } from "bun";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from "node:fs";

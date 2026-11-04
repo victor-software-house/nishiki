@@ -93,9 +93,9 @@ impl Lexer<'_> {
 }
 
 impl Cpp {
-    /// The prefix of the name of a rule whose name is a prefix and the text
-    /// of a begin group with nothing after it: the raw string, whose name
-    /// ends in its delimiter.
+    /// The prefix of the name of a rule whose name is a prefix followed by
+    /// the text of a begin group. The raw string is that rule. Its name ends
+    /// in its delimiter.
     fn delimited_name(rule: Rule) -> Option<&'static str> {
         match rule.data().name {
             [Sc::Group(prefix, _, "")] => Some(prefix),

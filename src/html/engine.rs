@@ -363,8 +363,8 @@ impl<'a> Lexer<'a> {
         (self.steps.finish(state), self.given_back)
     }
 
-    /// Whether a root pattern matches at `p`, which lexes nothing, with the
-    /// steps the test spent.
+    /// Whether a root pattern matches at `p`, with the steps the test spent.
+    /// The test lexes nothing.
     #[cfg(feature = "lang-html-derivative")]
     pub(super) fn opens_at(mut self, p: usize) -> (bool, u64) {
         let opens = self.match_at(Rule::Root, p).is_some();
@@ -1148,9 +1148,9 @@ fn script_end(s: &[u8], p: usize) -> bool {
 }
 
 /// Whether the end tag `tag`, `</` and a lower-case name, stands at `p` of
-/// `s` in any case. It is compared as ASCII; only a `</` followed by a byte
-/// above ASCII, which a fold such as `ſ` could start, is read through the
-/// folds ([`case_fold::literal_end`]), out of line.
+/// `s` in any case. It is compared as ASCII. A fold such as `ſ` can start
+/// with a byte above ASCII. Only a `</` followed by such a byte is read
+/// through the folds ([`case_fold::literal_end`]), out of line.
 fn end_tag_at(s: &[u8], p: usize, tag: &[u8]) -> bool {
     s.get(p..p + tag.len())
         .is_some_and(|text| text.eq_ignore_ascii_case(tag))

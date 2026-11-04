@@ -1,6 +1,7 @@
 // The oracle's inputs: third-party files, each pinned to a commit, and files
-// written for nishiki under inputs/. tests/oracle/SOURCES.md records each
-// one's licence; keep the two lists in step.
+// written for nishiki under inputs/.
+// tests/oracle/SOURCES.md records each one's licence.
+// Keep the two lists in step.
 
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cppCoverage from "./inputs/cpp-coverage.cpp" with { type: "text" };

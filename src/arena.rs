@@ -51,8 +51,8 @@ impl Hasher for IdHasher {
 }
 
 /// A map keyed by ids an arena made, such as scope stacks, states or
-/// interned strings: no adversary picks the key, and its probes are the same
-/// in every process, so instruction counts of lexing are too.
+/// interned strings. No adversary picks the key. Its probes are the same in
+/// every process, and so are the instruction counts of lexing.
 pub(crate) type IdMap<K, V = u32> = HashMap<K, V, BuildHasherDefault<IdHasher>>;
 
 /// A scope stack's key: its parent and its top scope.

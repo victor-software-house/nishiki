@@ -1,12 +1,14 @@
 // Writes src/css/words.rs: the words that the big alternations of the `css`
 // grammar spell out, expanded, lower-cased and sorted, so a matcher can test a
 // whole word against a list. Every list is matched without regard to case.
-// The words of all the lists form one sorted table, each with the bits of the
-// lists that hold it, so a word is looked up once for every list.
+// The words of all the lists form one sorted table.
+// Each word carries the bits of the lists that hold it.
+// A word is then looked up once for every list.
 //
-// Run with `bun run oracle/css-words.ts` and commit the result; the output is
-// generated, do not edit it. `bun run oracle/css-words.ts <file>` writes to
-// <file> instead, which `mise run check:css-words` compares with the table.
+// Run with `bun run oracle/css-words.ts`, and commit the result.
+// The output is generated: do not edit it.
+// `bun run oracle/css-words.ts <file>` writes to <file> instead.
+// `mise run check:css-words` compares that file with the table.
 import css from "@shikijs/langs@4.6.0/css";
 
 import { expand } from "./alternation.ts";

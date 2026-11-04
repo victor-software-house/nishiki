@@ -21,7 +21,7 @@ export type Waiver = {
   probe?: string;
 };
 
-/** The TypeScript family's grammars, which share their units' paths. */
+/** The TypeScript family's grammars. They share their units' paths. */
 const typescriptFamily = ["javascript", "jsx", "tsx", "typescript"];
 
 /** The reason for a group that holds only blanks. */
@@ -71,17 +71,18 @@ const unloadedFences = [
   ["yang", "source.yang"],
 ] as const;
 
-/** A group of a gap that opens its expression. Such a gap holds a comment only
- * when the match starts at the comment, where `#block_comment` or
- * `#inline_comment` also starts, and one of them comes first in every list
- * that holds the expression. */
+/** A group of a gap that opens its expression.
+ * Such a gap holds a comment only when the match starts at the comment.
+ * `#block_comment` or `#inline_comment` also starts there.
+ * One of them comes first in every list that holds the expression. */
 const leadingGap = "the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it";
 
-/** A group of the gap that opens `#member_access` or `#method_access`. A
- * comment rule comes first in every list that holds them except the patterns
- * of their own chain captures, `#member_access.captures[11]` and
- * `#method_access.beginCaptures[13]`, whose text is names, dots, arrows and
- * blanks only. */
+/** A group of the gap that opens `#member_access` or `#method_access`.
+ * A comment rule comes first in every list that holds them, with one
+ * exception.
+ * The exception is their own chain captures, `#member_access.captures[11]`
+ * and `#method_access.beginCaptures[13]`.
+ * The text of those captures is names, dots, arrows and blanks only. */
 const leadingGapChain = "the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment";
 
 /** A group of the gap that opens `#typename`. A comment rule comes first in
@@ -91,33 +92,36 @@ const leadingGapChain = "the gap opens the expression, and a comment rule comes 
  * first. */
 const leadingGapTypename = "the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first";
 
-/** An expression that only scans one group of its owner, where that group is
- * a gap that opens the owner's expression, so the group never holds a
- * comment for it to scan. */
+/** An expression that only scans one group of its owner.
+ * That group is a gap that opens the owner's expression.
+ * The group never holds a comment for it to scan. */
 const scansLeading = "it scans only a gap that opens its owner's expression, and that gap never holds a comment";
 
-/** An expression that only scans group 9 of `#over_qualified_types`, a gap
- * that follows the gap of group 5 with nothing between them. */
+/** An expression that only scans group 9 of `#over_qualified_types`.
+ * Group 9 is a gap that follows the gap of group 5 with nothing between
+ * them. */
 const scansAdjacent = "it scans only group 9, a gap that the gap just before it leaves without a comment";
 
 /** An expression that scans group 3 of a C inline comment expression that
  * never matches. */
 const scansNeverMatching = "it scans a group of an expression that never matches";
 
-/** An expression that scans group 16 of `#simple_constructor_call`, which
- * sits in a lookahead after the end of the match. */
+/** An expression that scans group 16 of `#simple_constructor_call`.
+ * Group 16 sits in a lookahead after the end of the match. */
 const pastMatchEnd = "it scans group 16, which sits in a lookahead past the end of the match, and vscode-textmate applies no capture that starts after the match ends";
 
-/** The begin of a block's tail rule, `patterns[2]`, which starts right after
- * the body's closing brace. The block's own end matches there too. */
+/** The begin of a block's tail rule, `patterns[2]`.
+ * It starts right after the body's closing brace.
+ * The block's own end matches there too. */
 const tailBegin = "the rule's own end, `(?<=}|%>|\\?\\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns";
 
 /** The end of a block's tail rule, whose begin never matches. */
 const tailEnd = "its begin never matches";
 
-/** A group of a gap that directly follows another gap. Both gaps try comments
- * first, so the earlier one takes every comment, and the later one can match
- * empty after it. */
+/** A group of a gap that directly follows another gap.
+ * Both gaps try comments first.
+ * The earlier gap takes every comment.
+ * The later gap can match empty after it. */
 const adjacentGap = "the gap just before it, with nothing between them, takes every comment first";
 
 /** A group of the gap inside the negative lookahead that ends `#lambdas`'

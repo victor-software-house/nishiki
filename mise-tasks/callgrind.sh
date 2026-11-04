@@ -15,13 +15,14 @@
 # so the work a process does once, such as building each rule's pattern
 # tables, stays out.
 #
-# Prints a Markdown table of millions of instructions and head/base, and
-# fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5). Then
-# prints, for information, what one pass over each language's fixtures
-# allocates on each side (examples/memory.rs). Needs
-# valgrind from the bench profile: MISE_ENV=ci,bench in CI,
-# MISE_ENV=dev,bench locally (Linux only); it stops when the valgrind on
-# PATH is not the version mise.bench.toml pins.
+# Prints a Markdown table of millions of instructions and head/base.
+# Fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5).
+# Then prints, for information, what one pass over each language's fixtures
+# allocates on each side (examples/memory.rs).
+# Needs valgrind from the bench profile.
+# That is MISE_ENV=ci,bench in CI and MISE_ENV=dev,bench locally (Linux only).
+# The task stops when the valgrind on PATH is not the version mise.bench.toml
+# pins.
 set -euo pipefail
 . "$(dirname "$0")/lib/commit-target.sh"
 base="${1:-origin/main}"
@@ -38,9 +39,10 @@ if [ "${#languages[@]}" -eq 0 ]; then
   done
 fi
 tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
-# The counts are compared against runs of the pinned valgrind, so another
-# version, or none on PATH because the bench profile is not loaded, stops the
-# task here instead of yielding empty or shifted counts.
+# The counts are compared against runs of the pinned valgrind.
+# Another version stops the task here.
+# So does no valgrind on PATH, when the bench profile is not loaded.
+# Either would otherwise yield empty or shifted counts.
 pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind"')
 found=$(valgrind --version 2>/dev/null || echo none)
 if [ "$found" != "valgrind-$pin" ]; then
@@ -55,8 +57,8 @@ rm -rf "$dir/base"
 mkdir -p "$dir/base/examples"
 git archive "$base" | tar -x -C "$dir/base"
 cp examples/lex.rs "$dir/base/examples/lex.rs"
-# The memory counts use this tree's harness and counter on both sides, so a
-# base whose nishiki-alloc-count is older than this tree's still builds them.
+# The memory counts use this tree's harness and counter on both sides.
+# A base with an older nishiki-alloc-count then still builds them.
 cp examples/memory.rs "$dir/base/examples/memory.rs"
 rm -rf "$dir/base/nishiki-alloc-count/src"
 cp -R nishiki-alloc-count/src "$dir/base/nishiki-alloc-count/src"
@@ -79,9 +81,11 @@ base_features=()
 if grep -q '^textmate = ' "$dir/base/Cargo.toml"; then
   base_features=(--features textmate)
 fi
-# One build of each side at one codegen unit, which gates, and one at the
-# default sixteen, which the table shows for information only. The memory
-# counts do not depend on the layout, so only the default build has them.
+# Each side builds once at one codegen unit, which gates.
+# Each side also builds at the default sixteen, which the table shows for
+# information only.
+# The memory counts do not depend on the layout.
+# Only the default build has them.
 for units in 1 16; do
   examples=(--example lex)
   if [ "$units" = 16 ]; then
@@ -94,11 +98,13 @@ for units in 1 16; do
     cargo build --quiet --release --locked "${head_features[@]}" "${examples[@]}"
 done
 # Counts one build (base-1, head-1, base-16 or head-16) on one language into
-# counts/<build>.<language>. valgrind runs one thread, so the runs go in
-# parallel, one per core; callgrind's counts do not depend on the load.
-# valgrind's output stays in counts/<build>.<language>.log, and a run that
-# fails stops the task with its tail: xargs then exits non-zero. The child
-# shells run with -euo pipefail, as this one does, which they do not inherit.
+# counts/<build>.<language>.
+# valgrind runs one thread, so the runs go in parallel, one per core.
+# callgrind's counts do not depend on the load.
+# valgrind's output stays in counts/<build>.<language>.log.
+# A run that fails prints the log's tail, and xargs then exits non-zero.
+# The child shells set -euo pipefail themselves.
+# They do not inherit it from this shell.
 counts="$dir/counts"
 rm -rf "$counts"
 mkdir -p "$counts"
@@ -162,7 +168,8 @@ if [ "${#notes[@]}" -gt 0 ]; then
   echo "Note, not a failure: at sixteen codegen units the head runs more than 3% more instructions than at one in ${notes[*]}. A matcher its scan calls in another module may lack \`#[inline]\` (bench/AGENTS.md rule 13)."
 fi
 # What one pass over each language's fixtures allocates, from fresh
-# highlighters (examples/memory.rs): exact counts, for information only.
+# highlighters (examples/memory.rs).
+# The counts are exact and for information only.
 echo
 echo "Memory, for information: allocations, then KiB allocated, then the most KiB one document held at once."
 echo

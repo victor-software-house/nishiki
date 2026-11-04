@@ -27,13 +27,17 @@ It is a feature that is off by default, built only on the bench box, and never d
 4. Every engine does the full work: Shiki's limits are off, and the run stops if nishiki reports a limit reached.
 5. Every Rust engine builds with the default release profile and the same rustc.
 6. TypeScript's tree-sitter query is joined to JavaScript's, and C++'s to C's, because each extends its base.
-7. Each row carries the engine's token count and its agreement with Shiki: the share of non-whitespace bytes whose colour matches Shiki's.
+7. Each row carries the engine's token count and its agreement with Shiki.
+   Agreement is the share of non-whitespace bytes whose colour matches Shiki's.
 8. The engine order rotates every round, five rounds at least, and the median counts.
-9. Shiki runs in Bun, so its rows answer what a user of each library gets, not which algorithm is faster.
+9. Shiki runs in Bun.
+   Its rows show what a user of each library gets.
+   They do not show which algorithm is faster.
 
 ## Licences
 
-Every comparator was read at its source before it entered this workspace; none ships, since `publish = false` and the crate's `include` leave `bench/` out.
+Every comparator was read at its source before it entered this workspace.
+None ships: `publish = false` and the crate's `include` both leave `bench/` out.
 
 | Dependency | Version | Licence | Read at |
 |:--|:--|:--|:--|
@@ -61,7 +65,8 @@ Every comparator was read at its source before it entered this workspace; none s
 | shiki, in Bun | 4.6.0 | MIT | already pinned by `oracle/generate.ts` |
 
 Each grammar's licence was read in its repository at the commit its release tag names.
-The two-face summary covers only the syntaxes two-face acknowledges; a syntax it ships without a licence file would not appear there.
+The two-face summary covers only the syntaxes two-face acknowledges.
+A syntax it ships without a licence file would not appear there.
 
 ## Running
 
@@ -73,8 +78,11 @@ bun bench/compare/shiki.ts time             # Shiki's own figures
 ```
 
 `bench:compare` first writes Shiki's reference colours to `target/compare/shiki/`.
-It builds C for Oniguruma and the tree-sitter grammars, so it is not part of `verify`.
-The Bench job's `bench:check`, on a pull request labelled `bench`, checks its formatting and runs clippy on it without giallo, so it keeps building.
+It builds C for Oniguruma and the tree-sitter grammars.
+It is not part of `verify`.
+The Bench job runs `bench:check` on a pull request labelled `bench`.
+`bench:check` checks this workspace's formatting and runs clippy on it without giallo.
+That keeps it building.
 A recorded comparison runs on the reference host, under the rules in [`../AGENTS.md`](../AGENTS.md).
 
 [two-face-ack]: https://github.com/CosmicHorrorDev/two-face/blob/33f7e243b6174e8f0c63fd7698ec5736d715e355/generated/acknowledgements_full.md

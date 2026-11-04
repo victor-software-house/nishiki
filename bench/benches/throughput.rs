@@ -1,11 +1,11 @@
 //! Q1: how fast nishiki lexes a document, per language and tier
 //! (openspec bench-methodology, design decisions 1 and 5).
 //!
-//! Each benchmark lexes every file of one language and tier, line by line,
-//! each from a fresh highlighter, as an editor opening the file does. Its
-//! throughput is the files' total bytes over their total time, so a small
-//! file weighs no more than its size. The small tier shows what creating a
-//! highlighter costs; `new/<language>` times that alone.
+//! Each benchmark lexes every file of one language and tier, line by line.
+//! Each file starts from a fresh highlighter, as an editor opening the file
+//! does. The throughput is the files' total bytes over their total time. A
+//! small file then weighs no more than its size. The small tier shows what
+//! creating a highlighter costs. `new/<language>` times that alone.
 //!
 //! `mise run bench lex/python` runs only the benchmarks whose name holds
 //! the filter.

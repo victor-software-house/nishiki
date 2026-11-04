@@ -82,8 +82,8 @@ enum TagName {
         end: usize,
         side: Side,
     },
-    /// A name with a byte above ASCII, which only `(?i)`'s folds can make a
-    /// name of the lists: [`Lexer::folded_tag_name`] reads it.
+    /// A name with a byte above ASCII. Only `(?i)`'s folds can make it a name
+    /// of the lists. [`Lexer::folded_tag_name`] reads it.
     Wide,
 }
 
@@ -166,8 +166,8 @@ impl Lexer<'_> {
     ///
     /// The literal is compared as ASCII, in one pass that stops at the first
     /// byte that differs. Up to there the text has spelled the literal one
-    /// ASCII byte a letter, so a fold can match only when that byte is above
-    /// ASCII; only then is the text read through [`Lexer::folded_lit`].
+    /// ASCII byte a letter. A fold can match only when that byte is above
+    /// ASCII. Only then is the text read through [`Lexer::folded_lit`].
     #[inline]
     pub(super) fn lit_ci(&self, i: usize, literal: &[u8]) -> Option<usize> {
         let rest = self.s.get(i..self.lim)?;
@@ -184,8 +184,9 @@ impl Lexer<'_> {
         }
     }
 
-    /// [`Lexer::lit_ci`] from the first byte that differs, at `i`, which is
-    /// above ASCII, with the rest of the literal from the same place.
+    /// [`Lexer::lit_ci`] from the first byte that differs, at `i`, with the
+    /// rest of the literal from the same place. The byte at `i` is above
+    /// ASCII.
     #[cold]
     fn folded_lit(&self, i: usize, rest: &[u8]) -> Option<usize> {
         case_fold::literal_end(self.s.get(..self.lim)?, i, rest)
@@ -800,10 +801,10 @@ impl Lexer<'_> {
         (self.ws_len(q) > 0 || self.at(q) == b'>' || self.starts(q, b"/>")).then_some(q)
     }
 
-    /// Whether a `style` or `script` wrapper can open at the `<` at `p`: its
-    /// name starts with `s`, in either case, or with a byte above ASCII,
-    /// which `ſ` or `ﬆ` could start. One byte, so that the other tags skip
-    /// both wrappers' literals.
+    /// Whether a `style` or `script` wrapper can open at the `<` at `p`.
+    /// That needs a name that starts with `s`, in either case, or with a byte
+    /// above ASCII, as `ſ` or `ﬆ` does. The test reads one byte, so the other
+    /// tags skip both wrappers' literals.
     fn may_open_wrapper(&self, p: usize) -> bool {
         let b = self.at(p + 1);
         b | 0x20 == b's' || !b.is_ascii()
@@ -917,11 +918,11 @@ impl Lexer<'_> {
         })
     }
 
-    /// A [`TagName::Wide`] name at `p`, read again with a character above
-    /// ASCII in it only where it folds to ASCII letters
-    /// ([`case_fold::letters`]), as `ﬁ` in `ﬁeldset`: where it starts and
-    /// ends, the tag's side, and the name lowered into `buffer` as `(?i)`
-    /// reads it.
+    /// A [`TagName::Wide`] name at `p`, read again. A character above ASCII
+    /// may stand in it only where it folds to ASCII letters
+    /// ([`case_fold::letters`]), as `ﬁ` in `ﬁeldset`. It returns where the
+    /// name starts and ends and the tag's side. It writes the name into
+    /// `buffer`, lowered as `(?i)` reads it.
     #[cold]
     fn folded_tag_name<'b>(
         &self,

@@ -278,8 +278,8 @@ fn a_shared_name_in_upper_case_starts_a_selector() {
     }
 }
 
-/// The unit table is sorted for its binary search, and `LONGEST_UNIT` is the
-/// length of its longest unit, which bounds the lowering buffer.
+/// The unit table is sorted for its binary search. `LONGEST_UNIT` is the
+/// length of its longest unit, and it bounds the lowering buffer.
 #[test]
 fn the_unit_table_is_sorted_and_bounds_its_longest_unit() {
     assert!(UNITS.is_sorted(), "{UNITS:?}");
@@ -304,8 +304,8 @@ fn every_unit_of_the_table_is_named() {
 }
 
 /// `numeric_unit` takes a unit's text for ASCII when it is as long as the
-/// unit, which holds while no unit has letters that a fold of the same
-/// length spells: `ss` for `ß`, `ffi` for `ﬃ` and `ffl` for `ﬄ`.
+/// unit. That holds while no unit has letters that a fold of the same length
+/// spells. Those folds are `ss` for `ß`, `ffi` for `ﬃ` and `ffl` for `ﬄ`.
 #[test]
 fn no_unit_holds_letters_a_fold_of_their_length_spells() {
     for unit in UNITS {

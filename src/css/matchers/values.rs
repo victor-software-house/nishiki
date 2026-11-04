@@ -27,7 +27,7 @@ pub(in crate::css) const UNITS: &[&str] = &[
     "rlh", "s", "svb", "svh", "svi", "svw", "turn", "vb", "vh", "vi", "vmax", "vmin", "vw",
 ];
 
-/// The length of the longest of [`UNITS`]: a longer word is none of them.
+/// The length of the longest of [`UNITS`]. A longer word is none of them.
 pub(in crate::css) const LONGEST_UNIT: usize = 5;
 
 impl<G: CssLike> Lexer<'_, G> {
@@ -432,14 +432,14 @@ impl<G: CssLike> Lexer<'_, G> {
     /// boundary after it.
     ///
     /// The grammar names the unit `keyword.other.unit.${2:/downcase}.css`.
-    /// A unit of ASCII takes its pattern's fixed name; one with a character
-    /// above ASCII is named from its text lowered as that does, so `500mſ`
-    /// is `keyword.other.unit.mſ.css`, as in Shiki.
+    /// A unit of ASCII takes its pattern's fixed name. A unit with a
+    /// character above ASCII is named from its text, lowered as that name
+    /// does. So `500mſ` is `keyword.other.unit.mſ.css`, as in Shiki.
     ///
-    /// The text is ASCII exactly when it is as long as `unit`: every fold
+    /// The text is ASCII exactly when it is as long as `unit`. Every fold
     /// that matches a unit's letters is longer than they are, as `ſ` for `s`
     /// or `ﬆ` for `st`. Only `ß` for `ss`, `ﬃ` for `ffi` and `ﬄ` for `ffl`
-    /// keep the length, and no unit holds those letters (a test checks it).
+    /// keep the length. No unit holds those letters, and a test checks it.
     pub(in crate::css) fn numeric_unit(&mut self, p: usize, unit: &str) -> Option<usize> {
         let number = self.number_end(p)?;
         let (end, found) = self.unit_after(number);
@@ -453,9 +453,9 @@ impl<G: CssLike> Lexer<'_, G> {
         })
     }
 
-    /// Names the unit `number..end`, which holds a character above ASCII,
-    /// from its text lowered: [`Lexer::numeric_unit`]'s rare case, out of
-    /// line so that the unit patterns' common path stays small.
+    /// Names the unit `number..end` from its text lowered. The unit holds a
+    /// character above ASCII. This is [`Lexer::numeric_unit`]'s rare case.
+    /// It is out of line, so the unit patterns' common path stays small.
     #[cold]
     fn folded_unit(&mut self, number: usize, end: usize) {
         self.span_dyn(

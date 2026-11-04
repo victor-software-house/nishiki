@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #MISE description="The CSS word table is what oracle/css-words.ts writes"
 #MISE tools={bun="1.4.4"}
-# src/css/words.rs is generated from the css grammar's word lists; this fails
-# when the table and the script that writes it disagree. Bun fetches Shiki
-# from npm, so the check is not part of the offline verify.
+# src/css/words.rs is generated from the css grammar's word lists.
+# This check fails when the table and the script that writes it disagree.
+# Bun fetches Shiki from npm.
+# The check is therefore not part of the offline verify.
 set -euo pipefail
 
 out=$(mktemp)

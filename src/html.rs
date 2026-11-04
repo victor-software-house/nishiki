@@ -148,8 +148,8 @@ pub(crate) fn lex_derivative_until(
 }
 
 /// Whether one of html-derivative's root patterns matches at `line.start`,
-/// as it would from `state`, an embedded start, with the steps the test
-/// spent; it lexes nothing.
+/// with the steps the test spent. It tests as it would from `state`, an
+/// embedded start. It lexes nothing.
 #[cfg(feature = "lang-html-derivative")]
 pub(crate) fn derivative_opens_at(
     cx: &mut Context<'_>,

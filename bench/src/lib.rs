@@ -1,9 +1,9 @@
 //! The benchmark corpus, as the benchmarks read it.
 //!
-//! Each file of `bench/corpus/` sits at `<language>/<tier>/<file>`, and
-//! `mise run check:corpus` holds it to its row in `bench/corpus.toml`, so the
-//! language and the tier come from the path. A document's lines are split
-//! once, before any timing, as an editor holds them.
+//! Each file of `bench/corpus/` sits at `<language>/<tier>/<file>`.
+//! `mise run check:corpus` holds it to its row in `bench/corpus.toml`. The
+//! language and the tier then come from the path. A document's lines are
+//! split once, before any timing, as an editor holds them.
 
 use std::path::Path;
 use std::{fmt, fs};

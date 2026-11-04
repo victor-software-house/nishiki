@@ -2,7 +2,9 @@
 
 Rules for measuring nishiki, beside the root guide's invariants.
 [README.md](README.md) says what each figure answers and how to run it.
-`mise run bench` runs the bench workspace's Criterion benchmarks on `corpus/`; `mise run bench:latency` gives per-line latency and `mise run bench:cold` cold start.
+`mise run bench` runs the bench workspace's Criterion benchmarks on `corpus/`.
+`mise run bench:latency` gives per-line latency.
+`mise run bench:cold` gives cold start.
 `targets.toml` holds what results are judged against; `results/` holds recorded runs.
 
 1. A local run on a developer's machine is for comparing two commits of one change on that machine, and is never recorded.
@@ -37,8 +39,11 @@ Rules for measuring nishiki, beside the root guide's invariants.
     The pull request also records the instructions at sixteen units and the wall time in the default profile, but they do not decide: they follow layout across codegen units, and rule 13 is how a port closes that gap.
 15. `mise run callgrind` counts every language with oracle fixtures, read from the directories under `tests/oracle/`, so a new language is counted without editing any list.
 16. Instruction counts of one build are not exactly repeatable.
-    The arena's map of interned strings keeps std's seeded hasher, because its keys come from the text being lexed and must resist keys crafted to collide (lead, 2026-11-04).
-    Six runs of one build at one codegen unit on one box spread by this much, as the largest minus the smallest over the mean (2026-11-04):
+    The arena's map of interned strings keeps std's seeded hasher (lead, 2026-11-04).
+    Its keys come from the text being lexed.
+    The seeded hasher resists keys crafted to collide.
+    Six runs of one build at one codegen unit on one box spread by these amounts (2026-11-04).
+    The spread is the largest count minus the smallest, over the mean.
     - haskell and erb: 0.09%;
     - mermaid, html and julia: 0.06%;
     - nix: 0.04%;
@@ -49,13 +54,21 @@ Rules for measuring nishiki, beside the root guide's invariants.
     - go: none.
 
     The other engine languages intern through the same map and were not measured.
-    A move of 0.1% or less in these languages is within that spread; the 0.5% gate sits five times above the largest.
-17. Below its instruction table, `mise run callgrind` prints what one pass over each language's fixtures allocates on each side: allocations, KiB and the most KiB one document held (`examples/memory.rs`).
-    The counts are exact and never fail the job; zero allocations on a second pass stays a test (`tests/it/alloc.rs`).
-18. The wall-clock benchmarks and the comparison read `bench/corpus/`, never the oracle fixtures; its README says what each tier stands for.
+    A move of 0.1% or less in these languages is within that spread.
+    The 0.5% gate sits five times above the largest.
+17. Below its instruction table, `mise run callgrind` prints what one pass over each language's fixtures allocates on each side.
+    It prints allocations, KiB and the most KiB one document held (`examples/memory.rs`).
+    The counts are exact and never fail the job.
+    Zero allocations on a second pass stays a test (`tests/it/alloc.rs`).
+18. The wall-clock benchmarks and the comparison read `bench/corpus/`, never the oracle fixtures.
+    Its README says what each tier stands for.
     A file enters only with its row in `bench/corpus.toml` and a permissive licence read at its source, and `mise run check:corpus` holds the two together.
     Changing the corpus raises its `version`, and a record names the version it ran on.
 19. The bench workspace (`Cargo.toml`, `src/`, `benches/`) is its own Cargo workspace, excluded from the root's, with its own `Cargo.lock`.
-    `verify` does not build it; the Callgrind workflow's Bench job runs `mise run bench:check` on a pull request labelled `bench`: formatting, clippy with warnings denied, and each benchmark once, untimed.
-    The comparison workspace, `compare/`, is its own workspace as well; `bench:check` checks its formatting and runs clippy on it without giallo, and never runs it.
+    `verify` does not build it.
+    The Callgrind workflow's Bench job runs `mise run bench:check` on a pull request labelled `bench`.
+    `bench:check` checks formatting, runs clippy with warnings denied, and runs each benchmark once, untimed.
+    The comparison workspace, `compare/`, is its own workspace as well.
+    `bench:check` checks its formatting and runs clippy on it without giallo.
+    It never runs the comparison.
     Label a pull request that changes the public API, so the benchmarks keep building.

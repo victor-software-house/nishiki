@@ -1,15 +1,19 @@
 name: Generated tables
 
-# Regenerates a table that a script writes from Shiki, and fails when the
-# committed table differs: src/textmate/regex/folds.rs, measured on Oniguruma
-# by oracle/case-folds.ts (`mise run check:case-folds`); src/css/words.rs,
-# from the css grammar by oracle/css-words.ts (`mise run check:css-words`);
-# and Swift's rule-engine tables, which oracle/swift-grammar.ts writes and
-# formats with rustfmt (`mise run check:swift-grammar`), the round trip every
-# rule-engine generator shares.
-# Bun fetches Shiki from npm, so the checks sit outside the offline verify in
-# ci.yml, which the template renders, and run only on a pull request that
-# touches a table or its script.
+# Regenerates each table that a script writes from Shiki.
+# A check fails when the committed table differs.
+# - src/textmate/regex/folds.rs: oracle/case-folds.ts measures it on
+#   Oniguruma (`mise run check:case-folds`).
+# - src/css/words.rs: oracle/css-words.ts reads it from the css grammar
+#   (`mise run check:css-words`).
+# - Swift's rule-engine tables: oracle/swift-grammar.ts writes them and
+#   formats them with rustfmt (`mise run check:swift-grammar`).
+#   Every rule-engine generator shares that round trip.
+# Bun fetches Shiki from npm.
+# The checks therefore sit outside the offline verify in ci.yml.
+# The template renders ci.yml.
+# This workflow runs only on a pull request that touches a table or its
+# script.
 
 on:
   pull_request:
@@ -38,8 +42,9 @@ concurrency:
 
 env:
   MISE_ENV: ci
-  # Only what each check needs is installed: bun, and for the Swift tables the
-  # formatting nightly; the build toolchain stays out.
+  # Only what each check needs is installed.
+  # That is bun, and the formatting nightly for the Swift tables.
+  # The build toolchain stays out.
   MISE_TASK_RUN_AUTO_INSTALL: "false"
 
 jobs:

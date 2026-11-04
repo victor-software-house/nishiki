@@ -1,16 +1,19 @@
 // Shiki's side of the comparison (bench/compare/README.md).
 //
-// `bun bench/compare/shiki.ts reference` writes, for every file of the
-// benchmark corpus whose language Shiki has, Shiki's github-dark colours to
-// target/compare/shiki/<language>/<tier>/<file>.colors: one row per line,
-// each token as `<byte end>:<colour>`, with Shiki's per-line limits off.
+// `bun bench/compare/shiki.ts reference` writes Shiki's github-dark colours
+// for every corpus file whose language Shiki has.
+// They go to target/compare/shiki/<language>/<tier>/<file>.colors.
+// Each row is one line, and each token is `<byte end>:<colour>`.
+// Shiki's per-line limits are off.
 // The Rust harness reads them to score every engine's agreement with Shiki.
 //
 // `bun bench/compare/shiki.ts time [rounds]` times Shiki itself on the same
-// files, with both of its engines: Oniguruma in WebAssembly and the
-// JavaScript engine. Setup and warm throughput are separate figures, and a
-// fresh Bun process per file gives the first-document time. Rows are
-// tab-separated: engine, file, setup ms, first document ms, warm MiB/s.
+// files.
+// It times both engines: Oniguruma in WebAssembly and the JavaScript engine.
+// Setup and warm throughput are separate figures.
+// A fresh Bun process per file gives the first-document time.
+// Rows are tab-separated: engine, file, setup ms, first document ms, warm
+// MiB/s.
 import { bundledLanguages, createHighlighter } from "shiki@4.6.0";
 import { createJavaScriptRegexEngine } from "shiki@4.6.0/engine/javascript";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";

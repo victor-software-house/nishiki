@@ -2,4 +2,6 @@
 nishiki: patch
 ---
 
-Lex Less words faster: a word of the grammar's big lists stops being searched at the first end of the text that no word goes on from, and is searched lowered only when it holds a capital.
+Lex Less words faster.
+The search for a word of the grammar's big lists stops where no listed word can continue.
+A word is searched lowered only when it holds a capital.

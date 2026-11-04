@@ -85,9 +85,9 @@ pub(crate) struct Scratch {
 }
 
 impl Scratch {
-    /// The number of the current line, which [`Scratch::start_line`]
-    /// advances. A lexer that keeps an answer for every text of one line,
-    /// which an embedding language may lex many of, keys it by this number.
+    /// The number of the current line. [`Scratch::start_line`] advances it.
+    /// An embedding language may lex many texts of one line. A lexer that
+    /// keeps an answer for every text of one line keys it by this number.
     pub(crate) fn line(&self) -> u64 {
         self.line
     }

@@ -1,12 +1,14 @@
 // Writes src/less/words.rs: the words that the big alternations of the `less`
 // grammar spell out, each with its place in the alternation, sorted by word.
-// The grammar follows each list with `\b`, so of the words that end where `\b`
-// holds the matcher takes the one the alternation tries first, as a
-// backtracking matcher does, not the longest: `\b(auto|auto-fill)\b` takes the
-// `auto` of `auto-fill`.
+// The grammar follows each list with `\b`.
+// Several words may end where `\b` holds.
+// The matcher takes the one the alternation tries first, not the longest, as
+// a backtracking matcher does.
+// For example, `\b(auto|auto-fill)\b` takes the `auto` of `auto-fill`.
 //
-// Run with `bun run oracle/less-words.ts`, which formats what it writes, and
-// commit the result; the output is generated, do not edit it.
+// Run with `bun run oracle/less-words.ts`, and commit the result.
+// The script formats what it writes.
+// The output is generated: do not edit it.
 import less from "@shikijs/langs@4.6.0/less";
 
 import { expand } from "./alternation.ts";

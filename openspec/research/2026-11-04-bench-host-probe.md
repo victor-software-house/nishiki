@@ -18,9 +18,13 @@ It does not make the decision.
    It lowered the worst gap on instabox from 14.5% to 4.4%, but more languages moved by more than 2% on a pinned Namespace 8x16 than on an unpinned one.
 3. A language's throughput moves by 16% to 25% (median over languages) across ten runs of one build on every host.
 4. instabox exposes no `perf` package for its kernel, and its `perf_event_paranoid` is 2.
-   On Namespace the `perf` install failed silently, so whether it exposes counters is not known.
-5. So, by design decision 11, point 6: recorded wall-clock figures carry their measured spread, and speed claims rest on instruction counts.
-   Part of the spread is the harness itself, which times 20 passes of each fixture once, with no warm-up beyond one pass.
+   On Namespace the `perf` install failed silently.
+   Whether Namespace exposes counters is not known.
+5. So design decision 11, point 6 applies.
+   Recorded wall-clock figures carry their measured spread.
+   Speed claims rest on instruction counts.
+   Part of the spread is the harness itself.
+   It times 20 passes of each fixture once, with no warm-up beyond one pass.
    The probe should run again with the Criterion harness of task 5.1 before the first record.
 
 ## Method

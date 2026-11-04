@@ -9,15 +9,16 @@ repository = "https://github.com/victor-software-house/nishiki"
 # Measurement only; never published or distributed (bench/compare/README.md).
 publish = false
 
-# Its own workspace, apart from the crate's and the core benches', so the
-# comparators' dependencies, some of which build C, never enter either lock
+# Its own workspace, apart from the crate's and the core benches'
 # (openspec bench-methodology, design decision 3).
+# The comparators' dependencies never enter either lock.
+# Some of those dependencies build C.
 [workspace]
 
 [features]
-# giallo is EUPL-1.2, a copyleft licence. It is built only on the bench box
-# and never distributed, so it is off by default (operator, 2026-11-03;
-# design decision 13).
+# giallo is EUPL-1.2, a copyleft licence.
+# It is built only on the bench box and never distributed.
+# It is off by default (operator, 2026-11-03; design decision 13).
 giallo = ["dep:giallo"]
 
 [dependencies]

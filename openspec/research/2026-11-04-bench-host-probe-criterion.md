@@ -3,9 +3,11 @@
 ## Question
 
 The [first probe](2026-11-04-bench-host-probe.md) found no host whose A/A medians agree within 2% on every language, with the old `examples/bench.rs` harness.
-Part of that spread could be the harness, which timed 20 passes once.
+Part of that spread could be the harness.
+The old harness timed 20 passes once.
 Does the Criterion harness of task 5.1 change the answer, and which host class should records come from?
-How far does one build move between the start and the end of a session, so the recorder's anchor guard can follow it?
+How far does one build move between the start and the end of a session?
+The recorder's anchor guard follows that figure.
 
 This note informs task 3.2 and the anchor guard of task 6.1.
 
@@ -13,16 +15,25 @@ This note informs task 3.2 and the anchor guard of task 6.1.
 
 1. No host class meets design decision 11's criterion under Criterion either.
    On every host and mode, 13 to 46 of the 46 languages differ by more than 2% between the two halves of one session.
-   So decision 11, point 6 applies: wall-clock records are indicative, and speed decisions rest on Callgrind instruction counts, as the gate already does.
+   So decision 11, point 6 applies.
+   Wall-clock records are indicative.
+   Speed decisions rest on Callgrind instruction counts, as the gate already does.
 2. Namespace 8x16, unpinned, is the least noisy host and becomes the reference class for records.
    A language's figure moves by 8.5% across six runs (median over languages), and the last run differs from the first by 1.9% (median) and 10.2% (90th percentile).
 3. Pinning to one CPU does not reliably help.
-   It lowered the A/A gaps on instabox and Boat, but on Namespace it widened the drift: the 8x16's 90th percentile went from 10.2% to 14.4%.
+   It lowered the A/A gaps on instabox and Boat.
+   On Namespace it widened the drift.
+   The 8x16's 90th percentile went from 10.2% to 14.4%.
 4. Part of the drift is the whole host changing speed, not one language's noise.
-   On the pinned 8x16, all 46 languages ran faster in the last run than in the first: the host ran 5 to 9% faster after its first run.
-   Dividing each run by the host's speed in that run still leaves a spread of 5.2 to 27.5% (median over languages) on every host, so no host class is within 2% even after that correction.
-5. Boat `large` is the noisiest host measured: a 37% spread and a host speed that moved by up to 26% between runs.
-   It stays fine for Callgrind, which counts instructions and does not depend on the host's speed, but not for wall-clock work.
+   On the pinned 8x16, all 46 languages ran faster in the last run than in the first.
+   The host ran 5 to 9% faster after its first run.
+   Each run can be divided by the host's speed in that run.
+   That still leaves a spread of 5.2 to 27.5% (median over languages) on every host.
+   No host class is within 2% even after that correction.
+5. Boat `large` is the noisiest host measured.
+   Its spread is 37%, and its host speed moved by up to 26% between runs.
+   It stays fine for Callgrind, whose instruction counts do not depend on the host's speed.
+   It is not fit for wall-clock work.
 6. So the recorder's anchor guard follows the reference class's measured drift:
    a session on Namespace 8x16 whose anchor moves more than 11% (the 90th percentile above, rounded up) writes no record.
    The record carries that bound, and every figure carries its spread over the rounds.
@@ -39,13 +50,15 @@ This note informs task 3.2 and the anchor guard of task 6.1.
   - the spread: the largest run minus the smallest, over the median of the six;
   - the drift: the last run against the first, as a magnitude.
     It is the probe's analogue of the recorder's anchor, measured at a session's start and end.
-- `bun aa.ts check` tests the gap on known pairs, so a negative gap cannot rank below a positive one.
+- `bun aa.ts check` tests the gap on known pairs.
+  A negative gap cannot rank below a positive one.
 - Each host's folder beside this note holds `runs.tsv` (every run's median), `report.txt` (the per-language lines), `host.txt` and `progress.txt`.
 
 ## Results
 
 Gaps, spreads and drifts are medians or extremes over the 46 languages.
-"Without the host" is the median spread after each run is divided by that run's host speed: the geometric mean of its languages' throughput.
+"Without the host" is the median spread after each run is divided by that run's host speed.
+A run's host speed is the geometric mean of its languages' throughput.
 
 | Host | Mode | Worst A/A gap | Over 2% | Median spread | Without the host | Drift median | Drift p90 |
 |:--|:--|--:|--:|--:|--:|--:|--:|
@@ -81,9 +94,13 @@ A Namespace instance is recognised by its `/nsc` directory, checked on an 8x16 t
 
 1. Whether a larger host, such as a Namespace 16x32 or Boat `xlarge`, does better.
 2. What changes a host's speed between runs, and whether a run could remove it.
-   In three sessions the first run stands apart: the pinned instabox and 8x16 ran slower in it than in every later run, and the unpinned Boat faster.
+   In three sessions the first run stands apart.
+   The pinned instabox and 8x16 ran slower in it than in every later run.
+   The unpinned Boat ran faster in it.
    In the others the speed rises and falls with no trend.
-3. The anchor's own spread: the recorder measures it for 2 s, shorter than these 3 s runs, so its drift may be a little wider than the probe's.
+3. The anchor's own spread.
+   The recorder measures the anchor for 2 s, and these runs measured for 3 s.
+   The anchor's drift may be a little wider than the probe's.
 
 ## Compute
 
@@ -93,7 +110,10 @@ Each host ran from create to delete under its run script, whose exit trap remove
 2. Namespace 4x8, instance `upl9773vkvnmg`: 2,845 s, about 190 unit minutes, about $0.28.
 3. Namespace 8x16, instance `puenoderr08g0`: 2,814 s, about 375 unit minutes, about $0.56.
 4. Boat `large`, sandbox: 2,850 s at twice the default rate.
-   An earlier sandbox ran 1,836 s for nothing: its job was started with `nohup` inside `boat exec`, which killed it at the exec's 300 s timeout. The rerun used `boat exec --detach`.
+   An earlier sandbox ran 1,836 s for nothing.
+   Its job was started with `nohup` inside `boat exec`.
+   `boat exec` killed it at the exec's 300 s timeout.
+   The rerun used `boat exec --detach`.
 5. Namespace 8x16 scratch instance `gsoi6hp5j741i`, to find the marker: 5 s.
 
 [commit]: https://github.com/victor-software-house/nishiki-archive/commit/a2bdad9882389c892074ef75139d890982b792c0

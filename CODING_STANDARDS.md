@@ -115,8 +115,13 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - It starts through `start_embedded`, on the fence's stack, without a root scope of its own, as Shiki embeds it.
 - Its state is the payload of the fence's frame.
-- It spends the embedding line's work budget: each lexer counts in a `Steps` field of its own against the limit its `Limits` give it, the embedding lexer passes it limits whose work is what the line has left (`Steps::lend`), and every lexer's `lex` returns what it spent beside its state (`Finished`), which the embedding lexer adds to its own count (`Steps::take_back`).
-- It counts only its own contexts against the depth limit, so a pinned depth gives it the same output wherever it is embedded.
+- It spends the embedding line's work budget.
+  - Each lexer counts in a `Steps` field of its own, against the limit its `Limits` give it.
+  - The embedding lexer passes it limits whose work is what the line has left (`Steps::lend`).
+  - Every lexer's `lex` returns what it spent beside its state (`Finished`).
+  - The embedding lexer adds that to its own count (`Steps::take_back`).
+- It counts only its own contexts against the depth limit.
+  A pinned depth then gives it the same output wherever it is embedded.
 - A fence's kind holds the embedded `Language`, and Markdown numbers its kinds from `Language::ALL`.
   Adding a fence language is one entry in the fence table and its embedded scope in `rules::content_name`.
 
@@ -155,8 +160,11 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 ### 2.6 State on the hot path has no `Drop` impl
 
 - A value a lexer holds while it lexes a line, such as its `Steps`, has no `Drop` impl.
-  Drop glue turns every call made while the value lives into an unwinding call with a cleanup path, which grows the caller and changes what LLVM inlines into it.
-- Work that must happen when the value is done goes in one consuming method, which the type system makes every exit call: `Steps::finish` is the only way to make the `Finished` that carries a lexer's state.
+  Drop glue turns every call made while the value lives into an unwinding call with a cleanup path.
+  That path grows the caller and changes what LLVM inlines into it.
+- Work that must happen when the value is done goes in one consuming method.
+  The type system makes every exit call it.
+  For example, `Steps::finish` is the only way to make the `Finished` that carries a lexer's state.
 
 ## 3. Code
 
@@ -197,7 +205,10 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - The crate depends on `memchr` alone.
 - A feature may add one dependency when it removes more work or risk than it adds,
-  and the change says why (`json` adds `serde_json`, and the engine's hidden `_textmate` feature adds `regex-automata`, and `regex-syntax`, which `regex-automata` already depends on).
+  and the change says why.
+  `json` adds `serde_json`.
+  The engine's hidden `_textmate` feature adds `regex-automata` and `regex-syntax`.
+  `regex-automata` already depends on `regex-syntax`.
 - A dependency is pure Rust.
   One that builds C or carries unsafe code needs a recorded reason.
 
@@ -224,7 +235,9 @@ The release rules in `AGENTS.md` decide its version.
   - It also supplies an `Extra`, for what its matchers remember about a line.
   - It sets `Grammar::GROUPS` to one more than the highest capture group its patterns record, and its `lang-*` feature enables `_rule-tables` when it scans with `table_scan`.
   - Its generator, `oracle/<language>-grammar.ts`, takes the first-byte analysis, the start table, the rule codes with the `Tabled` implementation, the scope file and the `GROUPS` check from `oracle/rule-grammar.ts`; the generated grammar fails to compile when `GROUPS` is short of a group its tables name.
-  - It writes every Rust file through `writeRust` there, which formats it as `mise run format` does, so a run leaves the committed tables unchanged; `mise run check:swift-grammar` checks that round trip in CI.
+  - It writes every Rust file through `writeRust` there.
+    `writeRust` formats the file as `mise run format` does, so a run leaves the committed tables unchanged.
+    `mise run check:swift-grammar` checks that round trip in CI.
   - A match's groups come from the pattern's table, or from spans the matcher records (`span_one`, `span_dyn` for a scope named by text of the line); `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
   - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.

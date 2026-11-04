@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 #MISE description="Each benchmark corpus file matches its row in bench/corpus.toml"
 # A figure from the corpus means something only if every run reads the same
-# bytes under a licence that allows them here (bench/AGENTS.md; openspec
-# bench-methodology, design decision 2). Fails when a file's size or SHA-256
-# differs from its row, a row has no file, a file has no row, a size falls
-# outside its tier, a source is not pinned to a commit, or a licence is not
-# on the list below.
+# bytes (bench/AGENTS.md; openspec bench-methodology, design decision 2).
+# Those bytes must be under a licence that allows them here.
+# The check fails on any of these:
+# - a file's size or SHA-256 differs from its row;
+# - a row has no file, or a file has no row;
+# - a size falls outside its tier;
+# - a source is not pinned to a commit;
+# - a licence is not on the list below.
 set -euo pipefail
 
 root=bench/corpus
@@ -21,8 +24,10 @@ fi
 
 problems=()
 # Every row's path, each between line feeds, for a membership test without a
-# pipe: `printf | grep -q` lets grep exit early, printf then dies of SIGPIPE,
-# and pipefail reads that as no match (a merge-group run, 2026-11-04).
+# pipe.
+# With `printf | grep -q`, grep can exit early.
+# printf then dies of SIGPIPE, and pipefail reads that as no match
+# (a merge-group run, 2026-11-04).
 listed=$'\n'
 while IFS=$'\t' read -r path tier bytes sha source licence; do
   listed+="$path"$'\n'

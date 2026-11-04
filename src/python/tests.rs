@@ -124,8 +124,9 @@ fn a_docstring_is_a_statement_that_starts_a_line() {
     assert_eq!(last(text, "not"), "string.quoted.multi.python");
 }
 
-/// `(\1)|(\n)`: a single-quoted docstring closes at the line feed after a
-/// backslash, where a single-quoted string goes on, so the next line is code.
+/// `(\1)|(\n)` closes a single-quoted docstring at the line feed after a
+/// backslash. A single-quoted string goes on there. The line after the
+/// docstring is code.
 #[test]
 fn a_single_quoted_docstring_closes_at_a_line_feed_after_a_backslash() {
     let text = indoc! {r#"

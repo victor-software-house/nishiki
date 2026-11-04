@@ -31,12 +31,12 @@ pub struct Limits {
     /// token under the current scope stack and the next line starts from the
     /// state at that point, as Shiki does at its time limit.
     pub work: Option<Work>,
-    /// Most contexts open at once inside a language's root context, which
-    /// is not counted: with `Some(0)` nothing opens. Deeper contexts are not
-    /// opened, so the constructs inside them add no scope. Shiki has no such
-    /// limit, and some of its grammars leave a rule open for good, such as
-    /// Ruby's for a call whose `)` a here document takes, so a long file can
-    /// hold hundreds open.
+    /// Most contexts open at once inside a language's root context. The
+    /// root context is not counted, and with `Some(0)` nothing opens.
+    /// Deeper contexts are not opened, and the constructs inside them add no
+    /// scope. Shiki has no such limit. Some of its grammars leave a rule open
+    /// for good, such as Ruby's rule for a call whose `)` a here document
+    /// takes. A long file can then hold hundreds of contexts open.
     pub depth: Option<usize>,
     /// Most scope stacks, and most states, a highlighter interns. A token
     /// whose stack would be new gets its context's stack instead.
@@ -70,11 +70,12 @@ impl Work {
 /// lexer's main loop and the bytes its lookaheads read.
 ///
 /// A lexer counts in a `Steps` of its own, from 0 against the limit its
-/// [`Limits`] give its text, as each lexer counted alone. The lexers on one
-/// line still spend one budget: a lexer that embeds another passes it
-/// limits whose work is what the line has left ([`Steps::lend`]), and every
-/// lexer returns what it spent beside its state ([`Finished`]), which the
-/// embedding lexer adds to its own count ([`Steps::take_back`]).
+/// [`Limits`] give its text. The lexers on one line still spend one budget:
+///
+/// - A lexer that embeds another passes it limits whose work is what the line
+///   has left ([`Steps::lend`]).
+/// - Every lexer returns what it spent beside its state ([`Finished`]).
+/// - The embedding lexer adds that to its own count ([`Steps::take_back`]).
 ///
 /// `Steps` has no `Drop` impl (`CODING_STANDARDS.md` 2.6).
 ///
@@ -122,9 +123,10 @@ impl Steps {
     /// The limits a lexer this one embeds runs under: `limits` with the
     /// work this line has left, or no work limit when this one has none.
     ///
-    /// [`Work::base`] holds a `u32`, so an embedded part gets at most
-    /// `u32::MAX` steps, far above the default limits of the longest line
-    /// they allow. Out of line, since few lines embed a language.
+    /// [`Work::base`] holds a `u32`, and an embedded part gets at most
+    /// `u32::MAX` steps. That is far above the default limits of the longest
+    /// line they allow. The function is out of line, because few lines embed
+    /// a language.
     #[cold]
     pub(crate) fn lend(&self, limits: &Limits) -> Limits {
         let left = self.limit.saturating_sub(self.spent.get());
@@ -169,13 +171,13 @@ impl Steps {
     }
 }
 
-/// The state after a line and the steps the lexer spent on it, which the
-/// lexer that embeds it adds to its own count ([`Steps::take_back`]) and
-/// the highlighter ignores.
+/// The state after a line and the steps the lexer spent on it. The lexer
+/// that embeds it adds the steps to its own count ([`Steps::take_back`]).
+/// The highlighter ignores them.
 ///
-/// A lexer with a count makes one only through [`Steps::finish`], so an
-/// exit that skips it does not compile. The two words come back in
-/// registers, so the top-level path stores nothing.
+/// A lexer with a count makes one only through [`Steps::finish`]. An exit
+/// that skips it does not compile. The two words come back in registers, and
+/// the top-level path stores nothing.
 #[derive(Clone, Copy, Debug)]
 #[must_use]
 pub(crate) struct Finished {
@@ -184,9 +186,9 @@ pub(crate) struct Finished {
 }
 
 impl Finished {
-    /// A line on which the lexer spent nothing: an empty one, or one whose
-    /// count nobody takes back, as for nishiki's `TextMate` engine on the
-    /// highlighter's own language.
+    /// A line on which the lexer spent nothing. It is an empty line, or one
+    /// whose count nobody takes back. nishiki's `TextMate` engine on the
+    /// highlighter's own language is such a case.
     #[inline]
     pub(crate) fn unspent(state: u32) -> Self {
         Finished { state, spent: 0 }

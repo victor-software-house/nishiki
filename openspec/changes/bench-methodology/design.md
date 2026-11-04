@@ -182,13 +182,17 @@ It changes:
 
 - The language list comes from the fixture directories, not a hand-kept line.
   All 46 languages with fixtures are counted, not 27.
-  [Bench rule 15][bench-rules], which exists because engine pull requests collided on that line, now states that the list comes from the fixture directories.
+  [Bench rule 15][bench-rules] now states that the list comes from the fixture directories.
+  The rule exists because engine pull requests collided on that line.
 - Languages run in parallel, one valgrind per core, so the larger list fits the job's 20-minute step.
 - The noise floor is measured and recorded.
   On an unchanged tree, languages read 0.9993 to 1.0003 in [#242's run][run-242].
-  The cause is the arena's map of interned strings, which keeps std's seeded hasher so that crafted text cannot make its keys collide.
-  A deterministic map (`BTreeMap`) made the counts repeatable but cost HTML 2% more instructions, so the map stays seeded (lead, 2026-11-04).
-  The spread, at most 0.09%, is five times under the gate; bench rule 16 records it per language.
+  The cause is the arena's map of interned strings.
+  The map keeps std's seeded hasher, so crafted text cannot make its keys collide.
+  A deterministic map (`BTreeMap`) made the counts repeatable.
+  It cost HTML 2% more instructions, and the map stays seeded (lead, 2026-11-04).
+  The spread is at most 0.09%, five times under the gate.
+  Bench rule 16 records it per language.
   The engine's maps keyed by arena ids move to the arena's fixed hasher, since no adversary picks those keys.
 
 Rejected: gungraun.
@@ -213,10 +217,15 @@ It is worth revisiting if cache-miss counts are ever needed.
    So wall-clock records are indicative, and speed decisions rest on Callgrind instruction counts (decision 9).
 3. The reference class is the least noisy candidate: Namespace 8x16, unpinned (lead, 2026-11-04).
    Its figures spread by 8.5% over six runs (median over languages), and pinning widened its drift.
-   `bench/record.ts` writes a record only there: it checks the host's shape (8 CPUs, 2 threads a core, about 16 GB) and Namespace's `/nsc` directory, and refuses anywhere else.
-   Boat stays fine for Callgrind, which does not depend on the host's speed, but its 37% spread rules it out for wall-clock work.
+   `bench/record.ts` writes a record only there.
+   It checks the host's shape (8 CPUs, 2 threads a core, about 16 GB) and Namespace's `/nsc` directory.
+   It refuses on any other host.
+   Boat stays fine for Callgrind, whose counts do not depend on the host's speed.
+   Boat's 37% spread rules it out for wall-clock work.
 4. Each session measures an anchor at its start and end: one fixed file, lexed for 2 seconds.
-   A session whose anchor moves more than the reference class's measured first-to-last drift, 11% (its 90th percentile over languages, rounded up), is rejected and rerun.
+   The bound is the reference class's measured first-to-last drift, 11%.
+   It is the 90th percentile over languages, rounded up.
+   A session whose anchor moves more than the bound is rejected and rerun.
    The record carries that bound beside its anchor drift.
 5. At least five rounds of every figure; the median, with the minimum and maximum beside it, and its spread.
 6. Where the host exposes `instructions:u`, the record carries it next to wall time.
@@ -251,7 +260,8 @@ The rules, each one a fault the [survey][survey] found elsewhere:
 1. Every engine reads the same files; results are per file.
    The languages are the intersection, listed in the record.
 2. Every engine colours with github-dark.
-   syntect takes a theme built from Shiki's JSON rules; tree-sitter maps each capture name to the TextMate scope whose colour stands for it.
+   syntect takes a theme built from Shiki's JSON rules.
+   tree-sitter maps each capture name to a TextMate scope, and takes that scope's colour.
 3. Setup, first document in a fresh process, and warm throughput are three figures, never one.
    lumis times setup inside every iteration for its Rust rows and outside for its JavaScript rows.
 4. Every engine does the full work: Shiki's time and line limits are off, and nishiki's line reports must show no limit reached.
@@ -267,8 +277,12 @@ The rules, each one a fault the [survey][survey] found elsewhere:
 
 The comparison runs on the reference host with each minor release.
 
-syntect builds one regex backend into a binary, so the comparison runs Oniguruma, the one bat uses; the pure-Rust `fancy-regex` backend would need a second build and is left for a later row.
-Every comparator's licence, the 15 tree-sitter grammar crates and two-face's bundled syntaxes included, is read at its source and listed in `bench/compare/README.md`; all are permissive except giallo.
+syntect builds one regex backend into a binary.
+The comparison runs Oniguruma, the backend bat uses.
+The pure-Rust `fancy-regex` backend would need a second build, and is left for a later row.
+Every comparator's licence is read at its source and listed in `bench/compare/README.md`.
+That covers the 15 tree-sitter grammar crates and two-face's bundled syntaxes.
+All are permissive except giallo.
 
 Decided (operator, 2026-11-03): giallo is allowed under its EUPL-1.2 licence, built on the bench box only and never distributed.
 `@pierre/highlights` is allowed once its licence is read at its source.
@@ -325,7 +339,7 @@ examples/
 - replaced: what a local run is for (decision 10), the record format (decision 12), and the before-and-after rule (decision 17);
 - replaced: rule 8, which puts comparisons under `research/`, a directory the `repo-layout` change removes.
   The new rule: every comparison with another engine runs in `bench/compare/`, a non-published workspace of its own, never a dependency of the crate or of `bench/` (decisions 3 and 13);
-- rewritten: rule 15, which now says the language list comes from the fixture directories (decision 9).
+- rewritten: rule 15. It now says the language list comes from the fixture directories (decision 9).
 
 ### 17. A speed claim
 

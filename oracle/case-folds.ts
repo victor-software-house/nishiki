@@ -63,10 +63,12 @@ const largest = Math.max(...[...orbits].map((orbit) => orbit.length));
 // A character's canonical form is the smallest member of its orbit.
 const canonical = (cp: number) => orbitOf.get(cp)?.[0] ?? cp;
 
-// The characters whose fold is a string: a candidate is a code point whose
-// case mapping is longer than itself, or a member of such a code point's
-// orbit, such as ẞ beside ß. Its fold is that mapping lowered, kept when
-// `(?i)` and the character match the whole of it.
+// The characters whose fold is a string.
+// A candidate is a code point whose case mapping is longer than itself.
+// A member of such a code point's orbit is a candidate too, such as ẞ beside
+// ß.
+// Its fold is that mapping lowered.
+// The fold is kept when `(?i)` and the character match the whole of it.
 const foldsTo = (cp: number, fold: string) => {
   const found = engine.createScanner([`(?i)\\x{${cp.toString(16)}}`]).findNextMatchSync(`${fold}\n`, 0);
   return found?.captureIndices[0].start === 0 && found.captureIndices[0].end === fold.length;
@@ -94,12 +96,15 @@ const folds = [...unfold.entries()]
   });
 
 // The characters beyond ASCII that the folds of more than one character
-// involve: every member of the orbit of a character that folds to a string, or
-// of a character of such a string. An alternative a fold adds that matches no
-// text of ASCII alone needs one of them, so a line without any runs the
-// programs that leave those alternatives out. Each is listed by the first byte
-// of its UTF-8 form, with the bytes after it, so a line is checked without
-// decoding.
+// involve.
+// They are every member of the orbit of a character that folds to a string.
+// They are also every member of the orbit of a character of such a string.
+// An alternative that a fold adds, and that matches no ASCII-only text, needs
+// one of them.
+// A line without any of them runs the programs that leave those alternatives
+// out.
+// Each is listed by the first byte of its UTF-8 form, with the bytes after it.
+// A line is then checked without decoding.
 const wide = new Set<number>();
 for (const [cp, fold] of multi) {
   for (const c of [cp, ...fold]) for (const member of orbitOf.get(c) ?? [c]) if (member > 0x7f) wide.add(member);
@@ -115,7 +120,8 @@ const leads = [...tailsOf.keys()].sort((a, b) => a - b);
 const wideLead = Array.from({ length: 256 }, (_, byte) => leads.indexOf(byte) + 1);
 const wideTails = leads.map((lead) => tailsOf.get(lead)!.sort((a, b) => a - b));
 // The second bytes each lead byte's characters can have, as a mask of their
-// low six bits, since a second byte is always 0x80 to 0xBF.
+// low six bits.
+// A second byte is always 0x80 to 0xBF.
 const wideSecond = leads.map((lead) =>
   tailsOf.get(lead)!.reduce((mask, tail) => mask | (1n << BigInt((tail > 0xff ? tail >> 8 : tail) & 0x3f)), 0n),
 );

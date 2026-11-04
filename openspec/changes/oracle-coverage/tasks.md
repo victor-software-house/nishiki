@@ -26,36 +26,63 @@ Each task adds inputs, and the fixes they expose, until the grammar is complete,
 Each verifies the same way: the grammar's row reads complete in `tests/oracle/COVERAGE.md`, and the oracle test and the coverage check pass in CI.
 
 - [x] 3.1 C#: `csharp`
-  - 2026-11-04 UTC, [PR 261][pr261]: twenty-two C# inputs added; C# complete with twelve waivers, each with its probe. On `a1288bbe` the [oracle test][run-261-ci] and the [coverage check][run-261-cov] passed.
+  - 2026-11-04 UTC, [PR 261][pr261]: twenty-two C# inputs added.
+    C# is complete with twelve waivers, each with its probe.
+    On `a1288bbe` the [oracle test][run-261-ci] and the [coverage check][run-261-cov] passed.
 - [x] 3.2 Swift: `swift`
-  - 2026-11-04 UTC, [PR 309][pr309]: fifteen swiftlang/swift parser tests and a written input added; Swift complete with 30 waived units, 18 of them operator patterns inside captures that start with `\G`. On `0d6097a5` the [oracle test][run-309-ci] and the [coverage check][run-309-cov] passed.
+  - 2026-11-04 UTC, [PR 309][pr309]: fifteen swiftlang/swift parser tests and a written input added.
+    Swift is complete with 30 waived units.
+    18 of them are operator patterns inside captures that start with `\G`.
+    On `0d6097a5` the [oracle test][run-309-ci] and the [coverage check][run-309-cov] passed.
 - [x] 3.3 Python: `python`
-  - 2026-11-04 UTC, [PR 288][pr288] and [PR 289][pr289]: seven black test cases, one ruff parser fixture and a written input added, and a docstring line-feed close fixed in the lexer; Python complete with 62 waived units. On `18e2a261` the [oracle test][run-289-ci] and the [coverage check][run-289-cov] passed.
+  - 2026-11-04 UTC, [PR 288][pr288] and [PR 289][pr289]: seven black test cases, one ruff parser fixture and a written input added.
+    The lexer now closes a docstring at a line feed as Shiki does.
+    Python is complete with 62 waived units.
+    On `18e2a261` the [oracle test][run-289-ci] and the [coverage check][run-289-cov] passed.
 - [ ] 3.4 Go: `go`
 - [ ] 3.5 Java: `java`
 - [x] 3.6 TypeScript: `typescript`, `javascript`, `jsx`, `tsx`
-  - 2026-11-04 UTC, [PR 281][pr281], [PR 275][pr275] and [PR 282][pr282]: 67 TypeScript test cases and a written input added, and a Unicode-digit key fixed in the lexer; the four grammars complete with seven waivers each. On `869e82a4` the [oracle test][run-282-ci] and the [coverage check][run-282-cov] passed.
+  - 2026-11-04 UTC, [PR 281][pr281], [PR 275][pr275] and [PR 282][pr282]: 67 TypeScript test cases and a written input added.
+    The lexer now reads a Unicode digit in a numeric object key.
+    The four grammars are complete with seven waivers each.
+    On `869e82a4` the [oracle test][run-282-ci] and the [coverage check][run-282-cov] passed.
 - [x] 3.7 C and C++: `c`, `cpp`, `cpp-macro`
-  - 2026-11-04 UTC, [PR 297][pr297], [PR 312][pr312] and [PR 313][pr313]: 22 picked inputs and two written ones, whose comments sit in the gaps the grammars capture; `c`, `cpp` and `cpp-macro` complete with 44, 234 and 131 waived units. On `1f2a1d5f` the [oracle test][run-313-ci] and the [coverage check][run-313-cov] passed.
+  - 2026-11-04 UTC, [PR 297][pr297], [PR 312][pr312] and [PR 313][pr313]: 22 picked inputs and two written ones added.
+    The written inputs put comments in the gaps the grammars capture.
+    `c`, `cpp` and `cpp-macro` are complete with 44, 234 and 131 waived units.
+    On `1f2a1d5f` the [oracle test][run-313-ci] and the [coverage check][run-313-cov] passed.
 - [x] 3.8 Rust: `rust`
-  - 2026-11-04 UTC, [PR 259][pr259]: `rust/core-macros` and `rust/coverage` added; Rust complete with one waiver. On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
+  - 2026-11-04 UTC, [PR 259][pr259]: `rust/core-macros` and `rust/coverage` added.
+    Rust is complete with one waiver.
+    On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
 - [ ] 3.9 Ruby: `ruby`
 - [ ] 3.10 Kotlin: `kotlin`
 - [ ] 3.11 Lua: `lua`
 - [ ] 3.12 shell: `shellscript`
 - [x] 3.13 Markdown: `markdown`
-  - 2026-11-04 UTC, [PR 303][pr303], [PR 298][pr298] and [PR 299][pr299]: two markdownlint test files and a written input added; the PHP, Batch and XSL fences read as Shiki reads them, and the engine keeps each grammar's caches across a grammar switch; Markdown complete with 213 waived units. On `2b67928e` the [oracle test][run-299-ci] and the [coverage check][run-299-cov] passed.
+  - 2026-11-04 UTC, [PR 303][pr303], [PR 298][pr298] and [PR 299][pr299]: two markdownlint test files and a written input added.
+    PHP, Batch and XSL fences now read as Shiki reads them.
+    The engine keeps each grammar's caches across a grammar switch.
+    Markdown is complete with 213 waived units.
+    On `2b67928e` the [oracle test][run-299-ci] and the [coverage check][run-299-cov] passed.
 - [x] 3.14 CSS, Less and SCSS: `css`, `less`, `scss`
-  - 2026-11-04 UTC, [PR 287][pr287]: less.js, Angular Components and Bootstrap inputs and a written input per language added; the three grammars complete with 6, 29 and 50 waived units. On `dd3a3df5` the [oracle test][run-287-ci] and the [coverage check][run-287-cov] passed.
+  - 2026-11-04 UTC, [PR 287][pr287]: less.js, Angular Components and Bootstrap inputs and a written input per language added.
+    The three grammars are complete with 6, 29 and 50 waived units.
+    On `dd3a3df5` the [oracle test][run-287-ci] and the [coverage check][run-287-cov] passed.
 - [ ] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
 - [ ] 3.16 ERB: `erb`
 - [ ] 3.17 JSON: `json`, `jsonc`, `jsonl`
 - [x] 3.18 YAML and TOML: `yaml`, `toml`
-  - 2026-11-04 UTC, [PR 306][pr306] and [PR 307][pr307]: toml-test and YAML test suite files and a written input per language added, and a YAML directive's name read without a copy; TOML and YAML complete with 14 and 6 waived units. On `bf5e8ec5` the [oracle test][run-307-ci] and the [coverage check][run-307-cov] passed.
+  - 2026-11-04 UTC, [PR 306][pr306] and [PR 307][pr307]: toml-test and YAML test suite files and a written input per language added.
+    The YAML lexer now reads a directive's name without a copy.
+    TOML and YAML are complete with 14 and 6 waived units.
+    On `bf5e8ec5` the [oracle test][run-307-ci] and the [coverage check][run-307-cov] passed.
 - [ ] 3.19 SQL: `sql`
 - [ ] 3.20 GraphQL: `graphql`
 - [x] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
-  - 2026-11-04 UTC, [PR 320][pr320]: a written input per language added; the four grammars complete with 1, 8, 2 and 4 waived units. On `3de20c2f` the [oracle test][run-320-ci] and the [coverage check][run-320-cov] passed.
+  - 2026-11-04 UTC, [PR 320][pr320]: a written input per language added.
+    The four grammars are complete with 1, 8, 2 and 4 waived units.
+    On `3de20c2f` the [oracle test][run-320-ci] and the [coverage check][run-320-cov] passed.
 
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
 [pr252]: https://github.com/victor-software-house/nishiki-archive/pull/252

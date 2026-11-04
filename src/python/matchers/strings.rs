@@ -13,8 +13,9 @@ enum Close {
     Quote,
     /// The quote text, or a line feed that no backslash precedes.
     QuoteOrNewline,
-    /// The quote text, or any line feed: a single-quoted docstring, whose
-    /// end `(\1)|(\n)` closes it at the line feed after a backslash too.
+    /// The quote text, or any line feed. A single-quoted docstring ends this
+    /// way. Its end `(\1)|(\n)` closes it at the line feed after a backslash
+    /// too.
     QuoteOrAnyNewline,
 }
 

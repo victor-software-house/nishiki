@@ -2,4 +2,6 @@
 nishiki: patch
 ---
 
-Keep the TextMate engine's caches for each grammar when a document switches between grammars, as a Markdown document with fences in two of the engine's languages does, so lexing it again allocates nothing.
+Keep the TextMate engine's caches for each grammar when a document switches between grammars.
+A Markdown document with fences in two of the engine's languages switches that way.
+Lexing such a document again allocates nothing.

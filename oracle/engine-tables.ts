@@ -25,12 +25,14 @@
 // a grammar it has not loaded. A grammar the crate must not bundle stays out
 // of a shipped table this way.
 //
-// The tables hold what the engine needs and nothing it can work out later: the
-// rules with their includes already followed, the patterns as text (compiled on
-// first use), and the scope names interned. A rule whose patterns all include a
-// grammar that is not loaded is dropped, as vscode-textmate drops it. The
-// compiled patterns and the lists' scanners go in cells each grammar allocates
-// on first use.
+// The tables hold what the engine needs and nothing it can work out later:
+// - the rules, with their includes already followed;
+// - the patterns as text, compiled on first use;
+// - the scope names, interned.
+// A rule whose patterns all include a grammar that is not loaded is dropped,
+// as vscode-textmate drops it.
+// The compiled patterns and the lists' scanners go in cells.
+// Each grammar allocates its cells on first use.
 //
 // Every grammar the Rust tables hold needs its licence in `oracle/licences.ts`;
 // the run fails, naming the grammar, when one is missing, or when a table the

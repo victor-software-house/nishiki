@@ -1,7 +1,8 @@
 # Benchmarks
 
 How nishiki measures its speed and memory.
-The rules for measuring are in [AGENTS.md](AGENTS.md); the reasons are in the `bench-methodology` change under `openspec/changes/`.
+The rules for measuring are in [AGENTS.md](AGENTS.md).
+The reasons are in the `bench-methodology` change under `openspec/changes/`.
 
 ## What each figure answers
 
@@ -55,6 +56,8 @@ Speed decisions rest on Callgrind instruction counts.
 
 ## Running
 
-`mise run bench` runs every benchmark; an argument filters them by name.
+`mise run bench` runs every benchmark.
+An argument filters them by name.
 Criterion's `--save-baseline <name>` and `--baseline <name>` compare two runs on one machine.
-A figure from a laptop compares two commits on that laptop and nothing else; recorded figures come from the host class AGENTS.md names.
+A figure from a laptop compares two commits on that laptop and nothing else.
+Recorded figures come from the host class AGENTS.md names.

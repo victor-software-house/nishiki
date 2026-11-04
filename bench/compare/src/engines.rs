@@ -269,8 +269,8 @@ struct TreeSitter {
 }
 
 /// The grammar and highlight query for `language`. TypeScript's query
-/// extends JavaScript's and C++'s extends C's, so each is joined to its
-/// base, as tree-sitter's own CLI does.
+/// extends JavaScript's, and C++'s extends C's. Each is joined to its base,
+/// as tree-sitter's own CLI does.
 fn grammar(language: Language) -> Option<(tree_sitter::Language, String)> {
     let joined = |base: &str, own: &str| format!("{base}\n{own}");
     let pair: (tree_sitter::Language, String) = match language.id() {

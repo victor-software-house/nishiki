@@ -10,8 +10,8 @@ use crate::{case_fold, classes};
 /// The longest word of the generated lists, in bytes.
 const LONGEST: usize = 48;
 
-/// The bucket of a word's first byte: every word of [`WORDS`] starts with an
-/// ASCII byte, so a word that does not fails the build.
+/// The bucket of a word's first byte. Every word of [`WORDS`] starts with an
+/// ASCII byte. A word that does not fails the build.
 #[expect(
     clippy::as_conversions,
     reason = "`usize::from` is not const; a `u8` always fits a `usize`"
@@ -20,9 +20,9 @@ const fn bucket(byte: u8) -> usize {
     byte as usize
 }
 
-/// Where each first byte's words start in [`WORDS`], which is sorted: the
-/// words of byte `b` sit at `STARTS[b]..STARTS[b + 1]`, so a lookup searches
-/// only them.
+/// Where each first byte's words start in [`WORDS`]. [`WORDS`] is sorted,
+/// and the words of byte `b` sit at `STARTS[b]..STARTS[b + 1]`. A lookup
+/// searches only them.
 const STARTS: [usize; 129] = {
     let mut starts = [0; 129];
     let mut i = 0;
@@ -247,9 +247,9 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The bits of the lists of [`WORDS`] that hold the text `from..to`,
     /// folded to lower case. The patterns tried at one place ask about the
-    /// same word, each for its own list, so the word is looked up once, among
-    /// the words of its first byte ([`STARTS`]), and the answer kept until
-    /// another is asked for.
+    /// same word, each for its own list. The word is looked up once, among
+    /// the words of its first byte ([`STARTS`]). The answer is kept until
+    /// another word is asked for.
     fn lists_of(&self, from: usize, to: usize) -> u32 {
         let extra = G::css_extra(&self.x);
         let (start, end, bits) = extra.listed.get();

@@ -1,14 +1,14 @@
 //! Q4: how soon the first line is coloured in a fresh process (openspec
 //! bench-methodology, design decision 7).
 //!
-//! The runner starts this program once per sample, so every sample begins
-//! with empty lazy state: no pattern tables, decoded grammars or lazily built
-//! automata from an earlier sample. The binary is in the page cache, so this is
-//! a fresh process, not a cold disk.
+//! The runner starts this program once per sample. Every sample begins with
+//! empty lazy state. No pattern tables, decoded grammars or lazily built
+//! automata survive from an earlier sample. The binary is in the page cache.
+//! The figure is a fresh process, not a cold disk.
 //!
 //! - A sample creates a highlighter, lexes the document's first line, then the
-//!   rest, and prints the three times from just before the highlighter is
-//!   created; reading the file comes before.
+//!   rest. It prints the three times, counted from just before the highlighter
+//!   is created. Reading the file comes before that.
 //! - A theme sample times `Theme::from_json` on Shiki's github-dark.
 //! - The runner starts `--processes` samples per file (31 by default),
 //!   interleaving files and languages round by round, drops the first three

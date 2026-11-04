@@ -3,9 +3,9 @@
 //!
 //! An embedding language can lex many texts of one line with this lexer,
 //! such as HTML's event handlers, one per attribute. A search of the line per
-//! text would read the line once per text, so the second text of a line and
-//! those after it ask a list of the line's matches, which grows forward and is
-//! read once per line.
+//! text would read the line once per text. Instead, the second text of a line
+//! and those after it ask a list of the line's matches. The list grows
+//! forward and is read once per line.
 
 use super::lexer::Opened;
 
@@ -20,9 +20,9 @@ pub(crate) struct Scratch {
 
 /// The searches every text of one line shares.
 ///
-/// Every text an embedding language gives this lexer is its own text or a
-/// prefix of it, and starts where the line does, so a position means the same
-/// byte in every text of the line.
+/// Every text an embedding language gives this lexer is the line's text or a
+/// prefix of it. Each starts where the line does. A position then means the
+/// same byte in every text of the line.
 #[derive(Debug, Default)]
 pub(crate) struct Searches {
     /// The number of the line the last lexer started on, as
@@ -84,7 +84,7 @@ impl Searches {
     }
 
     /// [`Searches::last`] for a text after the first of its line, from the
-    /// line's lists, which it starts when the line has none yet.
+    /// line's lists. It starts the lists when the line has none yet.
     #[cold]
     #[inline(never)]
     fn listed_last(
