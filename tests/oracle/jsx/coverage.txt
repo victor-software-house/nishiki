@@ -1581,3 +1581,2005 @@ L package;
 T 7 source.js.jsx keyword.control.js.jsx
 T 8 source.js.jsx punctuation.terminator.statement.js.jsx
 L 
+L /* @internal */ export const hidden = 1;
+T 2 source.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 3 source.js.jsx comment.block.js.jsx
+T 4 source.js.jsx comment.block.js.jsx storage.type.internaldeclaration.js.jsx punctuation.decorator.internaldeclaration.js.jsx
+T 12 source.js.jsx comment.block.js.jsx storage.type.internaldeclaration.js.jsx
+T 13 source.js.jsx comment.block.js.jsx
+T 15 source.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 16 source.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx keyword.control.export.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx
+T 35 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 36 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 37 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 38 source.js.jsx meta.var.expr.js.jsx
+T 39 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 40 source.js.jsx punctuation.terminator.statement.js.jsx
+L export declare import type Shape from "./shape";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 14 source.js.jsx meta.import.js.jsx storage.modifier.js.jsx
+T 15 source.js.jsx meta.import.js.jsx
+T 21 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 22 source.js.jsx meta.import.js.jsx
+T 26 source.js.jsx meta.import.js.jsx keyword.control.type.js.jsx
+T 27 source.js.jsx meta.import.js.jsx
+T 32 source.js.jsx meta.import.js.jsx variable.other.readwrite.alias.js.jsx
+T 33 source.js.jsx meta.import.js.jsx
+T 37 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 38 source.js.jsx meta.import.js.jsx
+T 39 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 46 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 47 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 48 source.js.jsx punctuation.terminator.statement.js.jsx
+L declare import fs = require("fs");
+T 7 source.js.jsx meta.import-equals.external.js.jsx storage.modifier.js.jsx
+T 8 source.js.jsx meta.import-equals.external.js.jsx
+T 14 source.js.jsx meta.import-equals.external.js.jsx keyword.control.import.js.jsx
+T 15 source.js.jsx meta.import-equals.external.js.jsx
+T 17 source.js.jsx meta.import-equals.external.js.jsx variable.other.readwrite.alias.js.jsx
+T 18 source.js.jsx meta.import-equals.external.js.jsx
+T 19 source.js.jsx meta.import-equals.external.js.jsx keyword.operator.assignment.js.jsx
+T 20 source.js.jsx meta.import-equals.external.js.jsx
+T 27 source.js.jsx meta.import-equals.external.js.jsx keyword.control.require.js.jsx
+T 28 source.js.jsx meta.import-equals.external.js.jsx meta.brace.round.js.jsx
+T 29 source.js.jsx meta.import-equals.external.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 31 source.js.jsx meta.import-equals.external.js.jsx string.quoted.double.js.jsx
+T 32 source.js.jsx meta.import-equals.external.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 33 source.js.jsx meta.import-equals.external.js.jsx meta.brace.round.js.jsx
+T 34 source.js.jsx punctuation.terminator.statement.js.jsx
+L import type Alias = Outer.Inner;
+T 6 source.js.jsx meta.import-equals.internal.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import-equals.internal.js.jsx
+T 11 source.js.jsx meta.import-equals.internal.js.jsx keyword.control.type.js.jsx
+T 12 source.js.jsx meta.import-equals.internal.js.jsx
+T 17 source.js.jsx meta.import-equals.internal.js.jsx variable.other.readwrite.alias.js.jsx
+T 18 source.js.jsx meta.import-equals.internal.js.jsx
+T 19 source.js.jsx meta.import-equals.internal.js.jsx keyword.operator.assignment.js.jsx
+T 20 source.js.jsx meta.import-equals.internal.js.jsx
+T 25 source.js.jsx meta.import-equals.internal.js.jsx entity.name.type.module.js.jsx
+T 26 source.js.jsx meta.import-equals.internal.js.jsx punctuation.accessor.js.jsx
+T 31 source.js.jsx meta.import-equals.internal.js.jsx variable.other.readwrite.js.jsx
+T 32 source.js.jsx punctuation.terminator.statement.js.jsx
+L import { default as main, type kind as Kind, "quoted-name" as quoted } from "./names";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 16 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.default.js.jsx
+T 17 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 19 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 20 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 24 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 25 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.separator.comma.js.jsx
+T 26 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 31 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 35 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 36 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 38 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 39 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 43 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 44 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.separator.comma.js.jsx
+T 45 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 58 source.js.jsx meta.import.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 59 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 61 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 62 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 68 source.js.jsx meta.import.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 69 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 70 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 71 source.js.jsx meta.import.js.jsx
+T 75 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 76 source.js.jsx meta.import.js.jsx
+T 77 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 84 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 85 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 86 source.js.jsx punctuation.terminator.statement.js.jsx
+L import { default } from "./plain";
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 8 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 16 source.js.jsx meta.import.js.jsx meta.block.js.jsx keyword.control.default.js.jsx
+T 17 source.js.jsx meta.import.js.jsx meta.block.js.jsx
+T 18 source.js.jsx meta.import.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 19 source.js.jsx meta.import.js.jsx
+T 23 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 24 source.js.jsx meta.import.js.jsx
+T 25 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 32 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 33 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 34 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { main as default, kind as "string-alias", "bare-string" };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 16 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 17 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 24 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.default.js.jsx
+T 25 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.separator.comma.js.jsx
+T 26 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 30 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 33 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 34 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 48 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 49 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.separator.comma.js.jsx
+T 50 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 63 source.js.jsx meta.export.js.jsx meta.block.js.jsx string.quoted.alias.js.jsx
+T 64 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 65 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 66 source.js.jsx punctuation.terminator.statement.js.jsx
+L export { type main as renamed };
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 9 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.type.js.jsx
+T 14 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 18 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 19 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 21 source.js.jsx meta.export.js.jsx meta.block.js.jsx keyword.control.as.js.jsx
+T 22 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 29 source.js.jsx meta.export.js.jsx meta.block.js.jsx variable.other.readwrite.alias.js.jsx
+T 30 source.js.jsx meta.export.js.jsx meta.block.js.jsx
+T 31 source.js.jsx meta.export.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 32 source.js.jsx punctuation.terminator.statement.js.jsx
+L export * from "./everything";
+T 6 source.js.jsx meta.export.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.export.js.jsx
+T 8 source.js.jsx meta.export.js.jsx constant.language.import-export-all.js.jsx
+T 9 source.js.jsx meta.export.js.jsx
+T 13 source.js.jsx meta.export.js.jsx keyword.control.from.js.jsx
+T 14 source.js.jsx meta.export.js.jsx
+T 15 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 27 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx
+T 28 source.js.jsx meta.export.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 29 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L let [first, ...[second, third]] = pairs;
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx punctuation.separator.comma.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx keyword.operator.rest.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx punctuation.separator.comma.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 31 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 32 source.js.jsx meta.var.expr.js.jsx meta.array-binding-pattern-variable.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx
+T 39 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 40 source.js.jsx punctuation.terminator.statement.js.jsx
+L let { alpha, ...{ beta } } = record;
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.separator.comma.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx keyword.operator.rest.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx
+T 35 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 36 source.js.jsx punctuation.terminator.statement.js.jsx
+L function spreadArray(...[a, b]: number[]) {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx keyword.operator.rest.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx variable.parameter.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx variable.parameter.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 38 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 39 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 40 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 41 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 42 source.js.jsx meta.function.js.jsx
+T 43 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 44 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L function spreadObject(...{ length }: string) {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx keyword.operator.rest.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.parameter.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 37 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 43 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 44 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 45 source.js.jsx meta.function.js.jsx
+T 46 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 47 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L function nestedArray([head, ...[next]]: number[]) {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx variable.parameter.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx keyword.operator.rest.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx variable.parameter.js.jsx
+T 37 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 38 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.paramter.array-binding-pattern.js.jsx punctuation.definition.binding-pattern.array.js.jsx
+T 39 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 40 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 46 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 47 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 48 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 49 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 50 source.js.jsx meta.function.js.jsx
+T 51 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 52 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L function nestedObject({ key, ...{ rest } }: Bag) {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.parameter.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.separator.comma.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx keyword.operator.rest.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 38 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx variable.parameter.js.jsx
+T 39 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 40 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 41 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx
+T 42 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.parameter.object-binding-pattern.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 43 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 44 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 47 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 48 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 49 source.js.jsx meta.function.js.jsx
+T 50 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 51 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L function withThis(this: () => void, ...callbacks: () => void) {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx entity.name.function.js.jsx variable.language.this.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.separator.parameter.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx
+T 39 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx keyword.operator.rest.js.jsx
+T 48 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx entity.name.function.js.jsx
+T 49 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 50 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 51 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 52 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 53 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 55 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 56 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 60 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 61 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 62 source.js.jsx meta.function.js.jsx
+T 63 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 64 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L const numbers = [1.5e3n, 1.e3n, .5e3n, 1e3n, 1.5n, 1.n_, .5n];
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx meta.delimiter.decimal.period.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx meta.delimiter.decimal.period.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 31 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 32 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx meta.delimiter.decimal.period.js.jsx
+T 36 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 37 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 38 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 39 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 42 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 43 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 44 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 45 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 46 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 47 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx meta.delimiter.decimal.period.js.jsx
+T 48 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 49 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 50 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 51 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 52 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 53 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx meta.delimiter.decimal.period.js.jsx
+T 54 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 55 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx variable.other.readwrite.js.jsx
+T 56 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 57 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 58 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx meta.delimiter.decimal.period.js.jsx
+T 59 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx
+T 60 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx constant.numeric.decimal.js.jsx storage.type.numeric.bigint.js.jsx
+T 61 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 62 source.js.jsx punctuation.terminator.statement.js.jsx
+L const infinite = Infinity;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx constant.language.infinity.js.jsx
+T 26 source.js.jsx punctuation.terminator.statement.js.jsx
+L const value = POINTS.LIMIT.max;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx variable.other.constant.object.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx variable.other.constant.object.property.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx variable.other.property.js.jsx
+T 31 source.js.jsx punctuation.terminator.statement.js.jsx
+L const max = Number.MAX_SAFE_INTEGER;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx variable.other.object.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.js.jsx
+T 35 source.js.jsx meta.var.expr.js.jsx
+T 36 source.js.jsx punctuation.terminator.statement.js.jsx
+L const meta = import?.meta;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx keyword.control.import.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.optional.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx support.variable.property.importmeta.js.jsx
+T 26 source.js.jsx punctuation.terminator.statement.js.jsx
+L const loaded = import("./lazy");
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.function-call.js.jsx keyword.operator.expression.import.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx string.quoted.double.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 31 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 32 source.js.jsx punctuation.terminator.statement.js.jsx
+L module?.exports;
+T 6 source.js.jsx support.type.object.module.js.jsx
+T 8 source.js.jsx punctuation.accessor.optional.js.jsx
+T 15 source.js.jsx support.type.object.module.js.jsx
+T 16 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L function construct() {
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 19 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 21 source.js.jsx meta.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   return new?.target;
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx new.expr.js.jsx keyword.operator.new.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.accessor.optional.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.block.js.jsx variable.other.property.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L function taggedTarget() {
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 24 source.js.jsx meta.function.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   return new?.target`x`;
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.operator.new.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.accessor.optional.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.block.js.jsx support.variable.property.target.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.block.js.jsx string.template.js.jsx punctuation.definition.string.template.begin.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.block.js.jsx string.template.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx string.template.js.jsx punctuation.definition.string.template.end.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L const quotient = total /* per item */ / count;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 35 source.js.jsx meta.var.expr.js.jsx comment.block.js.jsx
+T 37 source.js.jsx meta.var.expr.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 38 source.js.jsx meta.var.expr.js.jsx
+T 39 source.js.jsx meta.var.expr.js.jsx keyword.operator.arithmetic.js.jsx
+T 40 source.js.jsx meta.var.expr.js.jsx
+T 45 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 46 source.js.jsx punctuation.terminator.statement.js.jsx
+L let ratio = 10;
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 15 source.js.jsx punctuation.terminator.statement.js.jsx
+L ratio /* halve */ /= 2;
+T 5 source.js.jsx variable.other.readwrite.js.jsx
+T 6 source.js.jsx
+T 8 source.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 15 source.js.jsx comment.block.js.jsx
+T 17 source.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 18 source.js.jsx
+T 20 source.js.jsx keyword.operator.assignment.compound.js.jsx
+T 21 source.js.jsx
+T 22 source.js.jsx constant.numeric.decimal.js.jsx
+T 23 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L async function iterate(stream: AsyncIterable<number>) {
+T 5 source.js.jsx meta.function.js.jsx storage.modifier.async.js.jsx
+T 6 source.js.jsx meta.function.js.jsx
+T 14 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 15 source.js.jsx meta.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx variable.parameter.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 44 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 45 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 51 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.parameters.js.jsx support.type.primitive.js.jsx
+T 52 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 53 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 54 source.js.jsx meta.function.js.jsx
+T 55 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   for await (const chunk of stream) {
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.loop.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.loop.js.jsx
+T 12 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 19 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.var.expr.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 27 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.operator.expression.of.js.jsx
+T 28 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 37 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   }
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx
+T 3 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L }
+T 1 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L function /* named */ * generate() {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 11 source.js.jsx meta.function.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 18 source.js.jsx meta.function.js.jsx comment.block.js.jsx
+T 20 source.js.jsx meta.function.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 21 source.js.jsx meta.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx keyword.generator.asterisk.js.jsx
+T 23 source.js.jsx meta.function.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 34 source.js.jsx meta.function.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L if (ready) /ab+c/g.test(input);
+T 2 source.js.jsx keyword.control.conditional.js.jsx
+T 3 source.js.jsx
+T 4 source.js.jsx meta.brace.round.js.jsx
+T 9 source.js.jsx variable.other.readwrite.js.jsx
+T 10 source.js.jsx meta.brace.round.js.jsx
+T 12 source.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 14 source.js.jsx string.regexp.js.jsx
+T 15 source.js.jsx string.regexp.js.jsx keyword.operator.quantifier.regexp
+T 16 source.js.jsx string.regexp.js.jsx
+T 17 source.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 18 source.js.jsx string.regexp.js.jsx keyword.other.js.jsx
+T 19 source.js.jsx meta.function-call.js.jsx punctuation.accessor.js.jsx
+T 23 source.js.jsx meta.function-call.js.jsx entity.name.function.js.jsx
+T 24 source.js.jsx meta.brace.round.js.jsx
+T 29 source.js.jsx variable.other.readwrite.js.jsx
+T 30 source.js.jsx meta.brace.round.js.jsx
+T 31 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L const patterns = [/[\x41\u0041\101\cA]/, /a(?=b)/, /[\x41-\x5a\cA-\cZa-\]]/];
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 24 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.character.numeric.regexp
+T 30 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.character.numeric.regexp
+T 34 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.character.numeric.regexp
+T 37 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.character.control.regexp
+T 38 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 39 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 40 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 41 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx
+T 42 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 43 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx
+T 44 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp punctuation.definition.group.regexp
+T 46 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp punctuation.definition.group.assertion.regexp meta.assertion.look-ahead.regexp
+T 47 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp
+T 48 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp punctuation.definition.group.regexp
+T 49 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 50 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 51 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx
+T 52 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 53 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 57 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.numeric.regexp
+T 58 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 62 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.numeric.regexp
+T 65 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.control.regexp
+T 66 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 69 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.control.regexp
+T 71 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 73 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.escape.backslash.regexp
+T 74 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 75 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 76 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 77 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L case 0:
+T 4 source.js.jsx keyword.control.switch.js.jsx
+T 5 source.js.jsx
+T 6 source.js.jsx constant.numeric.decimal.js.jsx
+T 7 source.js.jsx
+L default:
+T 7 source.js.jsx keyword.control.switch.js.jsx
+T 8 source.js.jsx
+L switch
+T 6 source.js.jsx keyword.control.switch.js.jsx
+L 
+L const arrow = async (
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx entity.name.function.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx storage.modifier.async.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+L   public readonly a: number,
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx variable.parameter.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx punctuation.separator.parameter.js.jsx
+L   private readonly cb: () => void,
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx entity.name.function.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx punctuation.separator.parameter.js.jsx
+L   public ...callbacks: () => void,
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.rest.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx entity.name.function.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx punctuation.separator.parameter.js.jsx
+L   readonly this: () => void,
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx entity.name.function.js.jsx variable.language.this.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx punctuation.separator.parameter.js.jsx
+L   maybe?: () => void,
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx entity.name.function.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx keyword.operator.optional.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx punctuation.separator.parameter.js.jsx
+L   readonly ...rest: string[]
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx keyword.operator.rest.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx variable.parameter.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+L ) => a;
+T 1 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.arrow.js.jsx storage.type.function.arrow.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.arrow.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 7 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L function returns() {
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 19 source.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   return async (
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.control.flow.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx storage.modifier.async.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+L     public this: Window,
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx storage.modifier.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.block.js.jsx variable.parameter.js.jsx variable.language.this.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.type.annotation.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.separator.parameter.js.jsx
+L     b?: number
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 5 source.js.jsx meta.function.js.jsx meta.block.js.jsx variable.parameter.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.block.js.jsx keyword.operator.optional.js.jsx
+T 7 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.type.annotation.js.jsx
+T 14 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+L   ) => b;
+T 2 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 3 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.brace.round.js.jsx
+T 4 source.js.jsx meta.function.js.jsx meta.block.js.jsx
+T 6 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.arrow.js.jsx storage.type.function.arrow.js.jsx
+T 7 source.js.jsx meta.function.js.jsx meta.block.js.jsx meta.arrow.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.block.js.jsx variable.other.readwrite.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L const methods = {
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.definition.block.js.jsx
+L   42 /* answer */ : "answer",
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx constant.numeric.decimal.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx comment.block.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx comment.block.js.jsx punctuation.definition.comment.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx punctuation.separator.key-value.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx string.quoted.double.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   async: async <T>(
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx punctuation.separator.key-value.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx storage.modifier.async.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.brace.round.js.jsx
+L     x: T
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx variable.parameter.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+L   ) => x,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.brace.round.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.arrow.js.jsx storage.type.function.arrow.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.arrow.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx variable.other.readwrite.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   plain: async (
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx entity.name.function.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx punctuation.separator.key-value.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx storage.modifier.async.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.brace.round.js.jsx
+L     y: number
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx variable.parameter.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+L   ) => y,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.brace.round.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.arrow.js.jsx storage.type.function.arrow.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.arrow.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx variable.other.readwrite.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   generic: async <
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx entity.name.function.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx punctuation.separator.key-value.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx storage.modifier.async.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+L     T
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+L   >(
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.brace.round.js.jsx
+L     z: T
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx variable.parameter.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+L   ) => z,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.brace.round.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.arrow.js.jsx storage.type.function.arrow.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.arrow.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx variable.other.readwrite.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   "quoted" (): void {},
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx string.quoted.double.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx support.type.primitive.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   first()
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+L   async *second() {},
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx storage.modifier.async.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx keyword.generator.asterisk.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   third()
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+L   get fourth() {},
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx storage.type.property.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   [a[b[c]]]() {},
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx variable.other.readwrite.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx variable.other.readwrite.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx variable.other.readwrite.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   ٤٢: 1,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx constant.numeric.decimal.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx punctuation.separator.key-value.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx constant.numeric.decimal.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   "k" as const,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx keyword.control.as.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx storage.modifier.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L   "s" satisfies Shape,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx
+L   "t" as Shape,
+T 2 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx
+T 3 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx meta.object-literal.key.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx keyword.control.as.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx entity.name.type.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.separator.comma.js.jsx
+L };
+T 1 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.definition.block.js.jsx
+T 2 source.js.jsx punctuation.terminator.statement.js.jsx
+L const checked = { shorthand satisfies Shape };
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.definition.block.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx
+T 37 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx keyword.control.satisfies.js.jsx
+T 38 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 43 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx entity.name.type.js.jsx
+T 44 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx meta.object.member.js.jsx
+T 45 source.js.jsx meta.var.expr.js.jsx meta.objectliteral.js.jsx punctuation.definition.block.js.jsx
+T 46 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L class Shapes {
+T 5 source.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 6 source.js.jsx meta.class.js.jsx
+T 12 source.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 13 source.js.jsx meta.class.js.jsx
+T 14 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L   override draw() {}
+T 2 source.js.jsx meta.class.js.jsx
+T 10 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx storage.modifier.js.jsx
+T 11 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 15 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 16 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 17 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 18 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 19 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 20 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   abstract area(): number;
+T 2 source.js.jsx meta.class.js.jsx
+T 10 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx storage.modifier.js.jsx
+T 11 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 15 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 16 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 17 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 18 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 19 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 25 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx support.type.primitive.js.jsx
+T 26 source.js.jsx meta.class.js.jsx punctuation.terminator.statement.js.jsx
+L   *() {}
+T 2 source.js.jsx meta.class.js.jsx
+T 3 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx keyword.generator.asterisk.js.jsx
+T 4 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 5 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 6 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 7 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 8 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   x = flag ? 1 : 2;
+T 2 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 3 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.definition.property.js.jsx variable.object.property.js.jsx
+T 4 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 5 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 6 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 10 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx variable.other.readwrite.js.jsx
+T 11 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 12 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx keyword.operator.ternary.js.jsx
+T 13 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 14 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 15 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 16 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx keyword.operator.ternary.js.jsx
+T 17 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 18 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 19 source.js.jsx meta.class.js.jsx punctuation.terminator.statement.js.jsx
+L   flag ? on : off
+T 2 source.js.jsx meta.class.js.jsx
+T 6 source.js.jsx meta.class.js.jsx variable.other.readwrite.js.jsx
+T 7 source.js.jsx meta.class.js.jsx
+T 8 source.js.jsx meta.class.js.jsx keyword.operator.ternary.js.jsx
+T 9 source.js.jsx meta.class.js.jsx
+T 11 source.js.jsx meta.class.js.jsx variable.other.readwrite.js.jsx
+T 12 source.js.jsx meta.class.js.jsx
+T 13 source.js.jsx meta.class.js.jsx keyword.operator.ternary.js.jsx
+T 14 source.js.jsx meta.class.js.jsx
+T 17 source.js.jsx meta.class.js.jsx variable.other.readwrite.js.jsx
+L }
+T 1 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L 
+L type Upper<S extends string> = intrinsic;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx storage.modifier.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx
+T 27 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx support.type.primitive.js.jsx
+T 28 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 29 source.js.jsx meta.type.declaration.js.jsx
+T 30 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 31 source.js.jsx meta.type.declaration.js.jsx
+T 40 source.js.jsx meta.type.declaration.js.jsx keyword.control.intrinsic.js.jsx
+T 41 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Ctor = new <T>(x: T) => T;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 9 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx meta.type.constructor.js.jsx keyword.control.new.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx variable.parameter.js.jsx
+T 22 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 23 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 26 source.js.jsx meta.type.declaration.js.jsx
+T 28 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 29 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx
+T 30 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx entity.name.type.js.jsx
+T 31 source.js.jsx punctuation.terminator.statement.js.jsx
+L type AbstractCtor = abstract new <T>() => T;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx
+T 28 source.js.jsx meta.type.declaration.js.jsx meta.type.constructor.js.jsx storage.modifier.js.jsx
+T 29 source.js.jsx meta.type.declaration.js.jsx
+T 32 source.js.jsx meta.type.declaration.js.jsx meta.type.constructor.js.jsx keyword.control.new.js.jsx
+T 33 source.js.jsx meta.type.declaration.js.jsx
+T 34 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 35 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 36 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 37 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 38 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 39 source.js.jsx meta.type.declaration.js.jsx
+T 41 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 42 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx
+T 43 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx entity.name.type.js.jsx
+T 44 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Head<T> = T extends [infer H extends string, ...unknown[]] ? H : never;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 9 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx entity.name.type.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx storage.modifier.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx
+T 26 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 31 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.infer.js.jsx keyword.operator.expression.infer.js.jsx
+T 32 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.infer.js.jsx
+T 33 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.infer.js.jsx entity.name.type.js.jsx
+T 34 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.infer.js.jsx
+T 41 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.infer.js.jsx keyword.operator.expression.extends.js.jsx
+T 42 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx
+T 48 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx support.type.primitive.js.jsx
+T 49 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx punctuation.separator.comma.js.jsx
+T 50 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx
+T 53 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx keyword.operator.rest.js.jsx
+T 60 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx support.type.primitive.js.jsx
+T 61 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 62 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 63 source.js.jsx meta.type.declaration.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 64 source.js.jsx meta.type.declaration.js.jsx
+T 65 source.js.jsx meta.type.declaration.js.jsx keyword.operator.ternary.js.jsx
+T 66 source.js.jsx meta.type.declaration.js.jsx
+T 67 source.js.jsx meta.type.declaration.js.jsx entity.name.type.js.jsx
+T 68 source.js.jsx meta.type.declaration.js.jsx
+T 69 source.js.jsx meta.type.declaration.js.jsx keyword.operator.ternary.js.jsx
+T 70 source.js.jsx meta.type.declaration.js.jsx
+T 75 source.js.jsx meta.type.declaration.js.jsx support.type.primitive.js.jsx
+T 76 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Member = ns?.<T>;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx entity.name.type.module.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx punctuation.accessor.optional.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 22 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Spread = { ...rest };
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx punctuation.definition.block.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx keyword.operator.spread.js.jsx
+T 23 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx entity.name.type.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx punctuation.definition.block.js.jsx
+T 26 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Fn = (readonly cb: () => void, ...fns: () => void, this: () => void, maybe?: () => void) => void;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 7 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 8 source.js.jsx meta.type.declaration.js.jsx
+T 9 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.brace.round.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx storage.modifier.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 22 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx entity.name.function.js.jsx
+T 23 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 26 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 27 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 29 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 30 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 34 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 35 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx punctuation.separator.parameter.js.jsx
+T 36 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 39 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx keyword.operator.rest.js.jsx
+T 42 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx entity.name.function.js.jsx
+T 43 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 44 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 45 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 46 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 47 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 49 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 50 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 54 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 55 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx punctuation.separator.parameter.js.jsx
+T 56 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 60 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx entity.name.function.js.jsx variable.language.this.js.jsx
+T 61 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 62 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 63 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 64 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 65 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 67 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 68 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 72 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 73 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx punctuation.separator.parameter.js.jsx
+T 74 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 79 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx entity.name.function.js.jsx
+T 80 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx keyword.operator.optional.js.jsx
+T 81 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 82 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 83 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 84 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 85 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 87 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 88 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 92 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 93 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.brace.round.js.jsx
+T 94 source.js.jsx meta.type.declaration.js.jsx
+T 96 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 97 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx
+T 101 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 102 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Plain = (readonly a: string, ...b: string[], this: Window, c?: number) => void;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.brace.round.js.jsx
+T 22 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx storage.modifier.js.jsx
+T 23 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx variable.parameter.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 26 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 32 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 33 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx punctuation.separator.parameter.js.jsx
+T 34 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 37 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx keyword.operator.rest.js.jsx
+T 38 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx variable.parameter.js.jsx
+T 39 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 40 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 46 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 47 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 48 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 49 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx punctuation.separator.parameter.js.jsx
+T 50 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 54 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx variable.parameter.js.jsx variable.language.this.js.jsx
+T 55 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 56 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 62 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 63 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx punctuation.separator.parameter.js.jsx
+T 64 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx
+T 65 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx variable.parameter.js.jsx
+T 66 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx keyword.operator.optional.js.jsx
+T 67 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 68 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx
+T 74 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 75 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.brace.round.js.jsx
+T 76 source.js.jsx meta.type.declaration.js.jsx
+T 78 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 79 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx
+T 83 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 84 source.js.jsx punctuation.terminator.statement.js.jsx
+L function assertsOnly(): asserts {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.asserts.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L function isOnly(): is {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 15 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 16 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 17 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 19 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.expression.is.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L 
+L import // @internal
+T 6 source.js.jsx meta.import.js.jsx keyword.control.import.js.jsx
+T 7 source.js.jsx meta.import.js.jsx
+T 9 source.js.jsx meta.import.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 10 source.js.jsx meta.import.js.jsx comment.line.double-slash.js.jsx
+T 11 source.js.jsx meta.import.js.jsx comment.line.double-slash.js.jsx storage.type.internaldeclaration.js.jsx punctuation.decorator.internaldeclaration.js.jsx
+T 19 source.js.jsx meta.import.js.jsx comment.line.double-slash.js.jsx storage.type.internaldeclaration.js.jsx
+L   lateName from "./late";
+T 2 source.js.jsx meta.import.js.jsx
+T 10 source.js.jsx meta.import.js.jsx variable.other.readwrite.alias.js.jsx
+T 11 source.js.jsx meta.import.js.jsx
+T 15 source.js.jsx meta.import.js.jsx keyword.control.from.js.jsx
+T 16 source.js.jsx meta.import.js.jsx
+T 17 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 23 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx
+T 24 source.js.jsx meta.import.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 25 source.js.jsx punctuation.terminator.statement.js.jsx
+L const c0 = 0, // @internal
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx punctuation.separator.comma.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx comment.line.double-slash.js.jsx punctuation.definition.comment.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx comment.line.double-slash.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx comment.line.double-slash.js.jsx storage.type.internaldeclaration.js.jsx punctuation.decorator.internaldeclaration.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx comment.line.double-slash.js.jsx storage.type.internaldeclaration.js.jsx
+L   c00 = 0;
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 10 source.js.jsx punctuation.terminator.statement.js.jsx
+L const c1 = 1,
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx punctuation.separator.comma.js.jsx
+L   c2 = 2;
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 9 source.js.jsx punctuation.terminator.statement.js.jsx
+L let l1 = 1,
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx punctuation.separator.comma.js.jsx
+L   l2 = 2;
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 9 source.js.jsx punctuation.terminator.statement.js.jsx
+L var v1 = 1,
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx punctuation.separator.comma.js.jsx
+L   v2 = 2;
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 9 source.js.jsx punctuation.terminator.statement.js.jsx
+L using u1 = r1,
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx punctuation.separator.comma.js.jsx
+L   u2 = r2;
+T 2 source.js.jsx meta.var.expr.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 10 source.js.jsx punctuation.terminator.statement.js.jsx
+L 
+L let handler!: () => void;
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx entity.name.function.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx keyword.operator.definiteassignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 25 source.js.jsx punctuation.terminator.statement.js.jsx
+L let LIMIT!: number;
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx keyword.operator.definiteassignment.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 19 source.js.jsx punctuation.terminator.statement.js.jsx
+L const tagged = tag<string>`text`;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx entity.name.function.tagged-template.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.type.parameters.js.jsx support.type.primitive.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx string.template.js.jsx punctuation.definition.string.template.begin.js.jsx
+T 31 source.js.jsx meta.var.expr.js.jsx string.template.js.jsx
+T 32 source.js.jsx meta.var.expr.js.jsx string.template.js.jsx punctuation.definition.string.template.end.js.jsx
+T 33 source.js.jsx punctuation.terminator.statement.js.jsx
+L const spaced = tag <string>`text`;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx entity.name.function.tagged-template.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.type.parameters.js.jsx support.type.primitive.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx string.template.js.jsx punctuation.definition.string.template.begin.js.jsx
+T 32 source.js.jsx meta.var.expr.js.jsx string.template.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx string.template.js.jsx punctuation.definition.string.template.end.js.jsx
+T 34 source.js.jsx punctuation.terminator.statement.js.jsx
+L export abstract class Base extends ns.Parent {}
+T 6 source.js.jsx meta.class.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.class.js.jsx
+T 15 source.js.jsx meta.class.js.jsx storage.modifier.js.jsx
+T 16 source.js.jsx meta.class.js.jsx
+T 21 source.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 22 source.js.jsx meta.class.js.jsx
+T 26 source.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 27 source.js.jsx meta.class.js.jsx
+T 34 source.js.jsx meta.class.js.jsx storage.modifier.js.jsx
+T 35 source.js.jsx meta.class.js.jsx
+T 37 source.js.jsx meta.class.js.jsx entity.name.type.module.js.jsx
+T 38 source.js.jsx meta.class.js.jsx punctuation.accessor.js.jsx
+T 44 source.js.jsx meta.class.js.jsx entity.other.inherited-class.js.jsx
+T 45 source.js.jsx meta.class.js.jsx
+T 46 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+T 47 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L export declare abstract class Declared {}
+T 6 source.js.jsx meta.class.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.class.js.jsx
+T 14 source.js.jsx meta.class.js.jsx storage.modifier.js.jsx
+T 15 source.js.jsx meta.class.js.jsx
+T 23 source.js.jsx meta.class.js.jsx storage.modifier.js.jsx
+T 24 source.js.jsx meta.class.js.jsx
+T 29 source.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 30 source.js.jsx meta.class.js.jsx
+T 38 source.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 39 source.js.jsx meta.class.js.jsx
+T 40 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+T 41 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L @sealed
+T 1 source.js.jsx meta.decorator.js.jsx punctuation.decorator.js.jsx
+T 7 source.js.jsx meta.decorator.js.jsx variable.other.readwrite.js.jsx
+L class Sealed {
+T 5 source.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 6 source.js.jsx meta.class.js.jsx
+T 12 source.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 13 source.js.jsx meta.class.js.jsx
+T 14 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L   async
+T 2 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 7 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.definition.property.js.jsx variable.object.property.js.jsx
+L   cb? = () => 0;
+T 2 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 4 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.definition.property.js.jsx entity.name.function.js.jsx
+T 5 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx keyword.operator.optional.js.jsx
+T 6 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 7 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 8 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.arrow.js.jsx
+T 9 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.arrow.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 10 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.arrow.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 11 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.arrow.js.jsx
+T 13 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.arrow.js.jsx storage.type.function.arrow.js.jsx
+T 14 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.arrow.js.jsx
+T 15 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 16 source.js.jsx meta.class.js.jsx punctuation.terminator.statement.js.jsx
+L   accessor count = 0;
+T 2 source.js.jsx meta.class.js.jsx
+T 10 source.js.jsx meta.class.js.jsx storage.type.property.js.jsx
+T 11 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 16 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx meta.definition.property.js.jsx variable.object.property.js.jsx
+T 17 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 18 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 19 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx
+T 20 source.js.jsx meta.class.js.jsx meta.field.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 21 source.js.jsx meta.class.js.jsx punctuation.terminator.statement.js.jsx
+L   constructor(private readonly onDone: () => void) {}
+T 2 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 13 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx storage.type.js.jsx
+T 14 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 21 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx storage.modifier.js.jsx
+T 22 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx
+T 30 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx storage.modifier.js.jsx
+T 31 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx
+T 37 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx entity.name.function.js.jsx
+T 38 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 39 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 40 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 41 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 42 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 44 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 45 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx
+T 49 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 50 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 51 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 52 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 53 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L }
+T 1 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L enum Colour {
+T 4 source.js.jsx meta.enum.declaration.js.jsx storage.type.enum.js.jsx
+T 5 source.js.jsx meta.enum.declaration.js.jsx
+T 11 source.js.jsx meta.enum.declaration.js.jsx entity.name.type.enum.js.jsx
+T 12 source.js.jsx meta.enum.declaration.js.jsx
+T 13 source.js.jsx meta.enum.declaration.js.jsx punctuation.definition.block.js.jsx
+L   Red,
+T 2 source.js.jsx meta.enum.declaration.js.jsx
+T 5 source.js.jsx meta.enum.declaration.js.jsx variable.other.enummember.js.jsx
+T 6 source.js.jsx meta.enum.declaration.js.jsx punctuation.separator.comma.js.jsx
+L   Green = 2,
+T 2 source.js.jsx meta.enum.declaration.js.jsx
+T 7 source.js.jsx meta.enum.declaration.js.jsx variable.other.enummember.js.jsx
+T 8 source.js.jsx meta.enum.declaration.js.jsx
+T 9 source.js.jsx meta.enum.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 10 source.js.jsx meta.enum.declaration.js.jsx
+T 11 source.js.jsx meta.enum.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 12 source.js.jsx meta.enum.declaration.js.jsx punctuation.separator.comma.js.jsx
+L }
+T 1 source.js.jsx meta.enum.declaration.js.jsx punctuation.definition.block.js.jsx
+L outer: {
+T 5 source.js.jsx entity.name.label.js.jsx
+T 6 source.js.jsx punctuation.separator.label.js.jsx
+T 7 source.js.jsx
+T 8 source.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L   break outer;
+T 2 source.js.jsx meta.block.js.jsx
+T 7 source.js.jsx meta.block.js.jsx keyword.control.loop.js.jsx
+T 8 source.js.jsx meta.block.js.jsx
+T 13 source.js.jsx meta.block.js.jsx entity.name.label.js.jsx
+T 14 source.js.jsx meta.block.js.jsx punctuation.terminator.statement.js.jsx
+L }
+T 1 source.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L let { 0: zero } = list;
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 5 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx constant.numeric.decimal.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.destructuring.js.jsx
+T 9 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx punctuation.definition.binding-pattern.object.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.object-binding-pattern-variable.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 23 source.js.jsx punctuation.terminator.statement.js.jsx
+L const shifted = (a << 2) + (b >> 1) + (c >>> 3);
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.shift.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx keyword.operator.arithmetic.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx
+T 32 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.shift.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 35 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 36 source.js.jsx meta.var.expr.js.jsx
+T 37 source.js.jsx meta.var.expr.js.jsx keyword.operator.arithmetic.js.jsx
+T 38 source.js.jsx meta.var.expr.js.jsx
+T 39 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 40 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 41 source.js.jsx meta.var.expr.js.jsx
+T 44 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.shift.js.jsx
+T 45 source.js.jsx meta.var.expr.js.jsx
+T 46 source.js.jsx meta.var.expr.js.jsx constant.numeric.decimal.js.jsx
+T 47 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 48 source.js.jsx punctuation.terminator.statement.js.jsx
+L const bits = (a & b) | (c ^ ~d);
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.js.jsx
+T 23 source.js.jsx meta.var.expr.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx keyword.operator.bitwise.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 31 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 32 source.js.jsx punctuation.terminator.statement.js.jsx
+L const fits = shape satisfies Shape;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx variable.other.readwrite.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx keyword.control.satisfies.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx entity.name.type.js.jsx
+T 35 source.js.jsx punctuation.terminator.statement.js.jsx
+L const deep = a?.b.c;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx variable.other.object.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.optional.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx variable.other.object.property.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx variable.other.property.js.jsx
+T 20 source.js.jsx punctuation.terminator.statement.js.jsx
+L const here = import.meta;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx keyword.control.import.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx support.variable.property.importmeta.js.jsx
+T 25 source.js.jsx punctuation.terminator.statement.js.jsx
+L const size = list?.length;
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx variable.other.object.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx punctuation.accessor.optional.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx support.variable.property.js.jsx
+T 26 source.js.jsx punctuation.terminator.statement.js.jsx
+L const singleUnterminated = 'no end
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx string.quoted.single.js.jsx punctuation.definition.string.begin.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx string.quoted.single.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx string.quoted.single.js.jsx invalid.illegal.newline.js.jsx
+L type Mapped<T> = { [K in keyof T as Upper<K>]: T[K] };
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx punctuation.definition.block.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx meta.brace.square.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx entity.name.type.js.jsx
+T 22 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx keyword.operator.expression.in.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx
+T 30 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx keyword.operator.expression.keyof.js.jsx
+T 31 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx
+T 32 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx entity.name.type.js.jsx
+T 33 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx
+T 35 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx keyword.control.as.js.jsx
+T 36 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx
+T 41 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx entity.name.type.js.jsx
+T 42 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 43 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 44 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 45 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.indexer.mappedtype.declaration.js.jsx meta.brace.square.js.jsx
+T 46 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 47 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx
+T 48 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx entity.name.type.js.jsx
+T 49 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 50 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx entity.name.type.js.jsx
+T 51 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 52 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx meta.type.annotation.js.jsx
+T 53 source.js.jsx meta.type.declaration.js.jsx meta.object.type.js.jsx punctuation.definition.block.js.jsx
+T 54 source.js.jsx punctuation.terminator.statement.js.jsx
+L declare type Declared = 1;
+T 7 source.js.jsx meta.type.declaration.js.jsx storage.modifier.js.jsx
+T 8 source.js.jsx meta.type.declaration.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 22 source.js.jsx meta.type.declaration.js.jsx
+T 23 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 24 source.js.jsx meta.type.declaration.js.jsx
+T 25 source.js.jsx meta.type.declaration.js.jsx constant.numeric.decimal.js.jsx
+T 26 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Lazy = import("./lazy").Value;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 9 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx keyword.operator.expression.import.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.brace.round.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 26 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx string.quoted.double.js.jsx
+T 27 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx string.quoted.double.js.jsx punctuation.definition.string.end.js.jsx
+T 28 source.js.jsx meta.type.declaration.js.jsx meta.type.paren.cover.js.jsx meta.brace.round.js.jsx
+T 29 source.js.jsx meta.type.declaration.js.jsx
+T 34 source.js.jsx meta.type.declaration.js.jsx entity.name.type.js.jsx
+T 35 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Later = () =>
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 10 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 11 source.js.jsx meta.type.declaration.js.jsx
+T 12 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+L   void;
+T 2 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx
+T 6 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 7 source.js.jsx punctuation.terminator.statement.js.jsx
+L type Optional = (a?: string) => void;
+T 4 source.js.jsx meta.type.declaration.js.jsx storage.type.type.js.jsx
+T 5 source.js.jsx meta.type.declaration.js.jsx
+T 13 source.js.jsx meta.type.declaration.js.jsx entity.name.type.alias.js.jsx
+T 14 source.js.jsx meta.type.declaration.js.jsx
+T 15 source.js.jsx meta.type.declaration.js.jsx keyword.operator.assignment.js.jsx
+T 16 source.js.jsx meta.type.declaration.js.jsx
+T 17 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 18 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx variable.parameter.js.jsx
+T 19 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx keyword.operator.optional.js.jsx
+T 20 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 21 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx
+T 27 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 28 source.js.jsx meta.type.declaration.js.jsx meta.type.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 29 source.js.jsx meta.type.declaration.js.jsx
+T 31 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx storage.type.function.arrow.js.jsx
+T 32 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx
+T 36 source.js.jsx meta.type.declaration.js.jsx meta.type.function.return.js.jsx support.type.primitive.js.jsx
+T 37 source.js.jsx punctuation.terminator.statement.js.jsx
+L let annotated:
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+L   number;
+T 2 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx
+T 8 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 9 source.js.jsx punctuation.terminator.statement.js.jsx
+L function laterReturn():
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+L   number {}
+T 2 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 8 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx support.type.primitive.js.jsx
+T 9 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 10 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 11 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L function defaulted<T = string>() {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 18 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 19 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.begin.js.jsx
+T 20 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx entity.name.type.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx keyword.operator.assignment.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx
+T 29 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx support.type.primitive.js.jsx
+T 30 source.js.jsx meta.function.js.jsx meta.type.parameters.js.jsx punctuation.definition.typeparameters.end.js.jsx
+T 31 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 32 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 33 source.js.jsx meta.function.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L let frozen: readonly string[];
+T 3 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 4 source.js.jsx meta.var.expr.js.jsx
+T 10 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.readwrite.js.jsx
+T 11 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx keyword.operator.type.annotation.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx storage.modifier.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx support.type.primitive.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.type.annotation.js.jsx meta.type.tuple.js.jsx meta.brace.square.js.jsx
+T 30 source.js.jsx punctuation.terminator.statement.js.jsx
+L class AsyncStatic { async static one() {} }
+T 5 source.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 6 source.js.jsx meta.class.js.jsx
+T 17 source.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 18 source.js.jsx meta.class.js.jsx
+T 19 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+T 20 source.js.jsx meta.class.js.jsx
+T 25 source.js.jsx meta.class.js.jsx storage.modifier.async.js.jsx
+T 26 source.js.jsx meta.class.js.jsx
+T 32 source.js.jsx meta.class.js.jsx storage.modifier.js.jsx
+T 33 source.js.jsx meta.class.js.jsx
+T 36 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 37 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 38 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 39 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 40 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 41 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 42 source.js.jsx meta.class.js.jsx
+T 43 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L class Guards {
+T 5 source.js.jsx meta.class.js.jsx storage.type.class.js.jsx
+T 6 source.js.jsx meta.class.js.jsx
+T 12 source.js.jsx meta.class.js.jsx entity.name.type.class.js.jsx
+T 13 source.js.jsx meta.class.js.jsx
+T 14 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L   isThing(): this is Thing {}
+T 2 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx
+T 9 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.definition.method.js.jsx entity.name.function.js.jsx
+T 10 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 11 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 12 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 13 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 17 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx variable.parameter.js.jsx variable.language.this.js.jsx
+T 18 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 20 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx keyword.operator.expression.is.js.jsx
+T 21 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 26 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx entity.name.type.js.jsx
+T 27 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.return.type.js.jsx
+T 28 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 29 source.js.jsx meta.class.js.jsx meta.method.declaration.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L }
+T 1 source.js.jsx meta.class.js.jsx punctuation.definition.block.js.jsx
+L function assertsValue(x): asserts x {}
+T 8 source.js.jsx meta.function.js.jsx storage.type.function.js.jsx
+T 9 source.js.jsx meta.function.js.jsx
+T 21 source.js.jsx meta.function.js.jsx meta.definition.function.js.jsx entity.name.function.js.jsx
+T 22 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.begin.js.jsx
+T 23 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx variable.parameter.js.jsx
+T 24 source.js.jsx meta.function.js.jsx meta.parameters.js.jsx punctuation.definition.parameters.end.js.jsx
+T 25 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.annotation.js.jsx
+T 26 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 33 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx keyword.operator.type.asserts.js.jsx
+T 34 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 35 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx variable.parameter.js.jsx
+T 36 source.js.jsx meta.function.js.jsx meta.return.type.js.jsx
+T 37 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+T 38 source.js.jsx meta.function.js.jsx meta.block.js.jsx punctuation.definition.block.js.jsx
+L export declare using resource = acquire();
+T 6 source.js.jsx meta.var.expr.js.jsx keyword.control.export.js.jsx
+T 7 source.js.jsx meta.var.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx storage.modifier.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx
+T 29 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 30 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 31 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 32 source.js.jsx meta.var.expr.js.jsx
+T 39 source.js.jsx meta.var.expr.js.jsx meta.function-call.js.jsx entity.name.function.js.jsx
+T 40 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 41 source.js.jsx meta.var.expr.js.jsx meta.brace.round.js.jsx
+T 42 source.js.jsx punctuation.terminator.statement.js.jsx
+L const groups = [/(?!x)/, /(?:y)/, /[\--z]/, /[\.-9]/];
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 12 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 13 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 14 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 15 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx
+T 16 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 17 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp punctuation.definition.group.regexp
+T 20 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp punctuation.definition.group.assertion.regexp meta.assertion.negative-look-ahead.regexp
+T 21 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp
+T 22 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.assertion.regexp punctuation.definition.group.regexp
+T 23 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 24 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 25 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx
+T 26 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.regexp punctuation.definition.group.regexp
+T 29 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.regexp punctuation.definition.group.regexp punctuation.definition.group.no-capture.regexp
+T 30 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.regexp
+T 31 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx meta.group.regexp punctuation.definition.group.regexp
+T 32 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 33 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 34 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx
+T 35 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 36 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 39 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 40 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp
+T 41 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 42 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 43 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx punctuation.separator.comma.js.jsx
+T 44 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx
+T 45 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.begin.js.jsx
+T 46 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 48 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.escape.backslash.regexp
+T 50 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 51 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 52 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx string.regexp.js.jsx punctuation.definition.string.end.js.jsx
+T 53 source.js.jsx meta.var.expr.js.jsx meta.array.literal.js.jsx meta.brace.square.js.jsx
+T 54 source.js.jsx punctuation.terminator.statement.js.jsx
+L const unterminated = "no end
+T 5 source.js.jsx meta.var.expr.js.jsx storage.type.js.jsx
+T 6 source.js.jsx meta.var.expr.js.jsx
+T 18 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx meta.definition.variable.js.jsx variable.other.constant.js.jsx
+T 19 source.js.jsx meta.var.expr.js.jsx meta.var-single-variable.expr.js.jsx
+T 20 source.js.jsx meta.var.expr.js.jsx keyword.operator.assignment.js.jsx
+T 21 source.js.jsx meta.var.expr.js.jsx
+T 22 source.js.jsx meta.var.expr.js.jsx string.quoted.double.js.jsx punctuation.definition.string.begin.js.jsx
+T 27 source.js.jsx meta.var.expr.js.jsx string.quoted.double.js.jsx
+T 28 source.js.jsx meta.var.expr.js.jsx string.quoted.double.js.jsx invalid.illegal.newline.js.jsx
+L 

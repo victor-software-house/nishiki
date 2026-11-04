@@ -27,11 +27,11 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 14 of 15 | 93.3% | 10 of 12 | 83.3% | 0 | 0 |  |
 | Java | `java` | 157 of 214 | 73.4% | 102 of 134 | 76.1% | 0 | 19 |  |
-| TypeScript | `javascript` | 481 of 534 | 90.1% | 491 of 605 | 81.2% | 0 | 15 |  |
+| TypeScript | `javascript` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | JSON | `json` | 14 of 23 | 60.9% | 10 of 15 | 66.7% | 0 | 10 |  |
 | JSON | `jsonc` | 19 of 23 | 82.6% | 13 of 15 | 86.7% | 0 | 0 |  |
 | JSON | `jsonl` | 13 of 23 | 56.5% | 11 of 15 | 73.3% | 0 | 6 |  |
-| TypeScript | `jsx` | 472 of 534 | 88.4% | 490 of 605 | 81.0% | 0 | 14 |  |
+| TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | Kotlin | `kotlin` | 57 of 65 | 87.7% | 25 of 35 | 71.4% | 0 | 0 |  |
 | Less | `less` | 167 of 590 | 28.3% | 121 of 437 | 27.7% | 0 | 8 |  |
 | Lua | `lua` | 81 of 152 | 53.3% | 32 of 74 | 43.2% | 0 | 3 |  |
@@ -45,8 +45,8 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 4 |  |
 | Swift | `swift` | 267 of 448 | 59.6% | 183 of 448 | 40.8% | 0 | 11 |  |
 | TOML | `toml` | 40 of 54 | 74.1% | 30 of 53 | 56.6% | 0 | 2 |  |
-| TypeScript | `tsx` | 477 of 534 | 89.3% | 490 of 605 | 81.0% | 0 | 18 |  |
-| TypeScript | `typescript` | 468 of 515 | 90.9% | 478 of 576 | 83.0% | 0 | 12 |  |
+| TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
+| TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
 | XML | `xml` | 23 of 32 | 71.9% | 46 of 66 | 69.7% | 0 | 1 |  |
 | YAML | `yaml` | 33 of 62 | 53.2% | 22 of 55 | 40.0% | 0 | 14 |  |
 
@@ -2103,105 +2103,13 @@ patterns[1].patterns[4].match  \b(?<!\$)(abstract|assert|boolean|break|byte|case
 ### `javascript`
 
 ```text
-#array-binding-pattern.begin  groups 1
-#class-declaration.begin  groups 3
-#class-or-interface-heritage.patterns[4].match  groups 2 (fuzz)
-#comment.patterns[1].begin  groups 2, 3
-#comment.patterns[2].begin  groups 1
-#control-statement.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(case|default|swit…  fuzz
-#decorator.end  (?=\s)  fuzz
-#enum-declaration.patterns[1].patterns[1].begin  ([$_[:alpha:]][$_[:alnum:]]*)
-#enum-declaration.patterns[1].patterns[1].end  (?=[,}]|$)
-#expression-inside-possibly-arrow-parens.patterns[5].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(override|public|p…
-#expression-inside-possibly-arrow-parens.patterns[6].match  groups 1, 2, 3
-#expression-inside-possibly-arrow-parens.patterns[7].match  groups 1, 2, 3
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
-#expression-operators.patterns[11].begin  groups 2
-#expression-operators.patterns[25].end  groups 1
-#field-declaration.patterns[6].match  groups 2
-#function-body.patterns[6].match  \*  fuzz
-#if-statement.patterns[0].patterns[2].begin  (?<=\))\s*/(?![*/])(?=(?:[^/\[\\]|\\.|\[([^]\\]|\\.)*])+/([…
-#if-statement.patterns[0].patterns[2].end  (/)([dgimsuvy]*)
-#import-declaration.begin  groups 2
-#import-equals-declaration.patterns[0].begin  groups 2
-#import-equals-declaration.patterns[1].begin  groups 4
-#import-export-clause.patterns[1].match  groups 1, 2, 13, 15
-#import-export-clause.patterns[4].match  \b(default)\b
-#import-export-clause.patterns[5].match  groups 3
-#indexer-mapped-type-declaration.patterns[0].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(as)\s+
-#label.patterns[0].begin  ([$_[:alpha:]][$_[:alnum:]]*)\s*(:)(?=\s*\{)  fuzz
-#label.patterns[0].end  (?<=})  fuzz
-#method-declaration.patterns[1].begin  groups 6
-#method-declaration.patterns[2].begin  groups 1, 3
-#numeric-literal.patterns[3].match  groups 2, 4, 6, 7, 9, 11, 13
-#object-binding-element.patterns[1].begin  (?=(\b((?<!\$)0[Xx]\h[_\h]*(n)?\b(?!\$))|\b((?<!\$)0[Bb][01…
-#object-binding-element.patterns[1].end  (?=[,}])
-#object-binding-pattern.begin  groups 1
-#object-identifiers.patterns[1].match  groups 2, 3
-#object-literal-method-declaration.patterns[2].begin  groups 1, 2, 3
-#object-member.patterns[5].begin  (?<=[]"'`])(?=\s*[(<])
-#object-member.patterns[5].end  (?=[,;}])|(?<=})
-#object-member.patterns[6].match  (?![$_[:alpha:]])(\d+)\s*(?=(/\*([^*]|(\*[^/]))*\*/\s*)*:)
-#object-member.patterns[11].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(as)\s+(const)(?=\…
-#object-member.patterns[12].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(as)|(satisfies…
-#object-member.patterns[12].end  (?=[-\])+,:;>?}]|\|\||&&|!==|$|^|((?<![$_[:alnum:]])(?:(?<=…
-#object-member.patterns[14].patterns[0].begin  (?<=:)\s*(async)?(?=\s*(<\s*(((const\s+)?[$_[:alpha:]])|(\{…
-#object-member.patterns[14].patterns[0].end  (?<=\))
-#object-member.patterns[14].patterns[0].patterns[1].begin  \(
-#object-member.patterns[14].patterns[0].patterns[1].end  \)
-#object-member.patterns[14].patterns[1].begin  groups 1
-#object-member.patterns[14].patterns[2].begin  (?<=:)\s*(async)?\s*(?=<\s*$)
-#object-member.patterns[14].patterns[2].end  (?<=>)
-#object-member.patterns[14].patterns[3].begin  (?<=>)\s*(\()(?=\s*((([\[{]\s*)?)$|((\{([^{}]|(\{([^{}]|\{[…
-#object-member.patterns[14].patterns[3].end  \)
-#parameter-array-binding-pattern.begin  (?:(\.\.\.)\s*)?(\[)
-#parameter-array-binding-pattern.end  ]
-#parameter-name.patterns[1].match  groups 1, 2, 3
-#parameter-object-binding-pattern.begin  groups 1
-#paren-expression-possibly-arrow.patterns[0].begin  groups 1
-#paren-expression-possibly-arrow.patterns[1].begin  groups 1
-#property-accessor.match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(accessor|get|set)…
-#regex-character-class.patterns[2].match  \\c[A-Z]
-#regexp.patterns[4].begin  groups 3, 4
-#regexp.patterns[5].begin  groups 1
-#regexp.patterns[6].patterns[0].match  groups 1, 2, 3, 4, 5, 6
-#return-type.patterns[1].begin  (?<=\))\s*(:)
-#return-type.patterns[1].end  (?<![\&:|])((?=[,;{}]|//|^\s*$)|((?<=\S)(?=\s*$)))
-#single-line-comment-consuming-line-ending.begin  groups 1, 4, 5
-#support-objects.patterns[2].match  groups 3
-#support-objects.patterns[3].match  groups 3
-#support-objects.patterns[4].match  groups 2, 4
-#support-objects.patterns[5].match  groups 4
-#template.patterns[1].begin  groups 1
-#template-call.patterns[1].begin  groups 1
-#template-type.patterns[1].begin  groups 1
-#type-alias-declaration.begin  groups 2
-#type-alias-declaration.patterns[2].begin  (=)\s*(intrinsic)(?![$_[:alnum:]])(?:(?=\.\.\.)|(?!\.))
-#type-alias-declaration.patterns[2].end  (?=[;}]|^\s*$|^\s*(?:abstract|async|\bawait\s+\busing(?=\s+…
-#type-annotation.patterns[1].begin  (:)  fuzz
-#type-annotation.patterns[1].end  (?<![\&:|])((?=[]),;}]|//)|(?==[^>])|(?=^\s*$)|((?<=[]$)>_}…  fuzz
-#type-fn-type-parameters.patterns[0].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(abstract)\s+)?…
-#type-fn-type-parameters.patterns[0].end  (?<=>)
-#type-function-return-type.patterns[1].begin  =>
-#type-function-return-type.patterns[1].end  (?<!=>)(?<![\&|])((?=[]),:;=>?{}]|//|^\s*$)|((?<=\S)(?=\s*$…
-#type-infer.patterns[0].match  groups 3
-#type-name.patterns[0].begin  groups 3
-#type-object.patterns[6].begin  \.\.\.
-#type-object.patterns[6].end  (?=[,;}]|$)|(?<=})
-#type-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))import(?=\s*\()
-#type-paren-or-function-parameters.patterns[0].match  groups 1 (fuzz), 2, 3, 5
-#type-paren-or-function-parameters.patterns[1].match  groups 1, 2, 3, 5
-#type-predicate-operator.patterns[0].match  groups 2
-#type-predicate-operator.patterns[1].match  groups 3
-#type-predicate-operator.patterns[2].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))asserts(?![$_[:aln…
-#type-predicate-operator.patterns[3].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))is(?![$_[:alnum:]]…
-#var-expr.patterns[1].patterns[5].begin  (,)\s*(?=$|//)  fuzz
-#var-expr.patterns[1].patterns[5].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…  fuzz
-#var-expr.patterns[2].patterns[4].begin  (,)\s*((?!\S)|(?=//))
-#var-expr.patterns[2].patterns[4].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…
-#var-single-variable.patterns[0].begin  groups 2
-#var-single-variable.patterns[1].begin  groups 2
+#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
+#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 ```
 
 ### `json`
@@ -2245,108 +2153,13 @@ patterns[1].patterns[4].match  \b(?<!\$)(abstract|assert|boolean|break|byte|case
 ### `jsx`
 
 ```text
-#array-binding-pattern.begin  groups 1
-#async-modifier.match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(async)(?![$_[:aln…
-#class-declaration.begin  groups 1 (fuzz), 3
-#comment.patterns[1].begin  groups 2, 3
-#comment.patterns[2].begin  groups 1
-#control-statement.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(case|default|swit…  fuzz
-#decorator.begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))@  fuzz
-#decorator.end  (?=\s)  fuzz
-#enum-declaration.patterns[1].patterns[1].begin  ([$_[:alpha:]][$_[:alnum:]]*)
-#enum-declaration.patterns[1].patterns[1].end  (?=[,}]|$)
-#expression-inside-possibly-arrow-parens.patterns[5].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(override|public|p…
-#expression-inside-possibly-arrow-parens.patterns[6].match  groups 1, 2, 3
-#expression-inside-possibly-arrow-parens.patterns[7].match  groups 1, 2, 3
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
-#expression-operators.patterns[11].begin  groups 2
-#expression-operators.patterns[15].match  <<|>>>?
-#expression-operators.patterns[20].match  [\&^|~]  fuzz
-#expression-operators.patterns[25].end  groups 1
-#for-loop.patterns[1].match  await
-#function-body.patterns[6].match  \*
-#if-statement.patterns[0].patterns[2].begin  (?<=\))\s*/(?![*/])(?=(?:[^/\[\\]|\\.|\[([^]\\]|\\.)*])+/([…
-#if-statement.patterns[0].patterns[2].end  (/)([dgimsuvy]*)
-#import-declaration.begin  groups 1, 2
-#import-equals-declaration.patterns[0].begin  groups 2
-#import-equals-declaration.patterns[1].begin  groups 4
-#import-export-clause.patterns[1].match  groups 2, 13
-#import-export-clause.patterns[3].match  \*
-#import-export-clause.patterns[4].match  \b(default)\b
-#method-declaration.patterns[1].begin  groups 6
-#method-declaration.patterns[2].begin  groups 1, 3
-#numeric-literal.patterns[3].match  groups 2, 4, 6, 7, 9, 11, 13
-#numericConstant-literal.patterns[1].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))Infinity(?![$_[:al…
-#object-binding-pattern.begin  groups 1
-#object-literal-method-declaration.patterns[2].begin  groups 1, 2, 3
-#object-member.patterns[5].begin  (?<=[]"'`])(?=\s*[(<])  fuzz
-#object-member.patterns[5].end  (?=[,;}])|(?<=})  fuzz
-#object-member.patterns[6].match  (?![$_[:alpha:]])(\d+)\s*(?=(/\*([^*]|(\*[^/]))*\*/\s*)*:)
-#object-member.patterns[11].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(as)\s+(const)(?=\…
-#object-member.patterns[12].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(as)|(satisfies…
-#object-member.patterns[12].end  (?=[-\])+,:;>?}]|\|\||&&|!==|$|^|((?<![$_[:alnum:]])(?:(?<=…
-#object-member.patterns[14].patterns[0].begin  (?<=:)\s*(async)?(?=\s*(<\s*(((const\s+)?[$_[:alpha:]])|(\{…
-#object-member.patterns[14].patterns[0].end  (?<=\))
-#object-member.patterns[14].patterns[0].patterns[1].begin  \(
-#object-member.patterns[14].patterns[0].patterns[1].end  \)
-#object-member.patterns[14].patterns[1].begin  groups 1
-#object-member.patterns[14].patterns[2].begin  (?<=:)\s*(async)?\s*(?=<\s*$)
-#object-member.patterns[14].patterns[2].end  (?<=>)
-#object-member.patterns[14].patterns[3].begin  (?<=>)\s*(\()(?=\s*((([\[{]\s*)?)$|((\{([^{}]|(\{([^{}]|\{[…
-#object-member.patterns[14].patterns[3].end  \)
-#parameter-array-binding-pattern.begin  groups 1
-#parameter-name.patterns[1].match  groups 1, 2, 3
-#parameter-object-binding-pattern.begin  groups 1
-#paren-expression-possibly-arrow.patterns[0].begin  groups 1
-#paren-expression-possibly-arrow.patterns[1].begin  groups 1
-#property-accessor.match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(accessor|get|set)…
-#qstring-single.end  groups 2 (fuzz)
-#regex-character-class.patterns[1].match  \\([0-7]{3}|x\h{2}|u\h{4})
-#regex-character-class.patterns[2].match  \\c[A-Z]
-#regexp.patterns[4].begin  groups 3, 4
-#regexp.patterns[5].begin  groups 1
-#regexp.patterns[6].patterns[0].match  groups 1, 2, 3, 4, 5, 6
-#return-type.patterns[1].begin  (?<=\))\s*(:)
-#return-type.patterns[1].end  (?<![\&:|])((?=[,;{}]|//|^\s*$)|((?<=\S)(?=\s*$)))
-#single-line-comment-consuming-line-ending.begin  (^[\t ]+)?((//)(?:\s*((@)internal)(?=\s|$))?)
-#single-line-comment-consuming-line-ending.end  (?=^)
-#support-function-call-identifiers.patterns[4].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))import(?=\s*\(\s*[…
-#support-objects.patterns[2].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(import)\s*(?:(\.)…
-#support-objects.patterns[3].match  groups 3
-#support-objects.patterns[4].match  groups 2, 4
-#support-objects.patterns[5].match  groups 4
-#template.patterns[1].begin  groups 1
-#template-call.patterns[1].begin  ([$_[:alpha:]][$_[:alnum:]]*)?\s*(?=(<\s*(((keyof|infer|typ…
-#template-call.patterns[1].end  (?=`)
-#template-type.patterns[1].begin  groups 1
-#type.patterns[13].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(readonly)(?![$_[:…  fuzz
-#type-alias-declaration.begin  groups 2
-#type-alias-declaration.patterns[2].begin  (=)\s*(intrinsic)(?![$_[:alnum:]])(?:(?=\.\.\.)|(?!\.))
-#type-alias-declaration.patterns[2].end  (?=[;}]|^\s*$|^\s*(?:abstract|async|\bawait\s+\busing(?=\s+…
-#type-annotation.patterns[1].begin  (:)
-#type-annotation.patterns[1].end  (?<![\&:|])((?=[]),;}]|//)|(?==[^>])|(?=^\s*$)|((?<=[]$)>_}…
-#type-fn-type-parameters.patterns[0].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(abstract)\s+)?…
-#type-fn-type-parameters.patterns[0].end  (?<=>)
-#type-function-return-type.patterns[1].begin  =>
-#type-function-return-type.patterns[1].end  (?<!=>)(?<![\&|])((?=[]),:;=>?{}]|//|^\s*$)|((?<=\S)(?=\s*$…
-#type-infer.patterns[0].match  groups 3
-#type-name.patterns[0].begin  groups 3
-#type-object.patterns[6].begin  \.\.\.  fuzz
-#type-object.patterns[6].end  (?=[,;}]|$)|(?<=})  fuzz
-#type-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))import(?=\s*\()
-#type-paren-or-function-parameters.patterns[0].match  (?:(?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(public|private…
-#type-paren-or-function-parameters.patterns[1].match  groups 1, 2, 3, 5
-#type-predicate-operator.patterns[2].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))asserts(?![$_[:aln…
-#type-predicate-operator.patterns[3].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))is(?![$_[:alnum:]]…
-#var-expr.patterns[1].patterns[5].begin  (,)\s*(?=$|//)
-#var-expr.patterns[1].patterns[5].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…
-#var-expr.patterns[2].begin  groups 1, 2
-#var-expr.patterns[2].patterns[0].begin  groups 1, 2
-#var-expr.patterns[2].patterns[4].begin  (,)\s*((?!\S)|(?=//))
-#var-expr.patterns[2].patterns[4].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…
-#var-single-variable.patterns[0].begin  groups 2
-#var-single-variable.patterns[1].begin  groups 2
+#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
+#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 ```
 
 ### `kotlin`
@@ -3969,196 +3782,25 @@ patterns[44].match  (?i)\b(vector_(?:distance|norm|normalize))\b\s*\(
 ### `tsx`
 
 ```text
-#array-binding-pattern.begin  groups 1
-#class-declaration.begin  groups 1 (fuzz), 3
-#class-or-interface-heritage.patterns[4].match  groups 2
-#comment.patterns[1].begin  groups 2, 3
-#comment.patterns[2].begin  groups 1
-#control-statement.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(case|default|swit…  fuzz
-#decorator.begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))@  fuzz
-#decorator.end  (?=\s)  fuzz
-#expression-inside-possibly-arrow-parens.patterns[5].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(override|public|p…
-#expression-inside-possibly-arrow-parens.patterns[6].match  groups 1, 2, 3
-#expression-inside-possibly-arrow-parens.patterns[7].match  groups 1, 2, 3
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
-#expression-operators.patterns[11].begin  groups 2
-#expression-operators.patterns[15].match  <<|>>>?
-#expression-operators.patterns[20].match  [\&^|~]  fuzz
-#expression-operators.patterns[25].end  groups 1
-#function-body.patterns[6].match  \*
-#if-statement.patterns[0].patterns[2].begin  (?<=\))\s*/(?![*/])(?=(?:[^/\[\\]|\\.|\[([^]\\]|\\.)*])+/([…
-#if-statement.patterns[0].patterns[2].end  (/)([dgimsuvy]*)
-#import-declaration.begin  groups 2
-#import-equals-declaration.patterns[0].begin  groups 2
-#import-equals-declaration.patterns[1].begin  groups 4
-#import-export-clause.patterns[1].match  groups 1, 2, 5, 13, 15
-#import-export-clause.patterns[3].match  \*
-#import-export-clause.patterns[4].match  \b(default)\b
-#import-export-clause.patterns[5].match  groups 3
-#indexer-mapped-type-declaration.patterns[0].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(as)\s+
-#method-declaration.patterns[1].begin  groups 6
-#method-declaration.patterns[2].begin  groups 1, 3
-#numeric-literal.patterns[3].match  groups 2, 4, 6, 7, 9, 11, 13
-#numericConstant-literal.patterns[1].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))Infinity(?![$_[:al…
-#object-binding-pattern.begin  groups 1
-#object-identifiers.patterns[1].match  groups 2, 3
-#object-literal-method-declaration.patterns[2].begin  groups 1, 2, 3
-#object-member.patterns[5].begin  (?<=[]"'`])(?=\s*[(<])
-#object-member.patterns[5].end  (?=[,;}])|(?<=})
-#object-member.patterns[6].match  (?![$_[:alpha:]])(\d+)\s*(?=(/\*([^*]|(\*[^/]))*\*/\s*)*:)
-#object-member.patterns[11].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(as)\s+(const)(?=\…
-#object-member.patterns[12].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(as)|(satisfies…
-#object-member.patterns[12].end  (?=[-\])+,:;>?}]|\|\||&&|!==|$|^|((?<![$_[:alnum:]])(?:(?<=…
-#object-member.patterns[14].patterns[0].begin  (?<=:)\s*(async)?(?=\s*(<\s*(((const\s+)?[$_[:alpha:]])|(\{…
-#object-member.patterns[14].patterns[0].end  (?<=\))
-#object-member.patterns[14].patterns[0].patterns[1].begin  \(
-#object-member.patterns[14].patterns[0].patterns[1].end  \)
-#object-member.patterns[14].patterns[1].begin  groups 1
-#object-member.patterns[14].patterns[2].begin  (?<=:)\s*(async)?\s*(?=<\s*$)
-#object-member.patterns[14].patterns[2].end  (?<=>)
-#object-member.patterns[14].patterns[3].begin  (?<=>)\s*(\()(?=\s*((([\[{]\s*)?)$|((\{([^{}]|(\{([^{}]|\{[…
-#object-member.patterns[14].patterns[3].end  \)
-#parameter-array-binding-pattern.begin  groups 1
-#parameter-name.patterns[1].match  groups 1, 2, 3
-#parameter-object-binding-pattern.begin  groups 1
-#paren-expression-possibly-arrow.patterns[0].begin  groups 1
-#paren-expression-possibly-arrow.patterns[1].begin  groups 1
-#property-accessor.match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(accessor|get|set)…
-#qstring-single.end  groups 2 (fuzz)
-#regex-character-class.patterns[1].match  \\([0-7]{3}|x\h{2}|u\h{4})
-#regex-character-class.patterns[2].match  \\c[A-Z]
-#regexp.patterns[4].begin  groups 3, 4
-#regexp.patterns[5].begin  groups 1
-#regexp.patterns[6].patterns[0].match  groups 1, 2, 3, 4, 5, 6
-#return-type.patterns[1].begin  (?<=\))\s*(:)
-#return-type.patterns[1].end  (?<![\&:|])((?=[,;{}]|//|^\s*$)|((?<=\S)(?=\s*$)))
-#single-line-comment-consuming-line-ending.begin  (^[\t ]+)?((//)(?:\s*((@)internal)(?=\s|$))?)
-#single-line-comment-consuming-line-ending.end  (?=^)
-#support-objects.patterns[2].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(import)\s*(?:(\.)…
-#support-objects.patterns[3].match  groups 3
-#support-objects.patterns[4].match  groups 4
-#support-objects.patterns[5].match  groups 4
-#template.patterns[1].begin  groups 1
-#template-call.patterns[1].begin  ([$_[:alpha:]][$_[:alnum:]]*)?\s*(?=(<\s*(((keyof|infer|typ…
-#template-call.patterns[1].end  (?=`)
-#template-type.patterns[1].begin  groups 1
-#type-alias-declaration.begin  groups 2
-#type-alias-declaration.patterns[2].begin  (=)\s*(intrinsic)(?![$_[:alnum:]])(?:(?=\.\.\.)|(?!\.))
-#type-alias-declaration.patterns[2].end  (?=[;}]|^\s*$|^\s*(?:abstract|async|\bawait\s+\busing(?=\s+…
-#type-annotation.patterns[1].begin  (:)
-#type-annotation.patterns[1].end  (?<![\&:|])((?=[]),;}]|//)|(?==[^>])|(?=^\s*$)|((?<=[]$)>_}…
-#type-fn-type-parameters.patterns[0].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(abstract)\s+)?…
-#type-fn-type-parameters.patterns[0].end  (?<=>)
-#type-function-return-type.patterns[1].begin  =>  fuzz
-#type-function-return-type.patterns[1].end  (?<!=>)(?<![\&|])((?=[]),:;=>?{}]|//|^\s*$)|((?<=\S)(?=\s*$…  fuzz
-#type-infer.patterns[0].match  groups 3
-#type-name.patterns[0].begin  groups 3
-#type-object.patterns[6].begin  \.\.\.  fuzz
-#type-object.patterns[6].end  (?=[,;}]|$)|(?<=})  fuzz
-#type-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))import(?=\s*\()
-#type-parameters.patterns[4].match  (=)(?!>)
-#type-paren-or-function-parameters.patterns[0].match  groups 1, 2, 3, 5 (fuzz)
-#type-paren-or-function-parameters.patterns[1].match  groups 1, 3, 5 (fuzz)
-#type-predicate-operator.patterns[0].match  groups 2
-#type-predicate-operator.patterns[1].match  groups 3
-#type-predicate-operator.patterns[2].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))asserts(?![$_[:aln…
-#type-predicate-operator.patterns[3].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))is(?![$_[:alnum:]]…
-#var-expr.patterns[1].patterns[5].begin  (,)\s*(?=$|//)  fuzz
-#var-expr.patterns[1].patterns[5].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…  fuzz
-#var-expr.patterns[2].patterns[4].begin  (,)\s*((?!\S)|(?=//))
-#var-expr.patterns[2].patterns[4].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…
-#var-single-variable.patterns[0].begin  groups 2
-#var-single-variable.patterns[1].begin  groups 2
+#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
+#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 ```
 
 ### `typescript`
 
 ```text
-#array-binding-pattern.begin  groups 1
-#class-or-interface-body.patterns[2].begin  (?<=:)\s*
-#class-or-interface-body.patterns[2].end  (?=[-\])+,:;}\s]|^\s*$|^\s*(?:abstract|async|\bawait\s+\bus…
-#comment.patterns[1].begin  groups 2, 3
-#comment.patterns[2].begin  groups 1
-#control-statement.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(case|default|swit…  fuzz
-#expression-inside-possibly-arrow-parens.patterns[5].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(override|public|p…
-#expression-inside-possibly-arrow-parens.patterns[6].match  (?:(?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(override|publi…
-#expression-inside-possibly-arrow-parens.patterns[7].match  groups 1, 2, 3, 5
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
-#expression-operators.patterns[25].end  groups 1
-#for-loop.patterns[1].match  await
-#function-body.patterns[6].match  \*
-#if-statement.patterns[0].patterns[2].begin  (?<=\))\s*/(?![*/])(?=(?:[^/\[\\]|\\.|\[([^]\\]|\\.)*])+/([…
-#if-statement.patterns[0].patterns[2].end  (/)([dgimsuvy]*)
-#import-declaration.begin  groups 1, 2
-#import-equals-declaration.patterns[0].begin  groups 2
-#import-equals-declaration.patterns[1].begin  groups 4
-#import-export-clause.patterns[1].match  groups 1, 2, 5, 13, 15
-#import-export-clause.patterns[3].match  \*
-#import-export-clause.patterns[4].match  \b(default)\b
-#import-export-clause.patterns[5].match  groups 3
-#method-declaration.patterns[1].begin  groups 6
-#method-declaration.patterns[2].begin  groups 1, 3
-#numeric-literal.patterns[3].match  groups 2, 4, 6, 7, 9, 11, 13
-#numericConstant-literal.patterns[1].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))Infinity(?![$_[:al…
-#object-binding-pattern.begin  groups 1
-#object-identifiers.patterns[1].match  groups 3
-#object-literal-method-declaration.patterns[2].begin  groups 1, 2, 3
-#object-member.patterns[5].begin  (?<=[]"'`])(?=\s*[(<])
-#object-member.patterns[5].end  (?=[,;}])|(?<=})
-#object-member.patterns[6].match  (?![$_[:alpha:]])(\d+)\s*(?=(/\*([^*]|(\*[^/]))*\*/\s*)*:)
-#object-member.patterns[11].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(as)\s+(const)(?=\…
-#object-member.patterns[12].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(as)|(satisfies…
-#object-member.patterns[12].end  (?=[-\])+,:;>?}]|\|\||&&|!==|$|^|((?<![$_[:alnum:]])(?:(?<=…
-#object-member.patterns[14].patterns[0].begin  (?<=:)\s*(async)?(?=\s*(<\s*(((const\s+)?[$_[:alpha:]])|(\{…  fuzz
-#object-member.patterns[14].patterns[0].end  (?<=\))  fuzz
-#object-member.patterns[14].patterns[0].patterns[1].begin  \(  fuzz
-#object-member.patterns[14].patterns[0].patterns[1].end  \)  fuzz
-#object-member.patterns[14].patterns[1].begin  (?<=:)\s*(async)?\s*(\()(?=\s*((([\[{]\s*)?)$|((\{([^{}]|(\…
-#object-member.patterns[14].patterns[1].end  \)
-#object-member.patterns[14].patterns[2].begin  (?<=:)\s*(async)?\s*(?=<\s*$)
-#object-member.patterns[14].patterns[2].end  (?<=>)
-#object-member.patterns[14].patterns[3].begin  (?<=>)\s*(\()(?=\s*((([\[{]\s*)?)$|((\{([^{}]|(\{([^{}]|\{[…
-#object-member.patterns[14].patterns[3].end  \)
-#parameter-array-binding-pattern.begin  groups 1
-#parameter-name.patterns[1].match  groups 2, 3
-#parameter-object-binding-pattern.begin  groups 1
-#paren-expression-possibly-arrow.patterns[0].begin  groups 1
-#paren-expression-possibly-arrow.patterns[1].begin  groups 1
-#qstring-double.end  groups 2 (fuzz)
-#regex-character-class.patterns[1].match  \\([0-7]{3}|x\h{2}|u\h{4})
-#regex-character-class.patterns[2].match  \\c[A-Z]
-#regexp.patterns[4].begin  groups 3
-#regexp.patterns[6].patterns[0].match  groups 1, 2, 5, 6
-#single-line-comment-consuming-line-ending.begin  groups 1, 4, 5
-#support-function-call-identifiers.patterns[4].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))import(?=\s*\(\s*[…
-#support-objects.patterns[2].match  groups 3
-#support-objects.patterns[3].match  groups 3
-#support-objects.patterns[4].match  groups 4
-#support-objects.patterns[5].match  groups 4
-#template.patterns[1].begin  groups 1
-#template-call.patterns[1].begin  ([$_[:alpha:]][$_[:alnum:]]*)?\s*(?=(<\s*(((keyof|infer|typ…
-#template-call.patterns[1].end  (?=`)
-#template-type.patterns[1].begin  groups 1
-#type-alias-declaration.patterns[2].begin  (=)\s*(intrinsic)(?![$_[:alnum:]])(?:(?=\.\.\.)|(?!\.))
-#type-alias-declaration.patterns[2].end  (?=[;}]|^\s*$|^\s*(?:abstract|async|\bawait\s+\busing(?=\s+…
-#type-fn-type-parameters.patterns[0].begin  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(?:(abstract)\s+)?…
-#type-fn-type-parameters.patterns[0].end  (?<=>)
-#type-infer.patterns[0].match  groups 3
-#type-name.patterns[0].begin  groups 3
-#type-object.patterns[6].begin  \.\.\.  fuzz
-#type-object.patterns[6].end  (?=[,;}]|$)|(?<=})  fuzz
-#type-paren-or-function-parameters.patterns[0].match  groups 1 (fuzz), 2, 3, 5
-#type-paren-or-function-parameters.patterns[1].match  groups 1, 2, 3
-#type-predicate-operator.patterns[2].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))asserts(?![$_[:aln…
-#type-predicate-operator.patterns[3].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))is(?![$_[:alnum:]]…
-#var-expr.patterns[1].patterns[5].begin  (,)\s*(?=$|//)
-#var-expr.patterns[1].patterns[5].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…
-#var-expr.patterns[2].patterns[4].begin  (,)\s*((?!\S)|(?=//))
-#var-expr.patterns[2].patterns[4].end  (?<!,)(((?=[;=}]|((?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))…
-#var-single-variable.patterns[0].begin  groups 2
-#var-single-variable.patterns[1].begin  groups 2
+#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
+#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
+#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 ```
 
 ### `xml`
