@@ -8,7 +8,7 @@ L   // Escapes, valid and not.
 T 2 source.json.comments meta.structure.dictionary.json.comments
 T 4 source.json.comments meta.structure.dictionary.json.comments comment.line.double-slash.js punctuation.definition.comment.json.comments
 T 28 source.json.comments meta.structure.dictionary.json.comments comment.line.double-slash.js
-L   "escape": "\" \/ \\ \b \f \n \r \t é \q"
+L   "escape": "\" \/ \\ \b \f \n \r \t \u00e9 \q"
 T 2 source.json.comments meta.structure.dictionary.json.comments
 T 3 source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.begin.json.comments
 T 9 source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments
@@ -31,9 +31,11 @@ T 31 source.json.comments meta.structure.dictionary.json.comments meta.structure
 T 33 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
 T 34 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
 T 36 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
-T 40 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
-T 42 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments invalid.illegal.unrecognized-string-escape.json.comments
-T 43 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments punctuation.definition.string.end.json.comments
+T 37 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 43 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments constant.character.escape.json.comments
+T 44 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments
+T 46 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments invalid.illegal.unrecognized-string-escape.json.comments
+T 47 source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments string.quoted.double.json.comments punctuation.definition.string.end.json.comments
 L }
 T 1 source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.end.json.comments
 L 

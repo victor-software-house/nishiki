@@ -1,5 +1,5 @@
 /** A documentation comment. */
 {
   // Escapes, valid and not.
-  "escape": "\" \/ \\ \b \f \n \r \t é \q"
+  "escape": "\" \/ \\ \b \f \n \r \t \u00e9 \q"
 }
