@@ -186,6 +186,8 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 ### 3.4 Comments carry the why
 
 - Doc comments say why, on the item.
+- Comments are plain prose, as `AGENTS.md` "Documentation" item 3 sets out: short sentences, one claim each, concrete names.
+  A comment that needs a second read is rewritten in review.
 - Inline prose inside a body is removed in review.
 - Multiline text in code and tests uses `indoc!` or `formatdoc!`.
   `check:literals`, which the pre-commit hook and `check:local` run, fails on a string literal in `src/` or `tests/` that holds two or more escaped line feeds, outside comments and generated files.
