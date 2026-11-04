@@ -205,6 +205,11 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line and returns the state after it.
+    ///
+    /// `#[inline]`: `xml::lex`, in another module, calls it once a line.
+    /// [`run_until`](Self::run_until) moves the lexer's buffers out, so the
+    /// lexer needs no drop glue where it is inlined.
+    #[inline]
     pub(super) fn run(self) -> Finished {
         self.run_until().0
     }
@@ -219,11 +224,16 @@ impl<'a> Lexer<'a> {
     pub(super) fn run_until(mut self) -> (Finished, Option<usize>) {
         self.tokenize();
         let state = self.top().state;
-        self.scratch.xml = Buffers {
-            frames: std::mem::take(&mut self.frames),
-            chain: std::mem::take(&mut self.chain),
-        };
-        (self.steps.finish(state), self.halted)
+        let Lexer {
+            scratch,
+            frames,
+            chain,
+            steps,
+            halted,
+            ..
+        } = self;
+        scratch.xml = Buffers { frames, chain };
+        (steps.finish(state), halted)
     }
 
     // Bytes.
