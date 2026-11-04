@@ -91,6 +91,27 @@ pub(crate) fn lex_until(
     (counted(cx, line, next), halted)
 }
 
+/// Lexes `line` like [`lex`], for a grammar that hands regions to languages
+/// lexed by hand (`Grammar::hand_offs`).
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "HAML, the first grammar that hands off, becomes a language in step 3 of engine-handoff"
+    )
+)]
+pub(crate) fn lex_handing(
+    cx: &mut Context<'_>,
+    grammar: &'static Grammar,
+    line: Line<'_>,
+    state: u32,
+) -> u32 {
+    tokenizer::line_handing(
+        cx.scratch, cx.arena, cx.limits, grammar, line, state, cx.out, cx.report, None,
+    )
+    .0
+}
+
 /// `state` with the work the engine spent on `line`.
 fn counted(cx: &Context<'_>, line: Line<'_>, state: u32) -> Finished {
     let steps = Steps::new(cx.limits, line.text.len());

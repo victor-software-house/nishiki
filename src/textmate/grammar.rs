@@ -104,13 +104,6 @@ impl List {
 /// [`List`] then stays two words, and the scans that index the lists pay
 /// nothing.
 #[derive(Debug)]
-#[cfg_attr(
-    not(test),
-    expect(
-        dead_code,
-        reason = "the tokenizer hands regions off in the next change (engine-handoff task 4.2)"
-    )
-)]
 pub(crate) struct HandOff {
     /// The list the include stood in, an index into [`Grammar::lists`]. It
     /// holds the rules before the include, then the rules after it.
@@ -213,13 +206,6 @@ pub(crate) struct Grammar {
     /// The rule of the whole grammar.
     pub(crate) root: usize,
     /// The regions the grammar hands to languages lexed by hand.
-    #[cfg_attr(
-        not(test),
-        expect(
-            dead_code,
-            reason = "the tokenizer hands regions off in the next change (engine-handoff task 4.2)"
-        )
-    )]
     pub(crate) hand_offs: &'static [HandOff],
     /// The cells a search fills on [`LineKind::Lean`] lines: see
     /// [`Grammar::cells`].

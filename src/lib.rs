@@ -196,6 +196,14 @@
 // feature.
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+/// Counts the allocations of the library's own tests, per thread. Some tests
+/// check that lexing a line again allocates nothing. Only the library reaches
+/// some of that code, such as a grammar that hands off but is not yet a
+/// language.
+#[cfg(test)]
+#[global_allocator]
+static ALLOCATOR: nishiki_alloc_count::CountingAllocator = nishiki_alloc_count::CountingAllocator;
+
 mod arena;
 #[cfg(feature = "lang-bat")]
 mod bat;

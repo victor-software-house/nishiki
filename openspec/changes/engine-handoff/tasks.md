@@ -40,7 +40,13 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 - [x] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
   - nishiki-archive#228, merged on 2026-11-04 as 2102df71: `Steps::lend` and `Finished`, with depth per language.
 - [ ] 4.1 The generator's list of hand-lexed grammars, a spec's `>` languages, and each list's hand-off (design section 14.3) → verify: regenerating every other engine table adds only `hand_offs: &[]`, and HAML's test table splits each list at its hand-off (`a_hand_off_splits_its_list_in_two`)
-- [ ] 4.2 The hand-off frame and the resume at a halt (design section 14) → verify: Julia's oracle fixtures and a new input with `py"""` and `sql"""` match Shiki, and an allocation test on an engine fence nested in a hand-lexed region allocates nothing per line
+- [ ] 4.2 The hand-off frame and the resume at a halt (design section 14.4) → verify: on HAML's test table, a filter goes to its language a line at a time.
+  JavaScript in an HTML test table's `<script>` halts at `</script>` inside a line.
+  The state carries across lines.
+  A PowerShell fence inside a `:markdown` filter allocates nothing after the first line.
+  `size -A` at one codegen unit measures the textmate tier's `.text` change.
+  Callgrind keeps every engine language at or under 1.000.
+  Julia's `py"""` and `sql"""` follow in 5.1.
 - [ ] 4.3 Limits through the hand-off → verify: hostile lines inside an embedded region end at the work limit
 
 ## 5. Follow-ups

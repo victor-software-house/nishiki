@@ -21,6 +21,9 @@ use crate::limits::{Limits, LineReport};
 ))]
 #[path = "../../tests/engine/haml.rs"]
 mod haml_tables;
+#[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
+#[path = "../../tests/engine/html.rs"]
+mod html_tables;
 #[path = "../../tests/engine/javascript.rs"]
 mod javascript_tables;
 #[path = "../../tests/engine/make.rs"]
@@ -579,8 +582,8 @@ fn the_folding_table_matches_the_patterns() {
     );
 }
 
-/// Every grammar with tables. HAML's joins when the languages it hands
-/// regions to are built.
+/// Every grammar with tables. HAML's and HTML's join when the languages they
+/// hand regions to are built.
 fn every_table() -> Vec<&'static Grammar> {
     let mut grammars: Vec<&'static Grammar> = SHIPPED.iter().map(|&(grammar, _)| grammar).collect();
     grammars.extend([
@@ -601,6 +604,8 @@ fn every_table() -> Vec<&'static Grammar> {
         feature = "lang-markdown"
     ))]
     grammars.push(&haml_tables::GRAMMAR);
+    #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
+    grammars.push(&html_tables::GRAMMAR);
     grammars
 }
 
@@ -1427,4 +1432,221 @@ fn every_listed_pattern_that_parses_compiles() {
         }
     }
     assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+
+/// The engine hands regions to languages lexed by hand, on HAML's and HTML's
+/// test tables. Design section 14.4 of `openspec/changes/engine-handoff`
+/// describes the steps.
+#[cfg(all(
+    feature = "lang-ruby",
+    feature = "lang-javascript",
+    feature = "lang-css",
+    feature = "lang-markdown",
+    feature = "lang-powershell"
+))]
+mod hand_offs {
+    use indoc::indoc;
+
+    use super::super::grammar::Grammar;
+    use super::super::tokenizer;
+    use super::{haml_tables, html_tables};
+    use crate::Token;
+    use crate::arena::{Arena, ROOT};
+    use crate::language::{Context, Line};
+    use crate::limits::{Limits, LineReport};
+    use crate::scratch::Scratch;
+
+    /// One token: its text and its scopes, outermost first.
+    type Scoped = (String, Vec<String>);
+
+    /// A document of a grammar that hands off. It is lexed a line at a time
+    /// with one scratch and one arena, as a highlighter lexes it.
+    struct Document {
+        grammar: &'static Grammar,
+        arena: Arena,
+        scratch: Scratch,
+        tokens: Vec<Token>,
+    }
+
+    impl Document {
+        fn new(grammar: &'static Grammar) -> Document {
+            Document {
+                grammar,
+                arena: Arena::new(None),
+                scratch: Scratch::default(),
+                tokens: Vec::new(),
+            }
+        }
+
+        /// Lexes `text` from the start. It calls `each` with each line, the
+        /// line's tokens and the arena.
+        fn run(&mut self, text: &str, mut each: impl FnMut(&str, &[Token], &Arena)) {
+            let limits = Limits::default();
+            let mut state = tokenizer::start(&mut self.arena, self.grammar, ROOT);
+            for line in text.lines() {
+                self.tokens.clear();
+                let mut report = LineReport::default();
+                self.scratch.start_line();
+                let mut cx = Context {
+                    scratch: &mut self.scratch,
+                    arena: &mut self.arena,
+                    limits: &limits,
+                    out: &mut self.tokens,
+                    report: &mut report,
+                };
+                let text = Line {
+                    text: line,
+                    start: 0,
+                    embedded: false,
+                };
+                state = crate::textmate::lex_handing(&mut cx, self.grammar, text, state);
+                each(line, &self.tokens, &self.arena);
+            }
+        }
+
+        /// Lexes `text` from the start, keeping each line's tokens.
+        fn lex(&mut self, text: &str) -> Vec<Vec<Scoped>> {
+            let mut rows = Vec::new();
+            self.run(text, |line, tokens, arena| {
+                let mut from = 0;
+                rows.push(
+                    tokens
+                        .iter()
+                        .map(|token| {
+                            let mut stack: Vec<String> =
+                                arena.scopes(token.stack().0).map(str::to_owned).collect();
+                            stack.reverse();
+                            let scoped = (line[from..token.end()].to_owned(), stack);
+                            from = token.end();
+                            scoped
+                        })
+                        .collect(),
+                );
+            });
+            rows
+        }
+    }
+
+    /// Whether `scope` is of `language`, the last part of its name.
+    fn in_language(scope: &str, language: &str) -> bool {
+        scope.rsplit('.').next() == Some(language)
+    }
+
+    /// The innermost scope of the first token whose text is `text`.
+    fn scope_of<'a>(row: &'a [Scoped], text: &str) -> &'a str {
+        row.iter()
+            .find(|(token, _)| token.trim() == text)
+            .and_then(|(_, scopes)| scopes.last())
+            .map_or("", String::as_str)
+    }
+
+    #[test]
+    fn a_ruby_filter_hands_its_lines_to_ruby_and_takes_the_line_back_after() {
+        let rows = Document::new(&haml_tables::GRAMMAR).lex(indoc! {"
+            :ruby
+              total = 1 + 2
+            %p done
+        "});
+        assert_eq!(
+            scope_of(&rows[1], "="),
+            "keyword.operator.assignment.ruby",
+            "{:?}",
+            rows[1]
+        );
+        assert!(
+            in_language(scope_of(&rows[1], "1"), "ruby"),
+            "{:?}",
+            rows[1]
+        );
+        assert!(
+            rows[2]
+                .iter()
+                .all(|(_, scopes)| scopes.iter().all(|scope| !in_language(scope, "ruby"))),
+            "{:?}",
+            rows[2]
+        );
+    }
+
+    #[test]
+    fn a_markdown_filter_lexes_a_powershell_fence_with_the_engine() {
+        let rows = Document::new(&haml_tables::GRAMMAR).lex(indoc! {"
+            :markdown
+              ```powershell
+              $a = 1
+              ```
+        "});
+        assert!(
+            in_language(scope_of(&rows[2], "1"), "powershell"),
+            "{:?}",
+            rows[2]
+        );
+    }
+
+    /// The fence runs the engine inside the hand-off, on the spare scratch.
+    /// Lexing the document again allocates nothing.
+    #[test]
+    fn lexing_a_nested_engine_fence_again_allocates_nothing() {
+        let text = indoc! {"
+            :markdown
+              ```powershell
+              $a = 1
+              ```
+            %p done
+        "};
+        let mut document = Document::new(&haml_tables::GRAMMAR);
+        let first = document.lex(text);
+        let mut again = Vec::with_capacity(first.len());
+        let allocations = nishiki_alloc_count::count(|| {
+            document.run(text, |_, tokens, _| again.push(tokens.len()));
+        });
+        assert_eq!(again, first.iter().map(Vec::len).collect::<Vec<_>>());
+        assert_eq!(allocations, 0);
+    }
+
+    #[test]
+    fn a_script_hands_javascript_its_text_up_to_the_end_tag() {
+        let rows =
+            Document::new(&html_tables::GRAMMAR).lex("<script>let a = 1;</script><b>x</b>\n");
+        assert!(
+            in_language(scope_of(&rows[0], "let"), "js"),
+            "{:?}",
+            rows[0]
+        );
+        assert!(
+            scope_of(&rows[0], "script").contains("html"),
+            "{:?}",
+            rows[0]
+        );
+        let after: Vec<&Scoped> = rows[0]
+            .iter()
+            .skip_while(|(text, _)| text != "</")
+            .collect();
+        assert!(
+            after
+                .iter()
+                .all(|(_, scopes)| scopes.iter().all(|scope| !in_language(scope, "js"))),
+            "{after:?}"
+        );
+    }
+
+    #[test]
+    fn a_style_hands_css_its_lines_across_the_document() {
+        let rows = Document::new(&html_tables::GRAMMAR).lex(indoc! {"
+            <style>
+            a { color: red; }
+            </style>
+        "});
+        assert!(
+            in_language(scope_of(&rows[1], "color"), "css"),
+            "{:?}",
+            rows[1]
+        );
+        assert!(
+            rows[2]
+                .iter()
+                .all(|(_, scopes)| scopes.iter().all(|scope| !in_language(scope, "css"))),
+            "{:?}",
+            rows[2]
+        );
+    }
 }

@@ -17,18 +17,24 @@ use std::sync::OnceLock;
 
 use regex_automata::meta::Cache;
 
-use super::grammar::{Cap, Cells, DYNAMIC_NAME, Folding, Grammar, NONE, Rule, RuleKind};
+use super::grammar::{Cap, Cells, DYNAMIC_NAME, Folding, Grammar, HandOff, NONE, Rule, RuleKind};
 use super::regex::{self, Context, LineKind, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
 use crate::arena::{Arena, IdMap, ROOT};
-use crate::language::{Halt, halt_before};
-use crate::limits::{Limit, Limits, LineReport};
+use crate::language::{Context as Lexing, Halt, Line, halt_before};
+use crate::limits::{Limit, Limits, LineReport, Steps, Work};
 use crate::scope::Scope;
 use crate::{Stack, Token};
 
 /// The frame kind of the engine's states, tagged as the engine's.
 const KIND: u16 = crate::tag::TEXTMATE;
+/// The frame kind of a hand-off region. The frame sits on top of the frame of
+/// the rule that opened the region. Its payload is the state of the language
+/// lexed by hand.
+const HAND_OFF_KIND: u16 = KIND | 1;
+/// The rule of a hand-off frame. No rule of a grammar has this index.
+const HANDED: usize = usize::MAX;
 /// The payload bit that says the rule opened at the end of its line.
 const EOL: u32 = 1 << 16;
 /// Where the interned end pattern's number starts in the payload.
@@ -69,13 +75,85 @@ enum Entry {
     Line { anchored: bool },
     /// Inside a capture group whose text rules lex again.
     Capture,
+    /// Where a hand-off's language halted. `Scratch::handed` holds the
+    /// place. An entry then stays two bytes.
+    Resume,
 }
 
-/// Where a line halts for the language that embeds the grammar, if it does.
+/// Where the loop goes on after a language lexed by hand lexed part of the
+/// line. It holds the cursor, the place where `\G` matches, whether `\A` may
+/// match, and what the language halted for.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct Resume {
+    at: usize,
+    anchor: usize,
+    allow_a: DocStart,
+    part: Part,
+}
+
+/// What a hand-off's language halted for. The engine applies it at the halt.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+enum Part {
+    /// Nothing yet. The region starts or goes on here.
+    #[default]
+    Fresh,
+    /// A rule listed before the include, or the end.
+    Before,
+    /// A rule listed after it.
+    After,
+}
+
+/// What a step in a hand-off region scans. It replaces the open rule's own
+/// list. The step tries the end of `rule` and the rules of `list`.
+#[derive(Clone, Copy, Debug)]
+struct HandPart {
+    /// The rule that opened the region.
+    rule: usize,
+    /// The hand-off's `before` or `after` list.
+    list: usize,
+    /// The interned end pattern of the rule's frame.
+    end: u32,
+    /// Whether the step tries the end.
+    with_end: bool,
+    /// The hand-off's `before` list.
+    before: usize,
+    /// The hand-off's `after` list.
+    after: usize,
+    /// Where the language's halts may start.
+    from: usize,
+}
+
+/// How a run of the loop over a line stopped.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Stop {
+    /// At the line's end.
+    End,
+    /// Where the language that embeds the grammar takes the line back.
+    Halted(usize),
+    /// Where a language lexed by hand takes the line over. `Scratch::handed`
+    /// holds the place.
+    HandOff,
+}
+
+/// What a run of the loop leaves for the next, around a hand-off.
+#[derive(Clone, Copy, Debug)]
+struct Carry {
+    last: usize,
+    steps: u64,
+    stopped: bool,
+}
+
+/// Where a line halts for the language that embeds the grammar. It also says
+/// whether the grammar hands regions to languages lexed by hand.
 pub(crate) trait Halting: Copy {
     /// Whether the line can halt at all: false compiles the test out, so a
     /// line lexed on its own pays nothing for it.
     const HALTS: bool;
+
+    /// Whether the grammar hands regions off. When it is false, every
+    /// hand-off branch compiles out. A grammar without hand-offs then pays
+    /// nothing for them.
+    const HANDS_OFF: bool;
 
     /// The place in `text`, the line's `len` bytes, from `from` where the line
     /// halts before the root rule's next match, which starts at `to`, and how
@@ -89,6 +167,7 @@ pub(crate) struct Whole;
 
 impl Halting for Whole {
     const HALTS: bool = false;
+    const HANDS_OFF: bool = false;
 
     #[inline]
     fn halt(self, _: &[u8], _: usize, _: usize, _: usize) -> (Option<usize>, usize) {
@@ -108,10 +187,41 @@ pub(crate) struct Embedded<'a> {
 
 impl Halting for Embedded<'_> {
     const HALTS: bool = true;
+    const HANDS_OFF: bool = false;
 
     #[inline]
     fn halt(self, text: &[u8], from: usize, to: usize, len: usize) -> (Option<usize>, usize) {
         halt_before(text, from, to, len, self.end, self.after)
+    }
+}
+
+/// A line of a grammar that hands regions to languages lexed by hand. When
+/// another language embeds the grammar, the line halts as [`Embedded`] does.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct Handing<'a> {
+    pub(crate) halts: Option<Embedded<'a>>,
+}
+
+impl Halting for Handing<'_> {
+    const HALTS: bool = true;
+    const HANDS_OFF: bool = true;
+
+    #[inline]
+    fn halt(self, text: &[u8], from: usize, to: usize, len: usize) -> (Option<usize>, usize) {
+        self.halts
+            .map_or((None, 0), |halts| halts.halt(text, from, to, len))
+    }
+}
+
+/// The sorted places on a line where a hand-off's halts start. The engine
+/// finds them before the language runs. Design section 14.4 of
+/// `openspec/changes/engine-handoff` describes the search.
+struct Starts<'a>(&'a [usize]);
+
+impl Halt for Starts<'_> {
+    fn first(&self, _: &[u8], from: usize, to: usize) -> Option<usize> {
+        let at = self.0.partition_point(|&start| start < from);
+        self.0.get(at).copied().filter(|&start| start <= to)
     }
 }
 
@@ -124,6 +234,9 @@ enum Flow {
     Done,
     /// The line halted at this place for the language that embeds it.
     Halted(usize),
+    /// A language lexed by hand takes the line over where
+    /// `Scratch::handed` says.
+    HandOff,
 }
 
 /// One open rule.
@@ -173,6 +286,26 @@ enum Pat {
 }
 
 impl Scratch {
+    /// Readies the scratch for a line of `grammar`. It loads the grammar's
+    /// caches, starts a fresh epoch for the searches, and copies the line's
+    /// text with its newline. Returns the grammar's cells for the line's kind.
+    #[expect(
+        clippy::inline_always,
+        reason = "at a call once a line: split out of `line_until`, whose code it must keep"
+    )]
+    #[inline(always)]
+    fn open_line(&mut self, grammar: &'static Grammar, line: &[u8]) -> &'static Cells {
+        if !self.current.serves(grammar) {
+            self.switch(grammar);
+        }
+        let cells = self.current.line_cells(grammar, line);
+        self.current.next_epoch();
+        self.text.clear();
+        self.text.extend_from_slice(line);
+        self.text.push(b'\n');
+        cells
+    }
+
     /// The steps of the work limit the last line spent: its machine steps
     /// over [`STEP`], rounded up, so a line that spent any spent a step.
     pub(crate) fn work_spent(&self) -> u64 {
@@ -246,6 +379,23 @@ struct GrammarCaches {
 }
 
 impl GrammarCaches {
+    /// Starts a new epoch. No match an earlier search found is reused after
+    /// it. It runs once per line, and again after a hand-off's searches past
+    /// the cursor.
+    #[expect(
+        clippy::inline_always,
+        reason = "at a call once a line: split out of `line_until`, whose code it must keep"
+    )]
+    #[inline(always)]
+    fn next_epoch(&mut self) {
+        self.epoch = self.epoch.wrapping_add(1);
+        if self.epoch == 0 {
+            self.found.iter_mut().for_each(|f| f.0 = 0);
+            self.list_found.iter_mut().for_each(|f| f.0 = 0);
+            self.epoch = 1;
+        }
+    }
+
     /// Whether these are `grammar`'s caches.
     fn serves(&self, grammar: &'static Grammar) -> bool {
         self.grammar.is_some_and(|g| std::ptr::eq(g, grammar))
@@ -398,6 +548,22 @@ pub(crate) struct Scratch {
     hits: Vec<usize>,
     /// The caches of every other grammar this scratch has lexed.
     parked: Vec<GrammarCaches>,
+    /// Where a hand-off's `before` rules and end start on the line, from the
+    /// region's start. The language halts at these places (see [`Starts`]).
+    starts_before: Vec<usize>,
+    /// Where its `after` rules start.
+    starts_after: Vec<usize>,
+    /// Where the last run of the loop stopped for a hand-off. Keeping it here
+    /// leaves the result of every run two words wide.
+    handed: Option<Resume>,
+    /// What the language halted for, for the first step after a hand-off.
+    part: Part,
+    /// The scratch for an engine line inside a hand-off. An example is
+    /// PowerShell in a Markdown fence inside a HAML filter. It swaps in for
+    /// this scratch while the hand-lexed language runs. The outer line's
+    /// buffers and caches stay as they were. Each engine level keeps the next
+    /// level's scratch. The depth of the nesting bounds their number.
+    spare: Option<Box<Scratch>>,
 }
 
 /// The state at the start of a document in `grammar`, whose text sits on the
@@ -482,21 +648,9 @@ pub(crate) fn line_until<H: Halting>(
     if line.len() <= start {
         return (state, None);
     }
-    if !scratch.current.serves(grammar) {
-        scratch.switch(grammar);
-    }
-    let cells = scratch.current.line_cells(grammar, line);
-    scratch.current.epoch = scratch.current.epoch.wrapping_add(1);
-    if scratch.current.epoch == 0 {
-        scratch.current.found.iter_mut().for_each(|f| f.0 = 0);
-        scratch.current.list_found.iter_mut().for_each(|f| f.0 = 0);
-        scratch.current.epoch = 1;
-    }
-    scratch.text.clear();
-    scratch.text.extend_from_slice(line);
-    scratch.text.push(b'\n');
+    let cells = scratch.open_line(grammar, line);
     let mut frames = std::mem::take(&mut scratch.frames);
-    let first = rebuild(grammar, arena, state, &mut frames);
+    let first = rebuild::<H>(grammar, arena, state, &mut frames);
     let steps = limits
         .work
         .map_or(u64::MAX, |work| work.steps(line.len()).saturating_mul(STEP));
@@ -515,7 +669,7 @@ pub(crate) fn line_until<H: Halting>(
         stopped: false,
         cells,
     };
-    let halted = tokenizer.tokenize_string(
+    let halted = match tokenizer.tokenize_string(
         line.len() + 1,
         if first {
             DocStart::Open
@@ -526,24 +680,292 @@ pub(crate) fn line_until<H: Halting>(
         &mut frames,
         Entry::Line { anchored },
         halt,
-    );
+    ) {
+        Stop::Halted(at) => Some(at),
+        Stop::End | Stop::HandOff => None,
+    };
     if halted.is_none() {
         let top = frames.last().map_or(ROOT, |f| f.content);
         tokenizer.produce(top, line.len());
     }
-    let next = tokenizer.intern(&mut frames);
+    let next = tokenizer.intern::<H>(&mut frames);
     tokenizer.s.spent = steps.saturating_sub(tokenizer.steps);
     tokenizer.s.frames = frames;
     (next, halted)
 }
 
+/// Lexes one line like [`line_until`], for a grammar that hands regions to
+/// languages lexed by hand. Each run of the loop stops where such a language
+/// takes the line over. The language lexes its part. The next run goes on
+/// where the language halted. The language needs the whole scratch. The loop
+/// holds it and lends the engine's part to each run.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "line_until's arguments with the whole scratch the languages it hands off to need"
+)]
+pub(crate) fn line_handing(
+    whole: &mut crate::scratch::Scratch,
+    arena: &mut Arena,
+    limits: &Limits,
+    grammar: &'static Grammar,
+    line: Line<'_>,
+    state: u32,
+    out: &mut Vec<Token>,
+    report: &mut LineReport,
+    halts: Option<Embedded<'_>>,
+) -> (u32, Option<usize>) {
+    let bytes = line.text.as_bytes();
+    let len = bytes.len();
+    whole.textmate.spent = 0;
+    if len <= line.start {
+        return (state, None);
+    }
+    let cells = whole.textmate.open_line(grammar, bytes);
+    let mut frames = std::mem::take(&mut whole.textmate.frames);
+    let first = rebuild::<Handing<'static>>(grammar, arena, state, &mut frames);
+    let steps = limits
+        .work
+        .map_or(u64::MAX, |work| work.steps(len).saturating_mul(STEP));
+    let out_start = out.len();
+    let halt = Handing { halts };
+    let mut carry = Carry {
+        last: line.start,
+        steps,
+        stopped: false,
+    };
+    let mut entry = Entry::Line {
+        anchored: line.embedded,
+    };
+    let first_line = if first {
+        DocStart::Open
+    } else {
+        DocStart::Passed
+    };
+    let run = Run {
+        grammar,
+        limits,
+        len,
+        out_start,
+        cells,
+    };
+    let halted = loop {
+        let mut tokenizer = run.tokenizer(arena, report, out, &mut whole.textmate, carry);
+        let stop =
+            tokenizer.tokenize_string(len + 1, first_line, line.start, &mut frames, entry, halt);
+        carry = Carry {
+            last: tokenizer.last,
+            steps: tokenizer.steps,
+            stopped: tokenizer.stopped,
+        };
+        match stop {
+            Stop::End => break None,
+            Stop::Halted(at) => break Some(at),
+            Stop::HandOff => {
+                let Some(handed) = whole.textmate.handed.take() else {
+                    break None;
+                };
+                whole.textmate.handed = hand_off(
+                    (whole, arena, limits, out, report),
+                    grammar,
+                    line,
+                    &mut frames,
+                    handed,
+                    &mut carry,
+                );
+                if whole.textmate.handed.is_none() {
+                    break None;
+                }
+                entry = Entry::Resume;
+            }
+        }
+    };
+    let mut tokenizer = run.tokenizer(arena, report, out, &mut whole.textmate, carry);
+    if halted.is_none() {
+        let top = frames.last().map_or(ROOT, |f| f.content);
+        tokenizer.produce(top, len);
+    }
+    let next = tokenizer.intern::<Handing<'static>>(&mut frames);
+    tokenizer.s.spent = steps.saturating_sub(tokenizer.steps);
+    tokenizer.s.frames = frames;
+    (next, halted)
+}
+
+/// What every run of the loop over one line shares.
+#[derive(Clone, Copy)]
+struct Run<'l> {
+    grammar: &'static Grammar,
+    limits: &'l Limits,
+    len: usize,
+    out_start: usize,
+    cells: &'static Cells,
+}
+
+impl<'l> Run<'l> {
+    /// The tokenizer of the next run, going on from `carry`.
+    fn tokenizer<'a>(
+        self,
+        arena: &'a mut Arena,
+        report: &'a mut LineReport,
+        out: &'a mut Vec<Token>,
+        s: &'a mut Scratch,
+        carry: Carry,
+    ) -> Tokenizer<'a>
+    where
+        'l: 'a,
+    {
+        Tokenizer {
+            grammar: self.grammar,
+            arena,
+            limits: self.limits,
+            report,
+            out,
+            s,
+            len: self.len,
+            last: carry.last,
+            steps: carry.steps,
+            out_start: self.out_start,
+            stopped: carry.stopped,
+            cells: self.cells,
+        }
+    }
+}
+
+/// What a language lexed by hand needs from the engine's line. It is the
+/// whole scratch, the arena, the limits, the tokens and the report.
+type HandOffContext<'a, 'b> = (
+    &'a mut crate::scratch::Scratch,
+    &'a mut Arena,
+    &'b Limits,
+    &'a mut Vec<Token>,
+    &'a mut LineReport,
+);
+
+/// Hands the line from `resume` to the language of the hand-off on top of
+/// `frames`. The language halts at the starts the run found. Its returned
+/// state goes into the hand-off frame. Returns where the engine goes on, or
+/// `None` when the language ran to the line's end.
+///
+/// The language may run the engine again, as Markdown does for a fence. The
+/// engine's scratch is swapped for its spare while the language runs.
+#[cold]
+#[inline(never)]
+fn hand_off(
+    (whole, arena, limits, out, report): HandOffContext<'_, '_>,
+    grammar: &'static Grammar,
+    line: Line<'_>,
+    frames: &mut [Frame],
+    resume: Resume,
+    carry: &mut Carry,
+) -> Option<Resume> {
+    let depth = frames.len();
+    let top = depth.checked_sub(1)?;
+    let embedding = frames.get(depth.checked_sub(2)?)?.rule;
+    let list = grammar.rules.get(embedding)?.list;
+    let language = grammar
+        .hand_offs
+        .iter()
+        .find(|hand_off| hand_off.list == list)?
+        .language;
+    let before = std::mem::take(&mut whole.textmate.starts_before);
+    let after = std::mem::take(&mut whole.textmate.starts_after);
+    let lent = Limits {
+        work: limits.work.map(|_| Work {
+            per_byte: 0,
+            base: u32::try_from(carry.steps / STEP).unwrap_or(u32::MAX),
+        }),
+        ..*limits
+    };
+    let mut spare = whole.textmate.spare.take().unwrap_or_default();
+    std::mem::swap(&mut whole.textmate, &mut spare);
+    let part = Line {
+        text: line.text,
+        start: resume.at,
+        embedded: false,
+    };
+    let state = frames[top].end;
+    let (finished, halted) = {
+        let mut cx = Lexing {
+            scratch: &mut *whole,
+            arena: &mut *arena,
+            limits: &lent,
+            out: &mut *out,
+            report: &mut *report,
+        };
+        let halting = if before.is_empty() && after.is_empty() {
+            None
+        } else {
+            language.lex_until(
+                &mut cx,
+                part,
+                state,
+                &Starts(&before),
+                Some(&Starts(&after)),
+            )
+        };
+        halting.unwrap_or_else(|| (language.lex_embedded(&mut cx, part, state), None))
+    };
+    std::mem::swap(&mut whole.textmate, &mut spare);
+    whole.textmate.spare = Some(spare);
+    let counter = Steps::new(&lent, line.text.len());
+    frames[top].end = counter.take_back(finished);
+    frames[top].state = NEW;
+    carry.steps = carry
+        .steps
+        .saturating_sub(counter.into_spent().saturating_mul(STEP));
+    if carry.steps == 0 && !carry.stopped {
+        carry.stopped = true;
+        report.record(Limit::Work);
+    }
+    carry.last = halted.unwrap_or(line.text.len());
+    let next = halted.map(|at| Resume {
+        at,
+        anchor: resume.anchor,
+        allow_a: if at > resume.at {
+            DocStart::Passed
+        } else {
+            resume.allow_a
+        },
+        part: if before.binary_search(&at).is_ok() {
+            Part::Before
+        } else {
+            Part::After
+        },
+    });
+    whole.textmate.starts_before = before;
+    whole.textmate.starts_after = after;
+    next
+}
+
 /// Loads the frames of `state`, outermost first; true when it is the start of
-/// the document.
-fn rebuild(grammar: &Grammar, arena: &Arena, state: u32, frames: &mut Vec<Frame>) -> bool {
+/// the document. Only a grammar that hands off has hand-off frames to load.
+///
+/// Out of line: inlined into `textmate::lex`, its frame walk cost Nix about
+/// 2% more than the call, measured at one codegen unit.
+#[inline(never)]
+fn rebuild<H: Halting>(
+    grammar: &Grammar,
+    arena: &Arena,
+    state: u32,
+    frames: &mut Vec<Frame>,
+) -> bool {
     frames.clear();
     let mut at = state;
     while at != ROOT {
         let f = arena.frame(at);
+        if H::HANDS_OFF && f.kind == HAND_OFF_KIND {
+            frames.push(Frame {
+                rule: HANDED,
+                state: at,
+                enter: usize::MAX,
+                anchor: usize::MAX,
+                eol: false,
+                end: f.payload,
+                name: f.stack,
+                content: f.stack,
+            });
+            at = f.parent;
+            continue;
+        }
         let rule = usize::try_from(f.payload & 0xffff).unwrap_or(0);
         let rule = if rule < grammar.rules.len() {
             rule
@@ -1160,8 +1582,9 @@ impl Tokenizer<'_> {
         found
     }
 
-    /// Returns where the line halted for the language that embeds the
-    /// grammar, if `halt` says it does.
+    /// Returns how the run stopped. It stops at the line's end, where `halt`
+    /// says the embedding language takes the line back, or where a language
+    /// lexed by hand takes the line over.
     fn tokenize_string<H: Halting>(
         &mut self,
         end: usize,
@@ -1170,10 +1593,19 @@ impl Tokenizer<'_> {
         frames: &mut Vec<Frame>,
         entry: Entry,
         halt: H,
-    ) -> Option<usize> {
+    ) -> Stop {
         let mut pos = start;
         let mut anchor = usize::MAX;
         let mut allow_a = first_line;
+        if H::HANDS_OFF
+            && entry == Entry::Resume
+            && let Some(resume) = self.s.handed.take()
+        {
+            pos = resume.at;
+            anchor = resume.anchor;
+            allow_a = resume.allow_a;
+            self.s.part = resume.part;
+        }
         if let Entry::Line { anchored } = entry {
             if anchored {
                 anchor = start;
@@ -1183,6 +1615,10 @@ impl Tokenizer<'_> {
             let mut i = 0;
             while i < frames.len() {
                 let frame = frames[i];
+                if H::HANDS_OFF && frame.rule == HANDED {
+                    i += 1;
+                    continue;
+                }
                 let rule = &self.grammar.rules[frame.rule];
                 if rule.kind != RuleKind::BeginWhile {
                     i += 1;
@@ -1208,21 +1644,22 @@ impl Tokenizer<'_> {
                     break;
                 }
                 if self.stopped {
-                    return None;
+                    return Stop::End;
                 }
             }
             if self.stopped {
-                return None;
+                return Stop::End;
             }
         }
         while !self.stopped {
             match self.scan_next(end, &mut pos, &mut anchor, &mut allow_a, frames, halt) {
                 Flow::Next => {}
                 Flow::Done => break,
-                Flow::Halted(at) => return Some(at),
+                Flow::Halted(at) => return Stop::Halted(at),
+                Flow::HandOff => return Stop::HandOff,
             }
         }
-        None
+        Stop::End
     }
 
     /// One step of the loop. The match that starts first wins, and a match of
@@ -1249,16 +1686,23 @@ impl Tokenizer<'_> {
         let Some(&top) = frames.last() else {
             return Flow::Done;
         };
-        let rule: &'static Rule = &self.grammar.rules[top.rule];
+        let handing = if H::HANDS_OFF {
+            self.region(*pos, frames)
+        } else {
+            None
+        };
+        let rule: &'static Rule = &self.grammar.rules[handing.map_or(top.rule, |part| part.rule)];
         let mut best: Option<Best> = None;
-        let end_pat = (rule.kind == RuleKind::BeginEnd).then(|| self.end_pat(rule.end, top.end));
+        let end_pat = (rule.kind == RuleKind::BeginEnd && handing.is_none_or(|part| part.with_end))
+            .then(|| self.end_pat(rule.end, handing.map_or(top.end, |part| part.end)));
         if !rule.apply_end_last
             && let Some(pat) = end_pat
         {
             let probed = self.probe(pat, *pos, end, *anchor, *allow_a);
             self.consider(probed, None, (pat, 1, 0), &mut best);
         }
-        self.scan_list(rule.list, (*pos, end, *anchor, *allow_a), (1, 0), &mut best);
+        let list = handing.map_or(rule.list, |part| part.list);
+        self.scan_list(list, (*pos, end, *anchor, *allow_a), (1, 0), &mut best);
         if rule.apply_end_last
             && !self.stopped
             && let Some(pat) = end_pat
@@ -1282,10 +1726,19 @@ impl Tokenizer<'_> {
                 return Flow::Halted(at);
             }
         }
+        if H::HANDS_OFF
+            && let Some(part) = handing
+            && best.is_none_or(|b| b.start != *pos)
+        {
+            return self.hand_off_at(part, end, (*pos, *anchor, *allow_a), top.content);
+        }
         let Some(best) = best else {
             self.produce(top.content, end);
             return Flow::Done;
         };
+        if H::HANDS_OFF && handing.is_some() && best.rule.is_none() {
+            frames.pop();
+        }
         let mut caps = self.s.caps.pop().unwrap_or_default();
         if best.groups_kept {
             caps.clear();
@@ -1301,6 +1754,147 @@ impl Tokenizer<'_> {
         let finished = self.apply(best.rule, &caps, rule, end, (pos, anchor, allow_a), frames);
         self.s.caps.push(caps);
         if finished { Flow::Done } else { Flow::Next }
+    }
+
+    /// The part of a hand-off a step scans, or `None` when the open rule hands
+    /// nothing off. The first step of a region pushes the hand-off frame. It
+    /// holds the state of the language lexed by hand. Design section 14.4 of
+    /// `openspec/changes/engine-handoff` has the steps.
+    #[cold]
+    #[inline(never)]
+    fn region(&mut self, pos: usize, frames: &mut Vec<Frame>) -> Option<HandPart> {
+        let top = *frames.last()?;
+        let (embedding, hand_off) = if top.rule == HANDED {
+            let embedding = *frames.get(frames.len().checked_sub(2)?)?;
+            (embedding, self.hand_off_of(embedding.rule)?)
+        } else {
+            let hand_off = self.hand_off_of(top.rule)?;
+            let state = hand_off.language.start_embedded(self.arena, top.content);
+            frames.push(Frame {
+                rule: HANDED,
+                state: NEW,
+                enter: pos,
+                anchor: usize::MAX,
+                eol: false,
+                end: state,
+                name: top.content,
+                content: top.content,
+            });
+            (top, hand_off)
+        };
+        let apply_end_last = self.grammar.rules[embedding.rule].apply_end_last;
+        let part = std::mem::take(&mut self.s.part);
+        let after = part == Part::After;
+        Some(HandPart {
+            rule: embedding.rule,
+            list: if after {
+                hand_off.after
+            } else {
+                hand_off.before
+            },
+            end: embedding.end,
+            with_end: apply_end_last == after,
+            before: hand_off.before,
+            after: hand_off.after,
+            from: match part {
+                Part::Fresh => pos,
+                Part::Before | Part::After => pos + self.char_len_at(pos),
+            },
+        })
+    }
+
+    /// Stops the run where a hand-off's language takes the line over. It
+    /// finds where the hand-off's rules and end start on the rest of the line.
+    /// The language halts at those places.
+    #[cold]
+    #[inline(never)]
+    fn hand_off_at(
+        &mut self,
+        part: HandPart,
+        end: usize,
+        (pos, anchor, allow_a): (usize, usize, DocStart),
+        content: u32,
+    ) -> Flow {
+        let rule: &'static Rule = &self.grammar.rules[part.rule];
+        let end_pat = (rule.kind == RuleKind::BeginEnd).then(|| self.end_pat(rule.end, part.end));
+        let before_end = end_pat.filter(|_| !rule.apply_end_last);
+        let after_end = end_pat.filter(|_| rule.apply_end_last);
+        let mut before = std::mem::take(&mut self.s.starts_before);
+        let mut after = std::mem::take(&mut self.s.starts_after);
+        let at = (part.from, end, anchor, allow_a);
+        self.collect_starts(&mut before, part.before, before_end, at);
+        self.collect_starts(&mut after, part.after, after_end, at);
+        self.s.starts_before = before;
+        self.s.starts_after = after;
+        self.s.current.next_epoch();
+        if self.stopped {
+            return Flow::Done;
+        }
+        self.produce(content, pos);
+        self.s.handed = Some(Resume {
+            at: pos,
+            anchor,
+            allow_a,
+            part: Part::Fresh,
+        });
+        Flow::HandOff
+    }
+
+    /// The hand-off of the list of `rule`, if it has one.
+    fn hand_off_of(&self, rule: usize) -> Option<&'static HandOff> {
+        let list = self.grammar.rules.get(rule)?.list;
+        self.grammar
+            .hand_offs
+            .iter()
+            .find(|hand_off| hand_off.list == list)
+    }
+
+    /// The first match from the cursor among the rules of `list` and the
+    /// given end. It tries them in the order a step does.
+    fn first_start(
+        &mut self,
+        list: usize,
+        end_pat: Option<Pat>,
+        (pos, end, anchor, allow_a): (usize, usize, usize, DocStart),
+    ) -> Option<Best> {
+        let mut best: Option<Best> = None;
+        if let Some(pat) = end_pat {
+            let probed = self.probe(pat, pos, end, anchor, allow_a);
+            self.consider(probed, None, (pat, 1, 0), &mut best);
+        }
+        self.scan_list(list, (pos, end, anchor, allow_a), (1, 0), &mut best);
+        best
+    }
+
+    /// Writes into `into` where the rules of `list` and the given end start
+    /// on the rest of the line from `from`. It writes the first start, then
+    /// the first start past each one. The generator refuses `\G` in these
+    /// rules. A search from each place then finds what a search from the
+    /// region's start would.
+    fn collect_starts(
+        &mut self,
+        into: &mut Vec<usize>,
+        list: usize,
+        end_pat: Option<Pat>,
+        (from, end, anchor, allow_a): (usize, usize, usize, DocStart),
+    ) {
+        into.clear();
+        let mut at = from;
+        while at <= self.len && !self.stopped {
+            let Some(best) = self.first_start(list, end_pat, (at, end, anchor, allow_a)) else {
+                break;
+            };
+            into.push(best.start);
+            at = best.start + self.char_len_at(best.start);
+        }
+    }
+
+    /// The length of the character at `at` in the line, or 1 past its end.
+    fn char_len_at(&self, at: usize) -> usize {
+        self.s
+            .text
+            .get(at)
+            .map_or(1, |&byte| crate::utf8::char_len(byte))
     }
 
     /// Applies the match `caps` describes, of the rule `matched` (`None` for
@@ -1525,17 +2119,25 @@ impl Tokenizer<'_> {
         self.s.locals.push(local);
     }
 
-    /// Gives the frames their arena states and returns the innermost.
-    fn intern(&mut self, frames: &mut [Frame]) -> u32 {
+    /// Gives the frames their arena states and returns the innermost. Only a
+    /// grammar that hands off has hand-off frames to store.
+    fn intern<H: Halting>(&mut self, frames: &mut [Frame]) -> u32 {
         let mut parent = ROOT;
         let mut changed = false;
         for frame in frames.iter_mut() {
             changed |= frame.state == NEW;
             if changed {
-                let payload = pack(frame.rule, frame.end) | if frame.eol { EOL } else { 0 };
+                let (kind, payload) = if H::HANDS_OFF && frame.rule == HANDED {
+                    (HAND_OFF_KIND, frame.end)
+                } else {
+                    (
+                        KIND,
+                        pack(frame.rule, frame.end) | if frame.eol { EOL } else { 0 },
+                    )
+                };
                 frame.state = self
                     .arena
-                    .push(parent, KIND, payload, frame.content)
+                    .push(parent, kind, payload, frame.content)
                     .unwrap_or_else(|| {
                         self.report.record(Limit::Nodes);
                         ROOT

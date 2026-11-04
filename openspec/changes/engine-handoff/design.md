@@ -216,8 +216,10 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 
 1. Lexers take `&dyn Halt` where they take `Halt` today; `halt_before` calls `first`, and a lexer that tests one place, as YAML does, calls `holds`.
 2. Today's halts are `fn` items, which keep working through the blanket impl: one indirect call per place, as now.
-3. The engine's halt holds the filled end pattern and its `before` list, and answers `first` with one forward search instead of a test per place.
-   It keeps the next match it found in a `Cell`, so a later call inside that span costs a comparison; the answer stays a pure function of the bytes and the place (4, rule 1).
+3. The engine's halt holds the places where its end and `before` rules start on the line.
+   The engine finds them before the target runs (14.4 point 3).
+   The halt answers `first` from them.
+   The answer depends only on the bytes and the place (4, rule 1).
 4. csharp's Lua halt, which needs the `]=*]` level its begin read, is the same shape: a struct holding the level.
    One change of `Halt` serves both: csharp makes it in its Lua cdef PR, with the `]=*]` halt as its first stateful user, and the engine builds on it (lead, 2026-11-04).
    The blanket impl stays, so today's halts compile unchanged, and no `&dyn` call lands on the plain path of a lexer that does not halt; Callgrind on the hand lexers checks it.
@@ -283,15 +285,60 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 
 ### 14.4 The tokenizer
 
-1. When the scan's best candidate is a `HandOff`, the engine pushes a hand-off frame (8) and calls the target:
-   - `whole_lines`: `lex_embedded` on the rest of the line; the hand-off ends only when the end matches at a later line's start.
-   - otherwise `lex_until` with the engine's halt (14.2) as `end`, and the `after` list as `after`.
-2. At a halt the engine runs its own step at that place: the end pops the rule with the hand-off frame, and a `before` rule matches and applies, after which the region resumes from the entry's state.
-3. A target needs the whole crate `Scratch`, which the engine borrows only as `scratch.textmate` today.
-   `line_until` takes the `Context`, and before a hand-off the engine moves its line's own buffers (text, frames, captures) out of `scratch.textmate` and back after, so an engine fence inside a hand-lexed region, as Nix in Markdown in HAML, reuses the scratch without overwriting the outer line.
-   The move is `mem::take` and back, which allocates nothing; an allocation test on a nested engine fence checks it.
-4. The plain path pays nothing: a grammar with no `HandOff` never reaches the branch, and the check sits after the scan, where `apply` already matches on the rule's kind.
-   The Callgrind gate is every engine language at or under 1.000.
+1. A grammar that hands off runs its own instance of the loop.
+   `Halting` gains `const HANDS_OFF: bool`.
+   A third type, `Handing`, carries optional halts and hands off.
+   `Whole` and `Embedded` keep `HANDS_OFF = false`.
+   Every hand-off branch then compiles out of the plain and halting loops, as the halt test does (nishiki-archive#325).
+   The language's row says `hands_off: true`, and its arm calls the handing entry.
+   No line tests `hand_offs.is_empty()` at run time.
+   `rebuild` and `intern` take the same parameter.
+   Only a handing grammar has hand-off frames to load and store.
+2. When the open rule's list has a hand-off, the engine pushes a hand-off frame (14.5).
+   Each step then scans the `before` list and the end in place of the whole list.
+   - When none of them starts on the rest of the line, the rest goes to `lex_embedded` whole.
+     A HAML filter's lines are this case, because all its rules start with `^`.
+   - Otherwise the target's `lex_until` runs to the first place where it halts, or to the line's end.
+     A target without `lex_until` lexes the rest whole, as in the rule engine's embedding.
+3. The engine finds the halts before the target runs.
+   It does not search while the target runs.
+   It scans the `before` list and the end from the region's start.
+   It scans again from one character past each match.
+   The starts go into a reused buffer.
+   The `after` list gets a buffer of its own.
+   The target's halt answers `first` from the sorted starts.
+   It holds no regex scratch and borrows nothing from the engine.
+   It cannot reach itself again.
+   No scratch is lent to it, and no put-back test is needed.
+   A start inside one of the target's own contexts costs one wasted search.
+   The work budget charges it.
+   A search from another place finds the same start only when the pattern ignores where the search began.
+   `\G` matches where the last match ended.
+   It is the engine's one feature that depends on that place.
+   `\A` depends on it only on a document's first line, and a region never starts before that.
+   The generator therefore refuses a hand-off that uses `\G` in its `before` or `after` patterns or in its embedding rule's end.
+   `no_hand_off_halts_where_the_last_match_ended` checks every table.
+   HAML's tables use none.
+4. At a halt the engine runs its own step.
+   The end pops the rule together with the hand-off frame.
+   A `before` rule matches and applies.
+   The region then resumes from the target's state.
+5. A target needs the whole crate `Scratch`.
+   The handing loop holds it.
+   Around a call it swaps `scratch.textmate` with a spare kept inside it, `textmate::Scratch::spare: Option<Box<textmate::Scratch>>`.
+   An engine fence inside a hand-lexed region then has buffers and grammar caches of its own.
+   An example is PowerShell in Markdown in HAML.
+   The outer line's buffers stay untouched.
+   The spare recurses.
+   Each engine level keeps the spare of the level below.
+   A chain of engine, hand lexer, engine, hand lexer and engine allocates one spare per engine level on its first line.
+   The depth bounds the spares.
+   An allocation test checks that later lines allocate nothing.
+   This change tests two engine levels: HAML's test table, Markdown and PowerShell.
+   Once HAML is a language, a test covers three: HAML, Markdown, HAML, Markdown and PowerShell.
+   Only a `Language` can be a fence's language.
+6. The Callgrind gate is every engine language at or under 1.000.
+   The plain instances' code is unchanged.
 
 ### 14.5 State and limits
 
