@@ -1,0 +1,186 @@
+//! The matchers: for each regular expression of the grammar, the function that
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
+//! The engine names them.
+//!
+//! Each follows its expression as an Oniguruma-style backtracking matcher
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter, or what giving them back leaves to test.
+//! `\w`, `\s` and `\d` take non-ASCII characters, as in Oniguruma, through
+//! [`Chars`].
+
+mod declarations;
+mod values;
+
+use super::engine::Lexer;
+use super::grammar::Pat;
+use crate::rules::Chars;
+
+/// Whether `b` is in the grammar's `[0-9A-Z_a-z]`.
+fn is_name(b: u8) -> bool {
+    b == b'_' || b.is_ascii_alphanumeric()
+}
+
+/// Whether `b` is in the grammar's `[.0-9A-Z_a-z]`.
+fn is_dotted_name(b: u8) -> bool {
+    b == b'.' || is_name(b)
+}
+
+impl Lexer<'_> {
+    /// Whether `pat` matches at `p`, and where its match ends.
+    ///
+    /// The arms follow the grammar's order: comments, the file's statements,
+    /// values, declarations, then fields.
+    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
+        match pat {
+            Pat::CommentsAt0 => self.lit(p, b"/*"),
+            Pat::CommentsAt0End => self.lit(p, b"*/"),
+            Pat::CommentsAt1 => self.lit(p, b"//"),
+            Pat::CommentsAt1End => self.line_end(p),
+            Pat::Syntax => self.syntax(p),
+            Pat::Package => self.package(p),
+            Pat::Import => self.import(p),
+            Pat::OptionStmt => self.option_statement(p),
+            Pat::OptionStmtEnd
+            | Pat::ReservedEnd
+            | Pat::EnumAt3End
+            | Pat::FieldEnd
+            | Pat::MapfieldEnd => self.semicolon(p),
+            Pat::Constants => self.constant(p),
+            Pat::Number => self.number(p),
+            Pat::String => self.string(p),
+            Pat::SubMsgOption => self.lit(p, b"{"),
+            Pat::SubMsgOptionEnd
+            | Pat::MessageEnd
+            | Pat::EnumEnd
+            | Pat::ServiceEnd
+            | Pat::OneofEnd => self.lit(p, b"}"),
+            Pat::Kv => {
+                let end = self.word_end(p);
+                let colon = self.space_end(end);
+                if end == p || self.at(colon) != b':' {
+                    return None;
+                }
+                self.cap(1, p, end);
+                self.cap(2, colon, colon + 1);
+                Some(colon + 1)
+            }
+            Pat::KvEnd => match self.at(p) {
+                b';' => self.semicolon(p),
+                b',' => Some(p + 1),
+                b'/' | b'}' | b'_' => Some(p),
+                b if b.is_ascii_alphabetic() => Some(p),
+                _ => None,
+            },
+            Pat::Message => self.block_head(p, &[b"message", b"extend"], NameStart::Any),
+            Pat::Reserved => {
+                let end = self.lit(p, b"reserved")?;
+                let blanks = self.space_end(end);
+                if blanks == end {
+                    return None;
+                }
+                self.cap(1, p, end);
+                Some(blanks)
+            }
+            Pat::ReservedAt0 => self.reserved_range(p),
+            Pat::Enum => self.block_head(p, &[b"enum"], NameStart::Letter),
+            Pat::EnumAt3 => self.enum_value(p),
+            Pat::FieldOptions => self.lit(p, b"["),
+            Pat::FieldOptionsEnd => self.lit(p, b"]"),
+            Pat::OptionName => {
+                let name = self.option_name(p)?;
+                self.cap(1, p, name.first);
+                if let Some((start, end)) = name.inner {
+                    self.cap(2, start, end);
+                }
+                if let Some((start, end)) = name.outer {
+                    self.cap(3, start, end);
+                }
+                Some(name.end)
+            }
+            Pat::Service => self.named_head(p, b"service", is_dotted_name),
+            Pat::Method => {
+                let end = self.lit(p, b"rpc")?;
+                let name = self.space_end(end);
+                if name == end || !self.at(name).is_ascii_alphabetic() {
+                    return None;
+                }
+                let name_end = self.skip(name + 1, is_name);
+                self.cap(1, p, end);
+                self.cap(2, name, name_end);
+                Some(name_end)
+            }
+            Pat::MethodEnd => match self.at(p) {
+                b'}' => Some(p + 1),
+                b';' => self.semicolon(p),
+                _ => None,
+            },
+            Pat::RpcKeywords => self.word_in(p, &[b"stream", b"returns"]),
+            Pat::Ident => {
+                let start = if self.at(p) == b'.' { p + 1 } else { p };
+                self.at(start)
+                    .is_ascii_alphabetic()
+                    .then(|| self.skip(start + 1, is_dotted_name))
+            }
+            Pat::Oneof => self.named_head(p, b"oneof", is_name),
+            Pat::Field => self.field(p),
+            Pat::Mapfield => self.map_field(p),
+        }
+    }
+
+    /// `$\n?`: the end of the line, with its line feed when it has one.
+    fn line_end(&self, p: usize) -> Option<usize> {
+        if !self.at_eol(p) {
+            return None;
+        }
+        Some(if self.at(p) == b'\n' { p + 1 } else { p })
+    }
+
+    /// `(;)`, with its group.
+    fn semicolon(&mut self, p: usize) -> Option<usize> {
+        let end = self.lit(p, b";")?;
+        self.cap(1, p, end);
+        Some(end)
+    }
+
+    /// `\b(true|false|max|[A-Z_]+)\b`.
+    ///
+    /// Giving back the run of `[A-Z_]` leaves a word character on both sides
+    /// of the `\b`.
+    fn constant(&self, p: usize) -> Option<usize> {
+        if let Some(end) = self.word_in(p, &[b"true", b"false", b"max"]) {
+            return Some(end);
+        }
+        if !self.boundary(p) {
+            return None;
+        }
+        let end = self.skip(p, |b| b == b'_' || b.is_ascii_uppercase());
+        (end > p && self.boundary(end)).then_some(end)
+    }
+
+    /// The end of a run of `[.\w]` from `i`.
+    fn dotted_word_end(&self, mut i: usize) -> usize {
+        let from = i;
+        loop {
+            if self.at(i) == b'.' {
+                i += 1;
+            } else if let Some(width) = self.word_at(i) {
+                i += width;
+            } else {
+                break;
+            }
+        }
+        self.spend(i - from);
+        i
+    }
+}
+
+/// How a declared name must start.
+#[derive(Clone, Copy, Debug)]
+enum NameStart {
+    /// `[A-Z_a-z]`.
+    Any,
+    /// `[A-Za-z]`.
+    Letter,
+}

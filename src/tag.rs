@@ -111,6 +111,9 @@ tags! {
     /// PowerShell.
     #[cfg(feature = "lang-powershell")]
     POWERSHELL = 0x3100,
+    /// Protobuf.
+    #[cfg(feature = "lang-proto")]
+    PROTO = 0x3900,
     /// Python.
     #[cfg(feature = "lang-python")]
     PYTHON = 0x0600,

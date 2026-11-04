@@ -46,7 +46,6 @@ mod perl;
 #[cfg(feature = "lang-php")]
 mod php;
 mod powershell;
-#[cfg(feature = "lang-proto")]
 mod proto;
 mod python;
 mod ruby;

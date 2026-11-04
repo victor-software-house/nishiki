@@ -34,6 +34,7 @@ import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
 import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
+import protoCoverage from "./inputs/proto-coverage.proto" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
 import rubyCoverage from "./inputs/ruby-coverage.rb" with { type: "text" };
 import rubyCppLuaHeredocs from "./inputs/ruby-cpp-lua-heredocs.rb" with { type: "text" };
@@ -1083,6 +1084,7 @@ export const inputs: Input[] = [
   { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
   // Protobuf runs on the TextMate engine. Shiki's Markdown grammar has no
   // Protobuf fence, so no Markdown input embeds it.
+  { lang: "proto", name: "coverage", text: protoCoverage },
   { lang: "proto", name: "googleapis-http", url: `${googleapis}/google/api/http.proto` },
   { lang: "proto", name: "googleapis-operations", url: `${googleapis}/google/longrunning/operations.proto` },
   { lang: "proto", name: "grpc-route-guide", url: `${grpc}/examples/protos/route_guide.proto` },

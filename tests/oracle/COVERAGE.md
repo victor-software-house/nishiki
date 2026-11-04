@@ -43,6 +43,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
+| Protobuf | `proto` | 40 of 40 | 100.0% | 58 of 58 | 100.0% | 0 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
@@ -1235,6 +1236,12 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 ```text
 #function-body.begin
 #function-body.end
+```
+
+### `proto`
+
+```text
+#storagetypes.match
 ```
 
 ### `python`

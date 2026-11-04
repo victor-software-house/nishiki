@@ -1,0 +1,243 @@
+L // Written for nishiki: Protobuf that reaches the grammar's rarer rules.
+T 2 source.proto comment.line.double-slash.proto
+T 72 source.proto comment.line.double-slash.proto
+L syntax = "proto2";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 8 source.proto keyword.operator.assignment.proto
+T 9 source.proto
+T 17 source.proto string.quoted.double.proto.syntax
+T 18 source.proto punctuation.terminator.proto
+L 
+L import weak "a/weak.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 11 source.proto keyword.other.proto
+T 12 source.proto
+T 26 source.proto string.quoted.double.proto.import
+T 27 source.proto punctuation.terminator.proto
+L import public "a/public.proto";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 13 source.proto keyword.other.proto
+T 14 source.proto
+T 30 source.proto string.quoted.double.proto.import
+T 31 source.proto punctuation.terminator.proto
+L 
+L /* A block comment
+T 2 source.proto comment.block.proto
+T 18 source.proto comment.block.proto
+L    across lines. */
+T 17 source.proto comment.block.proto
+T 19 source.proto comment.block.proto
+L option (my.file).name = 1.5;
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 10 source.proto support.other.proto
+T 15 source.proto support.other.proto support.other.proto
+T 16 source.proto support.other.proto
+T 21 source.proto support.other.proto
+T 22 source.proto
+T 23 source.proto keyword.operator.assignment.proto
+T 24 source.proto
+T 27 source.proto constant.numeric.proto
+T 28 source.proto punctuation.terminator.proto
+L option java_package = "x.y";
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 19 source.proto support.other.proto
+T 20 source.proto
+T 21 source.proto keyword.operator.assignment.proto
+T 22 source.proto
+T 27 source.proto string.quoted.double.proto
+T 28 source.proto punctuation.terminator.proto
+L 
+L enum Top {
+T 4 source.proto keyword.other.proto
+T 5 source.proto
+T 8 source.proto entity.name.class.proto
+T 10 source.proto
+L   ZERO = 0;
+T 2 source.proto
+T 6 source.proto variable.other.proto
+T 7 source.proto
+T 8 source.proto keyword.operator.assignment.proto
+T 9 source.proto
+T 10 source.proto constant.numeric.proto
+T 11 source.proto punctuation.terminator.proto
+L   NEG = -1;
+T 2 source.proto
+T 5 source.proto variable.other.proto
+T 6 source.proto
+T 7 source.proto keyword.operator.assignment.proto
+T 8 source.proto
+T 10 source.proto constant.numeric.proto
+T 11 source.proto punctuation.terminator.proto
+L   HEX = 0x1F;
+T 2 source.proto
+T 5 source.proto variable.other.proto
+T 6 source.proto
+T 7 source.proto keyword.operator.assignment.proto
+T 8 source.proto
+T 12 source.proto constant.numeric.proto
+T 13 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L message Holder {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 14 source.proto entity.name.class.message.proto
+T 16 source.proto
+L   reserved 2, 9 to 11;
+T 2 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 12 source.proto constant.numeric.proto
+T 14 source.proto
+T 15 source.proto constant.numeric.proto
+T 16 source.proto
+T 18 source.proto keyword.other.proto
+T 19 source.proto
+T 21 source.proto constant.numeric.proto
+T 22 source.proto punctuation.terminator.proto
+L   reserved "old";
+T 2 source.proto
+T 10 source.proto keyword.other.proto
+T 11 source.proto
+T 16 source.proto string.quoted.double.proto
+T 17 source.proto punctuation.terminator.proto
+L   map<string, .a.Value> values = 3;
+T 2 source.proto
+T 5 source.proto storage.type.proto
+T 6 source.proto punctuation.definition.typeparameters.begin.proto
+T 12 source.proto storage.type.proto
+T 14 source.proto
+T 22 source.proto storage.type.proto
+T 23 source.proto punctuation.definition.typeparameters.end.proto
+T 24 source.proto
+T 30 source.proto variable.other.proto
+T 31 source.proto
+T 32 source.proto keyword.operator.assignment.proto
+T 33 source.proto
+T 34 source.proto constant.numeric.proto
+T 35 source.proto punctuation.terminator.proto
+L   optional int32 x = 4 [(a.b).c = 2.5e3, deprecated = true];
+T 2 source.proto
+T 10 source.proto storage.modifier.proto
+T 11 source.proto
+T 16 source.proto storage.type.proto
+T 17 source.proto
+T 18 source.proto variable.other.proto
+T 19 source.proto
+T 20 source.proto keyword.operator.assignment.proto
+T 21 source.proto
+T 22 source.proto constant.numeric.proto
+T 23 source.proto
+T 24 source.proto
+T 26 source.proto support.other.proto
+T 28 source.proto support.other.proto support.other.proto
+T 29 source.proto support.other.proto
+T 31 source.proto support.other.proto
+T 34 source.proto
+T 39 source.proto constant.numeric.proto
+T 41 source.proto
+T 51 source.proto support.other.proto
+T 54 source.proto
+T 58 source.proto constant.language.proto
+T 59 source.proto
+T 60 source.proto punctuation.terminator.proto
+L   enum Inner {
+T 2 source.proto
+T 6 source.proto keyword.other.proto
+T 7 source.proto
+T 12 source.proto entity.name.class.proto
+T 14 source.proto
+L     A = 0;
+T 4 source.proto
+T 5 source.proto variable.other.proto
+T 6 source.proto
+T 7 source.proto keyword.operator.assignment.proto
+T 8 source.proto
+T 9 source.proto constant.numeric.proto
+T 10 source.proto punctuation.terminator.proto
+L     B = -0x2;
+T 4 source.proto
+T 5 source.proto variable.other.proto
+T 6 source.proto
+T 7 source.proto keyword.operator.assignment.proto
+T 8 source.proto
+T 12 source.proto constant.numeric.proto
+T 13 source.proto punctuation.terminator.proto
+L   }
+T 2 source.proto
+T 3 source.proto
+L   option (opt) = { key: 1; other: "v", last: true };
+T 2 source.proto
+T 8 source.proto keyword.other.proto
+T 9 source.proto
+T 14 source.proto support.other.proto
+T 15 source.proto
+T 16 source.proto keyword.operator.assignment.proto
+T 17 source.proto
+T 18 source.proto
+T 19 source.proto
+T 22 source.proto keyword.other.proto
+T 23 source.proto punctuation.separator.key-value.proto
+T 24 source.proto
+T 25 source.proto constant.numeric.proto
+T 26 source.proto punctuation.terminator.proto
+T 27 source.proto
+T 32 source.proto keyword.other.proto
+T 33 source.proto punctuation.separator.key-value.proto
+T 34 source.proto
+T 37 source.proto string.quoted.double.proto
+T 38 source.proto
+T 39 source.proto
+T 43 source.proto keyword.other.proto
+T 44 source.proto punctuation.separator.key-value.proto
+T 45 source.proto
+T 50 source.proto
+T 51 source.proto
+T 52 source.proto punctuation.terminator.proto
+L }
+T 1 source.proto
+L 
+L service Api {
+T 7 source.proto keyword.other.proto
+T 8 source.proto
+T 11 source.proto entity.name.class.message.proto
+T 13 source.proto
+L   rpc Get (stream Req) returns (Resp);
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 9 source.proto entity.name.function
+T 11 source.proto
+T 17 source.proto keyword.other.proto
+T 18 source.proto
+T 21 source.proto entity.name.class.proto
+T 23 source.proto
+T 30 source.proto keyword.other.proto
+T 32 source.proto
+T 36 source.proto entity.name.class.proto
+T 37 source.proto
+T 38 source.proto punctuation.terminator.proto
+L   rpc Put (Req) returns (stream Resp) {}
+T 2 source.proto
+T 5 source.proto keyword.other.proto
+T 6 source.proto
+T 9 source.proto entity.name.function
+T 11 source.proto
+T 14 source.proto entity.name.class.proto
+T 16 source.proto
+T 23 source.proto keyword.other.proto
+T 25 source.proto
+T 31 source.proto keyword.other.proto
+T 32 source.proto
+T 36 source.proto entity.name.class.proto
+T 39 source.proto
+T 40 source.proto
+L }
+T 1 source.proto
+L 

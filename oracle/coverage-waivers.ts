@@ -1315,6 +1315,7 @@ export const complete: string[] = [
   "markdown",
   "nix",
   "powershell",
+  "proto",
   "python",
   "ruby",
   "rust",

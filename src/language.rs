@@ -764,15 +764,15 @@ languages! {
     /// - Command names, keywords, variables and properties match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
     /// - `\w` for non-ASCII characters comes from the table measured for JSON (`oracle/classes.ts`).
     CMake { feature: "lang-cmake", names: ["cmake"], module: cmake }
-    /// Protobuf, with the scopes of Shiki's `proto` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Proto {
-        feature: "lang-proto",
-        names: ["proto", "protobuf"],
-        engine: crate::proto::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Protobuf, with the scopes of Shiki's `proto` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A field with no type takes its label as the type: in `required x = 1;`, `required` is the type.
+    /// - A number before a letter ends at its dot: `1.5x` is the number `1.` and the text `5x`.
+    /// - `reserved` is a statement only inside a message.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Proto { feature: "lang-proto", names: ["proto", "protobuf"], module: proto }
     /// html-derivative, with the scopes of Shiki's `html-derivative`
     /// grammar: HTML with a rule of its own for the tags no other rule takes.
     ///

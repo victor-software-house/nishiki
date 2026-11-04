@@ -452,6 +452,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `powershell/install-powershell` | [`tools/install-powershell.ps1`][install-powershell] in PowerShell/PowerShell | [MIT][powershell-licence] |
 | `powershell/sample` | [`samples/powershell.sample`][powershell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `powershell/set-release-tag` | [`tools/releaseBuild/setReleaseTag.ps1`][set-release-tag] in PowerShell/PowerShell | [MIT][powershell-licence] |
+| `proto/coverage` | `oracle/inputs/proto-coverage.proto`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `proto/googleapis-http` | [`google/api/http.proto`][googleapis-http] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
 | `proto/googleapis-operations` | [`google/longrunning/operations.proto`][googleapis-operations] in googleapis/googleapis | [Apache-2.0][googleapis-licence] |
 | `proto/grpc-route-guide` | [`examples/protos/route_guide.proto`][grpc-route-guide] in grpc/grpc | [Apache-2.0][grpc-licence] |
@@ -797,8 +798,7 @@ Two causes made them differ: `\G` holds at the start of every line in a fence, w
 Shiki's Markdown grammar has no Zig fence, so no Markdown input embeds Zig.
 `cmake/sample`, `cmake/json-lists` and `cmake/coverage` are CMake's development inputs, and `cmake/googletest-utils` and `cmake/catch2-lists` are held out.
 Shiki's Markdown grammar has no CMake fence, so no Markdown input embeds CMake.
-Protobuf runs on nishiki's TextMate engine.
-`proto/sample` and `proto/googleapis-http` are its development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
+`proto/sample`, `proto/googleapis-http` and `proto/coverage` are Protobuf's development inputs, and `proto/googleapis-operations` and `proto/grpc-route-guide` are held out.
 Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Protobuf.
 `bat/sample` and `bat/gradlew` are Batch's development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
 `bat/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.

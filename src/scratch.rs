@@ -75,6 +75,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first PowerShell line, as GraphQL's is.
     #[cfg(feature = "lang-powershell")]
     pub(crate) powershell: Option<Box<crate::powershell::Scratch>>,
+    /// The Protobuf lexer's, for Protobuf documents.
+    /// It is boxed and allocated by the first Protobuf line, as Dart's is.
+    #[cfg(feature = "lang-proto")]
+    pub(crate) proto: Option<Box<crate::proto::Scratch>>,
     #[cfg(feature = "lang-python")]
     pub(crate) python: crate::python::Scratch,
     /// The Ruby lexer's, for Ruby documents.

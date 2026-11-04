@@ -20,6 +20,7 @@ use std::fmt::Debug;
 #[cfg(any(
     feature = "lang-cmake",
     feature = "lang-python",
+    feature = "lang-proto",
     feature = "lang-java",
     feature = "lang-css",
     feature = "lang-kotlin",

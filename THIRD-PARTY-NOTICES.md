@@ -1457,7 +1457,7 @@ SOFTWARE.
 
 ## Protobuf
 
-Its TextMate engine runs the Protobuf TextMate grammar in [zxh0/vscode-proto3](https://github.com/zxh0/vscode-proto3), which Shiki bundles as `proto`, with its rules compiled into tables (`src/proto/grammar.rs`).
+Its Protobuf lexer emits the scope names of the Protobuf TextMate grammar in [zxh0/vscode-proto3](https://github.com/zxh0/vscode-proto3), which Shiki bundles as `proto`, and tries that grammar's rules in its order, from tables generated from it (`src/proto/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

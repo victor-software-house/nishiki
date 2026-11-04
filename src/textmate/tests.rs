@@ -433,8 +433,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::perl::grammar::GRAMMAR, "perl"),
     #[cfg(feature = "lang-php")]
     (&crate::php::grammar::GRAMMAR, "php"),
-    #[cfg(feature = "lang-proto")]
-    (&crate::proto::grammar::GRAMMAR, "proto"),
     #[cfg(feature = "lang-sass")]
     (&crate::sass::grammar::GRAMMAR, "sass"),
     #[cfg(feature = "lang-vb")]

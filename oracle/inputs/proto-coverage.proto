@@ -1,0 +1,33 @@
+// Written for nishiki: Protobuf that reaches the grammar's rarer rules.
+syntax = "proto2";
+
+import weak "a/weak.proto";
+import public "a/public.proto";
+
+/* A block comment
+   across lines. */
+option (my.file).name = 1.5;
+option java_package = "x.y";
+
+enum Top {
+  ZERO = 0;
+  NEG = -1;
+  HEX = 0x1F;
+}
+
+message Holder {
+  reserved 2, 9 to 11;
+  reserved "old";
+  map<string, .a.Value> values = 3;
+  optional int32 x = 4 [(a.b).c = 2.5e3, deprecated = true];
+  enum Inner {
+    A = 0;
+    B = -0x2;
+  }
+  option (opt) = { key: 1; other: "v", last: true };
+}
+
+service Api {
+  rpc Get (stream Req) returns (Resp);
+  rpc Put (Req) returns (stream Resp) {}
+}

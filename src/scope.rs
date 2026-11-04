@@ -122,6 +122,8 @@ tables! {
     NIX = nix;
     #[cfg(feature = "lang-powershell")]
     POWERSHELL = powershell;
+    #[cfg(feature = "lang-proto")]
+    PROTO = proto;
     #[cfg(feature = "lang-python")]
     PYTHON = python;
     #[cfg(feature = "lang-ruby")]
