@@ -89,6 +89,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Mermaid | `Language::Mermaid` | `lang-mermaid` | `textmate` | `mermaid`, `mmd` |
 | Nix | `Language::Nix` | `lang-nix` | `all` | `nix` |
 | Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `textmate` | `objective-c`, `objc` |
+| Pascal | `Language::Pascal` | `lang-pascal` | `textmate` | `pascal` |
 | Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |
 | PHP | `Language::Php` | `lang-php` | `textmate` | `php` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `all` | `powershell`, `ps`, `ps1`, `pwsh` |

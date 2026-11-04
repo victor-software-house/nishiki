@@ -1,0 +1,3600 @@
+L unit Horse.Commons;
+T 4 source.pascal keyword.pascal
+T 19 source.pascal
+L 
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   {$MODE DELPHI}{$H+}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 15 source.pascal string.regexp
+T 16 source.pascal string.regexp string.regexp
+T 18 source.pascal string.regexp string.regexp
+T 20 source.pascal string.regexp
+T 21 source.pascal string.regexp string.regexp
+L   {$MODESWITCH TypeHelpers}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 26 source.pascal string.regexp
+T 27 source.pascal string.regexp string.regexp
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L 
+L interface
+T 9 source.pascal keyword.pascal
+L 
+L uses
+T 4 source.pascal keyword.pascal
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   SysUtils,
+T 11 source.pascal
+L   StrUtils,
+T 11 source.pascal
+L   Classes;
+T 10 source.pascal
+L {$ELSE}
+T 2 source.pascal string.regexp string.regexp
+T 6 source.pascal string.regexp
+T 7 source.pascal string.regexp string.regexp
+L   Web.HTTPApp,
+T 14 source.pascal
+L   System.SysUtils,
+T 18 source.pascal
+L   System.Classes;
+T 17 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L 
+L type
+T 4 source.pascal keyword.pascal
+L   TMethodType = (mtAny, mtGet, mtPut, mtPost, mtHead, mtDelete, mtPatch, mtQuery);
+T 82 source.pascal
+L 
+L   THorseServiceFactory<T: class> = {$IF DEFINED(FPC)}function: T{$ELSE}reference to function: T{$ENDIF};
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+T 35 source.pascal
+T 37 source.pascal string.regexp string.regexp
+T 52 source.pascal string.regexp
+T 53 source.pascal string.regexp string.regexp
+T 64 source.pascal
+T 66 source.pascal string.regexp string.regexp
+T 70 source.pascal string.regexp
+T 71 source.pascal string.regexp string.regexp
+T 80 source.pascal keyword.pascal
+T 81 source.pascal
+T 83 source.pascal keyword.pascal
+T 95 source.pascal
+T 97 source.pascal string.regexp string.regexp
+T 102 source.pascal string.regexp
+T 103 source.pascal string.regexp string.regexp
+T 104 source.pascal
+L   THorseServiceFactory = {$IF DEFINED(FPC)}function: TObject{$ELSE}reference to function: TObject{$ENDIF};
+T 25 source.pascal
+T 27 source.pascal string.regexp string.regexp
+T 42 source.pascal string.regexp
+T 43 source.pascal string.regexp string.regexp
+T 60 source.pascal
+T 62 source.pascal string.regexp string.regexp
+T 66 source.pascal string.regexp
+T 67 source.pascal string.regexp string.regexp
+T 76 source.pascal keyword.pascal
+T 77 source.pascal
+T 79 source.pascal keyword.pascal
+T 97 source.pascal
+T 99 source.pascal string.regexp string.regexp
+T 104 source.pascal string.regexp
+T 105 source.pascal string.regexp string.regexp
+T 106 source.pascal
+L 
+L   {$IF DEFINED(FPC)}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 19 source.pascal string.regexp
+T 20 source.pascal string.regexp string.regexp
+L   TStopwatch = record
+T 15 source.pascal
+T 21 source.pascal keyword.pascal
+L   private
+T 2 source.pascal
+T 9 source.pascal keyword.pascal
+L     FStart: Int64;
+T 12 source.pascal
+T 17 source.pascal storage.support.type.pascal
+T 18 source.pascal
+L     FStop: Int64;
+T 11 source.pascal
+T 16 source.pascal storage.support.type.pascal
+T 17 source.pascal
+L     FRunning: Boolean;
+T 14 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 22 source.pascal
+L     function GetElapsedMilliseconds: Int64;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 35 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+T 42 source.pascal storage.support.type.pascal
+T 43 source.pascal
+L     function GetTotalMilliseconds: Double;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 33 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 41 source.pascal storage.support.type.pascal
+T 42 source.pascal
+L   public
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+L     class function StartNew: TStopwatch; static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 27 source.pascal meta.function.pascal entity.name.function.pascal
+T 41 source.pascal
+T 47 source.pascal keyword.pascal
+T 48 source.pascal
+L     procedure Stop;
+T 4 source.pascal
+T 13 source.pascal meta.function.pascal storage.type.function.pascal
+T 14 source.pascal meta.function.pascal
+T 18 source.pascal meta.function.pascal entity.name.function.pascal
+T 19 source.pascal
+L     function Elapsed: TStopwatch;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 33 source.pascal
+L     property TotalMilliseconds: Double read GetTotalMilliseconds;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 30 source.pascal meta.function.pascal entity.name.function.pascal
+T 32 source.pascal
+T 38 source.pascal storage.support.type.pascal
+T 39 source.pascal
+T 43 source.pascal keyword.pascal
+T 65 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   {$ENDIF}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 9 source.pascal string.regexp
+T 10 source.pascal string.regexp string.regexp
+L 
+L {$SCOPEDENUMS ON}
+T 2 source.pascal string.regexp string.regexp
+T 16 source.pascal string.regexp
+T 17 source.pascal string.regexp string.regexp
+L   THTTPStatus = (
+T 17 source.pascal
+L     Continue = 100,
+T 4 source.pascal
+T 12 source.pascal keyword.control.pascal
+T 15 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L     SwitchingProtocols = 101,
+T 25 source.pascal
+T 28 source.pascal constant.numeric.pascal
+T 29 source.pascal
+L     Processing = 102,
+T 17 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L     OK = 200,
+T 9 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+L     Created = 201,
+T 14 source.pascal
+T 17 source.pascal constant.numeric.pascal
+T 18 source.pascal
+L     Accepted = 202,
+T 15 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L     NonAuthoritativeInformation = 203,
+T 34 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L     NoContent = 204,
+T 16 source.pascal
+T 19 source.pascal constant.numeric.pascal
+T 20 source.pascal
+L     ResetContent = 205,
+T 19 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 23 source.pascal
+L     PartialContent = 206,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     MultiStatus = 207,
+T 18 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L     AlreadyReported = 208,
+T 22 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+L     IMUsed = 226,
+T 13 source.pascal
+T 16 source.pascal constant.numeric.pascal
+T 17 source.pascal
+L     MultipleChoices = 300,
+T 22 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+L     MovedPermanently = 301,
+T 23 source.pascal
+T 26 source.pascal constant.numeric.pascal
+T 27 source.pascal
+L     Found = 302,
+T 12 source.pascal
+T 15 source.pascal constant.numeric.pascal
+T 16 source.pascal
+L     SeeOther = 303,
+T 15 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L     NotModified = 304,
+T 18 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L     UseProxy = 305,
+T 15 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L     TemporaryRedirect = 307,
+T 24 source.pascal
+T 27 source.pascal constant.numeric.pascal
+T 28 source.pascal
+L     PermanentRedirect = 308,
+T 24 source.pascal
+T 27 source.pascal constant.numeric.pascal
+T 28 source.pascal
+L     BadRequest = 400,
+T 17 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L     Unauthorized = 401,
+T 19 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 23 source.pascal
+L     PaymentRequired = 402,
+T 22 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+L     Forbidden = 403,
+T 16 source.pascal
+T 19 source.pascal constant.numeric.pascal
+T 20 source.pascal
+L     NotFound = 404,
+T 15 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L     MethodNotAllowed = 405,
+T 23 source.pascal
+T 26 source.pascal constant.numeric.pascal
+T 27 source.pascal
+L     NotAcceptable = 406,
+T 20 source.pascal
+T 23 source.pascal constant.numeric.pascal
+T 24 source.pascal
+L     ProxyAuthenticationRequired = 407,
+T 34 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L     RequestTimeout = 408,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     Conflict = 409,
+T 15 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L     Gone = 410,
+T 11 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L     LengthRequired = 411,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     PreconditionFailed = 412,
+T 25 source.pascal
+T 28 source.pascal constant.numeric.pascal
+T 29 source.pascal
+L     PayloadTooLarge = 413,
+T 22 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+L     RequestURITooLong = 414,
+T 24 source.pascal
+T 27 source.pascal constant.numeric.pascal
+T 28 source.pascal
+L     UnsupportedMediaType = 415,
+T 27 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 31 source.pascal
+L     RequestedRangeNotSatisfiable = 416,
+T 35 source.pascal
+T 38 source.pascal constant.numeric.pascal
+T 39 source.pascal
+L     ExpectationFailed = 417,
+T 24 source.pascal
+T 27 source.pascal constant.numeric.pascal
+T 28 source.pascal
+L     Imateapot = 418,
+T 16 source.pascal
+T 19 source.pascal constant.numeric.pascal
+T 20 source.pascal
+L     MisdirectedRequest = 421,
+T 25 source.pascal
+T 28 source.pascal constant.numeric.pascal
+T 29 source.pascal
+L     UnprocessableEntity = 422,
+T 26 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 30 source.pascal
+L     Locked = 423,
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 13 source.pascal
+T 16 source.pascal constant.numeric.pascal
+T 17 source.pascal
+L     FailedDependency = 424,
+T 23 source.pascal
+T 26 source.pascal constant.numeric.pascal
+T 27 source.pascal
+L     UpgradeRequired = 426,
+T 22 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+L     PreconditionRequired = 428,
+T 27 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 31 source.pascal
+L     TooManyRequests = 429,
+T 22 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+L     RequestHeaderFieldsTooLarge = 431,
+T 34 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L     ConnectionClosedWithoutResponse = 444,
+T 38 source.pascal
+T 41 source.pascal constant.numeric.pascal
+T 42 source.pascal
+L     UnavailableForLegalReasons = 451,
+T 33 source.pascal
+T 36 source.pascal constant.numeric.pascal
+T 37 source.pascal
+L     ClientClosedRequest = 499,
+T 26 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 30 source.pascal
+L     InternalServerError = 500,
+T 26 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 30 source.pascal
+L     NotImplemented = 501,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     BadGateway = 502,
+T 17 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L     ServiceUnavailable = 503,
+T 25 source.pascal
+T 28 source.pascal constant.numeric.pascal
+T 29 source.pascal
+L     GatewayTimeout = 504,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     HTTPVersionNotSupported = 505,
+T 30 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L     VariantAlsoNegotiates = 506,
+T 28 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 32 source.pascal
+L     InsufficientStorage = 507,
+T 26 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 30 source.pascal
+L     LoopDetected = 508,
+T 19 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 23 source.pascal
+L     NotExtended = 510,
+T 18 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L     NetworkAuthenticationRequired = 511,
+T 36 source.pascal
+T 39 source.pascal constant.numeric.pascal
+T 40 source.pascal
+L     NetworkConnectTimeoutError = 599);
+T 33 source.pascal
+T 36 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L 
+L   TMimeTypes = (
+T 16 source.pascal
+L     MultiPartFormData,
+T 22 source.pascal
+L     ApplicationXWWWFormURLEncoded,
+T 34 source.pascal
+L     ApplicationJSON,
+T 20 source.pascal
+L     ApplicationOctetStream,
+T 27 source.pascal
+L     ApplicationXML,
+T 19 source.pascal
+L     ApplicationJavaScript,
+T 26 source.pascal
+L     ApplicationPDF,
+T 19 source.pascal
+L     ApplicationTypeScript,
+T 26 source.pascal
+L     ApplicationZIP,
+T 19 source.pascal
+L     TextPlain,
+T 14 source.pascal
+L     TextCSS,
+T 12 source.pascal
+L     TextCSV,
+T 12 source.pascal
+L     TextHTML,
+T 13 source.pascal
+L     ImageJPEG,
+T 14 source.pascal
+L     ImagePNG,
+T 13 source.pascal
+L     ImageGIF,
+T 13 source.pascal
+L     Download);
+T 14 source.pascal
+L 
+L   TMessageType = (Default, Error, Warning, Information);
+T 18 source.pascal
+T 25 source.pascal keyword.pascal
+T 56 source.pascal
+L   TLhsBracketsType = (Equal, NotEqual, LessThan, LessThanOrEqual, GreaterThan, GreaterThanOrEqual, Range, Like,
+T 111 source.pascal
+L     Contains, StartsWith, EndsWith);
+T 4 source.pascal
+T 12 source.pascal keyword.pascal
+T 36 source.pascal
+L {$SCOPEDENUMS OFF}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L 
+L   TLhsBrackets = set of TLhsBracketsType;
+T 17 source.pascal
+T 20 source.pascal keyword.pascal
+T 21 source.pascal
+T 23 source.pascal keyword.pascal
+T 41 source.pascal
+L 
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   THorseBufferSlice = record
+T 22 source.pascal
+T 28 source.pascal keyword.pascal
+L   private
+T 2 source.pascal
+T 9 source.pascal keyword.pascal
+L     FBuffer: TBytes;
+T 20 source.pascal
+L     FStart: Integer;
+T 12 source.pascal
+T 19 source.pascal storage.support.type.pascal
+T 20 source.pascal
+L     FLen: Integer;
+T 10 source.pascal
+T 17 source.pascal storage.support.type.pascal
+T 18 source.pascal
+L   public
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+L     class function Create(const ABuffer: TBytes; const AStart, ALen: Integer): THorseBufferSlice; static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 25 source.pascal meta.function.pascal entity.name.function.pascal
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+T 49 source.pascal
+T 54 source.pascal keyword.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 98 source.pascal
+T 104 source.pascal keyword.pascal
+T 105 source.pascal
+L     class function Empty: THorseBufferSlice; static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 24 source.pascal meta.function.pascal entity.name.function.pascal
+T 45 source.pascal
+T 51 source.pascal keyword.pascal
+T 52 source.pascal
+L     function ToString: string;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 23 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L     function Compare(const AText: string; ACaseInsensitive: Boolean = True): Boolean; overload;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 34 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 60 source.pascal
+T 67 source.pascal storage.support.type.pascal
+T 70 source.pascal
+T 74 source.pascal constant.language.pascal
+T 77 source.pascal
+T 84 source.pascal storage.support.type.pascal
+T 86 source.pascal
+T 94 source.pascal keyword.pascal
+T 95 source.pascal
+L     function Compare(const AOther: THorseBufferSlice; ACaseInsensitive: Boolean = True): Boolean; overload;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 72 source.pascal
+T 79 source.pascal storage.support.type.pascal
+T 82 source.pascal
+T 86 source.pascal constant.language.pascal
+T 89 source.pascal
+T 96 source.pascal storage.support.type.pascal
+T 98 source.pascal
+T 106 source.pascal keyword.pascal
+T 107 source.pascal
+L     function CompareBytes(const ABytes: TBytes; const AStart, ALen: Integer; ACaseInsensitive: Boolean = True): Boolean;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 25 source.pascal meta.function.pascal entity.name.function.pascal
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+T 48 source.pascal
+T 53 source.pascal keyword.pascal
+T 68 source.pascal
+T 75 source.pascal storage.support.type.pascal
+T 95 source.pascal
+T 102 source.pascal storage.support.type.pascal
+T 105 source.pascal
+T 109 source.pascal constant.language.pascal
+T 112 source.pascal
+T 119 source.pascal storage.support.type.pascal
+T 120 source.pascal
+L     function SubSlice(const AStartOffset, ALen: Integer): THorseBufferSlice;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 22 source.pascal
+T 27 source.pascal keyword.pascal
+T 48 source.pascal
+T 55 source.pascal storage.support.type.pascal
+T 76 source.pascal
+L     function IndexOf(const AByte: Byte; const AOffset: Integer = 0): Integer;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 34 source.pascal
+T 38 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 45 source.pascal keyword.pascal
+T 55 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 65 source.pascal
+T 66 source.pascal constant.numeric.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 77 source.pascal
+L     property Buffer: TBytes read FBuffer;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+T 41 source.pascal
+L     property Start: Integer read FStart;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 18 source.pascal meta.function.pascal entity.name.function.pascal
+T 20 source.pascal
+T 27 source.pascal storage.support.type.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+T 40 source.pascal
+L     property Len: Integer read FLen;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 16 source.pascal meta.function.pascal entity.name.function.pascal
+T 18 source.pascal
+T 25 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 30 source.pascal keyword.pascal
+T 36 source.pascal
+L     function IsEmpty: Boolean;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 22 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L {$ELSE}
+T 2 source.pascal string.regexp string.regexp
+T 6 source.pascal string.regexp
+T 7 source.pascal string.regexp string.regexp
+L   THorseBufferSlice = record
+T 22 source.pascal
+T 28 source.pascal keyword.pascal
+L   private
+T 2 source.pascal
+T 9 source.pascal keyword.pascal
+L     FBuffer: TBytes;
+T 20 source.pascal
+L     FStart: Integer;
+T 12 source.pascal
+T 19 source.pascal storage.support.type.pascal
+T 20 source.pascal
+L     FLen: Integer;
+T 10 source.pascal
+T 17 source.pascal storage.support.type.pascal
+T 18 source.pascal
+L     function GetIsEmpty: Boolean; inline;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 23 source.pascal meta.function.pascal entity.name.function.pascal
+T 25 source.pascal
+T 32 source.pascal storage.support.type.pascal
+T 34 source.pascal
+T 40 source.pascal keyword.pascal
+T 41 source.pascal
+L   public
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+L     class function Create(const ABuffer: TBytes; const AStart, ALen: Integer): THorseBufferSlice; static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 25 source.pascal meta.function.pascal entity.name.function.pascal
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+T 49 source.pascal
+T 54 source.pascal keyword.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 98 source.pascal
+T 104 source.pascal keyword.pascal
+T 105 source.pascal
+L     class function Empty: THorseBufferSlice; static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 24 source.pascal meta.function.pascal entity.name.function.pascal
+T 45 source.pascal
+T 51 source.pascal keyword.pascal
+T 52 source.pascal
+L     function ToString: string;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 23 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L     function Compare(const AText: string; ACaseInsensitive: Boolean = True): Boolean; overload;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 34 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 60 source.pascal
+T 67 source.pascal storage.support.type.pascal
+T 70 source.pascal
+T 74 source.pascal constant.language.pascal
+T 77 source.pascal
+T 84 source.pascal storage.support.type.pascal
+T 86 source.pascal
+T 94 source.pascal keyword.pascal
+T 95 source.pascal
+L     function Compare(const AOther: THorseBufferSlice; ACaseInsensitive: Boolean = True): Boolean; overload;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 72 source.pascal
+T 79 source.pascal storage.support.type.pascal
+T 82 source.pascal
+T 86 source.pascal constant.language.pascal
+T 89 source.pascal
+T 96 source.pascal storage.support.type.pascal
+T 98 source.pascal
+T 106 source.pascal keyword.pascal
+T 107 source.pascal
+L     function CompareBytes(const ABytes: TBytes; const AStart, ALen: Integer; ACaseInsensitive: Boolean = True): Boolean;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 25 source.pascal meta.function.pascal entity.name.function.pascal
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+T 48 source.pascal
+T 53 source.pascal keyword.pascal
+T 68 source.pascal
+T 75 source.pascal storage.support.type.pascal
+T 95 source.pascal
+T 102 source.pascal storage.support.type.pascal
+T 105 source.pascal
+T 109 source.pascal constant.language.pascal
+T 112 source.pascal
+T 119 source.pascal storage.support.type.pascal
+T 120 source.pascal
+L     function SubSlice(const AStartOffset, ALen: Integer): THorseBufferSlice;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 22 source.pascal
+T 27 source.pascal keyword.pascal
+T 48 source.pascal
+T 55 source.pascal storage.support.type.pascal
+T 76 source.pascal
+L     function IndexOf(const AByte: Byte; const AOffset: Integer = 0): Integer;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 34 source.pascal
+T 38 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 45 source.pascal keyword.pascal
+T 55 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 65 source.pascal
+T 66 source.pascal constant.numeric.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 77 source.pascal
+L     property Buffer: TBytes read FBuffer;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+T 41 source.pascal
+L     property Start: Integer read FStart;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 18 source.pascal meta.function.pascal entity.name.function.pascal
+T 20 source.pascal
+T 27 source.pascal storage.support.type.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+T 40 source.pascal
+L     property Len: Integer read FLen;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 16 source.pascal meta.function.pascal entity.name.function.pascal
+T 18 source.pascal
+T 25 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 30 source.pascal keyword.pascal
+T 36 source.pascal
+L     property IsEmpty: Boolean read GetIsEmpty;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 22 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+T 34 source.pascal keyword.pascal
+T 46 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L 
+L   THorseArenaAllocator = class
+T 25 source.pascal
+T 30 source.pascal keyword.pascal
+L   private
+T 2 source.pascal
+T 9 source.pascal keyword.pascal
+L     FBuffer: TBytes;
+T 20 source.pascal
+L     FOffset: Integer;
+T 13 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 21 source.pascal
+L     FSize: Integer;
+T 11 source.pascal
+T 18 source.pascal storage.support.type.pascal
+T 19 source.pascal
+L     FRegisteredObjects: TList;
+T 30 source.pascal
+L   public
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+L     constructor Create(ASize: Integer);
+T 4 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 22 source.pascal meta.function.pascal entity.name.function.pascal
+T 30 source.pascal
+T 37 source.pascal storage.support.type.pascal
+T 39 source.pascal
+L     destructor Destroy; override;
+T 4 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 22 source.pascal meta.function.pascal entity.name.function.pascal
+T 24 source.pascal
+T 32 source.pascal keyword.pascal
+T 33 source.pascal
+L     function Allocate(ALen: Integer): THorseBufferSlice;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 28 source.pascal
+T 35 source.pascal storage.support.type.pascal
+T 56 source.pascal
+L     procedure RegisterObject(AObject: TObject);
+T 4 source.pascal
+T 13 source.pascal meta.function.pascal storage.type.function.pascal
+T 14 source.pascal meta.function.pascal
+T 28 source.pascal meta.function.pascal entity.name.function.pascal
+T 47 source.pascal
+L     procedure Reset;
+T 4 source.pascal
+T 13 source.pascal meta.function.pascal storage.type.function.pascal
+T 14 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 20 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   THTTPStatusHelper = {$IF DEFINED(FPC)} type {$ELSE} record {$ENDIF} helper for THTTPStatus
+T 22 source.pascal
+T 24 source.pascal string.regexp string.regexp
+T 39 source.pascal string.regexp
+T 40 source.pascal string.regexp string.regexp
+T 41 source.pascal
+T 45 source.pascal keyword.pascal
+T 46 source.pascal
+T 48 source.pascal string.regexp string.regexp
+T 52 source.pascal string.regexp
+T 53 source.pascal string.regexp string.regexp
+T 54 source.pascal
+T 60 source.pascal keyword.pascal
+T 61 source.pascal
+T 63 source.pascal string.regexp string.regexp
+T 68 source.pascal string.regexp
+T 69 source.pascal string.regexp string.regexp
+T 70 source.pascal
+T 76 source.pascal keyword.pascal
+T 77 source.pascal
+T 80 source.pascal keyword.control.pascal
+T 92 source.pascal
+L     function ToInteger: Integer;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 22 source.pascal meta.function.pascal entity.name.function.pascal
+T 24 source.pascal
+T 31 source.pascal storage.support.type.pascal
+T 32 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   TMethodTypeHelper = {$IF DEFINED(FPC)} type {$ELSE} record {$ENDIF} helper for TMethodType
+T 22 source.pascal
+T 24 source.pascal string.regexp string.regexp
+T 39 source.pascal string.regexp
+T 40 source.pascal string.regexp string.regexp
+T 41 source.pascal
+T 45 source.pascal keyword.pascal
+T 46 source.pascal
+T 48 source.pascal string.regexp string.regexp
+T 52 source.pascal string.regexp
+T 53 source.pascal string.regexp string.regexp
+T 54 source.pascal
+T 60 source.pascal keyword.pascal
+T 61 source.pascal
+T 63 source.pascal string.regexp string.regexp
+T 68 source.pascal string.regexp
+T 69 source.pascal string.regexp string.regexp
+T 70 source.pascal
+T 76 source.pascal keyword.pascal
+T 77 source.pascal
+T 80 source.pascal keyword.control.pascal
+T 92 source.pascal
+L     class function FromString(const AMethod: string): TMethodType; static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 29 source.pascal meta.function.pascal entity.name.function.pascal
+T 30 source.pascal
+T 35 source.pascal keyword.pascal
+T 45 source.pascal
+T 51 source.pascal storage.support.type.pascal
+T 67 source.pascal
+T 73 source.pascal keyword.pascal
+T 74 source.pascal
+L     function ToString: string;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 23 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   TMimeTypesHelper = {$IF DEFINED(FPC)} type {$ELSE} record {$ENDIF} helper for TMimeTypes
+T 21 source.pascal
+T 23 source.pascal string.regexp string.regexp
+T 38 source.pascal string.regexp
+T 39 source.pascal string.regexp string.regexp
+T 40 source.pascal
+T 44 source.pascal keyword.pascal
+T 45 source.pascal
+T 47 source.pascal string.regexp string.regexp
+T 51 source.pascal string.regexp
+T 52 source.pascal string.regexp string.regexp
+T 53 source.pascal
+T 59 source.pascal keyword.pascal
+T 60 source.pascal
+T 62 source.pascal string.regexp string.regexp
+T 67 source.pascal string.regexp
+T 68 source.pascal string.regexp string.regexp
+T 69 source.pascal
+T 75 source.pascal keyword.pascal
+T 76 source.pascal
+T 79 source.pascal keyword.control.pascal
+T 90 source.pascal
+L     function ToString: string;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 23 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   TLhsBracketsTypeHelper = {$IF DEFINED(FPC)} type {$ELSE} record {$ENDIF} helper for TLhsBracketsType
+T 27 source.pascal
+T 29 source.pascal string.regexp string.regexp
+T 44 source.pascal string.regexp
+T 45 source.pascal string.regexp string.regexp
+T 46 source.pascal
+T 50 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal string.regexp string.regexp
+T 57 source.pascal string.regexp
+T 58 source.pascal string.regexp string.regexp
+T 59 source.pascal
+T 65 source.pascal keyword.pascal
+T 66 source.pascal
+T 68 source.pascal string.regexp string.regexp
+T 73 source.pascal string.regexp
+T 74 source.pascal string.regexp string.regexp
+T 75 source.pascal
+T 81 source.pascal keyword.pascal
+T 82 source.pascal
+T 85 source.pascal keyword.control.pascal
+T 102 source.pascal
+L     function ToString: string;
+T 4 source.pascal
+T 12 source.pascal meta.function.pascal storage.type.function.pascal
+T 13 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 23 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L 
+L 
+L function MatchRoute(const AText: string; const AValues: array of string): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+T 33 source.pascal
+T 39 source.pascal storage.support.type.pascal
+T 41 source.pascal
+T 46 source.pascal keyword.pascal
+T 56 source.pascal
+T 61 source.pascal keyword.pascal
+T 62 source.pascal
+T 64 source.pascal keyword.pascal
+T 65 source.pascal
+T 71 source.pascal storage.support.type.pascal
+T 74 source.pascal
+T 81 source.pascal storage.support.type.pascal
+T 82 source.pascal
+L 
+L implementation
+T 14 source.pascal keyword.pascal
+L 
+L uses  
+T 4 source.pascal keyword.pascal
+T 6 source.pascal
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   RegExpr;
+T 10 source.pascal
+L {$ELSE}
+T 2 source.pascal string.regexp string.regexp
+T 6 source.pascal string.regexp
+T 7 source.pascal string.regexp string.regexp
+L   System.RegularExpressions;    
+T 32 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L 
+L 
+L 
+L function MatchRoute(const AText: string; const AValues: array of string): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+T 33 source.pascal
+T 39 source.pascal storage.support.type.pascal
+T 41 source.pascal
+T 46 source.pascal keyword.pascal
+T 56 source.pascal
+T 61 source.pascal keyword.pascal
+T 62 source.pascal
+T 64 source.pascal keyword.pascal
+T 65 source.pascal
+T 71 source.pascal storage.support.type.pascal
+T 74 source.pascal
+T 81 source.pascal storage.support.type.pascal
+T 82 source.pascal
+L 
+L   function ReplaceParams(const AValue: string): string;
+T 2 source.pascal
+T 10 source.pascal meta.function.pascal storage.type.function.pascal
+T 11 source.pascal meta.function.pascal
+T 24 source.pascal meta.function.pascal entity.name.function.pascal
+T 25 source.pascal
+T 30 source.pascal keyword.pascal
+T 39 source.pascal
+T 45 source.pascal storage.support.type.pascal
+T 48 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 55 source.pascal
+L   var
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+L     LPart: string;
+T 11 source.pascal
+T 17 source.pascal storage.support.type.pascal
+T 18 source.pascal
+L     LSplitedPath: TArray<string>;
+T 25 source.pascal
+T 31 source.pascal storage.support.type.pascal
+T 33 source.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     Result := AValue;
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 21 source.pascal
+L     LSplitedPath := AValue.Split(['/']);
+T 34 source.pascal
+T 35 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 40 source.pascal
+L     for LPart in LSplitedPath do
+T 4 source.pascal
+T 7 source.pascal keyword.control.pascal
+T 14 source.pascal
+T 16 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal keyword.control.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if LPart.StartsWith(':') then
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 26 source.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+T 35 source.pascal keyword.pascal
+L         Result := StringReplace(Result, LPart, '([^/]*)', []);
+T 8 source.pascal
+T 14 source.pascal keyword.pascal
+T 32 source.pascal
+T 38 source.pascal keyword.pascal
+T 47 source.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 55 source.pascal string.quoted.single.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 62 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     Result := Trim(Result);
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 19 source.pascal
+T 25 source.pascal keyword.pascal
+T 27 source.pascal
+L     if not Result.EndsWith('/') then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 10 source.pascal keyword.pascal
+T 11 source.pascal
+T 17 source.pascal keyword.pascal
+T 27 source.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+T 36 source.pascal keyword.pascal
+L       Result := Result + '/';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 22 source.pascal keyword.pascal
+T 25 source.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L var
+T 3 source.pascal keyword.pascal
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   LRegexObj: TRegExpr;
+T 22 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   LText, LExpression: string;
+T 22 source.pascal
+T 28 source.pascal storage.support.type.pascal
+T 29 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := False;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 17 source.pascal constant.language.pascal
+T 18 source.pascal
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   LRegexObj := TRegExpr.Create;
+T 31 source.pascal
+L   try
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L     LText := Trim(AText);
+T 25 source.pascal
+L     if not LText.EndsWith('/') then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 10 source.pascal keyword.pascal
+T 26 source.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+T 35 source.pascal keyword.pascal
+L       LText := LText + '/';
+T 23 source.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     for I := Low(AValues) to High(AValues) do
+T 4 source.pascal
+T 7 source.pascal keyword.control.pascal
+T 26 source.pascal
+T 28 source.pascal keyword.pascal
+T 43 source.pascal
+T 45 source.pascal keyword.control.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       LExpression := '^(' + ReplaceParams(AValues[I]) + ')$';
+T 21 source.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 56 source.pascal
+T 57 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 59 source.pascal string.quoted.single.pascal
+T 60 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 61 source.pascal
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L       LRegexObj.Expression := '(?i)' + LExpression;
+T 30 source.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 51 source.pascal
+L       if LRegexObj.Exec(LText) then
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 31 source.pascal
+T 35 source.pascal keyword.pascal
+L {$ELSE}
+T 2 source.pascal string.regexp string.regexp
+T 6 source.pascal string.regexp
+T 7 source.pascal string.regexp string.regexp
+L       if TRegEx.IsMatch(LText, LExpression, [roIgnoreCase]) then
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 60 source.pascal
+T 64 source.pascal keyword.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L       begin
+T 6 source.pascal
+T 11 source.pascal keyword.pascal
+L         Result := True;
+T 8 source.pascal
+T 14 source.pascal keyword.pascal
+T 18 source.pascal
+T 22 source.pascal constant.language.pascal
+T 23 source.pascal
+L         Exit;
+T 8 source.pascal
+T 12 source.pascal keyword.control.pascal
+T 13 source.pascal
+L       end;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L   finally
+T 2 source.pascal
+T 9 source.pascal keyword.pascal
+L     LRegexObj.Free;
+T 19 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L { TLhsBracketsTypeHelper }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 25 source.pascal comment.block.pascal.two
+T 26 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L function TLhsBracketsTypeHelper.ToString: string;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 40 source.pascal meta.function.pascal entity.name.function.pascal
+T 42 source.pascal
+T 48 source.pascal storage.support.type.pascal
+T 49 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   case Self of
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 11 source.pascal token.variable
+T 12 source.pascal
+T 14 source.pascal keyword.pascal
+L     TLhsBracketsType.Equal:
+T 27 source.pascal
+L       Result := '[eq]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     TLhsBracketsType.NotEqual:
+T 30 source.pascal
+L       Result := '[ne]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     TLhsBracketsType.LessThan:
+T 30 source.pascal
+L       Result := '[lt]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     TLhsBracketsType.LessThanOrEqual:
+T 37 source.pascal
+L       Result := '[lte]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 22 source.pascal string.quoted.single.pascal
+T 23 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L     TLhsBracketsType.GreaterThan:
+T 33 source.pascal
+L       Result := '[gt]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     TLhsBracketsType.GreaterThanOrEqual:
+T 40 source.pascal
+L       Result := '[gte]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 22 source.pascal string.quoted.single.pascal
+T 23 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L     TLhsBracketsType.Range:
+T 27 source.pascal
+L       Result := '[range]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal
+L     TLhsBracketsType.Like:
+T 26 source.pascal
+L       Result := '[like]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 23 source.pascal string.quoted.single.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 25 source.pascal
+L     TLhsBracketsType.Contains:
+T 21 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+L       Result := '[contains]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L     TLhsBracketsType.StartsWith:
+T 32 source.pascal
+L       Result := '[startsWith]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     TLhsBracketsType.EndsWith:
+T 30 source.pascal
+L       Result := '[endsWith]';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L { THTTPStatusHelper }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 20 source.pascal comment.block.pascal.two
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L function THTTPStatusHelper.ToInteger: Integer;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 36 source.pascal meta.function.pascal entity.name.function.pascal
+T 38 source.pascal
+T 45 source.pascal storage.support.type.pascal
+T 46 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := Ord(Self);
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal token.variable
+T 22 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L { TMimeTypesHelper }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 19 source.pascal comment.block.pascal.two
+T 20 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L function TMimeTypesHelper.ToString: string;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 42 source.pascal storage.support.type.pascal
+T 43 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   case Self of
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 11 source.pascal token.variable
+T 12 source.pascal
+T 14 source.pascal keyword.pascal
+L     TMimeTypes.MultiPartFormData:
+T 33 source.pascal
+L       Result := 'multipart/form-data';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     TMimeTypes.ApplicationXWWWFormURLEncoded:
+T 45 source.pascal
+L       Result := 'application/x-www-form-urlencoded';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 52 source.pascal
+L     TMimeTypes.ApplicationJSON:
+T 31 source.pascal
+L       Result := 'application/json';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 33 source.pascal string.quoted.single.pascal
+T 34 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 35 source.pascal
+L     TMimeTypes.ApplicationOctetStream:
+T 38 source.pascal
+L       Result := 'application/octet-stream';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 41 source.pascal string.quoted.single.pascal
+T 42 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 43 source.pascal
+L     TMimeTypes.ApplicationXML:
+T 30 source.pascal
+L       Result := 'application/xml';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     TMimeTypes.ApplicationJavaScript:
+T 37 source.pascal
+L       Result := 'application/javascript';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 41 source.pascal
+L     TMimeTypes.ApplicationPDF:
+T 30 source.pascal
+L       Result := 'application/pdf';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     TMimeTypes.ApplicationTypeScript:
+T 37 source.pascal
+L       Result := 'application/typescript';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 41 source.pascal
+L     TMimeTypes.ApplicationZIP:
+T 30 source.pascal
+L       Result := 'application/zip';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     TMimeTypes.TextPlain:
+T 25 source.pascal
+L       Result := 'text/plain';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L     TMimeTypes.TextCSS:
+T 23 source.pascal
+L       Result := 'text/css';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     TMimeTypes.TextCSV:
+T 23 source.pascal
+L       Result := 'text/csv';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     TMimeTypes.TextHTML:
+T 24 source.pascal
+L       Result := 'text/html';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     TMimeTypes.ImageJPEG:
+T 25 source.pascal
+L       Result := 'image/jpeg';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L     TMimeTypes.ImagePNG:
+T 24 source.pascal
+L       Result := 'image/png';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     TMimeTypes.ImageGIF:
+T 24 source.pascal
+L       Result := 'image/gif';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     TMimeTypes.Download:
+T 24 source.pascal
+L       Result := 'application/x-download';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 41 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L { TMethodTypeHelper }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 20 source.pascal comment.block.pascal.two
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L class function TMethodTypeHelper.FromString(const AMethod: string): TMethodType;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 43 source.pascal meta.function.pascal entity.name.function.pascal
+T 44 source.pascal
+T 49 source.pascal keyword.pascal
+T 59 source.pascal
+T 65 source.pascal storage.support.type.pascal
+T 80 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   LMethod: string;
+T 11 source.pascal
+T 17 source.pascal storage.support.type.pascal
+T 18 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := mtAny;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 18 source.pascal
+L   LMethod := UpperCase(AMethod);
+T 32 source.pascal
+L   if LMethod = 'GET' then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 15 source.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 19 source.pascal string.quoted.single.pascal
+T 20 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 21 source.pascal
+T 25 source.pascal keyword.pascal
+L     Result := mtGet
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 19 source.pascal
+L   else if LMethod = 'POST' then
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 9 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+T 31 source.pascal keyword.pascal
+L     Result := mtPost
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 20 source.pascal
+L   else if LMethod = 'PUT' then
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 9 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal
+T 30 source.pascal keyword.pascal
+L     Result := mtPut
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 19 source.pascal
+L   else if LMethod = 'PATCH' then
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 9 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+L     Result := mtPatch
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 21 source.pascal
+L   else if LMethod = 'DELETE' then
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 9 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+T 33 source.pascal keyword.pascal
+L     Result := mtDelete
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 22 source.pascal
+L   else if LMethod = 'HEAD' then
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 9 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+T 31 source.pascal keyword.pascal
+L     Result := mtHead
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 20 source.pascal
+L   else if LMethod = 'QUERY' then
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 9 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+L     Result := mtQuery;
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 22 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function TMethodTypeHelper.ToString: string;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 35 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+T 43 source.pascal storage.support.type.pascal
+T 44 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   case Self of
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+T 7 source.pascal
+T 11 source.pascal token.variable
+T 12 source.pascal
+T 14 source.pascal keyword.pascal
+L     mtAny:
+T 10 source.pascal
+L       Result := 'Any';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 20 source.pascal string.quoted.single.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     mtGet:
+T 10 source.pascal
+L       Result := 'Get';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 20 source.pascal string.quoted.single.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     mtPut:
+T 10 source.pascal
+L       Result := 'Put';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 20 source.pascal string.quoted.single.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     mtPost:
+T 11 source.pascal
+L       Result := 'Post';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     mtHead:
+T 11 source.pascal
+L       Result := 'Head';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     mtDelete:
+T 13 source.pascal
+L       Result := 'Delete';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 23 source.pascal string.quoted.single.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 25 source.pascal
+L     mtPatch:
+T 12 source.pascal
+L       Result := 'Patch';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 22 source.pascal string.quoted.single.pascal
+T 23 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L     mtQuery:
+T 12 source.pascal
+L       Result := 'Query';
+T 6 source.pascal
+T 12 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 22 source.pascal string.quoted.single.pascal
+T 23 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L { THorseBufferSlice }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 20 source.pascal comment.block.pascal.two
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L class function THorseBufferSlice.Create(const ABuffer: TBytes; const AStart, ALen: Integer): THorseBufferSlice;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 39 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+T 45 source.pascal keyword.pascal
+T 63 source.pascal
+T 68 source.pascal keyword.pascal
+T 83 source.pascal
+T 90 source.pascal storage.support.type.pascal
+T 111 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result.FBuffer := ABuffer;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 28 source.pascal
+L   Result.FStart := AStart;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 26 source.pascal
+L   Result.FLen := ALen;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 22 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseBufferSlice.Empty: THorseBufferSlice;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 38 source.pascal meta.function.pascal entity.name.function.pascal
+T 58 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result.FBuffer := nil;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 20 source.pascal
+T 23 source.pascal constant.language.pascal
+T 24 source.pascal
+L   Result.FStart := 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 19 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L   Result.FLen := 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 17 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.ToString: string;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 35 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+T 43 source.pascal storage.support.type.pascal
+T 44 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if FLen <= 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+T 19 source.pascal keyword.pascal
+L     Result := ''
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 14 source.pascal
+T 15 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+L   else
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+L     Result := TEncoding.UTF8.GetString(FBuffer, FStart, FLen);
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 62 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.Compare(const AText: string; ACaseInsensitive: Boolean): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 40 source.pascal keyword.pascal
+T 48 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 74 source.pascal
+T 81 source.pascal storage.support.type.pascal
+T 84 source.pascal
+T 91 source.pascal storage.support.type.pascal
+T 92 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   B1, B2: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if Length(AText) <> FLen then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 27 source.pascal
+T 31 source.pascal keyword.pascal
+L     Exit(False);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 14 source.pascal constant.language.pascal
+T 16 source.pascal
+L   if FLen = 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Exit(True);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 15 source.pascal
+L   for I := 0 to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 23 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+T 27 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     B1 := FBuffer[FStart + I];
+T 30 source.pascal
+L     B2 := Ord(AText[I + 1]);
+T 24 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 28 source.pascal
+L     if ACaseInsensitive then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 24 source.pascal
+T 28 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if (B1 >= 65) and (B1 <= 90) then B1 := B1 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L       if (B2 >= 65) and (B2 <= 90) then B2 := B2 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     if B1 <> B2 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+L       Exit(False);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 16 source.pascal constant.language.pascal
+T 18 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.Compare(const AOther: THorseBufferSlice; ACaseInsensitive: Boolean): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 40 source.pascal keyword.pascal
+T 86 source.pascal
+T 93 source.pascal storage.support.type.pascal
+T 96 source.pascal
+T 103 source.pascal storage.support.type.pascal
+T 104 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   B1, B2: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if AOther.FLen <> FLen then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 25 source.pascal
+T 29 source.pascal keyword.pascal
+L     Exit(False);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 14 source.pascal constant.language.pascal
+T 16 source.pascal
+L   if FLen = 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Exit(True);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 15 source.pascal
+L   for I := 0 to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 23 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+T 27 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     B1 := FBuffer[FStart + I];
+T 30 source.pascal
+L     B2 := AOther.FBuffer[AOther.FStart + I];
+T 44 source.pascal
+L     if ACaseInsensitive then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 24 source.pascal
+T 28 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if (B1 >= 65) and (B1 <= 90) then B1 := B1 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L       if (B2 >= 65) and (B2 <= 90) then B2 := B2 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     if B1 <> B2 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+L       Exit(False);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 16 source.pascal constant.language.pascal
+T 18 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.CompareBytes(const ABytes: TBytes; const AStart, ALen: Integer; ACaseInsensitive: Boolean): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 39 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+T 45 source.pascal keyword.pascal
+T 62 source.pascal
+T 67 source.pascal keyword.pascal
+T 82 source.pascal
+T 89 source.pascal storage.support.type.pascal
+T 109 source.pascal
+T 116 source.pascal storage.support.type.pascal
+T 119 source.pascal
+T 126 source.pascal storage.support.type.pascal
+T 127 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   B1, B2: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if ALen <> FLen then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 18 source.pascal
+T 22 source.pascal keyword.pascal
+L     Exit(False);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 14 source.pascal constant.language.pascal
+T 16 source.pascal
+L   if FLen = 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Exit(True);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 15 source.pascal
+L   for I := 0 to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 23 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+T 27 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     B1 := FBuffer[FStart + I];
+T 30 source.pascal
+L     B2 := ABytes[AStart + I];
+T 29 source.pascal
+L     if ACaseInsensitive then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 24 source.pascal
+T 28 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if (B1 >= 65) and (B1 <= 90) then B1 := B1 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L       if (B2 >= 65) and (B2 <= 90) then B2 := B2 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     if B1 <> B2 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+L       Exit(False);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 16 source.pascal constant.language.pascal
+T 18 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.SubSlice(const AStartOffset, ALen: Integer): THorseBufferSlice;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 35 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 41 source.pascal keyword.pascal
+T 62 source.pascal
+T 69 source.pascal storage.support.type.pascal
+T 90 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if (AStartOffset < 0) or (AStartOffset + ALen > FLen) then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 21 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 24 source.pascal
+T 26 source.pascal keyword.operator.pascal
+T 56 source.pascal
+T 60 source.pascal keyword.pascal
+L     raise ERangeError.Create('SubSlice range index out of bounds');
+T 4 source.pascal
+T 9 source.pascal keyword.control.pascal
+T 29 source.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 64 source.pascal string.quoted.single.pascal
+T 65 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 67 source.pascal
+L   Result.FBuffer := FBuffer;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 28 source.pascal
+L   Result.FStart := FStart + AStartOffset;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 41 source.pascal
+L   Result.FLen := ALen;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 22 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.IndexOf(const AByte: Byte; const AOffset: Integer): Integer;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 40 source.pascal keyword.pascal
+T 48 source.pascal
+T 52 source.pascal storage.support.type.pascal
+T 54 source.pascal
+T 59 source.pascal keyword.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 79 source.pascal
+T 86 source.pascal storage.support.type.pascal
+T 87 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := -1;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L   for I := AOffset to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 19 source.pascal
+T 21 source.pascal keyword.pascal
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 31 source.pascal
+T 33 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     if FBuffer[FStart + I] = AByte then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+L       Exit(I);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 14 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.IsEmpty: Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 43 source.pascal storage.support.type.pascal
+T 44 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (FLen <= 0) or (FBuffer = nil);
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 21 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 24 source.pascal
+T 26 source.pascal keyword.operator.pascal
+T 38 source.pascal
+T 41 source.pascal constant.language.pascal
+T 43 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L {$ELSE}
+T 2 source.pascal string.regexp string.regexp
+T 6 source.pascal string.regexp
+T 7 source.pascal string.regexp string.regexp
+L class function THorseBufferSlice.Create(const ABuffer: TBytes; const AStart, ALen: Integer): THorseBufferSlice;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 39 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+T 45 source.pascal keyword.pascal
+T 63 source.pascal
+T 68 source.pascal keyword.pascal
+T 83 source.pascal
+T 90 source.pascal storage.support.type.pascal
+T 111 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result.FBuffer := ABuffer;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 28 source.pascal
+L   Result.FStart := AStart;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 26 source.pascal
+L   Result.FLen := ALen;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 22 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseBufferSlice.Empty: THorseBufferSlice;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 38 source.pascal meta.function.pascal entity.name.function.pascal
+T 58 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result.FBuffer := nil;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 20 source.pascal
+T 23 source.pascal constant.language.pascal
+T 24 source.pascal
+L   Result.FStart := 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 19 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L   Result.FLen := 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 17 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.GetIsEmpty: Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 37 source.pascal meta.function.pascal entity.name.function.pascal
+T 39 source.pascal
+T 46 source.pascal storage.support.type.pascal
+T 47 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (FLen <= 0) or (FBuffer = nil);
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 21 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 24 source.pascal
+T 26 source.pascal keyword.operator.pascal
+T 38 source.pascal
+T 41 source.pascal constant.language.pascal
+T 43 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.ToString: string;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 35 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+T 43 source.pascal storage.support.type.pascal
+T 44 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if FLen <= 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+T 19 source.pascal keyword.pascal
+L     Result := ''
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 14 source.pascal
+T 15 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+L   else
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+L     Result := TEncoding.UTF8.GetString(FBuffer, FStart, FLen);
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 62 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.Compare(const AText: string; ACaseInsensitive: Boolean): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 40 source.pascal keyword.pascal
+T 48 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 74 source.pascal
+T 81 source.pascal storage.support.type.pascal
+T 84 source.pascal
+T 91 source.pascal storage.support.type.pascal
+T 92 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   B1, B2: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if Length(AText) <> FLen then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 27 source.pascal
+T 31 source.pascal keyword.pascal
+L     Exit(False);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 14 source.pascal constant.language.pascal
+T 16 source.pascal
+L   if FLen = 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Exit(True);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 15 source.pascal
+L   for I := 0 to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 23 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+T 27 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     B1 := FBuffer[FStart + I];
+T 30 source.pascal
+L     B2 := Ord(AText[I + 1]);
+T 24 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 28 source.pascal
+L     if ACaseInsensitive then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 24 source.pascal
+T 28 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if (B1 >= 65) and (B1 <= 90) then B1 := B1 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L       if (B2 >= 65) and (B2 <= 90) then B2 := B2 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     if B1 <> B2 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+L       Exit(False);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 16 source.pascal constant.language.pascal
+T 18 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.Compare(const AOther: THorseBufferSlice; ACaseInsensitive: Boolean): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 40 source.pascal keyword.pascal
+T 86 source.pascal
+T 93 source.pascal storage.support.type.pascal
+T 96 source.pascal
+T 103 source.pascal storage.support.type.pascal
+T 104 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   B1, B2: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if AOther.FLen <> FLen then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 25 source.pascal
+T 29 source.pascal keyword.pascal
+L     Exit(False);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 14 source.pascal constant.language.pascal
+T 16 source.pascal
+L   if FLen = 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Exit(True);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 15 source.pascal
+L   for I := 0 to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 23 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+T 27 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     B1 := FBuffer[FStart + I];
+T 30 source.pascal
+L     B2 := AOther.FBuffer[AOther.FStart + I];
+T 44 source.pascal
+L     if ACaseInsensitive then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 24 source.pascal
+T 28 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if (B1 >= 65) and (B1 <= 90) then B1 := B1 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L       if (B2 >= 65) and (B2 <= 90) then B2 := B2 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     if B1 <> B2 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+L       Exit(False);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 16 source.pascal constant.language.pascal
+T 18 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.CompareBytes(const ABytes: TBytes; const AStart, ALen: Integer; ACaseInsensitive: Boolean): Boolean;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 39 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+T 45 source.pascal keyword.pascal
+T 62 source.pascal
+T 67 source.pascal keyword.pascal
+T 82 source.pascal
+T 89 source.pascal storage.support.type.pascal
+T 109 source.pascal
+T 116 source.pascal storage.support.type.pascal
+T 119 source.pascal
+T 126 source.pascal storage.support.type.pascal
+T 127 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   B1, B2: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if ALen <> FLen then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 18 source.pascal
+T 22 source.pascal keyword.pascal
+L     Exit(False);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 14 source.pascal constant.language.pascal
+T 16 source.pascal
+L   if FLen = 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Exit(True);
+T 4 source.pascal
+T 8 source.pascal keyword.control.pascal
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 15 source.pascal
+L   for I := 0 to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 23 source.pascal
+T 24 source.pascal constant.numeric.pascal
+T 25 source.pascal
+T 27 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     B1 := FBuffer[FStart + I];
+T 30 source.pascal
+L     B2 := ABytes[AStart + I];
+T 29 source.pascal
+L     if ACaseInsensitive then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 24 source.pascal
+T 28 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       if (B1 >= 65) and (B1 <= 90) then B1 := B1 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L       if (B2 >= 65) and (B2 <= 90) then B2 := B2 + 32;
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 16 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.operator.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+T 51 source.pascal
+T 53 source.pascal constant.numeric.pascal
+T 54 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     if B1 <> B2 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+L       Exit(False);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 16 source.pascal constant.language.pascal
+T 18 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.SubSlice(const AStartOffset, ALen: Integer): THorseBufferSlice;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 35 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 41 source.pascal keyword.pascal
+T 62 source.pascal
+T 69 source.pascal storage.support.type.pascal
+T 90 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if (AStartOffset < 0) or (AStartOffset + ALen > FLen) then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 21 source.pascal
+T 22 source.pascal constant.numeric.pascal
+T 24 source.pascal
+T 26 source.pascal keyword.operator.pascal
+T 56 source.pascal
+T 60 source.pascal keyword.pascal
+L     raise ERangeError.Create('SubSlice range index out of bounds');
+T 4 source.pascal
+T 9 source.pascal keyword.control.pascal
+T 29 source.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 64 source.pascal string.quoted.single.pascal
+T 65 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 67 source.pascal
+L   Result.FBuffer := FBuffer;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 28 source.pascal
+L   Result.FStart := FStart + AStartOffset;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 41 source.pascal
+L   Result.FLen := ALen;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 22 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseBufferSlice.IndexOf(const AByte: Byte; const AOffset: Integer): Integer;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 35 source.pascal
+T 40 source.pascal keyword.pascal
+T 48 source.pascal
+T 52 source.pascal storage.support.type.pascal
+T 54 source.pascal
+T 59 source.pascal keyword.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 79 source.pascal
+T 86 source.pascal storage.support.type.pascal
+T 87 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := -1;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L   for I := AOffset to FLen - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 19 source.pascal
+T 21 source.pascal keyword.pascal
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 31 source.pascal
+T 33 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     if FBuffer[FStart + I] = AByte then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.pascal
+L       Exit(I);
+T 6 source.pascal
+T 10 source.pascal keyword.control.pascal
+T 14 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L 
+L { THorseArenaAllocator }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 23 source.pascal comment.block.pascal.two
+T 24 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L constructor THorseArenaAllocator.Create(ASize: Integer);
+T 11 source.pascal meta.function.pascal storage.type.function.pascal
+T 12 source.pascal meta.function.pascal
+T 39 source.pascal meta.function.pascal entity.name.function.pascal
+T 47 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 56 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   inherited Create;
+T 2 source.pascal
+T 11 source.pascal keyword.pascal
+T 19 source.pascal
+L   FSize := ASize;
+T 17 source.pascal
+L   SetLength(FBuffer, FSize);
+T 28 source.pascal
+L   FOffset := 0;
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L   FRegisteredObjects := TList.Create;
+T 37 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L destructor THorseArenaAllocator.Destroy;
+T 10 source.pascal meta.function.pascal storage.type.function.pascal
+T 11 source.pascal meta.function.pascal
+T 39 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Reset;
+T 8 source.pascal
+L   FRegisteredObjects.Free;
+T 26 source.pascal
+L   FBuffer := nil;
+T 13 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L   inherited;
+T 2 source.pascal
+T 11 source.pascal keyword.pascal
+T 12 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function THorseArenaAllocator.Allocate(ALen: Integer): THorseBufferSlice;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 38 source.pascal meta.function.pascal entity.name.function.pascal
+T 45 source.pascal
+T 52 source.pascal storage.support.type.pascal
+T 73 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if FOffset + ALen > FSize then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     FSize := (FOffset + ALen) * 2;
+T 32 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L     SetLength(FBuffer, FSize);
+T 30 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := THorseBufferSlice.Create(FBuffer, FOffset, ALen);
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 61 source.pascal
+L   FOffset := FOffset + ALen;
+T 28 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure THorseArenaAllocator.RegisterObject(AObject: TObject);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 45 source.pascal meta.function.pascal entity.name.function.pascal
+T 64 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if AObject <> nil then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 16 source.pascal
+T 19 source.pascal constant.language.pascal
+T 20 source.pascal
+T 24 source.pascal keyword.pascal
+L     FRegisteredObjects.Add(AObject);
+T 23 source.pascal
+T 26 source.pascal keyword.pascal
+T 36 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure THorseArenaAllocator.Reset;
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 36 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   I: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   LObj: TObject;
+T 16 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   FOffset := 0;
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L   if Assigned(FRegisteredObjects) then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 34 source.pascal
+T 38 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     for I := FRegisteredObjects.Count - 1 downto 0 do
+T 4 source.pascal
+T 7 source.pascal keyword.control.pascal
+T 40 source.pascal
+T 41 source.pascal constant.numeric.pascal
+T 42 source.pascal
+T 48 source.pascal keyword.control.pascal
+T 49 source.pascal
+T 50 source.pascal constant.numeric.pascal
+T 51 source.pascal
+T 53 source.pascal keyword.control.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       LObj := TObject(FRegisteredObjects.Items[I]);
+T 51 source.pascal
+L       if LObj <> nil then
+T 6 source.pascal
+T 8 source.pascal keyword.pascal
+T 17 source.pascal
+T 20 source.pascal constant.language.pascal
+T 21 source.pascal
+T 25 source.pascal keyword.pascal
+L       begin
+T 6 source.pascal
+T 11 source.pascal keyword.pascal
+L         try
+T 8 source.pascal
+T 11 source.pascal keyword.pascal
+L           LObj.Free;
+T 20 source.pascal
+L         except
+T 8 source.pascal
+T 14 source.pascal keyword.pascal
+L         end;
+T 8 source.pascal
+T 11 source.pascal keyword.pascal
+T 12 source.pascal
+L       end;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     FRegisteredObjects.Clear;
+T 29 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L {$IF DEFINED(FPC)}
+T 2 source.pascal string.regexp string.regexp
+T 17 source.pascal string.regexp
+T 18 source.pascal string.regexp string.regexp
+L class function TStopwatch.StartNew: TStopwatch;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 47 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result.FStart := GetTickCount64;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 34 source.pascal
+L   Result.FStop := 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 18 source.pascal
+T 19 source.pascal constant.numeric.pascal
+T 20 source.pascal
+L   Result.FRunning := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 21 source.pascal
+T 25 source.pascal constant.language.pascal
+T 26 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure TStopwatch.Stop;
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 25 source.pascal meta.function.pascal entity.name.function.pascal
+T 26 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if FRunning then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     FStop := GetTickCount64;
+T 28 source.pascal
+L     FRunning := False;
+T 16 source.pascal
+T 21 source.pascal constant.language.pascal
+T 22 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function TStopwatch.GetElapsedMilliseconds: Int64;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 42 source.pascal meta.function.pascal entity.name.function.pascal
+T 44 source.pascal
+T 49 source.pascal storage.support.type.pascal
+T 50 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if FRunning then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Result := GetTickCount64 - FStart
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 37 source.pascal
+L   else
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+L     Result := FStop - FStart;
+T 4 source.pascal
+T 10 source.pascal keyword.pascal
+T 29 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function TStopwatch.Elapsed: TStopwatch;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 27 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := Self;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal token.variable
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L function TStopwatch.GetTotalMilliseconds: Double;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 40 source.pascal meta.function.pascal entity.name.function.pascal
+T 42 source.pascal
+T 48 source.pascal storage.support.type.pascal
+T 49 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := Double(GetElapsedMilliseconds);
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 18 source.pascal storage.support.type.pascal
+T 43 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L 
+L end.
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 

@@ -1,0 +1,2726 @@
+L unit Horse.Core.Http2.Framing;
+T 4 source.pascal keyword.pascal
+T 30 source.pascal
+L 
+L {$IFDEF FPC}
+T 2 source.pascal string.regexp string.regexp
+T 11 source.pascal string.regexp
+T 12 source.pascal string.regexp string.regexp
+L   {$MODE DELPHI}{$H+}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 15 source.pascal string.regexp
+T 16 source.pascal string.regexp string.regexp
+T 18 source.pascal string.regexp string.regexp
+T 20 source.pascal string.regexp
+T 21 source.pascal string.regexp string.regexp
+L {$ENDIF}
+T 2 source.pascal string.regexp string.regexp
+T 7 source.pascal string.regexp
+T 8 source.pascal string.regexp string.regexp
+L {$SCOPEDENUMS ON}
+T 2 source.pascal string.regexp string.regexp
+T 16 source.pascal string.regexp
+T 17 source.pascal string.regexp string.regexp
+L 
+L interface
+T 9 source.pascal keyword.pascal
+L 
+L uses
+T 4 source.pascal keyword.pascal
+L   System.Classes,
+T 17 source.pascal
+L   System.SysUtils;
+T 18 source.pascal
+L 
+L const
+T 5 source.pascal keyword.pascal
+L   HTTP2_FRAME_HEADER_SIZE = 9;
+T 28 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 30 source.pascal
+L   HTTP2_DEFAULT_MAX_FRAME_SIZE = 16384;
+T 33 source.pascal
+T 38 source.pascal constant.numeric.pascal
+T 39 source.pascal
+L   HTTP2_CLIENT_PREFACE = 'PRI * HTTP/2.0'#13#10#13#10'SM'#13#10#13#10;
+T 25 source.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 40 source.pascal string.quoted.single.pascal
+T 41 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 44 source.pascal string.other.pascal
+T 47 source.pascal string.other.pascal
+T 50 source.pascal string.other.pascal
+T 53 source.pascal string.other.pascal
+T 54 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 56 source.pascal string.quoted.single.pascal
+T 57 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 60 source.pascal string.other.pascal
+T 63 source.pascal string.other.pascal
+T 66 source.pascal string.other.pascal
+T 69 source.pascal string.other.pascal
+T 70 source.pascal
+L 
+L   // SETTINGS identifiers
+T 2 source.pascal punctuation.whitespace.comment.leading.pascal
+T 4 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 25 source.pascal comment.line.double-slash.pascal.two
+L   HTTP2_SETTINGS_HEADER_TABLE_SIZE      = $1;
+T 42 source.pascal
+T 44 source.pascal constant.numeric.hex.pascal
+T 45 source.pascal
+L   HTTP2_SETTINGS_ENABLE_PUSH            = $2;
+T 42 source.pascal
+T 44 source.pascal constant.numeric.hex.pascal
+T 45 source.pascal
+L   HTTP2_SETTINGS_MAX_CONCURRENT_STREAMS = $3;
+T 42 source.pascal
+T 44 source.pascal constant.numeric.hex.pascal
+T 45 source.pascal
+L   HTTP2_SETTINGS_INITIAL_WINDOW_SIZE    = $4;
+T 42 source.pascal
+T 44 source.pascal constant.numeric.hex.pascal
+T 45 source.pascal
+L   HTTP2_SETTINGS_MAX_FRAME_SIZE         = $5;
+T 42 source.pascal
+T 44 source.pascal constant.numeric.hex.pascal
+T 45 source.pascal
+L   HTTP2_SETTINGS_MAX_HEADER_LIST_SIZE   = $6;
+T 42 source.pascal
+T 44 source.pascal constant.numeric.hex.pascal
+T 45 source.pascal
+L 
+L   // HTTP/2 error codes
+T 2 source.pascal punctuation.whitespace.comment.leading.pascal
+T 4 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 23 source.pascal comment.line.double-slash.pascal.two
+L   HTTP2_ERR_NO_ERROR            = $0;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_PROTOCOL_ERROR      = $1;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_INTERNAL_ERROR      = $2;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_FLOW_CONTROL_ERROR  = $3;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_SETTINGS_TIMEOUT    = $4;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_STREAM_CLOSED       = $5;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_FRAME_SIZE_ERROR    = $6;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_REFUSED_STREAM      = $7;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_CANCEL              = $8;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_COMPRESSION_ERROR   = $9;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_CONNECT_ERROR       = $A;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_ENHANCE_YOUR_CALM   = $B;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_INADEQUATE_SECURITY = $C;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L   HTTP2_ERR_HTTP_1_1_REQUIRED   = $D;
+T 34 source.pascal
+T 36 source.pascal constant.numeric.hex.pascal
+T 37 source.pascal
+L 
+L type
+T 4 source.pascal keyword.pascal
+L   THorseHttp2FrameType = (
+T 26 source.pascal
+L     ftData         = $00,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftHeaders      = $01,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftPriority     = $02,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftRstStream    = $03,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftSettings     = $04,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftPushPromise  = $05,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftPing         = $06,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftGoaway       = $07,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftWindowUpdate = $08,
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L     ftContinuation = $09
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+L   );
+T 4 source.pascal
+L 
+L   THorseHttp2Frame = record
+T 21 source.pascal
+T 27 source.pascal keyword.pascal
+L     PayloadLength: Cardinal;
+T 19 source.pascal
+T 27 source.pascal storage.support.type.pascal
+T 28 source.pascal
+L     FrameType: Byte;
+T 15 source.pascal
+T 19 source.pascal storage.support.type.pascal
+T 20 source.pascal
+L     Flags: Byte;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 11 source.pascal
+T 15 source.pascal storage.support.type.pascal
+T 16 source.pascal
+L     StreamId: Cardinal;
+T 14 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 23 source.pascal
+L     PayloadPtr: PByte;
+T 22 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   THorseHttp2Setting = record
+T 23 source.pascal
+T 29 source.pascal keyword.pascal
+L     Id: Word;
+T 8 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L     Value: Cardinal;
+T 11 source.pascal
+T 19 source.pascal storage.support.type.pascal
+T 20 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   THorseHttp2Settings = array of THorseHttp2Setting;
+T 24 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal keyword.pascal
+T 52 source.pascal
+L 
+L   THorseHttp2FrameCodec = class
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+L   private
+T 2 source.pascal
+T 9 source.pascal keyword.pascal
+L     class function Read3(P: PByte): Cardinal; static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 24 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 46 source.pascal
+T 52 source.pascal keyword.pascal
+T 54 source.pascal
+T 60 source.pascal keyword.pascal
+T 61 source.pascal
+L     class function Read4(P: PByte): Cardinal; static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 24 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 46 source.pascal
+T 52 source.pascal keyword.pascal
+T 54 source.pascal
+T 60 source.pascal keyword.pascal
+T 61 source.pascal
+L     class procedure AppendBytes(var AOutput: TBytes; var APos: Integer;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 31 source.pascal meta.function.pascal entity.name.function.pascal
+T 32 source.pascal
+T 35 source.pascal keyword.pascal
+T 53 source.pascal
+T 56 source.pascal keyword.pascal
+T 63 source.pascal
+T 70 source.pascal storage.support.type.pascal
+T 71 source.pascal
+L       AData: PByte; ALen: Integer); static;
+T 26 source.pascal
+T 33 source.pascal storage.support.type.pascal
+T 36 source.pascal
+T 42 source.pascal keyword.pascal
+T 43 source.pascal
+L     class procedure GrowIfNeeded(var AOutput: TBytes; APos, ANeeded: Integer); static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 32 source.pascal meta.function.pascal entity.name.function.pascal
+T 33 source.pascal
+T 36 source.pascal keyword.pascal
+T 69 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 79 source.pascal
+T 85 source.pascal keyword.pascal
+T 87 source.pascal
+T 93 source.pascal keyword.pascal
+T 94 source.pascal
+L   public
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+L     class function TryReadFrame(ABuffer: PByte; AAvail: Integer;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 31 source.pascal meta.function.pascal entity.name.function.pascal
+T 56 source.pascal
+T 63 source.pascal storage.support.type.pascal
+T 64 source.pascal
+L       AMaxFrameSize: Cardinal;
+T 21 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L       out AFrame: THorseHttp2Frame; out ABytesConsumed: Integer): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 36 source.pascal
+T 39 source.pascal keyword.pascal
+T 56 source.pascal
+T 63 source.pascal storage.support.type.pascal
+T 66 source.pascal
+T 73 source.pascal storage.support.type.pascal
+T 75 source.pascal
+T 81 source.pascal keyword.pascal
+T 82 source.pascal
+L 
+L     class function HasEndStream(const AFrame: THorseHttp2Frame): Boolean; static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 31 source.pascal meta.function.pascal entity.name.function.pascal
+T 32 source.pascal
+T 37 source.pascal keyword.pascal
+T 65 source.pascal
+T 72 source.pascal storage.support.type.pascal
+T 74 source.pascal
+T 80 source.pascal keyword.pascal
+T 82 source.pascal
+T 88 source.pascal keyword.pascal
+T 89 source.pascal
+L     class function HasEndHeaders(const AFrame: THorseHttp2Frame): Boolean; static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 32 source.pascal meta.function.pascal entity.name.function.pascal
+T 33 source.pascal
+T 38 source.pascal keyword.pascal
+T 66 source.pascal
+T 73 source.pascal storage.support.type.pascal
+T 75 source.pascal
+T 81 source.pascal keyword.pascal
+T 83 source.pascal
+T 89 source.pascal keyword.pascal
+T 90 source.pascal
+L     class function HasAck(const AFrame: THorseHttp2Frame): Boolean; static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 25 source.pascal meta.function.pascal entity.name.function.pascal
+T 26 source.pascal
+T 31 source.pascal keyword.pascal
+T 59 source.pascal
+T 66 source.pascal storage.support.type.pascal
+T 68 source.pascal
+T 74 source.pascal keyword.pascal
+T 76 source.pascal
+T 82 source.pascal keyword.pascal
+T 83 source.pascal
+L     class function HasPadded(const AFrame: THorseHttp2Frame): Boolean; static; inline;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 28 source.pascal meta.function.pascal entity.name.function.pascal
+T 29 source.pascal
+T 34 source.pascal keyword.pascal
+T 62 source.pascal
+T 69 source.pascal storage.support.type.pascal
+T 71 source.pascal
+T 77 source.pascal keyword.pascal
+T 79 source.pascal
+T 85 source.pascal keyword.pascal
+T 86 source.pascal
+L 
+L     class function GetHeaderBlockFragment(const AFrame: THorseHttp2Frame;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 41 source.pascal meta.function.pascal entity.name.function.pascal
+T 42 source.pascal
+T 47 source.pascal keyword.pascal
+T 73 source.pascal
+L       out AData: PByte; out ALen: Integer): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 24 source.pascal
+T 27 source.pascal keyword.pascal
+T 34 source.pascal
+T 41 source.pascal storage.support.type.pascal
+T 44 source.pascal
+T 51 source.pascal storage.support.type.pascal
+T 53 source.pascal
+T 59 source.pascal keyword.pascal
+T 60 source.pascal
+L 
+L     class function GetDataPayload(const AFrame: THorseHttp2Frame;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 33 source.pascal meta.function.pascal entity.name.function.pascal
+T 34 source.pascal
+T 39 source.pascal keyword.pascal
+T 65 source.pascal
+L       out AData: PByte; out ALen: Integer): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 24 source.pascal
+T 27 source.pascal keyword.pascal
+T 34 source.pascal
+T 41 source.pascal storage.support.type.pascal
+T 44 source.pascal
+T 51 source.pascal storage.support.type.pascal
+T 53 source.pascal
+T 59 source.pascal keyword.pascal
+T 60 source.pascal
+L 
+L     class function GetRstStreamError(const AFrame: THorseHttp2Frame;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 36 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+T 42 source.pascal keyword.pascal
+T 68 source.pascal
+L       out AErrorCode: Cardinal): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 22 source.pascal
+T 30 source.pascal storage.support.type.pascal
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 42 source.pascal
+T 48 source.pascal keyword.pascal
+T 49 source.pascal
+L 
+L     class function GetGoaway(const AFrame: THorseHttp2Frame;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 28 source.pascal meta.function.pascal entity.name.function.pascal
+T 29 source.pascal
+T 34 source.pascal keyword.pascal
+T 60 source.pascal
+L       out ALastStreamId, AErrorCode: Cardinal;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 37 source.pascal
+T 45 source.pascal storage.support.type.pascal
+T 46 source.pascal
+L       out ADebugData: TBytes): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 31 source.pascal
+T 38 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 46 source.pascal keyword.pascal
+T 47 source.pascal
+L 
+L     class function GetWindowUpdateIncrement(const AFrame: THorseHttp2Frame;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 43 source.pascal meta.function.pascal entity.name.function.pascal
+T 44 source.pascal
+T 49 source.pascal keyword.pascal
+T 75 source.pascal
+L       out AIncrement: Cardinal): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 22 source.pascal
+T 30 source.pascal storage.support.type.pascal
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 42 source.pascal
+T 48 source.pascal keyword.pascal
+T 49 source.pascal
+L 
+L     class function GetSettings(const AFrame: THorseHttp2Frame;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 18 source.pascal meta.function.pascal storage.type.function.pascal
+T 19 source.pascal meta.function.pascal
+T 30 source.pascal meta.function.pascal entity.name.function.pascal
+T 31 source.pascal
+T 36 source.pascal keyword.pascal
+T 62 source.pascal
+L       out ASettings: THorseHttp2Settings): Boolean; static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 43 source.pascal
+T 50 source.pascal storage.support.type.pascal
+T 52 source.pascal
+T 58 source.pascal keyword.pascal
+T 59 source.pascal
+L 
+L     class procedure WriteSettingsFrame(const ASettings: THorseHttp2Settings;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 38 source.pascal meta.function.pascal entity.name.function.pascal
+T 39 source.pascal
+T 44 source.pascal keyword.pascal
+T 76 source.pascal
+L       AAck: Boolean; var AOutput: TBytes; var APos: Integer); static;
+T 12 source.pascal
+T 19 source.pascal storage.support.type.pascal
+T 21 source.pascal
+T 24 source.pascal keyword.pascal
+T 42 source.pascal
+T 45 source.pascal keyword.pascal
+T 52 source.pascal
+T 59 source.pascal storage.support.type.pascal
+T 62 source.pascal
+T 68 source.pascal keyword.pascal
+T 69 source.pascal
+L 
+L     class procedure WriteSettingsAck(var AOutput: TBytes; var APos: Integer); static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 36 source.pascal meta.function.pascal entity.name.function.pascal
+T 37 source.pascal
+T 40 source.pascal keyword.pascal
+T 58 source.pascal
+T 61 source.pascal keyword.pascal
+T 68 source.pascal
+T 75 source.pascal storage.support.type.pascal
+T 78 source.pascal
+T 84 source.pascal keyword.pascal
+T 85 source.pascal
+L 
+L     class procedure WritePingAck(APayload: PByte; var AOutput: TBytes; var APos: Integer); static;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 32 source.pascal meta.function.pascal entity.name.function.pascal
+T 50 source.pascal
+T 53 source.pascal keyword.pascal
+T 71 source.pascal
+T 74 source.pascal keyword.pascal
+T 81 source.pascal
+T 88 source.pascal storage.support.type.pascal
+T 91 source.pascal
+T 97 source.pascal keyword.pascal
+T 98 source.pascal
+L 
+L     class procedure WriteGoaway(ALastStreamId, AErrorCode: Cardinal;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 31 source.pascal meta.function.pascal entity.name.function.pascal
+T 59 source.pascal
+T 67 source.pascal storage.support.type.pascal
+T 68 source.pascal
+L       const ADebugMessage: string; var AOutput: TBytes; var APos: Integer); static;
+T 6 source.pascal
+T 11 source.pascal keyword.pascal
+T 27 source.pascal
+T 33 source.pascal storage.support.type.pascal
+T 35 source.pascal
+T 38 source.pascal keyword.pascal
+T 56 source.pascal
+T 59 source.pascal keyword.pascal
+T 66 source.pascal
+T 73 source.pascal storage.support.type.pascal
+T 76 source.pascal
+T 82 source.pascal keyword.pascal
+T 83 source.pascal
+L 
+L     class procedure WriteWindowUpdate(AStreamId: Cardinal; AIncrement: Cardinal;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 37 source.pascal meta.function.pascal entity.name.function.pascal
+T 49 source.pascal
+T 57 source.pascal storage.support.type.pascal
+T 71 source.pascal
+T 79 source.pascal storage.support.type.pascal
+T 80 source.pascal
+L       var AOutput: TBytes; var APos: Integer); static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 37 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 47 source.pascal
+T 53 source.pascal keyword.pascal
+T 54 source.pascal
+L 
+L     class procedure WriteRstStream(AStreamId: Cardinal; AErrorCode: Cardinal;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 46 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 68 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 77 source.pascal
+L       var AOutput: TBytes; var APos: Integer); static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 37 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 47 source.pascal
+T 53 source.pascal keyword.pascal
+T 54 source.pascal
+L 
+L     class procedure WriteHeadersFrame(AStreamId: Cardinal;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 37 source.pascal meta.function.pascal entity.name.function.pascal
+T 49 source.pascal
+T 57 source.pascal storage.support.type.pascal
+T 58 source.pascal
+L       AHeaderBlock: PByte; AHeaderBlockLen: Integer;
+T 44 source.pascal
+T 51 source.pascal storage.support.type.pascal
+T 52 source.pascal
+L       AEndStream, AEndHeaders: Boolean;
+T 31 source.pascal
+T 38 source.pascal storage.support.type.pascal
+T 39 source.pascal
+L       var AOutput: TBytes; var APos: Integer); static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 37 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 47 source.pascal
+T 53 source.pascal keyword.pascal
+T 54 source.pascal
+L 
+L     class procedure WriteContinuationFrame(AStreamId: Cardinal;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 42 source.pascal meta.function.pascal entity.name.function.pascal
+T 54 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 63 source.pascal
+L       AHeaderBlock: PByte; AHeaderBlockLen: Integer;
+T 44 source.pascal
+T 51 source.pascal storage.support.type.pascal
+T 52 source.pascal
+L       AEndHeaders: Boolean;
+T 19 source.pascal
+T 26 source.pascal storage.support.type.pascal
+T 27 source.pascal
+L       var AOutput: TBytes; var APos: Integer); static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 37 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 47 source.pascal
+T 53 source.pascal keyword.pascal
+T 54 source.pascal
+L 
+L     class procedure WriteDataFrame(AStreamId: Cardinal;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+T 19 source.pascal meta.function.pascal storage.type.function.pascal
+T 20 source.pascal meta.function.pascal
+T 34 source.pascal meta.function.pascal entity.name.function.pascal
+T 46 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 55 source.pascal
+L       AData: PByte; ADataLen: Integer;
+T 30 source.pascal
+T 37 source.pascal storage.support.type.pascal
+T 38 source.pascal
+L       AEndStream: Boolean;
+T 18 source.pascal
+T 25 source.pascal storage.support.type.pascal
+T 26 source.pascal
+L       var AOutput: TBytes; var APos: Integer); static;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 37 source.pascal
+T 44 source.pascal storage.support.type.pascal
+T 47 source.pascal
+T 53 source.pascal keyword.pascal
+T 54 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L function DefaultServerSettings: THorseHttp2Settings;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 30 source.pascal meta.function.pascal entity.name.function.pascal
+T 52 source.pascal
+L 
+L const
+T 5 source.pascal keyword.pascal
+L   FLAG_END_STREAM  = $01;
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L   FLAG_END_HEADERS = $04;
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L   FLAG_PADDED      = $08;
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L   FLAG_PRIORITY    = $20;
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L   FLAG_ACK         = $01;
+T 21 source.pascal
+T 24 source.pascal constant.numeric.hex.pascal
+T 25 source.pascal
+L 
+L implementation
+T 14 source.pascal keyword.pascal
+L 
+L function DefaultServerSettings: THorseHttp2Settings;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 30 source.pascal meta.function.pascal entity.name.function.pascal
+T 52 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   SetLength(Result, 5);
+T 12 source.pascal
+T 18 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 23 source.pascal
+L   Result[0].Id := HTTP2_SETTINGS_HEADER_TABLE_SIZE;      Result[0].Value := 4096;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 9 source.pascal
+T 10 source.pascal constant.numeric.pascal
+T 57 source.pascal
+T 63 source.pascal keyword.pascal
+T 64 source.pascal
+T 65 source.pascal constant.numeric.pascal
+T 76 source.pascal
+T 80 source.pascal constant.numeric.pascal
+T 81 source.pascal
+L   Result[1].Id := HTTP2_SETTINGS_ENABLE_PUSH;            Result[1].Value := 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 9 source.pascal
+T 10 source.pascal constant.numeric.pascal
+T 57 source.pascal
+T 63 source.pascal keyword.pascal
+T 64 source.pascal
+T 65 source.pascal constant.numeric.pascal
+T 76 source.pascal
+T 77 source.pascal constant.numeric.pascal
+T 78 source.pascal
+L   Result[2].Id := HTTP2_SETTINGS_MAX_CONCURRENT_STREAMS; Result[2].Value := 100;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 9 source.pascal
+T 10 source.pascal constant.numeric.pascal
+T 57 source.pascal
+T 63 source.pascal keyword.pascal
+T 64 source.pascal
+T 65 source.pascal constant.numeric.pascal
+T 76 source.pascal
+T 79 source.pascal constant.numeric.pascal
+T 80 source.pascal
+L   Result[3].Id := HTTP2_SETTINGS_INITIAL_WINDOW_SIZE;    Result[3].Value := 65535;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 9 source.pascal
+T 10 source.pascal constant.numeric.pascal
+T 57 source.pascal
+T 63 source.pascal keyword.pascal
+T 64 source.pascal
+T 65 source.pascal constant.numeric.pascal
+T 76 source.pascal
+T 81 source.pascal constant.numeric.pascal
+T 82 source.pascal
+L   Result[4].Id := HTTP2_SETTINGS_MAX_FRAME_SIZE;         Result[4].Value := HTTP2_DEFAULT_MAX_FRAME_SIZE;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 9 source.pascal
+T 10 source.pascal constant.numeric.pascal
+T 57 source.pascal
+T 63 source.pascal keyword.pascal
+T 64 source.pascal
+T 65 source.pascal constant.numeric.pascal
+T 105 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L { THorseHttp2FrameCodec }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 24 source.pascal comment.block.pascal.two
+T 25 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L class function THorseHttp2FrameCodec.Read3(P: PByte): Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 42 source.pascal meta.function.pascal entity.name.function.pascal
+T 54 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 63 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (Cardinal(P[0]) shl 16) or (Cardinal(P[1]) shl 8) or P[2];
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 13 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 24 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 28 source.pascal
+T 31 source.pascal keyword.pascal
+T 32 source.pascal
+T 34 source.pascal constant.numeric.pascal
+T 36 source.pascal
+T 38 source.pascal keyword.operator.pascal
+T 40 source.pascal
+T 48 source.pascal storage.support.type.pascal
+T 51 source.pascal
+T 52 source.pascal constant.numeric.pascal
+T 55 source.pascal
+T 58 source.pascal keyword.pascal
+T 59 source.pascal
+T 60 source.pascal constant.numeric.pascal
+T 62 source.pascal
+T 64 source.pascal keyword.operator.pascal
+T 67 source.pascal
+T 68 source.pascal constant.numeric.pascal
+T 70 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.Read4(P: PByte): Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 42 source.pascal meta.function.pascal entity.name.function.pascal
+T 54 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 63 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (Cardinal(P[0]) shl 24) or (Cardinal(P[1]) shl 16) or
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 13 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 24 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 28 source.pascal
+T 31 source.pascal keyword.pascal
+T 32 source.pascal
+T 34 source.pascal constant.numeric.pascal
+T 36 source.pascal
+T 38 source.pascal keyword.operator.pascal
+T 40 source.pascal
+T 48 source.pascal storage.support.type.pascal
+T 51 source.pascal
+T 52 source.pascal constant.numeric.pascal
+T 55 source.pascal
+T 58 source.pascal keyword.pascal
+T 59 source.pascal
+T 61 source.pascal constant.numeric.pascal
+T 63 source.pascal
+T 65 source.pascal keyword.operator.pascal
+L             (Cardinal(P[2]) shl 8)  or P[3];
+T 13 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 24 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 28 source.pascal
+T 31 source.pascal keyword.pascal
+T 32 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 36 source.pascal
+T 38 source.pascal keyword.operator.pascal
+T 41 source.pascal
+T 42 source.pascal constant.numeric.pascal
+T 44 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.GrowIfNeeded(var AOutput: TBytes; APos, ANeeded: Integer);
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 50 source.pascal meta.function.pascal entity.name.function.pascal
+T 51 source.pascal
+T 54 source.pascal keyword.pascal
+T 87 source.pascal
+T 94 source.pascal storage.support.type.pascal
+T 96 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if APos + ANeeded > Length(AOutput) then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 38 source.pascal
+T 42 source.pascal keyword.pascal
+L     SetLength(AOutput, APos + ANeeded + 256);
+T 40 source.pascal
+T 43 source.pascal constant.numeric.pascal
+T 45 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.AppendBytes(var AOutput: TBytes; var APos: Integer;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 49 source.pascal meta.function.pascal entity.name.function.pascal
+T 50 source.pascal
+T 53 source.pascal keyword.pascal
+T 71 source.pascal
+T 74 source.pascal keyword.pascal
+T 81 source.pascal
+T 88 source.pascal storage.support.type.pascal
+T 89 source.pascal
+L   AData: PByte; ALen: Integer);
+T 22 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 31 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   GrowIfNeeded(AOutput, APos, ALen);
+T 36 source.pascal
+L   if ALen > 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L     Move(AData^, AOutput[APos], ALen);
+T 38 source.pascal
+L   Inc(APos, ALen);
+T 18 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.TryReadFrame(ABuffer: PByte; AAvail: Integer;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 49 source.pascal meta.function.pascal entity.name.function.pascal
+T 74 source.pascal
+T 81 source.pascal storage.support.type.pascal
+T 82 source.pascal
+L   AMaxFrameSize: Cardinal;
+T 17 source.pascal
+T 25 source.pascal storage.support.type.pascal
+T 26 source.pascal
+L   out AFrame: THorseHttp2Frame; out ABytesConsumed: Integer): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 32 source.pascal
+T 35 source.pascal keyword.pascal
+T 52 source.pascal
+T 59 source.pascal storage.support.type.pascal
+T 62 source.pascal
+T 69 source.pascal storage.support.type.pascal
+T 70 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := False;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 17 source.pascal constant.language.pascal
+T 18 source.pascal
+L   ABytesConsumed := 0;
+T 20 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L 
+L   if AAvail < HTTP2_FRAME_HEADER_SIZE then Exit;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 38 source.pascal
+T 42 source.pascal keyword.pascal
+T 43 source.pascal
+T 47 source.pascal keyword.control.pascal
+T 48 source.pascal
+L 
+L   AFrame.PayloadLength := Read3(ABuffer);
+T 41 source.pascal
+L   AFrame.FrameType     := ABuffer[3];
+T 34 source.pascal
+T 35 source.pascal constant.numeric.pascal
+T 37 source.pascal
+L   AFrame.Flags         := ABuffer[4];
+T 9 source.pascal
+T 14 source.pascal keyword.pascal
+T 34 source.pascal
+T 35 source.pascal constant.numeric.pascal
+T 37 source.pascal
+L   AFrame.StreamId      := Read4(ABuffer + 5) and $7FFFFFFF;
+T 42 source.pascal
+T 43 source.pascal constant.numeric.pascal
+T 45 source.pascal
+T 48 source.pascal keyword.operator.pascal
+T 49 source.pascal
+T 58 source.pascal constant.numeric.hex.pascal
+T 59 source.pascal
+L 
+L   if AFrame.PayloadLength > AMaxFrameSize then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 42 source.pascal
+T 46 source.pascal keyword.pascal
+L     raise EInvalidOperation.CreateFmt(
+T 4 source.pascal
+T 9 source.pascal keyword.control.pascal
+T 38 source.pascal
+L       'HTTP/2 FRAME_SIZE_ERROR: frame payload %d exceeds max %d',
+T 6 source.pascal
+T 7 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 63 source.pascal string.quoted.single.pascal
+T 64 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 65 source.pascal
+L       [AFrame.PayloadLength, AMaxFrameSize]);
+T 45 source.pascal
+L 
+L   if AAvail < HTTP2_FRAME_HEADER_SIZE + Integer(AFrame.PayloadLength) then Exit;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 40 source.pascal
+T 47 source.pascal storage.support.type.pascal
+T 70 source.pascal
+T 74 source.pascal keyword.pascal
+T 75 source.pascal
+T 79 source.pascal keyword.control.pascal
+T 80 source.pascal
+L 
+L   AFrame.PayloadPtr := ABuffer + HTTP2_FRAME_HEADER_SIZE;
+T 57 source.pascal
+L   ABytesConsumed    := HTTP2_FRAME_HEADER_SIZE + Integer(AFrame.PayloadLength);
+T 49 source.pascal
+T 56 source.pascal storage.support.type.pascal
+T 79 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.HasEndStream(const AFrame: THorseHttp2Frame): Boolean;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 49 source.pascal meta.function.pascal entity.name.function.pascal
+T 50 source.pascal
+T 55 source.pascal keyword.pascal
+T 83 source.pascal
+T 90 source.pascal storage.support.type.pascal
+T 91 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (AFrame.Flags and FLAG_END_STREAM) <> 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.operator.pascal
+T 50 source.pascal
+T 51 source.pascal constant.numeric.pascal
+T 52 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.HasEndHeaders(const AFrame: THorseHttp2Frame): Boolean;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 50 source.pascal meta.function.pascal entity.name.function.pascal
+T 51 source.pascal
+T 56 source.pascal keyword.pascal
+T 84 source.pascal
+T 91 source.pascal storage.support.type.pascal
+T 92 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (AFrame.Flags and FLAG_END_HEADERS) <> 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.operator.pascal
+T 51 source.pascal
+T 52 source.pascal constant.numeric.pascal
+T 53 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.HasAck(const AFrame: THorseHttp2Frame): Boolean;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 43 source.pascal meta.function.pascal entity.name.function.pascal
+T 44 source.pascal
+T 49 source.pascal keyword.pascal
+T 77 source.pascal
+T 84 source.pascal storage.support.type.pascal
+T 85 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (AFrame.Flags and FLAG_ACK) <> 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.operator.pascal
+T 43 source.pascal
+T 44 source.pascal constant.numeric.pascal
+T 45 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.HasPadded(const AFrame: THorseHttp2Frame): Boolean;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 46 source.pascal meta.function.pascal entity.name.function.pascal
+T 47 source.pascal
+T 52 source.pascal keyword.pascal
+T 80 source.pascal
+T 87 source.pascal storage.support.type.pascal
+T 88 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := (AFrame.Flags and FLAG_PADDED) <> 0;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.operator.pascal
+T 46 source.pascal
+T 47 source.pascal constant.numeric.pascal
+T 48 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.GetHeaderBlockFragment(const AFrame: THorseHttp2Frame;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 59 source.pascal meta.function.pascal entity.name.function.pascal
+T 60 source.pascal
+T 65 source.pascal keyword.pascal
+T 91 source.pascal
+L   out AData: PByte; out ALen: Integer): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.pascal
+T 30 source.pascal
+T 37 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 47 source.pascal storage.support.type.pascal
+T 48 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   payload: PByte;
+T 17 source.pascal
+L   remaining: Integer;
+T 13 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 21 source.pascal
+L   padLen: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := False;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 17 source.pascal constant.language.pascal
+T 18 source.pascal
+L   AData := nil;
+T 11 source.pascal
+T 14 source.pascal constant.language.pascal
+T 15 source.pascal
+L   ALen := 0;
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 12 source.pascal
+L   payload := AFrame.PayloadPtr;
+T 31 source.pascal
+L   remaining := Integer(AFrame.PayloadLength);
+T 15 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 45 source.pascal
+L 
+L   padLen := 0;
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+L   if HasPadded(AFrame) then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 23 source.pascal
+T 27 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     if remaining < 1 then Exit;
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 19 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 30 source.pascal keyword.control.pascal
+T 31 source.pascal
+L     padLen := payload[0];
+T 22 source.pascal
+T 23 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     Inc(payload);
+T 17 source.pascal
+L     Dec(remaining);
+T 19 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   if (AFrame.Flags and FLAG_PRIORITY) <> 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 13 source.pascal
+T 18 source.pascal keyword.pascal
+T 19 source.pascal
+T 22 source.pascal keyword.operator.pascal
+T 41 source.pascal
+T 42 source.pascal constant.numeric.pascal
+T 43 source.pascal
+T 47 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     if remaining < 5 then Exit;
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 19 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 30 source.pascal keyword.control.pascal
+T 31 source.pascal
+L     Inc(payload, 5);
+T 17 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 20 source.pascal
+L     Dec(remaining, 5);
+T 19 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   if remaining < Integer(padLen) then Exit;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 17 source.pascal
+T 24 source.pascal storage.support.type.pascal
+T 33 source.pascal
+T 37 source.pascal keyword.pascal
+T 38 source.pascal
+T 42 source.pascal keyword.control.pascal
+T 43 source.pascal
+L   AData := payload;
+T 19 source.pascal
+L   ALen := remaining - Integer(padLen);
+T 22 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 38 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.GetDataPayload(const AFrame: THorseHttp2Frame;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 51 source.pascal meta.function.pascal entity.name.function.pascal
+T 52 source.pascal
+T 57 source.pascal keyword.pascal
+T 83 source.pascal
+L   out AData: PByte; out ALen: Integer): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 20 source.pascal
+T 23 source.pascal keyword.pascal
+T 30 source.pascal
+T 37 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 47 source.pascal storage.support.type.pascal
+T 48 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   payload: PByte;
+T 17 source.pascal
+L   remaining: Integer;
+T 13 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 21 source.pascal
+L   padLen: Byte;
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 15 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := False;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 17 source.pascal constant.language.pascal
+T 18 source.pascal
+L   AData := nil;
+T 11 source.pascal
+T 14 source.pascal constant.language.pascal
+T 15 source.pascal
+L   ALen := 0;
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 12 source.pascal
+L   payload := AFrame.PayloadPtr;
+T 31 source.pascal
+L   remaining := Integer(AFrame.PayloadLength);
+T 15 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 45 source.pascal
+L 
+L   padLen := 0;
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 14 source.pascal
+L   if HasPadded(AFrame) then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 23 source.pascal
+T 27 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     if remaining < 1 then Exit;
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 19 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+T 25 source.pascal keyword.pascal
+T 26 source.pascal
+T 30 source.pascal keyword.control.pascal
+T 31 source.pascal
+L     padLen := payload[0];
+T 22 source.pascal
+T 23 source.pascal constant.numeric.pascal
+T 25 source.pascal
+L     Inc(payload);
+T 17 source.pascal
+L     Dec(remaining);
+T 19 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   if remaining < Integer(padLen) then Exit;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 17 source.pascal
+T 24 source.pascal storage.support.type.pascal
+T 33 source.pascal
+T 37 source.pascal keyword.pascal
+T 38 source.pascal
+T 42 source.pascal keyword.control.pascal
+T 43 source.pascal
+L   AData := payload;
+T 19 source.pascal
+L   ALen := remaining - Integer(padLen);
+T 22 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 38 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.GetRstStreamError(const AFrame: THorseHttp2Frame;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 54 source.pascal meta.function.pascal entity.name.function.pascal
+T 55 source.pascal
+T 60 source.pascal keyword.pascal
+T 86 source.pascal
+L   out AErrorCode: Cardinal): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 18 source.pascal
+T 26 source.pascal storage.support.type.pascal
+T 29 source.pascal
+T 36 source.pascal storage.support.type.pascal
+T 37 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := AFrame.PayloadLength >= 4;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 36 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L   if Result then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 5 source.pascal
+T 11 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal keyword.pascal
+L     AErrorCode := Read4(AFrame.PayloadPtr);
+T 43 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.GetGoaway(const AFrame: THorseHttp2Frame;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 46 source.pascal meta.function.pascal entity.name.function.pascal
+T 47 source.pascal
+T 52 source.pascal keyword.pascal
+T 78 source.pascal
+L   out ALastStreamId, AErrorCode: Cardinal;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 33 source.pascal
+T 41 source.pascal storage.support.type.pascal
+T 42 source.pascal
+L   out ADebugData: TBytes): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 27 source.pascal
+T 34 source.pascal storage.support.type.pascal
+T 35 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   debugLen: Integer;
+T 12 source.pascal
+T 19 source.pascal storage.support.type.pascal
+T 20 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := False;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 17 source.pascal constant.language.pascal
+T 18 source.pascal
+L   if AFrame.PayloadLength < 8 then Exit;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 28 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 30 source.pascal
+T 34 source.pascal keyword.pascal
+T 35 source.pascal
+T 39 source.pascal keyword.control.pascal
+T 40 source.pascal
+L   ALastStreamId := Read4(AFrame.PayloadPtr) and $7FFFFFFF;
+T 44 source.pascal
+T 47 source.pascal keyword.operator.pascal
+T 48 source.pascal
+T 57 source.pascal constant.numeric.hex.pascal
+T 58 source.pascal
+L   AErrorCode    := Read4(AFrame.PayloadPtr + 4);
+T 45 source.pascal
+T 46 source.pascal constant.numeric.pascal
+T 48 source.pascal
+L   debugLen      := Integer(AFrame.PayloadLength) - 8;
+T 19 source.pascal
+T 26 source.pascal storage.support.type.pascal
+T 51 source.pascal
+T 52 source.pascal constant.numeric.pascal
+T 53 source.pascal
+L   SetLength(ADebugData, debugLen);
+T 34 source.pascal
+L   if debugLen > 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 16 source.pascal
+T 17 source.pascal constant.numeric.pascal
+T 18 source.pascal
+T 22 source.pascal keyword.pascal
+L     Move((AFrame.PayloadPtr + 8)^, ADebugData[0], debugLen);
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 46 source.pascal
+T 47 source.pascal constant.numeric.pascal
+T 60 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.GetWindowUpdateIncrement(const AFrame: THorseHttp2Frame;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 61 source.pascal meta.function.pascal entity.name.function.pascal
+T 62 source.pascal
+T 67 source.pascal keyword.pascal
+T 93 source.pascal
+L   out AIncrement: Cardinal): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 18 source.pascal
+T 26 source.pascal storage.support.type.pascal
+T 29 source.pascal
+T 36 source.pascal storage.support.type.pascal
+T 37 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := AFrame.PayloadLength >= 4;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 36 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L   if Result then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 5 source.pascal
+T 11 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal keyword.pascal
+L     AIncrement := Read4(AFrame.PayloadPtr) and $7FFFFFFF;
+T 43 source.pascal
+T 46 source.pascal keyword.operator.pascal
+T 47 source.pascal
+T 56 source.pascal constant.numeric.hex.pascal
+T 57 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class function THorseHttp2FrameCodec.GetSettings(const AFrame: THorseHttp2Frame;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 14 source.pascal meta.function.pascal storage.type.function.pascal
+T 15 source.pascal meta.function.pascal
+T 48 source.pascal meta.function.pascal entity.name.function.pascal
+T 49 source.pascal
+T 54 source.pascal keyword.pascal
+T 80 source.pascal
+L   out ASettings: THorseHttp2Settings): Boolean;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 39 source.pascal
+T 46 source.pascal storage.support.type.pascal
+T 47 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   count: Integer;
+T 9 source.pascal
+T 16 source.pascal storage.support.type.pascal
+T 17 source.pascal
+L   i: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   ptr: PByte;
+T 13 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Result := False;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 17 source.pascal constant.language.pascal
+T 18 source.pascal
+L   if (AFrame.PayloadLength mod 6) <> 0 then Exit;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 31 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 37 source.pascal
+T 38 source.pascal constant.numeric.pascal
+T 39 source.pascal
+T 43 source.pascal keyword.pascal
+T 44 source.pascal
+T 48 source.pascal keyword.control.pascal
+T 49 source.pascal
+L   count := Integer(AFrame.PayloadLength) div 6;
+T 11 source.pascal
+T 18 source.pascal storage.support.type.pascal
+T 41 source.pascal
+T 44 source.pascal keyword.pascal
+T 45 source.pascal
+T 46 source.pascal constant.numeric.pascal
+T 47 source.pascal
+L   SetLength(ASettings, count);
+T 30 source.pascal
+L   ptr := AFrame.PayloadPtr;
+T 27 source.pascal
+L   for i := 0 to count - 1 do
+T 2 source.pascal
+T 5 source.pascal keyword.control.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 15 source.pascal keyword.pascal
+T 24 source.pascal
+T 25 source.pascal constant.numeric.pascal
+T 26 source.pascal
+T 28 source.pascal keyword.control.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     ASettings[i].Id    := (Word(ptr[0]) shl 8) or ptr[1];
+T 27 source.pascal
+T 31 source.pascal storage.support.type.pascal
+T 36 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 40 source.pascal
+T 43 source.pascal keyword.pascal
+T 44 source.pascal
+T 45 source.pascal constant.numeric.pascal
+T 47 source.pascal
+T 49 source.pascal keyword.operator.pascal
+T 54 source.pascal
+T 55 source.pascal constant.numeric.pascal
+T 57 source.pascal
+L     ASettings[i].Value := Read4(ptr + 2);
+T 38 source.pascal
+T 39 source.pascal constant.numeric.pascal
+T 41 source.pascal
+L     Inc(ptr, 6);
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 16 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L   Result := True;
+T 2 source.pascal
+T 8 source.pascal keyword.pascal
+T 12 source.pascal
+T 16 source.pascal constant.language.pascal
+T 17 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure WriteHeader(var AOutput: TBytes; var APos: Integer;
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 22 source.pascal
+T 25 source.pascal keyword.pascal
+T 43 source.pascal
+T 46 source.pascal keyword.pascal
+T 53 source.pascal
+T 60 source.pascal storage.support.type.pascal
+T 61 source.pascal
+L   APayloadLen: Cardinal; AFrameType: Byte; AFlags: Byte; AStreamId: Cardinal);
+T 15 source.pascal
+T 23 source.pascal storage.support.type.pascal
+T 37 source.pascal
+T 41 source.pascal storage.support.type.pascal
+T 51 source.pascal
+T 55 source.pascal storage.support.type.pascal
+T 68 source.pascal
+T 76 source.pascal storage.support.type.pascal
+T 78 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   p: PByte;
+T 11 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   THorseHttp2FrameCodec.GrowIfNeeded(AOutput, APos, HTTP2_FRAME_HEADER_SIZE);
+T 77 source.pascal
+L   p := @AOutput[APos];
+T 22 source.pascal
+L   p[0] := Byte(APayloadLen shr 16);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+L   p[1] := Byte(APayloadLen shr 8);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 31 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   p[2] := Byte(APayloadLen);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 28 source.pascal
+L   p[3] := AFrameType;
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L   p[4] := AFlags;
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 17 source.pascal
+L   p[5] := Byte((AStreamId shr 24) and $7F);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+T 37 source.pascal keyword.operator.pascal
+T 38 source.pascal
+T 41 source.pascal constant.numeric.hex.pascal
+T 43 source.pascal
+L   p[6] := Byte(AStreamId shr 16);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 25 source.pascal
+T 28 source.pascal keyword.pascal
+T 29 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   p[7] := Byte(AStreamId shr 8);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 25 source.pascal
+T 28 source.pascal keyword.pascal
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 32 source.pascal
+L   p[8] := Byte(AStreamId);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+L   Inc(APos, HTTP2_FRAME_HEADER_SIZE);
+T 37 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteSettingsFrame(const ASettings: THorseHttp2Settings;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 56 source.pascal meta.function.pascal entity.name.function.pascal
+T 57 source.pascal
+T 62 source.pascal keyword.pascal
+T 94 source.pascal
+L   AAck: Boolean; var AOutput: TBytes; var APos: Integer);
+T 8 source.pascal
+T 15 source.pascal storage.support.type.pascal
+T 17 source.pascal
+T 20 source.pascal keyword.pascal
+T 38 source.pascal
+T 41 source.pascal keyword.pascal
+T 48 source.pascal
+T 55 source.pascal storage.support.type.pascal
+T 57 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   payloadLen: Cardinal;
+T 14 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 23 source.pascal
+L   flags: Byte;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 9 source.pascal
+T 13 source.pascal storage.support.type.pascal
+T 14 source.pascal
+L   i: Integer;
+T 5 source.pascal
+T 12 source.pascal storage.support.type.pascal
+T 13 source.pascal
+L   p: PByte;
+T 11 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   if AAck then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 10 source.pascal
+T 14 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     payloadLen := 0;
+T 18 source.pascal
+T 19 source.pascal constant.numeric.pascal
+T 20 source.pascal
+L     flags := FLAG_ACK;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 22 source.pascal
+L   end
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+L   else
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     payloadLen := Cardinal(Length(ASettings)) * 6;
+T 18 source.pascal
+T 26 source.pascal storage.support.type.pascal
+T 48 source.pascal
+T 49 source.pascal constant.numeric.pascal
+T 50 source.pascal
+L     flags := 0;
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L 
+L   WriteHeader(AOutput, APos, payloadLen, Byte(THorseHttp2FrameType.ftSettings), flags, 0);
+T 41 source.pascal
+T 45 source.pascal storage.support.type.pascal
+T 80 source.pascal
+T 85 source.pascal keyword.pascal
+T 87 source.pascal
+T 88 source.pascal constant.numeric.pascal
+T 90 source.pascal
+L   if not AAck then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 5 source.pascal
+T 8 source.pascal keyword.pascal
+T 14 source.pascal
+T 18 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     GrowIfNeeded(AOutput, APos, Integer(payloadLen));
+T 32 source.pascal
+T 39 source.pascal storage.support.type.pascal
+T 53 source.pascal
+L     if payloadLen > 0 then
+T 4 source.pascal
+T 6 source.pascal keyword.pascal
+T 20 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 22 source.pascal
+T 26 source.pascal keyword.pascal
+L     begin
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L       p := @AOutput[APos];
+T 26 source.pascal
+L       for i := 0 to High(ASettings) do
+T 6 source.pascal
+T 9 source.pascal keyword.control.pascal
+T 15 source.pascal
+T 16 source.pascal constant.numeric.pascal
+T 17 source.pascal
+T 19 source.pascal keyword.pascal
+T 36 source.pascal
+T 38 source.pascal keyword.control.pascal
+L       begin
+T 6 source.pascal
+T 11 source.pascal keyword.pascal
+L         p[0] := Byte(ASettings[i].Id shr 8);
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 37 source.pascal
+T 40 source.pascal keyword.pascal
+T 41 source.pascal
+T 42 source.pascal constant.numeric.pascal
+T 44 source.pascal
+L         p[1] := Byte(ASettings[i].Id);
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 38 source.pascal
+L         p[2] := Byte(ASettings[i].Value shr 24);
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 43 source.pascal keyword.pascal
+T 44 source.pascal
+T 46 source.pascal constant.numeric.pascal
+T 48 source.pascal
+L         p[3] := Byte(ASettings[i].Value shr 16);
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 43 source.pascal keyword.pascal
+T 44 source.pascal
+T 46 source.pascal constant.numeric.pascal
+T 48 source.pascal
+L         p[4] := Byte(ASettings[i].Value shr 8);
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 40 source.pascal
+T 43 source.pascal keyword.pascal
+T 44 source.pascal
+T 45 source.pascal constant.numeric.pascal
+T 47 source.pascal
+L         p[5] := Byte(ASettings[i].Value);
+T 10 source.pascal
+T 11 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 20 source.pascal storage.support.type.pascal
+T 41 source.pascal
+L         Inc(p, 6);
+T 15 source.pascal
+T 16 source.pascal constant.numeric.pascal
+T 18 source.pascal
+L       end;
+T 6 source.pascal
+T 9 source.pascal keyword.pascal
+T 10 source.pascal
+L     end;
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L     Inc(APos, Integer(payloadLen));
+T 14 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 35 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteSettingsAck(var AOutput: TBytes; var APos: Integer);
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 54 source.pascal meta.function.pascal entity.name.function.pascal
+T 55 source.pascal
+T 58 source.pascal keyword.pascal
+T 76 source.pascal
+T 79 source.pascal keyword.pascal
+T 86 source.pascal
+T 93 source.pascal storage.support.type.pascal
+T 95 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   WriteHeader(AOutput, APos, 0, Byte(THorseHttp2FrameType.ftSettings), FLAG_ACK, 0);
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 32 source.pascal
+T 36 source.pascal storage.support.type.pascal
+T 81 source.pascal
+T 82 source.pascal constant.numeric.pascal
+T 84 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WritePingAck(APayload: PByte;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 50 source.pascal meta.function.pascal entity.name.function.pascal
+T 67 source.pascal
+L   var AOutput: TBytes; var APos: Integer);
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 23 source.pascal
+T 26 source.pascal keyword.pascal
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 42 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   WriteHeader(AOutput, APos, 8, Byte(THorseHttp2FrameType.ftPing), FLAG_ACK, 0);
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 32 source.pascal
+T 36 source.pascal storage.support.type.pascal
+T 77 source.pascal
+T 78 source.pascal constant.numeric.pascal
+T 80 source.pascal
+L   GrowIfNeeded(AOutput, APos, 8);
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   if APayload <> nil then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 17 source.pascal
+T 20 source.pascal constant.language.pascal
+T 21 source.pascal
+T 25 source.pascal keyword.pascal
+L     Move(APayload^, AOutput[APos], 8)
+T 35 source.pascal
+T 36 source.pascal constant.numeric.pascal
+T 37 source.pascal
+L   else
+T 2 source.pascal
+T 6 source.pascal keyword.pascal
+L     FillChar(AOutput[APos], 8, 0);
+T 28 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 31 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   Inc(APos, 8);
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteGoaway(ALastStreamId, AErrorCode: Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 49 source.pascal meta.function.pascal entity.name.function.pascal
+T 77 source.pascal
+T 85 source.pascal storage.support.type.pascal
+T 86 source.pascal
+L   const ADebugMessage: string; var AOutput: TBytes; var APos: Integer);
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 23 source.pascal
+T 29 source.pascal storage.support.type.pascal
+T 31 source.pascal
+T 34 source.pascal keyword.pascal
+T 52 source.pascal
+T 55 source.pascal keyword.pascal
+T 62 source.pascal
+T 69 source.pascal storage.support.type.pascal
+T 71 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   debugBytes: TBytes;
+T 21 source.pascal
+L   payloadLen: Cardinal;
+T 14 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 23 source.pascal
+L   p: PByte;
+T 11 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   debugBytes := TEncoding.UTF8.GetBytes(ADebugMessage);
+T 55 source.pascal
+L   payloadLen := 8 + Cardinal(Length(debugBytes));
+T 16 source.pascal
+T 17 source.pascal constant.numeric.pascal
+T 20 source.pascal
+T 28 source.pascal storage.support.type.pascal
+T 49 source.pascal
+L   WriteHeader(AOutput, APos, payloadLen, Byte(THorseHttp2FrameType.ftGoaway), 0, 0);
+T 41 source.pascal
+T 45 source.pascal storage.support.type.pascal
+T 78 source.pascal
+T 79 source.pascal constant.numeric.pascal
+T 81 source.pascal
+T 82 source.pascal constant.numeric.pascal
+T 84 source.pascal
+L   GrowIfNeeded(AOutput, APos, Integer(payloadLen));
+T 30 source.pascal
+T 37 source.pascal storage.support.type.pascal
+T 51 source.pascal
+L   p := @AOutput[APos];
+T 22 source.pascal
+L   p[0] := Byte((ALastStreamId shr 24) and $7F);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 30 source.pascal
+T 33 source.pascal keyword.pascal
+T 34 source.pascal
+T 36 source.pascal constant.numeric.pascal
+T 38 source.pascal
+T 41 source.pascal keyword.operator.pascal
+T 42 source.pascal
+T 45 source.pascal constant.numeric.hex.pascal
+T 47 source.pascal
+L   p[1] := Byte(ALastStreamId shr 16);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 29 source.pascal
+T 32 source.pascal keyword.pascal
+T 33 source.pascal
+T 35 source.pascal constant.numeric.pascal
+T 37 source.pascal
+L   p[2] := Byte(ALastStreamId shr 8);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 29 source.pascal
+T 32 source.pascal keyword.pascal
+T 33 source.pascal
+T 34 source.pascal constant.numeric.pascal
+T 36 source.pascal
+L   p[3] := Byte(ALastStreamId);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 30 source.pascal
+L   p[4] := Byte(AErrorCode shr 24);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   p[5] := Byte(AErrorCode shr 16);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   p[6] := Byte(AErrorCode shr 8);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   p[7] := Byte(AErrorCode);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 27 source.pascal
+L   Inc(APos, 8);
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L   if Length(debugBytes) > 0 then
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 26 source.pascal
+T 27 source.pascal constant.numeric.pascal
+T 28 source.pascal
+T 32 source.pascal keyword.pascal
+L   begin
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+L     Move(debugBytes[0], AOutput[APos], Length(debugBytes));
+T 20 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 59 source.pascal
+L     Inc(APos, Length(debugBytes));
+T 34 source.pascal
+L   end;
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteWindowUpdate(AStreamId: Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 55 source.pascal meta.function.pascal entity.name.function.pascal
+T 67 source.pascal
+T 75 source.pascal storage.support.type.pascal
+T 76 source.pascal
+L   AIncrement: Cardinal; var AOutput: TBytes; var APos: Integer);
+T 14 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 24 source.pascal
+T 27 source.pascal keyword.pascal
+T 45 source.pascal
+T 48 source.pascal keyword.pascal
+T 55 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 64 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   p: PByte;
+T 11 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   WriteHeader(AOutput, APos, 4, Byte(THorseHttp2FrameType.ftWindowUpdate), 0, AStreamId);
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 32 source.pascal
+T 36 source.pascal storage.support.type.pascal
+T 75 source.pascal
+T 76 source.pascal constant.numeric.pascal
+T 89 source.pascal
+L   GrowIfNeeded(AOutput, APos, 4);
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   p := @AOutput[APos];
+T 22 source.pascal
+L   p[0] := Byte((AIncrement shr 24) and $7F);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 27 source.pascal
+T 30 source.pascal keyword.pascal
+T 31 source.pascal
+T 33 source.pascal constant.numeric.pascal
+T 35 source.pascal
+T 38 source.pascal keyword.operator.pascal
+T 39 source.pascal
+T 42 source.pascal constant.numeric.hex.pascal
+T 44 source.pascal
+L   p[1] := Byte(AIncrement shr 16);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   p[2] := Byte(AIncrement shr 8);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   p[3] := Byte(AIncrement);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 27 source.pascal
+L   Inc(APos, 4);
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteRstStream(AStreamId: Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 52 source.pascal meta.function.pascal entity.name.function.pascal
+T 64 source.pascal
+T 72 source.pascal storage.support.type.pascal
+T 73 source.pascal
+L   AErrorCode: Cardinal; var AOutput: TBytes; var APos: Integer);
+T 14 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 24 source.pascal
+T 27 source.pascal keyword.pascal
+T 45 source.pascal
+T 48 source.pascal keyword.pascal
+T 55 source.pascal
+T 62 source.pascal storage.support.type.pascal
+T 64 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   p: PByte;
+T 11 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   WriteHeader(AOutput, APos, 4, Byte(THorseHttp2FrameType.ftRstStream), 0, AStreamId);
+T 29 source.pascal
+T 30 source.pascal constant.numeric.pascal
+T 32 source.pascal
+T 36 source.pascal storage.support.type.pascal
+T 72 source.pascal
+T 73 source.pascal constant.numeric.pascal
+T 86 source.pascal
+L   GrowIfNeeded(AOutput, APos, 4);
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   p := @AOutput[APos];
+T 22 source.pascal
+L   p[0] := Byte(AErrorCode shr 24);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   p[1] := Byte(AErrorCode shr 16);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 32 source.pascal constant.numeric.pascal
+T 34 source.pascal
+L   p[2] := Byte(AErrorCode shr 8);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 26 source.pascal
+T 29 source.pascal keyword.pascal
+T 30 source.pascal
+T 31 source.pascal constant.numeric.pascal
+T 33 source.pascal
+L   p[3] := Byte(AErrorCode);
+T 4 source.pascal
+T 5 source.pascal constant.numeric.pascal
+T 10 source.pascal
+T 14 source.pascal storage.support.type.pascal
+T 27 source.pascal
+L   Inc(APos, 4);
+T 12 source.pascal
+T 13 source.pascal constant.numeric.pascal
+T 15 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteHeadersFrame(AStreamId: Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 55 source.pascal meta.function.pascal entity.name.function.pascal
+T 67 source.pascal
+T 75 source.pascal storage.support.type.pascal
+T 76 source.pascal
+L   AHeaderBlock: PByte; AHeaderBlockLen: Integer;
+T 40 source.pascal
+T 47 source.pascal storage.support.type.pascal
+T 48 source.pascal
+L   AEndStream, AEndHeaders: Boolean;
+T 27 source.pascal
+T 34 source.pascal storage.support.type.pascal
+T 35 source.pascal
+L   var AOutput: TBytes; var APos: Integer);
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 23 source.pascal
+T 26 source.pascal keyword.pascal
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 42 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   flags: Byte;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 9 source.pascal
+T 13 source.pascal storage.support.type.pascal
+T 14 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   flags := 0;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+L   if AEndStream  then flags := flags or FLAG_END_STREAM;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 17 source.pascal
+T 21 source.pascal keyword.pascal
+T 22 source.pascal
+T 27 source.pascal keyword.pascal
+T 31 source.pascal
+T 36 source.pascal keyword.pascal
+T 37 source.pascal
+T 39 source.pascal keyword.operator.pascal
+T 56 source.pascal
+L   if AEndHeaders then flags := flags or FLAG_END_HEADERS;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 17 source.pascal
+T 21 source.pascal keyword.pascal
+T 22 source.pascal
+T 27 source.pascal keyword.pascal
+T 31 source.pascal
+T 36 source.pascal keyword.pascal
+T 37 source.pascal
+T 39 source.pascal keyword.operator.pascal
+T 57 source.pascal
+L   WriteHeader(AOutput, APos, AHeaderBlockLen, Byte(THorseHttp2FrameType.ftHeaders), flags, AStreamId);
+T 46 source.pascal
+T 50 source.pascal storage.support.type.pascal
+T 84 source.pascal
+T 89 source.pascal keyword.pascal
+T 102 source.pascal
+L   AppendBytes(AOutput, APos, AHeaderBlock, AHeaderBlockLen);
+T 60 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteContinuationFrame(AStreamId: Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 60 source.pascal meta.function.pascal entity.name.function.pascal
+T 72 source.pascal
+T 80 source.pascal storage.support.type.pascal
+T 81 source.pascal
+L   AHeaderBlock: PByte; AHeaderBlockLen: Integer;
+T 40 source.pascal
+T 47 source.pascal storage.support.type.pascal
+T 48 source.pascal
+L   AEndHeaders: Boolean;
+T 15 source.pascal
+T 22 source.pascal storage.support.type.pascal
+T 23 source.pascal
+L   var AOutput: TBytes; var APos: Integer);
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 23 source.pascal
+T 26 source.pascal keyword.pascal
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 42 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   flags: Byte;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 9 source.pascal
+T 13 source.pascal storage.support.type.pascal
+T 14 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   flags := 0;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+L   if AEndHeaders then flags := FLAG_END_HEADERS;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 17 source.pascal
+T 21 source.pascal keyword.pascal
+T 22 source.pascal
+T 27 source.pascal keyword.pascal
+T 48 source.pascal
+L   WriteHeader(AOutput, APos, AHeaderBlockLen, Byte(THorseHttp2FrameType.ftContinuation), flags, AStreamId);
+T 46 source.pascal
+T 50 source.pascal storage.support.type.pascal
+T 89 source.pascal
+T 94 source.pascal keyword.pascal
+T 107 source.pascal
+L   AppendBytes(AOutput, APos, AHeaderBlock, AHeaderBlockLen);
+T 60 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L class procedure THorseHttp2FrameCodec.WriteDataFrame(AStreamId: Cardinal;
+T 5 source.pascal keyword.pascal
+T 6 source.pascal
+T 15 source.pascal meta.function.pascal storage.type.function.pascal
+T 16 source.pascal meta.function.pascal
+T 52 source.pascal meta.function.pascal entity.name.function.pascal
+T 64 source.pascal
+T 72 source.pascal storage.support.type.pascal
+T 73 source.pascal
+L   AData: PByte; ADataLen: Integer;
+T 26 source.pascal
+T 33 source.pascal storage.support.type.pascal
+T 34 source.pascal
+L   AEndStream: Boolean;
+T 14 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 22 source.pascal
+L   var AOutput: TBytes; var APos: Integer);
+T 2 source.pascal
+T 5 source.pascal keyword.pascal
+T 23 source.pascal
+T 26 source.pascal keyword.pascal
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 42 source.pascal
+L var
+T 3 source.pascal keyword.pascal
+L   flags: Byte;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 9 source.pascal
+T 13 source.pascal storage.support.type.pascal
+T 14 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   flags := 0;
+T 2 source.pascal
+T 7 source.pascal keyword.pascal
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 13 source.pascal
+L   if AEndStream then flags := FLAG_END_STREAM;
+T 2 source.pascal
+T 4 source.pascal keyword.pascal
+T 16 source.pascal
+T 20 source.pascal keyword.pascal
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 46 source.pascal
+L   WriteHeader(AOutput, APos, ADataLen, Byte(THorseHttp2FrameType.ftData), flags, AStreamId);
+T 39 source.pascal
+T 43 source.pascal storage.support.type.pascal
+T 74 source.pascal
+T 79 source.pascal keyword.pascal
+T 92 source.pascal
+L   AppendBytes(AOutput, APos, AData, ADataLen);
+T 46 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L end.
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 

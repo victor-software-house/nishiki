@@ -245,6 +245,7 @@ static FOLDING: &[&str] = &[
     "source.cmake",
     "source.haskell",
     "source.julia",
+    "source.pascal",
     "source.php",
     "source.powershell",
     "text.html.markdown",

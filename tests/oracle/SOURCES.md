@@ -444,6 +444,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `objective-c/sample` | [`samples/objective-c.sample`][objective-c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `pascal/horse-commons` | [`src/Horse.Commons.pas`][horse-commons] in HashLoad/horse | [MIT][horse-licence] |
+| `pascal/horse-http2-framing` | [`src/Horse.Core.Http2.Framing.pas`][horse-http2-framing] in HashLoad/horse | [MIT][horse-licence] |
+| `pascal/horse-websocket-console` | [`samples/lazarus/console_websocket/console_websocket.lpr`][horse-websocket-console] in HashLoad/horse | [MIT][horse-licence] |
+| `pascal/r8brain-dll` | [`DLL/r8bsrc.pas`][r8brain-dll] in avaneev/r8brain-free-src | [MIT][r8brain-licence] |
+| `pascal/sample` | [`samples/pascal.sample`][pascal-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `perl/embedded` | `oracle/inputs/perl-embedded.pl`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `perl/sample` | [`samples/perl.sample`][perl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `perl/sqitch-engine-pg` | [`lib/App/Sqitch/Engine/pg.pm`][sqitch-engine-pg] in sqitchers/sqitch | [MIT][sqitch-licence] |
@@ -1145,6 +1150,10 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [home-manager-tmux]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/modules/programs/tmux.nix
 [homebrew-install-licence]: https://github.com/Homebrew/install/blob/959bdd728192d78c47287c177796c3d86d111f09/LICENSE.txt
 [homebrew-uninstall]: https://github.com/Homebrew/install/blob/959bdd728192d78c47287c177796c3d86d111f09/uninstall.sh
+[horse-commons]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/src/Horse.Commons.pas
+[horse-http2-framing]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/src/Horse.Core.Http2.Framing.pas
+[horse-licence]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/LICENSE
+[horse-websocket-console]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/samples/lazarus/console_websocket/console_websocket.lpr
 [html-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/html.sample
 [httparser-licence]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/LICENSE
 [httparser-readme]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/README.md
@@ -1307,6 +1316,7 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [okhttp-request]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/src/commonJvmAndroid/kotlin/okhttp3/Request.kt
 [one-light]: https://github.com/akamud/vscode-theme-onelight/tree/5866e900db932d580e978a58db42f65cde07998b
 [one-light-licence]: https://github.com/akamud/vscode-theme-onelight/blob/5866e900db932d580e978a58db42f65cde07998b/LICENSE
+[pascal-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/pascal.sample
 [penlight-licence]: https://github.com/lunarmodules/Penlight/blob/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985/LICENSE.md
 [penlight-stringx]: https://github.com/lunarmodules/Penlight/blob/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985/lua/pl/stringx.lua
 [perl-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/perl.sample
@@ -1361,6 +1371,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [python-docker-licence]: https://github.com/docker-library/python/blob/f4c67ece208dead594e43628d22e3c6027dd97ab/LICENSE
 [python-ruff-class]: https://github.com/astral-sh/ruff/blob/f10755306e3e932fd127960acb2c892fafb87410/crates/ruff_python_parser/resources/valid/statement/class.py
 [python-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/python.sample
+[r8brain-dll]: https://github.com/avaneev/r8brain-free-src/blob/cb2abb9977efe2471979b380ed95daa56ab4fdb9/DLL/r8bsrc.pas
+[r8brain-licence]: https://github.com/avaneev/r8brain-free-src/blob/cb2abb9977efe2471979b380ed95daa56ab4fdb9/LICENSE
 [rack-licence]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/MIT-LICENSE
 [rack-readme]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/README.md
 [rack-request]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/lib/rack/request.rb

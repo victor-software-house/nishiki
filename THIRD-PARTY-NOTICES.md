@@ -1384,6 +1384,49 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## Pascal
+
+Its TextMate engine runs the Pascal TextMate grammar that Shiki bundles as `pascal` (`syntaxes/pascal.tmLanguage` in [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal) at commit `f2d6345bd9fe83932f4d04fcacf98ce7d74b8034`), with its rules compiled into tables (`src/pascal/grammar.rs`).
+That repository's grammar extends `Syntaxes/Pascal.plist` in [textmate/pascal.tmbundle](https://github.com/textmate/pascal.tmbundle), and keeps its UUID.
+That repository is licensed under the MIT License:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) 2015 Alessandro Fragnani
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+The bundle's `README.mdown`, read at commit `3b11b782368065e55acce0423f385722771d28b0`, gives the TextMate bundle licence to every file that carries none of its own.
+`Syntaxes/Pascal.plist` carries none:
+
+```text
+Copyright (c) textmate-pascal.tmbundle project authors
+
+Permission to copy, use, modify, sell and distribute this
+software is granted. This software is provided "as is" without
+express or implied warranty, and with no claim as to its
+suitability for any purpose.
+```
+
 ## Perl
 
 Its TextMate engine runs the Perl TextMate grammar that Shiki bundles through VS Code as `perl` (`extensions/perl` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `e637ff1bf7f481134849625e982ec80df9b35bc8`), with its rules compiled into tables (`src/perl/grammar.rs`).

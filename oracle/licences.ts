@@ -152,6 +152,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  pascal: {
+    bundled: "alefragnani/vscode-language-pascal@f2d6345bd9fe83932f4d04fcacf98ce7d74b8034",
+    origin: "textmate/pascal.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
   perl: {
     bundled: "microsoft/vscode@e637ff1bf7f481134849625e982ec80df9b35bc8",
     origin: "textmate/perl.tmbundle",

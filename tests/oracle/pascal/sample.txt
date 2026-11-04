@@ -1,0 +1,426 @@
+L {*****************************************************************************
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 78 source.pascal comment.block.pascal.two
+L  * A Pascal quicksort.
+T 22 source.pascal comment.block.pascal.two
+L  *****************************************************************************}
+T 78 source.pascal comment.block.pascal.two
+T 79 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L PROGRAM Sort(input, output);
+T 7 source.pascal keyword.pascal
+T 28 source.pascal
+L     CONST
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L         { Max array size. }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 26 source.pascal comment.block.pascal.two
+T 27 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         MaxElts = 50;
+T 18 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 21 source.pascal
+L     TYPE
+T 4 source.pascal
+T 8 source.pascal keyword.pascal
+L         { Type of the element array. }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 37 source.pascal comment.block.pascal.two
+T 38 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         IntArrType = ARRAY [1..MaxElts] OF Integer;
+T 21 source.pascal
+T 26 source.pascal keyword.pascal
+T 28 source.pascal
+T 29 source.pascal constant.numeric.pascal
+T 40 source.pascal
+T 42 source.pascal keyword.pascal
+T 43 source.pascal
+T 50 source.pascal storage.support.type.pascal
+T 51 source.pascal
+L 
+L     VAR
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+L         { Indexes, exchange temp, array size. }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 46 source.pascal comment.block.pascal.two
+T 47 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         i, j, tmp, size: integer;
+T 25 source.pascal
+T 32 source.pascal storage.support.type.pascal
+T 33 source.pascal
+L 
+L         { Array of ints }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 24 source.pascal comment.block.pascal.two
+T 25 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         arr: IntArrType;
+T 24 source.pascal
+L 
+L     { Read in the integers. }
+T 4 source.pascal
+T 5 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 28 source.pascal comment.block.pascal.two
+T 29 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L     PROCEDURE ReadArr(VAR size: Integer; VAR a: IntArrType);
+T 4 source.pascal
+T 13 source.pascal meta.function.pascal storage.type.function.pascal
+T 14 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 22 source.pascal
+T 25 source.pascal keyword.pascal
+T 32 source.pascal
+T 39 source.pascal storage.support.type.pascal
+T 41 source.pascal
+T 44 source.pascal keyword.pascal
+T 60 source.pascal
+L         BEGIN
+T 8 source.pascal
+T 13 source.pascal keyword.pascal
+L             size := 1;
+T 20 source.pascal
+T 21 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L             WHILE NOT eof DO BEGIN
+T 12 source.pascal
+T 17 source.pascal keyword.control.pascal
+T 18 source.pascal
+T 21 source.pascal keyword.pascal
+T 26 source.pascal
+T 28 source.pascal keyword.control.pascal
+T 29 source.pascal
+T 34 source.pascal keyword.pascal
+L                 readln(a[size]);
+T 32 source.pascal
+L                 IF NOT eof THEN
+T 16 source.pascal
+T 18 source.pascal keyword.pascal
+T 19 source.pascal
+T 22 source.pascal keyword.pascal
+T 27 source.pascal
+T 31 source.pascal keyword.pascal
+L                     size := size + 1
+T 35 source.pascal
+T 36 source.pascal constant.numeric.pascal
+L             END
+T 12 source.pascal
+T 15 source.pascal keyword.pascal
+L         END;
+T 8 source.pascal
+T 11 source.pascal keyword.pascal
+T 12 source.pascal
+L 
+L     { Use quicksort to sort the array of integers. }
+T 4 source.pascal
+T 5 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 51 source.pascal comment.block.pascal.two
+T 52 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L     PROCEDURE Quicksort(size: Integer; VAR arr: IntArrType);
+T 4 source.pascal
+T 13 source.pascal meta.function.pascal storage.type.function.pascal
+T 14 source.pascal meta.function.pascal
+T 23 source.pascal meta.function.pascal entity.name.function.pascal
+T 30 source.pascal
+T 37 source.pascal storage.support.type.pascal
+T 39 source.pascal
+T 42 source.pascal keyword.pascal
+T 60 source.pascal
+L         { This does the actual work of the quicksort.  It takes the
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 67 source.pascal comment.block.pascal.two
+L           parameters which define the range of the array to work on,
+T 68 source.pascal comment.block.pascal.two
+L           and references the array as a global. }
+T 48 source.pascal comment.block.pascal.two
+T 49 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         PROCEDURE QuicksortRecur(start, stop: integer);
+T 8 source.pascal
+T 17 source.pascal meta.function.pascal storage.type.function.pascal
+T 18 source.pascal meta.function.pascal
+T 32 source.pascal meta.function.pascal entity.name.function.pascal
+T 46 source.pascal
+T 53 source.pascal storage.support.type.pascal
+T 55 source.pascal
+L             VAR
+T 12 source.pascal
+T 15 source.pascal keyword.pascal
+L                 m: integer;
+T 19 source.pascal
+T 26 source.pascal storage.support.type.pascal
+T 27 source.pascal
+L 
+L                 { The location separating the high and low parts. }
+T 16 source.pascal
+T 17 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 66 source.pascal comment.block.pascal.two
+T 67 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                 splitpt: integer;
+T 25 source.pascal
+T 32 source.pascal storage.support.type.pascal
+T 33 source.pascal
+L 
+L             { The quicksort split algorithm.  Takes the range, and
+T 12 source.pascal
+T 13 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 66 source.pascal comment.block.pascal.two
+L               returns the split point. }
+T 39 source.pascal comment.block.pascal.two
+T 40 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L             FUNCTION Split(start, stop: integer): integer;
+T 12 source.pascal
+T 20 source.pascal meta.function.pascal storage.type.function.pascal
+T 21 source.pascal meta.function.pascal
+T 26 source.pascal meta.function.pascal entity.name.function.pascal
+T 40 source.pascal
+T 47 source.pascal storage.support.type.pascal
+T 50 source.pascal
+T 57 source.pascal storage.support.type.pascal
+T 58 source.pascal
+L                 VAR
+T 16 source.pascal
+T 19 source.pascal keyword.pascal
+L                     left, right: integer;       { Scan pointers. }
+T 33 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 48 source.pascal
+T 49 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 65 source.pascal comment.block.pascal.two
+T 66 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                     pivot: integer;             { Pivot value. }
+T 27 source.pascal
+T 34 source.pascal storage.support.type.pascal
+T 48 source.pascal
+T 49 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 63 source.pascal comment.block.pascal.two
+T 64 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 
+L                 { Interchange the parameters. }
+T 16 source.pascal
+T 17 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 46 source.pascal comment.block.pascal.two
+T 47 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                 PROCEDURE swap(VAR a, b: integer);
+T 16 source.pascal
+T 25 source.pascal meta.function.pascal storage.type.function.pascal
+T 26 source.pascal meta.function.pascal
+T 30 source.pascal meta.function.pascal entity.name.function.pascal
+T 31 source.pascal
+T 34 source.pascal keyword.pascal
+T 41 source.pascal
+T 48 source.pascal storage.support.type.pascal
+T 50 source.pascal
+L                     VAR
+T 20 source.pascal
+T 23 source.pascal keyword.pascal
+L                         t: integer;
+T 27 source.pascal
+T 34 source.pascal storage.support.type.pascal
+T 35 source.pascal
+L                     BEGIN
+T 20 source.pascal
+T 25 source.pascal keyword.pascal
+L                         t := a;
+T 31 source.pascal
+L                         a := b;
+T 31 source.pascal
+L                         b := t
+T 30 source.pascal
+L                     END;
+T 20 source.pascal
+T 23 source.pascal keyword.pascal
+T 24 source.pascal
+L 
+L                 BEGIN { Split }
+T 16 source.pascal
+T 21 source.pascal keyword.pascal
+T 22 source.pascal
+T 23 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 30 source.pascal comment.block.pascal.two
+T 31 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                     { Set up the pointers for the hight and low sections, and
+T 20 source.pascal
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 77 source.pascal comment.block.pascal.two
+L                       get the pivot value. }
+T 43 source.pascal comment.block.pascal.two
+T 44 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                     pivot := arr[start];
+T 40 source.pascal
+L                     left := start + 1;
+T 36 source.pascal
+T 37 source.pascal constant.numeric.pascal
+T 38 source.pascal
+L                     right := stop;
+T 34 source.pascal
+L 
+L                     { Look for pairs out of place and swap 'em. }
+T 20 source.pascal
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 64 source.pascal comment.block.pascal.two
+T 65 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                     WHILE left <= right DO BEGIN
+T 20 source.pascal
+T 25 source.pascal keyword.control.pascal
+T 40 source.pascal
+T 42 source.pascal keyword.control.pascal
+T 43 source.pascal
+T 48 source.pascal keyword.pascal
+L                         WHILE (left <= stop) AND (arr[left] < pivot) DO
+T 24 source.pascal
+T 29 source.pascal keyword.control.pascal
+T 45 source.pascal
+T 48 source.pascal keyword.operator.pascal
+T 69 source.pascal
+T 71 source.pascal keyword.control.pascal
+L                             left := left + 1;
+T 43 source.pascal
+T 44 source.pascal constant.numeric.pascal
+T 45 source.pascal
+L                         WHILE (right > start) AND (arr[right] >= pivot) DO
+T 24 source.pascal
+T 29 source.pascal keyword.control.pascal
+T 46 source.pascal
+T 49 source.pascal keyword.operator.pascal
+T 72 source.pascal
+T 74 source.pascal keyword.control.pascal
+L                             right := right - 1;
+T 45 source.pascal
+T 46 source.pascal constant.numeric.pascal
+T 47 source.pascal
+L                         IF left < right THEN
+T 24 source.pascal
+T 26 source.pascal keyword.pascal
+T 40 source.pascal
+T 44 source.pascal keyword.pascal
+L                             swap(arr[left], arr[right]);
+T 56 source.pascal
+L                     END;
+T 20 source.pascal
+T 23 source.pascal keyword.pascal
+T 24 source.pascal
+L 
+L                     { Put the pivot between the halves. }
+T 20 source.pascal
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 56 source.pascal comment.block.pascal.two
+T 57 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                     swap(arr[start], arr[right]);
+T 49 source.pascal
+L 
+L                     { This is how you return function values in pascal.
+T 20 source.pascal
+T 21 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 71 source.pascal comment.block.pascal.two
+L                       Yeccch. }
+T 30 source.pascal comment.block.pascal.two
+T 31 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                     Split := right
+T 34 source.pascal
+L                 END;
+T 16 source.pascal
+T 19 source.pascal keyword.pascal
+T 20 source.pascal
+L 
+L             BEGIN { QuicksortRecur }
+T 12 source.pascal
+T 17 source.pascal keyword.pascal
+T 18 source.pascal
+T 19 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 35 source.pascal comment.block.pascal.two
+T 36 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                 { If there's anything to do... }
+T 16 source.pascal
+T 17 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 47 source.pascal comment.block.pascal.two
+T 48 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L                 IF start < stop THEN BEGIN
+T 16 source.pascal
+T 18 source.pascal keyword.pascal
+T 32 source.pascal
+T 36 source.pascal keyword.pascal
+T 37 source.pascal
+T 42 source.pascal keyword.pascal
+L                     splitpt := Split(start, stop);
+T 50 source.pascal
+L                     QuicksortRecur(start, splitpt-1);
+T 50 source.pascal
+T 51 source.pascal constant.numeric.pascal
+T 53 source.pascal
+L                     QuicksortRecur(splitpt+1, stop);
+T 43 source.pascal
+T 44 source.pascal constant.numeric.pascal
+T 52 source.pascal
+L                 END
+T 16 source.pascal
+T 19 source.pascal keyword.pascal
+L             END;
+T 12 source.pascal
+T 15 source.pascal keyword.pascal
+T 16 source.pascal
+L 
+L         BEGIN { Quicksort }
+T 8 source.pascal
+T 13 source.pascal keyword.pascal
+T 14 source.pascal
+T 15 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 26 source.pascal comment.block.pascal.two
+T 27 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L             QuicksortRecur(1, size)
+T 27 source.pascal
+T 28 source.pascal constant.numeric.pascal
+T 35 source.pascal
+L         END;
+T 8 source.pascal
+T 11 source.pascal keyword.pascal
+T 12 source.pascal
+L 
+L     BEGIN
+T 4 source.pascal
+T 9 source.pascal keyword.pascal
+L         { Read }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 15 source.pascal comment.block.pascal.two
+T 16 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         ReadArr(size, arr);
+T 27 source.pascal
+L 
+L         { Sort the contents. }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 29 source.pascal comment.block.pascal.two
+T 30 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         Quicksort(size, arr);
+T 29 source.pascal
+L 
+L         { Print. }
+T 8 source.pascal
+T 9 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 17 source.pascal comment.block.pascal.two
+T 18 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L         FOR i := 1 TO size DO
+T 8 source.pascal
+T 11 source.pascal keyword.control.pascal
+T 17 source.pascal
+T 18 source.pascal constant.numeric.pascal
+T 19 source.pascal
+T 21 source.pascal keyword.pascal
+T 27 source.pascal
+T 29 source.pascal keyword.control.pascal
+L             writeln(arr[i])
+T 27 source.pascal
+L     END.
+T 4 source.pascal
+T 7 source.pascal keyword.pascal
+T 8 source.pascal
+L 
+L { From http://sandbox.mc.edu/~bennet/cs404/doc/qsort_pas.html }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 62 source.pascal comment.block.pascal.two
+T 63 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L 

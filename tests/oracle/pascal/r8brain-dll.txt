@@ -1,0 +1,160 @@
+L // r8brain-free-src Copyright (c) 2013-2022 Aleksey Vaneev
+T 2 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 58 source.pascal comment.line.double-slash.pascal.two
+L // See the "LICENSE" file for license.
+T 2 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 38 source.pascal comment.line.double-slash.pascal.two
+L //
+T 2 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+L // Please read the "r8bsrc.h" file for function descriptions.
+T 2 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 61 source.pascal comment.line.double-slash.pascal.two
+L 
+L unit r8bsrc;
+T 4 source.pascal keyword.pascal
+T 12 source.pascal
+L 
+L interface
+T 9 source.pascal keyword.pascal
+L 
+L type
+T 4 source.pascal keyword.pascal
+L 	CR8BResampler = Pointer;
+T 17 source.pascal
+T 24 source.pascal storage.support.type.pascal
+T 25 source.pascal
+L 	PR8BDouble = ^Double;
+T 15 source.pascal
+T 21 source.pascal storage.support.type.pascal
+T 22 source.pascal
+L 
+L const
+T 5 source.pascal keyword.pascal
+L 	r8brr16 = 0; // 16-bit precision resampler.
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 16 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 44 source.pascal comment.line.double-slash.pascal.two
+L 	r8brr16IR = 1; // 16-bit precision resampler for impulse responses.
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 16 source.pascal
+T 18 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 68 source.pascal comment.line.double-slash.pascal.two
+L 	r8brr24 = 2; // 24-bit precision resampler (including 32-bit floating
+T 11 source.pascal
+T 12 source.pascal constant.numeric.pascal
+T 14 source.pascal
+T 16 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 70 source.pascal comment.line.double-slash.pascal.two
+L 		// point).
+T 2 source.pascal punctuation.whitespace.comment.leading.pascal
+T 4 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 12 source.pascal comment.line.double-slash.pascal.two
+L 
+L function r8b_create( SrcSampleRate: Double; DstSampleRate: Double;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 36 source.pascal
+T 42 source.pascal storage.support.type.pascal
+T 59 source.pascal
+T 65 source.pascal storage.support.type.pascal
+T 66 source.pascal
+L 	MaxInLen: LongInt; ReqTransBand: Double; Res: LongInt ): CR8BResampler;
+T 11 source.pascal
+T 18 source.pascal storage.support.type.pascal
+T 34 source.pascal
+T 40 source.pascal storage.support.type.pascal
+T 47 source.pascal
+T 54 source.pascal storage.support.type.pascal
+T 72 source.pascal
+L 	cdecl; external 'r8bsrc.dll';
+T 1 source.pascal
+T 6 source.pascal keyword.pascal
+T 8 source.pascal
+T 16 source.pascal keyword.pascal
+T 17 source.pascal
+T 18 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 30 source.pascal
+L 
+L procedure r8b_delete( rs: CR8BResampler ); cdecl; external 'r8bsrc.dll';
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 43 source.pascal
+T 48 source.pascal keyword.pascal
+T 50 source.pascal
+T 58 source.pascal keyword.pascal
+T 59 source.pascal
+T 60 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 70 source.pascal string.quoted.single.pascal
+T 71 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 72 source.pascal
+L 
+L function r8b_inlen( rs: CR8BResampler; ReqOutSamples: LongInt ): LongInt;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 18 source.pascal meta.function.pascal entity.name.function.pascal
+T 54 source.pascal
+T 61 source.pascal storage.support.type.pascal
+T 65 source.pascal
+T 72 source.pascal storage.support.type.pascal
+T 73 source.pascal
+L 	cdecl; external 'r8bsrc.dll';
+T 1 source.pascal
+T 6 source.pascal keyword.pascal
+T 8 source.pascal
+T 16 source.pascal keyword.pascal
+T 17 source.pascal
+T 18 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 30 source.pascal
+L 
+L procedure r8b_clear( rs: CR8BResampler ); cdecl; external 'r8bsrc.dll';
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 19 source.pascal meta.function.pascal entity.name.function.pascal
+T 42 source.pascal
+T 47 source.pascal keyword.pascal
+T 49 source.pascal
+T 57 source.pascal keyword.pascal
+T 58 source.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 69 source.pascal string.quoted.single.pascal
+T 70 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 71 source.pascal
+L 
+L function r8b_process( rs: CR8BResampler; ip0: PR8BDouble; l: LongInt;
+T 8 source.pascal meta.function.pascal storage.type.function.pascal
+T 9 source.pascal meta.function.pascal
+T 20 source.pascal meta.function.pascal entity.name.function.pascal
+T 61 source.pascal
+T 68 source.pascal storage.support.type.pascal
+T 69 source.pascal
+L 	var op0: PR8BDouble ): LongInt; cdecl; external 'r8bsrc.dll';
+T 1 source.pascal
+T 4 source.pascal keyword.pascal
+T 24 source.pascal
+T 31 source.pascal storage.support.type.pascal
+T 33 source.pascal
+T 38 source.pascal keyword.pascal
+T 40 source.pascal
+T 48 source.pascal keyword.pascal
+T 49 source.pascal
+T 50 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 60 source.pascal string.quoted.single.pascal
+T 61 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 62 source.pascal
+L 
+L implementation
+T 14 source.pascal keyword.pascal
+L 
+L end.
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 

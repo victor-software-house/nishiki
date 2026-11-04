@@ -1016,6 +1016,15 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// Pascal, including Delphi and Free Pascal, with the scopes of Shiki's
+    /// `pascal` grammar, which nishiki's `TextMate` engine runs.
+    Pascal {
+        feature: "lang-pascal",
+        names: ["pascal"],
+        engine: crate::pascal::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

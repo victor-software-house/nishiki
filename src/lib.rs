@@ -288,6 +288,8 @@ mod mermaid;
 mod nix;
 #[cfg(feature = "lang-objective-c")]
 mod objective_c;
+#[cfg(feature = "lang-pascal")]
+mod pascal;
 #[cfg(feature = "lang-perl")]
 mod perl;
 #[cfg(feature = "lang-php")]

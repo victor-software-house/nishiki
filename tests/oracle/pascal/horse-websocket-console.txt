@@ -1,0 +1,1640 @@
+L program console_websocket;
+T 7 source.pascal keyword.pascal
+T 26 source.pascal
+L 
+L {$MODE DELPHI}{$H+}
+T 2 source.pascal string.regexp string.regexp
+T 13 source.pascal string.regexp
+T 14 source.pascal string.regexp string.regexp
+T 16 source.pascal string.regexp string.regexp
+T 18 source.pascal string.regexp
+T 19 source.pascal string.regexp string.regexp
+L 
+L uses
+T 4 source.pascal keyword.pascal
+L   {$IFDEF UNIX}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 14 source.pascal string.regexp
+T 15 source.pascal string.regexp string.regexp
+L   cthreads,
+T 11 source.pascal
+L   {$ENDIF}
+T 2 source.pascal
+T 4 source.pascal string.regexp string.regexp
+T 9 source.pascal string.regexp
+T 10 source.pascal string.regexp string.regexp
+L   SysUtils,
+T 11 source.pascal
+L   Horse,
+T 8 source.pascal
+L   Horse.Core.WebSocket;
+T 23 source.pascal
+L 
+L const
+T 5 source.pascal keyword.pascal
+L   HTML_CHAT =
+T 13 source.pascal
+L     '<!DOCTYPE html>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 20 source.pascal string.quoted.single.pascal
+T 21 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 23 source.pascal
+L     '<html lang="pt-BR">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     '<head>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 11 source.pascal string.quoted.single.pascal
+T 12 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 14 source.pascal
+L     '  <meta charset="UTF-8">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+L     '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 77 source.pascal string.quoted.single.pascal
+T 78 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 80 source.pascal
+L     '  <title>Horse WebSockets Chat</title>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 119 source.pascal string.quoted.single.pascal
+T 120 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 122 source.pascal
+L     '  <style>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 14 source.pascal string.quoted.single.pascal
+T 15 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 17 source.pascal
+L     '    :root {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 16 source.pascal string.quoted.single.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 19 source.pascal
+L     '      --bg: #0f0c1b;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      --panel: rgba(25, 20, 45, 0.45);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '      --border: rgba(255, 255, 255, 0.08);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 47 source.pascal string.quoted.single.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 50 source.pascal
+L     '      --primary: #8a2be2;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      --primary-hover: #9d4edd;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 39 source.pascal
+L     '      --text: #e0dcf0;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 30 source.pascal
+L     '      --text-muted: #8c85a8;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 33 source.pascal string.quoted.single.pascal
+T 34 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 36 source.pascal
+L     '      --success: #00f5d4;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    * { box-sizing: border-box; margin: 0; padding: 0; font-family: ''Outfit'', sans-serif; }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 73 source.pascal string.quoted.single.pascal
+T 74 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 75 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 81 source.pascal string.quoted.single.pascal
+T 82 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 83 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 98 source.pascal string.quoted.single.pascal
+T 99 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 101 source.pascal
+L     '    body {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 15 source.pascal string.quoted.single.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 18 source.pascal
+L     '      background: radial-gradient(circle at 50% 50%, #1e133a 0%, var(--bg) 100%);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 86 source.pascal string.quoted.single.pascal
+T 87 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 89 source.pascal
+L     '      color: var(--text);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      min-height: 100vh;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+L     '      display: flex;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      justify-content: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     '      align-items: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      padding: 20px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      overflow: hidden;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .chat-container {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L     '      width: 100%;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 23 source.pascal string.quoted.single.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal
+L     '      max-width: 500px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      height: 600px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      background: var(--panel);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 39 source.pascal
+L     '      backdrop-filter: blur(16px);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 42 source.pascal
+L     '      -webkit-backdrop-filter: blur(16px);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 47 source.pascal string.quoted.single.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 50 source.pascal
+L     '      border: 1px solid var(--border);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '      border-radius: 24px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 54 source.pascal string.quoted.single.pascal
+T 55 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 57 source.pascal
+L     '      display: flex;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      flex-direction: column;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 34 source.pascal string.quoted.single.pascal
+T 35 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 37 source.pascal
+L     '      overflow: hidden;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      animation: fadeIn 0.8s ease;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 42 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    @keyframes fadeIn {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      from { opacity: 0; transform: translateY(20px); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 60 source.pascal string.quoted.single.pascal
+T 61 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 63 source.pascal
+L     '      to { opacity: 1; transform: translateY(0); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 55 source.pascal string.quoted.single.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 58 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .header {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 18 source.pascal string.quoted.single.pascal
+T 19 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 21 source.pascal
+L     '      padding: 20px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      border-bottom: 1px solid var(--border);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal
+L     '      display: flex;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      align-items: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      justify-content: space-between;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 42 source.pascal string.quoted.single.pascal
+T 43 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 45 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .logo { display: flex; align-items: center; gap: 10px; }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 65 source.pascal string.quoted.single.pascal
+T 66 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 68 source.pascal
+L     '    .logo-icon {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L     '      width: 32px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 23 source.pascal string.quoted.single.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal
+L     '      height: 32px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     '      background: linear-gradient(135deg, var(--primary), var(--primary-hover));' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 85 source.pascal string.quoted.single.pascal
+T 86 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 88 source.pascal
+L     '      border-radius: 8px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      display: flex;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      align-items: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      justify-content: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     '      font-weight: 800;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      color: #fff;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 23 source.pascal string.quoted.single.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .logo-text { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.5px; }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 85 source.pascal string.quoted.single.pascal
+T 86 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 88 source.pascal
+L     '    .status { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 112 source.pascal string.quoted.single.pascal
+T 113 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 115 source.pascal
+L     '    .status-dot { width: 8px; height: 8px; background: #ff4d4d; border-radius: 50%; transition: background 0.3s; }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 119 source.pascal string.quoted.single.pascal
+T 120 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 122 source.pascal
+L     '    .status-dot.connected { background: var(--success); box-shadow: 0 0 10px var(--success); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 99 source.pascal string.quoted.single.pascal
+T 100 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 102 source.pascal
+L     '    .messages-area {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      flex: 1;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 19 source.pascal string.quoted.single.pascal
+T 20 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     '      padding: 20px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      overflow-y: auto;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      display: flex;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      flex-direction: column;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 34 source.pascal string.quoted.single.pascal
+T 35 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 37 source.pascal
+L     '      gap: 15px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L     '      scroll-behavior: smooth;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .message {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 19 source.pascal string.quoted.single.pascal
+T 20 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     '      max-width: 80%;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L     '      padding: 12px 16px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      border-radius: 16px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      line-height: 1.4;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      font-size: 0.95rem;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      animation: popMessage 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 75 source.pascal string.quoted.single.pascal
+T 76 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 78 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    @keyframes popMessage {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 35 source.pascal
+L     '      from { opacity: 0; transform: scale(0.9) translateY(10px); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 71 source.pascal string.quoted.single.pascal
+T 72 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 74 source.pascal
+L     '      to { opacity: 1; transform: scale(1) translateY(0); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 64 source.pascal string.quoted.single.pascal
+T 65 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 67 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .message.received {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      background: rgba(255, 255, 255, 0.05);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 49 source.pascal string.quoted.single.pascal
+T 50 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 52 source.pascal
+L     '      border: 1px solid rgba(255, 255, 255, 0.03);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 55 source.pascal string.quoted.single.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 58 source.pascal
+L     '      align-self: flex-start;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 34 source.pascal string.quoted.single.pascal
+T 35 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 37 source.pascal
+L     '      border-bottom-left-radius: 4px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 42 source.pascal string.quoted.single.pascal
+T 43 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 45 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .message.sent {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     '      background: linear-gradient(135deg, var(--primary), var(--primary-hover));' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 85 source.pascal string.quoted.single.pascal
+T 86 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 88 source.pascal
+L     '      align-self: flex-end;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 35 source.pascal
+L     '      border-bottom-right-radius: 4px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '      box-shadow: 0 8px 20px rgba(138, 43, 226, 0.2);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 58 source.pascal string.quoted.single.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 61 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .message.system {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 26 source.pascal string.quoted.single.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 29 source.pascal
+L     '      background: transparent;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     '      color: var(--text-muted);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 39 source.pascal
+L     '      font-size: 0.8rem;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+L     '      align-self: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      text-align: center;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      padding: 5px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    .input-area {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 22 source.pascal string.quoted.single.pascal
+T 23 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 25 source.pascal
+L     '      padding: 20px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      border-top: 1px solid var(--border);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 47 source.pascal string.quoted.single.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 50 source.pascal
+L     '      display: flex;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      gap: 10px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 21 source.pascal string.quoted.single.pascal
+T 22 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 24 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    input {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 16 source.pascal string.quoted.single.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 19 source.pascal
+L     '      flex: 1;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 19 source.pascal string.quoted.single.pascal
+T 20 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     '      background: rgba(255, 255, 255, 0.04);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 49 source.pascal string.quoted.single.pascal
+T 50 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 52 source.pascal
+L     '      border: 1px solid var(--border);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '      border-radius: 12px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      padding: 12px 16px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      color: var(--text);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      outline: none;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 28 source.pascal
+L     '      font-size: 0.95rem;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      transition: all 0.3s;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 35 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(138, 43, 226, 0.3); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 100 source.pascal string.quoted.single.pascal
+T 101 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 103 source.pascal
+L     '    button {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 17 source.pascal string.quoted.single.pascal
+T 18 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 20 source.pascal
+L     '      background: linear-gradient(135deg, var(--primary), var(--primary-hover));' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 85 source.pascal string.quoted.single.pascal
+T 86 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 88 source.pascal
+L     '      border: none;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal
+L     '      border-radius: 12px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '      padding: 12px 20px;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '      color: #fff;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 23 source.pascal string.quoted.single.pascal
+T 24 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal
+L     '      font-weight: 600;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 31 source.pascal
+L     '      cursor: pointer;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 30 source.pascal
+L     '      transition: all 0.3s;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 35 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 102 source.pascal string.quoted.single.pascal
+T 103 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 105 source.pascal
+L     '    button:active { transform: translateY(0); }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 52 source.pascal string.quoted.single.pascal
+T 53 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 55 source.pascal
+L     '  </style>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 15 source.pascal string.quoted.single.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 18 source.pascal
+L     '</head>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 12 source.pascal string.quoted.single.pascal
+T 13 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 15 source.pascal
+L     '<body>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 11 source.pascal string.quoted.single.pascal
+T 12 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 14 source.pascal
+L     '  <div class="chat-container">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     '    <div class="header">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+L     '      <div class="logo">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+L     '        <div class="logo-icon">H</div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '        <div class="logo-text">Horse WebSockets</div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 58 source.pascal string.quoted.single.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 61 source.pascal
+L     '      </div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 17 source.pascal string.quoted.single.pascal
+T 18 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 20 source.pascal
+L     '      <div class="status">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '        <div class="status-dot" id="statusDot"></div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 58 source.pascal string.quoted.single.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 61 source.pascal
+L     '        <span id="statusText">Desconectado</span>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 54 source.pascal string.quoted.single.pascal
+T 55 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 57 source.pascal
+L     '      </div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 17 source.pascal string.quoted.single.pascal
+T 18 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 20 source.pascal
+L     '    </div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 15 source.pascal string.quoted.single.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 18 source.pascal
+L     '    <div class="messages-area" id="messagesArea"></div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 60 source.pascal string.quoted.single.pascal
+T 61 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 63 source.pascal
+L     '    <div class="input-area">' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 33 source.pascal string.quoted.single.pascal
+T 34 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 36 source.pascal
+L     '      <input type="text" id="messageInput" placeholder="Digite uma mensagem..." disabled>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 94 source.pascal string.quoted.single.pascal
+T 95 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 97 source.pascal
+L     '      <button id="sendBtn" disabled>Enviar</button>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 56 source.pascal string.quoted.single.pascal
+T 57 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 59 source.pascal
+L     '    </div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 15 source.pascal string.quoted.single.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 18 source.pascal
+L     '  </div>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 13 source.pascal string.quoted.single.pascal
+T 14 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 16 source.pascal
+L     '  <script>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 15 source.pascal string.quoted.single.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 18 source.pascal
+L     '    const statusDot = document.getElementById(''statusDot'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 51 source.pascal string.quoted.single.pascal
+T 52 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 62 source.pascal string.quoted.single.pascal
+T 63 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 64 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 66 source.pascal string.quoted.single.pascal
+T 67 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 69 source.pascal
+L     '    const statusText = document.getElementById(''statusText'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 52 source.pascal string.quoted.single.pascal
+T 53 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 54 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 64 source.pascal string.quoted.single.pascal
+T 65 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 66 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 68 source.pascal string.quoted.single.pascal
+T 69 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 71 source.pascal
+L     '    const messagesArea = document.getElementById(''messagesArea'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 54 source.pascal string.quoted.single.pascal
+T 55 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 68 source.pascal string.quoted.single.pascal
+T 69 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 70 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 72 source.pascal string.quoted.single.pascal
+T 73 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 75 source.pascal
+L     '    const messageInput = document.getElementById(''messageInput'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 54 source.pascal string.quoted.single.pascal
+T 55 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 68 source.pascal string.quoted.single.pascal
+T 69 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 70 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 72 source.pascal string.quoted.single.pascal
+T 73 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 75 source.pascal
+L     '    const sendBtn = document.getElementById(''sendBtn'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 49 source.pascal string.quoted.single.pascal
+T 50 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 58 source.pascal string.quoted.single.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 60 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 62 source.pascal string.quoted.single.pascal
+T 63 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 65 source.pascal
+L     '    let ws;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 16 source.pascal string.quoted.single.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 19 source.pascal
+L     '    function addMessage(text, type) {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 42 source.pascal string.quoted.single.pascal
+T 43 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 45 source.pascal
+L     '      const msgDiv = document.createElement(''div'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 49 source.pascal string.quoted.single.pascal
+T 50 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 54 source.pascal string.quoted.single.pascal
+T 55 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 58 source.pascal string.quoted.single.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 61 source.pascal
+L     '      msgDiv.className = `message ${type}`;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 48 source.pascal string.quoted.single.pascal
+T 49 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 51 source.pascal
+L     '      msgDiv.innerText = text;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal
+L     '      messagesArea.appendChild(msgDiv);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 44 source.pascal string.quoted.single.pascal
+T 45 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 47 source.pascal
+L     '      messagesArea.scrollTop = messagesArea.scrollHeight;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 62 source.pascal string.quoted.single.pascal
+T 63 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 65 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    function connect() {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 29 source.pascal string.quoted.single.pascal
+T 30 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal
+L     '      const wsUrl = (window.location.protocol === ''https:'' ? ''wss://'' : ''ws://'') + window.location.host + ''/ws'';' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 55 source.pascal string.quoted.single.pascal
+T 56 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 57 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 63 source.pascal string.quoted.single.pascal
+T 64 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 65 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 68 source.pascal string.quoted.single.pascal
+T 69 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 70 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 76 source.pascal string.quoted.single.pascal
+T 77 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 78 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 81 source.pascal string.quoted.single.pascal
+T 82 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 83 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 88 source.pascal string.quoted.single.pascal
+T 89 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 90 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 117 source.pascal string.quoted.single.pascal
+T 118 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 119 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 122 source.pascal string.quoted.single.pascal
+T 123 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 124 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 125 source.pascal string.quoted.single.pascal
+T 126 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 128 source.pascal
+L     '      ws = new WebSocket(wsUrl);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 37 source.pascal string.quoted.single.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 40 source.pascal
+L     '      ws.onopen = () => {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L     '        statusDot.className = ''status-dot connected'';' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 57 source.pascal string.quoted.single.pascal
+T 58 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 59 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 60 source.pascal string.quoted.single.pascal
+T 61 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 63 source.pascal
+L     '        statusText.innerText = ''Conectado'';' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 47 source.pascal string.quoted.single.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 49 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal
+L     '        messageInput.disabled = false;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '        sendBtn.disabled = false;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 38 source.pascal string.quoted.single.pascal
+T 39 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 41 source.pascal
+L     '        messageInput.focus();' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 34 source.pascal string.quoted.single.pascal
+T 35 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 37 source.pascal
+L     '        addMessage(''Conexão estabelecida com o Horse WebSocket.'', ''system'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 70 source.pascal string.quoted.single.pascal
+T 71 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 72 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 74 source.pascal string.quoted.single.pascal
+T 75 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 76 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 82 source.pascal string.quoted.single.pascal
+T 83 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 84 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 86 source.pascal string.quoted.single.pascal
+T 87 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 89 source.pascal
+L     '      };' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 13 source.pascal string.quoted.single.pascal
+T 14 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 16 source.pascal
+L     '      ws.onmessage = (event) => {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 38 source.pascal string.quoted.single.pascal
+T 39 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 41 source.pascal
+L     '        addMessage(event.data, ''received'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 46 source.pascal string.quoted.single.pascal
+T 47 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal
+L     '      };' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 13 source.pascal string.quoted.single.pascal
+T 14 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 16 source.pascal
+L     '      ws.onclose = () => {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 31 source.pascal string.quoted.single.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L     '        statusDot.className = ''status-dot'';' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 35 source.pascal string.quoted.single.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 47 source.pascal string.quoted.single.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 49 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal
+L     '        statusText.innerText = ''Desconectado'';' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 52 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 53 source.pascal string.quoted.single.pascal
+T 54 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 56 source.pascal
+L     '        messageInput.disabled = true;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 42 source.pascal string.quoted.single.pascal
+T 43 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 45 source.pascal
+L     '        sendBtn.disabled = true;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 37 source.pascal string.quoted.single.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 40 source.pascal
+L     '        addMessage(''Conexão encerrada pelo servidor. Tentando reconectar em 3s...'', ''system'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 24 source.pascal string.quoted.single.pascal
+T 25 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 88 source.pascal string.quoted.single.pascal
+T 89 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 90 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 92 source.pascal string.quoted.single.pascal
+T 93 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 94 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 100 source.pascal string.quoted.single.pascal
+T 101 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 102 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 104 source.pascal string.quoted.single.pascal
+T 105 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 107 source.pascal
+L     '        setTimeout(connect, 3000);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 42 source.pascal
+L     '      };' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 13 source.pascal string.quoted.single.pascal
+T 14 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 16 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    function sendMessage() {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 33 source.pascal string.quoted.single.pascal
+T 34 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 36 source.pascal
+L     '      const text = messageInput.value.trim();' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal
+L     '      if (text) {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 22 source.pascal string.quoted.single.pascal
+T 23 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 25 source.pascal
+L     '        ws.send(text);' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 27 source.pascal string.quoted.single.pascal
+T 28 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 30 source.pascal
+L     '        addMessage(text, ''sent'');' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 30 source.pascal string.quoted.single.pascal
+T 31 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 32 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 36 source.pascal string.quoted.single.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 40 source.pascal string.quoted.single.pascal
+T 41 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 43 source.pascal
+L     '        messageInput.value = '''';' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 34 source.pascal string.quoted.single.pascal
+T 35 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 37 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 38 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 42 source.pascal
+L     '      }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 12 source.pascal string.quoted.single.pascal
+T 13 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 15 source.pascal
+L     '    }' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 10 source.pascal string.quoted.single.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 13 source.pascal
+L     '    sendBtn.onclick = sendMessage;' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 42 source.pascal
+L     '    messageInput.onkeypress = (e) => {' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 43 source.pascal string.quoted.single.pascal
+T 44 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 46 source.pascal
+L     '      if (e.key === ''Enter'') sendMessage();' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 25 source.pascal string.quoted.single.pascal
+T 26 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 27 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 50 source.pascal string.quoted.single.pascal
+T 51 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 53 source.pascal
+L     '    };' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 11 source.pascal string.quoted.single.pascal
+T 12 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 14 source.pascal
+L     '    connect();' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 19 source.pascal string.quoted.single.pascal
+T 20 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 22 source.pascal
+L     '  </script>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 16 source.pascal string.quoted.single.pascal
+T 17 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 19 source.pascal
+L     '</body>' +
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 12 source.pascal string.quoted.single.pascal
+T 13 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 15 source.pascal
+L     '</html>';
+T 4 source.pascal
+T 5 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 12 source.pascal string.quoted.single.pascal
+T 13 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 14 source.pascal
+L 
+L procedure HandleGetIndex(Req: THorseRequest; Res: THorseResponse);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 24 source.pascal meta.function.pascal entity.name.function.pascal
+T 66 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Res.ContentType('text/html').Send(HTML_CHAT);
+T 18 source.pascal
+T 19 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 28 source.pascal string.quoted.single.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 47 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure OnWebSocketMessage(const AConnection: IHorseWebSocketConnection; const AText: string);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 28 source.pascal meta.function.pascal entity.name.function.pascal
+T 29 source.pascal
+T 34 source.pascal keyword.pascal
+T 75 source.pascal
+T 80 source.pascal keyword.pascal
+T 88 source.pascal
+T 94 source.pascal storage.support.type.pascal
+T 96 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Writeln('Mensagem recebida de ', AConnection.GetClientIP, ': ', AText);
+T 10 source.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 60 source.pascal
+T 61 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 63 source.pascal string.quoted.single.pascal
+T 64 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 73 source.pascal
+L   // Transmite a mensagem para todos os outros clientes na mesma rota (/ws)
+T 2 source.pascal punctuation.whitespace.comment.leading.pascal
+T 4 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 75 source.pascal comment.line.double-slash.pascal.two
+L   THorseWebSocketManager.Broadcast('/ws', 'Anonimo (' + AConnection.GetClientIP + '): ' + AText);
+T 35 source.pascal
+T 36 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 42 source.pascal
+T 43 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 52 source.pascal string.quoted.single.pascal
+T 53 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 82 source.pascal
+T 83 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 86 source.pascal string.quoted.single.pascal
+T 87 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 97 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure OnWebSocketDisconnect(const AConnection: IHorseWebSocketConnection);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 31 source.pascal meta.function.pascal entity.name.function.pascal
+T 32 source.pascal
+T 37 source.pascal keyword.pascal
+T 78 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Writeln('Conexão WebSocket encerrada. IP: ', AConnection.GetClientIP);
+T 10 source.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 45 source.pascal string.quoted.single.pascal
+T 46 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 73 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure OnWebSocketError(const AConnection: IHorseWebSocketConnection; const AException: Exception);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 26 source.pascal meta.function.pascal entity.name.function.pascal
+T 27 source.pascal
+T 32 source.pascal keyword.pascal
+T 73 source.pascal
+T 78 source.pascal keyword.pascal
+T 102 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Writeln('Erro na conexão WebSocket (', AConnection.GetClientIP, '): ', AException.Message);
+T 10 source.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 39 source.pascal string.quoted.single.pascal
+T 40 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 67 source.pascal
+T 68 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 71 source.pascal string.quoted.single.pascal
+T 72 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 85 source.pascal
+T 92 source.pascal keyword.pascal
+T 94 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure OnWebSocketConnect(const AConn: IHorseWebSocketConnection);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 28 source.pascal meta.function.pascal entity.name.function.pascal
+T 29 source.pascal
+T 34 source.pascal keyword.pascal
+T 69 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Writeln('Nova conexão WebSocket aberta. IP: ', AConn.GetClientIP);
+T 10 source.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 47 source.pascal string.quoted.single.pascal
+T 48 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 69 source.pascal
+L   AConn.SetOnMessage(OnWebSocketMessage);
+T 41 source.pascal
+L   AConn.SetOnDisconnect(OnWebSocketDisconnect);
+T 47 source.pascal
+L   AConn.SetOnError(OnWebSocketError);
+T 37 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L procedure HandleGetWS(Req: THorseRequest; Res: THorseResponse);
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 21 source.pascal meta.function.pascal entity.name.function.pascal
+T 63 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Res.UpgradeToWebSocket(OnWebSocketConnect);
+T 45 source.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L begin
+T 5 source.pascal keyword.pascal
+L   THorse.Get('/', HandleGetIndex);
+T 13 source.pascal
+T 14 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 15 source.pascal string.quoted.single.pascal
+T 16 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L   THorse.Get('/ws', HandleGetWS);
+T 13 source.pascal
+T 14 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 17 source.pascal string.quoted.single.pascal
+T 18 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 33 source.pascal
+L 
+L   Writeln('Servidor Horse WebSocket rodando em http://localhost:9000');
+T 10 source.pascal
+T 11 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 68 source.pascal string.quoted.single.pascal
+T 69 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 71 source.pascal
+L   THorse.Listen(9000);
+T 16 source.pascal
+T 20 source.pascal constant.numeric.pascal
+T 22 source.pascal
+L end.
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 

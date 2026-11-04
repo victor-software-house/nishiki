@@ -216,6 +216,8 @@ const homebrewInstall =
   "https://raw.githubusercontent.com/Homebrew/install/959bdd728192d78c47287c177796c3d86d111f09";
 const homeManager =
   "https://raw.githubusercontent.com/nix-community/home-manager/095fef2f265c3c0da4fe315efba8f8a04495ab34";
+const horse =
+  "https://raw.githubusercontent.com/HashLoad/horse/a0ac019be1d29fd9deb20f61ca779d5631718bdb";
 const httparser =
   "https://raw.githubusercontent.com/antlabs/httparser/622df4409cddf119cf437633f620947235d2d1eb";
 const inspectLua =
@@ -332,6 +334,8 @@ const pyenv =
   "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
 const pytest =
   "https://raw.githubusercontent.com/pytest-dev/pytest/1211245aa72f1efe07bcfce63a7c543156cee976";
+const r8brain =
+  "https://raw.githubusercontent.com/avaneev/r8brain-free-src/cb2abb9977efe2471979b380ed95daa56ab4fdb9";
 const rack =
   "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
 const rag =
@@ -1075,6 +1079,12 @@ export const inputs: Input[] = [
   { lang: "objective-c", name: "sample", url: `${samples}/objective-c.sample` },
   { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
   { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
+  // Pascal runs on the TextMate engine.
+  { lang: "pascal", name: "horse-commons", url: `${horse}/src/Horse.Commons.pas` },
+  { lang: "pascal", name: "horse-http2-framing", url: `${horse}/src/Horse.Core.Http2.Framing.pas` },
+  { lang: "pascal", name: "horse-websocket-console", url: `${horse}/samples/lazarus/console_websocket/console_websocket.lpr` },
+  { lang: "pascal", name: "r8brain-dll", url: `${r8brain}/DLL/r8bsrc.pas` },
+  { lang: "pascal", name: "sample", url: `${samples}/pascal.sample` },
   // Perl runs on the TextMate engine. Its heredocs hand HTML, XML, CSS,
   // JavaScript and SQL to their lexers.
   { lang: "perl", name: "embedded", text: perlEmbedded },

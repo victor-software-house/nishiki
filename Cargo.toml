@@ -122,6 +122,7 @@ textmate = [
   "lang-matlab",
   "lang-mermaid",
   "lang-objective-c",
+  "lang-pascal",
   "lang-perl",
   "lang-php",
   "lang-sass",
@@ -187,6 +188,7 @@ lang-matlab = ["_textmate"]
 lang-mermaid = ["_textmate"]
 lang-nix = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-c = ["_textmate"]
+lang-pascal = ["_textmate"]
 lang-perl = [
   "_textmate",
   "lang-css",
