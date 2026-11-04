@@ -1,11 +1,12 @@
 //! The grammar's rules as hand-written searches.
 //!
-//! Each rule is a regular expression, tried at every position of a line, and
-//! the line's next token is the match that starts first, the rule that comes
-//! first in the grammar winning a tie. A search below answers where its rule
-//! first matches at or after a position, with the regular expression's
-//! backtracking taken into account, so the lexer can keep each rule's next
-//! match until the cursor passes it.
+//! Each rule is a regular expression, tried at every position of a line.
+//! The line's next token is the match that starts first.
+//! When two matches start together, the rule that comes first in the grammar
+//! wins.
+//! A search below answers where its rule first matches at or after a
+//! position, with the regular expression's backtracking taken into account.
+//! The lexer can then keep each rule's next match until the cursor passes it.
 
 use memchr::memchr;
 
@@ -17,9 +18,10 @@ use crate::limits::Steps;
 /// A rule's first match at or after a position.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Hit {
-    /// A comment that starts with `#` or `;`: where the match starts, which
-    /// is byte 0 when blanks lead the line and the comment mark's position
-    /// otherwise, and where the mark is.
+    /// A comment that starts with `#` or `;`: where the match starts, and
+    /// where the mark is.
+    /// The match starts at byte 0 when blanks lead the line.
+    /// Otherwise it starts at the mark.
     Comment {
         start: usize,
         mark: usize,
@@ -124,8 +126,8 @@ impl<'a> Line<'a> {
         Line { s, steps }
     }
 
-    /// The width of the white space character at `i`, 0 when there is none;
-    /// the line feed after the line counts.
+    /// The width of the white space character at `i`, 0 when there is none.
+    /// The line feed after the line counts.
     fn space_at(&self, i: usize) -> usize {
         if i == self.s.len() {
             1
@@ -154,9 +156,10 @@ impl<'a> Line<'a> {
         word_before(self.s, i) != self.word_at(i)
     }
 
-    /// `(^[\t ]+)?(?=#)` and its twin for `;`, whose first match from `from`
-    /// is at the first `mark` byte, or at the line's start when only tabs
-    /// and spaces lie before it and the search starts there.
+    /// `(^[\t ]+)?(?=#)` and its twin for `;`.
+    /// The first match from `from` is at the first `mark` byte.
+    /// It is at the line's start instead when only tabs and spaces lie before
+    /// the mark and the search starts there.
     pub(super) fn comment(&mut self, from: usize, kind: CommentMark) -> Option<Hit> {
         let rest = self.s.get(from..)?;
         let at = from + memchr(kind.byte(), rest)?;
@@ -172,12 +175,15 @@ impl<'a> Line<'a> {
 
     /// `\b([-.0-9A-Z_a-z]+)\b\s*(=)`
     ///
-    /// The key is a run of class bytes. Backtracking cannot shorten it,
-    /// because the byte after a shorter key is a class byte, which is
-    /// neither a blank nor `=`; and `\b` before the blanks needs a word byte
-    /// last, since a `-` or `.` is followed by a blank or `=`, which are not
-    /// word characters either. So only whole runs are tried, and the key
-    /// starts at the first position of the run that has a `\b`.
+    /// The key is a run of class bytes.
+    /// Backtracking cannot shorten it.
+    /// The byte after a shorter key is a class byte, which is neither a blank
+    /// nor `=`.
+    /// `\b` before the blanks needs a word byte last.
+    /// A `-` or `.` is followed by a blank or `=`, and neither is a word
+    /// character.
+    /// So only whole runs are tried.
+    /// The key starts at the first position of the run that has a `\b`.
     pub(super) fn key(&mut self, from: usize) -> Option<Hit> {
         let len = self.s.len();
         let mut i = from;
