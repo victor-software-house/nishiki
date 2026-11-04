@@ -63,9 +63,17 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
 
 ## 7. The comparison
 
-- [ ] 7.1 `bench/compare/`, its own workspace: syntect with two-face, both regex backends, and tree-sitter-highlight with the grammar crates for the shared languages; github-dark as a `.tmTheme` converted from Shiki's file; colour agreement with Shiki per non-whitespace byte → verify: on one box, each engine's run on the small tier prints setup, first-document and warm figures, its token count and its agreement, and the run fails when nishiki reports a limit
-- [ ] 7.2 giallo in the same workspace, if 1.2 allows it → verify: the same output as 7.1 for giallo
+- [x] 7.1 `bench/compare/`, its own workspace: syntect with two-face on Oniguruma, and tree-sitter-highlight with the grammar crates for the shared languages; github-dark built from Shiki's JSON theme; colour agreement with Shiki per non-whitespace byte → verify: on one box, each engine's run on the small tier prints setup, first-document and warm figures, its token count and its agreement, and the run fails when nishiki reports a limit
+  - 2026-11-04 UTC: on one instabox box, `--tier small` on Rust and JSON printed setup, first document from a fresh process, warm MiB/s, tokens and agreement for nishiki, syntect and tree-sitter; nishiki agreed with Shiki on every byte, syntect on 59 to 63%, tree-sitter on 59 to 73%.
+    With a 10-byte line limit patched in on the box, the run stopped before its first row with `rust/small/anyhow-chain.rs: nishiki reached a limit` and exit code 1.
+    clippy with warnings denied passes with and without giallo; the Bench job lints the workspace without giallo.
+    One box's figures, not a record: that is task 7.4.
+- [x] 7.2 giallo in the same workspace, if 1.2 allows it → verify: the same output as 7.1 for giallo
+  - 2026-11-04 UTC: the same run with `--features giallo` printed giallo's row for each file, agreeing with Shiki on every byte; giallo's setup took 38 to 41 ms.
+    It builds only on the bench box, behind the off-by-default feature.
 - [ ] 7.3 Shiki 4.6.0 in Bun, with both engines and its limits off, and `@pierre/highlights` if 1.1 allows it → verify: the same output as 7.1 for each
+  - 2026-11-04 UTC: `shiki.ts reference` wrote the colours of all 111 corpus files, and `shiki.ts time 1` printed setup, first document and warm MiB/s for both engines on all of them (222 rows) on an instabox box.
+    Not done: `time` prints no token count and no agreement, so the JavaScript engine is not yet scored against Oniguruma; `@pierre/highlights` is not added.
 - [ ] 7.4 The first recorded comparison on the reference host, rendered into `bench/compare/README.md` → verify: the record lists every engine's version, features and backend, the languages left out, and the rounds; its anchor drift is under 2%
 
 ## 8. Later questions

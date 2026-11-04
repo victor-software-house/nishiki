@@ -236,8 +236,8 @@ Engines:
 
 | Engine | Why | Runs as |
 |:--|:--|:--|
-| syntect 5.3.0, with two-face 0.5.2 | the incumbent in Rust: bat, delta | Rust, both regex backends |
-| tree-sitter-highlight 0.27.1 | the parser-based approach of Zed and Helix | Rust, whole documents only |
+| syntect 5.3.0, with two-face 0.5.2 | the incumbent in Rust: bat, delta | Rust, Oniguruma, the backend bat uses |
+| tree-sitter-highlight 0.27.1, with 15 grammar crates | the parser-based approach of Zed and Helix | Rust, whole documents only |
 | giallo 0.5.2 | a TextMate engine in Rust on Shiki's grammars: the closest output to ours | Rust, if the lead allows its licence |
 | Shiki 4.6.0 | the fidelity reference, the version the oracle pins | Bun, Oniguruma and JavaScript engines |
 | `@pierre/highlights` | the fastest lexers in the earlier comparison | Bun, optional |
@@ -247,7 +247,7 @@ The rules, each one a fault the [survey][survey] found elsewhere:
 1. Every engine reads the same files; results are per file.
    The languages are the intersection, listed in the record.
 2. Every engine colours with github-dark.
-   syntect takes it as a `.tmTheme` converted from Shiki's file; tree-sitter maps its capture names to the theme's colours.
+   syntect takes a theme built from Shiki's JSON rules; tree-sitter maps each capture name to the TextMate scope whose colour stands for it.
 3. Setup, first document in a fresh process, and warm throughput are three figures, never one.
    lumis times setup inside every iteration for its Rust rows and outside for its JavaScript rows.
 4. Every engine does the full work: Shiki's time and line limits are off, and nishiki's line reports must show no limit reached.
@@ -262,6 +262,9 @@ The rules, each one a fault the [survey][survey] found elsewhere:
     They answer what a user of each library gets, not which algorithm is faster.
 
 The comparison runs on the reference host with each minor release.
+
+syntect builds one regex backend into a binary, so the comparison runs Oniguruma, the one bat uses; the pure-Rust `fancy-regex` backend would need a second build and is left for a later row.
+Every comparator's licence, the 15 tree-sitter grammar crates and two-face's bundled syntaxes included, is read at its source and listed in `bench/compare/README.md`; all are permissive except giallo.
 
 Decided (operator, 2026-11-03): giallo is allowed under its EUPL-1.2 licence, built on the bench box only and never distributed.
 `@pierre/highlights` is allowed once its licence is read at its source.

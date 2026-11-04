@@ -57,4 +57,5 @@ Rules for measuring nishiki, beside the root guide's invariants.
     Changing the corpus raises its `version`, and a record names the version it ran on.
 19. The bench workspace (`Cargo.toml`, `src/`, `benches/`) is its own Cargo workspace, excluded from the root's, with its own `Cargo.lock`.
     `verify` does not build it; the Callgrind workflow's Bench job runs `mise run bench:check` on a pull request labelled `bench`: formatting, clippy with warnings denied, and each benchmark once, untimed.
+    The comparison workspace, `compare/`, is its own workspace as well; `bench:check` checks its formatting and runs clippy on it without giallo, and never runs it.
     Label a pull request that changes the public API, so the benchmarks keep building.

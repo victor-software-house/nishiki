@@ -68,7 +68,8 @@ jobs:
     name: Bench
     # verify does not build the bench workspace (bench/, its own workspace),
     # so this job keeps it building, linted and runnable: each benchmark runs
-    # once, untimed. Wall time never gates (bench/AGENTS.md).
+    # once, untimed. The comparison workspace (bench/compare/) is formatted
+    # and linted only. Wall time never gates (bench/AGENTS.md).
     if: ${{ !github.event.pull_request.draft && contains(github.event.pull_request.labels.*.name, 'bench') }}
     # The build runner's cache volume, read only: this job never commits it.
     runs-on: ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]

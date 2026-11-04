@@ -10,8 +10,10 @@ repository = "https://github.com/victor-software-house/nishiki"
 publish = false
 
 # Its own workspace, outside the root's, so the root's lints, deny rules and
-# versions never read it (CODING_STANDARDS 5.3).
+# versions never read it (CODING_STANDARDS 5.3). The comparison keeps a
+# workspace of its own, so its comparators never enter this lock.
 [workspace]
+exclude = ["compare"]
 
 # The library is the corpus loader the benches share; it has no benchmarks of
 # its own, so `cargo bench -- <criterion options>` reaches only the benches.
