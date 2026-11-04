@@ -9,6 +9,7 @@ use super::state::Kind;
 impl Lexer<'_> {
     /// Takes the text of a `"` or `"""` string up to its next escape or
     /// closing quote.
+    #[inline]
     pub(super) fn in_basic(&mut self, p: usize) -> usize {
         let multi = self.top() == Kind::BasicMulti;
         let Some(offset) = memchr2(b'"', b'\\', &self.s[p..]) else {

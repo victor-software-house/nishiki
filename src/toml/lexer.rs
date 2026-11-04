@@ -43,6 +43,12 @@ pub(crate) struct Lexer<'a> {
 }
 
 impl<'a> Lexer<'a> {
+    /// The lexer of one line, from `state`.
+    ///
+    /// `#[inline]`, as `run` is: `toml::lex`, in another module, calls both on
+    /// every line. At the default sixteen codegen units they were called out
+    /// of line.
+    #[inline]
     pub(crate) fn new(cx: &'a mut Context<'_>, s: &'a [u8], state: u32) -> Self {
         let steps = Steps::new(cx.limits, s.len());
         let mut lexer = Lexer {
@@ -65,6 +71,11 @@ impl<'a> Lexer<'a> {
         self.steps.finish(self.em.state)
     }
 
+    /// Lexes the line.
+    ///
+    /// The `in_*` steps it calls are `#[inline]` too.
+    /// Once `run` is inlined into `toml::lex`, that module calls them.
+    #[inline]
     pub(crate) fn run(&mut self) {
         let len = self.s.len();
         let mut p = 0;
@@ -209,6 +220,7 @@ impl<'a> Lexer<'a> {
 
     /// Takes the next match at or after `p` outside every array, inline
     /// table and string.
+    #[inline]
     fn in_table(&mut self, p: usize) -> usize {
         if space_width(self.s, p) > 0 {
             return self.space(p);
@@ -341,6 +353,7 @@ impl<'a> Lexer<'a> {
     // Arrays and inline tables.
 
     /// Takes the next match at or after `p` in an array.
+    #[inline]
     fn in_array(&mut self, p: usize) -> usize {
         if space_width(self.s, p) > 0 {
             return self.leading_space(p);
@@ -377,6 +390,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Takes the next match at or after `p` in an inline table.
+    #[inline]
     fn in_inline(&mut self, p: usize) -> usize {
         if space_width(self.s, p) > 0 {
             return self.leading_space(p);
