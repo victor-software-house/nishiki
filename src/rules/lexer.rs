@@ -1079,9 +1079,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                         end: 0,
                         case: NameCase::AsWritten,
                     },
-                    "",
+                    G::rule_name_suffix(rule),
                 ),
-            Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
+            Some(prefix) => self.dynamic_path(
+                name,
+                prefix,
+                NameSource::Interned(payload),
+                G::rule_name_suffix(rule),
+            ),
             None => name,
         }
     }
@@ -1971,7 +1976,9 @@ mod tests {
     /// A grammar whose names repeat text of the line: a word is named
     /// `word.<the word>.test` (`$0`), `!` and `?` are named after themselves
     /// as group 1, with a group 2 past the match and a group 3 after it, and
-    /// `<<ab` opens a quote named `quote.ab` that the next `ab` closes.
+    /// `<<ab` opens a quote named `quote.ab.q` that the next `ab` closes.
+    /// `>>` opens a rule that embeds Rust from an entry
+    /// ([`Grammar::embed_start`]).
     #[derive(Clone, Copy, Debug)]
     struct Named;
 
@@ -1979,6 +1986,7 @@ mod tests {
     enum Rule {
         Root,
         Quote,
+        Inner,
     }
 
     #[derive(Clone, Copy, Debug)]
@@ -1987,6 +1995,23 @@ mod tests {
         Look,
         Open,
         Close,
+        Embed,
+    }
+
+    /// The entry [`Rule::Inner`] embeds Rust from: Rust's own start for an
+    /// embedded body, under another function, so a test can tell it apart.
+    #[cfg(all(feature = "_embedding", feature = "lang-rust"))]
+    fn inner_start(arena: &mut Arena, base: u32) -> u32 {
+        crate::Language::Rust.start_embedded(arena, base)
+    }
+
+    /// What [`Rule::Inner`] carries: Rust, or nothing in a build without Rust.
+    fn inner_payload() -> Payload {
+        #[cfg(feature = "lang-rust")]
+        let payload = Payload::Embed(crate::Language::Rust);
+        #[cfg(not(feature = "lang-rust"))]
+        let payload = Payload::None;
+        payload
     }
 
     #[derive(Clone, Copy, Debug)]
@@ -2043,11 +2068,16 @@ mod tests {
             match rule {
                 Rule::Root => 0,
                 Rule::Quote => 1,
+                Rule::Inner => 2,
             }
         }
 
         fn rule_from_code(code: u16) -> Rule {
-            if code == 1 { Rule::Quote } else { Rule::Root }
+            match code {
+                1 => Rule::Quote,
+                2 => Rule::Inner,
+                _ => Rule::Root,
+            }
         }
 
         fn rule_name(_: Rule) -> Scopes<Name> {
@@ -2062,13 +2092,29 @@ mod tests {
             match rule {
                 Rule::Root => Payload::None,
                 Rule::Quote => Payload::Backref(1),
+                Rule::Inner => inner_payload(),
             }
         }
 
         fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {
             match rule {
-                Rule::Root => None,
+                Rule::Root | Rule::Inner => None,
                 Rule::Quote => Some("quote."),
+            }
+        }
+
+        fn rule_name_suffix(rule: Rule) -> &'static str {
+            match rule {
+                Rule::Root | Rule::Inner => "",
+                Rule::Quote => ".q",
+            }
+        }
+
+        #[cfg(all(feature = "_embedding", feature = "lang-rust"))]
+        fn embed_start(rule: Rule) -> Option<fn(&mut Arena, u32) -> u32> {
+            match rule {
+                Rule::Inner => Some(inner_start),
+                Rule::Root | Rule::Quote => None,
             }
         }
 
@@ -2077,6 +2123,7 @@ mod tests {
                 Mark::Word => Act::Match(scopes![Name::Group("word.", 0, ".test")]),
                 Mark::Look => Act::Match(Name::NO_SCOPES),
                 Mark::Open => Act::Begin(Rule::Quote),
+                Mark::Embed => Act::Begin(Rule::Inner),
                 Mark::Close => Act::End,
             }
         }
@@ -2091,14 +2138,15 @@ mod tests {
                     ],
                     &[],
                 ),
-                Mark::Word | Mark::Open | Mark::Close => (&[], &[]),
+                Mark::Word | Mark::Open | Mark::Close | Mark::Embed => (&[], &[]),
             }
         }
 
         fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Mark, usize)> {
             let pats: &[Mark] = match lexer.top_rule() {
-                Rule::Root => &[Mark::Open, Mark::Look, Mark::Word],
+                Rule::Root => &[Mark::Open, Mark::Embed, Mark::Look, Mark::Word],
                 Rule::Quote => &[Mark::Close, Mark::Word],
+                Rule::Inner => &[],
             };
             for p in lexer.pos..lexer.lim() {
                 for &pat in pats {
@@ -2134,6 +2182,7 @@ mod tests {
                     Some(end)
                 }
                 Mark::Close => lexer.payload_at(p).map(|width| p + width),
+                Mark::Embed => lexer.starts(p, b">>").then_some(p + 2),
             }
         }
 
@@ -2214,9 +2263,42 @@ mod tests {
     fn a_rule_named_from_its_payload_keeps_the_name_on_the_next_line() {
         let mut arena = Arena::new(None);
         let rows = named_tokens(&mut arena, &[b"<<ab xy", b"zz ab"]);
-        assert_eq!(rows[0][0], (4, "quote.ab".to_owned()));
-        assert_eq!(rows[0][2], (7, "quote.ab word.xy.test".to_owned()));
-        assert_eq!(rows[1][0], (2, "quote.ab word.zz.test".to_owned()));
-        assert_eq!(rows[1][2], (5, "quote.ab".to_owned()));
+        assert_eq!(rows[0][0], (4, "quote.ab.q".to_owned()));
+        assert_eq!(rows[0][2], (7, "quote.ab.q word.xy.test".to_owned()));
+        assert_eq!(rows[1][0], (2, "quote.ab.q word.zz.test".to_owned()));
+        assert_eq!(rows[1][2], (5, "quote.ab.q".to_owned()));
+    }
+
+    #[cfg(all(feature = "_embedding", feature = "lang-rust"))]
+    #[test]
+    fn a_rule_that_embeds_from_an_entry_stops_on_its_frame() {
+        let mut arena = Arena::new(None);
+        let limits = Limits::default();
+        let state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let mut scratch = Scratch::<Named>::default();
+        let mut tokens = Vec::new();
+        let mut report = LineReport::default();
+        let text = Text {
+            bytes: b">>fn",
+            start: 0,
+            anchored: false,
+        };
+        let parts = Parts {
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let (finished, embedding) = Lexer::new(parts, text, state, &mut scratch).run_embedding();
+        let embedding = embedding.expect("the line stops where Rust starts");
+        assert_eq!(embedding.at, 2);
+        assert_eq!(embedding.language, crate::Language::Rust);
+        let rule = Named::rule_from_code(arena.frame(finished.state()).kind);
+        assert_eq!(Named::rule_code(rule), Named::rule_code(Rule::Inner));
+        let start = Named::embed_start(rule).expect("the entry's start function");
+        let expected: fn(&mut Arena, u32) -> u32 = inner_start;
+        assert!(std::ptr::fn_addr_eq(start, expected));
     }
 }

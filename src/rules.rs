@@ -173,6 +173,20 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_name_delimiter(_rule: Self::Rule) -> Option<&'static str> {
         None
     }
+    /// The text after the payload in that name scope, such as `.svelte` in
+    /// `meta.lang.$3.svelte`; none by default.
+    fn rule_name_suffix(_rule: Self::Rule) -> &'static str {
+        ""
+    }
+    /// Where a rule that embeds a language ([`Payload::Embed`]) starts it:
+    /// the function that gives the language's state at one of its grammar's
+    /// rules other than the root, as an `include` of `source.ts#object-literal`
+    /// does.
+    /// None, the default, starts the language at its root.
+    #[cfg(feature = "_embedding")]
+    fn embed_start(_rule: Self::Rule) -> Option<fn(&mut Arena, u32) -> u32> {
+        None
+    }
     /// What `pat` does when it matches.
     fn pat_act(pat: Self::Pat) -> Act<Self>;
     /// The scopes of the capture groups of `pat`, and the groups the grammar
@@ -322,6 +336,17 @@ pub(crate) trait Embeds: Grammar {
     /// It is tried where none of the embedded patterns match.
     /// The halts may read the payload of the embedding rule's parent frame.
     fn embed_halts(embedding: &Embedding, arena: &Arena) -> (Self::End, Option<FnHalt>);
+
+    /// The halts for `embedding` by `rule`, the embedding rule.
+    /// A grammar whose embedding rules end differently picks its halts here.
+    /// By default, [`Embeds::embed_halts`].
+    fn embed_halts_for(
+        _rule: Self::Rule,
+        embedding: &Embedding,
+        arena: &Arena,
+    ) -> (Self::End, Option<FnHalt>) {
+        Self::embed_halts(embedding, arena)
+    }
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` whose rules embed other languages
@@ -477,8 +502,12 @@ fn hand_over<G: Embeds, const HALTING: bool>(
     let mut next = steps.take_back(first);
     let (state, halted) = loop {
         let language = embedding.language;
+        let rule = G::rule_from_code(cx.arena.frame(next).kind);
         let inner = match embedding.state {
-            0 => language.start_embedded(cx.arena, embedding.base),
+            0 => match G::embed_start(rule) {
+                Some(start) => start(cx.arena, embedding.base),
+                None => language.start_embedded(cx.arena, embedding.base),
+            },
             known => known,
         };
         let part = Line {
@@ -486,7 +515,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             start: embedding.at,
             embedded: false,
         };
-        let (end, after) = G::embed_halts(&embedding, cx.arena);
+        let (end, after) = G::embed_halts_for(rule, &embedding, cx.arena);
         let after = after.as_ref().map(|after| {
             let after: &dyn Halt = after;
             after
@@ -588,6 +617,10 @@ pub(crate) enum Payload {
     /// the lexer hands the text to it (see [`Lexer::run_embedding`]).
     Embed(crate::Language),
 }
+
+/// A 16-byte `Payload`, with a start function in it, cost Ruby 0.3% at one
+/// codegen unit.
+const _: () = assert!(size_of::<Payload>() <= 2);
 
 /// How a line whose grammar embeds other languages stopped.
 #[cfg(feature = "_embedding")]
