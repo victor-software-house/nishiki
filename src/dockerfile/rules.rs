@@ -1,14 +1,17 @@
 //! The grammar's line-start rules as hand-written matchers.
 //!
 //! Three rules of the grammar start with `^`: the `FROM ... AS` line, the
-//! instruction keywords, and the comment. Only the first line byte can start
-//! them, so a line is tried against them once and the rest of it holds
-//! strings and escapes, which `super::line` scans for. Each matcher answers
-//! what its regular expression would, including where backtracking lands.
+//! instruction keywords, and the comment.
+//! Only the first byte of a line can start them.
+//! A line is therefore tried against them once.
+//! The rest of the line holds strings and escapes, which `super::line` scans
+//! for.
+//! Each matcher answers what its regular expression would, including where
+//! backtracking lands.
 //!
-//! The text the grammar sees ends with a line feed that is not in the line:
-//! `\s` matches it and `.` does not, so `RUN` alone on a line is an
-//! instruction.
+//! The text the grammar sees ends with a line feed that is not in the line.
+//! `\s` matches that line feed, and `.` does not.
+//! `RUN` alone on a line is therefore an instruction.
 
 use super::scope::S;
 use crate::classes::{space_width, word_before, word_width};
@@ -26,7 +29,8 @@ pub(super) struct Seg {
     pub(super) leaf: &'static [S],
 }
 
-/// A rule's match: its pieces in order from byte 0, which end at `end`.
+/// A rule's match: its pieces in order from byte 0.
+/// The pieces end at `end`.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Hit {
     pub(super) end: usize,
@@ -43,8 +47,9 @@ impl Hit {
     }
 }
 
-/// The instruction keywords, in the grammar's order. None is a prefix of
-/// another, so the order does not change which one matches.
+/// The instruction keywords, in the grammar's order.
+/// None is a prefix of another.
+/// The order therefore does not change which one matches.
 const INSTRUCTIONS: &[&[u8]] = &[
     b"ADD",
     b"ARG",
@@ -68,7 +73,8 @@ const INSTRUCTIONS: &[&[u8]] = &[
 /// A line and the bytes its scans have read.
 pub(super) struct Line<'a> {
     s: &'a [u8],
-    /// The work of the line, which the scans spend.
+    /// The work of the line.
+    /// The scans spend it.
     steps: &'a Steps,
 }
 
