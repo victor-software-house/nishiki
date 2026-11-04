@@ -36,13 +36,13 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | ready |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
-| Markdown | `markdown` | 205 of 311 | 65.9% | 266 of 373 | 71.3% | 213 | 0 | yes |
+| Markdown | `markdown` | 209 of 311 | 67.2% | 270 of 373 | 72.4% | 205 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 119 of 174 | 68.4% | 106 of 199 | 53.3% | 0 | 10 |  |
-| SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 9 |  |
+| SQL | `sql` | 47 of 75 | 62.7% | 42 of 79 | 53.2% | 0 | 4 |  |
 | Swift | `swift` | 425 of 448 | 94.9% | 441 of 448 | 98.4% | 30 | 0 | yes |
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
@@ -591,10 +591,6 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #fenced_code_block_clojure.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_clojure.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_clojure.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_coffee.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(coffee|Cakefile|coffee.erb)…  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_coffee.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_coffee.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_coffee.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.coffee`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_elixir.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(elixir)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_elixir.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_elixir.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.elixir`, which the oracle does not load, so vscode-textmate drops the rule
@@ -905,9 +901,9 @@ patterns[44].match  (?i)\b(vector_(?:distance|norm|normalize))\b\s*\(
 #regexps.patterns[1].end  }
 #string_escape.match  \\.
 #string_interpolation.match  (#\{)([^}]*)(})
-#strings.patterns[2].match  (`)[^\\`]*(`)  fuzz
+#strings.patterns[2].match  (`)[^\\`]*(`)
 #strings.patterns[3].begin  `  fuzz
-#strings.patterns[3].end  `  fuzz
+#strings.patterns[3].end  `
 #strings.patterns[5].begin  "  fuzz
 #strings.patterns[5].end  "
 #strings.patterns[6].begin  %\{

@@ -174,8 +174,11 @@ macro_rules! languages {
             /// and out of line: the lexers inline into [`Language::lex`]
             /// alone, and the count stays off the highlighter's path.
             #[cfg_attr(
-                not(any(feature = "lang-markdown", feature = "lang-ruby")),
-                expect(dead_code, reason = "only Markdown and Ruby embed through the dispatch")
+                not(any(feature = "lang-markdown", feature = "lang-ruby", feature = "lang-coffee")),
+                expect(
+                    dead_code,
+                    reason = "only Markdown, Ruby and the engine's hand-offs embed through the dispatch"
+                )
             )]
             #[cold]
             #[inline(never)]
@@ -197,8 +200,11 @@ macro_rules! languages {
             /// matches, and the second value is where. `None` for a
             /// language that cannot halt.
             #[cfg_attr(
-                not(feature = "lang-ruby"),
-                expect(dead_code, reason = "only Ruby embeds other languages")
+                not(any(feature = "lang-ruby", feature = "lang-coffee")),
+                expect(
+                    dead_code,
+                    reason = "only Ruby and the engine's hand-offs embed other languages"
+                )
             )]
             #[inline]
             pub(crate) fn lex_until(
@@ -803,6 +809,17 @@ languages! {
         engine: crate::sass::grammar::GRAMMAR,
         reads_line_feed: true,
         halts: true,
+    }
+    /// CoffeeScript, with the scopes of Shiki's `coffee` grammar, which
+    /// nishiki's `TextMate` engine runs. Its embedded JavaScript goes to the
+    /// JavaScript lexer.
+    CoffeeScript {
+        feature: "lang-coffee",
+        names: ["coffee", "coffeescript"],
+        engine: crate::coffee::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+        hands_off: true,
     }
 }
 

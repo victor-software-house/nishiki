@@ -336,6 +336,14 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Php,
     },
+    // The grammar's `coffee|Cakefile|coffee.erb` has an unescaped dot, which
+    // matches any character; it is matched here as a literal dot.
+    #[cfg(feature = "lang-coffee")]
+    Name {
+        words: &["coffee", "Cakefile", "coffee.erb"],
+        brace: None,
+        embed: Embed::Lang(Language::CoffeeScript),
+    },
 ];
 
 /// A language found in an info string.

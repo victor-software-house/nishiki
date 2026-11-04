@@ -98,6 +98,8 @@ crate::scope::scope_table! {
     EmbeddedDosbatch "meta.embedded.block.dosbatch"
     #[cfg(feature = "lang-html")]
     EmbeddedPhp "meta.embedded.block.php"
+    #[cfg(feature = "lang-coffee")]
+    EmbeddedCoffee "meta.embedded.block.coffee"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

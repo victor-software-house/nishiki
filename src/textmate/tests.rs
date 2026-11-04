@@ -417,6 +417,8 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::bat::grammar::GRAMMAR, "bat"),
     #[cfg(feature = "lang-cmake")]
     (&crate::cmake::grammar::GRAMMAR, "cmake"),
+    #[cfg(feature = "lang-coffee")]
+    (&crate::coffee::grammar::GRAMMAR, "coffee"),
     #[cfg(feature = "lang-dart")]
     (&crate::dart::grammar::GRAMMAR, "dart"),
     #[cfg(feature = "lang-haml")]

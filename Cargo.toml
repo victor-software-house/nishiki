@@ -105,6 +105,7 @@ docs = ["config", "lang-markdown"]
 textmate = [
   "lang-bat",
   "lang-cmake",
+  "lang-coffee",
   "lang-dart",
   "lang-haml",
   "lang-haskell",
@@ -122,6 +123,7 @@ textmate = [
 lang-bat = ["_textmate"]
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cmake = ["_textmate"]
+lang-coffee = ["_textmate", "lang-javascript"]
 lang-cpp = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
 lang-css = ["_scope-table", "_rule-tables", "_classes"]

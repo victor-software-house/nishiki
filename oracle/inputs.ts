@@ -104,6 +104,8 @@ const cobra =
   "https://raw.githubusercontent.com/spf13/cobra/adbc8813901bba65827259daa8e22ff94ec1f30e";
 const codegen =
   "https://raw.githubusercontent.com/dotansimha/graphql-code-generator/11ac951a30b79369d3b0aa78f83a79d309ffcc77";
+const coffeescript =
+  "https://raw.githubusercontent.com/jashkenas/coffeescript/116890ee072305d3f4ad2686b70c9f28b967c11d";
 const commonsLang =
   "https://raw.githubusercontent.com/apache/commons-lang/d8470d57fda340864acf5194bb56305a133fba0e";
 const composable =
@@ -417,6 +419,14 @@ export const inputs: Input[] = [
   { lang: "cmake", name: "googletest-utils", url: `${googletest}/googletest/cmake/internal_utils.cmake` },
   { lang: "cmake", name: "json-lists", url: `${nlohmannJson}/CMakeLists.txt` },
   { lang: "cmake", name: "sample", url: `${samples}/cmake.sample` },
+  // CoffeeScript runs on the TextMate engine, which hands its embedded
+  // JavaScript to the JavaScript lexer.
+  { lang: "coffee", name: "coffeescript-browser", url: `${coffeescript}/src/browser.coffee` },
+  { lang: "coffee", name: "coffeescript-cake", url: `${coffeescript}/src/cake.coffee` },
+  { lang: "coffee", name: "coffeescript-helpers", url: `${coffeescript}/src/helpers.coffee` },
+  { lang: "coffee", name: "coffeescript-optparse", url: `${coffeescript}/src/optparse.coffee` },
+  { lang: "coffee", name: "coffeescript-repl", url: `${coffeescript}/src/repl.coffee` },
+  { lang: "coffee", name: "sample", url: `${samples}/coffee.sample` },
   { lang: "cpp", name: "absl-any-invocable", url: `${abseil}/absl/functional/internal/any_invocable.h` },
   { lang: "cpp", name: "absl-any-invocable-test", url: `${abseil}/absl/functional/any_invocable_test.h` },
   { lang: "cpp", name: "absl-check-op", url: `${abseil}/absl/log/internal/check_op.h` },
@@ -860,6 +870,17 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "clap-readme", url: `${clap}/README.md` },
   { lang: "markdown", name: "click-man-readme", url: `${clickMan}/README.md` },
   { lang: "markdown", name: "cobra-user-guide", url: `${cobra}/site/content/user_guide.md` },
+  // CoffeeScript fences, which Markdown hands to the TextMate engine.
+  {
+    lang: "markdown",
+    name: "coffeescript-classes",
+    url: `${coffeescript}/documentation/sections/breaking_changes_classes.md`,
+  },
+  {
+    lang: "markdown",
+    name: "coffeescript-super-this",
+    url: `${coffeescript}/documentation/sections/breaking_changes_super_this.md`,
+  },
   { lang: "markdown", name: "coverage", text: markdownCoverage },
   { lang: "markdown", name: "dart-args-readme", url: `${dartCore}/pkgs/args/README.md` },
   { lang: "markdown", name: "dart-http-readme", url: `${dartHttp}/pkgs/http/README.md` },

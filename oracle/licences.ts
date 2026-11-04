@@ -32,6 +32,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  coffee: {
+    bundled: "microsoft/vscode@ff58f5083f57b50e6a100ab60454dfb72fe21e80",
+    origin: "atom/language-coffee-script",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   css: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "microsoft/vscode-css",

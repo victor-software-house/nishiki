@@ -357,6 +357,8 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `go/coverage` | `oracle/inputs/go-coverage.go`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/gin-readme` | [`README.md`][gin-readme] in gin-gonic/gin | [MIT][gin-licence] |
 | `markdown/cobra-user-guide` | [`site/content/user_guide.md`][cobra-user-guide] in spf13/cobra | [Apache-2.0][cobra-licence] |
+| `markdown/coffeescript-classes` | [`documentation/sections/breaking_changes_classes.md`][coffeescript-classes] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `markdown/coffeescript-super-this` | [`documentation/sections/breaking_changes_super_this.md`][coffeescript-super-this] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `ruby/sample` | [`samples/ruby.sample`][ruby-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `ruby/rack-request` | [`lib/rack/request.rb`][rack-request] in rack/rack | [MIT][rack-licence] |
 | `ruby/rubocop-cop-base` | [`lib/rubocop/cop/base.rb`][rubocop-cop-base] in rubocop/rubocop | [MIT][rubocop-licence] |
@@ -500,6 +502,12 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sass/bulma-generic` | [`sass/base/generic.sass`][sass-bulma-generic] in jgthms/bulma | [MIT][bulma-sass-licence] |
 | `sass/bulma-mixins` | [`sass/utilities/mixins.sass`][sass-bulma-mixins] in jgthms/bulma | [MIT][bulma-sass-licence] |
 | `sass/bulma-navbar` | [`sass/components/navbar.sass`][sass-bulma-navbar] in jgthms/bulma | [MIT][bulma-sass-licence] |
+| `coffee/sample` | [`samples/coffee.sample`][coffee-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `coffee/coffeescript-browser` | [`src/browser.coffee`][coffeescript-browser] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-cake` | [`src/cake.coffee`][coffeescript-cake] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-helpers` | [`src/helpers.coffee`][coffeescript-helpers] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-optparse` | [`src/optparse.coffee`][coffeescript-optparse] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coffeescript-repl` | [`src/repl.coffee`][coffeescript-repl] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -862,6 +870,15 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [cobra-user-guide]: https://github.com/spf13/cobra/blob/adbc8813901bba65827259daa8e22ff94ec1f30e/site/content/user_guide.md
 [codegen-apollo]: https://github.com/dotansimha/graphql-code-generator/blob/11ac951a30b79369d3b0aa78f83a79d309ffcc77/dev-test/apollo-tooling/schema.graphql
 [codegen-licence]: https://github.com/dotansimha/graphql-code-generator/blob/11ac951a30b79369d3b0aa78f83a79d309ffcc77/LICENSE
+[coffee-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/coffee.sample
+[coffeescript-browser]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/browser.coffee
+[coffeescript-cake]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/cake.coffee
+[coffeescript-classes]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/documentation/sections/breaking_changes_classes.md
+[coffeescript-helpers]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/helpers.coffee
+[coffeescript-licence]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/LICENSE
+[coffeescript-optparse]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/optparse.coffee
+[coffeescript-repl]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/src/repl.coffee
+[coffeescript-super-this]: https://github.com/jashkenas/coffeescript/blob/116890ee072305d3f4ad2686b70c9f28b967c11d/documentation/sections/breaking_changes_super_this.md
 [commons-lang-licence]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/LICENSE.txt
 [commons-lang-pom]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/pom.xml
 [commons-lang-range]: https://github.com/apache/commons-lang/blob/d8470d57fda340864acf5194bb56305a133fba0e/src/main/java/org/apache/commons/lang3/Range.java

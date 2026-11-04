@@ -1,0 +1,110 @@
+L ### `super` and `this`
+T 3 text.html.markdown markup.heading.markdown heading.3.markdown punctuation.definition.heading.markdown
+T 4 text.html.markdown markup.heading.markdown heading.3.markdown
+T 5 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 10 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 11 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 16 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown
+T 17 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 21 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown
+T 22 text.html.markdown markup.heading.markdown heading.3.markdown entity.name.section.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+L 
+L In the constructor of a derived class (a class that `extends` another class), `this` cannot be used before calling `super`:
+T 52 text.html.markdown meta.paragraph.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 60 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 61 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 83 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 84 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 115 text.html.markdown meta.paragraph.markdown
+T 116 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 121 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 122 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 123 text.html.markdown meta.paragraph.markdown
+L 
+L ```coffee
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L class B extends A
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee storage.type.class.coffee
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee entity.name.type.class.coffee
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee keyword.control.inheritance.coffee
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee entity.other.inherited-class.coffee
+L   constructor: -> this  # Throws a compiler error
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee entity.name.function.coffee
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee storage.type.function.coffee
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee variable.language.this.coffee
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee comment.line.number-sign.coffee
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L This also means you cannot pass a reference to `this` as an argument to `super` in the constructor of a derived class:
+T 47 text.html.markdown meta.paragraph.markdown
+T 48 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 52 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 53 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 78 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 79 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 118 text.html.markdown meta.paragraph.markdown
+L 
+L ```coffee
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L class B extends A
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee storage.type.class.coffee
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee entity.name.type.class.coffee
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee keyword.control.inheritance.coffee
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.class.coffee entity.other.inherited-class.coffee
+L   constructor: (@arg) ->
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee entity.name.function.coffee
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.readwrite.instance.coffee
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee meta.function.coffee storage.type.function.coffee
+L     super @arg  # Throws a compiler error
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee variable.language.super.coffee
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee variable.other.readwrite.instance.coffee
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee comment.line.number-sign.coffee
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L This is a limitation of ES2015 classes. As a workaround, assign to `this` after the `super` call:
+T 67 text.html.markdown meta.paragraph.markdown
+T 68 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 72 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 73 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 84 text.html.markdown meta.paragraph.markdown
+T 85 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 90 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 91 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 97 text.html.markdown meta.paragraph.markdown
+L 
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L codeFor('breaking_change_super_this')
+T 37 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

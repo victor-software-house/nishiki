@@ -1,0 +1,745 @@
+L # `cake` is a simplified version of [Make](http://www.gnu.org/software/make/)
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 77 source.coffee comment.line.number-sign.coffee
+L # ([Rake](http://rake.rubyforge.org/), [Jake](https://github.com/280north/jake))
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 80 source.coffee comment.line.number-sign.coffee
+L # for CoffeeScript. You define tasks with names and descriptions in a Cakefile,
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 79 source.coffee comment.line.number-sign.coffee
+L # and can call them from the command line, or invoke them from other tasks.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 75 source.coffee comment.line.number-sign.coffee
+L #
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+L # Running `cake` with no arguments will print out a list of all the tasks in the
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 80 source.coffee comment.line.number-sign.coffee
+L # current directory's Cakefile.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 31 source.coffee comment.line.number-sign.coffee
+L 
+L # External dependencies.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 24 source.coffee comment.line.number-sign.coffee
+L fs           = require 'fs'
+T 2 source.coffee variable.assignment.coffee
+T 13 source.coffee
+T 14 source.coffee keyword.operator.assignment.coffee
+T 15 source.coffee
+T 22 source.coffee meta.function-call.coffee support.function.coffee
+T 23 source.coffee meta.function-call.coffee
+T 24 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 26 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 27 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L path         = require 'path'
+T 4 source.coffee variable.assignment.coffee
+T 13 source.coffee
+T 14 source.coffee keyword.operator.assignment.coffee
+T 15 source.coffee
+T 22 source.coffee meta.function-call.coffee support.function.coffee
+T 23 source.coffee meta.function-call.coffee
+T 24 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 28 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 29 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L helpers      = require './helpers'
+T 7 source.coffee variable.assignment.coffee
+T 13 source.coffee
+T 14 source.coffee keyword.operator.assignment.coffee
+T 15 source.coffee
+T 22 source.coffee meta.function-call.coffee support.function.coffee
+T 23 source.coffee meta.function-call.coffee
+T 24 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 33 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 34 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L optparse     = require './optparse'
+T 8 source.coffee variable.assignment.coffee
+T 13 source.coffee
+T 14 source.coffee keyword.operator.assignment.coffee
+T 15 source.coffee
+T 22 source.coffee meta.function-call.coffee support.function.coffee
+T 23 source.coffee meta.function-call.coffee
+T 24 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 34 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 35 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L CoffeeScript = require './'
+T 12 source.coffee variable.assignment.coffee
+T 13 source.coffee
+T 14 source.coffee keyword.operator.assignment.coffee
+T 15 source.coffee
+T 22 source.coffee meta.function-call.coffee support.function.coffee
+T 23 source.coffee meta.function-call.coffee
+T 24 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 26 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 27 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L 
+L # Register .coffee extension
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 28 source.coffee comment.line.number-sign.coffee
+L CoffeeScript.register()
+T 12 source.coffee variable.other.object.coffee
+T 13 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 21 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 22 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 23 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+L 
+L # Keep track of the list of defined tasks, the accepted options, and so on.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 75 source.coffee comment.line.number-sign.coffee
+L tasks     = {}
+T 5 source.coffee variable.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee keyword.operator.assignment.coffee
+T 12 source.coffee
+T 13 source.coffee meta.brace.curly.coffee
+T 14 source.coffee meta.brace.curly.coffee
+L options   = {}
+T 7 source.coffee variable.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee keyword.operator.assignment.coffee
+T 12 source.coffee
+T 13 source.coffee meta.brace.curly.coffee
+T 14 source.coffee meta.brace.curly.coffee
+L switches  = []
+T 8 source.coffee variable.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee keyword.operator.assignment.coffee
+T 12 source.coffee
+T 13 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 14 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L oparse    = null
+T 6 source.coffee variable.assignment.coffee
+T 10 source.coffee
+T 11 source.coffee keyword.operator.assignment.coffee
+T 12 source.coffee
+T 16 source.coffee constant.language.null.coffee
+L 
+L # Mixin the top-level Cake functions for Cakefiles to use directly.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 67 source.coffee comment.line.number-sign.coffee
+L helpers.extend global,
+T 7 source.coffee variable.other.object.coffee
+T 8 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 14 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 15 source.coffee meta.method-call.coffee
+T 21 source.coffee meta.method-call.coffee meta.arguments.coffee support.variable.coffee
+T 22 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+L 
+L   # Define a Cake task with a short name, an optional sentence description,
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 75 source.coffee comment.line.number-sign.coffee
+L   # and the function to run as the action itself.
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 49 source.coffee comment.line.number-sign.coffee
+L   task: (name, description, action) ->
+T 2 source.coffee
+T 6 source.coffee meta.function.coffee entity.name.function.coffee
+T 7 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 8 source.coffee meta.function.coffee
+T 9 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 13 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 14 source.coffee meta.function.coffee meta.parameters.coffee punctuation.separator.delimiter.coffee
+T 15 source.coffee meta.function.coffee meta.parameters.coffee
+T 26 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 27 source.coffee meta.function.coffee meta.parameters.coffee punctuation.separator.delimiter.coffee
+T 28 source.coffee meta.function.coffee meta.parameters.coffee
+T 34 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 35 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 36 source.coffee meta.function.coffee
+T 38 source.coffee meta.function.coffee storage.type.function.coffee
+L     [action, description] = [description, action] unless action
+T 4 source.coffee
+T 5 source.coffee meta.variable.assignment.destructured.array.coffee punctuation.definition.destructuring.begin.bracket.square.coffee
+T 11 source.coffee meta.variable.assignment.destructured.array.coffee variable.assignment.coffee
+T 12 source.coffee meta.variable.assignment.destructured.array.coffee punctuation.separator.delimiter.coffee
+T 13 source.coffee meta.variable.assignment.destructured.array.coffee
+T 24 source.coffee meta.variable.assignment.destructured.array.coffee variable.assignment.coffee
+T 25 source.coffee meta.variable.assignment.destructured.array.coffee punctuation.definition.destructuring.end.bracket.square.coffee
+T 26 source.coffee
+T 27 source.coffee keyword.operator.assignment.coffee
+T 28 source.coffee
+T 29 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 40 source.coffee
+T 41 source.coffee punctuation.separator.delimiter.coffee
+T 48 source.coffee
+T 49 source.coffee punctuation.definition.array.end.bracket.square.coffee
+T 50 source.coffee
+T 56 source.coffee keyword.control.coffee
+T 63 source.coffee
+L     tasks[name] = {name, description, action}
+T 9 source.coffee
+T 10 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 14 source.coffee
+T 15 source.coffee punctuation.definition.array.end.bracket.square.coffee
+T 16 source.coffee
+T 17 source.coffee keyword.operator.assignment.coffee
+T 18 source.coffee
+T 19 source.coffee meta.brace.curly.coffee
+T 23 source.coffee
+T 24 source.coffee punctuation.separator.delimiter.coffee
+T 36 source.coffee
+T 37 source.coffee punctuation.separator.delimiter.coffee
+T 44 source.coffee
+T 45 source.coffee meta.brace.curly.coffee
+L 
+L   # Define an option that the Cakefile accepts. The parsed options hash,
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 72 source.coffee comment.line.number-sign.coffee
+L   # containing all of the command-line options passed, will be made available
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 77 source.coffee comment.line.number-sign.coffee
+L   # as the first argument to the action.
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 40 source.coffee comment.line.number-sign.coffee
+L   option: (letter, flag, description) ->
+T 2 source.coffee
+T 8 source.coffee meta.function.coffee entity.name.function.coffee
+T 9 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 10 source.coffee meta.function.coffee
+T 11 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 17 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 18 source.coffee meta.function.coffee meta.parameters.coffee punctuation.separator.delimiter.coffee
+T 19 source.coffee meta.function.coffee meta.parameters.coffee
+T 23 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 24 source.coffee meta.function.coffee meta.parameters.coffee punctuation.separator.delimiter.coffee
+T 25 source.coffee meta.function.coffee meta.parameters.coffee
+T 36 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 37 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 38 source.coffee meta.function.coffee
+T 40 source.coffee meta.function.coffee storage.type.function.coffee
+L     switches.push [letter, flag, description]
+T 4 source.coffee
+T 12 source.coffee variable.other.object.coffee
+T 13 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 17 source.coffee meta.method-call.coffee support.function.coffee
+T 18 source.coffee meta.method-call.coffee
+T 19 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 25 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 26 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 31 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 32 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 44 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 45 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.array.end.bracket.square.coffee
+L 
+L   # Invoke another task in the current Cakefile.
+T 2 source.coffee
+T 3 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 48 source.coffee comment.line.number-sign.coffee
+L   invoke: (name) ->
+T 2 source.coffee
+T 8 source.coffee meta.function.coffee entity.name.function.coffee
+T 9 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 10 source.coffee meta.function.coffee
+T 11 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 15 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 16 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 17 source.coffee meta.function.coffee
+T 19 source.coffee meta.function.coffee storage.type.function.coffee
+L     missingTask name unless tasks[name]
+T 4 source.coffee
+T 15 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 16 source.coffee meta.function-call.coffee
+T 20 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 21 source.coffee
+T 27 source.coffee keyword.control.coffee
+T 33 source.coffee
+T 34 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 38 source.coffee
+T 39 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L     tasks[name].action options
+T 9 source.coffee
+T 10 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 14 source.coffee
+T 15 source.coffee punctuation.definition.array.end.bracket.square.coffee
+T 16 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 22 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 23 source.coffee meta.method-call.coffee
+T 30 source.coffee meta.method-call.coffee meta.arguments.coffee
+L 
+L # Run `cake`. Executes all of the tasks you pass, in order. Note that Node's
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 76 source.coffee comment.line.number-sign.coffee
+L # asynchrony may cause tasks to execute in a different order than you'd expect.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 79 source.coffee comment.line.number-sign.coffee
+L # If no tasks are passed, print the help screen. Keep a reference to the
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 72 source.coffee comment.line.number-sign.coffee
+L # original directory name, when running Cake tasks from subdirectories.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 71 source.coffee comment.line.number-sign.coffee
+L exports.run = ->
+T 7 source.coffee support.variable.coffee
+T 8 source.coffee punctuation.separator.property.period.coffee
+T 11 source.coffee variable.other.property.coffee
+T 12 source.coffee
+T 13 source.coffee keyword.operator.assignment.coffee
+T 14 source.coffee
+T 16 source.coffee meta.function.inline.coffee storage.type.function.coffee
+L   global.__originalDirname = fs.realpathSync '.'
+T 2 source.coffee
+T 8 source.coffee support.variable.coffee
+T 9 source.coffee punctuation.separator.property.period.coffee
+T 26 source.coffee variable.other.property.coffee
+T 27 source.coffee
+T 28 source.coffee keyword.operator.assignment.coffee
+T 29 source.coffee
+T 31 source.coffee variable.other.object.coffee
+T 32 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 44 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 45 source.coffee meta.method-call.coffee
+T 46 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 47 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 48 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   process.chdir cakefileDirectory __originalDirname
+T 2 source.coffee
+T 9 source.coffee support.variable.coffee
+T 10 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 15 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 16 source.coffee meta.method-call.coffee
+T 33 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee entity.name.function.coffee
+T 34 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee
+T 51 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee
+L   args = process.argv[2..]
+T 2 source.coffee
+T 6 source.coffee variable.assignment.coffee
+T 7 source.coffee
+T 8 source.coffee keyword.operator.assignment.coffee
+T 9 source.coffee
+T 16 source.coffee support.variable.coffee
+T 17 source.coffee punctuation.separator.property.period.coffee
+T 21 source.coffee variable.other.property.coffee
+T 22 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 23 source.coffee constant.numeric.decimal.coffee
+T 25 source.coffee keyword.operator.slice.inclusive.coffee
+T 26 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L   CoffeeScript.run fs.readFileSync('Cakefile').toString(), filename: 'Cakefile'
+T 2 source.coffee
+T 14 source.coffee variable.other.object.coffee
+T 15 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 18 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 19 source.coffee meta.method-call.coffee
+T 21 source.coffee meta.method-call.coffee meta.arguments.coffee variable.other.object.coffee
+T 22 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 34 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee entity.name.function.coffee
+T 35 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 36 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 44 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 45 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 46 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 47 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 55 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee support.function.coffee
+T 56 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 57 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 58 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 59 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 67 source.coffee meta.method-call.coffee meta.arguments.coffee variable.assignment.coffee
+T 68 source.coffee meta.method-call.coffee meta.arguments.coffee keyword.operator.assignment.coffee
+T 69 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 70 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 78 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 79 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   oparse = new optparse.OptionParser switches
+T 2 source.coffee
+T 8 source.coffee variable.assignment.coffee
+T 9 source.coffee
+T 10 source.coffee keyword.operator.assignment.coffee
+T 11 source.coffee
+T 14 source.coffee meta.class.instance.constructor.coffee keyword.operator.new.coffee
+T 15 source.coffee meta.class.instance.constructor.coffee
+T 36 source.coffee meta.class.instance.constructor.coffee entity.name.type.instance.coffee
+T 45 source.coffee
+L   return printTasks() unless args.length
+T 2 source.coffee
+T 8 source.coffee keyword.control.coffee
+T 9 source.coffee
+T 19 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 20 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 21 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 22 source.coffee
+T 28 source.coffee keyword.control.coffee
+T 29 source.coffee
+T 33 source.coffee variable.other.object.coffee
+T 34 source.coffee punctuation.separator.property.period.coffee
+T 40 source.coffee variable.other.property.coffee
+L   try
+T 2 source.coffee
+T 5 source.coffee keyword.control.coffee
+L     options = oparse.parse(args)
+T 4 source.coffee
+T 11 source.coffee variable.assignment.coffee
+T 12 source.coffee
+T 13 source.coffee keyword.operator.assignment.coffee
+T 14 source.coffee
+T 20 source.coffee variable.other.object.coffee
+T 21 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 26 source.coffee meta.method-call.coffee support.function.coffee
+T 27 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 31 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 32 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+L   catch e
+T 2 source.coffee
+T 7 source.coffee keyword.control.coffee
+T 9 source.coffee
+L     return fatalError "#{e}"
+T 4 source.coffee
+T 10 source.coffee keyword.control.coffee
+T 11 source.coffee
+T 21 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 22 source.coffee meta.function-call.coffee
+T 23 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 25 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 26 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 27 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 28 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L   invoke arg for arg in options.arguments
+T 2 source.coffee
+T 8 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 9 source.coffee meta.function-call.coffee
+T 12 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 13 source.coffee
+T 16 source.coffee keyword.control.coffee
+T 21 source.coffee
+T 23 source.coffee keyword.control.coffee
+T 24 source.coffee
+T 31 source.coffee variable.other.object.coffee
+T 32 source.coffee punctuation.separator.property.period.coffee
+T 41 source.coffee variable.other.property.coffee
+L 
+L # Display the list of Cake tasks in a format similar to `rake -T`
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 65 source.coffee comment.line.number-sign.coffee
+L printTasks = ->
+T 10 source.coffee meta.function.coffee entity.name.function.coffee
+T 11 source.coffee meta.function.coffee
+T 12 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 13 source.coffee meta.function.coffee
+T 15 source.coffee meta.function.coffee storage.type.function.coffee
+L   relative = path.relative or path.resolve
+T 2 source.coffee
+T 10 source.coffee variable.assignment.coffee
+T 11 source.coffee
+T 12 source.coffee keyword.operator.assignment.coffee
+T 13 source.coffee
+T 17 source.coffee variable.other.object.coffee
+T 18 source.coffee punctuation.separator.property.period.coffee
+T 26 source.coffee variable.other.property.coffee
+T 27 source.coffee
+T 29 source.coffee keyword.operator.logical.coffee
+T 30 source.coffee
+T 34 source.coffee variable.other.object.coffee
+T 35 source.coffee punctuation.separator.property.period.coffee
+T 42 source.coffee variable.other.property.coffee
+L   cakefilePath = path.join relative(__originalDirname, process.cwd()), 'Cakefile'
+T 2 source.coffee
+T 14 source.coffee variable.assignment.coffee
+T 15 source.coffee
+T 16 source.coffee keyword.operator.assignment.coffee
+T 17 source.coffee
+T 21 source.coffee variable.other.object.coffee
+T 22 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 26 source.coffee meta.method-call.coffee support.function.coffee
+T 27 source.coffee meta.method-call.coffee
+T 35 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee entity.name.function.coffee
+T 36 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 53 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee
+T 54 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 55 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee
+T 62 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee support.variable.coffee
+T 63 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 66 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee meta.method-call.coffee entity.name.function.coffee
+T 67 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 68 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 69 source.coffee meta.method-call.coffee meta.arguments.coffee meta.function-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 70 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 71 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 72 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 80 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 81 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   console.log "#{cakefilePath} defines the following tasks:\n"
+T 2 source.coffee
+T 9 source.coffee entity.name.type.object.coffee
+T 10 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 13 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 14 source.coffee meta.method-call.coffee
+T 15 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 17 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 29 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 30 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 59 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 60 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 61 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee constant.character.escape.backslash.coffee
+T 62 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L   for name, task of tasks
+T 2 source.coffee
+T 5 source.coffee keyword.control.coffee
+T 10 source.coffee
+T 11 source.coffee punctuation.separator.delimiter.coffee
+T 17 source.coffee
+T 19 source.coffee keyword.control.coffee
+T 25 source.coffee
+L     spaces = 20 - name.length
+T 4 source.coffee
+T 10 source.coffee variable.assignment.coffee
+T 11 source.coffee
+T 12 source.coffee keyword.operator.assignment.coffee
+T 13 source.coffee
+T 15 source.coffee constant.numeric.decimal.coffee
+T 16 source.coffee
+T 17 source.coffee keyword.operator.coffee
+T 18 source.coffee
+T 22 source.coffee variable.other.object.coffee
+T 23 source.coffee punctuation.separator.property.period.coffee
+T 29 source.coffee variable.other.property.coffee
+L     spaces = if spaces > 0 then Array(spaces + 1).join(' ') else ''
+T 4 source.coffee
+T 10 source.coffee variable.assignment.coffee
+T 11 source.coffee
+T 12 source.coffee keyword.operator.assignment.coffee
+T 13 source.coffee
+T 15 source.coffee keyword.control.coffee
+T 23 source.coffee
+T 24 source.coffee keyword.operator.comparison.coffee
+T 25 source.coffee
+T 26 source.coffee constant.numeric.decimal.coffee
+T 27 source.coffee
+T 31 source.coffee keyword.control.coffee
+T 32 source.coffee
+T 37 source.coffee support.class.coffee
+T 38 source.coffee meta.brace.round.coffee
+T 45 source.coffee
+T 46 source.coffee keyword.operator.coffee
+T 47 source.coffee
+T 48 source.coffee constant.numeric.decimal.coffee
+T 49 source.coffee meta.brace.round.coffee
+T 50 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 54 source.coffee meta.method-call.coffee support.function.coffee
+T 55 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 56 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 57 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 58 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 59 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 60 source.coffee
+T 64 source.coffee keyword.control.coffee
+T 65 source.coffee
+T 66 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 67 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L     desc   = if task.description then "# #{task.description}" else ''
+T 4 source.coffee
+T 8 source.coffee variable.assignment.coffee
+T 11 source.coffee
+T 12 source.coffee keyword.operator.assignment.coffee
+T 13 source.coffee
+T 15 source.coffee keyword.control.coffee
+T 16 source.coffee
+T 20 source.coffee variable.other.object.coffee
+T 21 source.coffee punctuation.separator.property.period.coffee
+T 32 source.coffee variable.other.property.coffee
+T 33 source.coffee
+T 37 source.coffee keyword.control.coffee
+T 38 source.coffee
+T 39 source.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 41 source.coffee string.quoted.double.coffee
+T 43 source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 47 source.coffee string.quoted.double.coffee source.coffee.embedded.source variable.other.object.coffee
+T 48 source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.separator.property.period.coffee
+T 59 source.coffee string.quoted.double.coffee source.coffee.embedded.source variable.other.property.coffee
+T 60 source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 61 source.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 62 source.coffee
+T 66 source.coffee keyword.control.coffee
+T 67 source.coffee
+T 68 source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 69 source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L     console.log "cake #{name}#{spaces} #{desc}"
+T 4 source.coffee
+T 11 source.coffee entity.name.type.object.coffee
+T 12 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 15 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 16 source.coffee meta.method-call.coffee
+T 17 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 22 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 24 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 28 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 29 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 31 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 37 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 38 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 39 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 41 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 45 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 46 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 47 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L   console.log oparse.help() if switches.length
+T 2 source.coffee
+T 9 source.coffee entity.name.type.object.coffee
+T 10 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 13 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 14 source.coffee meta.method-call.coffee
+T 20 source.coffee meta.method-call.coffee meta.arguments.coffee variable.other.object.coffee
+T 21 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 25 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee entity.name.function.coffee
+T 26 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 27 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 28 source.coffee
+T 30 source.coffee keyword.control.coffee
+T 31 source.coffee
+T 39 source.coffee variable.other.object.coffee
+T 40 source.coffee punctuation.separator.property.period.coffee
+T 46 source.coffee variable.other.property.coffee
+L 
+L # Print an error and exit when attempting to use an invalid task/option.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 72 source.coffee comment.line.number-sign.coffee
+L fatalError = (message) ->
+T 10 source.coffee meta.function.coffee entity.name.function.coffee
+T 11 source.coffee meta.function.coffee
+T 12 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 13 source.coffee meta.function.coffee
+T 14 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 21 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 22 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 23 source.coffee meta.function.coffee
+T 25 source.coffee meta.function.coffee storage.type.function.coffee
+L   console.error message + '\n'
+T 2 source.coffee
+T 9 source.coffee entity.name.type.object.coffee
+T 10 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 15 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 16 source.coffee meta.method-call.coffee
+T 24 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 25 source.coffee meta.method-call.coffee meta.arguments.coffee keyword.operator.coffee
+T 26 source.coffee meta.method-call.coffee meta.arguments.coffee
+T 27 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 28 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 29 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee constant.character.escape.backslash.coffee
+T 30 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   console.log 'To see a list of all tasks/options, run "cake"'
+T 2 source.coffee
+T 9 source.coffee entity.name.type.object.coffee
+T 10 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 13 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 14 source.coffee meta.method-call.coffee
+T 15 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 61 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 62 source.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   process.exit 1
+T 2 source.coffee
+T 9 source.coffee support.variable.coffee
+T 10 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 14 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 15 source.coffee meta.method-call.coffee
+T 16 source.coffee meta.method-call.coffee meta.arguments.coffee constant.numeric.decimal.coffee
+L 
+L missingTask = (task) -> fatalError "No such task: #{task}"
+T 11 source.coffee meta.function.coffee entity.name.function.coffee
+T 12 source.coffee meta.function.coffee
+T 13 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 14 source.coffee meta.function.coffee
+T 15 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 19 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 20 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 21 source.coffee meta.function.coffee
+T 23 source.coffee meta.function.coffee storage.type.function.coffee
+T 24 source.coffee
+T 34 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 35 source.coffee meta.function-call.coffee
+T 36 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 50 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee
+T 52 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 56 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 57 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 58 source.coffee meta.function-call.coffee meta.arguments.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L 
+L # When `cake` is invoked, search in the current and all parent directories
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 74 source.coffee comment.line.number-sign.coffee
+L # to find the relevant Cakefile.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 32 source.coffee comment.line.number-sign.coffee
+L cakefileDirectory = (dir) ->
+T 17 source.coffee meta.function.coffee entity.name.function.coffee
+T 18 source.coffee meta.function.coffee
+T 19 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 20 source.coffee meta.function.coffee
+T 21 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 24 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 25 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 26 source.coffee meta.function.coffee
+T 28 source.coffee meta.function.coffee storage.type.function.coffee
+L   return dir if fs.existsSync path.join dir, 'Cakefile'
+T 2 source.coffee
+T 8 source.coffee keyword.control.coffee
+T 13 source.coffee
+T 15 source.coffee keyword.control.coffee
+T 16 source.coffee
+T 18 source.coffee variable.other.object.coffee
+T 19 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 29 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 30 source.coffee meta.method-call.coffee
+T 34 source.coffee meta.method-call.coffee meta.arguments.coffee variable.other.object.coffee
+T 35 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 39 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee support.function.coffee
+T 40 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee
+T 43 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee
+T 44 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 45 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee
+T 46 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 54 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 55 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   parent = path.normalize path.join dir, '..'
+T 2 source.coffee
+T 8 source.coffee variable.assignment.coffee
+T 9 source.coffee
+T 10 source.coffee keyword.operator.assignment.coffee
+T 11 source.coffee
+T 15 source.coffee variable.other.object.coffee
+T 16 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 25 source.coffee meta.method-call.coffee support.function.dom.coffee
+T 26 source.coffee meta.method-call.coffee
+T 30 source.coffee meta.method-call.coffee meta.arguments.coffee variable.other.object.coffee
+T 31 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 35 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee support.function.coffee
+T 36 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee
+T 39 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee
+T 40 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee punctuation.separator.delimiter.coffee
+T 41 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee
+T 42 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 44 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee
+T 45 source.coffee meta.method-call.coffee meta.arguments.coffee meta.method-call.coffee meta.arguments.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L   return cakefileDirectory parent unless parent is dir
+T 2 source.coffee
+T 8 source.coffee keyword.control.coffee
+T 9 source.coffee
+T 26 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 27 source.coffee meta.function-call.coffee
+T 33 source.coffee meta.function-call.coffee meta.arguments.coffee
+T 34 source.coffee
+T 40 source.coffee keyword.control.coffee
+T 48 source.coffee
+T 50 source.coffee keyword.operator.comparison.coffee
+T 54 source.coffee
+L   throw new Error "Cakefile not found in #{process.cwd()}"
+T 2 source.coffee
+T 7 source.coffee keyword.control.coffee
+T 8 source.coffee
+T 11 source.coffee meta.class.instance.constructor.coffee keyword.operator.new.coffee
+T 12 source.coffee meta.class.instance.constructor.coffee
+T 17 source.coffee meta.class.instance.constructor.coffee entity.name.type.instance.coffee
+T 18 source.coffee
+T 19 source.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 41 source.coffee string.quoted.double.coffee
+T 43 source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 50 source.coffee string.quoted.double.coffee source.coffee.embedded.source support.variable.coffee
+T 51 source.coffee string.quoted.double.coffee source.coffee.embedded.source meta.method-call.coffee punctuation.separator.method.period.coffee
+T 54 source.coffee string.quoted.double.coffee source.coffee.embedded.source meta.method-call.coffee entity.name.function.coffee
+T 55 source.coffee string.quoted.double.coffee source.coffee.embedded.source meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 56 source.coffee string.quoted.double.coffee source.coffee.embedded.source meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+T 57 source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 58 source.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L 

@@ -220,6 +220,8 @@ mod case_fold;
 mod classes;
 #[cfg(feature = "lang-cmake")]
 mod cmake;
+#[cfg(feature = "lang-coffee")]
+mod coffee;
 #[cfg(feature = "lang-cpp")]
 mod cpp;
 #[cfg(feature = "lang-csharp")]

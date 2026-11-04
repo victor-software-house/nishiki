@@ -608,6 +608,31 @@ fn batch_fences_embed_the_batch_lexer_without_its_root() {
     }
 }
 
+/// CoffeeScript runs on the engine with its handing loop. A fence named by
+/// any of the grammar's three words embeds it.
+#[cfg(feature = "lang-coffee")]
+#[test]
+fn coffee_fences_embed_the_coffee_lexer() {
+    for info in ["coffee", "Cakefile", "COFFEE.erb x"] {
+        let text = formatdoc! {"
+            ```{info}
+            x = 1
+            ```
+        "};
+        let stack = stack_of(&text, "1");
+        assert!(
+            stack
+                .iter()
+                .any(|scope| scope == "meta.embedded.block.coffee"),
+            "{info}: {stack:?}"
+        );
+        assert!(
+            stack.last().is_some_and(|scope| scope.ends_with(".coffee")),
+            "{info}: {stack:?}"
+        );
+    }
+}
+
 #[test]
 fn css_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"

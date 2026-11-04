@@ -231,9 +231,10 @@ T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.
 L 
 L ```coffee title="example"
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 25 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 9 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 25 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
 L x
-T 1 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.coffee
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

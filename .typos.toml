@@ -8,6 +8,7 @@
 extend-exclude = [
   "*.lock",
   "src/bat/grammar.rs",
+  "src/coffee/grammar.rs",
   "src/haml/grammar.rs",
   "src/html/words.rs",
   "src/julia/grammar.rs",
