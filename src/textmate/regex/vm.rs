@@ -1,9 +1,9 @@
 //! The backtracking machine that runs a compiled pattern.
 //!
-//! It keeps its own stack of alternatives and of the changes to undo, so a
-//! pattern never recurses on the call stack except for the nesting of
-//! lookarounds and atomic groups the pattern itself has. Every instruction
-//! costs a step from the caller's budget.
+//! It keeps its own stack of alternatives and of the changes to undo.
+//! A pattern then never recurses on the call stack, except for the nesting of
+//! lookarounds and atomic groups the pattern itself has.
+//! Every instruction costs a step from the caller's budget.
 
 use super::ast::{Anchor, Case, is_word, orbit};
 use super::program::{ClassTable, Inst, Program};
@@ -107,8 +107,8 @@ pub(super) struct Machine<'a> {
     pub(super) scratch: &'a mut Scratch,
 }
 
-/// The code point at `pos` and its width in bytes; a byte that does not
-/// start a character reads as itself.
+/// The code point at `pos` and its width in bytes.
+/// A byte that does not start a character reads as itself.
 fn decode(text: &[u8], pos: usize) -> Option<(u32, usize)> {
     let lead = *text.get(pos)?;
     if lead < 0x80 {
@@ -182,7 +182,8 @@ impl ClassTable {
 }
 
 impl Machine<'_> {
-    /// Runs the program from `pc` at `pos`; the end of the match, or none.
+    /// Runs the program from `pc` at `pos`.
+    /// Returns the end of the match, or `None`.
     /// `target` is where a lookbehind body must end.
     pub(super) fn run(
         &mut self,
@@ -496,8 +497,8 @@ impl Machine<'_> {
         }
     }
 
-    /// Drops the alternatives above `mark`, keeping what can be undone, so a
-    /// finished lookaround or atomic group cannot be backtracked into.
+    /// Drops the alternatives above `mark`, keeping what can be undone.
+    /// A finished lookaround or atomic group then cannot be backtracked into.
     fn commit(&mut self, mark: usize) {
         let stack = &mut self.scratch.stack;
         let mut write = mark;
@@ -536,9 +537,12 @@ impl Machine<'_> {
     /// Where the text the group matched ends when it repeats at `pos`.
     ///
     /// As in Oniguruma, the repeat is read within as many bytes as the group
-    /// took. Under `(?i)` each character of the group matches one of its
-    /// orbit there, and the repeat ends where the group's characters run out,
-    /// which may be before that window ends: `(?i)(ſ)\1` takes `ſs`, while
+    /// took.
+    /// Under `(?i)`, each character of the group matches one of its orbit
+    /// there.
+    /// The repeat ends where the group's characters run out, which may be
+    /// before that window ends.
+    /// For example, `(?i)(ſ)\1` takes `ſs`.
     /// `(?i)(s)\1` refuses `sſ`, whose `ſ` does not fit in one byte.
     fn backref(&self, group: usize, case: Case, pos: usize) -> Option<usize> {
         let start = *self.scratch.slots.get(group * 2)?;

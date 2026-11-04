@@ -1,8 +1,9 @@
 //! The instructions a pattern compiles to, and the compiler.
 //!
-//! A pattern becomes a flat list of instructions that a backtracking machine
-//! runs with an explicit stack, so no pattern can overflow the call stack and
-//! every step can be counted.
+//! A pattern becomes a flat list of instructions.
+//! A backtracking machine runs it with an explicit stack.
+//! No pattern can then overflow the call stack, and every step can be
+//! counted.
 
 use std::collections::HashMap;
 
@@ -10,8 +11,8 @@ use super::analysis::{first_bytes, second_bytes, width};
 use super::ast::{Anchor, Case, Class, Item, Kind, Node};
 use super::parse::{Error, Parsed};
 
-/// The most instructions a pattern may compile to, which bounds the cost of
-/// unrolling counted repeats.
+/// The most instructions a pattern may compile to.
+/// It bounds the cost of unrolling counted repeats.
 const MAX_INSTS: usize = 40_000;
 
 /// One instruction. Jump targets are indexes into the program.
@@ -19,7 +20,8 @@ const MAX_INSTS: usize = 40_000;
 pub(super) enum Inst {
     /// These bytes, exactly.
     Lit(Box<[u8]>),
-    /// Any character; a newline too when the flag is set.
+    /// Any character.
+    /// It takes a newline too when the flag is set.
     Any(bool),
     /// One character of the class at this index.
     Class(u32),
@@ -55,10 +57,11 @@ pub(super) enum Inst {
     GroupEnd { group: u32 },
     /// The pattern matched.
     Match,
-    /// One character of the class at `class`, as [`Inst::Class`], after
-    /// leaving `secondary` to try on failure when the lead at `lead` says it
-    /// can start here: the alternatives a case fold adds, the first inline
-    /// and the rest out of line.
+    /// One character of the class at `class`, as [`Inst::Class`].
+    /// Before it, the machine leaves `secondary` to try on failure, when the
+    /// lead at `lead` says that branch can start here.
+    /// The branches are the alternatives a case fold adds.
+    /// The first runs inline, and the rest out of line.
     ClassOr {
         class: u32,
         secondary: u32,
@@ -121,8 +124,9 @@ impl Lead {
     }
 
     /// Whether the branch can start where the text holds `byte`, or at its
-    /// end when there is none; `next` gives the lead byte of the character
-    /// after, read only when the second character is known.
+    /// end when there is none.
+    /// `next` gives the lead byte of the character after.
+    /// It is read only when the second character is known.
     #[inline]
     pub(super) fn admits(&self, byte: Option<u8>, next: impl FnOnce() -> Option<u8>) -> bool {
         if self.empty {
@@ -135,8 +139,8 @@ impl Lead {
     }
 }
 
-/// The lead of each suffix of `alts`: the first covers them all, the last
-/// only the last.
+/// The lead of each suffix of `alts`.
+/// The first covers them all, and the last only the last.
 fn suffix_leads(alts: &[Node]) -> Vec<Lead> {
     let mut leads: Vec<Lead> = Vec::with_capacity(alts.len());
     for alt in alts.iter().rev() {
@@ -271,7 +275,8 @@ pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
     })
 }
 
-/// Whether the pattern calls a group, so that groups need their return.
+/// Whether the pattern calls a group.
+/// Groups then need their return.
 fn has_calls(node: &Node) -> bool {
     match node {
         Node::Call(_) | Node::NamedCall(_) => true,
@@ -290,8 +295,8 @@ fn has_calls(node: &Node) -> bool {
     }
 }
 
-/// Whether the node can match without consuming a character, so that a loop
-/// around it must check that it advances.
+/// Whether the node can match without consuming a character.
+/// A loop around such a node must check that it advances.
 fn nullable(node: &Node) -> bool {
     width(node).0 == 0
 }
@@ -476,11 +481,15 @@ impl Compiler<'_> {
     }
 
     /// The alternatives a case fold adds, whose suffixes have the leads in
-    /// `leads`. The first starts with a [`Inst::ClassOr`] and runs inline;
-    /// the others are compiled after the program and entered only where
-    /// their lead admits the text, so a fold the text does not hold costs
-    /// nothing over the first alternative alone. A first alternative that
-    /// does not start with a class compiles as a plain alternation.
+    /// `leads`.
+    ///
+    /// The first starts with a [`Inst::ClassOr`] and runs inline.
+    /// The others are compiled after the program.
+    /// They are entered only where their lead admits the text.
+    /// A fold the text does not hold then costs nothing over the first
+    /// alternative alone.
+    /// A first alternative that does not start with a class compiles as a
+    /// plain alternation.
     fn fold_chain(&mut self, alts: &[Node], leads: &[Lead]) -> Result<(), Error> {
         let (Some((first, rest)), Some(rest_leads)) = (alts.split_first(), leads.get(1..)) else {
             return Ok(());
@@ -563,8 +572,8 @@ impl Compiler<'_> {
         Ok(())
     }
 
-    /// A group repeated no times is still there to be called, so its code is
-    /// emitted and jumped over.
+    /// A group repeated no times is still there to be called.
+    /// Its code is therefore emitted and jumped over.
     fn repeat(&mut self, node: &Node, min: u32, max: Option<u32>, kind: Kind) -> Result<(), Error> {
         if kind == Kind::Possessive {
             let at = self.push(Inst::Atomic { end: 0 })?;

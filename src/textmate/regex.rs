@@ -1,14 +1,24 @@
 //! The regular expressions of `TextMate` grammars: `Oniguruma`'s syntax,
 //! compiled to a program a backtracking machine runs.
 //!
-//! The syntax covers classes with `&&` and POSIX brackets, lookahead and
-//! lookbehind, atomic groups, lazy and possessive quantifiers, back-references,
-//! named groups, subroutine calls (`\g<name>`), inline flags and the anchors
-//! `\A`, `\G`, `^` and `$`. Unicode properties are the character sets
-//! Oniguruma applies, measured into [`unicode`]. Under `(?i)` a character
-//! matches every character its simple case folds join it to, and a fold of
-//! more than one character matches as a string, such as `ß` and `ss`
-//! ([`folds`]), decided when the pattern compiles.
+//! The syntax covers these parts:
+//!
+//! - classes with `&&` and POSIX brackets;
+//! - lookahead and lookbehind;
+//! - atomic groups;
+//! - lazy and possessive quantifiers;
+//! - back-references and named groups;
+//! - subroutine calls (`\g<name>`);
+//! - inline flags;
+//! - the anchors `\A`, `\G`, `^` and `$`.
+//!
+//! Unicode properties are the character sets Oniguruma applies, measured into
+//! [`unicode`].
+//! Under `(?i)`, a character matches every character its simple case folds
+//! join it to.
+//! A fold of more than one character matches as a string, such as `ß` and
+//! `ss` ([`folds`]).
+//! Both are decided when the pattern compiles.
 
 mod analysis;
 mod ast;
@@ -46,18 +56,21 @@ enum Prefilter {
     Three(u8, u8, u8),
     /// A match starts with a byte of the set.
     Set(Box<[bool; 256]>),
-    /// A match starts with these bytes. Boxed, because a finder is several
-    /// times the size of the other variants on `x86_64`.
+    /// A match starts with these bytes.
+    /// It is boxed, because a finder is several times the size of the other
+    /// variants on `x86_64`.
     Literal(Box<memmem::Finder<'static>>),
 }
 
 /// Which programs a line runs.
 ///
 /// Under `(?i)`, a fold of more than one character adds alternatives, such as
-/// `ss` for `ß` and `ß` for `ss`. The alternatives that match no text of ASCII
-/// alone each need a character beyond ASCII that such a fold involves, so a
-/// line without any of those characters runs programs without them, which
-/// match the same there.
+/// `ss` for `ß` and `ß` for `ss`.
+/// Each alternative that matches no ASCII-only text needs a character beyond
+/// ASCII that such a fold involves.
+/// A line without any of those characters therefore runs programs without
+/// those alternatives.
+/// They match the same on that line.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub(crate) enum LineKind {
     /// The line holds none of those characters.
@@ -87,14 +100,19 @@ impl LineKind {
         LineKind::beyond_ascii(line.get(start..).unwrap_or_default())
     }
 
-    /// The kind of `line`, which holds a byte beyond ASCII. Only a lead byte,
-    /// one with its top two bits set, can start such a character, so the
-    /// others are passed over eight at a time by [`next_lead`], and a lead
-    /// byte's second byte is checked against [`folds::WIDE_SECOND`] before
-    /// the rest: a two-byte character is decided there, and a three-byte one
-    /// whose second byte no such character has, such as `∈`, is passed over.
+    /// The kind of `line`, which holds a byte beyond ASCII.
+    ///
+    /// Only a lead byte, one with its top two bits set, can start such a
+    /// character.
+    /// [`next_lead`] passes over the other bytes eight at a time.
+    /// A lead byte's second byte is checked against [`folds::WIDE_SECOND`]
+    /// before the rest.
+    /// A two-byte character is decided there.
+    /// A three-byte one whose second byte no such character has, such as `∈`,
+    /// is passed over.
     /// Each turn of the loop takes the rest of the line after the byte it
-    /// looks up, so the rest shrinks by at least a byte every turn.
+    /// looks up.
+    /// The rest therefore shrinks by at least a byte every turn.
     #[inline(never)]
     fn beyond_ascii(line: &[u8]) -> LineKind {
         let mut rest = line;
@@ -132,8 +150,9 @@ impl LineKind {
     }
 }
 
-/// Whether `line` is all ASCII, eight bytes at a time and inline, with no
-/// early exit, so the loop has no call to set up and folds into vector code.
+/// Whether `line` is all ASCII, eight bytes at a time and inline.
+/// It has no early exit.
+/// The loop then has no call to set up, and it folds into vector code.
 #[inline]
 fn is_ascii(line: &[u8]) -> bool {
     let (words, rest) = line.as_chunks::<8>();
@@ -144,9 +163,11 @@ fn is_ascii(line: &[u8]) -> bool {
     (high | rest) & 0x8080_8080_8080_8080 == 0
 }
 
-/// Where the first lead byte of `bytes` is: a byte with its top two bits set,
-/// which starts a character of two bytes or more. Eight bytes at a time, a
-/// byte's bit 6 shifted into its bit 7 marks the bytes with both set.
+/// Where the first lead byte of `bytes` is.
+/// A lead byte has its top two bits set and starts a character of two bytes
+/// or more.
+/// The search reads eight bytes at a time.
+/// Shifting each byte's bit 6 into its bit 7 marks the bytes with both set.
 fn next_lead(bytes: &[u8]) -> Option<usize> {
     let (words, rest) = bytes.as_chunks::<8>();
     for (index, &word) in words.iter().enumerate() {
@@ -317,8 +338,8 @@ impl Regex {
         self.context_free
     }
 
-    /// Matches `text` at exactly `at`, leaving the groups in `scratch`. Only
-    /// for a pattern that is [`context_free`](Regex::context_free).
+    /// Matches `text` at exactly `at`, leaving the groups in `scratch`.
+    /// It is only for a pattern that is [`context_free`](Regex::context_free).
     pub(crate) fn match_at(
         &self,
         scratch: &mut Scratch,
@@ -353,12 +374,14 @@ impl Regex {
     }
 
     /// Searches `text` for the leftmost match that starts at or after
-    /// `from`, leaving the groups in `scratch`. `steps` is the budget the
-    /// search spends; when it reaches zero the search gives up.
+    /// `from`, leaving the groups in `scratch`.
+    /// `steps` is the budget the search spends.
+    /// When it reaches zero, the search gives up.
     ///
     /// An anchored pattern is tried only at the start of the document when the
-    /// text holds no newline before its last byte: `^` can also start a match
-    /// after a newline inside the text, and a line holds none.
+    /// text holds no newline before its last byte.
+    /// `^` can also start a match after a newline inside the text.
+    /// A line holds no such newline.
     pub(crate) fn find(
         &self,
         scratch: &mut Scratch,
