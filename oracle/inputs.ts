@@ -27,6 +27,7 @@ import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
 import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
@@ -360,6 +361,8 @@ const snapshotTesting =
   "https://raw.githubusercontent.com/pointfreeco/swift-snapshot-testing/0c6380dd46cd45e00f2bf87cf6002f3478e84452";
 const spdlog =
   "https://raw.githubusercontent.com/gabime/spdlog/6d9805df3f588402b17073dcd13eb569ceda864d";
+const sqitch =
+  "https://raw.githubusercontent.com/sqitchers/sqitch/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e";
 const sqlalchemy =
   "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/679372836fe7343683248467d276036a6d6f1673";
 const sqlServerSamples =
@@ -1032,6 +1035,12 @@ export const inputs: Input[] = [
   { lang: "objective-c", name: "sample", url: `${samples}/objective-c.sample` },
   { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
   { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
+  // Perl runs on the TextMate engine. Its heredocs hand HTML, XML, CSS,
+  // JavaScript and SQL to their lexers.
+  { lang: "perl", name: "embedded", text: perlEmbedded },
+  { lang: "perl", name: "sample", url: `${samples}/perl.sample` },
+  { lang: "perl", name: "sqitch-engine-pg", url: `${sqitch}/lib/App/Sqitch/Engine/pg.pm` },
+  { lang: "perl", name: "sqitch-engine-sqlite", url: `${sqitch}/lib/App/Sqitch/Engine/sqlite.pm` },
   // PHP runs on the TextMate engine. Its strings and heredocs hand SQL, HTML,
   // XML, JavaScript, JSON and CSS to their lexers.
   { lang: "php", name: "embedded", text: phpEmbedded },

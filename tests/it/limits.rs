@@ -39,6 +39,8 @@ mod mermaid;
 mod nix;
 #[cfg(feature = "lang-objective-c")]
 mod objective_c;
+#[cfg(feature = "lang-perl")]
+mod perl;
 #[cfg(feature = "lang-php")]
 mod php;
 mod powershell;

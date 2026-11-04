@@ -532,6 +532,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `objective-c/afnetworking-url-session-manager` | [`AFNetworking/AFURLSessionManager.m`][afnetworking-url-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
 | `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `perl/sample` | [`samples/perl.sample`][perl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `perl/embedded` | `oracle/inputs/perl-embedded.pl`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `perl/sqitch-engine-pg` | [`lib/App/Sqitch/Engine/pg.pm`][sqitch-engine-pg] in sqitchers/sqitch | [MIT][sqitch-licence] |
+| `perl/sqitch-engine-sqlite` | [`lib/App/Sqitch/Engine/sqlite.pm`][sqitch-engine-sqlite] in sqitchers/sqitch | [MIT][sqitch-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -1252,6 +1256,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [one-light-licence]: https://github.com/akamud/vscode-theme-onelight/blob/5866e900db932d580e978a58db42f65cde07998b/LICENSE
 [penlight-licence]: https://github.com/lunarmodules/Penlight/blob/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985/LICENSE.md
 [penlight-stringx]: https://github.com/lunarmodules/Penlight/blob/7f3351f226c2f643aaa1d3afa8d7293dd8a1d985/lua/pl/stringx.lua
+[perl-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/perl.sample
 [petstore-licence]: https://github.com/swagger-api/swagger-petstore/blob/5cb909fc7780bc708151bce0014939acba8b212a/LICENSE
 [petstore-openapi]: https://github.com/swagger-api/swagger-petstore/blob/5cb909fc7780bc708151bce0014939acba8b212a/src/main/resources/openapi.yaml
 [pg-create]: https://github.com/postgres/postgres/blob/5681f0cfa5acfdc5146e2b74ff5b7e940df039f3/src/test/regress/sql/create_table.sql
@@ -1412,6 +1417,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [snapshot-testing-licence]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/LICENSE
 [spdlog-licence]: https://github.com/gabime/spdlog/blob/6d9805df3f588402b17073dcd13eb569ceda864d/LICENSE
 [spdlog-logger]: https://github.com/gabime/spdlog/blob/6d9805df3f588402b17073dcd13eb569ceda864d/include/spdlog/logger.h
+[sqitch-engine-pg]: https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/lib/App/Sqitch/Engine/pg.pm
+[sqitch-engine-sqlite]: https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/lib/App/Sqitch/Engine/sqlite.pm
+[sqitch-licence]: https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/LICENSE.md
 [sql-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/sql.sample
 [sqlalchemy-licence]: https://github.com/sqlalchemy/sqlalchemy/blob/679372836fe7343683248467d276036a6d6f1673/LICENSE
 [sqlalchemy-tox]: https://github.com/sqlalchemy/sqlalchemy/blob/679372836fe7343683248467d276036a6d6f1673/tox.ini

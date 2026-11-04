@@ -1,0 +1,124 @@
+L #!/usr/bin/perl
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 15 source.perl comment.line.number-sign.perl
+L use strict;
+T 3 source.perl keyword.control.perl
+T 11 source.perl
+L use warnings;
+T 3 source.perl keyword.control.perl
+T 13 source.perl
+L 
+L # first, create your message
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 28 source.perl comment.line.number-sign.perl
+L use Email::MIME;
+T 3 source.perl keyword.control.perl
+T 16 source.perl
+L my $message = Email::MIME->create(
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.readwrite.global.perl
+T 25 source.perl
+T 27 source.perl keyword.operator.comparison.perl
+T 34 source.perl
+L   header_str => [
+T 2 source.perl
+T 12 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+L     From    => 'you@example.com',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 15 source.perl
+T 16 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 31 source.perl string.quoted.single.perl
+T 32 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 33 source.perl
+L     To      => 'friend@example.com',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 15 source.perl
+T 16 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 34 source.perl string.quoted.single.perl
+T 35 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 36 source.perl
+L     Subject => 'Happy birthday!',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 11 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 15 source.perl
+T 16 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 31 source.perl string.quoted.single.perl
+T 32 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 33 source.perl
+L   ],
+T 4 source.perl
+L   attributes => {
+T 2 source.perl
+T 12 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+L     encoding => 'quoted-printable',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 12 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 33 source.perl string.quoted.single.perl
+T 34 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 35 source.perl
+L     charset  => 'ISO-8859-1',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 11 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 27 source.perl string.quoted.single.perl
+T 28 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 29 source.perl
+L   },
+T 4 source.perl
+L   body_str => "Happy birthday to you!\n",
+T 2 source.perl
+T 10 source.perl constant.other.key.perl
+T 11 source.perl
+T 13 source.perl keyword.operator.comparison.perl
+T 14 source.perl
+T 15 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 37 source.perl string.quoted.double.perl
+T 39 source.perl string.quoted.double.perl constant.character.escape.perl
+T 40 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 41 source.perl
+L );
+T 2 source.perl
+L 
+L # send the message
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 18 source.perl comment.line.number-sign.perl
+L use Email::Sender::Simple qw(sendmail);
+T 3 source.perl keyword.control.perl
+T 26 source.perl
+T 29 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.begin.perl
+T 37 source.perl string.quoted.other.q-paren.perl
+T 38 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.end.perl
+T 39 source.perl
+L sendmail($message);
+T 9 source.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 17 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+L 
+L # From https://learn.perl.org/examples/email.html
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 49 source.perl comment.line.number-sign.perl
+L 

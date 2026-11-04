@@ -556,6 +556,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::Php, &[S::EmbeddedPhp]),
     #[cfg(feature = "lang-objective-c")]
     (Language::ObjectiveC, &[S::EmbeddedObjc]),
+    #[cfg(feature = "lang-perl")]
+    (Language::Perl, &[S::EmbeddedPerl]),
 ];
 
 /// The scopes a container adds to the text between its opening and closing.

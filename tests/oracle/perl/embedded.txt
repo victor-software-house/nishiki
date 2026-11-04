@@ -1,0 +1,311 @@
+L #!/usr/bin/perl
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 15 source.perl comment.line.number-sign.perl
+L # Heredocs that Perl's grammar hands to other languages.
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 56 source.perl comment.line.number-sign.perl
+L use strict;
+T 3 source.perl keyword.control.perl
+T 11 source.perl
+L use warnings;
+T 3 source.perl keyword.control.perl
+T 13 source.perl
+L 
+L my ($id, $name) = (7, 'Ada');
+T 2 source.perl storage.modifier.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 14 source.perl variable.other.readwrite.global.perl
+T 22 source.perl
+T 23 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 26 source.perl string.quoted.single.perl
+T 27 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 29 source.perl
+L 
+L my $page = <<HTML;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 17 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 18 source.perl meta.embedded.block.html
+L <div class="card">
+T 1 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 16 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 17 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 18 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L   <a href="/users/$id">$name</a>
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 3 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html entity.name.tag.html
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html
+T 9 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 11 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 21 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 22 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 23 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 24 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 28 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl
+T 30 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 31 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.end.html entity.name.tag.html
+T 32 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L </div>
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 6 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L HTML
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L 
+L my $static = <<'HTML';
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+T 16 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 20 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 21 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 22 source.perl meta.embedded.block.html
+L <p>No $interpolation here.</p>
+T 1 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 26 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic
+T 28 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 29 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 30 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L HTML
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L 
+L my $feed = <<~XML;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 14 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 17 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 18 source.perl meta.embedded.block.xml
+L     <?xml version="1.0"?>
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml
+T 6 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 9 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 17 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 18 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml
+T 19 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 22 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 23 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 25 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L     <feed><entry id="1">$name</entry></feed>
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml
+T 5 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 16 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 17 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml
+T 19 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 20 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml
+T 21 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 22 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml string.quoted.double.xml
+T 23 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 24 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 25 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 29 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml variable.other.readwrite.global.perl
+T 31 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 36 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 37 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 39 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 43 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 44 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L     XML
+T 4 source.perl meta.embedded.block.xml
+T 7 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L 
+L my $query = <<SQL;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 12 source.perl
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 17 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 18 source.perl meta.embedded.block.sql
+L SELECT u.id, COUNT(o.id) AS orders
+T 6 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 7 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 8 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.database-name.sql
+T 9 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.table-name.sql
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 18 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql support.function.aggregate.sql
+T 19 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 20 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.database-name.sql
+T 21 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 23 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.table-name.sql
+T 25 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 27 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.alias.sql
+T 34 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+L FROM users u
+T 4 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 12 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+L LEFT JOIN orders o ON o.user_id = u.id
+T 9 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 19 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 21 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DDL.create.II.sql
+T 22 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 23 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.database-name.sql
+T 24 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 31 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.table-name.sql
+T 32 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 33 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.operator.comparison.sql
+T 34 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 35 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.database-name.sql
+T 36 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 38 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.table-name.sql
+L GROUP BY u.id
+T 8 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 9 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 10 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.database-name.sql
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.other.table-name.sql
+L SQL
+T 3 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L 
+L my $script = <<'JAVASCRIPT';
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+T 16 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 26 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 27 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 28 source.perl meta.embedded.block.js
+L const total = items.reduce((sum, item) => sum + item.price, 0);
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js storage.type.js
+T 6 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 11 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js keyword.operator.assignment.js
+T 14 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 19 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 20 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 26 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 27 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.brace.round.js
+T 28 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 31 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 32 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.separator.parameter.js
+T 33 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js meta.parameters.js
+T 37 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 38 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 39 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js
+T 41 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 42 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.arrow.js
+T 45 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js variable.other.readwrite.js
+T 46 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 47 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 48 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 52 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js variable.other.object.js
+T 53 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js punctuation.accessor.js
+T 58 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js variable.other.property.js
+T 59 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js punctuation.separator.comma.js
+T 60 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 61 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js constant.numeric.decimal.js
+T 62 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.brace.round.js
+T 63 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js punctuation.terminator.statement.js
+L console.log(`total: ${total}`);
+T 7 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.function-call.js variable.other.object.js
+T 8 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.function-call.js punctuation.accessor.js
+T 11 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.function-call.js entity.name.function.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.brace.round.js
+T 13 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js string.template.js punctuation.definition.string.template.begin.js
+T 20 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js string.template.js
+T 22 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 27 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.readwrite.js
+T 28 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 29 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js string.template.js punctuation.definition.string.template.end.js
+T 30 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.brace.round.js
+T 31 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js punctuation.terminator.statement.js
+L JAVASCRIPT
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L 
+L my $style = <<CSS;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 12 source.perl
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 17 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 18 source.perl meta.embedded.block.css
+L .card { color: #333; margin: 0 auto; }
+T 1 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 7 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 8 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 16 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 19 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 20 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 21 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 27 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 30 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 31 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css
+T 35 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 36 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 37 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 38 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L 
+L my $doc = <<POSTSCRIPT;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 22 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 23 source.perl meta.embedded.block.postscript
+L %!PS
+T 4 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl source.postscript
+L newpath 100 100 moveto showpage
+T 31 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl source.postscript
+L POSTSCRIPT
+T 10 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L 
+L print length($page) + length($query), "\n";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 12 source.perl support.function.perl
+T 13 source.perl
+T 14 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 18 source.perl variable.other.readwrite.global.perl
+T 22 source.perl
+T 28 source.perl support.function.perl
+T 29 source.perl
+T 30 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 35 source.perl variable.other.readwrite.global.perl
+T 38 source.perl
+T 39 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 41 source.perl string.quoted.double.perl constant.character.escape.perl
+T 42 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 43 source.perl
+L 

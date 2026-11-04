@@ -939,6 +939,17 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// Perl, with the scopes of Shiki's `perl` grammar, which nishiki's
+    /// `TextMate` engine runs. HTML, XML, CSS, JavaScript and SQL in its
+    /// heredocs go to their lexers.
+    Perl {
+        feature: "lang-perl",
+        names: ["perl"],
+        engine: crate::perl::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+        hands_off: true,
+    }
 }
 
 impl Language {

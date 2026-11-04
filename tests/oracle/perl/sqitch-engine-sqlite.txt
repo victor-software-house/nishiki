@@ -1,0 +1,1908 @@
+L package App::Sqitch::Engine::sqlite;
+T 7 source.perl meta.class.perl keyword.control.perl
+T 8 source.perl meta.class.perl
+T 35 source.perl meta.class.perl entity.name.type.class.perl
+T 36 source.perl
+L 
+L use v5.16;
+T 3 source.perl keyword.control.perl
+T 10 source.perl
+L use strict;
+T 3 source.perl keyword.control.perl
+T 11 source.perl
+L use warnings;
+T 3 source.perl keyword.control.perl
+T 13 source.perl
+L use utf8;
+T 3 source.perl keyword.control.perl
+T 9 source.perl
+L use Try::Tiny;
+T 3 source.perl keyword.control.perl
+T 14 source.perl
+L use App::Sqitch::X qw(hurl);
+T 3 source.perl keyword.control.perl
+T 19 source.perl
+T 22 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.begin.perl
+T 26 source.perl string.quoted.other.q-paren.perl
+T 27 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.end.perl
+T 28 source.perl
+L use Locale::TextDomain qw(App-Sqitch);
+T 3 source.perl keyword.control.perl
+T 23 source.perl
+T 26 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.begin.perl
+T 36 source.perl string.quoted.other.q-paren.perl
+T 37 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.end.perl
+T 38 source.perl
+L use App::Sqitch::Plan::Change;
+T 3 source.perl keyword.control.perl
+T 30 source.perl
+L use Path::Class;
+T 3 source.perl keyword.control.perl
+T 16 source.perl
+L use Moo;
+T 3 source.perl keyword.control.perl
+T 8 source.perl
+L use App::Sqitch::Types qw(URIDB DBH ArrayRef);
+T 3 source.perl keyword.control.perl
+T 23 source.perl
+T 26 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.begin.perl
+T 44 source.perl string.quoted.other.q-paren.perl
+T 45 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.end.perl
+T 46 source.perl
+L use namespace::autoclean;
+T 3 source.perl keyword.control.perl
+T 25 source.perl
+L 
+L extends 'App::Sqitch::Engine';
+T 8 source.perl
+T 9 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 28 source.perl string.quoted.single.perl
+T 29 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 30 source.perl
+L 
+L # VERSION
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 9 source.perl comment.line.number-sign.perl
+L 
+L has registry_uri => (
+T 4 source.perl
+T 16 source.perl constant.other.key.perl
+T 17 source.perl
+T 19 source.perl keyword.operator.comparison.perl
+T 21 source.perl
+L     is       => 'ro',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 19 source.perl string.quoted.single.perl
+T 20 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 21 source.perl
+L     isa      => URIDB,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 7 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 22 source.perl
+L     lazy     => 1,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 18 source.perl
+L     default  => sub {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 11 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 16 source.perl
+T 19 source.perl meta.function.perl storage.type.sub.perl
+T 20 source.perl meta.function.perl
+T 21 source.perl
+L         my $self = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+T 24 source.perl support.function.perl
+T 25 source.perl
+L         my $uri  = $self->uri->clone;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+T 20 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 29 source.perl
+T 31 source.perl keyword.operator.comparison.perl
+T 37 source.perl
+L         my $reg  = $self->registry;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+T 20 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 35 source.perl
+L 
+L         if ( file($reg)->is_absolute ) {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl keyword.control.perl
+T 18 source.perl
+T 19 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 22 source.perl variable.other.readwrite.global.perl
+T 23 source.perl
+T 25 source.perl keyword.operator.comparison.perl
+T 40 source.perl
+L             # Just use an absolute path.
+T 12 source.perl punctuation.whitespace.comment.leading.perl
+T 13 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 40 source.perl comment.line.number-sign.perl
+L             $uri->dbname($reg);
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 25 source.perl
+T 26 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 29 source.perl variable.other.readwrite.global.perl
+T 31 source.perl
+L         } elsif (my @segs = $uri->path_segments) {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl
+T 15 source.perl keyword.control.perl
+T 17 source.perl
+T 19 source.perl storage.modifier.perl
+T 20 source.perl
+T 21 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 25 source.perl variable.other.readwrite.global.perl
+T 28 source.perl
+T 29 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 32 source.perl variable.other.readwrite.global.perl
+T 34 source.perl keyword.operator.comparison.perl
+T 50 source.perl
+L             # Use the same name, but replace $name.$ext with $reg.$ext.
+T 12 source.perl punctuation.whitespace.comment.leading.perl
+T 13 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 71 source.perl comment.line.number-sign.perl
+L             my $bn = file( $segs[-1] )->basename;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 14 source.perl storage.modifier.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 18 source.perl variable.other.readwrite.global.perl
+T 27 source.perl
+T 28 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 32 source.perl variable.other.readwrite.global.perl
+T 38 source.perl
+T 40 source.perl keyword.operator.comparison.perl
+T 49 source.perl
+L             if ($reg =~ /[.]/ || $bn !~ /[.]/) {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 14 source.perl keyword.control.perl
+T 16 source.perl
+T 17 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 23 source.perl
+T 24 source.perl
+T 25 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 28 source.perl string.regexp.find.perl
+T 29 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 33 source.perl
+T 34 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.readwrite.global.perl
+T 39 source.perl
+T 40 source.perl
+T 41 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 44 source.perl string.regexp.find.perl
+T 45 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 48 source.perl
+L                 $segs[-1] =~ s/\Q$bn\E$/$reg/;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 17 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 21 source.perl variable.other.readwrite.global.perl
+T 29 source.perl
+T 30 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 31 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 33 source.perl string.regexp.replaceXXX.simple_delimiter.perl constant.character.escape.perl
+T 36 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 38 source.perl string.regexp.replaceXXX.simple_delimiter.perl constant.character.escape.perl
+T 39 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 40 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 41 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 44 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl variable.other.readwrite.global.perl
+T 45 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 46 source.perl
+L             } else {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 14 source.perl
+T 18 source.perl keyword.control.perl
+T 20 source.perl
+L                 my ($b, $e) = split /[.]/, $bn, 2;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 18 source.perl storage.modifier.perl
+T 20 source.perl
+T 21 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 22 source.perl variable.other.predefined.perl
+T 24 source.perl
+T 25 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 26 source.perl variable.other.readwrite.global.perl
+T 30 source.perl
+T 35 source.perl support.function.perl
+T 43 source.perl
+T 44 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 46 source.perl variable.other.readwrite.global.perl
+T 50 source.perl
+L                 $segs[-1] =~ s/\Q$b\E[.]$e$/$reg.$e/;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 17 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 21 source.perl variable.other.readwrite.global.perl
+T 29 source.perl
+T 30 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 31 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 33 source.perl string.regexp.replaceXXX.simple_delimiter.perl constant.character.escape.perl
+T 35 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 37 source.perl string.regexp.replaceXXX.simple_delimiter.perl constant.character.escape.perl
+T 43 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 44 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 45 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 48 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl variable.other.readwrite.global.perl
+T 49 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 50 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 51 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl variable.other.readwrite.global.perl
+T 52 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 53 source.perl
+L             }
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl
+L             $uri->path_segments(@segs);
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 32 source.perl
+T 33 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 37 source.perl variable.other.readwrite.global.perl
+T 39 source.perl
+L         } else {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl
+T 14 source.perl keyword.control.perl
+T 16 source.perl
+L             # No known path, so no name.
+T 12 source.perl punctuation.whitespace.comment.leading.perl
+T 13 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 40 source.perl comment.line.number-sign.perl
+L             $uri->dbname(undef);
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 25 source.perl
+T 30 source.perl support.function.perl
+T 32 source.perl
+L         }
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 9 source.perl
+L 
+L         return $uri;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 14 source.perl keyword.control.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 20 source.perl
+L     },
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl
+L );
+T 2 source.perl
+L 
+L sub registry_destination {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 24 source.perl meta.function.perl entity.name.function.perl
+T 25 source.perl meta.function.perl
+T 26 source.perl
+L     my $uri = shift->registry_uri;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.readwrite.global.perl
+T 14 source.perl
+T 19 source.perl support.function.perl
+T 21 source.perl keyword.operator.comparison.perl
+T 34 source.perl
+L     if ($uri->password) {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl keyword.control.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 25 source.perl
+L         $uri = $uri->clone;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 21 source.perl keyword.operator.comparison.perl
+T 27 source.perl
+L         $uri->password(undef);
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+T 28 source.perl support.function.perl
+T 30 source.perl
+L     }
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl
+L     return $uri->as_string;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.readwrite.global.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 27 source.perl
+L }
+T 1 source.perl
+L 
+L sub key    { 'sqlite' }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 7 source.perl meta.function.perl entity.name.function.perl
+T 11 source.perl meta.function.perl
+T 13 source.perl
+T 14 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 20 source.perl string.quoted.single.perl
+T 21 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 23 source.perl
+L sub name   { 'SQLite' }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 8 source.perl meta.function.perl entity.name.function.perl
+T 11 source.perl meta.function.perl
+T 13 source.perl
+T 14 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 20 source.perl string.quoted.single.perl
+T 21 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 23 source.perl
+L sub driver { 'DBD::SQLite 1.37' }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 10 source.perl meta.function.perl entity.name.function.perl
+T 11 source.perl meta.function.perl
+T 13 source.perl
+T 14 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 30 source.perl string.quoted.single.perl
+T 31 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 33 source.perl
+L sub default_client { 'sqlite3' }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 18 source.perl meta.function.perl entity.name.function.perl
+T 19 source.perl meta.function.perl
+T 21 source.perl
+T 22 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 29 source.perl string.quoted.single.perl
+T 30 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 32 source.perl
+L sub _dsn { shift->registry_uri->dbi_dsn }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 8 source.perl meta.function.perl entity.name.function.perl
+T 9 source.perl meta.function.perl
+T 11 source.perl
+T 16 source.perl support.function.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 41 source.perl
+L 
+L has dbh => (
+T 4 source.perl
+T 7 source.perl constant.other.key.perl
+T 8 source.perl
+T 10 source.perl keyword.operator.comparison.perl
+T 12 source.perl
+L     is      => 'rw',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 15 source.perl
+T 16 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 18 source.perl string.quoted.single.perl
+T 19 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 20 source.perl
+L     isa     => DBH,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 7 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 19 source.perl
+L     lazy    => 1,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+L     default => sub {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 11 source.perl constant.other.key.perl
+T 12 source.perl
+T 14 source.perl keyword.operator.comparison.perl
+T 15 source.perl
+T 18 source.perl meta.function.perl storage.type.sub.perl
+T 19 source.perl meta.function.perl
+T 20 source.perl
+L         my $self = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+T 24 source.perl support.function.perl
+T 25 source.perl
+L         $self->use_driver;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 26 source.perl
+L 
+L         my $dbh = DBI->connect($self->_dsn, '', '', {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.readwrite.global.perl
+T 21 source.perl
+T 23 source.perl keyword.operator.comparison.perl
+T 30 source.perl support.function.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.readwrite.global.perl
+T 38 source.perl keyword.operator.comparison.perl
+T 44 source.perl
+T 45 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 46 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 48 source.perl
+T 49 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 50 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 53 source.perl
+L             PrintError        => 0,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 22 source.perl constant.other.key.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 35 source.perl
+L             RaiseError        => 0,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 22 source.perl constant.other.key.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 35 source.perl
+L             AutoCommit        => 1,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 22 source.perl constant.other.key.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 35 source.perl
+L             sqlite_unicode    => 1,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 26 source.perl constant.other.key.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 35 source.perl
+L             sqlite_use_immediate_transaction => 1,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 44 source.perl constant.other.key.perl
+T 45 source.perl
+T 47 source.perl keyword.operator.comparison.perl
+T 50 source.perl
+L             HandleError       => $self->error_handler,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 23 source.perl constant.other.key.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 33 source.perl
+T 34 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 38 source.perl variable.other.readwrite.global.perl
+T 40 source.perl keyword.operator.comparison.perl
+T 54 source.perl
+L             Callbacks         => {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 21 source.perl constant.other.key.perl
+T 30 source.perl
+T 32 source.perl keyword.operator.comparison.perl
+T 34 source.perl
+L                 connected => sub {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 25 source.perl constant.other.key.perl
+T 26 source.perl
+T 28 source.perl keyword.operator.comparison.perl
+T 29 source.perl
+T 32 source.perl meta.function.perl storage.type.sub.perl
+T 33 source.perl meta.function.perl
+T 34 source.perl
+L                     my $dbh = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 20 source.perl meta.leading-tabs meta.odd-tab
+T 22 source.perl storage.modifier.perl
+T 23 source.perl
+T 24 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 27 source.perl variable.other.readwrite.global.perl
+T 30 source.perl
+T 35 source.perl support.function.perl
+T 36 source.perl
+L                     $dbh->do('PRAGMA foreign_keys = ON');
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 20 source.perl meta.leading-tabs meta.odd-tab
+T 21 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 29 source.perl
+T 30 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 54 source.perl string.quoted.single.perl
+T 55 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 57 source.perl
+L                     return;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 20 source.perl meta.leading-tabs meta.odd-tab
+T 26 source.perl keyword.control.perl
+T 27 source.perl
+L                 },
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 16 source.perl meta.leading-tabs meta.even-tab
+T 18 source.perl
+L             },
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 14 source.perl
+L         });
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 11 source.perl
+L 
+L         # Make sure we support this version.
+T 8 source.perl punctuation.whitespace.comment.leading.perl
+T 9 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 44 source.perl comment.line.number-sign.perl
+L         my @v = split /[.]/ => $dbh->{sqlite_version};
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 16 source.perl
+T 21 source.perl support.function.perl
+T 28 source.perl
+T 30 source.perl keyword.operator.comparison.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 35 source.perl variable.other.readwrite.global.perl
+T 37 source.perl keyword.operator.comparison.perl
+T 38 source.perl
+T 52 source.perl constant.other.bareword.perl
+T 54 source.perl
+L         hurl sqlite => __x(
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 13 source.perl
+T 19 source.perl constant.other.key.perl
+T 20 source.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 27 source.perl
+L             'Sqitch requires SQLite 3.8.6 or later; DBD::SQLite was built with {version}',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 88 source.perl string.quoted.single.perl
+T 89 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 90 source.perl
+L             version => $dbh->{sqlite_version}
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 19 source.perl constant.other.key.perl
+T 20 source.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+T 24 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 27 source.perl variable.other.readwrite.global.perl
+T 29 source.perl keyword.operator.comparison.perl
+T 30 source.perl
+T 44 source.perl constant.other.bareword.perl
+T 45 source.perl
+L         ) unless $v[0] > 3 || ($v[0] == 3 && ($v[1] > 8 || ($v[1] == 8 && $v[2] >= 6)));
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl
+T 16 source.perl keyword.control.perl
+T 17 source.perl
+T 18 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 33 source.perl variable.other.readwrite.global.perl
+T 46 source.perl
+T 47 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 48 source.perl variable.other.readwrite.global.perl
+T 60 source.perl
+T 61 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 62 source.perl variable.other.readwrite.global.perl
+T 74 source.perl
+T 75 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 76 source.perl variable.other.readwrite.global.perl
+T 88 source.perl
+L 
+L         return $dbh;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 14 source.perl keyword.control.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 20 source.perl
+L     }
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl
+L );
+T 2 source.perl
+L 
+L # Need to wait until dbh is defined.
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 36 source.perl comment.line.number-sign.perl
+L with 'App::Sqitch::Role::DBIEngine';
+T 5 source.perl
+T 6 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 34 source.perl string.quoted.single.perl
+T 35 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 36 source.perl
+L 
+L has _sqlite3 => (
+T 4 source.perl
+T 12 source.perl constant.other.key.perl
+T 13 source.perl
+T 15 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+L     is         => 'ro',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl constant.other.key.perl
+T 15 source.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 18 source.perl
+T 19 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 21 source.perl string.quoted.single.perl
+T 22 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 23 source.perl
+L     isa        => ArrayRef,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 7 source.perl constant.other.key.perl
+T 15 source.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 27 source.perl
+L     lazy       => 1,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl constant.other.key.perl
+T 15 source.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 20 source.perl
+L     default    => sub {
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 11 source.perl constant.other.key.perl
+T 15 source.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 18 source.perl
+T 21 source.perl meta.function.perl storage.type.sub.perl
+T 22 source.perl meta.function.perl
+T 23 source.perl
+L         my $self = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+T 24 source.perl support.function.perl
+T 25 source.perl
+L 
+L         # Make sure we can use this version of SQLite.
+T 8 source.perl punctuation.whitespace.comment.leading.perl
+T 9 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 54 source.perl comment.line.number-sign.perl
+L         my @v = split /[.]/ => (
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 16 source.perl
+T 21 source.perl support.function.perl
+T 28 source.perl
+T 30 source.perl keyword.operator.comparison.perl
+T 32 source.perl
+L             split / / => scalar $self->sqitch->capture( $self->client, '-version' )
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 17 source.perl support.function.perl
+T 22 source.perl
+T 24 source.perl keyword.operator.comparison.perl
+T 25 source.perl
+T 31 source.perl support.function.perl
+T 32 source.perl
+T 33 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 37 source.perl variable.other.readwrite.global.perl
+T 39 source.perl keyword.operator.comparison.perl
+T 45 source.perl
+T 47 source.perl keyword.operator.comparison.perl
+T 56 source.perl
+T 57 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 61 source.perl variable.other.readwrite.global.perl
+T 63 source.perl keyword.operator.comparison.perl
+T 71 source.perl
+T 72 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 80 source.perl string.quoted.single.perl
+T 81 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 83 source.perl
+L         )[0];
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 13 source.perl
+L         hurl sqlite => __x(
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 13 source.perl
+T 19 source.perl constant.other.key.perl
+T 20 source.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 27 source.perl
+L             'Sqitch requires SQLite 3.3.9 or later; {client} is {version}',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 73 source.perl string.quoted.single.perl
+T 74 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 75 source.perl
+L             client  => $self->client,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 18 source.perl constant.other.key.perl
+T 20 source.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+T 24 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 28 source.perl variable.other.readwrite.global.perl
+T 30 source.perl keyword.operator.comparison.perl
+T 37 source.perl
+L             version => join( '.', @v)
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 19 source.perl constant.other.key.perl
+T 20 source.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+T 27 source.perl support.function.perl
+T 29 source.perl
+T 30 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 31 source.perl string.quoted.single.perl
+T 32 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 34 source.perl
+T 35 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.readwrite.global.perl
+T 37 source.perl
+L         ) unless $v[0] > 3 || ($v[0] == 3 && ($v[1] > 3 || ($v[1] == 3 && $v[2] >= 9)));
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl
+T 16 source.perl keyword.control.perl
+T 17 source.perl
+T 18 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 33 source.perl variable.other.readwrite.global.perl
+T 46 source.perl
+T 47 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 48 source.perl variable.other.readwrite.global.perl
+T 60 source.perl
+T 61 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 62 source.perl variable.other.readwrite.global.perl
+T 74 source.perl
+T 75 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 76 source.perl variable.other.readwrite.global.perl
+T 88 source.perl
+L 
+L         my $dbname = $self->uri->dbname or hurl sqlite => __x(
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl storage.modifier.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 18 source.perl variable.other.readwrite.global.perl
+T 21 source.perl
+T 22 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 26 source.perl variable.other.readwrite.global.perl
+T 28 source.perl keyword.operator.comparison.perl
+T 31 source.perl
+T 33 source.perl keyword.operator.comparison.perl
+T 40 source.perl
+T 42 source.perl keyword.operator.logical.perl
+T 48 source.perl
+T 54 source.perl constant.other.key.perl
+T 55 source.perl
+T 57 source.perl keyword.operator.comparison.perl
+T 62 source.perl
+L             'Database name missing in URI {uri}',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 47 source.perl string.quoted.single.perl
+T 48 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 49 source.perl
+L             uri => $self->uri,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 15 source.perl constant.other.key.perl
+T 16 source.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 19 source.perl
+T 20 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 30 source.perl
+L         );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl
+L 
+L         return [
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 14 source.perl keyword.control.perl
+T 16 source.perl
+L             $self->client,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 17 source.perl variable.other.readwrite.global.perl
+T 19 source.perl keyword.operator.comparison.perl
+T 26 source.perl
+L             '-noheader',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 22 source.perl string.quoted.single.perl
+T 23 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 24 source.perl
+L             '-bail',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 18 source.perl string.quoted.single.perl
+T 19 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 20 source.perl
+L             '-batch',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 19 source.perl string.quoted.single.perl
+T 20 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 21 source.perl
+L             '-csv', # or -column or -line?
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 17 source.perl string.quoted.single.perl
+T 18 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 20 source.perl
+T 21 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 42 source.perl comment.line.number-sign.perl
+L             $dbname,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 12 source.perl meta.leading-tabs meta.odd-tab
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 20 source.perl
+L         ];
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 10 source.perl
+L     },
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl
+L );
+T 2 source.perl
+L 
+L sub sqlite3 { @{ shift->_sqlite3 } }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 11 source.perl meta.function.perl entity.name.function.perl
+T 12 source.perl meta.function.perl
+T 17 source.perl
+T 22 source.perl support.function.perl
+T 24 source.perl keyword.operator.comparison.perl
+T 36 source.perl
+L 
+L sub _version_query { 'SELECT CAST(ROUND(MAX(version), 1) AS TEXT) FROM releases' }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 18 source.perl meta.function.perl entity.name.function.perl
+T 19 source.perl meta.function.perl
+T 21 source.perl
+T 22 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 79 source.perl string.quoted.single.perl
+T 80 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 82 source.perl
+L 
+L sub _initialized {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 16 source.perl meta.function.perl entity.name.function.perl
+T 17 source.perl meta.function.perl
+T 18 source.perl
+L     my $self = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 20 source.perl support.function.perl
+T 21 source.perl
+L     return $self->dbh->selectcol_arrayref(q{
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 21 source.perl
+T 23 source.perl keyword.operator.comparison.perl
+T 42 source.perl
+T 44 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.begin.perl
+L         SELECT EXISTS(
+T 22 source.perl string.quoted.other.q-brace.perl
+L             SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?
+T 73 source.perl string.quoted.other.q-brace.perl
+L         )
+T 9 source.perl string.quoted.other.q-brace.perl
+L     }, undef, 'changes')->[0];
+T 4 source.perl string.quoted.other.q-brace.perl
+T 5 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.end.perl
+T 7 source.perl
+T 12 source.perl support.function.perl
+T 14 source.perl
+T 15 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 22 source.perl string.quoted.single.perl
+T 23 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 24 source.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 30 source.perl
+L }
+T 1 source.perl
+L 
+L sub _initialize {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 15 source.perl meta.function.perl entity.name.function.perl
+T 16 source.perl meta.function.perl
+T 17 source.perl
+L     my $self   = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 22 source.perl support.function.perl
+T 23 source.perl
+L     hurl engine => __x(
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 9 source.perl
+T 15 source.perl constant.other.key.perl
+T 16 source.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+L         'Sqitch database {database} already initialized',
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 9 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 55 source.perl string.quoted.single.perl
+T 56 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 57 source.perl
+L         database => $self->registry_uri->dbname,
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 16 source.perl constant.other.key.perl
+T 17 source.perl
+T 19 source.perl keyword.operator.comparison.perl
+T 20 source.perl
+T 21 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 25 source.perl variable.other.readwrite.global.perl
+T 27 source.perl keyword.operator.comparison.perl
+T 39 source.perl
+T 41 source.perl keyword.operator.comparison.perl
+T 48 source.perl
+L     ) if $self->initialized;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl
+T 8 source.perl keyword.control.perl
+T 9 source.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 14 source.perl variable.other.readwrite.global.perl
+T 16 source.perl keyword.operator.comparison.perl
+T 28 source.perl
+L 
+L     # Load up our database.
+T 4 source.perl punctuation.whitespace.comment.leading.perl
+T 5 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 27 source.perl comment.line.number-sign.perl
+L     my @cmd = $self->sqlite3;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.readwrite.global.perl
+T 14 source.perl
+T 15 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 21 source.perl keyword.operator.comparison.perl
+T 29 source.perl
+L     $cmd[-1] = $self->registry_uri->dbname;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 34 source.perl
+T 36 source.perl keyword.operator.comparison.perl
+T 43 source.perl
+L     my $file = file(__FILE__)->dir->file('sqlite.sql');
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 20 source.perl
+T 28 source.perl constant.language.perl
+T 29 source.perl
+T 31 source.perl keyword.operator.comparison.perl
+T 34 source.perl
+T 36 source.perl keyword.operator.comparison.perl
+T 41 source.perl
+T 42 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 52 source.perl string.quoted.single.perl
+T 53 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 55 source.perl
+L     $self->sqitch->run( @cmd, $self->_read($file) );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 11 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+T 19 source.perl keyword.operator.comparison.perl
+T 24 source.perl
+T 25 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 28 source.perl variable.other.readwrite.global.perl
+T 30 source.perl
+T 31 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 35 source.perl variable.other.readwrite.global.perl
+T 37 source.perl keyword.operator.comparison.perl
+T 43 source.perl
+T 44 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 48 source.perl variable.other.readwrite.global.perl
+T 52 source.perl
+L     $self->_register_release;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 11 source.perl keyword.operator.comparison.perl
+T 29 source.perl
+L }
+T 1 source.perl
+L 
+L sub _no_table_error  {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 19 source.perl meta.function.perl entity.name.function.perl
+T 21 source.perl meta.function.perl
+T 22 source.perl
+L     return $DBI::errstr && $DBI::errstr =~ /^\Qno such table:/;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 27 source.perl
+T 28 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 39 source.perl variable.other.readwrite.global.perl
+T 42 source.perl
+T 43 source.perl
+T 44 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 45 source.perl string.regexp.find.perl
+T 47 source.perl string.regexp.find.perl constant.character.escape.perl
+T 61 source.perl string.regexp.find.perl
+T 62 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 63 source.perl
+L }
+T 1 source.perl
+L 
+L sub _no_column_error  {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 20 source.perl meta.function.perl entity.name.function.perl
+T 22 source.perl meta.function.perl
+T 23 source.perl
+L     return $DBI::errstr && $DBI::errstr =~ /^\Qno such column:/;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 27 source.perl
+T 28 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 39 source.perl variable.other.readwrite.global.perl
+T 42 source.perl
+T 43 source.perl
+T 44 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 45 source.perl string.regexp.find.perl
+T 47 source.perl string.regexp.find.perl constant.character.escape.perl
+T 62 source.perl string.regexp.find.perl
+T 63 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 64 source.perl
+L }
+T 1 source.perl
+L 
+L sub _unique_error  {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 17 source.perl meta.function.perl entity.name.function.perl
+T 19 source.perl meta.function.perl
+T 20 source.perl
+L     return $DBI::errstr && $DBI::errstr =~ /^\QUNIQUE constraint failed:/;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 27 source.perl
+T 28 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 39 source.perl variable.other.readwrite.global.perl
+T 42 source.perl
+T 43 source.perl
+T 44 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 45 source.perl string.regexp.find.perl
+T 47 source.perl string.regexp.find.perl constant.character.escape.perl
+T 72 source.perl string.regexp.find.perl
+T 73 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 74 source.perl
+L }
+T 1 source.perl
+L 
+L sub _regex_op { 'REGEXP' }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 13 source.perl meta.function.perl entity.name.function.perl
+T 14 source.perl meta.function.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 23 source.perl string.quoted.single.perl
+T 24 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 26 source.perl
+L 
+L sub _limit_default { -1 }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 18 source.perl meta.function.perl entity.name.function.perl
+T 19 source.perl meta.function.perl
+T 25 source.perl
+L 
+L sub _ts_default {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 15 source.perl meta.function.perl entity.name.function.perl
+T 16 source.perl meta.function.perl
+T 17 source.perl
+L     q{strftime('%Y-%m-%d %H:%M:%f')};
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.begin.perl
+T 35 source.perl string.quoted.other.q-brace.perl
+T 36 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.end.perl
+T 37 source.perl
+L }
+T 1 source.perl
+L 
+L sub _ts2char_format {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 19 source.perl meta.function.perl entity.name.function.perl
+T 20 source.perl meta.function.perl
+T 21 source.perl
+L     return q{strftime('year:%%Y:month:%%m:day:%%d:hour:%%H:minute:%%M:second:%%S:time_zone:UTC', %s)};
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 13 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.begin.perl
+T 100 source.perl string.quoted.other.q-brace.perl
+T 101 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.end.perl
+T 102 source.perl
+L }
+T 1 source.perl
+L 
+L sub _listagg_format {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 19 source.perl meta.function.perl entity.name.function.perl
+T 20 source.perl meta.function.perl
+T 21 source.perl
+L     # The order of the concatenated elements is arbitrary.
+T 4 source.perl punctuation.whitespace.comment.leading.perl
+T 5 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 58 source.perl comment.line.number-sign.perl
+L     # https://www.sqlite.org/lang_aggfunc.html
+T 4 source.perl punctuation.whitespace.comment.leading.perl
+T 5 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 46 source.perl comment.line.number-sign.perl
+L     return q{group_concat(%s, ' ')};
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 13 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.begin.perl
+T 34 source.perl string.quoted.other.q-brace.perl
+T 35 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.end.perl
+T 36 source.perl
+L }
+T 1 source.perl
+L 
+L sub _char2ts {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 12 source.perl meta.function.perl entity.name.function.perl
+T 13 source.perl meta.function.perl
+T 14 source.perl
+L     my $dt = $_[1];
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+T 14 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.predefined.perl
+T 19 source.perl
+L     $dt->set_time_zone('UTC');
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 9 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+T 24 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 27 source.perl string.quoted.single.perl
+T 28 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 30 source.perl
+L     return join ' ', $dt->ymd('-'), $dt->hms(':');
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 15 source.perl support.function.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 18 source.perl string.quoted.single.perl
+T 19 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 21 source.perl
+T 22 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 30 source.perl
+T 31 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 32 source.perl string.quoted.single.perl
+T 33 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 36 source.perl
+T 37 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 39 source.perl variable.other.readwrite.global.perl
+T 41 source.perl keyword.operator.comparison.perl
+T 45 source.perl
+T 46 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 47 source.perl string.quoted.single.perl
+T 48 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 50 source.perl
+L }
+T 1 source.perl
+L 
+L sub _run {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 8 source.perl meta.function.perl entity.name.function.perl
+T 9 source.perl meta.function.perl
+T 10 source.perl
+L     my $self   = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 22 source.perl support.function.perl
+T 23 source.perl
+L     return $self->sqitch->run( $self->sqlite3, @_ );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 24 source.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.readwrite.global.perl
+T 38 source.perl keyword.operator.comparison.perl
+T 47 source.perl
+T 48 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 49 source.perl variable.other.readwrite.global.special.perl
+T 52 source.perl
+L }
+T 1 source.perl
+L 
+L sub _capture {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 12 source.perl meta.function.perl entity.name.function.perl
+T 13 source.perl meta.function.perl
+T 14 source.perl
+L     my $self   = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 22 source.perl support.function.perl
+T 23 source.perl
+L     return $self->sqitch->capture( $self->sqlite3, @_ );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 24 source.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 35 source.perl
+T 36 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 40 source.perl variable.other.readwrite.global.perl
+T 42 source.perl keyword.operator.comparison.perl
+T 51 source.perl
+T 52 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 53 source.perl variable.other.readwrite.global.special.perl
+T 56 source.perl
+L }
+T 1 source.perl
+L 
+L sub _spool {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 10 source.perl meta.function.perl entity.name.function.perl
+T 11 source.perl meta.function.perl
+T 12 source.perl
+L     my $self   = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 22 source.perl support.function.perl
+T 23 source.perl
+L     my $fh     = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 22 source.perl support.function.perl
+T 23 source.perl
+L     return $self->sqitch->spool( $fh, $self->sqlite3, @_ );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 24 source.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 33 source.perl
+T 34 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.readwrite.global.perl
+T 38 source.perl
+T 39 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 43 source.perl variable.other.readwrite.global.perl
+T 45 source.perl keyword.operator.comparison.perl
+T 54 source.perl
+T 55 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 56 source.perl variable.other.readwrite.global.special.perl
+T 59 source.perl
+L }
+T 1 source.perl
+L 
+L sub run_file {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 12 source.perl meta.function.perl entity.name.function.perl
+T 13 source.perl meta.function.perl
+T 14 source.perl
+L     my ($self, $file) = @_;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 24 source.perl
+T 25 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 26 source.perl variable.other.readwrite.global.special.perl
+T 27 source.perl
+L     $self->_run( $self->_read($file) );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 11 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+T 18 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 22 source.perl variable.other.readwrite.global.perl
+T 24 source.perl keyword.operator.comparison.perl
+T 30 source.perl
+T 31 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 35 source.perl variable.other.readwrite.global.perl
+T 39 source.perl
+L }
+T 1 source.perl
+L 
+L sub run_verify {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 14 source.perl meta.function.perl entity.name.function.perl
+T 15 source.perl meta.function.perl
+T 16 source.perl
+L     my ($self, $file) = @_;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 24 source.perl
+T 25 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 26 source.perl variable.other.readwrite.global.special.perl
+T 27 source.perl
+L     # Suppress STDOUT unless we want extra verbosity.
+T 4 source.perl punctuation.whitespace.comment.leading.perl
+T 5 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 53 source.perl comment.line.number-sign.perl
+L     my $meth = $self->can($self->sqitch->verbosity > 1 ? '_run' : '_capture');
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 26 source.perl
+T 27 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 31 source.perl variable.other.readwrite.global.perl
+T 33 source.perl keyword.operator.comparison.perl
+T 39 source.perl
+T 41 source.perl keyword.operator.comparison.perl
+T 57 source.perl
+T 58 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 62 source.perl string.quoted.single.perl
+T 63 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 66 source.perl
+T 67 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 75 source.perl string.quoted.single.perl
+T 76 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 78 source.perl
+L     $self->$meth( $self->_read($file) );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 11 source.perl keyword.operator.comparison.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl
+T 19 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 25 source.perl keyword.operator.comparison.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.readwrite.global.perl
+T 40 source.perl
+L }
+T 1 source.perl
+L 
+L sub run_handle {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 14 source.perl meta.function.perl entity.name.function.perl
+T 15 source.perl meta.function.perl
+T 16 source.perl
+L     my ($self, $fh) = @_;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 18 source.perl variable.other.readwrite.global.perl
+T 22 source.perl
+T 23 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.special.perl
+T 25 source.perl
+L     $self->_spool($fh);
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 11 source.perl keyword.operator.comparison.perl
+T 18 source.perl
+T 19 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 21 source.perl variable.other.readwrite.global.perl
+T 23 source.perl
+L }
+T 1 source.perl
+L 
+L sub run_upgrade {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 15 source.perl meta.function.perl entity.name.function.perl
+T 16 source.perl meta.function.perl
+T 17 source.perl
+L     my ($self, $file) = @_;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 24 source.perl
+T 25 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 26 source.perl variable.other.readwrite.global.special.perl
+T 27 source.perl
+L     my @cmd = $self->sqlite3;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.readwrite.global.perl
+T 14 source.perl
+T 15 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 21 source.perl keyword.operator.comparison.perl
+T 29 source.perl
+L     $cmd[-1] = $self->registry_uri->dbname;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.readwrite.global.perl
+T 22 source.perl keyword.operator.comparison.perl
+T 34 source.perl
+T 36 source.perl keyword.operator.comparison.perl
+T 43 source.perl
+L     return $self->sqitch->run( @cmd, $self->_read($file) );
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 24 source.perl
+T 26 source.perl keyword.operator.comparison.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 35 source.perl variable.other.readwrite.global.perl
+T 37 source.perl
+T 38 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 42 source.perl variable.other.readwrite.global.perl
+T 44 source.perl keyword.operator.comparison.perl
+T 50 source.perl
+T 51 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 55 source.perl variable.other.readwrite.global.perl
+T 59 source.perl
+L }
+T 1 source.perl
+L 
+L sub _read {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 9 source.perl meta.function.perl entity.name.function.perl
+T 10 source.perl meta.function.perl
+T 11 source.perl
+L     my $self = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 20 source.perl support.function.perl
+T 21 source.perl
+L     return '.read ' . $self->dbh->quote(shift);
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+T 12 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 18 source.perl string.quoted.single.perl
+T 19 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 22 source.perl
+T 23 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 27 source.perl variable.other.readwrite.global.perl
+T 29 source.perl keyword.operator.comparison.perl
+T 32 source.perl
+T 34 source.perl keyword.operator.comparison.perl
+T 40 source.perl
+T 45 source.perl support.function.perl
+T 47 source.perl
+L }
+T 1 source.perl
+L 
+L 1;
+T 2 source.perl
+L 
+L __END__
+T 7 source.perl constant.language.perl
+L 
+L =head1 Name
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 11 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L App::Sqitch::Engine::sqlite - Sqitch SQLite Engine
+T 50 source.perl comment.block.documentation.perl
+L 
+L =head1 Synopsis
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 15 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L   my $sqlite = App::Sqitch::Engine->load( engine => 'sqlite' );
+T 63 source.perl comment.block.documentation.perl
+L 
+L =head1 Description
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 18 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L App::Sqitch::Engine::sqlite provides the SQLite storage engine for Sqitch.
+T 74 source.perl comment.block.documentation.perl
+L 
+L =head1 Interface
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 16 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =head2 Accessors
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 16 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =head3 C<client>
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 9 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+T 15 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 16 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+L 
+L Returns the path to the SQLite client. If C<--client> was passed to C<sqitch>,
+T 42 source.perl comment.block.documentation.perl
+T 44 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 52 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 53 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 68 source.perl comment.block.documentation.perl
+T 70 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 76 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 77 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 78 source.perl comment.block.documentation.perl
+L that's what will be returned. Otherwise, it uses the C<engine.sqlite.client>
+T 53 source.perl comment.block.documentation.perl
+T 55 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 75 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 76 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+L configuration value, or else defaults to C<sqlite3> (or C<sqlite3.exe> on
+T 41 source.perl comment.block.documentation.perl
+T 43 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 50 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 51 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 56 source.perl comment.block.documentation.perl
+T 58 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 69 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 70 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 73 source.perl comment.block.documentation.perl
+L Windows), which should work if it's in your path.
+T 49 source.perl comment.block.documentation.perl
+L 
+L =head2 Instance Methods
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 23 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =head3 C<sqlite3>
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 9 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+T 16 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 17 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+L 
+L Returns a list containing the C<sqlite3> client and options to be passed to it.
+T 30 source.perl comment.block.documentation.perl
+T 32 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 39 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 40 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 79 source.perl comment.block.documentation.perl
+L Used internally when executing scripts.
+T 39 source.perl comment.block.documentation.perl
+L 
+L =head1 Author
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 13 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L David E. Wheeler <david@justatheory.com>
+T 40 source.perl comment.block.documentation.perl
+L 
+L =head1 License
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 14 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L Copyright (c) 2012-2026 David E. Wheeler, 2012-2021 iovation Inc.
+T 65 source.perl comment.block.documentation.perl
+L 
+L Permission is hereby granted, free of charge, to any person obtaining a copy
+T 76 source.perl comment.block.documentation.perl
+L of this software and associated documentation files (the "Software"), to deal
+T 77 source.perl comment.block.documentation.perl
+L in the Software without restriction, including without limitation the rights
+T 76 source.perl comment.block.documentation.perl
+L to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+T 73 source.perl comment.block.documentation.perl
+L copies of the Software, and to permit persons to whom the Software is
+T 69 source.perl comment.block.documentation.perl
+L furnished to do so, subject to the following conditions:
+T 56 source.perl comment.block.documentation.perl
+L 
+L The above copyright notice and this permission notice shall be included in all
+T 78 source.perl comment.block.documentation.perl
+L copies or substantial portions of the Software.
+T 47 source.perl comment.block.documentation.perl
+L 
+L THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+T 74 source.perl comment.block.documentation.perl
+L IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+T 72 source.perl comment.block.documentation.perl
+L FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+T 75 source.perl comment.block.documentation.perl
+L AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+T 70 source.perl comment.block.documentation.perl
+L LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+T 77 source.perl comment.block.documentation.perl
+L OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+T 77 source.perl comment.block.documentation.perl
+L SOFTWARE.
+T 9 source.perl comment.block.documentation.perl
+L 
+L =cut
+T 4 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+L 

@@ -613,6 +613,30 @@ fn php_fences_try_php_where_html_matches_nothing() {
     );
 }
 
+/// A `pl` fence embeds Perl under Perl's embedded scope, as Shiki does.
+#[cfg(feature = "lang-perl")]
+#[test]
+fn pl_fences_embed_perl() {
+    let text = indoc! {r"
+        ```pl
+        my $x = 1;
+        ```
+    "};
+    assert_eq!(
+        stack_of(text, "my").last().map(String::as_str),
+        Some("storage.modifier.perl")
+    );
+    assert!(
+        stack_of(text, "my")
+            .iter()
+            .any(|scope| scope == "meta.embedded.block.perl")
+    );
+    assert_eq!(
+        stack_of(text, "x").last().map(String::as_str),
+        Some("variable.other.readwrite.global.perl")
+    );
+}
+
 /// Batch runs on the engine, whose `lex` takes the fence's body line by
 /// line while Markdown finds the closing fence.
 #[cfg(feature = "lang-bat")]

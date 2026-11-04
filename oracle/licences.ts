@@ -134,6 +134,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  perl: {
+    bundled: "microsoft/vscode@e637ff1bf7f481134849625e982ec80df9b35bc8",
+    origin: "textmate/perl.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
   php: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "KapitanOczywisty/language-php",

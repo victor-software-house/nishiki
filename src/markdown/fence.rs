@@ -337,6 +337,13 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Bat),
     },
+    // The grammar's `perl|pl|pm|pod|t|PL|psgi|vcl`, matched without case.
+    #[cfg(feature = "lang-perl")]
+    Name {
+        words: &["perl", "pl", "pm", "pod", "t", "psgi", "vcl"],
+        brace: None,
+        embed: Embed::Lang(Language::Perl),
+    },
     // The grammar's `php3??|php4|php5|phpt|phtml|aw|ctp`.
     #[cfg(feature = "lang-html")]
     Name {

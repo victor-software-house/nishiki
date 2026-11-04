@@ -1678,3 +1678,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+Its TextMate engine runs the Perl TextMate grammar that Shiki bundles through VS Code as `perl` (`extensions/perl` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `e637ff1bf7f481134849625e982ec80df9b35bc8`), with its rules compiled into tables (`src/perl/grammar.rs`).
+VS Code converted it from `Syntaxes/Perl.plist` in [textmate/perl.tmbundle](https://github.com/textmate/perl.tmbundle).
+VS Code's copy of the grammar is licensed under the MIT License, whose text is above, under "Copyright (c) 2015 - present Microsoft Corporation".
+The bundle's `README.mdown`, read at commit `a85927a902d6e5d7805f56a653f324d34dfad53a`, gives the TextMate bundle licence to every file that carries none of its own.
+`Syntaxes/Perl.plist` carries none:
+
+```text
+Copyright (c) textmate-perl.tmbundle project authors
+
+Permission to copy, use, modify, sell and distribute this
+software is granted. This software is provided "as is" without
+express or implied warranty, and with no claim as to its
+suitability for any purpose.
+```
