@@ -117,10 +117,102 @@ enum Pat {
 }
 
 impl Scratch {
-    /// Hands the automata's caches back to their scanners, so that the next
-    /// highlighter of the grammar does not build their states again.
+    /// Hands the automata's caches of the current grammar and of every parked
+    /// one back to their scanners, so that the next highlighter of a grammar
+    /// does not build their states again.
     fn release_caches(&mut self) {
-        let Some(grammar) = self.cached_for else {
+        self.current.give_back();
+        for set in &mut self.parked {
+            set.give_back();
+        }
+    }
+
+    /// Makes `grammar`'s caches the current ones: those it left when another
+    /// grammar's line came, or new ones on its first line. The current
+    /// grammar's caches are parked in their place, so a document that
+    /// switches between grammars, as a Markdown document with fences in two
+    /// of the engine's languages does, builds each grammar's caches once, and
+    /// lexing it again allocates nothing.
+    fn switch(&mut self, grammar: &'static Grammar) {
+        if self.current.grammar.is_none() {
+            self.current.fill(grammar);
+            return;
+        }
+        if let Some(set) = self.parked.iter_mut().find(|set| set.serves(grammar)) {
+            std::mem::swap(&mut self.current, set);
+        } else {
+            let mut fresh = GrammarCaches::default();
+            fresh.fill(grammar);
+            self.parked
+                .push(std::mem::replace(&mut self.current, fresh));
+        }
+    }
+}
+
+/// The caches the tokenizer keeps for one grammar between lines.
+#[derive(Debug, Default)]
+struct GrammarCaches {
+    /// The grammar they belong to, none before the first line.
+    grammar: Option<&'static Grammar>,
+    /// The scope of each name of the grammar.
+    scopes: Vec<Option<Scope>>,
+    /// Per pattern of the grammar: the line it was searched on and where its
+    /// next match starts.
+    found: Vec<(u32, u32)>,
+    /// Per list of rules: the line it was scanned on, where its next match
+    /// starts and which rule of the list it opens.
+    list_found: Vec<(u32, u32, u32)>,
+    meta_caches: Vec<Option<Cache>>,
+    epoch: u32,
+    /// The grammar's injections, by priority.
+    injected: Vec<Injected>,
+    /// Per scope stack, the injections whose selector it satisfies.
+    injected_at: IdMap<u32, Vec<usize>>,
+}
+
+impl GrammarCaches {
+    /// Whether these are `grammar`'s caches.
+    fn serves(&self, grammar: &'static Grammar) -> bool {
+        self.grammar.is_some_and(|g| std::ptr::eq(g, grammar))
+    }
+
+    /// Builds the caches of `grammar`'s first line.
+    fn fill(&mut self, grammar: &'static Grammar) {
+        self.grammar = Some(grammar);
+        self.scopes.clear();
+        self.scopes.resize(grammar.names.len(), None);
+        self.found.clear();
+        self.found.resize(grammar.patterns.len(), (0, NO_MATCH));
+        self.list_found.clear();
+        self.list_found
+            .resize(grammar.lists.len(), (0, NO_MATCH, 0));
+        self.meta_caches.clear();
+        self.meta_caches.resize_with(grammar.lists.len(), || None);
+        self.epoch = 0;
+        self.injected = grammar
+            .injections
+            .iter()
+            .flat_map(|injection| {
+                let list = grammar
+                    .rules
+                    .get(injection.rule)
+                    .map_or(0, |rule| rule.list);
+                selector::parse(injection.selector)
+                    .into_iter()
+                    .map(move |matcher| Injected {
+                        priority: matcher.priority,
+                        expr: matcher.expr,
+                        list,
+                    })
+            })
+            .collect();
+        self.injected.sort_by_key(|entry| entry.priority);
+        self.injected_at.clear();
+    }
+
+    /// Hands the automaton caches back to their scanners.
+    fn give_back(&mut self) {
+        let Some(grammar) = self.grammar else {
             return;
         };
         for (index, slot) in self.meta_caches.iter_mut().enumerate() {
@@ -168,21 +260,12 @@ pub(crate) struct Scratch {
     /// so both reach the size the document needs on its first pass and a
     /// second pass allocates nothing.
     best: Vec<Option<(usize, usize)>>,
-    /// The scope of each name of the grammar the caches belong to.
-    scopes: Vec<Option<Scope>>,
-    cached_for: Option<&'static Grammar>,
-    /// Per pattern of the grammar: the line it was searched on and where its
-    /// next match starts.
-    found: Vec<(u32, u32)>,
-    /// Per list of rules: the line it was scanned on, where its next match
-    /// starts and which rule of the list it opens.
-    list_found: Vec<(u32, u32, u32)>,
-    meta_caches: Vec<Option<Cache>>,
+    /// The caches of the grammar whose line is being lexed.
+    current: GrammarCaches,
     /// Whether the scanners are left out, to measure what they gain.
     pub(crate) no_scanner: bool,
     /// The steps the last line spent.
     pub(crate) spent: u64,
-    epoch: u32,
     /// The last `end` or `while` pattern filled with a match's groups, kept
     /// so that filling the next reuses its buffer.
     filled: String,
@@ -194,12 +277,10 @@ pub(crate) struct Scratch {
     dynamic: Vec<Option<Regex>>,
     /// The place in `dynamic` of each interned pattern number.
     dynamic_ids: IdMap<u32, usize>,
-    /// The grammar's injections, by priority.
-    injected: Vec<Injected>,
-    /// Per scope stack, the injections whose selector it satisfies.
-    injected_at: IdMap<u32, Vec<usize>>,
     /// The injections that apply at the cursor, reused.
     hits: Vec<usize>,
+    /// The caches of every other grammar this scratch has lexed.
+    parked: Vec<GrammarCaches>,
 }
 
 /// The state at the start of a document in `grammar`, whose text sits on the
@@ -263,47 +344,14 @@ pub(crate) fn line(
     if line.len() <= start {
         return state;
     }
-    if !scratch.cached_for.is_some_and(|g| std::ptr::eq(g, grammar)) {
-        scratch.release_caches();
-        scratch.cached_for = Some(grammar);
-        scratch.scopes.clear();
-        scratch.scopes.resize(grammar.names.len(), None);
-        scratch.found.clear();
-        scratch.found.resize(grammar.patterns.len(), (0, NO_MATCH));
-        scratch.list_found.clear();
-        scratch
-            .list_found
-            .resize(grammar.lists.len(), (0, NO_MATCH, 0));
-        scratch.meta_caches.clear();
-        scratch
-            .meta_caches
-            .resize_with(grammar.lists.len(), || None);
-        scratch.epoch = 0;
-        scratch.injected = grammar
-            .injections
-            .iter()
-            .flat_map(|injection| {
-                let list = grammar
-                    .rules
-                    .get(injection.rule)
-                    .map_or(0, |rule| rule.list);
-                selector::parse(injection.selector)
-                    .into_iter()
-                    .map(move |matcher| Injected {
-                        priority: matcher.priority,
-                        expr: matcher.expr,
-                        list,
-                    })
-            })
-            .collect();
-        scratch.injected.sort_by_key(|entry| entry.priority);
-        scratch.injected_at.clear();
+    if !scratch.current.serves(grammar) {
+        scratch.switch(grammar);
     }
-    scratch.epoch = scratch.epoch.wrapping_add(1);
-    if scratch.epoch == 0 {
-        scratch.found.iter_mut().for_each(|f| f.0 = 0);
-        scratch.list_found.iter_mut().for_each(|f| f.0 = 0);
-        scratch.epoch = 1;
+    scratch.current.epoch = scratch.current.epoch.wrapping_add(1);
+    if scratch.current.epoch == 0 {
+        scratch.current.found.iter_mut().for_each(|f| f.0 = 0);
+        scratch.current.list_found.iter_mut().for_each(|f| f.0 = 0);
+        scratch.current.epoch = 1;
     }
     scratch.text.clear();
     scratch.text.extend_from_slice(line);
@@ -524,14 +572,14 @@ impl Tokenizer<'_> {
 
     /// The scope of the grammar's name `index`.
     fn scope(&mut self, index: usize) -> Option<Scope> {
-        if let Some(Some(scope)) = self.s.scopes.get(index) {
+        if let Some(Some(scope)) = self.s.current.scopes.get(index) {
             return Some(*scope);
         }
         let scope = self.arena.named_scope(self.grammar.names.get(index)?);
         if scope.is_none() {
             self.report.record(Limit::Nodes);
         }
-        if let Some(slot) = self.s.scopes.get_mut(index) {
+        if let Some(slot) = self.s.current.scopes.get_mut(index) {
             *slot = scope;
         }
         scope
@@ -594,8 +642,8 @@ impl Tokenizer<'_> {
             Pat::Table(_) | Pat::Built(_) => None,
         };
         if let Some(index) = slot
-            && let Some(&(epoch, start)) = self.s.found.get(index)
-            && epoch == self.s.epoch
+            && let Some(&(epoch, start)) = self.s.current.found.get(index)
+            && epoch == self.s.current.epoch
         {
             if start == NO_MATCH {
                 return (None, false);
@@ -610,14 +658,14 @@ impl Tokenizer<'_> {
         let start = found.then(|| self.s.cur.group(0).map_or(from, |g| g.0));
         if let Some(index) = slot
             && !self.stopped
-            && let Some(entry) = self.s.found.get_mut(index)
+            && let Some(entry) = self.s.current.found.get_mut(index)
         {
             let stored = match start {
                 None => Some(NO_MATCH),
                 Some(at) => u32::try_from(at).ok(),
             };
             if let Some(stored) = stored {
-                *entry = (self.s.epoch, stored);
+                *entry = (self.s.current.epoch, stored);
             }
         }
         (start, true)
@@ -726,26 +774,27 @@ impl Tokenizer<'_> {
     ) {
         let mut hits = std::mem::take(&mut self.s.hits);
         hits.clear();
-        if let Some(known) = self.s.injected_at.get(&stack) {
+        if let Some(known) = self.s.current.injected_at.get(&stack) {
             hits.extend_from_slice(known);
         } else {
             let mut names: Vec<&str> = self.arena.scopes(stack).collect();
             names.reverse();
             hits.extend(
                 self.s
+                    .current
                     .injected
                     .iter()
                     .enumerate()
                     .filter(|(_, entry)| entry.expr.matches(&names))
                     .map(|(index, _)| index),
             );
-            self.s.injected_at.insert(stack, hits.clone());
+            self.s.current.injected_at.insert(stack, hits.clone());
         }
         for &index in &hits {
             if self.stopped {
                 break;
             }
-            let entry = &self.s.injected[index];
+            let entry = &self.s.current.injected[index];
             let (list, tier) = (entry.list, if entry.priority < 0 { 0 } else { 2 });
             self.scan_list(list, cursor, (tier, (index + 1) << 24), best);
         }
@@ -819,8 +868,8 @@ impl Tokenizer<'_> {
     ) -> (Option<(usize, usize)>, bool) {
         let cacheable = end == self.s.text.len();
         if cacheable
-            && let Some(&(epoch, start, index)) = self.s.list_found.get(list_id)
-            && epoch == self.s.epoch
+            && let Some(&(epoch, start, index)) = self.s.current.list_found.get(list_id)
+            && epoch == self.s.current.epoch
         {
             if start == NO_MATCH {
                 return (None, false);
@@ -834,14 +883,14 @@ impl Tokenizer<'_> {
         let found = self.scan(list_id, scanner, from, end);
         if cacheable
             && !self.stopped
-            && let Some(entry) = self.s.list_found.get_mut(list_id)
+            && let Some(entry) = self.s.current.list_found.get_mut(list_id)
         {
             let stored = match found {
                 None => Some((NO_MATCH, 0)),
                 Some((start, index)) => u32::try_from(start).ok().zip(u32::try_from(index).ok()),
             };
             if let Some((start, index)) = stored {
-                *entry = (self.s.epoch, start, index);
+                *entry = (self.s.current.epoch, start, index);
             }
         }
         (found, true)
@@ -863,16 +912,17 @@ impl Tokenizer<'_> {
         from: usize,
         end: usize,
     ) -> Option<(usize, usize)> {
-        let slot = self.s.meta_caches.get_mut(list_id)?;
+        let slot = self.s.current.meta_caches.get_mut(list_id)?;
         if slot.is_none() {
             *slot = Some(scanner.take_cache()?);
         }
         let mut at = from;
         let mut found = None;
         while at < end && !self.stopped {
-            let (Some(text), Some(Some(cache))) =
-                (self.s.text.get(..end), self.s.meta_caches.get_mut(list_id))
-            else {
+            let (Some(text), Some(Some(cache))) = (
+                self.s.text.get(..end),
+                self.s.current.meta_caches.get_mut(list_id),
+            ) else {
                 break;
             };
             let candidate = scanner.candidate(cache, text, at);
@@ -1036,7 +1086,7 @@ impl Tokenizer<'_> {
             let probed = self.probe(pat, *pos, end, *anchor, *allow_a);
             self.consider(probed, None, (pat, 1, usize::MAX), &mut best);
         }
-        if !self.s.injected.is_empty() && !self.stopped {
+        if !self.s.current.injected.is_empty() && !self.stopped {
             self.scan_injections(top.content, (*pos, end, *anchor, *allow_a), &mut best);
         }
         if self.stopped {

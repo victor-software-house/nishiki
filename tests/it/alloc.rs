@@ -79,3 +79,35 @@ fn lexing_event_handlers_again_allocates_nothing() {
     let allocations = count(|| lex(&mut highlighter, &lines, &mut tokens));
     assert_eq!(allocations, 0, "allocations lexing the lines a second time");
 }
+
+/// A Markdown document with fences in two of the engine's languages, which
+/// no fixture had: each fence's first line switches the engine's scratch to
+/// the other grammar, whose caches the first pass already built.
+#[cfg(all(feature = "lang-powershell", feature = "lang-scala"))]
+#[test]
+fn switching_between_engine_grammars_again_allocates_nothing() {
+    let lines: Vec<String> = indoc::indoc! {r#"
+        ```powershell
+        Get-ChildItem | Where-Object { $_.Length -gt 0 }
+        ```
+
+        ```scala
+        object Main { def main(args: Array[String]): Unit = println("x") }
+        ```
+
+        ```powershell
+        Write-Output "done"
+        ```
+    "#}
+    .lines()
+    .map(str::to_owned)
+    .collect();
+    let mut highlighter = Highlighter::new(Language::Markdown);
+    let mut tokens = Vec::new();
+    lex(&mut highlighter, &lines, &mut tokens);
+    let allocations = count(|| lex(&mut highlighter, &lines, &mut tokens));
+    assert_eq!(
+        allocations, 0,
+        "allocations lexing the document a second time"
+    );
+}
