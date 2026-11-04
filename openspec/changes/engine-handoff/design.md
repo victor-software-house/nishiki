@@ -222,32 +222,64 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    One change of `Halt` serves both: csharp makes it in its Lua cdef PR, with the `]=*]` halt as its first stateful user, and the engine builds on it (lead, 2026-11-04).
    The blanket impl stays, so today's halts compile unchanged, and no `&dyn` call lands on the plain path of a lexer that does not halt; Callgrind on the hand lexers checks it.
 5. Section 4's `before`, `after` and `any` become three `Option<&dyn Halt>` when `Halts` lands; nothing here depends on the struct.
+6. csharp and the engine agreed on three points for the trait (2026-11-04):
+   - Within one `lex_until` call, `s` is the whole line.
+     Places count from its start.
+     The bytes are the same on every call.
+   - `halt_before` keeps its split.
+     It tries `end` up to and at `to`, and `after` only before `to`.
+     The bytes it passed stay the embedded lexer's charge.
+   - The owner of a stateful halt charges the halt's own search after the call.
+     The trait has no work parameter.
+7. A halt holds no `RefCell`, because a second borrow could panic (lead, 2026-11-04).
+   The engine's halt holds no regex scratch at all (14.4 point 3).
 
 ### 14.3 The table
 
-1. `RuleKind::HandOff` stands where the include stood in its list.
-   Its `begin` is an index into a new `Grammar::hand_offs: &'static [HandOff]`, so `Rule` gains no field:
+1. A hand-off belongs to the list the include stood in.
+   A rule reached through several lists has different neighbours in each list.
+   A new `Grammar::hand_offs: &'static [HandOff]` names the list of each hand-off.
+   That list stays apart from any plain list with the same rules.
+   It holds the rules before the include, then the rules after it.
+   No rule stands for the include, and no scan meets one.
+   `List` is unchanged.
+   A third field made it 24 bytes instead of 16.
+   Indexing the lists then cost Nix's `scan_list` 6,580 instructions on its fixtures at one codegen unit.
 
    ```rust
    pub(crate) struct HandOff {
+       /// The list the include stood in.
+       pub(crate) list: usize,
        /// The language that lexes the region.
        pub(crate) language: Language,
-       /// Whether the embedding rule's end and `before` match only at a
-       /// line's start, so the region is handed over a line at a time.
-       pub(crate) whole_lines: bool,
-       /// The rules listed before the include, and the end unless
-       /// `applyEndLast`: a list of the grammar, with its scanner.
+       /// The rules listed before the include. The engine tries them before
+       /// the language's patterns.
        pub(crate) before: usize,
-       /// The rules listed after it, and the end with `applyEndLast`.
+       /// The rules listed after it. The engine tries them where the language
+       /// matches nothing.
        pub(crate) after: usize,
    }
    ```
 
-2. `oracle/hand-lexed.ts`, beside `oracle/licences.ts`, lists the hand-lexed grammars: scope name, `Language` variant, and whether it offers a halting entry.
-   An include of one becomes a `HandOff`; an include of a repository rule of one is compiled into the table as today (1.3).
-3. `whole_lines` is true when every pattern in `before` and `after`, and the end, starts with `^` outside a group, which the generator reads from the pattern text.
-4. One `HandOff` per list: the generator fails on a second, and drops Vue's redundant second include first (2).
-5. A language whose table holds a hand-off needs its target's feature: `lang-haml` turns on `lang-ruby`, `lang-javascript`, `lang-css` and `lang-markdown`.
+2. `oracle/hand-lexed.ts` sits beside `oracle/licences.ts`.
+   It lists the hand-lexed grammars by Shiki id, scope name, `Language` variant and Cargo feature.
+   A spec names the languages its table hands off with `>`, as in `haml>ruby>javascript>css>markdown`.
+   The generator neither loads nor compiles those grammars.
+   They need no licence entry for bundling.
+   An include of one of their whole grammars becomes a hand-off.
+   An include of one of their repository rules compiles into the table as today (1.3) when the grammar is loaded.
+   It is dropped when the grammar is not loaded.
+3. The table does not say where the halts can start.
+   The tokenizer finds them on each line before the target runs (14.4 point 3).
+   A line with no halt left goes to the target whole.
+4. A list has one hand-off at most.
+   The generator fails on a second.
+   It drops Vue's redundant second include first (2).
+5. Until the tokenizer hands off (14.4), a list with a hand-off lexes as if the include were dropped.
+   Shiki does the same for a grammar it has not loaded.
+   No shipped table holds a hand-off yet.
+6. A language whose table holds a hand-off needs its target's feature.
+   `lang-haml` turns on `lang-ruby`, `lang-javascript`, `lang-css` and `lang-markdown`.
 
 ### 14.4 The tokenizer
 

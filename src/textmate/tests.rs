@@ -7,12 +7,20 @@ use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use super::grammar::{Folding, Grammar, NONE};
+use super::grammar::{Folding, Grammar, NONE, RuleKind};
 use super::regex::{self, Context, LineKind, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limits, LineReport};
 
+#[cfg(all(
+    feature = "lang-ruby",
+    feature = "lang-javascript",
+    feature = "lang-css",
+    feature = "lang-markdown"
+))]
+#[path = "../../tests/engine/haml.rs"]
+mod haml_tables;
 #[path = "../../tests/engine/javascript.rs"]
 mod javascript_tables;
 #[path = "../../tests/engine/make.rs"]
@@ -571,6 +579,159 @@ fn the_folding_table_matches_the_patterns() {
     );
 }
 
+/// Every grammar with tables. HAML's joins when the languages it hands
+/// regions to are built.
+fn every_table() -> Vec<&'static Grammar> {
+    let mut grammars: Vec<&'static Grammar> = SHIPPED.iter().map(|&(grammar, _)| grammar).collect();
+    grammars.extend([
+        &javascript_tables::GRAMMAR,
+        &make_tables::GRAMMAR,
+        &markdown_tables::GRAMMAR,
+        &python_tables::GRAMMAR,
+        &rust_tables::GRAMMAR,
+        &shell_tables::GRAMMAR,
+        &toml_tables::GRAMMAR,
+        &typescript_tables::GRAMMAR,
+        &yaml_tables::GRAMMAR,
+    ]);
+    #[cfg(all(
+        feature = "lang-ruby",
+        feature = "lang-javascript",
+        feature = "lang-css",
+        feature = "lang-markdown"
+    ))]
+    grammars.push(&haml_tables::GRAMMAR);
+    grammars
+}
+
+/// A hand-off's list holds the rules of its `before` list, then the rules of
+/// its `after` list. No two hand-offs share a list. Neither part is the list
+/// of a hand-off.
+#[test]
+fn a_hand_off_splits_its_list_in_two() {
+    let mut wrong = Vec::new();
+    for grammar in every_table() {
+        let handed: Vec<usize> = grammar
+            .hand_offs
+            .iter()
+            .map(|hand_off| hand_off.list)
+            .collect();
+        for (index, hand_off) in grammar.hand_offs.iter().enumerate() {
+            let list = grammar.lists[hand_off.list].rules;
+            let before = grammar.lists[hand_off.before].rules;
+            let after = grammar.lists[hand_off.after].rules;
+            let shared = handed
+                .iter()
+                .filter(|&&other| other == hand_off.list)
+                .count()
+                > 1;
+            if list != [before, after].concat()
+                || shared
+                || handed.contains(&hand_off.before)
+                || handed.contains(&hand_off.after)
+            {
+                wrong.push(format!(
+                    "{} hand-off {index} ({:?})",
+                    grammar.scope, hand_off.language
+                ));
+            }
+        }
+    }
+    assert!(
+        wrong.is_empty(),
+        "hand-offs that do not split their list: {}",
+        wrong.join(", ")
+    );
+}
+
+/// No hand-off halt uses `\G`. The rule applies to the `before` and `after`
+/// rules and to the end of the rule that opens the region. The engine finds
+/// where the halts start before the language runs. `\G` matches where the
+/// last match ended, which those searches do not know.
+#[test]
+fn no_hand_off_halts_where_the_last_match_ended() {
+    let uses_last_match_end = |source: &str| {
+        let mut bytes = source.bytes();
+        while let Some(byte) = bytes.next() {
+            if byte == b'\\' && bytes.next() == Some(b'G') {
+                return true;
+            }
+        }
+        false
+    };
+    let mut wrong = Vec::new();
+    for grammar in every_table() {
+        for hand_off in grammar.hand_offs {
+            let parts = [hand_off.before, hand_off.after]
+                .into_iter()
+                .flat_map(|list| grammar.lists[list].rules)
+                .map(|&rule| grammar.rules[rule].begin);
+            let ends = grammar
+                .rules
+                .iter()
+                .filter(|rule| rule.list == hand_off.list && rule.kind == RuleKind::BeginEnd)
+                .map(|rule| rule.end);
+            for pattern in parts.chain(ends) {
+                if let Some(pattern) = grammar.patterns.get(pattern)
+                    && uses_last_match_end(pattern.source)
+                {
+                    wrong.push(format!("{}: {}", grammar.scope, pattern.source));
+                }
+            }
+        }
+    }
+    assert!(
+        wrong.is_empty(),
+        "hand-off halts that use \\G: {}",
+        wrong.join(", ")
+    );
+}
+
+/// HAML's filters hand their whole region to Ruby, JavaScript, CSS and
+/// Markdown. No rule of HAML's stands around their include. A line of Ruby
+/// code, `= expr`, keeps HAML's rules before the include and after it.
+#[cfg(all(
+    feature = "lang-ruby",
+    feature = "lang-javascript",
+    feature = "lang-css",
+    feature = "lang-markdown"
+))]
+#[test]
+fn haml_hands_its_filters_over_whole() {
+    use crate::language::Language;
+    let grammar = &haml_tables::GRAMMAR;
+    let hand_offs: Vec<(Language, usize, usize)> = grammar
+        .hand_offs
+        .iter()
+        .map(|hand_off| {
+            (
+                hand_off.language,
+                grammar.lists[hand_off.before].rules.len(),
+                grammar.lists[hand_off.after].rules.len(),
+            )
+        })
+        .collect();
+    for filter in [
+        Language::Ruby,
+        Language::JavaScript,
+        Language::Css,
+        Language::Markdown,
+    ] {
+        assert!(
+            hand_offs.contains(&(filter, 0, 0)),
+            "{filter:?}'s filter: {hand_offs:?}"
+        );
+    }
+    assert!(
+        hand_offs
+            .iter()
+            .any(|&(language, before, after)| language == Language::Ruby
+                && before > 0
+                && after > 0),
+        "Ruby code: {hand_offs:?}"
+    );
+}
+
 /// Times the engine on the fixtures of one language, in MiB/s: the best of
 /// five passes, each with a fresh scratch (a document of its own, whose lazy
 /// automata start empty) and the best of five passes that reuse one scratch,
@@ -878,6 +1039,7 @@ mod survey {
             injections: leak(injections),
             patterns: leak(patterns),
             root: index(&v["root"]),
+            hand_offs: &[],
             cells: OnceLock::new(),
             full_cells: OnceLock::new(),
         }))
@@ -1001,6 +1163,7 @@ mod many_groups {
         injections: &[],
         patterns: &PATTERNS,
         root: 0,
+        hand_offs: &[],
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };

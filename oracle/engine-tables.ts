@@ -25,6 +25,13 @@
 // a grammar it has not loaded. A grammar the crate must not bundle stays out
 // of a shipped table this way.
 //
+// `>` followed by a language id hands that language a region, as in
+// `haml>ruby>javascript`. `oracle/hand-lexed.ts` lists the languages it takes.
+// An include of the language's whole grammar becomes a hand-off. The grammar
+// is neither loaded nor compiled. The list the include stood in holds the
+// rules before the include, then the rules after it. The hand-off names that
+// list. It also names the two parts as lists of their own.
+//
 // The tables hold what the engine needs and nothing it can work out later:
 // - the rules, with their includes already followed;
 // - the patterns as text, compiled on first use;
@@ -42,6 +49,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { inputs } from "./inputs.ts";
+import { handLexed } from "./hand-lexed.ts";
 import { allowed, refused } from "./licences.ts";
 import { writeRust } from "./rule-grammar.ts";
 
@@ -66,6 +74,8 @@ type Rule = {
 };
 
 const NONE = 0xffffffff;
+/** Where the ids of hand-offs start in a list: above every rule's. */
+const HAND_OFF = 1 << 30;
 const idx = (n: number) => (n === NONE ? "usize::MAX" : String(n));
 
 const args = process.argv.slice(2);
@@ -76,11 +86,11 @@ const ids = args.slice(1);
 if (!outDir || ids.length === 0) throw new Error("usage: engine-tables.ts <out dir> <language id>...");
 
 /** Every grammar a language needs, by scope name. */
-async function load(spec: string): Promise<{ docs: Map<string, Json>; scope: string }> {
+async function load(spec: string, handed: string[]): Promise<{ docs: Map<string, Json>; scope: string }> {
   const docs = new Map<string, Json>();
   let scope = "";
   const [included, ...excluded] = spec.split("~");
-  const left = new Set(excluded);
+  const left = new Set([...excluded, ...handed]);
   const ids = included.split("+").flatMap((id) => (id === "*" ? [...new Set(inputs.map((i) => i.lang))] : [id]));
   for (const id of ids) {
     const loader = bundledLanguages[id as keyof typeof bundledLanguages];
@@ -95,7 +105,7 @@ async function load(spec: string): Promise<{ docs: Map<string, Json>; scope: str
 }
 
 /** The language a spec compiles: its first id. */
-const base = (spec: string) => spec.split(/[+~]/)[0];
+const base = (spec: string) => spec.split(/[+~>]/)[0];
 
 class Builder {
   rules: Rule[] = [];
@@ -109,10 +119,25 @@ class Builder {
   /** The Shiki names of the grammars whose rules the tables hold. */
   used = new Set<string>();
 
+  /** The `Language` variant of each hand-off, by its id less `HAND_OFF`. */
+  handOffs: string[] = [];
+
   constructor(
     private docs: Map<string, Json>,
     private base: string,
+    /** The `Language` variant of each handed grammar, by root scope. */
+    private handed: Map<string, string>,
   ) {}
+
+  /** The id that stands in a list for a hand-off to `variant`. */
+  handOff(variant: string): number {
+    let index = this.handOffs.indexOf(variant);
+    if (index < 0) {
+      index = this.handOffs.length;
+      this.handOffs.push(variant);
+    }
+    return HAND_OFF + index;
+  }
 
   pattern(source: string): number {
     let id = this.patternIds.get(source);
@@ -172,6 +197,8 @@ class Builder {
   }
 
   include(scope: string, target: string, env: Env): number | undefined {
+    const variant = this.handed.get(target);
+    if (variant !== undefined) return this.handOff(variant);
     if (target === "$self") return this.root(scope);
     if (target === "$base") return this.root(this.base);
     if (target.startsWith("#")) {
@@ -203,6 +230,10 @@ class Builder {
       if (typeof pattern.include === "string") {
         id = this.include(scope, pattern.include, env);
         if (id === undefined) continue;
+        if (id >= HAND_OFF) {
+          out.push(id);
+          continue;
+        }
       } else {
         id = this.rule(scope, pattern, undefined, env);
       }
@@ -278,11 +309,10 @@ class Builder {
     const flat = new Map<number, number[]>();
     const expand = (list: number[], out: number[], seen: Set<number>) => {
       for (const id of list) {
-        const rule = this.rules[id];
-        if (rule.kind === "Container") {
+        if (id < HAND_OFF && this.rules[id].kind === "Container") {
           if (seen.has(id)) continue;
           seen.add(id);
-          expand(rule.patterns, out, seen);
+          expand(this.rules[id].patterns, out, seen);
         } else {
           out.push(id);
         }
@@ -327,6 +357,17 @@ function rustString(text: string): string {
   return out + '"';
 }
 
+/** Whether `source` uses `\G`, which matches where the last match ended. */
+function usesLastMatchEnd(source: string): boolean {
+  for (let i = 0; i + 1 < source.length; i++) {
+    if (source[i] === "\\") {
+      if (source[i + 1] === "G") return true;
+      i++;
+    }
+  }
+  return false;
+}
+
 function hasBackrefs(source: string): boolean {
   for (let i = 0; i + 1 < source.length; i++) {
     if (source[i] === "\\") {
@@ -361,8 +402,17 @@ function gate(spec: string, used: Set<string>) {
 
 mkdirSync(outDir, { recursive: true });
 for (const id of ids) {
-  const { docs, scope } = await load(id);
-  const builder = new Builder(docs, scope);
+  const [spec, ...handedIds] = id.split(">");
+  const handed = new Map<string, string>();
+  const features: string[] = [];
+  for (const handedId of handedIds) {
+    const entry = handLexed[handedId];
+    if (!entry) throw new Error(`${id}: ${handedId} is not in oracle/hand-lexed.ts`);
+    handed.set(entry.scope, entry.variant);
+    features.push(entry.feature);
+  }
+  const { docs, scope } = await load(spec, handedIds);
+  const builder = new Builder(docs, scope, handed);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
   // The grammar's own injections, then those other grammars inject into it.
@@ -402,28 +452,73 @@ for (const id of ids) {
       .join(", ")}]`;
   const listIds = new Map<string, number>();
   const lists: number[][] = [];
-  const listOf = (patterns: number[]) => {
-    const key = patterns.join(",");
+  const plain = (rules: number[], handOff: number) => {
+    const key = handOff === NONE ? rules.join(",") : `${handOff}>${rules.join(",")}`;
     let id = listIds.get(key);
     if (id === undefined) {
       id = lists.length;
-      lists.push(patterns);
+      lists.push(rules);
       listIds.set(key, id);
     }
     return id;
   };
+  type HandOffRow = { list: number; variant: string; before: number; after: number };
+  const handOffRows: HandOffRow[] = [];
+  const handOffIds = new Map<string, number>();
+  // A list with a hand-off holds the rules before it, then the rules after it.
+  // It stays apart from a plain list with the same rules. The hand-off names
+  // the list and its two parts.
+  const listOf = (patterns: number[], owner: Rule) => {
+    const at = patterns.findIndex((p) => p >= HAND_OFF);
+    if (at < 0) return plain(patterns, NONE);
+    const before = patterns.slice(0, at);
+    const after = patterns.slice(at + 1);
+    if (after.some((p) => p >= HAND_OFF)) throw new Error(`${id}: a list with two hand-offs`);
+    // The tokenizer finds where these patterns start before the language
+    // runs. It searches from the region's start, then past each start. `\G`
+    // matches where the last match ended. A search from another place cannot
+    // know that place. The generator refuses `\G` in these patterns.
+    const halting = [...before, ...after].map((r) => builder.rules[r].begin);
+    if (owner.kind === "BeginEnd") halting.push(owner.end);
+    const anchored = halting.filter((p) => p !== NONE && usesLastMatchEnd(builder.patterns[p]));
+    if (anchored.length > 0)
+      throw new Error(`${id}: a hand-off whose halts use \\G: ${anchored.map((p) => builder.patterns[p]).join(", ")}`);
+    const row: HandOffRow = {
+      list: NONE,
+      variant: builder.handOffs[patterns[at] - HAND_OFF],
+      before: plain(before, NONE),
+      after: plain(after, NONE),
+    };
+    const key = JSON.stringify(row);
+    let handOff = handOffIds.get(key);
+    if (handOff === undefined) {
+      handOff = handOffRows.length;
+      handOffRows.push(row);
+      handOffIds.set(key, handOff);
+    }
+    const list = plain([...before, ...after], handOff);
+    handOffRows[handOff].list = list;
+    return list;
+  };
   const rules = builder.rules
     .map(
       (r) =>
-        `    Rule { kind: RuleKind::${r.kind}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, list: ${listOf(r.patterns)}, apply_end_last: ${r.applyEndLast} },`,
+        `    Rule { kind: RuleKind::${r.kind}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, list: ${listOf(r.patterns, r)}, apply_end_last: ${r.applyEndLast} },`,
     )
     .join("\n");
   const listSource = () => lists.map((l) => `    List::new(&[${l.join(", ")}]),`).join("\n");
+  const handOffSource = handOffRows
+    .map(
+      (h) =>
+        `    HandOff { list: ${h.list}, language: Language::${h.variant}, before: ${h.before}, after: ${h.after} },`,
+    )
+    .join("\n");
   const patterns = builder.patterns
     .map((p) => `    Pattern::new(${rustString(p)}),`)
     .join("\n");
   const names = builder.names.map((n) => `    ${rustString(n)},`).join("\n");
   if (asJson) {
+    if (handOffRows.length > 0) throw new Error(`${id}: the JSON tables hold no hand-offs`);
     const none = (n: number) => (n === NONE ? -1 : n);
     const cap = (c: Cap) => ({
       index: c.index,
@@ -447,7 +542,7 @@ for (const id of ids) {
         until: none(r.while),
         captures: r.captures.map(cap),
         endCaptures: r.endCaptures.map(cap),
-        list: listOf(r.patterns),
+        list: listOf(r.patterns, r),
         applyEndLast: r.applyEndLast,
       })),
     };
@@ -460,19 +555,21 @@ for (const id of ids) {
   const imports = [
     ...(capturing ? ["Cap"] : []),
     "Grammar",
+    ...(handOffRows.length > 0 ? ["HandOff"] : []),
     "Injection",
     "List",
     "Pattern",
     "Rule",
     "RuleKind",
   ];
+  const handsOff = handOffRows.length > 0;
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
 //! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
-
+${handsOff ? `//!\n//! It hands regions to languages lexed by hand, so it needs the features ${features.map((f) => `\`${f}\``).join(", ")}.\n` : ""}
 use std::sync::OnceLock;
 
 use crate::textmate::grammar::{${imports.join(", ")}};
-
+${handsOff ? "use crate::language::Language;\n" : ""}
 static NAMES: &[&str] = &[
 ${names}
 ];
@@ -492,7 +589,7 @@ ${injections.map(([selector, rule]) => `    Injection { selector: ${rustString(s
 static RULES: &[Rule] = &[
 ${rules}
 ];
-
+${handsOff ? `\nstatic HAND_OFFS: &[HandOff] = &[\n${handOffSource}\n];\n` : ""}
 /// The grammar.
 pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: ${rustString(scope)},
@@ -502,6 +599,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     injections: INJECTIONS,
     patterns: &PATTERNS,
     root: ${root},
+    hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

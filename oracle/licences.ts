@@ -44,6 +44,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "BSD-3-Clause",
     file: "LICENSE",
   },
+  haml: {
+    bundled: "karuna/haml-vscode@aa45415aefd691af0a501ea4f98e434490623e0d",
+    origin: "karuna/haml-vscode",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   haskell: {
     bundled: "octref/language-haskell@ae87982aac2bf5cf6334c067e49c5ec8fc08b871",
     origin: "octref/language-haskell",

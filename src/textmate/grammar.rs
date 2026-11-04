@@ -17,6 +17,7 @@ use std::sync::OnceLock;
 
 use super::regex::{LineKind, Regex, Sketch};
 use super::scanner::Scanner;
+use crate::language::Language;
 
 /// The index that stands for no rule, pattern or name.
 pub(crate) const NONE: usize = usize::MAX;
@@ -92,6 +93,38 @@ impl List {
     pub(crate) const fn new(rules: &'static [usize]) -> List {
         List { rules }
     }
+}
+
+/// An include of a whole grammar that nishiki lexes by hand. The rule whose
+/// list held the include opens a region. That language lexes the region. The
+/// region ends where the rule's end matches. A rule listed around the include
+/// also takes the line back where it matches.
+///
+/// The hand-off names its list. A [`List`] does not name its hand-off. A
+/// [`List`] then stays two words, and the scans that index the lists pay
+/// nothing.
+#[derive(Debug)]
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "the tokenizer hands regions off in the next change (engine-handoff task 4.2)"
+    )
+)]
+pub(crate) struct HandOff {
+    /// The list the include stood in, an index into [`Grammar::lists`]. It
+    /// holds the rules before the include, then the rules after it.
+    pub(crate) list: usize,
+    /// The language that lexes the region.
+    pub(crate) language: Language,
+    /// The rules listed before the include, an index into
+    /// [`Grammar::lists`]. The engine tries them before the language's own
+    /// patterns. It tries the end there too, unless the rule applies its end
+    /// last.
+    pub(crate) before: usize,
+    /// The rules listed after the include. The engine tries them only where
+    /// the language matches nothing.
+    pub(crate) after: usize,
 }
 
 /// Where a pattern's compiled form is kept once a search needs it.
@@ -179,6 +212,15 @@ pub(crate) struct Grammar {
     pub(crate) patterns: &'static [Pattern],
     /// The rule of the whole grammar.
     pub(crate) root: usize,
+    /// The regions the grammar hands to languages lexed by hand.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "the tokenizer hands regions off in the next change (engine-handoff task 4.2)"
+        )
+    )]
+    pub(crate) hand_offs: &'static [HandOff],
     /// The cells a search fills on [`LineKind::Lean`] lines: see
     /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,
