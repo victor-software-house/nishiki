@@ -38,6 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 217 of 311 | 69.8% | 278 of 373 | 74.5% | 189 | 0 | yes |
+| Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
@@ -635,6 +636,14 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…  waived: its begin never matches
 ```
 
+### `nix`
+
+```text
+#attrset-or-function.patterns[3].patterns[3].patterns[1].begin  ,  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and an end is tried before the patterns
+#attrset-or-function.patterns[3].patterns[3].patterns[1].end  (?=([]),;}]|\b(else|then)\b))  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and an end is tried before the patterns
+#if.patterns[2].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+```
+
 ### `powershell`
 
 ```text
@@ -1132,6 +1141,13 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 
 ```text
 #color-adjuster-operators.match
+```
+
+### `nix`
+
+```text
+#function-body.begin
+#function-body.end
 ```
 
 ### `python`

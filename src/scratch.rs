@@ -57,6 +57,10 @@ pub(crate) struct Scratch {
     /// The Markdown lexer's.
     #[cfg(feature = "lang-markdown")]
     pub(crate) markdown: crate::markdown::Scratch,
+    /// The Nix lexer's, for Nix documents.
+    /// It is boxed and allocated by the first Nix line, as Dart's is.
+    #[cfg(feature = "lang-nix")]
+    pub(crate) nix: Option<Box<crate::nix::Scratch>>,
     /// The Python lexer's, for Python documents and Markdown Python fences.
     /// The PowerShell lexer's, for PowerShell documents and Markdown
     /// PowerShell fences.

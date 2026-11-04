@@ -416,6 +416,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `mermaid/flowchart-code-flow` | [`docs/diagrams/flowchart-code-flow.mmd`][mermaid-flowchart-code-flow] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/mindmap-sequence` | [`docs/diagrams/mindmap-implementation-sequence.mmd`][mermaid-mindmap-sequence] in mermaid-js/mermaid | [MIT][mermaid-licence] |
 | `mermaid/sample` | [`samples/mermaid.sample`][mermaid-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `nix/coverage` | `oracle/inputs/nix-coverage.nix`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `nix/home-manager-flake` | [`flake.nix`][home-manager-flake] in nix-community/home-manager | [MIT][home-manager-licence] |
 | `nix/home-manager-tmux` | [`modules/programs/tmux.nix`][home-manager-tmux] in nix-community/home-manager | [MIT][home-manager-licence] |
 | `nix/nixpkgs-lists` | [`lib/lists.nix`][nixpkgs-lists] in NixOS/nixpkgs | [MIT][nixpkgs-licence] |
@@ -772,8 +773,7 @@ Shiki's Markdown grammar has no Protobuf fence, so no Markdown input embeds Prot
 Batch runs on nishiki's TextMate engine as well.
 `bat/sample` and `bat/gradlew` are its development inputs, and `bat/tomcat-catalina` and `bat/tomcat-setclasspath` are held out.
 Shiki's Markdown grammar has no Batch fence, so no Markdown input embeds Batch.
-Nix runs on nishiki's TextMate engine as well.
-`nix/sample` and `nix/nixpkgs-ripgrep` are its development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
+`nix/sample`, `nix/nixpkgs-ripgrep` and `nix/coverage` are Nix's development inputs, and `nix/nixpkgs-lists`, `nix/home-manager-tmux` and `nix/home-manager-flake` are held out.
 Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 `dart/sample`, `dart/http-client` and `dart/coverage` are Dart's development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
 `dart/http-base-request`, `dart/collection-algorithms` and `markdown/dart-args-readme` are held out.

@@ -30,6 +30,7 @@ use std::fmt::Debug;
     feature = "lang-swift",
     feature = "lang-cpp",
     feature = "lang-lua",
+    feature = "lang-nix",
     feature = "lang-less",
     feature = "lang-powershell"
 ))]

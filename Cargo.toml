@@ -53,6 +53,7 @@ all = [
   "lang-lua",
   "lang-make",
   "lang-markdown",
+  "lang-nix",
   "lang-powershell",
   "lang-python",
   "lang-ruby",
@@ -113,7 +114,6 @@ textmate = [
   "lang-haskell",
   "lang-julia",
   "lang-mermaid",
-  "lang-nix",
   "lang-objective-c",
   "lang-perl",
   "lang-php",
@@ -176,7 +176,7 @@ lang-make = [
 ]
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
 lang-mermaid = ["_textmate"]
-lang-nix = ["_textmate"]
+lang-nix = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-c = ["_textmate"]
 lang-perl = [
   "_textmate",

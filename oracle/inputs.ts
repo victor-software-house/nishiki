@@ -27,6 +27,7 @@ import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
 import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
@@ -1022,8 +1023,8 @@ export const inputs: Input[] = [
   { lang: "mermaid", name: "flowchart-code-flow", url: `${mermaid}/docs/diagrams/flowchart-code-flow.mmd` },
   { lang: "mermaid", name: "mindmap-sequence", url: `${mermaid}/docs/diagrams/mindmap-implementation-sequence.mmd` },
   { lang: "mermaid", name: "sample", url: `${samples}/mermaid.sample` },
-  // Nix runs on the TextMate engine. Shiki's Markdown grammar has no Nix
-  // fence, so no Markdown input embeds it.
+  // Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
+  { lang: "nix", name: "coverage", text: nixCoverage },
   { lang: "nix", name: "home-manager-flake", url: `${homeManager}/flake.nix` },
   { lang: "nix", name: "home-manager-tmux", url: `${homeManager}/modules/programs/tmux.nix` },
   { lang: "nix", name: "nixpkgs-lists", url: `${nixpkgs}/lib/lists.nix` },

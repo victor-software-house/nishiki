@@ -1077,6 +1077,14 @@ export const waivers: Waiver[] = [
     path: "#operators.patterns[3].match",
     reason: "`#operators.patterns[2]`, `(<<|>>>?|[\\&^|~])`, before it, matches at the start of every one of its operators",
   },
+  { grammar: "nix", path: "#if.patterns[2].end", group: 0, reason: lookahead },
+  ...["begin", "end"].map(
+    (key): Waiver => ({
+      grammar: "nix",
+      path: `#attrset-or-function.patterns[3].patterns[3].patterns[1].${key}`,
+      reason: "the enclosing rule's end, `(?=([]),;}]|\\b(else|then)\\b))`, matches before every `,`, and an end is tried before the patterns",
+    }),
+  ),
   { grammar: "powershell", path: "#commentLine.end", group: 1, reason: missing(0) },
   ...[1, 2, 3].map(
     (index): Waiver => ({
@@ -1294,6 +1302,7 @@ export const complete: string[] = [
   "lua",
   "make",
   "markdown",
+  "nix",
   "powershell",
   "python",
   "ruby",

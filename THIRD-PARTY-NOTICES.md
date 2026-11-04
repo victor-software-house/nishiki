@@ -1071,7 +1071,7 @@ SOFTWARE.
 
 ## Nix
 
-Its TextMate engine runs the Nix TextMate grammar in [nix-community/vscode-nix-ide](https://github.com/nix-community/vscode-nix-ide), which Shiki bundles as `nix`, with its rules compiled into tables (`src/nix/grammar.rs`).
+Its Nix lexer emits the scope names of the Nix TextMate grammar in [nix-community/vscode-nix-ide](https://github.com/nix-community/vscode-nix-ide), which Shiki bundles as `nix`, and tries that grammar's rules in its order, from tables generated from it (`src/nix/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text

@@ -793,15 +793,14 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
-    /// Nix, with the scopes of Shiki's `nix` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Nix {
-        feature: "lang-nix",
-        names: ["nix"],
-        engine: crate::nix::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Nix, with the scopes of Shiki's `nix` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - `then` and `else` are two tokens each, `th` and `en`, `el` and `se`.
+    /// - The blank after `...` in a function head belongs to the operator.
+    /// - A block comment's first match runs past `**/`, so `/* a **/ b */` is one comment.
+    Nix { feature: "lang-nix", names: ["nix"], module: nix }
     /// Dart, with the scopes of Shiki's `dart` grammar.
     ///
     /// # Behaviour kept from Shiki

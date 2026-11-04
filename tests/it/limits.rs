@@ -35,7 +35,6 @@ mod make;
 mod markdown;
 #[cfg(feature = "lang-mermaid")]
 mod mermaid;
-#[cfg(feature = "lang-nix")]
 mod nix;
 #[cfg(feature = "lang-objective-c")]
 mod objective_c;

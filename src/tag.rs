@@ -99,6 +99,9 @@ tags! {
     /// Markdown.
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = 0x0200,
+    /// Nix.
+    #[cfg(feature = "lang-nix")]
+    NIX = 0x3700,
     /// PowerShell.
     #[cfg(feature = "lang-powershell")]
     POWERSHELL = 0x3100,

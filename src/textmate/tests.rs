@@ -427,8 +427,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::julia::grammar::GRAMMAR, "julia"),
     #[cfg(feature = "lang-mermaid")]
     (&crate::mermaid::grammar::GRAMMAR, "mermaid"),
-    #[cfg(feature = "lang-nix")]
-    (&crate::nix::grammar::GRAMMAR, "nix"),
     #[cfg(feature = "lang-objective-c")]
     (&crate::objective_c::grammar::GRAMMAR, "objective-c"),
     #[cfg(feature = "lang-perl")]

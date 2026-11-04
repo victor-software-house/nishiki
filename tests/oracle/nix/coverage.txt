@@ -1,0 +1,261 @@
+L # Written for nishiki: Nix that reaches the grammar's rarer rules.
+T 1 source.nix comment.line.number-sign.nix
+T 66 source.nix comment.line.number-sign.nix
+L {
+T 1 source.nix punctuation.definition.attrset-or-function.nix
+L   plain = { a
+T 2 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 9 source.nix keyword.operator.bind.nix
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset-or-function.nix
+T 12 source.nix
+T 13 source.nix variable.parameter.function.maybe.nix
+L   }: a;
+T 2 source.nix
+T 3 source.nix invalid.illegal
+T 4 source.nix invalid.illegal
+T 5 source.nix
+T 6 source.nix variable.parameter.name.nix
+T 7 source.nix punctuation.terminator.bind.nix
+L   dotted = { a
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 12 source.nix punctuation.definition.attrset-or-function.nix
+T 13 source.nix
+T 14 source.nix variable.parameter.function.maybe.nix
+L     .b = 1; };
+T 4 source.nix
+T 5 source.nix
+T 6 source.nix entity.other.attribute-name.multipart.nix
+T 7 source.nix
+T 8 source.nix keyword.operator.bind.nix
+T 9 source.nix
+T 10 source.nix constant.numeric.nix
+T 11 source.nix punctuation.terminator.bind.nix
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset.nix
+T 14 source.nix punctuation.terminator.bind.nix
+L   comma = { a
+T 2 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 9 source.nix keyword.operator.bind.nix
+T 10 source.nix
+T 11 source.nix punctuation.definition.attrset-or-function.nix
+T 12 source.nix
+T 13 source.nix variable.parameter.function.maybe.nix
+L     , b }: a;
+T 4 source.nix
+T 5 source.nix keyword.operator.nix
+T 6 source.nix
+T 7 source.nix variable.parameter.function.1.nix
+T 8 source.nix
+T 9 source.nix punctuation.definition.entity.function.nix
+T 10 source.nix punctuation.definition.function.nix
+T 11 source.nix
+T 12 source.nix variable.parameter.name.nix
+T 13 source.nix punctuation.terminator.bind.nix
+L   equals = { a
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 12 source.nix punctuation.definition.attrset-or-function.nix
+T 13 source.nix
+T 14 source.nix variable.parameter.function.maybe.nix
+L     = 1; };
+T 4 source.nix
+T 5 source.nix keyword.operator.bind.nix
+T 6 source.nix
+T 7 source.nix constant.numeric.nix
+T 8 source.nix punctuation.terminator.bind.nix
+T 9 source.nix
+T 10 source.nix punctuation.definition.attrset.nix
+T 11 source.nix punctuation.terminator.bind.nix
+L   default = { a
+T 2 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 13 source.nix punctuation.definition.attrset-or-function.nix
+T 14 source.nix
+T 15 source.nix variable.parameter.function.maybe.nix
+L     ? 1, b }: a;
+T 4 source.nix
+T 5 source.nix keyword.operator.nix
+T 6 source.nix
+T 7 source.nix constant.numeric.nix
+T 8 source.nix keyword.operator.nix
+T 9 source.nix
+T 10 source.nix variable.parameter.function.1.nix
+T 11 source.nix
+T 12 source.nix punctuation.definition.entity.function.nix
+T 13 source.nix punctuation.definition.function.nix
+T 14 source.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix punctuation.terminator.bind.nix
+L   reserved = { in };
+T 2 source.nix
+T 10 source.nix entity.other.attribute-name.multipart.nix
+T 11 source.nix
+T 12 source.nix keyword.operator.bind.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.attrset.nix
+T 15 source.nix
+T 17 source.nix invalid.illegal.reserved.nix
+T 18 source.nix
+T 19 source.nix punctuation.definition.attrset.nix
+T 20 source.nix punctuation.terminator.bind.nix
+L   illegal = { a, % }: a;
+T 2 source.nix
+T 9 source.nix entity.other.attribute-name.multipart.nix
+T 10 source.nix
+T 11 source.nix keyword.operator.bind.nix
+T 12 source.nix
+T 13 source.nix punctuation.definition.entity.function.2.nix
+T 14 source.nix
+T 15 source.nix variable.parameter.function.1.nix
+T 16 source.nix keyword.operator.nix
+T 17 source.nix
+T 18 source.nix invalid.illegal
+T 19 source.nix
+T 20 source.nix punctuation.definition.entity.function.nix
+T 21 source.nix punctuation.definition.function.nix
+T 22 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L   named = args@{ a }: a;
+T 2 source.nix
+T 7 source.nix entity.other.attribute-name.multipart.nix
+T 8 source.nix
+T 9 source.nix keyword.operator.bind.nix
+T 10 source.nix
+T 14 source.nix variable.parameter.function.4.nix
+T 15 source.nix
+T 16 source.nix punctuation.definition.entity.function.2.nix
+T 17 source.nix
+T 18 source.nix variable.parameter.function.1.nix
+T 19 source.nix
+T 20 source.nix punctuation.definition.entity.function.nix
+T 21 source.nix punctuation.definition.function.nix
+T 22 source.nix
+T 23 source.nix variable.parameter.name.nix
+T 24 source.nix punctuation.terminator.bind.nix
+L   terminal = { a, ... } @ args: a;
+T 2 source.nix
+T 10 source.nix entity.other.attribute-name.multipart.nix
+T 11 source.nix
+T 12 source.nix keyword.operator.bind.nix
+T 13 source.nix
+T 14 source.nix punctuation.definition.entity.function.2.nix
+T 15 source.nix
+T 16 source.nix variable.parameter.function.1.nix
+T 17 source.nix keyword.operator.nix
+T 18 source.nix
+T 21 source.nix keyword.operator.nix
+T 22 source.nix keyword.operator.nix
+T 23 source.nix punctuation.definition.entity.function.nix
+T 24 source.nix
+T 25 source.nix
+T 26 source.nix
+T 30 source.nix variable.parameter.function.3.nix
+T 31 source.nix punctuation.definition.function.nix
+T 32 source.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix punctuation.terminator.bind.nix
+L   bare = { a, b } @args: a;
+T 2 source.nix
+T 6 source.nix entity.other.attribute-name.multipart.nix
+T 7 source.nix
+T 8 source.nix keyword.operator.bind.nix
+T 9 source.nix
+T 10 source.nix punctuation.definition.entity.function.2.nix
+T 11 source.nix
+T 12 source.nix variable.parameter.function.1.nix
+T 13 source.nix keyword.operator.nix
+T 14 source.nix
+T 15 source.nix variable.parameter.function.1.nix
+T 16 source.nix
+T 17 source.nix punctuation.definition.entity.function.nix
+T 18 source.nix
+T 19 source.nix
+T 23 source.nix variable.parameter.function.3.nix
+T 24 source.nix punctuation.definition.function.nix
+T 25 source.nix
+T 26 source.nix variable.parameter.name.nix
+T 27 source.nix punctuation.terminator.bind.nix
+L   oldLet = let { body = 1; }.body;
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 14 source.nix keyword.other.nix
+T 15 source.nix
+T 16 source.nix
+T 17 source.nix
+T 21 source.nix entity.other.attribute-name.multipart.nix
+T 22 source.nix
+T 23 source.nix keyword.operator.bind.nix
+T 24 source.nix
+T 25 source.nix constant.numeric.nix
+T 26 source.nix punctuation.terminator.bind.nix
+T 27 source.nix
+T 28 source.nix
+T 29 source.nix keyword.operator.nix
+T 33 source.nix variable.parameter.name.nix
+T 34 source.nix punctuation.terminator.bind.nix
+L   search = { a = <nixpkgs>; b = <nixpkgs/lib>; };
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 12 source.nix punctuation.definition.attrset.nix
+T 13 source.nix
+T 14 source.nix entity.other.attribute-name.multipart.nix
+T 15 source.nix
+T 16 source.nix keyword.operator.bind.nix
+T 17 source.nix
+T 26 source.nix string.unquoted.spath.nix
+T 27 source.nix punctuation.terminator.bind.nix
+T 28 source.nix
+T 29 source.nix entity.other.attribute-name.multipart.nix
+T 30 source.nix
+T 31 source.nix keyword.operator.bind.nix
+T 32 source.nix
+T 45 source.nix string.unquoted.spath.nix
+T 46 source.nix punctuation.terminator.bind.nix
+T 47 source.nix
+T 48 source.nix punctuation.definition.attrset.nix
+T 49 source.nix punctuation.terminator.bind.nix
+L   branch = if a then b else c;
+T 2 source.nix
+T 8 source.nix entity.other.attribute-name.multipart.nix
+T 9 source.nix
+T 10 source.nix keyword.operator.bind.nix
+T 11 source.nix
+T 13 source.nix keyword.other.nix
+T 14 source.nix
+T 15 source.nix variable.parameter.name.nix
+T 16 source.nix
+T 18 source.nix keyword.other.nix
+T 20 source.nix keyword.other.nix
+T 21 source.nix
+T 22 source.nix variable.parameter.name.nix
+T 23 source.nix
+T 25 source.nix keyword.other.nix
+T 27 source.nix keyword.other.nix
+T 28 source.nix
+T 29 source.nix variable.parameter.name.nix
+T 30 source.nix punctuation.terminator.bind.nix
+L }
+T 1 source.nix punctuation.definition.attrset.nix
+L 
