@@ -174,10 +174,10 @@ macro_rules! languages {
             /// and out of line: the lexers inline into [`Language::lex`]
             /// alone, and the count stays off the highlighter's path.
             #[cfg_attr(
-                not(any(feature = "lang-markdown", feature = "lang-ruby", feature = "lang-coffee")),
+                not(any(feature = "lang-markdown", feature = "lang-ruby", feature = "_textmate")),
                 expect(
                     dead_code,
-                    reason = "only Markdown, Ruby and the engine's hand-offs embed through the dispatch"
+                    reason = "only Markdown, Ruby and the engine embed through the dispatch"
                 )
             )]
             #[cold]
@@ -200,10 +200,10 @@ macro_rules! languages {
             /// matches, and the second value is where. `None` for a
             /// language that cannot halt.
             #[cfg_attr(
-                not(any(feature = "lang-ruby", feature = "lang-coffee")),
+                not(any(feature = "lang-ruby", feature = "_textmate")),
                 expect(
                     dead_code,
-                    reason = "only Ruby and the engine's hand-offs embed other languages"
+                    reason = "only Ruby and the engine embed other languages"
                 )
             )]
             #[inline]
