@@ -277,6 +277,8 @@ mod markdown;
 mod mermaid;
 #[cfg(feature = "lang-nix")]
 mod nix;
+#[cfg(feature = "lang-php")]
+mod php;
 #[cfg(feature = "lang-powershell")]
 mod powershell;
 #[cfg(feature = "lang-proto")]

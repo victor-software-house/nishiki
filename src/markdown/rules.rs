@@ -552,6 +552,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::Bat, &[S::EmbeddedDosbatch]),
     #[cfg(feature = "lang-coffee")]
     (Language::CoffeeScript, &[S::EmbeddedCoffee]),
+    #[cfg(feature = "lang-php")]
+    (Language::Php, &[S::EmbeddedPhp]),
 ];
 
 /// The scopes a container adds to the text between its opening and closing.

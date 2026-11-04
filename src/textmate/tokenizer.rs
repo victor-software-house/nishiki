@@ -1734,6 +1734,10 @@ impl Tokenizer<'_> {
     /// ends its run at the capture's end. Shiki also lexes a capture's text
     /// as a line cut there.
     ///
+    /// The cursor can sit past the cut, on the line's newline. A heredoc's
+    /// opener `<<<'JSON'(\s*)$` consumes that newline. The language then
+    /// starts at the cut and lexes nothing of this line.
+    ///
     /// The language may run the engine again, as Markdown does for a fence.
     /// That engine line uses the spare scratch, which sits in the whole
     /// scratch while the line runs.
@@ -1758,7 +1762,7 @@ impl Tokenizer<'_> {
         };
         let part = Line {
             text,
-            start: from.at,
+            start: from.at.min(cut),
             embedded: false,
         };
         let state = frames[top].end;
@@ -2017,10 +2021,9 @@ impl Tokenizer<'_> {
     /// after the group. A capture's rule has no end, so nothing below it is
     /// closed.
     ///
-    /// A capture runs the handing loop only when its own rule's list hands
-    /// off. Every other capture runs the plain loop, which costs less per
-    /// step. No table has a capture that reaches a hand-off only through a
-    /// nested rule (`a_capture_reaches_a_hand_off_only_through_its_own_list`).
+    /// A capture runs the handing loop only when its rule can reach a
+    /// hand-off, as [`Grammar::handing_captures`] lists. Every other capture
+    /// runs the plain loop, which costs less per step.
     fn handle_captures(
         &mut self,
         captures: &'static [Cap],
@@ -2080,7 +2083,13 @@ impl Tokenizer<'_> {
                 } else {
                     DocStart::Passed
                 };
-                if self.hand.is_some() && self.hand_off_of(capture.retokenize).is_some() {
+                if self.hand.is_some()
+                    && self
+                        .grammar
+                        .handing_captures
+                        .binary_search(&capture.retokenize)
+                        .is_ok()
+                {
                     self.tokenize_string(
                         e.min(end),
                         first,

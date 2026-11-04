@@ -559,8 +559,8 @@ fn xsl_fences_are_plain() {
     }
 }
 
-/// The `php` rule includes `text.html.basic` and then `source.php`, so
-/// without a PHP grammar HTML takes the body, under the rule's own scope.
+/// The `php` rule includes `text.html.basic` and then `source.php`. HTML
+/// takes the tags under the rule's own scope, with or without `lang-php`.
 #[test]
 fn php_fences_embed_html_under_the_php_scope() {
     for info in ["php", "php3", "php4", "aw", "ctp", "PHTML title=x"] {
@@ -581,6 +581,36 @@ fn php_fences_embed_html_under_the_php_scope() {
             "{info}"
         );
     }
+}
+
+/// With `lang-php`, PHP's fence root tries HTML first and PHP where HTML
+/// matches nothing, as Shiki does. The text between two tags is PHP.
+#[cfg(feature = "lang-php")]
+#[test]
+fn php_fences_try_php_where_html_matches_nothing() {
+    let text = indoc! {r#"
+        ```php
+        <b>x</b> $y = 1;
+        echo "a";
+        ```
+    "#};
+    assert_eq!(
+        stack_of(text, "x").last().map(String::as_str),
+        Some("constant.other.php")
+    );
+    assert_eq!(
+        stack_of(text, "y").last().map(String::as_str),
+        Some("variable.other.php")
+    );
+    assert_eq!(
+        stack_of(text, "echo").last().map(String::as_str),
+        Some("support.function.construct.output.php")
+    );
+    assert!(
+        stack_of(text, "echo")
+            .iter()
+            .any(|scope| scope == "meta.embedded.block.php")
+    );
 }
 
 /// Batch runs on the engine, whose `lex` takes the fence's body line by

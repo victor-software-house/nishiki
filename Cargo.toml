@@ -112,6 +112,7 @@ textmate = [
   "lang-julia",
   "lang-mermaid",
   "lang-nix",
+  "lang-php",
   "lang-powershell",
   "lang-proto",
   "lang-sass",
@@ -174,6 +175,15 @@ lang-make = [
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
 lang-mermaid = ["_textmate"]
 lang-nix = ["_textmate"]
+lang-php = [
+  "_textmate",
+  "lang-css",
+  "lang-html",
+  "lang-javascript",
+  "lang-json",
+  "lang-sql",
+  "lang-xml",
+]
 lang-powershell = ["_textmate"]
 lang-proto = ["_textmate"]
 lang-python = ["_scope-table", "_rule-tables"]

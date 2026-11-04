@@ -400,6 +400,14 @@ function gate(spec: string, used: Set<string>) {
   if (problems.length > 0) throw new Error(`${spec}: ${problems.join("; ")}`);
 }
 
+// A Markdown fence whose rule includes more than one grammar gets a second
+// root in that language's table, `FENCE`, sharing its rules. Markdown's `php`
+// fence includes HTML, then PHP. HTML is lexed by hand, so the root hands it
+// off, and PHP's rules are tried where HTML matches nothing.
+const fences: Record<string, string[]> = {
+  php: ["text.html.basic", "source.php"],
+};
+
 mkdirSync(outDir, { recursive: true });
 for (const id of ids) {
   const [spec, ...handedIds] = id.split(">");
@@ -415,6 +423,14 @@ for (const id of ids) {
   const builder = new Builder(docs, scope, handed);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
+  const fenceScopes = fences[spec];
+  let fence = NONE;
+  if (fenceScopes) {
+    fence = builder.reserve("Container");
+    const [patterns, missing] = builder.list(scope, fenceScopes.map((include) => ({ include })), [{}]);
+    if (missing) throw new Error(`${id}: the fence root misses one of ${fenceScopes.join(", ")}`);
+    builder.rules[fence].patterns = patterns;
+  }
   // The grammar's own injections, then those other grammars inject into it.
   const rootDoc = docs.get(scope) as Json;
   const injections: [string, number][] = Object.entries((rootDoc.injections as Json | undefined) ?? {}).map(
@@ -513,6 +529,30 @@ for (const id of ids) {
         `    HandOff { language: Language::${h.variant}, before: ${h.before}, after: ${h.after} },`,
     )
     .join("\n");
+  // A capture runs the handing loop only when its rule can reach a hand-off,
+  // in its own list or through a rule nested in it. The table lists those
+  // capture rules, sorted.
+  const reaches = (start: number) => {
+    const seen = new Set<number>();
+    const stack = [start];
+    while (stack.length > 0) {
+      const id = stack.pop() as number;
+      if (seen.has(id)) continue;
+      seen.add(id);
+      for (const p of builder.rules[id].patterns) {
+        if (p >= HAND_OFF) return true;
+        stack.push(p);
+      }
+    }
+    return false;
+  };
+  const handingCaptures = [
+    ...new Set(
+      builder.rules.flatMap((r) => [...r.captures, ...r.endCaptures].map((c) => c.retokenize)).filter((id) => id !== NONE),
+    ),
+  ]
+    .filter(reaches)
+    .sort((a, b) => a - b);
   // The tokenizer looks a list's hand-off up by the list's index, one load a
   // step. A `u8` holds the index, so a grammar has at most 256 hand-offs.
   if (handOffRows.length > 256) throw new Error(`${id}: more than 256 hand-offs`);
@@ -599,7 +639,7 @@ ${injections.map(([selector, rule]) => `    Injection { selector: ${rustString(s
 static RULES: &[Rule] = &[
 ${rules}
 ];
-${handsOff ? `\nstatic HAND_OFFS: &[HandOff] = &[\n${handOffSource}\n];\n\nstatic LIST_HAND_OFFS: [Option<u8>; ${lists.length}] = [${listHandOffs()}];\n` : ""}
+${handsOff ? `\nstatic HAND_OFFS: &[HandOff] = &[\n${handOffSource}\n];\n\nstatic LIST_HAND_OFFS: [Option<u8>; ${lists.length}] = [${listHandOffs()}];\n\nstatic HANDING_CAPTURES: &[usize] = &[${handingCaptures.join(", ")}];\n` : ""}
 /// The grammar.
 pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: ${rustString(scope)},
@@ -611,10 +651,32 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     root: ${root},
     hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
     list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
+    handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };
-`;
+${
+  fence === NONE
+    ? ""
+    : `
+/// The root of a Markdown \`${spec}\` fence, whose rule includes ${fenceScopes.map((f) => `\`${f}\``).join(" and ")}.
+/// It shares the grammar's rules.
+pub(crate) static FENCE: Grammar = Grammar {
+    scope: ${rustString(scope)},
+    names: NAMES,
+    rules: RULES,
+    lists: &LISTS,
+    injections: INJECTIONS,
+    patterns: &PATTERNS,
+    root: ${fence},
+    hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
+    list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
+    handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
+    cells: OnceLock::new(),
+    full_cells: OnceLock::new(),
+};
+`
+}`;
   await writeRust(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);
   console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns, ${builder.names.length} names`);
 }

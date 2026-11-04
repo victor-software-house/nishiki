@@ -4662,6 +4662,8 @@ static LIST_HAND_OFFS: [Option<u8>; 50] = [
     None,
 ];
 
+static HANDING_CAPTURES: &[usize] = &[26, 29, 34];
+
 /// The grammar.
 pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: "text.html.basic",
@@ -4673,6 +4675,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     root: 0,
     hand_offs: HAND_OFFS,
     list_hand_offs: &LIST_HAND_OFFS,
+    handing_captures: HANDING_CAPTURES,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

@@ -48,7 +48,7 @@ The API docs are on [docs.rs](https://docs.rs/nishiki):
 ## Languages
 
 Each language is a cargo feature.
-All are on by default except the `textmate` tier: PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Julia, Mermaid, Haskell, HAML, Sass and CoffeeScript.
+All are on by default except the `textmate` tier: PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Julia, Mermaid, Haskell, HAML, Sass, CoffeeScript and PHP.
 
 | Language | Variant | Feature | Names `Language::from_name` takes |
 |:--|:--|:--|:--|
@@ -84,6 +84,7 @@ All are on by default except the `textmate` tier: PowerShell, Scala, Zig, CMake,
 | Markdown | `Language::Markdown` | `lang-markdown` | `markdown`, `md` |
 | Mermaid | `Language::Mermaid` | `lang-mermaid` | `mermaid`, `mmd` |
 | Nix | `Language::Nix` | `lang-nix` | `nix` |
+| PHP | `Language::Php` | `lang-php` | `php` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `powershell`, `ps`, `ps1`, `pwsh` |
 | Protobuf | `Language::Proto` | `lang-proto` | `proto`, `protobuf` |
 | Python | `Language::Python` | `lang-python` | `python`, `py` |

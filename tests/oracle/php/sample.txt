@@ -1,0 +1,144 @@
+L <?php
+T 1 source.php keyword.operator.comparison.php
+T 2 source.php keyword.operator.ternary.php
+T 5 source.php constant.other.php
+L 
+L namespace App\Console;
+T 9 source.php meta.namespace.php keyword.other.namespace.php
+T 10 source.php meta.namespace.php
+T 13 source.php meta.namespace.php entity.name.type.namespace.php
+T 14 source.php meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 21 source.php meta.namespace.php entity.name.type.namespace.php
+T 22 source.php punctuation.terminator.expression.php
+L 
+L use Illuminate\Console\Scheduling\Schedule;
+T 3 source.php meta.use.php keyword.other.use.php
+T 4 source.php meta.use.php
+T 14 source.php meta.use.php support.other.namespace.php
+T 15 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 22 source.php meta.use.php support.other.namespace.php
+T 23 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 33 source.php meta.use.php support.other.namespace.php
+T 34 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 42 source.php meta.use.php support.class.php
+T 43 source.php punctuation.terminator.expression.php
+L use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+T 3 source.php meta.use.php keyword.other.use.php
+T 4 source.php meta.use.php
+T 14 source.php meta.use.php support.other.namespace.php
+T 15 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 25 source.php meta.use.php support.other.namespace.php
+T 26 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 33 source.php meta.use.php support.other.namespace.php
+T 34 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 40 source.php meta.use.php support.class.php
+T 41 source.php meta.use.php
+T 43 source.php meta.use.php keyword.other.use-as.php
+T 44 source.php meta.use.php
+T 57 source.php meta.use.php entity.other.alias.php
+T 58 source.php punctuation.terminator.expression.php
+L 
+L class Kernel extends ConsoleKernel
+T 5 source.php meta.class.php storage.type.class.php
+T 6 source.php meta.class.php
+T 12 source.php meta.class.php entity.name.type.class.php
+T 13 source.php meta.class.php
+T 20 source.php meta.class.php storage.modifier.extends.php
+T 21 source.php meta.class.php
+T 34 source.php meta.class.php entity.other.inherited-class.php
+L {
+T 1 source.php meta.class.php punctuation.definition.class.begin.bracket.curly.php
+L     /**
+T 4 source.php meta.class.php meta.class.body.php
+T 7 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L      * Define the application's command schedule.
+T 49 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php
+L      */
+T 5 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php
+T 7 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L     protected function schedule(Schedule $schedule): void
+T 4 source.php meta.class.php meta.class.body.php
+T 13 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.protected.php
+T 14 source.php meta.class.php meta.class.body.php meta.function.php
+T 22 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 23 source.php meta.class.php meta.class.body.php meta.function.php
+T 31 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 32 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 40 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php support.class.php
+T 41 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php
+T 42 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php punctuation.definition.variable.php
+T 50 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php
+T 51 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 52 source.php meta.class.php meta.class.body.php meta.function.php keyword.operator.return-value.php
+T 53 source.php meta.class.php meta.class.body.php meta.function.php
+T 57 source.php meta.class.php meta.class.body.php meta.function.php keyword.other.type.php
+L     {
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L         // $schedule->command('inspire')->hourly();
+T 8 source.php meta.class.php meta.class.body.php punctuation.whitespace.comment.leading.php
+T 10 source.php meta.class.php meta.class.body.php comment.line.double-slash.php punctuation.definition.comment.php
+T 51 source.php meta.class.php meta.class.body.php comment.line.double-slash.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L 
+L     /**
+T 4 source.php meta.class.php meta.class.body.php
+T 7 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L      * Register the commands for the application.
+T 49 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php
+L      */
+T 5 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php
+T 7 source.php meta.class.php meta.class.body.php comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L     protected function commands(): void
+T 4 source.php meta.class.php meta.class.body.php
+T 13 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.protected.php
+T 14 source.php meta.class.php meta.class.body.php meta.function.php
+T 22 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 23 source.php meta.class.php meta.class.body.php meta.function.php
+T 31 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 32 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 33 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 34 source.php meta.class.php meta.class.body.php meta.function.php keyword.operator.return-value.php
+T 35 source.php meta.class.php meta.class.body.php meta.function.php
+T 39 source.php meta.class.php meta.class.body.php meta.function.php keyword.other.type.php
+L     {
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L         $this->load(__DIR__.'/Commands');
+T 8 source.php meta.class.php meta.class.body.php
+T 9 source.php meta.class.php meta.class.body.php variable.language.this.php punctuation.definition.variable.php
+T 13 source.php meta.class.php meta.class.body.php variable.language.this.php
+T 15 source.php meta.class.php meta.class.body.php meta.method-call.php keyword.operator.class.php
+T 19 source.php meta.class.php meta.class.body.php meta.method-call.php entity.name.function.php
+T 20 source.php meta.class.php meta.class.body.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 27 source.php meta.class.php meta.class.body.php meta.method-call.php constant.language.php
+T 28 source.php meta.class.php meta.class.body.php meta.method-call.php keyword.operator.string.php
+T 29 source.php meta.class.php meta.class.body.php meta.method-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 38 source.php meta.class.php meta.class.body.php meta.method-call.php string.quoted.single.php
+T 39 source.php meta.class.php meta.class.body.php meta.method-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 40 source.php meta.class.php meta.class.body.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 41 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L 
+L         require base_path('routes/console.php');
+T 8 source.php meta.class.php meta.class.body.php
+T 15 source.php meta.class.php meta.class.body.php meta.include.php keyword.control.import.include.php
+T 16 source.php meta.class.php meta.class.body.php meta.include.php
+T 25 source.php meta.class.php meta.class.body.php meta.include.php meta.function-call.php entity.name.function.php
+T 26 source.php meta.class.php meta.class.body.php meta.include.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 27 source.php meta.class.php meta.class.body.php meta.include.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 45 source.php meta.class.php meta.class.body.php meta.include.php meta.function-call.php string.quoted.single.php
+T 46 source.php meta.class.php meta.class.body.php meta.include.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 47 source.php meta.class.php meta.class.body.php meta.include.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 48 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L }
+T 1 source.php meta.class.php punctuation.definition.class.end.bracket.curly.php
+L 
+L // From https://github.com/laravel/laravel/blob/10.x/app/Console/Kernel.php
+T 2 source.php comment.line.double-slash.php punctuation.definition.comment.php
+T 75 source.php comment.line.double-slash.php
+L 

@@ -337,9 +337,11 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    vscode-textmate also lexes a capture as the line cut at its end, `lineText.substring(0, captureEnd)`.
    So a target that cannot halt still stops at the capture's end.
    The capture's hand-off frame closes with the capture.
-   Only a capture whose own rule's list hands off runs the handing loop.
+   Only a capture whose rule can reach a hand-off runs the handing loop.
+   The generator lists those capture rules in `Grammar::handing_captures`, counting hand-offs in a rule nested in the capture's rule too.
+   PHP's strings reach SQL that way.
    Every other capture runs the plain loop, which costs less per step.
-   No table reaches a hand-off from a capture only through a nested rule, and a test over every table keeps it so.
+   A test over every table checks the list.
 6. A target needs the whole crate `Scratch`.
    `scratch.textmate` is a `Box`.
    A handing line swaps it with the spare kept inside it, `textmate::Scratch::spare: Option<Box<textmate::Scratch>>`.

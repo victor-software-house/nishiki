@@ -526,7 +526,7 @@ T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.
 T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 T 23 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
 L x
-T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

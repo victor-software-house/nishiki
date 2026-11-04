@@ -210,6 +210,11 @@ pub(crate) struct Grammar {
     /// open rule's list up here, so the lookup is one load. Empty in a grammar
     /// that hands nothing off.
     pub(crate) list_hand_offs: &'static [Option<u8>],
+    /// The rules of the capture groups whose text can reach a hand-off, in
+    /// the rule's own list or through a rule nested in it, sorted. Only such
+    /// a capture runs the handing loop. Empty in a grammar that hands nothing
+    /// off.
+    pub(crate) handing_captures: &'static [usize],
     /// The cells a search fills on [`LineKind::Lean`] lines: see
     /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,
@@ -238,6 +243,7 @@ static FOLDING: &[&str] = &[
     "source.cmake",
     "source.haskell",
     "source.julia",
+    "source.php",
     "source.powershell",
     "text.html.markdown",
 ];

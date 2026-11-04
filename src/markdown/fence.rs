@@ -19,9 +19,17 @@ pub(crate) enum Embed {
     /// A language, under the scope its own rule names.
     Lang(Language),
     /// The `php` rule, whose patterns include `text.html.basic` and then
-    /// `source.php`. nishiki lexes no PHP, so HTML takes the body under
-    /// `meta.embedded.block.php`, as in Shiki without its PHP grammar.
+    /// `source.php`. Without `lang-php`, HTML takes the body under
+    /// `meta.embedded.block.php`, as in Shiki without its PHP grammar. With
+    /// `lang-php`, the fence embeds [`Language::Php`] instead.
     #[cfg(feature = "lang-html")]
+    #[cfg_attr(
+        feature = "lang-php",
+        expect(
+            dead_code,
+            reason = "with lang-php, a php fence embeds Language::Php, whose embedded root tries HTML and PHP"
+        )
+    )]
     Php,
 }
 
@@ -334,6 +342,9 @@ const NAMES: &[Name] = &[
     Name {
         words: &["php", "php3", "php4", "php5", "phpt", "phtml", "aw", "ctp"],
         brace: None,
+        #[cfg(feature = "lang-php")]
+        embed: Embed::Lang(Language::Php),
+        #[cfg(not(feature = "lang-php"))]
         embed: Embed::Php,
     },
     // The dot in the grammar's `coffee|Cakefile|coffee.erb` is unescaped.

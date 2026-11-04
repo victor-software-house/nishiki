@@ -128,6 +128,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  php: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "KapitanOczywisty/language-php",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   powershell: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "PowerShell/EditorSyntax",

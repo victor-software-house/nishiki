@@ -1123,6 +1123,8 @@ static LIST_HAND_OFFS: [Option<u8>; 21] = [
     Some(8),
 ];
 
+static HANDING_CAPTURES: &[usize] = &[];
+
 /// The grammar.
 pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: "text.haml",
@@ -1134,6 +1136,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     root: 0,
     hand_offs: HAND_OFFS,
     list_hand_offs: &LIST_HAND_OFFS,
+    handing_captures: HANDING_CAPTURES,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

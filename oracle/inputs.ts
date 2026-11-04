@@ -27,6 +27,7 @@ import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
 import rubyCoverage from "./inputs/ruby-coverage.rb" with { type: "text" };
 import rubyCppLuaHeredocs from "./inputs/ruby-cpp-lua-heredocs.rb" with { type: "text" };
@@ -227,6 +228,8 @@ const kubernetes =
   "https://raw.githubusercontent.com/kubernetes/kubernetes/98687f28e4fed347d30fcd483edc8b8ee74c583c";
 const ky =
   "https://raw.githubusercontent.com/sindresorhus/ky/3541888878c4d303a8bc2ad61815f4e048f55a5d";
+const laravel =
+  "https://raw.githubusercontent.com/laravel/framework/64dc24f5d965add4d402b4b8b64f59b561112af5";
 const latexrun =
   "https://raw.githubusercontent.com/aclements/latexrun/38ff6ec2815654513c91f64bdf2a5760c85da26e";
 const lessjs =
@@ -1017,6 +1020,12 @@ export const inputs: Input[] = [
   { lang: "nix", name: "nixpkgs-lists", url: `${nixpkgs}/lib/lists.nix` },
   { lang: "nix", name: "nixpkgs-ripgrep", url: `${nixpkgs}/pkgs/by-name/ri/ripgrep/package.nix` },
   { lang: "nix", name: "sample", url: `${samples}/nix.sample` },
+  // PHP runs on the TextMate engine. Its strings and heredocs hand SQL, HTML,
+  // XML, JavaScript, JSON and CSS to their lexers.
+  { lang: "php", name: "embedded", text: phpEmbedded },
+  { lang: "php", name: "laravel-postgres-grammar", url: `${laravel}/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php` },
+  { lang: "php", name: "laravel-router", url: `${laravel}/src/Illuminate/Routing/Router.php` },
+  { lang: "php", name: "sample", url: `${samples}/php.sample` },
   // PowerShell runs on the TextMate engine.
   { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
   { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },

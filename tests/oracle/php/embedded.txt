@@ -1,0 +1,433 @@
+L <?php
+T 1 source.php keyword.operator.comparison.php
+T 2 source.php keyword.operator.ternary.php
+T 5 source.php constant.other.php
+L // Strings and heredocs that PHP's grammar hands to other languages.
+T 2 source.php comment.line.double-slash.php punctuation.definition.comment.php
+T 68 source.php comment.line.double-slash.php
+L 
+L $byId = "SELECT id, name FROM users WHERE id = $id";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 9 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 15 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 20 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 24 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.sql
+T 25 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 29 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 36 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 41 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 45 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 46 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 47 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 48 source.php string.quoted.double.sql.php source.sql.embedded.php variable.other.php punctuation.definition.variable.php
+T 50 source.php string.quoted.double.sql.php source.sql.embedded.php variable.other.php
+T 51 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 52 source.php punctuation.terminator.expression.php
+L $count = 'SELECT COUNT(*) FROM orders WHERE total > 10';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 10 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 17 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 22 source.php string.quoted.single.sql.php source.sql.embedded.php support.function.aggregate.sql
+T 23 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 24 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.operator.star.sql
+T 26 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 30 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 38 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 43 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 50 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 51 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 52 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 54 source.php string.quoted.single.sql.php source.sql.embedded.php constant.numeric.sql
+T 55 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 56 source.php punctuation.terminator.expression.php
+L $update = "UPDATE users SET name = '{$name}' WHERE id = 1";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 7 source.php variable.other.php
+T 8 source.php
+T 9 source.php keyword.operator.assignment.php
+T 10 source.php
+T 11 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 17 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 24 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 27 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 28 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 32 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.sql
+T 33 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 34 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 35 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 36 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 37 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql punctuation.definition.variable.php
+T 38 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql variable.other.php punctuation.definition.variable.php
+T 42 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql variable.other.php
+T 43 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql punctuation.definition.variable.php
+T 44 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 45 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 50 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 54 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 55 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 56 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 57 source.php string.quoted.double.sql.php source.sql.embedded.php constant.numeric.sql
+T 58 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 59 source.php punctuation.terminator.expression.php
+L $plain = "not a query, with $value inside";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 10 source.php string.quoted.double.php punctuation.definition.string.begin.php
+T 28 source.php string.quoted.double.php
+T 29 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 34 source.php string.quoted.double.php variable.other.php
+T 35 source.php string.quoted.double.php
+T 41 source.php string.quoted.double.php
+T 42 source.php string.quoted.double.php punctuation.definition.string.end.php
+T 43 source.php punctuation.terminator.expression.php
+L 
+L $page = <<<HTML
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 11 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L <div class="card">
+T 1 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html entity.name.tag.html
+T 5 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html
+T 10 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 16 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 17 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 18 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L   <a href="/users/{$id}">{$name}</a>
+T 2 source.php string.unquoted.heredoc.php meta.embedded.html text.html
+T 3 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 4 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html entity.name.tag.html
+T 5 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html
+T 9 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 10 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 11 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html
+T 24 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 26 source.php string.unquoted.heredoc.php meta.embedded.html text.html punctuation.definition.variable.php
+T 27 source.php string.unquoted.heredoc.php meta.embedded.html text.html variable.other.php punctuation.definition.variable.php
+T 31 source.php string.unquoted.heredoc.php meta.embedded.html text.html variable.other.php
+T 32 source.php string.unquoted.heredoc.php meta.embedded.html text.html punctuation.definition.variable.php
+T 34 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 35 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.end.html entity.name.tag.html
+T 36 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L </div>
+T 2 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.end.html entity.name.tag.html
+T 6 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L HTML;
+T 4 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 5 source.php punctuation.terminator.expression.php
+L 
+L $static = <<<'HTML'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 7 source.php variable.other.php
+T 8 source.php
+T 9 source.php keyword.operator.assignment.php
+T 10 source.php
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php
+T 18 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 19 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php
+L <p>No $interpolation here.</p>
+T 1 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.start.html entity.name.tag.html
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 26 source.php string.unquoted.nowdoc.php meta.embedded.html text.html
+T 28 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 29 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.end.html entity.name.tag.html
+T 30 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L HTML;
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 5 source.php punctuation.terminator.expression.php
+L 
+L $feed = <<<XML
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 11 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 14 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L <?xml version="1.0"?>
+T 2 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+T 5 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml entity.name.tag.xml
+T 13 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml entity.other.attribute-name.xml
+T 14 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml
+T 15 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 18 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml
+T 19 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 21 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.preprocessor.xml punctuation.definition.tag.xml
+L <feed><entry id="1">{$title}</entry></feed>
+T 1 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 7 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 12 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 13 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml
+T 15 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 16 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml
+T 17 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 18 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml string.quoted.double.xml
+T 19 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 20 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 21 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml punctuation.definition.variable.php
+T 22 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml variable.other.php punctuation.definition.variable.php
+T 27 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml variable.other.php
+T 28 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml punctuation.definition.variable.php
+T 30 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 35 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 36 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 38 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 42 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 43 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L 
+L $query = <<<SQL
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 12 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L SELECT u.id, COUNT(o.id) AS orders
+T 6 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.DML.sql
+T 7 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 8 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.database-name.sql
+T 9 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 11 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.table-name.sql
+T 13 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 18 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql support.function.aggregate.sql
+T 19 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 20 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.database-name.sql
+T 21 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 23 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.table-name.sql
+T 25 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 27 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.alias.sql
+T 34 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+L FROM users u
+T 4 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.DML.sql
+T 12 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+L LEFT JOIN orders o ON o.user_id = u.id
+T 9 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.DML.sql
+T 19 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 21 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.DDL.create.II.sql
+T 22 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 23 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.database-name.sql
+T 24 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 31 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.table-name.sql
+T 32 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 33 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.operator.comparison.sql
+T 34 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 35 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.database-name.sql
+T 36 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 38 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.table-name.sql
+L GROUP BY u.id
+T 8 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.DML.sql
+T 9 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 10 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.database-name.sql
+T 11 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 13 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.other.table-name.sql
+L SQL;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L 
+L $script = <<<JS
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 7 source.php variable.other.php
+T 8 source.php
+T 9 source.php keyword.operator.assignment.php
+T 10 source.php
+T 13 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L const total = items.reduce((sum, item) => sum + item.price, 0);
+T 5 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js storage.type.js
+T 6 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 11 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js keyword.operator.assignment.js
+T 14 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 19 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 20 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 26 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 27 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.brace.round.js
+T 28 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 31 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 32 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.separator.parameter.js
+T 33 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js meta.parameters.js
+T 37 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 38 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 39 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js
+T 41 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 42 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.arrow.js
+T 45 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js variable.other.readwrite.js
+T 46 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 47 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 48 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 52 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js variable.other.object.js
+T 53 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js punctuation.accessor.js
+T 58 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js variable.other.property.js
+T 59 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js punctuation.separator.comma.js
+T 60 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 61 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js constant.numeric.decimal.js
+T 62 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.brace.round.js
+T 63 source.php string.unquoted.heredoc.php meta.embedded.js source.js punctuation.terminator.statement.js
+L console.log(`total: ${total}`);
+T 7 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.function-call.js variable.other.object.js
+T 8 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.function-call.js punctuation.accessor.js
+T 11 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.function-call.js entity.name.function.js
+T 12 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.brace.round.js
+T 13 source.php string.unquoted.heredoc.php meta.embedded.js source.js string.template.js punctuation.definition.string.template.begin.js
+T 20 source.php string.unquoted.heredoc.php meta.embedded.js source.js string.template.js
+T 22 source.php string.unquoted.heredoc.php meta.embedded.js source.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 27 source.php string.unquoted.heredoc.php meta.embedded.js source.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.readwrite.js
+T 28 source.php string.unquoted.heredoc.php meta.embedded.js source.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 29 source.php string.unquoted.heredoc.php meta.embedded.js source.js string.template.js punctuation.definition.string.template.end.js
+T 30 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.brace.round.js
+T 31 source.php string.unquoted.heredoc.php meta.embedded.js source.js punctuation.terminator.statement.js
+L JS;
+T 2 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 3 source.php punctuation.terminator.expression.php
+L 
+L $config = <<<'JSON'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 7 source.php variable.other.php
+T 8 source.php
+T 9 source.php keyword.operator.assignment.php
+T 10 source.php
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php
+T 18 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 19 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php
+L {"name": "app", "debug": false, "ports": [80, 443]}
+T 1 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 6 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 7 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 8 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 15 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+T 16 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json
+T 17 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 22 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 23 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 24 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 25 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 30 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json constant.language.json
+T 31 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+T 32 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json
+T 33 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 38 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 39 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 40 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 41 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 42 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 44 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 45 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.separator.array.json
+T 46 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json
+T 49 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 50 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 51 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L JSON;
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 5 source.php punctuation.terminator.expression.php
+L 
+L $style = <<<CSS
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 12 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L .card { color: #333; margin: 0 auto; }
+T 1 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 5 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.selector.css entity.other.attribute-name.class.css
+T 6 source.php string.unquoted.heredoc.php meta.embedded.css source.css
+T 7 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 8 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 13 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 16 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css punctuation.definition.constant.css
+T 19 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css constant.other.color.rgb-value.hex.css
+T 20 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 21 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 27 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 28 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 30 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 31 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css
+T 35 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 36 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 37 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 38 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L 
+L $pattern = <<<REGEXP
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 8 source.php variable.other.php
+T 9 source.php
+T 10 source.php keyword.operator.assignment.php
+T 11 source.php
+T 14 source.php string.unquoted.heredoc.php punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 20 source.php string.unquoted.heredoc.php punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L /^[a-z]+\d*$/
+T 1 source.php string.unquoted.heredoc.php string.regexp.heredoc.php
+T 2 source.php string.unquoted.heredoc.php string.regexp.heredoc.php keyword.operator.regexp.php
+T 3 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 6 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php
+T 7 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 8 source.php string.unquoted.heredoc.php string.regexp.heredoc.php keyword.operator.regexp.php
+T 10 source.php string.unquoted.heredoc.php string.regexp.heredoc.php
+T 11 source.php string.unquoted.heredoc.php string.regexp.heredoc.php keyword.operator.regexp.php
+T 12 source.php string.unquoted.heredoc.php string.regexp.heredoc.php keyword.operator.regexp.php
+T 13 source.php string.unquoted.heredoc.php string.regexp.heredoc.php
+L REGEXP;
+T 6 source.php string.unquoted.heredoc.php punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 7 source.php punctuation.terminator.expression.php
+L 
+L echo strlen($page) + strlen($query);
+T 4 source.php support.function.construct.output.php
+T 5 source.php
+T 11 source.php meta.function-call.php support.function.string.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 17 source.php meta.function-call.php variable.other.php
+T 18 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 19 source.php
+T 20 source.php keyword.operator.arithmetic.php
+T 21 source.php
+T 27 source.php meta.function-call.php support.function.string.php
+T 28 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 29 source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 34 source.php meta.function-call.php variable.other.php
+T 35 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 36 source.php punctuation.terminator.expression.php
+L 

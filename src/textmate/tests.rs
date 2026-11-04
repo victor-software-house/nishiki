@@ -429,6 +429,8 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::mermaid::grammar::GRAMMAR, "mermaid"),
     #[cfg(feature = "lang-nix")]
     (&crate::nix::grammar::GRAMMAR, "nix"),
+    #[cfg(feature = "lang-php")]
+    (&crate::php::grammar::GRAMMAR, "php"),
     #[cfg(feature = "lang-powershell")]
     (&crate::powershell::grammar::GRAMMAR, "powershell"),
     #[cfg(feature = "lang-proto")]
@@ -755,11 +757,12 @@ fn a_hand_off_splits_its_list_in_two() {
     );
 }
 
-/// A capture runs the handing loop only when its own rule's list hands off.
-/// So no capture may reach a hand-off only through a rule nested in its rule:
-/// the plain loop would drop that hand-off.
+/// A capture runs the handing loop only when its rule can reach a hand-off.
+/// `Grammar::handing_captures` lists exactly the capture rules that reach one,
+/// in their own list or through a nested rule. A capture missing from it would
+/// drop its hand-off.
 #[test]
-fn a_capture_reaches_a_hand_off_only_through_its_own_list() {
+fn the_handing_captures_are_the_captures_that_reach_a_hand_off() {
     let mut wrong = Vec::new();
     for grammar in every_table() {
         let handed: Vec<usize> = hand_off_lists(grammar)
@@ -773,29 +776,35 @@ fn a_capture_reaches_a_hand_off_only_through_its_own_list() {
             .map(|cap| cap.retokenize)
             .filter(|&rule| rule != NONE)
             .collect();
-        for &start in &retokenized {
-            if handed.contains(&grammar.rules[start].list) {
-                continue;
-            }
-            let mut seen = BTreeSet::new();
-            let mut stack = vec![start];
-            while let Some(rule) = stack.pop() {
-                if !seen.insert(rule) {
-                    continue;
+        let reaching: Vec<usize> = retokenized
+            .into_iter()
+            .filter(|&start| {
+                let mut seen = BTreeSet::new();
+                let mut stack = vec![start];
+                while let Some(rule) = stack.pop() {
+                    if !seen.insert(rule) {
+                        continue;
+                    }
+                    let list = grammar.rules[rule].list;
+                    if handed.contains(&list) {
+                        return true;
+                    }
+                    stack.extend(grammar.lists[list].rules);
                 }
-                let list = grammar.rules[rule].list;
-                if handed.contains(&list) {
-                    wrong.push(format!("{} capture rule {start}", grammar.scope));
-                    break;
-                }
-                stack.extend(grammar.lists[list].rules);
-            }
+                false
+            })
+            .collect();
+        if reaching != grammar.handing_captures {
+            wrong.push(format!(
+                "{}: {:?}, not {:?}",
+                grammar.scope, grammar.handing_captures, reaching
+            ));
         }
     }
     assert!(
         wrong.is_empty(),
-        "captures that reach a hand-off only through a nested rule: {}",
-        wrong.join(", ")
+        "handing captures that differ from those that reach a hand-off: {}",
+        wrong.join("; ")
     );
 }
 
@@ -1192,6 +1201,7 @@ mod survey {
             root: index(&v["root"]),
             hand_offs: &[],
             list_hand_offs: &[],
+            handing_captures: &[],
             cells: OnceLock::new(),
             full_cells: OnceLock::new(),
         }))
@@ -1317,6 +1327,7 @@ mod many_groups {
         root: 0,
         hand_offs: &[],
         list_hand_offs: &[],
+        handing_captures: &[],
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };

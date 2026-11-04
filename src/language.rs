@@ -19,6 +19,9 @@ use crate::scratch::Scratch;
 /// the three entry points call the engine with it. An engine grammar that
 /// hands regions to languages lexed by hand says `hands_off: true`, and its
 /// entry points call the engine's handing loop.
+/// An engine row may name an `embedded` table root.
+/// A language that embeds it starts it at that root.
+/// PHP's names the root of a Markdown `php` fence, which tries HTML and PHP.
 /// A module that lexes the text from the line's start says `from_start: true`.
 /// Each entry point then calls its `line` through
 /// [`Context::lex_from_start`], with a closure of its own.
@@ -35,17 +38,19 @@ use crate::scratch::Scratch;
 macro_rules! languages {
     (@flag) => { false };
     (@flag $flag:literal) => { $flag };
+    (@pick [$grammar:path] []) => { $grammar };
+    (@pick [$grammar:path] [$embedded:path]) => { $embedded };
     (@start [$module:ident] [] [$($dialect:expr)?] $arena:ident $base:ident) => {
         crate::$module::start($arena, $base $(, $dialect)?)
     };
     (@start [] [$grammar:path] [] $arena:ident $base:ident) => {
         crate::textmate::start($arena, &$grammar, $base)
     };
-    (@start_embedded [$module:ident] [] $arena:ident $base:ident) => {
+    (@start_embedded [$module:ident] [] [] $arena:ident $base:ident) => {
         crate::$module::start_embedded($arena, $base)
     };
-    (@start_embedded [] [$grammar:path] $arena:ident $base:ident) => {
-        crate::textmate::start_embedded($arena, &$grammar, $base)
+    (@start_embedded [] [$grammar:path] [$($embedded:path)?] $arena:ident $base:ident) => {
+        crate::textmate::start_embedded($arena, &languages!(@pick [$grammar] [$($embedded)?]), $base)
     };
     (@lex [] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
@@ -71,30 +76,30 @@ macro_rules! languages {
     (@lex [] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
         crate::limits::Finished::unspent(crate::textmate::lex_handing($cx, &$grammar, $line, $state))
     };
-    (@embedded [] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
+    (@embedded [] [$module:ident] [] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
-    (@embedded [true] [$module:ident] [] [] [] $cx:ident $line:ident $state:ident) => {
+    (@embedded [true] [$module:ident] [] [] [] [] $cx:ident $line:ident $state:ident) => {
         $cx.lex_from_start($line, |cx, rest| crate::$module::line(cx, rest, $state))
     };
-    (@embedded [] [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
-        crate::textmate::lex_embedded($cx, &$grammar, $line, $state)
+    (@embedded [] [] [$grammar:path] [$($embedded:path)?] [] [] $cx:ident $line:ident $state:ident) => {
+        crate::textmate::lex_embedded($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state)
     };
-    (@embedded [] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
-        crate::textmate::lex_handing_embedded($cx, &$grammar, $line, $state)
+    (@embedded [] [] [$grammar:path] [$($embedded:path)?] [] [true] $cx:ident $line:ident $state:ident) => {
+        crate::textmate::lex_handing_embedded($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state)
     };
-    (@until [] [$($module:ident)?] [$($grammar:path)?] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
+    (@until [] [$($module:ident)?] [$($grammar:path)?] [$($embedded:path)?] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
         let _ = ($cx, $line, $state, $end, $after);
         None
     }};
-    (@until [true] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+    (@until [true] [$module:ident] [] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
         Some(crate::$module::lex_until($cx, $($dialect,)? $line, $state, $end, $after))
     };
-    (@until [true] [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
-        Some(crate::textmate::lex_until($cx, &$grammar, $line, $state, $end, $after))
+    (@until [true] [] [$grammar:path] [$($embedded:path)?] [] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+        Some(crate::textmate::lex_until($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state, $end, $after))
     };
-    (@until [true] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
-        Some(crate::textmate::lex_handing_until($cx, &$grammar, $line, $state, $end, $after))
+    (@until [true] [] [$grammar:path] [$($embedded:path)?] [] [true] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+        Some(crate::textmate::lex_handing_until($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state, $end, $after))
     };
     ($(
         $(#[$meta:meta])*
@@ -103,6 +108,7 @@ macro_rules! languages {
             names: [$id:literal $(, $alias:literal)*],
             $(module: $module:ident)?
             $(engine: $grammar:path)?
+            $(, embedded: $embedded:path)?
             $(, dialect: $dialect:expr)?
             $(, reads_line_feed: $line_feed:literal)?
             $(, halts: $halts:tt)?
@@ -178,7 +184,7 @@ macro_rules! languages {
             /// Shiki's embedding.
             pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@start_embedded [$($module)?] [$($grammar)?] arena base),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@start_embedded [$($module)?] [$($grammar)?] [$($embedded)?] arena base),)*
                 }
             }
 
@@ -220,7 +226,7 @@ macro_rules! languages {
                 state: u32,
             ) -> Finished {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($from_start)?] [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@embedded [$($from_start)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
                 }
             }
 
@@ -247,7 +253,7 @@ macro_rules! languages {
                 after: Option<&dyn Halt>,
             ) -> Option<(Finished, Option<usize>)> {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state end after),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state end after),)*
                 }
             }
         }
@@ -869,6 +875,25 @@ languages! {
         feature: "lang-coffee",
         names: ["coffee", "coffeescript"],
         engine: crate::coffee::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+        hands_off: true,
+    }
+    /// PHP, with the scopes of Shiki's `php` grammar, which nishiki's
+    /// `TextMate` engine runs. HTML, SQL, JavaScript, JSON, CSS and XML in
+    /// its strings and heredocs go to their lexers.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - The grammar is PHP code alone. `<?php` and HTML tags around it read as PHP operators and constants.
+    /// - A Markdown `php` fence tries HTML first, then PHP where HTML matches nothing. The text between two tags reads as PHP.
+    /// - Without `lang-php`, a Markdown `php` fence is HTML, as Shiki reads it without its PHP grammar.
+    /// - A language that embeds PHP starts it at the fence's root, so HTML and PHP mix as in that fence.
+    Php {
+        feature: "lang-php",
+        names: ["php"],
+        engine: crate::php::grammar::GRAMMAR,
+        embedded: crate::php::grammar::FENCE,
         reads_line_feed: true,
         halts: true,
         hands_off: true,

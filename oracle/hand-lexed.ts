@@ -24,8 +24,12 @@ type HandLexed = {
 export const handLexed: Record<string, HandLexed> = {
   coffee: { scope: "source.coffee", variant: "CoffeeScript", feature: "lang-coffee" },
   css: { scope: "source.css", variant: "Css", feature: "lang-css" },
+  html: { scope: "text.html.basic", variant: "Html", feature: "lang-html" },
   javascript: { scope: "source.js", variant: "JavaScript", feature: "lang-javascript" },
+  json: { scope: "source.json", variant: "Json", feature: "lang-json" },
   markdown: { scope: "text.html.markdown", variant: "Markdown", feature: "lang-markdown" },
   ruby: { scope: "source.ruby", variant: "Ruby", feature: "lang-ruby" },
   sass: { scope: "source.sass", variant: "Sass", feature: "lang-sass" },
+  sql: { scope: "source.sql", variant: "Sql", feature: "lang-sql" },
+  xml: { scope: "text.xml", variant: "Xml", feature: "lang-xml" },
 };
