@@ -1122,7 +1122,7 @@ SOFTWARE.
 
 ## Julia
 
-Its TextMate engine runs the Julia TextMate grammar in [JuliaEditorSupport/atom-language-julia](https://github.com/JuliaEditorSupport/atom-language-julia), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `julia`, with its rules compiled into tables (`src/julia/grammar.rs`).
+Its Julia lexer emits the scope names of the Julia TextMate grammar in [JuliaEditorSupport/atom-language-julia](https://github.com/JuliaEditorSupport/atom-language-julia), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `julia`, and tries that grammar's rules in its order, from tables generated from it (`src/julia/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text
@@ -1151,7 +1151,6 @@ The atom-language-julia package is licensed under the MIT "Expat" License:
 ```
 
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
-The Julia tables also hold the Python, JavaScript and SQL grammars that Julia embeds, whose licences are under their own headings; they leave out the C++ and R grammars it embeds.
 
 ## Kotlin
 

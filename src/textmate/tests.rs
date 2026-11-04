@@ -425,8 +425,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::haml::grammar::GRAMMAR, "haml"),
     #[cfg(feature = "lang-haskell")]
     (&crate::haskell::grammar::GRAMMAR, "haskell"),
-    #[cfg(feature = "lang-julia")]
-    (&crate::julia::grammar::GRAMMAR, "julia"),
     #[cfg(feature = "lang-matlab")]
     (&crate::matlab::grammar::GRAMMAR, "matlab"),
     #[cfg(feature = "lang-mermaid")]
@@ -1822,7 +1820,7 @@ fn every_listed_pattern_that_parses_compiles() {
 /// The engine hands regions to languages lexed by hand, on HAML's table and
 /// HTML's test table. Design section 14.4 of
 /// `openspec/changes/engine-handoff` describes the steps.
-#[cfg(all(feature = "lang-haml", feature = "lang-julia"))]
+#[cfg(all(feature = "lang-haml", feature = "lang-objective-c"))]
 mod hand_offs {
     use indoc::indoc;
 
@@ -1983,15 +1981,15 @@ mod hand_offs {
     }
 
     #[test]
-    fn a_markdown_filter_lexes_a_julia_fence_with_the_engine() {
+    fn a_markdown_filter_lexes_an_objective_c_fence_with_the_engine() {
         let rows = Document::new(&HAML).lex(indoc! {"
             :markdown
-              ```julia
+              ```objc
               a = 1
               ```
         "});
         assert!(
-            in_language(scope_of(&rows[2], "1"), "julia"),
+            in_language(scope_of(&rows[2], "1"), "objc"),
             "{:?}",
             rows[2]
         );
@@ -2003,7 +2001,7 @@ mod hand_offs {
     fn lexing_a_nested_engine_fence_again_allocates_nothing() {
         let text = indoc! {"
             :markdown
-              ```julia
+              ```objc
               a = 1
               ```
             %p done
@@ -2021,7 +2019,7 @@ mod hand_offs {
     /// Three engine levels nest here, each on its own spare scratch. A
     /// `:ruby` filter hands its lines to Ruby. Ruby's `<<~HAML` hands its
     /// lines to HAML. That HAML's `:markdown` filter hands its lines to
-    /// Markdown, whose fence runs Julia on the engine. Lexing the
+    /// Markdown, whose fence runs Objective-C on the engine. Lexing the
     /// document again allocates nothing.
     #[test]
     fn lexing_three_nested_engine_levels_again_allocates_nothing() {
@@ -2029,7 +2027,7 @@ mod hand_offs {
             :ruby
               page = <<~HAML
                 :markdown
-                  ```julia
+                  ```objc
                   a = 1
                   ```
               HAML
@@ -2038,7 +2036,7 @@ mod hand_offs {
         let mut document = Document::new(&HAML);
         let first = document.lex(text);
         assert!(
-            in_language(scope_of(&first[4], "1"), "julia"),
+            in_language(scope_of(&first[4], "1"), "objc"),
             "{:?}",
             first[4]
         );
@@ -2200,7 +2198,7 @@ mod hand_offs {
 
     /// With two steps left on the host line, a HAML line stops within them.
     /// The rule holds whichever language lexes the costly part: Ruby on a
-    /// line of code, JavaScript in a filter, or Julia in a Markdown
+    /// line of code, JavaScript in a filter, or Objective-C in a Markdown
     /// fence in a filter. Under the default limits each line spends more.
     #[test]
     fn a_hand_off_spends_only_what_the_host_line_has_left() {
@@ -2213,11 +2211,11 @@ mod hand_offs {
         };
         let ruby = format!("= {}", "a + b * c - d / e % f && g || h; ".repeat(40));
         let javascript = format!("  {}", "let a = b + c * d - e / f; ".repeat(40));
-        let julia = format!("  {}", "a = b + c * d - e / f; ".repeat(40));
+        let objective_c = format!("  {}", "a = b + c * d - e / f; ".repeat(40));
         let documents = [
             vec![ruby.as_str()],
             vec![":javascript", javascript.as_str()],
-            vec![":markdown", "  ```julia", julia.as_str()],
+            vec![":markdown", "  ```objc", objective_c.as_str()],
         ];
         for lines in documents {
             let (free, _, _) = budgeted(&lines, &Limits::default());

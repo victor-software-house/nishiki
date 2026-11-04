@@ -301,6 +301,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `jsx/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `julia/base-abstractset` | [`base/abstractset.jl`][julia-base-abstractset] in JuliaLang/julia | [MIT][julia-licence] |
 | `julia/base-sort` | [`base/sort.jl`][julia-base-sort] in JuliaLang/julia | [MIT][julia-licence] |
+| `julia/coverage` | `oracle/inputs/julia-coverage.jl`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `julia/sample` | [`samples/julia.sample`][julia-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `julia/strings-util` | [`base/strings/util.jl`][julia-strings-util] in JuliaLang/julia | [MIT][julia-licence] |
 | `kotlin/coroutines-produce` | [`Produce.kt`][coroutines-produce] in Kotlin/kotlinx.coroutines | [Apache-2.0][coroutines-licence] |
@@ -822,15 +823,14 @@ Shiki's Markdown grammar embeds Batch in `bat` and `batch` fences, and no Markdo
 Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 `dart/sample`, `dart/http-client` and `dart/coverage` are Dart's development inputs, and `markdown/dart-http-readme` is the development input for Dart fences.
 `dart/http-base-request`, `dart/collection-algorithms` and `markdown/dart-args-readme` are held out.
+`julia/sample`, `julia/base-abstractset` and `julia/coverage` are Julia's development inputs, and `markdown/julia-functions` is the development input for Julia fences.
+`julia/base-sort`, `julia/strings-util` and `markdown/julia-strings` are held out.
+None of them has an `R` string macro, whose contents Shiki lexes as R and nishiki leaves plain.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
 The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript, a Polymer `<template>`, and character entities; the MathML of `html/mathjax-mml-chtml` is a development input.
 TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
-Julia runs on nishiki's TextMate engine as well.
-`julia/sample` and `julia/base-abstractset` are its development inputs, and `markdown/julia-functions` is the development input for Julia fences.
-`julia/base-sort`, `julia/strings-util` and `markdown/julia-strings` are held out.
-None of them has a `cxx`, `icxx` or `R` string macro, whose contents Shiki lexes as C++ and R and nishiki leaves plain.
 Mermaid runs on nishiki's TextMate engine as well.
 `mermaid/sample` and `mermaid/flowchart-code-flow` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
 Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Mermaid.

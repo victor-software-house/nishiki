@@ -50,6 +50,10 @@ pub(crate) struct Scratch {
     /// The Java lexer's, for Java documents.
     #[cfg(feature = "lang-java")]
     pub(crate) java: crate::java::Scratch,
+    /// The Julia lexer's, for Julia documents and Markdown Julia fences.
+    /// It is boxed and allocated by the first Julia line, as GraphQL's is.
+    #[cfg(feature = "lang-julia")]
+    pub(crate) julia: Option<Box<crate::julia::Scratch>>,
     /// The Kotlin lexer's, for Kotlin documents.
     #[cfg(feature = "lang-kotlin")]
     pub(crate) kotlin: crate::kotlin::Scratch,
@@ -69,7 +73,6 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Nix line, as Dart's is.
     #[cfg(feature = "lang-nix")]
     pub(crate) nix: Option<Box<crate::nix::Scratch>>,
-    /// The Python lexer's, for Python documents and Markdown Python fences.
     /// The PowerShell lexer's, for PowerShell documents and Markdown
     /// PowerShell fences.
     /// It is boxed and allocated by the first PowerShell line, as GraphQL's is.
@@ -79,6 +82,8 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Protobuf line, as Dart's is.
     #[cfg(feature = "lang-proto")]
     pub(crate) proto: Option<Box<crate::proto::Scratch>>,
+    /// The Python lexer's, for Python documents, Markdown Python fences and
+    /// Julia's `py"""` string macros.
     #[cfg(feature = "lang-python")]
     pub(crate) python: crate::python::Scratch,
     /// The Ruby lexer's, for Ruby documents.

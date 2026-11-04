@@ -90,6 +90,9 @@ tags! {
     /// JSON.
     #[cfg(feature = "lang-json")]
     JSON = 0x0500,
+    /// Julia.
+    #[cfg(feature = "lang-julia")]
+    JULIA = 0x3400,
     /// Kotlin.
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = 0x2a00,

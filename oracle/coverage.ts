@@ -72,6 +72,7 @@ const handLexed = new Map([
   ["jsonc", "JSON"],
   ["jsonl", "JSON"],
   ["jsx", "TypeScript"],
+  ["julia", "Julia"],
   ["kotlin", "Kotlin"],
   ["less", "Less"],
   ["lua", "Lua"],

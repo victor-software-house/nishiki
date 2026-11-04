@@ -20,7 +20,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::limits::Finished;
 use crate::rules;
 
@@ -39,6 +39,20 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex::<Python>(cx, line, state, |scratch| &mut scratch.python)
+}
+
+/// Lexes `line` like [`lex`], for Python that another language embeds, up to
+/// where `end` or `after` halts it (see [`rules::lex_until`]).
+/// Julia embeds Python in a `py"""` string macro, up to its closing quotes.
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<usize>) {
+    rules::lex_until::<Python>(cx, line, state, |scratch| &mut scratch.python, end, after)
 }
 
 #[cfg(test)]

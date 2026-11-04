@@ -26,6 +26,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", ",", ";", "=", "==", "+=", "<<=", "%%=", "&", "&&", "|", "||", "<", ">", ">>", "2>&1", "@", "^", "^^!", "^&", "!", "~", "%", "\"", "'", ":", ":~", "*.txt"],
     heads: ["", "", " ", "  ", "@", "rem ", ":: ", ":", "for %%i in (", "set /a ", "set \"", "echo "],
   },
+  julia: {
+    words: ["function", "end", "macro", "module", "struct", "mutable struct", "abstract type", "where", "if", "elseif", "else", "for", "outer", "in", "isa", "while", "begin", "let", "do", "try", "catch", "return", "const", "global", "local", "import", "using", "export", "public", "as", "quote", "true", "nothing", "missing", "ARGS", "stdout", "x", "f", "Foo", "α", "∇f", "x′", "f!", "Base.show", "Vector{T}", "Union{Int,Nothing}", "1", "0x1F", "0b101", "1_000.5e-3im", "2π", "Inf32", "NaN", "pi", "@time", "@.", "@show", "@doc", ":sym", "py\"\"\"", "js\"\"\"", "sql\"\"\"", "cxx\"\"\"", "raw\"", "r\"a+\"i", "var\"", "b\"", "doc\"\"\"", "def", "let", "SELECT", "FROM"],
+    marks: ["(", ")", "[", "]", "{", "}", ",", ";", ".", "..", "...", ":", "::", "<:", ">:", "=", "==", "===", "!=", "≠", "≤", "+=", ".+", "*", "/", "//", "\\", "^", "÷", "%", "|>", "∘", "->", "=>", "&&", "||", "!", "?", "'", ".'", "$", "$x", "$(", "\"", "\"\"\"", "`", "```", "\\n", "\\\"", "#", "#=", "=#", "TODO"],
+    heads: ["", "", " ", "    ", "# ", "\"\"\"", "doc\"\"\"", "function ", "for "],
+  },
   kotlin: {
     words: ["fun", "class", "interface", "object", "val", "var", "import", "package", "if", "else", "when", "in", "is", "as", "by", "get", "set", "this", "super", "private", "open", "data", "suspend", "true", "false", "null", "Foo", "x", "String", "List", "foo", "1", "0x1F", "1.5f", "@Foo", "@file:JvmName", "@param", "{@link a.B#c(d)}", "`a b`"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "?.", "::", ":", "?", "=", "==", "+", "-", "->", "\"", "\"\"\"", "'", "\"${x}\"", "$x", "/*", "*/", "/**", "//"],

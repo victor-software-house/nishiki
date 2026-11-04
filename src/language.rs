@@ -441,7 +441,7 @@ languages! {
     /// - A single-quoted docstring ends at the line end even after a backslash, so the next line is code; a single-quoted string goes on.
     /// - `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/classes.ts`).
     ///   A later Unicode version in Shiki's engine would need them regenerated.
-    Python { feature: "lang-python", names: ["python", "py"], module: python }
+    Python { feature: "lang-python", names: ["python", "py"], module: python, halts: true }
     /// YAML, with the scopes of Shiki's `yaml` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -820,22 +820,20 @@ languages! {
     /// - A function name needs no word boundary before it, so in `9abc(` the name is `abc`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     Dart { feature: "lang-dart", names: ["dart"], module: dart }
-    /// Julia, with the scopes of Shiki's `julia` grammar, which nishiki's
-    /// `TextMate` engine runs.
+    /// Julia, with the scopes of Shiki's `julia` grammar.
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - The C++ inside a `cxx"""` or `icxx"""` string macro and the R inside an `R"""` one are plain, where Shiki lexes them as C++ and R.
-    ///   Julia's table leaves out the C++ and R grammars, which Julia embeds: R's may not be bundled, and C++'s brings GLSL's, which may not either.
-    ///   The macro and its quotes keep Shiki's scopes, and so does `$` interpolation inside.
-    /// - The Python, JavaScript and SQL inside `py"""`, `js"""` and `sql"""` string macros are lexed as Shiki lexes them, by engine copies of those grammars in Julia's table.
-    Julia {
-        feature: "lang-julia",
-        names: ["julia", "jl"],
-        engine: crate::julia::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// - The Python, JavaScript and SQL inside `py"""`, `js"""` and `sql"""` string macros are lexed as those languages, up to the macro's closing quotes or a `$` interpolation that the embedded language does not match.
+    /// - The end of `py"""` takes the spaces and word characters before its quotes, so a name before `"""` loses its Python scopes.
+    /// - The C++ inside a `cxx"""` or `icxx"""` string macro is plain.
+    ///   The grammar includes `source.cpp#root_context`, a rule the C++ grammar does not have.
+    /// - An R string macro is plain text; nishiki has no R lexer.
+    /// - A `for` head runs to the end of a line that does not end in a comma.
+    /// - A type declaration needs a literal `!:_` before `struct`, as the grammar's pattern reads, so in `struct Foo` the name gets no scope.
+    /// - The identifier classes and the operator classes for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/julia-grammar.ts`).
+    ///   A later Unicode version in Shiki's engine would need them regenerated.
+    Julia { feature: "lang-julia", names: ["julia", "jl"], module: julia, reads_line_feed: true }
     /// SCSS, with the scopes of Shiki's `scss` grammar.
     ///
     /// # Behaviour kept from Shiki

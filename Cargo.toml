@@ -50,6 +50,7 @@ all = [
   "lang-javascript",
   "lang-json",
   "lang-jsx",
+  "lang-julia",
   "lang-kotlin",
   "lang-less",
   "lang-lua",
@@ -119,7 +120,6 @@ textmate = [
   "lang-gdscript",
   "lang-haml",
   "lang-haskell",
-  "lang-julia",
   "lang-matlab",
   "lang-mermaid",
   "lang-objective-c",
@@ -174,7 +174,16 @@ lang-java = ["_scope-table", "_rule-tables", "_classes"]
 lang-javascript = ["_classes", "_space"]
 lang-json = ["_classes", "_utf8", "_frame-kinds"]
 lang-jsx = ["_classes", "_space"]
-lang-julia = ["_textmate"]
+lang-julia = [
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_utf8",
+  "_embedding",
+  "lang-javascript",
+  "lang-python",
+  "lang-sql",
+]
 lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
 lang-less = ["_scope-table", "_rule-tables", "_classes"]
 lang-lua = ["_scope-table", "_rule-tables", "_classes", "_embedding"]

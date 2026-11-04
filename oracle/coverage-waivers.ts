@@ -1075,6 +1075,11 @@ export const waivers: Waiver[] = [
     path: "#operators.patterns[3].match",
     reason: "`#operators.patterns[2]`, `(<<|>>>?|[\\&^|~])`, before it, matches at the start of every one of its operators",
   },
+  {
+    grammar: "julia",
+    path: "#operator.patterns[12].match",
+    reason: "`#operator.patterns[11]`, before it, holds `∘` in its class `[…∗-∜…]`",
+  },
   { grammar: "nix", path: "#if.patterns[2].end", group: 0, reason: lookahead },
   ...["begin", "end"].map(
     (key): Waiver => ({
@@ -1308,6 +1313,7 @@ export const complete: string[] = [
   "jsonc",
   "jsonl",
   "jsx",
+  "julia",
   "kotlin",
   "less",
   "lua",

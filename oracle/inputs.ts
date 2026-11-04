@@ -25,6 +25,7 @@ import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
 import jsonCoverage from "./inputs/json-coverage.json" with { type: "text" };
 import jsoncCoverage from "./inputs/jsonc-coverage.jsonc" with { type: "text" };
 import jsonlCoverage from "./inputs/jsonl-coverage.jsonl" with { type: "text" };
+import juliaCoverage from "./inputs/julia-coverage.jl" with { type: "text" };
 import kotlinCoverage from "./inputs/kotlin-coverage.kt" with { type: "text" };
 import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
@@ -801,7 +802,6 @@ export const inputs: Input[] = [
   { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
   { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
   { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
-  // Julia runs on the TextMate engine.
   { lang: "jsx", name: "tsc-arbitrary-module-namespace-identifiers-syntax", url: `${typescriptTests}/conformance/es2022/arbitraryModuleNamespaceIdentifiers/arbitraryModuleNamespaceIdentifiers_syntax.ts` },
   { lang: "jsx", name: "tsc-async-with-var-shadowing-es6", url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts` },
   { lang: "jsx", name: "tsc-await-using-declarations-1", url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.1.ts` },
@@ -823,6 +823,7 @@ export const inputs: Input[] = [
   { lang: "jsx", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
   { lang: "julia", name: "base-abstractset", url: `${julia}/base/abstractset.jl` },
   { lang: "julia", name: "base-sort", url: `${julia}/base/sort.jl` },
+  { lang: "julia", name: "coverage", text: juliaCoverage },
   { lang: "julia", name: "sample", url: `${samples}/julia.sample` },
   { lang: "julia", name: "strings-util", url: `${julia}/base/strings/util.jl` },
   {

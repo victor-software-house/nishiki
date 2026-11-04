@@ -35,6 +35,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | JSON | `jsonc` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
 | JSON | `jsonl` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
+| Julia | `julia` | 105 of 106 | 99.1% | 95 of 95 | 100.0% | 1 | 0 | yes |
 | Kotlin | `kotlin` | 63 of 65 | 96.9% | 35 of 35 | 100.0% | 2 | 0 | yes |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
@@ -484,6 +485,12 @@ patterns[1].begin  groups 1 (waived: the group matches only blanks, and the orac
 #support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
 #template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 #template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+```
+
+### `julia`
+
+```text
+#operator.patterns[12].match  ∘  waived: `#operator.patterns[11]`, before it, holds `∘` in its class `[…∗-∜…]`
 ```
 
 ### `kotlin`

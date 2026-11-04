@@ -80,7 +80,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | JSON with comments | `Language::Jsonc` | `lang-json` | `all` | `jsonc` |
 | JSON Lines | `Language::Jsonl` | `lang-json` | `all` | `jsonl` |
 | JSX | `Language::Jsx` | `lang-jsx` | `all` | `jsx` |
-| Julia | `Language::Julia` | `lang-julia` | `textmate` | `julia`, `jl` |
+| Julia | `Language::Julia` | `lang-julia` | `all` | `julia`, `jl` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `all` | `kotlin`, `kt`, `kts` |
 | Less | `Language::Less` | `lang-less` | `all` | `less` |
 | Lua | `Language::Lua` | `lang-lua` | `all` | `lua` |

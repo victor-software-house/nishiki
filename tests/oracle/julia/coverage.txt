@@ -1,0 +1,1085 @@
+L # TODO FIXME CHANGED XXX
+T 1 source.julia comment.line.number-sign.julia punctuation.definition.comment.julia
+T 2 source.julia comment.line.number-sign.julia
+T 6 source.julia comment.line.number-sign.julia keyword.other.comment-annotation.julia
+T 7 source.julia comment.line.number-sign.julia
+T 12 source.julia comment.line.number-sign.julia keyword.other.comment-annotation.julia
+T 13 source.julia comment.line.number-sign.julia
+T 20 source.julia comment.line.number-sign.julia keyword.other.comment-annotation.julia
+T 21 source.julia comment.line.number-sign.julia
+T 24 source.julia comment.line.number-sign.julia keyword.other.comment-annotation.julia
+L #= block #= nested =# TODO =#
+T 2 source.julia comment.block.number-sign-equals.julia punctuation.definition.comment.begin.julia
+T 9 source.julia comment.block.number-sign-equals.julia
+T 11 source.julia comment.block.number-sign-equals.julia comment.block.number-sign-equals.julia punctuation.definition.comment.begin.julia
+T 19 source.julia comment.block.number-sign-equals.julia comment.block.number-sign-equals.julia
+T 21 source.julia comment.block.number-sign-equals.julia comment.block.number-sign-equals.julia punctuation.definition.comment.end.julia
+T 22 source.julia comment.block.number-sign-equals.julia
+T 26 source.julia comment.block.number-sign-equals.julia keyword.other.comment-annotation.julia
+T 27 source.julia comment.block.number-sign-equals.julia
+T 29 source.julia comment.block.number-sign-equals.julia punctuation.definition.comment.end.julia
+L module M
+T 6 source.julia keyword.other.julia
+T 8 source.julia
+L baremodule B end
+T 10 source.julia keyword.other.julia
+T 13 source.julia
+T 16 source.julia keyword.control.end.julia
+L using Base: show
+T 5 source.julia keyword.control.using.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.range.julia
+T 16 source.julia
+L import LinearAlgebra as LA
+T 6 source.julia keyword.control.import.julia
+T 21 source.julia
+T 23 source.julia keyword.control.as.julia
+T 26 source.julia
+L export f, g
+T 6 source.julia keyword.control.export.julia
+T 8 source.julia
+T 9 source.julia punctuation.separator.comma.julia
+T 11 source.julia
+L public h
+T 6 source.julia keyword.control.public.julia
+T 8 source.julia
+L const C = 1
+T 5 source.julia keyword.storage.modifier.julia
+T 8 source.julia
+T 9 source.julia keyword.operator.update.julia
+T 10 source.julia
+T 11 source.julia constant.numeric.julia
+L global G
+T 6 source.julia keyword.storage.modifier.julia
+T 8 source.julia
+L local L = 2
+T 5 source.julia keyword.storage.modifier.julia
+T 8 source.julia
+T 9 source.julia keyword.operator.update.julia
+T 10 source.julia
+T 11 source.julia constant.numeric.julia
+L abstract type A <: B end
+T 13 source.julia keyword.other.julia
+T 15 source.julia
+T 16 source.julia
+T 18 source.julia keyword.operator.relation.types.julia
+T 19 source.julia
+T 20 source.julia support.type.julia
+T 21 source.julia
+T 24 source.julia keyword.control.end.julia
+L primitive type P 8 end
+T 14 source.julia keyword.other.julia
+T 17 source.julia
+T 18 source.julia constant.numeric.julia
+T 19 source.julia
+T 22 source.julia keyword.control.end.julia
+L mutable struct S{T} <: A
+T 14 source.julia keyword.other.julia
+T 16 source.julia
+T 17 source.julia meta.bracket.julia
+T 18 source.julia
+T 19 source.julia meta.bracket.julia
+T 20 source.julia
+T 22 source.julia keyword.operator.relation.types.julia
+T 23 source.julia
+T 24 source.julia support.type.julia
+L     x::Vector{T}
+T 5 source.julia
+T 7 source.julia keyword.operator.relation.types.julia
+T 16 source.julia support.type.julia
+L     y::Union{Int,Nothing}
+T 5 source.julia
+T 7 source.julia keyword.operator.relation.types.julia
+T 25 source.julia support.type.julia
+L     z::Ref{"s"}
+T 5 source.julia
+T 7 source.julia keyword.operator.relation.types.julia
+T 15 source.julia support.type.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L x!:_struct Foo <: Bar{Baz}
+T 1 source.julia
+T 11 source.julia meta.type.julia
+T 14 source.julia meta.type.julia entity.name.type.julia
+T 15 source.julia meta.type.julia entity.other.inherited-class.julia
+T 17 source.julia meta.type.julia entity.other.inherited-class.julia punctuation.separator.inheritance.julia
+T 26 source.julia meta.type.julia entity.other.inherited-class.julia
+L y!:_mutable struct Qux
+T 1 source.julia
+T 19 source.julia meta.type.julia
+T 22 source.julia meta.type.julia entity.name.type.julia
+L typegroup
+T 9 source.julia keyword.other.julia
+L quote x end
+T 5 source.julia keyword.other.julia
+T 8 source.julia
+T 11 source.julia keyword.control.end.julia
+L function Base.show(io::IO, x::S{T}) where {T}
+T 8 source.julia keyword.other.julia
+T 13 source.julia
+T 14 source.julia keyword.operator.dots.julia
+T 18 source.julia entity.name.function.julia
+T 19 source.julia meta.bracket.julia
+T 21 source.julia
+T 23 source.julia keyword.operator.relation.types.julia
+T 25 source.julia support.type.julia
+T 26 source.julia punctuation.separator.comma.julia
+T 28 source.julia
+T 30 source.julia keyword.operator.relation.types.julia
+T 34 source.julia support.type.julia
+T 35 source.julia meta.bracket.julia
+T 36 source.julia
+T 41 source.julia keyword.other.julia
+T 42 source.julia
+T 43 source.julia meta.bracket.julia
+T 44 source.julia
+T 45 source.julia meta.bracket.julia
+L     println(io, x)
+T 4 source.julia
+T 11 source.julia support.function.julia
+T 12 source.julia meta.bracket.julia
+T 14 source.julia
+T 15 source.julia punctuation.separator.comma.julia
+T 17 source.julia
+T 18 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L function (f::F)(x)
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 10 source.julia meta.bracket.julia
+T 11 source.julia
+T 13 source.julia keyword.operator.relation.types.julia
+T 14 source.julia support.type.julia
+T 15 source.julia meta.bracket.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 18 source.julia meta.bracket.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L function g end
+T 8 source.julia keyword.other.julia
+T 11 source.julia
+T 14 source.julia keyword.control.end.julia
+L function f{T}(x) end
+T 8 source.julia keyword.other.julia
+T 9 source.julia
+T 10 source.julia entity.name.function.julia
+T 13 source.julia support.type.julia
+T 14 source.julia meta.bracket.julia
+T 15 source.julia
+T 16 source.julia meta.bracket.julia
+T 17 source.julia
+T 20 source.julia keyword.control.end.julia
+L macro m(ex) ex end
+T 5 source.julia keyword.other.julia
+T 6 source.julia
+T 7 source.julia entity.name.function.julia
+T 8 source.julia meta.bracket.julia
+T 10 source.julia
+T 11 source.julia meta.bracket.julia
+T 15 source.julia
+T 18 source.julia keyword.control.end.julia
+L f(x)::Int where T = x
+T 1 source.julia entity.name.function.julia
+T 2 source.julia meta.bracket.julia
+T 3 source.julia
+T 4 source.julia meta.bracket.julia
+T 6 source.julia keyword.operator.relation.types.julia
+T 9 source.julia support.type.julia
+T 10 source.julia
+T 15 source.julia keyword.other.julia
+T 18 source.julia
+T 19 source.julia keyword.operator.update.julia
+T 21 source.julia
+L h{T}(x) = x
+T 1 source.julia entity.name.function.julia
+T 4 source.julia support.type.julia
+T 5 source.julia meta.bracket.julia
+T 6 source.julia
+T 7 source.julia meta.bracket.julia
+T 8 source.julia
+T 9 source.julia keyword.operator.update.julia
+T 11 source.julia
+L k(x) = x == 1 ? :a : :b
+T 1 source.julia entity.name.function.julia
+T 2 source.julia meta.bracket.julia
+T 3 source.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia keyword.operator.update.julia
+T 9 source.julia
+T 11 source.julia keyword.operator.relation.julia
+T 12 source.julia
+T 13 source.julia constant.numeric.julia
+T 14 source.julia
+T 15 source.julia keyword.operator.ternary.julia
+T 16 source.julia
+T 18 source.julia constant.other.symbol.julia
+T 19 source.julia
+T 20 source.julia keyword.operator.ternary.julia
+T 21 source.julia
+T 23 source.julia constant.other.symbol.julia
+L for i in 1:10, j in a
+T 3 source.julia keyword.control.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.relation.in.julia
+T 9 source.julia
+T 10 source.julia constant.numeric.julia
+T 11 source.julia keyword.operator.range.julia
+T 13 source.julia constant.numeric.julia
+T 14 source.julia punctuation.separator.comma.julia
+T 17 source.julia
+T 19 source.julia keyword.operator.relation.in.julia
+T 21 source.julia
+L     for outer k in b
+T 4 source.julia
+T 7 source.julia keyword.control.julia
+T 8 source.julia
+T 13 source.julia keyword.other.julia
+T 16 source.julia
+T 18 source.julia keyword.operator.relation.in.julia
+T 20 source.julia
+L     end
+T 4 source.julia
+T 7 source.julia keyword.control.end.julia
+L end
+T 3 source.julia keyword.control.end.julia
+L while true; break; continue end
+T 5 source.julia keyword.control.julia
+T 6 source.julia
+T 10 source.julia constant.language.julia
+T 11 source.julia punctuation.separator.semicolon.julia
+T 12 source.julia
+T 17 source.julia keyword.control.julia
+T 18 source.julia punctuation.separator.semicolon.julia
+T 19 source.julia
+T 27 source.julia keyword.control.julia
+T 28 source.julia
+T 31 source.julia keyword.control.end.julia
+L if a elseif b else end
+T 2 source.julia keyword.control.julia
+T 5 source.julia
+T 11 source.julia keyword.control.julia
+T 14 source.julia
+T 18 source.julia keyword.control.julia
+T 19 source.julia
+T 22 source.julia keyword.control.end.julia
+L let x = 1 end
+T 3 source.julia keyword.control.julia
+T 6 source.julia
+T 7 source.julia keyword.operator.update.julia
+T 8 source.julia
+T 9 source.julia constant.numeric.julia
+T 10 source.julia
+T 13 source.julia keyword.control.end.julia
+L try catch e finally end
+T 3 source.julia keyword.control.julia
+T 4 source.julia
+T 9 source.julia keyword.control.julia
+T 12 source.julia
+T 19 source.julia keyword.control.julia
+T 20 source.julia
+T 23 source.julia keyword.control.end.julia
+L map(x) do y; return y end
+T 3 source.julia support.function.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 9 source.julia keyword.control.julia
+T 11 source.julia
+T 12 source.julia punctuation.separator.semicolon.julia
+T 13 source.julia
+T 19 source.julia keyword.control.julia
+T 22 source.julia
+T 25 source.julia keyword.control.end.julia
+L begin end
+T 5 source.julia keyword.control.julia
+T 6 source.julia
+T 9 source.julia keyword.control.end.julia
+L x = [1, 2]'
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia meta.array.julia meta.bracket.julia
+T 6 source.julia meta.array.julia constant.numeric.julia
+T 7 source.julia meta.array.julia punctuation.separator.comma.julia
+T 8 source.julia meta.array.julia
+T 9 source.julia meta.array.julia constant.numeric.julia
+T 10 source.julia meta.array.julia meta.bracket.julia
+T 11 source.julia meta.array.julia keyword.operator.transpose.julia
+L y = (a, b).'
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia meta.bracket.julia
+T 6 source.julia
+T 7 source.julia punctuation.separator.comma.julia
+T 9 source.julia
+T 10 source.julia meta.bracket.julia
+T 12 source.julia keyword.operator.transpose.julia
+L z = {c}'
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia meta.bracket.julia
+T 6 source.julia
+T 7 source.julia meta.bracket.julia
+T 8 source.julia keyword.operator.transpose.julia
+L w = ∇f'.''
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 8 source.julia
+T 12 source.julia keyword.operator.transposed-variable.julia
+L v = a'
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia
+T 6 source.julia keyword.operator.transposed-variable.julia
+L f(x)'
+T 1 source.julia support.function.julia
+T 2 source.julia meta.bracket.julia
+T 3 source.julia
+T 4 source.julia meta.bracket.julia
+T 5 source.julia meta.bracket.julia keyword.operator.transposed-func.julia
+L x]' y)'.'
+T 1 source.julia
+T 2 source.julia bracket.end.julia
+T 3 source.julia keyword.operator.transposed-matrix.julia
+T 5 source.julia
+T 6 source.julia bracket.end.julia
+T 9 source.julia keyword.operator.transposed-parens.julia
+L arr = [begin end end]
+T 4 source.julia
+T 5 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 7 source.julia meta.array.julia meta.bracket.julia
+T 12 source.julia meta.array.julia constant.numeric.julia
+T 13 source.julia meta.array.julia
+T 16 source.julia meta.array.julia constant.numeric.julia
+T 17 source.julia meta.array.julia
+T 20 source.julia meta.array.julia constant.numeric.julia
+T 21 source.julia meta.array.julia meta.bracket.julia
+L a += 1; a -= 1; a *= 2; a //= 2; a /= 2; a .//= 2; a ./= 2; a .*= 2; a \= 2; a .\= 2
+T 2 source.julia
+T 4 source.julia keyword.operator.update.julia
+T 5 source.julia
+T 6 source.julia constant.numeric.julia
+T 7 source.julia punctuation.separator.semicolon.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 14 source.julia constant.numeric.julia
+T 15 source.julia punctuation.separator.semicolon.julia
+T 18 source.julia
+T 20 source.julia keyword.operator.update.julia
+T 21 source.julia
+T 22 source.julia constant.numeric.julia
+T 23 source.julia punctuation.separator.semicolon.julia
+T 26 source.julia
+T 29 source.julia keyword.operator.update.julia
+T 30 source.julia
+T 31 source.julia constant.numeric.julia
+T 32 source.julia punctuation.separator.semicolon.julia
+T 35 source.julia
+T 37 source.julia keyword.operator.update.julia
+T 38 source.julia
+T 39 source.julia constant.numeric.julia
+T 40 source.julia punctuation.separator.semicolon.julia
+T 43 source.julia
+T 47 source.julia keyword.operator.update.julia
+T 48 source.julia
+T 49 source.julia constant.numeric.julia
+T 50 source.julia punctuation.separator.semicolon.julia
+T 53 source.julia
+T 56 source.julia keyword.operator.update.julia
+T 57 source.julia
+T 58 source.julia constant.numeric.julia
+T 59 source.julia punctuation.separator.semicolon.julia
+T 62 source.julia
+T 65 source.julia keyword.operator.update.julia
+T 66 source.julia
+T 67 source.julia constant.numeric.julia
+T 68 source.julia punctuation.separator.semicolon.julia
+T 71 source.julia
+T 73 source.julia keyword.operator.update.julia
+T 74 source.julia
+T 75 source.julia constant.numeric.julia
+T 76 source.julia punctuation.separator.semicolon.julia
+T 79 source.julia
+T 82 source.julia keyword.operator.update.julia
+T 83 source.julia
+T 84 source.julia constant.numeric.julia
+L a ^= 2; a .^= 2; a %= 2; a .%= 2; a ÷= 2; a .÷= 2; a |= 1; a &= 1; a .&= 1
+T 2 source.julia
+T 4 source.julia keyword.operator.update.julia
+T 5 source.julia
+T 6 source.julia constant.numeric.julia
+T 7 source.julia punctuation.separator.semicolon.julia
+T 10 source.julia
+T 13 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 15 source.julia constant.numeric.julia
+T 16 source.julia punctuation.separator.semicolon.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.update.julia
+T 22 source.julia
+T 23 source.julia constant.numeric.julia
+T 24 source.julia punctuation.separator.semicolon.julia
+T 27 source.julia
+T 30 source.julia keyword.operator.update.julia
+T 31 source.julia
+T 32 source.julia constant.numeric.julia
+T 33 source.julia punctuation.separator.semicolon.julia
+T 36 source.julia
+T 39 source.julia keyword.operator.update.julia
+T 40 source.julia
+T 41 source.julia constant.numeric.julia
+T 42 source.julia punctuation.separator.semicolon.julia
+T 45 source.julia
+T 49 source.julia keyword.operator.update.julia
+T 50 source.julia
+T 51 source.julia constant.numeric.julia
+T 52 source.julia punctuation.separator.semicolon.julia
+T 55 source.julia
+T 57 source.julia keyword.operator.update.julia
+T 58 source.julia
+T 59 source.julia constant.numeric.julia
+T 60 source.julia punctuation.separator.semicolon.julia
+T 63 source.julia
+T 65 source.julia keyword.operator.update.julia
+T 66 source.julia
+T 67 source.julia constant.numeric.julia
+T 68 source.julia punctuation.separator.semicolon.julia
+T 71 source.julia
+T 74 source.julia keyword.operator.update.julia
+T 75 source.julia
+T 76 source.julia constant.numeric.julia
+L a ⊻= 1; a .⊻= 1; a $= 1; a <<= 1; a >>= 1; a >>>= 1; a := 1
+T 2 source.julia
+T 6 source.julia keyword.operator.update.julia
+T 7 source.julia
+T 8 source.julia constant.numeric.julia
+T 9 source.julia punctuation.separator.semicolon.julia
+T 12 source.julia
+T 17 source.julia keyword.operator.update.julia
+T 18 source.julia
+T 19 source.julia constant.numeric.julia
+T 20 source.julia punctuation.separator.semicolon.julia
+T 23 source.julia
+T 25 source.julia keyword.operator.update.julia
+T 26 source.julia
+T 27 source.julia constant.numeric.julia
+T 28 source.julia punctuation.separator.semicolon.julia
+T 31 source.julia
+T 34 source.julia keyword.operator.update.julia
+T 35 source.julia
+T 36 source.julia constant.numeric.julia
+T 37 source.julia punctuation.separator.semicolon.julia
+T 40 source.julia
+T 43 source.julia keyword.operator.update.julia
+T 44 source.julia
+T 45 source.julia constant.numeric.julia
+T 46 source.julia punctuation.separator.semicolon.julia
+T 49 source.julia
+T 53 source.julia keyword.operator.update.julia
+T 54 source.julia
+T 55 source.julia constant.numeric.julia
+T 56 source.julia punctuation.separator.semicolon.julia
+T 59 source.julia
+T 61 source.julia keyword.operator.update.julia
+T 62 source.julia
+T 63 source.julia constant.numeric.julia
+L b = a << 1 >> 2 >>> 3 .>> 4 .>>> 5 .<< 6
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.shift.julia
+T 9 source.julia
+T 10 source.julia constant.numeric.julia
+T 11 source.julia
+T 13 source.julia keyword.operator.shift.julia
+T 14 source.julia
+T 15 source.julia constant.numeric.julia
+T 16 source.julia
+T 19 source.julia keyword.operator.shift.julia
+T 20 source.julia
+T 21 source.julia constant.numeric.julia
+T 22 source.julia
+T 25 source.julia keyword.operator.shift.julia
+T 26 source.julia
+T 27 source.julia constant.numeric.julia
+T 28 source.julia
+T 32 source.julia keyword.operator.shift.julia
+T 33 source.julia
+T 34 source.julia constant.numeric.julia
+T 35 source.julia
+T 38 source.julia keyword.operator.shift.julia
+T 39 source.julia
+T 40 source.julia constant.numeric.julia
+L c = a <= b >= c < d > e ≤ f ≥ g == h === i ≡ j != k ≠ l !== m ∈ n .<= o
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.relation.julia
+T 11 source.julia
+T 13 source.julia keyword.operator.relation.julia
+T 16 source.julia
+T 17 source.julia keyword.operator.relation.julia
+T 20 source.julia
+T 21 source.julia keyword.operator.relation.julia
+T 24 source.julia
+T 27 source.julia keyword.operator.relation.julia
+T 30 source.julia
+T 33 source.julia keyword.operator.relation.julia
+T 36 source.julia
+T 38 source.julia keyword.operator.relation.julia
+T 41 source.julia
+T 44 source.julia keyword.operator.relation.julia
+T 47 source.julia
+T 50 source.julia keyword.operator.relation.julia
+T 53 source.julia
+T 55 source.julia keyword.operator.relation.julia
+T 58 source.julia
+T 61 source.julia keyword.operator.relation.julia
+T 64 source.julia
+T 66 source.julia keyword.operator.relation.julia
+T 67 source.julia keyword.operator.update.julia
+T 70 source.julia
+T 73 source.julia keyword.operator.relation.julia
+T 76 source.julia
+T 79 source.julia keyword.operator.relation.julia
+T 81 source.julia
+L d = a ? b : c
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 7 source.julia keyword.operator.ternary.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.ternary.julia
+T 13 source.julia
+L e = a || b && !c
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.boolean.julia
+T 11 source.julia
+T 13 source.julia keyword.operator.boolean.julia
+T 14 source.julia
+T 15 source.julia keyword.operator.boolean.julia
+T 16 source.julia
+L r = 1:2; s = a[1:end]
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia constant.numeric.julia
+T 6 source.julia keyword.operator.range.julia
+T 7 source.julia constant.numeric.julia
+T 8 source.julia punctuation.separator.semicolon.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 14 source.julia
+T 15 source.julia meta.array.julia meta.bracket.julia
+T 16 source.julia meta.array.julia constant.numeric.julia
+T 17 source.julia meta.array.julia keyword.operator.range.julia
+T 20 source.julia meta.array.julia constant.numeric.julia
+T 21 source.julia meta.array.julia meta.bracket.julia
+L t = x |> f
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.applies.julia
+T 10 source.julia
+L u = a | b .| c & d .& e ~f ¬g .~h ⊻ i .⊻ j
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 7 source.julia keyword.operator.bitwise.julia
+T 10 source.julia
+T 12 source.julia keyword.operator.bitwise.julia
+T 15 source.julia
+T 16 source.julia keyword.operator.bitwise.julia
+T 19 source.julia
+T 21 source.julia keyword.operator.bitwise.julia
+T 24 source.julia
+T 25 source.julia keyword.operator.bitwise.julia
+T 27 source.julia
+T 29 source.julia keyword.operator.bitwise.julia
+T 31 source.julia
+T 33 source.julia keyword.operator.bitwise.julia
+T 35 source.julia
+T 38 source.julia keyword.operator.bitwise.julia
+T 41 source.julia
+T 45 source.julia keyword.operator.bitwise.julia
+T 47 source.julia
+L v = a + b - c * d / e // f % g ^ h \ i ++ j -- k .+ l ± m × n ÷ o · p
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 7 source.julia keyword.operator.arithmetic.julia
+T 10 source.julia
+T 11 source.julia keyword.operator.arithmetic.julia
+T 14 source.julia
+T 15 source.julia keyword.operator.arithmetic.julia
+T 18 source.julia
+T 19 source.julia keyword.operator.arithmetic.julia
+T 22 source.julia
+T 24 source.julia keyword.operator.arithmetic.julia
+T 27 source.julia
+T 28 source.julia keyword.operator.arithmetic.julia
+T 31 source.julia
+T 32 source.julia keyword.operator.arithmetic.julia
+T 35 source.julia
+T 36 source.julia keyword.operator.arithmetic.julia
+T 39 source.julia
+T 41 source.julia keyword.operator.arithmetic.julia
+T 44 source.julia
+T 46 source.julia keyword.operator.arithmetic.julia
+T 49 source.julia
+T 51 source.julia keyword.operator.arithmetic.julia
+T 54 source.julia
+T 56 source.julia keyword.operator.arithmetic.julia
+T 59 source.julia
+T 61 source.julia keyword.operator.arithmetic.julia
+T 64 source.julia
+T 66 source.julia keyword.operator.arithmetic.julia
+T 69 source.julia
+T 71 source.julia keyword.operator.arithmetic.julia
+T 73 source.julia
+L f ∘ g
+T 2 source.julia
+T 5 source.julia keyword.operator.arithmetic.julia
+T 7 source.julia
+L x isa Int
+T 2 source.julia
+T 5 source.julia keyword.operator.isa.julia
+T 9 source.julia
+L x in y
+T 2 source.julia
+T 4 source.julia keyword.operator.relation.in.julia
+T 6 source.julia
+L a.b; a..b; a...; x…
+T 1 source.julia
+T 2 source.julia keyword.operator.dots.julia
+T 3 source.julia
+T 4 source.julia punctuation.separator.semicolon.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.dots.julia
+T 9 source.julia
+T 10 source.julia punctuation.separator.semicolon.julia
+T 12 source.julia
+T 15 source.julia keyword.operator.dots.julia
+T 16 source.julia punctuation.separator.semicolon.julia
+T 18 source.julia
+T 21 source.julia keyword.operator.dots.julia
+L $x
+T 1 source.julia keyword.operator.interpolation.julia
+T 2 source.julia
+L x = a -> y ← z → w <--> v --> u <-- t => s ⟶ r
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 6 source.julia
+T 8 source.julia keyword.operator.arrow.julia
+T 11 source.julia
+T 14 source.julia keyword.operator.arrow.julia
+T 17 source.julia
+T 20 source.julia keyword.operator.arrow.julia
+T 23 source.julia
+T 27 source.julia keyword.operator.arrow.julia
+T 30 source.julia
+T 33 source.julia keyword.operator.arrow.julia
+T 36 source.julia
+T 39 source.julia keyword.operator.arrow.julia
+T 42 source.julia
+T 44 source.julia keyword.operator.arrow.julia
+T 47 source.julia
+T 50 source.julia keyword.operator.arrow.julia
+T 52 source.julia
+L @doc """
+T 4 source.julia string.docstring.julia support.function.macro.julia
+T 5 source.julia string.docstring.julia
+T 8 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     f(x)
+T 8 source.julia string.docstring.julia
+L 
+L Doc $x \t
+T 4 source.julia string.docstring.julia
+T 6 source.julia string.docstring.julia variable.interpolation.julia
+T 7 source.julia string.docstring.julia
+T 9 source.julia string.docstring.julia constant.character.escape.julia
+L """ ->
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+T 4 source.julia string.docstring.julia
+T 6 source.julia string.docstring.julia keyword.operator.arrow.julia
+L f
+T 1 source.julia
+L doc"""text"""
+T 6 source.julia string.docstring.julia
+T 10 source.julia string.docstring.julia
+T 13 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L @doc doc"""text""" f
+T 4 source.julia string.docstring.julia support.function.macro.julia
+T 5 source.julia string.docstring.julia
+T 11 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+T 15 source.julia string.docstring.julia
+T 18 source.julia string.docstring.julia punctuation.definition.string.end.julia
+T 19 source.julia string.docstring.julia
+T 20 source.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L     docstring $x \t
+T 14 source.julia string.docstring.julia
+T 16 source.julia string.docstring.julia variable.interpolation.julia
+T 17 source.julia string.docstring.julia
+T 19 source.julia string.docstring.julia constant.character.escape.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L  doc"""
+T 1 source.julia string.docstring.julia
+T 4 source.julia string.docstring.julia support.function.macro.julia
+T 7 source.julia string.docstring.julia punctuation.definition.string.begin.julia
+L """
+T 3 source.julia string.docstring.julia punctuation.definition.string.end.julia
+L s = "a $b $(c) \n \\ \0 \12 \4 \x41 é \U0001F600 \q $(d+e) $α"
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia string.quoted.double.julia punctuation.definition.string.begin.julia
+T 7 source.julia string.quoted.double.julia
+T 9 source.julia string.quoted.double.julia variable.interpolation.julia
+T 10 source.julia string.quoted.double.julia
+T 11 source.julia string.quoted.double.julia variable.interpolation.julia
+T 12 source.julia string.quoted.double.julia variable.interpolation.julia meta.bracket.julia
+T 13 source.julia string.quoted.double.julia variable.interpolation.julia
+T 14 source.julia string.quoted.double.julia variable.interpolation.julia meta.bracket.julia
+T 15 source.julia string.quoted.double.julia
+T 17 source.julia string.quoted.double.julia constant.character.escape.julia
+T 18 source.julia string.quoted.double.julia
+T 20 source.julia string.quoted.double.julia constant.character.escape.julia
+T 21 source.julia string.quoted.double.julia
+T 23 source.julia string.quoted.double.julia constant.character.escape.julia
+T 24 source.julia string.quoted.double.julia
+T 27 source.julia string.quoted.double.julia constant.character.escape.julia
+T 28 source.julia string.quoted.double.julia
+T 30 source.julia string.quoted.double.julia constant.character.escape.julia
+T 31 source.julia string.quoted.double.julia
+T 35 source.julia string.quoted.double.julia constant.character.escape.julia
+T 39 source.julia string.quoted.double.julia
+T 49 source.julia string.quoted.double.julia constant.character.escape.julia
+T 50 source.julia string.quoted.double.julia
+T 52 source.julia string.quoted.double.julia constant.character.escape.julia
+T 53 source.julia string.quoted.double.julia
+T 54 source.julia string.quoted.double.julia variable.interpolation.julia
+T 55 source.julia string.quoted.double.julia variable.interpolation.julia meta.bracket.julia
+T 56 source.julia string.quoted.double.julia variable.interpolation.julia
+T 57 source.julia string.quoted.double.julia variable.interpolation.julia keyword.operator.arithmetic.julia
+T 58 source.julia string.quoted.double.julia variable.interpolation.julia
+T 59 source.julia string.quoted.double.julia variable.interpolation.julia meta.bracket.julia
+T 60 source.julia string.quoted.double.julia
+T 63 source.julia string.quoted.double.julia variable.interpolation.julia
+T 64 source.julia string.quoted.double.julia punctuation.definition.string.end.julia
+L c = 'a'; d = '\''
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 5 source.julia string.quoted.single.julia punctuation.definition.string.begin.julia
+T 6 source.julia string.quoted.single.julia
+T 7 source.julia string.quoted.single.julia punctuation.definition.string.end.julia
+T 8 source.julia punctuation.separator.semicolon.julia
+T 11 source.julia
+T 12 source.julia keyword.operator.update.julia
+T 13 source.julia
+T 14 source.julia string.quoted.single.julia punctuation.definition.string.begin.julia
+T 16 source.julia string.quoted.single.julia constant.character.escape.julia
+T 17 source.julia string.quoted.single.julia punctuation.definition.string.end.julia
+L t = """triple $x"""
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 7 source.julia string.quoted.triple.double.julia punctuation.definition.string.multiline.begin.julia
+T 14 source.julia string.quoted.triple.double.julia
+T 16 source.julia string.quoted.triple.double.julia variable.interpolation.julia
+T 19 source.julia string.quoted.triple.double.julia punctuation.definition.string.multiline.end.julia
+L r = r"a+\d"ims
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 6 source.julia string.regexp.julia punctuation.definition.string.regexp.begin.julia
+T 8 source.julia string.regexp.julia
+T 10 source.julia string.regexp.julia constant.character.escape.julia
+T 11 source.julia string.regexp.julia punctuation.definition.string.regexp.end.julia
+T 14 source.julia string.regexp.julia keyword.other.option-toggle.regexp.julia
+L rt = r"""multi
+T 3 source.julia
+T 4 source.julia keyword.operator.update.julia
+T 5 source.julia
+T 9 source.julia string.regexp.julia punctuation.definition.string.regexp.begin.julia
+T 14 source.julia string.regexp.julia
+L line"""xs
+T 4 source.julia string.regexp.julia
+T 7 source.julia string.regexp.julia punctuation.definition.string.regexp.end.julia
+T 9 source.julia string.regexp.julia keyword.other.option-toggle.regexp.julia
+L raw"a\"b\\" raw"x\\\"y"
+T 3 source.julia string.quoted.other.julia support.function.macro.julia
+T 4 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia
+T 5 source.julia string.quoted.other.julia
+T 7 source.julia string.quoted.other.julia constant.character.escape.julia
+T 8 source.julia string.quoted.other.julia
+T 10 source.julia string.quoted.other.julia constant.character.escape.julia
+T 11 source.julia string.quoted.other.julia punctuation.definition.string.end.julia
+T 12 source.julia
+T 15 source.julia string.quoted.other.julia support.function.macro.julia
+T 16 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia
+T 17 source.julia string.quoted.other.julia
+T 21 source.julia string.quoted.other.julia constant.character.escape.julia
+T 22 source.julia string.quoted.other.julia
+T 23 source.julia string.quoted.other.julia punctuation.definition.string.end.julia
+L raw"""x \" y"""
+T 3 source.julia string.quoted.other.julia support.function.macro.julia
+T 6 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia
+T 8 source.julia string.quoted.other.julia
+T 10 source.julia string.quoted.other.julia constant.character.escape.julia
+T 12 source.julia string.quoted.other.julia
+T 15 source.julia string.quoted.other.julia punctuation.definition.string.end.julia
+L var"x y"
+T 4 source.julia constant.other.symbol.julia
+T 7 source.julia constant.other.symbol.julia
+T 8 source.julia constant.other.symbol.julia
+L var"""z"""
+T 6 source.julia constant.other.symbol.julia
+T 7 source.julia constant.other.symbol.julia
+T 10 source.julia constant.other.symbol.julia
+L cxx"""int x = $y;"""
+T 3 source.julia embed.cxx.julia support.function.macro.julia
+T 6 source.julia embed.cxx.julia punctuation.definition.string.begin.julia
+T 14 source.julia embed.cxx.julia meta.embedded.inline.cpp
+T 16 source.julia embed.cxx.julia meta.embedded.inline.cpp variable.interpolation.julia
+T 17 source.julia embed.cxx.julia meta.embedded.inline.cpp
+T 20 source.julia embed.cxx.julia punctuation.definition.string.end.julia
+L icxx"""return 1;"""
+T 4 source.julia embed.cxx.julia support.function.macro.julia
+T 7 source.julia embed.cxx.julia punctuation.definition.string.begin.julia
+T 16 source.julia embed.cxx.julia meta.embedded.inline.cpp
+T 19 source.julia embed.cxx.julia punctuation.definition.string.end.julia
+L py"""
+T 2 source.julia embed.python.julia support.function.macro.julia
+T 5 source.julia embed.python.julia punctuation.definition.string.begin.julia
+L def f(x): return x
+T 3 source.julia embed.python.julia meta.embedded.inline.python meta.function.python storage.type.function.python
+T 4 source.julia embed.python.julia meta.embedded.inline.python meta.function.python
+T 5 source.julia embed.python.julia meta.embedded.inline.python meta.function.python entity.name.function.python
+T 6 source.julia embed.python.julia meta.embedded.inline.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 7 source.julia embed.python.julia meta.embedded.inline.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 8 source.julia embed.python.julia meta.embedded.inline.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 9 source.julia embed.python.julia meta.embedded.inline.python meta.function.python punctuation.section.function.begin.python
+T 10 source.julia embed.python.julia meta.embedded.inline.python
+T 16 source.julia embed.python.julia meta.embedded.inline.python keyword.control.flow.python
+T 17 source.julia embed.python.julia meta.embedded.inline.python
+T 18 source.julia embed.python.julia meta.embedded.inline.python
+L x = 1"""
+T 1 source.julia embed.python.julia meta.embedded.inline.python
+T 2 source.julia embed.python.julia meta.embedded.inline.python
+T 3 source.julia embed.python.julia meta.embedded.inline.python keyword.operator.assignment.python
+T 5 source.julia embed.python.julia
+T 8 source.julia embed.python.julia punctuation.definition.string.end.julia
+L js"""let a = $(b);"""
+T 2 source.julia embed.js.julia support.function.macro.julia
+T 5 source.julia embed.js.julia punctuation.definition.string.begin.julia
+T 8 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js storage.type.js
+T 9 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js
+T 10 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 11 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js meta.var-single-variable.expr.js
+T 12 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js keyword.operator.assignment.js
+T 13 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js
+T 14 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js meta.function-call.js entity.name.function.js
+T 15 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js meta.brace.round.js
+T 16 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js variable.other.readwrite.js
+T 17 source.julia embed.js.julia meta.embedded.inline.javascript meta.var.expr.js meta.brace.round.js
+T 18 source.julia embed.js.julia meta.embedded.inline.javascript punctuation.terminator.statement.js
+T 21 source.julia embed.js.julia punctuation.definition.string.end.julia
+L R"""x <- $y"""
+T 1 source.julia embed.R.julia support.function.macro.julia
+T 4 source.julia embed.R.julia punctuation.definition.string.begin.julia
+T 9 source.julia embed.R.julia meta.embedded.inline.r
+T 11 source.julia embed.R.julia meta.embedded.inline.r variable.interpolation.julia
+T 14 source.julia embed.R.julia punctuation.definition.string.end.julia
+L sql"""SELECT * FROM t WHERE a = $(b)"""
+T 3 source.julia embed.sql.julia support.function.macro.julia
+T 6 source.julia embed.sql.julia punctuation.definition.string.begin.julia
+T 12 source.julia embed.sql.julia meta.embedded.inline.sql keyword.other.DML.sql
+T 13 source.julia embed.sql.julia meta.embedded.inline.sql
+T 14 source.julia embed.sql.julia meta.embedded.inline.sql keyword.operator.star.sql
+T 15 source.julia embed.sql.julia meta.embedded.inline.sql
+T 19 source.julia embed.sql.julia meta.embedded.inline.sql keyword.other.DML.sql
+T 22 source.julia embed.sql.julia meta.embedded.inline.sql
+T 27 source.julia embed.sql.julia meta.embedded.inline.sql keyword.other.DML.sql
+T 30 source.julia embed.sql.julia meta.embedded.inline.sql
+T 31 source.julia embed.sql.julia meta.embedded.inline.sql keyword.operator.comparison.sql
+T 32 source.julia embed.sql.julia meta.embedded.inline.sql
+T 33 source.julia embed.sql.julia meta.embedded.inline.sql variable.interpolation.julia
+T 34 source.julia embed.sql.julia meta.embedded.inline.sql variable.interpolation.julia meta.bracket.julia
+T 35 source.julia embed.sql.julia meta.embedded.inline.sql variable.interpolation.julia
+T 36 source.julia embed.sql.julia meta.embedded.inline.sql variable.interpolation.julia meta.bracket.julia
+T 39 source.julia embed.sql.julia punctuation.definition.string.end.julia
+L b"bytes"suffix
+T 1 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia support.function.macro.julia
+T 2 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia
+T 7 source.julia string.quoted.other.julia
+T 8 source.julia string.quoted.other.julia punctuation.definition.string.end.julia
+T 14 source.julia string.quoted.other.julia support.function.macro.julia
+L v"1.0"
+T 1 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia support.function.macro.julia
+T 2 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia
+T 5 source.julia string.quoted.other.julia
+T 6 source.julia string.quoted.other.julia punctuation.definition.string.end.julia
+L html"""<b>$x</b>"""m
+T 4 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia support.function.macro.julia
+T 7 source.julia string.quoted.other.julia punctuation.definition.string.begin.julia
+T 16 source.julia string.quoted.other.julia
+T 19 source.julia string.quoted.other.julia punctuation.definition.string.end.julia
+T 20 source.julia string.quoted.other.julia support.function.macro.julia
+L `echo $x \``
+T 1 source.julia string.interpolated.backtick.julia punctuation.definition.string.begin.julia
+T 6 source.julia string.interpolated.backtick.julia
+T 8 source.julia string.interpolated.backtick.julia variable.interpolation.julia
+T 9 source.julia string.interpolated.backtick.julia
+T 11 source.julia string.interpolated.backtick.julia constant.character.escape.julia
+T 12 source.julia string.interpolated.backtick.julia punctuation.definition.string.end.julia
+L run`ls $d`x
+T 3 source.julia string.interpolated.backtick.julia punctuation.definition.string.begin.julia support.function.macro.julia
+T 4 source.julia string.interpolated.backtick.julia punctuation.definition.string.begin.julia
+T 7 source.julia string.interpolated.backtick.julia
+T 9 source.julia string.interpolated.backtick.julia variable.interpolation.julia
+T 10 source.julia string.interpolated.backtick.julia punctuation.definition.string.end.julia
+T 11 source.julia string.interpolated.backtick.julia support.function.macro.julia
+L cmd```ls```x
+T 3 source.julia string.interpolated.backtick.julia punctuation.definition.string.begin.julia support.function.macro.julia
+T 6 source.julia string.interpolated.backtick.julia punctuation.definition.string.begin.julia
+T 8 source.julia string.interpolated.backtick.julia
+T 11 source.julia string.interpolated.backtick.julia punctuation.definition.string.end.julia
+T 12 source.julia string.interpolated.backtick.julia support.function.macro.julia
+L x = :sym
+T 2 source.julia
+T 3 source.julia keyword.operator.update.julia
+T 4 source.julia
+T 8 source.julia constant.other.symbol.julia
+L @time @. @! @async f()
+T 5 source.julia support.function.macro.julia
+T 6 source.julia
+T 8 source.julia support.function.macro.julia
+T 9 source.julia
+T 11 source.julia support.function.macro.julia
+T 12 source.julia
+T 18 source.julia support.function.macro.julia
+T 19 source.julia
+T 20 source.julia support.function.julia
+T 21 source.julia meta.bracket.julia
+T 22 source.julia meta.bracket.julia
+L @show(x)
+T 5 source.julia support.function.macro.julia
+T 6 source.julia meta.bracket.julia
+T 7 source.julia
+T 8 source.julia meta.bracket.julia
+L 0x1F 0o17 0b101 1_000 1.5e-3 1e10 2.5f0 3im 4Inf 5NaN32 6π 7pi 8ℯ Inf NaN64 π pi ℯ 9'
+T 4 source.julia constant.numeric.julia
+T 5 source.julia
+T 9 source.julia constant.numeric.julia
+T 10 source.julia
+T 15 source.julia constant.numeric.julia
+T 16 source.julia
+T 21 source.julia constant.numeric.julia
+T 22 source.julia
+T 28 source.julia constant.numeric.julia
+T 29 source.julia
+T 33 source.julia constant.numeric.julia
+T 34 source.julia
+T 39 source.julia constant.numeric.julia
+T 40 source.julia
+T 43 source.julia constant.numeric.julia
+T 44 source.julia
+T 48 source.julia constant.numeric.julia
+T 49 source.julia
+T 55 source.julia constant.numeric.julia
+T 56 source.julia
+T 59 source.julia constant.numeric.julia
+T 60 source.julia
+T 63 source.julia constant.numeric.julia
+T 64 source.julia
+T 68 source.julia constant.numeric.julia
+T 69 source.julia
+T 72 source.julia constant.numeric.julia
+T 73 source.julia
+T 78 source.julia constant.numeric.julia
+T 79 source.julia
+T 81 source.julia constant.numeric.julia
+T 82 source.julia
+T 84 source.julia constant.numeric.julia
+T 85 source.julia
+T 88 source.julia constant.numeric.julia
+T 89 source.julia
+T 90 source.julia constant.numeric.julia
+T 91 source.julia keyword.operator.conjugate-number.julia
+L ARGS C_NULL DEPOT_PATH ENDIAN_BOM ENV LOAD_PATH PROGRAM_FILE stdin stdout stderr VERSION devnull
+T 4 source.julia constant.global.julia
+T 5 source.julia
+T 11 source.julia constant.global.julia
+T 12 source.julia
+T 22 source.julia constant.global.julia
+T 23 source.julia
+T 33 source.julia constant.global.julia
+T 34 source.julia
+T 37 source.julia constant.global.julia
+T 38 source.julia
+T 47 source.julia constant.global.julia
+T 48 source.julia
+T 60 source.julia constant.global.julia
+T 61 source.julia
+T 66 source.julia constant.global.julia
+T 67 source.julia
+T 73 source.julia constant.global.julia
+T 74 source.julia
+T 80 source.julia constant.global.julia
+T 81 source.julia
+T 88 source.julia constant.global.julia
+T 89 source.julia
+T 96 source.julia constant.global.julia
+L true false nothing missing
+T 4 source.julia constant.language.julia
+T 5 source.julia
+T 10 source.julia constant.language.julia
+T 11 source.julia
+T 18 source.julia constant.language.julia
+T 19 source.julia
+T 26 source.julia constant.language.julia
+L x::Int...
+T 1 source.julia
+T 3 source.julia keyword.operator.relation.types.julia
+T 9 source.julia support.type.julia
+L y::Union{}
+T 1 source.julia
+T 3 source.julia keyword.operator.relation.types.julia
+T 10 source.julia support.type.julia
+L z <: (A, B)'
+T 1 source.julia
+T 2 source.julia
+T 4 source.julia keyword.operator.relation.types.julia
+T 5 source.julia
+T 11 source.julia support.type.julia
+T 12 source.julia keyword.operator.transpose.julia
+L w :: Vector{Vector{Vector{Int}}}
+T 1 source.julia
+T 2 source.julia
+T 4 source.julia keyword.operator.relation.types.julia
+T 5 source.julia
+T 32 source.julia support.type.julia
+L q :: "str"
+T 2 source.julia
+T 4 source.julia keyword.operator.isa.julia
+T 5 source.julia
+T 6 source.julia string.quoted.double.julia punctuation.definition.string.begin.julia
+T 9 source.julia string.quoted.double.julia
+T 10 source.julia string.quoted.double.julia punctuation.definition.string.end.julia
+L 

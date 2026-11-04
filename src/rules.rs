@@ -36,7 +36,8 @@ use std::fmt::Debug;
     feature = "lang-lua",
     feature = "lang-nix",
     feature = "lang-less",
-    feature = "lang-powershell"
+    feature = "lang-powershell",
+    feature = "lang-julia"
 ))]
 pub(crate) use chars::Chars;
 use lexer::FIRST_LINE;

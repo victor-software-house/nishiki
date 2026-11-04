@@ -108,6 +108,8 @@ tables! {
     JAVA = java;
     #[cfg(feature = "lang-json")]
     JSON = json;
+    #[cfg(feature = "lang-julia")]
+    JULIA = julia;
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = kotlin;
     #[cfg(feature = "lang-less")]
