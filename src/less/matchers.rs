@@ -27,8 +27,9 @@ use crate::rules::Chars;
 /// fails on a longer one.
 const LONGEST_WORD: usize = 64;
 
-/// The word of `table`, which is sorted, that `key` is, and whether a longer
-/// word of it starts with `key`: the words that do sort right after `key`.
+/// The word of `table` that `key` is, and whether a longer word of the
+/// table starts with `key`. `table` is sorted, so such words sort right
+/// after `key`.
 fn find(table: &[Word], key: &[u8]) -> (Option<Word>, bool) {
     let (word, next) = match table.binary_search_by(|word| word.text.as_bytes().cmp(key)) {
         Ok(index) => (table.get(index).copied(), index + 1),
@@ -1004,10 +1005,11 @@ impl Lexer<'_> {
     /// tries first. Every word of a table is made of `[-.0-9:A-Za-z]` and is
     /// at most [`LONGEST_WORD`] bytes long, so the search ends there.
     ///
-    /// Each end where `\b` holds is searched as written and, when it holds a
-    /// capital, lowered for the words that ignore case ([`find`]). The search
-    /// stops at the first end that no longer word of the table goes on from,
-    /// in either spelling, as no later end can then match.
+    /// Each end where `\b` holds is searched as written. When the text holds a
+    /// capital, it is also searched lowered, for the words that ignore case
+    /// ([`find`]). The search stops at the first end that no longer word of
+    /// the table goes on from, in either spelling. No later end can then
+    /// match.
     fn table_word(&self, p: usize, table: &[Word]) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -1052,11 +1054,11 @@ impl Lexer<'_> {
     }
 
     /// [`Lexer::table_word`] past `run`, where a character above ASCII
-    /// stands: of the words that ignore case, the one the alternation tries
-    /// first that a text through such characters spells. `(?i)` reads a
-    /// character that folds to letters as them, `ſ` as `s` and the Kelvin
-    /// sign as `k` ([`case_fold::lower_into`]), and any other ends the words.
-    /// Out of line, as such text is rare.
+    /// stands. It finds, among the words that ignore case, the one the
+    /// alternation tries first that the text spells. `(?i)` reads a character
+    /// that folds to letters as those letters, `ſ` as `s` and the Kelvin sign
+    /// as `k` ([`case_fold::lower_into`]). Any other such character ends the
+    /// words. The function is out of line, because such text is rare.
     #[cold]
     fn folded_table_word(&self, p: usize, run: usize, table: &[Word]) -> Option<(u16, usize)> {
         let mut best: Option<(u16, usize)> = None;
@@ -1128,10 +1130,11 @@ impl Lexer<'_> {
     /// `\b(a|b|…)(?=\()` at `p`, the name in group 1. No word of a list is
     /// another followed by `(`, so the order does not matter.
     ///
-    /// Every word is made of `[-\w]`, which `(` is not, so a word followed by
-    /// `(` is the whole run of `[-\w]` from `p`: the run is read once for the
-    /// patterns tried at `p` ([`Lexer::dash_word_end`]), and only a run that
-    /// `(` follows is compared with the words.
+    /// Every word is made of `[-\w]`, and `(` is not one of them. A word
+    /// followed by `(` is therefore the whole run of `[-\w]` from `p`. The
+    /// run is read once for the patterns tried at `p`
+    /// ([`Lexer::dash_word_end`]). Only a run that `(` follows is compared
+    /// with the words.
     fn func(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         if !self.boundary(p) {
             return None;

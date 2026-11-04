@@ -298,8 +298,8 @@ impl Lexer<'_> {
         (end > p).then_some(end)
     }
 
-    /// The end of the run of `[-\w]` from `p`, which a read from the start or
-    /// inside of the last run shares.
+    /// The end of the run of `[-\w]` from `p`. A read from the start or the
+    /// inside of the last run reuses that run's end.
     pub(super) fn dash_word_end(&self, p: usize) -> usize {
         let (from, to) = self.x.dash_words.get();
         if from <= p && p < to {

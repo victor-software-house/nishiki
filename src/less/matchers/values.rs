@@ -236,9 +236,9 @@ impl Lexer<'_> {
     /// given back. The second alternative, `[-+]?\d+`, takes a second sign
     /// after the first.
     ///
-    /// Only a digit, `.`, a second sign or a byte above ASCII, which a digit
-    /// of `\d` beyond ASCII starts, can follow the sign, so any other byte
-    /// there rules the number out at once.
+    /// Only a digit, `.`, a second sign or a byte above ASCII can follow the
+    /// sign. A byte above ASCII can start a digit of `\d` beyond ASCII. Any
+    /// other byte there rules the number out at once.
     pub(super) fn dimension(&mut self, p: usize, units: &[&[u8]]) -> Option<usize> {
         let start = if sign(self.at(p)) { p + 1 } else { p };
         let first = self.at(start);
