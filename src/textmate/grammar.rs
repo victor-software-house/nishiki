@@ -15,7 +15,7 @@
 
 use std::sync::OnceLock;
 
-use super::regex::Regex;
+use super::regex::{LineKind, Regex};
 use super::scanner::Scanner;
 
 /// The index that stands for no rule, pattern or name.
@@ -164,15 +164,45 @@ pub(crate) struct Grammar {
     pub(crate) patterns: &'static [Pattern],
     /// The rule of the whole grammar.
     pub(crate) root: usize,
-    /// The cells a search fills: see [`Grammar::cells`].
+    /// The cells a search fills on [`LineKind::Lean`] lines: see
+    /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,
+    /// The same for [`LineKind::Full`] lines.
+    pub(crate) full_cells: OnceLock<Cells>,
 }
 
-/// The cells of a grammar that searches fill.
+/// Whether a grammar's line kinds run different programs.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(crate) enum Folding {
+    /// Every pattern compiles to one program for both kinds of line, so a
+    /// line's kind is never looked at.
+    #[default]
+    Same,
+    /// Some pattern's lean program differs from its full one.
+    Differs,
+}
+
+/// The root scopes of the grammars where some pattern's lean program differs
+/// from its full one: kept by hand, because only the Rust parser can tell,
+/// and checked against every pattern by
+/// `the_folding_table_matches_the_patterns`.
+static FOLDING: &[&str] = &[
+    "markdown.mermaid.codeblock",
+    "source.batchfile",
+    "source.cmake",
+    "source.haskell",
+    "source.julia",
+    "source.powershell",
+    "text.html.markdown",
+];
+
+/// The cells of a grammar that searches fill on one kind of line.
 #[derive(Debug)]
 pub(crate) struct Cells {
     /// The grammar whose cells these are, read only to fill a cell.
     pub(crate) grammar: &'static Grammar,
+    /// The kind of line whose programs the cells hold.
+    pub(crate) kind: LineKind,
     /// The cell of each pattern's compiled form, by the pattern's index.
     pub(crate) regexes: Box<[RegexCell]>,
     /// The cell of each list's scanner, by the list's index.
@@ -180,19 +210,38 @@ pub(crate) struct Cells {
 }
 
 impl Grammar {
-    /// The grammar's cells, allocated on first use.
-    pub(crate) fn cells(&'static self) -> &'static Cells {
-        self.cells.get_or_init(move || Cells {
+    /// The grammar's cells for lines of `kind`, allocated on first use.
+    pub(crate) fn cells(&'static self, kind: LineKind) -> &'static Cells {
+        self.cells_of(kind).get_or_init(move || Cells {
             grammar: self,
+            kind,
             regexes: self.patterns.iter().map(|_| RegexCell::new()).collect(),
             scanners: self.lists.iter().map(|_| ScannerCell::new()).collect(),
         })
     }
+
+    /// Whether the grammar's line kinds run different programs.
+    pub(crate) fn folding(&self) -> Folding {
+        if FOLDING.contains(&self.scope) {
+            Folding::Differs
+        } else {
+            Folding::Same
+        }
+    }
+
+    /// Where the grammar keeps its cells for lines of `kind`.
+    pub(crate) fn cells_of(&self, kind: LineKind) -> &OnceLock<Cells> {
+        match kind {
+            LineKind::Lean => &self.cells,
+            LineKind::Full => &self.full_cells,
+        }
+    }
 }
 
 impl Cells {
-    /// The compiled pattern at `index`, compiled on first use, or `None` for
-    /// text the engine cannot compile, which never matches.
+    /// The compiled pattern at `index`, compiled on first use for the kind of
+    /// line the cells serve, or `None` for text the engine cannot compile,
+    /// which never matches.
     #[inline]
     pub(crate) fn regex(&self, index: usize) -> Option<&Regex> {
         self.regexes
@@ -201,7 +250,7 @@ impl Cells {
                 self.grammar
                     .patterns
                     .get(index)
-                    .and_then(|pattern| Regex::for_grammar(pattern.source).ok())
+                    .and_then(|pattern| Regex::for_grammar(pattern.source, self.kind).ok())
             })
             .as_ref()
     }

@@ -440,6 +440,134 @@ fn prune_class_folds(node: &mut Node, looks: &[Node]) {
     *node = class_folds(class, |fold| keep.contains(&fold));
 }
 
+/// `node` for a line that holds no character beyond ASCII that a fold of
+/// more than one character involves: each alternative a fold adds that
+/// matches no text of ASCII alone left out, or `None` when no fold has one.
+///
+/// Such an alternative needs one of those characters, so on that line the
+/// tree matches what `node` matches, without trying `ß`, the ligatures or the
+/// combining marks at every place they could start. A fold none of whose
+/// alternatives matches ASCII text keeps them all.
+pub(super) fn lean(node: &Node) -> Option<Node> {
+    if !has_wide_folds(node) {
+        return None;
+    }
+    let mut changed = false;
+    let lean = strip_wide_folds(node, &mut changed);
+    changed.then_some(lean)
+}
+
+/// Whether some fold in `node` has an alternative that matches no text of
+/// ASCII alone beside one that does: a walk that copies nothing, so a
+/// pattern with no such fold, as most are, compiles without a second tree.
+fn has_wide_folds(node: &Node) -> bool {
+    match node {
+        Node::Folds(alts) => {
+            let ascii = alts.iter().filter(|alt| reaches_ascii(alt)).count();
+            (ascii != 0 && ascii != alts.len()) || alts.iter().any(has_wide_folds)
+        }
+        Node::Seq(nodes) | Node::Alt(nodes) => nodes.iter().any(has_wide_folds),
+        Node::Repeat { node: inner, .. }
+        | Node::Group { node: inner, .. }
+        | Node::Look { node: inner, .. }
+        | Node::Atomic(inner) => has_wide_folds(inner),
+        Node::Empty
+        | Node::Char(..)
+        | Node::Any(_)
+        | Node::Class(..)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => false,
+    }
+}
+
+/// `node` with the fold alternatives that match no text of ASCII alone left
+/// out, setting `changed` when it leaves one out.
+fn strip_wide_folds(node: &Node, changed: &mut bool) -> Node {
+    let strip = |nodes: &[Node], changed: &mut bool| -> Vec<Node> {
+        nodes
+            .iter()
+            .map(|node| strip_wide_folds(node, changed))
+            .collect()
+    };
+    match node {
+        Node::Folds(alts) => {
+            let ascii: Vec<&Node> = alts.iter().filter(|alt| reaches_ascii(alt)).collect();
+            if ascii.is_empty() || ascii.len() == alts.len() {
+                return Node::Folds(strip(alts, changed));
+            }
+            *changed = true;
+            let kept: Vec<Node> = ascii
+                .into_iter()
+                .map(|alt| strip_wide_folds(alt, changed))
+                .collect();
+            match <[Node; 1]>::try_from(kept) {
+                Ok([only]) => only,
+                Err(kept) => Node::Folds(kept),
+            }
+        }
+        Node::Seq(items) => Node::Seq(strip(items, changed)),
+        Node::Alt(alts) => Node::Alt(strip(alts, changed)),
+        Node::Repeat {
+            node: inner,
+            min,
+            max,
+            kind,
+        } => Node::Repeat {
+            node: Box::new(strip_wide_folds(inner, changed)),
+            min: *min,
+            max: *max,
+            kind: *kind,
+        },
+        Node::Group { index, node: inner } => Node::Group {
+            index: *index,
+            node: Box::new(strip_wide_folds(inner, changed)),
+        },
+        Node::Look {
+            ahead,
+            negative,
+            node: inner,
+        } => Node::Look {
+            ahead: *ahead,
+            negative: *negative,
+            node: Box::new(strip_wide_folds(inner, changed)),
+        },
+        Node::Atomic(inner) => Node::Atomic(Box::new(strip_wide_folds(inner, changed))),
+        Node::Empty
+        | Node::Char(..)
+        | Node::Any(_)
+        | Node::Class(..)
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => node.clone(),
+    }
+}
+
+/// Whether `node` can match some text of ASCII alone; true where that cannot
+/// be told, such as inside a lookaround or a call.
+fn reaches_ascii(node: &Node) -> bool {
+    match node {
+        Node::Char(c) => c.is_ascii(),
+        Node::Class(class) => (0..128_u8).any(|b| class.matches(char::from(b))),
+        Node::Seq(items) => items.iter().all(reaches_ascii),
+        Node::Alt(alts) | Node::Folds(alts) => alts.iter().any(reaches_ascii),
+        Node::Repeat { node, min, .. } => *min == 0 || reaches_ascii(node),
+        Node::Group { node, .. } | Node::Atomic(node) => reaches_ascii(node),
+        Node::Empty
+        | Node::Any(_)
+        | Node::Look { .. }
+        | Node::Backref(..)
+        | Node::NamedBackref(..)
+        | Node::Call(_)
+        | Node::NamedCall(_)
+        | Node::Anchor(_) => true,
+    }
+}
+
 /// The fold strings as one node that shares their prefixes: strings that
 /// start alike take one branch, in the order the first of them came, so the
 /// first string that matches is the one the plain alternation would take.

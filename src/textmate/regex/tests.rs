@@ -1,5 +1,8 @@
-use super::folds::UNFOLD;
-use super::{Context, Regex, Scratch};
+use std::collections::BTreeSet;
+
+use super::ast::orbit;
+use super::folds::{MULTI, UNFOLD};
+use super::{Context, LineKind, Regex, Scratch};
 
 /// The whole match and the groups of the first match in `text`, from `from`,
 /// with `\G` at `search` and `\A` at the start.
@@ -271,7 +274,8 @@ fn differential_against_oniguruma() {
 /// Under `(?i)` a character matches the characters and strings its case folds
 /// join it to, in literal runs, classes, lookbehinds and back-references, as
 /// Oniguruma decides (tests/engine/case-folds, written by
-/// `oracle/case-fold-probe.ts`).
+/// `oracle/case-fold-probe.ts`). A line of [`LineKind::Lean`] answers so
+/// through both programs, the lean one the engine runs there included.
 #[test]
 fn case_insensitive_matching_answers_as_oniguruma() {
     let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/case-folds");
@@ -336,6 +340,7 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
     let cases = read("cases.tsv");
     let expected = read("expected.tsv");
     let compiled: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::new(p).ok()).collect();
+    let lean: Vec<Option<Regex>> = patterns.iter().map(|p| Regex::lean(p).ok()).collect();
     let mut differ = Vec::new();
     let mut scratch = Scratch::default();
     for (case, want) in cases.lines().zip(expected.lines()) {
@@ -344,50 +349,59 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
         let line: usize = parts.next().unwrap().parse().unwrap();
         let from: usize = parts.next().unwrap().parse().unwrap();
         let source = &patterns[pattern];
-        let Some(regex) = &compiled[pattern] else {
-            differ.push(format!("{source} does not compile"));
-            continue;
-        };
         let text = format!("{}\n", lines[line]);
-        if want != "-"
-            && let Some(relaxed) = regex.relaxed()
-            && !regex_automata::meta::Regex::new(relaxed)
-                .is_ok_and(|automaton| automaton.is_match(&text.as_bytes()[from..]))
-        {
-            differ.push(format!(
-                "{source} on {:?} from {from}: the automaton {relaxed} finds nothing",
+        let programs = match LineKind::of(lines[line].as_bytes()) {
+            LineKind::Lean => [
+                Some((&compiled[pattern], "full")),
+                Some((&lean[pattern], "lean")),
+            ],
+            LineKind::Full => [Some((&compiled[pattern], "full")), None],
+        };
+        for (program, kind) in programs.into_iter().flatten() {
+            let Some(regex) = program else {
+                differ.push(format!("{source} does not compile as {kind}"));
+                continue;
+            };
+            if want != "-"
+                && let Some(relaxed) = regex.relaxed()
+                && !regex_automata::meta::Regex::new(relaxed)
+                    .is_ok_and(|automaton| automaton.is_match(&text.as_bytes()[from..]))
+            {
+                differ.push(format!(
+                    "{source} on {:?} from {from}: the automaton {relaxed} finds nothing",
+                    lines[line]
+                ));
+            }
+            let mut steps = 1_000_000_000;
+            let context = Context {
+                search: Some(from),
+                text_start: true,
+            };
+            let found = regex.find(&mut scratch, text.as_bytes(), from, context, &mut steps);
+            let got = if found {
+                (0..=regex.groups())
+                    .map(|g| {
+                        scratch
+                            .group(g)
+                            .map_or_else(|| "x".to_owned(), |(s, e)| format!("{s},{e}"))
+                    })
+                    .collect::<Vec<_>>()
+                    .join(";")
+            } else {
+                "-".to_owned()
+            };
+            let want_cut: Vec<&str> = want.split(';').collect();
+            let got_cut: Vec<&str> = got.split(';').collect();
+            let same = want == got
+                || (want_cut.len() <= got_cut.len()
+                    && want_cut[..] == got_cut[..want_cut.len()]
+                    && got_cut[want_cut.len()..].iter().all(|g| *g == "x"));
+            if !same {
+                differ.push(format!(
+                "{source} on {:?} from {from}: Oniguruma {want}, nishiki's {kind} program {got}",
                 lines[line]
             ));
-        }
-        let mut steps = 1_000_000_000;
-        let context = Context {
-            search: Some(from),
-            text_start: true,
-        };
-        let found = regex.find(&mut scratch, text.as_bytes(), from, context, &mut steps);
-        let got = if found {
-            (0..=regex.groups())
-                .map(|g| {
-                    scratch
-                        .group(g)
-                        .map_or_else(|| "x".to_owned(), |(s, e)| format!("{s},{e}"))
-                })
-                .collect::<Vec<_>>()
-                .join(";")
-        } else {
-            "-".to_owned()
-        };
-        let want_cut: Vec<&str> = want.split(';').collect();
-        let got_cut: Vec<&str> = got.split(';').collect();
-        let same = want == got
-            || (want_cut.len() <= got_cut.len()
-                && want_cut[..] == got_cut[..want_cut.len()]
-                && got_cut[want_cut.len()..].iter().all(|g| *g == "x"));
-        if !same {
-            differ.push(format!(
-                "{source} on {:?} from {from}: Oniguruma {want}, nishiki {got}",
-                lines[line]
-            ));
+            }
         }
     }
     differ
@@ -425,4 +439,94 @@ fn a_failed_attempt_leaves_no_group_behind() {
         search("(?=(a)b)ab|(x)c", "axxc", 0, None),
         Some(vec![Some((2, 4)), None, Some((2, 3))])
     );
+}
+
+/// The characters beyond ASCII in the orbit of a character that folds to a
+/// string, or of a character of such a string, as `MULTI` lists them.
+fn wide_characters() -> BTreeSet<char> {
+    let mut wide = BTreeSet::new();
+    for &(code, fold) in MULTI {
+        for c in std::iter::once(code)
+            .chain(fold.iter().copied())
+            .filter_map(char::from_u32)
+        {
+            wide.extend(
+                orbit(c)
+                    .members()
+                    .iter()
+                    .copied()
+                    .chain(std::iter::once(c))
+                    .filter(|m| !m.is_ascii()),
+            );
+        }
+    }
+    wide
+}
+
+/// The lines of every UTF-8 lead byte classify as their characters say:
+/// full exactly when one is a wide fold character.
+#[test]
+fn every_lead_byte_classifies() {
+    let wide = wide_characters();
+    for line in crate::textmate::tests::lines_beyond_ascii() {
+        let expected = if line.chars().any(|c| wide.contains(&c)) {
+            LineKind::Full
+        } else {
+            LineKind::Lean
+        };
+        assert_eq!(LineKind::of(line.as_bytes()), expected, "{line:?}");
+    }
+}
+
+/// A line is full exactly when it holds a character beyond ASCII in the orbit
+/// of a character that folds to a string, or of a character of such a string,
+/// as `MULTI` lists them. Every character beyond ASCII is checked alone, so
+/// the table of first bytes and the bytes after them stands for that set: `é`
+/// shares `ß`'s first byte and stays lean.
+#[test]
+fn a_line_is_full_exactly_when_it_holds_a_wide_fold_character() {
+    let wide = wide_characters();
+    let mut buffer = [0; 4];
+    for c in (0x80..=0x10_ffff).filter_map(char::from_u32) {
+        let expected = if wide.contains(&c) {
+            LineKind::Full
+        } else {
+            LineKind::Lean
+        };
+        assert_eq!(
+            LineKind::of(c.encode_utf8(&mut buffer).as_bytes()),
+            expected,
+            "{c:?}"
+        );
+    }
+    assert_eq!(LineKind::of("café".as_bytes()), LineKind::Lean);
+    assert_eq!(LineKind::of("class first".as_bytes()), LineKind::Lean);
+    assert_eq!(LineKind::of("straße".as_bytes()), LineKind::Full);
+    assert_eq!(LineKind::of("the ﬁle".as_bytes()), LineKind::Full);
+    assert_eq!(LineKind::of(b"x\xc3"), LineKind::Lean);
+}
+
+/// A lean program leaves out the alternatives that need a wide character, and
+/// keeps the rest.
+#[test]
+fn lean_programs_leave_out_the_wide_alternatives() {
+    let lean = |pattern: &str, text: &str| {
+        let regex = Regex::lean(pattern).unwrap_or_else(|e| panic!("{pattern}: {e:?}"));
+        let mut scratch = Scratch::default();
+        let mut steps = 100_000_000;
+        let context = Context {
+            search: None,
+            text_start: true,
+        };
+        regex
+            .find(&mut scratch, text.as_bytes(), 0, context, &mut steps)
+            .then(|| scratch.group(0))
+            .flatten()
+    };
+    assert_eq!(lean("(?i)ss", "SS"), Some((0, 2)));
+    assert_eq!(lean("(?i)ss", "ß"), None);
+    assert_eq!(find("(?i)ss", "ß"), Some((0, 2)));
+    assert_eq!(lean("(?i)[\\w]+", "abc"), Some((0, 3)));
+    assert_eq!(lean("(?i)fi", "ﬁ"), None);
+    assert_eq!(find("(?i)fi", "ﬁ"), Some((0, 3)));
 }

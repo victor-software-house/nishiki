@@ -57457,4 +57457,5 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     patterns: &PATTERNS,
     root: 0,
     cells: OnceLock::new(),
+    full_cells: OnceLock::new(),
 };

@@ -500,6 +500,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     patterns: &PATTERNS,
     root: ${root},
     cells: OnceLock::new(),
+    full_cells: OnceLock::new(),
 };
 `;
   writeFileSync(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);

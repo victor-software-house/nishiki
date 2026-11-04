@@ -93,6 +93,33 @@ const folds = [...unfold.entries()]
     return a.length - b.length;
   });
 
+// The characters beyond ASCII that the folds of more than one character
+// involve: every member of the orbit of a character that folds to a string, or
+// of a character of such a string. An alternative a fold adds that matches no
+// text of ASCII alone needs one of them, so a line without any runs the
+// programs that leave those alternatives out. Each is listed by the first byte
+// of its UTF-8 form, with the bytes after it, so a line is checked without
+// decoding.
+const wide = new Set<number>();
+for (const [cp, fold] of multi) {
+  for (const c of [cp, ...fold]) for (const member of orbitOf.get(c) ?? [c]) if (member > 0x7f) wide.add(member);
+}
+const tailsOf = new Map<number, number[]>();
+for (const cp of wide) {
+  const bytes = [...new TextEncoder().encode(String.fromCodePoint(cp))];
+  if (bytes.length > 3) throw new Error(`U+${cp.toString(16)} takes more than three bytes`);
+  const tail = bytes.length === 2 ? bytes[1] : (bytes[1] << 8) | bytes[2];
+  tailsOf.set(bytes[0], [...(tailsOf.get(bytes[0]) ?? []), tail]);
+}
+const leads = [...tailsOf.keys()].sort((a, b) => a - b);
+const wideLead = Array.from({ length: 256 }, (_, byte) => leads.indexOf(byte) + 1);
+const wideTails = leads.map((lead) => tailsOf.get(lead)!.sort((a, b) => a - b));
+// The second bytes each lead byte's characters can have, as a mask of their
+// low six bits, since a second byte is always 0x80 to 0xBF.
+const wideSecond = leads.map((lead) =>
+  tailsOf.get(lead)!.reduce((mask, tail) => mask | (1n << BigInt((tail > 0xff ? tail >> 8 : tail) & 0x3f)), 0n),
+);
+
 const hex = (n: number) => `0x${n.toString(16)}`;
 const list = (xs: readonly number[]) => `&[${xs.map(hex).join(", ")}]`;
 const source = `//! The characters \`(?i)\` takes as one, and the folds of more than one
@@ -118,9 +145,23 @@ pub(super) static MULTI: &[(u32, &[u32])] = &[${multi.map(([cp, fold]) => `(${he
 /// Every fold of more than one character, with the characters that fold to
 /// it, by fold.
 pub(super) static UNFOLD: &[(&[u32], &[u32])] = &[${folds.map(([fold, chars]) => `(${list(fold)}, ${list(chars)})`).join(", ")}];
+
+/// Per byte, for the first byte of the UTF-8 form of a character beyond ASCII
+/// that a fold of more than one character involves, one more than the index
+/// of its group in [\`WIDE_TAILS\`]; 0 for every other byte.
+pub(super) static WIDE_LEAD: [u8; 256] = [${wideLead.join(", ")}];
+
+/// Per first byte of [\`WIDE_LEAD\`], the second bytes its characters can
+/// have, as a bit per value of the second byte's low six bits.
+pub(super) static WIDE_SECOND: &[u64] = &[${wideSecond.map((mask) => `0x${mask.toString(16).replace(/\B(?=(?:[0-9a-f]{4})+$)/g, "_")}`).join(", ")}];
+
+/// Per first byte of [\`WIDE_LEAD\`], the bytes after it of each such
+/// character, ascending: the second byte of a two-byte form, or the second
+/// and third of a three-byte form as one number, the second high.
+pub(super) static WIDE_TAILS: &[&[u16]] = &[${wideTails.map((tails) => list(tails)).join(", ")}];
 `;
 writeFileSync(output, source);
 console.log(
   `${candidates.length} candidates, ${orbits.size} orbits, ${next.length} members, largest ${largest}; ` +
-    `${multi.length} multi-character folds, ${folds.length} distinct`,
+    `${multi.length} multi-character folds, ${folds.length} distinct; ${wide.size} wide characters under ${leads.length} first bytes`,
 );

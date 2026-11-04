@@ -30,8 +30,13 @@ pub(crate) struct Scanner {
     /// it, ascending.
     starts: Vec<Vec<usize>>,
     /// Caches that highlighters have finished with, whose lazily built states
-    /// the next highlighter starts from.
-    spare: Mutex<Vec<Cache>>,
+    /// the next highlighter starts from. Boxed, because a cache is about a
+    /// kilobyte and a highlighter keeps a slot for one per list.
+    #[expect(
+        clippy::vec_box,
+        reason = "a cache moves between this pool and a highlighter's slots as a box, without a copy or an allocation"
+    )]
+    spare: Mutex<Vec<Box<Cache>>>,
 }
 
 /// The most spare caches a scanner keeps.
@@ -113,14 +118,14 @@ impl Scanner {
     /// A cache for [`Scanner::candidate`], when there is an automaton: a
     /// spare one, with the states earlier highlighters built, if there is
     /// one.
-    pub(crate) fn take_cache(&self) -> Option<Cache> {
+    pub(crate) fn take_cache(&self) -> Option<Box<Cache>> {
         let meta = self.meta.as_ref()?;
         let spare = self.spare.lock().ok().and_then(|mut spare| spare.pop());
-        Some(spare.unwrap_or_else(|| meta.create_cache()))
+        Some(spare.unwrap_or_else(|| Box::new(meta.create_cache())))
     }
 
     /// Keeps `cache` for the next highlighter.
-    pub(crate) fn give_cache(&self, cache: Cache) {
+    pub(crate) fn give_cache(&self, cache: Box<Cache>) {
         if let Ok(mut spare) = self.spare.lock()
             && spare.len() < SPARE
         {

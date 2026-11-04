@@ -7,7 +7,8 @@ use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use super::grammar::{Grammar, NONE};
+use super::grammar::{Folding, Grammar, NONE};
+use super::regex::{self, Context, LineKind, Regex};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limits, LineReport};
@@ -300,6 +301,274 @@ fn every_grammar_matches_shiki_without_the_scanners() {
     check(&make_tables::GRAMMAR, "make", Scanners::Off);
     check(&toml_tables::GRAMMAR, "toml", Scanners::Off);
     check(&javascript_tables::GRAMMAR, "javascript", Scanners::Off);
+}
+
+/// The engine grammars the crate ships, with the oracle fixtures of each,
+/// for the features that are on.
+static SHIPPED: &[(&Grammar, &str)] = &[
+    #[cfg(feature = "lang-bat")]
+    (&crate::bat::grammar::GRAMMAR, "bat"),
+    #[cfg(feature = "lang-cmake")]
+    (&crate::cmake::grammar::GRAMMAR, "cmake"),
+    #[cfg(feature = "lang-dart")]
+    (&crate::dart::grammar::GRAMMAR, "dart"),
+    #[cfg(feature = "lang-haskell")]
+    (&crate::haskell::grammar::GRAMMAR, "haskell"),
+    #[cfg(feature = "lang-julia")]
+    (&crate::julia::grammar::GRAMMAR, "julia"),
+    #[cfg(feature = "lang-mermaid")]
+    (&crate::mermaid::grammar::GRAMMAR, "mermaid"),
+    #[cfg(feature = "lang-nix")]
+    (&crate::nix::grammar::GRAMMAR, "nix"),
+    #[cfg(feature = "lang-powershell")]
+    (&crate::powershell::grammar::GRAMMAR, "powershell"),
+    #[cfg(feature = "lang-proto")]
+    (&crate::proto::grammar::GRAMMAR, "proto"),
+    #[cfg(feature = "lang-scala")]
+    (&crate::scala::grammar::GRAMMAR, "scala"),
+    #[cfg(feature = "lang-zig")]
+    (&crate::zig::grammar::GRAMMAR, "zig"),
+];
+
+/// Lines whose text beyond ASCII starts with every UTF-8 lead byte from
+/// `0xC2` to `0xF4`, alone, between ASCII and all together; lines with such
+/// text across and after the 64-byte blocks of the ASCII check; and samples
+/// of CJK, Cyrillic, Greek, Arabic, emoji and a combining mark alone.
+pub(super) fn lines_beyond_ascii() -> Vec<String> {
+    let mut buffer = [0; 4];
+    let firsts: Vec<char> = (0xc2..=0xf4_u8)
+        .filter_map(|lead| {
+            (0x80..=0x10_ffff)
+                .filter_map(char::from_u32)
+                .find(|c| c.encode_utf8(&mut buffer).as_bytes().first() == Some(&lead))
+        })
+        .collect();
+    let mut lines: Vec<String> = firsts
+        .iter()
+        .flat_map(|c| [c.to_string(), format!("a{c}b ss {c}")])
+        .collect();
+    lines.push(firsts.iter().collect());
+    let ascii = "x".repeat(63);
+    lines.extend([
+        format!("{ascii}ß"),
+        format!("{ascii}xß{ascii}"),
+        format!("{ascii}{ascii}xx漢字 ﬁ"),
+        format!("{ascii}{ascii}xx漢字"),
+    ]);
+    lines.extend(
+        [
+            "let 漢字 = \"中文字符\"",
+            "Привет, мир",
+            "λόγος και ἀρχή",
+            "مرحبا بالعالم",
+            "party 🎉🎉 time",
+            "\u{301}",
+            "straße ﬁle",
+            "x ∈ A → y ≤ z",
+            "R = 5 Ω",
+        ]
+        .map(String::from),
+    );
+    lines
+}
+
+/// Every shipped engine grammar lexes the lines of [`lines_beyond_ascii`]
+/// within the default work limit: the line kind's check, and each step
+/// after it, makes progress on any text.
+#[test]
+fn lines_beyond_ascii_lex_within_the_work_limit() {
+    let limits = Limits::default();
+    let lines = lines_beyond_ascii();
+    for &(grammar, language) in SHIPPED {
+        let mut arena = Arena::new(None);
+        let mut scratch = Scratch::default();
+        let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+        for line in &lines {
+            let mut out = Vec::new();
+            let mut report = LineReport::default();
+            state = tokenizer::line(
+                &mut scratch,
+                &mut arena,
+                &limits,
+                Text {
+                    grammar,
+                    bytes: line.as_bytes(),
+                    start: 0,
+                    anchored: false,
+                },
+                state,
+                &mut out,
+                &mut report,
+            );
+            assert!(report.is_complete(), "{language} on {line:?}: {report:?}");
+        }
+    }
+}
+
+/// The most fixture lines of one grammar the lean check reads.
+const LEAN_LINES: usize = 3_000;
+
+/// The letters the folds of more than one character are made of in ASCII, in
+/// both cases, and the pairs they form.
+const FOLD_LETTERS: &[u8] = b"sSfFtTiIlL";
+const FOLD_PAIRS: &[&str] = &["ss", "SS", "st", "ST", "ff", "fi", "FI", "fl", "ffi", "ffl"];
+
+/// A step of a xorshift generator, so the mutations are the same on every
+/// run.
+fn next(seed: &mut u64) -> u64 {
+    *seed ^= *seed << 13;
+    *seed ^= *seed >> 7;
+    *seed ^= *seed << 17;
+    *seed
+}
+
+/// Two copies of `line` mutated in ASCII, as `oracle/fuzz.ts` mutates a
+/// corpus: one with a third of its letters turned into the letters of the
+/// folds, one with a pair of them put in at a random place.
+fn fold_mutations(line: &str, seed: &mut u64) -> [String; 2] {
+    let letters: String = line
+        .chars()
+        .map(|c| {
+            let roll = next(seed);
+            if c.is_ascii_alphabetic() && roll.is_multiple_of(3) {
+                let pick = usize::try_from(roll / 3).unwrap_or(0) % FOLD_LETTERS.len();
+                char::from(FOLD_LETTERS[pick])
+            } else {
+                c
+            }
+        })
+        .collect();
+    let boundaries: Vec<usize> = (0..=line.len())
+        .filter(|&at| line.is_char_boundary(at))
+        .collect();
+    let roll = usize::try_from(next(seed)).unwrap_or(0);
+    let at = boundaries[roll % boundaries.len()];
+    let pair = FOLD_PAIRS[(roll / boundaries.len()) % FOLD_PAIRS.len()];
+    [letters, format!("{}{pair}{}", &line[..at], &line[at..])]
+}
+
+/// Every match of `regex` in `text`, each with its groups, searching on
+/// from the end of the last as the tokenizer does, with `\G` where each
+/// search starts.
+fn every_match(regex: &Regex, text: &[u8]) -> Vec<Vec<Option<(usize, usize)>>> {
+    let mut scratch = regex::Scratch::default();
+    let mut found = Vec::new();
+    let mut from = 0;
+    while from <= text.len() {
+        let mut steps = 10_000_000;
+        let context = Context {
+            search: Some(from),
+            text_start: true,
+        };
+        if !regex.find(&mut scratch, text, from, context, &mut steps) {
+            break;
+        }
+        let groups: Vec<Option<(usize, usize)>> =
+            (0..=regex.groups()).map(|g| scratch.group(g)).collect();
+        let Some(Some((start, end))) = groups.first().copied() else {
+            break;
+        };
+        found.push(groups);
+        from = if end > start { end } else { start + 1 };
+        while text.get(from).is_some_and(|&b| b & 0xc0 == 0x80) {
+            from += 1;
+        }
+    }
+    found
+}
+
+/// On a line that holds no wide fold character, every pattern of every
+/// shipped engine grammar whose lean program differs finds the same matches
+/// and groups with it as with its full program.
+///
+/// The lines are the grammar's fixtures that are lean, up to [`LEAN_LINES`],
+/// and two copies of each mutated in ASCII toward the folds' letters and
+/// pairs, which the lean program must still match as the full one does.
+#[test]
+fn lean_programs_match_as_full_ones_on_lean_lines() {
+    let mut failures = Vec::new();
+    let mut seed = 0x9e37_79b9_7f4a_7c15;
+    for &(grammar, language) in SHIPPED {
+        let patterns: Vec<&str> = grammar
+            .patterns
+            .iter()
+            .map(|pattern| pattern.source)
+            .filter(|source| Regex::lean_differs(source))
+            .collect();
+        if patterns.is_empty() {
+            continue;
+        }
+        let read: Vec<String> = fixtures(language)
+            .iter()
+            .flat_map(|path| {
+                parse(path)
+                    .into_iter()
+                    .map(|line| line.text)
+                    .collect::<Vec<_>>()
+            })
+            .filter(|text| LineKind::of(text.as_bytes()) == LineKind::Lean)
+            .collect();
+        let stride = read.len().div_ceil(LEAN_LINES).max(1);
+        let mut lines = Vec::new();
+        for text in read.iter().step_by(stride) {
+            lines.extend(fold_mutations(text, &mut seed));
+            lines.push(text.clone());
+        }
+        for source in patterns {
+            let lean = Regex::for_grammar(source, LineKind::Lean);
+            let full = Regex::for_grammar(source, LineKind::Full);
+            let (Ok(lean), Ok(full)) = (lean, full) else {
+                failures.push(format!("{language}: {source:?} compiles for one kind only"));
+                continue;
+            };
+            for line in &lines {
+                let text = format!("{line}\n");
+                if every_match(&lean, text.as_bytes()) != every_match(&full, text.as_bytes()) {
+                    failures.push(format!("{language}: {source:?} on {line:?}"));
+                }
+            }
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+
+/// The folding table names exactly the grammars where some pattern's lean
+/// program differs from its full one, so a grammar whose line kinds run the
+/// same programs never looks at a line's kind, and one whose kinds differ
+/// always does.
+#[test]
+fn the_folding_table_matches_the_patterns() {
+    let tested: [&Grammar; 9] = [
+        &javascript_tables::GRAMMAR,
+        &make_tables::GRAMMAR,
+        &markdown_tables::GRAMMAR,
+        &python_tables::GRAMMAR,
+        &rust_tables::GRAMMAR,
+        &shell_tables::GRAMMAR,
+        &toml_tables::GRAMMAR,
+        &typescript_tables::GRAMMAR,
+        &yaml_tables::GRAMMAR,
+    ];
+    let mut wrong = Vec::new();
+    for grammar in SHIPPED.iter().map(|&(grammar, _)| grammar).chain(tested) {
+        let expected = if grammar
+            .patterns
+            .iter()
+            .any(|pattern| Regex::lean_differs(pattern.source))
+        {
+            Folding::Differs
+        } else {
+            Folding::Same
+        };
+        if grammar.folding() != expected {
+            wrong.push(format!("{} should be {expected:?}", grammar.scope));
+        }
+    }
+    assert!(
+        wrong.is_empty(),
+        "the folding table is wrong: {}",
+        wrong.join(", ")
+    );
 }
 
 /// Times the engine on the fixtures of one language, in MiB/s: the best of
@@ -610,6 +879,7 @@ mod survey {
             patterns: leak(patterns),
             root: index(&v["root"]),
             cells: OnceLock::new(),
+            full_cells: OnceLock::new(),
         }))
     }
 
@@ -732,6 +1002,7 @@ mod many_groups {
         patterns: &PATTERNS,
         root: 0,
         cells: OnceLock::new(),
+        full_cells: OnceLock::new(),
     };
 }
 

@@ -17,8 +17,8 @@ use std::sync::OnceLock;
 
 use regex_automata::meta::Cache;
 
-use super::grammar::{Cap, Cells, DYNAMIC_NAME, Grammar, NONE, Rule, RuleKind};
-use super::regex::{self, Context, Regex};
+use super::grammar::{Cap, Cells, DYNAMIC_NAME, Folding, Grammar, NONE, Rule, RuleKind};
+use super::regex::{self, Context, LineKind, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
 use crate::arena::{Arena, IdMap, ROOT};
@@ -162,7 +162,20 @@ struct GrammarCaches {
     /// Per list of rules: the line it was scanned on, where its next match
     /// starts and which rule of the list it opens.
     list_found: Vec<(u32, u32, u32)>,
-    meta_caches: Vec<Option<Cache>>,
+    /// The automata caches of the lists' scanners for lines of
+    /// `caches_kind`, boxed so that a slot costs a pointer.
+    meta_caches: Vec<Option<Box<Cache>>>,
+    /// The kind of line whose scanners `meta_caches` belong to.
+    caches_kind: LineKind,
+    /// The automata caches of the other kind of line, kept for its next
+    /// line.
+    idle_caches: Vec<Option<Box<Cache>>>,
+    /// Whether the grammar's line kinds run different programs.
+    folding: Folding,
+    /// The grammar's cells for lean lines, once a line has needed them.
+    lean: Option<&'static Cells>,
+    /// The grammar's cells for full lines, once a full line has needed them.
+    full: Option<&'static Cells>,
     epoch: u32,
     /// The grammar's injections, by priority.
     injected: Vec<Injected>,
@@ -188,6 +201,11 @@ impl GrammarCaches {
             .resize(grammar.lists.len(), (0, NO_MATCH, 0));
         self.meta_caches.clear();
         self.meta_caches.resize_with(grammar.lists.len(), || None);
+        self.caches_kind = LineKind::Lean;
+        self.idle_caches.clear();
+        self.folding = grammar.folding();
+        self.lean = None;
+        self.full = None;
         self.epoch = 0;
         self.injected = grammar
             .injections
@@ -212,19 +230,51 @@ impl GrammarCaches {
 
     /// Hands the automaton caches back to their scanners.
     fn give_back(&mut self) {
-        let Some(grammar) = self.grammar else {
-            return;
+        let (active, idle) = match self.caches_kind {
+            LineKind::Lean => (self.lean, self.full),
+            LineKind::Full => (self.full, self.lean),
         };
-        for (index, slot) in self.meta_caches.iter_mut().enumerate() {
-            if let Some(cache) = slot.take()
-                && let Some(scanner) = grammar
-                    .cells
-                    .get()
-                    .and_then(|cells| cells.scanners.get(index))
-                    .and_then(OnceLock::get)
-            {
-                scanner.give_cache(cache);
-            }
+        give_back(&mut self.meta_caches, active);
+        give_back(&mut self.idle_caches, idle);
+    }
+
+    /// The kind of `line`, and the grammar's cells for it, making the
+    /// automata caches those of that kind: the other kind's are kept, so
+    /// that lines of the two kinds in turn keep the states their automata
+    /// built.
+    fn line_cells(&mut self, grammar: &'static Grammar, line: &[u8]) -> &'static Cells {
+        let kind = match self.folding {
+            Folding::Same => LineKind::Lean,
+            Folding::Differs => LineKind::of(line),
+        };
+        if self.caches_kind != kind {
+            std::mem::swap(&mut self.meta_caches, &mut self.idle_caches);
+            self.caches_kind = kind;
+            self.meta_caches.resize_with(grammar.lists.len(), || None);
+        }
+        let slot = match kind {
+            LineKind::Lean => &mut self.lean,
+            LineKind::Full => &mut self.full,
+        };
+        if let Some(cells) = *slot {
+            return cells;
+        }
+        let cells = grammar.cells(kind);
+        *slot = Some(cells);
+        cells
+    }
+}
+
+/// Hands each of `caches` back to its scanner among `cells`.
+fn give_back(caches: &mut [Option<Box<Cache>>], cells: Option<&Cells>) {
+    let Some(cells) = cells else {
+        return;
+    };
+    for (index, slot) in caches.iter_mut().enumerate() {
+        if let Some(cache) = slot.take()
+            && let Some(scanner) = cells.scanners.get(index).and_then(OnceLock::get)
+        {
+            scanner.give_cache(cache);
         }
     }
 }
@@ -347,6 +397,7 @@ pub(crate) fn line(
     if !scratch.current.serves(grammar) {
         scratch.switch(grammar);
     }
+    let cells = scratch.current.line_cells(grammar, line);
     scratch.current.epoch = scratch.current.epoch.wrapping_add(1);
     if scratch.current.epoch == 0 {
         scratch.current.found.iter_mut().for_each(|f| f.0 = 0);
@@ -374,7 +425,7 @@ pub(crate) fn line(
         steps,
         out_start,
         stopped: false,
-        cells: grammar.cells(),
+        cells,
     };
     tokenizer.tokenize_string(
         line.len() + 1,
@@ -545,7 +596,8 @@ struct Tokenizer<'a> {
     out_start: usize,
     /// Whether the work limit ended the line.
     stopped: bool,
-    /// The grammar's [`Grammar::cells`], read once per line.
+    /// The grammar's [`Grammar::cells`] for the line's kind, read once per
+    /// line.
     cells: &'static Cells,
 }
 
@@ -755,7 +807,7 @@ impl Tokenizer<'_> {
         if let Some(&index) = self.s.dynamic_ids.get(&end) {
             return Pat::Built(index);
         }
-        let regex = Regex::for_grammar(self.arena.string(end)).ok();
+        let regex = Regex::for_grammar(self.arena.string(end), LineKind::Full).ok();
         self.s.dynamic.push(regex);
         let index = self.s.dynamic.len() - 1;
         self.s.dynamic_ids.insert(end, index);
