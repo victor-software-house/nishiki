@@ -128,6 +128,7 @@ impl Lexer<'_> {
     }
 
     /// The type rule: six alternatives, each starting with its words.
+    #[inline]
     pub(super) fn types(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;
@@ -235,6 +236,7 @@ impl Lexer<'_> {
 
     /// `\b((?:primary|foreign)\s+key|references|on\s+(delete|update)(\
     /// s+cascade)?|nocheck|check|constraint|collate|default)\b`
+    #[inline]
     pub(super) fn modifier(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;
@@ -275,6 +277,7 @@ impl Lexer<'_> {
 
     /// The query keywords: `select(\s+(all|distinct))?`, `group\s+by`, the
     /// joins and the rest.
+    #[inline]
     pub(super) fn dml(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;
@@ -338,6 +341,7 @@ impl Lexer<'_> {
     }
 
     /// `\b(on|off|((is\s+)?not\s+)?null)\b`
+    #[inline]
     pub(super) fn ddl(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;
@@ -359,6 +363,7 @@ impl Lexer<'_> {
 
     /// `\b(begin(\s+work)?|start\s+transaction|commit(\s+work)?|rollback(\
     /// s+work)?)\b`
+    #[inline]
     pub(super) fn luw(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;
@@ -378,6 +383,7 @@ impl Lexer<'_> {
     }
 
     /// `\b(grant(\swith\sgrant\soption)?|revoke)\b`
+    #[inline]
     pub(super) fn authorization(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;

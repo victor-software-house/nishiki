@@ -254,6 +254,7 @@ impl Lexer<'_> {
     // Ends.
 
     /// The end pattern of `rule` at `p`.
+    #[inline]
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let one = |byte: u8, scope: S| {
             (p < self.lim() && self.s[p] == byte)
@@ -290,6 +291,8 @@ impl Lexer<'_> {
     /// pattern, and at the default sixteen codegen units a generic method that
     /// is not `#[inline]` is called out of line across them (`bench/AGENTS.md`
     /// rule 13).
+    /// The matchers it calls that inline at one unit are `#[inline]` too.
+    /// Without them, sixteen units ran 11% more instructions than one.
     #[inline]
     pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
         match pat {
@@ -489,6 +492,7 @@ impl Lexer<'_> {
     }
 
     /// `\b\d+\b`
+    #[inline]
     fn number(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) || digit_width(self.s, p) == 0 {
             return None;
@@ -527,12 +531,14 @@ impl Lexer<'_> {
     }
 
     /// The first alternative of `alts` at `p` that fits.
+    #[inline]
     fn object_type(&self, p: usize, alts: &[Alt], space: bool) -> Option<(usize, usize)> {
         self.object_types(p, alts, space).next()
     }
 
     /// The create statement: `create`, an optional `or replace`, an object
     /// type, and a name that a quote may enclose.
+    #[inline]
     fn create(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -580,6 +586,7 @@ impl Lexer<'_> {
     }
 
     /// `^\s*(drop)\s+(aggregate|...)`
+    #[inline]
     fn drop_object(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -597,6 +604,7 @@ impl Lexer<'_> {
 
     /// `\s*(drop)\s+(table)\s+(\w+)(\s+cascade)?\b`: it has no `^`, so it
     /// starts where the white space before `drop` does.
+    #[inline]
     fn drop_table(&self, p: usize) -> Option<Hit> {
         let starts_run = p == 0 || p == self.pos || !self.after_space(p);
         let space = self.space_w(p) > 0;
@@ -628,6 +636,7 @@ impl Lexer<'_> {
     }
 
     /// `^\s*(alter)\s+(aggregate|...)\s+)`
+    #[inline]
     fn alter(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -644,6 +653,7 @@ impl Lexer<'_> {
     }
 
     /// `^\s*(comment\s+on\s+(table|...))\s+`
+    #[inline]
     fn comment_on(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -661,6 +671,7 @@ impl Lexer<'_> {
     // The words of the other statements.
 
     /// `\b(name)\b\s*\(` for a function, or `(?<!@)@@\b(name)\b\s*\(`.
+    #[inline]
     fn function(&self, p: usize) -> Option<Hit> {
         let global = self.at(p) == b'@' && p < self.lim();
         let start = if global {
@@ -697,6 +708,7 @@ impl Lexer<'_> {
     }
 
     /// `(\w+?)\.(\w+)`
+    #[inline]
     fn db_table(&self, p: usize) -> Option<Hit> {
         if word_width(self.s, p) == 0 || !(p == self.pos || self.word_start(p)) {
             return None;
@@ -718,6 +730,7 @@ impl Lexer<'_> {
     }
 
     /// The keywords of the rule that closes the grammar's word rules.
+    #[inline]
     fn keyword(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
             return None;
