@@ -100,14 +100,12 @@ impl List {
 /// region ends where the rule's end matches. A rule listed around the include
 /// also takes the line back where it matches.
 ///
-/// The hand-off names its list. A [`List`] does not name its hand-off. A
-/// [`List`] then stays two words, and the scans that index the lists pay
-/// nothing.
+/// [`Grammar::list_hand_offs`] names each list's hand-off. A [`List`] does
+/// not. A [`List`] then stays two words, and the scans that index the lists
+/// pay nothing. The list holds the rules before the include, then the rules
+/// after it.
 #[derive(Debug)]
 pub(crate) struct HandOff {
-    /// The list the include stood in, an index into [`Grammar::lists`]. It
-    /// holds the rules before the include, then the rules after it.
-    pub(crate) list: usize,
     /// The language that lexes the region.
     pub(crate) language: Language,
     /// The rules listed before the include, an index into
@@ -207,6 +205,11 @@ pub(crate) struct Grammar {
     pub(crate) root: usize,
     /// The regions the grammar hands to languages lexed by hand.
     pub(crate) hand_offs: &'static [HandOff],
+    /// For each list, the index in [`Grammar::hand_offs`] of the hand-off
+    /// whose include stood in it. Every step of the handing loop looks its
+    /// open rule's list up here, so the lookup is one load. Empty in a grammar
+    /// that hands nothing off.
+    pub(crate) list_hand_offs: &'static [Option<u8>],
     /// The cells a search fills on [`LineKind::Lean`] lines: see
     /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,
@@ -255,6 +258,12 @@ pub(crate) struct Cells {
 }
 
 impl Grammar {
+    /// The hand-off whose include stood in `list`, if any.
+    pub(crate) fn hand_off(&self, list: usize) -> Option<&'static HandOff> {
+        let index = (*self.list_hand_offs.get(list)?)?;
+        self.hand_offs.get(usize::from(index))
+    }
+
     /// The grammar's cells for lines of `kind`, allocated on first use.
     pub(crate) fn cells(&'static self, kind: LineKind) -> &'static Cells {
         self.cells_of(kind).get_or_init(move || Cells {

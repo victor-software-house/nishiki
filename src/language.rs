@@ -788,11 +788,12 @@ languages! {
     Less { feature: "lang-less", names: ["less"], module: less }
     /// HAML, with the scopes of Shiki's `haml` grammar, which nishiki's
     /// `TextMate` engine runs. Its filters and Ruby lines go to the Ruby,
-    /// JavaScript, CSS and Markdown lexers.
+    /// JavaScript, CSS, Markdown, Sass and CoffeeScript lexers.
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A `:sass`, `:scss`, `:less`, `:coffee` or `:erb` filter is plain text, as in Shiki without those grammars loaded.
+    /// - A `:scss` filter is plain text. The grammar includes `source.scss`, a scope no Shiki grammar has.
+    /// - A `:sass` filter scopes only its own line. Its body lexes as HAML.
     Haml {
         feature: "lang-haml",
         names: ["haml"],

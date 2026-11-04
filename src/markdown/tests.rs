@@ -1277,6 +1277,7 @@ fn a_dot_in_a_fence_name_matches_any_one_character() {
         ("\u{e9}textmate_init", "meta.embedded.block.shellscript"),
         ("{textmate_init", "meta.embedded.block.shellscript"),
         ("Berksfile.lock", "meta.embedded.block.ruby"),
+        ("coffeeXerb", "meta.embedded.block.coffee"),
         ("BerksfileXlock", "meta.embedded.block.ruby"),
         ("Berksfile\u{e9}lock", "meta.embedded.block.ruby"),
         ("berksfile_LOCK", "meta.embedded.block.ruby"),

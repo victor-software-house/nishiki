@@ -1809,11 +1809,7 @@ impl Tokenizer<'_> {
 
     /// The hand-off of the list of `rule`, if it has one.
     fn hand_off_of(&self, rule: usize) -> Option<&'static HandOff> {
-        let list = self.grammar.rules.get(rule)?.list;
-        self.grammar
-            .hand_offs
-            .iter()
-            .find(|hand_off| hand_off.list == list)
+        self.grammar.hand_off(self.grammar.rules.get(rule)?.list)
     }
 
     /// The first match from the cursor among the rules of `list` and the

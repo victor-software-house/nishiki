@@ -8,5 +8,6 @@
 //! That include hands its region to nishiki's JavaScript lexer.
 //! So the engine runs this grammar with its handing loop.
 //! A Markdown fence named `coffee` embeds CoffeeScript.
+//! HAML's `:coffee` filter hands its lines to CoffeeScript.
 
 pub(crate) mod grammar;

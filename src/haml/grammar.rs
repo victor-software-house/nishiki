@@ -1,9 +1,9 @@
-//! The tables of Shiki 4.6.0's `haml>ruby>javascript>css>markdown` grammar,
-//! made by `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
-//! oracle/engine-tables.ts`.
+//! The tables of Shiki 4.6.0's `haml>ruby>javascript>css>markdown>sass>coffee`
+//! grammar, made by `oracle/engine-tables.ts`. Do not edit: regenerate with
+//! `bun oracle/engine-tables.ts`.
 //!
-//! It hands regions to languages lexed by hand, so it needs the features
-//! `lang-ruby`, `lang-javascript`, `lang-css`, `lang-markdown`.
+//! It hands regions to other languages, so it needs the features `lang-ruby`,
+//! `lang-javascript`, `lang-css`, `lang-markdown`, `lang-sass`, `lang-coffee`.
 
 use std::sync::OnceLock;
 
@@ -134,9 +134,9 @@ static PATTERNS: [Pattern; 64] = [
     Pattern::new("^(\\s*)(:scss)$"),
 ];
 
-static LISTS: [List; 19] = [
+static LISTS: [List; 21] = [
     List::new(&[
-        1, 11, 12, 13, 14, 15, 16, 17, 18, 40, 41, 45, 49, 50, 52, 53,
+        1, 11, 12, 13, 14, 15, 16, 17, 18, 40, 41, 42, 43, 45, 46, 47, 49, 50, 52, 53, 54,
     ]),
     List::new(&[3, 4, 8, 9, 10]),
     List::new(&[]),
@@ -153,6 +153,8 @@ static LISTS: [List; 19] = [
     List::new(&[25, 26, 27, 28, 29, 30, 31, 23]),
     List::new(&[33, 34, 8, 9, 10, 35, 3, 4]),
     List::new(&[36, 3, 4, 8, 9, 10]),
+    List::new(&[]),
+    List::new(&[]),
     List::new(&[38, 24]),
     List::new(&[]),
     List::new(&[]),
@@ -823,7 +825,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        list: 2,
+        list: 16,
         apply_end_last: false,
     },
     Rule {
@@ -835,7 +837,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        list: 2,
+        list: 17,
         apply_end_last: false,
     },
     Rule {
@@ -881,7 +883,7 @@ static RULES: &[Rule] = &[
             retokenize: usize::MAX,
         }],
         end_captures: &[],
-        list: 2,
+        list: 16,
         apply_end_last: false,
     },
     Rule {
@@ -893,7 +895,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        list: 2,
+        list: 16,
         apply_end_last: false,
     },
     Rule {
@@ -934,7 +936,7 @@ static RULES: &[Rule] = &[
         until: usize::MAX,
         captures: &[],
         end_captures: &[],
-        list: 16,
+        list: 18,
         apply_end_last: false,
     },
     Rule {
@@ -978,7 +980,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        list: 17,
+        list: 19,
         apply_end_last: false,
     },
     Rule {
@@ -1000,7 +1002,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        list: 18,
+        list: 20,
         apply_end_last: false,
     },
     Rule {
@@ -1022,7 +1024,7 @@ static RULES: &[Rule] = &[
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        list: 2,
+        list: 16,
         apply_end_last: false,
     },
     Rule {
@@ -1051,47 +1053,74 @@ static RULES: &[Rule] = &[
 
 static HAND_OFFS: &[HandOff] = &[
     HandOff {
-        list: 4,
         language: Language::Ruby,
         before: 3,
         after: 2,
     },
     HandOff {
-        list: 6,
         language: Language::Ruby,
         before: 2,
         after: 2,
     },
     HandOff {
-        list: 7,
         language: Language::JavaScript,
         before: 2,
         after: 2,
     },
     HandOff {
-        list: 10,
         language: Language::Ruby,
         before: 2,
         after: 9,
     },
     HandOff {
-        list: 13,
         language: Language::Ruby,
         before: 11,
         after: 12,
     },
     HandOff {
-        list: 17,
+        language: Language::Sass,
+        before: 2,
+        after: 2,
+    },
+    HandOff {
+        language: Language::CoffeeScript,
+        before: 2,
+        after: 2,
+    },
+    HandOff {
         language: Language::Markdown,
         before: 2,
         after: 2,
     },
     HandOff {
-        list: 18,
         language: Language::Css,
         before: 2,
         after: 2,
     },
+];
+
+static LIST_HAND_OFFS: [Option<u8>; 21] = [
+    None,
+    None,
+    None,
+    None,
+    Some(0),
+    None,
+    Some(1),
+    Some(2),
+    None,
+    None,
+    Some(3),
+    None,
+    None,
+    Some(4),
+    None,
+    None,
+    Some(5),
+    Some(6),
+    None,
+    Some(7),
+    Some(8),
 ];
 
 /// The grammar.
@@ -1104,6 +1133,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     patterns: &PATTERNS,
     root: 0,
     hand_offs: HAND_OFFS,
+    list_hand_offs: &LIST_HAND_OFFS,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

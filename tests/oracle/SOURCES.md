@@ -491,6 +491,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haml/sample` | [`samples/haml.sample`][haml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `haml/filters` | `oracle/inputs/haml-filters.haml`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `haml/haml-helpers` | [`test/haml/templates/helpers.haml`][haml-helpers] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-just-stuff` | [`test/haml/templates/just_stuff.haml`][haml-just-stuff] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-real-sample` | [`benchmark/etc/real_sample.haml`][haml-real-sample] in haml/haml | [MIT][haml-licence] |

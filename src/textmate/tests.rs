@@ -704,32 +704,45 @@ fn every_table() -> Vec<&'static Grammar> {
     grammars
 }
 
-/// A hand-off's list holds the rules of its `before` list, then the rules of
-/// its `after` list. No two hand-offs share a list. Neither part is the list
-/// of a hand-off.
+/// Each list that holds a hand-off, with the hand-off's index in
+/// [`Grammar::hand_offs`].
+fn hand_off_lists(grammar: &Grammar) -> Vec<(usize, usize)> {
+    grammar
+        .list_hand_offs
+        .iter()
+        .enumerate()
+        .filter_map(|(list, index)| Some((list, usize::from((*index)?))))
+        .collect()
+}
+
+/// A grammar that hands off names a hand-off or none for every list. Exactly
+/// one list names each hand-off. It holds the rules of the hand-off's
+/// `before` list, then the rules of its `after` list. Neither part is the
+/// list of a hand-off.
 #[test]
 fn a_hand_off_splits_its_list_in_two() {
     let mut wrong = Vec::new();
     for grammar in every_table() {
-        let handed: Vec<usize> = grammar
-            .hand_offs
-            .iter()
-            .map(|hand_off| hand_off.list)
-            .collect();
+        let handed = hand_off_lists(grammar);
+        if !grammar.hand_offs.is_empty() && grammar.list_hand_offs.len() != grammar.lists.len() {
+            wrong.push(format!("{}: one entry per list", grammar.scope));
+        }
         for (index, hand_off) in grammar.hand_offs.iter().enumerate() {
-            let list = grammar.lists[hand_off.list].rules;
+            let lists: Vec<usize> = handed
+                .iter()
+                .filter(|&&(_, at)| at == index)
+                .map(|&(list, _)| list)
+                .collect();
             let before = grammar.lists[hand_off.before].rules;
             let after = grammar.lists[hand_off.after].rules;
-            let shared = handed
+            let split = match lists.as_slice() {
+                &[list] => grammar.lists[list].rules == [before, after].concat(),
+                _ => false,
+            };
+            let part_handed = handed
                 .iter()
-                .filter(|&&other| other == hand_off.list)
-                .count()
-                > 1;
-            if list != [before, after].concat()
-                || shared
-                || handed.contains(&hand_off.before)
-                || handed.contains(&hand_off.after)
-            {
+                .any(|&(list, _)| list == hand_off.before || list == hand_off.after);
+            if !split || part_handed {
                 wrong.push(format!(
                     "{} hand-off {index} ({:?})",
                     grammar.scope, hand_off.language
@@ -751,10 +764,9 @@ fn a_hand_off_splits_its_list_in_two() {
 fn a_capture_reaches_a_hand_off_only_through_its_own_list() {
     let mut wrong = Vec::new();
     for grammar in every_table() {
-        let handed: Vec<usize> = grammar
-            .hand_offs
-            .iter()
-            .map(|hand_off| hand_off.list)
+        let handed: Vec<usize> = hand_off_lists(grammar)
+            .into_iter()
+            .map(|(list, _)| list)
             .collect();
         let retokenized: BTreeSet<usize> = grammar
             .rules
@@ -806,7 +818,8 @@ fn no_hand_off_halts_where_the_last_match_ended() {
     };
     let mut wrong = Vec::new();
     for grammar in every_table() {
-        for hand_off in grammar.hand_offs {
+        for (list, index) in hand_off_lists(grammar) {
+            let hand_off = &grammar.hand_offs[index];
             let parts = [hand_off.before, hand_off.after]
                 .into_iter()
                 .flat_map(|list| grammar.lists[list].rules)
@@ -814,7 +827,7 @@ fn no_hand_off_halts_where_the_last_match_ended() {
             let ends = grammar
                 .rules
                 .iter()
-                .filter(|rule| rule.list == hand_off.list && rule.kind == RuleKind::BeginEnd)
+                .filter(|rule| rule.list == list && rule.kind == RuleKind::BeginEnd)
                 .map(|rule| rule.end);
             for pattern in parts.chain(ends) {
                 if let Some(pattern) = grammar.patterns.get(pattern)
@@ -1180,6 +1193,7 @@ mod survey {
             patterns: leak(patterns),
             root: index(&v["root"]),
             hand_offs: &[],
+            list_hand_offs: &[],
             cells: OnceLock::new(),
             full_cells: OnceLock::new(),
         }))
@@ -1304,6 +1318,7 @@ mod many_groups {
         patterns: &PATTERNS,
         root: 0,
         hand_offs: &[],
+        list_hand_offs: &[],
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };
@@ -1694,6 +1709,41 @@ mod hand_offs {
                 .all(|(_, scopes)| scopes.iter().all(|scope| !in_language(scope, "ruby"))),
             "{:?}",
             rows[2]
+        );
+    }
+
+    /// As in Shiki, a `:sass` filter scopes only its own line, and its body
+    /// lexes as HAML. A `:coffee` filter runs CoffeeScript on the engine,
+    /// inside the hand-off on the spare scratch. Its backticks hand on to
+    /// JavaScript, three levels down.
+    #[test]
+    fn a_coffee_filter_runs_the_engine_and_a_sass_filter_ends_at_its_line() {
+        let rows = Document::new(&HAML).lex(indoc! {"
+            :sass
+              .a
+                color: red
+            :coffee
+              x = `1`
+        "});
+        assert_eq!(
+            scope_of(&rows[0], ":sass"),
+            "source.sass.embedded.filter.haml",
+            "{:?}",
+            rows[0]
+        );
+        assert!(
+            rows[1..3]
+                .iter()
+                .flatten()
+                .all(|(_, stack)| stack.iter().all(|scope| !in_language(scope, "sass"))),
+            "{:?}",
+            &rows[1..3]
+        );
+        assert_eq!(
+            scope_of(&rows[4], "1"),
+            "constant.numeric.decimal.js",
+            "{:?}",
+            rows[4]
         );
     }
 

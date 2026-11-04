@@ -336,8 +336,8 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Php,
     },
-    // The grammar's `coffee|Cakefile|coffee.erb` has an unescaped dot, which
-    // matches any character; it is matched here as a literal dot.
+    // The dot in the grammar's `coffee|Cakefile|coffee.erb` is unescaped.
+    // It matches any one character, as in Shiki.
     #[cfg(feature = "lang-coffee")]
     Name {
         words: &["coffee", "Cakefile", "coffee.erb"],

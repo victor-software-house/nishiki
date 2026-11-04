@@ -3,8 +3,10 @@
 //!
 //! The language has no lexer of its own: its row in `languages!` names the
 //! table, and the engine runs the grammar's rules as Shiki does.
-//! The grammar includes the whole Ruby, JavaScript, CSS and Markdown grammars.
+//! The grammar includes the whole Ruby, JavaScript, CSS, Markdown, Sass and
+//! CoffeeScript grammars.
 //! Each such include hands its region to nishiki's lexer for that language.
+//! Sass and CoffeeScript run on the engine again.
 //! So the engine runs this grammar with its handing loop.
 //! Ruby's `<<~HAML` heredoc embeds HAML.
 //! Markdown cannot embed it, because Shiki's Markdown grammar has no HAML

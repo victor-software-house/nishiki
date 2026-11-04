@@ -13,6 +13,7 @@ import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
+import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
 import kotlinCoverage from "./inputs/kotlin-coverage.kt" with { type: "text" };
@@ -589,6 +590,7 @@ export const inputs: Input[] = [
   // HAML runs on the TextMate engine, which hands its filters and Ruby lines
   // to the hand-written lexers. Shiki's Markdown grammar has no HAML fence,
   // so no Markdown input embeds it.
+  { lang: "haml", name: "filters", text: hamlFilters },
   { lang: "haml", name: "haml-helpers", url: `${haml}/test/haml/templates/helpers.haml` },
   { lang: "haml", name: "haml-just-stuff", url: `${haml}/test/haml/templates/just_stuff.haml` },
   { lang: "haml", name: "haml-real-sample", url: `${haml}/benchmark/etc/real_sample.haml` },

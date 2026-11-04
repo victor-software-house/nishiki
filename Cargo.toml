@@ -141,10 +141,12 @@ lang-graphql = [
 ]
 lang-haml = [
   "_textmate",
+  "lang-coffee",
   "lang-css",
   "lang-javascript",
   "lang-markdown",
   "lang-ruby",
+  "lang-sass",
 ]
 lang-haskell = ["_textmate"]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]

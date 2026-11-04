@@ -240,7 +240,10 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 
 1. A hand-off belongs to the list the include stood in.
    A rule reached through several lists has different neighbours in each list.
-   A new `Grammar::hand_offs: &'static [HandOff]` names the list of each hand-off.
+   A new `Grammar::hand_offs: &'static [HandOff]` holds the hand-offs.
+   `Grammar::list_hand_offs: &'static [Option<u8>]` names each list's hand-off, by its index in `hand_offs`.
+   Every step of the handing loop looks its open rule's list up there, in one load.
+   A linear search of `hand_offs` cost HAML's `region` 44,800 instructions on its fixtures at one codegen unit, once HAML had nine hand-offs.
    That list stays apart from any plain list with the same rules.
    It holds the rules before the include, then the rules after it.
    No rule stands for the include, and no scan meets one.
@@ -250,8 +253,6 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 
    ```rust
    pub(crate) struct HandOff {
-       /// The list the include stood in.
-       pub(crate) list: usize,
        /// The language that lexes the region.
        pub(crate) language: Language,
        /// The rules listed before the include. The engine tries them before
@@ -264,7 +265,9 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    ```
 
 2. `oracle/hand-lexed.ts` sits beside `oracle/licences.ts`.
-   It lists the hand-lexed grammars by Shiki id, scope name, `Language` variant and Cargo feature.
+   It lists the languages a table can hand a region to, by Shiki id, scope name, `Language` variant and Cargo feature.
+   Most of them nishiki lexes by hand.
+   Sass and CoffeeScript run on the engine with tables of their own, so a hand-off to one runs the engine again on the lent scratch.
    A spec names the languages its table hands off with `>`, as in `haml>ruby>javascript>css>markdown`.
    The generator neither loads nor compiles those grammars.
    They need no licence entry for bundling.

@@ -1,0 +1,29 @@
+!!! 5
+%html
+  %head
+    %title Filters
+    :sass
+      $accent: #c33
+      .nav
+        color: $accent
+        &:hover
+          color: darken($accent, 10%)
+        +transition(color .2s)
+    :scss
+      .plain { color: red; }
+    :css
+      body { margin: 0; }
+  %body
+    :coffee
+      square = (x) -> x * x
+      list = [1, 2, 3]
+      console.log "#{square n}" for n in list
+      `var raw = 1;`
+      class Nav extends Base
+        constructor: (@el) ->
+          super()
+    :javascript
+      document.title = "x";
+    %p= link_to "home", root_path
+    :ruby
+      greeting = "hi"

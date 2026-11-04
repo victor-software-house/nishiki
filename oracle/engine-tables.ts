@@ -510,9 +510,19 @@ for (const id of ids) {
   const handOffSource = handOffRows
     .map(
       (h) =>
-        `    HandOff { list: ${h.list}, language: Language::${h.variant}, before: ${h.before}, after: ${h.after} },`,
+        `    HandOff { language: Language::${h.variant}, before: ${h.before}, after: ${h.after} },`,
     )
     .join("\n");
+  // The tokenizer looks a list's hand-off up by the list's index, one load a
+  // step. A `u8` holds the index, so a grammar has at most 256 hand-offs.
+  if (handOffRows.length > 256) throw new Error(`${id}: more than 256 hand-offs`);
+  const listHandOffs = () =>
+    lists
+      .map((_, list) => {
+        const handOff = handOffRows.findIndex((h) => h.list === list);
+        return handOff < 0 ? "None" : `Some(${handOff})`;
+      })
+      .join(", ");
   const patterns = builder.patterns
     .map((p) => `    Pattern::new(${rustString(p)}),`)
     .join("\n");
@@ -565,7 +575,7 @@ for (const id of ids) {
   const handsOff = handOffRows.length > 0;
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
 //! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
-${handsOff ? `//!\n//! It hands regions to languages lexed by hand, so it needs the features ${features.map((f) => `\`${f}\``).join(", ")}.\n` : ""}
+${handsOff ? `//!\n//! It hands regions to other languages, so it needs the features ${features.map((f) => `\`${f}\``).join(", ")}.\n` : ""}
 use std::sync::OnceLock;
 
 use crate::textmate::grammar::{${imports.join(", ")}};
@@ -589,7 +599,7 @@ ${injections.map(([selector, rule]) => `    Injection { selector: ${rustString(s
 static RULES: &[Rule] = &[
 ${rules}
 ];
-${handsOff ? `\nstatic HAND_OFFS: &[HandOff] = &[\n${handOffSource}\n];\n` : ""}
+${handsOff ? `\nstatic HAND_OFFS: &[HandOff] = &[\n${handOffSource}\n];\n\nstatic LIST_HAND_OFFS: [Option<u8>; ${lists.length}] = [${listHandOffs()}];\n` : ""}
 /// The grammar.
 pub(crate) static GRAMMAR: Grammar = Grammar {
     scope: ${rustString(scope)},
@@ -600,6 +610,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     patterns: &PATTERNS,
     root: ${root},
     hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
+    list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

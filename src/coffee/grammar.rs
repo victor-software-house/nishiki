@@ -2,7 +2,7 @@
 //! `oracle/engine-tables.ts`. Do not edit: regenerate with `bun
 //! oracle/engine-tables.ts`.
 //!
-//! It hands regions to languages lexed by hand, so it needs the features
+//! It hands regions to other languages, so it needs the features
 //! `lang-javascript`.
 
 use std::sync::OnceLock;
@@ -2839,11 +2839,48 @@ static RULES: &[Rule] = &[
 ];
 
 static HAND_OFFS: &[HandOff] = &[HandOff {
-    list: 14,
     language: Language::JavaScript,
     before: 4,
     after: 4,
 }];
+
+static LIST_HAND_OFFS: [Option<u8>; 35] = [
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    Some(0),
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+];
 
 /// The grammar.
 pub(crate) static GRAMMAR: Grammar = Grammar {
@@ -2855,6 +2892,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     patterns: &PATTERNS,
     root: 0,
     hand_offs: HAND_OFFS,
+    list_hand_offs: &LIST_HAND_OFFS,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };
