@@ -139,6 +139,13 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 - A change that claims to be faster carries its `mise run bench` table before and after, from one machine (see `bench/AGENTS.md`).
 - A speed change never changes output: the oracle, colour, fuzz and limit tests stay green.
 
+### 2.4 A forced trade-off means the shape is wrong
+
+- When fidelity and speed cannot both hold, treat it as a sign that the design is wrong, not as a price to pay (operator, 2026-11-04).
+  Rework the data layout or the point where the work happens until both hold.
+- A cost accepted to land a change, such as a language over the Callgrind gate, is temporary.
+  The same pull request names the follow-up that removes it, and that follow-up is planned work.
+
 ## 3. Code
 
 ### 3.1 Module layout
