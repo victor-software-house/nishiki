@@ -354,6 +354,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `go/go-test-issue15528` | [`test/fixedbugs/issue15528.go`][go-test-issue15528] in golang/go | [BSD-3-Clause][golang-licence] |
 | `go/go-types-typeinst1` | [`src/internal/types/testdata/check/typeinst1.go`][go-types-typeinst1] in golang/go | [BSD-3-Clause][golang-licence] |
 | `go/go-types-typeparams` | [`src/internal/types/testdata/check/typeparams.go`][go-types-typeparams] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/coverage` | `oracle/inputs/go-coverage.go`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/gin-readme` | [`README.md`][gin-readme] in gin-gonic/gin | [MIT][gin-licence] |
 | `markdown/cobra-user-guide` | [`site/content/user_guide.md`][cobra-user-guide] in spf13/cobra | [Apache-2.0][cobra-licence] |
 | `ruby/sample` | [`samples/ruby.sample`][ruby-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |

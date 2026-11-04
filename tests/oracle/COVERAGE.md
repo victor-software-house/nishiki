@@ -21,7 +21,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | diff | `diff` | 16 of 16 | 100.0% | 22 of 23 | 95.7% | 1 | 0 | yes |
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
 | ERB | `erb` | 6 of 12 | 50.0% | 6 of 14 | 42.9% | 0 | 8 |  |
-| Go | `go` | 264 of 336 | 78.6% | 229 of 250 | 91.6% | 0 | 3 |  |
+| Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 76 of 88 | 86.4% | 83 of 113 | 73.5% | 0 | 7 |  |
 | HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
@@ -274,83 +274,28 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 ### `go`
 
 ```text
-#const_assignment.patterns[0].captures[2].patterns[2].match  \(
-#const_assignment.patterns[0].captures[2].patterns[3].match  \)
-#const_assignment.patterns[0].captures[2].patterns[4].match  \[
-#const_assignment.patterns[0].captures[2].patterns[5].match  ]
-#const_assignment.patterns[1].patterns[0].captures[2].patterns[2].match  \(
-#const_assignment.patterns[1].patterns[0].captures[2].patterns[3].match  \)
-#const_assignment.patterns[1].patterns[0].captures[2].patterns[4].match  \[
-#const_assignment.patterns[1].patterns[0].captures[2].patterns[5].match  ]
-#double_parentheses_types.captures[1].patterns[3].match  \[
-#double_parentheses_types.captures[1].patterns[4].match  ]
-#double_parentheses_types.captures[1].patterns[5].match  \{
-#double_parentheses_types.captures[1].patterns[6].match  }
-#function_declaration.patterns[2].captures[1].patterns[2].match  \w+
-#function_declaration.beginCaptures[3].patterns[0].match  \d\w*
-#functions.end  groups 1
-#functions_inline.captures[2].patterns[2].match  \[
-#functions_inline.captures[2].patterns[3].match  ]
-#functions_inline.captures[2].patterns[4].match  \{
-#functions_inline.captures[2].patterns[5].match  }
-#functions_inline.captures[2].patterns[6].match  \w+
-#generic_param_types.patterns[4].match  (?:(?<=\()|^\s*)((?:\b\w+,\s*)+(?:/[*/].*)?)$
-#generic_param_types.patterns[4].captures[1].patterns[1].match  \w+
-#generic_param_types.patterns[5].match  groups 3
-#generic_param_types.patterns[5].captures[3].patterns[1].match  \w+
-#hover.patterns[0].match  (?<=^\bfield\b)\s+([*.\w]+)\s+([\s\S]+)
-#hover.patterns[0].captures[1].patterns[1].match  \w+
-#hover.patterns[0].captures[2].patterns[0].match  \binvalid\b\s+\btype\b
-#hover.patterns[0].captures[2].patterns[3].match  \w+
-#hover.patterns[1].match  (?<=^\breturns\b)\s+([\s\S]+)
-#hover.patterns[1].captures[1].patterns[2].match  \w+
-#interface_variables_types_field.patterns[2].begin  groups 1
-#interface_variables_types_field.patterns[2].beginCaptures[1].patterns[1].match  \w+
-#keywords.patterns[6].match  \bmap\b
-#keywords.patterns[8].match  \bimport\b
-#map_types.patterns[3].match  \[
-#map_types.patterns[4].match  ]
-#map_types.patterns[5].match  \{
-#map_types.patterns[6].match  }
-#map_types.patterns[7].match  \(
-#map_types.patterns[8].match  \)
-#numeric_literals.captures[0].patterns[0].patterns[0].match  groups 18, 19, 20, 21, 22, 23, 24, 25, 31, 36, 48, 53
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[19].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[24].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[30].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[43].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[47].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[52].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[2].match  (?:[.0-9A-Z_a-z]|(?<=[EPep])[-+])+  fuzz
-#other_struct_interface_expressions.patterns[1].captures[2].patterns[3].match  \{
-#other_struct_interface_expressions.patterns[1].captures[2].patterns[4].match  }
-#package_name.patterns[0].patterns[0].match  \d\w*
-#runes.patterns[0].patterns[1].match  [^']+  fuzz
-#single_type.patterns[1].patterns[3].match  \[
-#single_type.patterns[1].patterns[4].match  ]
-#single_type.patterns[1].patterns[5].match  \{
-#single_type.patterns[1].patterns[6].match  }
-#single_type.patterns[1].patterns[7].match  \(
-#single_type.patterns[1].patterns[8].match  \)
-#single_type.patterns[1].patterns[9].match  \w+
-#string_escaped_char.patterns[1].match  \\[^"'0-7Uabfnrtuvx]  fuzz
-#support_functions.captures[2].patterns[1].match  \d\w*
-#support_functions.captures[3].patterns[3].match  \{
-#support_functions.captures[3].patterns[4].match  }
-#switch_types.patterns[0].match  groups 4
-#switch_types.beginCaptures[3].patterns[2].match  \btype\b
-#syntax_errors.patterns[0].match  \[](\s+)
-#syntax_errors.patterns[1].match  \b0[0-7]*[89]\d*\b
-#type_assertion_inline.captures[2].patterns[1].match  \(
-#type_assertion_inline.captures[2].patterns[2].match  \)
-#type_assertion_inline.captures[2].patterns[5].match  \{
-#type_assertion_inline.captures[2].patterns[6].match  }
-#var_assignment.patterns[0].captures[2].patterns[2].match  \(
-#var_assignment.patterns[0].captures[2].patterns[3].match  \)
-#var_assignment.patterns[1].patterns[0].captures[2].patterns[2].match  \(
-#var_assignment.patterns[1].patterns[0].captures[2].patterns[3].match  \)
-#variable_assignment.patterns[0].captures[0].patterns[1].match  \d\w*
-#variable_assignment.patterns[1].captures[0].patterns[2].match  \d\w*
+#generic_param_types.patterns[5].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#generic_param_types.patterns[5].captures[3].patterns[1].match  \w+  waived: it scans group 3, which the expression lacks
+#map_types.patterns[3].match  \[  waived: `#parameter-variable-types`, before it in its only list, opens `([*.\w]+)?(\[)` at every `[`
+#map_types.patterns[4].match  ]  waived: the rule's end, `(])`, matches at every `]` the rules inside it leave, and an end is tried before the patterns
+#map_types.patterns[5].match  \{  waived: `#parameter-variable-types`, before it in its only list, has the same expression
+#map_types.patterns[6].match  }  waived: `#parameter-variable-types`, before it in its only list, has the same expression
+#map_types.patterns[7].match  \(  waived: `#parameter-variable-types`, before it in its only list, has the same expression
+#numeric_literals.captures[0].patterns[0].patterns[0].match  groups 18 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 19 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 20 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 21 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 22 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 23 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 24 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 25 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow)
+#numeric_literals.captures[0].patterns[0].patterns[0].captures[19].patterns[0].match  (?<=\h)_(?=\h)  waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow
+#numeric_literals.captures[0].patterns[0].patterns[0].captures[24].patterns[0].match  (?<=\h)_(?=\h)  waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow
+#single_type.patterns[1].patterns[3].match  \[  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[4].match  ]  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[5].match  \{  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[6].match  }  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[7].match  \(  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[8].match  \)  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[9].match  \w+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#support_functions.captures[2].patterns[1].match  \d\w*  waived: `#type-declarations`, before it in the list, holds `#numeric_literals`, whose `(?<!\w)\.?\d` matches at every digit that starts the group
+#switch_types.beginCaptures[3].patterns[2].match  \btype\b  waived: group 3 is `.(type)`, and `#brackets`, before it in the list, opens `\(` at its `(` and closes after `type`
+#syntax_errors.patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#type_assertion_inline.captures[2].patterns[1].match  \(  waived: group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`
+#type_assertion_inline.captures[2].patterns[2].match  \)  waived: group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`
 ```
 
 ### `graphql`

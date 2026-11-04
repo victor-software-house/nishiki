@@ -11,6 +11,7 @@ import cssCharsetUnquoted from "./inputs/css-charset-unquoted.css" with { type: 
 import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
+import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
 import kotlinCoverage from "./inputs/kotlin-coverage.kt" with { type: "text" };
@@ -542,6 +543,7 @@ export const inputs: Input[] = [
   { lang: "erb", name: "rails-welcome", url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb` },
   { lang: "erb", name: "sample", url: `${samples}/erb.sample` },
   { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
+  { lang: "go", name: "coverage", text: goCoverage },
   { lang: "go", name: "gin-context", url: `${gin}/context.go` },
   { lang: "go", name: "go-json-decode", url: `${golang}/src/encoding/json/decode.go` },
   { lang: "go", name: "go-printer-declarations", url: `${golang}/src/go/printer/testdata/declarations.golden` },

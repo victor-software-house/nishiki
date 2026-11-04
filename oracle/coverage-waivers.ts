@@ -362,6 +362,11 @@ const cFamily: [reason: string, rows: CRow[]][] = [
   ]],
 ];
 
+/** A group of the alternative of Go's number pattern that starts with a
+ * point, as `.5` does. Its first group is that point. */
+const goLeadingPoint =
+  "the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\\.(?!\\.\\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow";
+
 export const waivers: Waiver[] = [
   {
     grammar: "rust",
@@ -930,6 +935,70 @@ export const waivers: Waiver[] = [
       }),
     ),
   ),
+  { grammar: "go", path: "#generic_param_types.patterns[5].match", group: 3, reason: missing(2) },
+  {
+    grammar: "go",
+    path: "#generic_param_types.patterns[5].captures[3].patterns[1].match",
+    reason: "it scans group 3, which the expression lacks",
+  },
+  {
+    grammar: "go",
+    path: "#map_types.patterns[3].match",
+    reason: "`#parameter-variable-types`, before it in its only list, opens `([*.\\w]+)?(\\[)` at every `[`",
+  },
+  {
+    grammar: "go",
+    path: "#map_types.patterns[4].match",
+    reason: "the rule's end, `(])`, matches at every `]` the rules inside it leave, and an end is tried before the patterns",
+  },
+  ...[5, 6, 7].map(
+    (pattern): Waiver => ({
+      grammar: "go",
+      path: `#map_types.patterns[${pattern}].match`,
+      reason: "`#parameter-variable-types`, before it in its only list, has the same expression",
+    }),
+  ),
+  ...[18, 19, 20, 21, 22, 23, 24, 25].map(
+    (group): Waiver => ({
+      grammar: "go",
+      path: "#numeric_literals.captures[0].patterns[0].patterns[0].match",
+      group,
+      reason: goLeadingPoint,
+    }),
+  ),
+  ...[19, 24].map(
+    (group): Waiver => ({
+      grammar: "go",
+      path: `#numeric_literals.captures[0].patterns[0].patterns[0].captures[${group}].patterns[0].match`,
+      reason: goLeadingPoint,
+    }),
+  ),
+  ...[3, 4, 5, 6, 7, 8, 9].map(
+    (pattern): Waiver => ({
+      grammar: "go",
+      path: `#single_type.patterns[1].patterns[${pattern}].match`,
+      reason:
+        "the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\\w]+)?(\\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns",
+    }),
+  ),
+  {
+    grammar: "go",
+    path: "#support_functions.captures[2].patterns[1].match",
+    reason: "`#type-declarations`, before it in the list, holds `#numeric_literals`, whose `(?<!\\w)\\.?\\d` matches at every digit that starts the group",
+  },
+  {
+    grammar: "go",
+    path: "#switch_types.beginCaptures[3].patterns[2].match",
+    reason: "group 3 is `.(type)`, and `#brackets`, before it in the list, opens `\\(` at its `(` and closes after `type`",
+  },
+  { grammar: "go", path: "#syntax_errors.patterns[0].match", group: 1, reason: blanks },
+  ...[1, 2].map(
+    (pattern): Waiver => ({
+      grammar: "go",
+      path: `#type_assertion_inline.captures[2].patterns[${pattern}].match`,
+      reason: "group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`",
+    }),
+  ),
   ...cFamily.flatMap(([reason, rows]) =>
     rows.flatMap(([grammar, path, groups, probe]): Waiver[] => {
       const waiver: Waiver = { grammar, path, reason, ...(probe === undefined ? {} : { probe }) };
@@ -997,6 +1066,7 @@ export const complete: string[] = [
   "css",
   "diff",
   "docker",
+  "go",
   "ini",
   "java",
   "javascript",
