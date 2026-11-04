@@ -168,7 +168,8 @@ Each option is measured on its own, on first token and steady state:
    It skips like a byte-set prefilter.
    It needs no literal extraction.
 
-The option that lands is the one that lowers first token most while steady state stays at or under main for every language.
+The option that lands is the one that lowers first token most.
+Its steady state must stay at or under main for every language.
 
 ## Risks / Trade-offs
 

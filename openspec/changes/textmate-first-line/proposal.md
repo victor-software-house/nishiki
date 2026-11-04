@@ -34,7 +34,8 @@ What nishiki highlights stays as specified.
 
 - `src/textmate/regex.rs`, `src/textmate/regex/relax.rs`, `src/textmate/grammar.rs` and `src/textmate/scanner.rs` change.
 - A pattern's parsed tree can live from the scanner's build until the pattern's program compiles.
-  `examples/memory.rs` measures that memory, and it is part of the bar.
+  `examples/memory.rs` measures that memory.
+  That memory is part of the bar.
 - No dependency is added.
 - The public API does not change.
 - The bar is first token and steady state at or under main for every TextMate language, with three clean builds per side.

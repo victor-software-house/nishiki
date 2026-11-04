@@ -2,26 +2,53 @@
 
 ## Why
 
-nishiki's TextMate engine runs a grammar's rules, and a grammar that embeds another language includes that language's grammar.
-Today the engine can only follow such an include into an engine copy of the embedded grammar, compiled into the same table.
-That blocks or degrades every grammar that embeds a language nishiki already lexes by hand:
+nishiki's TextMate engine runs a grammar's rules.
+A grammar that embeds another language includes that language's grammar.
+Today the engine can follow such an include only into an engine copy of the embedded grammar.
+That copy is compiled into the same table.
+This blocks or degrades every grammar that embeds a language nishiki already lexes by hand:
 
-1. Perl and Elixir include HTML, and Objective-C, PHP, Vue and Svelte embed C, HTML, CSS and JavaScript; they wait for this change ([licence gate][gate], operator decisions of 2026-11-03).
-2. Julia's table holds engine copies of the Python, JavaScript and SQL grammars, part of the 707,720 bytes it adds to a release build (`feat/textmate-julia`, measured 2026-11-03; the copies' share was not measured), where hand lexers for all three are already in the crate.
-3. Sixty-one of Shiki 4.6.0's grammars import another grammar; none can reach the hand lexers.
+1. Several grammars wait for this change ([licence gate][gate], operator decisions of 2026-11-03):
+   - Perl and Elixir include HTML;
+   - Objective-C, PHP, Vue and Svelte embed C, HTML, CSS and JavaScript.
+2. Julia's table holds engine copies of the Python, JavaScript and SQL grammars.
+   Hand lexers for all three are already in the crate.
+   The copies are part of the 707,720 bytes Julia adds to a release build (`feat/textmate-julia`, measured 2026-11-03).
+   The copies' own share was not measured.
+3. Sixty-one of Shiki 4.6.0's grammars import another grammar.
+   None of them can reach the hand lexers.
 
-The hand lexers already embed one another the other way round.
-HTML runs CSS and JavaScript, GraphQL runs JavaScript, and ERB (in review) runs Ruby, each through the embedded language's `lex_until` and a `Halt` ([`src/language.rs`][language]).
-This change lets the engine be the embedding side of that same contract, and gives every language one entry point for it.
+The hand lexers already embed one another the other way round:
+
+- HTML runs CSS and JavaScript;
+- GraphQL runs JavaScript;
+- ERB (in review) runs Ruby.
+
+Each does it through the embedded language's `lex_until` and a `Halt` ([`src/language.rs`][language]).
+This change lets the engine be the embedding side of that same contract.
+It also gives every language one entry point for it.
 
 ## What Changes
 
-- One halt contract, `Halts`, with three tests: `before` (the embedding rule's end and the patterns listed before the include), `after` (those listed after it) and `any` (an injection at any depth, as ERB's `<%`), each a closure so an engine end with back-references can halt a hand lexer.
-- `Language::lex_until`, which [#159][pr159] adds, takes `&Halts`, and every language whose row says `halts: true` honours all three tests.
-- An embedded language can be entered at its root or at an entry it offers, such as TypeScript's `expression`, for Vue.
-- The table generator marks an include of a hand-lexed grammar as a hand-off to that language and entry, instead of compiling the grammar's rules into the table.
-- The engine starts the embedded language on the rule's content stack, keeps its state in a frame of its own, and takes the line back where the embedded lexer halts.
-- Depth stays counted per language, so a pinned depth keeps its output; the languages on a line share its work budget once core-fix's shared line budget lands.
+- One halt contract, `Halts`, holds three tests:
+  - `before`: the embedding rule's end and the patterns listed before the include;
+  - `after`: the patterns listed after the include;
+  - `any`: an injection at any depth, as ERB's `<%`.
+
+  Each test is a closure.
+  An engine end with back-references can then halt a hand lexer.
+- `Language::lex_until`, which [#159][pr159] adds, takes `&Halts`.
+  Every language whose row says `halts: true` honours all three tests.
+- An embedded language can be entered at its root or at an entry it offers.
+  An example is TypeScript's `expression`, for Vue.
+- The table generator marks an include of a hand-lexed grammar as a hand-off to that language and entry.
+  It no longer compiles the grammar's rules into the table.
+- The engine starts the embedded language on the rule's content stack.
+  It keeps the embedded state in a frame of its own.
+  It takes the line back where the embedded lexer halts.
+- Depth stays counted per language.
+  A pinned depth therefore keeps its output.
+- The languages on a line share its work budget once core-fix's shared line budget lands.
 
 ## Capabilities
 
