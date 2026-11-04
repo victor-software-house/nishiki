@@ -128,3 +128,14 @@ The reasons for these rules are in the `bench-methodology` change under `openspe
     `bench:check` checks its formatting and runs clippy on it without giallo.
     It never runs the comparison.
     Label a pull request that changes the public API, so the benchmarks keep building.
+20. A Callgrind A/B on a box runs through `MISE_ENV=dev,bench mise run callgrind`.
+    - That loads valgrind 3.27.1, the version `mise.bench.toml` pins, as CI does.
+    - `callgrind.sh` stops when another valgrind is on `PATH`.
+    - It builds the head with `--features textmate`, and the base too when the base has that feature.
+    - `lib/commit-target.sh` sets `MBX_DISABLE=1`, so mbx cannot change a build's inlining.
+    - Before trusting the rows, build each side three times and compare the sha256 of the binaries.
+      A mismatch means the build is not repeatable, and the rows do not count.
+    - Rows from any other setup do not count.
+      On 2026-11-04 a box run outside the task, on valgrind 3.22, read SQL's base at 99.4 million instructions.
+      CI read 94.2 million.
+    - A row a decision relies on names the valgrind version it ran on.
