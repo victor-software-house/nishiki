@@ -10,8 +10,9 @@ use crate::language::{Context, Halt};
 use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_len;
 
-/// Lexes one line. `pos` is the end of the last token; the bytes between it
-/// and the cursor are plain text of the current context.
+/// Lexes one line.
+/// `pos` is the end of the last token.
+/// The bytes between it and the cursor are plain text of the current context.
 pub(crate) struct Lexer<'a> {
     s: &'a [u8],
     /// The tokens, the contexts and the end of the last token.
@@ -21,7 +22,8 @@ pub(crate) struct Lexer<'a> {
     /// How many spaces start the line, and how many spaces and tabs.
     lead_spaces: usize,
     lead_blanks: usize,
-    /// Where the last tab is, which decides whether a comment is taken.
+    /// Where the last tab is.
+    /// It decides whether a comment is taken.
     last_tab: Option<usize>,
     /// Whether `^` matches at the start of `s`.
     text_start: TextStart,
@@ -32,7 +34,8 @@ pub(crate) struct Lexer<'a> {
     halted: Option<usize>,
 }
 
-/// The halts of a language that embeds YAML, which read the whole line:
+/// The halts of a language that embeds YAML.
+/// They read the whole line.
 /// `s` starts at byte `start` of `line`.
 #[derive(Clone, Copy)]
 pub(crate) struct Halts<'a> {
@@ -42,14 +45,14 @@ pub(crate) struct Halts<'a> {
     pub(crate) after: Option<Halt>,
 }
 
-/// Where the text a YAML lexer reads starts in its line, which decides
-/// whether `^` matches at its first byte.
+/// Where the text a YAML lexer reads starts in its line.
+/// It decides whether `^` matches at the text's first byte.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum TextStart {
     /// At the start of the line, where `^` matches.
     Line,
-    /// After a Markdown container's prefix, which hands over the rest of its
-    /// line to a fence's YAML, where `^` does not match.
+    /// After a Markdown container's prefix, where `^` does not match.
+    /// The container hands the rest of its line to a fence's YAML.
     MidLine,
 }
 
@@ -70,7 +73,8 @@ enum Directive {
 }
 
 /// Whether `text` is made of URI characters and `%` escapes, and the extra
-/// bytes `extra` allows. No `!`: it ends a handle.
+/// bytes `extra` allows.
+/// `!` is not among them, because it ends a handle.
 fn uri_text(text: &[u8], extra: &[u8]) -> bool {
     let mut i = 0;
     while i < text.len() {
@@ -202,8 +206,9 @@ impl<'a> Lexer<'a> {
         i >= self.s.len() || self.blank_at(i) > 0
     }
 
-    /// The length of the blank at `i`, or 0: a space, a tab, or a Unicode
-    /// space, which Shiki's `\s` reads as a blank.
+    /// The length of the blank at `i`, or 0.
+    /// A blank is a space, a tab, or a Unicode space.
+    /// Shiki's `\s` reads a Unicode space as a blank.
     #[inline]
     fn blank_at(&self, i: usize) -> usize {
         match self.s.get(i) {
@@ -262,7 +267,8 @@ impl<'a> Lexer<'a> {
         Kind::from_code(self.em.frame.kind)
     }
 
-    /// Opens a context with `payload`; false when a limit keeps it closed.
+    /// Opens a context with `payload`.
+    /// It returns false when a limit keeps the context closed.
     fn push(&mut self, kind: Kind, payload: u32) -> bool {
         let scopes = kind.scopes().iter().map(|scope| scope.scope());
         self.em.push(kind.code(), payload, scopes)
@@ -273,11 +279,15 @@ impl<'a> Lexer<'a> {
     /// A line of a block scalar's content, or the first line after it.
     /// Returns where lexing resumes: the end of the line, or 0 when the line
     /// is not content and the scalar ends.
+    ///
+    /// When the text starts mid-line, the scalar ends.
+    /// The rules that continue a block scalar start with `^`, and `^` does
+    /// not match there.
+    /// The grammar then leaves the first character of the line with no scope.
+    ///
+    /// The first line fixes the indentation, a blank one included.
     fn block_line(&mut self) -> usize {
         if self.text_start == TextStart::MidLine {
-            // The rules that continue a block scalar start with `^`, so the
-            // scalar ends here, and the grammar leaves the first character
-            // of the line with no scope.
             self.em.pop();
             let first = char_len(self.s[0]).min(self.s.len());
             self.gap(first);
@@ -290,7 +300,6 @@ impl<'a> Lexer<'a> {
         self.steps.spend(len);
         let fixed = usize::try_from(self.em.frame.payload).unwrap_or(usize::MAX);
         if fixed == 0 {
-            // The first line fixes the indentation, a blank one included.
             if indent == 0 {
                 if !blank {
                     self.em.pop();
@@ -312,9 +321,11 @@ impl<'a> Lexer<'a> {
         len
     }
 
-    /// `|` or `>` at `p`: the header, whose scalar's lines follow. After the
-    /// indicator come an indentation digit with an optional chomping sign, or
-    /// a chomping sign alone, then a comment; anything else is a mistake.
+    /// `|` or `>` at `p`: the header.
+    /// The scalar's lines follow it.
+    /// After the indicator come an indentation digit with an optional chomping
+    /// sign, or a chomping sign alone, then a comment.
+    /// Anything else is a mistake.
     fn block_header(&mut self, p: usize) -> usize {
         let len = self.s.len();
         let leaf = if self.s[p] == b'|' {
@@ -346,8 +357,8 @@ impl<'a> Lexer<'a> {
 
     // Comments.
 
-    /// `#` at `p` to the end of the line. A comment on a line of its own is
-    /// indented by a scope of its own.
+    /// `#` at `p` to the end of the line.
+    /// A comment on a line of its own is indented by a scope of its own.
     fn comment(&mut self, p: usize) -> usize {
         let len = self.s.len();
         if self.text_start == TextStart::Line && p > 0 && self.em.pos == 0 && p <= self.lead_blanks
@@ -374,12 +385,15 @@ impl<'a> Lexer<'a> {
 
     // Quoted scalars.
 
+    /// A quoted scalar at `p`.
+    ///
+    /// The text stays plain when a limit keeps its context closed.
+    /// No context then holds the string.
     fn quoted(&mut self, p: usize) -> usize {
         let double = self.s[p] == b'"';
         self.gap(p);
         let kind = if double { Kind::Double } else { Kind::Single };
         if !self.push(kind, 0) {
-            // The text stays plain: no context to hold the string.
             return self.token(p, p + 1, &[]);
         }
         self.tok(p + 1, &[S::PunctStrBegin]);
@@ -392,6 +406,8 @@ impl<'a> Lexer<'a> {
 
     /// The text of a double-quoted string from `p`, up to its closing quote
     /// or the end of the line.
+    ///
+    /// The scan stops at each `"` and each backslash.
     fn double_body(&mut self, p: usize) -> usize {
         let len = self.s.len();
         let mut i = p;
@@ -407,7 +423,6 @@ impl<'a> Lexer<'a> {
                 self.em.pop();
                 return i + 1;
             }
-            // A backslash.
             if i + 1 == len {
                 self.gap(i);
                 self.tok(len, &[S::EscapeNewline]);
@@ -427,8 +442,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// The length of the escape that starts at `i`, or 0 when the backslash
-    /// is only text. The grammar reads `\x`, `\u` and `\U` with decimal digits
-    /// only, and `\p` where YAML says `\P`.
+    /// is only text.
+    /// The grammar reads `\x`, `\u` and `\U` with decimal digits only.
+    /// It reads `\p` where YAML says `\P`.
     fn escape_len(&self, i: usize) -> usize {
         let digits = |n: usize| {
             self.s
@@ -491,8 +507,9 @@ impl<'a> Lexer<'a> {
         )
     }
 
-    /// `&name`. An anchor without a name is an error, and so is what follows
-    /// the name before the next blank.
+    /// `&name`.
+    /// An anchor without a name is an error.
+    /// So is what follows the name before the next blank.
     fn anchor(&mut self, p: usize) -> usize {
         let name = self.name_end(p + 1);
         if name == p + 1 {
@@ -509,10 +526,12 @@ impl<'a> Lexer<'a> {
         self.token(at, end, &[S::MetaProperty, S::InvalidAnchor])
     }
 
+    /// A tag at `p`.
+    ///
+    /// A tag ends at a Unicode space too.
+    /// It is valid only before a space, a tab or the line's end.
     fn tag(&mut self, p: usize) -> usize {
         let end = self.word_end(p);
-        // A tag ends at a Unicode space too, but is valid only before a space,
-        // a tab or the line's end.
         let leaf = if tag_valid(&self.s[p..end]) && self.s.get(end).is_none_or(|&b| is_blank(b)) {
             S::TagHandle
         } else {
@@ -521,7 +540,10 @@ impl<'a> Lexer<'a> {
         self.token(p, end, &[S::MetaProperty, leaf])
     }
 
-    /// `*name`; a `*` without one is plain text with no scope.
+    /// `*name`.
+    /// A `*` without a name is plain text with no scope.
+    /// The grammar reads a `[`, `{` or `/` after the name as part of the
+    /// alias.
     fn alias(&mut self, p: usize) -> usize {
         let end = self.name_end(p + 1);
         if end == p + 1 {
@@ -530,7 +552,6 @@ impl<'a> Lexer<'a> {
         let at = self.token(p, p + 1, &[S::AliasKeyword, S::PunctAlias]);
         let at = self.token(at, end, &[S::AliasName]);
         if matches!(self.at(at), b'[' | b'{' | b'/') {
-            // The grammar reads the opening bracket as part of the alias.
             let word = self.word_end(at);
             return self.token(at, word, &[S::InvalidAnchor]);
         }
@@ -539,9 +560,11 @@ impl<'a> Lexer<'a> {
 
     // Plain scalars.
 
-    /// Scans the plain scalar that starts at `p`. Returns where its text ends
-    /// (before the blanks that trail it) and whether a `:` that makes it a
-    /// key follows.
+    /// Scans the plain scalar that starts at `p`.
+    /// It returns where its text ends, before the blanks that trail it.
+    /// It also returns whether a `:` that makes it a key follows.
+    /// A lone `-` or `:` cannot be a key.
+    /// The scalar goes on past it.
     fn scan_plain(&self, p: usize, flow: bool) -> (usize, bool) {
         let len = self.s.len();
         let mut i = p;
@@ -563,7 +586,6 @@ impl<'a> Lexer<'a> {
                 if b == b':' {
                     let next = self.s.get(i + 1).copied();
                     let blank = self.blank_or_end(i + 1);
-                    // A lone `-` or `:` cannot be a key: the scalar goes on.
                     let lone = end == p + 1 && matches!(self.s[p], b'-' | b':');
                     if (blank || (flow && next.is_some_and(is_flow_indicator))) && !lone {
                         break;
@@ -598,18 +620,20 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// A plain scalar at `p`.
+    ///
+    /// The grammar tags a key only when the colons that end it pair up,
+    /// counting the one that follows it directly.
+    /// A pair's value holds no key of its own.
     fn plain(&mut self, p: usize) -> usize {
         let flow = self.in_flow();
         let (end, key) = self.scan_plain(p, flow);
-        // The grammar tags a key only when the colons that end it, together
-        // with the one that follows it directly, pair up.
         let trailing = self.s[p..end]
             .iter()
             .rev()
             .take_while(|&&b| b == b':')
             .count();
         let key = key && (self.at(end) != b':' || trailing % 2 == 0);
-        // A pair's value holds no key of its own.
         let key = key && self.top() != Kind::Pair;
         let body = if flow { S::PlainIn } else { S::PlainOut };
         let end = end.max(p + char_len(self.s[p]).min(self.s.len() - p));
@@ -626,11 +650,14 @@ impl<'a> Lexer<'a> {
     // Block context.
 
     /// Whether the line goes back to the embedding language at `p`, where a
-    /// step begins: only while the top context alone is open, where `end`
-    /// holds, or where `after` holds and the step at `p` is no YAML token.
+    /// step begins.
+    /// It can only while the top context alone is open.
+    /// It goes back where `end` holds, or where `after` holds and the step at
+    /// `p` is no YAML token.
     ///
-    /// A comment after blanks is the exception to `end`: the grammar's
-    /// comment rule begins at the blanks, before `p`, so it wins there.
+    /// A comment after blanks is the exception to `end`.
+    /// The grammar's comment rule begins at the blanks, before `p`.
+    /// It therefore wins there.
     #[cold]
     fn halts_at(&self, p: usize) -> bool {
         let Some(halts) = self.halts else {
@@ -657,6 +684,10 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// One step of the block context at `p`.
+    ///
+    /// In an explicit key, a `:` after the key's text is a mistake.
+    /// A `:` that starts the line is the value indicator.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: with `run` inlined into both callers, rustc stopped inlining it, and YAML rose 5% (1.0542)"
@@ -680,8 +711,6 @@ impl<'a> Lexer<'a> {
             b'-' if self.blank_or_end(p + 1) => self.token(p, p + 1, &[S::PunctSeqItem]),
             b'?' => self.complex_key(p),
             b':' if self.top() == Kind::Complex => {
-                // A `:` after the key's text is a mistake; one that starts
-                // the line is the value indicator.
                 let leaf = if self.text_start == TextStart::Line && p <= self.lead_spaces {
                     S::PunctKeyValue
                 } else {
@@ -713,9 +742,14 @@ impl<'a> Lexer<'a> {
         Some(self.token(0, 3, &[leaf]))
     }
 
-    /// `%` at the start of the line: a directive. Each word has a scope of its
-    /// own, and what the grammar does not expect is marked, with every word
-    /// after it.
+    /// `%` at the start of the line: a directive.
+    /// Each word has a scope of its own.
+    /// What the grammar does not expect is marked, with every word after it.
+    ///
+    /// Without a name, every word is a mistake.
+    /// When only the start of a word is valid, the rest of the word is a
+    /// mistake.
+    /// A `#` that is no comment is read as the start of the next node.
     fn directive(&mut self) -> usize {
         let len = self.s.len();
         let meta = |leaf: S| [S::MetaDirective, leaf];
@@ -731,7 +765,6 @@ impl<'a> Lexer<'a> {
         };
         let mut bad = name_end == at;
         if bad {
-            // No name: every word is a mistake.
         } else {
             let leaf = match kind {
                 Directive::Yaml => S::DirectiveYaml,
@@ -782,7 +815,6 @@ impl<'a> Lexer<'a> {
             if leaf == S::InvalidUnrecognized {
                 bad = true;
             } else if end < word {
-                // The rest of the word is a mistake.
                 at = self.token(end, word, &meta(S::InvalidUnrecognized));
                 bad = true;
             }
@@ -791,7 +823,6 @@ impl<'a> Lexer<'a> {
         let start = self.skip_blanks(at);
         self.token(at, start, &[S::MetaDirective]);
         if start < len {
-            // A `#` that is no comment is read as the start of the next node.
             return if self.comment_at(start) {
                 self.comment(start)
             } else {
@@ -960,8 +991,8 @@ impl<'a> Lexer<'a> {
         p + 1
     }
 
-    /// Closes the open pair and explicit key, which end where their
-    /// collection's next entry or its end begins.
+    /// Closes the open pair and explicit key.
+    /// They end where their collection's next entry, or its end, begins.
     fn pop_pair_and_explicit(&mut self) {
         while matches!(self.top(), Kind::Pair | Kind::Explicit) {
             self.em.pop();

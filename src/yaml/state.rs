@@ -1,4 +1,5 @@
-//! The contexts the YAML lexer opens, which are frames of the interned state.
+//! The contexts the YAML lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
@@ -10,8 +11,8 @@ crate::tag::frame_kinds! {
     pub(crate) enum Kind: TAG {
         /// Outside every context.
         Top,
-        /// A block scalar's lines; the payload is their indentation, 0 until the
-        /// first line fixes it.
+        /// A block scalar's lines.
+        /// The payload is their indentation, 0 until the first line fixes it.
         Block,
         /// A double-quoted scalar that continues on the next line.
         Double,

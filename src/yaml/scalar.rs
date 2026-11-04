@@ -1,9 +1,9 @@
 //! Which plain scalars the grammar scopes as constants, numbers or dates.
 //!
-//! The grammar follows the YAML 1.1 type tags, whose patterns are public, and
-//! the rules below are those patterns as Shiki's output shows them: `0o17`
-//! is not a number, and an exponent needs its sign. A scalar is a constant
-//! only when the whole of it matches.
+//! The grammar follows the YAML 1.1 type tags, whose patterns are public.
+//! The rules below are those patterns as Shiki's output shows them.
+//! For example, `0o17` is not a number, and an exponent needs its sign.
+//! A scalar is a constant only when the whole of it matches.
 
 use super::scope::S;
 
@@ -92,6 +92,12 @@ fn is_int(s: &[u8]) -> bool {
     }
 }
 
+/// Whether `s` is a float.
+///
+/// The checks match, in order:
+/// - `.inf`, after an optional sign, and `.nan`, each in three spellings;
+/// - `[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*`, the base-60 form;
+/// - `([0-9][0-9_]*)?\.[0-9.]*([eE][-+][0-9]+)?`.
 fn is_float(s: &[u8]) -> bool {
     let r = unsigned(s);
     if matches!(r, b".inf" | b".Inf" | b".INF") {
@@ -104,7 +110,6 @@ fn is_float(s: &[u8]) -> bool {
         return false;
     };
     let (head, tail) = (&r[..dot], &r[dot + 1..]);
-    // `[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*`
     if let Some(colon) = head.iter().position(|&b| b == b':') {
         let lead = &head[..colon];
         let ok = lead.first().is_some_and(|b| is_digit(*b))
@@ -112,7 +117,6 @@ fn is_float(s: &[u8]) -> bool {
             && sexagesimal_tail(&head[colon..]);
         return ok && tail.iter().all(|&b| is_digit_or_underscore(b));
     }
-    // `([0-9][0-9_]*)?\.[0-9.]*([eE][-+][0-9]+)?`
     let head_ok =
         head.is_empty() || (is_digit(head[0]) && head.iter().all(|&b| is_digit_or_underscore(b)));
     if !head_ok {
@@ -131,6 +135,9 @@ fn is_float(s: &[u8]) -> bool {
 
 /// `\d{4}-\d{2}-\d{2}`, or that date with `\d{1,2}` fields, a time and an
 /// optional zone.
+///
+/// The separator before the time is `T`, `t` or blanks.
+/// The zone is `[ \t]*Z` or `[-+]\d{1,2}(:\d{2})?`.
 fn is_timestamp(s: &[u8]) -> bool {
     let n = |from: usize, min: usize, max: usize| -> Option<usize> {
         let len = s
@@ -158,7 +165,6 @@ fn is_timestamp(s: &[u8]) -> bool {
     if month == 2 && day == 2 && at == s.len() {
         return true;
     }
-    // The separator: `T`, `t` or blanks.
     let mut at = at;
     match s.get(at) {
         Some(b'T' | b't') => at += 1,
@@ -189,7 +195,6 @@ fn is_timestamp(s: &[u8]) -> bool {
     if at == s.len() {
         return true;
     }
-    // `[ \t]*Z` or `[-+]\d{1,2}(:\d{2})?`.
     let rest = &s[at..];
     let blanks = rest
         .iter()

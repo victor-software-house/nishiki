@@ -78,10 +78,11 @@ fn numbers_follow_the_yaml_1_1_patterns() {
     }
 }
 
+/// The grammar has no `0o`.
+/// An exponent needs its sign.
+/// The zone has no blank before `-5`.
 #[test]
 fn a_scalar_that_nearly_matches_is_plain() {
-    // No `0o`, an exponent needs its sign, and the zone has no blank before
-    // `-5`.
     for value in [
         "0o17",
         "1e3",
@@ -118,6 +119,8 @@ fn an_indented_comment_line_has_a_leading_whitespace_scope() {
     );
 }
 
+/// `z` is indented less than the first line.
+/// It is plain text again.
 #[test]
 fn a_block_scalar_ends_at_the_first_line_indented_less() {
     let text = indoc! {"
@@ -133,7 +136,6 @@ fn a_block_scalar_ends_at_the_first_line_indented_less() {
             .and_then(|(_, scopes)| scopes.last().cloned())
     };
     assert_eq!(last(1).as_deref(), Some("string.unquoted.block"));
-    // `z` is indented less than the first line, so it is plain text again.
     assert_eq!(last(2).as_deref(), Some("string.unquoted.plain.out"));
     assert_eq!(
         scope_of(text, "b"),
@@ -172,9 +174,12 @@ fn a_block_header_takes_one_indicator_and_a_comment() {
     );
 }
 
+/// The `u` is added apart.
+/// This source then holds no unicode escape.
+/// The letter in `\x4a` ends that escape.
+/// `\q` is no escape.
 #[test]
 fn escapes_in_double_quotes_take_decimal_digits_only() {
-    // The `u` is added apart so that this source holds no unicode escape.
     let unicode = format!("\\{}0041", 'u');
     let text = format!(r#"a: "\n\x41\x4a{unicode}\q\p""#);
     for escape in ["\\n", "\\x41", unicode.as_str(), "\\p"] {
@@ -184,7 +189,6 @@ fn escapes_in_double_quotes_take_decimal_digits_only() {
             "{escape}"
         );
     }
-    // The letter in `\x4a` ends that escape, and `\q` is none.
     let lines = lex(&text);
     for plain in ["\\x4a", "\\q"] {
         assert!(
@@ -364,10 +368,14 @@ fn depth_limit_stops_nesting_flow_collections() {
     assert_eq!(tokens.last().map(|t| t.end()), Some(100));
 }
 
+/// A Unicode space separates after the colon of a key and after a sequence
+/// dash.
+/// It does not separate before a `#`.
+/// Only a space or a tab makes a comment.
+/// A tag before a Unicode space is not a valid tag.
 #[test]
 fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
     for space in ["\u{a0}", "\u{85}", "\u{2003}", "\u{3000}"] {
-        // After the colon of a key and after a sequence dash.
         let text = format!("a:{space}b");
         assert_eq!(
             scope_of(&text, "a"),
@@ -379,7 +387,6 @@ fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
             "punctuation.definition.block.sequence.item",
             "{space:?}"
         );
-        // Not before a `#`: only a space or a tab makes a comment.
         let text = format!("a: b{space}# c");
         assert!(
             !lex(&text)[0].iter().any(|(_, scopes)| scopes
@@ -387,7 +394,6 @@ fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
                 .any(|scope| scope == "comment.line.number-sign")),
             "{space:?}"
         );
-        // A tag before one is not a valid tag.
         assert_eq!(
             scope_of(&format!("a: !!str{space}b"), "!!str"),
             "meta.property invalid.illegal.tag-handle",
@@ -404,7 +410,8 @@ const EMBEDDED: crate::test_support::Embedded = crate::test_support::Embedded {
 };
 
 /// The scopes a Ruby here document named for YAML puts under its lines, as
-/// Shiki gives them: `source.yaml` comes from the rule's `contentName`.
+/// Shiki gives them.
+/// `source.yaml` comes from the rule's `contentName`.
 const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.yaml", "source.yaml"];
 
 /// Where each line, lexed alone, halts under a Ruby here document's halts.
@@ -415,9 +422,9 @@ fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
         .collect()
 }
 
-/// Shiki hands an indented `#{` back to Ruby nowhere: the comment rule
-/// begins at the blanks before it, and a plain scalar or a string holds it
-/// otherwise.
+/// Shiki hands an indented `#{` back to Ruby nowhere.
+/// After blanks, the comment rule begins at the blanks before it.
+/// Elsewhere, a plain scalar or a string holds it.
 #[test]
 fn an_indented_ruby_interpolation_in_yaml_stays_yaml() {
     assert_eq!(
@@ -433,9 +440,9 @@ fn an_indented_ruby_interpolation_in_yaml_stays_yaml() {
     );
 }
 
-/// Shiki hands a line back to Ruby where a YAML step begins at the `#{`,
-/// such as at the start of an unindented line, but not inside a plain
-/// scalar, nor at a comment after blanks.
+/// Shiki hands a line back to Ruby where a YAML step begins at the `#{`.
+/// The start of an unindented line is such a place.
+/// Inside a plain scalar, or at a comment after blanks, it hands nothing back.
 #[test]
 fn ruby_takes_a_yaml_line_back_where_a_step_begins_at_its_interpolation() {
     assert_eq!(
@@ -444,8 +451,8 @@ fn ruby_takes_a_yaml_line_back_where_a_step_begins_at_its_interpolation() {
     );
 }
 
-/// A Ruby escape is tried after YAML's patterns, so a plain scalar that
-/// starts with it keeps it.
+/// A Ruby escape is tried after YAML's patterns.
+/// A plain scalar that starts with it keeps it.
 #[test]
 fn a_ruby_escape_at_a_yaml_plain_scalar_stays_yaml() {
     assert_eq!(ruby_halts(&["\\n: c", "key: a \\n b"]), [None, None]);
