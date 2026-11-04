@@ -9,6 +9,7 @@ use super::state::{
     AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind,
 };
 use super::words;
+use crate::case_fold;
 use crate::classes::{is_space, is_word};
 
 /// How a tag's category is told apart from the list that names it.
@@ -44,12 +45,46 @@ fn contains(list: &[&str], word: &str) -> bool {
     list.binary_search(&word).is_ok()
 }
 
-/// `word`, lower-cased into `buffer`, when it fits.
+/// `word`, an ASCII name, lower-cased into `buffer`, when it fits.
 fn lowered<'b>(word: &[u8], buffer: &'b mut [u8; MAX_NAME]) -> Option<&'b str> {
     let slot = buffer.get_mut(..word.len())?;
     slot.copy_from_slice(word);
     slot.make_ascii_lowercase();
     std::str::from_utf8(slot).ok()
+}
+
+/// Which side of an element a tag stands on.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Side {
+    /// `<name`.
+    Open,
+    /// `</name`.
+    Close,
+}
+
+impl Side {
+    /// The side of the tag whose `<` is at `p`, and where its name starts.
+    fn of(lexer: &Lexer<'_>, p: usize) -> (Side, usize) {
+        if lexer.at(p + 1) == b'/' {
+            (Side::Close, p + 2)
+        } else {
+            (Side::Open, p + 1)
+        }
+    }
+}
+
+/// The name of a tag at a `<`, as [`Lexer::tag_name`] finds it.
+#[derive(Clone, Copy, Debug)]
+enum TagName {
+    /// A name of ASCII: where it starts and ends, and the tag's side.
+    Ascii {
+        start: usize,
+        end: usize,
+        side: Side,
+    },
+    /// A name with a byte above ASCII, which only `(?i)`'s folds can make a
+    /// name of the lists: [`Lexer::folded_tag_name`] reads it.
+    Wide,
 }
 
 impl Lexer<'_> {
@@ -125,12 +160,35 @@ impl Lexer<'_> {
             .is_some_and(|rest| rest.starts_with(literal))
     }
 
-    /// Whether the text at `i` starts with `literal`, which is lower case,
-    /// without regard to case.
-    pub(super) fn starts_ci(&self, i: usize, literal: &[u8]) -> bool {
-        self.s.get(i..self.lim).is_some_and(|rest| {
-            rest.len() >= literal.len() && rest[..literal.len()].eq_ignore_ascii_case(literal)
-        })
+    /// The end of `literal` at `i`, without regard to case, a character
+    /// above ASCII standing for the letters it folds to
+    /// ([`case_fold::literal_end`]).
+    ///
+    /// The literal is compared as ASCII, in one pass that stops at the first
+    /// byte that differs. Up to there the text has spelled the literal one
+    /// ASCII byte a letter, so a fold can match only when that byte is above
+    /// ASCII; only then is the text read through [`Lexer::folded_lit`].
+    #[inline]
+    pub(super) fn lit_ci(&self, i: usize, literal: &[u8]) -> Option<usize> {
+        let rest = self.s.get(i..self.lim)?;
+        match rest
+            .iter()
+            .zip(literal)
+            .position(|(have, want)| !have.eq_ignore_ascii_case(want))
+        {
+            None => (rest.len() >= literal.len()).then_some(i + literal.len()),
+            Some(k) if rest.get(k).is_some_and(|b| !b.is_ascii()) => {
+                self.folded_lit(i + k, literal.get(k..)?)
+            }
+            Some(_) => None,
+        }
+    }
+
+    /// [`Lexer::lit_ci`] from the first byte that differs, at `i`, which is
+    /// above ASCII, with the rest of the literal from the same place.
+    #[cold]
+    fn folded_lit(&self, i: usize, rest: &[u8]) -> Option<usize> {
+        case_fold::literal_end(self.s.get(..self.lim)?, i, rest)
     }
 
     /// Whether `\G` matches at `p`.
@@ -323,25 +381,24 @@ impl Lexer<'_> {
                 }
             }
             Rule::StyleTag => {
-                if !self.starts_ci(p, b"</style") {
-                    return None;
-                }
-                let gt = self.skip_ws(p + 7);
+                let name = self.lit_ci(p, b"</style")?;
+                let gt = self.skip_ws(name);
                 (self.at(gt) == b'>')
-                    .then(|| Hit::new(Pat::End, p, gt + 1).with([p + 2, p + 7, gt, 0, 0], 0))
+                    .then(|| Hit::new(Pat::End, p, gt + 1).with([p + 2, name, gt, 0, 0], 0))
             }
             Rule::ScriptTag => {
-                (self.starts_ci(p, b"/script") && self.at(p + 7) == b'>').then(|| one(8))
+                let name = self.lit_ci(p, b"/script")?;
+                (self.at(name) == b'>').then(|| one(name + 1 - p))
             }
             Rule::ScriptHead => (b == b'/').then(|| Self::zero(p)),
             Rule::ScriptAttributes => {
                 (b == b'>' || self.script_type_ends(p)).then(|| Self::zero(p))
             }
             Rule::ScriptJsOuter | Rule::ScriptTemplateOuter | Rule::ScriptOtherOuter => {
-                (b == b'<' && self.starts_ci(p + 1, b"/script")).then(|| one(1))
+                (b == b'<' && self.lit_ci(p + 1, b"/script").is_some()).then(|| one(1))
             }
             Rule::BodyTemplate | Rule::BodyOther => {
-                self.starts_ci(p, b"</script").then(|| Self::zero(p))
+                self.lit_ci(p, b"</script").map(|_| Self::zero(p))
             }
             Rule::Attribute => {
                 let q = self.skip_ws(p);
@@ -412,12 +469,10 @@ impl Lexer<'_> {
         }
         let name_start = p + 2;
         let word = self.word(super::state::name(top.payload)).as_bytes();
-        let name_end = name_start + word.len();
-        if self
+        if let Some(name_end) = self
             .s
-            .get(name_start..name_end)
-            .is_some_and(|text| text.eq_ignore_ascii_case(word))
-            && name_end <= self.lim
+            .get(..self.lim)
+            .and_then(|text| case_fold::reference_end(text, name_start, word))
         {
             let gt = self.skip_ws(name_end);
             if self.at(gt) == b'>' {
@@ -448,8 +503,10 @@ impl Lexer<'_> {
             Rule::Root | Rule::BodyTemplate => self.root_patterns(p),
             Rule::Comment => self.comment_patterns(p),
             Rule::Doctype => {
-                if self.g(p) && self.starts_ci(p, b"doctype") {
-                    return Some(Hit::new(Pat::DoctypeKeyword, p, p + 7));
+                if self.g(p)
+                    && let Some(end) = self.lit_ci(p, b"doctype")
+                {
+                    return Some(Hit::new(Pat::DoctypeKeyword, p, end));
                 }
                 if b == b'"' {
                     return Some(Hit::new(Pat::DoctypeQuote, p, p + 1));
@@ -499,11 +556,15 @@ impl Lexer<'_> {
                 };
                 self.attribute_patterns(p, which)
             }
-            Rule::StyleWrap => {
-                (self.g(p) && self.style_open(p)).then(|| Hit::new(Pat::StyleTag, p, p + 6))
-            }
-            Rule::ScriptWrap => (self.g(p) && b == b'<' && self.starts_ci(p + 1, b"script"))
-                .then(|| Hit::new(Pat::ScriptTag, p, p + 7)),
+            Rule::StyleWrap => self
+                .g(p)
+                .then(|| self.style_open(p))
+                .flatten()
+                .map(|end| Hit::new(Pat::StyleTag, p, end)),
+            Rule::ScriptWrap => (self.g(p) && b == b'<')
+                .then(|| self.lit_ci(p + 1, b"script"))
+                .flatten()
+                .map(|end| Hit::new(Pat::ScriptTag, p, end)),
             Rule::StyleTag => Some(Hit::new(
                 Pat::Zero(if self.g(p) {
                     Rule::OpenStyle
@@ -526,8 +587,8 @@ impl Lexer<'_> {
                 if self.script_template_ahead(p) {
                     return Some(Hit::new(Pat::Zero(Rule::ScriptTemplateOuter), p, p));
                 }
-                self.starts_ci(p, b"type")
-                    .then(|| Hit::new(Pat::Zero(Rule::ScriptOtherOuter), p, p))
+                self.lit_ci(p, b"type")
+                    .map(|_| Hit::new(Pat::Zero(Rule::ScriptOtherOuter), p, p))
             }
             Rule::ScriptJsOuter => self.g(p).then(|| Hit::new(Pat::Zero(Rule::BodyJs), p, p)),
             Rule::ScriptTemplateOuter => Some(Hit::new(
@@ -730,21 +791,32 @@ impl Lexer<'_> {
 
     // The root.
 
-    /// `(<)(style)(?=\s|/?>)` at `p`.
-    fn style_open(&self, p: usize) -> bool {
-        if self.at(p) != b'<' || !self.starts_ci(p + 1, b"style") {
-            return false;
+    /// `(<)(style)(?=\s|/?>)` at `p`, and the end of the name.
+    fn style_open(&self, p: usize) -> Option<usize> {
+        if self.at(p) != b'<' {
+            return None;
         }
-        let q = p + 6;
-        self.ws_len(q) > 0 || self.at(q) == b'>' || self.starts(q, b"/>")
+        let q = self.lit_ci(p + 1, b"style")?;
+        (self.ws_len(q) > 0 || self.at(q) == b'>' || self.starts(q, b"/>")).then_some(q)
+    }
+
+    /// Whether a `style` or `script` wrapper can open at the `<` at `p`: its
+    /// name starts with `s`, in either case, or with a byte above ASCII,
+    /// which `ſ` or `ﬆ` could start. One byte, so that the other tags skip
+    /// both wrappers' literals.
+    fn may_open_wrapper(&self, p: usize) -> bool {
+        let b = self.at(p + 1);
+        b | 0x20 == b's' || !b.is_ascii()
     }
 
     /// The lookahead `<name\b(?!-)` of a wrapper rule at `p`.
     fn wrapper_ahead(&self, p: usize, name: &[u8]) -> bool {
-        if self.at(p) != b'<' || !self.starts_ci(p + 1, name) {
+        if self.at(p) != b'<' {
             return false;
         }
-        let q = p + 1 + name.len();
+        let Some(q) = self.lit_ci(p + 1, name) else {
+            return false;
+        };
         let boundary = self.word_len(q).is_none();
         boundary && self.at(q) != b'-'
     }
@@ -758,6 +830,9 @@ impl Lexer<'_> {
                 q += 1;
             }
             self.spend(q / 8);
+            if !self.may_open_wrapper(q) {
+                return None;
+            }
             if self.wrapper_ahead(q, b"style") {
                 return Some(Hit::new(Pat::StyleWrap, 0, q));
             }
@@ -778,17 +853,23 @@ impl Lexer<'_> {
         if self.starts(p, b"<!--") {
             return Some(Hit::new(Pat::Comment, p, p + 4));
         }
-        if self.starts(p, b"<!") && self.starts_ci(p + 2, b"doctype") && self.ws_len(p + 9) > 0 {
+        if self.starts(p, b"<!")
+            && self
+                .lit_ci(p + 2, b"doctype")
+                .is_some_and(|end| self.ws_len(end) > 0)
+        {
             return Some(Hit::new(Pat::Doctype, p, p + 2));
         }
         if self.starts(p, b"<![CDATA[") {
             return Some(Hit::new(Pat::Cdata, p, p + 9));
         }
-        if self.wrapper_ahead(p, b"style") {
-            return Some(Hit::new(Pat::StyleWrap, p, p));
-        }
-        if self.wrapper_ahead(p, b"script") {
-            return Some(Hit::new(Pat::ScriptWrap, p, p));
+        if self.may_open_wrapper(p) {
+            if self.wrapper_ahead(p, b"style") {
+                return Some(Hit::new(Pat::StyleWrap, p, p));
+            }
+            if self.wrapper_ahead(p, b"script") {
+                return Some(Hit::new(Pat::ScriptWrap, p, p));
+            }
         }
         self.html_tag(p)
             .or_else(|| self.element_root(p, Namespace::Math))
@@ -801,10 +882,10 @@ impl Lexer<'_> {
     /// The name of a tag at `p` that the lists could hold, and where it ends:
     /// `<name(?=\s|/?>)` or `</name(?=\s|/?>)`.
     /// No name of the lists is longer than `MAX_NAME`, so a longer run is no
-    /// match.
-    fn tag_name(&self, p: usize) -> Option<(usize, usize, bool)> {
-        let closing = self.at(p + 1) == b'/';
-        let start = p + 1 + usize::from(closing);
+    /// match. A byte above ASCII that is not white space stops the scan as
+    /// [`TagName::Wide`].
+    fn tag_name(&self, p: usize) -> Option<TagName> {
+        let (side, start) = Side::of(self, p);
         let mut q = start;
         while q < self.lim {
             if q - start > MAX_NAME {
@@ -815,7 +896,7 @@ impl Lexer<'_> {
                 if self.ws_len(q) > 0 {
                     break;
                 }
-                return None;
+                return Some(TagName::Wide);
             }
             if crate::classes::is_ascii_space(b) || b == b'/' || b == b'>' {
                 break;
@@ -829,14 +910,66 @@ impl Lexer<'_> {
         let follows = self.ws_len(q) > 0
             || self.at(q) == b'>'
             || (self.at(q) == b'/' && self.at(q + 1) == b'>');
-        follows.then_some((start, q, closing))
+        follows.then_some(TagName::Ascii {
+            start,
+            end: q,
+            side,
+        })
+    }
+
+    /// A [`TagName::Wide`] name at `p`, read again with a character above
+    /// ASCII in it only where it folds to ASCII letters
+    /// ([`case_fold::letters`]), as `ﬁ` in `ﬁeldset`: where it starts and
+    /// ends, the tag's side, and the name lowered into `buffer` as `(?i)`
+    /// reads it.
+    #[cold]
+    fn folded_tag_name<'b>(
+        &self,
+        p: usize,
+        buffer: &'b mut [u8; MAX_NAME],
+    ) -> Option<(usize, usize, Side, &'b str)> {
+        let (side, start) = Side::of(self, p);
+        let mut q = start;
+        while q < self.lim {
+            if q - start > MAX_NAME {
+                return None;
+            }
+            let b = self.s[q];
+            if b >= 0x80 {
+                if self.ws_len(q) > 0 {
+                    break;
+                }
+                let (c, width) = self.char_at(q)?;
+                case_fold::letters(c)?;
+                q += width;
+                continue;
+            }
+            if crate::classes::is_ascii_space(b) || b == b'/' || b == b'>' {
+                break;
+            }
+            q += 1;
+        }
+        self.spend((q - start) / 8);
+        let follows = self.ws_len(q) > 0
+            || self.at(q) == b'>'
+            || (self.at(q) == b'/' && self.at(q + 1) == b'>');
+        if q == start || !follows {
+            return None;
+        }
+        let len = case_fold::lower_into(self.s.get(start..q)?, buffer)?;
+        let name = std::str::from_utf8(buffer.get(..len)?).ok()?;
+        Some((start, q, side, name))
     }
 
     /// A tag of the grammar's own lists at `p`.
     fn html_tag(&self, p: usize) -> Option<Hit> {
-        let (start, end, closing) = self.tag_name(p)?;
         let mut buffer = [0; MAX_NAME];
-        let name = lowered(&self.s[start..end], &mut buffer)?;
+        let (start, end, side, name) = match self.tag_name(p)? {
+            TagName::Ascii { start, end, side } => {
+                (start, end, side, lowered(&self.s[start..end], &mut buffer)?)
+            }
+            TagName::Wide => self.folded_tag_name(p, &mut buffer)?,
+        };
         let lists: &[(&[&str], Category, Deprecation, bool)] = &[
             (words::METADATA, Category::Metadata, Deprecation::No, false),
             (
@@ -904,7 +1037,7 @@ impl Lexer<'_> {
             let info = TagInfo { category, kind }.bits() | deprecation.bits() << 8;
             Hit::new(Pat::Tag, p, end).with([start, end, 0, 0, 0], info)
         };
-        if closing {
+        if side == Side::Close {
             return lists
                 .iter()
                 .find(|(list, ..)| contains(list, name))
@@ -1061,10 +1194,23 @@ impl Lexer<'_> {
 
     /// An `svg` or `math` element at `p`: the root of a tree.
     fn element_root(&self, p: usize, namespace: Namespace) -> Option<Hit> {
-        let (start, end, closing) = self.tag_name(p)?;
-        if closing || !self.s[start..end].eq_ignore_ascii_case(namespace.word().as_bytes()) {
-            return None;
-        }
+        let word = namespace.word();
+        let (start, end) = match self.tag_name(p)? {
+            TagName::Ascii {
+                start,
+                end,
+                side: Side::Open,
+            } if self.s[start..end].eq_ignore_ascii_case(word.as_bytes()) => (start, end),
+            TagName::Ascii { .. } => return None,
+            TagName::Wide => {
+                let mut buffer = [0; MAX_NAME];
+                let (start, end, side, name) = self.folded_tag_name(p, &mut buffer)?;
+                if side == Side::Close || name != word {
+                    return None;
+                }
+                (start, end)
+            }
+        };
         let info = ElementInfo {
             namespace,
             category: Category::Structure,
@@ -1103,28 +1249,35 @@ impl Lexer<'_> {
         if self.at(p + 1) == b'/' {
             return None;
         }
-        if let Some((start, end, _)) = self.tag_name(p) {
-            let mut buffer = [0; MAX_NAME];
-            if let Some(name) = lowered(&self.s[start..end], &mut buffer) {
-                let categories = match namespace {
-                    Namespace::Svg => SVG_LISTS,
-                    Namespace::Math => MATH_LISTS,
+        let mut buffer = [0; MAX_NAME];
+        let listed = match self.tag_name(p) {
+            Some(TagName::Ascii { start, end, .. }) => {
+                lowered(&self.s[start..end], &mut buffer).map(|name| (start, end, name))
+            }
+            Some(TagName::Wide) => self
+                .folded_tag_name(p, &mut buffer)
+                .map(|(start, end, _, name)| (start, end, name)),
+            None => None,
+        };
+        if let Some((start, end, name)) = listed {
+            let categories = match namespace {
+                Namespace::Svg => SVG_LISTS,
+                Namespace::Math => MATH_LISTS,
+            };
+            for &(category, void_list, open_list, flavor) in categories {
+                let info = ElementInfo {
+                    namespace,
+                    category,
+                    flavor,
+                    root: false,
                 };
-                for &(category, void_list, open_list, flavor) in categories {
-                    let info = ElementInfo {
-                        namespace,
-                        category,
-                        flavor,
-                        root: false,
-                    };
-                    if contains(void_list, name)
-                        && let Some(hit) = self.element_whole(p, start, end, info)
-                    {
-                        return Some(hit);
-                    }
-                    if contains(open_list, name) {
-                        return Some(self.element_open(p, start, end, info));
-                    }
+                if contains(void_list, name)
+                    && let Some(hit) = self.element_whole(p, start, end, info)
+                {
+                    return Some(hit);
+                }
+                if contains(open_list, name) {
+                    return Some(self.element_open(p, start, end, info));
                 }
             }
         }
@@ -1274,20 +1427,18 @@ impl Lexer<'_> {
             b"module",
         ];
         TYPES.iter().any(|word| {
-            self.starts_ci(p, word) && {
-                let after = p + word.len();
+            self.lit_ci(p, word).is_some_and(|after| {
                 matches!(self.at(after), b'"' | b'\'' | b'>') || self.ws_len(after) > 0
-            }
+            })
         })
     }
 
     /// `type(?=[=\s])(?!\s*=\s*(''|""|(["']?)(JavaScript)["'>\s]))` at `p`:
     /// a `type` attribute whose value is not JavaScript.
     fn script_type_ends(&self, p: usize) -> bool {
-        if !self.starts_ci(p, b"type") {
+        let Some(a) = self.lit_ci(p, b"type") else {
             return false;
-        }
-        let a = p + 4;
+        };
         if self.at(a) != b'=' && self.ws_len(a) == 0 {
             return false;
         }
@@ -1317,23 +1468,22 @@ impl Lexer<'_> {
             b"template",
             b"html",
         ];
-        if !self.starts_ci(p, b"type") {
+        let Some(name) = self.lit_ci(p, b"type") else {
             return false;
-        }
-        let q = self.skip_ws(p + 4);
+        };
+        let q = self.skip_ws(name);
         if self.at(q) != b'=' {
             return false;
         }
         let q = self.skip_ws(q + 1);
         let q = q + usize::from(matches!(self.at(q), b'"' | b'\''));
-        if !self.starts_ci(q, b"text/") {
+        let Some(text) = self.lit_ci(q, b"text/") else {
             return false;
-        }
+        };
         NAMES.iter().any(|word| {
-            self.starts_ci(q + 5, word) && {
-                let after = q + 5 + word.len();
+            self.lit_ci(text, word).is_some_and(|after| {
                 matches!(self.at(after), b'"' | b'\'' | b'>') || self.ws_len(after) > 0
-            }
+            })
         })
     }
 }

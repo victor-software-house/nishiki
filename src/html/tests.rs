@@ -241,3 +241,161 @@ fn an_html_after_halt_yields_to_a_root_match_at_its_place() {
     }
     assert_eq!(halts(&["x <b>y</b> < z"], never, Some(at_lt)), [Some(11)]);
 }
+
+/// Asserts each case's scopes below the root, Shiki's answer for its token
+/// on its line.
+///
+/// `Onig` folds `ß` to `ss`, each Latin ligature to its letters and `ſ` to
+/// `s` under `(?i)`, so the cases that use it read a character that folds
+/// to letters as those letters. The `c` of `ſcript` is written `\u{63}` so
+/// that the spelling check passes it.
+fn assert_html_scopes(cases: &[(&str, &str, &[&str])]) {
+    for &(text, token, scopes) in cases {
+        assert_eq!(
+            scopes_of(Language::Html, text, token)[1..],
+            scopes[..],
+            "{text:?}"
+        );
+    }
+}
+
+/// A tag name of the grammar's lists, an `svg` root and an element inside
+/// one read a fold as its letters.
+#[test]
+fn a_case_fold_stands_for_its_letters_in_tag_names() {
+    assert_html_scopes(&[
+        (
+            "<\u{fb01}eldset>x</fieldset>",
+            "\u{fb01}eldset",
+            &[
+                "meta.tag.structure.\u{fb01}eldset.start.html",
+                "entity.name.tag.html",
+            ],
+        ),
+        (
+            "<addre\u{df}>",
+            "addre\u{df}",
+            &[
+                "meta.tag.structure.addre\u{df}.start.html",
+                "entity.name.tag.html",
+            ],
+        ),
+        (
+            "<\u{fb06}rong>x</strong>",
+            "\u{fb06}rong",
+            &[
+                "meta.tag.inline.\u{fb06}rong.start.html",
+                "entity.name.tag.html",
+            ],
+        ),
+        (
+            "<\u{17f}vg><g>x</g></\u{17f}vg>",
+            "\u{17f}vg",
+            &[
+                "meta.element.structure.\u{17f}vg.html",
+                "meta.tag.structure.\u{17f}vg.start.html",
+                "entity.name.tag.html",
+            ],
+        ),
+    ]);
+}
+
+/// An end tag reads a fold as its letters: `</style` and `</script` after
+/// the ASCII `</`, and the back-reference that closes an SVG element. A
+/// character there that folds to no letters, as `ʀ`, closes nothing.
+#[test]
+fn a_case_fold_stands_for_its_letters_in_end_tags() {
+    assert_html_scopes(&[
+        (
+            "<style>a{}</\u{fb06}yle>",
+            "\u{fb06}yle",
+            &[
+                "meta.embedded.block.html",
+                "meta.tag.metadata.style.end.html",
+                "entity.name.tag.html",
+            ],
+        ),
+        (
+            "<script>x</\u{17f}\u{63}ript>",
+            "\u{17f}\u{63}ript",
+            &[
+                "meta.embedded.block.html",
+                "meta.tag.metadata.script.end.html",
+                "entity.name.tag.html",
+            ],
+        ),
+        (
+            "<script>x</sc\u{280}ipt>y",
+            "y",
+            &[
+                "meta.embedded.block.html",
+                "source.js",
+                "variable.other.readwrite.js",
+            ],
+        ),
+        (
+            "<svg><\u{fb01}lter>x</filter></svg>",
+            "filter",
+            &[
+                "meta.element.structure.svg.html",
+                "meta.element.structure.svg.\u{fb01}lter.html",
+                "meta.tag.structure.svg.filter.end.html",
+                "entity.name.tag.html",
+            ],
+        ),
+        (
+            "<svg><\u{fb01}lter>x</FILTER>y</svg>",
+            "y",
+            &["meta.element.structure.svg.html"],
+        ),
+        ("<\u{17f}vg><g>x</g></\u{17f}vg>y", "y", &[]),
+    ]);
+}
+
+/// The `style` and `script` wrappers open at each fold that can start
+/// their names, `ſ`, `ﬆ` and `ﬅ`, at the start of the name, where the
+/// root looks for one.
+#[test]
+fn a_case_fold_stands_for_its_letters_in_wrapper_names() {
+    assert_html_scopes(&[
+        (
+            "<\u{fb06}yle>a{}</style>",
+            "a",
+            &["meta.embedded.block.html", "source.css"],
+        ),
+        (
+            "<\u{fb05}yle>a{}</style>",
+            "a",
+            &["meta.embedded.block.html", "source.css"],
+        ),
+        (
+            "<\u{17f}tyle>a{}</style>",
+            "a",
+            &["meta.embedded.block.html", "source.css"],
+        ),
+        (
+            "<\u{17f}\u{63}ript>x</script>",
+            "x",
+            &[
+                "meta.embedded.block.html",
+                "source.js",
+                "variable.other.readwrite.js",
+            ],
+        ),
+    ]);
+}
+
+/// A script's `type` value reads a fold after an ASCII prefix, as the `ſ`
+/// after `text/java`, from the byte where the ASCII comparison stopped.
+#[test]
+fn a_case_fold_stands_for_its_letters_in_attribute_literals() {
+    assert_html_scopes(&[(
+        "<script type=\"text/java\u{17f}\u{63}ript\">x</script>",
+        "x",
+        &[
+            "meta.embedded.block.html",
+            "source.js",
+            "variable.other.readwrite.js",
+        ],
+    )]);
+}

@@ -26,7 +26,7 @@ use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch as AllScratch;
-use crate::{Stack, Token};
+use crate::{Stack, Token, case_fold};
 
 /// A piece of a scope name built at run time.
 #[derive(Clone, Copy)]
@@ -1129,8 +1129,7 @@ impl<'a> Lexer<'a> {
 
 /// The end of a `<style>` element's CSS: `</style`, in any case.
 fn style_end(s: &[u8], p: usize) -> bool {
-    s.get(p..p + 7)
-        .is_some_and(|text| text.eq_ignore_ascii_case(b"</style"))
+    end_tag_at(s, p, b"</style")
 }
 
 /// The end of a `<style>` element's CSS in an ERB document, or a place where
@@ -1141,8 +1140,25 @@ fn style_end_or_erb(s: &[u8], p: usize) -> bool {
 
 /// The end of a `<script>` element's JavaScript: `</script`, in any case.
 fn script_end(s: &[u8], p: usize) -> bool {
-    s.get(p..p + 8)
-        .is_some_and(|text| text.eq_ignore_ascii_case(b"</script"))
+    end_tag_at(s, p, b"</script")
+}
+
+/// Whether the end tag `tag`, `</` and a lower-case name, stands at `p` of
+/// `s` in any case. It is compared as ASCII; only a `</` followed by a byte
+/// above ASCII, which a fold such as `ſ` could start, is read through the
+/// folds ([`case_fold::literal_end`]), out of line.
+fn end_tag_at(s: &[u8], p: usize, tag: &[u8]) -> bool {
+    s.get(p..p + tag.len())
+        .is_some_and(|text| text.eq_ignore_ascii_case(tag))
+        || s.get(p..p + 2) == Some(b"</")
+            && s.get(p + 2).is_some_and(|b| !b.is_ascii())
+            && folded_end_tag_at(s, p, tag)
+}
+
+/// [`end_tag_at`] through the folds.
+#[cold]
+fn folded_end_tag_at(s: &[u8], p: usize, tag: &[u8]) -> bool {
+    case_fold::literal_end(s, p, tag).is_some()
 }
 
 /// Packs a name's interned id with the bits that say how to spell it.

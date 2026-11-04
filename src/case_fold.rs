@@ -92,6 +92,82 @@ pub(crate) fn lower_into(text: &[u8], buf: &mut [u8]) -> Option<usize> {
     Some(len)
 }
 
+/// The end of the text at `at` of `text` that `word`, a text matched before,
+/// matches as a back-reference does under `(?i)`: an ASCII letter in either
+/// case, a character above ASCII as the letters it folds to, and any other
+/// character as itself, so `ﬁlter` and `FILTER` match each other.
+///
+/// Text that equals `word` but for ASCII case, as nearly every end tag does,
+/// is answered by one slice comparison; only text or a word with a byte above
+/// ASCII is read character by character, in [`folded_reference_end`].
+#[inline]
+pub(crate) fn reference_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> {
+    let same = text.get(at..at + word.len());
+    if same.is_some_and(|same| same.eq_ignore_ascii_case(word)) {
+        return Some(at + word.len());
+    }
+    if word.is_ascii() && same.is_none_or(<[u8]>::is_ascii) {
+        return None;
+    }
+    folded_reference_end(text, at, word)
+}
+
+/// [`reference_end`] read character by character, through the folds.
+#[cold]
+fn folded_reference_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> {
+    let mut have = Folded {
+        text: text.get(at..)?,
+        at: 0,
+        pending: &[],
+    };
+    let want = Folded {
+        text: word,
+        at: 0,
+        pending: &[],
+    };
+    for byte in want {
+        if have.next()? != byte {
+            return None;
+        }
+    }
+    have.pending.is_empty().then_some(at + have.at)
+}
+
+/// The bytes a text compares by under `(?i)`, character by character: an
+/// ASCII letter lowered, the letters a character above ASCII folds to, and
+/// the bytes of any other character.
+struct Folded<'t> {
+    text: &'t [u8],
+    /// Where the next character starts.
+    at: usize,
+    /// The rest of the bytes of the last character read.
+    pending: &'t [u8],
+}
+
+impl Iterator for Folded<'_> {
+    type Item = u8;
+
+    fn next(&mut self) -> Option<u8> {
+        if let [first, rest @ ..] = self.pending {
+            self.pending = rest;
+            return Some(*first);
+        }
+        let &byte = self.text.get(self.at)?;
+        if byte.is_ascii() {
+            self.at += 1;
+            return Some(byte.to_ascii_lowercase());
+        }
+        let (c, width) = char_at(self.text, self.at)?;
+        let own = self.text.get(self.at..self.at + width)?;
+        self.at += width;
+        let [first, rest @ ..] = letters(c).unwrap_or(own) else {
+            return None;
+        };
+        self.pending = rest;
+        Some(*first)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -130,5 +206,21 @@ mod tests {
         assert_eq!(lower_into("\u{e9}".as_bytes(), &mut buf), None);
         assert_eq!(lower_into(b"abcdefghi", &mut buf), None, "too long");
         assert_eq!(lower_into(b"", &mut buf), Some(0));
+    }
+
+    #[test]
+    fn a_reference_matches_a_text_with_the_same_folds() {
+        let fi = "\u{fb01}lter>".as_bytes();
+        assert_eq!(
+            reference_end(b"</FILTER>", 2, "\u{fb01}lter".as_bytes()),
+            Some(8)
+        );
+        assert_eq!(reference_end(fi, 0, b"filter"), Some(7));
+        assert_eq!(reference_end(fi, 0, b"f"), None, "half of `fi`");
+        assert_eq!(reference_end(fi, 0, b"fil"), Some(4));
+        let e = "\u{e9}t\u{e9}".as_bytes();
+        assert_eq!(reference_end(e, 0, e), Some(e.len()));
+        assert_eq!(reference_end(e, 0, b"ete"), None, "no fold to ASCII");
+        assert_eq!(reference_end(b"ab", 0, b"abc"), None, "past the end");
     }
 }
