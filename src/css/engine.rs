@@ -55,6 +55,9 @@ pub(crate) struct Extra {
     /// The last word looked up in the word table: where it starts and ends,
     /// and the bits of the lists that hold it.
     pub(crate) listed: Cell<(usize, usize, u32)>,
+    /// The last word after a number looked up among the units: where it
+    /// starts and ends, and the unit it spells.
+    pub(crate) unit: Cell<(usize, usize, Option<&'static str>)>,
     /// Where the bytes the lookaheads search for are.
     pub(crate) ahead: Ahead,
 }
@@ -67,6 +70,7 @@ impl Default for Extra {
             space_run: Cell::new((usize::MAX, 0)),
             number: Cell::new((usize::MAX, None)),
             listed: Cell::new((usize::MAX, 0, 0)),
+            unit: Cell::new((usize::MAX, 0, None)),
             ahead: Ahead::default(),
         }
     }

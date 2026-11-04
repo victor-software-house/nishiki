@@ -1,3 +1,4 @@
+use super::matchers::{LONGEST_UNIT, UNITS};
 use crate::Language;
 use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
 
@@ -251,5 +252,30 @@ fn a_shared_name_in_upper_case_starts_a_selector() {
     for name in ["mark", "Mark", "MARK", "Font", "Mask"] {
         let rows = lex_lines(&["a {", &format!("  {name} it"), "}"]);
         assert_eq!(leaf_in(&rows[1], name), "entity.name.tag.css", "{name}");
+    }
+}
+
+/// The unit table is sorted for its binary search, and `LONGEST_UNIT` is the
+/// length of its longest unit, which bounds the lowering buffer.
+#[test]
+fn the_unit_table_is_sorted_and_bounds_its_longest_unit() {
+    assert!(UNITS.is_sorted(), "{UNITS:?}");
+    assert_eq!(
+        UNITS.iter().map(|unit| unit.len()).max(),
+        Some(LONGEST_UNIT)
+    );
+}
+
+/// Every unit of the table is one the grammar's patterns name, so a
+/// number followed by it is named `keyword.other.unit.<unit>.css`.
+#[test]
+fn every_unit_of_the_table_is_named() {
+    for unit in UNITS {
+        let line = format!("a{{b:1{unit}}}");
+        assert_eq!(
+            leaf_in(&lex(&line), unit),
+            format!("keyword.other.unit.{unit}.css"),
+            "{line:?}"
+        );
     }
 }

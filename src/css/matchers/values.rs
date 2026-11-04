@@ -5,6 +5,7 @@ use super::super::engine::CssLike;
 use super::super::words::List;
 use super::chars::Words;
 use super::selectors::Tail;
+use crate::case_fold;
 use crate::rules::{Chars, Lexer};
 
 /// Which of the grammar's two lists of names that begin a selector is
@@ -16,6 +17,18 @@ enum SharedList {
     /// A pseudo-class or pseudo-element, the longer lookahead.
     Second,
 }
+
+/// The units of the grammar's numeric values, sorted, so that the word
+/// after a number is looked up once ([`Lexer::unit_after`]).
+pub(in crate::css) const UNITS: &[&str] = &[
+    "ch", "cm", "cqb", "cqh", "cqi", "cqmax", "cqmin", "cqw", "deg", "dpcm", "dpi", "dppx", "dvb",
+    "dvh", "dvi", "dvw", "em", "ex", "fr", "grad", "hz", "ic", "in", "khz", "lvb", "lvh", "lvi",
+    "lvw", "mm", "mozmm", "ms", "pc", "pt", "px", "q", "rad", "rcap", "rch", "rem", "rex", "ric",
+    "rlh", "s", "svb", "svh", "svi", "svw", "turn", "vb", "vh", "vi", "vmax", "vmin", "vw",
+];
+
+/// The length of the longest of [`UNITS`]: a longer word is none of them.
+pub(in crate::css) const LONGEST_UNIT: usize = 5;
 
 impl<G: CssLike> Lexer<'_, G> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and
@@ -387,11 +400,40 @@ impl<G: CssLike> Lexer<'_, G> {
         Some(end)
     }
 
-    /// The number followed by `unit`, in any case, with a boundary after it.
+    /// The run of `[-\w]` characters after the number that ends at `number`,
+    /// and the unit of [`UNITS`] it spells in any case, a character above
+    /// ASCII standing for the letters it folds to.
+    ///
+    /// The grammar tries each unit's pattern in turn at the same number, so
+    /// the run is lowered and looked up once and kept in CSS's `Extra`.
+    fn unit_after(&self, number: usize) -> (usize, Option<&'static str>) {
+        let (at, end, unit) = G::css_extra(&self.x).unit.get();
+        if at == number {
+            return (end, unit);
+        }
+        let end = self.word_run(number);
+        let mut buffer = [0; LONGEST_UNIT];
+        let unit = self
+            .s
+            .get(number..end)
+            .and_then(|text| case_fold::lower_into(text, &mut buffer))
+            .and_then(|len| buffer.get(..len))
+            .and_then(|word| {
+                UNITS
+                    .binary_search_by(|known| known.as_bytes().cmp(word))
+                    .ok()
+            })
+            .and_then(|i| UNITS.get(i).copied());
+        G::css_extra(&self.x).unit.set((number, end, unit));
+        (end, unit)
+    }
+
+    /// The number followed by `unit`, one of [`UNITS`], in any case, with a
+    /// boundary after it.
     pub(in crate::css) fn numeric_unit(&mut self, p: usize, unit: &str) -> Option<usize> {
         let number = self.number_end(p)?;
-        let end = self.word_run(number);
-        (end > number && self.is_word_ci(number, end, unit)).then(|| {
+        let (end, found) = self.unit_after(number);
+        (found == Some(unit)).then(|| {
             self.cap(1, number, end);
             end
         })

@@ -14,6 +14,9 @@ mod selectors;
 mod strings;
 mod values;
 
+#[cfg(test)]
+pub(in crate::css) use values::{LONGEST_UNIT, UNITS};
+
 use super::engine::CssLike;
 use super::grammar::Pat;
 use crate::rules::Lexer;
