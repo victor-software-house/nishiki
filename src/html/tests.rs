@@ -102,7 +102,8 @@ fn a_bare_angle_bracket_after_an_svg_start_tag_is_flagged() {
 }
 
 /// An unrecognized attribute's name may begin with any character but an ASCII
-/// blank, a quote, `<`, `=`, `>`, `/` or a control, so U+00A0 starts one.
+/// blank, a quote, `<`, `=`, `>`, `/` or a control.
+/// U+00A0 therefore starts one.
 #[test]
 fn a_no_break_space_starts_an_attribute_name() {
     let rows = lex(Language::Html, "<d\u{a0}v id=\"x\">");
@@ -134,8 +135,10 @@ fn a_brace_right_after_a_script_tag_opens_an_object_literal() {
 }
 
 /// An event handler's code is a capture group that the JavaScript lexer lexes
-/// again: it sees the quote before it, so `<` after the quote and blanks is no
-/// tag, and no line feed follows the group's end.
+/// again.
+/// The lexer sees the quote before it, so `<` after the quote and blanks is no
+/// tag.
+/// No line feed follows the group's end.
 #[test]
 fn an_event_handler_reads_a_less_than_after_its_quote_as_an_operator() {
     for text in ["<a onclick=\"  <b c=d\">", "<a onclick=\"x <b\">"] {
@@ -148,8 +151,10 @@ fn an_event_handler_reads_a_less_than_after_its_quote_as_an_operator() {
 }
 
 /// An attribute's `=` in JSX needs a quote, a brace, a comment or a line feed
-/// after it. An event handler's code ends before its line's line feed, so an
-/// `=` at the end of a quoted value's line is an illegal attribute.
+/// after it.
+/// An event handler's code ends before its line's line feed.
+/// An `=` at the end of a quoted value's line is therefore an illegal
+/// attribute.
 #[test]
 fn an_event_handler_line_ending_in_a_jsx_assignment_has_no_line_feed() {
     let rows = lex(
@@ -220,9 +225,10 @@ fn ruby_takes_an_html_heredoc_line_back_only_where_no_html_rule_is_open() {
     assert_eq!(ruby_halts(&["  <script>var a = #{x};</script>"]), [None]);
 }
 
-/// `end` is tried before the root's patterns at a place, so it takes the
-/// line back at a `<` that starts a tag, and at the end of the text when
-/// nothing matches after it.
+/// `end` is tried before the root's patterns at a place.
+/// It therefore takes the line back at a `<` that starts a tag.
+/// It also takes it back at the end of the text when nothing matches after
+/// it.
 #[test]
 fn an_html_end_halt_beats_a_tag_at_its_place_and_holds_at_the_end() {
     fn at_end(bytes: &[u8], p: usize) -> bool {
@@ -246,9 +252,10 @@ fn an_html_after_halt_yields_to_a_root_match_at_its_place() {
 /// on its line.
 ///
 /// `Onig` folds `ß` to `ss`, each Latin ligature to its letters and `ſ` to
-/// `s` under `(?i)`. The cases that use it read a character that folds to
-/// letters as those letters. The `c` of `ſcript` is written `\u{63}`, so the
-/// spelling check passes it.
+/// `s` under `(?i)`.
+/// The cases that use it read a character that folds to letters as those
+/// letters.
+/// The `c` of `ſcript` is written `\u{63}`, so the spelling check passes it.
 fn assert_html_scopes(cases: &[(&str, &str, &[&str])]) {
     for &(text, token, scopes) in cases {
         assert_eq!(
@@ -301,8 +308,8 @@ fn a_case_fold_stands_for_its_letters_in_tag_names() {
 }
 
 /// An end tag reads a fold as its letters: `</style` and `</script` after
-/// the ASCII `</`, and the back-reference that closes an SVG element. A
-/// character there that folds to no letters, as `ʀ`, closes nothing.
+/// the ASCII `</`, and the back-reference that closes an SVG element.
+/// A character there that folds to no letters, as `ʀ`, closes nothing.
 #[test]
 fn a_case_fold_stands_for_its_letters_in_end_tags() {
     assert_html_scopes(&[
@@ -353,8 +360,9 @@ fn a_case_fold_stands_for_its_letters_in_end_tags() {
 }
 
 /// The `style` and `script` wrappers open at each fold that can start
-/// their names: `ſ`, `ﬆ` and `ﬅ`. The fold stands at the start of the
-/// name, where the root looks for a wrapper.
+/// their names: `ſ`, `ﬆ` and `ﬅ`.
+/// The fold stands at the start of the name, where the root looks for a
+/// wrapper.
 #[test]
 fn a_case_fold_stands_for_its_letters_in_wrapper_names() {
     assert_html_scopes(&[

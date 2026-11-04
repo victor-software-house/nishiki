@@ -1,6 +1,7 @@
-//! The patterns of ERB's injection, which opens Ruby code anywhere in an ERB
-//! document except in a comment or in ERB itself, as plain functions of the
-//! line so that the CSS and JavaScript lexers can halt at them too.
+//! The patterns of ERB's injection, as plain functions of the line.
+//! The injection opens Ruby code anywhere in an ERB document except in a
+//! comment or in ERB itself.
+//! Plain functions let the CSS and JavaScript lexers halt at them too.
 //!
 //! The grammar's patterns, in order:
 //!
@@ -13,8 +14,9 @@
 //!    `meta.embedded.block.erb`;
 //! 5. `<%+(?!>)[-=]?`: code, named `meta.embedded.line.erb`.
 //!
-//! The code of 4 and 5 runs up to `(-?%)>`. `[^%]*%>` cannot step over a
-//! `%`, so it matches where the first `%` ahead is followed by `>`.
+//! The code of 4 and 5 runs up to `(-?%)>`.
+//! `[^%]*%>` cannot step over a `%`.
+//! It therefore matches where the first `%` ahead is followed by `>`.
 
 /// One of the injection's patterns.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -154,7 +156,8 @@ pub(super) fn hash_comment_end(s: &[u8], p: usize) -> Option<usize> {
 }
 
 /// The halt of the Ruby inside code: its end, `(-?%)>`, or the comment
-/// pattern `(#).*?(?=-?%>)`, which the code tries before Ruby's patterns.
+/// pattern `(#).*?(?=-?%>)`.
+/// The code tries the comment pattern before Ruby's patterns.
 pub(super) fn ruby_halt(s: &[u8], p: usize) -> bool {
     code_end(s, p).is_some() || (s.get(p) == Some(&b'#') && hash_comment_end(s, p).is_some())
 }
