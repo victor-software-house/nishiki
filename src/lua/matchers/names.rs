@@ -261,8 +261,8 @@ impl Lexer<'_> {
         self.whole_dots(p, end).then_some(end)
     }
 
-    /// `(\.{3})\s*([A-Z_a-z][0-9A-Z_a-z]*)`: a named vararg, with `...` as
-    /// capture group 1 and its name as 2.
+    /// `(\.{3})\s*([A-Z_a-z][0-9A-Z_a-z]*)`: a named vararg.
+    /// `...` is capture group 1, and the name is 2.
     pub(super) fn vararg_parameter(&mut self, p: usize) -> Option<usize> {
         let dots = self.lit(p, b"...")?;
         let name = self.space_end(dots);
@@ -296,9 +296,9 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `(::)\s*[A-Z_a-z][0-9A-Z_a-z]*\s*(::)`: a label, with its two `::` as
-    /// capture groups 1 and 2. Neither the name nor the blanks can give back
-    /// a colon.
+    /// `(::)\s*[A-Z_a-z][0-9A-Z_a-z]*\s*(::)`: a label.
+    /// Its two `::` are capture groups 1 and 2.
+    /// Neither the name nor the blanks can give back a colon.
     pub(super) fn label(&mut self, p: usize) -> Option<usize> {
         let open = self.lit(p, b"::")?;
         let close = self.space_end(self.ascii_name(self.space_end(open))?);
@@ -367,8 +367,11 @@ impl Lexer<'_> {
         members.contains(&self.text(start, end)).then_some(end)
     }
 
-    /// `(?<![^.]\.|:)\b(false|nil(?!:)|true|_ENV|_G|_VERSION|math\.(...)|...)\
-    /// b` `|(?<!\.)\.{3}(?!\.)`: a constant, or the vararg `...`.
+    /// A constant, or the vararg `...`:
+    ///
+    /// ```text
+    /// (?<![^.]\.|:)\b(false|nil(?!:)|true|_ENV|_G|_VERSION|math\.(...)|...)\b|(?<!\.)\.{3}(?!\.)
+    /// ```
     pub(super) fn constant(&self, p: usize) -> Option<usize> {
         if self.not_member(p) && self.boundary(p) {
             let word = self.word_run(p);

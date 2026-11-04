@@ -4,8 +4,8 @@ use super::super::engine::Lexer;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// `quote[\t ]*|(?=\n)`: the closing quote and the blanks after it, or
-    /// nothing before the line feed.
+    /// `quote[\t ]*|(?=\n)`: the closing quote and the blanks after it.
+    /// Otherwise, it matches an empty string before the line feed.
     pub(super) fn quote_end(&self, p: usize, quote: u8) -> Option<usize> {
         if self.at(p) == quote && p < self.lim() {
             return Some(self.tabs(p + 1));
@@ -23,8 +23,9 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `]\N]` at `p`, where `\N` is the `=` signs the rule opened with, which
-    /// may be none: the end of the bracket.
+    /// `]\N]` at `p`: the end of the bracket.
+    /// `\N` is the `=` signs the rule opened with.
+    /// There may be none.
     pub(super) fn long_bracket_close(&self, p: usize) -> Option<usize> {
         self.bracket_close(p, self.payload_text().as_bytes())
     }
@@ -85,7 +86,8 @@ impl Lexer<'_> {
         (self.avail(slash) && b"\n\"'\\abfnrtv".contains(&self.at(slash))).then_some(slash + 1)
     }
 
-    /// `\\z[\t\n ]*`, which takes the line feed after the line too.
+    /// `\\z[\t\n ]*`.
+    /// It takes the line feed after the line too.
     pub(super) fn skip_escape(&self, p: usize) -> Option<usize> {
         let end = self.tabs(self.lit(p, b"\\z")?);
         Some(self.line_feed(end).unwrap_or(end))

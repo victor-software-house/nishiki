@@ -66,8 +66,9 @@ impl Lexer<'_> {
         Some(self.line_feed(end).unwrap_or(end))
     }
 
-    /// `(^[\t ]+)?(?=--)`: the blanks that lead a line before a comment, as
-    /// capture group 1, or nothing before one.
+    /// `(^[\t ]+)?(?=--)`: the blanks that lead a line before a comment.
+    /// The blanks are capture group 1.
+    /// Without them, the match is empty before the comment.
     pub(super) fn comment_start(&mut self, p: usize) -> Option<usize> {
         if p == 0 {
             let blanks = self.tabs(0);
@@ -79,8 +80,8 @@ impl Lexer<'_> {
         self.starts(p, b"--").then_some(p)
     }
 
-    /// `(?!\G)((?!^)[\t ]+\n)?`: anywhere but where the comment began, with
-    /// the blanks that end a line and its line feed as capture group 1.
+    /// `(?!\G)((?!^)[\t ]+\n)?`: anywhere but where the comment began.
+    /// The blanks that end a line, with its line feed, are capture group 1.
     pub(super) fn comment_end(&mut self, p: usize) -> Option<usize> {
         if self.at_g(p) {
             return None;
@@ -97,8 +98,8 @@ impl Lexer<'_> {
         Some(p)
     }
 
-    /// `--\[(=*)\[`, with the `=` signs as capture group 1, which the closing
-    /// bracket repeats.
+    /// `--\[(=*)\[`, with the `=` signs as capture group 1.
+    /// The closing bracket repeats them.
     pub(super) fn long_comment_open(&mut self, p: usize) -> Option<usize> {
         let open = self.lit(p, b"--")?;
         self.long_bracket(open, 1)

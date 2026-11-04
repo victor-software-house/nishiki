@@ -21,8 +21,9 @@ impl Lexer<'_> {
         (end > p).then_some(end)
     }
 
-    /// `([Ee]-?\d*)?([Pp][-+]\d+)?` from `p`, each part taken when it
-    /// matches: nothing follows them, so none gives anything back.
+    /// `([Ee]-?\d*)?([Pp][-+]\d+)?` from `p`, each part taken when it matches.
+    /// Nothing follows them.
+    /// Neither part gives anything back.
     fn exponents(&self, p: usize) -> usize {
         let end = self.decimal_exponent(p);
         if end < self.lim() && matches!(self.at(end), b'P' | b'p') {
@@ -73,9 +74,11 @@ impl Lexer<'_> {
         Some(self.exponents(self.hex_run(point)?))
     }
 
-    /// `(?<![.\w\d])0[Xx]\h+(?![.0-9EPep])`. The run gives digits back until
-    /// the byte after it is not one of the class; a digit given back is
-    /// refused unless it is a letter other than `E` or `e`.
+    /// `(?<![.\w\d])0[Xx]\h+(?![.0-9EPep])`.
+    /// The run gives digits back until the byte after it is not one of the
+    /// class.
+    /// A digit given back is refused, unless it is a letter other than `E` or
+    /// `e`.
     pub(super) fn hex_integer(&self, p: usize) -> Option<usize> {
         if !self.number_start(p) {
             return None;
@@ -119,9 +122,11 @@ impl Lexer<'_> {
         (digits > point).then(|| self.decimal_exponent(digits))
     }
 
-    /// `(?<![.\w\d])\d+(?![.0-9EPep])`. The run gives digits back until the
-    /// character after it is not one of the class: an ASCII digit given back
-    /// is refused, another script's digit is not.
+    /// `(?<![.\w\d])\d+(?![.0-9EPep])`.
+    /// The run gives digits back until the character after it is not one of
+    /// the class.
+    /// An ASCII digit given back is refused.
+    /// Another script's digit is not.
     pub(super) fn decimal_integer(&self, p: usize) -> Option<usize> {
         if !self.number_start(p) {
             return None;

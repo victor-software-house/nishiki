@@ -89,8 +89,9 @@ fn a_documentation_comment_names_its_tags_and_types() {
     assert_eq!(leaf_in(&row, "string"), "support.type.lua");
 }
 
-/// The `@enum`, `@cast` and `@diagnostic` tags end at `(?=\n)`, which leaves
-/// the line feed to the comment, so the comment ends with its line.
+/// The `@enum`, `@cast` and `@diagnostic` tags end at `(?=\n)`.
+/// That leaves the line feed to the comment.
+/// The comment then ends with its line.
 #[test]
 fn a_documentation_tag_that_ends_its_line_ends_before_the_line_feed() {
     let rows = lex_lines(indoc! {"

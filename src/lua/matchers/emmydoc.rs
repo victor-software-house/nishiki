@@ -128,9 +128,9 @@ impl Lexer<'_> {
     }
 
     /// `([A-Z_a-z][-*.0-9A-Z_a-z]*)(?<!,)[\t ]*(?=\??:)`: a field of a
-    /// function type, before its colon. Neither run can give back a
-    /// character that `?` or `:` would accept, so the longest are the only
-    /// ones tried.
+    /// function type, before its colon.
+    /// Neither run can give back a character that `?` or `:` would accept.
+    /// The longest runs are therefore the only ones tried.
     pub(super) fn type_field_name(&self, p: usize) -> Option<usize> {
         if p >= self.lim() || !name_start(self.at(p)) {
             return None;
@@ -140,8 +140,9 @@ impl Lexer<'_> {
         (self.at(colon) == b':' && colon < self.lim()).then_some(end)
     }
 
-    /// `<[*A-Z_a-z][-*.0-9A-Z_a-z]*>`: a name in angle brackets. The run cannot
-    /// give back a `>`, so the longest is the only one tried.
+    /// `<[*A-Z_a-z][-*.0-9A-Z_a-z]*>`: a name in angle brackets.
+    /// The run cannot give back a `>`.
+    /// The longest run is therefore the only one tried.
     pub(super) fn angle_name(&self, p: usize) -> Option<usize> {
         let name = self.lit(p, b"<")?;
         if name >= self.lim() || !super::chars::type_start(self.at(name)) {
@@ -158,7 +159,8 @@ impl Lexer<'_> {
     }
 
     /// `([-\]*,.0-9<>A-\[_a-z]+)(?<!,)[\t ]*`: a word of a type expression.
-    /// The run gives back the commas that end it, which `(?<!,)` refuses.
+    /// The run gives back the commas that end it.
+    /// `(?<!,)` refuses them.
     pub(super) fn type_word(&self, p: usize) -> Option<usize> {
         let mut end = self.skip(p, type_word_part);
         while end > p && self.prev_is(end, b',') {

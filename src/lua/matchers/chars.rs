@@ -40,8 +40,8 @@ impl Lexer<'_> {
     }
 
     /// `\b[A-Z_a-z][0-9A-Z_a-z]*\b`: a name with nothing of a word around it.
-    /// The name's run is the longest, and a shorter one would leave a name
-    /// character next, which `\b` refuses.
+    /// The name's run is the longest.
+    /// A shorter one would leave a name character next, which `\b` refuses.
     pub(super) fn bounded_name(&self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;

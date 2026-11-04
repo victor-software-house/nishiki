@@ -1,11 +1,12 @@
-//! Lua, with the scopes of the `lua` grammar that Shiki bundles, which comes
-//! from sumneko's lua.tmbundle through VS Code.
+//! Lua, with the scopes of the `lua` grammar that Shiki bundles.
+//! That grammar comes from sumneko's lua.tmbundle through VS Code.
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each pattern
-//! matches. The rules left open at the end of a line (long strings and
-//! comments, function heads) are frames of the highlighter's interned state.
+//! over bytes (see the `engine` module).
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state: long strings and comments, and function heads.
 
 mod engine;
 mod grammar;
