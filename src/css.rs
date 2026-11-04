@@ -19,7 +19,7 @@ mod words;
 use engine::Css;
 pub(crate) use engine::Scratch;
 #[cfg(feature = "lang-scss")]
-pub(crate) use engine::{CssLike, Extra};
+pub(crate) use engine::{CssLike, Extra, unit_name_case};
 #[cfg(feature = "lang-scss")]
 pub(crate) use grammar::{Nested, Pat};
 pub(crate) use scope::NAMES;

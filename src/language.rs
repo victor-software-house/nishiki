@@ -482,8 +482,6 @@ languages! {
     /// - `@charset` is read as the charset rule only on the first line of a document, never in a Markdown fence, as in Shiki.
     /// - A scope name that Shiki builds from the matched text keeps its case:
     ///   - Shiki writes `ONLY` or `Not` in a media query as typed;
-    ///   - Shiki writes a unit spelled with the long s (`ſ`) under its own name,
-    ///     where nishiki gives the lower case name of the ASCII letter.
     ///   - Shiki writes `@styleset` or `@stylistic` spelled with `ſ` or a ligature (`@ﬆyleset`) under its own name,
     ///     where nishiki gives the lower case name of the ASCII letters.
     /// - A line that follows a backslash at its end belongs to the escape for the rest of the rule, as in Shiki.

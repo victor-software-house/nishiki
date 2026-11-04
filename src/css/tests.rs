@@ -227,6 +227,29 @@ fn a_multi_letter_case_fold_stands_for_its_letters() {
     }
 }
 
+/// The grammar names a unit `keyword.other.unit.${2:/downcase}.css`, and
+/// JavaScript's `toLowerCase` keeps `ſ` but lowers the Kelvin sign to `k`.
+/// Each case is Shiki's answer on the line.
+#[test]
+fn a_unit_spelled_with_a_fold_is_named_from_its_text_lowered() {
+    for (line, token, scope) in [
+        ("a{b:1\u{17f}}", "\u{17f}", "keyword.other.unit.\u{17f}.css"),
+        (
+            "a{b:500m\u{17f}}",
+            "m\u{17f}",
+            "keyword.other.unit.m\u{17f}.css",
+        ),
+        (
+            "a{b:1\u{212a}HZ}",
+            "\u{212a}HZ",
+            "keyword.other.unit.khz.css",
+        ),
+        ("a{b:1MS}", "MS", "keyword.other.unit.ms.css"),
+    ] {
+        assert_eq!(leaf_in(&lex(line), token), scope, "{line:?}");
+    }
+}
+
 #[test]
 fn a_custom_property_name_is_a_variable() {
     let row = lex("a { --x: 1px }");
@@ -277,5 +300,17 @@ fn every_unit_of_the_table_is_named() {
             format!("keyword.other.unit.{unit}.css"),
             "{line:?}"
         );
+    }
+}
+
+/// `numeric_unit` takes a unit's text for ASCII when it is as long as the
+/// unit, which holds while no unit has letters that a fold of the same
+/// length spells: `ss` for `ß`, `ffi` for `ﬃ` and `ffl` for `ﬄ`.
+#[test]
+fn no_unit_holds_letters_a_fold_of_their_length_spells() {
+    for unit in UNITS {
+        for letters in ["ss", "ffi", "ffl"] {
+            assert!(!unit.contains(letters), "{unit:?} holds {letters:?}");
+        }
     }
 }

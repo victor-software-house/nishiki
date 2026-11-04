@@ -117,3 +117,13 @@ fn a_multi_letter_case_fold_stands_for_its_letters() {
         assert_eq!(leaf_in(&lex(line), token), scope, "{line:?}");
     }
 }
+
+/// SCSS shares CSS's unit matcher, so a unit spelled with `ſ` keeps it in
+/// its name, as in Shiki.
+#[test]
+fn a_unit_spelled_with_a_fold_is_named_from_its_text_lowered() {
+    assert_eq!(
+        leaf_in(&lex("a{b:1\u{17f}}"), "\u{17f}"),
+        "keyword.other.unit.\u{17f}.css"
+    );
+}

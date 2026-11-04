@@ -15,7 +15,7 @@ use std::borrow::Cow;
 
 #[cfg(feature = "lang-ruby")]
 use super::Embedding;
-use super::{Act, Captures, DynName, Grammar, Payload, ScopeName, Span, Text};
+use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 use crate::language::{Halt, Parts};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
@@ -145,8 +145,12 @@ const CAPTURED_EOL: u32 = 1;
 /// Where the text of a scope name made at run time comes from.
 #[derive(Clone, Copy, Debug)]
 enum NameSource {
-    /// The bytes `start..end` of the line.
-    Line { start: usize, end: usize },
+    /// The bytes `start..end` of the line, spelled as `case` says.
+    Line {
+        start: usize,
+        end: usize,
+        case: NameCase,
+    },
     /// A string the arena interned, such as a rule's payload.
     Interned(u32),
     /// The text of a capture group of the match.
@@ -914,8 +918,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         {
             let s = self.s;
             let text = match source {
-                NameSource::Line { start, end } => {
-                    String::from_utf8_lossy(s.get(start..end).unwrap_or_default())
+                NameSource::Line { start, end, case } => {
+                    let text = String::from_utf8_lossy(s.get(start..end).unwrap_or_default());
+                    match case {
+                        NameCase::AsWritten => text,
+                        NameCase::Lowered => Cow::Owned(text.to_lowercase()),
+                    }
                 }
                 NameSource::Interned(id) => Cow::Borrowed(self.arena.string(id)),
                 NameSource::Group(group) => String::from_utf8_lossy(self.cap_text(group.into())),
@@ -945,9 +953,17 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {
         let name = self.path(parent, G::rule_name(rule));
         match G::rule_name_delimiter(rule) {
-            Some(prefix) if self.arena.string(payload).len() > G::NAMED_PAYLOAD => {
-                self.dynamic_path(name, prefix, NameSource::Line { start: 0, end: 0 }, "")
-            }
+            Some(prefix) if self.arena.string(payload).len() > G::NAMED_PAYLOAD => self
+                .dynamic_path(
+                    name,
+                    prefix,
+                    NameSource::Line {
+                        start: 0,
+                        end: 0,
+                        case: NameCase::AsWritten,
+                    },
+                    "",
+                ),
             Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
             None => name,
         }
@@ -1179,6 +1195,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     NameSource::Line {
                         start: dynamic.start,
                         end: dynamic.end,
+                        case: G::dyn_name_case(dynamic.prefix),
                     },
                     dynamic.suffix,
                 ),

@@ -7,7 +7,7 @@ use std::cell::Cell;
 use super::ahead::Ahead;
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
 
 /// The CSS lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Css>;
@@ -17,6 +17,21 @@ pub(crate) type Scratch = rules::Scratch<Css>;
 /// The `css` grammar that Shiki bundles.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Css;
+
+/// The start of a unit's scope name, `keyword.other.unit.${2:/downcase}.css`,
+/// which the grammar lowers ([`unit_name_case`]).
+pub(crate) const UNIT_PREFIX: &str = "keyword.other.unit.";
+
+/// How the grammar spells the text of a dynamic name with `prefix`: a unit's
+/// lowered, as `${2:/downcase}` does, and any other as written. CSS's and
+/// SCSS's [`Grammar::dyn_name_case`].
+pub(crate) fn unit_name_case(prefix: &'static str) -> NameCase {
+    if prefix == UNIT_PREFIX {
+        NameCase::Lowered
+    } else {
+        NameCase::AsWritten
+    }
+}
 
 /// A grammar that runs CSS's matchers on its lines: CSS, and SCSS, whose
 /// grammar includes CSS's rules. Its per-line memory holds CSS's.
@@ -93,6 +108,10 @@ impl Grammar for Css {
 
     fn scope(scope: S) -> ScopeName {
         ScopeName::Fixed(scope.scope())
+    }
+
+    fn dyn_name_case(prefix: &'static str) -> NameCase {
+        unit_name_case(prefix)
     }
 
     fn rule_code(rule: Rule) -> u16 {

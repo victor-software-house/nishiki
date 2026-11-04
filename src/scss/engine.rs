@@ -8,7 +8,7 @@ use std::cell::Cell;
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
 use crate::css::CssLike;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
 
 /// The SCSS lexer for one line.
 pub(crate) type Lexer<'a> = rules::Lexer<'a, Scss>;
@@ -67,6 +67,10 @@ impl Grammar for Scss {
 
     fn scope(scope: S) -> ScopeName {
         ScopeName::Fixed(scope.scope())
+    }
+
+    fn dyn_name_case(prefix: &'static str) -> NameCase {
+        crate::css::unit_name_case(prefix)
     }
 
     fn rule_code(rule: Rule) -> u16 {

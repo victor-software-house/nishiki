@@ -1,12 +1,12 @@
 //! Property names and values: keywords, functions, numbers and colours.
 
 use super::super::ahead::Find;
-use super::super::engine::CssLike;
+use super::super::engine::{CssLike, UNIT_PREFIX};
 use super::super::words::List;
 use super::chars::Words;
 use super::selectors::Tail;
 use crate::case_fold;
-use crate::rules::{Chars, Lexer};
+use crate::rules::{Chars, DynName, Lexer};
 
 /// Which of the grammar's two lists of names that begin a selector is
 /// being matched, which decides what may follow a `:` after the name.
@@ -430,13 +430,45 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The number followed by `unit`, one of [`UNITS`], in any case, with a
     /// boundary after it.
+    ///
+    /// The grammar names the unit `keyword.other.unit.${2:/downcase}.css`.
+    /// A unit of ASCII takes its pattern's fixed name; one with a character
+    /// above ASCII is named from its text lowered as that does, so `500mſ`
+    /// is `keyword.other.unit.mſ.css`, as in Shiki.
+    ///
+    /// The text is ASCII exactly when it is as long as `unit`: every fold
+    /// that matches a unit's letters is longer than they are, as `ſ` for `s`
+    /// or `ﬆ` for `st`. Only `ß` for `ss`, `ﬃ` for `ffi` and `ﬄ` for `ffl`
+    /// keep the length, and no unit holds those letters (a test checks it).
     pub(in crate::css) fn numeric_unit(&mut self, p: usize, unit: &str) -> Option<usize> {
         let number = self.number_end(p)?;
         let (end, found) = self.unit_after(number);
         (found == Some(unit)).then(|| {
-            self.cap(1, number, end);
+            if end - number == unit.len() {
+                self.cap(1, number, end);
+            } else {
+                self.folded_unit(number, end);
+            }
             end
         })
+    }
+
+    /// Names the unit `number..end`, which holds a character above ASCII,
+    /// from its text lowered: [`Lexer::numeric_unit`]'s rare case, out of
+    /// line so that the unit patterns' common path stays small.
+    #[cold]
+    fn folded_unit(&mut self, number: usize, end: usize) {
+        self.span_dyn(
+            number,
+            end,
+            &[],
+            DynName {
+                prefix: UNIT_PREFIX,
+                start: number,
+                end,
+                suffix: ".css",
+            },
+        );
     }
 
     /// The number followed by `%`.

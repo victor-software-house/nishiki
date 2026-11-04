@@ -179,6 +179,12 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn skip_retok(_rule: Self::Rule, _text: &[u8]) -> bool {
         false
     }
+    /// How a [`DynName`] with `prefix` spells the line's text: as written,
+    /// unless the grammar's capture lowers it, as CSS's units do. Asked only
+    /// where a dynamic name is built, so that [`Span`] stays its size.
+    fn dyn_name_case(_prefix: &'static str) -> NameCase {
+        NameCase::AsWritten
+    }
 }
 
 /// The state at the start of a document of grammar `G` whose scopes sit on
@@ -401,13 +407,24 @@ pub(crate) struct Embedding {
 }
 
 /// A scope whose name ends in text of the line, such as the digits of `2>`:
-/// the scope is `prefix`, the text `start..end`, and `suffix`.
+/// the scope is `prefix`, the text `start..end` spelled as
+/// [`Grammar::dyn_name_case`] says, and `suffix`.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct DynName {
     pub(crate) prefix: &'static str,
     pub(crate) start: usize,
     pub(crate) end: usize,
     pub(crate) suffix: &'static str,
+}
+
+/// How a scope name spells the text it is built from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum NameCase {
+    /// As the line writes it, as `$1` does.
+    AsWritten,
+    /// Lowered, as `${1:/downcase}` does with JavaScript's `toLowerCase`:
+    /// the Kelvin sign is `k`, but `ſ` and the ligatures stay.
+    Lowered,
 }
 
 /// What a scope of a grammar names.
