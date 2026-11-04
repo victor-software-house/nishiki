@@ -1,8 +1,9 @@
 //! The grammar's regular expressions as hand-written matchers.
 //!
-//! Each answers what its expression would at a position, including where its
-//! backtracking lands. `Onig`'s `\s`, `\S` and `\w` read non-ASCII
-//! characters, so they go through the table the JSON lexer measured on Shiki.
+//! Each matcher answers what its expression would at a position.
+//! That includes where its backtracking lands.
+//! `Onig`'s `\s`, `\S` and `\w` read non-ASCII characters.
+//! Those classes go through the table the JSON lexer measured on Shiki.
 
 use memchr::memchr;
 
@@ -114,6 +115,20 @@ impl Lexer<'_> {
     // Ends.
 
     /// The end pattern of `rule` at `p`.
+    ///
+    /// The arms match, in order:
+    /// - `Comment`: `(?!\G)`, anywhere `\G` does not;
+    /// - `CommentHash` and `Prereq`: `(?=[^\\])$`;
+    /// - the one-line heads, from `Include` to `Else`: `^`;
+    /// - `Define` and `Conditional`: their closing keyword;
+    /// - `Target` and `Recipe`: `[^\\]$`;
+    /// - `TargetName`: `(?=\s|$)`;
+    /// - `Assign`: `\n`;
+    /// - `VarParen` and `VarBrace`: `\)|((?<!\\)\n)`, with `}` for a brace;
+    /// - the function calls and their inner groups: `(?=\)|((?<!\\)\n))`, with
+    ///   `}` for a brace;
+    /// - `FlavorParen` and `FlavorBrace`: `(?=\))`, with `}` for a brace;
+    /// - `InterpParen` and `InterpBrace`: `\)`, with `}` for a brace.
     #[expect(
         clippy::inline_always,
         reason = "measured: the matchers are the hot loop"
@@ -123,11 +138,8 @@ impl Lexer<'_> {
         let zero = || Hit::new(p, p);
         match rule {
             Rule::Root | Rule::RetokTarget | Rule::RetokVars => None,
-            // `(?!\G)`: it matches anywhere `\G` does not.
             Rule::Comment => (!self.g || p != self.pos).then(zero),
-            // `(?=[^\\])$`
             Rule::CommentHash | Rule::Prereq => (p == self.lim() && self.nl).then(zero),
-            // `^`
             Rule::Include
             | Rule::Vpath
             | Rule::Export
@@ -138,7 +150,6 @@ impl Lexer<'_> {
             | Rule::Else => (p == 0).then(zero),
             Rule::Define => self.end_keyword(p, b"endef", S::KwOverride),
             Rule::Conditional => self.end_keyword(p, b"endif", S::KwEndif),
-            // `[^\\]$`
             Rule::Target | Rule::Recipe => {
                 if !self.avail(p) || self.at(p) == b'\\' {
                     return None;
@@ -150,27 +161,21 @@ impl Lexer<'_> {
                 };
                 self.at_eol(p + width).then(|| Hit::new(p, p + width))
             }
-            // `(?=\s|$)`
             Rule::TargetName => (self.space_w(p) > 0 || self.at_eol(p)).then(zero),
-            // `\n`
             Rule::Assign => (p == self.lim() && self.nl).then(|| Hit::new(p, p + 1)),
-            // `\)|((?<!\\)\n)`
             Rule::VarParen | Rule::VarBrace => {
                 let close = if rule == Rule::VarParen { b')' } else { b'}' };
                 ((p < self.lim() && self.s[p] == close) || self.plain_newline(p))
                     .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctVar))
             }
-            // `(?=\)|((?<!\\)\n))`
             Rule::FuncParen | Rule::AnotherParen => {
                 ((p < self.lim() && self.s[p] == b')') || self.plain_newline(p)).then(zero)
             }
             Rule::FuncBrace | Rule::AnotherBrace => {
                 ((p < self.lim() && self.s[p] == b'}') || self.plain_newline(p)).then(zero)
             }
-            // `(?=\))`
             Rule::FlavorParen => (p < self.lim() && self.s[p] == b')').then(zero),
             Rule::FlavorBrace => (p < self.lim() && self.s[p] == b'}').then(zero),
-            // `\)`
             Rule::InterpParen => (p < self.lim() && self.s[p] == b')').then(|| Hit::new(p, p + 1)),
             Rule::InterpBrace => (p < self.lim() && self.s[p] == b'}').then(|| Hit::new(p, p + 1)),
         }
@@ -189,8 +194,9 @@ impl Lexer<'_> {
 
     // Patterns.
 
-    /// The match of `pat` at `p`. The end pattern has none here: it depends
-    /// on the rule, and `Grammar::matcher` answers it.
+    /// The match of `pat` at `p`.
+    /// The end pattern has no match here, because it depends on the rule.
+    /// `Grammar::matcher` answers it.
     #[expect(
         clippy::inline_always,
         reason = "measured: the matchers are the hot loop"
@@ -402,9 +408,10 @@ impl Lexer<'_> {
 
     /// `^\s*(?:(override)\s*)?(define)\s*([^\s]+)\s*(=|\?=|:=|\+=)?(?=\s)`
     ///
-    /// The `\s*` after the name gives back one character at a time until the
-    /// operator, or nothing, is followed by white space, so the last place
-    /// that works wins: one pass keeps it, with nothing collected.
+    /// The `\s*` after the name gives back one character at a time.
+    /// It stops when the operator, or nothing, is followed by white space.
+    /// The last place that works therefore wins.
+    /// One pass keeps it, with nothing collected.
     fn define(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -451,8 +458,8 @@ impl Lexer<'_> {
         Some(hit)
     }
 
-    /// The width of the assignment operator at `i`: `=`, `?=`, `:=` or `+=`,
-    /// and with `bang` also `!=` and `=` not after one of `?:+!`.
+    /// The width of the assignment operator at `i`: `=`, `?=`, `:=` or `+=`.
+    /// With `bang`, it also takes `!=`, and `=` not after one of `?:+!`.
     fn operator(&self, i: usize, assign: bool) -> usize {
         if assign {
             if self.at(i) == b'=' && !matches!(self.prev(i), Some(b'?' | b':' | b'+' | b'!')) {
@@ -496,10 +503,11 @@ impl Lexer<'_> {
 
     /// `^\s*else(?=\s)\s*(ifeq|ifneq|ifdef|ifndef)*(?=\s)`
     ///
-    /// The repetition takes as many conditional words as it can and gives
-    /// them back one at a time, and so does `\s*` with its characters, so the
-    /// last end that white space follows wins: one pass keeps it, with nothing
-    /// collected.
+    /// The repetition takes as many conditional words as it can.
+    /// It gives them back one at a time.
+    /// `\s*` gives back its characters the same way.
+    /// The last end that white space follows therefore wins.
+    /// One pass keeps it, with nothing collected.
     fn else_line(&self, p: usize) -> Option<Hit> {
         if p != 0 {
             return None;
@@ -589,6 +597,9 @@ impl Lexer<'_> {
     }
 
     /// The assignment whose name starts at `from`.
+    ///
+    /// The name gives back characters, from the longest, until white space and
+    /// an operator follow it.
     fn assign_from(&self, p: usize, from: usize) -> Option<Hit> {
         let mut run = from;
         while run < self.lim() {
@@ -602,8 +613,6 @@ impl Lexer<'_> {
         if run == from {
             return None;
         }
-        // The name gives back characters, from the longest, until an operator
-        // follows it and the white space after it.
         let mut end = run;
         loop {
             let after = self.spaces(end);

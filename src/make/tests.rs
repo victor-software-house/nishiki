@@ -3,8 +3,8 @@ use indoc::indoc;
 use crate::test_support::{self, Row};
 use crate::{Highlighter, Language, Limit, Limits, State, Work};
 
-/// Lexes `text` with `highlighter`; each token's scopes leave out the
-/// document's `source.makefile`.
+/// Lexes `text` with `highlighter`.
+/// Each token's scopes leave out the document's `source.makefile`.
 fn lex_with(highlighter: &mut Highlighter, text: &str) -> Vec<Row> {
     test_support::without_root(test_support::lex_with(highlighter, text))
 }

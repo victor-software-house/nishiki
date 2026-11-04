@@ -1,11 +1,12 @@
 //! The scope names the lexer emits, in Shiki's naming.
 //!
 //! Names the grammar builds from text of the line (`support.function.$1`) are
-//! listed whole for the words the grammar can capture; the flags of a
-//! recipe line, which are any run of `+`, `-` and `@`, are made at run time.
+//! listed whole for the words the grammar can capture.
+//! The flags of a recipe line are made at run time.
+//! They are any run of `+`, `-` and `@`.
 
-// The grammar spells the comma's scope with a misspelled word; the escape in
-// it keeps the spelling checker from reading it as a typo.
+// The grammar spells the comma's scope with a misspelled word.
+// The escape in it keeps the spelling checker from reading it as a typo.
 crate::scope::scope_table! {
     MAKE;
     Source "source.makefile"

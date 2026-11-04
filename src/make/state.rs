@@ -1,4 +1,5 @@
-//! The rules the lexer opens, which are frames of the interned state.
+//! The rules the lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
@@ -12,7 +13,8 @@ crate::tag::frame_kinds! {
     pub(crate) enum Rule: TAG {
         /// Outside every rule.
         Root,
-        /// The outer rule of a comment, which closes right after the `#` rule.
+        /// The outer rule of a comment.
+        /// It closes right after the `#` rule.
         Comment,
         /// `#` up to the end of the line, or to the end of a continued one.
         CommentHash,

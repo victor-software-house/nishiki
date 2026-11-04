@@ -1,6 +1,6 @@
-//! Makefiles on the shared rule engine ([`crate::rules`]): the matchers
-//! answer with a [`Hit`], which the glue here turns into the spans the engine
-//! emits.
+//! Makefiles on the shared rule engine ([`crate::rules`]).
+//! The matchers answer with a [`Hit`].
+//! The glue here turns each hit into the spans the engine emits.
 
 use super::rules::{Pat, patterns};
 use super::scope::S;
@@ -18,8 +18,8 @@ pub(crate) type Scratch = rules::Scratch<Make>;
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Make;
 
-/// The capture groups the grammar tokenizes with patterns of their own: none;
-/// a span lexed again names its rule.
+/// The capture groups the grammar tokenizes with patterns of their own: none.
+/// A span lexed again names its rule.
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Nested {}
 
@@ -33,11 +33,12 @@ pub(crate) struct Extra {
 /// The scope a capture group adds.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum CapName {
-    /// The group has no scope of its own; it is lexed again.
+    /// The group has no scope of its own.
+    /// It is lexed again.
     None,
     One(S),
-    /// `keyword.control.` and the flags of a recipe line, which the group
-    /// holds.
+    /// `keyword.control.` and the flags of a recipe line.
+    /// The group holds the flags.
     Flags,
 }
 
@@ -99,8 +100,9 @@ impl Hit {
 }
 
 impl Lexer<'_> {
-    /// Tries `pat` at `p` and, on a match, records its capture groups as
-    /// spans and returns where it ends.
+    /// Tries `pat` at `p`.
+    /// On a match, it records the capture groups as spans and returns where
+    /// the match ends.
     #[expect(
         clippy::inline_always,
         reason = "measured: the matchers are the hot loop"
@@ -203,12 +205,15 @@ impl Grammar for Make {
     }
 }
 
-/// The first match from the position: the end pattern of the innermost rule
-/// first at each position, then its patterns in order. A rule the depth limit
-/// keeps closed leaves its text plain, and since a rule that matched nothing
-/// would match again where it did, the search goes on one character later.
-/// The halt test is compiled in only when `HALTING`, so a Makefile that no
-/// other grammar embeds pays nothing for it.
+/// The first match from the position.
+/// At each position the end pattern of the innermost rule comes first, then
+/// the rule's patterns in order.
+/// A rule the depth limit keeps closed leaves its text plain.
+/// That rule matched nothing.
+/// It would match again at the same place.
+/// The search goes on one character later instead.
+/// The halt test is compiled in only when `HALTING`.
+/// A Makefile that no other grammar embeds pays nothing for it.
 fn scan<const HALTING: bool>(
     lexer: &mut Lexer<'_>,
     halts: &Halts<'_>,

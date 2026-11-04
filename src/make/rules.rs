@@ -7,8 +7,8 @@ use super::state::Rule;
 /// [`Rule`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Pat {
-    /// The end pattern of the innermost rule, which `Lexer::matcher` answers
-    /// by rule.
+    /// The end pattern of the innermost rule.
+    /// `Lexer::matcher` answers it by rule.
     End,
     // Matches.
     /// `\$[^(){}]`
@@ -148,7 +148,8 @@ impl Pat {
 /// `#variables`
 const VARS: [Pat; 3] = [Pat::SimpleVar, Pat::VarParen, Pat::VarBrace];
 
-/// The grammar's top-level patterns, which `$self` includes.
+/// The grammar's top-level patterns.
+/// `$self` includes them.
 const TOP: &[Pat] = &[
     Pat::Comment,
     Pat::SimpleVar,
