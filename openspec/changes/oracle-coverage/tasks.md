@@ -57,7 +57,11 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     On `b672f999` the [oracle test][run-259-ci] and the [coverage check][run-259-cov] passed.
 - [ ] 3.9 Ruby: `ruby`
 - [ ] 3.10 Kotlin: `kotlin`
-- [ ] 3.11 Lua: `lua`
+- [x] 3.11 Lua: `lua`
+  - 2026-11-04 UTC, [PR 315][pr315] and [PR 425][pr425]: lua/lua and LuaLS inputs and a written input added.
+    The Lua lexer now lexes an `ffi.cdef[[ ]]` body as C.
+    Lua is complete with 7 waived units.
+    On `ceba1f88` the [oracle test][run-425-ci] and the [coverage check][run-425-cov] passed.
 - [ ] 3.12 shell: `shellscript`
 - [x] 3.13 Markdown: `markdown`
   - 2026-11-04 UTC, [PR 303][pr303], [PR 298][pr298] and [PR 299][pr299]: two markdownlint test files and a written input added.
@@ -122,6 +126,10 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr309]: https://github.com/victor-software-house/nishiki-archive/pull/309
 [run-309-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41793809745
 [run-309-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41793809258
+[pr315]: https://github.com/victor-software-house/nishiki-archive/pull/315
 [pr320]: https://github.com/victor-software-house/nishiki-archive/pull/320
 [run-320-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41798651099
 [run-320-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41798650762
+[pr425]: https://github.com/victor-software-house/nishiki-archive/pull/425
+[run-425-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41852238500
+[run-425-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41852237629
