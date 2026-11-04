@@ -21,7 +21,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | diff | `diff` | 16 of 16 | 100.0% | 22 of 23 | 95.7% | 1 | 0 | yes |
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
 | ERB | `erb` | 6 of 12 | 50.0% | 6 of 14 | 42.9% | 0 | 8 |  |
-| Go | `go` | 201 of 336 | 59.8% | 145 of 250 | 58.0% | 0 | 2 |  |
+| Go | `go` | 264 of 336 | 78.6% | 229 of 250 | 91.6% | 0 | 3 |  |
 | GraphQL | `graphql` | 76 of 88 | 86.4% | 83 of 113 | 73.5% | 0 | 7 |  |
 | HTML | `html` | 131 of 227 | 57.7% | 162 of 368 | 44.0% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
@@ -282,94 +282,49 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #const_assignment.patterns[1].patterns[0].captures[2].patterns[3].match  \)
 #const_assignment.patterns[1].patterns[0].captures[2].patterns[4].match  \[
 #const_assignment.patterns[1].patterns[0].captures[2].patterns[5].match  ]
-#double_parentheses_types.match  (?<!\w)(\([]*\[]+{0,1}[.\w]+(?:\[(?:[]*.\[{}\w]+(?:,\s*[]*.…
-#double_parentheses_types.captures[1].patterns[1].match  \(
-#double_parentheses_types.captures[1].patterns[2].match  \)
 #double_parentheses_types.captures[1].patterns[3].match  \[
 #double_parentheses_types.captures[1].patterns[4].match  ]
 #double_parentheses_types.captures[1].patterns[5].match  \{
 #double_parentheses_types.captures[1].patterns[6].match  }
-#double_parentheses_types.captures[1].patterns[7].match  \w+
-#function_declaration.patterns[1].begin  groups 1
-#function_declaration.patterns[1].beginCaptures[1].patterns[1].match  \w+
-#function_declaration.patterns[2].match  (?<=\))\s*((?:\s*[]*\[]+{0,1}(?:<-\s*)?\bchan\b(?:\s*<-)?\s…
 #function_declaration.patterns[2].captures[1].patterns[2].match  \w+
 #function_declaration.beginCaptures[3].patterns[0].match  \d\w*
-#function_param_types.patterns[4].match  (?:(?<=\()|^\s*)((?:\b\w+,\s*)+(?:/[*/].*)?)$
-#function_param_types.patterns[4].captures[1].patterns[1].match  \w+
-#function_param_types.patterns[6].begin  groups 1
-#function_param_types.patterns[6].beginCaptures[1].patterns[1].match  \w+
-#function_param_types.patterns[7].begin  \(
-#function_param_types.patterns[7].end  \)
 #functions.end  groups 1
 #functions_inline.captures[2].patterns[2].match  \[
 #functions_inline.captures[2].patterns[3].match  ]
 #functions_inline.captures[2].patterns[4].match  \{
 #functions_inline.captures[2].patterns[5].match  }
 #functions_inline.captures[2].patterns[6].match  \w+
-#generic_param_types.patterns[3].match  ((?:\b\w+,\s*)+{0,1}\b\w+)\s+(?=(?:\s*[]*\[]+{0,1}(?:<-\s*)…
-#generic_param_types.patterns[3].captures[1].patterns[1].match  \w+
 #generic_param_types.patterns[4].match  (?:(?<=\()|^\s*)((?:\b\w+,\s*)+(?:/[*/].*)?)$
 #generic_param_types.patterns[4].captures[1].patterns[1].match  \w+
 #generic_param_types.patterns[5].match  groups 3
 #generic_param_types.patterns[5].captures[3].patterns[1].match  \w+
-#generic_param_types.patterns[6].begin  ([*.\w]+)?(\[)
-#generic_param_types.patterns[6].end  ]
-#generic_param_types.patterns[6].beginCaptures[1].patterns[1].match  \w+
-#generic_param_types.patterns[7].begin  \(
-#generic_param_types.patterns[7].end  \)
 #hover.patterns[0].match  (?<=^\bfield\b)\s+([*.\w]+)\s+([\s\S]+)
 #hover.patterns[0].captures[1].patterns[1].match  \w+
 #hover.patterns[0].captures[2].patterns[0].match  \binvalid\b\s+\btype\b
 #hover.patterns[0].captures[2].patterns[3].match  \w+
 #hover.patterns[1].match  (?<=^\breturns\b)\s+([\s\S]+)
 #hover.patterns[1].captures[1].patterns[2].match  \w+
-#interface_variables_types_field.patterns[2].begin  ([*.\w]+)?(\[)
-#interface_variables_types_field.patterns[2].end  ]
+#interface_variables_types_field.patterns[2].begin  groups 1
 #interface_variables_types_field.patterns[2].beginCaptures[1].patterns[1].match  \w+
 #keywords.patterns[6].match  \bmap\b
-#keywords.patterns[7].match  \bstruct\b
 #keywords.patterns[8].match  \bimport\b
-#keywords.patterns[9].match  \btype\b
 #map_types.patterns[3].match  \[
 #map_types.patterns[4].match  ]
 #map_types.patterns[5].match  \{
 #map_types.patterns[6].match  }
 #map_types.patterns[7].match  \(
 #map_types.patterns[8].match  \)
-#multi_types.begin  \b(type)\b\s*(\()
-#multi_types.end  \)
-#multi_types.patterns[4].match  \w+
-#numeric_literals.captures[0].patterns[0].patterns[0].match  \G(?:(?:(?:(?:(?:(?=[.0-9])(?!0[BOXbox])([0-9](?:[0-9]|((?<…
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[1].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[4].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[9].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[11].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[16].patterns[0].match  (?<=\h)_(?=\h)
+#numeric_literals.captures[0].patterns[0].patterns[0].match  groups 18, 19, 20, 21, 22, 23, 24, 25, 31, 36, 48, 53
 #numeric_literals.captures[0].patterns[0].patterns[0].captures[19].patterns[0].match  (?<=\h)_(?=\h)
 #numeric_literals.captures[0].patterns[0].patterns[0].captures[24].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[27].patterns[0].match  (?<=\h)_(?=\h)
 #numeric_literals.captures[0].patterns[0].patterns[0].captures[30].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[35].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[38].patterns[0].match  (?<=\h)_(?=\h)
 #numeric_literals.captures[0].patterns[0].patterns[0].captures[43].patterns[0].match  (?<=\h)_(?=\h)
 #numeric_literals.captures[0].patterns[0].patterns[0].captures[47].patterns[0].match  (?<=\h)_(?=\h)
 #numeric_literals.captures[0].patterns[0].patterns[0].captures[52].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[1].match  groups 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15
-#numeric_literals.captures[0].patterns[0].patterns[1].captures[1].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[1].captures[5].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[1].captures[9].patterns[0].match  (?<=\h)_(?=\h)
-#numeric_literals.captures[0].patterns[0].patterns[1].captures[13].patterns[0].match  (?<=\h)_(?=\h)
 #numeric_literals.captures[0].patterns[0].patterns[2].match  (?:[.0-9A-Z_a-z]|(?<=[EPep])[-+])+  fuzz
-#other_struct_interface_expressions.patterns[1].match  groups 2
-#other_struct_interface_expressions.patterns[1].captures[2].patterns[1].match  \[
-#other_struct_interface_expressions.patterns[1].captures[2].patterns[2].match  ]
 #other_struct_interface_expressions.patterns[1].captures[2].patterns[3].match  \{
 #other_struct_interface_expressions.patterns[1].captures[2].patterns[4].match  }
-#other_struct_interface_expressions.patterns[1].captures[2].patterns[5].match  \w+
 #package_name.patterns[0].patterns[0].match  \d\w*
-#parameter-variable-types.patterns[0].match  \{
-#parameter-variable-types.patterns[1].match  }
 #runes.patterns[0].patterns[1].match  [^']+  fuzz
 #single_type.patterns[1].patterns[3].match  \[
 #single_type.patterns[1].patterns[4].match  ]
@@ -378,29 +333,11 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #single_type.patterns[1].patterns[7].match  \(
 #single_type.patterns[1].patterns[8].match  \)
 #single_type.patterns[1].patterns[9].match  \w+
-#single_type.patterns[1].endCaptures[1].patterns[1].match  \[
-#single_type.patterns[1].endCaptures[1].patterns[2].match  ]
-#single_type.patterns[1].endCaptures[1].patterns[3].match  \w+
-#string_escaped_char.patterns[1].match  \\[^"'0-7Uabfnrtuvx]
-#struct_variable_types_fields_multi.patterns[1].begin  \b(\w+(?:,\s*\b\w+)*(?:\s*[]*\[]+{0,1}(?:<-\s*)?\bchan\b(?:…
-#struct_variable_types_fields_multi.patterns[1].end  }
-#struct_variable_types_fields_multi.patterns[1].beginCaptures[1].patterns[1].match  \w+
-#struct_variables_types_fields.patterns[1].match  (?<=\{)\s*((?:\s*[]*\[]+{0,1}(?:<-\s*)?\bchan\b(?:\s*<-)?\s…
-#struct_variables_types_fields.patterns[1].captures[1].patterns[1].match  \w+
-#struct_variables_types_fields.patterns[2].match  (?<=\{)\s*((?:\w+,\s*)+{0,1}\w+\s+)((?:\s*[]*\[]+{0,1}(?:<-…
-#struct_variables_types_fields.patterns[2].captures[1].patterns[1].match  \w+
-#struct_variables_types_fields.patterns[2].captures[2].patterns[1].match  \w+
-#struct_variables_types_fields.patterns[3].match  (?<=\{)((?:\s*(?:(?:\w+,\s*)+{0,1}\w+\s+)?(?:\s*[]*\[]+{0,1…
-#struct_variables_types_fields.patterns[3].captures[1].patterns[0].match  ((?:\w+,\s*)+{0,1}\w+\s+)?((?:\s*[]*\[]+{0,1}(?:<-\s*)?\bch…
-#struct_variables_types_fields.patterns[3].captures[1].patterns[0].captures[1].patterns[1].match  \w+
-#struct_variables_types_fields.patterns[3].captures[1].patterns[0].captures[2].patterns[1].match  \w+
+#string_escaped_char.patterns[1].match  \\[^"'0-7Uabfnrtuvx]  fuzz
 #support_functions.captures[2].patterns[1].match  \d\w*
 #support_functions.captures[3].patterns[3].match  \{
 #support_functions.captures[3].patterns[4].match  }
 #switch_types.patterns[0].match  groups 4
-#switch_types.patterns[1].begin  \bcase\b
-#switch_types.patterns[1].end  :
-#switch_types.patterns[1].patterns[1].match  \w+
 #switch_types.beginCaptures[3].patterns[2].match  \btype\b
 #syntax_errors.patterns[0].match  \[](\s+)
 #syntax_errors.patterns[1].match  \b0[0-7]*[89]\d*\b
@@ -412,8 +349,6 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #var_assignment.patterns[0].captures[2].patterns[3].match  \)
 #var_assignment.patterns[1].patterns[0].captures[2].patterns[2].match  \(
 #var_assignment.patterns[1].patterns[0].captures[2].patterns[3].match  \)
-#var_assignment.patterns[1].patterns[0].captures[2].patterns[4].match  \[
-#var_assignment.patterns[1].patterns[0].captures[2].patterns[5].match  ]
 #variable_assignment.patterns[0].captures[0].patterns[1].match  \d\w*
 #variable_assignment.patterns[1].captures[0].patterns[2].match  \d\w*
 ```

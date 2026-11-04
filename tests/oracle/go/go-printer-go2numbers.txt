@@ -1,0 +1,1441 @@
+L package p
+T 7 source.go keyword.package.go
+T 8 source.go
+T 9 source.go entity.name.type.package.go
+L 
+L const (
+T 5 source.go keyword.const.go
+T 6 source.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+L 	// 0-octals
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 12 source.go comment.line.double-slash.go
+L 	_	= 0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+L 	_	= 0123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+L 	_	= 0123456
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 12 source.go constant.numeric.decimal.go
+L 
+L 	_	= 0_123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+L 	_	= 0123_456
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 13 source.go constant.numeric.decimal.go
+L 
+L 	// decimals
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 12 source.go comment.line.double-slash.go
+L 	_	= 1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+L 	_	= 1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+L 	_	= 1234567
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 12 source.go constant.numeric.decimal.go
+L 
+L 	_	= 1_234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+L 	_	= 1_234_567
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.decimal.go
+L 
+L 	// hexadecimals
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 16 source.go comment.line.double-slash.go
+L 	_	= 0x0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+L 	_	= 0x1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go
+L 	_	= 0xcafef00d
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 15 source.go constant.numeric.hexadecimal.go
+L 
+L 	_	= 0X0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+L 	_	= 0X1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go
+L 	_	= 0XCAFEf00d
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 15 source.go constant.numeric.hexadecimal.go
+L 
+L 	_	= 0X_0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go
+T 9 source.go constant.numeric.hexadecimal.go
+L 	_	= 0X_1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go
+T 12 source.go constant.numeric.hexadecimal.go
+L 	_	= 0X_CAFE_f00d
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 17 source.go constant.numeric.hexadecimal.go
+L 
+L 	// octals
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 10 source.go comment.line.double-slash.go
+L 	_	= 0o0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 8 source.go constant.numeric.octal.go
+L 	_	= 0o1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 11 source.go constant.numeric.octal.go
+L 	_	= 0o01234567
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 15 source.go constant.numeric.octal.go
+L 
+L 	_	= 0O0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 8 source.go constant.numeric.octal.go
+L 	_	= 0O1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 11 source.go constant.numeric.octal.go
+L 	_	= 0O01234567
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 15 source.go constant.numeric.octal.go
+L 
+L 	_	= 0o_0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 8 source.go
+T 9 source.go constant.numeric.octal.go
+L 	_	= 0o_1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 8 source.go
+T 12 source.go constant.numeric.octal.go
+L 	_	= 0o0123_4567
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 11 source.go constant.numeric.octal.go
+T 12 source.go constant.numeric.octal.go punctuation.separator.constant.numeric.go
+T 16 source.go constant.numeric.octal.go
+L 
+L 	_	= 0O_0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 8 source.go
+T 9 source.go constant.numeric.octal.go
+L 	_	= 0O_1234
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 8 source.go
+T 12 source.go constant.numeric.octal.go
+L 	_	= 0O0123_4567
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 11 source.go constant.numeric.octal.go
+T 12 source.go constant.numeric.octal.go punctuation.separator.constant.numeric.go
+T 16 source.go constant.numeric.octal.go
+L 
+L 	// binaries
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 12 source.go comment.line.double-slash.go
+L 	_	= 0b0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 8 source.go constant.numeric.binary.go
+L 	_	= 0b1011
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 11 source.go constant.numeric.binary.go
+L 	_	= 0b00101101
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 15 source.go constant.numeric.binary.go
+L 
+L 	_	= 0B0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 8 source.go constant.numeric.binary.go
+L 	_	= 0B1011
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 11 source.go constant.numeric.binary.go
+L 	_	= 0B00101101
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 15 source.go constant.numeric.binary.go
+L 
+L 	_	= 0b_0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 8 source.go
+T 9 source.go constant.numeric.binary.go
+L 	_	= 0b10_11
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 9 source.go constant.numeric.binary.go
+T 10 source.go constant.numeric.binary.go punctuation.separator.constant.numeric.go
+T 12 source.go constant.numeric.binary.go
+L 	_	= 0b_0010_1101
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 8 source.go
+T 12 source.go constant.numeric.binary.go
+T 13 source.go constant.numeric.binary.go punctuation.separator.constant.numeric.go
+T 17 source.go constant.numeric.binary.go
+L 
+L 	// decimal floats
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 18 source.go comment.line.double-slash.go
+L 	_	= 0.
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+L 	_	= 123.
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+L 	_	= 0123.
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.point.go
+L 
+L 	_	= .0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 7 source.go constant.numeric.decimal.go
+L 	_	= .123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 9 source.go constant.numeric.decimal.go
+L 	_	= .0123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 10 source.go constant.numeric.decimal.go
+L 
+L 	_	= 0e0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go keyword.other.unit.exponent.decimal.go
+T 8 source.go constant.numeric.exponent.decimal.go
+L 	_	= 123e+0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.exponent.decimal.go
+T 10 source.go keyword.operator.plus.exponent.decimal.go
+T 11 source.go constant.numeric.exponent.decimal.go
+L 	_	= 0123E-1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go keyword.operator.minus.exponent.decimal.go
+T 12 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 0e-0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go keyword.other.unit.exponent.decimal.go
+T 8 source.go keyword.operator.minus.exponent.decimal.go
+T 9 source.go constant.numeric.exponent.decimal.go
+L 	_	= 123E+0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.exponent.decimal.go
+T 10 source.go keyword.operator.plus.exponent.decimal.go
+T 11 source.go constant.numeric.exponent.decimal.go
+L 	_	= 0123E123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 0.e+1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+T 8 source.go keyword.other.unit.exponent.decimal.go
+T 9 source.go keyword.operator.plus.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+L 	_	= 123.E-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go keyword.operator.minus.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go
+L 	_	= 0123.e123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.point.go
+T 11 source.go keyword.other.unit.exponent.decimal.go
+T 14 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= .0e-1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go keyword.other.unit.exponent.decimal.go
+T 9 source.go keyword.operator.minus.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+L 	_	= .123E+10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go keyword.operator.plus.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go
+L 	_	= .0123E123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.exponent.decimal.go
+T 14 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 0.0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+T 8 source.go constant.numeric.decimal.go
+L 	_	= 123.123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+T 12 source.go constant.numeric.decimal.go
+L 	_	= 0123.0123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.point.go
+T 14 source.go constant.numeric.decimal.go
+L 
+L 	_	= 0.0e1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+L 	_	= 123.123E-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+T 12 source.go constant.numeric.decimal.go
+T 13 source.go keyword.other.unit.exponent.decimal.go
+T 14 source.go keyword.operator.minus.exponent.decimal.go
+T 16 source.go constant.numeric.exponent.decimal.go
+L 	_	= 0123.0123e+456
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.point.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go keyword.other.unit.exponent.decimal.go
+T 16 source.go keyword.operator.plus.exponent.decimal.go
+T 19 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 1_2_3.
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.point.go
+L 	_	= 0_123.
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.point.go
+L 
+L 	_	= 0_0e0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+L 	_	= 1_2_3e0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.exponent.decimal.go
+T 12 source.go constant.numeric.exponent.decimal.go
+L 	_	= 0_123e0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.exponent.decimal.go
+T 12 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 0e-0_0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go keyword.other.unit.exponent.decimal.go
+T 8 source.go keyword.operator.minus.exponent.decimal.go
+T 9 source.go constant.numeric.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go punctuation.separator.constant.numeric.go
+T 11 source.go constant.numeric.exponent.decimal.go
+L 	_	= 1_2_3E+0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.exponent.decimal.go
+T 12 source.go keyword.operator.plus.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go
+L 	_	= 0123E1_2_3
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go constant.numeric.exponent.decimal.go
+T 12 source.go constant.numeric.exponent.decimal.go punctuation.separator.constant.numeric.go
+T 13 source.go constant.numeric.exponent.decimal.go
+T 14 source.go constant.numeric.exponent.decimal.go punctuation.separator.constant.numeric.go
+T 15 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 0.e+1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+T 8 source.go keyword.other.unit.exponent.decimal.go
+T 9 source.go keyword.operator.plus.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+L 	_	= 123.E-1_0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go keyword.operator.minus.exponent.decimal.go
+T 12 source.go constant.numeric.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.exponent.decimal.go
+L 	_	= 01_23.e123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.point.go
+T 12 source.go keyword.other.unit.exponent.decimal.go
+T 15 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= .0e-1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go keyword.other.unit.exponent.decimal.go
+T 9 source.go keyword.operator.minus.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+L 	_	= .123E+10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go keyword.operator.plus.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go
+L 	_	= .0123E123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go punctuation.other.period.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.exponent.decimal.go
+T 14 source.go constant.numeric.exponent.decimal.go
+L 
+L 	_	= 1_2_3.123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.point.go
+T 14 source.go constant.numeric.decimal.go
+L 	_	= 0123.01_23
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.point.go
+T 12 source.go constant.numeric.decimal.go
+T 13 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 15 source.go constant.numeric.decimal.go
+L 
+L 	// hexadecimal floats
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 22 source.go comment.line.double-slash.go
+L 	_	= 0x0.p+0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 9 source.go constant.numeric.hexadecimal.go
+T 10 source.go keyword.other.unit.exponent.hexadecimal.go
+T 11 source.go keyword.operator.plus.exponent.hexadecimal.go
+T 12 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0Xdeadcafe.p-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 15 source.go constant.numeric.hexadecimal.go
+T 16 source.go constant.numeric.hexadecimal.go
+T 17 source.go keyword.other.unit.exponent.hexadecimal.go
+T 18 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 20 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0x1234.P123
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go keyword.other.unit.exponent.hexadecimal.go
+T 16 source.go constant.numeric.exponent.hexadecimal.go
+L 
+L 	_	= 0x.1p-0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 9 source.go constant.numeric.hexadecimal.go
+T 10 source.go keyword.other.unit.exponent.hexadecimal.go
+T 11 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 12 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0X.deadcafep2
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 16 source.go constant.numeric.hexadecimal.go
+T 17 source.go keyword.other.unit.exponent.hexadecimal.go
+T 18 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0x.1234P+10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go keyword.other.unit.exponent.hexadecimal.go
+T 14 source.go keyword.operator.plus.exponent.hexadecimal.go
+T 16 source.go constant.numeric.exponent.hexadecimal.go
+L 
+L 	_	= 0x0p0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 9 source.go keyword.other.unit.exponent.hexadecimal.go
+T 10 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0Xdeadcafep+1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 15 source.go constant.numeric.hexadecimal.go
+T 16 source.go keyword.other.unit.exponent.hexadecimal.go
+T 17 source.go keyword.operator.plus.exponent.hexadecimal.go
+T 18 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0x1234P-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go
+T 12 source.go keyword.other.unit.exponent.hexadecimal.go
+T 13 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 15 source.go constant.numeric.exponent.hexadecimal.go
+L 
+L 	_	= 0x0.0p0
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 9 source.go constant.numeric.hexadecimal.go
+T 10 source.go constant.numeric.hexadecimal.go
+T 11 source.go keyword.other.unit.exponent.hexadecimal.go
+T 12 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0Xdead.cafep+1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 16 source.go constant.numeric.hexadecimal.go
+T 17 source.go keyword.other.unit.exponent.hexadecimal.go
+T 18 source.go keyword.operator.plus.exponent.hexadecimal.go
+T 19 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0x12.34P-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 9 source.go constant.numeric.hexadecimal.go
+T 10 source.go constant.numeric.hexadecimal.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go keyword.other.unit.exponent.hexadecimal.go
+T 14 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 16 source.go constant.numeric.exponent.hexadecimal.go
+L 
+L 	_	= 0Xdead_cafep+1
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go
+T 12 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 16 source.go constant.numeric.hexadecimal.go
+T 17 source.go keyword.other.unit.exponent.hexadecimal.go
+T 18 source.go keyword.operator.plus.exponent.hexadecimal.go
+T 19 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0x_1234P-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go keyword.other.unit.exponent.hexadecimal.go
+T 14 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 16 source.go constant.numeric.exponent.hexadecimal.go
+L 
+L 	_	= 0X_dead_cafe.p-10
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 17 source.go constant.numeric.hexadecimal.go
+T 18 source.go constant.numeric.hexadecimal.go
+T 19 source.go keyword.other.unit.exponent.hexadecimal.go
+T 20 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 22 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0x12_34.P1_2_3
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 9 source.go constant.numeric.hexadecimal.go
+T 10 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go
+T 14 source.go keyword.other.unit.exponent.hexadecimal.go
+T 15 source.go constant.numeric.exponent.hexadecimal.go
+T 16 source.go constant.numeric.exponent.hexadecimal.go punctuation.separator.constant.numeric.go
+T 17 source.go constant.numeric.exponent.hexadecimal.go
+T 18 source.go constant.numeric.exponent.hexadecimal.go punctuation.separator.constant.numeric.go
+T 19 source.go constant.numeric.exponent.hexadecimal.go
+L 	_	= 0X1_2_3_4.P-1_2_3
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 8 source.go constant.numeric.hexadecimal.go
+T 9 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.hexadecimal.go
+T 11 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 12 source.go constant.numeric.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.hexadecimal.go
+T 15 source.go constant.numeric.hexadecimal.go
+T 16 source.go keyword.other.unit.exponent.hexadecimal.go
+T 17 source.go keyword.operator.minus.exponent.hexadecimal.go
+T 18 source.go constant.numeric.exponent.hexadecimal.go
+T 19 source.go constant.numeric.exponent.hexadecimal.go punctuation.separator.constant.numeric.go
+T 20 source.go constant.numeric.exponent.hexadecimal.go
+T 21 source.go constant.numeric.exponent.hexadecimal.go punctuation.separator.constant.numeric.go
+T 22 source.go constant.numeric.exponent.hexadecimal.go
+L 
+L 	// imaginaries
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L 	_	= 0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go keyword.other.unit.imaginary.go
+L 	_	= 00i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go keyword.other.unit.imaginary.go
+L 	_	= 08i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go keyword.other.unit.imaginary.go
+L 	_	= 0000000000i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go keyword.other.unit.imaginary.go
+L 	_	= 0123i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.imaginary.go
+L 	_	= 0000000123i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go keyword.other.unit.imaginary.go
+L 	_	= 0000056789i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go keyword.other.unit.imaginary.go
+L 	_	= 1234i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.imaginary.go
+L 	_	= 1234567i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 12 source.go constant.numeric.decimal.go
+T 13 source.go keyword.other.unit.imaginary.go
+L 
+L 	_	= 0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go keyword.other.unit.imaginary.go
+L 	_	= 0_0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.imaginary.go
+L 	_	= 0_8i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.imaginary.go
+L 	_	= 0_000_000_000i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 18 source.go constant.numeric.decimal.go
+T 19 source.go keyword.other.unit.imaginary.go
+L 	_	= 0_123i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 0_000_000_123i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 18 source.go constant.numeric.decimal.go
+T 19 source.go keyword.other.unit.imaginary.go
+L 	_	= 0_000_056_789i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 18 source.go constant.numeric.decimal.go
+T 19 source.go keyword.other.unit.imaginary.go
+L 	_	= 1_234i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 1_234_567i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go keyword.other.unit.imaginary.go
+L 
+L 	_	= 0.i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+T 8 source.go keyword.other.unit.imaginary.go
+L 	_	= 123.i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+T 10 source.go keyword.other.unit.imaginary.go
+L 	_	= 0123.i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go constant.numeric.decimal.point.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 000123.i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go constant.numeric.decimal.point.go
+T 13 source.go keyword.other.unit.imaginary.go
+L 
+L 	_	= 0e0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go keyword.other.unit.exponent.decimal.go
+T 8 source.go constant.numeric.exponent.decimal.go
+T 9 source.go keyword.other.unit.imaginary.go
+L 	_	= 123e0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go keyword.other.unit.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 0123E0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 9 source.go constant.numeric.decimal.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go constant.numeric.exponent.decimal.go
+T 12 source.go keyword.other.unit.imaginary.go
+L 	_	= 000123E0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go keyword.other.unit.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go
+T 14 source.go keyword.other.unit.imaginary.go
+L 
+L 	_	= 0.e+1i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 6 source.go constant.numeric.decimal.go
+T 7 source.go constant.numeric.decimal.point.go
+T 8 source.go keyword.other.unit.exponent.decimal.go
+T 9 source.go keyword.operator.plus.exponent.decimal.go
+T 10 source.go constant.numeric.exponent.decimal.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 123.E-1_0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 8 source.go constant.numeric.decimal.go
+T 9 source.go constant.numeric.decimal.point.go
+T 10 source.go keyword.other.unit.exponent.decimal.go
+T 11 source.go keyword.operator.minus.exponent.decimal.go
+T 12 source.go constant.numeric.exponent.decimal.go
+T 13 source.go constant.numeric.exponent.decimal.go punctuation.separator.constant.numeric.go
+T 14 source.go constant.numeric.exponent.decimal.go
+T 15 source.go keyword.other.unit.imaginary.go
+L 	_	= 01_23.e123i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.point.go
+T 12 source.go keyword.other.unit.exponent.decimal.go
+T 15 source.go constant.numeric.exponent.decimal.go
+T 16 source.go keyword.other.unit.imaginary.go
+L 	_	= 00_01_23.e123i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go constant.numeric.decimal.go punctuation.separator.constant.numeric.go
+T 13 source.go constant.numeric.decimal.go
+T 14 source.go constant.numeric.decimal.point.go
+T 15 source.go keyword.other.unit.exponent.decimal.go
+T 18 source.go constant.numeric.exponent.decimal.go
+T 19 source.go keyword.other.unit.imaginary.go
+L 
+L 	_	= 0b1010i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 11 source.go constant.numeric.binary.go
+T 12 source.go keyword.other.unit.imaginary.go
+L 	_	= 0B1010i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.binary.go
+T 11 source.go constant.numeric.binary.go
+T 12 source.go keyword.other.unit.imaginary.go
+L 	_	= 0o660i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 10 source.go constant.numeric.octal.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 0O660i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.octal.go
+T 10 source.go constant.numeric.octal.go
+T 11 source.go keyword.other.unit.imaginary.go
+L 	_	= 0xabcDEFi
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go
+T 14 source.go keyword.other.unit.imaginary.go
+L 	_	= 0XabcDEFi
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go
+T 14 source.go keyword.other.unit.imaginary.go
+L 	_	= 0xabcDEFP0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go
+T 14 source.go keyword.other.unit.exponent.hexadecimal.go
+T 15 source.go constant.numeric.exponent.hexadecimal.go
+T 16 source.go keyword.other.unit.imaginary.go
+L 	_	= 0XabcDEFp0i
+T 1 source.go
+T 2 source.go variable.other.constant.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go keyword.other.unit.hexadecimal.go
+T 13 source.go constant.numeric.hexadecimal.go
+T 14 source.go keyword.other.unit.exponent.hexadecimal.go
+T 15 source.go constant.numeric.exponent.hexadecimal.go
+T 16 source.go keyword.other.unit.imaginary.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 

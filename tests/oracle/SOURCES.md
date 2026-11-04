@@ -348,6 +348,12 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `go/zap-logger` | [`logger.go`][zap-logger] in uber-go/zap | [MIT][zap-licence] |
 | `go/viper-viper` | [`viper.go`][viper-viper] in spf13/viper | [MIT][viper-licence] |
 | `go/prometheus-storage` | [`storage/interface.go`][prometheus-storage] in prometheus/prometheus | [Apache-2.0][prometheus-licence] |
+| `go/go-printer-declarations` | [`src/go/printer/testdata/declarations.golden`][go-printer-declarations] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-printer-go2numbers` | [`src/go/printer/testdata/go2numbers.golden`][go-printer-go2numbers] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-test-bug141` | [`test/fixedbugs/bug141.go`][go-test-bug141] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-test-issue15528` | [`test/fixedbugs/issue15528.go`][go-test-issue15528] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-types-typeinst1` | [`src/internal/types/testdata/check/typeinst1.go`][go-types-typeinst1] in golang/go | [BSD-3-Clause][golang-licence] |
+| `go/go-types-typeparams` | [`src/internal/types/testdata/check/typeparams.go`][go-types-typeparams] in golang/go | [BSD-3-Clause][golang-licence] |
 | `markdown/gin-readme` | [`README.md`][gin-readme] in gin-gonic/gin | [MIT][gin-licence] |
 | `markdown/cobra-user-guide` | [`site/content/user_guide.md`][cobra-user-guide] in spf13/cobra | [Apache-2.0][cobra-licence] |
 | `ruby/sample` | [`samples/ruby.sample`][ruby-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -950,9 +956,15 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [github-theme]: https://github.com/primer/github-vscode-theme/tree/cd78e5e4e7bcf132a6f428ae0f32264bb1b729cf
 [github-theme-licence]: https://github.com/primer/github-vscode-theme/blob/cd78e5e4e7bcf132a6f428ae0f32264bb1b729cf/LICENSE
 [go-json-decode]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/encoding/json/decode.go
+[go-printer-declarations]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/go/printer/testdata/declarations.golden
+[go-printer-go2numbers]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/go/printer/testdata/go2numbers.golden
 [go-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/go.sample
 [go-slices]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/slices/slices.go
 [go-sort]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/sort/sort.go
+[go-test-bug141]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/test/fixedbugs/bug141.go
+[go-test-issue15528]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/test/fixedbugs/issue15528.go
+[go-types-typeinst1]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/internal/types/testdata/check/typeinst1.go
+[go-types-typeparams]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/internal/types/testdata/check/typeparams.go
 [golang-licence]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/LICENSE
 [google-java-format-b380299722]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/B380299722.input
 [google-java-format-i574]: https://github.com/google/google-java-format/blob/056a0ac101cc5c297499f1ded7062a2a65b0cdcc/core/src/test/resources/com/google/googlejavaformat/java/testdata/I574.input

@@ -1,0 +1,2030 @@
+L // Copyright 2019 The Go Authors. All rights reserved.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Use of this source code is governed by a BSD-style
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // license that can be found in the LICENSE file.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 
+L package p
+T 7 source.go keyword.package.go
+T 8 source.go
+T 9 source.go entity.name.type.package.go
+L 
+L type List[E any] []E
+T 4 source.go keyword.type.go
+T 5 source.go
+T 9 source.go entity.name.type.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 15 source.go entity.name.type.any.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go entity.name.type.go
+L var _ List[List[List[int]]]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go storage.type.numeric.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+L var _ List[List[List[int]]] = []List[List[int]]{}
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go storage.type.numeric.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go
+T 29 source.go keyword.operator.assignment.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.square.go
+T 32 source.go punctuation.definition.end.bracket.square.go
+T 36 source.go entity.name.type.go
+T 37 source.go punctuation.definition.begin.bracket.square.go
+T 41 source.go entity.name.type.go
+T 42 source.go punctuation.definition.begin.bracket.square.go
+T 45 source.go storage.type.numeric.go
+T 46 source.go punctuation.definition.end.bracket.square.go
+T 47 source.go punctuation.definition.end.bracket.square.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+T 49 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type (
+T 4 source.go keyword.type.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+L 	T1[P1 any] struct {
+T 1 source.go
+T 3 source.go entity.name.type.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 6 source.go variable.parameter.go
+T 7 source.go
+T 10 source.go entity.name.type.any.go
+T 11 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go
+T 18 source.go keyword.struct.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 		f1 T2[P1, float32]
+T 2 source.go
+T 4 source.go variable.other.property.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.other.comma.go
+T 12 source.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	T2[P2, P3 any] struct {
+T 1 source.go
+T 3 source.go entity.name.type.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 6 source.go variable.parameter.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 14 source.go entity.name.type.any.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go
+T 22 source.go keyword.struct.go
+T 23 source.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+L 		f2 P2
+T 2 source.go
+T 4 source.go variable.other.property.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+L 		f3 P3
+T 2 source.go
+T 4 source.go variable.other.property.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 
+L func _() {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go
+T 10 source.go punctuation.definition.begin.bracket.curly.go
+L 	var x1 T1[int]
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+L 	var x2 T2[int, float32]
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.other.comma.go
+T 16 source.go
+T 23 source.go storage.type.numeric.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+L 
+L 	x1.f1.f2 = 0
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.period.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.period.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 13 source.go constant.numeric.decimal.go
+L 	x1.f1 = x2
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.period.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 11 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type T3[P any] T1[T2[P, P]]
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 13 source.go entity.name.type.any.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go entity.name.type.go
+T 23 source.go punctuation.other.comma.go
+T 24 source.go
+T 25 source.go entity.name.type.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+L 
+L func _() {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go
+T 10 source.go punctuation.definition.begin.bracket.curly.go
+L 	var x1 T3[int]
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+L 	var x2 T2[int, int]
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.other.comma.go
+T 16 source.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+L 	x1.f1.f2 = x2
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go punctuation.other.period.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.period.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 14 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f[P any] (x P) List[P] {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.parameter.go
+T 9 source.go
+T 12 source.go entity.name.type.any.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go variable.parameter.go
+T 17 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 24 source.go entity.name.type.go
+T 25 source.go punctuation.definition.begin.bracket.square.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 	return List[P]{x}
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L var (
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+L 	_ []int = f(0)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 5 source.go punctuation.definition.end.bracket.square.go
+T 8 source.go storage.type.numeric.go
+T 9 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+L 	_ []float32 = f[float32](10)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 5 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go storage.type.numeric.go
+T 13 source.go
+T 14 source.go keyword.operator.assignment.go
+T 15 source.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go storage.type.numeric.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go constant.numeric.decimal.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+L 	_ List[complex128] = f(1i)
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go storage.type.numeric.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go
+T 21 source.go keyword.operator.assignment.go
+T 22 source.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go constant.numeric.decimal.go
+T 26 source.go keyword.other.unit.imaginary.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+L 	_ []List[int] = f(List[int]{})
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go punctuation.definition.begin.bracket.square.go
+T 5 source.go punctuation.definition.end.bracket.square.go
+T 9 source.go entity.name.type.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go storage.type.numeric.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go
+T 16 source.go keyword.operator.assignment.go
+T 17 source.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.definition.begin.bracket.square.go
+T 27 source.go storage.type.numeric.go
+T 28 source.go punctuation.definition.end.bracket.square.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+T 30 source.go punctuation.definition.end.bracket.curly.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+L         _ List[List[int]] = []List[int]{}
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go storage.type.numeric.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 25 source.go punctuation.definition.end.bracket.square.go
+T 26 source.go
+T 27 source.go keyword.operator.assignment.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.square.go
+T 30 source.go punctuation.definition.end.bracket.square.go
+T 34 source.go entity.name.type.go
+T 35 source.go punctuation.definition.begin.bracket.square.go
+T 38 source.go storage.type.numeric.go
+T 39 source.go punctuation.definition.end.bracket.square.go
+T 40 source.go punctuation.definition.begin.bracket.curly.go
+T 41 source.go punctuation.definition.end.bracket.curly.go
+L         _ = []List[int]{}
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 11 source.go keyword.operator.assignment.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go storage.type.numeric.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+T 25 source.go punctuation.definition.end.bracket.curly.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 
+L // Parameterized types with methods
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 35 source.go comment.line.double-slash.go
+L 
+L func (l List[E]) Head() (_ E, _ bool) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go variable.parameter.go
+T 27 source.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 36 source.go storage.type.boolean.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+L 	if len(l) > 0 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go entity.name.function.support.builtin.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go
+T 12 source.go keyword.operator.comparison.go
+T 13 source.go
+T 14 source.go constant.numeric.decimal.go
+T 15 source.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+L 		return l[0], true
+T 2 source.go
+T 8 source.go keyword.control.go
+T 9 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go constant.numeric.decimal.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 19 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 	return
+T 1 source.go
+T 7 source.go keyword.control.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // A test case for instantiating types with other types (extracted from map.go2)
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 80 source.go comment.line.double-slash.go
+L 
+L type Pair[K any] struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 9 source.go entity.name.type.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 15 source.go entity.name.type.any.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go
+T 23 source.go keyword.struct.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	key K
+T 1 source.go
+T 4 source.go variable.other.property.go
+T 5 source.go
+T 6 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type Receiver[T any] struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 19 source.go entity.name.type.any.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go
+T 27 source.go keyword.struct.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 	values T
+T 1 source.go
+T 7 source.go variable.other.property.go
+T 8 source.go
+T 9 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type Iterator[K any] struct {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 19 source.go entity.name.type.any.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go
+T 27 source.go keyword.struct.go
+T 28 source.go
+T 29 source.go punctuation.definition.begin.bracket.curly.go
+L 	r Receiver[Pair[K]]
+T 1 source.go
+T 2 source.go variable.other.property.go
+T 3 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func Values [T any] (r Receiver[T]) T {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go variable.other.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go variable.parameter.go
+T 15 source.go
+T 18 source.go entity.name.type.any.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go variable.parameter.go
+T 23 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.begin.bracket.square.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.square.go
+T 35 source.go punctuation.definition.end.bracket.round.go
+T 36 source.go
+T 37 source.go entity.name.type.go
+T 38 source.go
+T 39 source.go punctuation.definition.begin.bracket.curly.go
+L         return r.values
+T 8 source.go
+T 14 source.go keyword.control.go
+T 15 source.go
+T 16 source.go variable.other.go
+T 17 source.go punctuation.other.period.go
+T 23 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (it Iterator[K]) Next() K {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go entity.name.type.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 26 source.go entity.name.function.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 30 source.go entity.name.type.go
+T 31 source.go
+T 32 source.go punctuation.definition.begin.bracket.curly.go
+L         return Values[Pair[K]](it.r).key
+T 8 source.go
+T 14 source.go keyword.control.go
+T 15 source.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 26 source.go entity.name.type.go
+T 27 source.go punctuation.definition.begin.bracket.square.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.definition.end.bracket.square.go
+T 30 source.go punctuation.definition.end.bracket.square.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 33 source.go variable.other.go
+T 34 source.go punctuation.other.period.go
+T 35 source.go variable.other.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.other.period.go
+T 40 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // A more complex test case testing type bounds (extracted from linalg.go2 and reduced to essence)
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 98 source.go comment.line.double-slash.go
+L 
+L type NumericAbs[T any] interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go variable.parameter.go
+T 18 source.go
+T 21 source.go entity.name.type.any.go
+T 22 source.go punctuation.definition.end.bracket.square.go
+T 23 source.go
+T 32 source.go keyword.interface.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	Abs() T
+T 1 source.go
+T 4 source.go entity.name.function.support.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+T 6 source.go punctuation.definition.end.bracket.round.go
+T 7 source.go
+T 8 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func AbsDifference[T NumericAbs[T]](x T) { panic(0) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 31 source.go entity.name.type.go
+T 32 source.go punctuation.definition.begin.bracket.square.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.square.go
+T 35 source.go punctuation.definition.end.bracket.square.go
+T 36 source.go punctuation.definition.begin.bracket.round.go
+T 37 source.go variable.parameter.go
+T 38 source.go
+T 39 source.go entity.name.type.go
+T 40 source.go punctuation.definition.end.bracket.round.go
+T 41 source.go
+T 42 source.go punctuation.definition.begin.bracket.curly.go
+T 43 source.go
+T 48 source.go entity.name.function.support.builtin.go
+T 49 source.go punctuation.definition.begin.bracket.round.go
+T 50 source.go constant.numeric.decimal.go
+T 51 source.go punctuation.definition.end.bracket.round.go
+T 52 source.go
+T 53 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // For now, a lone type parameter is not permitted as RHS in a type declaration (issue #45639).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 95 source.go comment.line.double-slash.go
+L // type OrderedAbs[T any] T
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L // 
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 3 source.go comment.line.double-slash.go
+L // func (a OrderedAbs[T]) Abs() OrderedAbs[T]
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L // 
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 3 source.go comment.line.double-slash.go
+L // func OrderedAbsDifference[T any](x T) {
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 42 source.go comment.line.double-slash.go
+L // 	AbsDifference(OrderedAbs[T](x))
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 35 source.go comment.line.double-slash.go
+L // }
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 4 source.go comment.line.double-slash.go
+L 
+L // same code, reduced to essence
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 32 source.go comment.line.double-slash.go
+L 
+L func g[P interface{ m() P }](x P) { panic(0) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.parameter.go
+T 9 source.go
+T 18 source.go keyword.interface.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go
+T 21 source.go entity.name.function.support.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+T 24 source.go
+T 25 source.go entity.name.type.go
+T 26 source.go
+T 27 source.go punctuation.definition.end.bracket.curly.go
+T 28 source.go punctuation.definition.end.bracket.square.go
+T 29 source.go punctuation.definition.begin.bracket.round.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 32 source.go entity.name.type.go
+T 33 source.go punctuation.definition.end.bracket.round.go
+T 34 source.go
+T 35 source.go punctuation.definition.begin.bracket.curly.go
+T 36 source.go
+T 41 source.go entity.name.function.support.builtin.go
+T 42 source.go punctuation.definition.begin.bracket.round.go
+T 43 source.go constant.numeric.decimal.go
+T 44 source.go punctuation.definition.end.bracket.round.go
+T 45 source.go
+T 46 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // For now, a lone type parameter is not permitted as RHS in a type declaration (issue #45639).
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 95 source.go comment.line.double-slash.go
+L // type T4[P any] P
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 19 source.go comment.line.double-slash.go
+L // 
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 3 source.go comment.line.double-slash.go
+L // func (_ T4[P]) m() T4[P]
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L // 
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 3 source.go comment.line.double-slash.go
+L // func _[Q any](x Q) {
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 23 source.go comment.line.double-slash.go
+L // 	g(T4[Q](x))
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 15 source.go comment.line.double-slash.go
+L // }
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 4 source.go comment.line.double-slash.go
+L 
+L // Another test case that caused  problems in the past
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L 
+L type T5[_ interface { a() }, _ interface{}] struct{}
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 19 source.go keyword.interface.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+T 22 source.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go
+T 27 source.go punctuation.definition.end.bracket.curly.go
+T 28 source.go punctuation.other.comma.go
+T 29 source.go
+T 30 source.go variable.parameter.go
+T 31 source.go
+T 40 source.go keyword.interface.go
+T 41 source.go punctuation.definition.begin.bracket.curly.go
+T 42 source.go punctuation.definition.end.bracket.curly.go
+T 43 source.go punctuation.definition.end.bracket.square.go
+T 44 source.go
+T 50 source.go keyword.struct.go
+T 51 source.go punctuation.definition.begin.bracket.curly.go
+T 52 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type A[P any] struct{ x P }
+T 4 source.go keyword.type.go
+T 5 source.go
+T 6 source.go entity.name.type.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.parameter.go
+T 9 source.go
+T 12 source.go entity.name.type.any.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go
+T 20 source.go keyword.struct.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+T 22 source.go
+T 23 source.go variable.other.property.go
+T 24 source.go
+T 25 source.go entity.name.type.go
+T 26 source.go
+T 27 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (_ A[P]) a() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go entity.name.type.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 15 source.go entity.name.function.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go punctuation.definition.end.bracket.curly.go
+L 
+L var _ T5[A[int], int]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.other.comma.go
+T 17 source.go
+T 20 source.go storage.type.numeric.go
+T 21 source.go punctuation.definition.end.bracket.square.go
+L 
+L // Invoking methods with parameterized receiver types uses
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 58 source.go comment.line.double-slash.go
+L // type inference to determine the actual type arguments matching
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // the receiver type parameters from the actual receiver argument.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // Go does implicit address-taking and dereferenciation depending
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // on the actual receiver and the method's receiver type. To make
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // type inference work, the type-checker matches "pointer-ness"
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 63 source.go comment.line.double-slash.go
+L // of the actual receiver and the method's receiver type.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 57 source.go comment.line.double-slash.go
+L // The following code tests this mechanism.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 43 source.go comment.line.double-slash.go
+L 
+L type R1[A any] struct{}
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 13 source.go entity.name.type.any.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go
+T 21 source.go keyword.struct.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+T 23 source.go punctuation.definition.end.bracket.curly.go
+L func (_ R1[A]) vm()
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.definition.end.bracket.round.go
+T 15 source.go
+T 17 source.go entity.name.function.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+L func (_ *R1[A]) pm()
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L 
+L func _[T any](r R1[T], p *R1[T]) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.parameter.go
+T 9 source.go
+T 12 source.go entity.name.type.any.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.definition.end.bracket.square.go
+T 22 source.go punctuation.other.comma.go
+T 23 source.go
+T 24 source.go variable.parameter.go
+T 25 source.go
+T 26 source.go keyword.operator.address.go
+T 28 source.go entity.name.type.go
+T 29 source.go punctuation.definition.begin.bracket.square.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.definition.end.bracket.square.go
+T 32 source.go punctuation.definition.end.bracket.round.go
+T 33 source.go
+T 34 source.go punctuation.definition.begin.bracket.curly.go
+L 	r.vm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L 	r.pm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L 	p.vm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L 	p.pm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type R2[A, B any] struct{}
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go punctuation.other.comma.go
+T 11 source.go
+T 12 source.go variable.parameter.go
+T 13 source.go
+T 16 source.go entity.name.type.any.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go
+T 24 source.go keyword.struct.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+T 26 source.go punctuation.definition.end.bracket.curly.go
+L func (_ R2[A, B]) vm()
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.other.comma.go
+T 14 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 20 source.go entity.name.function.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+L func (_ *R2[A, B]) pm()
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go
+T 21 source.go entity.name.function.go
+T 22 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go punctuation.definition.end.bracket.round.go
+L 
+L func _[T any](r R2[T, int], p *R2[string, T]) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.parameter.go
+T 9 source.go
+T 12 source.go entity.name.type.any.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go variable.parameter.go
+T 16 source.go
+T 18 source.go entity.name.type.go
+T 19 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go entity.name.type.go
+T 21 source.go punctuation.other.comma.go
+T 22 source.go
+T 25 source.go storage.type.numeric.go
+T 26 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go punctuation.other.comma.go
+T 28 source.go
+T 29 source.go variable.parameter.go
+T 30 source.go
+T 31 source.go keyword.operator.address.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.begin.bracket.square.go
+T 40 source.go storage.type.string.go
+T 41 source.go punctuation.other.comma.go
+T 42 source.go
+T 43 source.go entity.name.type.go
+T 44 source.go punctuation.definition.end.bracket.square.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+T 46 source.go
+T 47 source.go punctuation.definition.begin.bracket.curly.go
+L 	r.vm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L 	r.pm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L 	p.vm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L 	p.pm()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // It is ok to have multiple embedded unions.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 45 source.go comment.line.double-slash.go
+L type _ interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 6 source.go entity.name.type.go
+T 7 source.go
+T 16 source.go keyword.interface.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 	m0()
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go punctuation.definition.end.bracket.round.go
+L 	~int | ~string | ~bool
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go
+T 7 source.go keyword.operator.arithmetic.bitwise.go
+T 8 source.go
+T 9 source.go keyword.operator.arithmetic.bitwise.go
+T 15 source.go storage.type.string.go
+T 16 source.go
+T 17 source.go keyword.operator.arithmetic.bitwise.go
+T 18 source.go
+T 19 source.go keyword.operator.arithmetic.bitwise.go
+T 23 source.go storage.type.boolean.go
+L 	~float32 | ~float64
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 9 source.go storage.type.numeric.go
+T 10 source.go
+T 11 source.go keyword.operator.arithmetic.bitwise.go
+T 12 source.go
+T 13 source.go keyword.operator.arithmetic.bitwise.go
+T 20 source.go storage.type.numeric.go
+L 	m1()
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go punctuation.definition.end.bracket.round.go
+L 	m2()
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go punctuation.definition.end.bracket.round.go
+L 	~complex64 | ~complex128
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 11 source.go storage.type.numeric.go
+T 12 source.go
+T 13 source.go keyword.operator.arithmetic.bitwise.go
+T 14 source.go
+T 15 source.go keyword.operator.arithmetic.bitwise.go
+T 25 source.go storage.type.numeric.go
+L 	~rune
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 6 source.go storage.type.rune.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Type sets may contain each type at most once.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 48 source.go comment.line.double-slash.go
+L type _ interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 6 source.go entity.name.type.go
+T 7 source.go
+T 16 source.go keyword.interface.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 	~int|~ /* ERROR "overlapping terms ~int" */ int
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go keyword.operator.arithmetic.bitwise.go
+T 7 source.go keyword.operator.arithmetic.bitwise.go
+T 8 source.go
+T 10 source.go comment.block.go punctuation.definition.comment.go
+T 42 source.go comment.block.go
+T 44 source.go comment.block.go punctuation.definition.comment.go
+T 45 source.go
+T 48 source.go storage.type.numeric.go
+L 	~int|int /* ERROR "overlapping terms int" */
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go keyword.operator.arithmetic.bitwise.go
+T 9 source.go storage.type.numeric.go
+T 10 source.go
+T 12 source.go comment.block.go punctuation.definition.comment.go
+T 43 source.go comment.block.go
+T 45 source.go comment.block.go punctuation.definition.comment.go
+L 	int|int /* ERROR "overlapping terms int" */
+T 1 source.go
+T 4 source.go storage.type.numeric.go
+T 5 source.go keyword.operator.arithmetic.bitwise.go
+T 8 source.go storage.type.numeric.go
+T 9 source.go
+T 11 source.go comment.block.go punctuation.definition.comment.go
+T 42 source.go comment.block.go
+T 44 source.go comment.block.go punctuation.definition.comment.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type _ interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 6 source.go entity.name.type.go
+T 7 source.go
+T 16 source.go keyword.interface.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 	~struct{f int} | ~struct{g int} | ~ /* ERROR "overlapping terms" */ struct{f int}
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 8 source.go keyword.struct.go
+T 9 source.go punctuation.definition.begin.bracket.curly.go
+T 10 source.go variable.other.go
+T 11 source.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.curly.go
+T 16 source.go
+T 17 source.go keyword.operator.arithmetic.bitwise.go
+T 18 source.go
+T 19 source.go keyword.operator.arithmetic.bitwise.go
+T 25 source.go keyword.struct.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+T 27 source.go variable.other.go
+T 28 source.go
+T 31 source.go storage.type.numeric.go
+T 32 source.go punctuation.definition.end.bracket.curly.go
+T 33 source.go
+T 34 source.go keyword.operator.arithmetic.bitwise.go
+T 35 source.go
+T 36 source.go keyword.operator.arithmetic.bitwise.go
+T 37 source.go
+T 39 source.go comment.block.go punctuation.definition.comment.go
+T 66 source.go comment.block.go
+T 68 source.go comment.block.go punctuation.definition.comment.go
+T 69 source.go
+T 75 source.go keyword.struct.go
+T 76 source.go punctuation.definition.begin.bracket.curly.go
+T 77 source.go variable.other.go
+T 78 source.go
+T 81 source.go storage.type.numeric.go
+T 82 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Interface term lists can contain any type, incl. *Named types.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L // Verify that we use the underlying type(s) of the type(s) in the
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 66 source.go comment.line.double-slash.go
+L // term list when determining if an operation is permitted.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 59 source.go comment.line.double-slash.go
+L 
+L type MyInt int
+T 4 source.go keyword.type.go
+T 5 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go
+T 14 source.go storage.type.numeric.go
+L func add1[T interface{MyInt}](x T) T {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 21 source.go keyword.interface.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+T 27 source.go entity.name.type.go
+T 28 source.go punctuation.definition.end.bracket.curly.go
+T 29 source.go punctuation.definition.end.bracket.square.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 33 source.go entity.name.type.go
+T 34 source.go punctuation.definition.end.bracket.round.go
+T 35 source.go
+T 36 source.go entity.name.type.go
+T 37 source.go
+T 38 source.go punctuation.definition.begin.bracket.curly.go
+L 	return x + 1
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 11 source.go keyword.operator.arithmetic.go
+T 12 source.go
+T 13 source.go constant.numeric.decimal.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type MyString string
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 20 source.go storage.type.string.go
+L func double[T interface{MyInt|MyString}](x T) T {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 11 source.go entity.name.function.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 13 source.go variable.parameter.go
+T 14 source.go
+T 23 source.go keyword.interface.go
+T 24 source.go punctuation.definition.begin.bracket.curly.go
+T 29 source.go entity.name.type.go
+T 30 source.go keyword.operator.arithmetic.bitwise.go
+T 38 source.go entity.name.type.go
+T 39 source.go punctuation.definition.end.bracket.curly.go
+T 40 source.go punctuation.definition.end.bracket.square.go
+T 41 source.go punctuation.definition.begin.bracket.round.go
+T 42 source.go variable.parameter.go
+T 43 source.go
+T 44 source.go entity.name.type.go
+T 45 source.go punctuation.definition.end.bracket.round.go
+T 46 source.go
+T 47 source.go entity.name.type.go
+T 48 source.go
+T 49 source.go punctuation.definition.begin.bracket.curly.go
+L 	return x + x
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.go
+T 10 source.go
+T 11 source.go keyword.operator.arithmetic.go
+T 12 source.go
+T 13 source.go variable.other.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Embedding of interfaces with term lists leads to interfaces
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 62 source.go comment.line.double-slash.go
+L // with term lists that are the intersection of the embedded
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L // term lists.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 14 source.go comment.line.double-slash.go
+L 
+L type E0 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go
+T 17 source.go keyword.interface.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 	~int | ~bool | ~string
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go
+T 7 source.go keyword.operator.arithmetic.bitwise.go
+T 8 source.go
+T 9 source.go keyword.operator.arithmetic.bitwise.go
+T 13 source.go storage.type.boolean.go
+T 14 source.go
+T 15 source.go keyword.operator.arithmetic.bitwise.go
+T 16 source.go
+T 17 source.go keyword.operator.arithmetic.bitwise.go
+T 23 source.go storage.type.string.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type E1 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go
+T 17 source.go keyword.interface.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 	~int | ~float64 | ~string
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go
+T 7 source.go keyword.operator.arithmetic.bitwise.go
+T 8 source.go
+T 9 source.go keyword.operator.arithmetic.bitwise.go
+T 16 source.go storage.type.numeric.go
+T 17 source.go
+T 18 source.go keyword.operator.arithmetic.bitwise.go
+T 19 source.go
+T 20 source.go keyword.operator.arithmetic.bitwise.go
+T 26 source.go storage.type.string.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type E2 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go
+T 17 source.go keyword.interface.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 	~float64
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 9 source.go storage.type.numeric.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type I0 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 7 source.go entity.name.type.go
+T 8 source.go
+T 17 source.go keyword.interface.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+L 	E0
+T 1 source.go
+T 3 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f0[T I0]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 7 source.go entity.name.function.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go
+T 17 source.go punctuation.definition.begin.bracket.curly.go
+T 18 source.go punctuation.definition.end.bracket.curly.go
+L var _ = f0[int]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+L var _ = f0[bool]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go storage.type.boolean.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+L var _ = f0[string]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go storage.type.string.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+L var _ = f0[float64 /* ERROR "does not satisfy I0" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go storage.type.numeric.go
+T 19 source.go
+T 21 source.go comment.block.go punctuation.definition.comment.go
+T 50 source.go comment.block.go
+T 52 source.go comment.block.go punctuation.definition.comment.go
+T 53 source.go
+T 54 source.go punctuation.definition.end.bracket.square.go
+L 
+L type I01 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 18 source.go keyword.interface.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 	E0
+T 1 source.go
+T 3 source.go entity.name.type.go
+L 	E1
+T 1 source.go
+T 3 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f01[T I01]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 8 source.go entity.name.function.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go punctuation.definition.end.bracket.curly.go
+L var _ = f01[int]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go storage.type.numeric.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+L var _ = f01[bool /* ERROR "does not satisfy I0" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go storage.type.boolean.go
+T 17 source.go
+T 19 source.go comment.block.go punctuation.definition.comment.go
+T 48 source.go comment.block.go
+T 50 source.go comment.block.go punctuation.definition.comment.go
+T 51 source.go
+T 52 source.go punctuation.definition.end.bracket.square.go
+L var _ = f01[string]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go storage.type.string.go
+T 19 source.go punctuation.definition.end.bracket.square.go
+L var _ = f01[float64 /* ERROR "does not satisfy I0" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go
+T 22 source.go comment.block.go punctuation.definition.comment.go
+T 51 source.go comment.block.go
+T 53 source.go comment.block.go punctuation.definition.comment.go
+T 54 source.go
+T 55 source.go punctuation.definition.end.bracket.square.go
+L 
+L type I012 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 9 source.go entity.name.type.go
+T 10 source.go
+T 19 source.go keyword.interface.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 	E0
+T 1 source.go
+T 3 source.go entity.name.type.go
+L 	E1
+T 1 source.go
+T 3 source.go entity.name.type.go
+L 	E2
+T 1 source.go
+T 3 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f012[T I012]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go variable.parameter.go
+T 12 source.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.definition.end.bracket.square.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+T 22 source.go punctuation.definition.end.bracket.curly.go
+L var _ = f012[int /* ERRORx `cannot satisfy I012.*empty type set` */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go storage.type.numeric.go
+T 17 source.go
+T 19 source.go comment.block.go punctuation.definition.comment.go
+T 65 source.go comment.block.go
+T 67 source.go comment.block.go punctuation.definition.comment.go
+T 68 source.go
+T 69 source.go punctuation.definition.end.bracket.square.go
+L var _ = f012[bool /* ERRORx `cannot satisfy I012.*empty type set` */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go storage.type.boolean.go
+T 18 source.go
+T 20 source.go comment.block.go punctuation.definition.comment.go
+T 66 source.go comment.block.go
+T 68 source.go comment.block.go punctuation.definition.comment.go
+T 69 source.go
+T 70 source.go punctuation.definition.end.bracket.square.go
+L var _ = f012[string /* ERRORx `cannot satisfy I012.*empty type set` */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go storage.type.string.go
+T 20 source.go
+T 22 source.go comment.block.go punctuation.definition.comment.go
+T 68 source.go comment.block.go
+T 70 source.go comment.block.go punctuation.definition.comment.go
+T 71 source.go
+T 72 source.go punctuation.definition.end.bracket.square.go
+L var _ = f012[float64 /* ERRORx `cannot satisfy I012.*empty type set` */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.begin.bracket.square.go
+T 20 source.go storage.type.numeric.go
+T 21 source.go
+T 23 source.go comment.block.go punctuation.definition.comment.go
+T 69 source.go comment.block.go
+T 71 source.go comment.block.go punctuation.definition.comment.go
+T 72 source.go
+T 73 source.go punctuation.definition.end.bracket.square.go
+L 
+L type I12 interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 18 source.go keyword.interface.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 	E1
+T 1 source.go
+T 3 source.go entity.name.type.go
+L 	E2
+T 1 source.go
+T 3 source.go entity.name.type.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f12[T I12]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 8 source.go entity.name.function.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go punctuation.definition.end.bracket.curly.go
+L var _ = f12[int /* ERROR "does not satisfy I12" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go storage.type.numeric.go
+T 16 source.go
+T 18 source.go comment.block.go punctuation.definition.comment.go
+T 48 source.go comment.block.go
+T 50 source.go comment.block.go punctuation.definition.comment.go
+T 51 source.go
+T 52 source.go punctuation.definition.end.bracket.square.go
+L var _ = f12[bool /* ERROR "does not satisfy I12" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go storage.type.boolean.go
+T 17 source.go
+T 19 source.go comment.block.go punctuation.definition.comment.go
+T 49 source.go comment.block.go
+T 51 source.go comment.block.go punctuation.definition.comment.go
+T 52 source.go
+T 53 source.go punctuation.definition.end.bracket.square.go
+L var _ = f12[string /* ERROR "does not satisfy I12" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go storage.type.string.go
+T 19 source.go
+T 21 source.go comment.block.go punctuation.definition.comment.go
+T 51 source.go comment.block.go
+T 53 source.go comment.block.go punctuation.definition.comment.go
+T 54 source.go
+T 55 source.go punctuation.definition.end.bracket.square.go
+L var _ = f12[float64]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go punctuation.definition.end.bracket.square.go
+L 
+L type I0_ interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 18 source.go keyword.interface.go
+T 19 source.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+L 	E0
+T 1 source.go
+T 3 source.go entity.name.type.go
+L 	~int
+T 1 source.go
+T 2 source.go keyword.operator.arithmetic.bitwise.go
+T 5 source.go storage.type.numeric.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f0_[T I0_]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 8 source.go entity.name.function.go
+T 9 source.go punctuation.definition.begin.bracket.square.go
+T 10 source.go variable.parameter.go
+T 11 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go punctuation.definition.end.bracket.curly.go
+L var _ = f0_[int]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 15 source.go storage.type.numeric.go
+T 16 source.go punctuation.definition.end.bracket.square.go
+L var _ = f0_[bool /* ERROR "does not satisfy I0_" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 16 source.go storage.type.boolean.go
+T 17 source.go
+T 19 source.go comment.block.go punctuation.definition.comment.go
+T 49 source.go comment.block.go
+T 51 source.go comment.block.go punctuation.definition.comment.go
+T 52 source.go
+T 53 source.go punctuation.definition.end.bracket.square.go
+L var _ = f0_[string /* ERROR "does not satisfy I0_" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 18 source.go storage.type.string.go
+T 19 source.go
+T 21 source.go comment.block.go punctuation.definition.comment.go
+T 51 source.go comment.block.go
+T 53 source.go comment.block.go punctuation.definition.comment.go
+T 54 source.go
+T 55 source.go punctuation.definition.end.bracket.square.go
+L var _ = f0_[float64 /* ERROR "does not satisfy I0_" */ ]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 7 source.go keyword.operator.assignment.go
+T 8 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.begin.bracket.square.go
+T 19 source.go storage.type.numeric.go
+T 20 source.go
+T 22 source.go comment.block.go punctuation.definition.comment.go
+T 52 source.go comment.block.go
+T 54 source.go comment.block.go punctuation.definition.comment.go
+T 55 source.go
+T 56 source.go punctuation.definition.end.bracket.square.go
+L 
+L // Using a function instance as a type is an error.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L var _ f0 // ERROR "not a type"
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 11 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 30 source.go comment.line.double-slash.go
+L var _ f0 /* ERROR "not a type" */ [int]
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 11 source.go comment.block.go punctuation.definition.comment.go
+T 31 source.go comment.block.go
+T 33 source.go comment.block.go punctuation.definition.comment.go
+T 34 source.go
+T 35 source.go punctuation.definition.begin.bracket.square.go
+T 38 source.go storage.type.numeric.go
+T 39 source.go punctuation.definition.end.bracket.square.go
+L 
+L // Empty type sets can only be satisfied by empty type sets.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 60 source.go comment.line.double-slash.go
+L type none interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 9 source.go entity.name.type.go
+T 10 source.go
+T 19 source.go keyword.interface.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.curly.go
+L 	// force an empty type set
+T 1 source.go
+T 3 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 27 source.go comment.line.double-slash.go
+L         int
+T 8 source.go
+T 11 source.go storage.type.numeric.go
+L         string
+T 8 source.go
+T 14 source.go storage.type.string.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func ff[T none]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 7 source.go entity.name.function.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 14 source.go entity.name.type.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go punctuation.definition.end.bracket.curly.go
+L func gg[T any]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 7 source.go entity.name.function.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 13 source.go entity.name.type.any.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+T 19 source.go punctuation.definition.end.bracket.curly.go
+L func hh[T ~int]() {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 7 source.go entity.name.function.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 11 source.go keyword.operator.arithmetic.bitwise.go
+T 14 source.go storage.type.numeric.go
+T 15 source.go punctuation.definition.end.bracket.square.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 19 source.go punctuation.definition.begin.bracket.curly.go
+T 20 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func _[T none]() {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go entity.name.function.go
+T 7 source.go punctuation.definition.begin.bracket.square.go
+T 8 source.go variable.parameter.go
+T 9 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go punctuation.definition.end.bracket.square.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 	_ = ff[int /* ERROR "cannot satisfy none (empty type set)" */ ]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go storage.type.numeric.go
+T 12 source.go
+T 14 source.go comment.block.go punctuation.definition.comment.go
+T 60 source.go comment.block.go
+T 62 source.go comment.block.go punctuation.definition.comment.go
+T 63 source.go
+T 64 source.go punctuation.definition.end.bracket.square.go
+L 	_ = ff[T]  // pathological but ok because T's type set is empty, too
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.square.go
+T 12 source.go
+T 14 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 69 source.go comment.line.double-slash.go
+L 	_ = gg[int]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go storage.type.numeric.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+L 	_ = gg[T]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.square.go
+L 	_ = hh[int]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 11 source.go storage.type.numeric.go
+T 12 source.go punctuation.definition.end.bracket.square.go
+L 	_ = hh[T]
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 3 source.go
+T 4 source.go keyword.operator.assignment.go
+T 5 source.go
+T 7 source.go variable.other.go
+T 8 source.go punctuation.definition.begin.bracket.square.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.definition.end.bracket.square.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 

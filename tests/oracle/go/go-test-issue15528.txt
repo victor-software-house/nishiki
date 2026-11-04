@@ -1,0 +1,1407 @@
+L // run
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 6 source.go comment.line.double-slash.go
+L 
+L // Copyright 2016 The Go Authors. All rights reserved.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Use of this source code is governed by a BSD-style
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // license that can be found in the LICENSE file.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 
+L package main
+T 7 source.go keyword.package.go
+T 8 source.go
+T 12 source.go entity.name.type.package.go
+L 
+L import (
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go punctuation.definition.imports.begin.bracket.round.go
+L 	"fmt"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 5 source.go string.quoted.double.go entity.name.import.go
+T 6 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"io"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 4 source.go string.quoted.double.go entity.name.import.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"os"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 4 source.go string.quoted.double.go entity.name.import.go
+T 5 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"reflect"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 9 source.go string.quoted.double.go entity.name.import.go
+T 10 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 	"unsafe"
+T 1 source.go
+T 2 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 8 source.go string.quoted.double.go entity.name.import.go
+T 9 source.go string.quoted.double.go punctuation.definition.string.end.go
+L )
+T 1 source.go punctuation.definition.imports.end.bracket.round.go
+L 
+L type RWS struct{}
+T 4 source.go keyword.type.go
+T 5 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 15 source.go keyword.struct.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+T 17 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func (x *RWS) Read(p []byte) (n int, err error)                   { return }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go variable.parameter.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.square.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 27 source.go storage.type.byte.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.round.go
+T 31 source.go variable.parameter.go
+T 32 source.go
+T 35 source.go storage.type.numeric.go
+T 36 source.go punctuation.other.comma.go
+T 37 source.go
+T 40 source.go variable.parameter.go
+T 41 source.go
+T 46 source.go storage.type.error.go
+T 47 source.go punctuation.definition.end.bracket.round.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.curly.go
+T 68 source.go
+T 74 source.go keyword.control.go
+T 75 source.go
+T 76 source.go punctuation.definition.end.bracket.curly.go
+L func (x *RWS) Write(p []byte) (n int, err error)                  { return }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go variable.parameter.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.square.go
+T 24 source.go punctuation.definition.end.bracket.square.go
+T 28 source.go storage.type.byte.go
+T 29 source.go punctuation.definition.end.bracket.round.go
+T 30 source.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go variable.parameter.go
+T 33 source.go
+T 36 source.go storage.type.numeric.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 41 source.go variable.parameter.go
+T 42 source.go
+T 47 source.go storage.type.error.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.curly.go
+T 68 source.go
+T 74 source.go keyword.control.go
+T 75 source.go
+T 76 source.go punctuation.definition.end.bracket.curly.go
+L func (x *RWS) Seek(offset int64, whence int) (n int64, err error) { return }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 18 source.go entity.name.function.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go variable.parameter.go
+T 26 source.go
+T 31 source.go storage.type.numeric.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 39 source.go variable.parameter.go
+T 40 source.go
+T 43 source.go storage.type.numeric.go
+T 44 source.go punctuation.definition.end.bracket.round.go
+T 45 source.go
+T 46 source.go punctuation.definition.begin.bracket.round.go
+T 47 source.go variable.parameter.go
+T 48 source.go
+T 53 source.go storage.type.numeric.go
+T 54 source.go punctuation.other.comma.go
+T 55 source.go
+T 58 source.go variable.parameter.go
+T 59 source.go
+T 64 source.go storage.type.error.go
+T 65 source.go punctuation.definition.end.bracket.round.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.curly.go
+T 68 source.go
+T 74 source.go keyword.control.go
+T 75 source.go
+T 76 source.go punctuation.definition.end.bracket.curly.go
+L func (x *RWS) String() string                                     { return "rws" }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go
+T 20 source.go entity.name.function.go
+T 21 source.go punctuation.definition.begin.bracket.round.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go
+T 29 source.go storage.type.string.go
+T 66 source.go
+T 67 source.go punctuation.definition.begin.bracket.curly.go
+T 68 source.go
+T 74 source.go keyword.control.go
+T 75 source.go
+T 76 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 79 source.go string.quoted.double.go
+T 80 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 81 source.go
+T 82 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func makeRWS() io.ReadWriteSeeker { return &RWS{} }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 12 source.go entity.name.function.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go punctuation.definition.end.bracket.round.go
+T 15 source.go
+T 17 source.go entity.name.type.go
+T 18 source.go punctuation.other.period.go
+T 33 source.go entity.name.type.go
+T 34 source.go
+T 35 source.go punctuation.definition.begin.bracket.curly.go
+T 36 source.go
+T 42 source.go keyword.control.go
+T 43 source.go
+T 44 source.go keyword.operator.address.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+T 49 source.go punctuation.definition.end.bracket.curly.go
+T 50 source.go
+T 51 source.go punctuation.definition.end.bracket.curly.go
+L func makeStringer() fmt.Stringer  { return &RWS{} }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 17 source.go entity.name.function.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go
+T 23 source.go entity.name.type.go
+T 24 source.go punctuation.other.period.go
+T 32 source.go entity.name.type.go
+T 34 source.go
+T 35 source.go punctuation.definition.begin.bracket.curly.go
+T 36 source.go
+T 42 source.go keyword.control.go
+T 43 source.go
+T 44 source.go keyword.operator.address.go
+T 47 source.go entity.name.type.go
+T 48 source.go punctuation.definition.begin.bracket.curly.go
+T 49 source.go punctuation.definition.end.bracket.curly.go
+T 50 source.go
+T 51 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Test correct construction of static empty interface values
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 61 source.go comment.line.double-slash.go
+L var efaces = [...]struct {
+T 3 source.go keyword.var.go
+T 4 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go keyword.operator.ellipsis.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go keyword.struct.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	x interface{}
+T 1 source.go
+T 2 source.go variable.other.property.go
+T 3 source.go
+T 12 source.go keyword.interface.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+T 14 source.go punctuation.definition.end.bracket.curly.go
+L 	s string
+T 1 source.go
+T 2 source.go variable.other.property.go
+T 3 source.go
+T 9 source.go storage.type.string.go
+L }{
+T 1 source.go punctuation.definition.end.bracket.curly.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+L 	{nil, "<nil> <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go constant.language.null.go
+T 6 source.go punctuation.other.comma.go
+T 7 source.go
+T 8 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 19 source.go string.quoted.double.go
+T 20 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 21 source.go punctuation.definition.end.bracket.curly.go
+T 22 source.go punctuation.other.comma.go
+L 	{1, "int 1"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 3 source.go constant.numeric.decimal.go
+T 4 source.go punctuation.other.comma.go
+T 5 source.go
+T 6 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 11 source.go string.quoted.double.go
+T 12 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 13 source.go punctuation.definition.end.bracket.curly.go
+T 14 source.go punctuation.other.comma.go
+L 	{int(1), "int 1"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go punctuation.other.comma.go
+T 10 source.go
+T 11 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 16 source.go string.quoted.double.go
+T 17 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 18 source.go punctuation.definition.end.bracket.curly.go
+T 19 source.go punctuation.other.comma.go
+L 	{Int(int(2)), "main.Int Int=2"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go storage.type.numeric.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 30 source.go string.quoted.double.go
+T 31 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 32 source.go punctuation.definition.end.bracket.curly.go
+T 33 source.go punctuation.other.comma.go
+L 	{int(Int(3)), "int 3"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go storage.type.numeric.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 21 source.go string.quoted.double.go
+T 22 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 23 source.go punctuation.definition.end.bracket.curly.go
+T 24 source.go punctuation.other.comma.go
+L 	{[1]int{2}, "[1]int [2]"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 3 source.go punctuation.definition.begin.bracket.square.go
+T 4 source.go constant.numeric.decimal.go
+T 5 source.go punctuation.definition.end.bracket.square.go
+T 8 source.go storage.type.numeric.go
+T 9 source.go punctuation.definition.begin.bracket.curly.go
+T 10 source.go constant.numeric.decimal.go
+T 11 source.go punctuation.definition.end.bracket.curly.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 24 source.go string.quoted.double.go
+T 25 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 26 source.go punctuation.definition.end.bracket.curly.go
+T 27 source.go punctuation.other.comma.go
+L 	{io.Reader(io.ReadWriter(io.ReadWriteSeeker(nil))), "<nil> <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 25 source.go entity.name.function.support.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 48 source.go constant.language.null.go
+T 49 source.go punctuation.definition.end.bracket.round.go
+T 50 source.go punctuation.definition.end.bracket.round.go
+T 51 source.go punctuation.definition.end.bracket.round.go
+T 52 source.go punctuation.other.comma.go
+T 53 source.go
+T 54 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 65 source.go string.quoted.double.go
+T 66 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 67 source.go punctuation.definition.end.bracket.curly.go
+T 68 source.go punctuation.other.comma.go
+L 	{io.Reader(io.ReadWriter(io.ReadWriteSeeker(&RWS{}))), "*main.RWS rws"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 25 source.go entity.name.function.support.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go variable.other.go
+T 29 source.go punctuation.other.period.go
+T 44 source.go entity.name.function.support.go
+T 45 source.go punctuation.definition.begin.bracket.round.go
+T 46 source.go keyword.operator.address.go
+T 49 source.go entity.name.type.go
+T 50 source.go punctuation.definition.begin.bracket.curly.go
+T 51 source.go punctuation.definition.end.bracket.curly.go
+T 52 source.go punctuation.definition.end.bracket.round.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+T 54 source.go punctuation.definition.end.bracket.round.go
+T 55 source.go punctuation.other.comma.go
+T 56 source.go
+T 57 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 70 source.go string.quoted.double.go
+T 71 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 72 source.go punctuation.definition.end.bracket.curly.go
+T 73 source.go punctuation.other.comma.go
+L 	{makeRWS(), "*main.RWS rws"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go punctuation.other.comma.go
+T 13 source.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 27 source.go string.quoted.double.go
+T 28 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 29 source.go punctuation.definition.end.bracket.curly.go
+T 30 source.go punctuation.other.comma.go
+L 	{map[string]string{"here": "there"}, "map[string]string map[here:there]"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go keyword.map.go
+T 6 source.go punctuation.definition.begin.bracket.square.go
+T 12 source.go storage.type.string.go
+T 13 source.go punctuation.definition.end.bracket.square.go
+T 19 source.go storage.type.string.go
+T 20 source.go punctuation.definition.begin.bracket.curly.go
+T 21 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 25 source.go string.quoted.double.go
+T 26 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 27 source.go punctuation.other.colon.go
+T 28 source.go
+T 29 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 34 source.go string.quoted.double.go
+T 35 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 36 source.go punctuation.definition.end.bracket.curly.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 39 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 72 source.go string.quoted.double.go
+T 73 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 74 source.go punctuation.definition.end.bracket.curly.go
+T 75 source.go punctuation.other.comma.go
+L 	{chan bool(nil), "chan bool <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 6 source.go keyword.channel.go
+T 7 source.go
+T 11 source.go storage.type.boolean.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go constant.language.null.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 34 source.go string.quoted.double.go
+T 35 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 36 source.go punctuation.definition.end.bracket.curly.go
+T 37 source.go punctuation.other.comma.go
+L 	{unsafe.Pointer(uintptr(0)), "unsafe.Pointer <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 8 source.go variable.other.go
+T 9 source.go punctuation.other.period.go
+T 16 source.go entity.name.function.support.go
+T 17 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go storage.type.uintptr.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go constant.numeric.decimal.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 51 source.go string.quoted.double.go
+T 52 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 53 source.go punctuation.definition.end.bracket.curly.go
+T 54 source.go punctuation.other.comma.go
+L 	{(*byte)(nil), "*uint8 <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 3 source.go punctuation.definition.begin.bracket.round.go
+T 4 source.go keyword.operator.address.go
+T 8 source.go storage.type.byte.go
+T 9 source.go punctuation.definition.end.bracket.round.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go constant.language.null.go
+T 14 source.go punctuation.definition.end.bracket.round.go
+T 15 source.go punctuation.other.comma.go
+T 16 source.go
+T 17 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 29 source.go string.quoted.double.go
+T 30 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 31 source.go punctuation.definition.end.bracket.curly.go
+T 32 source.go punctuation.other.comma.go
+L 	{io.Writer((*os.File)(nil)), "*os.File <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 11 source.go entity.name.function.support.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go keyword.operator.address.go
+T 16 source.go entity.name.type.go
+T 17 source.go punctuation.other.period.go
+T 21 source.go entity.name.type.go
+T 22 source.go punctuation.definition.end.bracket.round.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go constant.language.null.go
+T 27 source.go punctuation.definition.end.bracket.round.go
+T 28 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go punctuation.other.comma.go
+T 30 source.go
+T 31 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 45 source.go string.quoted.double.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 47 source.go punctuation.definition.end.bracket.curly.go
+T 48 source.go punctuation.other.comma.go
+L 	{(interface{})(io.Writer((*os.File)(nil))), "*os.File <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 3 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go keyword.interface.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+T 14 source.go punctuation.definition.end.bracket.curly.go
+T 15 source.go punctuation.definition.end.bracket.round.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go variable.other.go
+T 19 source.go punctuation.other.period.go
+T 25 source.go entity.name.function.support.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go punctuation.definition.begin.bracket.round.go
+T 28 source.go keyword.operator.address.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.other.period.go
+T 35 source.go entity.name.type.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.definition.begin.bracket.round.go
+T 40 source.go constant.language.null.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+T 42 source.go punctuation.definition.end.bracket.round.go
+T 43 source.go punctuation.definition.end.bracket.round.go
+T 44 source.go punctuation.other.comma.go
+T 45 source.go
+T 46 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 60 source.go string.quoted.double.go
+T 61 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 62 source.go punctuation.definition.end.bracket.curly.go
+T 63 source.go punctuation.other.comma.go
+L 	{fmt.Stringer(Strunger(((*Int)(nil)))), "*main.Int <nil>"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 23 source.go entity.name.function.support.go
+T 24 source.go punctuation.definition.begin.bracket.round.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.begin.bracket.round.go
+T 27 source.go keyword.operator.address.go
+T 30 source.go entity.name.type.go
+T 31 source.go punctuation.definition.end.bracket.round.go
+T 32 source.go punctuation.definition.begin.bracket.round.go
+T 35 source.go constant.language.null.go
+T 36 source.go punctuation.definition.end.bracket.round.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+T 39 source.go punctuation.definition.end.bracket.round.go
+T 40 source.go punctuation.other.comma.go
+T 41 source.go
+T 42 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 57 source.go string.quoted.double.go
+T 58 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 59 source.go punctuation.definition.end.bracket.curly.go
+T 60 source.go punctuation.other.comma.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type Int int
+T 4 source.go keyword.type.go
+T 5 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go
+T 12 source.go storage.type.numeric.go
+L 
+L func (i Int) String() string { return fmt.Sprintf("Int=%d", i) }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 28 source.go storage.type.string.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+T 31 source.go
+T 37 source.go keyword.control.go
+T 38 source.go
+T 41 source.go variable.other.go
+T 42 source.go punctuation.other.period.go
+T 49 source.go entity.name.function.support.go
+T 50 source.go punctuation.definition.begin.bracket.round.go
+T 51 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 55 source.go string.quoted.double.go
+T 57 source.go string.quoted.double.go constant.other.placeholder.go
+T 58 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 59 source.go punctuation.other.comma.go
+T 60 source.go
+T 61 source.go variable.other.go
+T 62 source.go punctuation.definition.end.bracket.round.go
+T 63 source.go
+T 64 source.go punctuation.definition.end.bracket.curly.go
+L func (i Int) Strung()        {}
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 11 source.go entity.name.type.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+T 13 source.go
+T 19 source.go entity.name.function.go
+T 20 source.go punctuation.definition.begin.bracket.round.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+T 31 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type Strunger interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 13 source.go entity.name.type.go
+T 14 source.go
+T 23 source.go keyword.interface.go
+T 24 source.go
+T 25 source.go punctuation.definition.begin.bracket.curly.go
+L 	fmt.Stringer
+T 1 source.go
+T 4 source.go entity.name.type.go
+T 5 source.go punctuation.other.period.go
+T 13 source.go entity.name.type.go
+L 	Strung()
+T 1 source.go
+T 7 source.go entity.name.function.support.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go punctuation.definition.end.bracket.round.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Test correct construction of static non-empty interface values
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 65 source.go comment.line.double-slash.go
+L var ifaces = [...]struct {
+T 3 source.go keyword.var.go
+T 4 source.go
+T 10 source.go variable.other.assignment.go
+T 11 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 14 source.go punctuation.definition.begin.bracket.square.go
+T 17 source.go keyword.operator.ellipsis.go
+T 18 source.go punctuation.definition.end.bracket.square.go
+T 24 source.go keyword.struct.go
+T 25 source.go
+T 26 source.go punctuation.definition.begin.bracket.curly.go
+L 	x fmt.Stringer
+T 1 source.go
+T 2 source.go variable.other.property.go
+T 3 source.go
+T 6 source.go entity.name.type.go
+T 7 source.go punctuation.other.period.go
+T 15 source.go entity.name.type.go
+L 	s string
+T 1 source.go
+T 2 source.go variable.other.property.go
+T 3 source.go
+T 9 source.go storage.type.string.go
+L }{
+T 1 source.go punctuation.definition.end.bracket.curly.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+L 	{nil, "<nil> <nil> %!s(<nil>)"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go constant.language.null.go
+T 6 source.go punctuation.other.comma.go
+T 7 source.go
+T 8 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 30 source.go string.quoted.double.go
+T 31 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 32 source.go punctuation.definition.end.bracket.curly.go
+T 33 source.go punctuation.other.comma.go
+L 	{Int(3), "main.Int 3 Int=3"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 7 source.go constant.numeric.decimal.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go punctuation.other.comma.go
+T 10 source.go
+T 11 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 27 source.go string.quoted.double.go
+T 28 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 29 source.go punctuation.definition.end.bracket.curly.go
+T 30 source.go punctuation.other.comma.go
+L 	{Int(int(Int(4))), "main.Int 4 Int=4"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go entity.name.function.support.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go storage.type.numeric.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go constant.numeric.decimal.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 37 source.go string.quoted.double.go
+T 38 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 39 source.go punctuation.definition.end.bracket.curly.go
+T 40 source.go punctuation.other.comma.go
+L 	{Strunger(Int(5)), "main.Int 5 Int=5"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 10 source.go entity.name.function.support.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go constant.numeric.decimal.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go punctuation.definition.end.bracket.round.go
+T 19 source.go punctuation.other.comma.go
+T 20 source.go
+T 21 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 37 source.go string.quoted.double.go
+T 38 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 39 source.go punctuation.definition.end.bracket.curly.go
+T 40 source.go punctuation.other.comma.go
+L 	{makeStringer(), "*main.RWS &main.RWS{} rws"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go punctuation.other.comma.go
+T 18 source.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 44 source.go string.quoted.double.go
+T 45 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 46 source.go punctuation.definition.end.bracket.curly.go
+T 47 source.go punctuation.other.comma.go
+L 	{fmt.Stringer(nil), "<nil> <nil> %!s(<nil>)"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 14 source.go entity.name.function.support.go
+T 15 source.go punctuation.definition.begin.bracket.round.go
+T 18 source.go constant.language.null.go
+T 19 source.go punctuation.definition.end.bracket.round.go
+T 20 source.go punctuation.other.comma.go
+T 21 source.go
+T 22 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 44 source.go string.quoted.double.go
+T 45 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 46 source.go punctuation.definition.end.bracket.curly.go
+T 47 source.go punctuation.other.comma.go
+L 	{(*RWS)(nil), "*main.RWS (*main.RWS)(nil) rws"},
+T 1 source.go
+T 2 source.go punctuation.definition.begin.bracket.curly.go
+T 3 source.go punctuation.definition.begin.bracket.round.go
+T 4 source.go keyword.operator.address.go
+T 7 source.go entity.name.type.go
+T 8 source.go punctuation.definition.end.bracket.round.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 12 source.go constant.language.null.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+T 14 source.go punctuation.other.comma.go
+T 15 source.go
+T 16 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 46 source.go string.quoted.double.go
+T 47 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 48 source.go punctuation.definition.end.bracket.curly.go
+T 49 source.go punctuation.other.comma.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L // Test correct handling of direct interface values
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 51 source.go comment.line.double-slash.go
+L var (
+T 3 source.go keyword.var.go
+T 4 source.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+L 	one  int         = 1
+T 1 source.go
+T 4 source.go variable.other.assignment.go
+T 6 source.go
+T 9 source.go storage.type.numeric.go
+T 18 source.go
+T 19 source.go keyword.operator.assignment.go
+T 20 source.go
+T 21 source.go constant.numeric.decimal.go
+L 	iptr interface{} = &one
+T 1 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 15 source.go keyword.interface.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+T 17 source.go punctuation.definition.end.bracket.curly.go
+T 18 source.go
+T 19 source.go keyword.operator.assignment.go
+T 20 source.go
+T 21 source.go keyword.operator.address.go
+T 24 source.go variable.other.go
+L 	clos int
+T 1 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 9 source.go storage.type.numeric.go
+L 	f    interface{} = func() { clos++ }
+T 1 source.go
+T 2 source.go variable.other.assignment.go
+T 6 source.go
+T 15 source.go keyword.interface.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+T 17 source.go punctuation.definition.end.bracket.curly.go
+T 18 source.go
+T 19 source.go keyword.operator.assignment.go
+T 20 source.go
+T 24 source.go keyword.function.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+T 27 source.go
+T 28 source.go punctuation.definition.begin.bracket.curly.go
+T 29 source.go
+T 33 source.go variable.other.go
+T 35 source.go keyword.operator.increment.go
+T 36 source.go
+T 37 source.go punctuation.definition.end.bracket.curly.go
+L 	deep interface{} = [1]struct{ a *[2]byte }{{a: &[2]byte{'z', 'w'}}}
+T 1 source.go
+T 5 source.go variable.other.assignment.go
+T 6 source.go
+T 15 source.go keyword.interface.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+T 17 source.go punctuation.definition.end.bracket.curly.go
+T 18 source.go
+T 19 source.go keyword.operator.assignment.go
+T 20 source.go
+T 21 source.go punctuation.definition.begin.bracket.square.go
+T 22 source.go constant.numeric.decimal.go
+T 23 source.go punctuation.definition.end.bracket.square.go
+T 29 source.go keyword.struct.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+T 31 source.go
+T 32 source.go variable.other.property.go
+T 33 source.go
+T 34 source.go keyword.operator.address.go
+T 35 source.go punctuation.definition.begin.bracket.square.go
+T 36 source.go constant.numeric.decimal.go
+T 37 source.go punctuation.definition.end.bracket.square.go
+T 41 source.go storage.type.byte.go
+T 42 source.go
+T 43 source.go punctuation.definition.end.bracket.curly.go
+T 44 source.go punctuation.definition.begin.bracket.curly.go
+T 45 source.go punctuation.definition.begin.bracket.curly.go
+T 46 source.go variable.other.property.go
+T 47 source.go punctuation.other.colon.go
+T 48 source.go
+T 49 source.go keyword.operator.address.go
+T 50 source.go punctuation.definition.begin.bracket.square.go
+T 51 source.go constant.numeric.decimal.go
+T 52 source.go punctuation.definition.end.bracket.square.go
+T 56 source.go storage.type.byte.go
+T 57 source.go punctuation.definition.begin.bracket.curly.go
+T 58 source.go string.quoted.rune.go punctuation.definition.string.begin.go
+T 59 source.go string.quoted.rune.go constant.other.rune.go
+T 60 source.go string.quoted.rune.go punctuation.definition.string.end.go
+T 61 source.go punctuation.other.comma.go
+T 62 source.go
+T 63 source.go string.quoted.rune.go punctuation.definition.string.begin.go
+T 64 source.go string.quoted.rune.go constant.other.rune.go
+T 65 source.go string.quoted.rune.go punctuation.definition.string.end.go
+T 66 source.go punctuation.definition.end.bracket.curly.go
+T 67 source.go punctuation.definition.end.bracket.curly.go
+T 68 source.go punctuation.definition.end.bracket.curly.go
+L 	ch   interface{} = make(chan bool, 1)
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 6 source.go
+T 15 source.go keyword.interface.go
+T 16 source.go punctuation.definition.begin.bracket.curly.go
+T 17 source.go punctuation.definition.end.bracket.curly.go
+T 18 source.go
+T 19 source.go keyword.operator.assignment.go
+T 20 source.go
+T 24 source.go entity.name.function.support.builtin.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go keyword.channel.go
+T 30 source.go
+T 34 source.go storage.type.boolean.go
+T 35 source.go punctuation.other.comma.go
+T 36 source.go
+T 37 source.go constant.numeric.decimal.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+L )
+T 1 source.go punctuation.definition.end.bracket.round.go
+L 
+L func main() {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+L 	var fail bool
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 14 source.go storage.type.boolean.go
+L 	for i, test := range efaces {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go keyword.control.go
+T 22 source.go
+T 28 source.go variable.other.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 		s := fmt.Sprintf("%[1]T %[1]v", test.x)
+T 2 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 25 source.go string.quoted.double.go constant.other.placeholder.go
+T 26 source.go string.quoted.double.go
+T 31 source.go string.quoted.double.go constant.other.placeholder.go
+T 32 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 33 source.go punctuation.other.comma.go
+T 34 source.go
+T 38 source.go variable.other.go
+T 39 source.go punctuation.other.period.go
+T 40 source.go variable.other.go
+T 41 source.go punctuation.definition.end.bracket.round.go
+L 		if s != test.s {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 			fmt.Printf("eface(%d)=%q want %q\n", i, s, test.s)
+T 3 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.other.period.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 21 source.go string.quoted.double.go
+T 23 source.go string.quoted.double.go constant.other.placeholder.go
+T 25 source.go string.quoted.double.go
+T 27 source.go string.quoted.double.go constant.other.placeholder.go
+T 33 source.go string.quoted.double.go
+T 35 source.go string.quoted.double.go constant.other.placeholder.go
+T 37 source.go string.quoted.double.go constant.character.escape.go
+T 38 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 39 source.go punctuation.other.comma.go
+T 40 source.go
+T 41 source.go variable.other.go
+T 42 source.go punctuation.other.comma.go
+T 43 source.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.other.comma.go
+T 46 source.go
+T 50 source.go variable.other.go
+T 51 source.go punctuation.other.period.go
+T 52 source.go variable.other.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+L 			fail = true
+T 3 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 14 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	for i, test := range ifaces {
+T 1 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go punctuation.other.comma.go
+T 8 source.go
+T 12 source.go variable.other.assignment.go
+T 13 source.go
+T 15 source.go keyword.operator.assignment.go
+T 16 source.go
+T 21 source.go keyword.control.go
+T 22 source.go
+T 28 source.go variable.other.go
+T 29 source.go
+T 30 source.go punctuation.definition.begin.bracket.curly.go
+L 		s := fmt.Sprintf("%[1]T %#[1]v %[1]s", test.x)
+T 2 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 10 source.go variable.other.go
+T 11 source.go punctuation.other.period.go
+T 18 source.go entity.name.function.support.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 25 source.go string.quoted.double.go constant.other.placeholder.go
+T 26 source.go string.quoted.double.go
+T 32 source.go string.quoted.double.go constant.other.placeholder.go
+T 33 source.go string.quoted.double.go
+T 38 source.go string.quoted.double.go constant.other.placeholder.go
+T 39 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 40 source.go punctuation.other.comma.go
+T 41 source.go
+T 45 source.go variable.other.go
+T 46 source.go punctuation.other.period.go
+T 47 source.go variable.other.go
+T 48 source.go punctuation.definition.end.bracket.round.go
+L 		if s != test.s {
+T 2 source.go
+T 4 source.go keyword.control.go
+T 5 source.go
+T 6 source.go variable.other.go
+T 7 source.go
+T 9 source.go keyword.operator.comparison.go
+T 10 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 16 source.go variable.other.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 			fmt.Printf("iface(%d)=%q want %q\n", i, s, test.s)
+T 3 source.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.other.period.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 21 source.go string.quoted.double.go
+T 23 source.go string.quoted.double.go constant.other.placeholder.go
+T 25 source.go string.quoted.double.go
+T 27 source.go string.quoted.double.go constant.other.placeholder.go
+T 33 source.go string.quoted.double.go
+T 35 source.go string.quoted.double.go constant.other.placeholder.go
+T 37 source.go string.quoted.double.go constant.character.escape.go
+T 38 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 39 source.go punctuation.other.comma.go
+T 40 source.go
+T 41 source.go variable.other.go
+T 42 source.go punctuation.other.comma.go
+T 43 source.go
+T 44 source.go variable.other.go
+T 45 source.go punctuation.other.comma.go
+T 46 source.go
+T 50 source.go variable.other.go
+T 51 source.go punctuation.other.period.go
+T 52 source.go variable.other.go
+T 53 source.go punctuation.definition.end.bracket.round.go
+L 			fail = true
+T 3 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 9 source.go keyword.operator.assignment.go
+T 10 source.go
+T 14 source.go constant.language.boolean.go
+L 		}
+T 2 source.go
+T 3 source.go punctuation.definition.end.bracket.curly.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	if got := *(iptr.(*int)); got != 1 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 12 source.go keyword.operator.arithmetic.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go variable.other.go
+T 18 source.go punctuation.other.period.go
+T 19 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go keyword.operator.address.go
+T 23 source.go storage.type.numeric.go
+T 24 source.go punctuation.definition.end.bracket.round.go
+T 25 source.go punctuation.definition.end.bracket.round.go
+T 26 source.go punctuation.terminator.go
+T 27 source.go
+T 30 source.go variable.other.go
+T 31 source.go
+T 33 source.go keyword.operator.comparison.go
+T 34 source.go
+T 35 source.go constant.numeric.decimal.go
+T 36 source.go
+T 37 source.go punctuation.definition.begin.bracket.curly.go
+L 		fmt.Printf("bad int ptr %d\n", got)
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 26 source.go string.quoted.double.go
+T 28 source.go string.quoted.double.go constant.other.placeholder.go
+T 30 source.go string.quoted.double.go constant.character.escape.go
+T 31 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 32 source.go punctuation.other.comma.go
+T 33 source.go
+T 36 source.go variable.other.go
+T 37 source.go punctuation.definition.end.bracket.round.go
+L 		fail = true
+T 2 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 13 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	f.(func())()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go keyword.function.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+L 	f.(func())()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go keyword.function.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+L 	f.(func())()
+T 1 source.go
+T 2 source.go variable.other.go
+T 3 source.go punctuation.other.period.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go keyword.function.go
+T 9 source.go punctuation.definition.begin.bracket.round.go
+T 10 source.go punctuation.definition.end.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go punctuation.definition.begin.bracket.round.go
+T 13 source.go punctuation.definition.end.bracket.round.go
+L 	if clos != 3 {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 8 source.go variable.other.go
+T 9 source.go
+T 11 source.go keyword.operator.comparison.go
+T 12 source.go
+T 13 source.go constant.numeric.decimal.go
+T 14 source.go
+T 15 source.go punctuation.definition.begin.bracket.curly.go
+L 		fmt.Printf("bad closure exec %d\n", clos)
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 31 source.go string.quoted.double.go
+T 33 source.go string.quoted.double.go constant.other.placeholder.go
+T 35 source.go string.quoted.double.go constant.character.escape.go
+T 36 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 37 source.go punctuation.other.comma.go
+T 38 source.go
+T 42 source.go variable.other.go
+T 43 source.go punctuation.definition.end.bracket.round.go
+L 		fail = true
+T 2 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 13 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	if !reflect.DeepEqual(*(deep.([1]struct{ a *[2]byte })[0].a), [2]byte{'z', 'w'}) {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 5 source.go keyword.operator.logical.go
+T 12 source.go variable.other.go
+T 13 source.go punctuation.other.period.go
+T 22 source.go entity.name.function.support.go
+T 23 source.go punctuation.definition.begin.bracket.round.go
+T 24 source.go keyword.operator.arithmetic.go
+T 25 source.go punctuation.definition.begin.bracket.round.go
+T 29 source.go variable.other.go
+T 30 source.go punctuation.other.period.go
+T 31 source.go punctuation.definition.begin.bracket.round.go
+T 32 source.go punctuation.definition.begin.bracket.square.go
+T 33 source.go constant.numeric.decimal.go
+T 34 source.go punctuation.definition.end.bracket.square.go
+T 40 source.go keyword.struct.go
+T 41 source.go punctuation.definition.begin.bracket.curly.go
+T 42 source.go
+T 43 source.go variable.other.property.go
+T 44 source.go
+T 45 source.go keyword.operator.address.go
+T 46 source.go punctuation.definition.begin.bracket.square.go
+T 47 source.go constant.numeric.decimal.go
+T 48 source.go punctuation.definition.end.bracket.square.go
+T 52 source.go storage.type.byte.go
+T 53 source.go
+T 54 source.go punctuation.definition.end.bracket.curly.go
+T 55 source.go punctuation.definition.end.bracket.round.go
+T 56 source.go punctuation.definition.begin.bracket.square.go
+T 57 source.go constant.numeric.decimal.go
+T 58 source.go punctuation.definition.end.bracket.square.go
+T 59 source.go punctuation.other.period.go
+T 60 source.go variable.other.go
+T 61 source.go punctuation.definition.end.bracket.round.go
+T 62 source.go punctuation.other.comma.go
+T 63 source.go
+T 64 source.go punctuation.definition.begin.bracket.square.go
+T 65 source.go constant.numeric.decimal.go
+T 66 source.go punctuation.definition.end.bracket.square.go
+T 70 source.go storage.type.byte.go
+T 71 source.go punctuation.definition.begin.bracket.curly.go
+T 72 source.go string.quoted.rune.go punctuation.definition.string.begin.go
+T 73 source.go string.quoted.rune.go constant.other.rune.go
+T 74 source.go string.quoted.rune.go punctuation.definition.string.end.go
+T 75 source.go punctuation.other.comma.go
+T 76 source.go
+T 77 source.go string.quoted.rune.go punctuation.definition.string.begin.go
+T 78 source.go string.quoted.rune.go constant.other.rune.go
+T 79 source.go string.quoted.rune.go punctuation.definition.string.end.go
+T 80 source.go punctuation.definition.end.bracket.curly.go
+T 81 source.go punctuation.definition.end.bracket.round.go
+T 82 source.go
+T 83 source.go punctuation.definition.begin.bracket.curly.go
+L 		fmt.Printf("bad deep directiface\n")
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 34 source.go string.quoted.double.go
+T 36 source.go string.quoted.double.go constant.character.escape.go
+T 37 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 38 source.go punctuation.definition.end.bracket.round.go
+L 		fail = true
+T 2 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 13 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	cc := ch.(chan bool)
+T 1 source.go
+T 3 source.go variable.other.assignment.go
+T 4 source.go
+T 6 source.go keyword.operator.assignment.go
+T 7 source.go
+T 9 source.go variable.other.go
+T 10 source.go punctuation.other.period.go
+T 11 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go keyword.channel.go
+T 16 source.go
+T 20 source.go storage.type.boolean.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+L 	cc <- true
+T 1 source.go
+T 3 source.go variable.other.go
+T 4 source.go
+T 6 source.go keyword.operator.channel.go
+T 7 source.go
+T 11 source.go constant.language.boolean.go
+L 	if got := <-cc; !got {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 7 source.go variable.other.assignment.go
+T 8 source.go
+T 10 source.go keyword.operator.assignment.go
+T 11 source.go
+T 13 source.go keyword.operator.channel.go
+T 15 source.go variable.other.go
+T 16 source.go punctuation.terminator.go
+T 17 source.go
+T 18 source.go keyword.operator.logical.go
+T 21 source.go variable.other.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 		fmt.Printf("bad chan\n")
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 12 source.go entity.name.function.support.go
+T 13 source.go punctuation.definition.begin.bracket.round.go
+T 14 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 22 source.go string.quoted.double.go
+T 24 source.go string.quoted.double.go constant.character.escape.go
+T 25 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 26 source.go punctuation.definition.end.bracket.round.go
+L 		fail = true
+T 2 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go keyword.operator.assignment.go
+T 9 source.go
+T 13 source.go constant.language.boolean.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L 	if fail {
+T 1 source.go
+T 3 source.go keyword.control.go
+T 4 source.go
+T 8 source.go variable.other.go
+T 9 source.go
+T 10 source.go punctuation.definition.begin.bracket.curly.go
+L 		fmt.Println("BUG")
+T 2 source.go
+T 5 source.go variable.other.go
+T 6 source.go punctuation.other.period.go
+T 13 source.go entity.name.function.support.go
+T 14 source.go punctuation.definition.begin.bracket.round.go
+T 15 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 18 source.go string.quoted.double.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 20 source.go punctuation.definition.end.bracket.round.go
+L 		os.Exit(1)
+T 2 source.go
+T 4 source.go variable.other.go
+T 5 source.go punctuation.other.period.go
+T 9 source.go entity.name.function.support.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go constant.numeric.decimal.go
+T 12 source.go punctuation.definition.end.bracket.round.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 

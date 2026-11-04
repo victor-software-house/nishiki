@@ -1,0 +1,187 @@
+L // run
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 6 source.go comment.line.double-slash.go
+L 
+L // Copyright 2009 The Go Authors. All rights reserved.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 54 source.go comment.line.double-slash.go
+L // Use of this source code is governed by a BSD-style
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 53 source.go comment.line.double-slash.go
+L // license that can be found in the LICENSE file.
+T 2 source.go comment.line.double-slash.go punctuation.definition.comment.go
+T 49 source.go comment.line.double-slash.go
+L 
+L package main
+T 7 source.go keyword.package.go
+T 8 source.go
+T 12 source.go entity.name.type.package.go
+L 
+L import "os"
+T 6 source.go keyword.control.import.go
+T 7 source.go
+T 8 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 10 source.go string.quoted.double.go entity.name.import.go
+T 11 source.go string.quoted.double.go punctuation.definition.string.end.go
+L 
+L type S struct { i int }
+T 4 source.go keyword.type.go
+T 5 source.go
+T 6 source.go entity.name.type.go
+T 7 source.go
+T 13 source.go keyword.struct.go
+T 14 source.go
+T 15 source.go punctuation.definition.begin.bracket.curly.go
+T 16 source.go
+T 17 source.go variable.other.property.go
+T 18 source.go
+T 21 source.go storage.type.numeric.go
+T 22 source.go
+T 23 source.go punctuation.definition.end.bracket.curly.go
+L func (p *S) Get() int { return p.i }
+T 4 source.go keyword.function.go
+T 5 source.go
+T 6 source.go punctuation.definition.begin.bracket.round.go
+T 8 source.go variable.parameter.go
+T 9 source.go keyword.operator.address.go
+T 10 source.go entity.name.type.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 15 source.go entity.name.function.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 17 source.go punctuation.definition.end.bracket.round.go
+T 18 source.go
+T 21 source.go storage.type.numeric.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+T 24 source.go
+T 30 source.go keyword.control.go
+T 31 source.go
+T 32 source.go variable.other.go
+T 33 source.go punctuation.other.period.go
+T 34 source.go variable.other.go
+T 35 source.go
+T 36 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type Empty interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 10 source.go entity.name.type.go
+T 11 source.go
+T 20 source.go keyword.interface.go
+T 21 source.go
+T 22 source.go punctuation.definition.begin.bracket.curly.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L type Getter interface {
+T 4 source.go keyword.type.go
+T 5 source.go
+T 11 source.go entity.name.type.go
+T 12 source.go
+T 21 source.go keyword.interface.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	Get() int;
+T 1 source.go
+T 4 source.go entity.name.function.support.go
+T 5 source.go punctuation.definition.begin.bracket.round.go
+T 6 source.go punctuation.definition.end.bracket.round.go
+T 7 source.go
+T 10 source.go storage.type.numeric.go
+T 11 source.go punctuation.terminator.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func f1(p Empty) {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 7 source.go entity.name.function.go
+T 8 source.go punctuation.definition.begin.bracket.round.go
+T 9 source.go variable.parameter.go
+T 10 source.go
+T 15 source.go entity.name.type.go
+T 16 source.go punctuation.definition.end.bracket.round.go
+T 17 source.go
+T 18 source.go punctuation.definition.begin.bracket.curly.go
+L 	switch x := p.(type) {
+T 1 source.go
+T 7 source.go keyword.control.go
+T 8 source.go
+T 9 source.go variable.other.assignment.go
+T 10 source.go
+T 12 source.go keyword.operator.assignment.go
+T 13 source.go
+T 14 source.go variable.other.go
+T 15 source.go punctuation.other.period.go
+T 16 source.go punctuation.definition.begin.bracket.round.go
+T 20 source.go keyword.type.go
+T 21 source.go punctuation.definition.end.bracket.round.go
+T 22 source.go
+T 23 source.go punctuation.definition.begin.bracket.curly.go
+L 	default: println("failed to match interface", x); os.Exit(1);
+T 1 source.go
+T 8 source.go keyword.control.go
+T 9 source.go punctuation.other.colon.go
+T 10 source.go
+T 17 source.go entity.name.function.support.builtin.go
+T 18 source.go punctuation.definition.begin.bracket.round.go
+T 19 source.go string.quoted.double.go punctuation.definition.string.begin.go
+T 44 source.go string.quoted.double.go
+T 45 source.go string.quoted.double.go punctuation.definition.string.end.go
+T 46 source.go punctuation.other.comma.go
+T 47 source.go
+T 48 source.go variable.other.go
+T 49 source.go punctuation.definition.end.bracket.round.go
+T 50 source.go punctuation.terminator.go
+T 51 source.go
+T 53 source.go variable.other.go
+T 54 source.go punctuation.other.period.go
+T 58 source.go entity.name.function.support.go
+T 59 source.go punctuation.definition.begin.bracket.round.go
+T 60 source.go constant.numeric.decimal.go
+T 61 source.go punctuation.definition.end.bracket.round.go
+T 62 source.go punctuation.terminator.go
+L 	case Getter: break;
+T 1 source.go
+T 5 source.go keyword.control.go
+T 6 source.go
+T 12 source.go entity.name.type.go
+T 13 source.go punctuation.other.colon.go
+T 14 source.go
+T 19 source.go keyword.control.go
+T 20 source.go punctuation.terminator.go
+L 	}
+T 1 source.go
+T 2 source.go punctuation.definition.end.bracket.curly.go
+L 
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
+L func main() {
+T 4 source.go keyword.function.go
+T 5 source.go
+T 9 source.go entity.name.function.go
+T 10 source.go punctuation.definition.begin.bracket.round.go
+T 11 source.go punctuation.definition.end.bracket.round.go
+T 12 source.go
+T 13 source.go punctuation.definition.begin.bracket.curly.go
+L 	var s S;
+T 1 source.go
+T 4 source.go keyword.var.go
+T 5 source.go
+T 6 source.go variable.other.assignment.go
+T 7 source.go
+T 8 source.go entity.name.type.go
+T 9 source.go punctuation.terminator.go
+L 	f1(&s);
+T 1 source.go
+T 3 source.go entity.name.function.support.go
+T 4 source.go punctuation.definition.begin.bracket.round.go
+T 5 source.go keyword.operator.address.go
+T 6 source.go variable.other.go
+T 7 source.go punctuation.definition.end.bracket.round.go
+T 8 source.go punctuation.terminator.go
+L }
+T 1 source.go punctuation.definition.end.bracket.curly.go
+L 
