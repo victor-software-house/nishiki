@@ -286,6 +286,8 @@ All are permissive except giallo.
 
 Decided (operator, 2026-11-03): giallo is allowed under its EUPL-1.2 licence, built on the bench box only and never distributed.
 `@pierre/highlights` is allowed once its licence is read at its source.
+It was read on 2026-11-04: version 0.4.0 is Apache-2.0 (task 1.1).
+It stays a timing and output comparison, pinned, never shipped and never read as a grammar source (invariant 1).
 
 ### 14. Dependencies
 
@@ -300,7 +302,7 @@ None enters the published crate.
 | tree-sitter-highlight 0.27.1 and one grammar crate per language | `bench/compare/` | MIT; each grammar read before use | decision 13; builds C |
 | giallo 0.5.2 | `bench/compare/` | EUPL-1.2, copyleft | decision 13; never distributed, built only on the bench host |
 | `shiki@4.6.0` | `bench/compare/`, Bun | MIT | already pinned by `oracle/generate.ts` |
-| `@pierre/highlights` | `bench/compare/`, Bun | not yet read | optional |
+| `@pierre/highlights@0.4.0` | `bench/compare/`, Bun | Apache-2.0; its 152 grammars name no licence | decision 13 |
 
 Decided (operator, 2026-11-03): every dependency in the table is approved.
 criterion goes in with its default features off.

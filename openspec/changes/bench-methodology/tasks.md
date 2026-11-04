@@ -8,6 +8,11 @@ Each lands the docs its work changes: `bench/AGENTS.md`, `bench/README.md` and t
 - [x] 1.1 The lead approves or declines each dependency in design decision 14 → verify: the answer is recorded under decision 14, dated
   - 2026-11-04 UTC (2026-11-03 BRT): the operator approved every dependency, criterion with its default features off; recorded under decision 14.
     The lead relayed it after opening [#239][pr-239].
+  - 2026-11-04 UTC: `@pierre/highlights` 0.4.0 was read in its published package, the only source npm names.
+    Its `LICENSE.md` is Apache-2.0, copyright 2025 Pierre Computer Company.
+    Its `NOTICE.md` lists the sources of its bundled themes only.
+    It names no licence for its 152 grammars.
+    It enters `bench/compare/` as a pinned Bun import, never shipped and never read as a grammar source (lead).
 - [x] 1.2 The lead decides on giallo's EUPL-1.2 licence in a never-distributed comparison → verify: the answer is recorded under decision 13, dated
   - 2026-11-04 UTC (2026-11-03 BRT): the operator allowed giallo, built on the bench box only and never distributed, and `@pierre/highlights` once its licence is read at its source; recorded under decision 13.
 
@@ -134,11 +139,18 @@ The probe uses the current `examples/bench.rs` throughput figure, so it does not
     giallo agreed with Shiki on every byte.
     giallo's setup took 38 to 41 ms.
     It builds only on the bench box, behind the off-by-default feature.
-- [ ] 7.3 Shiki 4.6.0 in Bun, with both engines and its limits off, and `@pierre/highlights` if 1.1 allows it → verify: the same output as 7.1 for each
+- [x] 7.3 Shiki 4.6.0 in Bun, with both engines and its limits off, and `@pierre/highlights` if 1.1 allows it → verify: the same output as 7.1 for each
   - 2026-11-04 UTC: `shiki.ts reference` wrote the colours of all 111 corpus files, and `shiki.ts time 1` printed setup, first document and warm MiB/s for both engines on all of them (222 rows) on an instabox box.
-    Not done: `time` prints no token count and no agreement.
-    The JavaScript engine is not yet scored against Oniguruma.
-    `@pierre/highlights` is not added.
+  - 2026-11-04 UTC, on one Boat `default` box: `shiki.ts time 1` printed 333 rows, one per file for each of three engines.
+    Each row has setup, first document, warm MiB/s, tokens and agreement, as 7.1's rows do.
+    Shiki's Oniguruma engine agreed with the reference on all 111 files, as it must.
+    Shiki's JavaScript engine also agreed on all 111 files.
+    `@pierre/highlights` agreed on 74.4% of bytes on average, and on every byte of 8 files.
+    Its lowest languages are GraphQL and SQL, at about 37%.
+    In the SQL file at 5.8%, a Pierre string runs to the end of the file.
+    In GraphQL, Pierre colours descriptions as strings, where Shiki colours them as comments.
+    Those gaps come from Pierre's lexers, not from the theme map.
+    The same box ran the Rust harness on the small tier of Rust, JSON and Markdown, and clippy with warnings denied passed.
 - [ ] 7.4 The first recorded comparison on the reference host, rendered into `bench/compare/README.md` → verify: the record lists every engine's version, features and backend, the languages left out, and the rounds; its anchor drift is under the reference class's bound
 
 ## 8. Later questions

@@ -12,9 +12,13 @@ The reasons for each rule are in the `bench-methodology` change, design decision
 | tree-sitter-highlight | 0.27.1 | whole documents, each grammar crate's highlight query |
 | giallo | 0.5.2 | on the bench box only, with the `giallo` feature |
 | Shiki | 4.6.0 | in Bun, Oniguruma and JavaScript engines (`shiki.ts`) |
+| @pierre/highlights | 0.4.0 | in Bun, its WebAssembly lexers (`shiki.ts`) |
 
 giallo is EUPL-1.2, a copyleft licence.
 It is a feature that is off by default, built only on the bench box, and never distributed.
+
+@pierre/highlights is a timing and output comparison only.
+nishiki never reads it as a grammar source (invariant 1).
 
 ## The rules
 
@@ -23,15 +27,19 @@ It is a feature that is off by default, built only on the bench box, and never d
 2. Every engine colours with Shiki's github-dark.
    - syntect gets it as a theme built from Shiki's JSON rules.
    - tree-sitter's capture names map to the TextMate scope whose colour stands for them (`CAPTURES` in `src/engines.rs`).
+   - Pierre takes Zed themes keyed by its token names.
+     `compare --pierre-theme` writes one from `CAPTURES` and `PIERRE` in `src/engines.rs`.
+     Pierre's agreement depends on that map.
+     A low figure can come from the map, not the engine.
 3. Setup, the first document in a fresh process, and warm throughput are three figures, never one.
-4. Every engine does the full work: Shiki's limits are off, and the run stops if nishiki reports a limit reached.
+4. Every engine does the full work: Shiki's and Pierre's line limits are off, and the run stops if nishiki reports a limit reached.
 5. Every Rust engine builds with the default release profile and the same rustc.
 6. TypeScript's tree-sitter query is joined to JavaScript's, and C++'s to C's, because each extends its base.
 7. Each row carries the engine's token count and its agreement with Shiki.
    Agreement is the share of non-whitespace bytes whose colour matches Shiki's.
 8. The engine order rotates every round, five rounds at least, and the median counts.
-9. Shiki runs in Bun.
-   Its rows show what a user of each library gets.
+9. Shiki and Pierre run in Bun.
+   Their rows show what a user of each library gets.
    They do not show which algorithm is faster.
 
 ## Licences
@@ -63,6 +71,7 @@ None ships: `publish = false` and the crate's `include` both leave `bench/` out.
 | serde_json | 1.0.154 | MIT OR Apache-2.0 | crates.io manifest |
 | giallo, behind the `giallo` feature | 0.5.2 | EUPL-1.2, copyleft | [Cargo.toml][giallo-cargo] |
 | shiki, in Bun | 4.6.0 | MIT | already pinned by `oracle/generate.ts` |
+| @pierre/highlights, in Bun | 0.4.0 | Apache-2.0; its `NOTICE.md` names no licence for its grammars | [LICENSE.md][pierre-licence] |
 
 Each grammar's licence was read in its repository at the commit its release tag names.
 The two-face summary covers only the syntaxes two-face acknowledges.
@@ -74,10 +83,14 @@ A syntax it ships without a licence file would not appear there.
 mise run bench:compare                      # medium tier, every language
 mise run bench:compare -- --tier large rust # one language and tier
 COMPARE_FEATURES=giallo mise run bench:compare
-bun bench/compare/shiki.ts time             # Shiki's own figures
+bun bench/compare/shiki.ts time             # Shiki's and Pierre's own figures
 ```
 
 `bench:compare` first writes Shiki's reference colours to `target/compare/shiki/`.
+It also writes Pierre's theme to `target/compare/pierre-theme.json`.
+`shiki.ts time` needs both.
+Its rows carry tokens and agreement as the harness's rows do.
+The Oniguruma engine reads 100% agreement, because it wrote the reference.
 It builds C for Oniguruma and the tree-sitter grammars.
 It is not part of `verify`.
 The Bench job runs `bench:check` on a pull request labelled `bench`.
@@ -85,6 +98,7 @@ The Bench job runs `bench:check` on a pull request labelled `bench`.
 That keeps it building.
 A recorded comparison runs on the reference host, under the rules in [`../AGENTS.md`](../AGENTS.md).
 
+[pierre-licence]: https://unpkg.com/@pierre/highlights@0.4.0/LICENSE.md
 [two-face-ack]: https://github.com/CosmicHorrorDev/two-face/blob/33f7e243b6174e8f0c63fd7698ec5736d715e355/generated/acknowledgements_full.md
 [giallo-cargo]: https://github.com/getzola/giallo/blob/9136c2d78cd43321d2fbd845942ed07ff2e3f435/Cargo.toml
 [ts-bash]: https://github.com/tree-sitter/tree-sitter-bash/blob/a06c2e4415e9bc0346c6b86d401879ffb44058f7/LICENSE

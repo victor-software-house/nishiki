@@ -14,6 +14,8 @@
 //! Usage: `compare [--rounds N] [--cold N] [--tier T] [language...]`, by
 //! default 5 rounds, 11 cold processes, the medium tier of every language.
 //! A cold sample is `compare --sample <engine> <file>`.
+//! `compare --pierre-theme <path>` writes github-dark as a Zed theme for
+//! `@pierre/highlights`, which `shiki.ts time` reads.
 
 mod engines;
 #[cfg(feature = "giallo")]
@@ -26,7 +28,7 @@ use std::time::{Duration, Instant};
 use nishiki::{Highlighter, Language, State};
 use nishiki_bench::{Document, Tier, corpus};
 
-use crate::engines::{Colours, NAMES, lines, setup};
+use crate::engines::{Colours, NAMES, lines, pierre_theme, setup};
 
 /// Time each round spends on one engine and file.
 const ROUND: Duration = Duration::from_millis(300);
@@ -306,10 +308,20 @@ fn runner(options: &Options) -> Result<(), String> {
     Ok(())
 }
 
+/// Writes [`pierre_theme`] to `path`.
+fn write_pierre_theme(path: &str) -> Result<(), String> {
+    let json = pierre_theme().ok_or("github-dark did not load")?;
+    if let Some(parent) = Path::new(path).parent() {
+        std::fs::create_dir_all(parent).map_err(|error| format!("{path}: {error}"))?;
+    }
+    std::fs::write(path, json).map_err(|error| format!("{path}: {error}"))
+}
+
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let result = match args.as_slice() {
         [flag, engine, name] if flag == "--sample" => sample(engine, name),
+        [flag, path] if flag == "--pierre-theme" => write_pierre_theme(path),
         _ => options(&args).and_then(|options| runner(&options)),
     };
     match result {

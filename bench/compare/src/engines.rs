@@ -259,6 +259,74 @@ const CAPTURES: &[(&str, &str)] = &[
     ("variable.parameter", "variable.parameter"),
 ];
 
+/// `@pierre/highlights`' token names that [`CAPTURES`] lacks, each with the
+/// `TextMate` scope whose github-dark colour stands for it. Pierre resolves a
+/// name it has no entry for from the name's prefix, as `function.method`
+/// from `function`. A name is listed here only when that prefix would give
+/// the wrong colour or none.
+const PIERRE: &[(&str, &str)] = &[
+    ("boolean", "constant.language"),
+    ("diff.minus", "markup.deleted"),
+    ("diff.plus", "markup.inserted"),
+    ("emphasis", "markup.italic"),
+    ("emphasis.strong", "markup.bold"),
+    ("enum", "entity.name.type"),
+    ("keyword.operator", "keyword.operator"),
+    ("link_text", "string.other.link"),
+    ("link_uri", "markup.underline.link"),
+    ("namespace", "entity.name.namespace"),
+    ("preproc", "keyword.control.directive"),
+    ("property.json_key", "support.type.property-name.json"),
+    (
+        "punctuation.list_marker",
+        "punctuation.definition.list.begin.markdown",
+    ),
+    ("selector", "entity.name.tag.css"),
+    ("selector.class", "entity.other.attribute-name.class.css"),
+    ("selector.id", "entity.other.attribute-name.id.css"),
+    (
+        "selector.pseudo",
+        "entity.other.attribute-name.pseudo-class.css",
+    ),
+    ("string.regex", "string.regexp"),
+    ("string.special.symbol", "constant.other.symbol"),
+    ("text.literal", "markup.inline.raw"),
+    ("title", "markup.heading"),
+    ("variable.special", "variable.language"),
+    ("variant", "variable.other.enummember"),
+];
+
+/// Shiki's github-dark as a Zed theme for `@pierre/highlights`, which takes
+/// no `TextMate` theme. Each token name of [`CAPTURES`] and [`PIERRE`] gets
+/// the colour nishiki's theme gives its scope. Pierre's agreement with Shiki
+/// depends on this map, so a low figure can come from the map, not the
+/// engine.
+pub fn pierre_theme() -> Option<String> {
+    let theme = Theme::from_json(GITHUB_DARK).ok()?;
+    let colour = |scope: &str| theme.style([scope]).foreground.to_string().to_lowercase();
+    let syntax: serde_json::Map<String, serde_json::Value> = CAPTURES
+        .iter()
+        .chain(PIERRE)
+        .map(|(name, scope)| {
+            (
+                (*name).to_owned(),
+                serde_json::json!({ "color": colour(scope) }),
+            )
+        })
+        .collect();
+    let defaults = theme.defaults();
+    let json = serde_json::json!({
+        "name": "Shiki github-dark",
+        "appearance": "dark",
+        "style": {
+            "editor.foreground": defaults.foreground.to_string().to_lowercase(),
+            "editor.background": defaults.background.to_string().to_lowercase(),
+            "syntax": syntax,
+        },
+    });
+    serde_json::to_string_pretty(&json).ok()
+}
+
 /// tree-sitter-highlight on a whole document, with the grammar crate's own
 /// highlight query.
 struct TreeSitter {
