@@ -555,7 +555,7 @@ impl rules::Tabled for ${engine} {
             reason = "a fieldless \`repr(${repr})\` enum has no \`From\` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(|| rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
     }
 }
 `;
