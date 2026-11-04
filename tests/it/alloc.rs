@@ -62,6 +62,25 @@ fn lexing_a_line_again_allocates_nothing() {
     every_language(second_pass_failures);
 }
 
+/// YAML directives, which no fixture had: each reads its name, which must be
+/// a view of the line and not a copy.
+#[test]
+fn lexing_yaml_directives_again_allocates_nothing() {
+    let lines = [
+        "%YAML 1.2",
+        "%TAG ! tag:example.com,2000:",
+        "%RESERVED name parameter",
+        "---",
+        "key: !local value",
+    ]
+    .map(str::to_owned);
+    let mut highlighter = Highlighter::new(Language::Yaml);
+    let mut tokens = Vec::new();
+    lex(&mut highlighter, &lines, &mut tokens);
+    let allocations = count(|| lex(&mut highlighter, &lines, &mut tokens));
+    assert_eq!(allocations, 0, "allocations lexing the lines a second time");
+}
+
 /// Lines of several JavaScript texts each, which no fixture has: the texts
 /// after the first on a line share a list of the line's matches, which the
 /// scratch keeps from one line to the next.

@@ -721,9 +721,9 @@ impl<'a> Lexer<'a> {
         let mut at = self.token(0, 1, &meta(S::PunctDirective));
         let word_chars = |b: u8| b.is_ascii_alphanumeric() || b == b'_' || b >= 0x80;
         let name_end = self.run_end(at, word_chars);
-        let name = self.s[at..name_end].to_vec();
+        let name = &self.s[at..name_end];
         let version = self.version_len(self.skip_ascii_blanks_unspent(name_end));
-        let kind = match name.as_slice() {
+        let kind = match name {
             b"YAML" if version > 0 => Directive::Yaml,
             b"TAG" => Directive::Tag,
             _ => Directive::Reserved,
