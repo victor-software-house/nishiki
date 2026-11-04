@@ -1,0 +1,269 @@
+L # This uses a similar construction to the decorators.py test data file FYI.
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 75 source.python comment.line.number-sign.python
+L 
+L print "hello, world!"
+T 5 source.python support.function.builtin.python
+T 6 source.python
+T 7 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 20 source.python string.quoted.single.python
+T 21 source.python string.quoted.single.python punctuation.definition.string.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L exec "print('hello, world!')"
+T 4 source.python support.function.builtin.python
+T 5 source.python
+T 6 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 28 source.python string.quoted.single.python
+T 29 source.python string.quoted.single.python punctuation.definition.string.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L def set_position((x, y), value):
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 16 source.python meta.function.python entity.name.function.python
+T 17 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 18 source.python meta.function.python meta.function.parameters.python
+T 19 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 20 source.python meta.function.python meta.function.parameters.python punctuation.separator.parameters.python
+T 21 source.python meta.function.python meta.function.parameters.python
+T 22 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 23 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 25 source.python meta.function.python
+T 30 source.python meta.function.python entity.name.function.python
+T 31 source.python meta.function.python
+T 32 source.python meta.function.python punctuation.section.function.begin.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L try:
+T 3 source.python keyword.control.flow.python
+T 4 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L except Exception, err:
+T 6 source.python keyword.control.flow.python
+T 7 source.python
+T 16 source.python support.type.exception.python
+T 17 source.python punctuation.separator.element.python
+T 18 source.python
+T 21 source.python
+T 22 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L raise RuntimeError, "I feel like crashing today :p"
+T 5 source.python keyword.control.flow.python
+T 6 source.python
+T 18 source.python support.type.exception.python
+T 19 source.python punctuation.separator.element.python
+T 20 source.python
+T 21 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 50 source.python string.quoted.single.python
+T 51 source.python string.quoted.single.python punctuation.definition.string.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L `wow_these_really_did_exist`
+T 1 source.python invalid.deprecated.backtick.python
+T 27 source.python invalid.deprecated.backtick.python
+T 28 source.python invalid.deprecated.backtick.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 10L
+T 2 source.python constant.numeric.bin.python
+T 3 source.python constant.numeric.bin.python storage.type.number.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 10l
+T 2 source.python constant.numeric.bin.python
+T 3 source.python constant.numeric.bin.python storage.type.number.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 0123
+T 1 source.python constant.numeric.dec.python
+T 4 source.python constant.numeric.dec.python invalid.illegal.dec.python
+L 
+L # output
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 8 source.python comment.line.number-sign.python
+L 
+L print("hello python three!")
+T 5 source.python meta.function-call.python support.function.builtin.python
+T 6 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 7 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.begin.python
+T 26 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python
+T 27 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.end.python
+T 28 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L exec("I'm not sure if you can use exec like this but that's not important here!")
+T 4 source.python meta.function-call.python support.function.builtin.python
+T 5 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 6 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.begin.python
+T 79 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python
+T 80 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.end.python
+T 81 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L try:
+T 3 source.python keyword.control.flow.python
+T 4 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L except make_exception(1, 2):
+T 6 source.python keyword.control.flow.python
+T 7 source.python
+T 21 source.python meta.function-call.python meta.function-call.generic.python
+T 22 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 23 source.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 24 source.python meta.function-call.python meta.function-call.arguments.python punctuation.separator.arguments.python
+T 25 source.python meta.function-call.python meta.function-call.arguments.python
+T 26 source.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 27 source.python meta.function-call.python punctuation.definition.arguments.end.python
+T 28 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L try:
+T 3 source.python keyword.control.flow.python
+T 4 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L except Exception as err:
+T 6 source.python keyword.control.flow.python
+T 7 source.python
+T 16 source.python support.type.exception.python
+T 17 source.python
+T 19 source.python keyword.control.flow.python
+T 20 source.python
+T 23 source.python
+T 24 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L raise RuntimeError(make_msg(1, 2))
+T 5 source.python keyword.control.flow.python
+T 6 source.python
+T 18 source.python meta.function-call.python support.type.exception.python
+T 19 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 27 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python meta.function-call.generic.python
+T 28 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 29 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 30 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python meta.function-call.arguments.python punctuation.separator.arguments.python
+T 31 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python meta.function-call.arguments.python
+T 32 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 33 source.python meta.function-call.python meta.function-call.arguments.python meta.function-call.python punctuation.definition.arguments.end.python
+T 34 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L raise RuntimeError("boom!",)
+T 5 source.python keyword.control.flow.python
+T 6 source.python
+T 18 source.python meta.function-call.python support.type.exception.python
+T 19 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 20 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.begin.python
+T 25 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python
+T 26 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.end.python
+T 27 source.python meta.function-call.python meta.function-call.arguments.python punctuation.separator.arguments.python
+T 28 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L def set_position(x, y, value):
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 16 source.python meta.function.python entity.name.function.python
+T 17 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 18 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 19 source.python meta.function.python meta.function.parameters.python punctuation.separator.parameters.python
+T 20 source.python meta.function.python meta.function.parameters.python
+T 21 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 22 source.python meta.function.python meta.function.parameters.python punctuation.separator.parameters.python
+T 23 source.python meta.function.python meta.function.parameters.python
+T 28 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 29 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 30 source.python meta.function.python punctuation.section.function.begin.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 10
+T 2 source.python constant.numeric.dec.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 0
+T 1 source.python constant.numeric.dec.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 000
+T 3 source.python constant.numeric.dec.python
+L 
+L ###
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 3 source.python comment.line.number-sign.python
+L 
+L 0o12
+T 2 source.python constant.numeric.oct.python storage.type.number.python
+T 4 source.python constant.numeric.oct.python

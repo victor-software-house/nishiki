@@ -1,0 +1,412 @@
+L class Test:
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python entity.name.type.class.python
+T 11 source.python meta.class.python punctuation.section.class.begin.python
+L     ...
+T 4 source.python
+T 7 source.python constant.other.ellipsis.python
+L 
+L 
+L class Test():
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python entity.name.type.class.python
+T 11 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.begin.python
+T 12 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.end.python
+T 13 source.python meta.class.python punctuation.section.class.begin.python
+L         def __init__(self):
+T 8 source.python meta.function.python
+T 11 source.python meta.function.python storage.type.function.python
+T 12 source.python meta.function.python
+T 20 source.python meta.function.python support.function.magic.python
+T 21 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 25 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python variable.parameter.function.language.special.self.python
+T 26 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 27 source.python meta.function.python punctuation.section.function.begin.python
+L             pass
+T 12 source.python
+T 16 source.python keyword.control.flow.python
+L 
+L 
+L class Test(a=1, *A, **k):
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python entity.name.type.class.python
+T 11 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.begin.python
+T 12 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python variable.parameter.class.python
+T 13 source.python meta.class.python meta.class.inheritance.python keyword.operator.assignment.python
+T 14 source.python meta.class.python meta.class.inheritance.python constant.numeric.dec.python
+T 15 source.python meta.class.python meta.class.inheritance.python punctuation.separator.inheritance.python
+T 16 source.python meta.class.python meta.class.inheritance.python
+T 17 source.python meta.class.python meta.class.inheritance.python keyword.operator.unpacking.arguments.python
+T 18 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python
+T 19 source.python meta.class.python meta.class.inheritance.python punctuation.separator.inheritance.python
+T 20 source.python meta.class.python meta.class.inheritance.python
+T 22 source.python meta.class.python meta.class.inheritance.python keyword.operator.unpacking.arguments.python
+T 23 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python
+T 24 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.end.python
+T 25 source.python meta.class.python punctuation.section.class.begin.python
+L     ...
+T 4 source.python
+T 7 source.python constant.other.ellipsis.python
+L 
+L 
+L class Test:
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python entity.name.type.class.python
+T 11 source.python meta.class.python punctuation.section.class.begin.python
+L     def method():
+T 4 source.python meta.function.python
+T 7 source.python meta.function.python storage.type.function.python
+T 8 source.python meta.function.python
+T 14 source.python meta.function.python entity.name.function.python
+T 15 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 16 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 17 source.python meta.function.python punctuation.section.function.begin.python
+L         a, b = data
+T 8 source.python
+T 9 source.python
+T 10 source.python punctuation.separator.element.python
+T 11 source.python
+T 12 source.python
+T 13 source.python
+T 14 source.python keyword.operator.assignment.python
+T 15 source.python
+T 19 source.python
+L 
+L 
+L class Test(A, B):
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python entity.name.type.class.python
+T 11 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.begin.python
+T 12 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python
+T 13 source.python meta.class.python meta.class.inheritance.python punctuation.separator.inheritance.python
+T 14 source.python meta.class.python meta.class.inheritance.python
+T 15 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python
+T 16 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.end.python
+T 17 source.python meta.class.python punctuation.section.class.begin.python
+L     def __init__(self):
+T 4 source.python meta.function.python
+T 7 source.python meta.function.python storage.type.function.python
+T 8 source.python meta.function.python
+T 16 source.python meta.function.python support.function.magic.python
+T 17 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 21 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python variable.parameter.function.language.special.self.python
+T 22 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 23 source.python meta.function.python punctuation.section.function.begin.python
+L         pass
+T 8 source.python
+T 12 source.python keyword.control.flow.python
+L 
+L     def method_with_default(self, arg='default'):
+T 4 source.python meta.function.python
+T 7 source.python meta.function.python storage.type.function.python
+T 8 source.python meta.function.python
+T 27 source.python meta.function.python entity.name.function.python
+T 28 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 32 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python variable.parameter.function.language.special.self.python
+T 33 source.python meta.function.python meta.function.parameters.python punctuation.separator.parameters.python
+T 34 source.python meta.function.python meta.function.parameters.python
+T 37 source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 38 source.python meta.function.python meta.function.parameters.python keyword.operator.python
+T 39 source.python meta.function.python meta.function.parameters.python string.quoted.single.python punctuation.definition.string.begin.python
+T 46 source.python meta.function.python meta.function.parameters.python string.quoted.single.python
+T 47 source.python meta.function.python meta.function.parameters.python string.quoted.single.python punctuation.definition.string.end.python
+T 48 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 49 source.python meta.function.python punctuation.section.function.begin.python
+L         pass
+T 8 source.python
+T 12 source.python keyword.control.flow.python
+L 
+L 
+L # Class with generic types:
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 27 source.python comment.line.number-sign.python
+L 
+L # TypeVar
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 9 source.python comment.line.number-sign.python
+L class Test[T](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 14 source.python punctuation.definition.arguments.begin.python
+T 15 source.python punctuation.definition.arguments.end.python
+T 16 source.python punctuation.separator.colon.python
+T 17 source.python
+T 20 source.python constant.other.ellipsis.python
+L 
+L # TypeVar with default
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 22 source.python comment.line.number-sign.python
+L class Test[T = str](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python meta.item-access.arguments.python
+T 18 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 19 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 20 source.python punctuation.definition.arguments.begin.python
+T 21 source.python punctuation.definition.arguments.end.python
+T 22 source.python punctuation.separator.colon.python
+T 23 source.python
+T 26 source.python constant.other.ellipsis.python
+L 
+L # TypeVar with bound
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 20 source.python comment.line.number-sign.python
+L class Test[T: str](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.slice.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 17 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 18 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 19 source.python punctuation.definition.arguments.begin.python
+T 20 source.python punctuation.definition.arguments.end.python
+T 21 source.python punctuation.separator.colon.python
+T 22 source.python
+T 25 source.python constant.other.ellipsis.python
+L 
+L # TypeVar with bound and default
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 32 source.python comment.line.number-sign.python
+L class Test[T: int | str = int](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.slice.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 17 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 18 source.python meta.item-access.python meta.item-access.arguments.python
+T 19 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.bitwise.python
+T 20 source.python meta.item-access.python meta.item-access.arguments.python
+T 23 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 26 source.python meta.item-access.python meta.item-access.arguments.python
+T 29 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 30 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 31 source.python punctuation.definition.arguments.begin.python
+T 32 source.python punctuation.definition.arguments.end.python
+T 33 source.python punctuation.separator.colon.python
+T 34 source.python
+T 37 source.python constant.other.ellipsis.python
+L 
+L # TypeVar with tuple bound
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 26 source.python comment.line.number-sign.python
+L class Test[T: (str, bytes)](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.slice.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python meta.item-access.arguments.python punctuation.parenthesis.begin.python
+T 18 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 19 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 20 source.python meta.item-access.python meta.item-access.arguments.python
+T 25 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 26 source.python meta.item-access.python meta.item-access.arguments.python punctuation.parenthesis.end.python
+T 27 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 28 source.python punctuation.definition.arguments.begin.python
+T 29 source.python punctuation.definition.arguments.end.python
+T 30 source.python punctuation.separator.colon.python
+T 31 source.python
+T 34 source.python constant.other.ellipsis.python
+L 
+L # Multiple TypeVar
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 18 source.python comment.line.number-sign.python
+L class Test[T, U](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python meta.item-access.arguments.python
+T 16 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 17 source.python punctuation.definition.arguments.begin.python
+T 18 source.python punctuation.definition.arguments.end.python
+T 19 source.python punctuation.separator.colon.python
+T 20 source.python
+T 23 source.python constant.other.ellipsis.python
+L 
+L # Trailing comma
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 16 source.python comment.line.number-sign.python
+L class Test[T, U,](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python meta.item-access.arguments.python
+T 16 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 17 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 18 source.python punctuation.definition.arguments.begin.python
+T 19 source.python punctuation.definition.arguments.end.python
+T 20 source.python punctuation.separator.colon.python
+T 21 source.python
+T 24 source.python constant.other.ellipsis.python
+L 
+L # TypeVarTuple
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 14 source.python comment.line.number-sign.python
+L class Test[*Ts](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 16 source.python punctuation.definition.arguments.begin.python
+T 17 source.python punctuation.definition.arguments.end.python
+T 18 source.python punctuation.separator.colon.python
+T 19 source.python
+T 22 source.python constant.other.ellipsis.python
+L 
+L # TypeVarTuple with default
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 27 source.python comment.line.number-sign.python
+L class Test[*Ts = Unpack[tuple[int, str]]](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 17 source.python meta.item-access.python meta.item-access.arguments.python
+T 23 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.indexed-name.python
+T 24 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 29 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.indexed-name.python
+T 30 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 33 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 34 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 35 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python
+T 38 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 39 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python punctuation.definition.arguments.end.python
+T 40 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python punctuation.definition.arguments.end.python
+T 41 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 42 source.python punctuation.definition.arguments.begin.python
+T 43 source.python punctuation.definition.arguments.end.python
+T 44 source.python punctuation.separator.colon.python
+T 45 source.python
+T 48 source.python constant.other.ellipsis.python
+L 
+L # TypeVarTuple with starred default
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 35 source.python comment.line.number-sign.python
+L class Test[*Ts = *tuple[int, str]](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 17 source.python meta.item-access.python meta.item-access.arguments.python
+T 18 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 23 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.indexed-name.python
+T 24 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 27 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 28 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 29 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python
+T 32 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 33 source.python meta.item-access.python meta.item-access.arguments.python meta.item-access.python punctuation.definition.arguments.end.python
+T 34 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 35 source.python punctuation.definition.arguments.begin.python
+T 36 source.python punctuation.definition.arguments.end.python
+T 37 source.python punctuation.separator.colon.python
+T 38 source.python
+T 41 source.python constant.other.ellipsis.python
+L 
+L # ParamSpec
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 11 source.python comment.line.number-sign.python
+L class Test[**P](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 16 source.python punctuation.definition.arguments.begin.python
+T 17 source.python punctuation.definition.arguments.end.python
+T 18 source.python punctuation.separator.colon.python
+T 19 source.python
+T 22 source.python constant.other.ellipsis.python
+L 
+L # ParamSpec with default
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 24 source.python comment.line.number-sign.python
+L class Test[**P = [int, str]](): ...
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 17 source.python meta.item-access.python meta.item-access.arguments.python
+T 18 source.python meta.item-access.python meta.item-access.arguments.python punctuation.definition.list.begin.python
+T 21 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 22 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 23 source.python meta.item-access.python meta.item-access.arguments.python
+T 26 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 27 source.python meta.item-access.python meta.item-access.arguments.python punctuation.definition.list.end.python
+T 28 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 29 source.python punctuation.definition.arguments.begin.python
+T 30 source.python punctuation.definition.arguments.end.python
+T 31 source.python punctuation.separator.colon.python
+T 32 source.python
+T 35 source.python constant.other.ellipsis.python
+L 
+L # Mixed types
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 13 source.python comment.line.number-sign.python
+L class Test[X, Y: str, *U, **P]():
+T 5 source.python storage.type.class.python
+T 6 source.python
+T 10 source.python meta.item-access.python meta.indexed-name.python
+T 11 source.python meta.item-access.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.item-access.python meta.item-access.arguments.python
+T 13 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 14 source.python meta.item-access.python meta.item-access.arguments.python
+T 15 source.python meta.item-access.python meta.item-access.arguments.python
+T 16 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.slice.python
+T 17 source.python meta.item-access.python meta.item-access.arguments.python
+T 20 source.python meta.item-access.python meta.item-access.arguments.python support.type.python
+T 21 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 22 source.python meta.item-access.python meta.item-access.arguments.python
+T 23 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 24 source.python meta.item-access.python meta.item-access.arguments.python
+T 25 source.python meta.item-access.python meta.item-access.arguments.python punctuation.separator.element.python
+T 26 source.python meta.item-access.python meta.item-access.arguments.python
+T 28 source.python meta.item-access.python meta.item-access.arguments.python keyword.operator.arithmetic.python
+T 29 source.python meta.item-access.python meta.item-access.arguments.python
+T 30 source.python meta.item-access.python punctuation.definition.arguments.end.python
+T 31 source.python punctuation.definition.arguments.begin.python
+T 32 source.python punctuation.definition.arguments.end.python
+T 33 source.python punctuation.separator.colon.python
+L   pass
+T 2 source.python
+T 6 source.python keyword.control.flow.python
+L 

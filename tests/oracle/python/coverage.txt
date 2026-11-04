@@ -1,0 +1,1287 @@
+L import re
+T 6 source.python keyword.control.import.python
+T 7 source.python
+T 9 source.python
+L 
+L single = r'(?#note)(?(1)yes|no)(?=x)(?!x)(?<=x)(?<!x)(?:x)(x)[a-z][^a-z][]a][^]a]\1(?P=name)(?i)a'
+T 6 source.python
+T 7 source.python
+T 8 source.python keyword.operator.assignment.python
+T 9 source.python
+T 10 source.python string.regexp.quoted.single.python storage.type.string.python
+T 11 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 14 source.python string.regexp.quoted.single.python comment.regexp punctuation.comment.begin.regexp
+T 18 source.python string.regexp.quoted.single.python comment.regexp
+T 19 source.python string.regexp.quoted.single.python comment.regexp punctuation.comment.end.regexp
+T 20 source.python string.regexp.quoted.single.python keyword.operator.conditional.regexp punctuation.parenthesis.conditional.begin.regexp
+T 24 source.python string.regexp.quoted.single.python keyword.operator.conditional.regexp
+T 27 source.python string.regexp.quoted.single.python
+T 28 source.python string.regexp.quoted.single.python keyword.operator.disjunction.regexp
+T 30 source.python string.regexp.quoted.single.python
+T 31 source.python string.regexp.quoted.single.python keyword.operator.conditional.negative.regexp punctuation.parenthesis.conditional.end.regexp
+T 32 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 34 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp
+T 35 source.python string.regexp.quoted.single.python
+T 36 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.end.regexp
+T 37 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 39 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp
+T 40 source.python string.regexp.quoted.single.python
+T 41 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.end.regexp
+T 42 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 45 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.regexp
+T 46 source.python string.regexp.quoted.single.python
+T 47 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 48 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 51 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.negative.regexp
+T 52 source.python string.regexp.quoted.single.python
+T 53 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 56 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.begin.regexp
+T 57 source.python string.regexp.quoted.single.python
+T 58 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.end.regexp
+T 59 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.begin.regexp
+T 60 source.python string.regexp.quoted.single.python
+T 61 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.end.regexp
+T 62 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 63 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 64 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 65 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 66 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 67 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 68 source.python string.regexp.quoted.single.python meta.character.set.regexp keyword.operator.negation.regexp
+T 69 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 70 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 71 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 72 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 73 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 74 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 75 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 76 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 77 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 78 source.python string.regexp.quoted.single.python meta.character.set.regexp keyword.operator.negation.regexp
+T 79 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 80 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 81 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 83 source.python string.regexp.quoted.single.python meta.backreference.regexp entity.name.tag.backreference.regexp
+T 84 source.python string.regexp.quoted.single.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.begin.regexp
+T 91 source.python string.regexp.quoted.single.python meta.backreference.named.regexp entity.name.tag.named.backreference.regexp
+T 92 source.python string.regexp.quoted.single.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.end.regexp
+T 96 source.python string.regexp.quoted.single.python storage.modifier.flag.regexp
+T 97 source.python string.regexp.quoted.single.python
+T 98 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+L double = r"(?#note)(?(1)yes|no)(?=x)(?!x)(?<=x)(?<!x)(?:x)(x)[a-z][^a-z][]a][^]a]\1(?P=name)(?i)a"
+T 6 source.python
+T 7 source.python
+T 8 source.python keyword.operator.assignment.python
+T 9 source.python
+T 10 source.python string.regexp.quoted.single.python storage.type.string.python
+T 11 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 14 source.python string.regexp.quoted.single.python comment.regexp punctuation.comment.begin.regexp
+T 18 source.python string.regexp.quoted.single.python comment.regexp
+T 19 source.python string.regexp.quoted.single.python comment.regexp punctuation.comment.end.regexp
+T 20 source.python string.regexp.quoted.single.python keyword.operator.conditional.regexp punctuation.parenthesis.conditional.begin.regexp
+T 24 source.python string.regexp.quoted.single.python keyword.operator.conditional.regexp
+T 27 source.python string.regexp.quoted.single.python
+T 28 source.python string.regexp.quoted.single.python keyword.operator.disjunction.regexp
+T 30 source.python string.regexp.quoted.single.python
+T 31 source.python string.regexp.quoted.single.python keyword.operator.conditional.negative.regexp punctuation.parenthesis.conditional.end.regexp
+T 32 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 34 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp
+T 35 source.python string.regexp.quoted.single.python
+T 36 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.end.regexp
+T 37 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 39 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp
+T 40 source.python string.regexp.quoted.single.python
+T 41 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.end.regexp
+T 42 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 45 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.regexp
+T 46 source.python string.regexp.quoted.single.python
+T 47 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 48 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 51 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.negative.regexp
+T 52 source.python string.regexp.quoted.single.python
+T 53 source.python string.regexp.quoted.single.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 56 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.begin.regexp
+T 57 source.python string.regexp.quoted.single.python
+T 58 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.end.regexp
+T 59 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.begin.regexp
+T 60 source.python string.regexp.quoted.single.python
+T 61 source.python string.regexp.quoted.single.python support.other.parenthesis.regexp punctuation.parenthesis.end.regexp
+T 62 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 63 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 64 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 65 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 66 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 67 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 68 source.python string.regexp.quoted.single.python meta.character.set.regexp keyword.operator.negation.regexp
+T 69 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 70 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 71 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 72 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 73 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 74 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 75 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 76 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 77 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 78 source.python string.regexp.quoted.single.python meta.character.set.regexp keyword.operator.negation.regexp
+T 79 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 80 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 81 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 83 source.python string.regexp.quoted.single.python meta.backreference.regexp entity.name.tag.backreference.regexp
+T 84 source.python string.regexp.quoted.single.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.begin.regexp
+T 91 source.python string.regexp.quoted.single.python meta.backreference.named.regexp entity.name.tag.named.backreference.regexp
+T 92 source.python string.regexp.quoted.single.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.end.regexp
+T 96 source.python string.regexp.quoted.single.python storage.modifier.flag.regexp
+T 97 source.python string.regexp.quoted.single.python
+T 98 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+L single_three = r'''(?x)
+T 12 source.python
+T 13 source.python
+T 14 source.python keyword.operator.assignment.python
+T 15 source.python
+T 16 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 19 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 23 source.python string.regexp.quoted.multi.python storage.modifier.flag.regexp
+L     (?#note) (?(1)yes|no) (?=x) (?!x) (?<=x) (?<!x) (?:x) (x)  # a comment
+T 4 source.python string.regexp.quoted.multi.python
+T 7 source.python string.regexp.quoted.multi.python comment.regexp punctuation.comment.begin.regexp
+T 11 source.python string.regexp.quoted.multi.python comment.regexp
+T 12 source.python string.regexp.quoted.multi.python comment.regexp punctuation.comment.end.regexp
+T 13 source.python string.regexp.quoted.multi.python
+T 14 source.python string.regexp.quoted.multi.python keyword.operator.conditional.regexp punctuation.parenthesis.conditional.begin.regexp
+T 18 source.python string.regexp.quoted.multi.python keyword.operator.conditional.regexp
+T 21 source.python string.regexp.quoted.multi.python
+T 22 source.python string.regexp.quoted.multi.python keyword.operator.disjunction.regexp
+T 24 source.python string.regexp.quoted.multi.python
+T 25 source.python string.regexp.quoted.multi.python keyword.operator.conditional.negative.regexp punctuation.parenthesis.conditional.end.regexp
+T 26 source.python string.regexp.quoted.multi.python
+T 27 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 29 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.regexp
+T 30 source.python string.regexp.quoted.multi.python
+T 31 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.end.regexp
+T 32 source.python string.regexp.quoted.multi.python
+T 33 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 35 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.negative.regexp
+T 36 source.python string.regexp.quoted.multi.python
+T 37 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.end.regexp
+T 38 source.python string.regexp.quoted.multi.python
+T 39 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 42 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp
+T 43 source.python string.regexp.quoted.multi.python
+T 44 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 45 source.python string.regexp.quoted.multi.python
+T 46 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 49 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.negative.regexp
+T 50 source.python string.regexp.quoted.multi.python
+T 51 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 52 source.python string.regexp.quoted.multi.python
+T 55 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.begin.regexp
+T 56 source.python string.regexp.quoted.multi.python
+T 57 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.end.regexp
+T 58 source.python string.regexp.quoted.multi.python
+T 59 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.begin.regexp
+T 60 source.python string.regexp.quoted.multi.python
+T 61 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.end.regexp
+T 63 source.python string.regexp.quoted.multi.python
+T 64 source.python string.regexp.quoted.multi.python comment.line.number-sign.python punctuation.definition.comment.python
+T 74 source.python string.regexp.quoted.multi.python comment.line.number-sign.python
+L     [a-z] [^a-z] []a] [^]a] [^
+T 4 source.python string.regexp.quoted.multi.python
+T 5 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 6 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 7 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 8 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 9 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 10 source.python string.regexp.quoted.multi.python
+T 11 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 12 source.python string.regexp.quoted.multi.python meta.character.set.regexp keyword.operator.negation.regexp
+T 13 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 14 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 15 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 16 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 17 source.python string.regexp.quoted.multi.python
+T 18 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 19 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 20 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 21 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 22 source.python string.regexp.quoted.multi.python
+T 23 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 24 source.python string.regexp.quoted.multi.python meta.character.set.regexp keyword.operator.negation.regexp
+T 25 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 26 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 27 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 28 source.python string.regexp.quoted.multi.python
+T 29 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 30 source.python string.regexp.quoted.multi.python meta.character.set.regexp keyword.operator.negation.regexp
+L     a] \1 (?P=name) (?ims)
+T 1 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 2 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 3 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 4 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 5 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 6 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 7 source.python string.regexp.quoted.multi.python
+T 9 source.python string.regexp.quoted.multi.python meta.backreference.regexp entity.name.tag.backreference.regexp
+T 10 source.python string.regexp.quoted.multi.python
+T 11 source.python string.regexp.quoted.multi.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.begin.regexp
+T 18 source.python string.regexp.quoted.multi.python meta.backreference.named.regexp entity.name.tag.named.backreference.regexp
+T 19 source.python string.regexp.quoted.multi.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.end.regexp
+T 20 source.python string.regexp.quoted.multi.python
+T 26 source.python string.regexp.quoted.multi.python storage.modifier.flag.regexp
+L '''
+T 3 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+L double_three = r"""(?x)
+T 12 source.python
+T 13 source.python
+T 14 source.python keyword.operator.assignment.python
+T 15 source.python
+T 16 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 19 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 23 source.python string.regexp.quoted.multi.python storage.modifier.flag.regexp
+L     (?#note) (?(1)yes|no) (?=x) (?!x) (?<=x) (?<!x) (?:x) (x)  # a comment
+T 4 source.python string.regexp.quoted.multi.python
+T 7 source.python string.regexp.quoted.multi.python comment.regexp punctuation.comment.begin.regexp
+T 11 source.python string.regexp.quoted.multi.python comment.regexp
+T 12 source.python string.regexp.quoted.multi.python comment.regexp punctuation.comment.end.regexp
+T 13 source.python string.regexp.quoted.multi.python
+T 14 source.python string.regexp.quoted.multi.python keyword.operator.conditional.regexp punctuation.parenthesis.conditional.begin.regexp
+T 18 source.python string.regexp.quoted.multi.python keyword.operator.conditional.regexp
+T 21 source.python string.regexp.quoted.multi.python
+T 22 source.python string.regexp.quoted.multi.python keyword.operator.disjunction.regexp
+T 24 source.python string.regexp.quoted.multi.python
+T 25 source.python string.regexp.quoted.multi.python keyword.operator.conditional.negative.regexp punctuation.parenthesis.conditional.end.regexp
+T 26 source.python string.regexp.quoted.multi.python
+T 27 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 29 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.regexp
+T 30 source.python string.regexp.quoted.multi.python
+T 31 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.end.regexp
+T 32 source.python string.regexp.quoted.multi.python
+T 33 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 35 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.negative.regexp
+T 36 source.python string.regexp.quoted.multi.python
+T 37 source.python string.regexp.quoted.multi.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.end.regexp
+T 38 source.python string.regexp.quoted.multi.python
+T 39 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 42 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp
+T 43 source.python string.regexp.quoted.multi.python
+T 44 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 45 source.python string.regexp.quoted.multi.python
+T 46 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 49 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.negative.regexp
+T 50 source.python string.regexp.quoted.multi.python
+T 51 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.negative.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 52 source.python string.regexp.quoted.multi.python
+T 55 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.begin.regexp
+T 56 source.python string.regexp.quoted.multi.python
+T 57 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.non-capturing.end.regexp
+T 58 source.python string.regexp.quoted.multi.python
+T 59 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.begin.regexp
+T 60 source.python string.regexp.quoted.multi.python
+T 61 source.python string.regexp.quoted.multi.python support.other.parenthesis.regexp punctuation.parenthesis.end.regexp
+T 63 source.python string.regexp.quoted.multi.python
+T 64 source.python string.regexp.quoted.multi.python comment.line.number-sign.python punctuation.definition.comment.python
+T 74 source.python string.regexp.quoted.multi.python comment.line.number-sign.python
+L     [a-z] [^a-z] []a] [^]a] \1 (?P=name) (?ims)
+T 4 source.python string.regexp.quoted.multi.python
+T 5 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 6 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 7 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 8 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 9 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 10 source.python string.regexp.quoted.multi.python
+T 11 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 12 source.python string.regexp.quoted.multi.python meta.character.set.regexp keyword.operator.negation.regexp
+T 13 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 14 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 15 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 16 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 17 source.python string.regexp.quoted.multi.python
+T 18 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 19 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 20 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 21 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 22 source.python string.regexp.quoted.multi.python
+T 23 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 24 source.python string.regexp.quoted.multi.python meta.character.set.regexp keyword.operator.negation.regexp
+T 25 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 26 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 27 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 28 source.python string.regexp.quoted.multi.python
+T 30 source.python string.regexp.quoted.multi.python meta.backreference.regexp entity.name.tag.backreference.regexp
+T 31 source.python string.regexp.quoted.multi.python
+T 32 source.python string.regexp.quoted.multi.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.begin.regexp
+T 39 source.python string.regexp.quoted.multi.python meta.backreference.named.regexp entity.name.tag.named.backreference.regexp
+T 40 source.python string.regexp.quoted.multi.python meta.backreference.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.backreference.named.end.regexp
+T 41 source.python string.regexp.quoted.multi.python
+T 47 source.python string.regexp.quoted.multi.python storage.modifier.flag.regexp
+L """
+T 3 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+L bytes_regex = br'(?=x)' + rb"(?!x)" + Br'''(?<=x)'''
+T 11 source.python
+T 12 source.python
+T 13 source.python keyword.operator.assignment.python
+T 14 source.python
+T 16 source.python string.regexp.quoted.single.python storage.type.string.python
+T 17 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 18 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 20 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp
+T 21 source.python string.regexp.quoted.single.python
+T 22 source.python string.regexp.quoted.single.python keyword.operator.lookahead.regexp punctuation.parenthesis.lookahead.end.regexp
+T 23 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 24 source.python
+T 25 source.python keyword.operator.arithmetic.python
+T 26 source.python
+T 28 source.python string.regexp.quoted.single.python storage.type.string.python
+T 29 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 30 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.begin.regexp
+T 32 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp
+T 33 source.python string.regexp.quoted.single.python
+T 34 source.python string.regexp.quoted.single.python keyword.operator.lookahead.negative.regexp punctuation.parenthesis.lookahead.end.regexp
+T 35 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 36 source.python
+T 37 source.python keyword.operator.arithmetic.python
+T 38 source.python
+T 40 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 43 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 44 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.begin.regexp
+T 47 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp
+T 48 source.python string.regexp.quoted.multi.python
+T 49 source.python string.regexp.quoted.multi.python keyword.operator.lookbehind.regexp punctuation.parenthesis.lookbehind.end.regexp
+T 52 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+L 
+L raw_multi = R'''raw {%name%} and {a b}
+T 9 source.python
+T 10 source.python
+T 11 source.python keyword.operator.assignment.python
+T 12 source.python
+T 13 source.python string.quoted.raw.multi.python storage.type.string.python
+T 16 source.python string.quoted.raw.multi.python punctuation.definition.string.begin.python
+T 20 source.python string.quoted.raw.multi.python
+T 38 source.python string.quoted.raw.multi.python
+L text'''
+T 4 source.python string.quoted.raw.multi.python
+T 7 source.python string.quoted.raw.multi.python punctuation.definition.string.end.python
+L raw_unicode = uR"""raw"""
+T 11 source.python
+T 12 source.python
+T 13 source.python keyword.operator.assignment.python
+T 14 source.python
+T 16 source.python string.quoted.raw.multi.python invalid.deprecated.prefix.python
+T 19 source.python string.quoted.raw.multi.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.raw.multi.python
+T 25 source.python string.quoted.raw.multi.python punctuation.definition.string.end.python
+L raw_bytes = Rb'''bytes''' + bR"""bytes"""
+T 9 source.python
+T 10 source.python
+T 11 source.python keyword.operator.assignment.python
+T 12 source.python
+T 14 source.python string.quoted.raw.binary.multi.python storage.type.string.python
+T 17 source.python string.quoted.raw.binary.multi.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.raw.binary.multi.python
+T 25 source.python string.quoted.raw.binary.multi.python punctuation.definition.string.end.python
+T 26 source.python
+T 27 source.python keyword.operator.arithmetic.python
+T 28 source.python
+T 30 source.python string.quoted.raw.binary.multi.python storage.type.string.python
+T 33 source.python string.quoted.raw.binary.multi.python punctuation.definition.string.begin.python
+T 38 source.python string.quoted.raw.binary.multi.python
+T 41 source.python string.quoted.raw.binary.multi.python punctuation.definition.string.end.python
+L plain_brace = R'{%name%}' + R'{a b}' + R"{%name%}" + R"{a b}"
+T 11 source.python
+T 12 source.python
+T 13 source.python keyword.operator.assignment.python
+T 14 source.python
+T 15 source.python string.quoted.raw.single.python storage.type.string.python
+T 16 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 24 source.python string.quoted.raw.single.python
+T 25 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+T 26 source.python
+T 27 source.python keyword.operator.arithmetic.python
+T 28 source.python
+T 29 source.python string.quoted.raw.single.python storage.type.string.python
+T 30 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 35 source.python string.quoted.raw.single.python
+T 36 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+T 37 source.python
+T 38 source.python keyword.operator.arithmetic.python
+T 39 source.python
+T 40 source.python string.quoted.raw.single.python storage.type.string.python
+T 41 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 49 source.python string.quoted.raw.single.python
+T 50 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+T 51 source.python
+T 52 source.python keyword.operator.arithmetic.python
+T 53 source.python
+T 54 source.python string.quoted.raw.single.python storage.type.string.python
+T 55 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 60 source.python string.quoted.raw.single.python
+T 61 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+L unicode_brace = '{%name%}' + "{%name%}" + u'{%name%}'
+T 13 source.python
+T 14 source.python
+T 15 source.python keyword.operator.assignment.python
+T 16 source.python
+T 17 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 25 source.python string.quoted.single.python
+T 26 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 27 source.python
+T 28 source.python keyword.operator.arithmetic.python
+T 29 source.python
+T 30 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 38 source.python string.quoted.single.python
+T 39 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 40 source.python
+T 41 source.python keyword.operator.arithmetic.python
+T 42 source.python
+T 43 source.python string.quoted.single.python storage.type.string.python
+T 44 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 52 source.python string.quoted.single.python
+T 53 source.python string.quoted.single.python punctuation.definition.string.end.python
+L multi_unicode_brace = '''{%name%}''' + """{%name%}"""
+T 19 source.python
+T 20 source.python
+T 21 source.python keyword.operator.assignment.python
+T 22 source.python
+T 25 source.python string.quoted.multi.python punctuation.definition.string.begin.python
+T 33 source.python string.quoted.multi.python
+T 36 source.python string.quoted.multi.python punctuation.definition.string.end.python
+T 37 source.python
+T 38 source.python keyword.operator.arithmetic.python
+T 39 source.python
+T 42 source.python string.quoted.multi.python punctuation.definition.string.begin.python
+T 50 source.python string.quoted.multi.python
+T 53 source.python string.quoted.multi.python punctuation.definition.string.end.python
+L multi_raw_brace = R'''{a b}''' + R"""{%x%}"""
+T 15 source.python
+T 16 source.python
+T 17 source.python keyword.operator.assignment.python
+T 18 source.python
+T 19 source.python string.quoted.raw.multi.python storage.type.string.python
+T 22 source.python string.quoted.raw.multi.python punctuation.definition.string.begin.python
+T 27 source.python string.quoted.raw.multi.python
+T 30 source.python string.quoted.raw.multi.python punctuation.definition.string.end.python
+T 31 source.python
+T 32 source.python keyword.operator.arithmetic.python
+T 33 source.python
+T 34 source.python string.quoted.raw.multi.python storage.type.string.python
+T 37 source.python string.quoted.raw.multi.python punctuation.definition.string.begin.python
+T 42 source.python string.quoted.raw.multi.python
+T 45 source.python string.quoted.raw.multi.python punctuation.definition.string.end.python
+L 
+L bad_prefix = uf"value" + bf'''value''' + Bf"value" + uF'''value'''
+T 10 source.python
+T 11 source.python
+T 12 source.python keyword.operator.assignment.python
+T 13 source.python
+T 14 source.python meta.fstring.python invalid.illegal.prefix.python
+T 15 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 16 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.single.python
+T 21 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 23 source.python
+T 24 source.python keyword.operator.arithmetic.python
+T 25 source.python
+T 26 source.python meta.fstring.python invalid.illegal.prefix.python
+T 27 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 30 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.multi.python
+T 35 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 38 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+T 39 source.python
+T 40 source.python keyword.operator.arithmetic.python
+T 41 source.python
+T 42 source.python meta.fstring.python invalid.illegal.prefix.python
+T 43 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 44 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.single.python
+T 49 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 50 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 51 source.python
+T 52 source.python keyword.operator.arithmetic.python
+T 53 source.python
+T 54 source.python meta.fstring.python invalid.illegal.prefix.python
+T 55 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 58 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.multi.python
+T 63 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 66 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+L raw_f = rf'''{name!r} and {width}
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.raw.multi.python storage.type.string.python
+T 13 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.multi.python
+T 14 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 18 source.python meta.fstring.python
+T 20 source.python meta.fstring.python storage.type.format.python
+T 21 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 26 source.python meta.fstring.python string.interpolated.python string.quoted.raw.multi.python
+T 27 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 32 source.python meta.fstring.python
+T 33 source.python meta.fstring.python constant.character.format.placeholder.other.python
+L more''' + fr"""{x}"""
+T 4 source.python meta.fstring.python string.interpolated.python string.quoted.raw.multi.python
+T 7 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.multi.python
+T 8 source.python
+T 9 source.python keyword.operator.arithmetic.python
+T 10 source.python
+T 12 source.python meta.fstring.python string.interpolated.python string.quoted.raw.multi.python storage.type.string.python
+T 15 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.multi.python
+T 16 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 17 source.python meta.fstring.python
+T 18 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 21 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.multi.python
+L width = 10
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 10 source.python constant.numeric.dec.python
+L formatted = f"{name!r} {name=!s} {value:>10} {value:{width}.2f} {value=:^20} a } b"
+T 9 source.python
+T 10 source.python
+T 11 source.python keyword.operator.assignment.python
+T 12 source.python
+T 13 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 14 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 15 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 19 source.python meta.fstring.python
+T 21 source.python meta.fstring.python storage.type.format.python
+T 22 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 23 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 24 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 28 source.python meta.fstring.python
+T 31 source.python meta.fstring.python storage.type.format.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 33 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 34 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 39 source.python meta.fstring.python
+T 43 source.python meta.fstring.python storage.type.format.python
+T 44 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 45 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 46 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 51 source.python meta.fstring.python
+T 52 source.python meta.fstring.python storage.type.format.python
+T 53 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 58 source.python meta.fstring.python
+T 59 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 61 source.python meta.fstring.python storage.type.format.python
+T 62 source.python meta.fstring.python storage.type.format.python
+T 63 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 64 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 65 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 70 source.python meta.fstring.python
+T 71 source.python meta.fstring.python storage.type.format.python
+T 75 source.python meta.fstring.python storage.type.format.python
+T 76 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 79 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 80 source.python meta.fstring.python invalid.illegal.brace.python
+T 82 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 83 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L formatted_multi = f'''{name!a} {value:<{width}} {value=!r:{width}} {value:.3}
+T 15 source.python
+T 16 source.python
+T 17 source.python keyword.operator.assignment.python
+T 18 source.python
+T 19 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 22 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.multi.python
+T 23 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 27 source.python meta.fstring.python
+T 29 source.python meta.fstring.python storage.type.format.python
+T 30 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 31 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 37 source.python meta.fstring.python
+T 38 source.python meta.fstring.python storage.type.format.python
+T 39 source.python meta.fstring.python storage.type.format.python
+T 40 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 45 source.python meta.fstring.python
+T 46 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 47 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 48 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 49 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 54 source.python meta.fstring.python
+T 57 source.python meta.fstring.python storage.type.format.python
+T 58 source.python meta.fstring.python storage.type.format.python
+T 59 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 64 source.python meta.fstring.python
+T 65 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 66 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 67 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 68 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 73 source.python meta.fstring.python
+T 76 source.python meta.fstring.python storage.type.format.python
+T 77 source.python meta.fstring.python constant.character.format.placeholder.other.python
+L {value:{width}d}'''
+T 1 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python storage.type.format.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 13 source.python meta.fstring.python
+T 14 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 15 source.python meta.fstring.python storage.type.format.python
+T 16 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 19 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+L spec = f"{value:{width}.{precision}}" + f"{value!r:{width}}"
+T 4 source.python
+T 5 source.python
+T 6 source.python keyword.operator.assignment.python
+T 7 source.python
+T 8 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 9 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 15 source.python meta.fstring.python
+T 16 source.python meta.fstring.python storage.type.format.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 22 source.python meta.fstring.python
+T 23 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 24 source.python meta.fstring.python
+T 25 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 34 source.python meta.fstring.python
+T 35 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 36 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 37 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 38 source.python
+T 39 source.python keyword.operator.arithmetic.python
+T 40 source.python
+T 41 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 42 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 43 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 48 source.python meta.fstring.python
+T 50 source.python meta.fstring.python storage.type.format.python
+T 51 source.python meta.fstring.python storage.type.format.python
+T 52 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 57 source.python meta.fstring.python
+T 58 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 59 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 60 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L 
+L 
+L named = r'(?P<word>x)\x41\101\u0041\U00000041 a[]' + r"a[^]"
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 9 source.python string.regexp.quoted.single.python storage.type.string.python
+T 10 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 11 source.python string.regexp.quoted.single.python meta.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.named.begin.regexp
+T 19 source.python string.regexp.quoted.single.python meta.named.regexp entity.name.tag.named.group.regexp
+T 20 source.python string.regexp.quoted.single.python meta.named.regexp
+T 21 source.python string.regexp.quoted.single.python meta.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.named.end.regexp
+T 25 source.python string.regexp.quoted.single.python constant.character.escape.regexp
+T 29 source.python string.regexp.quoted.single.python constant.character.escape.regexp
+T 35 source.python string.regexp.quoted.single.python constant.character.unicode.regexp
+T 45 source.python string.regexp.quoted.single.python constant.character.unicode.regexp
+T 47 source.python string.regexp.quoted.single.python
+T 48 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 49 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 50 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 51 source.python
+T 52 source.python keyword.operator.arithmetic.python
+T 53 source.python
+T 54 source.python string.regexp.quoted.single.python storage.type.string.python
+T 55 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 56 source.python string.regexp.quoted.single.python
+T 59 source.python string.regexp.quoted.single.python
+T 60 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+L escapes = r'\d\w\s\b[\101\d]'
+T 7 source.python
+T 8 source.python
+T 9 source.python keyword.operator.assignment.python
+T 10 source.python
+T 11 source.python string.regexp.quoted.single.python storage.type.string.python
+T 12 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 14 source.python string.regexp.quoted.single.python support.other.escape.special.regexp
+T 16 source.python string.regexp.quoted.single.python support.other.escape.special.regexp
+T 18 source.python string.regexp.quoted.single.python support.other.escape.special.regexp
+T 20 source.python string.regexp.quoted.single.python support.other.escape.special.regexp
+T 21 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 25 source.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.escape.regexp
+T 27 source.python string.regexp.quoted.single.python meta.character.set.regexp support.other.escape.special.regexp
+T 28 source.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 29 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+L named_three = r'''(?P<word>x) [] ''' + r"""[^]"""
+T 11 source.python
+T 12 source.python
+T 13 source.python keyword.operator.assignment.python
+T 14 source.python
+T 15 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 18 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 19 source.python string.regexp.quoted.multi.python meta.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.named.begin.regexp
+T 27 source.python string.regexp.quoted.multi.python meta.named.regexp entity.name.tag.named.group.regexp
+T 28 source.python string.regexp.quoted.multi.python meta.named.regexp
+T 29 source.python string.regexp.quoted.multi.python meta.named.regexp support.other.parenthesis.regexp punctuation.parenthesis.named.end.regexp
+T 30 source.python string.regexp.quoted.multi.python
+T 31 source.python string.regexp.quoted.multi.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 32 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 33 source.python string.regexp.quoted.multi.python meta.character.set.regexp constant.character.set.regexp
+T 36 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+T 37 source.python
+T 38 source.python keyword.operator.arithmetic.python
+T 39 source.python
+T 40 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 43 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 46 source.python string.regexp.quoted.multi.python
+T 49 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+L deprecated = ur'x' + Ur"x" + ur'''x''' + ur"""x""" + br"""x"""
+T 10 source.python
+T 11 source.python
+T 12 source.python keyword.operator.assignment.python
+T 13 source.python
+T 15 source.python string.regexp.quoted.single.python invalid.deprecated.prefix.python
+T 16 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 17 source.python string.regexp.quoted.single.python
+T 18 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 19 source.python
+T 20 source.python keyword.operator.arithmetic.python
+T 21 source.python
+T 23 source.python string.regexp.quoted.single.python invalid.deprecated.prefix.python
+T 24 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 25 source.python string.regexp.quoted.single.python
+T 26 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 27 source.python
+T 28 source.python keyword.operator.arithmetic.python
+T 29 source.python
+T 31 source.python string.regexp.quoted.multi.python invalid.deprecated.prefix.python
+T 34 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 35 source.python string.regexp.quoted.multi.python
+T 38 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+T 39 source.python
+T 40 source.python keyword.operator.arithmetic.python
+T 41 source.python
+T 43 source.python string.regexp.quoted.multi.python invalid.deprecated.prefix.python
+T 46 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 47 source.python string.regexp.quoted.multi.python
+T 50 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+T 51 source.python
+T 52 source.python keyword.operator.arithmetic.python
+T 53 source.python
+T 55 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 58 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 59 source.python string.regexp.quoted.multi.python
+T 62 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+L odd_prefix = rU'x' + rU'''x''' + U'''x''' + uR'x' + fu'x' + fb'''x'''
+T 10 source.python
+T 11 source.python
+T 12 source.python keyword.operator.assignment.python
+T 13 source.python
+T 14 source.python string.quoted.single.python invalid.illegal.prefix.python
+T 15 source.python string.quoted.single.python storage.type.string.python
+T 16 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 17 source.python string.quoted.single.python
+T 18 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 19 source.python
+T 20 source.python keyword.operator.arithmetic.python
+T 21 source.python
+T 22 source.python string.quoted.multi.python invalid.illegal.prefix.python
+T 23 source.python string.quoted.multi.python storage.type.string.python
+T 26 source.python string.quoted.multi.python punctuation.definition.string.begin.python
+T 27 source.python string.quoted.multi.python
+T 30 source.python string.quoted.multi.python punctuation.definition.string.end.python
+T 31 source.python
+T 32 source.python keyword.operator.arithmetic.python
+T 33 source.python
+T 34 source.python string.quoted.multi.python storage.type.string.python
+T 37 source.python string.quoted.multi.python punctuation.definition.string.begin.python
+T 38 source.python string.quoted.multi.python
+T 41 source.python string.quoted.multi.python punctuation.definition.string.end.python
+T 42 source.python
+T 43 source.python keyword.operator.arithmetic.python
+T 44 source.python
+T 46 source.python string.quoted.raw.single.python invalid.deprecated.prefix.python
+T 47 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 48 source.python string.quoted.raw.single.python
+T 49 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+T 50 source.python
+T 51 source.python keyword.operator.arithmetic.python
+T 52 source.python
+T 53 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 54 source.python meta.fstring.python invalid.illegal.prefix.python
+T 55 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 56 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 57 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 58 source.python
+T 59 source.python keyword.operator.arithmetic.python
+T 60 source.python
+T 61 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 62 source.python meta.fstring.python invalid.illegal.prefix.python
+T 65 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.multi.python
+T 66 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 69 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+L braces = f"{}" + f"{ }" + f'''{value=} {value=!r} {value:{width}} {value:+#{width},.2f} {value:{width}d}'''
+T 6 source.python
+T 7 source.python
+T 8 source.python keyword.operator.assignment.python
+T 9 source.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 11 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 12 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 13 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 14 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 15 source.python
+T 16 source.python keyword.operator.arithmetic.python
+T 17 source.python
+T 18 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 19 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 20 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 21 source.python meta.fstring.python invalid.illegal.brace.python
+T 22 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 23 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 24 source.python
+T 25 source.python keyword.operator.arithmetic.python
+T 26 source.python
+T 27 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 30 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.multi.python
+T 31 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 36 source.python meta.fstring.python
+T 37 source.python meta.fstring.python storage.type.format.python
+T 38 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 39 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 40 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 45 source.python meta.fstring.python
+T 48 source.python meta.fstring.python storage.type.format.python
+T 49 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 50 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 51 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 56 source.python meta.fstring.python
+T 57 source.python meta.fstring.python storage.type.format.python
+T 58 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 63 source.python meta.fstring.python
+T 64 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 65 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 66 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 67 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 72 source.python meta.fstring.python
+T 73 source.python meta.fstring.python storage.type.format.python
+T 74 source.python meta.fstring.python storage.type.format.python
+T 75 source.python meta.fstring.python storage.type.format.python
+T 76 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 81 source.python meta.fstring.python
+T 82 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 83 source.python meta.fstring.python storage.type.format.python
+T 85 source.python meta.fstring.python storage.type.format.python
+T 86 source.python meta.fstring.python storage.type.format.python
+T 87 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 88 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 89 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 94 source.python meta.fstring.python
+T 95 source.python meta.fstring.python storage.type.format.python
+T 96 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 101 source.python meta.fstring.python
+T 102 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 103 source.python meta.fstring.python storage.type.format.python
+T 104 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 107 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+L single_tail = f"{value:+#{width},d}"
+T 11 source.python
+T 12 source.python
+T 13 source.python keyword.operator.assignment.python
+T 14 source.python
+T 15 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 16 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 22 source.python meta.fstring.python
+T 23 source.python meta.fstring.python storage.type.format.python
+T 24 source.python meta.fstring.python storage.type.format.python
+T 25 source.python meta.fstring.python storage.type.format.python
+T 26 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 31 source.python meta.fstring.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 33 source.python meta.fstring.python storage.type.format.python
+T 34 source.python meta.fstring.python storage.type.format.python
+T 35 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 36 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L nested = f"{'''a
+T 6 source.python
+T 7 source.python
+T 8 source.python keyword.operator.assignment.python
+T 9 source.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 11 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 12 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 15 source.python meta.fstring.python string.quoted.multi.python punctuation.definition.string.begin.python
+T 16 source.python meta.fstring.python string.quoted.multi.python
+L '''}"
+T 3 source.python meta.fstring.python string.quoted.multi.python punctuation.definition.string.end.python
+T 4 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 5 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L formats = "{0:>10}".format(value) + "{0!r:{w}}".format(value, w=1)
+T 7 source.python
+T 8 source.python
+T 9 source.python keyword.operator.assignment.python
+T 10 source.python
+T 11 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python
+T 17 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python storage.type.format.python
+T 18 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python
+T 19 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 20 source.python meta.member.access.python punctuation.separator.period.python
+T 26 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 27 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 32 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python
+T 33 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 34 source.python
+T 35 source.python keyword.operator.arithmetic.python
+T 36 source.python
+T 37 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 39 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python
+T 41 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python storage.type.format.python
+T 42 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python storage.type.format.python
+T 46 source.python string.quoted.single.python meta.format.brace.python constant.character.format.placeholder.other.python
+T 47 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 48 source.python meta.member.access.python punctuation.separator.period.python
+T 54 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 55 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 60 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python
+T 61 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.separator.arguments.python
+T 62 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python
+T 63 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python variable.parameter.function-call.python
+T 64 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python keyword.operator.assignment.python
+T 65 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 66 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L typed = []  # type: List[int]
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 9 source.python punctuation.definition.list.begin.python
+T 10 source.python punctuation.definition.list.end.python
+T 12 source.python
+T 14 source.python comment.line.number-sign.python meta.typehint.comment.python
+T 19 source.python comment.line.number-sign.python meta.typehint.comment.python comment.typehint.directive.notation.python
+T 20 source.python comment.line.number-sign.python meta.typehint.comment.python
+T 24 source.python comment.line.number-sign.python meta.typehint.comment.python comment.typehint.type.notation.python
+T 25 source.python comment.line.number-sign.python meta.typehint.comment.python comment.typehint.punctuation.notation.python
+T 28 source.python comment.line.number-sign.python meta.typehint.comment.python comment.typehint.type.notation.python
+T 29 source.python comment.line.number-sign.python meta.typehint.comment.python comment.typehint.punctuation.notation.python
+L print(end="")
+T 5 source.python meta.function-call.python support.function.builtin.python
+T 6 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 9 source.python meta.function-call.python meta.function-call.arguments.python variable.parameter.function-call.python
+T 10 source.python meta.function-call.python meta.function-call.arguments.python keyword.operator.assignment.python
+T 11 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.begin.python
+T 12 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.end.python
+T 13 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L call("key"=1)
+T 4 source.python meta.function-call.python meta.function-call.generic.python
+T 5 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 6 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.begin.python
+T 9 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python
+T 10 source.python meta.function-call.python meta.function-call.arguments.python string.quoted.single.python punctuation.definition.string.end.python
+T 11 source.python meta.function-call.python meta.function-call.arguments.python keyword.operator.assignment.python
+T 12 source.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 13 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L tails = f'''{value!r:>10} {value:{width}10} {value:{width}z}''' + f"{value:{width}10}"
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 9 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 12 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.multi.python
+T 13 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 18 source.python meta.fstring.python
+T 20 source.python meta.fstring.python storage.type.format.python
+T 24 source.python meta.fstring.python storage.type.format.python
+T 25 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 26 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 27 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 32 source.python meta.fstring.python
+T 33 source.python meta.fstring.python storage.type.format.python
+T 34 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 39 source.python meta.fstring.python
+T 40 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 42 source.python meta.fstring.python storage.type.format.python
+T 43 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 44 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 45 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 50 source.python meta.fstring.python
+T 51 source.python meta.fstring.python storage.type.format.python
+T 52 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 57 source.python meta.fstring.python
+T 58 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 59 source.python meta.fstring.python storage.type.format.python
+T 60 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 63 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+T 64 source.python
+T 65 source.python keyword.operator.arithmetic.python
+T 66 source.python
+T 67 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 68 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 69 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 74 source.python meta.fstring.python
+T 75 source.python meta.fstring.python storage.type.format.python
+T 76 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 81 source.python meta.fstring.python
+T 82 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 84 source.python meta.fstring.python storage.type.format.python
+T 85 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 86 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L odd = lambda x, lambda: x
+T 3 source.python
+T 4 source.python
+T 5 source.python keyword.operator.assignment.python
+T 6 source.python
+T 12 source.python meta.lambda-function.python storage.type.function.lambda.python
+T 13 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 14 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 15 source.python meta.lambda-function.python meta.function.lambda.parameters.python punctuation.separator.parameters.python
+T 16 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 22 source.python meta.lambda-function.python meta.function.lambda.parameters.python storage.type.function.lambda.python
+T 23 source.python meta.lambda-function.python punctuation.section.function.lambda.begin.python
+T 24 source.python
+T 25 source.python
+L arrow = a -> b
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 9 source.python
+T 10 source.python
+T 12 source.python invalid.illegal.annotation.python
+T 13 source.python
+T 14 source.python
+L bad = a && b || c ++ d -- e $ f ?
+T 3 source.python
+T 4 source.python
+T 5 source.python keyword.operator.assignment.python
+T 6 source.python
+T 7 source.python
+T 8 source.python
+T 10 source.python invalid.illegal.operator.python
+T 11 source.python
+T 12 source.python
+T 13 source.python
+T 15 source.python invalid.illegal.operator.python
+T 16 source.python
+T 17 source.python
+T 18 source.python
+T 20 source.python invalid.illegal.operator.python
+T 21 source.python
+T 22 source.python
+T 23 source.python
+T 25 source.python invalid.illegal.operator.python
+T 26 source.python
+T 27 source.python
+T 28 source.python
+T 29 source.python invalid.illegal.operator.python
+T 30 source.python
+T 31 source.python
+T 32 source.python
+T 33 source.python invalid.illegal.operator.python
+L semi = 1;
+T 4 source.python
+T 5 source.python
+T 6 source.python keyword.operator.assignment.python
+T 7 source.python
+T 8 source.python constant.numeric.dec.python
+T 9 source.python invalid.deprecated.semicolon.python
+L 
+L @dec !x
+T 1 source.python meta.function.decorator.python entity.name.function.decorator.python punctuation.definition.decorator.python
+T 4 source.python meta.function.decorator.python entity.name.function.decorator.python
+T 5 source.python meta.function.decorator.python invalid.illegal.decorator.python
+T 7 source.python meta.function.decorator.python invalid.illegal.decorator.python invalid.illegal.decorator.python
+L @call(1) junk
+T 1 source.python meta.function.decorator.python entity.name.function.decorator.python punctuation.definition.decorator.python
+T 5 source.python meta.function.decorator.python entity.name.function.decorator.python
+T 6 source.python meta.function.decorator.python punctuation.definition.arguments.begin.python
+T 7 source.python meta.function.decorator.python meta.function-call.arguments.python constant.numeric.dec.python
+T 8 source.python meta.function.decorator.python punctuation.definition.arguments.end.python
+T 13 source.python meta.function.decorator.python invalid.illegal.decorator.python
+L def None(): pass
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 8 source.python meta.function.python keyword.illegal.name.python
+T 9 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 10 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 11 source.python meta.function.python punctuation.section.function.begin.python
+T 12 source.python
+T 16 source.python keyword.control.flow.python
+L class True: pass
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python keyword.illegal.name.python
+T 11 source.python meta.class.python punctuation.section.class.begin.python
+T 12 source.python
+T 16 source.python keyword.control.flow.python
+L ref = obj.None + obj.import
+T 3 source.python
+T 4 source.python
+T 5 source.python keyword.operator.assignment.python
+T 6 source.python
+T 9 source.python
+T 10 source.python meta.member.access.python punctuation.separator.period.python
+T 14 source.python meta.member.access.python keyword.illegal.name.python
+T 15 source.python
+T 16 source.python keyword.operator.arithmetic.python
+T 17 source.python
+T 20 source.python
+T 21 source.python meta.member.access.python punctuation.separator.period.python
+T 27 source.python meta.member.access.python keyword.control.import.python
+L def oops:
+T 3 source.python storage.type.function.python
+T 4 source.python
+T 8 source.python
+T 9 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L with open(path) as handle:
+T 4 source.python keyword.control.flow.python
+T 5 source.python
+T 9 source.python meta.function-call.python support.function.builtin.python
+T 10 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 14 source.python meta.function-call.python meta.function-call.arguments.python
+T 15 source.python meta.function-call.python punctuation.definition.arguments.end.python
+T 16 source.python
+T 18 source.python keyword.control.flow.python
+T 19 source.python
+T 25 source.python
+T 26 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L try:
+T 3 source.python keyword.control.flow.python
+T 4 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L except ValueError as err:
+T 6 source.python keyword.control.flow.python
+T 7 source.python
+T 17 source.python support.type.exception.python
+T 18 source.python
+T 20 source.python keyword.control.flow.python
+T 21 source.python
+T 24 source.python
+T 25 source.python punctuation.separator.colon.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L class Meta(Base, metaclass=ABCMeta):
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 10 source.python meta.class.python entity.name.type.class.python
+T 11 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.begin.python
+T 15 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python
+T 16 source.python meta.class.python meta.class.inheritance.python punctuation.separator.inheritance.python
+T 17 source.python meta.class.python meta.class.inheritance.python
+T 26 source.python meta.class.python meta.class.inheritance.python support.type.metaclass.python
+T 27 source.python meta.class.python meta.class.inheritance.python keyword.operator.assignment.python
+T 34 source.python meta.class.python meta.class.inheritance.python entity.other.inherited-class.python
+T 35 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.end.python
+T 36 source.python meta.class.python punctuation.section.class.begin.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L class Wrapped(make_base(Base)):
+T 5 source.python meta.class.python storage.type.class.python
+T 6 source.python meta.class.python
+T 13 source.python meta.class.python entity.name.type.class.python
+T 14 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.begin.python
+T 23 source.python meta.class.python meta.class.inheritance.python meta.function-call.python entity.other.inherited-class.python
+T 24 source.python meta.class.python meta.class.inheritance.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 28 source.python meta.class.python meta.class.inheritance.python meta.function-call.python meta.function-call.arguments.python
+T 29 source.python meta.class.python meta.class.inheritance.python meta.function-call.python punctuation.definition.arguments.end.python
+T 30 source.python meta.class.python meta.class.inheritance.python punctuation.definition.inheritance.end.python
+T 31 source.python meta.class.python punctuation.section.class.begin.python
+L     pass
+T 4 source.python
+T 8 source.python keyword.control.flow.python
+L 
+L with ctx as value
+T 4 source.python keyword.control.flow.python
+T 5 source.python
+T 8 source.python
+T 9 source.python
+T 11 source.python keyword.control.import.python
+T 12 source.python
+T 17 source.python
+L set_one = r'a[]'
+T 7 source.python
+T 8 source.python
+T 9 source.python keyword.operator.assignment.python
+T 10 source.python
+T 11 source.python string.regexp.quoted.single.python storage.type.string.python
+T 12 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 13 source.python string.regexp.quoted.single.python
+T 15 source.python string.regexp.quoted.single.python
+T 16 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+L set_three = r'''[]'''
+T 9 source.python
+T 10 source.python
+T 11 source.python keyword.operator.assignment.python
+T 12 source.python
+T 13 source.python string.regexp.quoted.multi.python storage.type.string.python
+T 16 source.python string.regexp.quoted.multi.python punctuation.definition.string.begin.python
+T 18 source.python string.regexp.quoted.multi.python
+T 21 source.python string.regexp.quoted.multi.python punctuation.definition.string.end.python
+L positional = lambda a, /, b, *args, **kwargs: a
+T 10 source.python
+T 11 source.python
+T 12 source.python keyword.operator.assignment.python
+T 13 source.python
+T 19 source.python meta.lambda-function.python storage.type.function.lambda.python
+T 20 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 21 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 22 source.python meta.lambda-function.python meta.function.lambda.parameters.python punctuation.separator.parameters.python
+T 23 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 24 source.python meta.lambda-function.python meta.function.lambda.parameters.python keyword.operator.positional.parameter.python
+T 26 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 27 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 28 source.python meta.lambda-function.python meta.function.lambda.parameters.python punctuation.separator.parameters.python
+T 29 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 30 source.python meta.lambda-function.python meta.function.lambda.parameters.python keyword.operator.unpacking.parameter.python
+T 34 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 35 source.python meta.lambda-function.python meta.function.lambda.parameters.python punctuation.separator.parameters.python
+T 36 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 38 source.python meta.lambda-function.python meta.function.lambda.parameters.python keyword.operator.unpacking.parameter.python
+T 44 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 45 source.python meta.lambda-function.python punctuation.section.function.lambda.begin.python
+T 46 source.python
+T 47 source.python
+L nested_lambda = lambda a=lambda, b: a
+T 13 source.python
+T 14 source.python
+T 15 source.python keyword.operator.assignment.python
+T 16 source.python
+T 22 source.python meta.lambda-function.python storage.type.function.lambda.python
+T 23 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 24 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 25 source.python meta.lambda-function.python meta.function.lambda.parameters.python keyword.operator.python
+T 31 source.python meta.lambda-function.python meta.function.lambda.parameters.python storage.type.function.lambda.python
+T 32 source.python meta.lambda-function.python meta.function.lambda.parameters.python punctuation.separator.parameters.python
+T 33 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+T 34 source.python meta.lambda-function.python meta.function.lambda.parameters.python variable.parameter.function.language.python
+T 35 source.python meta.lambda-function.python punctuation.section.function.lambda.begin.python
+T 36 source.python
+T 37 source.python
+L call(lambda)
+T 4 source.python meta.function-call.python meta.function-call.generic.python
+T 5 source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 11 source.python meta.function-call.python meta.function-call.arguments.python storage.type.function.lambda.python
+T 12 source.python meta.function-call.python punctuation.definition.arguments.end.python
+L items = [lambda, lambda]
+T 5 source.python
+T 6 source.python
+T 7 source.python keyword.operator.assignment.python
+T 8 source.python
+T 9 source.python punctuation.definition.list.begin.python
+T 15 source.python storage.type.function.lambda.python
+T 16 source.python punctuation.separator.element.python
+T 17 source.python
+T 23 source.python meta.lambda-function.python storage.type.function.lambda.python
+T 24 source.python meta.lambda-function.python meta.function.lambda.parameters.python
+L obj.lambda
+T 3 source.python
+T 4 source.python meta.member.access.python punctuation.separator.period.python
+T 10 source.python meta.member.access.python keyword.control.flow.python
+L bad_number = 123abc
+T 10 source.python
+T 13 source.python
+T 19 source.python invalid.illegal.name.python
+L lambda = 1
+T 6 source.python keyword.control.flow.python
+T 9 source.python
+T 10 source.python constant.numeric.dec.python
+L 

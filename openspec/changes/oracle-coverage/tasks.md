@@ -41,7 +41,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 - [ ] 3.11 Lua: `lua`
 - [ ] 3.12 shell: `shellscript`
 - [ ] 3.13 Markdown: `markdown`
-- [ ] 3.14 CSS, Less and SCSS: `css`, `less`, `scss`
+- [x] 3.14 CSS, Less and SCSS: `css`, `less`, `scss`
+  - 2026-11-04 UTC, [PR 287][pr287]: less.js, Angular Components and Bootstrap inputs and a written input per language added; the three grammars complete with 6, 29 and 50 waived units. On `dd3a3df5` the [oracle test][run-287-ci] and the [coverage check][run-287-cov] passed.
 - [ ] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
 - [ ] 3.16 ERB: `erb`
 - [ ] 3.17 JSON: `json`, `jsonc`, `jsonl`
@@ -64,3 +65,6 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr282]: https://github.com/victor-software-house/nishiki-archive/pull/282
 [run-282-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41769127920
 [run-282-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41769127433
+[pr287]: https://github.com/victor-software-house/nishiki-archive/pull/287
+[run-287-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41772490259
+[run-287-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41772489900

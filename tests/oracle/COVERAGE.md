@@ -37,7 +37,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lua | `lua` | 81 of 152 | 53.3% | 32 of 74 | 43.2% | 0 | 3 |  |
 | Make | `make` | 58 of 75 | 77.3% | 23 of 32 | 71.9% | 0 | 0 |  |
 | Markdown | `markdown` | 145 of 311 | 46.6% | 158 of 373 | 42.4% | 0 | 8 |  |
-| Python | `python` | 163 of 350 | 46.6% | 125 of 372 | 33.6% | 0 | 27 |  |
+| Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
 | Ruby | `ruby` | 168 of 336 | 50.0% | 139 of 293 | 47.4% | 0 | 8 |  |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
@@ -2394,224 +2394,68 @@ patterns[23].match  \b(\|\||&&|!)\b
 ### `python`
 
 ```text
-#backticks.begin  `  fuzz
-#backticks.end  `|(?<!\\)(\n)  fuzz
-#call-wrapper-inheritance.begin  \b(?=([_[:alpha:]]\w*)\s*(\())
-#call-wrapper-inheritance.end  (\))
-#class-inheritance.patterns[0].match  (\*\*?)
-#class-inheritance.patterns[2].match  =(?!=)
-#class-inheritance.patterns[3].match  \bmetaclass\b
-#class-kwarg.match  \b([_[:alpha:]]\w*)\s*(=)(?!=)
-#comments.patterns[0].patterns[1].match  (?<!\.)\b(bool|bytes|float|int|object|str|List|Dict|Iterabl…
-#comments-string-single-three.begin  (#)
-#comments-string-single-three.end  ($|(?='''))
-#decorator.end  groups 2
-#decorator-name.patterns[4].match  \s*([^#(.\\_[:alpha:]\s].*?)(?=#|$)  fuzz
-#docstring.patterns[2].begin  (["'])  fuzz
-#docstring.patterns[2].end  (\1)|(\n)  fuzz
-#docstring.patterns[3].begin  ([Rr])(["'])  fuzz
-#docstring.patterns[3].end  (\2)|(\n)  fuzz
-#double-one-regexp-character-set.patterns[0].match  \[\^?](?!.*?])
-#double-one-regexp-character-set.patterns[1].begin  groups 2, 3
-#double-one-regexp-character-set.patterns[1].end  groups 2
-#double-one-regexp-comments.begin  \(\?#
-#double-one-regexp-comments.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-one-regexp-conditional.begin  (\()\?\((\w+(?:\s+\p{alnum}+)?|\d+)\)
-#double-one-regexp-conditional.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-one-regexp-lookahead.begin  (\()\?=
-#double-one-regexp-lookahead.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-one-regexp-lookahead-negative.begin  (\()\?!
-#double-one-regexp-lookahead-negative.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-one-regexp-lookbehind.begin  (\()\?<=
-#double-one-regexp-lookbehind.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-one-regexp-lookbehind-negative.begin  (\()\?<!
-#double-one-regexp-lookbehind-negative.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-one-regexp-named-group.end  groups 2
-#double-one-regexp-parentheses.end  groups 2
-#double-one-regexp-parentheses-non-capturing.begin  \(\?:
-#double-one-regexp-parentheses-non-capturing.end  (\)|(?="))|((?=(?<!\\)\n))
-#double-three-regexp-character-set.patterns[0].match  \[\^?](?!.*?])
-#double-three-regexp-character-set.patterns[1].begin  groups 3
-#double-three-regexp-character-set.patterns[1].end  groups 2
-#double-three-regexp-comments.begin  \(\?#
-#double-three-regexp-comments.end  (\)|(?="""))
-#double-three-regexp-conditional.begin  (\()\?\((\w+(?:\s+\p{alnum}+)?|\d+)\)
-#double-three-regexp-conditional.end  (\)|(?="""))
-#double-three-regexp-lookahead.begin  (\()\?=
-#double-three-regexp-lookahead.end  (\)|(?="""))
-#double-three-regexp-lookahead-negative.end  groups 2
-#double-three-regexp-lookbehind.begin  (\()\?<=
-#double-three-regexp-lookbehind.end  (\)|(?="""))
-#double-three-regexp-lookbehind-negative.end  groups 2
-#double-three-regexp-named-group.begin  (\()(\?P<\w+(?:\s+\p{alnum}+)?>)
-#double-three-regexp-named-group.end  (\)|(?="""))
-#double-three-regexp-parentheses.end  groups 2
-#double-three-regexp-parentheses-non-capturing.end  groups 2
-#escape-sequence-unicode.patterns[0].match  \\(u\h{4}|U\h{8}|N\{[\w\s]+?})
-#fstring-fnorm-quoted-multi-line.begin  groups 2
-#fstring-fnorm-quoted-multi-line.end  groups 2
-#fstring-fnorm-quoted-single-line.begin  groups 2
-#fstring-fnorm-quoted-single-line.end  groups 2
-#fstring-formatting-braces.patterns[0].match  (\{)(\s*?)(})
-#fstring-formatting-singe-brace.match  (}(?!}))
-#fstring-illegal-single-brace.begin  (\{)(?=[^\n}]*$\n?)
-#fstring-illegal-single-brace.end  (})|(?=\n)
-#fstring-normf-quoted-multi-line.begin  \b([BUbu])([Ff])('''|""")
-#fstring-normf-quoted-multi-line.end  (\3)
-#fstring-normf-quoted-single-line.begin  \b([BUbu])([Ff])((["']))
-#fstring-normf-quoted-single-line.end  (\3)|((?<!\\)\n)
-#fstring-raw-multi-core.match  (.+?)($(\n?)|(?=[\\{}]|'''|"""))|\n
-#fstring-raw-quoted-multi-line.begin  \b([Rr][Ff]|[Ff][Rr])('''|""")
-#fstring-raw-quoted-multi-line.end  (\2)
-#fstring-raw-quoted-single-line.end  groups 2
-#fstring-terminator-multi.patterns[0].match  (=(![ars])?)(?=})
-#fstring-terminator-multi.patterns[1].match  (=?![ars])(?=})
-#fstring-terminator-multi.patterns[2].match  (=?(?:![ars])?)(:\w?[<=>^]?[- +]?#?\d*,?(\.\d+)?[%EFGXb-gno…
-#fstring-terminator-multi-tail.begin  (=?(?:![ars])?)(:)(?=.*?\{)
-#fstring-terminator-multi-tail.end  (?=})
-#fstring-terminator-multi-tail.patterns[2].match  ([%EFGXb-gnosx])(?=})
-#fstring-terminator-multi-tail.patterns[3].match  (\.\d+)
-#fstring-terminator-multi-tail.patterns[4].match  (,)
-#fstring-terminator-multi-tail.patterns[5].match  (\d+)
-#fstring-terminator-multi-tail.patterns[6].match  (#)
-#fstring-terminator-multi-tail.patterns[7].match  ([- +])
-#fstring-terminator-multi-tail.patterns[8].match  ([<=>^])
-#fstring-terminator-multi-tail.patterns[9].match  (\w)
-#fstring-terminator-single.patterns[2].match  (=?(?:![ars])?)(:\w?[<=>^]?[- +]?#?\d*,?(\.\d+)?[%EFGXb-gno…
-#fstring-terminator-single-tail.begin  (=?(?:![ars])?)(:)(?=.*?\{)
-#fstring-terminator-single-tail.end  (?=})|(?=\n)
-#fstring-terminator-single-tail.patterns[2].match  ([%EFGXb-gnosx])(?=})
-#fstring-terminator-single-tail.patterns[3].match  (\.\d+)
-#fstring-terminator-single-tail.patterns[4].match  (,)
-#fstring-terminator-single-tail.patterns[5].match  (\d+)
-#fstring-terminator-single-tail.patterns[6].match  (#)
-#fstring-terminator-single-tail.patterns[7].match  ([- +])
-#fstring-terminator-single-tail.patterns[8].match  ([<=>^])
-#fstring-terminator-single-tail.patterns[9].match  (\w)
-#function-arguments.patterns[5].match  =(?!=)  fuzz
-#illegal-anno.match  ->  fuzz
-#illegal-names.match  groups 2 (fuzz)
-#illegal-object-name.match  \b(True|False|None)\b
-#illegal-operator.patterns[0].match  &&|\|\||--|\+\+
-#illegal-operator.patterns[1].match  [$?]  fuzz
-#illegal-operator.patterns[2].match  !\b
-#impossible.match  $.^
-#lambda.patterns[0].match  ((?<=\.)lambda|lambda(?=\s*[.=]))
-#lambda.patterns[1].match  \b(lambda)\s*?(?=[\n,]|$)
-#lambda.patterns[2].patterns[0].match  /
-#lambda.patterns[2].patterns[1].match  (\*\*?)
-#lambda.patterns[2].patterns[4].match  groups 2
-#lambda-incomplete.match  \blambda(?=\s*[),])
-#lambda-nested-incomplete.match  \blambda(?=\s*[),:])
-#lambda-parameter-with-default.begin  \b([_[:alpha:]]\w*)\s*(=)
-#lambda-parameter-with-default.end  (,)|(?=:|$)
-#line-continuation.patterns[0].match  (\\)\s*(\S.*$\n?)  fuzz
-#line-continuation.patterns[1].begin  (\\)\s*$\n?  fuzz
-#line-continuation.patterns[1].end  (?=^\s*$)|(?!(\s*[Rr]?('''|"""|["']))|\G()$)  fuzz
-#number.patterns[6].match  \b[0-9]+\w+
-#number-bin.match  (?<![.\w])(0[Bb])(_?[01])+\b
-#number-dec.match  groups 1, 2
-#number-float.match  groups 1
-#number-hex.match  (?<![.\w])(0[Xx])(_?\h)+\b
-#number-long.match  (?<![.\w])([1-9][0-9]*|0)([Ll])\b
-#number-oct.match  (?<![.\w])(0[Oo])(_?[0-7])+\b
-#regexp-backreference.match  (\()(\?P=\w+(?:\s+\p{alnum}+)?)(\))
-#regexp-backreference-number.match  (\\[1-9]\d?)
-#regexp-charecter-set-escapes.patterns[2].match  \\([0-7]{1,3})
-#regexp-double-one-line.begin  groups 2, 3
-#regexp-double-one-line.end  groups 2
-#regexp-double-three-line.begin  groups 2, 3
-#regexp-double-three-line.end  groups 2
-#regexp-escape-character.match  \\(x\h{2}|0[0-7]{1,2}|[0-7]{3})
-#regexp-escape-special.match  \\([ABDSWZbdsw])
-#regexp-escape-unicode.match  \\(u\h{4}|U\h{8})
-#regexp-flags.match  \(\?[Laimsux]+\)
-#regexp-single-one-line.begin  \b(([Uu]r)|([Bb]r)|(r[Bb]?))(')
-#regexp-single-one-line.end  (')|(?<!\\)(\n)
-#regexp-single-three-line.begin  \b(([Uu]r)|([Bb]r)|(r[Bb]?))(''')
-#regexp-single-three-line.end  (''')
-#semicolon.patterns[0].match  ;$
-#single-one-regexp-character-set.patterns[0].match  \[\^?](?!.*?])
-#single-one-regexp-character-set.patterns[1].begin  (\[)(\^)?(])?
-#single-one-regexp-character-set.patterns[1].end  (]|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-character-set.patterns[1].patterns[1].match  \N
-#single-one-regexp-comments.begin  \(\?#
-#single-one-regexp-comments.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-conditional.begin  (\()\?\((\w+(?:\s+\p{alnum}+)?|\d+)\)
-#single-one-regexp-conditional.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-lookahead.begin  (\()\?=
-#single-one-regexp-lookahead.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-lookahead-negative.begin  (\()\?!
-#single-one-regexp-lookahead-negative.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-lookbehind.begin  (\()\?<=
-#single-one-regexp-lookbehind.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-lookbehind-negative.begin  (\()\?<!
-#single-one-regexp-lookbehind-negative.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-named-group.begin  (\()(\?P<\w+(?:\s+\p{alnum}+)?>)
-#single-one-regexp-named-group.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-parentheses.begin  \(
-#single-one-regexp-parentheses.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-one-regexp-parentheses-non-capturing.begin  \(\?:
-#single-one-regexp-parentheses-non-capturing.end  (\)|(?='))|((?=(?<!\\)\n))
-#single-three-regexp-character-set.patterns[0].match  \[\^?](?!.*?])
-#single-three-regexp-character-set.patterns[1].begin  (\[)(\^)?(])?
-#single-three-regexp-character-set.patterns[1].end  (]|(?='''))
-#single-three-regexp-character-set.patterns[1].patterns[1].match  \N
-#single-three-regexp-comments.begin  \(\?#
-#single-three-regexp-comments.end  (\)|(?='''))
-#single-three-regexp-conditional.begin  (\()\?\((\w+(?:\s+\p{alnum}+)?|\d+)\)
-#single-three-regexp-conditional.end  (\)|(?='''))
-#single-three-regexp-lookahead.begin  (\()\?=
-#single-three-regexp-lookahead.end  (\)|(?='''))
-#single-three-regexp-lookahead-negative.begin  (\()\?!
-#single-three-regexp-lookahead-negative.end  (\)|(?='''))
-#single-three-regexp-lookbehind.begin  (\()\?<=
-#single-three-regexp-lookbehind.end  (\)|(?='''))
-#single-three-regexp-lookbehind-negative.begin  (\()\?<!
-#single-three-regexp-lookbehind-negative.end  (\)|(?='''))
-#single-three-regexp-named-group.begin  (\()(\?P<\w+(?:\s+\p{alnum}+)?>)
-#single-three-regexp-named-group.end  (\)|(?='''))
-#single-three-regexp-parentheses.begin  \(
-#single-three-regexp-parentheses.end  (\)|(?='''))
-#single-three-regexp-parentheses-non-capturing.begin  \(\?:
-#single-three-regexp-parentheses-non-capturing.end  (\)|(?='''))
-#statement-keyword.patterns[0].match  \b((async\s+)?\s*def)\b  fuzz
-#statement-keyword.patterns[2].match  \b(?<!\.)as\b  fuzz
-#statement-keyword.patterns[5].match  \b(?<!\.)(class)\b  fuzz
-#string-bin-quoted-multi-line.begin  \b([Bb])('''|""")
-#string-bin-quoted-multi-line.end  (\2)
-#string-bin-quoted-single-line.end  groups 2
-#string-brace-formatting.patterns[0].match  groups 4
-#string-brace-formatting.patterns[1].match  groups 3
-#string-line-continuation.match  \\$  fuzz
-#string-multi-bad-brace1-formatting-raw.begin  (?=\{%(.*?(?!'''|"""))%})
-#string-multi-bad-brace1-formatting-raw.end  (?='''|""")
-#string-multi-bad-brace1-formatting-unicode.begin  (?=\{%(.*?(?!'''|"""))%})
-#string-multi-bad-brace1-formatting-unicode.end  (?='''|""")
-#string-multi-bad-brace2-formatting-raw.begin  (?!\{\{)(?=\{(\w*?(?!'''|""")[^!.:\[}\w]).*?(?!'''|""")})
-#string-multi-bad-brace2-formatting-raw.end  (?='''|""")
-#string-multi-bad-brace2-formatting-unicode.begin  (?!\{\{)(?=\{(\w*?(?!'''|""")[^!.:\[}\w]).*?(?!'''|""")})
-#string-multi-bad-brace2-formatting-unicode.end  (?='''|""")
-#string-quoted-multi-line.begin  groups 1, 2
-#string-quoted-multi-line.end  groups 2
-#string-quoted-single-line.begin  groups 1, 2
-#string-quoted-single-line.end  groups 2
-#string-raw-bin-quoted-multi-line.begin  \b(R[Bb]|[Bb]R)('''|""")
-#string-raw-bin-quoted-multi-line.end  (\2)
-#string-raw-bin-quoted-single-line.begin  \b(R[Bb]|[Bb]R)((["']))
-#string-raw-bin-quoted-single-line.end  (\2)|((?<!\\)\n)
-#string-raw-quoted-multi-line.begin  \b(([Uu]R)|(R))('''|""")
-#string-raw-quoted-multi-line.end  (\4)
-#string-raw-quoted-single-line.begin  \b(([Uu]R)|(R))((["']))
-#string-raw-quoted-single-line.end  (\4)|((?<!\\)\n)
-#string-single-bad-brace1-formatting-raw.begin  (?=\{%(.*?(?!(["'])|((?<!\\)\n)))%})
-#string-single-bad-brace1-formatting-raw.end  (?=(["'])|((?<!\\)\n))
-#string-single-bad-brace1-formatting-unicode.begin  (?=\{%(.*?(?!(["'])|((?<!\\)\n)))%})
-#string-single-bad-brace1-formatting-unicode.end  (?=(["'])|((?<!\\)\n))
-#string-single-bad-brace2-formatting-raw.begin  (?!\{\{)(?=\{(\w*?(?!(["'])|((?<!\\)\n))[^!.:\[}\w]).*?(?!(…
-#string-single-bad-brace2-formatting-raw.end  (?=(["'])|((?<!\\)\n))
-#string-single-bad-brace2-formatting-unicode.begin  (?!\{\{)(?=\{(\w*?(?!(["'])|((?<!\\)\n))[^!.:\[}\w]).*?(?!(…
-#string-single-bad-brace2-formatting-unicode.end  (?=(["'])|((?<!\\)\n))
+#docstring.patterns[2].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#docstring.patterns[3].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#double-one-regexp-character-set.patterns[1].end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-comments.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-conditional.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-lookahead.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-lookahead-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-lookbehind.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-lookbehind-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-named-group.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-parentheses.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-one-regexp-parentheses-non-capturing.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#double-three-regexp-character-set.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-comments.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-conditional.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-lookahead.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-lookahead-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-lookbehind.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-lookbehind-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-named-group.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-parentheses.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#double-three-regexp-parentheses-non-capturing.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#fstring-fnorm-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#fstring-fnorm-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#fstring-formatting-braces.patterns[0].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
+#fstring-normf-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#fstring-normf-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#fstring-raw-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#fstring-raw-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#impossible.match  $.^  waived: `$.^` needs a character between the end of a line and the start of one, and `.` takes no line feed
+#regexp-double-one-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#regexp-double-three-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#regexp-single-one-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#regexp-single-three-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-one-regexp-character-set.patterns[1].end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-comments.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-conditional.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-lookahead.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-lookahead-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-lookbehind.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-lookbehind-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-named-group.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-parentheses.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-one-regexp-parentheses-non-capturing.end  groups 2 (waived: the group is a lookahead, so it never holds text)
+#single-three-regexp-character-set.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-comments.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-conditional.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-lookahead.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-lookahead-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-lookbehind.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-lookbehind-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-named-group.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-parentheses.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#single-three-regexp-parentheses-non-capturing.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#string-bin-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#string-bin-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#string-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#string-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#string-raw-bin-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#string-raw-bin-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#string-raw-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#string-raw-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
 ```
 
 ### `ruby`

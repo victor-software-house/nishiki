@@ -1,0 +1,413 @@
+L x = 123456789 .bit_count()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 13 source.python constant.numeric.dec.python
+T 14 source.python
+T 15 source.python meta.member.access.python punctuation.separator.period.python
+T 24 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 25 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 26 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = (123456).__abs__()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 11 source.python constant.numeric.dec.python
+T 12 source.python punctuation.parenthesis.end.python
+T 13 source.python meta.member.access.python punctuation.separator.period.python
+T 20 source.python meta.member.access.python meta.function-call.python support.function.magic.python
+T 21 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = .1.is_integer()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.float.python
+T 7 source.python meta.member.access.python punctuation.separator.period.python
+T 17 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 18 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 19 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 1. .imag
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python constant.numeric.dec.python
+T 6 source.python meta.member.access.python punctuation.separator.period.python
+T 7 source.python
+T 8 source.python meta.member.access.python punctuation.separator.period.python
+T 12 source.python meta.member.access.python meta.attribute.python
+L x = 1E+1.imag
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 8 source.python constant.numeric.float.python
+T 9 source.python meta.member.access.python punctuation.separator.period.python
+T 13 source.python meta.member.access.python meta.attribute.python
+L x = 1E-1.real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 8 source.python constant.numeric.float.python
+T 9 source.python meta.member.access.python punctuation.separator.period.python
+T 13 source.python meta.member.access.python meta.attribute.python
+L x = 123456789.123456789.hex()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 23 source.python constant.numeric.float.python
+T 24 source.python meta.member.access.python punctuation.separator.period.python
+T 27 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 28 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 29 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 123456789.123456789E123456789 .real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 33 source.python constant.numeric.float.python
+T 34 source.python
+T 35 source.python meta.member.access.python punctuation.separator.period.python
+T 39 source.python meta.member.access.python meta.attribute.python
+L x = 123456789E123456789 .conjugate()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 23 source.python constant.numeric.float.python
+T 24 source.python
+T 25 source.python meta.member.access.python punctuation.separator.period.python
+T 34 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 35 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 36 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 123456789J.real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 13 source.python constant.numeric.dec.python
+T 14 source.python constant.numeric.dec.python storage.type.imaginary.number.python
+T 15 source.python meta.member.access.python punctuation.separator.period.python
+T 19 source.python meta.member.access.python meta.attribute.python
+L x = 123456789.123456789J.__add__(0b1011.bit_length())
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 23 source.python constant.numeric.float.python
+T 24 source.python constant.numeric.float.python storage.type.imaginary.number.python
+T 25 source.python meta.member.access.python punctuation.separator.period.python
+T 32 source.python meta.member.access.python meta.function-call.python support.function.magic.python
+T 33 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 35 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python constant.numeric.bin.python storage.type.number.python
+T 39 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python constant.numeric.bin.python
+T 40 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python punctuation.separator.period.python
+T 50 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 51 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 52 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 53 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 0XB1ACC.conjugate()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.hex.python storage.type.number.python
+T 11 source.python constant.numeric.hex.python
+T 12 source.python meta.member.access.python punctuation.separator.period.python
+T 21 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 23 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 0B1011 .conjugate()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.bin.python storage.type.number.python
+T 10 source.python constant.numeric.bin.python
+T 11 source.python
+T 12 source.python meta.member.access.python punctuation.separator.period.python
+T 21 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 23 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 0O777 .real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.oct.python storage.type.number.python
+T 9 source.python constant.numeric.oct.python
+T 10 source.python
+T 11 source.python meta.member.access.python punctuation.separator.period.python
+T 15 source.python meta.member.access.python meta.attribute.python
+L x = 0.000000006  .hex()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 15 source.python constant.numeric.float.python
+T 17 source.python
+T 18 source.python meta.member.access.python punctuation.separator.period.python
+T 21 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 23 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = -100.0000J
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python keyword.operator.arithmetic.python
+T 13 source.python constant.numeric.float.python
+T 14 source.python constant.numeric.float.python storage.type.imaginary.number.python
+L 
+L if 10 .real:
+T 2 source.python keyword.control.flow.python
+T 3 source.python
+T 5 source.python constant.numeric.dec.python
+T 6 source.python
+T 7 source.python meta.member.access.python punctuation.separator.period.python
+T 11 source.python meta.member.access.python meta.attribute.python
+T 12 source.python punctuation.separator.colon.python
+L     ...
+T 4 source.python
+T 7 source.python constant.other.ellipsis.python
+L 
+L y = 100[no]
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 7 source.python constant.numeric.dec.python
+T 8 source.python punctuation.definition.list.begin.python
+T 10 source.python
+T 11 source.python punctuation.definition.list.end.python
+L y = 100(no)
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 7 source.python constant.numeric.dec.python
+T 8 source.python punctuation.parenthesis.begin.python
+T 10 source.python
+T 11 source.python punctuation.parenthesis.end.python
+L 
+L # output
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 8 source.python comment.line.number-sign.python
+L 
+L x = (123456789).bit_count()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 14 source.python constant.numeric.dec.python
+T 15 source.python punctuation.parenthesis.end.python
+T 16 source.python meta.member.access.python punctuation.separator.period.python
+T 25 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 26 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 27 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = (123456).__abs__()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 11 source.python constant.numeric.dec.python
+T 12 source.python punctuation.parenthesis.end.python
+T 13 source.python meta.member.access.python punctuation.separator.period.python
+T 20 source.python meta.member.access.python meta.function-call.python support.function.magic.python
+T 21 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = (0.1).is_integer()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 8 source.python constant.numeric.float.python
+T 9 source.python punctuation.parenthesis.end.python
+T 10 source.python meta.member.access.python punctuation.separator.period.python
+T 20 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 21 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = (1.0).imag
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 8 source.python constant.numeric.float.python
+T 9 source.python punctuation.parenthesis.end.python
+T 10 source.python meta.member.access.python punctuation.separator.period.python
+T 14 source.python meta.member.access.python meta.attribute.python
+L x = (1e1).imag
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 8 source.python constant.numeric.float.python
+T 9 source.python punctuation.parenthesis.end.python
+T 10 source.python meta.member.access.python punctuation.separator.period.python
+T 14 source.python meta.member.access.python meta.attribute.python
+L x = (1e-1).real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 9 source.python constant.numeric.float.python
+T 10 source.python punctuation.parenthesis.end.python
+T 11 source.python meta.member.access.python punctuation.separator.period.python
+T 15 source.python meta.member.access.python meta.attribute.python
+L x = (123456789.123456789).hex()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 24 source.python constant.numeric.float.python
+T 25 source.python punctuation.parenthesis.end.python
+T 26 source.python meta.member.access.python punctuation.separator.period.python
+T 29 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 30 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 31 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = (123456789.123456789e123456789).real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 34 source.python constant.numeric.float.python
+T 35 source.python punctuation.parenthesis.end.python
+T 36 source.python meta.member.access.python punctuation.separator.period.python
+T 40 source.python meta.member.access.python meta.attribute.python
+L x = (123456789e123456789).conjugate()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 24 source.python constant.numeric.float.python
+T 25 source.python punctuation.parenthesis.end.python
+T 26 source.python meta.member.access.python punctuation.separator.period.python
+T 35 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 36 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 37 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 123456789j.real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 13 source.python constant.numeric.dec.python
+T 14 source.python constant.numeric.dec.python storage.type.imaginary.number.python
+T 15 source.python meta.member.access.python punctuation.separator.period.python
+T 19 source.python meta.member.access.python meta.attribute.python
+L x = 123456789.123456789j.__add__(0b1011.bit_length())
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 23 source.python constant.numeric.float.python
+T 24 source.python constant.numeric.float.python storage.type.imaginary.number.python
+T 25 source.python meta.member.access.python punctuation.separator.period.python
+T 32 source.python meta.member.access.python meta.function-call.python support.function.magic.python
+T 33 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 35 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python constant.numeric.bin.python storage.type.number.python
+T 39 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python constant.numeric.bin.python
+T 40 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python punctuation.separator.period.python
+T 50 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 51 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 52 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 53 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 0xB1ACC.conjugate()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.hex.python storage.type.number.python
+T 11 source.python constant.numeric.hex.python
+T 12 source.python meta.member.access.python punctuation.separator.period.python
+T 21 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 23 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 0b1011.conjugate()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.bin.python storage.type.number.python
+T 10 source.python constant.numeric.bin.python
+T 11 source.python meta.member.access.python punctuation.separator.period.python
+T 20 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 21 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = 0o777.real
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 6 source.python constant.numeric.oct.python storage.type.number.python
+T 9 source.python constant.numeric.oct.python
+T 10 source.python meta.member.access.python punctuation.separator.period.python
+T 14 source.python meta.member.access.python meta.attribute.python
+L x = (0.000000006).hex()
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python punctuation.parenthesis.begin.python
+T 16 source.python constant.numeric.float.python
+T 17 source.python punctuation.parenthesis.end.python
+T 18 source.python meta.member.access.python punctuation.separator.period.python
+T 21 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 22 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 23 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L x = -100.0000j
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 5 source.python keyword.operator.arithmetic.python
+T 13 source.python constant.numeric.float.python
+T 14 source.python constant.numeric.float.python storage.type.imaginary.number.python
+L 
+L if (10).real:
+T 2 source.python keyword.control.flow.python
+T 3 source.python
+T 4 source.python punctuation.parenthesis.begin.python
+T 6 source.python constant.numeric.dec.python
+T 7 source.python punctuation.parenthesis.end.python
+T 8 source.python meta.member.access.python punctuation.separator.period.python
+T 12 source.python meta.member.access.python meta.attribute.python
+T 13 source.python punctuation.separator.colon.python
+L     ...
+T 4 source.python
+T 7 source.python constant.other.ellipsis.python
+L 
+L y = 100[no]
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 7 source.python constant.numeric.dec.python
+T 8 source.python punctuation.definition.list.begin.python
+T 10 source.python
+T 11 source.python punctuation.definition.list.end.python
+L y = 100(no)
+T 1 source.python
+T 2 source.python
+T 3 source.python keyword.operator.assignment.python
+T 4 source.python
+T 7 source.python constant.numeric.dec.python
+T 8 source.python punctuation.parenthesis.begin.python
+T 10 source.python
+T 11 source.python punctuation.parenthesis.end.python
+L 

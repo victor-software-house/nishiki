@@ -1,0 +1,366 @@
+L #!/usr/bin/env python3
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 22 source.python comment.line.number-sign.python
+L 
+L name = "Łukasz"
+T 4 source.python
+T 5 source.python
+T 6 source.python keyword.operator.assignment.python
+T 7 source.python
+T 8 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.single.python
+T 16 source.python string.quoted.single.python punctuation.definition.string.end.python
+L (f"hello {name}", F"hello {name}")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 3 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 9 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 14 source.python meta.fstring.python
+T 15 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 16 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 17 source.python punctuation.separator.element.python
+T 18 source.python
+T 19 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 20 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 26 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 27 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 31 source.python meta.fstring.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 33 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 34 source.python punctuation.parenthesis.end.python
+L (b"", B"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python string.quoted.binary.single.python storage.type.string.python
+T 3 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 4 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+T 5 source.python punctuation.separator.element.python
+T 6 source.python
+T 7 source.python string.quoted.binary.single.python storage.type.string.python
+T 8 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+T 10 source.python punctuation.parenthesis.end.python
+L (u"", U"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python string.quoted.single.python storage.type.string.python
+T 3 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 4 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 5 source.python punctuation.separator.element.python
+T 6 source.python
+T 7 source.python string.quoted.single.python storage.type.string.python
+T 8 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 10 source.python punctuation.parenthesis.end.python
+L (r"", R"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python string.regexp.quoted.single.python storage.type.string.python
+T 3 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 4 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 5 source.python punctuation.separator.element.python
+T 6 source.python
+T 7 source.python string.quoted.raw.single.python storage.type.string.python
+T 8 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+T 10 source.python punctuation.parenthesis.end.python
+L 
+L (rf"", fr"", Rf"", fR"", rF"", Fr"", RF"", FR"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 3 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 4 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 5 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 6 source.python punctuation.separator.element.python
+T 7 source.python
+T 9 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 10 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 11 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 12 source.python punctuation.separator.element.python
+T 13 source.python
+T 15 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 16 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 17 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 18 source.python punctuation.separator.element.python
+T 19 source.python
+T 21 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 22 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 23 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 24 source.python punctuation.separator.element.python
+T 25 source.python
+T 27 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 28 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 29 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 30 source.python punctuation.separator.element.python
+T 31 source.python
+T 33 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 34 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 35 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 36 source.python punctuation.separator.element.python
+T 37 source.python
+T 39 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 40 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 41 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 42 source.python punctuation.separator.element.python
+T 43 source.python
+T 45 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 46 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 47 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 48 source.python punctuation.parenthesis.end.python
+L (rb"", br"", Rb"", bR"", rB"", Br"", RB"", BR"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 3 source.python string.regexp.quoted.single.python storage.type.string.python
+T 4 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 5 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 6 source.python punctuation.separator.element.python
+T 7 source.python
+T 9 source.python string.regexp.quoted.single.python storage.type.string.python
+T 10 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 11 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 12 source.python punctuation.separator.element.python
+T 13 source.python
+T 15 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 16 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 17 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 18 source.python punctuation.separator.element.python
+T 19 source.python
+T 21 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 22 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 23 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 24 source.python punctuation.separator.element.python
+T 25 source.python
+T 27 source.python string.regexp.quoted.single.python storage.type.string.python
+T 28 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 29 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 30 source.python punctuation.separator.element.python
+T 31 source.python
+T 33 source.python string.regexp.quoted.single.python storage.type.string.python
+T 34 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 35 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 36 source.python punctuation.separator.element.python
+T 37 source.python
+T 39 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 40 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 41 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 42 source.python punctuation.separator.element.python
+T 43 source.python
+T 45 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 46 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 47 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 48 source.python punctuation.parenthesis.end.python
+L 
+L 
+L def docstring_singleline():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 24 source.python meta.function.python entity.name.function.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 26 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 27 source.python meta.function.python punctuation.section.function.begin.python
+L     R"""2020 was one hell of a year. The good news is that we were able to"""
+T 4 source.python
+T 5 source.python string.quoted.docstring.raw.multi.python storage.type.string.python
+T 8 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.begin.python
+T 74 source.python string.quoted.docstring.raw.multi.python
+T 77 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.end.python
+L 
+L 
+L def docstring_multiline():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 23 source.python meta.function.python entity.name.function.python
+T 24 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 26 source.python meta.function.python punctuation.section.function.begin.python
+L     R"""
+T 4 source.python
+T 5 source.python string.quoted.docstring.raw.multi.python storage.type.string.python
+T 8 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.begin.python
+L     clear out all of the issues opened in that time :p
+T 54 source.python string.quoted.docstring.raw.multi.python
+L     """
+T 4 source.python string.quoted.docstring.raw.multi.python
+T 7 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.end.python
+L 
+L 
+L # output
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 8 source.python comment.line.number-sign.python
+L 
+L 
+L #!/usr/bin/env python3
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 22 source.python comment.line.number-sign.python
+L 
+L name = "Łukasz"
+T 4 source.python
+T 5 source.python
+T 6 source.python keyword.operator.assignment.python
+T 7 source.python
+T 8 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.single.python
+T 16 source.python string.quoted.single.python punctuation.definition.string.end.python
+L (f"hello {name}", f"hello {name}")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 3 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 9 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 14 source.python meta.fstring.python
+T 15 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 16 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 17 source.python punctuation.separator.element.python
+T 18 source.python
+T 19 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 20 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 26 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 27 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 31 source.python meta.fstring.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 33 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+T 34 source.python punctuation.parenthesis.end.python
+L (b"", b"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python string.quoted.binary.single.python storage.type.string.python
+T 3 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 4 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+T 5 source.python punctuation.separator.element.python
+T 6 source.python
+T 7 source.python string.quoted.binary.single.python storage.type.string.python
+T 8 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+T 10 source.python punctuation.parenthesis.end.python
+L ("", "")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 4 source.python punctuation.separator.element.python
+T 5 source.python
+T 6 source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 7 source.python string.quoted.single.python punctuation.definition.string.end.python
+T 8 source.python punctuation.parenthesis.end.python
+L (r"", R"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 2 source.python string.regexp.quoted.single.python storage.type.string.python
+T 3 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 4 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 5 source.python punctuation.separator.element.python
+T 6 source.python
+T 7 source.python string.quoted.raw.single.python storage.type.string.python
+T 8 source.python string.quoted.raw.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.raw.single.python punctuation.definition.string.end.python
+T 10 source.python punctuation.parenthesis.end.python
+L 
+L (rf"", rf"", Rf"", Rf"", rf"", rf"", Rf"", Rf"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 3 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 4 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 5 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 6 source.python punctuation.separator.element.python
+T 7 source.python
+T 9 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 10 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 11 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 12 source.python punctuation.separator.element.python
+T 13 source.python
+T 15 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 16 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 17 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 18 source.python punctuation.separator.element.python
+T 19 source.python
+T 21 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 22 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 23 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 24 source.python punctuation.separator.element.python
+T 25 source.python
+T 27 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 28 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 29 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 30 source.python punctuation.separator.element.python
+T 31 source.python
+T 33 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 34 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 35 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 36 source.python punctuation.separator.element.python
+T 37 source.python
+T 39 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 40 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 41 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 42 source.python punctuation.separator.element.python
+T 43 source.python
+T 45 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 46 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 47 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+T 48 source.python punctuation.parenthesis.end.python
+L (rb"", rb"", Rb"", Rb"", rb"", rb"", Rb"", Rb"")
+T 1 source.python punctuation.parenthesis.begin.python
+T 3 source.python string.regexp.quoted.single.python storage.type.string.python
+T 4 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 5 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 6 source.python punctuation.separator.element.python
+T 7 source.python
+T 9 source.python string.regexp.quoted.single.python storage.type.string.python
+T 10 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 11 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 12 source.python punctuation.separator.element.python
+T 13 source.python
+T 15 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 16 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 17 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 18 source.python punctuation.separator.element.python
+T 19 source.python
+T 21 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 22 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 23 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 24 source.python punctuation.separator.element.python
+T 25 source.python
+T 27 source.python string.regexp.quoted.single.python storage.type.string.python
+T 28 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 29 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 30 source.python punctuation.separator.element.python
+T 31 source.python
+T 33 source.python string.regexp.quoted.single.python storage.type.string.python
+T 34 source.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 35 source.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 36 source.python punctuation.separator.element.python
+T 37 source.python
+T 39 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 40 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 41 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 42 source.python punctuation.separator.element.python
+T 43 source.python
+T 45 source.python string.quoted.raw.binary.single.python storage.type.string.python
+T 46 source.python string.quoted.raw.binary.single.python punctuation.definition.string.begin.python
+T 47 source.python string.quoted.raw.binary.single.python punctuation.definition.string.end.python
+T 48 source.python punctuation.parenthesis.end.python
+L 
+L 
+L def docstring_singleline():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 24 source.python meta.function.python entity.name.function.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 26 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 27 source.python meta.function.python punctuation.section.function.begin.python
+L     R"""2020 was one hell of a year. The good news is that we were able to"""
+T 4 source.python
+T 5 source.python string.quoted.docstring.raw.multi.python storage.type.string.python
+T 8 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.begin.python
+T 74 source.python string.quoted.docstring.raw.multi.python
+T 77 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.end.python
+L 
+L 
+L def docstring_multiline():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 23 source.python meta.function.python entity.name.function.python
+T 24 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 26 source.python meta.function.python punctuation.section.function.begin.python
+L     R"""
+T 4 source.python
+T 5 source.python string.quoted.docstring.raw.multi.python storage.type.string.python
+T 8 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.begin.python
+L     clear out all of the issues opened in that time :p
+T 54 source.python string.quoted.docstring.raw.multi.python
+L     """
+T 4 source.python string.quoted.docstring.raw.multi.python
+T 7 source.python string.quoted.docstring.raw.multi.python punctuation.definition.string.end.python
+L 

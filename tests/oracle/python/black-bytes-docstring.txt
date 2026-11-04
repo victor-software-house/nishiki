@@ -1,0 +1,146 @@
+L def bitey():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 9 source.python meta.function.python entity.name.function.python
+T 10 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 11 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 12 source.python meta.function.python punctuation.section.function.begin.python
+L     b" not a docstring"
+T 4 source.python
+T 5 source.python string.quoted.binary.single.python storage.type.string.python
+T 6 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.binary.single.python
+T 23 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+L 
+L def bitey2():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 10 source.python meta.function.python entity.name.function.python
+T 11 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 12 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 13 source.python meta.function.python punctuation.section.function.begin.python
+L     b' also not a docstring'
+T 4 source.python
+T 5 source.python string.quoted.binary.single.python storage.type.string.python
+T 6 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 27 source.python string.quoted.binary.single.python
+T 28 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+L 
+L def triple_quoted_bytes():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 23 source.python meta.function.python entity.name.function.python
+T 24 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 26 source.python meta.function.python punctuation.section.function.begin.python
+L     b""" not a docstring"""
+T 4 source.python
+T 5 source.python string.quoted.binary.multi.python storage.type.string.python
+T 8 source.python string.quoted.binary.multi.python punctuation.definition.string.begin.python
+T 24 source.python string.quoted.binary.multi.python
+T 27 source.python string.quoted.binary.multi.python punctuation.definition.string.end.python
+L 
+L def triple_quoted_bytes2():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 24 source.python meta.function.python entity.name.function.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 26 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 27 source.python meta.function.python punctuation.section.function.begin.python
+L     b''' also not a docstring'''
+T 4 source.python
+T 5 source.python string.quoted.binary.multi.python storage.type.string.python
+T 8 source.python string.quoted.binary.multi.python punctuation.definition.string.begin.python
+T 29 source.python string.quoted.binary.multi.python
+T 32 source.python string.quoted.binary.multi.python punctuation.definition.string.end.python
+L 
+L def capitalized_bytes():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 21 source.python meta.function.python entity.name.function.python
+T 22 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 23 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 24 source.python meta.function.python punctuation.section.function.begin.python
+L     B" NOT A DOCSTRING"
+T 4 source.python
+T 5 source.python string.quoted.binary.single.python storage.type.string.python
+T 6 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.binary.single.python
+T 23 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+L 
+L # output
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 8 source.python comment.line.number-sign.python
+L def bitey():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 9 source.python meta.function.python entity.name.function.python
+T 10 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 11 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 12 source.python meta.function.python punctuation.section.function.begin.python
+L     b" not a docstring"
+T 4 source.python
+T 5 source.python string.quoted.binary.single.python storage.type.string.python
+T 6 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.binary.single.python
+T 23 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+L 
+L 
+L def bitey2():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 10 source.python meta.function.python entity.name.function.python
+T 11 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 12 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 13 source.python meta.function.python punctuation.section.function.begin.python
+L     b" also not a docstring"
+T 4 source.python
+T 5 source.python string.quoted.binary.single.python storage.type.string.python
+T 6 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 27 source.python string.quoted.binary.single.python
+T 28 source.python string.quoted.binary.single.python punctuation.definition.string.end.python
+L 
+L 
+L def triple_quoted_bytes():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 23 source.python meta.function.python entity.name.function.python
+T 24 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 26 source.python meta.function.python punctuation.section.function.begin.python
+L     b""" not a docstring"""
+T 4 source.python
+T 5 source.python string.quoted.binary.multi.python storage.type.string.python
+T 8 source.python string.quoted.binary.multi.python punctuation.definition.string.begin.python
+T 24 source.python string.quoted.binary.multi.python
+T 27 source.python string.quoted.binary.multi.python punctuation.definition.string.end.python
+L 
+L 
+L def triple_quoted_bytes2():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 24 source.python meta.function.python entity.name.function.python
+T 25 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 26 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 27 source.python meta.function.python punctuation.section.function.begin.python
+L     b""" also not a docstring"""
+T 4 source.python
+T 5 source.python string.quoted.binary.multi.python storage.type.string.python
+T 8 source.python string.quoted.binary.multi.python punctuation.definition.string.begin.python
+T 29 source.python string.quoted.binary.multi.python
+T 32 source.python string.quoted.binary.multi.python punctuation.definition.string.end.python
+L 
+L 
+L def capitalized_bytes():
+T 3 source.python meta.function.python storage.type.function.python
+T 4 source.python meta.function.python
+T 21 source.python meta.function.python entity.name.function.python
+T 22 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 23 source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 24 source.python meta.function.python punctuation.section.function.begin.python
+L     b" NOT A DOCSTRING"
+T 4 source.python
+T 5 source.python string.quoted.binary.single.python storage.type.string.python
+T 6 source.python string.quoted.binary.single.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.binary.single.python
+T 23 source.python string.quoted.binary.single.python punctuation.definition.string.end.python

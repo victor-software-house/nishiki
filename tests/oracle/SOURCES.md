@@ -185,12 +185,21 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/vitest-migration-jest` | [`docs/guide/migration/jest.md`][vitest-jest] in vitest-dev/vitest | [MIT][vitest-licence] |
 | `markdown/zod-api` | [`packages/docs/content/api.mdx`][zod-api] in colinhacks/zod | [MIT][zod-licence] |
 | `markdown/zod-readme` | [`packages/zod/README.md`][zod-readme] in colinhacks/zod | [MIT][zod-licence] |
+| `python/black-attribute-access-on-number-literals` | [`attribute_access_on_number_literals.py`][python-black-attribute-access-on-number-literals] in psf/black | [MIT][black-licence] |
+| `python/black-bytes-docstring` | [`bytes_docstring.py`][python-black-bytes-docstring] in psf/black | [MIT][black-licence] |
+| `python/black-fmtonoff` | [`fmtonoff.py`][python-black-fmtonoff] in psf/black | [MIT][black-licence] |
+| `python/black-pep-701` | [`pep_701.py`][python-black-pep-701] in psf/black | [MIT][black-licence] |
+| `python/black-python2-detection` | [`python2_detection.py`][python-black-python2-detection] in psf/black | [MIT][black-licence] |
+| `python/black-string-prefixes` | [`string_prefixes.py`][python-black-string-prefixes] in psf/black | [MIT][black-licence] |
+| `python/black-string-quotes` | [`string_quotes.py`][python-black-string-quotes] in psf/black | [MIT][black-licence] |
 | `python/black-strings` | [`src/black/strings.py`][black-strings] in psf/black | [MIT][black-licence] |
+| `python/coverage` | `oracle/inputs/python-coverage.py`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `python/fastapi-routing` | [`fastapi/routing.py`][fastapi-routing] in tiangolo/fastapi | [MIT][fastapi-licence] |
 | `python/flask-helpers` | [`src/flask/helpers.py`][flask-helpers] in pallets/flask | [BSD-3-Clause][flask-licence] |
 | `python/pytest-python` | [`src/_pytest/python.py`][pytest-python] in pytest-dev/pytest | [MIT][pytest-licence] |
 | `python/requests-models` | [`src/requests/models.py`][requests-models] in psf/requests | [Apache-2.0][requests-licence] |
 | `python/rich-console` | [`rich/console.py`][rich-console] in Textualize/rich | [MIT][rich-licence] |
+| `python/ruff-class` | [`class.py`][python-ruff-class] in astral-sh/ruff | [MIT][ruff-licence] |
 | `python/sample` | [`samples/python.sample`][python-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `rust/core-macros` | [`library/core/src/macros/mod.rs`][rust-core-macros] in rust-lang/rust | [MIT or Apache-2.0][rust-licence] |
 | `rust/coverage` | `oracle/inputs/rust-coverage.rs`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -531,6 +540,7 @@ Their test cases are pinned at TypeScript's `v5.9.3` tag, the release they were 
 `shellscript/unicode-words` puts combining marks in names, where `\w` decides a token, because no other input has one.
 `python/sample`, `python/requests-models` and `python/black-strings` are the development inputs for Python.
 `python/flask-helpers`, `python/rich-console`, `python/fastapi-routing` and `python/pytest-python` are held out.
+The `black-*`, `ruff-class` and `coverage` inputs of `python` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/fastapi-readme` is the development input for Python fences and `markdown/rich-readme` is held out.
 `markdown/nvm-readme` is the development input for shell fences and `markdown/pyenv-readme` is held out.
 `json/sample`, `json/vue-package`, `jsonc/sample`, `jsonl/sample` and `jsonl/rag-output` are the development inputs for JSON.
@@ -1056,8 +1066,16 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [pytest-licence]: https://github.com/pytest-dev/pytest/blob/1211245aa72f1efe07bcfce63a7c543156cee976/LICENSE
 [pytest-python]: https://github.com/pytest-dev/pytest/blob/1211245aa72f1efe07bcfce63a7c543156cee976/src/_pytest/python.py
 [pytest-tox]: https://github.com/pytest-dev/pytest/blob/1211245aa72f1efe07bcfce63a7c543156cee976/tox.ini
+[python-black-attribute-access-on-number-literals]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/cases/attribute_access_on_number_literals.py
+[python-black-bytes-docstring]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/cases/bytes_docstring.py
+[python-black-fmtonoff]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/cases/fmtonoff.py
+[python-black-pep-701]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/cases/pep_701.py
+[python-black-python2-detection]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/miscellaneous/python2_detection.py
+[python-black-string-prefixes]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/cases/string_prefixes.py
+[python-black-string-quotes]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tests/data/miscellaneous/string_quotes.py
 [python-docker]: https://github.com/docker-library/python/blob/f4c67ece208dead594e43628d22e3c6027dd97ab/3.13/slim-bookworm/Dockerfile
 [python-docker-licence]: https://github.com/docker-library/python/blob/f4c67ece208dead594e43628d22e3c6027dd97ab/LICENSE
+[python-ruff-class]: https://github.com/astral-sh/ruff/blob/f10755306e3e932fd127960acb2c892fafb87410/crates/ruff_python_parser/resources/valid/statement/class.py
 [python-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/python.sample
 [rack-licence]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/MIT-LICENSE
 [rack-readme]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/README.md

@@ -1,0 +1,855 @@
+L ''''''
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 6 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L 
+L '\''
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 4 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L '"'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 2 source.python string.quoted.docstring.single.python
+T 3 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "'"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 2 source.python string.quoted.docstring.single.python
+T 3 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 4 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "Hello"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 6 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "Don't do that"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'Here is a "'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 12 source.python string.quoted.docstring.single.python
+T 13 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'What\'s the deal here?'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 23 source.python string.quoted.docstring.single.python
+T 24 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "What's the deal \"here\"?"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 17 source.python string.quoted.docstring.single.python
+T 19 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 23 source.python string.quoted.docstring.single.python
+T 25 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 26 source.python string.quoted.docstring.single.python
+T 27 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "And \"here\"?"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 11 source.python string.quoted.docstring.single.python
+T 13 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 14 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L """Strings with "" in them"""
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 26 source.python string.quoted.docstring.multi.python
+T 29 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L '''Strings with "" in them'''
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 26 source.python string.quoted.docstring.multi.python
+T 29 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L '''Here's a "'''
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.multi.python
+T 16 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L '''Here's a " '''
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.multi.python
+T 17 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L '''Just a normal triple
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 23 source.python string.quoted.docstring.multi.python
+L quote'''
+T 5 source.python string.quoted.docstring.multi.python
+T 8 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L f"just a normal {f} string"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 16 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 18 source.python meta.fstring.python
+T 19 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 26 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 27 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f'''This is a triple-quoted {f}-string'''
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 4 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.multi.python
+T 28 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 29 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 30 source.python meta.fstring.python
+T 31 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 38 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 41 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+L f'MOAR {" ".join([])}'
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 7 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 10 source.python meta.fstring.python string.quoted.single.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 12 source.python meta.fstring.python meta.member.access.python punctuation.separator.period.python
+T 16 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 17 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 18 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.begin.python
+T 19 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.end.python
+T 20 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 21 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"MOAR {' '.join([])}"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 7 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 10 source.python meta.fstring.python string.quoted.single.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 12 source.python meta.fstring.python meta.member.access.python punctuation.separator.period.python
+T 16 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 17 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 18 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.begin.python
+T 19 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.end.python
+T 20 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 21 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L r"raw string ftw"
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.raw.single.python
+T 17 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L r'Date d\'expiration:(.*)'
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 8 source.python string.quoted.docstring.raw.single.python
+T 10 source.python string.quoted.docstring.raw.single.python
+T 25 source.python string.quoted.docstring.raw.single.python
+T 26 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L r'Tricky "quote'
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.docstring.raw.single.python
+T 16 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L r'Not-so-tricky \"quote'
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.raw.single.python
+T 18 source.python string.quoted.docstring.raw.single.python
+T 23 source.python string.quoted.docstring.raw.single.python
+T 24 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L rf'{yay}'
+T 2 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 3 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 4 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 7 source.python meta.fstring.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+L '\n\
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 4 source.python string.quoted.docstring.single.python constant.language.python
+L The \"quick\"\n\
+T 3 source.python
+T 4 source.python
+T 5 source.python punctuation.separator.continuation.line.python
+T 16 source.python invalid.illegal.line.continuation.python
+L brown fox\n\
+T 5 source.python
+T 6 source.python
+T 9 source.python
+T 10 source.python punctuation.separator.continuation.line.python
+T 12 source.python invalid.illegal.line.continuation.python
+L jumps over\n\
+T 5 source.python
+T 6 source.python
+T 10 source.python
+T 11 source.python punctuation.separator.continuation.line.python
+T 13 source.python invalid.illegal.line.continuation.python
+L the \'lazy\' dog.\n\
+T 3 source.python
+T 4 source.python
+T 5 source.python punctuation.separator.continuation.line.python
+T 20 source.python invalid.illegal.line.continuation.python
+L '
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+L re.compile(r'[\\"]')
+T 2 source.python
+T 3 source.python meta.member.access.python punctuation.separator.period.python
+T 10 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 11 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python storage.type.string.python
+T 13 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 14 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 16 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.escape.regexp
+T 17 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 18 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 19 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 20 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L "x = ''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = '''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.single.python
+T 16 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = ''''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.docstring.single.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = '' ''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.single.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 21 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = ''; y = \"\"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = '''; y = \"\"\"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.single.python
+T 16 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 22 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 23 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = ''''; y = \"\"\"\"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.docstring.single.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 21 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 23 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 26 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = '' ''; y = \"\"\"\"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.single.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 22 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 24 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 26 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 27 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'unnecessary \"\"escaping'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python
+T 26 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "unnecessary \'\'escaping"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python
+T 26 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L '\\""'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 5 source.python string.quoted.docstring.single.python
+T 6 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "\\''"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 5 source.python string.quoted.docstring.single.python
+T 6 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'Lots of \\\\\\\\\'quotes\''
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.docstring.single.python
+T 11 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 13 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python
+T 27 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 28 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L f'{y * " "} \'{z}\''
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 3 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 4 source.python meta.fstring.python
+T 5 source.python meta.fstring.python
+T 6 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 7 source.python meta.fstring.python
+T 8 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 9 source.python meta.fstring.python string.quoted.single.python
+T 10 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 11 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 12 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 14 source.python meta.fstring.python constant.character.escape.python
+T 15 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 16 source.python meta.fstring.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 19 source.python meta.fstring.python constant.character.escape.python
+T 20 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f'{{y * " "}} \'{z}\''
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 8 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 11 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 13 source.python meta.fstring.python constant.character.escape.python
+T 14 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 16 source.python meta.fstring.python constant.character.escape.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 18 source.python meta.fstring.python
+T 19 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 21 source.python meta.fstring.python constant.character.escape.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f'\'{z}\' {y * " "}'
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 5 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python constant.character.escape.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 11 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 12 source.python meta.fstring.python
+T 13 source.python meta.fstring.python
+T 14 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 15 source.python meta.fstring.python
+T 16 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 17 source.python meta.fstring.python string.quoted.single.python
+T 18 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 19 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 20 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f'{y * x} \'{z}\''
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 3 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 4 source.python meta.fstring.python
+T 5 source.python meta.fstring.python
+T 6 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 7 source.python meta.fstring.python
+T 8 source.python meta.fstring.python
+T 9 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 12 source.python meta.fstring.python constant.character.escape.python
+T 13 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 14 source.python meta.fstring.python
+T 15 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 17 source.python meta.fstring.python constant.character.escape.python
+T 18 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L '\'{z}\' {y * " "}'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 6 source.python string.quoted.docstring.single.python
+T 8 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python
+T 19 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L '{y * x} \'{z}\''
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.docstring.single.python
+T 11 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 14 source.python string.quoted.docstring.single.python
+T 16 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 
+L # We must bail out if changing the quotes would introduce backslashes in f-string
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 81 source.python comment.line.number-sign.python
+L # expressions. xref: https://github.com/psf/black/issues/2348
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 61 source.python comment.line.number-sign.python
+L f"\"{b}\"{' ' * (long-len(b)+1)}: \"{sts}\",\n"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 5 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python constant.character.escape.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 12 source.python meta.fstring.python string.quoted.single.python
+T 13 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 14 source.python meta.fstring.python
+T 15 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 16 source.python meta.fstring.python
+T 17 source.python meta.fstring.python punctuation.parenthesis.begin.python
+T 21 source.python meta.fstring.python variable.legacy.builtin.python
+T 22 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 25 source.python meta.fstring.python meta.function-call.python support.function.builtin.python
+T 26 source.python meta.fstring.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 27 source.python meta.fstring.python meta.function-call.python meta.function-call.arguments.python
+T 28 source.python meta.fstring.python meta.function-call.python punctuation.definition.arguments.end.python
+T 29 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 30 source.python meta.fstring.python constant.numeric.dec.python
+T 31 source.python meta.fstring.python punctuation.parenthesis.end.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 34 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 36 source.python meta.fstring.python constant.character.escape.python
+T 37 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 40 source.python meta.fstring.python
+T 41 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 43 source.python meta.fstring.python constant.character.escape.python
+T 44 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 46 source.python meta.fstring.python constant.character.escape.python
+T 47 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"\"{a}\"{'hello' * b}\"{c}\""
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 5 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python constant.character.escape.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 16 source.python meta.fstring.python string.quoted.single.python
+T 17 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 18 source.python meta.fstring.python
+T 19 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 20 source.python meta.fstring.python
+T 21 source.python meta.fstring.python
+T 22 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 24 source.python meta.fstring.python constant.character.escape.python
+T 25 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 26 source.python meta.fstring.python
+T 27 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 29 source.python meta.fstring.python constant.character.escape.python
+T 30 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L 
+L # output
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 8 source.python comment.line.number-sign.python
+L 
+L """"""
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 6 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L 
+L "'"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 2 source.python string.quoted.docstring.single.python
+T 3 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L '"'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 2 source.python string.quoted.docstring.single.python
+T 3 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "'"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 2 source.python string.quoted.docstring.single.python
+T 3 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L '"'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 2 source.python string.quoted.docstring.single.python
+T 3 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "Hello"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 6 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "Don't do that"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'Here is a "'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 12 source.python string.quoted.docstring.single.python
+T 13 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "What's the deal here?"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 22 source.python string.quoted.docstring.single.python
+T 23 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'What\'s the deal "here"?'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python
+T 26 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'And "here"?'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 12 source.python string.quoted.docstring.single.python
+T 13 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L """Strings with "" in them"""
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 26 source.python string.quoted.docstring.multi.python
+T 29 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L """Strings with "" in them"""
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 26 source.python string.quoted.docstring.multi.python
+T 29 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L '''Here's a "'''
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.multi.python
+T 16 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L """Here's a " """
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.multi.python
+T 17 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L """Just a normal triple
+T 3 source.python string.quoted.docstring.multi.python punctuation.definition.string.begin.python
+T 23 source.python string.quoted.docstring.multi.python
+L quote"""
+T 5 source.python string.quoted.docstring.multi.python
+T 8 source.python string.quoted.docstring.multi.python punctuation.definition.string.end.python
+L f"just a normal {f} string"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 16 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 18 source.python meta.fstring.python
+T 19 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 26 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 27 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"""This is a triple-quoted {f}-string"""
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python storage.type.string.python
+T 4 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.multi.python
+T 28 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 29 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 30 source.python meta.fstring.python
+T 31 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 38 source.python meta.fstring.python string.interpolated.python string.quoted.multi.python
+T 41 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.multi.python
+L f'MOAR {" ".join([])}'
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 7 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 10 source.python meta.fstring.python string.quoted.single.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 12 source.python meta.fstring.python meta.member.access.python punctuation.separator.period.python
+T 16 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 17 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 18 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.begin.python
+T 19 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.end.python
+T 20 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 21 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"MOAR {' '.join([])}"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 7 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 10 source.python meta.fstring.python string.quoted.single.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 12 source.python meta.fstring.python meta.member.access.python punctuation.separator.period.python
+T 16 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 17 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 18 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.begin.python
+T 19 source.python meta.fstring.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python punctuation.definition.list.end.python
+T 20 source.python meta.fstring.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+T 21 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L r"raw string ftw"
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.raw.single.python
+T 17 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L r"Date d\'expiration:(.*)"
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 8 source.python string.quoted.docstring.raw.single.python
+T 10 source.python string.quoted.docstring.raw.single.python
+T 25 source.python string.quoted.docstring.raw.single.python
+T 26 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L r'Tricky "quote'
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.docstring.raw.single.python
+T 16 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L r"Not-so-tricky \"quote"
+T 1 source.python string.quoted.docstring.raw.single.python storage.type.string.python
+T 2 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.raw.single.python
+T 18 source.python string.quoted.docstring.raw.single.python
+T 23 source.python string.quoted.docstring.raw.single.python
+T 24 source.python string.quoted.docstring.raw.single.python punctuation.definition.string.end.python
+L rf"{yay}"
+T 2 source.python meta.fstring.python string.interpolated.python string.quoted.raw.single.python storage.type.string.python
+T 3 source.python meta.fstring.python punctuation.definition.string.begin.python string.quoted.raw.single.python
+T 4 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 7 source.python meta.fstring.python
+T 8 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.raw.single.python
+L "\nThe \"quick\"\nbrown fox\njumps over\nthe 'lazy' dog.\n"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 7 source.python string.quoted.docstring.single.python
+T 9 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 14 source.python string.quoted.docstring.single.python
+T 16 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 27 source.python string.quoted.docstring.single.python
+T 29 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 39 source.python string.quoted.docstring.single.python
+T 41 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 56 source.python string.quoted.docstring.single.python
+T 58 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 59 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L re.compile(r'[\\"]')
+T 2 source.python
+T 3 source.python meta.member.access.python punctuation.separator.period.python
+T 10 source.python meta.member.access.python meta.function-call.python meta.function-call.generic.python
+T 11 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 12 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python storage.type.string.python
+T 13 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python punctuation.definition.string.begin.python
+T 14 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.begin.regexp constant.other.set.regexp
+T 16 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.escape.regexp
+T 17 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp constant.character.set.regexp
+T 18 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python meta.character.set.regexp punctuation.character.set.end.regexp constant.other.set.regexp
+T 19 source.python meta.member.access.python meta.function-call.python meta.function-call.arguments.python string.regexp.quoted.single.python punctuation.definition.string.end.python
+T 20 source.python meta.member.access.python meta.function-call.python punctuation.definition.arguments.end.python
+L "x = ''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 13 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = '''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.single.python
+T 16 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = ''''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 15 source.python string.quoted.docstring.single.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 19 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "x = '' ''; y = \"\""
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 16 source.python string.quoted.docstring.single.python
+T 18 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 20 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 21 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'x = \'\'; y = """'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 9 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python
+T 19 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'x = \'\'\'; y = """"'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 9 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 11 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 21 source.python string.quoted.docstring.single.python
+T 22 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'x = \'\'\'\'; y = """""'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 9 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 11 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 13 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 24 source.python string.quoted.docstring.single.python
+T 25 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'x = \'\' \'\'; y = """""'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 5 source.python string.quoted.docstring.single.python
+T 7 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 9 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 10 source.python string.quoted.docstring.single.python
+T 12 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 14 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python
+T 26 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 'unnecessary ""escaping'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 23 source.python string.quoted.docstring.single.python
+T 24 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "unnecessary ''escaping"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 23 source.python string.quoted.docstring.single.python
+T 24 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L '\\""'
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 5 source.python string.quoted.docstring.single.python
+T 6 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "\\''"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 3 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 5 source.python string.quoted.docstring.single.python
+T 6 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "Lots of \\\\\\\\'quotes'"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 9 source.python string.quoted.docstring.single.python
+T 11 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 13 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 15 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 25 source.python string.quoted.docstring.single.python
+T 26 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L f'{y * " "} \'{z}\''
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 3 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 4 source.python meta.fstring.python
+T 5 source.python meta.fstring.python
+T 6 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 7 source.python meta.fstring.python
+T 8 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 9 source.python meta.fstring.python string.quoted.single.python
+T 10 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 11 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 12 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 14 source.python meta.fstring.python constant.character.escape.python
+T 15 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 16 source.python meta.fstring.python
+T 17 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 19 source.python meta.fstring.python constant.character.escape.python
+T 20 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"{{y * \" \"}} '{z}'"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 8 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 10 source.python meta.fstring.python constant.character.escape.python
+T 11 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 13 source.python meta.fstring.python constant.character.escape.python
+T 15 source.python meta.fstring.python constant.character.escape.python
+T 16 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 17 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 18 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 19 source.python meta.fstring.python
+T 20 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 21 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 22 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f'\'{z}\' {y * " "}'
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 5 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python constant.character.escape.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 11 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 12 source.python meta.fstring.python
+T 13 source.python meta.fstring.python
+T 14 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 15 source.python meta.fstring.python
+T 16 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 17 source.python meta.fstring.python string.quoted.single.python
+T 18 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 19 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 20 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"{y * x} '{z}'"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 3 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 4 source.python meta.fstring.python
+T 5 source.python meta.fstring.python
+T 6 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 7 source.python meta.fstring.python
+T 8 source.python meta.fstring.python
+T 9 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 10 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 11 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 12 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 13 source.python meta.fstring.python
+T 14 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 15 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 16 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L "'{z}' {y * \" \"}"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 12 source.python string.quoted.docstring.single.python
+T 14 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 15 source.python string.quoted.docstring.single.python
+T 17 source.python string.quoted.docstring.single.python constant.character.escape.python
+T 18 source.python string.quoted.docstring.single.python
+T 19 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L "{y * x} '{z}'"
+T 1 source.python string.quoted.docstring.single.python punctuation.definition.string.begin.python
+T 14 source.python string.quoted.docstring.single.python
+T 15 source.python string.quoted.docstring.single.python punctuation.definition.string.end.python
+L 
+L # We must bail out if changing the quotes would introduce backslashes in f-string
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 81 source.python comment.line.number-sign.python
+L # expressions. xref: https://github.com/psf/black/issues/2348
+T 1 source.python comment.line.number-sign.python punctuation.definition.comment.python
+T 61 source.python comment.line.number-sign.python
+L f"\"{b}\"{' ' * (long-len(b)+1)}: \"{sts}\",\n"
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 5 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python constant.character.escape.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 12 source.python meta.fstring.python string.quoted.single.python
+T 13 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 14 source.python meta.fstring.python
+T 15 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 16 source.python meta.fstring.python
+T 17 source.python meta.fstring.python punctuation.parenthesis.begin.python
+T 21 source.python meta.fstring.python variable.legacy.builtin.python
+T 22 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 25 source.python meta.fstring.python meta.function-call.python support.function.builtin.python
+T 26 source.python meta.fstring.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 27 source.python meta.fstring.python meta.function-call.python meta.function-call.arguments.python
+T 28 source.python meta.fstring.python meta.function-call.python punctuation.definition.arguments.end.python
+T 29 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 30 source.python meta.fstring.python constant.numeric.dec.python
+T 31 source.python meta.fstring.python punctuation.parenthesis.end.python
+T 32 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 34 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 36 source.python meta.fstring.python constant.character.escape.python
+T 37 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 40 source.python meta.fstring.python
+T 41 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 43 source.python meta.fstring.python constant.character.escape.python
+T 44 source.python meta.fstring.python string.interpolated.python string.quoted.single.python
+T 46 source.python meta.fstring.python constant.character.escape.python
+T 47 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L f"\"{a}\"{'hello' * b}\"{c}\""
+T 1 source.python meta.fstring.python string.interpolated.python string.quoted.single.python storage.type.string.python
+T 2 source.python meta.fstring.python punctuation.definition.string.begin.python string.interpolated.python string.quoted.single.python
+T 4 source.python meta.fstring.python constant.character.escape.python
+T 5 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 6 source.python meta.fstring.python
+T 7 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 9 source.python meta.fstring.python constant.character.escape.python
+T 10 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 11 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.begin.python
+T 16 source.python meta.fstring.python string.quoted.single.python
+T 17 source.python meta.fstring.python string.quoted.single.python punctuation.definition.string.end.python
+T 18 source.python meta.fstring.python
+T 19 source.python meta.fstring.python keyword.operator.arithmetic.python
+T 20 source.python meta.fstring.python
+T 21 source.python meta.fstring.python
+T 22 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 24 source.python meta.fstring.python constant.character.escape.python
+T 25 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 26 source.python meta.fstring.python
+T 27 source.python meta.fstring.python constant.character.format.placeholder.other.python
+T 29 source.python meta.fstring.python constant.character.escape.python
+T 30 source.python meta.fstring.python punctuation.definition.string.end.python string.interpolated.python string.quoted.single.python
+L 
