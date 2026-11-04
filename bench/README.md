@@ -25,6 +25,17 @@ The worst line under the default limits and the comparison with other highlighte
 - [targets.toml](targets.toml): what a recorded run is judged against.
 - `results/`: recorded runs, one folder per host class.
 
+## The newest record
+
+`mise run bench:record` records a session as `results/namespace-8x16/<date>-<sha8>.json`, and runs only on that reference class ([why](../openspec/research/2026-11-04-bench-host-probe-criterion.md)).
+`mise run bench:report` renders each record's page and the summary below; `check:bench-report` fails when either differs from its JSON.
+
+<!-- record summary: rendered by `mise run bench:report summary` -->
+
+No record under this method yet.
+
+<!-- end of record summary -->
+
 ## Running
 
 `mise run bench` runs every benchmark; an argument filters them by name.
