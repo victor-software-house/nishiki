@@ -296,7 +296,7 @@ impl<'a> Lexer<'a> {
     /// otherwise the state's chain of frames, rebuilt from its root down.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `lex_until` as a second caller it was left out of line, at a call once a line that moves the lexer"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
     )]
     #[inline(always)]
     pub(crate) fn new(
@@ -427,7 +427,7 @@ impl<'a> Lexer<'a> {
     /// and none that kept its begin scopes.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `lex_until` as a second caller it was left out of line, at a call once a line that moves the lexer"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
     )]
     #[inline(always)]
     pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (u32, Option<usize>) {
