@@ -84,7 +84,14 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     The three grammars are complete with 6, 29 and 50 waived units.
     On `dd3a3df5` the [oracle test][run-287-ci] and the [coverage check][run-287-cov] passed.
 - [ ] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
-- [ ] 3.16 ERB: `erb`
+  - 2026-11-04 UTC, [PR 447][pr447]: two written inputs added for XML.
+    `xml` is complete with 11 waived units.
+    On `00603eab` the [oracle test][run-447-ci] and the [coverage check][run-447-cov] passed.
+    `html` and `html-derivative` stay open.
+- [x] 3.16 ERB: `erb`
+  - 2026-11-04 UTC, [PR 444][pr444]: a written input added.
+    ERB is complete with 4 waived units.
+    On `9f559133` the [oracle test][run-444-ci] and the [coverage check][run-444-cov] passed.
 - [x] 3.17 JSON: `json`, `jsonc`, `jsonl`
   - 2026-11-04 UTC, [PR 436][pr436]: a written input per grammar added.
     The three grammars are complete with no waived unit.
@@ -98,7 +105,10 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
   - 2026-11-04 UTC, [PR 437][pr437]: a written input added.
     SQL is complete with 7 waived units.
     On `804cf8fa` the [oracle test][run-437-ci] and the [coverage check][run-437-cov] passed.
-- [ ] 3.20 GraphQL: `graphql`
+- [x] 3.20 GraphQL: `graphql`
+  - 2026-11-04 UTC, [PR 450][pr450]: a written input added.
+    GraphQL is complete with 27 waived units.
+    On `855d0da7` the [oracle test][run-450-ci] and the [coverage check][run-450-cov] passed.
 - [x] 3.21 diff, Dockerfile, INI and Make: `diff`, `docker`, `ini`, `make`
   - 2026-11-04 UTC, [PR 320][pr320]: a written input per language added.
     The four grammars are complete with 1, 8, 2 and 4 waived units.
@@ -166,3 +176,12 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr440]: https://github.com/victor-software-house/nishiki-archive/pull/440
 [run-440-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41856223286
 [run-440-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41856222637
+[pr444]: https://github.com/victor-software-house/nishiki-archive/pull/444
+[run-444-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41860162804
+[run-444-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41860161973
+[pr447]: https://github.com/victor-software-house/nishiki-archive/pull/447
+[run-447-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41862419805
+[run-447-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41862419076
+[pr450]: https://github.com/victor-software-house/nishiki-archive/pull/450
+[run-450-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41867949614
+[run-450-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41867948643
