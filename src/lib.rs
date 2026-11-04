@@ -1,13 +1,26 @@
 //! nishiki, a syntax highlighting engine written from scratch.
 //!
-//! nishiki splits each line of source into tokens and gives every token the
-//! scope stack Shiki gives it, so a theme in Shiki's format colours the result
-//! as Shiki would. Lexers resume line by line: the state after one line is the
-//! input of the next, so an editor can re-highlight from any line, and a
-//! streamed reply can be highlighted as it arrives.
+//! nishiki splits each line of source into tokens.
+//! Every token gets the scope stack Shiki gives it,
+//! so a theme in Shiki's format colours the result as Shiki would.
 //!
-//! [`Language::ALL`] lists the languages. Markdown ([`Language::Markdown`])
-//! hands the code in its fences to the other lexers.
+//! # Quick start
+//!
+//! ```sh
+//! cargo add nishiki
+//! ```
+//!
+//! A [`Highlighter`] lexes one [`Language`], one line at a time.
+//! For each line, [`Highlighter::line`] gives:
+//!
+//! - [`Token`]s, each with the byte offset where it ends and its scope stack;
+//! - a [`State`]: where the lexer stands after the line, which the next line
+//!   starts from.
+//!
+//! Because the state passes from line to line:
+//!
+//! - an editor can re-highlight from any line;
+//! - a streamed reply can be highlighted as it arrives.
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -41,11 +54,140 @@
 //! );
 //! ```
 //!
-//! Every line is bounded by [`Limits`], which the caller can set, raise,
-//! lower or turn off; each [`LineReport`] says which limits a line reached.
+//! [`Highlighter::scopes`] lists a stack innermost first,
+//! the order theme rules match it in.
 //!
-//! A [`Theme`] in Shiki's format turns a token's scopes into a [`Style`], as
-//! Shiki would colour it; the `json` feature reads theme files.
+//! # Themes
+//!
+//! A [`Theme`] is a `TextMate` theme in Shiki's format.
+//! [`Theme::style`] gives a scope stack the [`Style`] Shiki would:
+//! its colours and font style.
+//!
+//! | Constructor | Feature | Takes |
+//! |:--|:--|:--|
+//! | [`Theme::from_json`] | `json` | A theme file, as `@shikijs/themes` ships it. |
+//! | [`Theme::new`] | none | The rules as values, in a [`ThemeSource`]. |
+//!
+//! Without `json` and the `textmate` tier, nishiki depends on `memchr` alone.
+//!
+//! ```
+//! use nishiki::{Highlighter, Language, RuleScope, State, Theme, ThemeRule, ThemeSource};
+//!
+//! let theme = Theme::new(ThemeSource {
+//!     rules: vec![ThemeRule {
+//!         scope: RuleScope::Selectors("storage.type".into()),
+//!         foreground: Some("#f97583".into()),
+//!         ..ThemeRule::default()
+//!     }],
+//!     ..ThemeSource::default()
+//! });
+//! let mut highlighter = Highlighter::new(Language::Rust);
+//! let mut tokens = Vec::new();
+//! let _ = highlighter.line("let x = 42;", &mut State::default(), &mut tokens);
+//! let style = theme.style(highlighter.scopes(tokens[0].stack()));
+//! assert_eq!(style.foreground.to_string(), "#F97583");
+//! ```
+//!
+//! A theme colour that is not hex, such as a CSS variable, sets no colour.
+//! Shiki passes it through.
+//!
+//! # Limits
+//!
+//! [`Limits`] bounds every line:
+//!
+//! - its length in bytes;
+//! - the lexer steps it may take;
+//! - the contexts open at once;
+//! - the scope stacks and states a highlighter interns.
+//!
+//! How they behave:
+//!
+//! - Each limit can be set, raised, lowered or turned off.
+//! - [`Limits::for_budget`] derives them from a memory budget and a per-line
+//!   time budget.
+//! - Limits count bytes and steps, never time. The same input and limits give
+//!   the same tokens on every machine.
+//! - Each line's [`LineReport`] names the limits it reached.
+//!
+//! ```
+//! use nishiki::{Highlighter, Language, Limits};
+//!
+//! let limits = Limits {
+//!     depth: None,
+//!     ..Limits::default()
+//! };
+//! let highlighter = Highlighter::new_with_limits(Language::Rust, limits);
+//! assert_eq!(highlighter.limits().depth, None);
+//! ```
+//!
+//! nishiki's own `TextMate` engine adds fixed bounds:
+//!
+//! | Constant | Bounds | Past it |
+//! |:--|:--|:--|
+//! | `MAX_END` (32,767) | The back-referenced `end` and `while` patterns a highlighter fills in from their `begin` matches. | The rule closes on its grammar's own pattern, and the report names the node limit. |
+//! | `MAX_INSTS` (40,000) | The instructions one pattern compiles to. | The pattern never matches. |
+//! | `MAX_CALLS` (256) | The subroutine calls nested in one match. | The match fails. |
+//!
+//! # Cargo features
+//!
+//! Every language with a lexer of its own is on by default.
+//! To build only some, turn off the default features
+//! and name what you highlight:
+//!
+//! ```toml
+//! nishiki = { version = "0.1", default-features = false, features = ["lang-rust", "lang-markdown"] }
+//! ```
+//!
+//! - Each language is a `lang-*` feature, named on its [`Language`] variant.
+//! - One module lexes TypeScript, JavaScript, JSX and TSX. Each of the four is
+//!   its own feature, and a build pays for the copies it turns on.
+//! - A language that embeds another turns it on:
+//!   - `lang-graphql` turns on `lang-javascript`;
+//!   - `lang-xml` turns on `lang-java`;
+//!   - `lang-html` turns on `lang-css` and `lang-javascript`;
+//!   - `lang-scss` turns on `lang-css`.
+//! - [`Language::ALL`] and [`Language::from_name`] know only the languages that
+//!   are built.
+//! - Nothing is downloaded at run time. Every language you turn on is in the
+//!   binary.
+//! - `json` reads theme files with [`Theme::from_json`]. It is not the JSON
+//!   language, which is `lang-json`.
+//!
+//! ## Tiers
+//!
+//! A tier turns on several languages at once.
+//! Tiers overlap.
+//!
+//! | Feature | Languages |
+//! |:--|:--|
+//! | `all` (the default) | Every language but the `textmate` tier |
+//! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
+//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less |
+//! | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
+//! | `docs` | Markdown and `config` |
+//! | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid, Haskell |
+//!
+//! `textmate` holds the languages that nishiki's own `TextMate` engine runs
+//! from Shiki's grammars, compiled in as tables.
+//! It is off by default and not in `all`,
+//! so the default build carries no grammar tables.
+//!
+//! # Markdown fences
+//!
+//! [`Language::Markdown`] hands the code in its fences to the other lexers.
+//!
+//! - A fence is lexed as a supported language when its info string names it the
+//!   way Shiki's Markdown grammar does.
+//! - Any other fence is plain text, as in Shiki when only these languages are
+//!   loaded. That includes `toml` and `kotlin`: Shiki's Markdown grammar has no
+//!   rule that embeds them.
+//! - A fence of a language whose feature is off is plain text, as in Shiki when
+//!   that grammar is not loaded.
+//! - YAML front matter is lexed as YAML.
+//!
+//! # Fidelity
+//!
+//! The scopes match Shiki's, quirks included.
 
 // docs.rs labels feature-gated items, such as `Theme::from_json`, with their
 // feature.

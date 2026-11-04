@@ -29,6 +29,8 @@
 
 ## 4. README and crate docs
 
-- [ ] 4.1 Make the crate-root docs the docs.rs landing page, with a quick start and the cargo features → verify: the docs job builds them as docs.rs does
+- [x] 4.1 Make the crate-root docs the docs.rs landing page, with a quick start and the cargo features → verify: the docs job builds them as docs.rs does
+  - 2026-11-04 UTC: `src/lib.rs` holds the quick start, themes, limits, cargo features and tiers, and Markdown fences, moved from the README with their examples as doctests and intra-doc links.
+    The docs job (`mise run doc`: nightly rustdoc, `--cfg docsrs`, every feature, warnings denied) and `test:doc` run in the pull request's CI.
 - [ ] 4.2 Move each language's behaviour notes onto its `Language` variant → verify: every "Behaviour kept from Shiki" bullet appears on docs.rs and nowhere else
 - [ ] 4.3 Cut the README to the GitHub page: what nishiki is, how to add it, one example, the language table and links → verify: the README holds no API reference and its example runs as a doctest

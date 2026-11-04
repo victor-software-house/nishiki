@@ -18,15 +18,7 @@ cargo add nishiki
 ```
 
 A `Highlighter` lexes one language, one line at a time.
-For each line it gives:
-
-- tokens, each with the byte offset where it ends and the TextMate scope stack Shiki gives it;
-- a `State`: where the lexer stands after the line, which the next line starts from.
-
-Because the state passes from line to line:
-
-- an editor can re-highlight from any line;
-- a streamed reply can be highlighted as it arrives.
+Each line gives tokens with Shiki's scope stacks, and a state the next line starts from.
 
 ```rust
 use nishiki::{Highlighter, Language, State};
@@ -47,69 +39,13 @@ for token in &tokens {
 }
 ```
 
-`scopes` lists a stack innermost first,
-the order theme rules match it in.
+The [crate docs](https://docs.rs/nishiki) cover the API:
 
-## Themes
-
-A `Theme` is a TextMate theme in Shiki's format.
-`Theme::style` gives a scope stack the colour and font style Shiki would.
-
-| Constructor | Feature | Takes |
-|:--|:--|:--|
-| `Theme::from_json` | `json` | A theme file, as `@shikijs/themes` ships it. |
-| `Theme::new` | none | The rules as values. nishiki then depends on `memchr` alone. |
-
-```rust
-use nishiki::{Highlighter, Language, RuleScope, State, Theme, ThemeRule, ThemeSource};
-
-let theme = Theme::new(ThemeSource {
-    rules: vec![ThemeRule {
-        scope: RuleScope::Selectors("storage.type".into()),
-        foreground: Some("#f97583".into()),
-        ..ThemeRule::default()
-    }],
-    ..ThemeSource::default()
-});
-let mut highlighter = Highlighter::new(Language::Rust);
-let mut tokens = Vec::new();
-let _ = highlighter.line("let x = 42;", &mut State::default(), &mut tokens);
-let style = theme.style(highlighter.scopes(tokens[0].stack()));
-assert_eq!(style.foreground.to_string(), "#F97583");
-```
-
-## Limits
-
-`Limits` bounds every line:
-
-- its length in bytes;
-- the lexer steps it may take;
-- the contexts open at once;
-- the scope stacks and states a highlighter interns.
-
-How they behave:
-
-- Each limit can be set, raised, lowered or turned off.
-- `Limits::for_budget` derives them from a memory budget and a per-line time budget.
-- Limits count bytes and steps, never time.
-  The same input and limits give the same tokens on every machine.
-- Each line's `LineReport` names the limits it reached.
-
-nishiki's own TextMate engine adds fixed bounds, constants in `src/textmate/`:
-
-| Constant | Bounds | Past it |
-|:--|:--|:--|
-| `MAX_END` (32,767) | The back-referenced `end` and `while` patterns a highlighter fills in from their `begin` matches. | The rule closes on its grammar's own pattern, and the report names the node limit. |
-| `MAX_INSTS` (40,000) | The instructions one pattern compiles to. | The pattern never matches. |
-| `MAX_CALLS` (256) | The subroutine calls nested in one match. | The match fails. |
-
-```rust
-use nishiki::{Highlighter, Language, Limits};
-
-let limits = Limits { depth: None, ..Limits::default() };
-let highlighter = Highlighter::new_with_limits(Language::Rust, limits);
-assert_eq!(highlighter.limits().depth, None);
-```
+- a quick start;
+- themes;
+- limits;
+- cargo features and tiers;
+- Markdown fences.
 
 ## Languages
 
@@ -162,48 +98,9 @@ assert_eq!(highlighter.limits().depth, None);
 | YAML | `Language::Yaml` | `lang-yaml` | `yaml`, `yml` |
 | Zig | `Language::Zig` | `lang-zig` | `zig` |
 
-### Features
-
-Every language with a lexer of its own is on by default.
-To build only some, turn off the default features and name what you highlight:
-
-```toml
-nishiki = { version = "0.1", default-features = false, features = ["lang-rust", "lang-markdown"] }
-```
-
-- Each language is a `lang-*` feature, named in the table above.
-  One module lexes TypeScript, JavaScript, JSX and TSX, so each of the four is its own feature and a build pays for the copies it turns on.
-- A language that embeds another needs it: `lang-graphql` turns on `lang-javascript`, `lang-xml` turns on `lang-java`, `lang-html` turns on `lang-css` and `lang-javascript`, and `lang-scss` turns on `lang-css`.
-- Tiers turn on several at once, and overlap:
-
-  | Feature | Languages |
-  |:--|:--|
-  | `all` (the default) | Every language |
-  | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-  | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less |
-  | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
-  | `docs` | Markdown and `config` |
-  | `textmate` | PowerShell, Scala, Zig, CMake, Protobuf, Batch, Nix, Dart, Julia, Mermaid, Haskell |
-
-- `textmate` holds the languages nishiki's own `TextMate` engine runs from Shiki's grammars, compiled in as tables.
-  It is off by default and not in `all`, so the default build carries no grammar tables.
-- `json` reads theme files with `Theme::from_json`. It is not the JSON language, which is `lang-json`.
-- `Language::ALL` and `Language::from_name` know only the languages that are built.
-  A Markdown fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
-- Nothing is downloaded at run time; every language you turn on is in the binary.
-
-### Inside Markdown
-
-- A fence is lexed as one of these languages when its info string names it the way Shiki's Markdown grammar does.
-- Any other fence is plain text, as in Shiki when only these languages are loaded.
-  That includes `toml` and `kotlin`: Shiki's Markdown grammar has no rule that embeds them.
-- YAML front matter is lexed as YAML.
-
 ## Status
 
 - The API is unstable while the version is `0.x`.
-- A theme colour that is not hex, such as a CSS variable, sets no colour.
-  Shiki passes it through.
 - The scopes match Shiki's, quirks included.
   The next section lists the quirks per language.
 
