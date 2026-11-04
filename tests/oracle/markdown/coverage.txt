@@ -499,9 +499,10 @@ T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.
 L 
 L ```objectivec title="example"
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 29 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 13 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 29 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
 L x
-T 1 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.objc
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

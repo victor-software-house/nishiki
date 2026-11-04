@@ -100,6 +100,8 @@ crate::scope::scope_table! {
     EmbeddedPhp "meta.embedded.block.php"
     #[cfg(feature = "lang-coffee")]
     EmbeddedCoffee "meta.embedded.block.coffee"
+    #[cfg(feature = "lang-objective-c")]
+    EmbeddedObjc "meta.embedded.block.objc"
     EmbeddedFrontMatter "meta.embedded.block.frontmatter"
     FrontMatterBegin "punctuation.definition.begin.frontmatter"
     FrontMatterComment "comment.frontmatter"

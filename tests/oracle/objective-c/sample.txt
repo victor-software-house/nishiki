@@ -1,0 +1,81 @@
+L @interface classname : superclassname {
+T 1 source.objc meta.interface-or-protocol.objc storage.type.objc punctuation.definition.storage.type.objc
+T 10 source.objc meta.interface-or-protocol.objc storage.type.objc
+T 11 source.objc meta.interface-or-protocol.objc
+T 20 source.objc meta.interface-or-protocol.objc entity.name.type.objc
+T 21 source.objc meta.interface-or-protocol.objc
+T 22 source.objc meta.interface-or-protocol.objc punctuation.definition.entity.other.inherited-class.objc
+T 23 source.objc meta.interface-or-protocol.objc
+T 37 source.objc meta.interface-or-protocol.objc entity.other.inherited-class.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.divider.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.block.objc punctuation.section.block.begin.bracket.curly.objc
+L   // instance variables
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.block.objc punctuation.whitespace.comment.leading.objc
+T 4 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.block.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 23 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.block.objc comment.line.double-slash.objc
+L }
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.block.objc punctuation.section.block.end.bracket.curly.objc
+L + classMethod1;
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 14 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L + (return_type)classMethod2;
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 14 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 27 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L + (return_type)classMethod3:(param1_type)param1_varName;
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 14 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 27 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L - (return_type)instanceMethod1With1Parameter:(param1_type)param1_varName;
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 14 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 44 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 46 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 72 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L - (return_type)instanceMethod2With2Parameters:(param1_type)param1_varName
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 14 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 46 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 47 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                               param2_callName:(param2_type)param2_varName;
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 46 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 47 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L @end
+T 1 source.objc meta.interface-or-protocol.objc storage.type.objc punctuation.definition.storage.type.objc
+T 4 source.objc meta.interface-or-protocol.objc storage.type.objc
+L 
+L // From https://en.wikipedia.org/wiki/Objective-C
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 49 source.objc comment.line.double-slash.objc
+L 

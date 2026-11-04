@@ -112,6 +112,7 @@ textmate = [
   "lang-julia",
   "lang-mermaid",
   "lang-nix",
+  "lang-objective-c",
   "lang-php",
   "lang-powershell",
   "lang-proto",
@@ -175,6 +176,7 @@ lang-make = [
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
 lang-mermaid = ["_textmate"]
 lang-nix = ["_textmate"]
+lang-objective-c = ["_textmate"]
 lang-php = [
   "_textmate",
   "lang-css",

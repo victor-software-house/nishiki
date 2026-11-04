@@ -37,6 +37,8 @@ mod markdown;
 mod mermaid;
 #[cfg(feature = "lang-nix")]
 mod nix;
+#[cfg(feature = "lang-objective-c")]
+mod objective_c;
 #[cfg(feature = "lang-php")]
 mod php;
 #[cfg(feature = "lang-powershell")]

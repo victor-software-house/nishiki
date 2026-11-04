@@ -14,6 +14,7 @@ extend-exclude = [
   "src/julia/grammar.rs",
   "src/less/words.rs",
   "src/mermaid/grammar.rs",
+  "src/objective_c/grammar.rs",
   "src/php/grammar.rs",
 ]
 

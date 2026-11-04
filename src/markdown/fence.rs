@@ -347,6 +347,14 @@ const NAMES: &[Name] = &[
         #[cfg(not(feature = "lang-php"))]
         embed: Embed::Php,
     },
+    // The grammar's `objectivec|objective-c|mm|objc|obj-c|[hm]`. Its C fence,
+    // which comes first, takes `h`.
+    #[cfg(feature = "lang-objective-c")]
+    Name {
+        words: &["objectivec", "objective-c", "mm", "objc", "obj-c", "m"],
+        brace: None,
+        embed: Embed::Lang(Language::ObjectiveC),
+    },
     // The dot in the grammar's `coffee|Cakefile|coffee.erb` is unescaped.
     // It matches any one character, as in Shiki.
     #[cfg(feature = "lang-coffee")]

@@ -57,7 +57,6 @@ const unloadedFences = [
   ["js_regexp", "source.js.regexp"],
   ["latex", "text.tex.latex"],
   ["log", "text.log"],
-  ["objc", "source.objc"],
   ["perl", "source.perl"],
   ["perl6", "source.perl.6"],
   ["pug", "text.pug"],

@@ -663,6 +663,39 @@ fn coffee_fences_embed_the_coffee_lexer() {
     }
 }
 
+/// Objective-C runs on the engine. Every word of the grammar's fence but `h`
+/// embeds it: the grammar's C fence comes first and takes `h`.
+#[cfg(all(feature = "lang-objective-c", feature = "lang-c"))]
+#[test]
+fn objc_fences_embed_objective_c_and_h_embeds_c() {
+    for info in ["objc", "objective-c", "OBJ-C x", "objectivec", "mm", "m"] {
+        let text = formatdoc! {"
+            ```{info}
+            x = 1
+            ```
+        "};
+        let stack = stack_of(&text, "1");
+        assert!(
+            stack
+                .iter()
+                .any(|scope| scope == "meta.embedded.block.objc"),
+            "{info}: {stack:?}"
+        );
+    }
+    let stack = stack_of(
+        indoc! {"
+        ```h
+        x = 1
+        ```
+    "},
+        "1",
+    );
+    assert!(
+        stack.iter().any(|scope| scope == "meta.embedded.block.c"),
+        "h: {stack:?}"
+    );
+}
+
 #[test]
 fn css_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"

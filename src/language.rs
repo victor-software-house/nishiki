@@ -898,6 +898,19 @@ languages! {
         halts: true,
         hands_off: true,
     }
+    /// Objective-C, with the scopes of Shiki's `objective-c` grammar, which
+    /// nishiki's `TextMate` engine runs.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A Markdown fence named `h` embeds C, not Objective-C: the grammar's C fence comes first.
+    ObjectiveC {
+        feature: "lang-objective-c",
+        names: ["objective-c", "objc"],
+        engine: crate::objective_c::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

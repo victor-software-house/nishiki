@@ -63,6 +63,8 @@ const abseil =
   "https://raw.githubusercontent.com/abseil/abseil-cpp/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8";
 const aeson =
   "https://raw.githubusercontent.com/haskell/aeson/42190167dbe120578a06d67b13b4d96991b34e01";
+const afnetworking =
+  "https://raw.githubusercontent.com/AFNetworking/AFNetworking/d9f589cc2c1fe9d55eb5eea00558010afea7a41e";
 const airflow =
   "https://raw.githubusercontent.com/apache/airflow/cfbd70b66d11f5d464eb9c0ba926dd34304e110d";
 const alamofire =
@@ -346,6 +348,8 @@ const samples =
   "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/8f1828ebccc57930cf0adde9b35ae929584fe191/samples";
 const scala3 =
   "https://raw.githubusercontent.com/scala/scala3/d71919d08172571e6a5c9392f186b2a6a4413097";
+const sdwebimage =
+  "https://raw.githubusercontent.com/SDWebImage/SDWebImage/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502";
 const serde =
   "https://raw.githubusercontent.com/serde-rs/serde/0db9b3b504bcb0a7fa9cf001429869519afd3e9a";
 const shadcn =
@@ -1020,6 +1024,12 @@ export const inputs: Input[] = [
   { lang: "nix", name: "nixpkgs-lists", url: `${nixpkgs}/lib/lists.nix` },
   { lang: "nix", name: "nixpkgs-ripgrep", url: `${nixpkgs}/pkgs/by-name/ri/ripgrep/package.nix` },
   { lang: "nix", name: "sample", url: `${samples}/nix.sample` },
+  // Objective-C runs on the TextMate engine.
+  { lang: "objective-c", name: "afnetworking-http-session-manager", url: `${afnetworking}/AFNetworking/AFHTTPSessionManager.h` },
+  { lang: "objective-c", name: "afnetworking-url-session-manager", url: `${afnetworking}/AFNetworking/AFURLSessionManager.m` },
+  { lang: "objective-c", name: "sample", url: `${samples}/objective-c.sample` },
+  { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
+  { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
   // PHP runs on the TextMate engine. Its strings and heredocs hand SQL, HTML,
   // XML, JavaScript, JSON and CSS to their lexers.
   { lang: "php", name: "embedded", text: phpEmbedded },

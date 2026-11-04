@@ -128,6 +128,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  "objective-c": {
+    bundled: "microsoft/vscode@bd1abe08c38bb5deccf65610f8f3c03d2338d20d",
+    origin: "jeff-hykin/better-objc-syntax",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   php: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "KapitanOczywisty/language-php",

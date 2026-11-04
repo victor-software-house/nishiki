@@ -525,6 +525,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `php/embedded` | `oracle/inputs/php-embedded.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `php/laravel-postgres-grammar` | [`src/Illuminate/Database/Query/Grammars/PostgresGrammar.php`][laravel-postgres-grammar] in laravel/framework | [MIT][laravel-licence] |
 | `php/laravel-router` | [`src/Illuminate/Routing/Router.php`][laravel-router] in laravel/framework | [MIT][laravel-licence] |
+| `objective-c/sample` | [`samples/objective-c.sample`][objective-c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `objective-c/afnetworking-http-session-manager` | [`AFNetworking/AFHTTPSessionManager.h`][afnetworking-http-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
+| `objective-c/afnetworking-url-session-manager` | [`AFNetworking/AFURLSessionManager.m`][afnetworking-url-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
+| `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 
 Each fixture also has one `.colors` file per theme below: Shiki's colour and font style for each token.
 
@@ -827,6 +832,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [aeson-decoding-text]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/src/Data/Aeson/Decoding/Text.hs
 [aeson-github]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/examples/src/GitHub.hs
 [aeson-licence]: https://github.com/haskell/aeson/blob/42190167dbe120578a06d67b13b4d96991b34e01/LICENSE
+[afnetworking-http-session-manager]: https://github.com/AFNetworking/AFNetworking/blob/d9f589cc2c1fe9d55eb5eea00558010afea7a41e/AFNetworking/AFHTTPSessionManager.h
+[afnetworking-licence]: https://github.com/AFNetworking/AFNetworking/blob/d9f589cc2c1fe9d55eb5eea00558010afea7a41e/LICENSE
+[afnetworking-url-session-manager]: https://github.com/AFNetworking/AFNetworking/blob/d9f589cc2c1fe9d55eb5eea00558010afea7a41e/AFNetworking/AFURLSessionManager.m
 [airflow-compose]: https://github.com/apache/airflow/blob/cfbd70b66d11f5d464eb9c0ba926dd34304e110d/airflow-core/docs/howto/docker-compose/docker-compose.yaml
 [airflow-licence]: https://github.com/apache/airflow/blob/cfbd70b66d11f5d464eb9c0ba926dd34304e110d/LICENSE
 [alamofire-af-error]: https://github.com/Alamofire/Alamofire/blob/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb/Source/Core/AFError.swift
@@ -1230,6 +1238,7 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [nvm-make]: https://github.com/nvm-sh/nvm/blob/16df5aa69aeda3814703e14f9d35a4f60220dd37/Makefile
 [nvm-make-licence]: https://github.com/nvm-sh/nvm/blob/16df5aa69aeda3814703e14f9d35a4f60220dd37/LICENSE.md
 [nvm-readme]: https://github.com/nvm-sh/nvm/blob/5e38bc0caed342356ffd26eb21e0e9b995ac228b/README.md
+[objective-c-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/objective-c.sample
 [ohmyzsh-alias-finder-test]: https://github.com/ohmyzsh/ohmyzsh/blob/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a/plugins/alias-finder/tests/test_run.sh
 [ohmyzsh-licence]: https://github.com/ohmyzsh/ohmyzsh/blob/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a/LICENSE.txt
 [okhttp-build]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/build.gradle.kts
@@ -1380,6 +1389,9 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 [scss-bulma-functions]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/utilities/functions.scss
 [scss-bulma-mixins]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/utilities/mixins.scss
 [scss-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/scss.sample
+[sdwebimage-image-cache]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/SDWebImage/Core/SDImageCache.h
+[sdwebimage-licence]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/LICENSE
+[sdwebimage-manager]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/SDWebImage/Core/SDWebImageManager.m
 [serde-de]: https://github.com/serde-rs/serde/blob/0db9b3b504bcb0a7fa9cf001429869519afd3e9a/serde_core/src/de/mod.rs
 [serde-licence]: https://github.com/serde-rs/serde/blob/0db9b3b504bcb0a7fa9cf001429869519afd3e9a/LICENSE-MIT
 [serde-readme]: https://github.com/serde-rs/serde/blob/0db9b3b504bcb0a7fa9cf001429869519afd3e9a/README.md

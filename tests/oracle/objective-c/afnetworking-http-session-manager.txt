@@ -1,0 +1,1469 @@
+L // AFHTTPSessionManager.h
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 25 source.objc comment.line.double-slash.objc
+L // Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 84 source.objc comment.line.double-slash.objc
+L //
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+L // Permission is hereby granted, free of charge, to any person obtaining a copy
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 79 source.objc comment.line.double-slash.objc
+L // of this software and associated documentation files (the "Software"), to deal
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 80 source.objc comment.line.double-slash.objc
+L // in the Software without restriction, including without limitation the rights
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 79 source.objc comment.line.double-slash.objc
+L // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 76 source.objc comment.line.double-slash.objc
+L // copies of the Software, and to permit persons to whom the Software is
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 72 source.objc comment.line.double-slash.objc
+L // furnished to do so, subject to the following conditions:
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 59 source.objc comment.line.double-slash.objc
+L //
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+L // The above copyright notice and this permission notice shall be included in
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 77 source.objc comment.line.double-slash.objc
+L // all copies or substantial portions of the Software.
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 54 source.objc comment.line.double-slash.objc
+L //
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+L // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 77 source.objc comment.line.double-slash.objc
+L // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 75 source.objc comment.line.double-slash.objc
+L // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 78 source.objc comment.line.double-slash.objc
+L // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 73 source.objc comment.line.double-slash.objc
+L // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 80 source.objc comment.line.double-slash.objc
+L // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 76 source.objc comment.line.double-slash.objc
+L // THE SOFTWARE.
+T 2 source.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 16 source.objc comment.line.double-slash.objc
+L 
+L #import <Foundation/Foundation.h>
+T 1 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc punctuation.definition.directive.objc
+T 7 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc
+T 8 source.objc meta.preprocessor.include.objc
+T 9 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc punctuation.definition.string.begin.objc
+T 32 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc
+T 33 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc punctuation.definition.string.end.objc
+L #if !TARGET_OS_WATCH
+T 1 source.objc meta.preprocessor.objc keyword.control.directive.conditional.objc punctuation.definition.directive.objc
+T 3 source.objc meta.preprocessor.objc keyword.control.directive.conditional.objc
+T 4 source.objc meta.preprocessor.objc
+T 5 source.objc meta.preprocessor.objc keyword.operator.logical.objc
+T 20 source.objc meta.preprocessor.objc entity.name.function.preprocessor.objc
+L #import <SystemConfiguration/SystemConfiguration.h>
+T 1 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc punctuation.definition.directive.objc
+T 7 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc
+T 8 source.objc meta.preprocessor.include.objc
+T 9 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc punctuation.definition.string.begin.objc
+T 50 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc
+T 51 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc punctuation.definition.string.end.objc
+L #endif
+T 1 source.objc meta.preprocessor.objc keyword.control.directive.conditional.objc punctuation.definition.directive.objc
+T 6 source.objc meta.preprocessor.objc keyword.control.directive.conditional.objc
+L #import <TargetConditionals.h>
+T 1 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc punctuation.definition.directive.objc
+T 7 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc
+T 8 source.objc meta.preprocessor.include.objc
+T 9 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc punctuation.definition.string.begin.objc
+T 29 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc
+T 30 source.objc meta.preprocessor.include.objc string.quoted.other.lt-gt.include.objc punctuation.definition.string.end.objc
+L 
+L #import "AFURLSessionManager.h"
+T 1 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc punctuation.definition.directive.objc
+T 7 source.objc meta.preprocessor.include.objc keyword.control.directive.import.objc
+T 8 source.objc meta.preprocessor.include.objc
+T 9 source.objc meta.preprocessor.include.objc string.quoted.double.include.objc punctuation.definition.string.begin.objc
+T 30 source.objc meta.preprocessor.include.objc string.quoted.double.include.objc
+T 31 source.objc meta.preprocessor.include.objc string.quoted.double.include.objc punctuation.definition.string.end.objc
+L 
+L /**
+T 2 source.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc comment.block.objc
+L  `AFHTTPSessionManager` is a subclass of `AFURLSessionManager` with convenience methods for making HTTP requests. When a `baseURL` is provided, requests made with the `GET` / `POST` / et al. convenience methods can be made with relative paths.
+T 243 source.objc comment.block.objc
+L 
+L  ## Subclassing Notes
+T 21 source.objc comment.block.objc
+L 
+L  Developers targeting iOS 7 or Mac OS X 10.9 or later that deal extensively with a web service are encouraged to subclass `AFHTTPSessionManager`, providing a class method that returns a shared singleton object on which authentication and other configuration can be shared across the application.
+T 295 source.objc comment.block.objc
+L 
+L  ## Methods to Override
+T 23 source.objc comment.block.objc
+L 
+L  To change the behavior of all data task operation construction, which is also used in the `GET` / `POST` / et al. convenience methods, override `dataTaskWithRequest:uploadProgress:downloadProgress:completionHandler:`.
+T 218 source.objc comment.block.objc
+L 
+L  ## Serialization
+T 17 source.objc comment.block.objc
+L 
+L  Requests created by an HTTP client will contain default headers and encode parameters according to the `requestSerializer` property, which is an object conforming to `<AFURLRequestSerialization>`.
+T 197 source.objc comment.block.objc
+L 
+L  Responses received from the server are automatically validated and serialized by the `responseSerializers` property, which is an object conforming to `<AFURLResponseSerialization>`
+T 181 source.objc comment.block.objc
+L 
+L  ## URL Construction Using Relative Paths
+T 41 source.objc comment.block.objc
+L 
+L  For HTTP convenience methods, the request serializer constructs URLs from the path relative to the `-baseURL`, using `NSURL +URLWithString:relativeToURL:`, when provided. If `baseURL` is `nil`, `path` needs to resolve to a valid `NSURL` object using `NSURL +URLWithString:`.
+T 275 source.objc comment.block.objc
+L 
+L  Below are a few examples of how `baseURL` and relative paths interact:
+T 71 source.objc comment.block.objc
+L 
+L     NSURL *baseURL = [NSURL URLWithString:@"http://example.com/v1/"];
+T 69 source.objc comment.block.objc
+L     [NSURL URLWithString:@"foo" relativeToURL:baseURL];                  // http://example.com/v1/foo
+T 101 source.objc comment.block.objc
+L     [NSURL URLWithString:@"foo?bar=baz" relativeToURL:baseURL];          // http://example.com/v1/foo?bar=baz
+T 109 source.objc comment.block.objc
+L     [NSURL URLWithString:@"/foo" relativeToURL:baseURL];                 // http://example.com/foo
+T 98 source.objc comment.block.objc
+L     [NSURL URLWithString:@"foo/" relativeToURL:baseURL];                 // http://example.com/v1/foo
+T 101 source.objc comment.block.objc
+L     [NSURL URLWithString:@"/foo/" relativeToURL:baseURL];                // http://example.com/foo/
+T 99 source.objc comment.block.objc
+L     [NSURL URLWithString:@"http://example2.com/" relativeToURL:baseURL]; // http://example2.com/
+T 96 source.objc comment.block.objc
+L 
+L  Also important to note is that a trailing slash will be added to any `baseURL` without one. This would otherwise cause unexpected behavior when constructing URLs using paths without a leading slash.
+T 199 source.objc comment.block.objc
+L 
+L  @warning Managers for background sessions must be owned for the duration of their use. This can be accomplished by creating an application-wide or shared singleton instance.
+T 174 source.objc comment.block.objc
+L  */
+T 1 source.objc comment.block.objc
+T 3 source.objc comment.block.objc punctuation.definition.comment.end.objc
+L 
+L NS_ASSUME_NONNULL_BEGIN
+T 23 source.objc
+L 
+L @interface AFHTTPSessionManager : AFURLSessionManager <NSSecureCoding, NSCopying>
+T 1 source.objc meta.interface-or-protocol.objc storage.type.objc punctuation.definition.storage.type.objc
+T 10 source.objc meta.interface-or-protocol.objc storage.type.objc
+T 11 source.objc meta.interface-or-protocol.objc
+T 31 source.objc meta.interface-or-protocol.objc entity.name.type.objc
+T 32 source.objc meta.interface-or-protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc punctuation.definition.entity.other.inherited-class.objc
+T 34 source.objc meta.interface-or-protocol.objc
+T 53 source.objc meta.interface-or-protocol.objc entity.other.inherited-class.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.divider.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 71 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc support.other.protocol.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  The URL used to construct requests from relative paths in methods like `requestWithMethod:URLString:parameters:`, and the `GET` / `POST` / et al. convenience methods.
+T 167 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L @property (readonly, nonatomic, strong, nullable) NSURL *baseURL;
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc punctuation.definition.keyword.objc
+T 9 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc
+T 10 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.begin.objc
+T 19 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 21 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.end.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc support.class.cocoa.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc keyword.operator.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 65 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc punctuation.terminator.statement.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Requests created with `requestWithMethod:URLString:parameters:` & `multipartFormRequestWithMethod:URLString:parameters:constructingBodyWithBlock:` are constructed with a set of default headers using a parameter serialization specified by this property. By default, this is set to an instance of `AFHTTPRequestSerializer`, which serializes query string parameters for `GET`, `HEAD`, and `DELETE` requests, or otherwise URL-form-encodes HTTP message bodies.
+T 456 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @warning `requestSerializer` must not be `nil`.
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L @property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc punctuation.definition.keyword.objc
+T 9 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc
+T 10 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.begin.objc
+T 20 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 22 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.end.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 83 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc keyword.operator.objc
+T 101 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 102 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc punctuation.terminator.statement.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Responses sent from the server in data tasks created with `dataTaskWithRequest:success:failure:` and run using the `GET` / `POST` / et al. convenience methods are automatically validated and serialized by the response serializer. By default, this property is set to an instance of `AFJSONResponseSerializer`.
+T 309 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @warning `responseSerializer` must not be `nil`.
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L @property (nonatomic, strong) AFHTTPResponseSerializer <AFURLResponseSerialization> * responseSerializer;
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc punctuation.definition.keyword.objc
+T 9 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc
+T 10 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.begin.objc
+T 20 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 22 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.end.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc
+T 83 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 84 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc keyword.operator.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc punctuation.terminator.statement.objc
+L 
+L ///-------------------------------
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L /// @name Managing Security Policy
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L ///-------------------------------
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  The security policy used by created session to evaluate server trust for secure connections. `AFURLSessionManager` uses the `defaultPolicy` unless otherwise specified. A security policy configured with `AFSSLPinningModePublicKey` or `AFSSLPinningModeCertificate` can only be applied on a session manager initialized with a secure base URL (i.e. https). Applying a security policy with pinning enabled on an insecure session manager throws an `Invalid Security Policy` exception.
+T 479 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L @property (nonatomic, strong) AFSecurityPolicy *securityPolicy;
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc punctuation.definition.keyword.objc
+T 9 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.objc
+T 10 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.begin.objc
+T 20 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 22 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc keyword.other.property.attribute.objc
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.property-with-attributes.objc punctuation.section.scope.end.objc
+T 47 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc keyword.operator.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc punctuation.terminator.statement.objc
+L 
+L ///---------------------
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 24 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L /// @name Initialization
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 24 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L ///---------------------
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 24 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and returns an `AFHTTPSessionManager` object.
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L + (instancetype)manager;
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.type.objc
+T 16 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 23 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 24 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Initializes an `AFHTTPSessionManager` object with the specified base URL.
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @param url The base URL for the HTTP client.
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @return The newly-initialized HTTP client
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (instancetype)initWithBaseURL:(nullable NSURL *)url;
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.type.objc
+T 16 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 47 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Initializes an `AFHTTPSessionManager` object with the specified base URL.
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  This is the designated initializer.
+T 36 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @param url The base URL for the HTTP client.
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param configuration The configuration used to create the managed session.
+T 75 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @return The newly-initialized HTTP client
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (instancetype)initWithBaseURL:(nullable NSURL *)url
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 15 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.type.objc
+T 16 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 47 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L            sessionConfiguration:(nullable NSURLSessionConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 69 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 83 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 109 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 110 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L ///---------------------------
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L /// @name Making HTTP Requests
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L ///---------------------------
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc punctuation.definition.comment.objc
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.line.double-slash.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a `GET` request.
+T 65 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param downloadProgress A block object to be executed when the download progress is updated. Note this block is called on the session queue, not the main queue.
+T 161 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:uploadProgress:downloadProgress:completionHandler:
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 60 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                             parameters:(nullable id)parameters
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                               progress:(nullable void (^)(NSProgress *downloadProgress))downloadProgress
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 69 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 79 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 84 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 122 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 79 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 95 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 111 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 112 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 120 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 121 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a `HEAD` request.
+T 66 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes a single arguments: the data task.
+T 158 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:completionHandler:
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)HEAD:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                              parameters:(nullable id)parameters
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 90 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 success:(nullable void (^)(NSURLSessionDataTask *task))success
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 94 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 112 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 121 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 122 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a `POST` request.
+T 66 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param uploadProgress A block object to be executed when the upload progress is updated. Note this block is called on the session queue, not the main queue.
+T 157 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:uploadProgress:downloadProgress:completionHandler:
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)POST:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                              parameters:(nullable id)parameters
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 90 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                progress:(nullable void (^)(NSProgress *uploadProgress))uploadProgress
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 71 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 101 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 116 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 123 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 112 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 121 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 122 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a multipart `POST` request.
+T 76 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param block A block that takes a single argument and appends data to the HTTP body. The block argument is an object adopting the `AFMultipartFormData` protocol.
+T 162 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param uploadProgress A block object to be executed when the upload progress is updated. Note this block is called on the session queue, not the main queue.
+T 157 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:uploadProgress:downloadProgress:completionHandler:
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)POST:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                              parameters:(nullable id)parameters
+T 29 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 90 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L               constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> formData))block
+T 14 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc meta.id-with-protocol.objc storage.type.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc meta.id-with-protocol.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc meta.id-with-protocol.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc meta.id-with-protocol.objc meta.protocol-list.objc
+T 83 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc meta.id-with-protocol.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 92 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 93 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 94 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 99 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                progress:(nullable void (^)(NSProgress *uploadProgress))uploadProgress
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 71 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 101 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 116 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 123 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                 failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 32 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 112 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 121 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 122 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a `PUT` request.
+T 65 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:completionHandler:
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)PUT:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 60 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                             parameters:(nullable id)parameters
+T 28 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 79 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 84 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 85 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 122 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 38 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 39 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 49 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 79 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 95 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 96 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 111 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 112 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 120 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 121 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a `PATCH` request.
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:completionHandler:
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)PATCH:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 62 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                               parameters:(nullable id)parameters
+T 30 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                  headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 65 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 90 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                  success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 60 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 86 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 90 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 116 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 117 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 124 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                  failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 40 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 60 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 97 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 99 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 108 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 113 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 122 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 123 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates and runs an `NSURLSessionDataTask` with a `DELETE` request.
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @see -dataTaskWithRequest:completionHandler:
+T 45 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)DELETE:(NSString *)URLString
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 43 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 53 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 63 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                parameters:(nullable id)parameters
+T 31 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 43 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 54 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 55 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 65 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                   headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 43 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 65 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 66 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 90 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 92 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 99 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                   success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 43 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 60 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 83 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 87 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 116 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 117 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 118 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 125 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                   failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 42 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 43 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 51 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 52 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 56 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 60 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 61 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 83 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 99 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 100 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 108 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 109 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 116 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 123 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 124 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L /**
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.begin.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  Creates an `NSURLSessionDataTask` with a custom `HTTPMethod` request.
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @param method The HTTPMethod string used to create the request.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param URLString The URL string used to create the request URL.
+T 64 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param parameters The parameters to be encoded according to the client request serializer.
+T 91 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param headers The headers appended to the default headers for this request.
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param uploadProgress A block object to be executed when the upload progress is updated. Note this block is called on the session queue, not the main queue.
+T 157 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param downloadProgress A block object to be executed when the download progress is updated. Note this block is called on the session queue, not the main queue.
+T 161 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param success A block object to be executed when the task finishes successfully. This block has no return value and takes two arguments: the data task, and the response object created by the client response serializer.
+T 220 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  @param failure A block object to be executed when the task finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes a two arguments: the data task and the error describing the network or parsing error that occurred.
+T 314 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L 
+L  @see -dataTaskWithRequest:uploadProgress:downloadProgress:completionHandler:
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+L  */
+T 1 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc comment.block.objc punctuation.definition.comment.end.objc
+L - (nullable NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
+T 2 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 3 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.begin.objc
+T 11 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc storage.modifier.protocol.objc
+T 33 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc
+T 34 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc keyword.operator.objc
+T 35 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc punctuation.definition.type.end.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.return-type.objc entity.name.function.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 69 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 76 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                                 URLString:(NSString *)URLString
+T 48 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 69 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 79 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                                parameters:(nullable id)parameters
+T 47 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 70 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.id.objc
+T 71 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                                   headers:(nullable NSDictionary <NSString *, NSString *> *)headers
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 80 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc support.class.cocoa.objc
+T 81 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 82 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.begin.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.protocol-list.objc punctuation.section.scope.end.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc keyword.operator.objc
+T 108 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                            uploadProgress:(nullable void (^)(NSProgress *uploadProgress))uploadProgress
+T 43 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 72 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 75 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 76 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 103 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 119 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                          downloadProgress:(nullable void (^)(NSProgress *downloadProgress))downloadProgress
+T 41 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 72 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 75 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 76 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 88 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 89 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 106 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 123 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                                   success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 72 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 75 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 76 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 99 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 103 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 104 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 105 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 107 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc storage.type.id.objc
+T 132 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 133 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 134 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 141 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+L                                                   failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+T 50 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+T 57 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc entity.name.function.name-of-parameter.objc
+T 58 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc entity.name.function.name-of-parameter.objc punctuation.separator.arguments.objc
+T 59 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.begin.objc
+T 67 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.modifier.protocol.objc
+T 68 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 72 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc storage.type.built-in.primitive.objc
+T 73 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc
+T 74 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 75 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 76 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 77 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.begin.bracket.round.objc
+T 98 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 99 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 114 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 115 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.separator.delimiter.objc
+T 116 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 123 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc support.class.cocoa.objc
+T 124 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 125 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc keyword.operator.objc
+T 130 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc
+T 131 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc meta.parens.objc punctuation.section.parens.end.bracket.round.objc
+T 132 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc punctuation.definition.type.end.objc
+T 139 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc meta.argument-type.objc variable.parameter.function.objc
+T 140 source.objc meta.interface-or-protocol.objc meta.scope.interface.objc meta.function.objc
+L 
+L @end
+T 1 source.objc meta.interface-or-protocol.objc storage.type.objc punctuation.definition.storage.type.objc
+T 4 source.objc meta.interface-or-protocol.objc storage.type.objc
+L 
+L NS_ASSUME_NONNULL_END
+T 21 source.objc
+L 
