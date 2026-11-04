@@ -1,8 +1,8 @@
 use crate::test_support::{self, Row};
 use crate::{Highlighter, Language, Limit, Limits, State, Work};
 
-/// Lexes `text` with `highlighter`; each token's scopes leave out the
-/// document's `source.sql`.
+/// Lexes `text` with `highlighter`.
+/// Each token's scopes leave out the document's `source.sql`.
 fn lex_with(highlighter: &mut Highlighter, text: &str) -> Vec<Row> {
     test_support::without_root(test_support::lex_with(highlighter, text))
 }
@@ -64,8 +64,9 @@ fn a_case_fold_of_the_unicode_engine_reads_a_long_s_as_s_and_kelvin_as_k() {
     );
 }
 
-/// `Onig` folds `ß` and `ẞ` to `ss`, and each ligature to its letters, so
-/// under `(?i)` one character matches two or three letters of a keyword.
+/// `Onig` folds `ß` and `ẞ` to `ss`, and each ligature to its letters.
+/// Under `(?i)`, one character then matches two or three letters of a
+/// keyword.
 /// Each case is Shiki's answer on the line.
 #[test]
 fn a_multi_letter_case_fold_stands_for_its_letters() {
@@ -392,8 +393,8 @@ fn running_out_of_work_leaves_the_rest_of_the_line_in_the_open_rules() {
     assert_eq!(tokens[tokens.len() - 1].end(), line.len());
 }
 
-/// The matchers binary-search the word tables, which only works while each
-/// is sorted and holds no word twice.
+/// The matchers binary-search the word tables.
+/// That works only while each table is sorted and holds no word twice.
 #[test]
 fn word_tables_are_sorted() {
     use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};

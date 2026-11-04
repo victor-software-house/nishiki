@@ -1,4 +1,5 @@
-//! The rules the lexer opens, which are frames of the interned state.
+//! The rules the lexer opens.
+//! Each is a frame of the interned state.
 
 use super::scope::S;
 
@@ -12,14 +13,16 @@ crate::tag::frame_kinds! {
         Root,
         /// `[` up to `]`.
         Bracket,
-        /// The outer rule of a `--` comment, which closes right after it.
+        /// The outer rule of a `--` comment.
+        /// It closes right after the comment.
         CommentDash,
-        /// The outer rule of a `#` comment, which holds nothing and closes at
-        /// once.
+        /// The outer rule of a `#` comment.
+        /// It holds nothing and closes at once.
         CommentHash,
         /// `--` up to the line feed.
         LineComment,
-        /// `/*` up to `*/`, which nests.
+        /// `/*` up to `*/`.
+        /// It nests.
         BlockComment,
         /// `'` up to `'`.
         StrSingle,

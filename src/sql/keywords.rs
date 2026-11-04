@@ -1,6 +1,8 @@
 //! The keyword rules of the grammar that take several words, or a type's
-//! size: each is a regular expression of alternatives that start with a word
-//! and end at a word boundary, and the first word picks the alternative.
+//! size.
+//! Each is a regular expression of alternatives that start with a word and
+//! end at a word boundary.
+//! The first word picks the alternative.
 
 use super::engine::{Hit, Lexer};
 use super::matchers::LONGEST;
@@ -72,8 +74,7 @@ impl Lexer<'_> {
         self.lit(p, word) == Some(e)
     }
 
-    /// The end of one white space character at `i`, which is the grammar's
-    /// `\s`.
+    /// The end of one white space character at `i`: the grammar's `\s`.
     fn one_space(&self, i: usize) -> Option<usize> {
         Some(i + self.space_w(i)).filter(|&end| end > i)
     }
@@ -128,6 +129,13 @@ impl Lexer<'_> {
     }
 
     /// The type rule: six alternatives, each starting with its words.
+    ///
+    /// The checks try the six alternatives in this order:
+    /// - `\b(bigint|...|double\sprecision|...)\b`;
+    /// - the sized types, through `sized_type`;
+    /// - `\b(char|number|varchar\d?)\b(?:\((\d+)\))?`;
+    /// - `\b(numeric|decimal)\b(?:\((\d+),(\d+)\))?`;
+    /// - the time and the timestamp alternatives, both through `time_type`.
     #[inline]
     pub(super) fn types(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
@@ -135,7 +143,6 @@ impl Lexer<'_> {
         }
         let e = self.word_run(p);
         let named = Hit::new(p, e).cap(0, p, e, S::StorageType);
-        // `\b(bigint|...|double\sprecision|...)\b`
         if PLAIN_TYPES.iter().any(|word| self.run_is(p, e, word)) {
             return Some(named);
         }
@@ -148,7 +155,6 @@ impl Lexer<'_> {
         if let Some(hit) = self.sized_type(p, e) {
             return Some(hit);
         }
-        // `\b(char|number|varchar\d?)\b(?:\((\d+)\))?`
         let varchar = self.run_is(p, p + 7, "varchar")
             && (e == p + 7
                 || (digit_width(self.s, p + 7) > 0 && e == p + 7 + digit_width(self.s, p + 7)));
@@ -162,7 +168,6 @@ impl Lexer<'_> {
                 None => named,
             });
         }
-        // `\b(numeric|decimal)\b(?:\((\d+),(\d+)\))?`
         if self.run_is(p, e, "numeric") || self.run_is(p, e, "decimal") {
             return Some(match self.paren_pair(e) {
                 Some((first, second, end)) => Hit::new(p, end)

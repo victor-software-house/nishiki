@@ -1,9 +1,11 @@
-//! SQL on the shared rule engine ([`crate::rules`]): the matchers answer with
-//! a [`Hit`], which the glue here turns into the spans the engine emits.
+//! SQL on the shared rule engine ([`crate::rules`]).
+//! The matchers answer with a [`Hit`].
+//! The glue here turns each hit into the spans the engine emits.
 //!
-//! At each position the search tries the end pattern of the innermost rule
-//! and then the rule's patterns in order, except in a bracket, whose patterns
-//! come first, and takes the first that matches at the earliest position.
+//! At each position the search tries the end pattern of the innermost rule,
+//! then the rule's patterns in order.
+//! In a bracket, the patterns come before the end pattern.
+//! The search takes the first pattern that matches at the earliest position.
 
 use std::cell::Cell;
 
@@ -36,8 +38,8 @@ pub(crate) struct Extra {
     /// The rules of a word ask about the same one in turn.
     pub(super) run: Cell<(usize, usize)>,
     /// The last search for each [`Closer`]: where it started and where it
-    /// found the byte, so a line of openers that never close does not scan
-    /// to its end for each.
+    /// found the byte.
+    /// A line of openers that never close then scans to its end only once.
     quote_find: Cell<(usize, Option<usize>)>,
     brace_find: Cell<(usize, Option<usize>)>,
 }
@@ -86,8 +88,8 @@ impl Hit {
     }
 }
 
-/// A byte that closes a match, which the search finds once per line however
-/// many openers there are.
+/// A byte that closes a match.
+/// The search finds it once per line, however many openers there are.
 #[derive(Clone, Copy, Debug)]
 pub(super) enum Closer {
     /// The `'` that closes a single-quoted string.
@@ -97,8 +99,8 @@ pub(super) enum Closer {
 }
 
 impl Lexer<'_> {
-    /// The first `closer` at or after `from` in the text, answered from the
-    /// last search for it when that covers `from`.
+    /// The first `closer` at or after `from` in the text.
+    /// The last search for it answers when that search covers `from`.
     pub(super) fn find_closer(&self, closer: Closer, from: usize) -> Option<usize> {
         let (cell, byte) = match closer {
             Closer::Quote => (&self.x.quote_find, b'\''),
@@ -115,12 +117,13 @@ impl Lexer<'_> {
         found
     }
 
-    /// Tries `pat` at `p` and, on a match, records its capture groups as
-    /// spans and returns where it ends.
+    /// Tries `pat` at `p`.
+    /// On a match, it records the capture groups as spans and returns where
+    /// the match ends.
     ///
-    /// `#[inline]`, as `pat_at` is, so that the scan's whole dispatch for a
-    /// candidate pattern inlines at the default sixteen codegen units
-    /// (`bench/AGENTS.md` rule 13).
+    /// It is `#[inline]`, as `pat_at` is.
+    /// The scan's whole dispatch for a candidate pattern then inlines at the
+    /// default sixteen codegen units (`bench/AGENTS.md` rule 13).
     #[inline]
     fn hit(&mut self, pat: Pat, p: usize) -> Option<usize> {
         let hit = self.pat_at(pat, p)?;
@@ -221,16 +224,20 @@ impl Grammar for Sql {
 }
 
 impl Lexer<'_> {
-    /// The first match from the position. The bytes the rule's skip passes
-    /// start none of its patterns and end it nowhere. A rule the depth limit
-    /// keeps closed leaves its text plain, and since a rule that matched
-    /// nothing would match again where it did, the search goes on one
-    /// character later.
+    /// The first match from the position.
+    /// The bytes the rule's skip passes start none of its patterns and end it
+    /// nowhere.
+    /// A rule the depth limit keeps closed leaves its text plain.
+    /// That rule matched nothing.
+    /// It would match again at the same place.
+    /// The search goes on one character later instead.
     ///
-    /// When `HALTING`, a language that embeds SQL takes the text back where
-    /// `halt` holds before the patterns at a place or `after` holds once they
-    /// fail there; only the root is open then. Without it the tests compile
-    /// out, so SQL that nothing embeds pays nothing for them.
+    /// When `HALTING`, a language that embeds SQL takes the text back at a
+    /// place where `halt` holds before the patterns.
+    /// It also takes it back where `after` holds once the patterns fail there.
+    /// Only the root is open then.
+    /// Without `HALTING` the tests compile out.
+    /// SQL that nothing embeds pays nothing for them.
     fn search<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, Pat, usize)> {
         let rule = self.top_rule();
         let end = self.lim() + usize::from(self.nl);

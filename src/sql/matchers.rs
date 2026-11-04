@@ -1,8 +1,9 @@
 //! The grammar's regular expressions as hand-written matchers.
 //!
-//! Each answers what its expression would at a position, including where its
-//! backtracking lands. `Onig`'s `\s`, `\d` and `\w` read non-ASCII
-//! characters, so they go through the table the JSON lexer measured on Shiki.
+//! Each matcher answers what its expression would at a position.
+//! That includes where its backtracking lands.
+//! `Onig`'s `\s`, `\d` and `\w` read non-ASCII characters.
+//! Those classes go through the table the JSON lexer measured on Shiki.
 //! The keyword rules are case-insensitive for ASCII words.
 
 use memchr::memchr2;
@@ -18,11 +19,12 @@ use crate::language::{Halts, NO_HALTS};
 use crate::utf8::{char_len, char_start};
 
 /// The length of the longest word of the keyword, function and global
-/// tables: a word longer than it is in none of them.
+/// tables.
+/// A word longer than it is in none of them.
 pub(super) const LONGEST: usize = longest();
 
-/// [`LONGEST`], computed from the tables so that a regenerated table cannot
-/// outgrow it.
+/// [`LONGEST`], computed from the tables.
+/// A regenerated table then cannot outgrow it.
 const fn longest() -> usize {
     let mut max = 0;
     let mut i = 0;
@@ -63,10 +65,11 @@ impl Lexer<'_> {
 
     /// Whether a word starts at `i`: a word character after a non-word one.
     ///
-    /// `#[inline]`: the keyword matchers, in another module, ask it at most
-    /// positions, and at the default sixteen codegen units a generic method
-    /// that is not `#[inline]` is called out of line across them
-    /// (`bench/AGENTS.md` rule 13).
+    /// It is `#[inline]` because the keyword matchers, in another module, ask
+    /// it at most positions.
+    /// At the default sixteen codegen units, a generic method that is not
+    /// `#[inline]` is called out of line across modules (`bench/AGENTS.md`
+    /// rule 13).
     #[inline]
     pub(super) fn word_start(&self, i: usize) -> bool {
         word_width(self.s, i) > 0 && !word_before(self.s, i)
@@ -112,8 +115,9 @@ impl Lexer<'_> {
     }
 
     /// The end of the ASCII word `word` at `i`, matched without regard to
-    /// case, as `(?i)` reads it: a character above ASCII stands for the
-    /// letters it folds to, such as `ſ` for `s` and `ß` for `ss`.
+    /// case, as `(?i)` reads it.
+    /// A character above ASCII stands for the letters it folds to, such as
+    /// `ſ` for `s` and `ß` for `ss`.
     pub(super) fn lit(&self, i: usize, word: &str) -> Option<usize> {
         case_fold::literal_end(self.s, i, word.as_bytes())
     }
@@ -132,8 +136,10 @@ impl Lexer<'_> {
     }
 
     /// The word `i..j` lowered in `buf`, each character above ASCII as the
-    /// letters it folds to, or `None` when that is longer than any word of the
-    /// tables or a character above ASCII folds to no ASCII letters.
+    /// letters it folds to.
+    /// It is `None` when the result is longer than any word of the tables.
+    /// It is also `None` when a character above ASCII folds to no ASCII
+    /// letters.
     pub(super) fn lower<'b>(
         &self,
         i: usize,
@@ -146,13 +152,14 @@ impl Lexer<'_> {
 
     // Skipping.
 
-    /// The first position from `p` where `rule` can match: the bytes in
-    /// between start none of its patterns and end it nowhere.
+    /// The first position from `p` where `rule` can match.
+    /// The bytes in between start none of its patterns and end it nowhere.
     ///
-    /// `#[inline]`: the scan in the engine module calls it after every miss,
-    /// and at the default sixteen codegen units a generic method that is not
-    /// `#[inline]` is called out of line across them (`bench/AGENTS.md` rule
-    /// 13).
+    /// It is `#[inline]` because the scan in the engine module calls it after
+    /// every miss.
+    /// At the default sixteen codegen units, a generic method that is not
+    /// `#[inline]` is called out of line across modules (`bench/AGENTS.md`
+    /// rule 13).
     #[inline]
     pub(super) fn skip_to(&self, rule: Rule, p: usize) -> usize {
         let text = &self.s[p.min(self.lim())..self.lim()];
@@ -175,8 +182,9 @@ impl Lexer<'_> {
     /// The first position from `p` where a pattern of the root can start.
     ///
     /// When `HALTING`, for SQL that another language embeds, it also stops
-    /// where `halt`, or `after`, holds, so the search asks there; without it
-    /// the tests compile out.
+    /// where `halt` or `after` holds.
+    /// The search then asks there.
+    /// Without `HALTING` the tests compile out.
     pub(super) fn root_skip<const HALTING: bool>(&self, mut p: usize, halts: &Halts<'_>) -> usize {
         let from = p;
         while p < self.lim()
@@ -192,6 +200,9 @@ impl Lexer<'_> {
     }
 
     /// Whether a pattern of the root can start at `p`.
+    ///
+    /// `(\w+?)\.(\w+)` needs no boundary.
+    /// A search that starts inside a word can therefore match there.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: called from both instances of the root skip, the halting one and the plain one, it stopped being inlined, at a call per place"
@@ -206,8 +217,6 @@ impl Lexer<'_> {
                     if self.space_w(p) > 0 {
                         return p == 0 || p == self.pos || self.space_w(p - 1) == 0;
                     }
-                    // `(\w+?)\.(\w+)` needs no boundary, so a search that
-                    // starts inside a word can match there.
                     p == self.pos || self.word_start(p)
                 }
             };
@@ -251,6 +260,13 @@ impl Lexer<'_> {
     // Ends.
 
     /// The end pattern of `rule` at `p`.
+    ///
+    /// The arms match, in order:
+    /// - `Bracket`: `\]`;
+    /// - `CommentDash` and `CommentHash`: `(?!\G)`, anywhere `\G` does not;
+    /// - `LineComment`: `\n`;
+    /// - `BlockComment`: `\*/`;
+    /// - the strings: their closing quote or brace.
     #[inline]
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let one = |byte: u8, scope: S| {
@@ -259,15 +275,11 @@ impl Lexer<'_> {
         };
         match rule {
             Rule::Root => None,
-            // `\]`
             Rule::Bracket => one(b']', S::PunctBracketEnd),
-            // `(?!\G)`: it matches anywhere `\G` does not.
             Rule::CommentDash | Rule::CommentHash => {
                 (!self.g || p != self.pos).then(|| Hit::new(p, p))
             }
-            // `\n`
             Rule::LineComment => (p == self.lim() && self.nl).then(|| Hit::new(p, p + 1)),
-            // `\*/`
             Rule::BlockComment => self
                 .s
                 .get(p..self.lim())
@@ -284,9 +296,10 @@ impl Lexer<'_> {
 
     /// The match of `pat` at `p`.
     ///
-    /// `#[inline]`: `hit`, in the engine module, calls it for every candidate
-    /// pattern, and at the default sixteen codegen units a generic method that
-    /// is not `#[inline]` is called out of line across them (`bench/AGENTS.md`
+    /// It is `#[inline]` because `hit`, in the engine module, calls it for
+    /// every candidate pattern.
+    /// At the default sixteen codegen units, a generic method that is not
+    /// `#[inline]` is called out of line across modules (`bench/AGENTS.md`
     /// rule 13).
     /// The matchers it calls that inline at one unit are `#[inline]` too.
     /// Without them, sixteen units ran 11% more instructions than one.
@@ -442,8 +455,8 @@ impl Lexer<'_> {
         )
     }
 
-    /// `(q)[^q...]*(q)`: a string closed on the line, whose body has none of
-    /// the bytes `stop` takes.
+    /// `(q)[^q...]*(q)`: a string closed on the line.
+    /// Its body has none of the bytes `stop` takes.
     fn closed(&self, p: usize, quote: u8, stop: impl Fn(u8) -> bool) -> Option<Hit> {
         if p >= self.lim() || self.s[p] != quote {
             return None;
@@ -499,9 +512,10 @@ impl Lexer<'_> {
     }
 
     /// The alternatives of `alts` that fit at `p`, in the order a regular
-    /// expression tries them: where the type ends, and the end of the white
-    /// space after it, which is the end when `space` is false. An optional
-    /// prefix is tried before the alternative without it.
+    /// expression tries them.
+    /// Each gives where the type ends and the end of the white space after it.
+    /// When `space` is false, that second end is the match's end.
+    /// An optional prefix is tried before the alternative without it.
     fn object_types<'a>(
         &'a self,
         p: usize,
@@ -535,6 +549,10 @@ impl Lexer<'_> {
 
     /// The create statement: `create`, an optional `or replace`, an object
     /// type, and a name that a quote may enclose.
+    ///
+    /// The optional `or replace` is taken when it fits.
+    /// It is given back when nothing after it fits.
+    /// Each type is given back the same way when no name follows it.
     #[inline]
     fn create(&self, p: usize) -> Option<Hit> {
         if p != 0 {
@@ -547,8 +565,6 @@ impl Lexer<'_> {
             .and_then(|at| self.lit(at, "or"))
             .and_then(|at| self.spaces1(at))
             .and_then(|at| self.lit(at, "replace"));
-        // The optional `or replace` is taken when it fits, and given back when
-        // nothing after it does; so is each type, when no name follows it.
         let (phrase, kind_start, kind_end, name, name_end, end) = [replaced, Some(created)]
             .into_iter()
             .flatten()
@@ -599,8 +615,9 @@ impl Lexer<'_> {
         )
     }
 
-    /// `\s*(drop)\s+(table)\s+(\w+)(\s+cascade)?\b`: it has no `^`, so it
-    /// starts where the white space before `drop` does.
+    /// `\s*(drop)\s+(table)\s+(\w+)(\s+cascade)?\b`.
+    /// It has no `^`.
+    /// It starts where the white space before `drop` does.
     #[inline]
     fn drop_table(&self, p: usize) -> Option<Hit> {
         let starts_run = p == 0 || p == self.pos || !self.after_space(p);
@@ -727,6 +744,9 @@ impl Lexer<'_> {
     }
 
     /// The keywords of the rule that closes the grammar's word rules.
+    ///
+    /// `priority` matches with the space after it, when a word follows that
+    /// space.
     #[inline]
     fn keyword(&self, p: usize) -> Option<Hit> {
         if !self.word_start(p) {
@@ -741,7 +761,6 @@ impl Lexer<'_> {
             {
                 return Some(Hit::new(p, self.create_group(word, end)));
             }
-            // `priority ` with its space, which a word follows.
             if word == b"priority"
                 && self.at(end) == b' '
                 && end < self.lim()
