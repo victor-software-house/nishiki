@@ -11,8 +11,10 @@
 use std::sync::Mutex;
 
 use regex_automata::meta::{self, Cache};
+use regex_automata::util::prefilter::Prefilter;
 use regex_automata::{Input, MatchKind};
-use regex_syntax::hir::Hir;
+use regex_syntax::hir::literal::{ExtractKind, Extractor, Seq};
+use regex_syntax::hir::{Hir, HirKind};
 
 use super::grammar::Cells;
 use super::regex::Sketch;
@@ -43,17 +45,77 @@ pub(crate) struct Scanner {
 /// The most spare caches a scanner keeps.
 const SPARE: usize = 4;
 
+/// The most literals the prefilter's extraction keeps.
+const LITERALS: usize = 64;
+
+/// How a list's automaton gets its prefilter.
+enum Prefixes {
+    /// The patterns are literals, or their prefixes are exact.
+    /// `regex-automata` then searches for them without a regex engine.
+    /// Only its own extraction leads there, and it is cheap on literals.
+    Literals,
+    /// A prefilter nishiki extracted, or `None` for no prefilter.
+    Extracted(Option<Prefilter>),
+}
+
 /// The widened patterns as one automaton, or the first error.
+///
+/// A list of literals keeps `regex-automata`'s own extraction.
+/// Every other list takes a prefilter nishiki extracts, with at most
+/// [`LITERALS`] literals.
+/// `regex-automata`'s own extraction keeps up to 250 literals.
+/// On CMake's first token that extraction cost 29 million instructions.
 fn compile(hirs: &[&Hir]) -> Result<meta::Regex, Box<meta::BuildError>> {
+    let config = meta::Config::new()
+        .match_kind(MatchKind::LeftmostFirst)
+        .nfa_size_limit(Some(1 << 24))
+        .hybrid_cache_capacity(1 << 22);
+    let config = match prefixes(hirs) {
+        Prefixes::Literals => config,
+        Prefixes::Extracted(prefilter) => config.auto_prefilter(false).prefilter(prefilter),
+    };
     meta::Regex::builder()
-        .configure(
-            meta::Config::new()
-                .match_kind(MatchKind::LeftmostFirst)
-                .nfa_size_limit(Some(1 << 24))
-                .hybrid_cache_capacity(1 << 22),
-        )
+        .configure(config)
         .build_many_from_hir(hirs)
         .map_err(Box::new)
+}
+
+/// The prefixes of `hirs`, at most [`LITERALS`] of them.
+fn prefixes(hirs: &[&Hir]) -> Prefixes {
+    if hirs.iter().all(|hir| literals(hir)) {
+        return Prefixes::Literals;
+    }
+    let mut extractor = Extractor::new();
+    extractor.kind(ExtractKind::Prefix).limit_total(LITERALS);
+    let mut prefixes = Seq::empty();
+    for hir in hirs {
+        prefixes.union(&mut extractor.extract(hir));
+    }
+    if prefixes.is_exact() {
+        return Prefixes::Literals;
+    }
+    prefixes.optimize_for_prefix_by_preference();
+    Prefixes::Extracted(
+        prefixes
+            .literals()
+            .and_then(|literals| Prefilter::new(MatchKind::LeftmostFirst, literals)),
+    )
+}
+
+/// Whether `hir` is a literal or an alternation of literals.
+fn literals(hir: &Hir) -> bool {
+    match hir.kind() {
+        HirKind::Literal(_) => true,
+        HirKind::Alternation(alts) => alts
+            .iter()
+            .all(|alt| matches!(alt.kind(), HirKind::Literal(_))),
+        HirKind::Empty
+        | HirKind::Class(_)
+        | HirKind::Look(_)
+        | HirKind::Repetition(_)
+        | HirKind::Capture(_)
+        | HirKind::Concat(_) => false,
+    }
 }
 
 impl Scanner {

@@ -68,5 +68,35 @@ Each side must repeat across its three builds.
 
 ## 4. The automaton's engines
 
-- [ ] 4.1 Options 2 to 4 of the design, each measured against option 1 → verify: a table of first token and steady state per language and option is recorded here
+- [x] 4.1 Options 2 to 4 of the design, each measured against option 1 → verify: a table of first token and steady state per language and option is recorded here
+  - 2026-11-04, locally on a Linux box, one build per side, against step 2 of this change.
+    Each cell gives the range over the 11 TextMate languages.
+    First token covers both tiers.
+
+    | Option | First token | Steady state |
+    |:--|:--|:--|
+    | 2: no one-pass DFA and no backtracker | 0.999 to 1.000 | 0.9997 to 1.0013 |
+    | 3: no prefilter | 0.37 to 0.99 | 0.9994 to 1.0241 |
+    | 4: a prefilter on the relaxed first bytes | 0.38 to 1.03 | 1.0066 to 1.0886 |
+    | 5: nishiki's extraction, literals of 4 bytes, at most 64 | 0.39 to 1.00 | 0.9999 to 1.0085 |
+    | 5: literals of 4 bytes, at most 250 | 0.42 to 1.00 | 0.9997 to 1.0087 |
+    | 5: literals of 8 bytes, at most 250 | 0.47 to 1.00 | 1.0000 to 1.0087 |
+    | 5: literals of 16 bytes, at most 250 | 0.49 to 1.00 | 0.9999 to 1.0086 |
+    | 6: option 5, with literal lists left to `regex-automata` | 0.39 to 1.00 | 0.9998 to 1.0008 |
+    | 6b: option 6, at most 64 literals of any length | 0.40 to 1.00 | 0.9993 to 1.0006 |
+
+    Option 2 changes nothing; its engines' builds were below the profile's threshold.
+    Option 4's byte-set prefilter skips less than the literal one, and is worse than none.
+    Option 5 misses steady state at every literal length.
+    A caller's prefilter skips `regex-automata`'s pure literal and Aho-Corasick strategies.
+    Option 6 keeps those strategies for a list of literals.
+    Option 6b also keeps them for a list whose prefixes are exact under 64 literals.
 - [ ] 4.2 The option that meets the bar lands → verify: first token falls, and steady state is at or under main for every TextMate language
+  - 2026-11-04: option 6b, three builds per side on main after nishiki-archive#356.
+    First token falls by 0.3% to 60%.
+    Steady state is 0.9986 to 1.0013.
+    Every nishiki function is equal on both sides.
+    The rows above 1.0000 are glibc's `memcmp`, which moves with the heap layout.
+    Dart adds 1,100 instructions of its own.
+    `regex-automata` skips its `ReverseInner` strategy when a list's prefilter is fast.
+  - Lead, 2026-11-04: land it, with that split in the pull request.
