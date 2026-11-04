@@ -997,15 +997,24 @@ impl Lexer<'_> {
 
     /// `\b(a|b|…)(?=\()` at `p`, the name in group 1. No word of a list is
     /// another followed by `(`, so the order does not matter.
+    ///
+    /// Every word is made of `[-\w]`, which `(` is not, so a word followed by
+    /// `(` is the whole run of `[-\w]` from `p`: the run is read once for the
+    /// patterns tried at `p` ([`Lexer::dash_word_end`]), and only a run that
+    /// `(` follows is compared with the words.
     fn func(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         if !self.boundary(p) {
             return None;
         }
-        let end = words
-            .iter()
-            .find_map(|word| self.lit(p, word).filter(|&end| self.at(end) == b'('))?;
-        self.cap(1, p, end);
-        Some(end)
+        let end = self.dash_word_end(p);
+        if end == p || end > self.lim() || self.at(end) != b'(' {
+            return None;
+        }
+        let name = self.text(p, end);
+        words.contains(&name).then(|| {
+            self.cap(1, p, end);
+            end
+        })
     }
 
     /// `\b(a|b|…)(\()` at `p`, the name in group 1 and the `(` in group 2.

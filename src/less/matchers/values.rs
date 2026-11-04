@@ -233,8 +233,20 @@ impl Lexer<'_> {
     /// group 1. No unit starts with `e`, so the exponents and digits are never
     /// given back. The second alternative, `[-+]?\d+`, takes a second sign
     /// after the first.
+    ///
+    /// Only a digit, `.`, a second sign or a byte above ASCII, which a digit
+    /// of `\d` beyond ASCII starts, can follow the sign, so any other byte
+    /// there rules the number out at once.
     pub(super) fn dimension(&mut self, p: usize, units: &[&[u8]]) -> Option<usize> {
         let start = if sign(self.at(p)) { p + 1 } else { p };
+        let first = self.at(start);
+        if !(first.is_ascii_digit()
+            || first == b'.'
+            || !first.is_ascii()
+            || (start > p && sign(first)))
+        {
+            return None;
+        }
         let digits = self.digits(start);
         let decimal =
             (self.at(digits) == b'.' && self.digits(digits + 1) > digits + 1).then(|| {
