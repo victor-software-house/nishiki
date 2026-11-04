@@ -1097,15 +1097,16 @@ impl<'a> Lexer<'a> {
     /// open again there, so, as in `TextMate`, it stays open and takes the
     /// rest of the text.
     #[cfg(feature = "lang-html-derivative")]
-    fn give_back_at(&mut self, at: usize, start: usize, end: usize, frame: &Frame) {
+    fn give_back_at(&mut self, at: usize, start: usize, end: usize, kind: Kind, content: u32) {
         self.last = self.last.max(at);
-        if at == start && matches!(frame.rule, Rule::Open(Kind::HtmlWrap)) {
-            self.emit(end, frame.content);
+        if at == start && matches!(kind, Kind::HtmlWrap) {
+            self.emit(end, content);
             self.pos = self.limit + 1;
             return;
         }
-        self.frames.pop();
-        self.anchor = frame.saved_anchor;
+        if let Some(frame) = self.frames.pop() {
+            self.anchor = frame.saved_anchor;
+        }
         self.pos = at;
     }
 
@@ -1217,12 +1218,27 @@ impl<'a> Lexer<'a> {
     /// A `vue` fence has no `while` rule.
     /// Its lines have `\G` there only where `self.anchor` is
     /// (`vue_body_line`).
+    ///
+    /// It reads the four fields it needs from the top frame.
+    /// It does not copy the frame.
+    /// With a copy, one `Language` row's flags could change how `step`
+    /// lowers it, since `step` inlines this function.
+    /// Haskell's row turned it into a copy of the frame on the stack and a
+    /// jump table.
+    /// `step` then ran 2.1% more of its own instructions.
     fn embedded(&mut self) {
         let start = self.pos;
-        let Some(frame) = self.frames.last().copied() else {
+        let Some(&Frame {
+            rule,
+            content,
+            payload,
+            state: kept,
+            ..
+        }) = self.frames.last()
+        else {
             return;
         };
-        let (Rule::Open(kind), Some(lang)) = (frame.rule, embedded_language(frame.rule)) else {
+        let (Rule::Open(kind), Some(lang)) = (rule, embedded_language(rule)) else {
             return;
         };
         #[cfg(feature = "lang-vue")]
@@ -1236,7 +1252,7 @@ impl<'a> Lexer<'a> {
             return;
         }
         let start = start.min(end);
-        self.emit(start, frame.content);
+        self.emit(start, content);
         #[cfg(feature = "lang-html-derivative")]
         let span = self.span();
         let lent = self.steps.lend(self.limits);
@@ -1258,32 +1274,28 @@ impl<'a> Lexer<'a> {
         };
         #[cfg(feature = "lang-html-derivative")]
         let (state, back) = match html_give_back(kind) {
-            Some(give_back) => crate::html::lex_derivative_until(
-                &mut cx,
-                line,
-                frame.payload,
-                span,
-                Some(give_back),
-            ),
-            None => (lang.lex_embedded(&mut cx, line, frame.payload), None),
+            Some(give_back) => {
+                crate::html::lex_derivative_until(&mut cx, line, payload, span, Some(give_back))
+            }
+            None => (lang.lex_embedded(&mut cx, line, payload), None),
         };
         #[cfg(feature = "lang-html-derivative")]
         let state = self.steps.take_back(state);
         #[cfg(feature = "lang-html-derivative")]
         if let Some(at) = back {
-            self.give_back_at(at, start, end, &frame);
+            self.give_back_at(at, start, end, kind, content);
             return;
         }
         #[cfg(not(feature = "lang-html-derivative"))]
-        let state = lang.lex_embedded(&mut cx, line, frame.payload);
+        let state = lang.lex_embedded(&mut cx, line, payload);
         #[cfg(not(feature = "lang-html-derivative"))]
         let state = self.steps.take_back(state);
         self.last = end;
         self.pos = self.limit;
-        if state == frame.payload {
+        if state == payload {
             return;
         }
-        if frame.state.is_none() {
+        if kept.is_none() {
             if let Some(top) = self.frames.last_mut() {
                 top.payload = state;
             }
@@ -1297,7 +1309,7 @@ impl<'a> Lexer<'a> {
             .find_map(|frame| frame.state);
         let pushed = self
             .arena
-            .push(below.unwrap_or(ROOT), kind.code(), state, frame.content);
+            .push(below.unwrap_or(ROOT), kind.code(), state, content);
         let Some(pushed) = pushed else {
             self.report.record(Limit::Nodes);
             return;
