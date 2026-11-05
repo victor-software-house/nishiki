@@ -1,0 +1,3 @@
+# Traces keep their bytes, line endings included: check:traces replays them
+# against the SHA-256 of their sources.
+* -text

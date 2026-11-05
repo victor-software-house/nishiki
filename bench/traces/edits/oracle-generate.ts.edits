@@ -1,0 +1,204 @@
+origin edits
+language typescript
+source oracle/generate.ts
+url https://github.com/victor-software-house/nishiki/blob/b1e76025e96486c6214a209d16e1022035a6ae8f/oracle/generate.ts
+licence MIT OR Apache-2.0
+from b1e76025e96486c6214a209d16e1022035a6ae8f
+to 859ee30625f87183872f69ee1fd235e3e756b311
+sha256 6cf237a71969a3d3d6b3395476ec349caf91ff81ca5826939770eb41018bece4
+base 2113
+// Writes the Shiki oracle: every input in inputs.ts, tokenized by Shiki with
+// its per-line limits off, as one fixture per input under tests/oracle/.
+//
+// A fixture holds, per source line, `L <text>` and then one
+// `T <byte end> <scope> <scope> ...` per TextMate token, outermost scope first.
+// Byte ends are UTF-8 offsets into the line, as nishiki's tokens report them.
+import { createHighlighter } from "shiki@4.6.0";
+import { inputs, type Input } from "./inputs.ts";
+
+const root = new URL("..", import.meta.url).pathname;
+
+/** The input's text, with CRLF read as LF, as Shiki splits lines. */
+async function fetchText(input: Input): Promise<string> {
+  const response = await fetch(input.url);
+  if (!response.ok) {
+    throw new Error(`${input.url}: HTTP ${response.status}`);
+  }
+  return (await response.text()).replaceAll("\r\n", "\n");
+}
+
+const languages = [...new Set(inputs.map((input) => input.lang))];
+const highlighter = await createHighlighter({
+  langs: languages,
+  themes: ["github-dark"],
+});
+const encoder = new TextEncoder();
+
+for (const input of inputs) {
+  const text = await fetchText(input);
+  const lines = highlighter.codeToTokens(text, {
+    lang: input.lang,
+    theme: "github-dark",
+    includeExplanation: "scopeName",
+    tokenizeMaxLineLength: 0,
+    tokenizeTimeLimit: 0,
+  }).tokens;
+  const sourceLines = text.split("\n");
+  if (sourceLines.length !== lines.length) {
+    throw new Error(
+      `${input.name}: ${sourceLines.length} lines, Shiki gave ${lines.length}`,
+    );
+  }
+  const out: string[] = [];
+  lines.forEach((tokens, index) => {
+    out.push(`L ${sourceLines[index]}`);
+    let end = 0;
+    for (const token of tokens) {
+      for (const part of token.explanation ?? []) {
+        end += encoder.encode(part.content).length;
+        const scopes = part.scopes.map((scope) => scope.scopeName).join(" ");
+        out.push(`T ${end} ${scopes}`);
+      }
+    }
+  });
+  const path = `${root}tests/oracle/${input.lang}/${input.name}.txt`;
+  await Bun.write(path, `${out.join("\n")}\n`);
+  console.log(`✔ ${input.lang}/${input.name}: ${lines.length} lines`);
+}
+
+replace 376 425 314
+//
+// For each theme in `themes`, it also writes the theme file to
+// tests/oracle/themes/<theme>.json and, per input, Shiki's colours to
+// `<name>.<theme>.colors`: one line per source line, each token as
+// `<byte end>:<colour>:<font style bits>`.
+import { bundledThemes, createHighlighter } from "shiki@4.6.0";
+
+replace 1117 1117 251
+/** Themes that exercise every part of rule matching: github-dark, the
+ * default; one-light, with descendant and `>` selectors; catppuccin-mocha,
+ * with many font styles. */
+const themes = ["github-dark", "one-light", "catppuccin-mocha"] as const;
+
+
+replace 1501 1528 23
+  themes: [...themes],
+
+replace 1564 1564 187
+for (const theme of themes) {
+  const raw = (await bundledThemes[theme]()).default;
+  await Bun.write(`${root}tests/oracle/themes/${theme}.json`, `${JSON.stringify(raw, null, 2)}\n`);
+}
+
+
+replace 2737 2737 602
+  for (const theme of themes) {
+    const coloured = highlighter.codeToTokens(text, {
+      lang: input.lang,
+      theme,
+      tokenizeMaxLineLength: 0,
+      tokenizeTimeLimit: 0,
+    }).tokens;
+    const rows = coloured.map((tokens) => {
+      let end = 0;
+      return tokens
+        .map((token) => {
+          end += encoder.encode(token.content).length;
+          return `${end}:${token.color}:${token.fontStyle ?? 0}`;
+        })
+        .join(" ");
+    });
+    await Bun.write(
+      `${root}tests/oracle/${input.lang}/${input.name}.${theme}.colors`,
+      `${rows.join("\n")}\n`,
+    );
+  }
+
+replace 1368 1435 264
+// `ORACLE_LANG=<id>` writes the fixtures of one language only.
+const only = Bun.env["ORACLE_LANG"];
+const selected = only === undefined ? inputs : inputs.filter((input) => input.lang === only);
+const languages = [...new Set(selected.map((input) => input.lang))];
+
+replace 1948 1978 32
+for (const input of selected) {
+
+replace 626 690 82
+import { bundledLanguages, bundledThemes, createHighlighter } from "shiki@4.6.0";
+
+replace 1581 1650 1033
+/** Each input language's grammar, and the grammars it embeds that are input
+ * languages too. A grammar for a language nishiki does not lex is left out,
+ * so a fence or embedding in that language stays plain, as nishiki leaves it,
+ * whichever input language's grammar would pull it in. Every input language
+ * is loaded, also under `ORACLE_LANG`, so one language's fixtures come out as
+ * a full run writes them. */
+const inputLangs = new Set(inputs.map((input) => input.lang));
+const loaded = (
+  await Promise.all([...inputLangs].map(async (lang) => (await bundledLanguages[lang]()).default))
+).flat();
+const lexed = loaded.filter(
+  (grammar) =>
+    inputLangs.has(grammar.name) || grammar.aliases?.some((alias) => inputLangs.has(alias)),
+);
+const lexedNames = new Set(lexed.map((grammar) => grammar.name));
+const languages = [...new Map(lexed.map((grammar) => [grammar.name, grammar])).values()].map(
+  (grammar) => ({
+    ...grammar,
+    embeddedLangs: grammar.embeddedLangs?.filter((name) => lexedNames.has(name)),
+  }),
+);
+
+replace 155 376 36
+// fixture.ts describes the format.
+
+replace 523 523 40
+import { fixture } from "./fixture.ts";
+
+replace 2856 3655 57
+  const scopes = fixture(highlighter, text, input.lang);
+
+replace 2983 3031 33
+  await Bun.write(path, scopes);
+
+replace 3618 3691 84
+  console.log(`✔ ${input.lang}/${input.name}: ${text.split("\n").length} lines`);
+
+replace 1513 1855 382
+ * languages too or that nishiki lexes as part of one. A grammar for a
+ * language nishiki does not lex is left out, so a fence or embedding in that
+ * language stays plain, as nishiki leaves it, whichever input language's
+ * grammar would pull it in. Every input language is loaded, also under
+ * `ORACLE_LANG`, so one language's fixtures come out as a full run writes
+ * them. */
+
+replace 1958 1958 218
+/** Grammars that nishiki lexes as part of the input language that embeds
+ * them: the C++ lexer covers `cpp-macro`, the grammar of a `#define`'s body. */
+const partOf: Record<string, string> = { "cpp-macro": "cpp" };
+
+replace 2346 2439 147
+    inputLangs.has(grammar.name) ||
+    grammar.aliases?.some((alias) => inputLangs.has(alias)) ||
+    inputLangs.has(partOf[grammar.name] ?? ""),
+
+replace 441 523 64
+import { bundledThemes, createHighlighter } from "shiki@4.6.0";
+
+replace 545 545 42
+import { grammars } from "./grammars.ts";
+
+replace 1460 2805 127
+// Every input language is loaded, also under `ORACLE_LANG`, so one
+// language's fixtures come out as a full run writes them.
+
+replace 1633 1653 19
+  langs: grammars,
+
+replace 693 763 105
+/** The input's text, fetched unless it was imported, with CRLF read as LF,
+ * as Shiki splits lines. */
+
+replace 856 856 67
+  if ("text" in input) return input.text.replaceAll("\r\n", "\n");
+

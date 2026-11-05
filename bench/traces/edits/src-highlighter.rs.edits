@@ -1,0 +1,321 @@
+origin edits
+language rust
+source src/highlighter.rs
+url https://github.com/victor-software-house/nishiki/blob/5d899cbc84061e54fa462a6f50c834d25d20d09a/src/highlighter.rs
+licence MIT OR Apache-2.0
+from 5d899cbc84061e54fa462a6f50c834d25d20d09a
+to 03966033ae0f8c8f3662a390ac7bfb89960ee0aa
+sha256 8562eceb89630fe72ad025041fccc9e021d9763c8469aec682c1c89da7aef079
+base 3513
+//! The highlighter: one language, its interned stacks and states, and its
+//! limits.
+
+use crate::arena::{Arena, ROOT, Scopes};
+use crate::limits::{Limit, Limits, LineReport};
+use crate::{Language, Stack, State, Token, rust};
+
+/// Highlights one language, a line at a time.
+///
+/// It owns the scope stacks and states its tokens and [`State`]s name, so
+/// both belong to the highlighter that made them. Lines are lexed in order
+/// from [`State::default`], and the state after one line is the input of the
+/// next, so an editor can keep each line's state and re-highlight from any
+/// line.
+#[derive(Debug)]
+pub struct Highlighter {
+    language: Language,
+    limits: Limits,
+    arena: Arena,
+    /// The state at the start of a document; [`State::default`] stands for
+    /// it.
+    start: u32,
+}
+
+impl Highlighter {
+    /// A highlighter for `language` with [`Limits::default`].
+    #[must_use]
+    pub fn new(language: Language) -> Self {
+        Self::new_with_limits(language, Limits::default())
+    }
+
+    /// A highlighter for `language` with `limits`.
+    #[must_use]
+    pub fn new_with_limits(language: Language, limits: Limits) -> Self {
+        let mut arena = Arena::new(limits.nodes);
+        let start = match language {
+            Language::Rust => rust::start(&mut arena, ROOT),
+        };
+        Highlighter {
+            language,
+            limits,
+            arena,
+            start,
+        }
+    }
+
+    /// The language this highlighter lexes.
+    #[must_use]
+    pub fn language(&self) -> Language {
+        self.language
+    }
+
+    /// The limits this highlighter applies to every line.
+    #[must_use]
+    pub fn limits(&self) -> Limits {
+        self.limits
+    }
+
+    /// Lexes `line`, which excludes its line ending, starting from `state`.
+    ///
+    /// Appends tokens that cover every byte of `line` in order (an empty line
+    /// appends none), leaves in `state` the state for the next line, and
+    /// reports the limits the line reached.
+    pub fn line(&mut self, line: &str, state: &mut State, out: &mut Vec<Token>) -> LineReport {
+        let mut report = LineReport::default();
+        let from = if state.0 == ROOT { self.start } else { state.0 };
+        if self.limits.line_bytes.is_some_and(|max| line.len() > max) {
+            report.record(Limit::LineBytes);
+            let stack = Stack(self.arena.frame(from).stack);
+            out.push(Token {
+                end: line.len(),
+                stack,
+            });
+            return report;
+        }
+        let to = match self.language {
+            Language::Rust => rust::line(
+                &mut self.arena,
+                &self.limits,
+                line.as_bytes(),
+                from,
+                out,
+                &mut report,
+            ),
+        };
+        *state = State(if to == self.start { ROOT } else { to });
+        report
+    }
+
+    /// The scope names of `stack`, innermost first, such as
+    /// `"string.quoted.double.rust"` then `"source.rust"`.
+    ///
+    /// Empty when `stack` is unknown to this highlighter. A stack from another
+    /// highlighter resolves to an unrelated stack or to nothing.
+    #[must_use]
+    pub fn scopes(&self, stack: Stack) -> Scopes<'_> {
+        self.arena.scopes(stack.0)
+    }
+
+    /// The open context of `state`, for the lexers' tests.
+    #[cfg(test)]
+    pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
+        self.arena
+            .frame(if state.0 == ROOT { self.start } else { state.0 })
+    }
+}
+
+replace 177 227 60
+use crate::{Language, Stack, State, Token, markdown, rust};
+
+replace 1313 1313 69
+            Language::Markdown => markdown::start(&mut arena, ROOT),
+
+replace 2860 2860 142
+            Language::Markdown => {
+                markdown::line(&mut self.arena, &self.limits, line, from, out, &mut report)
+            }
+
+replace 177 237 72
+use crate::{Language, Stack, State, Token, markdown, rust, typescript};
+
+replace 1394 1394 73
+            Language::TypeScript => typescript::start(&mut arena, ROOT),
+
+replace 3087 3087 146
+            Language::TypeScript => {
+                typescript::line(&mut self.arena, &self.limits, line, from, out, &mut report)
+            }
+
+replace 177 249 79
+use crate::{Language, Stack, State, Token, markdown, rust, shell, typescript};
+
+replace 727 727 74
+    /// Buffers and caches of the shell lexer.
+    shell: shell::Scratch,
+
+replace 1548 1548 63
+            Language::Shell => shell::start(&mut arena, ROOT),
+
+replace 1705 1705 46
+            shell: shell::Scratch::default(),
+
+replace 3135 3277 255
+            Language::Markdown => markdown::line(
+                &mut self.shell,
+                &mut self.arena,
+                &self.limits,
+                line,
+                from,
+                out,
+                &mut report,
+            ),
+
+replace 3536 3536 350
+            Language::Shell => shell::line(
+                &mut self.shell,
+                &mut self.arena,
+                &self.limits,
+                shell::Text {
+                    bytes: line.as_bytes(),
+                    start: 0,
+                },
+                from,
+                out,
+                &mut report,
+            ),
+
+replace 177 177 29
+use crate::scratch::Scratch;
+
+replace 756 830 88
+    /// Buffers and caches of the lexers, one field per language.
+    scratch: Scratch,
+
+replace 1748 1794 41
+            scratch: Scratch::default(),
+
+replace 3223 3256 35
+                &mut self.scratch,
+
+replace 3620 3653 35
+                &mut self.scratch,
+
+replace 3822 3822 37
+                    anchored: false,
+
+replace 129 129 26
+use crate::json::Dialect;
+
+replace 232 311 85
+use crate::{Language, Stack, State, Token, json, markdown, rust, shell, typescript};
+
+replace 1686 1686 232
+            Language::Json => json::start(&mut arena, ROOT, Dialect::Json),
+            Language::Jsonc => json::start(&mut arena, ROOT, Dialect::Jsonc),
+            Language::Jsonl => json::start(&mut arena, ROOT, Dialect::Jsonl),
+
+replace 4229 4229 277
+            Language::Json => self.json_line(Dialect::Json, line, from, out, &mut report),
+            Language::Jsonc => self.json_line(Dialect::Jsonc, line, from, out, &mut report),
+            Language::Jsonl => self.json_line(Dialect::Jsonl, line, from, out, &mut report),
+
+replace 4605 4605 377
+    fn json_line(
+        &mut self,
+        dialect: Dialect,
+        line: &str,
+        from: u32,
+        out: &mut Vec<Token>,
+        report: &mut LineReport,
+    ) -> u32 {
+        json::line(
+            &mut self.arena,
+            &self.limits,
+            dialect,
+            line.as_bytes(),
+            from,
+            out,
+            report,
+        )
+    }
+
+
+replace 232 317 93
+use crate::{Language, Stack, State, Token, json, markdown, python, rust, shell, typescript};
+
+replace 1926 1926 65
+            Language::Python => python::start(&mut arena, ROOT),
+
+replace 4579 4579 355
+            Language::Python => python::line(
+                &mut self.scratch,
+                &mut self.arena,
+                &self.limits,
+                python::Text {
+                    bytes: line.as_bytes(),
+                    start: 0,
+                },
+                from,
+                out,
+                &mut report,
+            ),
+
+replace 232 325 99
+use crate::{Language, Stack, State, Token, json, markdown, python, rust, shell, typescript, yaml};
+
+replace 1997 1997 61
+            Language::Yaml => yaml::start(&mut arena, ROOT),
+
+replace 5001 5001 247
+            Language::Yaml => yaml::line(
+                &mut self.arena,
+                &self.limits,
+                line.as_bytes(),
+                true,
+                from,
+                out,
+                &mut report,
+            ),
+
+replace 129 155 38
+use crate::language::{Context, Line};
+
+replace 244 343 44
+use crate::{Language, Stack, State, Token};
+
+replace 1354 2026 54
+        let start = language.start(&mut arena, ROOT);
+
+replace 2652 4587 303
+        let mut cx = Context {
+            scratch: &mut self.scratch,
+            arena: &mut self.arena,
+            limits: &self.limits,
+            out,
+            report: &mut report,
+        };
+        let text = Line {
+            text: line,
+            start: 0,
+            embedded: false,
+
+replace 2966 2966 57
+        let to = self.language.lex(&mut cx, text, from);
+
+replace 3111 3488 0
+
+replace 2652 2652 35
+        self.scratch.start_line();
+
+replace 340 645 319
+/// It owns the scope stacks and states its tokens and [`State`]s name.
+/// Both therefore belong to the highlighter that made them.
+/// Lines are lexed in order from [`State::default`].
+/// The state after one line is the input of the next.
+/// An editor can therefore keep each line's state and re-highlight from any
+
+replace 861 949 88
+    /// The state at the start of a document.
+    /// [`State::default`] stands for it.
+
+replace 1937 2135 207
+    /// Appends tokens that cover every byte of `line` in order.
+    /// An empty line appends none.
+    /// It leaves in `state` the state for the next line.
+    /// It reports the limits the line reached.
+
+replace 3298 3444 154
+    /// Empty when `stack` is unknown to this highlighter.
+    /// A stack from another highlighter resolves to an unrelated stack or to
+    /// nothing.
+

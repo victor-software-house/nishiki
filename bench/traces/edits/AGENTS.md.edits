@@ -1,0 +1,489 @@
+origin edits
+language markdown
+source AGENTS.md
+url https://github.com/victor-software-house/nishiki/blob/22b66c857a4159add91599e714e0a01f871c9af6/AGENTS.md
+licence MIT OR Apache-2.0
+from 22b66c857a4159add91599e714e0a01f871c9af6
+to b0bb595ddf0ab71e544f10fa4a27e7c4e7eb1fd2
+sha256 183557e512b26298b957a859bac07e4f510b8c5c7ed0f7f3e3cfde9efa454ecf
+base 1576
+# nishiki
+
+A syntax highlighting engine in Rust, written from scratch.
+Read [README.md](README.md) for what it is.
+The decisions that created it live in a private planning repository: `docs/decisions/2026-10-21-highlighting-*.md`, `docs/decisions/2026-10-21-engine-name-nishiki.md`, and the research note `docs/research/2026-10-21-syntax-engine-direction.md`.
+
+## Invariants
+
+1. Written from scratch.
+   No code is copied, translated or seeded from Pierre's `@pierre/highlights` (or its wasm2rs translation), Shiki, syntect, tree-sitter grammars or any other highlighter.
+   They are references for behaviour and output only.
+2. Permissively licensed: MIT OR Apache-2.0.
+   No GPL or other copyleft code or grammar enters the crate; a language whose only grammar is copyleft gets a hand-written lexer.
+   A third-party grammar is bundled only after its licence is found at its source and permits it, and its licence text ships with it.
+3. Shiki is the fidelity target: scopes and colours for every language, measured against Shiki's samples.
+   Themes are TextMate themes in Shiki's format.
+4. Nothing is downloaded at run time; every supported language is built in.
+5. The repository is private; the crate's published source is public on crates.io, so nothing private goes into a packaged file.
+6. Conventional Commits; first release `0.0.1`, patch bumps only after that.
+   No AI attribution in commits, pull requests or comments.
+7. `AGENTS.md` is the only guide file; add no `CLAUDE.md`.
+8. Nothing is published to npm or PyPI until nishiki ships something real for them.
+
+replace 802 936 295
+   A third-party grammar is bundled or followed only after its licence is found at its source and permits it.
+   Its licence text goes in `THIRD-PARTY-NOTICES.md`, which the crate ships, and nowhere else.
+   The README gets a section for open-source sources only once there are several of them.
+
+replace 1737 1737 1018
+
+## Working here
+
+1. The pull request's CI is the verifier: `mise run verify` runs format, lint, tests, doctests, docs as docs.rs builds them, `cargo deny`, and the repository checks.
+   Format with `cargo +nightly-2026-09-29 fmt --all`; the pre-commit hook checks it.
+2. The README's Rust examples run as doctests (`ReadmeDoctests` in `src/lib.rs`).
+   Its links to files use docs.rs source URLs, because the repository is private.
+3. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
+4. A change users see adds a `.changeset/*.md` fragment (`nishiki: patch`).
+   verctl turns fragments into a Version PR that bumps `Cargo.toml` and writes `CHANGELOG.md`; never edit either by hand.
+   Publishing to crates.io waits for the operator's approval.
+5. A language lives in `src/<language>/`, with tests that compare its tokens with Shiki's.
+   Rust is a hand lexer; how later languages are built is an open decision in the planning repository.
+
+replace 115 360 379
+The decisions that created it live in a private planning repository: `openspec/decisions/2026-10-21-highlighting-*.md`, `openspec/decisions/2026-10-21-engine-name-nishiki.md` and `openspec/decisions/2026-10-24-highlighting-engine.md`, with the research notes `docs/research/2026-10-21-syntax-engine-direction.md` and `docs/research/2026-10-22-highlighting-engine-comparison.md`.
+
+replace 2055 2140 107
+   Format with `mise run format`, which runs rustfmt on the pinned nightly; the pre-commit hook checks it.
+
+replace 2717 2911 831
+5. A language lives in `src/<language>/`.
+   Hand-written lexers cover the languages where speed matters; nishiki's own TextMate engine, not yet written, will cover the rest, with every grammar bundled (the 2026-10-24 decision).
+6. Shiki is the oracle.
+   `mise run oracle` runs Shiki on every input in `oracle/inputs.ts` and writes its scopes to `tests/oracle/<language>/`; `tests/it/oracle.rs` fails when a non-whitespace byte gets a different scope stack.
+   A new language adds its inputs and fixtures, and `tests/oracle/SOURCES.md` records each input's source and licence.
+7. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
+   Defaults may follow the resources the caller has, such as memory or a time budget, but a caller that pins the limits gets the same output on every machine.
+
+replace 1591 1668 235
+6. Conventional Commits; first release `0.0.1`, patch bumps after that, except that a change that breaks the public API bumps the minor (`0.0.z` to `0.1.0`); `cargo semver-checks` in CI enforces it, and `1.0.0` is the operator's call.
+
+replace 1591 1826 499
+6. Conventional Commits; first release `0.0.1`.
+   Versions follow semver but never take a major, and a release is a patch by default (operator, 2026-11-02).
+   A change that breaks the public API is a minor only when the previous release was not itself a minor shortly before: two minors within hours or days make no sense, so later breaks ride on the pending or recent minor as patches.
+   `0.1.0` (2026-11-02) was the one exception, published by an automation slip after an almost empty `0.0.1`.
+
+replace 3077 3139 159
+   Publishing to crates.io waits for the operator's approval: the Version PR has no auto-merge, and only the operator merges it, because merging it publishes.
+
+replace 3814 3814 146
+   `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures, which keep their sources' spelling; search them with `rg -u`.
+
+replace 3236 3236 144
+   A change that builds on an unmerged one goes up as a stacked pull request with `gh stack`, one idea per pull request (operator, 2026-11-02).
+
+replace 4104 4198 338
+7. `mise run bench` measures throughput, streaming latency per line, cold start and theme styling on the oracle fixtures, in release mode.
+   It is not part of `verify`, because timings depend on the machine; compare runs on one quiet machine.
+8. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
+
+replace 115 115 203
+[CODING_STANDARDS.md](CODING_STANDARDS.md) holds the numbered coding rules, [docs/AGENTS.md](docs/AGENTS.md) the rules for research notes, and [bench/AGENTS.md](bench/AGENTS.md) the rules for measuring.
+
+replace 4446 4551 136
+   It is not part of `verify`, because timings depend on the machine; `bench/AGENTS.md` says where a run counts and how it is recorded.
+
+replace 1249 1249 201
+   A language whose grammar has no licence, such as YAML's, gets a hand-written lexer built from the language's specification and Shiki's output alone; nobody reads the grammar (operator, 2026-11-02).
+
+replace 3826 4013 501
+   Every language gets a hand-written lexer, in order of use, several in parallel: with the oracle and a Shiki differential, Python took under an hour, not the days its line count suggested (operator, 2026-11-02, revising the 2026-10-24 decision).
+   nishiki's own TextMate engine is built in parallel, as fast as it can be made, with `regex-automata` as its one approved dependency beyond `memchr`; it covers every bundled language not yet hand-written and checks the hand lexers as a second oracle.
+
+replace 2881 2988 202
+   `mise run format` checks formatting with rustfmt on the pinned nightly, as the pre-commit hook does; `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` applies it (the nightly is pinned in `mise.toml`).
+
+replace 4446 4652 324
+   `mise run oracle` runs Shiki on every input in `oracle/inputs.ts` and writes its scopes to `tests/oracle/<language>/`; `tests/it/oracle.rs` checks every language in `Language::ALL`, in parallel, and fails when a non-whitespace byte gets a different scope stack or colour, so a new language needs only its fixtures there.
+
+replace 115 697 634
+
+## Guides
+
+| File | Holds |
+|:--|:--|
+| [CODING_STANDARDS.md](CODING_STANDARDS.md) | The numbered coding rules. |
+| [docs/AGENTS.md](docs/AGENTS.md) | The rules for research notes. |
+| [bench/AGENTS.md](bench/AGENTS.md) | The rules for measuring. |
+
+The decisions that created nishiki live in a private planning repository:
+
+- `openspec/decisions/2026-10-21-highlighting-*.md`
+- `openspec/decisions/2026-10-21-engine-name-nishiki.md`
+- `openspec/decisions/2026-10-24-highlighting-engine.md`
+- the research notes `docs/research/2026-10-21-syntax-engine-direction.md`
+  and `docs/research/2026-10-22-highlighting-engine-comparison.md`
+
+replace 765 2749 2198
+1. **Written from scratch.**
+   - No code is copied, translated or seeded from another highlighter:
+     Pierre's `@pierre/highlights` (or its wasm2rs translation), Shiki, syntect, tree-sitter grammars or any other.
+   - They are references for behaviour and output only.
+2. **Permissively licensed: MIT OR Apache-2.0.**
+   - No GPL or other copyleft code or grammar enters the crate.
+     A language whose only grammar is copyleft gets a hand-written lexer.
+   - A third-party grammar is bundled or followed only after its licence is found at its source and permits it.
+   - A language whose grammar has no licence, such as YAML's, gets a hand-written lexer.
+     It is built from the language's specification and Shiki's output alone, and nobody reads the grammar (operator, 2026-11-02).
+   - A grammar's licence text goes in `THIRD-PARTY-NOTICES.md`, which the crate ships, and nowhere else.
+   - The README gets a section for open-source sources only once there are several of them.
+3. **Shiki is the fidelity target.**
+   - Scopes and colours for every language are measured against Shiki's samples.
+   - Themes are TextMate themes in Shiki's format.
+4. **Nothing is downloaded at run time.**
+   Every supported language is built in.
+5. **Nothing private ships.**
+   The repository is private, but the crate's published source is public on crates.io,
+   so nothing private goes into a packaged file.
+6. **Releases.**
+   - Conventional Commits; the first release was `0.0.1`.
+   - Versions follow semver but never take a major.
+     A release is a patch by default (operator, 2026-11-02).
+   - A change that breaks the public API is a minor,
+     unless the previous release was itself a minor shortly before.
+     Two minors within hours or days make no sense,
+     so later breaks ride on the pending or recent minor as patches.
+   - `0.1.0` (2026-11-02) was the one exception,
+     published by an automation slip after an almost empty `0.0.1`.
+   - No AI attribution in commits, pull requests or comments.
+7. **One guide file.**
+   `AGENTS.md` is the only guide file; add no `CLAUDE.md`.
+8. **No npm or PyPI yet.**
+   Nothing is published there until nishiki ships something real for them.
+
+replace 2981 3513 455
+### Verify
+
+1. The pull request's CI is the verifier.
+   `mise run verify` runs:
+   - format and lint;
+   - tests and doctests;
+   - docs, as docs.rs builds them;
+   - `cargo deny`;
+   - the repository checks.
+2. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
+
+   | Command | Does |
+   |:--|:--|
+   | `mise run format` | Checks formatting, as the pre-commit hook does. |
+   | `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` | Applies it. |
+
+
+replace 3567 5752 2861
+
+### Documentation
+
+1. The README's Rust examples run as doctests (`ReadmeDoctests` in `src/lib.rs`).
+2. The README links to files through docs.rs source URLs, because the repository is private.
+3. Guides and the README are written to be scanned (operator, 2026-11-02):
+   - short sentences, one idea each, with Semantic Line Breaks;
+   - a list for a set of items, a table for a comparison, a heading per topic;
+   - a blank line between blocks.
+4. A language's section under "Behaviour kept from Shiki" in the README is a bullet list, one quirk per bullet.
+
+### Release
+
+1. A change users see adds a `.changeset/*.md` fragment (`nishiki: patch`).
+2. verctl turns fragments into a Version PR that bumps `Cargo.toml` and writes `CHANGELOG.md`.
+   Never edit either by hand.
+3. Publishing to crates.io waits for the operator's approval.
+   The Version PR has no auto-merge, and only the operator merges it, because merging it publishes.
+4. A change that builds on an unmerged one goes up as a stacked pull request with `gh stack`,
+   one idea per pull request (operator, 2026-11-02).
+
+### Languages
+
+1. A language lives in `src/<language>/`.
+2. Every language gets a hand-written lexer, in order of use, several in parallel (operator, 2026-11-02, revising the 2026-10-24 decision).
+   With the oracle and a Shiki differential, Python took under an hour, not the days its line count suggested.
+3. nishiki's own TextMate engine is built in parallel, as fast as it can be made.
+   - Its one approved dependency beyond `memchr` is `regex-automata`.
+   - It covers every bundled language not yet hand-written.
+   - It checks the hand lexers as a second oracle.
+
+### The Shiki oracle
+
+1. `mise run oracle` runs Shiki on every input in `oracle/inputs.ts`
+   and writes its scopes to `tests/oracle/<language>/`.
+2. `tests/it/oracle.rs` checks every language in `Language::ALL`, in parallel.
+   It fails when a non-whitespace byte gets a different scope stack or colour,
+   so a new language needs only its fixtures there.
+3. A new language adds its inputs and fixtures.
+   `tests/oracle/SOURCES.md` records each input's source and licence.
+4. `tests/oracle/.ignore` keeps typos, `rg` and `fd` out of the generated fixtures,
+   which keep their sources' spelling.
+   Search them with `rg -u`.
+
+### Benchmarks
+
+1. `mise run bench` measures, in release mode on the oracle fixtures:
+   - throughput;
+   - streaming latency per line;
+   - cold start;
+   - theme styling.
+2. It is not part of `verify`, because timings depend on the machine.
+   `bench/AGENTS.md` says where a run counts and how it is recorded.
+
+### Limits
+
+1. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
+2. Defaults may follow the resources the caller has, such as memory or a time budget.
+   A caller that pins the limits gets the same output on every machine.
+
+replace 3191 3256 368
+2. Nobody runs the full suite before a push; CI does.
+   - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
+   - Before a push, run only the cheap checks: `typos`, `mise run lint:md` and rustfmt.
+   - When CI fails, fix forward.
+3. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
+
+replace 3739 3870 131
+4. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
+
+replace 5525 5525 90
+4. Several lexers are written in parallel, each by its own agent, and land one at a time.
+
+replace 3373 3461 140
+   - Before a push, run only the cheap checks: `typos`, `mise run lint:md`, `mise run format` (rustfmt) and `mise run format:toml` (taplo).
+
+replace 6469 6469 71
+
+   `mise run bench python java` measures only the languages it names.
+
+replace 6944 6944 424
+3. A language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the README's section for that language until the next minor release (operator, 2026-11-03).
+   Adding them to `Limits` and `Limit` breaks the public API, so that release does it once: it marks both `#[non_exhaustive]`, adds a builder and moves every language bound into `Limits`, together with the `feat/non-exhaustive-next-minor` branch.
+
+replace 3191 3191 332
+
+   The Identity workflow (`.github/workflows/identity.yml`) runs `mise run identity` against the pull request's base: it fails when a fixture or an edited copy of one lexes differently.
+   A pull request that means to change output says so with a body line `identity: changes <languages>`, such as `identity: changes python java`.
+
+replace 3523 3523 702
+
+   The Callgrind workflow (`.github/workflows/callgrind.yml`) runs on a pull request labelled `bench`.
+   It runs `mise run callgrind` against the base: instruction counts of lexing the oracle fixtures of the rule-engine languages and Markdown, as a table in the job summary.
+   Both sides build at one codegen unit, so the counts follow the code and not its layout (`bench/AGENTS.md` rule 12); it fails when a language rises more than 0.5%.
+   Label a pull request that touches a hot path.
+   valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`); a local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
+
+replace 4407 4547 285
+   - The pre-commit hook runs the cheapest checks: `mise run format` (rustfmt) and `mise run check:literals` when a commit touches a Rust file, and `mise run lint:md` when it touches Markdown.
+   - Before a push, run the other cheap checks: `typos` and `mise run format:toml` (taplo).
+
+replace 4970 5101 191
+4. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file, and runs `check:literals` (`mise-tasks/check/literals.sh`).
+
+replace 7534 7534 613
+5. Three tools reach past the fixtures, each run by hand with an ignored test:
+
+   | Tool | Does |
+   |:--|:--|
+   | `oracle/fuzz.ts` | Writes a corpus of mutated and generated documents, bare and in Markdown fences. |
+   | `oracle/dump.ts` | Writes a corpus of held-out files. |
+   | `oracle/onig.ts` | Checks a language's hand matchers against Oniguruma, one expression at a time, through the language's `matchers_answer_the_probe_cases` test. |
+
+   `the_corpus_matches_shiki` in `tests/it/oracle.rs` compares a corpus with nishiki.
+   `oracle/fuzz/<language>.ts` holds what the tools draw on for one language.
+
+replace 1963 2004 241
+   Every supported language is built in when its feature is on.
+   Languages on nishiki's TextMate engine sit in the opt-in `textmate` tier, off by default and outside `all`, because the engine adds about 1.7 MB once (operator, 2026-11-03).
+
+replace 1336 1555 432
+   - Every grammar is read as the reference for its language, whatever its licence (operator, 2026-11-03).
+     A language whose grammar has no licence found at its source, such as GLSL's, gets a hand-written lexer, and that grammar is never bundled.
+   - A licence can sit in a README rather than a `LICENSE` file, as the TextMate bundle licence does in YAML's and TOML's bundles, so read both before calling a grammar unlicensed.
+
+replace 4213 4379 242
+   It gates on both sides built at one codegen unit, so the counts follow the code and not its layout, and fails when a language rises more than 0.5%; columns at the default sixteen units are for information only (`bench/AGENTS.md` rule 12).
+
+replace 7305 7305 195
+   - Every grammar it compiles has its licence, read at its source, in `oracle/licences.ts`, and a table the crate ships holds only grammars allowed there; `oracle/engine-tables.ts` checks both.
+
+replace 1587 1768 267
+   - A licence can sit outside a `LICENSE` file: TOML's bundle carries the TextMate bundle licence in its README, and YAML's grammar carries its own MIT licence in a file beside it.
+     Read the README and the files beside the grammar before calling one unlicensed.
+
+replace 4126 4299 193
+   It runs `mise run callgrind` against the base: instruction counts of lexing the oracle fixtures of the rule-engine and TextMate-engine languages and Markdown, as a table in the job summary.
+
+replace 127 365 321
+- [CODING_STANDARDS.md](CODING_STANDARDS.md): the numbered coding rules.
+- [docs/AGENTS.md](docs/AGENTS.md): the rules for research notes.
+- [bench/AGENTS.md](bench/AGENTS.md): the rules for measuring.
+- [openspec/changes/repo-layout](openspec/changes/repo-layout/proposal.md): the plan that moves these into one layout.
+
+replace 6034 6109 114
+3. Every document, from guides to research notes, is written to be scanned (operator, 2026-11-02 and 2026-11-03):
+
+replace 6291 6437 533
+   - a blank line between blocks;
+   - plain words: no filler, no flourish, no mannered phrasing;
+   - no walls of prose: a paragraph past four lines becomes a list or splits;
+   - headers that name their content, never vague ones like "Piece" or "What it holds".
+4. A directory a reader browses on GitHub has a `README.md` that says what it holds.
+   Where it has rules for working there, an `AGENTS.md` sits beside it.
+5. A language's section under "Behaviour kept from Shiki" in the README is a bullet list, one quirk per bullet.
+
+replace 200 266 120
+- [openspec/](openspec/README.md): specs, changes in flight and research notes, with [their rules](openspec/AGENTS.md).
+
+replace 4263 4456 163
+   It runs `mise run callgrind` against the base: instruction counts of lexing the oracle fixtures of every language that has them, as a table in the job summary.
+
+replace 9470 9470 818
+6. `mise run oracle:coverage` writes `tests/oracle/COVERAGE.md`: how much of each hand-lexed grammar the fixtures exercise, and every unit they do not.
+   - A pull request that changes the oracle's inputs or fixtures writes it again.
+   - `oracle/coverage-waivers.ts` waives the units no document can reach, each with a reason, and lists the grammars that are complete.
+   - The Oracle coverage workflow (`.github/workflows/coverage.yml`) runs `mise run check:oracle-coverage`.
+     It fails on a stale report, a wrong waiver, or a gap in a complete grammar.
+   - A new hand lexer adds its grammar to `handLexed` in `oracle/coverage.ts`; the run fails on a loaded grammar it cannot place.
+   - A gap closes with an input: a pinned, licensed third-party file first, then one written for nishiki under `oracle/inputs/`.
+
+replace 127 127 113
+Each directory below has a README that says what it holds, and an `AGENTS.md` with the rules for working there.
+
+
+replace 313 313 47
+- [src/](src/README.md): the crate, by module.
+
+replace 480 480 203
+- [oracle/](oracle/README.md): the Bun scripts that run Shiki, with [their rules](oracle/AGENTS.md).
+- [tests/](tests/README.md): the integration tests and fixtures, with [their rules](tests/AGENTS.md).
+
+replace 746 865 63
+- [mise-tasks/](mise-tasks/README.md): the repository's tasks.
+
+replace 7532 7679 519
+4. Work merges in batches through `gh stack`, one idea per pull request (operator, 2026-11-02 and 2026-11-03):
+   - a workstream's slices go up as one stack, each pull request based on the branch below, opened without waiting for its parent to land;
+   - a stacked pull request takes no auto-merge;
+   - once every head is green and reviewed, `gh stack merge <stack> --yes` puts the whole stack in the merge queue;
+   - a pull request already queued is never linked into a stack, since linking drops it from the queue.
+
+replace 8931 10967 94
+The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](tests/AGENTS.md).
+
+replace 4134 5288 1315
+2. Three more workflows check a pull request against its base:
+
+   | Workflow | Runs | Fails when |
+   |:--|:--|:--|
+   | Identity, `identity.yml` | `mise run identity` | a fixture, or an edited copy of one, lexes differently |
+   | Callgrind, `callgrind.yml` | `mise run callgrind`, on a pull request labelled `bench` | a language's instruction count rises more than 0.5% |
+   | Oracle coverage, `coverage.yml` | `mise run check:oracle-coverage` | the report is stale, or a complete grammar has a gap ([oracle/AGENTS.md](oracle/AGENTS.md) rule 6) |
+
+3. A pull request that means to change output says so in a body line, `identity: changes <languages>`, such as `identity: changes python java`.
+4. Callgrind counts the lexing of every language's oracle fixtures, as a table in the job summary.
+   - Label a pull request that touches a hot path.
+   - The gate builds both sides at one codegen unit, so the counts follow the code and not its layout.
+   - Columns at the default sixteen units are for information only (`bench/AGENTS.md` rule 12).
+   - valgrind comes from the bench mise profile, `mise.bench.toml` with `mise.bench.lock`, which only this workflow loads (`MISE_ENV=ci,bench`).
+   - A local run on Linux uses `MISE_ENV=dev,bench mise run callgrind`.
+5. Nobody runs the full suite before a push; CI does.
+
+replace 5895 6331 429
+6. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
+   - `mise run format` checks it, as the pre-commit hook does.
+   - `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` applies it.
+7. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
+   It also runs `check:layout` (every browsable directory has its README and guide) and `check:literals`.
+
+replace 9828 10252 436
+3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the README's section for that language (operator, 2026-11-03).
+   Adding them to `Limits` and `Limit` breaks the public API, so the next minor does it once, with the `feat/non-exhaustive-next-minor` branch:
+   - it marks both `#[non_exhaustive]`;
+   - it adds a builder;
+   - it moves every language bound into `Limits`.
+
+replace 6344 6426 422
+1. The crate-root docs in `src/lib.rs` are the docs.rs landing page.
+   - They hold the quick start, the themes, the limits, the cargo features and Markdown fences.
+   - They link items with intra-doc links.
+   - Their Rust examples run as doctests, and so do the README's (`ReadmeDoctests` in `src/lib.rs`).
+   - rustfmt's `wrap_comments` reflows a list item in a doc comment, so its lines break where rustfmt puts them.
+
+replace 7537 7649 318
+5. Each language's quirks sit in the docs of its `Language` variant, in the `languages!` rows of `src/language.rs`.
+   They go under a "Behaviour kept from Shiki" heading, as a bullet list, one quirk per bullet.
+   A variant that shares another's lexer links to it, as `Language::Jsx` links to `Language::TypeScript`.
+
+replace 10374 10552 209
+3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the docs of its `Language` variant, under "Behaviour kept from Shiki" (operator, 2026-11-03).
+
+replace 6552 6653 115
+   - Their Rust examples run as doctests, and so does the README's one example (`ReadmeDoctests` in `src/lib.rs`).
+
+replace 6780 6873 279
+2. The README is the GitHub page: what nishiki is, `cargo add`, one example, a docs.rs link, the language table, the status and the licence.
+   - It holds no API reference; the crate docs do.
+   - It links to files through docs.rs source URLs, because the repository is private.
+
+replace 5178 5178 128
+   - Below the table, what one pass over the fixtures allocates on each side, for information only (`bench/AGENTS.md` rule 17).
+
+replace 10070 10227 229
+1. `mise run bench` runs the Criterion benchmarks of the bench workspace on `bench/corpus/`:
+   - lexing throughput per language and tier;
+   - creating a highlighter;
+   - theme styling, and the whole path from text to colours.
+
+replace 10300 10370 85
+   `mise run bench lex/python` runs only the benchmarks whose name holds the filter.
+
+replace 10455 10524 135
+   [bench/README.md](bench/README.md) says what each figure answers; `bench/AGENTS.md` says where a run counts and how it is recorded.
+
+replace 10385 10385 118
+   `mise run bench:latency` gives the cost of each streamed line: steady p50, p99 and maximum, and the first contact.
+
+replace 10503 10503 89
+   `mise run bench:cold` gives the first line and the first document in a fresh process.
+
+replace 4829 4829 208
+   - Identity lexes the merged tree's fixtures with the pull request's base.
+     When it names languages the pull request never touched, main has changed them since that base: rebase, even with no conflict.
+
+replace 9678 9748 111
+   - Its approved dependencies beyond `memchr` are `regex-automata` and `regex-syntax` (operator, 2026-11-04).
+
+replace 7395 7509 239
+3. All prose in the repository is written to be scanned (operator, 2026-11-02, 2026-11-03 and 2026-11-04).
+   That covers guides, research notes, doc comments, code and script comments, commit messages, pull-request bodies and changesets.
+
+replace 7698 7698 226
+   - one claim per sentence: a sentence that chains clauses with "which", a colon and "so" is split into several;
+   - concrete names: "the base commit's build", not a coined phrase such as "beside this tree" or "the change";
+
+replace 4906 5037 144
+     It may name languages the pull request never touched.
+     Then main has changed them since that base.
+     Rebase, even with no conflict.
+
+replace 11275 11410 138
+   [bench/README.md](bench/README.md) says what each figure answers.
+   `bench/AGENTS.md` says where a run counts and how it is recorded.
+
+replace 6673 6673 134
+   It runs `check:tiers` too.
+   That check fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
+
+replace 6807 6807 136
+   It runs `check:feature-lines` too.
+   That check fails when a language of the `all` list has no line of its own in `check:features`.
+
+replace 6807 6807 134
+   It also fails when a row of the crate docs' tier table in `src/lib.rs` names other languages than its tier's list in `Cargo.toml`.
+

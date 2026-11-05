@@ -110,6 +110,8 @@ The decisions that created nishiki live in a private planning repository:
    It also fails when a row of the crate docs' tier table in `src/lib.rs` names other languages than its tier's list in `Cargo.toml`.
    It runs `check:feature-lines` too.
    That check fails when a language of the `all` list has no line of its own in `check:features`.
+   It runs `check:traces` too.
+   That check fails when a stream-benchmark trace in `bench/traces/` differs from its source.
 
 ### Documentation
 

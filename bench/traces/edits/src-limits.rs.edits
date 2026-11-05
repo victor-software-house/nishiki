@@ -1,0 +1,596 @@
+origin edits
+language rust
+source src/limits.rs
+url https://github.com/victor-software-house/nishiki/blob/5d899cbc84061e54fa462a6f50c834d25d20d09a/src/limits.rs
+licence MIT OR Apache-2.0
+from 5d899cbc84061e54fa462a6f50c834d25d20d09a
+to 03966033ae0f8c8f3662a390ac7bfb89960ee0aa
+sha256 0acedaf44965a3dd16626fe69183da2a86675608496376b66585b20efb855267
+base 7635
+//! Bounds on the work and memory one line may cost, and the report of which
+//! bounds a line reached.
+
+use std::time::Duration;
+
+/// The limits a highlighter applies to every line.
+///
+/// Each field is `None` for no limit. Build from [`Limits::default`],
+/// [`Limits::unlimited`] or [`Limits::for_budget`], then override any field:
+///
+/// ```
+/// use nishiki::Limits;
+///
+/// let limits = Limits {
+///     depth: Some(1_000),
+///     ..Limits::default()
+/// };
+/// assert_eq!(limits.depth, Some(1_000));
+/// ```
+///
+/// Limits count bytes and lexer steps, never time, so the same input and
+/// limits give the same tokens on every machine.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Limits {
+    /// Longest line lexed, in bytes. A longer line is one token under the
+    /// current scope stack, and the state passes over it unchanged, as Shiki
+    /// does past `tokenizeMaxLineLength`.
+    pub line_bytes: Option<usize>,
+    /// Lexer steps per line. When a line runs out, the rest of it is one
+    /// token under the current scope stack and the next line starts from the
+    /// state at that point, as Shiki does at its time limit.
+    pub work: Option<Work>,
+    /// Most contexts open at once. Deeper contexts are not opened, so the
+    /// constructs inside them add no scope.
+    pub depth: Option<usize>,
+    /// Most scope stacks, and most states, a highlighter interns. A token
+    /// whose stack would be new gets its context's stack instead.
+    pub nodes: Option<usize>,
+}
+
+/// The step budget of one line: `per_byte` steps for each of its bytes, plus
+/// `base`.
+///
+/// A step is one turn of a lexer's main loop or one byte a lookahead reads,
+/// so a linear lexer spends a few steps per byte and a superlinear path runs
+/// into the limit.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Work {
+    /// Steps allowed per byte of the line.
+    pub per_byte: u32,
+    /// Steps allowed on top, whatever the line's length.
+    pub base: u32,
+}
+
+impl Work {
+    /// The steps allowed for a line of `len` bytes.
+    pub(crate) fn steps(self, len: usize) -> u64 {
+        let len = u64::try_from(len).unwrap_or(u64::MAX);
+        len.saturating_mul(u64::from(self.per_byte))
+            .saturating_add(u64::from(self.base))
+    }
+}
+
+/// Resources a caller grants a highlighter, from which
+/// [`Limits::for_budget`] derives the limits.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Budget {
+    /// Memory for interned scope stacks and states, in bytes.
+    pub memory: Option<usize>,
+    /// Time one line may take.
+    pub line_time: Option<Duration>,
+    /// The lexer steps this machine runs per second, which turns
+    /// `line_time` into steps. Measure it once on the target machine and
+    /// keep the number, so later runs give the same output.
+    pub steps_per_second: u64,
+}
+
+impl Budget {
+    /// An estimate of the steps per second of one core of a 2026 laptop,
+    /// used when the caller has not measured its own.
+    pub const REFERENCE_STEPS_PER_SECOND: u64 = 200_000_000;
+}
+
+impl Default for Budget {
+    fn default() -> Self {
+        Budget {
+            memory: None,
+            line_time: None,
+            steps_per_second: Self::REFERENCE_STEPS_PER_SECOND,
+        }
+    }
+}
+
+/// Bytes one interned node costs: the node and its hash map entry. An
+/// estimate for [`Limits::for_budget`], rounded up.
+const NODE_BYTES: usize = 64;
+
+impl Limits {
+    /// No limit at all.
+    #[must_use]
+    pub const fn unlimited() -> Self {
+        Limits {
+            line_bytes: None,
+            work: None,
+            depth: None,
+            nodes: None,
+        }
+    }
+
+    /// Limits from the resources in `budget`; [`Limits::default`] for any
+    /// resource the budget leaves out.
+    ///
+    /// ```
+    /// use std::time::Duration;
+    ///
+    /// use nishiki::{Budget, Limits};
+    ///
+    /// let budget = Budget {
+    ///     line_time: Some(Duration::from_millis(4)),
+    ///     steps_per_second: 100_000_000,
+    ///     ..Budget::default()
+    /// };
+    /// let limits = Limits::for_budget(budget);
+    /// assert_eq!(limits.work.map(|work| work.base), Some(400_000));
+    /// ```
+    #[must_use]
+    pub fn for_budget(budget: Budget) -> Self {
+        let mut limits = Limits::default();
+        if let Some(memory) = budget.memory {
+            limits.nodes = Some(memory / NODE_BYTES);
+        }
+        if let Some(time) = budget.line_time {
+            let steps = time
+                .as_nanos()
+                .saturating_mul(u128::from(budget.steps_per_second))
+                / 1_000_000_000;
+            let base = u32::try_from(steps).unwrap_or(u32::MAX);
+            limits.work = Some(Work { per_byte: 0, base });
+        }
+        limits
+    }
+}
+
+impl Default for Limits {
+    /// Limits no line of nishiki's oracle fixtures comes near: 1 MiB lines,
+    /// 64 steps per byte plus 4,096, 256 open contexts and a million nodes.
+    fn default() -> Self {
+        Limits {
+            line_bytes: Some(1 << 20),
+            work: Some(Work {
+                per_byte: 64,
+                base: 4_096,
+            }),
+            depth: Some(256),
+            nodes: Some(1 << 20),
+        }
+    }
+}
+
+/// One limit of [`Limits`].
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum Limit {
+    /// [`Limits::line_bytes`].
+    LineBytes,
+    /// [`Limits::work`].
+    Work,
+    /// [`Limits::depth`].
+    Depth,
+    /// [`Limits::nodes`].
+    Nodes,
+}
+
+impl Limit {
+    const ALL: [Limit; 4] = [Limit::LineBytes, Limit::Work, Limit::Depth, Limit::Nodes];
+
+    fn bit(self) -> u8 {
+        match self {
+            Limit::LineBytes => 1,
+            Limit::Work => 2,
+            Limit::Depth => 4,
+            Limit::Nodes => 8,
+        }
+    }
+}
+
+/// The limits one line reached; empty for a line lexed in full.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
+#[must_use]
+pub struct LineReport(u8);
+
+impl LineReport {
+    /// Whether the line was lexed in full, reaching no limit.
+    #[must_use]
+    pub fn is_complete(self) -> bool {
+        self.0 == 0
+    }
+
+    /// Whether the line reached `limit`.
+    #[must_use]
+    pub fn reached(self, limit: Limit) -> bool {
+        self.0 & limit.bit() != 0
+    }
+
+    /// Every limit the line reached.
+    pub fn limits(self) -> impl Iterator<Item = Limit> {
+        Limit::ALL
+            .into_iter()
+            .filter(move |&limit| self.reached(limit))
+    }
+
+    pub(crate) fn record(&mut self, limit: Limit) {
+        self.0 |= limit.bit();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_report_names_what_it_records() {
+        let mut report = LineReport::default();
+        assert!(report.is_complete());
+        report.record(Limit::Depth);
+        report.record(Limit::Work);
+        assert!(!report.is_complete());
+        assert_eq!(
+            report.limits().collect::<Vec<_>>(),
+            [Limit::Work, Limit::Depth]
+        );
+    }
+
+    #[test]
+    fn work_saturates() {
+        assert_eq!(
+            Work {
+                per_byte: u32::MAX,
+                base: 1
+            }
+            .steps(usize::MAX),
+            u64::MAX
+        );
+        assert_eq!(
+            Work {
+                per_byte: 2,
+                base: 3
+            }
+            .steps(5),
+            13
+        );
+    }
+
+    #[test]
+    fn a_budget_sets_only_what_it_names() {
+        let limits = Limits::for_budget(Budget {
+            memory: Some(6_400),
+            ..Budget::default()
+        });
+        assert_eq!(limits.nodes, Some(100));
+        assert_eq!(limits.work, Limits::default().work);
+    }
+}
+
+replace 1189 1309 213
+    /// Most contexts open at once inside a language's root context, which
+    /// is not counted: with `Some(0)` nothing opens. Deeper contexts are not
+    /// opened, so the constructs inside them add no scope.
+
+replace 3534 3534 338
+    /// Whether [`Limits::depth`] keeps one more context from opening where
+    /// `open` contexts are open above the language's root. Every lexer asks
+    /// here, so a pinned depth means the same in every language.
+    pub(crate) fn depth_reached(&self, open: usize) -> bool {
+        self.depth.is_some_and(|max| open >= max)
+    }
+
+
+replace 7774 7774 465
+    #[test]
+    fn depth_counts_the_contexts_above_the_root() {
+        let limits = Limits {
+            depth: Some(2),
+            ..Limits::unlimited()
+        };
+        assert!(!limits.depth_reached(1));
+        assert!(limits.depth_reached(2));
+        assert!(!Limits::unlimited().depth_reached(usize::MAX));
+        let none = Limits {
+            depth: Some(0),
+            ..Limits::unlimited()
+        };
+        assert!(none.depth_reached(0));
+    }
+
+
+replace 105 105 21
+use std::cell::Cell;
+
+replace 2399 2399 1016
+/// The steps one line spends against its [`Limits::work`]: the turns of a
+/// lexer's main loop and the bytes its lookaheads read.
+///
+/// The count is a `Cell`, so a scan that only reads the line can still spend.
+#[derive(Debug)]
+pub(crate) struct Steps {
+    spent: Cell<u64>,
+    /// The line's allowance; `u64::MAX` for no limit.
+    limit: u64,
+}
+
+impl Steps {
+    /// Nothing spent yet on a line of `len` bytes under `limits`.
+    pub(crate) fn new(limits: &Limits, len: usize) -> Self {
+        Steps {
+            spent: Cell::new(0),
+            limit: limits.work.map_or(u64::MAX, |work| work.steps(len)),
+        }
+    }
+
+    /// Counts `steps` more.
+    #[inline]
+    pub(crate) fn spend(&self, steps: usize) {
+        let steps = u64::try_from(steps).unwrap_or(u64::MAX);
+        self.spent.set(self.spent.get().saturating_add(steps));
+    }
+
+    /// Whether the line has spent more than it may.
+    #[inline]
+    pub(crate) fn exhausted(&self) -> bool {
+        self.spent.get() > self.limit
+    }
+}
+
+
+replace 2535 2535 507
+/// A lexer counts in a `Steps` of its own, from 0 against the limit its
+/// [`Limits`] give its text, as each lexer counted alone. The lexers on one
+/// line still spend one budget: a lexer that embeds another passes it
+/// limits whose work is what the line has left ([`Steps::lend`]), and every
+/// lexer returns what it spent beside its state ([`Finished`]), which the
+/// embedding lexer adds to its own count ([`Steps::take_back`]).
+///
+/// `Steps` has no `Drop` impl (`CODING_STANDARDS.md` 2.6).
+///
+
+replace 3138 3138 66
+#[must_use = "a lexer returns its count through `Steps::finish`"]
+
+replace 3339 3406 81
+    /// Nothing spent yet on a text of `len` bytes under `limits`.
+    #[inline]
+
+replace 3843 3843 289
+    /// Counts one turn of a lexer's main loop, and says whether the line
+    /// has now spent more than it may.
+    #[inline]
+    pub(crate) fn step(&self) -> bool {
+        let spent = self.spent.get().saturating_add(1);
+        self.spent.set(spent);
+        spent > self.limit
+    }
+
+
+replace 4288 4288 2496
+
+    /// The limits a lexer this one embeds runs under: `limits` with the
+    /// work this line has left, or no work limit when this one has none.
+    ///
+    /// [`Work::base`] holds a `u32`, so an embedded part gets at most
+    /// `u32::MAX` steps, far above the default limits of the longest line
+    /// they allow. Out of line, since few lines embed a language.
+    #[cold]
+    pub(crate) fn lend(&self, limits: &Limits) -> Limits {
+        let left = self.limit.saturating_sub(self.spent.get());
+        Limits {
+            work: limits.work.map(|_| Work {
+                per_byte: 0,
+                base: u32::try_from(left).unwrap_or(u32::MAX),
+            }),
+            ..*limits
+        }
+    }
+
+    /// Counts what an embedded lexer spent, from the [`Finished`] it
+    /// returned, and gives back its state.
+    #[inline]
+    pub(crate) fn take_back(&self, finished: Finished) -> u32 {
+        self.add(finished.spent);
+        finished.state
+    }
+
+    /// Counts `spent` steps that an embedded lexer spent testing the line.
+    #[inline]
+    pub(crate) fn add(&self, spent: u64) {
+        self.spent.set(self.spent.get().saturating_add(spent));
+    }
+
+    /// Ends the lexer's count: `state`, the state after the line, with what
+    /// the lexer spent.
+    #[inline]
+    pub(crate) fn finish(self, state: u32) -> Finished {
+        Finished {
+            state,
+            spent: self.spent.get(),
+        }
+    }
+
+    /// What the lexer spent, for a lexer that only tests the line and
+    /// returns no state.
+    #[inline]
+    pub(crate) fn into_spent(self) -> u64 {
+        self.spent.get()
+    }
+}
+
+/// The state after a line and the steps the lexer spent on it, which the
+/// lexer that embeds it adds to its own count ([`Steps::take_back`]) and
+/// the highlighter ignores.
+///
+/// A lexer with a count makes one only through [`Steps::finish`], so an
+/// exit that skips it does not compile. The two words come back in
+/// registers, so the top-level path stores nothing.
+#[derive(Clone, Copy, Debug)]
+#[must_use]
+pub(crate) struct Finished {
+    state: u32,
+    spent: u64,
+}
+
+impl Finished {
+    /// A line on which the lexer spent nothing: an empty one, or one for a
+    /// lexer that keeps its own budget, as nishiki's `TextMate` engine does.
+    #[inline]
+    pub(crate) fn unspent(state: u32) -> Self {
+        Finished { state, spent: 0 }
+    }
+
+    /// The state after the line.
+    #[inline]
+    pub(crate) fn state(self) -> u32 {
+        self.state
+    }
+
+replace 6412 6566 187
+    /// A line on which the lexer spent nothing: an empty one, or one whose
+    /// count nobody takes back, as for nishiki's `TextMate` engine on the
+    /// highlighter's own language.
+
+replace 1363 1423 260
+    /// opened, so the constructs inside them add no scope. Shiki has no such
+    /// limit, and some of its grammars leave a rule open for good, such as
+    /// Ruby's for a call whose `)` a here document takes, so a long file can
+    /// hold hundreds open.
+
+replace 9943 10020 79
+    /// 64 steps per byte plus 4,096, 4,096 open contexts and a million nodes.
+
+replace 10210 10240 32
+            depth: Some(4_096),
+
+replace 1210 1623 444
+    /// Most contexts open at once inside a language's root context. The
+    /// root context is not counted, and with `Some(0)` nothing opens.
+    /// Deeper contexts are not opened, and the constructs inside them add no
+    /// scope. Shiki has no such limit. Some of its grammars leave a rule open
+    /// for good, such as Ruby's rule for a call whose `)` a here document
+    /// takes. A long file can then hold hundreds of contexts open.
+
+replace 2839 3205 344
+/// [`Limits`] give its text. The lexers on one line still spend one budget:
+///
+/// - A lexer that embeds another passes it limits whose work is what the line
+///   has left ([`Steps::lend`]).
+/// - Every lexer returns what it spent beside its state ([`Finished`]).
+/// - The embedding lexer adds that to its own count ([`Steps::take_back`]).
+
+replace 4653 4866 248
+    /// [`Work::base`] holds a `u32`, and an embedded part gets at most
+    /// `u32::MAX` steps. That is far above the default limits of the longest
+    /// line they allow. The function is out of line, because few lines embed
+    /// a language.
+
+replace 6159 6336 183
+/// The state after a line and the steps the lexer spent on it. The lexer
+/// that embeds it adds the steps to its own count ([`Steps::take_back`]).
+/// The highlighter ignores them.
+
+replace 6346 6540 192
+/// A lexer with a count makes one only through [`Steps::finish`]. An exit
+/// that skips it does not compile. The two words come back in registers, and
+/// the top-level path stores nothing.
+
+replace 6660 6847 202
+    /// A line on which the lexer spent nothing. It is an empty line, or one
+    /// whose count nobody takes back. nishiki's `TextMate` engine on the
+    /// highlighter's own language is such a case.
+
+replace 208 357 153
+/// Each field is `None` for no limit.
+/// Build from [`Limits::default`], [`Limits::unlimited`] or
+/// [`Limits::for_budget`], then override any field:
+
+replace 546 670 131
+/// Limits count bytes and lexer steps, never time.
+/// The same input and limits therefore give the same tokens on every machine.
+
+replace 748 944 200
+    /// Longest line lexed, in bytes.
+    /// A longer line is one token under the current scope stack.
+    /// The state passes over it unchanged, as Shiki does past
+    /// `tokenizeMaxLineLength`.
+
+replace 983 1197 227
+    /// Lexer steps per line.
+    /// When a line runs out, the rest of it is one token under the current
+    /// scope stack.
+    /// The next line starts from the state at that point, as Shiki does at its
+    /// time limit.
+
+replace 1238 1382 144
+    /// Most contexts open at once inside a language's root context.
+    /// The root context is not counted, and with `Some(0)` nothing opens.
+
+replace 1460 1682 238
+    /// scope.
+    /// Shiki has no such limit.
+    /// Some of its grammars leave a rule open for good, such as Ruby's rule
+    /// for a call whose `)` a here document takes.
+    /// A long file can then hold hundreds of contexts open.
+
+replace 1728 1870 142
+    /// Most scope stacks, and most states, a highlighter interns.
+    /// A token whose stack would be new gets its context's stack instead.
+
+replace 2883 2960 81
+/// [`Limits`] give its text.
+/// The lexers on one line still spend one budget:
+
+replace 3509 3564 69
+    /// The line's allowance.
+    /// It is `u64::MAX` for no limit.
+
+replace 4787 4963 176
+    /// `u32::MAX` steps.
+    /// That is far above the default limits of the longest line they allow.
+    /// The function is out of line, because few lines embed a language.
+
+replace 6221 6370 153
+/// The state after a line and the steps the lexer spent on it.
+/// The lexer that embeds it adds the steps to its own count
+/// ([`Steps::take_back`]).
+
+replace 6412 6604 196
+/// A lexer with a count makes one only through [`Steps::finish`].
+/// An exit that skips it does not compile.
+/// The two words come back in registers, and the top-level path stores
+/// nothing.
+
+replace 6730 6932 210
+    /// A line on which the lexer spent nothing.
+    /// It is an empty line, or one whose count nobody takes back.
+    /// nishiki's `TextMate` engine on the highlighter's own language is such a
+    /// case.
+
+replace 7498 7699 208
+    /// The lexer steps this machine runs per second.
+    /// It turns `line_time` into steps.
+    /// Measure it once on the target machine and keep the number.
+    /// Later runs then give the same output.
+
+replace 8155 8279 130
+/// Bytes one interned node costs: the node and its hash map entry.
+/// It is an estimate for [`Limits::for_budget`], rounded up.
+
+replace 8406 8549 151
+    /// `open` contexts are open above the language's root.
+    /// Every lexer asks here, so a pinned depth means the same in every
+    /// language.
+
+replace 8894 9009 116
+    /// Limits from the resources in `budget`.
+    /// Any resource the budget leaves out gets [`Limits::default`].
+
+replace 11012 11077 75
+/// The limits one line reached.
+/// It is empty for a line lexed in full.
+

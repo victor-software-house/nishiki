@@ -22,6 +22,7 @@ The worst line under the default limits and the comparison with other highlighte
 ## Where things are
 
 - [corpus/](corpus/README.md): the files the wall-clock benchmarks read, and [corpus.toml](corpus.toml), which lists them.
+- [traces/](traces/README.md): the delta traces the stream benchmarks replay, written by [traces.ts](traces.ts).
 - `Cargo.toml`, `src/` and `benches/`: the bench workspace, apart from the crate's, with Criterion.
 - [targets.toml](targets.toml): what a recorded run is judged against.
   Its throughput floors come from the first record, at main `0a58343a`.

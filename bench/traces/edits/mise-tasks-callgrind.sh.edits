@@ -1,0 +1,418 @@
+origin edits
+language shellscript
+source mise-tasks/callgrind.sh
+url https://github.com/victor-software-house/nishiki/blob/1c70d753b3b2a248c744471234886506c2fcbb54/mise-tasks/callgrind.sh
+licence MIT OR Apache-2.0
+from 1c70d753b3b2a248c744471234886506c2fcbb54
+to 4b44f3c22b14e91f9f4084330b71542d68acc50d
+sha256 99b5636fe9d90cddd4f2fe6f681012703c7e1033f3c952c03c5644f1e4d3444e
+base 2342
+#!/usr/bin/env bash
+#MISE description="Instruction counts of lexing the oracle fixtures, against another commit"
+# `mise run callgrind [base] [languages...]`, base `origin/main` by default,
+# languages the rule-engine ones and Markdown by default. Both commits run
+# examples/lex.rs over this tree's fixtures under callgrind, whose counts do
+# not depend on the machine's load. Both build with one codegen unit, so a
+# change that only moves code between units, which shifts counts by up to a
+# few percent, does not read as a change: the counts are a review signal,
+# while the wall-clock bench keeps the default profile users get. Prints a
+# Markdown table of millions of instructions and head/base, and fails when a
+# language rises more than CALLGRIND_TOLERANCE_PCT (0.5). Needs valgrind from the bench profile:
+# MISE_ENV=ci,bench in CI, MISE_ENV=dev,bench locally (Linux only).
+set -euo pipefail
+base="${1:-origin/main}"
+shift || true
+languages=("$@")
+if [ "${#languages[@]}" -eq 0 ]; then
+  languages=(python java css kotlin make go ruby csharp markdown)
+fi
+tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
+dir=target/callgrind
+rm -rf "$dir/base"
+mkdir -p "$dir/base/examples"
+git archive "$base" | tar -x -C "$dir/base"
+cp examples/lex.rs "$dir/base/examples/lex.rs"
+fixtures="$PWD/tests/oracle"
+export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+CARGO_TARGET_DIR="$dir/target-base" cargo build --quiet --release --locked \
+  --manifest-path "$dir/base/Cargo.toml" --example lex
+CARGO_TARGET_DIR="$dir/target-head" cargo build --quiet --release --locked --example lex
+count() {
+  valgrind --tool=callgrind --callgrind-out-file=/dev/null "$1" "$fixtures" "$2" 2>&1 |
+    sed -n 's/.*Collected : *\([0-9]*\).*/\1/p'
+}
+echo "| language | base (M) | head (M) | head/base |"
+echo "|:--|--:|--:|--:|"
+failed=()
+for language in "${languages[@]}"; do
+  b=$(count "$dir/target-base/release/examples/lex" "$language")
+  h=$(count "$dir/target-head/release/examples/lex" "$language")
+  awk -v l="$language" -v b="$b" -v h="$h" 'BEGIN { printf "| %s | %.1f | %.1f | %.4f |\n", l, b / 1e6, h / 1e6, h / b }'
+  if awk -v b="$b" -v h="$h" -v t="$tolerance" 'BEGIN { exit !(h > b * (1 + t / 100)) }'; then
+    failed+=("$language")
+  fi
+done
+if [ "${#failed[@]}" -gt 0 ]; then
+  echo "instructions rose more than ${tolerance}% in: ${failed[*]}" >&2
+  exit 1
+fi
+
+replace 265 884 862
+# examples/lex.rs under callgrind, whose counts do not depend on the
+# machine's load, over the same files: this tree's fixtures that the base
+# has too. A language the base has no fixtures for is listed as new.
+#
+# Both build with one codegen unit, so a change that only moves code between
+# units, which shifts counts by up to a few percent, does not read as a
+# change: the counts are a review signal, while the wall-clock bench keeps
+# the default profile users get. Only the harness's second pass is counted,
+# so the work a process does once, such as building each rule's pattern
+# tables, stays out.
+#
+# Prints a Markdown table of millions of instructions and head/base, and
+# fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5). Needs
+# valgrind from the bench profile: MISE_ENV=ci,bench in CI,
+# MISE_ENV=dev,bench locally (Linux only).
+
+replace 1513 1542 415
+# Both binaries lex the same files: this tree's fixtures that the base has
+# too, so inputs a pull request adds do not count as a change of code.
+fixtures="$dir/fixtures"
+rm -rf "$fixtures"
+for language in "${languages[@]}"; do
+  mkdir -p "$fixtures/$language"
+  for file in tests/oracle/"$language"/*.txt; do
+    if [ -f "$dir/base/$file" ]; then
+      ln -s "$PWD/$file" "$fixtures/$language/"
+    fi
+  done
+done
+
+replace 2204 2292 150
+  valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
+    --toggle-collect='*lex::measured*' "$1" "$fixtures" "$2" 2>&1 |
+
+replace 2531 2531 104
+  if [ -z "$(ls -A "$fixtures/$language")" ]; then
+    echo "| $language | new | | |"
+    continue
+  fi
+
+replace 2765 2765 150
+  if [ "${b:-0}" = 0 ] || [ "${h:-0}" = 0 ]; then
+    echo "callgrind counted nothing for $language: lex::measured was not found" >&2
+    exit 1
+  fi
+
+replace 1239 1305 70
+  languages=(python java css kotlin make sql go ruby csharp markdown)
+
+replace 479 779 373
+# The gate builds both with one codegen unit, so a change that only moves
+# code between units, which shifts counts by up to a few percent, does not
+# read as a change: the counts are a review signal. The table also shows
+# both at the default sixteen units, the layout users get, for information
+# only: it never fails the task. Only the harness's second pass is counted,
+
+replace 1312 1382 82
+  languages=(python java css kotlin make sql c cpp go ruby csharp swift markdown)
+
+replace 2017 2283 497
+# One build of each side at one codegen unit, which gates, and one at the
+# default sixteen, which the table shows for information only.
+for units in 1 16; do
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-base-$units" \
+    cargo build --quiet --release --locked --manifest-path "$dir/base/Cargo.toml" --example lex
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$dir/target-head-$units" \
+    cargo build --quiet --release --locked --example lex
+done
+
+replace 2724 2803 167
+echo "| language | base (M) | head (M) | head/base | base, 16 units (M) | head, 16 units (M) | head/base, 16 units (not gated) |"
+echo "|:--|--:|--:|--:|--:|--:|--:|"
+
+replace 2990 3025 41
+    echo "| $language | new | | | | | |"
+
+replace 3049 3229 370
+  b=$(count "$dir/target-base-1/release/examples/lex" "$language")
+  h=$(count "$dir/target-head-1/release/examples/lex" "$language")
+  b16=$(count "$dir/target-base-16/release/examples/lex" "$language")
+  h16=$(count "$dir/target-head-16/release/examples/lex" "$language")
+  if [ "${b:-0}" = 0 ] || [ "${h:-0}" = 0 ] || [ "${b16:-0}" = 0 ] || [ "${h16:-0}" = 0 ]; then
+
+replace 3519 3641 210
+  awk -v l="$language" -v b="$b" -v h="$h" -v b16="$b16" -v h16="$h16" 'BEGIN {
+    printf "| %s | %.1f | %.1f | %.4f | %.1f | %.1f | %.4f |\n", l, b / 1e6, h / 1e6, h / b, b16 / 1e6, h16 / 1e6, h16 / b16
+  }'
+
+replace 190 477 341
+# languages the rule-engine and TextMate-engine ones and Markdown by default,
+# built with the `textmate` tier. Both commits run examples/lex.rs under
+# callgrind, whose counts do not depend on the machine's load, over the same
+# files: this tree's fixtures that the base has too. A language the base has
+# no fixtures for is listed as new.
+
+replace 1366 1448 99
+  languages=(python java css kotlin make sql c cpp go ruby csharp swift scala powershell markdown)
+
+replace 2088 2088 280
+# The TextMate engine's languages need the `textmate` tier, which a base
+# from before it lacks; its languages are then new there.
+head_features=(--features textmate)
+base_features=()
+if grep -q '^textmate = ' "$dir/base/Cargo.toml"; then
+  base_features=(--features textmate)
+fi
+
+replace 2617 2713 124
+    cargo build --quiet --release --locked --manifest-path "$dir/base/Cargo.toml" \
+    "${base_features[@]}" --example lex
+
+replace 2831 2888 79
+    cargo build --quiet --release --locked "${head_features[@]}" --example lex
+
+replace 3302 3302 9
+notes=()
+
+replace 4265 4265 198
+  if awk -v h="$h" -v h16="$h16" 'BEGIN { exit !(h16 > h * 1.03) }'; then
+    notes+=("$(awk -v l="$language" -v h="$h" -v h16="$h16" 'BEGIN { printf "%s +%.1f%%", l, (h16 / h - 1) * 100 }')")
+  fi
+
+replace 4468 4468 265
+if [ "${#notes[@]}" -gt 0 ]; then
+  echo
+  echo "Note, not a failure: at sixteen codegen units the head runs more than 3% more instructions than at one in ${notes[*]}. A matcher its scan calls in another module may lack \`#[inline]\` (bench/AGENTS.md rule 13)."
+fi
+
+replace 1366 1465 103
+  languages=(python java css kotlin make sql c cpp go ruby csharp swift scala powershell lua markdown)
+
+replace 1366 1469 103
+  languages=(c cpp csharp css go java kotlin lua make markdown powershell python ruby scala sql swift)
+
+replace 1366 1469 113
+  languages=(c cmake cpp csharp css go java kotlin lua make markdown powershell python ruby scala sql swift zig)
+
+replace 1366 1479 119
+  languages=(c cmake cpp csharp css go java kotlin lua make markdown powershell proto python ruby scala sql swift zig)
+
+replace 1366 1485 143
+  languages=(bat c cmake cpp csharp css dart go java julia kotlin lua make markdown nix powershell proto python ruby scala scss sql swift zig)
+
+replace 1366 1509 164
+  languages=(bat c cmake cpp csharp css dart go haskell java julia kotlin less lua make markdown mermaid nix powershell proto python ruby scala scss sql swift zig)
+
+replace 190 531 366
+# languages every one with oracle fixtures by default, built with the
+# `textmate` tier. Both commits run examples/lex.rs under callgrind, whose
+# counts do not depend on the machine's load, over the same files: this
+# tree's fixtures that the base has too. A language the base has no fixtures
+# for is listed as new. The runs go in parallel, one valgrind per core.
+
+replace 1353 1353 117
+# Every directory of fixtures is a language, named as `Language::from_name`
+# reads it; `themes/` holds no fixtures.
+
+replace 1508 1672 184
+  for language_dir in tests/oracle/*/; do
+    language=$(basename "$language_dir")
+    if compgen -G "$language_dir*.txt" >/dev/null; then
+      languages+=("$language")
+    fi
+  done
+
+replace 3142 3142 279
+# Counts one build (base-1, head-1, base-16 or head-16) on one language into
+# counts/<build>.<language>. valgrind runs one thread, so the runs go in
+# parallel, one per core; callgrind's counts do not depend on the load.
+counts="$dir/counts"
+rm -rf "$counts"
+mkdir -p "$counts"
+
+replace 3513 3629 166
+    --toggle-collect='*lex::measured*' "$dir/target-$1/release/examples/lex" "$fixtures" "$2" 2>&1 |
+    sed -n 's/.*Collected : *\([0-9]*\).*/\1/p' >"$counts/$1.$2"
+
+replace 3681 3681 296
+export -f count
+export dir fixtures counts
+for language in "${languages[@]}"; do
+  if [ -n "$(ls -A "$fixtures/$language")" ]; then
+    printf '%s %s\n' base-1 "$language" head-1 "$language" base-16 "$language" head-16 "$language"
+  fi
+done | xargs -P "$(nproc)" -n 2 bash -c 'count "$1" "$2"' _
+
+replace 4311 4585 158
+  b=$(cat "$counts/base-1.$language")
+  h=$(cat "$counts/head-1.$language")
+  b16=$(cat "$counts/base-16.$language")
+  h16=$(cat "$counts/head-16.$language")
+
+replace 1099 1176 200
+# fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5). Then
+# prints, for information, what one pass over each language's fixtures
+# allocates on each side (examples/memory.rs). Needs
+
+replace 2023 2023 316
+# The memory counts use this tree's harness and counter on both sides, so a
+# base whose nishiki-alloc-count is older than this tree's still builds them.
+cp examples/memory.rs "$dir/base/examples/memory.rs"
+rm -rf "$dir/base/nishiki-alloc-count/src"
+cp -R nishiki-alloc-count/src "$dir/base/nishiki-alloc-count/src"
+
+replace 3108 3171 148
+# default sixteen, which the table shows for information only. The memory
+# counts do not depend on the layout, so only the default build has them.
+
+replace 3278 3278 94
+  examples=(--example lex)
+  if [ "$units" = 16 ]; then
+    examples+=(--example memory)
+  fi
+
+replace 3546 3586 43
+    "${base_features[@]}" "${examples[@]}"
+
+replace 3679 3758 82
+    cargo build --quiet --release --locked "${head_features[@]}" "${examples[@]}"
+
+replace 6093 6093 1261
+# What one pass over each language's fixtures allocates, from fresh
+# highlighters (examples/memory.rs): exact counts, for information only.
+echo
+echo "Memory, for information: allocations, then KiB allocated, then the most KiB one document held at once."
+echo
+echo "| language | allocations, base | allocations, head | KiB, base | KiB, head | peak KiB, base | peak KiB, head |"
+echo "|:--|--:|--:|--:|--:|--:|--:|"
+for language in "${languages[@]}"; do
+  if [ -z "$(ls -A "$fixtures/$language")" ]; then
+    echo "| $language | new | | | | | |"
+    continue
+  fi
+  read -r base_allocs base_bytes base_peak < <("$dir/target-base-16/release/examples/memory" "$fixtures" "$language")
+  read -r head_allocs head_bytes head_peak < <("$dir/target-head-16/release/examples/memory" "$fixtures" "$language")
+  if [ -z "${base_peak:-}" ] || [ -z "${head_peak:-}" ]; then
+    echo "examples/memory.rs printed no counts for $language" >&2
+    exit 1
+  fi
+  awk -v l="$language" -v b_n="$base_allocs" -v h_n="$head_allocs" -v b_bytes="$base_bytes" -v h_bytes="$head_bytes" -v b_peak="$base_peak" -v h_peak="$head_peak" 'BEGIN {
+    printf "| %s | %d | %d | %.1f | %.1f | %.1f | %.1f |\n", l, b_n, h_n, b_bytes / 1024, h_bytes / 1024, b_peak / 1024, h_peak / 1024
+  }'
+done
+
+replace 1359 1402 121
+# MISE_ENV=dev,bench locally (Linux only); it stops when the valgrind on
+# PATH is not the version mise.bench.toml pins.
+
+replace 1940 1940 494
+# The counts are compared against runs of the pinned valgrind, so another
+# version, or none on PATH because the bench profile is not loaded, stops the
+# task here instead of yielding empty or shifted counts.
+pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind"')
+found=$(valgrind --version 2>/dev/null || echo none)
+if [ "$found" != "valgrind-$pin" ]; then
+  echo "valgrind $found is not the pinned $pin (mise.bench.toml); run with MISE_ENV=dev,bench, or ci,bench in CI" >&2
+  exit 1
+fi
+
+replace 4560 4560 228
+# valgrind's output stays in counts/<build>.<language>.log, and a run that
+# fails stops the task with its tail: xargs then exits non-zero. The child
+# shells run with -euo pipefail, as this one does, which they do not inherit.
+
+replace 4855 5103 404
+  local log="$counts/$1.$2.log"
+  if ! valgrind --tool=callgrind --callgrind-out-file=/dev/null --collect-atstart=no \
+    --toggle-collect='*lex::measured*' "$dir/target-$1/release/examples/lex" "$fixtures" "$2" >"$log" 2>&1; then
+    echo "valgrind failed on $1 $2; the end of $log:" >&2
+    tail -n 20 "$log" >&2
+    return 1
+  fi
+  sed -n 's/.*Collected : *\([0-9]*\).*/\1/p' "$log" >"$counts/$1.$2"
+
+replace 5497 5557 74
+done | xargs -P "$(nproc)" -n 2 bash -euo pipefail -c 'count "$1" "$2"' _
+
+replace 1498 1498 41
+. "$(dirname "$0")/lib/commit-target.sh"
+
+replace 2496 2496 152
+base_target=$(commit_target "$dir" base "$base")
+head_target=$(commit_target "$dir" head HEAD)
+keep_commit_targets "$dir" "$base_target" "$head_target"
+
+replace 4137 4227 90
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$base_target/cgu-$units" \
+
+replace 4354 4444 90
+  CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$head_target/cgu-$units" \
+
+replace 5038 5038 268
+# The target directory of one build: base-1, head-1, base-16 or head-16.
+build_target() {
+  case "$1" in
+  base-*) echo "$base_target/cgu-${1#base-}" ;;
+  head-*) echo "$head_target/cgu-${1#head-}" ;;
+  *)
+    echo "no build named $1" >&2
+    return 1
+    ;;
+  esac
+}
+
+replace 5435 5548 119
+    --toggle-collect='*lex::measured*' "$(build_target "$1")/release/examples/lex" "$fixtures" "$2" >"$log" 2>&1; then
+
+replace 5728 5771 76
+export -f build_target count
+export base_target head_target fixtures counts
+
+replace 8127 8363 236
+  read -r base_allocs base_bytes base_peak < <("$base_target/cgu-16/release/examples/memory" "$fixtures" "$language")
+  read -r head_allocs head_bytes head_peak < <("$head_target/cgu-16/release/examples/memory" "$fixtures" "$language")
+
+replace 1026 1480 469
+# Prints a Markdown table of millions of instructions and head/base.
+# Fails when a language rises more than CALLGRIND_TOLERANCE_PCT (0.5).
+# Then prints, for information, what one pass over each language's fixtures
+# allocates on each side (examples/memory.rs).
+# Needs valgrind from the bench profile.
+# That is MISE_ENV=ci,bench in CI and MISE_ENV=dev,bench locally (Linux only).
+# The task stops when the valgrind on PATH is not the version mise.bench.toml
+# pins.
+
+replace 1996 2205 227
+# The counts are compared against runs of the pinned valgrind.
+# Another version stops the task here.
+# So does no valgrind on PATH, when the bench profile is not loaded.
+# Either would otherwise yield empty or shifted counts.
+
+replace 2821 2975 138
+# The memory counts use this tree's harness and counter on both sides.
+# A base with an older nishiki-alloc-count then still builds them.
+
+replace 3816 4038 236
+# Each side builds once at one codegen unit, which gates.
+# Each side also builds at the default sixteen, which the table shows for
+# information only.
+# The memory counts do not depend on the layout.
+# Only the default build has them.
+
+replace 4639 5012 371
+# counts/<build>.<language>.
+# valgrind runs one thread, so the runs go in parallel, one per core.
+# callgrind's counts do not depend on the load.
+# valgrind's output stays in counts/<build>.<language>.log.
+# A run that fails prints the log's tail, and xargs then exits non-zero.
+# The child shells set -euo pipefail themselves.
+# They do not inherit it from this shell.
+
+replace 7660 7733 86
+# highlighters (examples/memory.rs).
+# The counts are exact and for information only.
+
+replace 2223 2284 69
+pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind".version')
+
