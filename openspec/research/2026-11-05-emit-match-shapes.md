@@ -66,7 +66,8 @@ It informs the decision; it does not make it.
 - CSS saves 88,055 in `emit_match` and spends 34,391 in `emit_spans`: −53,664 net.
 - SCSS saves 105,478 net, and C# 290,878, since C# never calls `emit_spans`.
 - graphql, asm, make and c record spans on nearly every match.
-  Their span loop costs 9% to 15% more out of line: c's `emit_spans` costs 4,341,412 against 3,921,384 that left `emit_match`.
+  Their span loop costs 11% to 33% more out of line: c 11%, graphql 16%, make 25% and asm 33%.
+  c's `emit_spans` costs 4,341,412 against 3,921,384 that left `emit_match`.
 
 ### S3: the dynamic name out of line
 
@@ -83,7 +84,7 @@ It informs the decision; it does not make it.
   Their rows move only in libc's `memcmp`, by 604 to 4,973 instructions, at equal calls.
 - Most other rows fall, by up to 0.78% (graphql), and C#'s `emit_match` saves 152,757.
 - tex, matlab and java grow in `emit_match`: +14,202, +18,844 and +30,209.
-  php and haskell move `dynamic_path` into an out-of-line `path_one`: php +37,499 net, haskell +19,707.
+  php and haskell move `dynamic_path` into an out-of-line `path_one`: php +40,323 net, haskell +15,650.
 
 ## 4. Reading
 
