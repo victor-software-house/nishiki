@@ -296,7 +296,7 @@ fn scan<G: Tabled, const HALTING: bool>(
                 Some(&byte) => {
                     let place = match place_of(s, p, byte) {
                         Place::InWord => $in_word,
-                        place => place,
+                        place @ (Place::Away | Place::LineStart) => place,
                     };
                     tables.candidates(place, byte)
                 }

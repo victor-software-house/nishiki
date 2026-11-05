@@ -85,15 +85,17 @@ export type Backref = "quote" | "any";
 class RegexParser {
   pos = 0;
   groups = 0;
-  /** With `refsMayBeEmpty`, a back reference or a call of a group may match
-   * the empty string, as it can when the group it names does. */
   /** Whether the pattern repeats a group's text, calls a group, or is
    * anchored with `\G`, so a match cannot simply start earlier. */
   readonly refs: boolean;
   constructor(
     readonly src: string,
     readonly backref: Backref,
+    /** Whether a back reference or a call of a group may match the empty
+     * string, as it can when the group it names does. */
     readonly refsMayBeEmpty = false,
+    /** Whether a match inside a word could start earlier, at the word's
+     * start, which holds past the scan's first position only. */
     readonly runsStartEarlier = true,
   ) {
     this.refs = /\\(?:[1-9]|[kg]<|G)/.test(src);
