@@ -1411,7 +1411,10 @@ impl Pat {
     /// Such a pattern can match at the last blank of a run and nowhere before
     /// it.
     pub(crate) const fn takes_one_blank(self) -> bool {
-        matches!(self, Pat::Operator | Pat::RootAt30End)
+        matches!(
+            self,
+            Pat::Operator | Pat::FunctionContentEnd | Pat::RootAt30End
+        )
     }
 }
 

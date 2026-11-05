@@ -152,3 +152,13 @@ mod probe {
         });
     }
 }
+
+/// `.(?=\))` ends the content of `url(` at the blank right before `)`.
+/// It takes one blank, so the scan tries it at the last blank of a run.
+#[test]
+fn url_content_ends_at_the_blank_before_its_parenthesis() {
+    let rows = lex_lines(indoc! {"
+        .a
+          b: url(x  )"});
+    assert_eq!(leaf_in(&rows[1], ")"), "entity.name.function.close");
+}

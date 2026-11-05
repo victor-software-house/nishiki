@@ -545,25 +545,92 @@ function balanced(regex: string): boolean {
   return depth === 0;
 }
 
-/** The length of a blank atom at the start of `regex`: `\s`, `\t`, a space,
- * or a class of only spaces and tabs; 0 for anything else. */
-function blankAtom(regex: string): number {
-  if (regex.startsWith("\\s") || regex.startsWith("\\t")) return 2;
-  if (regex.startsWith(" ")) return 1;
-  const cls = /^\[((?:\\t| )+)\]/.exec(regex);
-  return cls === null ? 0 : cls[0].length;
+/** The length of the single atom at the start of `regex`: an escape that
+ * stands for one character, `.`, a class, or a literal character.
+ * It is 0 for a group, an anchor, a back-reference or a quantifier. */
+function atomLength(regex: string): number {
+  const c = regex[0];
+  if (c === undefined || "()|^$*+?{".includes(c)) return 0;
+  if (c === ".") return 1;
+  if (c === "[") {
+    // A `]` right after `[` or `[^` is a literal.
+    let depth = 0;
+    let opened = -1;
+    for (let i = 0; i < regex.length; i++) {
+      const d = regex[i];
+      if (d === "\\") {
+        i++;
+      } else if (d === "[") {
+        depth++;
+        opened = regex[i + 1] === "^" ? i + 1 : i;
+      } else if (d === "]" && i > opened + 1 && --depth === 0) {
+        return i + 1;
+      }
+    }
+    return 0;
+  }
+  if (c === "\\") {
+    const n = regex[1];
+    if (n === undefined || /[1-9AbBGzZkgK]/.test(n)) return 0;
+    if (/[pPxu]/.test(n) && regex[2] === "{") return regex.indexOf("}") + 1;
+    if (n === "x") return /^\\x[0-9A-Fa-f]{2}/.test(regex) ? 4 : 2;
+    if (n === "u") return /^\\u[0-9A-Fa-f]{4}/.test(regex) ? 6 : 2;
+    if (n === "c") return 3;
+    return 2;
+  }
+  return String.fromCodePoint(regex.codePointAt(0)!).length;
+}
+
+/** Whether a match of `regex` can start at a space or a tab. */
+function blankStart(regex: string, backref: Backref): boolean {
+  const { set, any } = startOf(regex, backref);
+  const has = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
+  return any || has(0x20) || has(0x09);
+}
+
+/** The length of the unit at the start of `regex` that takes one blank, and
+ * only one character, when it starts at a blank; 0 when there is none.
+ * The unit is a single atom that can match a blank, such as `\s`, `.` or
+ * `[ \t]`.
+ * It can also be a group, such as `(?:.|\\.)`, whose alternatives that can
+ * start at a blank are each a single atom. */
+function oneBlankUnit(regex: string, backref: Backref): number {
+  const atom = atomLength(regex);
+  if (atom > 0) return blankStart(regex.slice(0, atom), backref) ? atom : 0;
+  if (regex[0] !== "(" || (regex[1] === "?" && regex[2] !== ":")) return 0;
+  let depth = 0;
+  let inClass = false;
+  let close = -1;
+  for (let i = 0; i < regex.length && close < 0; i++) {
+    const c = regex[i];
+    if (c === "\\") i++;
+    else if (inClass) inClass = c !== "]";
+    else if (c === "[") inClass = true;
+    else if (c === "(") depth++;
+    else if (c === ")" && --depth === 0) close = i;
+  }
+  if (close < 0) return 0;
+  const inner = regex.slice(regex[1] === "?" ? 3 : 1, close);
+  let found = false;
+  for (const alt of alternatives(inner)) {
+    if (!blankStart(alt, backref)) continue;
+    if (atomLength(alt) !== alt.length) return 0;
+    found = true;
+  }
+  return found ? close + 1 : 0;
 }
 
 /** Whether some alternative of `regex` takes exactly one blank and then
- * requires a character that is not a blank: one unquantified blank atom,
- * then a rest whose first byte cannot be a space or a tab.
+ * requires a character that is not a blank: one unquantified unit that takes
+ * one blank (`oneBlankUnit`), then a rest whose first byte cannot be a space
+ * or a tab.
  * Such a pattern can match at the last blank of a run and nowhere before it.
  * A `BlankRuns::ToLast` grammar tries only these patterns there. */
 export function takesOneBlank(regex: string, backref: Backref = "quote"): boolean {
   return alternatives(regex.startsWith("(?i)") ? regex.slice(4) : regex).some((alt) => {
-    const atom = blankAtom(alt);
-    if (atom === 0 || /^[*+?{]/.test(alt.slice(atom))) return false;
-    const rest = alt.slice(atom);
+    const unit = oneBlankUnit(alt, backref);
+    if (unit === 0 || /^[*+?{]/.test(alt.slice(unit))) return false;
+    const rest = alt.slice(unit);
     if (rest === "") return false;
     const { set, bol, any } = startOf(rest, backref);
     const blank = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
