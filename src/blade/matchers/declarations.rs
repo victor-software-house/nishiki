@@ -416,18 +416,34 @@ impl Lexer<'_> {
     /// `(?>[^]\[]+|\[\g<N>])*` from `p` up to its `]`: the inside of brackets,
     /// where an inner pair nests when `nests`, as `\g<N>` calls the inside
     /// again, and otherwise is `[[]` only, as `\g<N>` calls the `(\[)` group.
+    ///
+    /// - It counts the open pairs instead of recursing, so a long run of `[`
+    ///   cannot overflow the stack. Only brackets are special inside, so a
+    ///   count is the whole state.
+    /// - It spends a step for each byte it reads, as [`Lexer::run_end`] does.
     fn balanced(&self, mut p: usize, nests: bool) -> Option<usize> {
         let lim = self.lim();
-        loop {
+        let from = p;
+        let mut open = 0_usize;
+        let close = loop {
             match self.at(p) {
-                _ if p >= lim => return None,
-                b']' => return Some(p),
-                b'[' if nests => p = self.balanced(p + 1, true)? + 1,
+                _ if p >= lim => break None,
+                b']' if open == 0 => break Some(p),
+                b']' => {
+                    open -= 1;
+                    p += 1;
+                }
+                b'[' if nests => {
+                    open += 1;
+                    p += 1;
+                }
                 b'[' if self.starts(p, b"[[]") => p += 3,
-                b'[' => return None,
+                b'[' => break None,
                 _ => p += 1,
             }
-        }
+        };
+        self.spend(p - from);
+        close
     }
 
     /// `\s*(?=[),]|/[*/]|#|$)` at `p`, and where its spaces end.
