@@ -25,10 +25,9 @@ pub(crate) const MAX_NESTED: u32 = 64;
 pub(crate) struct ObjectiveC;
 
 /// What the Objective-C matchers remember about a line.
+/// Every grammar that runs those matchers keeps one in its `Extra`.
 #[derive(Debug)]
-pub(crate) struct Extra {
-    /// How many capture groups are being lexed again around this point.
-    nested: u32,
+pub(crate) struct Memory {
     /// The last scoped name walked: where it starts and ends, and the length
     /// of the text it was walked in.
     /// The call patterns have no `\b` before the name, so they ask at every
@@ -46,15 +45,38 @@ pub(crate) struct Extra {
     pub(super) listed: Cell<(usize, usize, usize, u32)>,
 }
 
-impl Default for Extra {
+impl Default for Memory {
     fn default() -> Self {
-        Extra {
-            nested: 0,
+        Memory {
             scoped: Cell::new((usize::MAX, 0, 0)),
             word_run: Cell::new((usize::MAX, 0, 0)),
             ascii_run: Cell::new((usize::MAX, 0, 0)),
             listed: Cell::new((usize::MAX, 0, 0, 0)),
         }
+    }
+}
+
+/// The memory of a grammar that runs the Objective-C matchers.
+/// The matchers are generic over the grammar, so a grammar that repeats
+/// Objective-C's expressions runs them with tables of its own.
+pub(crate) trait ObjcMemory {
+    /// The matchers' memory for the line.
+    fn memory(&self) -> &Memory;
+}
+
+/// What a line of Objective-C keeps besides the matchers' memory.
+#[derive(Debug, Default)]
+pub(crate) struct Extra {
+    /// How many capture groups are being lexed again around this point.
+    nested: u32,
+    /// The matchers' memory.
+    memory: Memory,
+}
+
+impl ObjcMemory for Extra {
+    #[inline]
+    fn memory(&self) -> &Memory {
+        &self.memory
     }
 }
 

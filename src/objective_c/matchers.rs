@@ -9,11 +9,11 @@
 //! [`Chars`] and [`crate::classes`].
 
 use super::c_lang::Last;
-use super::engine::Lexer;
+use super::engine::ObjcMemory;
 use super::grammar::Rx;
 use super::preproc::{ELSE_ELIF_ENDIF, ELSE_ENDIF, IF_WORDS, Truth};
 use super::words;
-use crate::rules::Chars;
+use crate::rules::{Chars, Grammar, Lexer};
 
 /// The property attributes of `PropertiesAt0At0`.
 const PROPERTY_ATTRIBUTES: &[&[u8]] = &[
@@ -204,7 +204,10 @@ const STDINT: &[&[u8]] = &[
     b"uintmax",
 ];
 
-impl Lexer<'_> {
+impl<G: Grammar> Lexer<'_, G>
+where
+    G::Extra: ObjcMemory,
+{
     /// Whether `rx` matches at `p`, and where its match ends.
     #[expect(
         clippy::too_many_lines,
@@ -300,7 +303,7 @@ impl Lexer<'_> {
             Rx::MethodAt0 => self.one_char(p, b'('),
             Rx::ProtocolTypeQualifier => self.word_in(p, QUALIFIERS),
             Rx::AnonymousPattern2 => self.implementation_begin(p),
-            Rx::PropertyDirective => self.at_word(p, &[b"dynamic", b"synthesize"]),
+            Rx::PropertyDirective => self.at_sign_word(p, &[b"dynamic", b"synthesize"]),
             Rx::MethodSuper => {
                 (p == 0 && matches!(self.at(0), b'-' | b'+') && self.lim() > 0).then_some(0)
             }
@@ -692,13 +695,15 @@ impl Lexer<'_> {
             }
             Rx::CLangAt37 => self.lit(p, b";"),
             Rx::CLangAt38 => self.lit(p, b","),
-            Rx::AnonymousPattern7 => self.at_word(p, &[b"try", b"catch", b"finally", b"throw"]),
-            Rx::AnonymousPattern8 => self.at_word(p, &[b"synchronized"]),
-            Rx::AnonymousPattern9 => self.at_word(p, &[b"required", b"optional"]),
-            Rx::AnonymousPattern10 => self.at_word(p, &[b"defs", b"encode"]),
+            Rx::AnonymousPattern7 => {
+                self.at_sign_word(p, &[b"try", b"catch", b"finally", b"throw"])
+            }
+            Rx::AnonymousPattern8 => self.at_sign_word(p, &[b"synchronized"]),
+            Rx::AnonymousPattern9 => self.at_sign_word(p, &[b"required", b"optional"]),
+            Rx::AnonymousPattern10 => self.at_sign_word(p, &[b"defs", b"encode"]),
             Rx::AnonymousPattern11 => self.keyword(p, b"id"),
             Rx::AnonymousPattern12 => self.word_in(p, OBJC_TYPES),
-            Rx::AnonymousPattern13 => self.at_word(p, &[b"class", b"protocol"]),
+            Rx::AnonymousPattern13 => self.at_sign_word(p, &[b"class", b"protocol"]),
             Rx::AnonymousPattern14 => {
                 let end = self.lit(p, b"@selector")?;
                 let paren = self.space_end(end);
@@ -731,7 +736,7 @@ impl Lexer<'_> {
                 self.spend(i - p);
                 Some(i)
             }
-            Rx::AnonymousPattern15 => self.at_word(
+            Rx::AnonymousPattern15 => self.at_sign_word(
                 p,
                 &[
                     b"synchronized",
@@ -910,7 +915,7 @@ impl Lexer<'_> {
 
     /// `(@)(words)\b`: `@` recorded as group 1 and a word of `words` right
     /// after it.
-    fn at_word(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
+    fn at_sign_word(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let start = self.lit(p, b"@")?;
         let end = self.word_end(start);
         if !words.contains(&self.text(start, end)) {

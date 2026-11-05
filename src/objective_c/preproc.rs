@@ -4,8 +4,8 @@
 //! Most directives start `^\s*#\s*` and then name a word with `\b` after it.
 //! The word is then the whole run of word characters there.
 
-use super::engine::Lexer;
-use crate::rules::Chars;
+use super::engine::ObjcMemory;
+use crate::rules::{Chars, Grammar, Lexer};
 
 /// The words `if(?:n?def)?` accepts before `\b`.
 pub(super) const IF_WORDS: &[&[u8]] = &[b"if", b"ifdef", b"ifndef"];
@@ -23,7 +23,10 @@ pub(super) enum Truth {
     Zero,
 }
 
-impl Lexer<'_> {
+impl<G: Grammar> Lexer<'_, G>
+where
+    G::Extra: ObjcMemory,
+{
     /// The end of `\s*` from `i`, short of the line feed.
     pub(super) fn blank_end(&self, i: usize) -> usize {
         self.space_end(i).min(self.lim())

@@ -7,8 +7,8 @@
 //! The rule ends where the run does.
 //! The digit groups are lexed again for their `'` separators.
 
-use super::engine::Lexer;
-use crate::rules::Chars;
+use super::engine::ObjcMemory;
+use crate::rules::{Chars, Grammar, Lexer};
 
 /// The suffixes an integer pattern takes: the grammar's alternation, spelled
 /// out.
@@ -107,7 +107,10 @@ const DEC_INT: Shape = Shape {
     last: 9,
 };
 
-impl Lexer<'_> {
+impl<G: Grammar> Lexer<'_, G>
+where
+    G::Extra: ObjcMemory,
+{
     /// The begin `(?<!\w)(?=\.??\d)`: zero width where a number starts.
     pub(super) fn number_begin(&self, p: usize) -> Option<usize> {
         if self.word_before(p) {

@@ -4,9 +4,9 @@
 use std::cell::Cell;
 use std::cmp::Ordering;
 
-use super::engine::Lexer;
+use super::engine::ObjcMemory;
 use super::words;
-use crate::rules::Chars;
+use crate::rules::{Chars, Grammar, Lexer};
 
 /// The words before `(` that the Objective-C call pattern `CFunctionsAt1`
 /// does not take:
@@ -42,7 +42,10 @@ pub(super) enum Last {
     Member,
 }
 
-impl Lexer<'_> {
+impl<G: Grammar> Lexer<'_, G>
+where
+    G::Extra: ObjcMemory,
+{
     /// The lists the word `start..end` belongs to, as bits of [`words`].
     ///
     /// About fifteen patterns test the same word at the same place, each
@@ -50,12 +53,12 @@ impl Lexer<'_> {
     /// The last answer is kept, keyed by the word's span and the text's
     /// length, so the table is searched once per word.
     pub(super) fn lists(&self, start: usize, end: usize) -> u32 {
-        let (last_start, last_end, len, mask) = self.x.listed.get();
+        let (last_start, last_end, len, mask) = self.x.memory().listed.get();
         if (last_start, last_end, len) == (start, end, self.lim()) {
             return mask;
         }
         let mask = self.search_words(self.text(start, end));
-        self.x.listed.set((start, end, self.lim(), mask));
+        self.x.memory().listed.set((start, end, self.lim(), mask));
         mask
     }
 
@@ -106,14 +109,14 @@ impl Lexer<'_> {
     pub(super) fn ident_end(&self, i: usize) -> Option<usize> {
         let b = self.at(i);
         ((b == b'_' || b.is_ascii_alphabetic()) && i < self.lim())
-            .then(|| self.cached_run(i, &self.x.word_run, Self::word_end))
+            .then(|| self.cached_run(i, &self.x.memory().word_run, Self::word_end))
     }
 
     /// `[A-Z_a-z][0-9A-Z_a-z]*` at `i`: where it ends.
     pub(super) fn ascii_ident_end(&self, i: usize) -> Option<usize> {
         let b = self.at(i);
         ((b == b'_' || b.is_ascii_alphabetic()) && i < self.lim()).then(|| {
-            self.cached_run(i, &self.x.ascii_run, |lexer, from| {
+            self.cached_run(i, &self.x.memory().ascii_run, |lexer, from| {
                 lexer.skip(from, |c| c == b'_' || c.is_ascii_alphanumeric())
             })
         })
@@ -248,7 +251,7 @@ impl Lexer<'_> {
     /// text, takes the rest of that name and then the same steps.
     /// It ends where the last walk did.
     fn scoped_name(&self, i: usize) -> Option<usize> {
-        let (start, end, len) = self.x.scoped.get();
+        let (start, end, len) = self.x.memory().scoped.get();
         let b = self.at(i);
         if len == self.lim() && start < i && i < end && (b == b'_' || b.is_ascii_alphabetic()) {
             return Some(end);
@@ -266,7 +269,7 @@ impl Lexer<'_> {
         if j == i {
             return None;
         }
-        self.x.scoped.set((i, j, self.lim()));
+        self.x.memory().scoped.set((i, j, self.lim()));
         Some(j)
     }
 
