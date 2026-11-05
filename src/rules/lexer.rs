@@ -174,6 +174,16 @@ impl<G: Grammar> Scratch<G> {
         G::deferred_kept(&mut self.kept)
     }
 
+    /// The buffer for an embedding rule's parent payload text, for a
+    /// grammar that keeps one ([`crate::rules::Embeds::parent_text`]).
+    #[cfg(feature = "_embedding")]
+    pub(crate) fn parent_text(&mut self) -> Option<&mut Vec<u8>>
+    where
+        G: crate::rules::Embeds,
+    {
+        G::parent_text(&mut self.kept)
+    }
+
     /// Drops the frames kept for the next line.
     /// That line then opens its rules from its state.
     #[cfg(feature = "_embedding")]
@@ -1924,7 +1934,7 @@ mod tests {
     use crate::limits::{Limits, LineReport};
     use crate::rules::{Act, Captures, Grammar, NameCase, Payload, ScopeName, Text};
     #[cfg(feature = "_embedding")]
-    use crate::rules::{Embedding, Embeds, FnHalt};
+    use crate::rules::{Embedding, Embeds, EndText, FnHalt};
     use crate::scope::{Scope, Scopes, scopes};
 
     #[derive(Clone, Copy, Debug, PartialEq)]
@@ -2172,6 +2182,9 @@ mod tests {
     /// anything, and then names a `!` only where `\G` holds.
     /// `##` opens a rule that embeds HTML and lists the mark of `!` and `?`
     /// after it ([`Embeds::embeds_after_own`]).
+    /// A quote takes `##` too.
+    /// The end halt of the rules that embed records the text of the embedding
+    /// rule's parent payload ([`EndText::ParentPayload`]).
     /// `@@` starts a capture group that runs to the next blank, which
     /// JavaScript lexes again ([`Grammar::defers_nested`]).
     #[derive(Clone, Copy, Debug)]
@@ -2256,11 +2269,23 @@ mod tests {
         }
     }
 
+    /// What [`Named`] keeps from line to line: the deferred capture groups,
+    /// and the buffer for its end halt's parent payload text.
+    #[cfg(feature = "_embedding")]
+    #[derive(Debug, Default)]
+    struct NamedKept {
+        deferrals: Option<Box<Deferrals>>,
+        parent_text: Vec<u8>,
+    }
+
     #[cfg(feature = "_embedding")]
     std::thread_local! {
         /// How many times the engine asked [`Named`] to lex an embedded
         /// language its own way, on this test's thread.
         static ASKED: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+        /// The parent payload texts the engine gave [`Named`]'s end halt,
+        /// on this test's thread.
+        static PARENT_TEXTS: std::cell::RefCell<Vec<Vec<u8>>> = const { std::cell::RefCell::new(Vec::new()) };
     }
 
     #[cfg(feature = "_embedding")]
@@ -2286,6 +2311,18 @@ mod tests {
 
         fn embeds_after_own(rule: Rule) -> bool {
             matches!(rule, Rule::Mixed)
+        }
+
+        const END_TEXT: EndText = EndText::ParentPayload;
+
+        /// Records the parent payload text, then asks `end`.
+        fn end_holds(end: &AtOnce, parent_text: &[u8], s: &[u8], p: usize) -> bool {
+            PARENT_TEXTS.with_borrow_mut(|texts| texts.push(parent_text.to_vec()));
+            end.holds(s, p)
+        }
+
+        fn parent_text(kept: &mut NamedKept) -> Option<&mut Vec<u8>> {
+            Some(&mut kept.parent_text)
         }
 
         /// Counts the call and declines, so the language lexes itself.
@@ -2343,11 +2380,11 @@ mod tests {
         type Pat = Mark;
         type Nested = Lexed;
         #[cfg(feature = "_embedding")]
-        type Extra = Option<Box<Deferrals>>;
+        type Extra = NamedKept;
         #[cfg(not(feature = "_embedding"))]
         type Extra = ();
         #[cfg(feature = "_embedding")]
-        type Kept = Option<Box<Deferrals>>;
+        type Kept = NamedKept;
         #[cfg(not(feature = "_embedding"))]
         type Kept = ();
 
@@ -2488,7 +2525,7 @@ mod tests {
                     Mark::Look,
                     Mark::Word,
                 ],
-                Rule::Quote => &[Mark::Close, Mark::Word],
+                Rule::Quote => &[Mark::Close, Mark::Mix, Mark::Word],
                 Rule::Inner => &[],
                 Rule::Held => &[Mark::Anchored],
                 Rule::Mixed => &[Mark::Look],
@@ -2573,12 +2610,12 @@ mod tests {
 
         #[cfg(feature = "_embedding")]
         fn deferred(extra: &mut Self::Extra) -> Option<&mut Option<Box<Deferrals>>> {
-            Some(extra)
+            Some(&mut extra.deferrals)
         }
 
         #[cfg(feature = "_embedding")]
         fn deferred_kept(kept: &mut Self::Kept) -> Option<&mut Option<Box<Deferrals>>> {
-            Some(kept)
+            Some(&mut kept.deferrals)
         }
 
         #[cfg(feature = "_embedding")]
@@ -2924,6 +2961,48 @@ mod tests {
         assert_eq!(Named::rule_code(rule), Named::rule_code(Rule::Inner));
         let names: Vec<&str> = arena.scopes(out[0].stack().0).collect();
         assert!(names.iter().any(|name| name.contains(".rust")), "{names:?}");
+    }
+
+    /// `<<ab` opens a quote whose payload is `ab`, and `##` inside it opens a
+    /// rule that embeds HTML.
+    /// The engine hands HTML's end halt that text: the payload of the
+    /// embedding rule's parent ([`EndText::ParentPayload`]).
+    #[cfg(all(feature = "_embedding", feature = "lang-html"))]
+    #[test]
+    fn an_end_halt_reads_the_parent_payload_text() {
+        let mut arena = Arena::new(None);
+        let state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let limits = Limits::default();
+        let mut scratch = crate::scratch::Scratch::default();
+        scratch.start_line();
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        let mut cx = crate::language::Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let line = crate::language::Line {
+            text: "<<ab ##x y",
+            start: 0,
+            embedded: false,
+        };
+        PARENT_TEXTS.with_borrow_mut(Vec::clear);
+        crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
+        let texts = PARENT_TEXTS.with_borrow(Clone::clone);
+        assert!(!texts.is_empty(), "the engine asked the end halt");
+        assert!(texts.iter().all(|text| text == b"ab"), "{texts:?}");
+        assert_eq!(
+            named_buffers(&mut scratch)
+                .parent_text()
+                .map(|buffer| buffer.as_slice()),
+            Some(&b"ab"[..]),
+            "the grammar keeps the buffer"
+        );
     }
 
     /// After `##`, HTML lexes `a ` as text and matches nothing at the `!`.

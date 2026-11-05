@@ -433,6 +433,29 @@ pub(crate) use embedded;
 #[cfg(feature = "_embedding")]
 pub(crate) type FnHalt = fn(&[u8], usize) -> bool;
 
+/// What text an embedding rule's end halt reads besides the line
+/// ([`Embeds::END_TEXT`]).
+#[cfg(feature = "_embedding")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum EndText {
+    /// The line's bytes only, through [`Halt::holds`].
+    Own,
+    /// The text of the embedding rule's parent payload too, through
+    /// [`Embeds::end_holds`].
+    /// HAML's filters read it: their end repeats the indent their begin
+    /// read.
+    /// The engine copies that text once per hand-over, into the grammar's
+    /// buffer ([`Embeds::parent_text`]).
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no shipped grammar reads its parent payload yet; the engine's test grammar does"
+        )
+    )]
+    ParentPayload,
+}
+
 /// A grammar whose rules embed other languages ([`Payload::Embed`]).
 /// It says where the embedding rule takes the line back.
 #[cfg(feature = "_embedding")]
@@ -471,6 +494,32 @@ pub(crate) trait Embeds: Grammar {
     /// By default, no rule does.
     fn embeds_after_own(_rule: Self::Rule) -> bool {
         false
+    }
+
+    /// What text the end halt reads besides the line ([`EndText`]).
+    /// By default, the line's bytes only, and nothing is copied.
+    const END_TEXT: EndText = EndText::Own;
+
+    /// Whether `end` holds at `p` of `s`.
+    /// `parent_text` is the text of the embedding rule's parent payload.
+    /// The engine asks this instead of `end` itself only when
+    /// [`Embeds::END_TEXT`] is [`EndText::ParentPayload`].
+    ///
+    /// The default body only calls `end.holds`.
+    /// A default that called an `#[inline]` function made rustc export it
+    /// before (see [`Embeds::lex_embedded_until`]).
+    fn end_holds(end: &Self::End, _parent_text: &[u8], s: &[u8], p: usize) -> bool {
+        end.holds(s, p)
+    }
+
+    /// The buffer for the parent payload's text, in what the matchers keep
+    /// from line to line ([`Grammar::Kept`]).
+    /// A grammar whose end reads that text ([`EndText::ParentPayload`])
+    /// keeps one there, so
+    /// a hand-over allocates nothing once the buffer has room.
+    /// Every other grammar keeps none.
+    fn parent_text(_kept: &mut Self::Kept) -> Option<&mut Vec<u8>> {
+        None
     }
 
     /// Lexes `line` from `state` in `language`, the language the embedding
@@ -596,6 +645,25 @@ fn has_deferred<G: Grammar>(scratch: &mut Scratch<G>) -> bool {
         .deferred()
         .and_then(|slot| slot.as_ref())
         .is_some_and(|deferrals| !deferrals.groups.is_empty())
+}
+
+/// An embedding rule's end halt with the text of the rule's parent payload,
+/// for a grammar whose end reads it ([`EndText::ParentPayload`]).
+#[cfg(feature = "_embedding")]
+struct ParentTextEnd<'a, G: Embeds> {
+    end: &'a G::End,
+    parent_text: &'a [u8],
+}
+
+#[cfg(feature = "_embedding")]
+impl<G: Embeds> Halt for ParentTextEnd<'_, G> {
+    fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
+        (from..=to).find(|&p| G::end_holds(self.end, self.parent_text, s, p))
+    }
+
+    fn holds(&self, s: &[u8], p: usize) -> bool {
+        G::end_holds(self.end, self.parent_text, s, p)
+    }
 }
 
 /// Places in order, as a halt that holds at each of them: the starts of an
@@ -772,6 +840,10 @@ fn lex_again<G: Embeds>(
 /// The language starts on the next line, from the rule's empty payload.
 #[cfg(feature = "_embedding")]
 #[cold]
+#[expect(
+    clippy::too_many_lines,
+    reason = "one loop: split, it changed the hand-over code of every grammar, and the hot path's codegen with it"
+)]
 fn hand_over<G: Embeds, const HALTING: bool>(
     cx: &mut Context<'_>,
     line: Line<'_>,
@@ -832,9 +904,16 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             out: &mut *cx.out,
             report: &mut *cx.report,
         };
-        let halted =
-            G::lex_embedded_until(rule, language, &mut part_cx, part, inner, (&end, after))
-                .or_else(|| language.lex_until(&mut part_cx, part, inner, &end, after));
+        let halted = match G::END_TEXT {
+            EndText::ParentPayload => {
+                let at = (&embedding, scratch);
+                lex_reading_parent_text::<G>(rule, &mut part_cx, part, inner, (&end, after), at)
+            }
+            EndText::Own => {
+                G::lex_embedded_until(rule, language, &mut part_cx, part, inner, (&end, after))
+                    .or_else(|| language.lex_until(&mut part_cx, part, inner, &end, after))
+            }
+        };
         let (inner, stop) = match halted {
             Some(halted) => halted,
             None => (language.lex_embedded(&mut part_cx, part, inner), None),
@@ -877,6 +956,47 @@ fn hand_over<G: Embeds, const HALTING: bool>(
         cx.scratch.rule_starts = buffer;
     }
     (steps.finish(state), halted)
+}
+
+/// Lexes `part` in the embedded language up to its halts, for a grammar
+/// whose end halt reads the text of the embedding rule's parent payload
+/// ([`EndText::ParentPayload`]).
+/// The grammar's own way goes first ([`Embeds::lex_embedded_until`]), then
+/// the language's.
+///
+/// The text is copied into the grammar's buffer first
+/// ([`Embeds::parent_text`]). The buffer goes back after the line part, so
+/// nothing is allocated once it has room.
+/// A hand-over nested in the part takes the buffer empty.
+#[cfg(feature = "_embedding")]
+fn lex_reading_parent_text<G: Embeds>(
+    rule: G::Rule,
+    cx: &mut Context<'_>,
+    part: Line<'_>,
+    inner: u32,
+    (end, after): (&G::End, Option<&dyn Halt>),
+    (embedding, scratch): (
+        &Embedding,
+        fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    ),
+) -> Option<(Finished, Option<Stopped>)> {
+    let language = embedding.language;
+    let mut parent_text = scratch(cx.scratch)
+        .parent_text()
+        .map(std::mem::take)
+        .unwrap_or_default();
+    parent_text.clear();
+    parent_text.extend_from_slice(cx.arena.string(embedding.parent).as_bytes());
+    let end = ParentTextEnd::<G> {
+        end,
+        parent_text: &parent_text,
+    };
+    let halted = G::lex_embedded_until(rule, language, cx, part, inner, (&end, after))
+        .or_else(|| language.lex_until(cx, part, inner, &end, after));
+    if let Some(buffer) = scratch(cx.scratch).parent_text() {
+        *buffer = parent_text;
+    }
+    halted
 }
 
 /// Where the grammar goes on after the language that the rule `embedding`
