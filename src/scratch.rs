@@ -109,6 +109,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Pascal line.
     #[cfg(feature = "lang-pascal")]
     pub(crate) pascal: Option<Box<crate::pascal::Scratch>>,
+    /// The Perl lexer's, for Perl documents and Markdown Perl fences.
+    /// It is boxed and allocated by the first Perl line, as PHP's is.
+    #[cfg(feature = "lang-perl")]
+    pub(crate) perl: Option<Box<crate::perl::Scratch>>,
     /// The PHP lexer's, for PHP documents and Markdown PHP fences.
     /// It is boxed and allocated by the first PHP line, as Dart's is.
     #[cfg(feature = "lang-php")]

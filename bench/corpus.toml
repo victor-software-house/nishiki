@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 11
-digest = "ae2846116bb3219bf68dff07010502871eba9b3bad0a8cb2ae007e9a4489fd31"
+version = 12
+digest = "91395b331fb5f45d91fd99f017295d96a9c4855f02225c3de76c092591646716"
 
 [[file]]
 language = "bat"
@@ -967,6 +967,28 @@ licence = "MIT"
 licence_source = "https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/LICENSE"
 bytes = 19008
 sha256 = "c7b1507c9da0c32609bd5923c7f1372e124348047e6c2cc56216f69d0d655c10"
+
+[[file]]
+language = "perl"
+tier = "small"
+origin = "neutral"
+path = "perl/small/sqitch-command-help.pm"
+source = "https://raw.githubusercontent.com/sqitchers/sqitch/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/lib/App/Sqitch/Command/help.pm"
+licence = "MIT"
+licence_source = "https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/LICENSE.md"
+bytes = 3492
+sha256 = "b0c256c42984198301f63364b6ab7970a0cb4e9da859ff0b53a46ba2fdd8d5e6"
+
+[[file]]
+language = "perl"
+tier = "medium"
+origin = "neutral"
+path = "perl/medium/sqitch-plan.pm"
+source = "https://raw.githubusercontent.com/sqitchers/sqitch/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/lib/App/Sqitch/Plan.pm"
+licence = "MIT"
+licence_source = "https://github.com/sqitchers/sqitch/blob/b08e5c8a773ee4ab5ea4ab7cf6f7a16c55d6994e/LICENSE.md"
+bytes = 50706
+sha256 = "73ec400df83ee0f38e8e35d6d8d544394cde230e4382fb95ceb2c48f14d45376"
 
 [[file]]
 language = "postcss"

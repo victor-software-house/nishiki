@@ -135,6 +135,9 @@ tags! {
     /// Pascal.
     #[cfg(feature = "lang-pascal")]
     PASCAL = 0x4500,
+    /// Perl.
+    #[cfg(feature = "lang-perl")]
+    PERL = 0x4200,
     /// PHP.
     #[cfg(feature = "lang-php")]
     PHP = 0x3F00,

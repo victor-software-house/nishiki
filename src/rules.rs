@@ -48,6 +48,7 @@ use std::fmt::Debug;
     feature = "lang-pascal",
     feature = "lang-svelte",
     feature = "lang-php",
+    feature = "lang-perl",
     feature = "lang-elixir",
     feature = "lang-gdscript"
 ))]
@@ -388,6 +389,7 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-lua",
     feature = "lang-svelte",
     feature = "lang-php",
+    feature = "lang-perl",
     feature = "lang-elixir"
 ))]
 macro_rules! embedded {
@@ -404,6 +406,7 @@ macro_rules! embedded {
     feature = "lang-lua",
     feature = "lang-svelte",
     feature = "lang-php",
+    feature = "lang-perl",
     feature = "lang-elixir"
 ))]
 pub(crate) use embedded;

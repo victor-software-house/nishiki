@@ -65,6 +65,7 @@ all = [
   "lang-objective-c",
   "lang-objective-cpp",
   "lang-pascal",
+  "lang-perl",
   "lang-php",
   "lang-postcss",
   "lang-powershell",
@@ -134,7 +135,6 @@ textmate = [
   "lang-common-lisp",
   "lang-haml",
   "lang-matlab",
-  "lang-perl",
   "lang-vb",
 ]
 
@@ -223,7 +223,11 @@ lang-objective-c = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-cpp = ["lang-objective-c"]
 lang-pascal = ["_scope-table", "_rule-tables", "_classes"]
 lang-perl = [
-  "_textmate",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_utf8",
+  "_halting-embedding",
   "lang-css",
   "lang-html",
   "lang-javascript",

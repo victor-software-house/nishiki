@@ -492,6 +492,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `pascal/horse-websocket-console` | [`samples/lazarus/console_websocket/console_websocket.lpr`][horse-websocket-console] in HashLoad/horse | [MIT][horse-licence] |
 | `pascal/r8brain-dll` | [`DLL/r8bsrc.pas`][r8brain-dll] in avaneev/r8brain-free-src | [MIT][r8brain-licence] |
 | `pascal/sample` | [`samples/pascal.sample`][pascal-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `perl/coverage` | `oracle/inputs/perl-coverage.pl`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `perl/embedded` | `oracle/inputs/perl-embedded.pl`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `perl/sample` | [`samples/perl.sample`][perl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `perl/sqitch-engine-pg` | [`lib/App/Sqitch/Engine/pg.pm`][sqitch-engine-pg] in sqitchers/sqitch | [MIT][sqitch-licence] |

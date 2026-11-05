@@ -1517,7 +1517,7 @@ suitability for any purpose.
 
 ## Perl
 
-Its TextMate engine runs the Perl TextMate grammar that Shiki bundles through VS Code as `perl` (`extensions/perl` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `e637ff1bf7f481134849625e982ec80df9b35bc8`), with its rules compiled into tables (`src/perl/grammar.rs`).
+Its Perl lexer emits the scope names of the Perl TextMate grammar that Shiki bundles through VS Code as `perl` (`extensions/perl` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `e637ff1bf7f481134849625e982ec80df9b35bc8`), and tries that grammar's rules in its order, from tables generated from it (`src/perl/grammar.rs` and `src/perl/words.rs`).
 VS Code converted it from `Syntaxes/Perl.plist` in [textmate/perl.tmbundle](https://github.com/textmate/perl.tmbundle).
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
 The bundle's `README.mdown`, read at commit `a85927a902d6e5d7805f56a653f324d34dfad53a`, gives the TextMate bundle licence to every file that carries none of its own.
@@ -1534,7 +1534,7 @@ suitability for any purpose.
 
 ## PHP
 
-Its TextMate engine runs the PHP TextMate grammar that Shiki bundles through VS Code as `php` (`extensions/php` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `af600487b1e94374d9f48f57cbf2cad24656b07f`), with its rules compiled into tables (`src/php/grammar.rs`).
+Its PHP lexer emits the scope names of the PHP TextMate grammar that Shiki bundles through VS Code as `php` (`extensions/php` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `af600487b1e94374d9f48f57cbf2cad24656b07f`), and tries that grammar's rules in its order, from tables generated from it (`src/php/grammar.rs` and `src/php/words.rs`).
 VS Code converted it from [KapitanOczywisty/language-php](https://github.com/KapitanOczywisty/language-php), which derives from [textmate/php.tmbundle](https://github.com/textmate/php.tmbundle).
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
 That repository's `LICENSE.md`, read at commit `d94fd6b7dff1613d34bc0d36328f9982e65bd545`, holds its own MIT licence and the TextMate bundle's:

@@ -93,7 +93,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `all` | `objective-c`, `objc` |
 | Objective-C++ | `Language::ObjectiveCpp` | `lang-objective-cpp` | `all` | `objective-cpp` |
 | Pascal | `Language::Pascal` | `lang-pascal` | `all` | `pascal` |
-| Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |
+| Perl | `Language::Perl` | `lang-perl` | `all` | `perl` |
 | PHP | `Language::Php` | `lang-php` | `all` | `php` |
 | PostCSS | `Language::PostCss` | `lang-postcss` | `all` | `postcss` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `all` | `powershell`, `ps`, `ps1`, `pwsh` |

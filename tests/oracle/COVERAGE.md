@@ -51,6 +51,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Objective-C | `objective-c` | 371 of 377 | 98.4% | 346 of 377 | 91.8% | 37 | 0 | yes |
 | Objective-C++ | `objective-cpp` | 395 of 427 | 92.5% | 380 of 433 | 87.8% | 85 | 0 | yes |
 | Pascal | `pascal` | 24 of 25 | 96.0% | 13 of 14 | 92.9% | 2 | 0 | yes |
+| Perl | `perl` | 269 of 276 | 97.5% | 316 of 383 | 82.5% | 74 | 1 | yes |
 | PHP | `php` | 476 of 476 | 100.0% | 411 of 433 | 94.9% | 22 | 0 | yes |
 | PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
@@ -811,6 +812,67 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 ```text
 patterns[12].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 patterns[15].patterns[0].match  ''  waived: the string's end `'` is tried before its patterns at every quote, so `''` ends the string and the next quote starts another
+```
+
+### `perl`
+
+```text
+patterns[3].patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[3].patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[3].patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[3].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[3].patterns[4].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[3].patterns[5].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[4].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[5].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[5].patterns[3].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[4].patterns[5].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[5].patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[5].patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[5].patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[5].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[6].patterns[0].end  groups 0 (waived: the end is a lookahead, which holds no text), 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[7].patterns[0].end  groups 0 (waived: the end is a lookahead, which holds no text), 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[12].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+patterns[13].match  groups 2 (waived: the grammar names the group, but the expression has one group), 3 (waived: the grammar names the group, but the expression has one group)
+patterns[14].patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 2 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[17].end  \z  fuzz  waived: vscode-textmate rewrites `\z` so that it never matches a line, so the data section runs to the document's end
+patterns[43].end  groups 0 (waived: the end is `$`, which holds no text)
+#heredoc.patterns[5].begin  ((((<<(~)?) *')(POSTSCRIPT)(')))(.*)\n?  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[5].end  ^((?!\5)\s+)?((\6))$  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[5].patterns[0].begin  ^  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[5].patterns[0].end  \n  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[7].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[15].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[16].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[17].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[18].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[19].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[20].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[21].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
+#heredoc.patterns[22].begin  ((((<<(~)?) *`)([^`]*)(`)))(.*)\n?  waived: the bare heredoc before it matches first at `<<`, with an empty label, since a bare label stops at the backtick
+#heredoc.patterns[22].end  ^((?!\5)\s+)?((\6))$  waived: the bare heredoc before it matches first at `<<`, with an empty label, since a bare label stops at the backtick
+#line_comment.patterns[0].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_braces.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_braces.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_braces_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_braces_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_brackets.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_brackets.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_brackets_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_brackets_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_ltgt.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_ltgt.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_ltgt_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_ltgt_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_parens.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_parens.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_parens_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#nested_parens_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
 ```
 
 ### `php`

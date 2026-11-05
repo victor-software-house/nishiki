@@ -88,6 +88,7 @@ const handLexed = new Map([
   ["objective-c", "Objective-C"],
   ["objective-cpp", "Objective-C++"],
   ["pascal", "Pascal"],
+  ["perl", "Perl"],
   ["php", "PHP"],
   ["postcss", "PostCSS"],
   ["powershell", "PowerShell"],

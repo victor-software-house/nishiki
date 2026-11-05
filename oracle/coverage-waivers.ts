@@ -1550,6 +1550,78 @@ export const waivers: Waiver[] = [
   ...["#heredoc_interior.patterns[6].patterns[5].end", "#nowdoc_interior.patterns[6].patterns[4].end"].map(
     (path): Waiver => ({ grammar: "php", path, group: 0, reason: "the end is `$`, which holds no text" }),
   ),
+  { grammar: "perl", path: "patterns[17].end", reason: "vscode-textmate rewrites `\\z` so that it never matches a line, so the data section runs to the document's end", probe: "RootAt17End" },
+  ...["#heredoc.patterns[5].begin", "#heredoc.patterns[5].end", "#heredoc.patterns[5].patterns[0].begin", "#heredoc.patterns[5].patterns[0].end"].map(
+    (path): Waiver => ({
+      grammar: "perl",
+      path,
+      reason: "the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label",
+      probe: "HeredocAt6",
+    }),
+  ),
+  ...["#heredoc.patterns[22].begin", "#heredoc.patterns[22].end"].map(
+    (path): Waiver => ({
+      grammar: "perl",
+      path,
+      reason: "the bare heredoc before it matches first at `<<`, with an empty label, since a bare label stops at the backtick",
+      probe: "HeredocAt21",
+    }),
+  ),
+  ...[
+    ["patterns[3].patterns[0].end", "RootAt3At0End"],
+    ["patterns[3].patterns[1].end", "RootAt3At1End"],
+    ["patterns[3].patterns[2].end", "RootAt3At2End"],
+    ["patterns[3].patterns[3].end", "RootAt3At3End"],
+    ["patterns[3].patterns[4].end", "RootAt3At4End"],
+    ["patterns[3].patterns[5].end", "RootAt3At5End"],
+    ["patterns[4].patterns[0].end", "RootAt4At0End"],
+    ["patterns[4].patterns[1].end", "RootAt4At1End"],
+    ["patterns[4].patterns[2].end", "RootAt4At2End"],
+    ["patterns[4].patterns[3].end", "RootAt4At3End"],
+    ["patterns[4].patterns[4].end", "RootAt4At4End"],
+    ["patterns[4].patterns[5].end", "RootAt4At5End"],
+    ["patterns[4].patterns[5].patterns[3].begin", "RootAt4At5At3"],
+    ["patterns[4].patterns[5].patterns[3].end", "RootAt4At5At3End"],
+    ["patterns[5].patterns[0].end", "RootAt5At0End"],
+    ["patterns[5].patterns[1].end", "RootAt5At1End"],
+    ["patterns[5].patterns[2].end", "RootAt5At2End"],
+    ["patterns[5].patterns[3].end", "RootAt5At3End"],
+    ["patterns[6].patterns[0].end", "RootAt6At0End"],
+    ["patterns[7].patterns[0].end", "RootAt7At0End"],
+    ["#line_comment.patterns[0].begin", "LineCommentAt0"],
+    ...["braces", "brackets", "ltgt", "parens"].flatMap((kind) =>
+      ["", "_interpolated"].flatMap((tail) => {
+        const id = `Nested${kind.charAt(0).toUpperCase()}${kind.slice(1)}${tail ? "Interpolated" : ""}`;
+        return [
+          [`#nested_${kind}${tail}.begin`, id],
+          [`#nested_${kind}${tail}.end`, `${id}End`],
+        ];
+      }),
+    ),
+  ].map(([path, probe]): Waiver => ({ grammar: "perl", path: path!, group: 1, reason: missing(0), probe: probe! })),
+  ...["patterns[6].patterns[0].end", "patterns[7].patterns[0].end"].map(
+    (path, k): Waiver => ({ grammar: "perl", path, group: 0, reason: "the end is a lookahead, which holds no text", probe: `RootAt${6 + k}At0End` }),
+  ),
+  { grammar: "perl", path: "patterns[12].match", group: 3, reason: missing(2), probe: "RootAt12" },
+  ...[2, 3].map((group): Waiver => ({ grammar: "perl", path: "patterns[13].match", group, reason: missing(1), probe: "RootAt13" })),
+  ...[1, 2].map((group): Waiver => ({ grammar: "perl", path: "patterns[14].patterns[0].match", group, reason: blanks, probe: "RootAt14At0" })),
+  { grammar: "perl", path: "patterns[43].end", group: 0, reason: "the end is `$`, which holds no text", probe: "RootAt43End" },
+  ...[
+    ["#heredoc.patterns[7].begin", "HeredocAt7"],
+    ["#heredoc.patterns[15].begin", "HeredocAt15"],
+    ["#heredoc.patterns[16].begin", "HeredocAt16"],
+    ["#heredoc.patterns[17].begin", "HeredocAt17"],
+    ["#heredoc.patterns[18].begin", "HeredocAt18"],
+    ["#heredoc.patterns[19].begin", "HeredocAt19"],
+    ["#heredoc.patterns[20].begin", "HeredocAt20"],
+    ["#heredoc.patterns[21].begin", "HeredocAt21"],
+  ].map(([path, probe]): Waiver => ({
+    grammar: "perl",
+    path: path!,
+    group: 7,
+    reason: "the group is `()`, the closing quote of a label that has none, so it never holds text",
+    probe: probe!,
+  })),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1590,6 +1662,7 @@ export const complete: string[] = [
   "objective-c",
   "objective-cpp",
   "pascal",
+  "perl",
   "php",
   "postcss",
   "powershell",

@@ -40,6 +40,7 @@ import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import objectiveCCoverage from "./inputs/objective-c-coverage.m" with { type: "text" };
 import objectiveCppCoverage from "./inputs/objective-cpp-coverage.mm" with { type: "text" };
 import pascalCoverage from "./inputs/pascal-coverage.pas" with { type: "text" };
+import perlCoverage from "./inputs/perl-coverage.pl" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpCoverage from "./inputs/php-coverage.php" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
@@ -1177,6 +1178,7 @@ export const inputs: Input[] = [
   { lang: "pascal", name: "sample", url: `${samples}/pascal.sample` },
   // Perl runs on the TextMate engine. Its heredocs hand HTML, XML, CSS,
   // JavaScript and SQL to their lexers.
+  { lang: "perl", name: "coverage", text: perlCoverage },
   { lang: "perl", name: "embedded", text: perlEmbedded },
   { lang: "perl", name: "sample", url: `${samples}/perl.sample` },
   { lang: "perl", name: "sqitch-engine-pg", url: `${sqitch}/lib/App/Sqitch/Engine/pg.pm` },

@@ -1,0 +1,2901 @@
+L #!/usr/bin/perl
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 15 source.perl comment.line.number-sign.perl
+L # Perl written for nishiki's oracle, to reach every expression of the grammar.
+T 1 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 78 source.perl comment.line.number-sign.perl
+L   # an indented comment
+T 2 source.perl punctuation.whitespace.comment.leading.perl
+T 3 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 23 source.perl comment.line.number-sign.perl
+L 	# a tab-indented comment
+T 1 source.perl punctuation.whitespace.comment.leading.perl
+T 2 source.perl comment.line.number-sign.perl punctuation.definition.comment.perl
+T 25 source.perl comment.line.number-sign.perl
+L use strict;
+T 3 source.perl keyword.control.perl
+T 11 source.perl
+L use warnings;
+T 3 source.perl keyword.control.perl
+T 13 source.perl
+L package Foo::Bar;
+T 7 source.perl meta.class.perl keyword.control.perl
+T 8 source.perl meta.class.perl
+T 16 source.perl meta.class.perl entity.name.type.class.perl
+T 17 source.perl
+L   package Baz 1.0;
+T 2 source.perl meta.class.perl
+T 9 source.perl meta.class.perl keyword.control.perl
+T 10 source.perl meta.class.perl
+T 13 source.perl meta.class.perl entity.name.type.class.perl
+T 18 source.perl
+L 
+L BEGIN { print "start\n"; }
+T 5 source.perl meta.function.perl entity.name.function.perl
+T 8 source.perl
+T 13 source.perl support.function.perl
+T 14 source.perl
+T 15 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 20 source.perl string.quoted.double.perl
+T 22 source.perl string.quoted.double.perl constant.character.escape.perl
+T 23 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 26 source.perl
+L   END { print "end\n" }
+T 2 source.perl meta.function.perl
+T 5 source.perl meta.function.perl entity.name.function.perl
+T 8 source.perl
+T 13 source.perl support.function.perl
+T 14 source.perl
+T 15 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 18 source.perl string.quoted.double.perl
+T 20 source.perl string.quoted.double.perl constant.character.escape.perl
+T 21 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 23 source.perl
+L INIT { 1 }
+T 4 source.perl meta.function.perl entity.name.function.perl
+T 6 source.perl
+T 9 source.perl constant.other.bareword.perl
+T 10 source.perl
+L CHECK { 1 }
+T 5 source.perl meta.function.perl entity.name.function.perl
+T 7 source.perl
+T 10 source.perl constant.other.bareword.perl
+T 11 source.perl
+L UNITCHECK { 1 }
+T 9 source.perl meta.function.perl entity.name.function.perl
+T 11 source.perl
+T 14 source.perl constant.other.bareword.perl
+T 15 source.perl
+L DESTROY { 1 }
+T 7 source.perl meta.function.perl entity.name.function.perl
+T 9 source.perl
+T 12 source.perl constant.other.bareword.perl
+T 13 source.perl
+L 
+L my ($a, $b) = @_;
+T 2 source.perl storage.modifier.perl
+T 4 source.perl
+T 5 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.predefined.perl
+T 8 source.perl
+T 9 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.predefined.perl
+T 14 source.perl
+T 15 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.special.perl
+T 17 source.perl
+L our %h = (key => 1, other => 2);
+T 3 source.perl storage.modifier.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 13 source.perl constant.other.key.perl
+T 14 source.perl
+T 16 source.perl keyword.operator.comparison.perl
+T 20 source.perl
+T 25 source.perl constant.other.key.perl
+T 26 source.perl
+T 28 source.perl keyword.operator.comparison.perl
+T 32 source.perl
+L local $_ = shift;
+T 5 source.perl storage.modifier.perl
+T 6 source.perl
+T 7 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.predefined.perl
+T 11 source.perl
+T 16 source.perl support.function.perl
+T 17 source.perl
+L my @list = (1, 2, 3);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 21 source.perl
+L print $#list, $#{$r}, $#_, @list[1..2], %h, "\n";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 14 source.perl
+T 15 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.predefined.perl
+T 17 source.perl
+T 18 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.readwrite.global.perl
+T 22 source.perl
+T 24 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 25 source.perl variable.other.readwrite.global.special.perl
+T 27 source.perl
+T 28 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 32 source.perl variable.other.readwrite.global.perl
+T 40 source.perl
+T 41 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 42 source.perl variable.other.readwrite.global.perl
+T 44 source.perl
+T 45 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 47 source.perl string.quoted.double.perl constant.character.escape.perl
+T 48 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 49 source.perl
+L print ${x}, ${::y}, $Foo::bar, $::z, $$, $7a, @_, %_;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl
+T 14 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 17 source.perl variable.other.readwrite.global.perl
+T 18 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl
+T 21 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 29 source.perl variable.other.readwrite.global.perl
+T 31 source.perl
+T 32 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 33 source.perl variable.other.predefined.perl
+T 37 source.perl
+T 38 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 39 source.perl variable.other.predefined.perl
+T 41 source.perl
+T 42 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 44 source.perl variable.other.readwrite.global.perl
+T 46 source.perl
+T 47 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 48 source.perl variable.other.readwrite.global.special.perl
+T 50 source.perl
+T 51 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 52 source.perl variable.other.readwrite.global.special.perl
+T 53 source.perl
+L print $&, $`, $', $+, $", $0, $!, $@, $/, $\, $;, $|, $~, $^, $a, $b, $_;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 7 source.perl variable.other.regexp.match.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.regexp.match.perl
+T 10 source.perl
+T 11 source.perl variable.other.regexp.pre-match.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.regexp.pre-match.perl
+T 14 source.perl
+T 15 source.perl variable.other.regexp.post-match.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.regexp.post-match.perl
+T 18 source.perl
+T 19 source.perl variable.other.regexp.last-paren-match.perl punctuation.definition.variable.perl
+T 20 source.perl variable.other.regexp.last-paren-match.perl
+T 22 source.perl
+T 23 source.perl variable.other.readwrite.list-separator.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.list-separator.perl
+T 26 source.perl
+T 27 source.perl variable.other.predefined.program-name.perl punctuation.definition.variable.perl
+T 28 source.perl variable.other.predefined.program-name.perl
+T 30 source.perl
+T 31 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 32 source.perl variable.other.predefined.perl
+T 34 source.perl
+T 35 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 36 source.perl variable.other.predefined.perl
+T 38 source.perl
+T 39 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 40 source.perl variable.other.predefined.perl
+T 42 source.perl
+T 43 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 44 source.perl variable.other.predefined.perl
+T 46 source.perl
+T 47 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 48 source.perl variable.other.predefined.perl
+T 50 source.perl
+T 51 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 52 source.perl variable.other.predefined.perl
+T 54 source.perl
+T 55 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 56 source.perl variable.other.predefined.perl
+T 58 source.perl
+T 59 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 60 source.perl variable.other.predefined.perl
+T 62 source.perl
+T 63 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 64 source.perl variable.other.predefined.perl
+T 66 source.perl
+T 67 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 68 source.perl variable.other.predefined.perl
+T 70 source.perl
+T 71 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 72 source.perl variable.other.predefined.perl
+T 73 source.perl
+L print $1, $12, $0;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 7 source.perl variable.other.subpattern.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.subpattern.perl
+T 10 source.perl
+T 11 source.perl variable.other.subpattern.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.subpattern.perl
+T 15 source.perl
+T 16 source.perl variable.other.predefined.program-name.perl punctuation.definition.variable.perl
+T 17 source.perl variable.other.predefined.program-name.perl
+T 18 source.perl
+L print @0, %_, $#9, $_1;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 7 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.special.perl
+T 10 source.perl
+T 11 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.special.perl
+T 14 source.perl
+T 16 source.perl variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 17 source.perl variable.other.readwrite.global.special.perl
+T 23 source.perl
+L print $h{key}, $h->{key}, $r->[0], @{$r}, %$r;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 7 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl constant.other.bareword.perl
+T 15 source.perl
+T 16 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 17 source.perl variable.other.readwrite.global.perl
+T 19 source.perl keyword.operator.comparison.perl
+T 20 source.perl
+T 23 source.perl constant.other.bareword.perl
+T 26 source.perl
+T 27 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 28 source.perl variable.other.readwrite.global.perl
+T 30 source.perl keyword.operator.comparison.perl
+T 37 source.perl
+T 38 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 39 source.perl variable.other.readwrite.global.perl
+T 42 source.perl
+T 43 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 45 source.perl variable.other.readwrite.global.perl
+T 46 source.perl
+L print { key }, {other};
+T 5 source.perl support.function.perl
+T 7 source.perl
+T 12 source.perl constant.other.bareword.perl
+T 16 source.perl
+T 21 source.perl constant.other.bareword.perl
+T 23 source.perl
+L print {} ;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 7 source.perl punctuation.section.scope.begin.perl
+T 8 source.perl punctuation.section.scope.end.perl
+T 10 source.perl
+L print ();
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 7 source.perl punctuation.section.scope.begin.perl
+T 8 source.perl punctuation.section.scope.end.perl
+T 9 source.perl
+L 
+L sub plain {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 9 source.perl meta.function.perl entity.name.function.perl
+T 10 source.perl meta.function.perl
+T 11 source.perl
+L     my $self = shift;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 20 source.perl support.function.perl
+T 21 source.perl
+L     return;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 10 source.perl keyword.control.perl
+T 11 source.perl
+L }
+T 1 source.perl
+L sub with_proto($$;@) { 1 }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 14 source.perl meta.function.perl entity.name.function.perl
+T 21 source.perl meta.function.perl
+T 22 source.perl
+T 25 source.perl constant.other.bareword.perl
+T 26 source.perl
+L sub dashed-name
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 15 source.perl meta.function.perl entity.name.function.perl
+L sub {
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 5 source.perl
+L sub named;
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 9 source.perl meta.function.perl entity.name.function.perl
+T 10 source.perl meta.function.perl
+L sub spaced ($) { 1 }
+T 3 source.perl meta.function.perl storage.type.sub.perl
+T 4 source.perl meta.function.perl
+T 10 source.perl meta.function.perl entity.name.function.perl
+T 15 source.perl meta.function.perl
+T 16 source.perl
+T 19 source.perl constant.other.bareword.perl
+T 20 source.perl
+L 
+L if ($a and $b or not $c xor $d) {
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.predefined.perl
+T 7 source.perl
+T 10 source.perl keyword.operator.logical.perl
+T 11 source.perl
+T 12 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.predefined.perl
+T 14 source.perl
+T 16 source.perl keyword.operator.logical.perl
+T 17 source.perl
+T 20 source.perl keyword.operator.logical.perl
+T 21 source.perl
+T 22 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 24 source.perl
+T 27 source.perl keyword.operator.logical.perl
+T 28 source.perl
+T 29 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 30 source.perl variable.other.readwrite.global.perl
+T 33 source.perl
+L     print "yes" if $a;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 9 source.perl support.function.perl
+T 10 source.perl
+T 11 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.quoted.double.perl
+T 15 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 16 source.perl
+T 18 source.perl keyword.control.perl
+T 19 source.perl
+T 20 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 21 source.perl variable.other.predefined.perl
+T 22 source.perl
+L } elsif ($b) {
+T 2 source.perl
+T 7 source.perl keyword.control.perl
+T 9 source.perl
+T 10 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.predefined.perl
+T 14 source.perl
+L     die "no" unless $ok;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 7 source.perl keyword.control.perl
+T 8 source.perl
+T 9 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 11 source.perl string.quoted.double.perl
+T 12 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 13 source.perl
+T 19 source.perl keyword.control.perl
+T 20 source.perl
+T 21 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 24 source.perl
+L } else {
+T 2 source.perl
+T 6 source.perl keyword.control.perl
+T 8 source.perl
+L     last;
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl keyword.control.perl
+T 9 source.perl
+L }
+T 1 source.perl
+L while (my $line = <STDIN>) { next if /^#/; redo; }
+T 5 source.perl keyword.control.perl
+T 7 source.perl
+T 9 source.perl storage.modifier.perl
+T 10 source.perl
+T 11 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.readwrite.global.perl
+T 19 source.perl
+T 24 source.perl support.function.perl
+T 29 source.perl
+T 33 source.perl keyword.control.perl
+T 34 source.perl
+T 36 source.perl keyword.control.perl
+T 37 source.perl
+T 38 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 40 source.perl string.regexp.find.perl
+T 41 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 43 source.perl
+T 47 source.perl keyword.control.perl
+T 50 source.perl
+L until ($done) { do { 1 } }
+T 5 source.perl keyword.control.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 16 source.perl
+T 18 source.perl keyword.control.perl
+T 20 source.perl
+T 23 source.perl constant.other.bareword.perl
+T 26 source.perl
+L for my $i (0 .. $#list) { goto LABEL; }
+T 3 source.perl keyword.control.perl
+T 4 source.perl
+T 6 source.perl storage.modifier.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 16 source.perl
+T 18 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 22 source.perl variable.other.readwrite.global.perl
+T 26 source.perl
+T 30 source.perl keyword.control.perl
+T 39 source.perl
+L foreach (@list) { continue }
+T 7 source.perl keyword.control.perl
+T 9 source.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 14 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 27 source.perl constant.other.bareword.perl
+T 28 source.perl
+L given ($x) { when (1) { default { 1 } } }
+T 5 source.perl keyword.control.perl
+T 7 source.perl
+T 8 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+T 17 source.perl keyword.control.perl
+T 24 source.perl
+T 31 source.perl keyword.control.perl
+T 33 source.perl
+T 36 source.perl constant.other.bareword.perl
+T 41 source.perl
+L switch ($x) { case 1 { 1 } }
+T 6 source.perl keyword.control.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.readwrite.global.perl
+T 14 source.perl
+T 18 source.perl keyword.control.perl
+T 22 source.perl
+T 25 source.perl constant.other.bareword.perl
+T 28 source.perl
+L my $v = eval { require Exporter; wait; select(undef, undef, undef, 0.1); exit 0 };
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 5 source.perl variable.other.readwrite.global.perl
+T 8 source.perl
+T 12 source.perl keyword.control.perl
+T 15 source.perl
+T 22 source.perl keyword.control.perl
+T 33 source.perl
+T 37 source.perl keyword.control.perl
+T 39 source.perl
+T 45 source.perl keyword.control.perl
+T 46 source.perl
+T 51 source.perl support.function.perl
+T 53 source.perl
+T 58 source.perl support.function.perl
+T 60 source.perl
+T 65 source.perl support.function.perl
+T 73 source.perl
+T 77 source.perl keyword.control.perl
+T 82 source.perl
+L use constant PI => 3.14;
+T 3 source.perl keyword.control.perl
+T 13 source.perl
+T 15 source.perl constant.other.key.perl
+T 16 source.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 24 source.perl
+L $obj->die; $obj->if;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 6 source.perl keyword.operator.comparison.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 15 source.perl variable.other.readwrite.global.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 20 source.perl
+L 
+L print -e $file, -d _, -f $f, -A $f, -X $f, -z $f, -s $f;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl keyword.operator.filetest.perl
+T 9 source.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 14 source.perl variable.other.readwrite.global.perl
+T 16 source.perl
+T 18 source.perl keyword.operator.filetest.perl
+T 22 source.perl
+T 24 source.perl keyword.operator.filetest.perl
+T 25 source.perl
+T 26 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 27 source.perl variable.other.readwrite.global.perl
+T 29 source.perl
+T 31 source.perl keyword.operator.filetest.perl
+T 32 source.perl
+T 33 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 34 source.perl variable.other.readwrite.global.perl
+T 36 source.perl
+T 38 source.perl keyword.operator.filetest.perl
+T 39 source.perl
+T 40 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 41 source.perl variable.other.readwrite.global.perl
+T 43 source.perl
+T 45 source.perl keyword.operator.filetest.perl
+T 46 source.perl
+T 47 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 48 source.perl variable.other.readwrite.global.perl
+T 50 source.perl
+T 52 source.perl keyword.operator.filetest.perl
+T 53 source.perl
+T 54 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 55 source.perl variable.other.readwrite.global.perl
+T 56 source.perl
+L my $cmp = $a <=> $b;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.predefined.perl
+T 13 source.perl
+T 16 source.perl keyword.operator.comparison.perl
+T 17 source.perl
+T 18 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 19 source.perl variable.other.predefined.perl
+T 20 source.perl
+L my $ref = \@list;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 12 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+L my $arrow = $r->method;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 12 source.perl
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 14 source.perl variable.other.readwrite.global.perl
+T 16 source.perl keyword.operator.comparison.perl
+T 23 source.perl
+L my %pairs = (a => 1);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 9 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+T 14 source.perl constant.other.key.perl
+T 15 source.perl
+T 17 source.perl keyword.operator.comparison.perl
+T 21 source.perl
+L my $rep = "-" x 10;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 12 source.perl string.quoted.double.perl
+T 13 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 14 source.perl
+T 15 source.perl support.function.perl
+T 16 source.perl
+T 18 source.perl entity.name.function.perl
+T 19 source.perl
+L my $rep2 = "=" x3;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 12 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.double.perl
+T 14 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 15 source.perl
+T 16 source.perl support.function.perl
+T 17 source.perl entity.name.function.perl
+T 18 source.perl
+L 
+L print __FILE__, __LINE__, __PACKAGE__, __SUB__, "\n";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 14 source.perl constant.language.perl
+T 16 source.perl
+T 24 source.perl constant.language.perl
+T 26 source.perl
+T 37 source.perl constant.language.perl
+T 39 source.perl
+T 46 source.perl constant.language.perl
+T 48 source.perl
+T 49 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 51 source.perl string.quoted.double.perl constant.character.escape.perl
+T 52 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 53 source.perl
+L binmode STDOUT, ':utf8';
+T 7 source.perl support.function.perl
+T 8 source.perl
+T 14 source.perl support.function.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 22 source.perl string.quoted.single.perl
+T 23 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 24 source.perl
+L open(my $fh, '<', $file) or die "cannot open: $!";
+T 4 source.perl support.function.perl
+T 5 source.perl
+T 7 source.perl storage.modifier.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+T 14 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 15 source.perl string.quoted.single.perl
+T 16 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 18 source.perl
+T 19 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 23 source.perl variable.other.readwrite.global.perl
+T 25 source.perl
+T 27 source.perl keyword.operator.logical.perl
+T 28 source.perl
+T 31 source.perl keyword.control.perl
+T 32 source.perl
+T 33 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 46 source.perl string.quoted.double.perl
+T 47 source.perl string.quoted.double.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 48 source.perl string.quoted.double.perl variable.other.predefined.perl
+T 49 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 50 source.perl
+L my $text = join(',', map { lc } sort grep { defined } keys %h);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 15 source.perl support.function.perl
+T 16 source.perl
+T 17 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 18 source.perl string.quoted.single.perl
+T 19 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 21 source.perl
+T 24 source.perl support.function.perl
+T 26 source.perl
+T 30 source.perl constant.other.bareword.perl
+T 32 source.perl
+T 36 source.perl support.function.perl
+T 37 source.perl
+T 41 source.perl support.function.perl
+T 43 source.perl
+T 52 source.perl constant.other.bareword.perl
+T 54 source.perl
+T 58 source.perl support.function.perl
+T 59 source.perl
+T 60 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 61 source.perl variable.other.readwrite.global.perl
+T 63 source.perl
+L printf STDERR "%s\n", ucfirst(lc($text));
+T 6 source.perl support.function.perl
+T 7 source.perl
+T 13 source.perl support.function.perl
+T 14 source.perl
+T 15 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 16 source.perl string.quoted.double.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 17 source.perl string.quoted.double.perl variable.other.readwrite.global.perl
+T 19 source.perl string.quoted.double.perl constant.character.escape.perl
+T 20 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 22 source.perl
+T 29 source.perl support.function.perl
+T 30 source.perl
+T 32 source.perl support.function.perl
+T 33 source.perl
+T 34 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 38 source.perl variable.other.readwrite.global.perl
+T 41 source.perl
+L my $time = localtime; chomp(my $in = <STDIN>); bless {}, __PACKAGE__;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 20 source.perl support.function.perl
+T 22 source.perl
+T 27 source.perl support.function.perl
+T 28 source.perl
+T 30 source.perl storage.modifier.perl
+T 31 source.perl
+T 32 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 34 source.perl variable.other.readwrite.global.perl
+T 38 source.perl
+T 43 source.perl support.function.perl
+T 47 source.perl
+T 52 source.perl support.function.perl
+T 53 source.perl
+T 54 source.perl punctuation.section.scope.begin.perl
+T 55 source.perl punctuation.section.scope.end.perl
+T 57 source.perl
+T 68 source.perl constant.language.perl
+T 69 source.perl
+L wantarray ? 1 : 0;
+T 9 source.perl support.function.perl
+T 18 source.perl
+L 
+L my $s1 = 'single \' quote \\ done';
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 17 source.perl string.quoted.single.perl
+T 19 source.perl string.quoted.single.perl constant.character.escape.perl
+T 26 source.perl string.quoted.single.perl
+T 28 source.perl string.quoted.single.perl constant.character.escape.perl
+T 33 source.perl string.quoted.single.perl
+T 34 source.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 35 source.perl
+L my $s2 = "double $a @list ${b} \n\t\x41\x{263A}\N{U+41}\cA\o{17}\101\e\0";
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 17 source.perl string.quoted.double.perl
+T 18 source.perl string.quoted.double.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 19 source.perl string.quoted.double.perl variable.other.predefined.perl
+T 20 source.perl string.quoted.double.perl
+T 21 source.perl string.quoted.double.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 25 source.perl string.quoted.double.perl variable.other.readwrite.global.perl
+T 26 source.perl string.quoted.double.perl
+T 28 source.perl string.quoted.double.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 29 source.perl string.quoted.double.perl variable.other.readwrite.global.perl
+T 30 source.perl string.quoted.double.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 31 source.perl string.quoted.double.perl
+T 33 source.perl string.quoted.double.perl constant.character.escape.perl
+T 35 source.perl string.quoted.double.perl constant.character.escape.perl
+T 39 source.perl string.quoted.double.perl constant.character.escape.perl
+T 47 source.perl string.quoted.double.perl constant.character.escape.perl
+T 55 source.perl string.quoted.double.perl constant.character.escape.perl
+T 58 source.perl string.quoted.double.perl constant.character.escape.perl
+T 64 source.perl string.quoted.double.perl constant.character.escape.perl
+T 68 source.perl string.quoted.double.perl constant.character.escape.perl
+T 70 source.perl string.quoted.double.perl constant.character.escape.perl
+T 72 source.perl string.quoted.double.perl constant.character.escape.perl
+T 73 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 74 source.perl
+L my $s3 = `ls -l $dir`;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl string.interpolated.perl punctuation.definition.string.begin.perl
+T 16 source.perl string.interpolated.perl
+T 17 source.perl string.interpolated.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 20 source.perl string.interpolated.perl variable.other.readwrite.global.perl
+T 21 source.perl string.interpolated.perl punctuation.definition.string.end.perl
+T 22 source.perl
+L my $re1 = qr{a\d+(?:b|c)}i;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.nested_braces.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.nested_braces.perl
+T 16 source.perl string.regexp.compile.nested_braces.perl constant.character.escape.perl
+T 24 source.perl string.regexp.compile.nested_braces.perl
+T 25 source.perl string.regexp.compile.nested_braces.perl punctuation.definition.string.perl
+T 26 source.perl string.regexp.compile.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 27 source.perl
+L my $re2 = qr[a\w+]x;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.nested_brackets.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.nested_brackets.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.nested_brackets.perl
+T 16 source.perl string.regexp.compile.nested_brackets.perl constant.character.escape.perl
+T 17 source.perl string.regexp.compile.nested_brackets.perl
+T 18 source.perl string.regexp.compile.nested_brackets.perl punctuation.definition.string.perl
+T 19 source.perl string.regexp.compile.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 20 source.perl
+L my $re3 = qr<a\s+>;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.nested_ltgt.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.nested_ltgt.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.nested_ltgt.perl
+T 16 source.perl string.regexp.compile.nested_ltgt.perl constant.character.escape.perl
+T 17 source.perl string.regexp.compile.nested_ltgt.perl
+T 18 source.perl string.regexp.compile.nested_ltgt.perl punctuation.definition.string.perl
+T 19 source.perl
+L my $re4 = qr(a(b)c$);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.nested_parens.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.nested_parens.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.nested_parens.perl
+T 15 source.perl string.regexp.compile.nested_parens.perl
+T 16 source.perl string.regexp.compile.nested_parens.perl
+T 17 source.perl string.regexp.compile.nested_parens.perl
+T 18 source.perl string.regexp.compile.nested_parens.perl
+T 19 source.perl string.regexp.compile.nested_parens.perl
+T 20 source.perl string.regexp.compile.nested_parens.perl punctuation.definition.string.perl
+T 21 source.perl
+L my $re5 = qr'a$b';
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.single-quote.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.single-quote.perl punctuation.definition.string.perl
+T 16 source.perl string.regexp.compile.single-quote.perl
+T 17 source.perl string.regexp.compile.single-quote.perl punctuation.definition.string.perl
+T 18 source.perl
+L my $re6 = qr/a\/b/msix;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.simple-delimiter.perl
+T 16 source.perl string.regexp.compile.simple-delimiter.perl constant.character.escape.perl
+T 17 source.perl string.regexp.compile.simple-delimiter.perl
+T 18 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 22 source.perl string.regexp.compile.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 23 source.perl
+L my $re7 = qr!a\!b!;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.simple-delimiter.perl
+T 16 source.perl string.regexp.compile.simple-delimiter.perl constant.character.escape.perl
+T 17 source.perl string.regexp.compile.simple-delimiter.perl
+T 18 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 19 source.perl
+L my $re8 = qr #a#;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 14 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 15 source.perl string.regexp.compile.simple-delimiter.perl
+T 16 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 17 source.perl
+L my $re9 = qr/a$/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.compile.simple-delimiter.perl
+T 15 source.perl string.regexp.compile.simple-delimiter.perl keyword.control.anchor.perl
+T 16 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 17 source.perl
+L my $re10 = qr(a(b$)c);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 13 source.perl string.regexp.compile.nested_parens.perl punctuation.definition.string.perl support.function.perl
+T 14 source.perl string.regexp.compile.nested_parens.perl punctuation.definition.string.perl
+T 15 source.perl string.regexp.compile.nested_parens.perl
+T 16 source.perl string.regexp.compile.nested_parens.perl
+T 17 source.perl string.regexp.compile.nested_parens.perl
+T 18 source.perl string.regexp.compile.nested_parens.perl keyword.control.anchor.perl
+T 19 source.perl string.regexp.compile.nested_parens.perl
+T 20 source.perl string.regexp.compile.nested_parens.perl
+T 21 source.perl string.regexp.compile.nested_parens.perl punctuation.definition.string.perl
+T 22 source.perl
+L my $re11 = qr!a$!;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 11 source.perl
+T 13 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 14 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 15 source.perl string.regexp.compile.simple-delimiter.perl
+T 16 source.perl string.regexp.compile.simple-delimiter.perl keyword.control.anchor.perl
+T 17 source.perl string.regexp.compile.simple-delimiter.perl punctuation.definition.string.perl
+T 18 source.perl
+L if ($x =~ m{a{2}b}g) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.nested_braces.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.nested_braces.perl
+T 14 source.perl string.regexp.find-m.nested_braces.perl
+T 15 source.perl string.regexp.find-m.nested_braces.perl
+T 16 source.perl string.regexp.find-m.nested_braces.perl
+T 17 source.perl string.regexp.find-m.nested_braces.perl
+T 18 source.perl string.regexp.find-m.nested_braces.perl punctuation.definition.string.perl
+T 19 source.perl string.regexp.find-m.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 22 source.perl
+T 25 source.perl constant.other.bareword.perl
+T 26 source.perl
+L if ($x =~ m[a[b]c]) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.nested_brackets.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.nested_brackets.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.nested_brackets.perl
+T 14 source.perl string.regexp.find-m.nested_brackets.perl
+T 15 source.perl string.regexp.find-m.nested_brackets.perl
+T 16 source.perl string.regexp.find-m.nested_brackets.perl
+T 17 source.perl string.regexp.find-m.nested_brackets.perl
+T 18 source.perl string.regexp.find-m.nested_brackets.perl punctuation.definition.string.perl
+T 21 source.perl
+T 24 source.perl constant.other.bareword.perl
+T 25 source.perl
+L if ($x =~ m<a<b>c>) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.nested_ltgt.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.nested_ltgt.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.nested_ltgt.perl
+T 14 source.perl string.regexp.find-m.nested_ltgt.perl
+T 15 source.perl string.regexp.find-m.nested_ltgt.perl
+T 16 source.perl string.regexp.find-m.nested_ltgt.perl
+T 17 source.perl string.regexp.find-m.nested_ltgt.perl
+T 18 source.perl string.regexp.find-m.nested_ltgt.perl punctuation.definition.string.perl
+T 21 source.perl
+T 24 source.perl constant.other.bareword.perl
+T 25 source.perl
+L if ($x =~ m(a(b)c)) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.nested_parens.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.nested_parens.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.nested_parens.perl
+T 14 source.perl string.regexp.find-m.nested_parens.perl
+T 15 source.perl string.regexp.find-m.nested_parens.perl
+T 16 source.perl string.regexp.find-m.nested_parens.perl
+T 17 source.perl string.regexp.find-m.nested_parens.perl
+T 18 source.perl string.regexp.find-m.nested_parens.perl punctuation.definition.string.perl
+T 21 source.perl
+T 24 source.perl constant.other.bareword.perl
+T 25 source.perl
+L if ($x =~ m'a$b') { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.single-quote.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.single-quote.perl punctuation.definition.string.perl
+T 15 source.perl string.regexp.find-m.single-quote.perl
+T 16 source.perl string.regexp.find-m.single-quote.perl punctuation.definition.string.perl
+T 19 source.perl
+T 22 source.perl constant.other.bareword.perl
+T 23 source.perl
+L if ($x =~ m/a\/b$/i) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.simple-delimiter.perl
+T 15 source.perl string.regexp.find-m.simple-delimiter.perl constant.character.escape.perl
+T 16 source.perl string.regexp.find-m.simple-delimiter.perl
+T 17 source.perl string.regexp.find-m.simple-delimiter.perl keyword.control.anchor.perl
+T 18 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 19 source.perl string.regexp.find-m.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 22 source.perl
+T 25 source.perl constant.other.bareword.perl
+T 26 source.perl
+L if ($x =~ m!a$!) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.simple-delimiter.perl
+T 14 source.perl string.regexp.find-m.simple-delimiter.perl keyword.control.anchor.perl
+T 15 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 18 source.perl
+T 21 source.perl constant.other.bareword.perl
+T 22 source.perl
+L if ($x =~ m _a_) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 13 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.find-m.simple-delimiter.perl
+T 15 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 18 source.perl
+T 21 source.perl constant.other.bareword.perl
+T 22 source.perl
+L if ($x =~ m#a[b]c#) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.simple-delimiter.perl
+T 14 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 15 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 16 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 17 source.perl string.regexp.find-m.simple-delimiter.perl
+T 18 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 21 source.perl
+T 24 source.perl constant.other.bareword.perl
+T 25 source.perl
+L if ($x =~ m/a[b$]c/) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.simple-delimiter.perl
+T 14 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 15 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 16 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl keyword.control.anchor.perl
+T 17 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 18 source.perl string.regexp.find-m.simple-delimiter.perl
+T 19 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 22 source.perl
+T 25 source.perl constant.other.bareword.perl
+T 26 source.perl
+L if ($x =~ m!a[$]!) { 1 }
+T 2 source.perl keyword.control.perl
+T 4 source.perl
+T 5 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl support.function.perl
+T 12 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.find-m.simple-delimiter.perl
+T 14 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 15 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl keyword.control.anchor.perl
+T 16 source.perl string.regexp.find-m.simple-delimiter.perl constant.other.character-class.set.perl
+T 17 source.perl string.regexp.find-m.simple-delimiter.perl punctuation.definition.string.perl
+T 20 source.perl
+T 23 source.perl constant.other.bareword.perl
+T 24 source.perl
+L $x =~ s{a}{b}g;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.format.nested_braces.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.format.nested_braces.perl
+T 13 source.perl string.regexp.format.nested_braces.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 15 source.perl
+L $x =~ s[a{1}][b]e;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_brackets.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_brackets.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.nested_brackets.perl
+T 13 source.perl string.regexp.nested_brackets.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.format.nested_brackets.perl punctuation.definition.string.perl
+T 15 source.perl string.regexp.format.nested_brackets.perl
+T 16 source.perl string.regexp.format.nested_brackets.perl punctuation.definition.string.perl
+T 17 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 18 source.perl
+L $x =~ s<a><b>;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_ltgt.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_ltgt.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_ltgt.perl
+T 10 source.perl string.regexp.nested_ltgt.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.format.nested_ltgt.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.format.nested_ltgt.perl
+T 13 source.perl string.regexp.format.nested_ltgt.perl punctuation.definition.string.perl
+T 14 source.perl
+L $x =~ s(a(b))(c);
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_parens.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_parens.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_parens.perl
+T 10 source.perl string.regexp.nested_parens.perl
+T 11 source.perl string.regexp.nested_parens.perl
+T 12 source.perl string.regexp.nested_parens.perl
+T 13 source.perl string.regexp.nested_parens.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.format.nested_parens.perl punctuation.definition.string.perl
+T 15 source.perl string.regexp.format.nested_parens.perl
+T 16 source.perl string.regexp.format.nested_parens.perl punctuation.definition.string.perl
+T 17 source.perl
+L $x =~ s{a}
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+L   {b}x;
+T 3 source.perl
+T 4 source.perl constant.other.bareword.perl
+T 7 source.perl
+L $x =~ s{a} [b];
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 11 source.perl
+T 12 source.perl string.regexp.format.nested_brackets.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.format.nested_brackets.perl
+T 14 source.perl string.regexp.format.nested_brackets.perl punctuation.definition.string.perl
+T 15 source.perl
+L $x =~ s{a} <b>;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 11 source.perl
+T 12 source.perl string.regexp.format.nested_ltgt.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.format.nested_ltgt.perl
+T 14 source.perl string.regexp.format.nested_ltgt.perl punctuation.definition.string.perl
+T 15 source.perl
+L $x =~ s{a} (b);
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 11 source.perl
+T 12 source.perl string.regexp.format.nested_parens.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.format.nested_parens.perl
+T 14 source.perl string.regexp.format.nested_parens.perl punctuation.definition.string.perl
+T 15 source.perl
+L $x =~ s{a} 'b\'c';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 11 source.perl
+T 12 source.perl string.regexp.format.single_quote.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.format.single_quote.perl
+T 15 source.perl string.regexp.format.single_quote.perl constant.character.escape.perl
+T 16 source.perl string.regexp.format.single_quote.perl
+T 17 source.perl string.regexp.format.single_quote.perl punctuation.definition.string.perl
+T 18 source.perl
+L $x =~ s{a} /b/;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.nested_braces.perl
+T 10 source.perl string.regexp.nested_braces.perl punctuation.definition.string.perl
+T 11 source.perl
+T 12 source.perl string.regexp.format.simple_delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.format.simple_delimiter.perl
+T 14 source.perl string.regexp.format.simple_delimiter.perl punctuation.definition.string.perl
+T 15 source.perl
+L $x =~ s'a'b\'c';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 10 source.perl string.regexp.replaceXXX.format.single_quote.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.replaceXXX.format.single_quote.perl
+T 13 source.perl string.regexp.replaceXXX.format.single_quote.perl constant.character.escape.perl.perl
+T 14 source.perl string.regexp.replaceXXX.format.single_quote.perl
+T 15 source.perl string.regexp.replaceXXX.format.single_quote.perl punctuation.definition.string.perl
+T 16 source.perl
+L $x =~ s/a\/b/c/g;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 11 source.perl string.regexp.replaceXXX.simple_delimiter.perl constant.character.escape.perl
+T 12 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 13 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 15 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 16 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 17 source.perl
+L $x =~ s|a|b|;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 10 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 12 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 13 source.perl
+L $x =~ s#a#b#;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 10 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 12 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 13 source.perl
+L $x =~ s/a/b$/x;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 10 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 13 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 15 source.perl
+L $x =~ s'a'b'x;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 10 source.perl string.regexp.replaceXXX.format.single_quote.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.replaceXXX.format.single_quote.perl
+T 12 source.perl string.regexp.replaceXXX.format.single_quote.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 14 source.perl
+L $x =~ s!a!b!xg;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 10 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 12 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 15 source.perl
+L $x =~ s %a%b%;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 8 source.perl
+T 9 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 10 source.perl variable.other.readwrite.global.perl
+T 11 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 12 source.perl variable.other.readwrite.global.perl
+T 14 source.perl
+L $x =~ s/a
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replace.extended.simple_delimiter.perl
+L   b/c/xg;
+T 3 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 4 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 5 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 6 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 8 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 9 source.perl
+L $x =~ s'a
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replace.extended.simple_delimiter.perl
+L   b'c'x;
+T 3 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 4 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 5 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 6 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 7 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 8 source.perl
+L $x =~ s!a
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replace.extended.simple_delimiter.perl
+L   !b!x;
+T 2 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 3 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 4 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 5 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 6 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 7 source.perl
+L $x =~ s/a/b/x.$y;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 8 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 10 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.replace.extended.simple_delimiter.perl
+T 12 source.perl string.regexp.replace.extended.simple_delimiter.perl punctuation.definition.string.perl
+T 13 source.perl string.regexp.replace.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 14 source.perl
+T 15 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+L &s/a/b/;
+T 1 source.perl
+T 2 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl support.function.perl
+T 3 source.perl string.regexp.replaceXXX.simple_delimiter.perl punctuation.definition.string.perl
+T 4 source.perl string.regexp.replaceXXX.simple_delimiter.perl
+T 5 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 6 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl
+T 7 source.perl string.regexp.replaceXXX.format.simple_delimiter.perl punctuation.definition.string.perl
+T 8 source.perl
+L $x =~ tr/a-z/A-Z/;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 8 source.perl string.regexp.replace.perl support.function.perl
+T 9 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.replace.perl
+T 13 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 16 source.perl string.regexp.replace.perl
+T 17 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 18 source.perl
+L $x =~ tr{a}{b};
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 8 source.perl support.function.perl
+T 9 source.perl
+T 10 source.perl constant.other.bareword.perl
+T 12 source.perl
+T 13 source.perl constant.other.bareword.perl
+T 15 source.perl
+L $x =~ y/\//|/cd;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.perl support.function.perl
+T 8 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 10 source.perl string.regexp.replace.perl
+T 11 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.replace.perl
+T 13 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 16 source.perl
+L $x =~ y/\\/x/;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 6 source.perl
+T 7 source.perl string.regexp.replace.perl support.function.perl
+T 8 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 10 source.perl string.regexp.replace.perl
+T 11 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.replace.perl
+T 13 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 14 source.perl
+L $y = tr/a\\\/b/c/r;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 7 source.perl string.regexp.replace.perl support.function.perl
+T 8 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 14 source.perl string.regexp.replace.perl
+T 15 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 16 source.perl string.regexp.replace.perl
+T 17 source.perl string.regexp.replace.perl punctuation.definition.string.perl
+T 19 source.perl
+L my @w1 = qw(a b c);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.begin.perl
+T 17 source.perl string.quoted.other.q-paren.perl
+T 18 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.end.perl
+T 19 source.perl
+L my @w2 = qw/a b/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.q.perl punctuation.definition.string.begin.perl
+T 15 source.perl string.quoted.other.q.perl
+T 16 source.perl string.quoted.other.q.perl punctuation.definition.string.end.perl
+T 17 source.perl
+L my @w3 = qw[x y];
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.q-bracket.perl punctuation.definition.string.begin.perl
+T 15 source.perl string.quoted.other.q-bracket.perl
+T 16 source.perl string.quoted.other.q-bracket.perl punctuation.definition.string.end.perl
+T 17 source.perl
+L my @w4 = qw{p q};
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.begin.perl
+T 15 source.perl string.quoted.other.q-brace.perl
+T 16 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.end.perl
+T 17 source.perl
+L my @w5 = qw<m n>;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.q-ltgt.perl punctuation.definition.string.begin.perl
+T 15 source.perl string.quoted.other.q-ltgt.perl
+T 16 source.perl string.quoted.other.q-ltgt.perl punctuation.definition.string.end.perl
+T 17 source.perl
+L my @w6 = q(a (b) c);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 11 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.other.q-paren.perl
+T 14 source.perl string.quoted.other.q-paren.perl
+T 15 source.perl string.quoted.other.q-paren.perl
+T 16 source.perl string.quoted.other.q-paren.perl
+T 18 source.perl string.quoted.other.q-paren.perl
+T 19 source.perl string.quoted.other.q-paren.perl punctuation.definition.string.end.perl
+T 20 source.perl
+L my @w7 = q{a {b} c};
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 11 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.other.q-brace.perl
+T 14 source.perl string.quoted.other.q-brace.perl
+T 15 source.perl string.quoted.other.q-brace.perl
+T 16 source.perl string.quoted.other.q-brace.perl
+T 18 source.perl string.quoted.other.q-brace.perl
+T 19 source.perl string.quoted.other.q-brace.perl punctuation.definition.string.end.perl
+T 20 source.perl
+L my @w8 = q[a [b] c];
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 11 source.perl string.quoted.other.q-bracket.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.other.q-bracket.perl
+T 14 source.perl string.quoted.other.q-bracket.perl
+T 15 source.perl string.quoted.other.q-bracket.perl
+T 16 source.perl string.quoted.other.q-bracket.perl
+T 18 source.perl string.quoted.other.q-bracket.perl
+T 19 source.perl string.quoted.other.q-bracket.perl punctuation.definition.string.end.perl
+T 20 source.perl
+L my @w9 = q<a <b> c>;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 11 source.perl string.quoted.other.q-ltgt.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.other.q-ltgt.perl
+T 14 source.perl string.quoted.other.q-ltgt.perl
+T 15 source.perl string.quoted.other.q-ltgt.perl
+T 16 source.perl string.quoted.other.q-ltgt.perl
+T 18 source.perl string.quoted.other.q-ltgt.perl
+T 19 source.perl string.quoted.other.q-ltgt.perl punctuation.definition.string.end.perl
+T 20 source.perl
+L my @w10 = q/a b/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl string.quoted.other.q.perl punctuation.definition.string.begin.perl
+T 15 source.perl string.quoted.other.q.perl
+T 16 source.perl string.quoted.other.q.perl punctuation.definition.string.end.perl
+T 17 source.perl
+L my $q1 = qq{a $x {b}};
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.qq-brace.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.quoted.other.qq-brace.perl
+T 15 source.perl string.quoted.other.qq-brace.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl string.quoted.other.qq-brace.perl variable.other.readwrite.global.perl
+T 17 source.perl string.quoted.other.qq-brace.perl
+T 18 source.perl string.quoted.other.qq-brace.perl
+T 19 source.perl string.quoted.other.qq-brace.perl
+T 20 source.perl string.quoted.other.qq-brace.perl
+T 21 source.perl string.quoted.other.qq-brace.perl punctuation.definition.string.end.perl
+T 22 source.perl
+L my $q2 = qq(a $y);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.qq-paren.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.quoted.other.qq-paren.perl
+T 15 source.perl string.quoted.other.qq-paren.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl string.quoted.other.qq-paren.perl variable.other.readwrite.global.perl
+T 17 source.perl string.quoted.other.qq-paren.perl punctuation.definition.string.end.perl
+T 18 source.perl
+L my $q3 = qq[a @z];
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.qq-bracket.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.quoted.other.qq-bracket.perl
+T 15 source.perl string.quoted.other.qq-bracket.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl string.quoted.other.qq-bracket.perl variable.other.readwrite.global.perl
+T 17 source.perl string.quoted.other.qq-bracket.perl punctuation.definition.string.end.perl
+T 18 source.perl
+L my $q4 = qq<a $w>;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.qq-ltgt.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.quoted.other.qq-ltgt.perl
+T 15 source.perl string.quoted.other.qq-ltgt.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl string.quoted.other.qq-ltgt.perl variable.other.readwrite.global.perl
+T 17 source.perl string.quoted.other.qq-ltgt.perl punctuation.definition.string.end.perl
+T 18 source.perl
+L my $q5 = qq/a $v/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.qq.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.quoted.other.qq.perl
+T 15 source.perl string.quoted.other.qq.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl string.quoted.other.qq.perl variable.other.readwrite.global.perl
+T 17 source.perl string.quoted.other.qq.perl punctuation.definition.string.end.perl
+T 18 source.perl
+L my $q6 = qq!a!;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.quoted.other.qq.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.other.qq.perl
+T 14 source.perl string.quoted.other.qq.perl punctuation.definition.string.end.perl
+T 15 source.perl
+L my $x1 = qx{ls};
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx-brace.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.interpolated.qx-brace.perl
+T 15 source.perl string.interpolated.qx-brace.perl punctuation.definition.string.end.perl
+T 16 source.perl
+L my $x2 = qx(ls);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx-paren.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.interpolated.qx-paren.perl
+T 15 source.perl string.interpolated.qx-paren.perl punctuation.definition.string.end.perl
+T 16 source.perl
+L my $x3 = qx[ls];
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx-bracket.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.interpolated.qx-bracket.perl
+T 15 source.perl string.interpolated.qx-bracket.perl punctuation.definition.string.end.perl
+T 16 source.perl
+L my $x4 = qx<ls>;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx-ltgt.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.interpolated.qx-ltgt.perl
+T 15 source.perl string.interpolated.qx-ltgt.perl punctuation.definition.string.end.perl
+T 16 source.perl
+L my $x5 = qx'ls $x';
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx.single-quote.perl punctuation.definition.string.begin.perl
+T 17 source.perl string.interpolated.qx.single-quote.perl
+T 18 source.perl string.interpolated.qx.single-quote.perl punctuation.definition.string.end.perl
+T 19 source.perl
+L my $x6 = qx/ls/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.interpolated.qx.perl
+T 15 source.perl string.interpolated.qx.perl punctuation.definition.string.end.perl
+T 16 source.perl
+L my $x7 = qx!ls!;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 12 source.perl string.interpolated.qx.perl punctuation.definition.string.begin.perl
+T 14 source.perl string.interpolated.qx.perl
+T 15 source.perl string.interpolated.qx.perl punctuation.definition.string.end.perl
+T 16 source.perl
+L $obj->q(1); $obj->qq(1); $obj->qx(1);
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 6 source.perl keyword.operator.comparison.perl
+T 12 source.perl
+T 13 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 16 source.perl variable.other.readwrite.global.perl
+T 18 source.perl keyword.operator.comparison.perl
+T 25 source.perl
+T 26 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 29 source.perl variable.other.readwrite.global.perl
+T 31 source.perl keyword.operator.comparison.perl
+T 37 source.perl
+L my $r1 = split /,/, $str;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 14 source.perl support.function.perl
+T 20 source.perl
+T 21 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 24 source.perl variable.other.readwrite.global.perl
+T 25 source.perl
+L my $r2 = grep { /a/ } @list;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 13 source.perl support.function.perl
+T 15 source.perl
+T 16 source.perl
+T 17 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 18 source.perl string.regexp.find.perl
+T 19 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 22 source.perl
+T 23 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 27 source.perl variable.other.readwrite.global.perl
+T 28 source.perl
+L my $r3 = ($str =~ /b+/);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 14 source.perl variable.other.readwrite.global.perl
+T 17 source.perl
+T 18 source.perl
+T 19 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 21 source.perl string.regexp.find.perl
+T 22 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 24 source.perl
+L if /c/;
+T 2 source.perl keyword.control.perl
+T 3 source.perl
+T 4 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 5 source.perl string.regexp.find.perl
+T 6 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 7 source.perl
+L unless /d/i;
+T 6 source.perl keyword.control.perl
+T 7 source.perl
+T 8 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 9 source.perl string.regexp.find.perl
+T 10 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 11 source.perl string.regexp.find.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 12 source.perl
+L my $r4 = $str ~ /e/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl variable.other.readwrite.global.perl
+T 15 source.perl
+T 16 source.perl
+T 17 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 18 source.perl string.regexp.find.perl
+T 19 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 20 source.perl
+L my $r5 = $a | /f/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.predefined.perl
+T 13 source.perl
+T 14 source.perl
+T 15 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 16 source.perl string.regexp.find.perl
+T 17 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 18 source.perl
+L my $r6 = $a & /g$/;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 9 source.perl
+T 10 source.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 11 source.perl variable.other.predefined.perl
+T 13 source.perl
+T 14 source.perl
+T 15 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 16 source.perl string.regexp.find.perl
+T 17 source.perl string.regexp.find.perl keyword.control.anchor.perl
+T 18 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 19 source.perl
+L /h/ and print;
+T 1 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 2 source.perl string.regexp.find.perl
+T 3 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 4 source.perl
+T 7 source.perl keyword.operator.logical.perl
+T 8 source.perl
+T 13 source.perl support.function.perl
+T 14 source.perl
+L my $r7 = (/i\/j/g);
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 6 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 12 source.perl string.regexp.find.perl
+T 14 source.perl string.regexp.find.perl constant.character.escape.perl
+T 15 source.perl string.regexp.find.perl
+T 16 source.perl string.regexp.find.perl punctuation.definition.string.perl
+T 17 source.perl string.regexp.find.perl punctuation.definition.string.perl keyword.control.regexp-option.perl
+T 19 source.perl
+L my $esc = "\1 \g{1} \g{-1} \g{name} \g2 \k<n> \k{n} \k'n' \N{U+41} \o{7} \p{L} \PL \P{Lu} \x41 \x{263A} \x \q";
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 11 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.quoted.double.perl constant.character.escape.perl
+T 14 source.perl string.quoted.double.perl
+T 19 source.perl string.quoted.double.perl constant.character.escape.perl
+T 20 source.perl string.quoted.double.perl
+T 26 source.perl string.quoted.double.perl constant.character.escape.perl
+T 27 source.perl string.quoted.double.perl
+T 35 source.perl string.quoted.double.perl constant.character.escape.perl
+T 36 source.perl string.quoted.double.perl
+T 39 source.perl string.quoted.double.perl constant.character.escape.perl
+T 40 source.perl string.quoted.double.perl
+T 45 source.perl string.quoted.double.perl constant.character.escape.perl
+T 46 source.perl string.quoted.double.perl
+T 51 source.perl string.quoted.double.perl constant.character.escape.perl
+T 52 source.perl string.quoted.double.perl
+T 57 source.perl string.quoted.double.perl constant.character.escape.perl
+T 58 source.perl string.quoted.double.perl
+T 66 source.perl string.quoted.double.perl constant.character.escape.perl
+T 67 source.perl string.quoted.double.perl
+T 72 source.perl string.quoted.double.perl constant.character.escape.perl
+T 73 source.perl string.quoted.double.perl
+T 78 source.perl string.quoted.double.perl constant.character.escape.perl
+T 79 source.perl string.quoted.double.perl
+T 81 source.perl string.quoted.double.perl constant.character.escape.perl
+T 83 source.perl string.quoted.double.perl
+T 89 source.perl string.quoted.double.perl constant.character.escape.perl
+T 90 source.perl string.quoted.double.perl
+T 94 source.perl string.quoted.double.perl constant.character.escape.perl
+T 95 source.perl string.quoted.double.perl
+T 103 source.perl string.quoted.double.perl constant.character.escape.perl
+T 104 source.perl string.quoted.double.perl
+T 106 source.perl string.quoted.double.perl constant.character.escape.perl
+T 107 source.perl string.quoted.double.perl
+T 109 source.perl string.quoted.double.perl constant.character.escape.perl
+T 110 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 111 source.perl
+L 
+L $x = <<EOT;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 7 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 10 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 11 source.perl
+L plain $a
+T 6 source.perl string.unquoted.heredoc.interpolated.perl
+T 7 source.perl string.unquoted.heredoc.interpolated.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 8 source.perl string.unquoted.heredoc.interpolated.perl variable.other.predefined.perl
+L EOT
+T 3 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $x = <<~EOT;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 8 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 12 source.perl
+L   indented $a
+T 11 source.perl string.unquoted.heredoc.interpolated.perl
+T 12 source.perl string.unquoted.heredoc.interpolated.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 13 source.perl string.unquoted.heredoc.interpolated.perl variable.other.predefined.perl
+L   EOT
+T 2 source.perl
+T 5 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $x = <<'EOT';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 8 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 12 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 13 source.perl
+L raw $a
+T 6 source.perl string.unquoted.heredoc.raw.perl
+L EOT
+T 3 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L $x = <<~'EOT';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 9 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 14 source.perl
+L     raw indented
+T 16 source.perl string.unquoted.heredoc.raw.perl
+L     EOT
+T 4 source.perl
+T 7 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L $x = <<"EOT";
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 8 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 12 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 13 source.perl
+L quoted $a
+T 7 source.perl string.unquoted.heredoc.interpolated.perl
+T 8 source.perl string.unquoted.heredoc.interpolated.perl variable.other.predefined.perl punctuation.definition.variable.perl
+T 9 source.perl string.unquoted.heredoc.interpolated.perl variable.other.predefined.perl
+L EOT
+T 3 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $x = <<~"EOT";
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 9 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 14 source.perl
+L   quoted indented
+T 17 source.perl string.unquoted.heredoc.interpolated.perl
+L   EOT
+T 2 source.perl
+T 5 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $x = <<\EOT;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 8 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 12 source.perl
+L backslash $a
+T 12 source.perl string.unquoted.heredoc.raw.perl
+L EOT
+T 3 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L $x = <<~\EOT;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 9 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 13 source.perl
+L   backslash indented
+T 20 source.perl string.unquoted.heredoc.raw.perl
+L   EOT
+T 2 source.perl
+T 5 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L $x = << "SPACED";
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 9 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 15 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 16 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 17 source.perl
+L spaced label
+T 12 source.perl string.unquoted.heredoc.interpolated.perl
+L SPACED
+T 6 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $x = <<'A B';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 2 source.perl variable.other.readwrite.global.perl
+T 5 source.perl
+T 8 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 12 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 13 source.perl
+L label with a space
+T 18 source.perl string.unquoted.heredoc.raw.perl
+L A B
+T 3 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<HTML;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.html
+L <div class="a">$a</div>
+T 1 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 11 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 12 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 15 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 16 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl punctuation.definition.variable.perl
+T 17 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl
+T 19 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 22 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 23 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L HTML
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~HTML;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.html
+L   <p>indented</p>
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 3 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 15 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 16 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 17 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L   HTML
+T 2 source.perl meta.embedded.block.html
+T 6 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<'HTML';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.html
+L <b>raw</b>
+T 1 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.b.start.html punctuation.definition.tag.begin.html
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.b.start.html entity.name.tag.html
+T 3 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.b.start.html punctuation.definition.tag.end.html
+T 6 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic
+T 8 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.b.end.html punctuation.definition.tag.begin.html
+T 9 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.b.end.html entity.name.tag.html
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.b.end.html punctuation.definition.tag.end.html
+L HTML
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<~'HTML';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 15 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 16 source.perl meta.embedded.block.html
+L     <i>raw</i>
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.i.start.html punctuation.definition.tag.begin.html
+T 6 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.i.start.html entity.name.tag.html
+T 7 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.i.start.html punctuation.definition.tag.end.html
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic
+T 12 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.i.end.html punctuation.definition.tag.begin.html
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.i.end.html entity.name.tag.html
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.inline.i.end.html punctuation.definition.tag.end.html
+L     HTML
+T 4 source.perl meta.embedded.block.html
+T 8 source.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<"HTML";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.html
+L <u>quoted</u>
+T 1 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.u.start.html punctuation.definition.tag.begin.html
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.u.start.html entity.name.tag.html
+T 3 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.u.start.html punctuation.definition.tag.end.html
+T 9 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 11 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.u.end.html punctuation.definition.tag.begin.html
+T 12 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.u.end.html entity.name.tag.html
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.u.end.html punctuation.definition.tag.end.html
+L HTML
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~"HTML";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 15 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 16 source.perl meta.embedded.block.html
+L   <s>quoted</s>
+T 2 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 3 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.s.start.html punctuation.definition.tag.begin.html
+T 4 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.s.start.html entity.name.tag.html
+T 5 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.s.start.html punctuation.definition.tag.end.html
+T 11 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 13 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.s.end.html punctuation.definition.tag.begin.html
+T 14 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.s.end.html entity.name.tag.html
+T 15 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.inline.s.end.html punctuation.definition.tag.end.html
+L   HTML
+T 2 source.perl meta.embedded.block.html
+T 6 source.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<XML;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 12 source.perl meta.embedded.block.xml
+L <a><b/></a>
+T 1 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 5 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 7 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~XML;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.xml
+L   <a/>
+T 2 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L   XML
+T 2 source.perl meta.embedded.block.xml
+T 5 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<'XML';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 14 source.perl meta.embedded.block.xml
+L <c/>
+T 1 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<~'XML';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.xml
+L   <d/>
+T 2 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L   XML
+T 2 source.perl meta.embedded.block.xml
+T 5 source.perl meta.embedded.block.xml string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<"XML";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 14 source.perl meta.embedded.block.xml
+L <e/>
+T 1 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~"XML";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.xml
+L   <f/>
+T 2 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml
+T 3 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+T 4 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml entity.name.tag.localname.xml
+T 6 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl text.xml meta.tag.xml punctuation.definition.tag.xml
+L   XML
+T 2 source.perl meta.embedded.block.xml
+T 5 source.perl meta.embedded.block.xml string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<CSS;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 11 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 12 source.perl meta.embedded.block.css
+L body { color: red; }
+T 4 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.selector.css entity.name.tag.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 6 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 7 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 17 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 18 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 19 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 20 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~CSS;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.css
+L   a { margin: 0; }
+T 2 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.selector.css entity.name.tag.css
+T 4 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 6 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 15 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 17 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 18 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   CSS
+T 2 source.perl meta.embedded.block.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<'CSS';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 14 source.perl meta.embedded.block.css
+L p { top: 1px; }
+T 1 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.selector.css entity.name.tag.css
+T 2 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 4 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css
+T 7 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css
+T 10 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css
+T 15 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<~'CSS';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.css
+L   q { left: 0; }
+T 2 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.selector.css entity.name.tag.css
+T 4 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 6 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css
+T 10 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 15 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css
+T 16 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   CSS
+T 2 source.perl meta.embedded.block.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<"CSS";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 14 source.perl meta.embedded.block.css
+L r { right: 0; }
+T 1 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.selector.css
+T 2 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 4 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 9 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 15 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~"CSS";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.css
+L   s { width: 1em; }
+T 2 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 3 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.selector.css entity.name.tag.css
+T 4 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 6 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 11 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 14 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 17 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css
+T 19 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   CSS
+T 2 source.perl meta.embedded.block.css
+T 5 source.perl meta.embedded.block.css string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<JAVASCRIPT;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 18 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 19 source.perl meta.embedded.block.js
+L var a = 1;
+T 3 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js storage.type.js
+T 4 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 6 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 7 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js keyword.operator.assignment.js
+T 8 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js
+T 9 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js constant.numeric.decimal.js
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js punctuation.terminator.statement.js
+L JAVASCRIPT
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~JAVASCRIPT;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 19 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 20 source.perl meta.embedded.block.js
+L   let b = 2;
+T 2 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js storage.type.js
+T 6 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js
+T 7 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 8 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 9 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js keyword.operator.assignment.js
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js
+T 11 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.var.expr.js constant.numeric.decimal.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js punctuation.terminator.statement.js
+L   JAVASCRIPT
+T 2 source.perl meta.embedded.block.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<'JAVASCRIPT';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 19 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 20 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 21 source.perl meta.embedded.block.js
+L const c = 3;
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js storage.type.js
+T 6 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 7 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 8 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 9 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js keyword.operator.assignment.js
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js
+T 11 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.var.expr.js constant.numeric.decimal.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js punctuation.terminator.statement.js
+L JAVASCRIPT
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<~'JAVASCRIPT';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 20 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 21 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 22 source.perl meta.embedded.block.js
+L   f(4);
+T 2 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js
+T 3 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.function-call.js entity.name.function.js
+T 4 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.brace.round.js
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js constant.numeric.decimal.js
+T 6 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js meta.brace.round.js
+T 7 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl source.js punctuation.terminator.statement.js
+L   JAVASCRIPT
+T 2 source.perl meta.embedded.block.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<"JAVASCRIPT";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 19 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 20 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 21 source.perl meta.embedded.block.js
+L g(5);
+T 1 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.function-call.js entity.name.function.js
+T 2 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.brace.round.js
+T 3 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js constant.numeric.decimal.js
+T 4 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.brace.round.js
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js punctuation.terminator.statement.js
+L JAVASCRIPT
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~"JAVASCRIPT";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 20 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 21 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 22 source.perl meta.embedded.block.js
+L   h(6);
+T 2 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js
+T 3 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.function-call.js entity.name.function.js
+T 4 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.brace.round.js
+T 5 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js constant.numeric.decimal.js
+T 6 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js meta.brace.round.js
+T 7 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl source.js punctuation.terminator.statement.js
+L   JAVASCRIPT
+T 2 source.perl meta.embedded.block.js
+T 12 source.perl meta.embedded.block.js string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L my $sql = <<SQL;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 7 source.perl variable.other.readwrite.global.perl
+T 10 source.perl
+T 12 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 15 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 16 source.perl meta.embedded.block.sql
+L SELECT a FROM t WHERE b = 1;
+T 6 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 9 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 16 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 21 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 24 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 25 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.operator.comparison.sql
+T 26 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 27 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.numeric.sql
+T 28 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+L SQL
+T 3 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $sql = <<~SQL;
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 7 source.perl
+T 10 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.sql
+L   UPDATE t SET a = 2;
+T 2 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 8 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 17 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 18 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.operator.comparison.sql
+T 19 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 20 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.numeric.sql
+T 21 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+L   SQL
+T 2 source.perl meta.embedded.block.sql
+T 5 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $sql = <<'SQL';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 7 source.perl
+T 10 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.sql
+L DELETE FROM t;
+T 6 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql keyword.other.DML.sql
+T 7 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql keyword.other.DML.sql
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql
+L SQL
+T 3 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L $sql = <<~'SQL';
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 7 source.perl
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 15 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 16 source.perl meta.embedded.block.sql
+L   INSERT INTO t VALUES (1);
+T 2 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql keyword.other.DML.sql
+T 16 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql
+T 22 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql keyword.other.DML.II.sql
+T 24 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql
+T 25 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql constant.numeric.sql
+T 27 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl source.sql
+L   SQL
+T 2 source.perl meta.embedded.block.sql
+T 5 source.perl meta.embedded.block.sql string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L $sql = <<"SQL";
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 7 source.perl
+T 10 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 15 source.perl meta.embedded.block.sql
+L SELECT * FROM u;
+T 6 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 7 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 8 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.operator.star.sql
+T 9 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 13 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 16 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+L SQL
+T 3 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L $sql = <<~"SQL";
+T 1 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 4 source.perl variable.other.readwrite.global.perl
+T 7 source.perl
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 14 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 15 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 16 source.perl meta.embedded.block.sql
+L   SELECT 1;
+T 2 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 8 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql keyword.other.DML.sql
+T 9 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+T 10 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql constant.numeric.sql
+T 11 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl source.sql
+L   SQL
+T 2 source.perl meta.embedded.block.sql
+T 5 source.perl meta.embedded.block.sql string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<POSTSCRIPT;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 18 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 19 source.perl meta.embedded.block.postscript
+L newpath 0 0 moveto
+T 18 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl source.postscript
+L POSTSCRIPT
+T 10 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~POSTSCRIPT;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 19 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 20 source.perl meta.embedded.block.postscript
+L   stroke
+T 8 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl source.postscript
+L   POSTSCRIPT
+T 2 source.perl meta.embedded.block.postscript
+T 12 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<'POSTSCRIPT';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 19 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 20 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 21 source.perl
+L showpage
+T 8 source.perl string.unquoted.heredoc.raw.perl
+L POSTSCRIPT
+T 10 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<~'POSTSCRIPT';
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 20 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 21 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 22 source.perl
+L   closepath
+T 11 source.perl string.unquoted.heredoc.raw.perl
+L   POSTSCRIPT
+T 2 source.perl
+T 12 source.perl string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L print <<"POSTSCRIPT";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 9 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 19 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 20 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 21 source.perl meta.embedded.block.postscript
+L fill
+T 4 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl source.postscript
+L POSTSCRIPT
+T 10 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~"POSTSCRIPT";
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 10 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 20 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 21 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 22 source.perl meta.embedded.block.postscript
+L   gsave
+T 7 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl source.postscript
+L   POSTSCRIPT
+T 2 source.perl meta.embedded.block.postscript
+T 12 source.perl meta.embedded.block.postscript string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<A, <<B;
+T 5 source.perl support.function.perl
+T 6 source.perl
+T 8 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 9 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 11 source.perl
+T 13 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 14 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 15 source.perl
+L first
+T 5 source.perl string.unquoted.heredoc.interpolated.perl
+L A
+T 1 source.perl string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L second
+T 6 source.perl
+L B
+T 1 source.perl
+L 
+L format STDOUT =
+T 6 source.perl meta.format.perl support.function.perl
+T 7 source.perl meta.format.perl
+T 13 source.perl meta.format.perl entity.name.function.format.perl
+T 15 source.perl meta.format.perl
+L @<<<< @>>>> @||||
+T 17 source.perl meta.format.perl
+L $name, $value, $center
+T 1 source.perl meta.format.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 5 source.perl meta.format.perl variable.other.readwrite.global.perl
+T 7 source.perl meta.format.perl
+T 8 source.perl meta.format.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 source.perl meta.format.perl variable.other.readwrite.global.perl
+T 15 source.perl meta.format.perl
+T 16 source.perl meta.format.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 22 source.perl meta.format.perl variable.other.readwrite.global.perl
+L .
+T 1 source.perl meta.format.perl
+L format OTHER=
+T 6 source.perl meta.format.perl support.function.perl
+T 7 source.perl meta.format.perl
+T 12 source.perl meta.format.perl entity.name.function.format.perl
+T 13 source.perl meta.format.perl
+L text
+T 4 source.perl meta.format.perl
+L  .
+T 2 source.perl meta.format.perl
+L .
+T 1 source.perl meta.format.perl
+L 
+L =pod
+T 4 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+L 
+L Text with B<bold>, I<italic>, C<code>, L<Foo::Bar>, E<gt>, F<file.pl>,
+T 10 source.perl comment.block.documentation.perl
+T 12 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 16 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.bold.pod.perl
+T 17 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 19 source.perl comment.block.documentation.perl
+T 21 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 27 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.italic.pod.perl
+T 28 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 30 source.perl comment.block.documentation.perl
+T 32 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 36 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 37 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 39 source.perl comment.block.documentation.perl
+T 41 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 49 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.underline.link.hyperlink.pod.perl
+T 50 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 52 source.perl comment.block.documentation.perl
+T 57 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 59 source.perl comment.block.documentation.perl
+T 69 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 70 source.perl comment.block.documentation.perl
+L S<no break>, X<index>, Z<>, B<< spaced bold >>, I<<< spaced italic >>>,
+T 11 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 13 source.perl comment.block.documentation.perl
+T 21 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 23 source.perl comment.block.documentation.perl
+T 26 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 28 source.perl comment.block.documentation.perl
+T 31 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 44 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.bold.pod.perl
+T 46 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 48 source.perl comment.block.documentation.perl
+T 52 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 67 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.italic.pod.perl
+T 70 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 71 source.perl comment.block.documentation.perl
+L C<\s code \s> and C<< not code >>, and C<<\s set off \s>>.
+T 2 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 12 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 13 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 39 source.perl comment.block.documentation.perl
+T 42 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 55 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl markup.raw.pod.perl
+T 57 source.perl comment.block.documentation.perl entity.name.type.instance.pod.perl
+T 58 source.perl comment.block.documentation.perl
+L 
+L =head1 NAME
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 11 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =head2 B<Bold> heading
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 9 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+T 13 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl markup.bold.pod.perl
+T 14 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+T 22 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =head3 Third
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 12 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =head4 Fourth
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 13 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =item * L<Link|Foo>
+T 5 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 6 source.perl comment.block.documentation.perl
+T 8 source.perl comment.block.documentation.perl variable.other.pod.perl
+T 10 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+T 18 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl markup.underline.link.hyperlink.pod.perl
+T 19 source.perl comment.block.documentation.perl variable.other.pod.perl entity.name.type.instance.pod.perl
+L 
+L =over 4
+T 5 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 6 source.perl comment.block.documentation.perl
+T 7 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =back
+T 5 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+L 
+L =encoding utf8
+T 9 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 10 source.perl comment.block.documentation.perl
+T 14 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =for comment
+T 4 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 5 source.perl comment.block.documentation.perl
+T 12 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =begin text
+T 6 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl
+T 11 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =end text
+T 4 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+T 5 source.perl comment.block.documentation.perl
+T 9 source.perl comment.block.documentation.perl variable.other.pod.perl
+L 
+L =begin html
+T 6 source.perl comment.block.documentation.perl meta.embedded.pod.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl meta.embedded.pod.perl
+T 11 source.perl comment.block.documentation.perl meta.embedded.pod.perl variable.other.pod.perl
+L 
+L <p>POD <b>HTML</b></p>
+T 1 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.structure.p.start.html entity.name.tag.html
+T 3 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 7 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic
+T 8 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.b.start.html punctuation.definition.tag.begin.html
+T 9 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.b.start.html entity.name.tag.html
+T 10 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.b.start.html punctuation.definition.tag.end.html
+T 14 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic
+T 16 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.b.end.html punctuation.definition.tag.begin.html
+T 17 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.b.end.html entity.name.tag.html
+T 18 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.b.end.html punctuation.definition.tag.end.html
+T 20 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 21 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.structure.p.end.html entity.name.tag.html
+T 22 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 
+L =end html
+T 4 source.perl comment.block.documentation.perl meta.embedded.pod.perl storage.type.class.pod.perl
+T 5 source.perl comment.block.documentation.perl meta.embedded.pod.perl
+T 9 source.perl comment.block.documentation.perl meta.embedded.pod.perl variable.other.pod.perl
+L 
+L =begin html
+T 6 source.perl comment.block.documentation.perl meta.embedded.pod.perl storage.type.class.pod.perl
+T 7 source.perl comment.block.documentation.perl meta.embedded.pod.perl
+T 11 source.perl comment.block.documentation.perl meta.embedded.pod.perl variable.other.pod.perl
+L 
+L <i>to the cut</i>
+T 1 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.i.start.html punctuation.definition.tag.begin.html
+T 2 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.i.start.html entity.name.tag.html
+T 3 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.i.start.html punctuation.definition.tag.end.html
+T 13 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic
+T 15 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.i.end.html punctuation.definition.tag.begin.html
+T 16 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.i.end.html entity.name.tag.html
+T 17 source.perl comment.block.documentation.perl meta.embedded.pod.perl text.embedded.html.basic meta.tag.inline.i.end.html punctuation.definition.tag.end.html
+L 
+L =cut
+T 4 source.perl comment.block.documentation.perl storage.type.class.pod.perl
+L 
+L     print "indented code";
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 9 source.perl support.function.perl
+T 10 source.perl
+T 11 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 24 source.perl string.quoted.double.perl
+T 25 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 26 source.perl
+L 	print "tab code";
+T 1 source.perl meta.leading-tabs meta.odd-tab
+T 6 source.perl support.function.perl
+T 7 source.perl
+T 8 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 16 source.perl string.quoted.double.perl
+T 17 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 18 source.perl
+L 		print "two tabs";
+T 1 source.perl meta.leading-tabs meta.odd-tab
+T 2 source.perl meta.leading-tabs meta.even-tab
+T 7 source.perl support.function.perl
+T 8 source.perl
+T 9 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 17 source.perl string.quoted.double.perl
+T 18 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 19 source.perl
+L         print "eight spaces";
+T 4 source.perl meta.leading-tabs meta.odd-tab
+T 8 source.perl meta.leading-tabs meta.even-tab
+T 13 source.perl support.function.perl
+T 14 source.perl
+T 15 source.perl string.quoted.double.perl punctuation.definition.string.begin.perl
+T 27 source.perl string.quoted.double.perl
+T 28 source.perl string.quoted.double.perl punctuation.definition.string.end.perl
+T 29 source.perl
+L 
+L my $data = 1;
+T 2 source.perl storage.modifier.perl
+T 3 source.perl
+T 4 source.perl variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 8 source.perl variable.other.readwrite.global.perl
+T 13 source.perl
+L __FOO__ a line that starts with a dunder name
+T 7 source.perl string.unquoted.program-block.perl punctuation.definition.string.begin.perl
+T 45 source.perl string.unquoted.program-block.perl
+L __END__
+T 7 source.perl constant.language.perl
+L This is data, which the grammar marks as a comment.
+T 51 source.perl comment.block.documentation.perl
+L my $not_code = 1;
+T 17 source.perl comment.block.documentation.perl
+L 

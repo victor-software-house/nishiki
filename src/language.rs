@@ -945,17 +945,20 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
-    /// Perl, with the scopes of Shiki's `perl` grammar, which nishiki's
-    /// `TextMate` engine runs. HTML, XML, CSS, JavaScript and SQL in its
-    /// heredocs go to their lexers.
-    Perl {
-        feature: "lang-perl",
-        names: ["perl"],
-        engine: crate::perl::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-        hands_off: true,
-    }
+    /// Perl, with the scopes of Shiki's `perl` grammar. HTML, XML, CSS,
+    /// JavaScript and SQL in its heredocs go to their lexers, a line at a
+    /// time.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A heredoc hands each of its lines to the language alone, so an HTML comment or a CSS block cannot span its lines.
+    /// - Only the first heredoc a line opens is a heredoc. The rest of the line, with any later `<<`, lexes as Perl.
+    /// - `__END__` and `__DATA__` make the rest of the document a comment.
+    /// - POD's `C<\s text \s>` form needs a backslash and an `s`, as the grammar writes `\\s` where it means a blank.
+    /// - `sub name {` names the space before the brace as part of the declaration.
+    /// - Capture groups lexed again inside one another, as a line of heredoc openers is, stop after 64 levels, where Shiki goes on. The text of a deeper one keeps the scopes around it, and the line reports the depth limit.
+    ///   The bound is a constant in `src/perl/engine.rs` until the next minor release moves it into `Limits`.
+    Perl { feature: "lang-perl", names: ["perl"], module: perl, halts: true }
     /// Elixir, with the scopes of Shiki's `elixir` grammar. HTML in its `~H`
     /// and `~L` sigils goes to HTML's lexer.
     ///

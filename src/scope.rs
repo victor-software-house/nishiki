@@ -138,6 +138,8 @@ tables! {
     OBJECTIVE_CPP = objective_cpp;
     #[cfg(feature = "lang-pascal")]
     PASCAL = pascal;
+    #[cfg(feature = "lang-perl")]
+    PERL = perl;
     #[cfg(feature = "lang-php")]
     PHP = php;
     #[cfg(feature = "lang-postcss")]
