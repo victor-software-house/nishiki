@@ -94,7 +94,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Objective-C++ | `Language::ObjectiveCpp` | `lang-objective-cpp` | `textmate` | `objective-cpp` |
 | Pascal | `Language::Pascal` | `lang-pascal` | `textmate` | `pascal` |
 | Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |
-| PHP | `Language::Php` | `lang-php` | `textmate` | `php` |
+| PHP | `Language::Php` | `lang-php` | `all` | `php` |
 | PostCSS | `Language::PostCss` | `lang-postcss` | `all` | `postcss` |
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `all` | `powershell`, `ps`, `ps1`, `pwsh` |
 | Protobuf | `Language::Proto` | `lang-proto` | `all` | `proto`, `protobuf` |

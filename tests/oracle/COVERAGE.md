@@ -46,6 +46,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | Objective-C | `objective-c` | 371 of 377 | 98.4% | 346 of 377 | 91.8% | 37 | 0 | yes |
+| PHP | `php` | 476 of 476 | 100.0% | 411 of 433 | 94.9% | 22 | 0 | yes |
 | PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Protobuf | `proto` | 40 of 40 | 100.0% | 58 of 58 | 100.0% | 0 | 0 | yes |
@@ -716,6 +717,33 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #preprocessor-rule-enabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
 #preprocessor-rule-enabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
 #preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+```
+
+### `php`
+
+```text
+#comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[0].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[1].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[2].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[3].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[4].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[5].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[6].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[6].patterns[5].end  groups 0 (waived: the end is `$`, which holds no text)
+#heredoc_interior.patterns[7].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#heredoc_interior.patterns[8].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[0].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[1].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[2].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[3].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[4].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[5].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[6].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[6].patterns[4].end  groups 0 (waived: the end is `$`, which holds no text)
+#nowdoc_interior.patterns[7].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#nowdoc_interior.patterns[8].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
 ```
 
 ### `postcss`

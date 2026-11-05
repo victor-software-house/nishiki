@@ -43,7 +43,8 @@ use std::fmt::Debug;
     feature = "lang-julia",
     feature = "lang-mermaid",
     feature = "lang-objective-c",
-    feature = "lang-svelte"
+    feature = "lang-svelte",
+    feature = "lang-php"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]
@@ -373,7 +374,12 @@ pub(crate) fn lex_until<G: Grammar>(
 /// `embedded!(Variant, "lang-…")` is `Some(Language::Variant)` when the
 /// language's feature is on. It is `None` otherwise.
 /// The generated table of a rule that embeds a language uses it.
-#[cfg(any(feature = "lang-ruby", feature = "lang-lua", feature = "lang-svelte"))]
+#[cfg(any(
+    feature = "lang-ruby",
+    feature = "lang-lua",
+    feature = "lang-svelte",
+    feature = "lang-php"
+))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
         #[cfg(feature = $feature)]
@@ -383,7 +389,12 @@ macro_rules! embedded {
         language
     }};
 }
-#[cfg(any(feature = "lang-ruby", feature = "lang-lua", feature = "lang-svelte"))]
+#[cfg(any(
+    feature = "lang-ruby",
+    feature = "lang-lua",
+    feature = "lang-svelte",
+    feature = "lang-php"
+))]
 pub(crate) use embedded;
 
 /// A halt without context.
@@ -605,7 +616,7 @@ pub(crate) fn lex_embedding<G: Embeds>(
 /// The line also halts where `outer` holds while only `G`'s root rule is
 /// open, as in [`lex_until`], and the second value is where.
 /// A line with no text from its start leaves the state as it is.
-#[cfg(feature = "lang-graphql")]
+#[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
 pub(crate) fn lex_embedding_until<G: Embeds>(
     cx: &mut Context<'_>,
     line: Line<'_>,
@@ -873,7 +884,7 @@ fn own_starts<G: Embeds>(
 
 /// Goes on with a halting line where an embedded language halted, halting
 /// at `outer` when the grammar is itself embedded.
-#[cfg(feature = "lang-graphql")]
+#[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
 fn resume_halting<'a, G: Grammar>(
     lexer: Lexer<'a, G>,
     outer: Option<&'a Halts<'a>>,
@@ -885,7 +896,10 @@ fn resume_halting<'a, G: Grammar>(
 }
 
 /// A grammar that nothing embeds never resumes a halting line.
-#[cfg(all(feature = "_embedding", not(feature = "lang-graphql")))]
+#[cfg(all(
+    feature = "_embedding",
+    not(any(feature = "lang-graphql", feature = "lang-php"))
+))]
 fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: Option<&Halts<'_>>) -> (Finished, Stop) {
     let (finished, found) = lexer.resume_embedding();
     (finished, found.map_or(Stop::Line, Stop::Embedding))

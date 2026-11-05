@@ -128,6 +128,8 @@ tables! {
     NIX = nix;
     #[cfg(feature = "lang-objective-c")]
     OBJECTIVE_C = objective_c;
+    #[cfg(feature = "lang-php")]
+    PHP = php;
     #[cfg(feature = "lang-postcss")]
     POSTCSS = postcss;
     #[cfg(feature = "lang-powershell")]

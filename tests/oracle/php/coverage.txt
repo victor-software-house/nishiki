@@ -1,0 +1,2559 @@
+L <?php
+T 1 source.php keyword.operator.comparison.php
+T 2 source.php keyword.operator.ternary.php
+T 5 source.php constant.other.php
+L // Every construct of the php grammar, for the coverage report.
+T 2 source.php comment.line.double-slash.php punctuation.definition.comment.php
+T 63 source.php comment.line.double-slash.php
+L 
+L namespace Acme\Shop ! {
+T 9 source.php meta.namespace.php keyword.other.namespace.php
+T 10 source.php meta.namespace.php
+T 14 source.php meta.namespace.php entity.name.type.namespace.php
+T 15 source.php meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 19 source.php meta.namespace.php entity.name.type.namespace.php
+T 20 source.php meta.namespace.php
+T 21 source.php meta.namespace.php invalid.illegal.identifier.php
+T 22 source.php meta.namespace.php
+T 23 source.php meta.namespace.php punctuation.definition.namespace.begin.bracket.curly.php
+L     class Cart {}
+T 4 source.php meta.namespace.php
+T 9 source.php meta.namespace.php meta.class.php storage.type.class.php
+T 10 source.php meta.namespace.php meta.class.php
+T 14 source.php meta.namespace.php meta.class.php entity.name.type.class.php
+T 15 source.php meta.namespace.php meta.class.php
+T 16 source.php meta.namespace.php meta.class.php punctuation.definition.class.begin.bracket.curly.php
+T 17 source.php meta.namespace.php meta.class.php punctuation.definition.class.end.bracket.curly.php
+L }
+T 1 source.php meta.namespace.php punctuation.definition.namespace.end.bracket.curly.php
+L namespace Acme\Util;
+T 9 source.php meta.namespace.php keyword.other.namespace.php
+T 10 source.php meta.namespace.php
+T 14 source.php meta.namespace.php entity.name.type.namespace.php
+T 15 source.php meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 19 source.php meta.namespace.php entity.name.type.namespace.php
+T 20 source.php punctuation.terminator.expression.php
+L namespace\helper();
+T 9 source.php meta.function-call.php support.other.namespace.php variable.language.namespace.php
+T 10 source.php meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 16 source.php meta.function-call.php entity.name.function.php
+T 17 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 18 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 19 source.php punctuation.terminator.expression.php
+L 
+L use function Acme\Util\format;
+T 3 source.php meta.use.php keyword.other.use.php
+T 4 source.php meta.use.php
+T 12 source.php meta.use.php storage.type.function.php
+T 13 source.php meta.use.php
+T 17 source.php meta.use.php support.other.namespace.php
+T 18 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 22 source.php meta.use.php support.other.namespace.php
+T 23 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 29 source.php meta.use.php support.class.php
+T 30 source.php punctuation.terminator.expression.php
+L use const Acme\Util\VERSION;
+T 3 source.php meta.use.php keyword.other.use.php
+T 4 source.php meta.use.php
+T 9 source.php meta.use.php storage.type.const.php
+T 10 source.php meta.use.php
+T 14 source.php meta.use.php support.other.namespace.php
+T 15 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 19 source.php meta.use.php support.other.namespace.php
+T 20 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 27 source.php meta.use.php support.class.php
+T 28 source.php punctuation.terminator.expression.php
+L use Acme\A, Acme\B as Bee;
+T 3 source.php meta.use.php keyword.other.use.php
+T 4 source.php meta.use.php
+T 8 source.php meta.use.php support.other.namespace.php
+T 9 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 10 source.php meta.use.php support.class.php
+T 11 source.php meta.use.php punctuation.separator.delimiter.php
+T 12 source.php meta.use.php
+T 16 source.php meta.use.php support.other.namespace.php
+T 17 source.php meta.use.php support.other.namespace.php punctuation.separator.inheritance.php
+T 18 source.php meta.use.php support.class.php
+T 19 source.php meta.use.php
+T 21 source.php meta.use.php keyword.other.use-as.php
+T 22 source.php meta.use.php
+T 25 source.php meta.use.php entity.other.alias.php
+T 26 source.php punctuation.terminator.expression.php
+L 
+L trait Greets {
+T 5 source.php meta.trait.php storage.type.trait.php
+T 6 source.php meta.trait.php
+T 12 source.php meta.trait.php entity.name.type.trait.php
+T 13 source.php meta.trait.php
+T 14 source.php meta.trait.php punctuation.definition.trait.begin.bracket.curly.php
+L     use Hello, World {
+T 4 source.php meta.trait.php meta.trait.body.php
+T 7 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use.php
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 14 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.separator.delimiter.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 20 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 21 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 22 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.definition.use.begin.bracket.curly.php
+L         Hello::say insteadof World;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.operator.class.php
+T 18 source.php meta.trait.php meta.trait.body.php meta.use.php constant.other.class.php
+T 19 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 28 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-insteadof.php
+T 29 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 34 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 35 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         World::say as protected shout;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.operator.class.php
+T 18 source.php meta.trait.php meta.trait.body.php meta.use.php constant.other.class.php
+T 19 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 21 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 22 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 31 source.php meta.trait.php meta.trait.body.php meta.use.php storage.modifier.php storage.modifier.visibility.protected.php
+T 32 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 37 source.php meta.trait.php meta.trait.body.php meta.use.php entity.other.alias.php
+T 38 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         World::a as final b;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.operator.class.php
+T 16 source.php meta.trait.php meta.trait.body.php meta.use.php constant.other.class.php
+T 17 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 19 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 20 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 25 source.php meta.trait.php meta.trait.body.php meta.use.php storage.modifier.php storage.modifier.inheritance.final.php
+T 26 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 27 source.php meta.trait.php meta.trait.body.php meta.use.php entity.other.alias.php
+T 28 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         World::c as static d;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.operator.class.php
+T 16 source.php meta.trait.php meta.trait.body.php meta.use.php constant.other.class.php
+T 17 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 19 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 20 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 26 source.php meta.trait.php meta.trait.body.php meta.use.php storage.modifier.php storage.modifier.static.php
+T 27 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 28 source.php meta.trait.php meta.trait.body.php meta.use.php entity.other.alias.php
+T 29 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         ho as final;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 10 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 11 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 14 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 19 source.php meta.trait.php meta.trait.body.php meta.use.php storage.modifier.php storage.modifier.inheritance.final.php
+T 20 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         hum as static;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 11 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 12 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 14 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 21 source.php meta.trait.php meta.trait.body.php meta.use.php storage.modifier.php storage.modifier.static.php
+T 22 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         hi as public;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 10 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 11 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 13 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 14 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 20 source.php meta.trait.php meta.trait.body.php meta.use.php storage.modifier.php storage.modifier.visibility.public.php
+T 21 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L         bye as farewell;
+T 8 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 11 source.php meta.trait.php meta.trait.body.php meta.use.php support.class.php
+T 12 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 14 source.php meta.trait.php meta.trait.body.php meta.use.php keyword.other.use-as.php
+T 15 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 23 source.php meta.trait.php meta.trait.body.php meta.use.php entity.other.alias.php
+T 24 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.terminator.expression.php
+L     }
+T 4 source.php meta.trait.php meta.trait.body.php meta.use.php
+T 5 source.php meta.trait.php meta.trait.body.php meta.use.php punctuation.definition.use.end.bracket.curly.php
+L }
+T 1 source.php meta.trait.php punctuation.definition.trait.end.bracket.curly.php
+L 
+L interface Shape extends Drawable, Sized {
+T 9 source.php meta.interface.php storage.type.interface.php
+T 10 source.php meta.interface.php
+T 15 source.php meta.interface.php entity.name.type.interface.php
+T 16 source.php meta.interface.php
+T 23 source.php meta.interface.php storage.modifier.extends.php
+T 24 source.php meta.interface.php
+T 32 source.php meta.interface.php entity.other.inherited-class.php
+T 33 source.php meta.interface.php punctuation.separator.classes.php
+T 34 source.php meta.interface.php
+T 39 source.php meta.interface.php entity.other.inherited-class.php
+T 40 source.php meta.interface.php
+T 41 source.php meta.interface.php punctuation.definition.interface.begin.bracket.curly.php
+L     const int|string KIND = 'shape';
+T 4 source.php meta.interface.php meta.interface.body.php
+T 9 source.php meta.interface.php meta.interface.body.php storage.type.const.php
+T 10 source.php meta.interface.php meta.interface.body.php
+T 13 source.php meta.interface.php meta.interface.body.php keyword.other.type.php
+T 14 source.php meta.interface.php meta.interface.body.php punctuation.separator.delimiter.php
+T 20 source.php meta.interface.php meta.interface.body.php keyword.other.type.php
+T 21 source.php meta.interface.php meta.interface.body.php
+T 25 source.php meta.interface.php meta.interface.body.php constant.other.php
+T 26 source.php meta.interface.php meta.interface.body.php
+T 27 source.php meta.interface.php meta.interface.body.php keyword.operator.assignment.php
+T 28 source.php meta.interface.php meta.interface.body.php
+T 29 source.php meta.interface.php meta.interface.body.php string.quoted.single.php punctuation.definition.string.begin.php
+T 34 source.php meta.interface.php meta.interface.body.php string.quoted.single.php
+T 35 source.php meta.interface.php meta.interface.body.php string.quoted.single.php punctuation.definition.string.end.php
+T 36 source.php meta.interface.php meta.interface.body.php punctuation.terminator.expression.php
+L     public function area(): float;
+T 4 source.php meta.interface.php meta.interface.body.php
+T 10 source.php meta.interface.php meta.interface.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 11 source.php meta.interface.php meta.interface.body.php meta.function.php
+T 19 source.php meta.interface.php meta.interface.body.php meta.function.php storage.type.function.php
+T 20 source.php meta.interface.php meta.interface.body.php meta.function.php
+T 24 source.php meta.interface.php meta.interface.body.php meta.function.php entity.name.function.php
+T 25 source.php meta.interface.php meta.interface.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 26 source.php meta.interface.php meta.interface.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 27 source.php meta.interface.php meta.interface.body.php meta.function.php keyword.operator.return-value.php
+T 28 source.php meta.interface.php meta.interface.body.php meta.function.php
+T 33 source.php meta.interface.php meta.interface.body.php meta.function.php keyword.other.type.php
+T 34 source.php meta.interface.php meta.interface.body.php punctuation.terminator.expression.php
+L }
+T 1 source.php meta.interface.php punctuation.definition.interface.end.bracket.curly.php
+L 
+L enum Suit: string {
+T 4 source.php meta.enum.php storage.type.enum.php
+T 5 source.php meta.enum.php
+T 9 source.php meta.enum.php entity.name.type.enum.php
+T 10 source.php meta.enum.php keyword.operator.return-value.php
+T 11 source.php meta.enum.php
+T 17 source.php meta.enum.php keyword.other.type.php
+T 18 source.php meta.enum.php
+T 19 source.php meta.enum.php punctuation.definition.enum.begin.bracket.curly.php
+L     case Hearts = 'H';
+T 4 source.php meta.enum.php meta.enum.body.php
+T 8 source.php meta.enum.php meta.enum.body.php storage.modifier.php storage.type.enum.case.php
+T 9 source.php meta.enum.php meta.enum.body.php
+T 15 source.php meta.enum.php meta.enum.body.php constant.enum.php
+T 16 source.php meta.enum.php meta.enum.body.php
+T 17 source.php meta.enum.php meta.enum.body.php keyword.operator.assignment.php
+T 18 source.php meta.enum.php meta.enum.body.php
+T 19 source.php meta.enum.php meta.enum.body.php string.quoted.single.php punctuation.definition.string.begin.php
+T 20 source.php meta.enum.php meta.enum.body.php string.quoted.single.php
+T 21 source.php meta.enum.php meta.enum.body.php string.quoted.single.php punctuation.definition.string.end.php
+T 22 source.php meta.enum.php meta.enum.body.php punctuation.terminator.expression.php
+L     case Spades = 'S';
+T 4 source.php meta.enum.php meta.enum.body.php
+T 8 source.php meta.enum.php meta.enum.body.php storage.modifier.php storage.type.enum.case.php
+T 9 source.php meta.enum.php meta.enum.body.php
+T 15 source.php meta.enum.php meta.enum.body.php constant.enum.php
+T 16 source.php meta.enum.php meta.enum.body.php
+T 17 source.php meta.enum.php meta.enum.body.php keyword.operator.assignment.php
+T 18 source.php meta.enum.php meta.enum.body.php
+T 19 source.php meta.enum.php meta.enum.body.php string.quoted.single.php punctuation.definition.string.begin.php
+T 20 source.php meta.enum.php meta.enum.body.php string.quoted.single.php
+T 21 source.php meta.enum.php meta.enum.body.php string.quoted.single.php punctuation.definition.string.end.php
+T 22 source.php meta.enum.php meta.enum.body.php punctuation.terminator.expression.php
+L }
+T 1 source.php meta.enum.php punctuation.definition.enum.end.bracket.curly.php
+L 
+L #[\Acme\Attr\Route('/'), Other(1), Override, Plain]
+T 2 source.php meta.attribute.php
+T 3 source.php meta.attribute.php support.other.namespace.php punctuation.separator.inheritance.php
+T 7 source.php meta.attribute.php support.other.namespace.php
+T 8 source.php meta.attribute.php support.other.namespace.php punctuation.separator.inheritance.php
+T 12 source.php meta.attribute.php support.other.namespace.php
+T 13 source.php meta.attribute.php support.other.namespace.php punctuation.separator.inheritance.php
+T 18 source.php meta.attribute.php support.attribute.php
+T 19 source.php meta.attribute.php punctuation.definition.arguments.begin.bracket.round.php
+T 20 source.php meta.attribute.php string.quoted.single.php punctuation.definition.string.begin.php
+T 21 source.php meta.attribute.php string.quoted.single.php
+T 22 source.php meta.attribute.php string.quoted.single.php punctuation.definition.string.end.php
+T 23 source.php meta.attribute.php punctuation.definition.arguments.end.bracket.round.php
+T 24 source.php meta.attribute.php punctuation.separator.delimiter.php
+T 25 source.php meta.attribute.php
+T 30 source.php meta.attribute.php support.attribute.php
+T 31 source.php meta.attribute.php punctuation.definition.arguments.begin.bracket.round.php
+T 32 source.php meta.attribute.php constant.numeric.decimal.php
+T 33 source.php meta.attribute.php punctuation.definition.arguments.end.bracket.round.php
+T 34 source.php meta.attribute.php punctuation.separator.delimiter.php
+T 35 source.php meta.attribute.php
+T 43 source.php meta.attribute.php support.attribute.builtin.php
+T 44 source.php meta.attribute.php punctuation.separator.delimiter.php
+T 45 source.php meta.attribute.php
+T 50 source.php meta.attribute.php support.attribute.php
+T 51 source.php meta.attribute.php
+L final readonly class Point extends \Acme\Base\Model implements Shape {
+T 5 source.php meta.class.php storage.modifier.php storage.modifier.inheritance.final.php
+T 6 source.php meta.class.php
+T 14 source.php meta.class.php storage.modifier.php storage.modifier.readonly.php
+T 15 source.php meta.class.php
+T 20 source.php meta.class.php storage.type.class.php
+T 21 source.php meta.class.php
+T 26 source.php meta.class.php entity.name.type.class.php
+T 27 source.php meta.class.php
+T 34 source.php meta.class.php storage.modifier.extends.php
+T 35 source.php meta.class.php
+T 36 source.php meta.class.php support.other.namespace.php punctuation.separator.inheritance.php
+T 40 source.php meta.class.php support.other.namespace.php
+T 41 source.php meta.class.php support.other.namespace.php punctuation.separator.inheritance.php
+T 45 source.php meta.class.php support.other.namespace.php
+T 46 source.php meta.class.php support.other.namespace.php punctuation.separator.inheritance.php
+T 51 source.php meta.class.php entity.other.inherited-class.php
+T 52 source.php meta.class.php
+T 62 source.php meta.class.php storage.modifier.implements.php
+T 63 source.php meta.class.php
+T 68 source.php meta.class.php entity.other.inherited-class.php
+T 69 source.php meta.class.php
+T 70 source.php meta.class.php punctuation.definition.class.begin.bracket.curly.php
+L     public private(set) ?int $count = 0;
+T 4 source.php meta.class.php meta.class.body.php
+T 10 source.php meta.class.php meta.class.body.php storage.modifier.php storage.modifier.visibility.public.php
+T 11 source.php meta.class.php meta.class.body.php
+T 23 source.php meta.class.php meta.class.body.php storage.modifier.php storage.modifier.visibility.set.private.php
+T 24 source.php meta.class.php meta.class.body.php
+T 25 source.php meta.class.php meta.class.body.php keyword.operator.nullable-type.php
+T 28 source.php meta.class.php meta.class.body.php keyword.other.type.php
+T 29 source.php meta.class.php meta.class.body.php
+T 30 source.php meta.class.php meta.class.body.php variable.other.php punctuation.definition.variable.php
+T 35 source.php meta.class.php meta.class.body.php variable.other.php
+T 36 source.php meta.class.php meta.class.body.php
+T 37 source.php meta.class.php meta.class.body.php keyword.operator.assignment.php
+T 38 source.php meta.class.php meta.class.body.php
+T 39 source.php meta.class.php meta.class.body.php constant.numeric.decimal.php
+T 40 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L     protected static readonly array $cache;
+T 4 source.php meta.class.php meta.class.body.php
+T 13 source.php meta.class.php meta.class.body.php storage.modifier.php storage.modifier.visibility.protected.php
+T 14 source.php meta.class.php meta.class.body.php
+T 20 source.php meta.class.php meta.class.body.php storage.modifier.php storage.modifier.static.php
+T 21 source.php meta.class.php meta.class.body.php
+T 29 source.php meta.class.php meta.class.body.php storage.modifier.php storage.modifier.readonly.php
+T 30 source.php meta.class.php meta.class.body.php
+T 35 source.php meta.class.php meta.class.body.php keyword.other.type.php
+T 36 source.php meta.class.php meta.class.body.php
+T 37 source.php meta.class.php meta.class.body.php variable.other.php punctuation.definition.variable.php
+T 42 source.php meta.class.php meta.class.body.php variable.other.php
+T 43 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L     final const X = 1;
+T 4 source.php meta.class.php meta.class.body.php
+T 9 source.php meta.class.php meta.class.body.php storage.modifier.php storage.modifier.inheritance.final.php
+T 10 source.php meta.class.php meta.class.body.php
+T 15 source.php meta.class.php meta.class.body.php storage.type.const.php
+T 16 source.php meta.class.php meta.class.body.php
+T 17 source.php meta.class.php meta.class.body.php constant.other.php
+T 18 source.php meta.class.php meta.class.body.php
+T 19 source.php meta.class.php meta.class.body.php keyword.operator.assignment.php
+T 20 source.php meta.class.php meta.class.body.php
+T 21 source.php meta.class.php meta.class.body.php constant.numeric.decimal.php
+T 22 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L 
+L     final public function __construct(private(set) int $a = 1, readonly string $b, private &$c, public int $d): void {
+T 4 source.php meta.class.php meta.class.body.php
+T 9 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.inheritance.final.php
+T 10 source.php meta.class.php meta.class.body.php meta.function.php
+T 16 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 17 source.php meta.class.php meta.class.body.php meta.function.php
+T 25 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 26 source.php meta.class.php meta.class.body.php meta.function.php
+T 37 source.php meta.class.php meta.class.body.php meta.function.php support.function.constructor.php
+T 38 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 50 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php storage.modifier.php storage.modifier.visibility.set.private.php
+T 51 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 54 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php keyword.other.type.php
+T 55 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 56 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php punctuation.definition.variable.php
+T 57 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php
+T 58 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 59 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php keyword.operator.assignment.php
+T 60 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 61 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php constant.numeric.decimal.php
+T 62 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 63 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 71 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php storage.modifier.php storage.modifier.readonly.php
+T 72 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 78 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php keyword.other.type.php
+T 79 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 80 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php punctuation.definition.variable.php
+T 81 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php
+T 82 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 83 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 90 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php storage.modifier.php storage.modifier.visibility.private.php
+T 91 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 92 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php storage.modifier.reference.php
+T 93 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php punctuation.definition.variable.php
+T 94 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php
+T 95 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 96 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 102 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php storage.modifier.php storage.modifier.visibility.public.php
+T 103 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 106 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php keyword.other.type.php
+T 107 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php
+T 108 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php punctuation.definition.variable.php
+T 109 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.promoted-property.php variable.other.php
+T 110 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 116 source.php meta.class.php meta.class.body.php meta.function.php invalid.illegal.return-type.php
+T 117 source.php meta.class.php meta.class.body.php
+T 118 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L 
+L     public static function &instance(): static {
+T 4 source.php meta.class.php meta.class.body.php
+T 10 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 11 source.php meta.class.php meta.class.body.php meta.function.php
+T 17 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.static.php
+T 18 source.php meta.class.php meta.class.body.php meta.function.php
+T 26 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 27 source.php meta.class.php meta.class.body.php meta.function.php
+T 28 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.reference.php
+T 36 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 37 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 38 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 39 source.php meta.class.php meta.class.body.php meta.function.php keyword.operator.return-value.php
+T 40 source.php meta.class.php meta.class.body.php meta.function.php
+T 46 source.php meta.class.php meta.class.body.php meta.function.php storage.type.php
+T 47 source.php meta.class.php meta.class.body.php
+T 48 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L         return new static();
+T 8 source.php meta.class.php meta.class.body.php
+T 14 source.php meta.class.php meta.class.body.php keyword.control.return.php
+T 15 source.php meta.class.php meta.class.body.php
+T 18 source.php meta.class.php meta.class.body.php keyword.other.new.php
+T 19 source.php meta.class.php meta.class.body.php
+T 25 source.php meta.class.php meta.class.body.php storage.type.php
+T 26 source.php meta.class.php meta.class.body.php punctuation.definition.arguments.begin.bracket.round.php
+T 27 source.php meta.class.php meta.class.body.php punctuation.definition.arguments.end.bracket.round.php
+T 28 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L 
+L     abstract public function f();
+T 4 source.php meta.class.php meta.class.body.php
+T 12 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.inheritance.abstract.php
+T 13 source.php meta.class.php meta.class.body.php meta.function.php
+T 19 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 20 source.php meta.class.php meta.class.body.php meta.function.php
+T 28 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 29 source.php meta.class.php meta.class.body.php meta.function.php
+T 30 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 31 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 32 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 33 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L 
+L     public function stop(): never {
+T 4 source.php meta.class.php meta.class.body.php
+T 10 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 11 source.php meta.class.php meta.class.body.php meta.function.php
+T 19 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 20 source.php meta.class.php meta.class.body.php meta.function.php
+T 24 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 25 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 26 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 27 source.php meta.class.php meta.class.body.php meta.function.php keyword.operator.return-value.php
+T 28 source.php meta.class.php meta.class.body.php meta.function.php
+T 33 source.php meta.class.php meta.class.body.php meta.function.php keyword.other.type.never.php
+T 34 source.php meta.class.php meta.class.body.php
+T 35 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L         throw new \RuntimeException('no');
+T 8 source.php meta.class.php meta.class.body.php
+T 13 source.php meta.class.php meta.class.body.php keyword.control.exception.php
+T 14 source.php meta.class.php meta.class.body.php
+T 17 source.php meta.class.php meta.class.body.php keyword.other.new.php
+T 18 source.php meta.class.php meta.class.body.php
+T 19 source.php meta.class.php meta.class.body.php support.class.builtin.php punctuation.separator.inheritance.php
+T 35 source.php meta.class.php meta.class.body.php support.class.builtin.php
+T 36 source.php meta.class.php meta.class.body.php punctuation.definition.arguments.begin.bracket.round.php
+T 37 source.php meta.class.php meta.class.body.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 39 source.php meta.class.php meta.class.body.php meta.function-call.php string.quoted.single.php
+T 40 source.php meta.class.php meta.class.body.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 41 source.php meta.class.php meta.class.body.php punctuation.definition.arguments.end.bracket.round.php
+T 42 source.php meta.class.php meta.class.body.php punctuation.terminator.expression.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L 
+L     public function params(int &...$rest, ?Foo &$ref = null, &$plain, &$def = [], (A&B)|null $dnf, self|parent $p): void {
+T 4 source.php meta.class.php meta.class.body.php
+T 10 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 11 source.php meta.class.php meta.class.body.php meta.function.php
+T 19 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 20 source.php meta.class.php meta.class.body.php meta.function.php
+T 26 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 27 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 30 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.variadic.php keyword.other.type.php
+T 31 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.variadic.php
+T 32 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.variadic.php variable.other.php storage.modifier.reference.php
+T 35 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.variadic.php variable.other.php keyword.operator.variadic.php
+T 36 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.variadic.php variable.other.php punctuation.definition.variable.php
+T 40 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.variadic.php variable.other.php
+T 41 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 42 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 43 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php keyword.operator.nullable-type.php
+T 46 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php support.class.php
+T 47 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php
+T 48 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php storage.modifier.reference.php
+T 49 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php punctuation.definition.variable.php
+T 52 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php
+T 53 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php
+T 54 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php keyword.operator.assignment.php
+T 55 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php
+T 59 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php constant.language.php
+T 60 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 61 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 62 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php storage.modifier.reference.php
+T 63 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php punctuation.definition.variable.php
+T 68 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php
+T 69 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 70 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 71 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php storage.modifier.reference.php
+T 72 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 75 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 76 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 77 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 78 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 79 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php punctuation.section.array.begin.php
+T 80 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php punctuation.section.array.end.php
+T 81 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 82 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 83 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php punctuation.definition.type.begin.bracket.round.php
+T 84 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php support.class.php
+T 85 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php punctuation.separator.delimiter.php
+T 86 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php support.class.php
+T 87 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php punctuation.definition.type.end.bracket.round.php
+T 88 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php punctuation.separator.delimiter.php
+T 92 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php keyword.other.type.php
+T 93 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php
+T 94 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php punctuation.definition.variable.php
+T 97 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php
+T 98 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 99 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 103 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php storage.type.php
+T 104 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php punctuation.separator.delimiter.php
+T 110 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php storage.type.php
+T 111 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php
+T 112 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php punctuation.definition.variable.php
+T 113 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.typehinted.php variable.other.php
+T 114 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 115 source.php meta.class.php meta.class.body.php meta.function.php keyword.operator.return-value.php
+T 116 source.php meta.class.php meta.class.body.php meta.function.php
+T 120 source.php meta.class.php meta.class.body.php meta.function.php keyword.other.type.php
+T 121 source.php meta.class.php meta.class.body.php
+T 122 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L 
+L     public function defaults($pair = 1 => 2, $a = [1 => 2], $b = array(3), $c = Foo::BAR, $d = &$e, $f = 1 = 2) {
+T 4 source.php meta.class.php meta.class.body.php
+T 10 source.php meta.class.php meta.class.body.php meta.function.php storage.modifier.php storage.modifier.visibility.public.php
+T 11 source.php meta.class.php meta.class.body.php meta.function.php
+T 19 source.php meta.class.php meta.class.body.php meta.function.php storage.type.function.php
+T 20 source.php meta.class.php meta.class.body.php meta.function.php
+T 28 source.php meta.class.php meta.class.body.php meta.function.php entity.name.function.php
+T 29 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 30 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 34 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 35 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 36 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 37 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 38 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.numeric.decimal.php
+T 39 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 41 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.key.php
+T 42 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 43 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.numeric.decimal.php
+T 44 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 45 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 46 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 47 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 48 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 49 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 50 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 51 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php punctuation.section.array.begin.php
+T 52 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.numeric.decimal.php
+T 53 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 55 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.key.php
+T 56 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 57 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.numeric.decimal.php
+T 58 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php punctuation.section.array.end.php
+T 59 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 60 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 61 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 62 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 63 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 64 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 65 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 70 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php meta.array.php support.function.construct.php
+T 71 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php meta.array.php punctuation.definition.array.begin.bracket.round.php
+T 72 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php meta.array.php constant.numeric.decimal.php
+T 73 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php meta.array.php punctuation.definition.array.end.bracket.round.php
+T 74 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 75 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 76 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 77 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 78 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 79 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 80 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 83 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php support.class.php
+T 85 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.class.php
+T 88 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.other.class.php
+T 89 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 90 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 91 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 92 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 93 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 94 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 95 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 96 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php storage.modifier.reference.php
+T 97 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 98 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 99 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php punctuation.separator.delimiter.php
+T 100 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php
+T 101 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php punctuation.definition.variable.php
+T 102 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php variable.other.php
+T 103 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 104 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 105 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 106 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.numeric.decimal.php
+T 107 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 108 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php keyword.operator.assignment.php
+T 109 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php
+T 110 source.php meta.class.php meta.class.body.php meta.function.php meta.function.parameters.php meta.function.parameter.default.php constant.numeric.decimal.php
+T 111 source.php meta.class.php meta.class.body.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 112 source.php meta.class.php meta.class.body.php
+T 113 source.php meta.class.php meta.class.body.php punctuation.definition.begin.bracket.curly.php
+L     }
+T 4 source.php meta.class.php meta.class.body.php
+T 5 source.php meta.class.php meta.class.body.php punctuation.definition.end.bracket.curly.php
+L }
+T 1 source.php meta.class.php punctuation.definition.class.end.bracket.curly.php
+L 
+L $anon = new #[Attr] readonly class (1, 2) {
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 11 source.php meta.class.php keyword.other.new.php
+T 12 source.php meta.class.php
+T 14 source.php meta.class.php meta.attribute.php
+T 18 source.php meta.class.php meta.attribute.php support.attribute.php
+T 19 source.php meta.class.php meta.attribute.php
+T 20 source.php meta.class.php
+T 28 source.php meta.class.php storage.modifier.php storage.modifier.readonly.php
+T 29 source.php meta.class.php
+T 34 source.php meta.class.php storage.type.class.php
+T 35 source.php meta.class.php meta.function-call.php
+T 36 source.php meta.class.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 37 source.php meta.class.php meta.function-call.php constant.numeric.decimal.php
+T 38 source.php meta.class.php meta.function-call.php punctuation.separator.delimiter.php
+T 39 source.php meta.class.php meta.function-call.php
+T 40 source.php meta.class.php meta.function-call.php constant.numeric.decimal.php
+T 41 source.php meta.class.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 42 source.php meta.class.php
+T 43 source.php meta.class.php punctuation.definition.class.begin.bracket.curly.php
+L };
+T 1 source.php meta.class.php punctuation.definition.class.end.bracket.curly.php
+T 2 source.php punctuation.terminator.expression.php
+L $copy = clone $obj;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 13 source.php keyword.other.clone.php
+T 14 source.php
+T 15 source.php variable.other.php punctuation.definition.variable.php
+T 18 source.php variable.other.php
+T 19 source.php punctuation.terminator.expression.php
+L $self = new self;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 11 source.php keyword.other.new.php
+T 12 source.php
+T 16 source.php storage.type.php
+T 17 source.php punctuation.terminator.expression.php
+L $ref =& $value;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php storage.modifier.reference.php
+T 8 source.php
+T 9 source.php variable.other.php punctuation.definition.variable.php
+T 14 source.php variable.other.php
+T 15 source.php punctuation.terminator.expression.php
+L f(&$x);
+T 1 source.php meta.function-call.php entity.name.function.php
+T 2 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 3 source.php meta.function-call.php storage.modifier.reference.php
+T 4 source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 5 source.php meta.function-call.php variable.other.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L @$quiet;
+T 1 source.php keyword.operator.error-control.php
+T 2 source.php variable.other.php punctuation.definition.variable.php
+T 7 source.php variable.other.php
+T 8 source.php punctuation.terminator.expression.php
+L $i++;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 2 source.php variable.other.php
+T 4 source.php keyword.operator.increment-decrement.php
+T 5 source.php punctuation.terminator.expression.php
+L --$j;
+T 2 source.php keyword.operator.increment-decrement.php
+T 3 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php punctuation.terminator.expression.php
+L $bits = $a << 2 ^ ~$b | $c >> 1 & $d;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 9 source.php variable.other.php punctuation.definition.variable.php
+T 10 source.php variable.other.php
+T 11 source.php
+T 12 source.php keyword.operator.comparison.php
+T 13 source.php keyword.operator.comparison.php
+T 14 source.php
+T 15 source.php constant.numeric.decimal.php
+T 16 source.php
+T 17 source.php keyword.operator.bitwise.php
+T 18 source.php
+T 19 source.php keyword.operator.bitwise.php
+T 20 source.php variable.other.php punctuation.definition.variable.php
+T 21 source.php variable.other.php
+T 22 source.php
+T 23 source.php keyword.operator.bitwise.php
+T 24 source.php
+T 25 source.php variable.other.php punctuation.definition.variable.php
+T 26 source.php variable.other.php
+T 27 source.php
+T 28 source.php keyword.operator.comparison.php
+T 29 source.php keyword.operator.comparison.php
+T 30 source.php
+T 31 source.php constant.numeric.decimal.php
+T 32 source.php
+T 33 source.php keyword.operator.bitwise.php
+T 34 source.php
+T 35 source.php variable.other.php punctuation.definition.variable.php
+T 36 source.php variable.other.php
+T 37 source.php punctuation.terminator.expression.php
+L global $config;
+T 6 source.php storage.modifier.php storage.modifier.global.php
+T 7 source.php
+T 8 source.php variable.other.php punctuation.definition.variable.php
+T 14 source.php variable.other.php
+T 15 source.php punctuation.terminator.expression.php
+L var $legacy;
+T 3 source.php storage.type.php
+T 4 source.php
+T 5 source.php variable.other.php punctuation.definition.variable.php
+T 11 source.php variable.other.php
+T 12 source.php punctuation.terminator.expression.php
+L const;
+T 5 source.php storage.type.const.php
+T 6 source.php punctuation.terminator.expression.php
+L goto done;
+T 4 source.php keyword.control.goto.php
+T 5 source.php
+T 9 source.php support.other.php
+T 10 source.php punctuation.terminator.expression.php
+L     done:
+T 4 source.php
+T 8 source.php constant.other.php
+T 9 source.php keyword.operator.ternary.php
+L again:
+T 5 source.php entity.name.goto-label.php
+T 6 source.php
+L 
+L function gen() {
+T 8 source.php meta.function.php storage.type.function.php
+T 9 source.php meta.function.php
+T 12 source.php meta.function.php entity.name.function.php
+T 13 source.php meta.function.php punctuation.definition.parameters.begin.bracket.round.php
+T 14 source.php meta.function.php punctuation.definition.parameters.end.bracket.round.php
+T 15 source.php
+T 16 source.php punctuation.definition.begin.bracket.curly.php
+L     yield from inner();
+T 4 source.php
+T 14 source.php keyword.control.yield-from.php
+T 15 source.php
+T 20 source.php meta.function-call.php entity.name.function.php
+T 21 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 22 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 23 source.php punctuation.terminator.expression.php
+L }
+T 1 source.php punctuation.definition.end.bracket.curly.php
+L 
+L try {
+T 3 source.php keyword.control.exception.php
+T 4 source.php
+T 5 source.php punctuation.definition.begin.bracket.curly.php
+L     risky();
+T 4 source.php
+T 9 source.php meta.function-call.php entity.name.function.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L } catch (\Acme\Error | LogicException $e) {
+T 1 source.php punctuation.definition.end.bracket.curly.php
+T 2 source.php
+T 7 source.php meta.catch.php keyword.control.exception.catch.php
+T 8 source.php meta.catch.php
+T 9 source.php meta.catch.php punctuation.definition.parameters.begin.bracket.round.php
+T 10 source.php meta.catch.php support.other.namespace.php punctuation.separator.inheritance.php
+T 14 source.php meta.catch.php support.other.namespace.php
+T 15 source.php meta.catch.php support.other.namespace.php punctuation.separator.inheritance.php
+T 20 source.php meta.catch.php support.class.exception.php
+T 21 source.php meta.catch.php
+T 22 source.php meta.catch.php punctuation.separator.delimiter.php
+T 23 source.php meta.catch.php
+T 37 source.php meta.catch.php support.class.exception.php
+T 38 source.php meta.catch.php
+T 39 source.php meta.catch.php variable.other.php punctuation.definition.variable.php
+T 40 source.php meta.catch.php variable.other.php
+T 41 source.php meta.catch.php punctuation.definition.parameters.end.bracket.round.php
+T 42 source.php
+T 43 source.php punctuation.definition.begin.bracket.curly.php
+L     report($e);
+T 4 source.php
+T 10 source.php meta.function-call.php entity.name.function.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 13 source.php meta.function-call.php variable.other.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L } finally {
+T 1 source.php punctuation.definition.end.bracket.curly.php
+T 2 source.php
+T 9 source.php keyword.control.exception.php
+T 10 source.php
+T 11 source.php punctuation.definition.begin.bracket.curly.php
+L     cleanup();
+T 4 source.php
+T 11 source.php meta.function-call.php entity.name.function.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L }
+T 1 source.php punctuation.definition.end.bracket.curly.php
+L 
+L $closure = function &() use (&$total, $count): ?int {
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 8 source.php variable.other.php
+T 9 source.php
+T 10 source.php keyword.operator.assignment.php
+T 11 source.php
+T 19 source.php meta.function.closure.php storage.type.function.php
+T 20 source.php meta.function.closure.php
+T 21 source.php meta.function.closure.php storage.modifier.reference.php
+T 22 source.php meta.function.closure.php punctuation.definition.parameters.begin.bracket.round.php
+T 23 source.php meta.function.closure.php punctuation.definition.parameters.end.bracket.round.php
+T 24 source.php meta.function.closure.php
+T 27 source.php meta.function.closure.php meta.function.closure.use.php keyword.other.function.use.php
+T 28 source.php meta.function.closure.php meta.function.closure.use.php
+T 29 source.php meta.function.closure.php meta.function.closure.use.php punctuation.definition.parameters.begin.bracket.round.php
+T 30 source.php meta.function.closure.php meta.function.closure.use.php variable.other.php storage.modifier.reference.php
+T 31 source.php meta.function.closure.php meta.function.closure.use.php variable.other.php punctuation.definition.variable.php
+T 36 source.php meta.function.closure.php meta.function.closure.use.php variable.other.php
+T 37 source.php meta.function.closure.php meta.function.closure.use.php punctuation.separator.delimiter.php
+T 38 source.php meta.function.closure.php meta.function.closure.use.php
+T 39 source.php meta.function.closure.php meta.function.closure.use.php variable.other.php punctuation.definition.variable.php
+T 44 source.php meta.function.closure.php meta.function.closure.use.php variable.other.php
+T 45 source.php meta.function.closure.php meta.function.closure.use.php punctuation.definition.parameters.end.bracket.round.php
+T 46 source.php meta.function.closure.php keyword.operator.return-value.php
+T 47 source.php meta.function.closure.php
+T 48 source.php meta.function.closure.php keyword.operator.nullable-type.php
+T 51 source.php meta.function.closure.php keyword.other.type.php
+T 52 source.php
+T 53 source.php punctuation.definition.begin.bracket.curly.php
+L     return $total;
+T 4 source.php
+T 10 source.php keyword.control.return.php
+T 11 source.php
+T 12 source.php variable.other.php punctuation.definition.variable.php
+T 17 source.php variable.other.php
+T 18 source.php punctuation.terminator.expression.php
+L };
+T 1 source.php punctuation.definition.end.bracket.curly.php
+T 2 source.php punctuation.terminator.expression.php
+L $arrow = fn &($x): int => $x * 2;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 11 source.php meta.function.closure.php storage.type.function.php
+T 12 source.php meta.function.closure.php
+T 13 source.php meta.function.closure.php storage.modifier.reference.php
+T 14 source.php meta.function.closure.php punctuation.definition.parameters.begin.bracket.round.php
+T 15 source.php meta.function.closure.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php punctuation.definition.variable.php
+T 16 source.php meta.function.closure.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php
+T 17 source.php meta.function.closure.php punctuation.definition.parameters.end.bracket.round.php
+T 18 source.php meta.function.closure.php keyword.operator.return-value.php
+T 19 source.php meta.function.closure.php
+T 22 source.php meta.function.closure.php keyword.other.type.php
+T 23 source.php meta.function.closure.php
+T 25 source.php meta.function.closure.php punctuation.definition.arrow.php
+T 26 source.php
+T 27 source.php variable.other.php punctuation.definition.variable.php
+T 28 source.php variable.other.php
+T 29 source.php
+T 30 source.php keyword.operator.arithmetic.php
+T 31 source.php
+T 32 source.php constant.numeric.decimal.php
+T 33 source.php punctuation.terminator.expression.php
+L $plain = fn($y) => $y;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 11 source.php meta.function.closure.php storage.type.function.php
+T 12 source.php meta.function.closure.php punctuation.definition.parameters.begin.bracket.round.php
+T 13 source.php meta.function.closure.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php punctuation.definition.variable.php
+T 14 source.php meta.function.closure.php meta.function.parameters.php meta.function.parameter.no-default.php variable.other.php
+T 15 source.php meta.function.closure.php punctuation.definition.parameters.end.bracket.round.php
+T 16 source.php meta.function.closure.php
+T 18 source.php meta.function.closure.php punctuation.definition.arrow.php
+T 19 source.php
+T 20 source.php variable.other.php punctuation.definition.variable.php
+T 21 source.php variable.other.php
+T 22 source.php punctuation.terminator.expression.php
+L 
+L $m = match ($value) {
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 2 source.php variable.other.php
+T 3 source.php
+T 4 source.php keyword.operator.assignment.php
+T 5 source.php
+T 10 source.php meta.match-statement.php keyword.control.match.php
+T 11 source.php meta.match-statement.php
+T 12 source.php meta.match-statement.php punctuation.definition.match-expression.begin.bracket.round.php
+T 13 source.php meta.match-statement.php variable.other.php punctuation.definition.variable.php
+T 18 source.php meta.match-statement.php variable.other.php
+T 19 source.php meta.match-statement.php punctuation.definition.match-expression.end.bracket.round.php
+T 20 source.php meta.match-statement.php
+T 21 source.php meta.match-statement.php punctuation.definition.section.match-block.begin.bracket.curly.php
+L     1, 2 => 'low',
+T 4 source.php meta.match-statement.php
+T 5 source.php meta.match-statement.php constant.numeric.decimal.php
+T 6 source.php meta.match-statement.php punctuation.separator.delimiter.php
+T 7 source.php meta.match-statement.php
+T 8 source.php meta.match-statement.php constant.numeric.decimal.php
+T 9 source.php meta.match-statement.php
+T 11 source.php meta.match-statement.php keyword.definition.arrow.php
+T 12 source.php meta.match-statement.php
+T 13 source.php meta.match-statement.php string.quoted.single.php punctuation.definition.string.begin.php
+T 16 source.php meta.match-statement.php string.quoted.single.php
+T 17 source.php meta.match-statement.php string.quoted.single.php punctuation.definition.string.end.php
+T 18 source.php meta.match-statement.php punctuation.separator.delimiter.php
+L     default => 'high',
+T 4 source.php meta.match-statement.php
+T 11 source.php meta.match-statement.php keyword.control.default.php
+T 12 source.php meta.match-statement.php
+T 14 source.php meta.match-statement.php keyword.definition.arrow.php
+T 15 source.php meta.match-statement.php
+T 16 source.php meta.match-statement.php string.quoted.single.php punctuation.definition.string.begin.php
+T 20 source.php meta.match-statement.php string.quoted.single.php
+T 21 source.php meta.match-statement.php string.quoted.single.php punctuation.definition.string.end.php
+T 22 source.php meta.match-statement.php punctuation.separator.delimiter.php
+L };
+T 1 source.php meta.match-statement.php punctuation.definition.section.match-block.end.bracket.curly.php
+T 2 source.php punctuation.terminator.expression.php
+L 
+L if ($ready) switch ($mode) {
+T 2 source.php keyword.control.if.php
+T 3 source.php
+T 4 source.php punctuation.definition.begin.bracket.round.php
+T 5 source.php variable.other.php punctuation.definition.variable.php
+T 10 source.php variable.other.php
+T 11 source.php punctuation.definition.end.bracket.round.php
+T 12 source.php
+T 18 source.php meta.switch-statement.php keyword.control.switch.php
+T 19 source.php meta.switch-statement.php
+T 20 source.php meta.switch-statement.php punctuation.definition.switch-expression.begin.bracket.round.php
+T 21 source.php meta.switch-statement.php variable.other.php punctuation.definition.variable.php
+T 25 source.php meta.switch-statement.php variable.other.php
+T 26 source.php meta.switch-statement.php punctuation.definition.switch-expression.end.bracket.round.php
+T 27 source.php meta.switch-statement.php
+T 28 source.php meta.switch-statement.php punctuation.definition.section.switch-block.begin.bracket.curly.php
+L     case 1:
+T 4 source.php meta.switch-statement.php
+T 8 source.php meta.switch-statement.php keyword.control.case.php
+T 9 source.php meta.switch-statement.php
+T 10 source.php meta.switch-statement.php constant.numeric.decimal.php
+T 11 source.php meta.switch-statement.php punctuation.terminator.statement.php
+L         break;
+T 8 source.php meta.switch-statement.php
+T 13 source.php meta.switch-statement.php keyword.control.break.php
+T 14 source.php meta.switch-statement.php punctuation.terminator.expression.php
+L }
+T 1 source.php meta.switch-statement.php punctuation.definition.section.switch-block.end.bracket.curly.php
+L switch ($x):
+T 6 source.php keyword.control.switch.php
+T 7 source.php
+T 8 source.php punctuation.definition.begin.bracket.round.php
+T 9 source.php variable.other.php punctuation.definition.variable.php
+T 10 source.php variable.other.php
+T 11 source.php punctuation.definition.end.bracket.round.php
+T 12 source.php punctuation.terminator.statement.php
+L endswitch;
+T 9 source.php keyword.control.endswitch.php
+T 10 source.php punctuation.terminator.expression.php
+L 
+L $t = $flag ?
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 2 source.php variable.other.php
+T 3 source.php
+T 4 source.php keyword.operator.assignment.php
+T 5 source.php
+T 6 source.php variable.other.php punctuation.definition.variable.php
+T 10 source.php variable.other.php
+T 11 source.php
+T 12 source.php keyword.operator.ternary.php
+L     yes : no;
+T 4 source.php
+T 7 source.php constant.language.php
+T 8 source.php
+T 9 source.php keyword.operator.ternary.php
+T 10 source.php
+T 12 source.php constant.language.php
+T 13 source.php punctuation.terminator.expression.php
+L 
+L $arr = array();
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 12 source.php meta.array.empty.php support.function.construct.php
+T 13 source.php meta.array.empty.php punctuation.definition.array.begin.bracket.round.php
+T 14 source.php meta.array.empty.php punctuation.definition.array.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L $arr2 = array(1, 2);
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 13 source.php meta.array.php support.function.construct.php
+T 14 source.php meta.array.php punctuation.definition.array.begin.bracket.round.php
+T 15 source.php meta.array.php constant.numeric.decimal.php
+T 16 source.php meta.array.php punctuation.separator.delimiter.php
+T 17 source.php meta.array.php
+T 18 source.php meta.array.php constant.numeric.decimal.php
+T 19 source.php meta.array.php punctuation.definition.array.end.bracket.round.php
+T 20 source.php punctuation.terminator.expression.php
+L $cast = (real) $n;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 9 source.php punctuation.definition.storage-type.begin.bracket.round.php
+T 13 source.php storage.type.php
+T 14 source.php punctuation.definition.storage-type.end.bracket.round.php
+T 15 source.php
+T 16 source.php variable.other.php punctuation.definition.variable.php
+T 17 source.php variable.other.php
+T 18 source.php punctuation.terminator.expression.php
+L 
+L \Acme\Util\helper();
+T 1 source.php meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 5 source.php meta.function-call.php support.other.namespace.php
+T 6 source.php meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 10 source.php meta.function-call.php support.other.namespace.php
+T 11 source.php meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 17 source.php meta.function-call.php entity.name.function.php
+T 18 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 19 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 20 source.php punctuation.terminator.expression.php
+L Acme\Support\call();
+T 4 source.php meta.function-call.php support.other.namespace.php
+T 5 source.php meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 12 source.php meta.function-call.php support.other.namespace.php
+T 13 source.php meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 17 source.php meta.function-call.php entity.name.function.php
+T 18 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 19 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 20 source.php punctuation.terminator.expression.php
+L $class = \ArrayIterator::class;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 10 source.php support.class.builtin.php punctuation.separator.inheritance.php
+T 23 source.php support.class.builtin.php
+T 25 source.php keyword.operator.class.php
+T 30 source.php keyword.other.class.php
+T 31 source.php punctuation.terminator.expression.php
+L echo E_ALL, \INF, DNS_A, T_SR, \E_ALL, \DNS_A, \T_SR;
+T 4 source.php support.function.construct.output.php
+T 5 source.php
+T 10 source.php support.constant.core.php
+T 11 source.php punctuation.separator.delimiter.php
+T 12 source.php
+T 13 source.php support.constant.std.php punctuation.separator.inheritance.php
+T 16 source.php support.constant.std.php
+T 17 source.php punctuation.separator.delimiter.php
+T 18 source.php
+T 23 source.php support.constant.ext.php
+T 24 source.php punctuation.separator.delimiter.php
+T 25 source.php
+T 29 source.php support.constant.parser-token.php
+T 30 source.php punctuation.separator.delimiter.php
+T 31 source.php
+T 32 source.php support.constant.core.php punctuation.separator.inheritance.php
+T 37 source.php support.constant.core.php
+T 38 source.php punctuation.separator.delimiter.php
+T 39 source.php
+T 40 source.php support.constant.ext.php punctuation.separator.inheritance.php
+T 45 source.php support.constant.ext.php
+T 46 source.php punctuation.separator.delimiter.php
+T 47 source.php
+T 48 source.php support.constant.parser-token.php punctuation.separator.inheritance.php
+T 52 source.php support.constant.parser-token.php
+T 53 source.php punctuation.terminator.expression.php
+L 
+L $hex = 0x1F_FF;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 14 source.php constant.numeric.hex.php
+T 15 source.php punctuation.terminator.expression.php
+L $bin = 0b1010_1;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 15 source.php constant.numeric.binary.php
+T 16 source.php punctuation.terminator.expression.php
+L $oct = 0o17_7;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 13 source.php constant.numeric.octal.php
+T 14 source.php punctuation.terminator.expression.php
+L $old = 017;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 10 source.php constant.numeric.octal.php
+T 11 source.php punctuation.terminator.expression.php
+L $float = 1_000.5e-3;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 14 source.php constant.numeric.decimal.php
+T 15 source.php constant.numeric.decimal.php punctuation.separator.decimal.period.php
+T 19 source.php constant.numeric.decimal.php
+T 20 source.php punctuation.terminator.expression.php
+L $half = .5;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 5 source.php variable.other.php
+T 6 source.php
+T 7 source.php keyword.operator.assignment.php
+T 8 source.php
+T 9 source.php constant.numeric.decimal.php punctuation.separator.decimal.period.php
+T 10 source.php constant.numeric.decimal.php
+T 11 source.php punctuation.terminator.expression.php
+L $dot = 1.;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 8 source.php constant.numeric.decimal.php
+T 9 source.php constant.numeric.decimal.php punctuation.separator.decimal.period.php
+T 10 source.php punctuation.terminator.expression.php
+L $exp = 1e3;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 10 source.php constant.numeric.decimal.php
+T 11 source.php punctuation.terminator.expression.php
+L 
+L $escapes = "\101 \x41 \u{1F600} \n \$ \"quoted\"";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 8 source.php variable.other.php
+T 9 source.php
+T 10 source.php keyword.operator.assignment.php
+T 11 source.php
+T 12 source.php string.quoted.double.php punctuation.definition.string.begin.php
+T 16 source.php string.quoted.double.php constant.character.escape.octal.php
+T 17 source.php string.quoted.double.php
+T 21 source.php string.quoted.double.php constant.character.escape.hex.php
+T 22 source.php string.quoted.double.php
+T 31 source.php string.quoted.double.php constant.character.escape.unicode.php
+T 32 source.php string.quoted.double.php
+T 34 source.php string.quoted.double.php constant.character.escape.php
+T 35 source.php string.quoted.double.php
+T 37 source.php string.quoted.double.php constant.character.escape.php
+T 38 source.php string.quoted.double.php
+T 40 source.php string.quoted.double.php constant.character.escape.php
+T 46 source.php string.quoted.double.php
+T 48 source.php string.quoted.double.php constant.character.escape.php
+T 49 source.php string.quoted.double.php punctuation.definition.string.end.php
+T 50 source.php punctuation.terminator.expression.php
+L $members = "$a->b $a?->b $a[1] $a[$i] $a[key] ${name}";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 8 source.php variable.other.php
+T 9 source.php
+T 10 source.php keyword.operator.assignment.php
+T 11 source.php
+T 12 source.php string.quoted.double.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 14 source.php string.quoted.double.php variable.other.php
+T 16 source.php string.quoted.double.php keyword.operator.class.php
+T 17 source.php string.quoted.double.php variable.other.property.php
+T 18 source.php string.quoted.double.php
+T 19 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 20 source.php string.quoted.double.php variable.other.php
+T 23 source.php string.quoted.double.php keyword.operator.class.php
+T 24 source.php string.quoted.double.php variable.other.property.php
+T 25 source.php string.quoted.double.php
+T 26 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 27 source.php string.quoted.double.php variable.other.php
+T 28 source.php string.quoted.double.php punctuation.section.array.begin.php
+T 29 source.php string.quoted.double.php constant.numeric.index.php
+T 30 source.php string.quoted.double.php punctuation.section.array.end.php
+T 31 source.php string.quoted.double.php
+T 32 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 33 source.php string.quoted.double.php variable.other.php
+T 34 source.php string.quoted.double.php punctuation.section.array.begin.php
+T 35 source.php string.quoted.double.php variable.other.index.php punctuation.definition.variable.php
+T 36 source.php string.quoted.double.php variable.other.index.php
+T 37 source.php string.quoted.double.php punctuation.section.array.end.php
+T 38 source.php string.quoted.double.php
+T 39 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 40 source.php string.quoted.double.php variable.other.php
+T 41 source.php string.quoted.double.php punctuation.section.array.begin.php
+T 44 source.php string.quoted.double.php string.unquoted.index.php
+T 45 source.php string.quoted.double.php punctuation.section.array.end.php
+T 46 source.php string.quoted.double.php
+T 48 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 52 source.php string.quoted.double.php variable.other.php
+T 53 source.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 54 source.php string.quoted.double.php punctuation.definition.string.end.php
+T 55 source.php punctuation.terminator.expression.php
+L $dynamic = ${'a' . 'b'};
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 8 source.php variable.other.php
+T 9 source.php
+T 10 source.php keyword.operator.assignment.php
+T 11 source.php
+T 13 source.php punctuation.definition.variable.php
+T 14 source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 15 source.php string.quoted.single.php
+T 16 source.php string.quoted.single.php punctuation.definition.string.end.php
+T 17 source.php
+T 18 source.php keyword.operator.string.php
+T 19 source.php
+T 20 source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 21 source.php string.quoted.single.php
+T 22 source.php string.quoted.single.php punctuation.definition.string.end.php
+T 23 source.php punctuation.definition.variable.php
+T 24 source.php punctuation.terminator.expression.php
+L $globals = $_GET['q'] . $GLOBALS['x'] . $_SERVER['y'] . $argv[0];
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 8 source.php variable.other.php
+T 9 source.php
+T 10 source.php keyword.operator.assignment.php
+T 11 source.php
+T 12 source.php variable.other.global.php punctuation.definition.variable.php
+T 16 source.php variable.other.global.php
+T 17 source.php punctuation.section.array.begin.php
+T 18 source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 19 source.php string.quoted.single.php
+T 20 source.php string.quoted.single.php punctuation.definition.string.end.php
+T 21 source.php punctuation.section.array.end.php
+T 22 source.php
+T 23 source.php keyword.operator.string.php
+T 24 source.php
+T 25 source.php variable.other.global.safer.php punctuation.definition.variable.php
+T 32 source.php variable.other.global.safer.php
+T 33 source.php punctuation.section.array.begin.php
+T 34 source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 35 source.php string.quoted.single.php
+T 36 source.php string.quoted.single.php punctuation.definition.string.end.php
+T 37 source.php punctuation.section.array.end.php
+T 38 source.php
+T 39 source.php keyword.operator.string.php
+T 40 source.php
+T 41 source.php variable.other.global.safer.php punctuation.definition.variable.php
+T 48 source.php variable.other.global.safer.php
+T 49 source.php punctuation.section.array.begin.php
+T 50 source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 51 source.php string.quoted.single.php
+T 52 source.php string.quoted.single.php punctuation.definition.string.end.php
+T 53 source.php punctuation.section.array.end.php
+T 54 source.php
+T 55 source.php keyword.operator.string.php
+T 56 source.php
+T 57 source.php variable.other.global.php punctuation.definition.variable.php
+T 61 source.php variable.other.global.php
+T 62 source.php punctuation.section.array.begin.php
+T 63 source.php constant.numeric.decimal.php
+T 64 source.php punctuation.section.array.end.php
+T 65 source.php punctuation.terminator.expression.php
+L $shell = `ls \` -l`;
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 6 source.php variable.other.php
+T 7 source.php
+T 8 source.php keyword.operator.assignment.php
+T 9 source.php
+T 10 source.php string.interpolated.php punctuation.definition.string.begin.php
+T 13 source.php string.interpolated.php
+T 15 source.php string.interpolated.php constant.character.escape.php
+T 18 source.php string.interpolated.php
+T 19 source.php string.interpolated.php punctuation.definition.string.end.php
+T 20 source.php punctuation.terminator.expression.php
+L 
+L preg_match("/a\.b{1,2}[^x]$/i", $s);
+T 10 source.php meta.function-call.php support.function.php_pcre.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php string.regexp.double-quoted.php punctuation.definition.string.begin.php
+T 14 source.php meta.function-call.php string.regexp.double-quoted.php
+T 16 source.php meta.function-call.php string.regexp.double-quoted.php constant.character.escape.regex.php
+T 17 source.php meta.function-call.php string.regexp.double-quoted.php
+T 18 source.php meta.function-call.php string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 21 source.php meta.function-call.php string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php
+T 22 source.php meta.function-call.php string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 23 source.php meta.function-call.php string.regexp.double-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 25 source.php meta.function-call.php string.regexp.double-quoted.php string.regexp.character-class.php
+T 26 source.php meta.function-call.php string.regexp.double-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 27 source.php meta.function-call.php string.regexp.double-quoted.php keyword.operator.regexp.php
+T 30 source.php meta.function-call.php string.regexp.double-quoted.php punctuation.definition.string.end.php
+T 31 source.php meta.function-call.php punctuation.separator.delimiter.php
+T 32 source.php meta.function-call.php
+T 33 source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 34 source.php meta.function-call.php variable.other.php
+T 35 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 36 source.php punctuation.terminator.expression.php
+L preg_match('/a{1,2}/', $s);
+T 10 source.php meta.function-call.php support.function.php_pcre.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php string.regexp.single-quoted.php punctuation.definition.string.begin.php
+T 14 source.php meta.function-call.php string.regexp.single-quoted.php
+T 15 source.php meta.function-call.php string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 18 source.php meta.function-call.php string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php
+T 19 source.php meta.function-call.php string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 21 source.php meta.function-call.php string.regexp.single-quoted.php punctuation.definition.string.end.php
+T 22 source.php meta.function-call.php punctuation.separator.delimiter.php
+T 23 source.php meta.function-call.php
+T 24 source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 25 source.php meta.function-call.php variable.other.php
+T 26 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 27 source.php punctuation.terminator.expression.php
+L 
+L $q1 = "SELECT * FROM t # trailing comment";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.operator.star.sql
+T 16 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 20 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 23 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 24 source.php string.quoted.double.sql.php source.sql.embedded.php comment.line.number-sign.sql punctuation.definition.comment.sql
+T 41 source.php string.quoted.double.sql.php source.sql.embedded.php comment.line.number-sign.sql
+T 42 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 43 source.php punctuation.terminator.expression.php
+L $q2 = "SELECT 1 -- a comment";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.double.sql.php source.sql.embedded.php constant.numeric.sql
+T 16 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 18 source.php string.quoted.double.sql.php source.sql.embedded.php comment.line.double-dash.sql punctuation.definition.comment.sql
+T 28 source.php string.quoted.double.sql.php source.sql.embedded.php comment.line.double-dash.sql
+T 29 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 30 source.php punctuation.terminator.expression.php
+L $q3 = "SELECT \"x\", 'y', `col` FROM t";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 16 source.php string.quoted.double.sql.php source.sql.embedded.php constant.character.escape.php
+T 17 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 19 source.php string.quoted.double.sql.php source.sql.embedded.php constant.character.escape.php
+T 21 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 22 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 23 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 24 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 26 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 27 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 30 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 31 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 32 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 36 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 38 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 39 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 40 source.php punctuation.terminator.expression.php
+L $q4 = "SELECT `a` FROM t";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 16 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 17 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 18 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 22 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 24 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 25 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 26 source.php punctuation.terminator.expression.php
+L $q5 = 'SELECT * FROM t # comment';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.operator.star.sql
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 20 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 23 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 24 source.php string.quoted.single.sql.php source.sql.embedded.php comment.line.number-sign.sql punctuation.definition.comment.sql
+T 32 source.php string.quoted.single.sql.php source.sql.embedded.php comment.line.number-sign.sql
+T 33 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 34 source.php punctuation.terminator.expression.php
+L $q6 = 'SELECT 1 -- comment';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.single.sql.php source.sql.embedded.php constant.numeric.sql
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 18 source.php string.quoted.single.sql.php source.sql.embedded.php comment.line.double-dash.sql punctuation.definition.comment.sql
+T 26 source.php string.quoted.single.sql.php source.sql.embedded.php comment.line.double-dash.sql
+T 27 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 28 source.php punctuation.terminator.expression.php
+L $q7 = 'SELECT \'x\', N\'y\', `col`, "z" FROM t';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 17 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 19 source.php string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 22 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 24 source.php string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 25 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 27 source.php string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 29 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 30 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.sql punctuation.definition.string.begin.sql
+T 33 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 34 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.sql punctuation.definition.string.end.sql
+T 36 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 37 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.sql punctuation.definition.string.begin.sql
+T 38 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.sql
+T 39 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.sql punctuation.definition.string.end.sql
+T 40 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 44 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 46 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 47 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 48 source.php punctuation.terminator.expression.php
+L $q8 = "SELECT 'abc";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.unclosed.sql
+T 18 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 19 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 20 source.php punctuation.terminator.expression.php
+L $q9 = "SELECT `abc";
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 7 source.php string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 13 source.php string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 14 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 15 source.php string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.unclosed.sql
+T 18 source.php string.quoted.double.sql.php source.sql.embedded.php
+T 19 source.php string.quoted.double.sql.php punctuation.definition.string.end.php
+T 20 source.php punctuation.terminator.expression.php
+L $q10 = 'SELECT N';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 8 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 14 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 15 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 17 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 18 source.php punctuation.terminator.expression.php
+L $q11 = 'SELECT `abc';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 8 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 14 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 15 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.unclosed.sql
+T 19 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 20 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 21 source.php punctuation.terminator.expression.php
+L $q12 = 'SELECT "abc';
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 4 source.php variable.other.php
+T 5 source.php
+T 6 source.php keyword.operator.assignment.php
+T 7 source.php
+T 8 source.php string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 14 source.php string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 15 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 16 source.php string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.unclosed.sql
+T 19 source.php string.quoted.single.sql.php source.sql.embedded.php
+T 20 source.php string.quoted.single.sql.php punctuation.definition.string.end.php
+T 21 source.php punctuation.terminator.expression.php
+L 
+L /**
+T 3 source.php comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L  * A doc comment.
+T 17 source.php comment.block.documentation.phpdoc.php
+L  not starting with a star
+T 25 source.php comment.block.documentation.phpdoc.php invalid.illegal.missing-asterisk.phpdoc.php
+L  * @access public
+T 3 source.php comment.block.documentation.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php
+T 17 source.php comment.block.documentation.phpdoc.php storage.modifier.php storage.modifier.visibility.public.php
+L  * @access other
+T 3 source.php comment.block.documentation.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php
+T 16 source.php comment.block.documentation.phpdoc.php invalid.illegal.wrong-access-type.phpdoc.php
+L  * @xlink http://example.com
+T 3 source.php comment.block.documentation.phpdoc.php
+T 9 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php
+T 28 source.php comment.block.documentation.phpdoc.php markup.underline.link.php
+L  * @param A|B $x
+T 3 source.php comment.block.documentation.phpdoc.php
+T 9 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 12 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.separator.delimiter.php
+T 13 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 16 source.php comment.block.documentation.phpdoc.php
+L  * @param A| B $w
+T 3 source.php comment.block.documentation.phpdoc.php
+T 9 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 12 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.separator.delimiter.php
+T 17 source.php comment.block.documentation.phpdoc.php
+L  * @param (A| B)[] $v
+T 3 source.php comment.block.documentation.phpdoc.php
+T 9 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.definition.type.begin.bracket.round.phpdoc.php
+T 12 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 13 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.separator.delimiter.php
+T 14 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php
+T 15 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 16 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.definition.type.end.bracket.round.phpdoc.php
+T 18 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php keyword.other.array.phpdoc.php
+T 21 source.php comment.block.documentation.phpdoc.php
+L  * @param ?int $y
+T 3 source.php comment.block.documentation.phpdoc.php
+T 9 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php keyword.operator.nullable-type.php
+T 14 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php keyword.other.type.php
+T 17 source.php comment.block.documentation.phpdoc.php
+L  * @param (A|B)[] $z
+T 3 source.php comment.block.documentation.phpdoc.php
+T 9 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.definition.type.begin.bracket.round.phpdoc.php
+T 12 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 13 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.separator.delimiter.php
+T 14 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php support.class.php
+T 15 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php punctuation.definition.type.end.bracket.round.phpdoc.php
+T 17 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php keyword.other.array.phpdoc.php
+T 20 source.php comment.block.documentation.phpdoc.php
+L  * @return self {@link Foo}
+T 3 source.php comment.block.documentation.phpdoc.php
+T 10 source.php comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 11 source.php comment.block.documentation.phpdoc.php
+T 15 source.php comment.block.documentation.phpdoc.php meta.other.type.phpdoc.php keyword.other.type.php
+T 16 source.php comment.block.documentation.phpdoc.php
+T 17 source.php comment.block.documentation.phpdoc.php meta.tag.inline.phpdoc.php
+T 22 source.php comment.block.documentation.phpdoc.php meta.tag.inline.phpdoc.php keyword.other.phpdoc.php
+T 27 source.php comment.block.documentation.phpdoc.php meta.tag.inline.phpdoc.php
+L  */
+T 1 source.php comment.block.documentation.phpdoc.php
+T 3 source.php comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L 
+L /* a block comment */
+T 2 source.php comment.block.php punctuation.definition.comment.php
+T 19 source.php comment.block.php
+T 21 source.php comment.block.php punctuation.definition.comment.php
+L # a hash comment
+T 1 source.php comment.line.number-sign.php punctuation.definition.comment.php
+T 16 source.php comment.line.number-sign.php
+L     // an indented comment
+T 4 source.php punctuation.whitespace.comment.leading.php
+T 6 source.php comment.line.double-slash.php punctuation.definition.comment.php
+T 26 source.php comment.line.double-slash.php
+L 
+L $h1 = <<<HTML   
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 13 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+T 16 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L <p>{$a}</p>
+T 1 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.p.start.html entity.name.tag.html
+T 3 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 4 source.php string.unquoted.heredoc.php meta.embedded.html text.html punctuation.definition.variable.php
+T 5 source.php string.unquoted.heredoc.php meta.embedded.html text.html variable.other.php punctuation.definition.variable.php
+T 6 source.php string.unquoted.heredoc.php meta.embedded.html text.html variable.other.php
+T 7 source.php string.unquoted.heredoc.php meta.embedded.html text.html punctuation.definition.variable.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 10 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.p.end.html entity.name.tag.html
+T 11 source.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L HTML;
+T 4 source.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 5 source.php punctuation.terminator.expression.php
+L $h2 = <<<XML   
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 12 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L <a/>
+T 1 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 4 source.php string.unquoted.heredoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.xml punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L $h3 = <<<SQL   
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 12 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L SELECT 1
+T 6 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql keyword.other.DML.sql
+T 7 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql
+T 8 source.php string.unquoted.heredoc.php meta.embedded.sql source.sql constant.numeric.sql
+L SQL;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.sql punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L $h4 = <<<JS   
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 11 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+T 14 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L let a = 1;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js storage.type.js
+T 4 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 5 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 6 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 7 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js keyword.operator.assignment.js
+T 8 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js
+T 9 source.php string.unquoted.heredoc.php meta.embedded.js source.js meta.var.expr.js constant.numeric.decimal.js
+T 10 source.php string.unquoted.heredoc.php meta.embedded.js source.js punctuation.terminator.statement.js
+L JS;
+T 2 source.php string.unquoted.heredoc.php meta.embedded.js punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 3 source.php punctuation.terminator.expression.php
+L $h5 = <<<JSON
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.json punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 13 source.php string.unquoted.heredoc.php meta.embedded.json punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L {"a": 1}
+T 1 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 2 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 3 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 4 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 5 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 6 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 7 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json constant.numeric.json
+T 8 source.php string.unquoted.heredoc.php meta.embedded.json source.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L JSON;
+T 4 source.php string.unquoted.heredoc.php meta.embedded.json punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 5 source.php punctuation.terminator.expression.php
+L $h6 = <<<CSS   
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 12 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+T 15 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L a { color: red; }
+T 1 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.selector.css entity.name.tag.css
+T 2 source.php string.unquoted.heredoc.php meta.embedded.css source.css
+T 3 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 4 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 9 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 14 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 16 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css
+T 17 source.php string.unquoted.heredoc.php meta.embedded.css source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS;
+T 3 source.php string.unquoted.heredoc.php meta.embedded.css punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L $h7 = <<<REGEX   
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 14 source.php string.unquoted.heredoc.php punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+T 17 source.php string.unquoted.heredoc.php punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L a\.b{1,2}[\]x] # a comment
+T 1 source.php string.unquoted.heredoc.php string.regexp.heredoc.php
+T 3 source.php string.unquoted.heredoc.php string.regexp.heredoc.php constant.character.escape.regex.php
+T 4 source.php string.unquoted.heredoc.php string.regexp.heredoc.php
+T 5 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.arbitrary-repitition.php punctuation.definition.arbitrary-repitition.php
+T 8 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.arbitrary-repitition.php
+T 9 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.arbitrary-repitition.php punctuation.definition.arbitrary-repitition.php
+T 10 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 12 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php constant.character.escape.php
+T 13 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php
+T 14 source.php string.unquoted.heredoc.php string.regexp.heredoc.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 15 source.php string.unquoted.heredoc.php string.regexp.heredoc.php
+T 16 source.php string.unquoted.heredoc.php string.regexp.heredoc.php comment.line.number-sign.php punctuation.definition.comment.php
+T 17 source.php string.unquoted.heredoc.php string.regexp.heredoc.php comment.line.number-sign.php
+T 26 source.php string.unquoted.heredoc.php string.regexp.heredoc.php comment.line.number-sign.php
+L REGEX;
+T 5 source.php string.unquoted.heredoc.php punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 6 source.php punctuation.terminator.expression.php
+L $h8 = <<<BLADE
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php meta.embedded.php.blade punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 14 source.php string.unquoted.heredoc.php meta.embedded.php.blade punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L <div>{{ $a }}</div>
+T 8 source.php string.unquoted.heredoc.php meta.embedded.php.blade text.html.php.blade
+T 9 source.php string.unquoted.heredoc.php meta.embedded.php.blade text.html.php.blade variable.other.php punctuation.definition.variable.php
+T 10 source.php string.unquoted.heredoc.php meta.embedded.php.blade text.html.php.blade variable.other.php
+T 11 source.php string.unquoted.heredoc.php meta.embedded.php.blade text.html.php.blade
+T 19 source.php string.unquoted.heredoc.php meta.embedded.php.blade text.html.php.blade
+L BLADE;
+T 5 source.php string.unquoted.heredoc.php meta.embedded.php.blade punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 6 source.php punctuation.terminator.expression.php
+L $h9 = <<<EOT
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.heredoc.php punctuation.definition.string.php
+T 12 source.php string.unquoted.heredoc.php keyword.operator.heredoc.php
+L plain $text
+T 6 source.php string.unquoted.heredoc.php
+T 7 source.php string.unquoted.heredoc.php variable.other.php punctuation.definition.variable.php
+T 11 source.php string.unquoted.heredoc.php variable.other.php
+L EOT;
+T 3 source.php string.unquoted.heredoc.php keyword.operator.heredoc.php
+T 4 source.php punctuation.terminator.expression.php
+L 
+L $n1 = <<<'HTML'  
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 15 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php
+T 17 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L <p>$a</p>
+T 1 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.start.html entity.name.tag.html
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 5 source.php string.unquoted.nowdoc.php meta.embedded.html text.html
+T 7 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 8 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.end.html entity.name.tag.html
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.html text.html meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L HTML;
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.html punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 5 source.php punctuation.terminator.expression.php
+L $n2 = <<<'XML'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.xml punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.xml punctuation.section.embedded.begin.php
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.xml punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.xml punctuation.section.embedded.begin.php
+L <a/>
+T 1 source.php string.unquoted.nowdoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.xml text.xml meta.tag.xml entity.name.tag.localname.xml
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.xml text.xml meta.tag.xml punctuation.definition.tag.xml
+L XML;
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.xml punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 4 source.php punctuation.terminator.expression.php
+L $n3 = <<<'SQL'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.sql punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.sql punctuation.section.embedded.begin.php
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.sql punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.sql punctuation.section.embedded.begin.php
+L SELECT 1
+T 6 source.php string.unquoted.nowdoc.php meta.embedded.sql source.sql keyword.other.DML.sql
+T 7 source.php string.unquoted.nowdoc.php meta.embedded.sql source.sql
+T 8 source.php string.unquoted.nowdoc.php meta.embedded.sql source.sql constant.numeric.sql
+L SQL;
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.sql punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 4 source.php punctuation.terminator.expression.php
+L $n4 = <<<'JS'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.js punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.js punctuation.section.embedded.begin.php
+T 12 source.php string.unquoted.nowdoc.php meta.embedded.js punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.js punctuation.section.embedded.begin.php
+L let a = 1;
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js storage.type.js
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js
+T 5 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 6 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 7 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js keyword.operator.assignment.js
+T 8 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.js source.js meta.var.expr.js constant.numeric.decimal.js
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.js source.js punctuation.terminator.statement.js
+L JS;
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.js punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 3 source.php punctuation.terminator.expression.php
+L $n5 = <<<'JSON'  
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 15 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php
+T 17 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.begin.php invalid.illegal.trailing-whitespace.php
+L {"a": 1}
+T 1 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 5 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 6 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 7 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json meta.structure.dictionary.value.json constant.numeric.json
+T 8 source.php string.unquoted.nowdoc.php meta.embedded.json source.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L JSON;
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.json punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 5 source.php punctuation.terminator.expression.php
+L $n6 = <<<'CSS'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.css punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.css punctuation.section.embedded.begin.php
+T 13 source.php string.unquoted.nowdoc.php meta.embedded.css punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.css punctuation.section.embedded.begin.php
+L a { color: red; }
+T 1 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.selector.css entity.name.tag.css
+T 2 source.php string.unquoted.nowdoc.php meta.embedded.css source.css
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 4 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css
+T 14 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css punctuation.terminator.rule.css
+T 16 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css
+T 17 source.php string.unquoted.nowdoc.php meta.embedded.css source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L CSS;
+T 3 source.php string.unquoted.nowdoc.php meta.embedded.css punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 4 source.php punctuation.terminator.expression.php
+L $n7 = <<<'REGEX'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php punctuation.section.embedded.begin.php
+T 15 source.php string.unquoted.nowdoc.php punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 16 source.php string.unquoted.nowdoc.php punctuation.section.embedded.begin.php
+L a\.b{1,2}[\]x]$ # a comment
+T 1 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php
+T 3 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php constant.character.escape.regex.php
+T 4 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php
+T 5 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.arbitrary-repitition.php punctuation.definition.arbitrary-repitition.php
+T 8 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.arbitrary-repitition.php
+T 9 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.arbitrary-repitition.php punctuation.definition.arbitrary-repitition.php
+T 10 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 12 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.character-class.php constant.character.escape.php
+T 13 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.character-class.php
+T 14 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 15 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php keyword.operator.regexp.php
+T 16 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php
+T 17 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php comment.line.number-sign.php punctuation.definition.comment.php
+T 18 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php comment.line.number-sign.php
+T 27 source.php string.unquoted.nowdoc.php string.regexp.nowdoc.php comment.line.number-sign.php
+L REGEX;
+T 5 source.php string.unquoted.nowdoc.php punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 6 source.php punctuation.terminator.expression.php
+L $n8 = <<<'BLADE'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php meta.embedded.php.blade punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php meta.embedded.php.blade punctuation.section.embedded.begin.php
+T 15 source.php string.unquoted.nowdoc.php meta.embedded.php.blade punctuation.section.embedded.begin.php keyword.operator.nowdoc.php
+T 16 source.php string.unquoted.nowdoc.php meta.embedded.php.blade punctuation.section.embedded.begin.php
+L <div>{{ $a }}</div>
+T 19 source.php string.unquoted.nowdoc.php meta.embedded.php.blade text.html.php.blade
+L BLADE;
+T 5 source.php string.unquoted.nowdoc.php meta.embedded.php.blade punctuation.section.embedded.end.php keyword.operator.nowdoc.php
+T 6 source.php punctuation.terminator.expression.php
+L $n9 = <<<'EOT'
+T 1 source.php variable.other.php punctuation.definition.variable.php
+T 3 source.php variable.other.php
+T 4 source.php
+T 5 source.php keyword.operator.assignment.php
+T 6 source.php
+T 9 source.php string.unquoted.nowdoc.php punctuation.definition.string.php
+T 10 source.php string.unquoted.nowdoc.php
+T 13 source.php string.unquoted.nowdoc.php keyword.operator.nowdoc.php
+T 14 source.php string.unquoted.nowdoc.php
+L plain $text
+T 11 source.php string.unquoted.nowdoc.php
+L EOT;
+T 3 source.php string.unquoted.nowdoc.php keyword.operator.nowdoc.php
+T 4 source.php punctuation.terminator.expression.php
+L 
+L // One function of each support list.
+T 2 source.php comment.line.double-slash.php punctuation.definition.comment.php
+T 37 source.php comment.line.double-slash.php
+L apc_cas();
+T 7 source.php meta.function-call.php support.function.apc.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L end();
+T 3 source.php meta.function-call.php support.function.array.php
+T 4 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 6 source.php punctuation.terminator.expression.php
+L constant();
+T 8 source.php meta.function-call.php support.function.basic_functions.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L bcadd();
+T 5 source.php meta.function-call.php support.function.bcmath.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L blenc_encrypt();
+T 13 source.php meta.function-call.php support.function.blenc.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L bzopen();
+T 6 source.php meta.function-call.php support.function.bz2.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 9 source.php punctuation.terminator.expression.php
+L cal_info();
+T 8 source.php meta.function-call.php support.function.calendar.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L is_a();
+T 4 source.php meta.function-call.php support.function.classobj.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L variant_or();
+T 10 source.php meta.function-call.php support.function.com.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L isset();
+T 5 source.php meta.function-call.php support.function.construct.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L echo();
+T 4 source.php meta.function-call.php support.function.construct.output.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L ctype_space();
+T 11 source.php meta.function-call.php support.function.ctype.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L curl_exec();
+T 9 source.php meta.function-call.php support.function.curl.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L time();
+T 4 source.php meta.function-call.php support.function.datetime.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L dba_sync();
+T 8 source.php meta.function-call.php support.function.dba.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L dbx_sort();
+T 8 source.php meta.function-call.php support.function.dbx.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L dir();
+T 3 source.php meta.function-call.php support.function.dir.php
+T 4 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 6 source.php punctuation.terminator.expression.php
+L eio_nop();
+T 7 source.php meta.function-call.php support.function.eio.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L enchant_dict_check();
+T 18 source.php meta.function-call.php support.function.enchant.php
+T 19 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 20 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 21 source.php punctuation.terminator.expression.php
+L ereg();
+T 4 source.php meta.function-call.php support.function.ereg.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L error_log();
+T 9 source.php meta.function-call.php support.function.errorfunc.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L exec();
+T 4 source.php meta.function-call.php support.function.exec.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L exif_tagname();
+T 12 source.php meta.function-call.php support.function.exif.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L fann_run();
+T 8 source.php meta.function-call.php support.function.fann.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L stat();
+T 4 source.php meta.function-call.php support.function.file.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L finfo_open();
+T 10 source.php meta.function-call.php support.function.fileinfo.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L filter_id();
+T 9 source.php meta.function-call.php support.function.filter.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L fpm_get_status();
+T 14 source.php meta.function-call.php support.function.fpm.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 16 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 17 source.php punctuation.terminator.expression.php
+L func_get_arg();
+T 12 source.php meta.function-call.php support.function.funchand.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L gettext();
+T 7 source.php meta.function-call.php support.function.gettext.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L gmp_or();
+T 6 source.php meta.function-call.php support.function.gmp.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 9 source.php punctuation.terminator.expression.php
+L hash();
+T 4 source.php meta.function-call.php support.function.hash.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L http_get();
+T 8 source.php meta.function-call.php support.function.http.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L iconv();
+T 5 source.php meta.function-call.php support.function.iconv.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L iis_add_server();
+T 14 source.php meta.function-call.php support.function.iisfunc.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 16 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 17 source.php punctuation.terminator.expression.php
+L gd_info();
+T 7 source.php meta.function-call.php support.function.image.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L dl();
+T 2 source.php meta.function-call.php support.function.info.php
+T 3 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 4 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 5 source.php punctuation.terminator.expression.php
+L ibase_close();
+T 11 source.php meta.function-call.php support.function.interbase.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L idn_to_utf8();
+T 11 source.php meta.function-call.php support.function.intl.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L json_decode();
+T 11 source.php meta.function-call.php support.function.json.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L ldap_tls();
+T 8 source.php meta.function-call.php support.function.ldap.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L libxml_get_errors();
+T 17 source.php meta.function-call.php support.function.libxml.php
+T 18 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 19 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 20 source.php punctuation.terminator.expression.php
+L mail();
+T 4 source.php meta.function-call.php support.function.mail.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L pi();
+T 2 source.php meta.function-call.php support.function.math.php
+T 3 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 4 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 5 source.php punctuation.terminator.expression.php
+L mb_ord();
+T 6 source.php meta.function-call.php support.function.mbstring.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 9 source.php punctuation.terminator.expression.php
+L mcrypt_cfb();
+T 10 source.php meta.function-call.php support.function.mcrypt.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L memcache_debug();
+T 14 source.php meta.function-call.php support.function.memcache.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 16 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 17 source.php punctuation.terminator.expression.php
+L mhash();
+T 5 source.php meta.function-call.php support.function.mhash.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L log_reply();
+T 9 source.php meta.function-call.php support.function.mongo.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L mysql_stat();
+T 10 source.php meta.function-call.php support.function.mysql.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L mysqli_stat();
+T 11 source.php meta.function-call.php support.function.mysqli.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L mysqlnd_memcache_set();
+T 20 source.php meta.function-call.php support.function.mysqlnd-memcache.php
+T 21 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 22 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 23 source.php punctuation.terminator.expression.php
+L mysqlnd_ms_xa_gc();
+T 16 source.php meta.function-call.php support.function.mysqlnd-ms.php
+T 17 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 18 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 19 source.php punctuation.terminator.expression.php
+L mysqlnd_qc_clear_cache();
+T 22 source.php meta.function-call.php support.function.mysqlnd-qc.php
+T 23 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 24 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 25 source.php punctuation.terminator.expression.php
+L mysqlnd_uh_convert_to_mysqlnd();
+T 29 source.php meta.function-call.php support.function.mysqlnd-uh.php
+T 30 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 31 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 32 source.php punctuation.terminator.expression.php
+L syslog();
+T 6 source.php meta.function-call.php support.function.network.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 9 source.php punctuation.terminator.expression.php
+L nsapi_virtual();
+T 13 source.php meta.function-call.php support.function.nsapi.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L ociparse();
+T 8 source.php meta.function-call.php support.function.oci8.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L opcache_reset();
+T 13 source.php meta.function-call.php support.function.opcache.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L openssl_sign();
+T 12 source.php meta.function-call.php support.function.openssl.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L flush();
+T 5 source.php meta.function-call.php support.function.output.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L password_hash();
+T 13 source.php meta.function-call.php support.function.password.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L pcntl_exec();
+T 10 source.php meta.function-call.php support.function.pcntl.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L pg_();
+T 3 source.php meta.function-call.php support.function.pgsql.php
+T 4 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 6 source.php punctuation.terminator.expression.php
+L virtual();
+T 7 source.php meta.function-call.php support.function.php_apache.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L dom_import_simplexml();
+T 20 source.php meta.function-call.php support.function.php_dom.php
+T 21 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 22 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 23 source.php punctuation.terminator.expression.php
+L ftp_put();
+T 7 source.php meta.function-call.php support.function.php_ftp.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L imap_gc();
+T 7 source.php meta.function-call.php support.function.php_imap.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L mssql_init();
+T 10 source.php meta.function-call.php support.function.php_mssql.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L odbc_do();
+T 7 source.php meta.function-call.php support.function.php_odbc.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L preg_grep();
+T 9 source.php meta.function-call.php support.function.php_pcre.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L class_uses();
+T 10 source.php meta.function-call.php support.function.php_spl.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L zip_open();
+T 8 source.php meta.function-call.php support.function.php_zip.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L posix_kill();
+T 10 source.php meta.function-call.php support.function.posix.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L setproctitle();
+T 12 source.php meta.function-call.php support.function.proctitle.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L pspell_new();
+T 10 source.php meta.function-call.php support.function.pspell.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L readline();
+T 8 source.php meta.function-call.php support.function.readline.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L recode();
+T 6 source.php meta.function-call.php support.function.recode.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 9 source.php punctuation.terminator.expression.php
+L rrd_tune();
+T 8 source.php meta.function-call.php support.function.rrd.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 11 source.php punctuation.terminator.expression.php
+L ftok();
+T 4 source.php meta.function-call.php support.function.sem.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 7 source.php punctuation.terminator.expression.php
+L session_id();
+T 10 source.php meta.function-call.php support.function.session.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L shmop_size();
+T 10 source.php meta.function-call.php support.function.shmop.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L simplexml_load_file();
+T 19 source.php meta.function-call.php support.function.simplexml.php
+T 20 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 21 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 22 source.php punctuation.terminator.expression.php
+L snmpget();
+T 7 source.php meta.function-call.php support.function.snmp.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 9 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 10 source.php punctuation.terminator.expression.php
+L is_soap_fault();
+T 13 source.php meta.function-call.php support.function.soap.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L socket_bind();
+T 11 source.php meta.function-call.php support.function.sockets.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L sqlite_key();
+T 10 source.php meta.function-call.php support.function.sqlite.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L sqlsrv_close();
+T 12 source.php meta.function-call.php support.function.sqlsrv.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L stats_skew();
+T 10 source.php meta.function-call.php support.function.stats.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L stream_isatty();
+T 13 source.php meta.function-call.php support.function.streamsfuncs.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L md5();
+T 3 source.php meta.function-call.php support.function.string.php
+T 4 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 5 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 6 source.php punctuation.terminator.expression.php
+L sybase_close();
+T 12 source.php meta.function-call.php support.function.sybase.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 15 source.php punctuation.terminator.expression.php
+L taint();
+T 5 source.php meta.function-call.php support.function.taint.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L tidy_getopt();
+T 11 source.php meta.function-call.php support.function.tidy.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 13 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 14 source.php punctuation.terminator.expression.php
+L token_name();
+T 10 source.php meta.function-call.php support.function.tokenizer.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L trader_t3();
+T 9 source.php meta.function-call.php support.function.trader.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L uopz_copy();
+T 9 source.php meta.function-call.php support.function.uopz.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L urldecode();
+T 9 source.php meta.function-call.php support.function.url.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L intval();
+T 6 source.php meta.function-call.php support.function.var.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 8 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 9 source.php punctuation.terminator.expression.php
+L wddx_add_vars();
+T 13 source.php meta.function-call.php support.function.wddx.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L xhprof_enable();
+T 13 source.php meta.function-call.php support.function.xhprof.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L xml_parse();
+T 9 source.php meta.function-call.php support.function.xml.php
+T 10 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 12 source.php punctuation.terminator.expression.php
+L xmlrpc_decode();
+T 13 source.php meta.function-call.php support.function.xmlrpc.php
+T 14 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 15 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 16 source.php punctuation.terminator.expression.php
+L xmlwriter_();
+T 10 source.php meta.function-call.php support.function.xmlwriter.php
+T 11 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 12 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 13 source.php punctuation.terminator.expression.php
+L gzeof();
+T 5 source.php meta.function-call.php support.function.zlib.php
+T 6 source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 7 source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 8 source.php punctuation.terminator.expression.php
+L 

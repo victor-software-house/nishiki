@@ -86,6 +86,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Objective-C line, as Nix's is.
     #[cfg(feature = "lang-objective-c")]
     pub(crate) objective_c: Option<Box<crate::objective_c::Scratch>>,
+    /// The PHP lexer's, for PHP documents and Markdown PHP fences.
+    /// It is boxed and allocated by the first PHP line, as Dart's is.
+    #[cfg(feature = "lang-php")]
+    pub(crate) php: Option<Box<crate::php::Scratch>>,
     /// The PowerShell lexer's, for PowerShell documents and Markdown
     /// PowerShell fences.
     /// It is boxed and allocated by the first PowerShell line, as GraphQL's is.

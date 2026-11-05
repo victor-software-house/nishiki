@@ -913,9 +913,8 @@ languages! {
         halts: true,
         hands_off: true,
     }
-    /// PHP, with the scopes of Shiki's `php` grammar, which nishiki's
-    /// `TextMate` engine runs. HTML, SQL, JavaScript, JSON, CSS and XML in
-    /// its strings and heredocs go to their lexers.
+    /// PHP, with the scopes of Shiki's `php` grammar. HTML, SQL, JavaScript,
+    /// JSON, CSS and XML in its strings and heredocs go to their lexers.
     ///
     /// # Behaviour kept from Shiki
     ///
@@ -923,15 +922,7 @@ languages! {
     /// - A Markdown `php` fence tries HTML first, then PHP where HTML matches nothing. The text between two tags reads as PHP.
     /// - Without `lang-php`, a Markdown `php` fence is HTML, as Shiki reads it without its PHP grammar.
     /// - A language that embeds PHP starts it at the fence's root, so HTML and PHP mix as in that fence.
-    Php {
-        feature: "lang-php",
-        names: ["php"],
-        engine: crate::php::grammar::GRAMMAR,
-        embedded: crate::php::grammar::FENCE,
-        reads_line_feed: true,
-        halts: true,
-        hands_off: true,
-    }
+    Php { feature: "lang-php", names: ["php"], module: php, halts: true }
     /// Objective-C, with the scopes of Shiki's `objective-c` grammar.
     ///
     /// # Behaviour kept from Shiki

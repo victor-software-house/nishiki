@@ -3,6 +3,8 @@
 # src/html/words.rs is generated from the html grammar's word lists, whose
 # entity and attribute names (`ofr`, `pluse`, `seeked`) are not English, and
 # src/less/words.rs spells out `[ensw]{1,4}-resize`, as `nees-resize`.
+# src/php/words.rs holds the php grammar's constant names, such as `EXITT`,
+# and src/php/scope.rs its scope names, which spell `repitition`.
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
 extend-exclude = [
@@ -20,6 +22,8 @@ extend-exclude = [
   "src/objective_c/grammar.rs",
   "src/objective_cpp/grammar.rs",
   "src/php/grammar.rs",
+  "src/php/scope.rs",
+  "src/php/words.rs",
   "src/svelte/grammar.rs",
 ]
 
@@ -31,3 +35,6 @@ iif = "iif"
 # The shellscript grammar names a rule `normal_statement_seperator`, and
 # oracle/coverage-waivers.ts quotes that path.
 seperator = "seperator"
+# The php grammar's `p(?:ublic|rivate|rotected)`, which the PHP matchers'
+# doc comments quote.
+ublic = "ublic"

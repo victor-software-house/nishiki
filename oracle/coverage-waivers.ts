@@ -1446,6 +1446,15 @@ export const waivers: Waiver[] = [
       }),
     ),
   ]),
+  ...[0, 1, 2, 3, 4, 5, 6, 7, 8].flatMap((n): Waiver[] => [
+    { grammar: "php", path: `#heredoc_interior.patterns[${n}].begin`, group: 5, reason: blanks },
+    { grammar: "php", path: `#nowdoc_interior.patterns[${n}].begin`, group: 3, reason: blanks },
+  ]),
+  { grammar: "php", path: "#comments.patterns[2].begin", group: 1, reason: blanks },
+  { grammar: "php", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
+  ...["#heredoc_interior.patterns[6].patterns[5].end", "#nowdoc_interior.patterns[6].patterns[4].end"].map(
+    (path): Waiver => ({ grammar: "php", path, group: 0, reason: "the end is `$`, which holds no text" }),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1481,6 +1490,7 @@ export const complete: string[] = [
   "mermaid",
   "nix",
   "objective-c",
+  "php",
   "postcss",
   "powershell",
   "proto",

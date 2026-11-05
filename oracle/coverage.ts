@@ -83,6 +83,7 @@ const handLexed = new Map([
   ["markdown-vue", "Markdown"],
   ["nix", "Nix"],
   ["objective-c", "Objective-C"],
+  ["php", "PHP"],
   ["postcss", "PostCSS"],
   ["powershell", "PowerShell"],
   ["proto", "Protobuf"],

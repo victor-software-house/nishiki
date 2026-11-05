@@ -481,6 +481,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `perl/sample` | [`samples/perl.sample`][perl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `perl/sqitch-engine-pg` | [`lib/App/Sqitch/Engine/pg.pm`][sqitch-engine-pg] in sqitchers/sqitch | [MIT][sqitch-licence] |
 | `perl/sqitch-engine-sqlite` | [`lib/App/Sqitch/Engine/sqlite.pm`][sqitch-engine-sqlite] in sqitchers/sqitch | [MIT][sqitch-licence] |
+| `php/coverage` | `oracle/inputs/php-coverage.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `php/embedded` | `oracle/inputs/php-embedded.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `php/laravel-postgres-grammar` | [`src/Illuminate/Database/Query/Grammars/PostgresGrammar.php`][laravel-postgres-grammar] in laravel/framework | [MIT][laravel-licence] |
 | `php/laravel-router` | [`src/Illuminate/Routing/Router.php`][laravel-router] in laravel/framework | [MIT][laravel-licence] |

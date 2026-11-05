@@ -219,6 +219,7 @@ mod c;
     feature = "lang-less",
     feature = "lang-markdown",
     feature = "lang-mermaid",
+    feature = "lang-php",
     feature = "lang-powershell",
     feature = "lang-sql"
 ))]

@@ -443,8 +443,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::pascal::grammar::GRAMMAR, "pascal"),
     #[cfg(feature = "lang-perl")]
     (&crate::perl::grammar::GRAMMAR, "perl"),
-    #[cfg(feature = "lang-php")]
-    (&crate::php::grammar::GRAMMAR, "php"),
     #[cfg(feature = "lang-vb")]
     (&crate::vb::grammar::GRAMMAR, "vb"),
 ];

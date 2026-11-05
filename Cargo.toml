@@ -60,6 +60,7 @@ all = [
   "lang-mermaid",
   "lang-nix",
   "lang-objective-c",
+  "lang-php",
   "lang-postcss",
   "lang-powershell",
   "lang-proto",
@@ -133,7 +134,6 @@ textmate = [
   "lang-objective-cpp",
   "lang-pascal",
   "lang-perl",
-  "lang-php",
   "lang-vb",
 ]
 
@@ -218,7 +218,10 @@ lang-perl = [
   "lang-xml",
 ]
 lang-php = [
-  "_textmate",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_embedding",
   "lang-css",
   "lang-html",
   "lang-javascript",

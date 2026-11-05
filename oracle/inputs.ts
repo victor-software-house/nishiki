@@ -36,6 +36,7 @@ import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" 
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import objectiveCCoverage from "./inputs/objective-c-coverage.m" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
+import phpCoverage from "./inputs/php-coverage.php" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
 import postcssCoverage from "./inputs/postcss-coverage.pcss" with { type: "text" };
 import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
@@ -1162,6 +1163,7 @@ export const inputs: Input[] = [
   { lang: "perl", name: "sqitch-engine-sqlite", url: `${sqitch}/lib/App/Sqitch/Engine/sqlite.pm` },
   // PHP runs on the TextMate engine. Its strings and heredocs hand SQL, HTML,
   // XML, JavaScript, JSON and CSS to their lexers.
+  { lang: "php", name: "coverage", text: phpCoverage },
   { lang: "php", name: "embedded", text: phpEmbedded },
   { lang: "php", name: "laravel-postgres-grammar", url: `${laravel}/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php` },
   { lang: "php", name: "laravel-router", url: `${laravel}/src/Illuminate/Routing/Router.php` },
