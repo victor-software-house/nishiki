@@ -242,12 +242,16 @@ function replay(edits: Edits): { text: string; problems: string[] } {
   return { text: decoder.decode(text), problems };
 }
 
-/** The header fields of a trace, and the rest of it. */
-function split(trace: string, last: RegExp): { fields: Map<string, string>; rest: string } {
+/** The header fields of a trace, and the rest of it, from the first row
+ * that matches `last`.
+ * A last row with no line feed ends at the end of the trace.
+ * A trace with no row that matches `last` has no body, and is an error. */
+export function split(trace: string, last: RegExp): { fields: Map<string, string>; rest: string } {
   const fields = new Map<string, string>();
   let at = 0;
   while (at < trace.length) {
-    const end = trace.indexOf("\n", at);
+    const feed = trace.indexOf("\n", at);
+    const end = feed === -1 ? trace.length : feed;
     const row = trace.slice(at, end);
     if (last.test(row)) return { fields, rest: trace.slice(at) };
     const space = row.indexOf(" ");
