@@ -60,6 +60,7 @@ all = [
   "lang-lua",
   "lang-make",
   "lang-markdown",
+  "lang-matlab",
   "lang-mermaid",
   "lang-nix",
   "lang-objective-c",
@@ -130,13 +131,7 @@ systems = [
   "lang-swift",
 ]
 docs = ["config", "lang-markdown"]
-textmate = [
-  "lang-asm",
-  "lang-common-lisp",
-  "lang-haml",
-  "lang-matlab",
-  "lang-vb",
-]
+textmate = ["lang-asm", "lang-common-lisp", "lang-haml", "lang-vb"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-asm = ["_textmate"]
@@ -216,7 +211,7 @@ lang-make = [
   "_frame-kinds",
 ]
 lang-markdown = ["_scope-table", "_classes", "_utf8"]
-lang-matlab = ["_textmate"]
+lang-matlab = ["_scope-table", "_rule-tables", "_classes"]
 lang-mermaid = ["_scope-table", "_rule-tables", "_classes"]
 lang-nix = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-c = ["_scope-table", "_rule-tables", "_classes"]

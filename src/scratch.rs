@@ -87,6 +87,10 @@ pub(crate) struct Scratch {
     /// The Markdown lexer's.
     #[cfg(feature = "lang-markdown")]
     pub(crate) markdown: crate::markdown::Scratch,
+    /// The MATLAB lexer's, for MATLAB documents.
+    /// It is boxed and allocated by the first MATLAB line, as Mermaid's is.
+    #[cfg(feature = "lang-matlab")]
+    pub(crate) matlab: Option<Box<crate::matlab::Scratch>>,
     /// The Mermaid lexer's, for Mermaid documents.
     /// It is boxed and allocated by the first Mermaid line, as Dart's is.
     #[cfg(feature = "lang-mermaid")]

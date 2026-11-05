@@ -128,6 +128,8 @@ tables! {
     MAKE = make;
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = markdown;
+    #[cfg(feature = "lang-matlab")]
+    MATLAB = matlab;
     #[cfg(feature = "lang-mermaid")]
     MERMAID = mermaid;
     #[cfg(feature = "lang-nix")]

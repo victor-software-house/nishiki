@@ -448,8 +448,12 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/vitest-migration-jest` | [`docs/guide/migration/jest.md`][vitest-jest] in vitest-dev/vitest | [MIT][vitest-licence] |
 | `markdown/zod-api` | [`packages/docs/content/api.mdx`][zod-api] in colinhacks/zod | [MIT][zod-licence] |
 | `markdown/zod-readme` | [`packages/zod/README.md`][zod-readme] in colinhacks/zod | [MIT][zod-licence] |
+| `matlab/chebfun-chebop` | [`@chebop/chebop.m`][chebfun-chebop] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
 | `matlab/chebfun-feval` | [`@chebfun/feval.m`][chebfun-feval] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
+| `matlab/chebfun-plus` | [`@chebfun/plus.m`][chebfun-plus] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
 | `matlab/chebfun-roots` | [`@chebfun/roots.m`][chebfun-roots] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
+| `matlab/chebfun-sum` | [`@chebfun/sum.m`][chebfun-sum] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
+| `matlab/coverage` | `oracle/inputs/matlab-coverage.m`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `matlab/grammar-arguments-block` | [`test/t13ArgumentsBlock.m`][matlab-grammar-arguments-block] in mathworks/MATLAB-Language-grammar | [BSD-2-Clause][matlab-grammar-licence] |
 | `matlab/grammar-property-validation` | [`test/t08PropertyValidation.m`][matlab-grammar-property-validation] in mathworks/MATLAB-Language-grammar | [BSD-2-Clause][matlab-grammar-licence] |
 | `matlab/sample` | [`samples/matlab.sample`][matlab-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -941,6 +945,10 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 `svelte/sample`, `svelte/kit-root`, `svelte/site-kit-nav`, `svelte/site-kit-search-box`, `svelte/tests-const-tag-component` and `svelte/tests-form-default-value` are the development inputs for Svelte.
 The other `svelte` inputs are held out.
 
+`matlab/sample`, `matlab/chebfun-feval`, `matlab/chebfun-roots`, `matlab/grammar-arguments-block` and `matlab/grammar-property-validation` are the development inputs for MATLAB.
+`matlab/chebfun-chebop`, `matlab/chebfun-plus` and `matlab/chebfun-sum` are held out: they were added after the development inputs passed.
+`matlab/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+
 `objective-c/sample`, `objective-c/afnetworking-http-session-manager`, `objective-c/afnetworking-url-session-manager`, `objective-c/sdwebimage-image-cache`, `objective-c/sdwebimage-manager` and `objective-c/yykit-macro` are the development inputs for Objective-C.
 `objective-c/masonry-constraint-maker`, `objective-c/mbprogresshud` and `objective-c/sdwebimage-graphics-image-renderer` are held out: they were added after the development inputs passed.
 `objective-c/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
@@ -1034,9 +1042,12 @@ The hand lexer was written against all seven.
 [catch2-tutorial]: https://github.com/catchorg/Catch2/blob/a1a991fee5f217b40035cb2f8ebc83864d66408d/docs/tutorial.md
 [catppuccin]: https://github.com/catppuccin/vscode/tree/befc9e6fc41980f4241408f7049755d47c06ff45
 [catppuccin-licence]: https://github.com/catppuccin/vscode/blob/befc9e6fc41980f4241408f7049755d47c06ff45/LICENSE
+[chebfun-chebop]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebop/chebop.m
 [chebfun-feval]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebfun/feval.m
 [chebfun-licence]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/LICENSE.txt
+[chebfun-plus]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebfun/plus.m
 [chebfun-roots]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebfun/roots.m
+[chebfun-sum]: https://github.com/chebfun/chebfun/blob/7574c77680d7e82b79626300bf255498271a72df/@chebfun/sum.m
 [checkout-licence]: https://github.com/actions/checkout/blob/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a/LICENSE
 [checkout-test]: https://github.com/actions/checkout/blob/f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a/.github/workflows/test.yml
 [circe-build]: https://github.com/circe/circe/blob/b38c17d9a9dd9b761a68319cff038d75bbf0cf8d/build.sbt

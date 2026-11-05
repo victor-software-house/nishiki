@@ -868,6 +868,30 @@ export const waivers: Waiver[] = [
     reason: "`#paragraph`, which `#block` includes before it in both list rules, begins at every position this does",
   },
   { grammar: "markdown", path: "#list_paragraph.while", reason: "its begin never matches" },
+  {
+    grammar: "matlab",
+    path: "#blocks.patterns[1].end",
+    group: 2,
+    reason: "the grammar names the group, but the expression has one group",
+    probe: "ClassdefAt0End",
+  },
+  ...[
+    ["#blocks.patterns[1].patterns[0].end", "BlocksAt1At0"],
+    ["#blocks.patterns[1].patterns[1].end", "BlocksAt1At1"],
+    ["#blocks.patterns[4].patterns[0].end", "BlocksAt4At0"],
+    ["#blocks.patterns[4].patterns[1].end", "BlocksAt4At1"],
+    ["#blocks.patterns[5].patterns[0].end", "BlocksAt5At0"],
+  ].map(
+    ([path, probe]): Waiver => ({
+      grammar: "matlab",
+      path: path as string,
+      reason: "the rule has a `match`, so vscode-textmate never reads its `end`",
+      probe,
+    }),
+  ),
+  { grammar: "matlab", path: "#comment_block.begin", group: 1, reason: blanks, probe: "CommentBlock" },
+  { grammar: "matlab", path: "#comments.patterns[0].begin", group: 1, reason: blanks, probe: "CommentsAt0" },
+  { grammar: "matlab", path: "#comments.patterns[2].begin", group: 1, reason: blanks, probe: "CommentsAt2" },
   { grammar: "toml", path: "#comments.begin", group: 1, reason: blanks },
   ...(
     [
@@ -1657,6 +1681,7 @@ export const complete: string[] = [
   "lua",
   "make",
   "markdown",
+  "matlab",
   "mermaid",
   "nix",
   "objective-c",

@@ -27,6 +27,8 @@ mod javascript_tables;
 mod make_tables;
 #[path = "../../tests/engine/markdown.rs"]
 mod markdown_tables;
+#[path = "../../tests/engine/matlab.rs"]
+mod matlab_tables;
 #[path = "../../tests/engine/objective-c.rs"]
 mod objective_c_tables;
 #[path = "../../tests/engine/objective-cpp.rs"]
@@ -302,6 +304,13 @@ fn gdscript_grammar_matches_shiki() {
     check(&gdscript_tables::GRAMMAR, "gdscript", Scanners::On);
 }
 
+/// MATLAB has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn matlab_grammar_matches_shiki() {
+    check(&matlab_tables::GRAMMAR, "matlab", Scanners::On);
+}
+
 /// Objective-C has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
@@ -453,8 +462,9 @@ fn scoped_tokens(
 /// them from the arena, on every fixture of every grammar with fixtures.
 #[test]
 fn kept_frames_lex_as_rebuilt_ones() {
-    let tables: [(&'static Grammar, &str); 11] = [
+    let tables: [(&'static Grammar, &str); 12] = [
         (&rust_tables::GRAMMAR, "rust"),
+        (&matlab_tables::GRAMMAR, "matlab"),
         (&objective_c_tables::GRAMMAR, "objective-c"),
         (&objective_cpp_tables::GRAMMAR, "objective-cpp"),
         (&shell_tables::GRAMMAR, "shellscript"),
@@ -488,8 +498,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
     #[cfg(feature = "lang-haml")]
     (&crate::haml::grammar::GRAMMAR, "haml"),
-    #[cfg(feature = "lang-matlab")]
-    (&crate::matlab::grammar::GRAMMAR, "matlab"),
     #[cfg(feature = "lang-vb")]
     (&crate::vb::grammar::GRAMMAR, "vb"),
 ];

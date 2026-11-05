@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 12
-digest = "91395b331fb5f45d91fd99f017295d96a9c4855f02225c3de76c092591646716"
+version = 13
+digest = "165daefdb0c4db6ccf50b14d8befa78d31348300d412cec08d19fcdc940dec52"
 
 [[file]]
 language = "bat"
@@ -857,6 +857,28 @@ licence_source = "https://github.com/astral-sh/uv/blob/d71db4f5a81972de58bcbff03
 bytes = 20558
 sha256 = "7afa60702bfe1c691c5750dbb45f83387a2459a0f53dc30765036f4a4da99b84"
 fences = ["console", "dockerfile", "yaml"]
+
+[[file]]
+language = "matlab"
+tier = "small"
+origin = "neutral"
+path = "matlab/small/export-fig-copyfig.m"
+source = "https://raw.githubusercontent.com/altmany/export_fig/c6c48b0a7bc7135b63e5095259b0ec1001399fb6/copyfig.m"
+licence = "BSD-3-Clause"
+licence_source = "https://github.com/altmany/export_fig/blob/c6c48b0a7bc7135b63e5095259b0ec1001399fb6/LICENSE"
+bytes = 2086
+sha256 = "0aefa7a68db24027ebfc46aa2096def5d7cdb4442a41ab25ca2a308bcf068c31"
+
+[[file]]
+language = "matlab"
+tier = "medium"
+origin = "neutral"
+path = "matlab/medium/export-fig-xkcdify.m"
+source = "https://raw.githubusercontent.com/altmany/export_fig/c6c48b0a7bc7135b63e5095259b0ec1001399fb6/xkcdify.m"
+licence = "BSD-3-Clause"
+licence_source = "https://github.com/altmany/export_fig/blob/c6c48b0a7bc7135b63e5095259b0ec1001399fb6/xkcdify.m"
+bytes = 26494
+sha256 = "707c7736c5fd5aa097645f2a3b655f682c4323cef0429b7defb1fa84bd95a55d"
 
 [[file]]
 language = "mermaid"

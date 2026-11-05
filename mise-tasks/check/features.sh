@@ -47,6 +47,7 @@ cargo check --locked --tests --no-default-features --features lang-less
 cargo check --locked --tests --no-default-features --features lang-lua
 cargo check --locked --tests --no-default-features --features lang-make
 cargo check --locked --tests --no-default-features --features lang-markdown
+cargo check --locked --tests --no-default-features --features lang-matlab
 cargo check --locked --tests --no-default-features --features lang-mermaid
 cargo check --locked --tests --no-default-features --features lang-nix
 cargo check --locked --tests --no-default-features --features lang-objective-c

@@ -10,7 +10,7 @@
 // `$base` and `$self` name the grammar's own root.
 // A `Config` says what differs between the grammars.
 import { expand as alternatives } from "./alternation.ts";
-import { arms, groupsCheck, requireGroup, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, oneBlankTable, requireGroup, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -64,6 +64,12 @@ export type Config = {
   /** The scope names whose `$N` names a group the expression lacks.
    * vscode-textmate leaves such a `$N` as written, so these become fixed scopes. */
   literal: string[];
+  /** The includes the grammar names but never defines.
+   * vscode-textmate skips such an include and keeps the rest of its list. */
+  unresolved?: string[];
+  /** Whether the grammar scans blank runs with `BlankRuns::ToLast`.
+   * The generated `Pat::takes_one_blank` then lists the patterns that can match only at a run's last blank. */
+  toLast?: boolean;
   /** The expressions another module's matchers answer, with that module's `Rx` id.
    * The generated `Pat::expr` sends them there; the rest are this module's own `Rx`. */
   shared?: { path: string; ids: Map<string, string> };
@@ -118,6 +124,8 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   }
 
   const scopes = new Map<string, string>([["Source", grammar.scopeName]]);
+  /** Whether a scope name repeats the text of a capture group. */
+  let groupScopes = false;
   function scope(name: string): string {
     let ident = scopeIdent(name);
     const known = scopes.get(ident);
@@ -147,6 +155,7 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
         if (!m || cfg.literal.includes(part)) return { fixed: scope(part) };
         const group = Number(m[2]);
         requireGroup(name, group, regex);
+        groupScopes = true;
         return { prefix: m[1]!, group, suffix: m[3]! };
       });
   }
@@ -289,7 +298,10 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
         if (!node.include.startsWith("#")) throw new Error(`external include ${node.include}`);
         const key = node.include.slice(1);
         const target = sc.repository[key];
-        if (!target) throw new Error(`unknown include ${key}`);
+        if (!target) {
+          if (cfg.unresolved?.includes(key)) return;
+          throw new Error(`unknown include ${key}`);
+        }
         const prefix = key in sc.own ? sc.prefix : "";
         const id = prefix + pascal(key);
         const inside = target.repository ? inner(sc, target, prefixOf(key)) : sc;
@@ -380,10 +392,10 @@ pub(crate) use crate::rules::Start;
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Sc {
     /// A fixed scope.
-    S(S),
+    S(S),${groupScopes ? `
     /// A scope made of a prefix, the text of a capture group of the match and
     /// a suffix.
-    Group(&'static str, u8, &'static str),
+    Group(&'static str, u8, &'static str),` : ""}
 }
 
 impl Sc {
@@ -395,8 +407,8 @@ impl Sc {
     )]
     pub(crate) const fn code(self) -> u16 {
         match self {
-            Sc::S(scope) => scope as u16,
-            Sc::Group(..) => u16::MAX,
+            Sc::S(scope) => scope as u16,${groupScopes ? `
+            Sc::Group(..) => u16::MAX,` : ""}
         }
     }
 
@@ -493,6 +505,7 @@ pub(crate) struct Nested {
   g += `        }\n    }\n}\n`;
 
   g += startTable(patList);
+  if (cfg.toLast) g += oneBlankTable(patList);
   g += ruleCodes(cfg.engine, cfg.table);
   g += groupsCheck(
     cfg.engine,

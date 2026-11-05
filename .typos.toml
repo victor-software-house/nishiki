@@ -38,3 +38,6 @@ seperator = "seperator"
 # The php grammar's `p(?:ublic|rivate|rotected)`, which the PHP matchers'
 # doc comments quote.
 ublic = "ublic"
+# The MATLAB probe snippets spell near misses of `NaN`, such as `Nax`, to
+# probe the command-name expression.
+nax = "nax"

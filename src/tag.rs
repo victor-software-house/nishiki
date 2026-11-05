@@ -120,6 +120,9 @@ tags! {
     /// Markdown.
     #[cfg(feature = "lang-markdown")]
     MARKDOWN = 0x0200,
+    /// MATLAB.
+    #[cfg(feature = "lang-matlab")]
+    MATLAB = 0x4400,
     /// Mermaid.
     #[cfg(feature = "lang-mermaid")]
     MERMAID = 0x3d00,

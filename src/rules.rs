@@ -42,6 +42,7 @@ use std::fmt::Debug;
     feature = "lang-postcss",
     feature = "lang-powershell",
     feature = "lang-julia",
+    feature = "lang-matlab",
     feature = "lang-mermaid",
     feature = "lang-objective-c",
     feature = "lang-objective-cpp",

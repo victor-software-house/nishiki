@@ -35,6 +35,7 @@ import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import matlabCoverage from "./inputs/matlab-coverage.m" with { type: "text" };
 import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import objectiveCCoverage from "./inputs/objective-c-coverage.m" with { type: "text" };
@@ -1126,8 +1127,12 @@ export const inputs: Input[] = [
     url: `${zod}/packages/zod/README.md`,
   },
   // MATLAB runs on the TextMate engine.
+  { lang: "matlab", name: "chebfun-chebop", url: `${chebfun}/@chebop/chebop.m` },
   { lang: "matlab", name: "chebfun-feval", url: `${chebfun}/@chebfun/feval.m` },
+  { lang: "matlab", name: "chebfun-plus", url: `${chebfun}/@chebfun/plus.m` },
   { lang: "matlab", name: "chebfun-roots", url: `${chebfun}/@chebfun/roots.m` },
+  { lang: "matlab", name: "chebfun-sum", url: `${chebfun}/@chebfun/sum.m` },
+  { lang: "matlab", name: "coverage", text: matlabCoverage },
   { lang: "matlab", name: "grammar-arguments-block", url: `${matlabGrammar}/test/t13ArgumentsBlock.m` },
   { lang: "matlab", name: "grammar-property-validation", url: `${matlabGrammar}/test/t08PropertyValidation.m` },
   { lang: "matlab", name: "sample", url: `${samples}/matlab.sample` },

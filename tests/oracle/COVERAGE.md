@@ -46,6 +46,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 225 of 311 | 72.3% | 286 of 373 | 76.7% | 173 | 0 | yes |
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
+| MATLAB | `matlab` | 127 of 132 | 96.2% | 77 of 91 | 84.6% | 19 | 0 | yes |
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | Objective-C | `objective-c` | 371 of 377 | 98.4% | 346 of 377 | 91.8% | 37 | 0 | yes |
@@ -698,6 +699,20 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 
 ```text
 #vue-code-block.begin  groups 5
+```
+
+### `matlab`
+
+```text
+#blocks.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
+#blocks.patterns[1].patterns[0].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[1].patterns[1].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[4].patterns[0].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[4].patterns[1].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[5].patterns[0].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#comment_block.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments.patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 ```
 
 ### `mermaid`

@@ -1336,7 +1336,7 @@ SOFTWARE.
 
 ## MATLAB
 
-Its TextMate engine runs the MATLAB TextMate grammar in [mathworks/MATLAB-Language-grammar](https://github.com/mathworks/MATLAB-Language-grammar), which Shiki bundles as `matlab`, with its rules compiled into tables (`src/matlab/grammar.rs`).
+Its MATLAB lexer emits the scope names of the MATLAB TextMate grammar in [mathworks/MATLAB-Language-grammar](https://github.com/mathworks/MATLAB-Language-grammar), which Shiki bundles as `matlab`, and tries that grammar's rules in its order, from tables generated from it (`src/matlab/grammar.rs`).
 Shiki takes it from that repository at commit `69dbf20c1eb19efd629c0438a2a493e60617e8de`.
 That grammar is licensed under the BSD 2-Clause License, in the repository's `license.txt`:
 

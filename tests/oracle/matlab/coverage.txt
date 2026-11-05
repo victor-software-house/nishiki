@@ -1,0 +1,716 @@
+L % Written for nishiki: MATLAB that reaches the rules the other inputs leave
+T 1 source.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 75 source.matlab comment.line.percentage.matlab
+L % out, as tests/oracle/COVERAGE.md counts them.
+T 1 source.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 47 source.matlab comment.line.percentage.matlab
+L 
+L %% Section title
+T 2 source.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 3 source.matlab comment.line.double-percentage.matlab
+T 16 source.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L   %% Indented section
+T 2 source.matlab punctuation.whitespace.comment.leading.matlab
+T 4 source.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+T 5 source.matlab comment.line.double-percentage.matlab
+T 21 source.matlab comment.line.double-percentage.matlab meta.cell.matlab
+L %%
+T 2 source.matlab comment.line.double-percentage.matlab punctuation.definition.comment.matlab
+L   % indented comment
+T 2 source.matlab punctuation.whitespace.comment.leading.matlab
+T 3 source.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 20 source.matlab comment.line.percentage.matlab
+L 
+L %{
+T 2 source.matlab comment.block.percentage.matlab
+L A block comment.
+T 16 source.matlab comment.block.percentage.matlab
+L   %{
+T 2 source.matlab comment.block.percentage.matlab comment.block.percentage.matlab punctuation.definition.comment.matlab
+T 4 source.matlab comment.block.percentage.matlab comment.block.percentage.matlab
+L   A nested block.
+T 17 source.matlab comment.block.percentage.matlab comment.block.percentage.matlab
+L   %}
+T 4 source.matlab comment.block.percentage.matlab comment.block.percentage.matlab
+L %}
+T 2 source.matlab comment.block.percentage.matlab
+L 
+L hold on
+T 4 source.matlab string.interpolated.matlab variable.other.command.matlab
+T 7 source.matlab string.interpolated.matlab
+L format long g % trailing comment
+T 6 source.matlab string.interpolated.matlab variable.other.command.matlab
+T 14 source.matlab string.interpolated.matlab
+T 32 source.matlab comment.line.percentage.matlab
+L disp hello world
+T 4 source.matlab string.interpolated.matlab variable.other.command.matlab
+T 16 source.matlab string.interpolated.matlab
+L warning off all
+T 7 source.matlab string.interpolated.matlab variable.other.command.matlab
+T 15 source.matlab string.interpolated.matlab
+L axis([0 1 0 1])
+T 4 source.matlab
+T 5 source.matlab
+T 6 source.matlab
+T 7 source.matlab constant.numeric.matlab
+T 8 source.matlab
+T 9 source.matlab constant.numeric.matlab
+T 10 source.matlab
+T 11 source.matlab constant.numeric.matlab
+T 12 source.matlab
+T 13 source.matlab constant.numeric.matlab
+T 14 source.matlab
+T 15 source.matlab
+L !ls -la
+T 1 source.matlab string.interpolated.matlab punctuation.definition.string.begin.matlab
+T 7 source.matlab string.interpolated.matlab
+L   !echo shell
+T 2 source.matlab
+T 3 source.matlab string.interpolated.matlab punctuation.definition.string.begin.matlab
+T 13 source.matlab string.interpolated.matlab
+L 
+L global counter total
+T 6 source.matlab meta.globalpersistent.matlab keyword.control.globalpersistent.matlab
+T 20 source.matlab
+L persistent cache
+T 10 source.matlab meta.globalpersistent.matlab keyword.control.globalpersistent.matlab
+T 16 source.matlab
+L 
+L x = a' + b';
+T 5 source.matlab
+T 6 source.matlab keyword.operator.transpose.matlab
+T 7 source.matlab
+T 8 source.matlab keyword.operator.symbols.matlab
+T 10 source.matlab
+T 11 source.matlab keyword.operator.transpose.matlab
+T 12 source.matlab
+L y = [a ' str'];
+T 4 source.matlab
+T 5 source.matlab
+T 7 source.matlab
+T 8 source.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 12 source.matlab string.quoted.single.matlab
+T 13 source.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 14 source.matlab
+T 15 source.matlab
+L z = {x', y.', m(1)', n{2}'};
+T 4 source.matlab
+T 5 source.matlab
+T 6 source.matlab
+T 7 source.matlab keyword.operator.transpose.matlab
+T 10 source.matlab
+T 12 source.matlab keyword.operator.transpose.matlab
+T 15 source.matlab
+T 16 source.matlab
+T 17 source.matlab constant.numeric.matlab
+T 18 source.matlab
+T 19 source.matlab keyword.operator.transpose.matlab
+T 21 source.matlab
+T 22 source.matlab
+T 23 source.matlab
+T 24 source.matlab constant.numeric.matlab
+T 25 source.matlab
+T 26 source.matlab keyword.operator.transpose.matlab
+T 27 source.matlab
+T 28 source.matlab
+L s = 'it''s a quote';
+T 4 source.matlab
+T 5 source.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 7 source.matlab string.quoted.single.matlab
+T 9 source.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 18 source.matlab string.quoted.single.matlab
+T 19 source.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 20 source.matlab
+L t = "a "" quote";
+T 4 source.matlab
+T 5 source.matlab string.quoted.double.matlab punctuation.definition.string.begin.matlab
+T 7 source.matlab string.quoted.double.matlab
+T 9 source.matlab string.quoted.double.matlab constant.character.escape.matlab
+T 15 source.matlab string.quoted.double.matlab
+T 16 source.matlab string.quoted.double.matlab punctuation.definition.string.end.matlab
+T 17 source.matlab
+L u = 'unterminated ' quote';
+T 4 source.matlab
+T 5 source.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 18 source.matlab string.quoted.single.matlab
+T 19 source.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 25 source.matlab
+T 26 source.matlab keyword.operator.transpose.matlab
+T 27 source.matlab
+L v = "unterminated " quote";
+T 4 source.matlab
+T 5 source.matlab string.quoted.double.matlab punctuation.definition.string.begin.matlab
+T 18 source.matlab string.quoted.double.matlab
+T 19 source.matlab string.quoted.double.matlab punctuation.definition.string.end.matlab
+T 27 source.matlab
+L u2 = 'a lone'quote';
+T 5 source.matlab
+T 6 source.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 12 source.matlab string.quoted.single.matlab
+T 13 source.matlab string.quoted.single.matlab invalid.illegal.unescaped-quote.matlab
+T 18 source.matlab string.quoted.single.matlab
+T 19 source.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 20 source.matlab
+L v2 = "a lone"quote";
+T 5 source.matlab
+T 6 source.matlab string.quoted.double.matlab punctuation.definition.string.begin.matlab
+T 12 source.matlab string.quoted.double.matlab
+T 13 source.matlab string.quoted.double.matlab invalid.illegal.unescaped-quote.matlab
+T 18 source.matlab string.quoted.double.matlab
+T 19 source.matlab string.quoted.double.matlab punctuation.definition.string.end.matlab
+T 20 source.matlab
+L w = sprintf('%d items, %5.2f%% done\n', n, p);
+T 11 source.matlab
+T 12 source.matlab
+T 13 source.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 15 source.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 23 source.matlab string.quoted.single.matlab
+T 28 source.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 30 source.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 35 source.matlab string.quoted.single.matlab
+T 37 source.matlab string.quoted.single.matlab constant.character.escape.matlab
+T 38 source.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 44 source.matlab
+T 45 source.matlab
+T 46 source.matlab
+L c = a(end) + b{end};
+T 5 source.matlab
+T 6 source.matlab
+T 9 source.matlab keyword.operator.symbols.matlab
+T 10 source.matlab
+T 11 source.matlab
+T 12 source.matlab keyword.operator.symbols.matlab
+T 13 source.matlab
+T 14 source.matlab
+T 15 source.matlab
+T 18 source.matlab keyword.operator.symbols.matlab
+T 19 source.matlab
+T 20 source.matlab
+L d = 1e-3 * 2.5i + .5 - 3j;
+T 4 source.matlab
+T 8 source.matlab constant.numeric.matlab
+T 9 source.matlab
+T 10 source.matlab keyword.operator.symbols.matlab
+T 11 source.matlab
+T 15 source.matlab constant.numeric.matlab
+T 16 source.matlab
+T 17 source.matlab keyword.operator.symbols.matlab
+T 18 source.matlab
+T 20 source.matlab constant.numeric.matlab
+T 21 source.matlab
+T 22 source.matlab keyword.operator.symbols.matlab
+T 23 source.matlab
+T 25 source.matlab constant.numeric.matlab
+T 26 source.matlab
+L 
+L parfor k = 1:10
+T 6 source.matlab meta.parfor.matlab keyword.control.for.matlab
+T 11 source.matlab meta.parfor.matlab meta.parfor-quantity.matlab
+T 12 source.matlab meta.parfor.matlab meta.parfor-quantity.matlab constant.numeric.matlab
+T 13 source.matlab meta.parfor.matlab meta.parfor-quantity.matlab
+T 15 source.matlab meta.parfor.matlab meta.parfor-quantity.matlab constant.numeric.matlab
+L     r(k) = k^2;
+T 5 source.matlab meta.parfor.matlab
+T 6 source.matlab meta.parfor.matlab
+T 7 source.matlab meta.parfor.matlab
+T 8 source.matlab meta.parfor.matlab
+T 15 source.matlab meta.parfor.matlab
+L end
+T 3 source.matlab meta.parfor.matlab keyword.control.end.for.matlab
+L 
+L spmd
+T 4 source.matlab meta.spmd.matlab keyword.control.spmd.matlab
+L     q = labindex;
+T 17 source.matlab meta.spmd.matlab
+L end
+T 3 source.matlab meta.spmd.matlab keyword.control.end.spmd.matlab
+L 
+L spmd (4)
+T 4 source.matlab meta.spmd.matlab keyword.control.spmd.matlab
+T 5 source.matlab meta.spmd.matlab meta.spmd-statement.matlab
+T 6 source.matlab meta.spmd.matlab meta.spmd-statement.matlab
+T 7 source.matlab meta.spmd.matlab meta.spmd-statement.matlab constant.numeric.matlab
+T 8 source.matlab meta.spmd.matlab meta.spmd-statement.matlab
+L     q = 1;
+T 8 source.matlab meta.spmd.matlab
+T 9 source.matlab meta.spmd.matlab constant.numeric.matlab
+T 10 source.matlab meta.spmd.matlab
+L end
+T 3 source.matlab meta.spmd.matlab keyword.control.end.spmd.matlab
+L 
+L try
+T 3 source.matlab meta.try.matlab keyword.control.try.matlab
+L     risky();
+T 9 source.matlab meta.try.matlab
+T 10 source.matlab meta.try.matlab
+T 11 source.matlab meta.try.matlab
+T 12 source.matlab meta.try.matlab
+L catch err
+T 5 source.matlab meta.try.matlab meta.catch.matlab keyword.control.catch.matlab
+T 9 source.matlab meta.try.matlab meta.catch.matlab
+L     disp(err.message);
+T 8 source.matlab meta.try.matlab
+T 9 source.matlab meta.try.matlab
+T 20 source.matlab meta.try.matlab
+T 21 source.matlab meta.try.matlab
+T 22 source.matlab meta.try.matlab
+L end
+T 3 source.matlab meta.try.matlab keyword.control.end.try.matlab
+L 
+L try, risky(); catch, end
+T 3 source.matlab meta.try.matlab keyword.control.try.matlab
+T 10 source.matlab meta.try.matlab
+T 11 source.matlab meta.try.matlab
+T 12 source.matlab meta.try.matlab
+T 13 source.matlab meta.try.matlab
+T 14 source.matlab meta.try.matlab meta.catch.matlab
+T 19 source.matlab meta.try.matlab meta.catch.matlab keyword.control.catch.matlab
+T 24 source.matlab meta.try.matlab meta.catch.matlab
+L 
+L while true
+T 5 source.matlab meta.try.matlab meta.while.matlab keyword.control.while.matlab
+T 6 source.matlab meta.try.matlab meta.while.matlab
+T 10 source.matlab meta.try.matlab meta.while.matlab constant.language.matlab
+L     break
+T 4 source.matlab meta.try.matlab meta.while.matlab meta.control.matlab
+T 9 source.matlab meta.try.matlab meta.while.matlab meta.control.matlab keyword.control.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.while.matlab keyword.control.end.while.matlab
+L 
+L if x > 0
+T 2 source.matlab meta.try.matlab meta.if.matlab keyword.control.if.matlab
+T 5 source.matlab meta.try.matlab meta.if.matlab
+T 6 source.matlab meta.try.matlab meta.if.matlab keyword.operator.symbols.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab
+T 8 source.matlab meta.try.matlab meta.if.matlab constant.numeric.matlab
+L     y = 1;
+T 8 source.matlab meta.try.matlab meta.if.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab constant.numeric.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab
+L elseif x < 0
+T 6 source.matlab meta.try.matlab meta.if.matlab meta.elseif.matlab keyword.control.elseif.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.elseif.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.elseif.matlab keyword.operator.symbols.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.elseif.matlab
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.elseif.matlab constant.numeric.matlab
+L     y = -1;
+T 9 source.matlab meta.try.matlab meta.if.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab constant.numeric.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab
+L else
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+L     y = 0;
+T 8 source.matlab meta.try.matlab meta.if.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab constant.numeric.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab keyword.control.end.if.matlab
+L 
+L if x, y = 1; else y = 2; end
+T 2 source.matlab meta.try.matlab meta.if.matlab keyword.control.if.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab constant.numeric.matlab
+T 12 source.matlab meta.try.matlab meta.if.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.else.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.else.matlab keyword.control.else.matlab
+T 22 source.matlab meta.try.matlab meta.if.matlab meta.else.matlab
+T 23 source.matlab meta.try.matlab meta.if.matlab meta.else.matlab constant.numeric.matlab
+T 28 source.matlab meta.try.matlab meta.if.matlab meta.else.matlab
+L 
+L switch s
+T 6 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab keyword.control.switch.matlab
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+L     case 'a'
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+L         z = 1;
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab constant.numeric.matlab
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+L     case {'b', 'c'}
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab keyword.control.case.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab string.quoted.single.matlab punctuation.definition.string.end.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.case.matlab
+L         z = 2;
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab constant.numeric.matlab
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+L     otherwise
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab keyword.control.otherwise.matlab
+L         z = 3;
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab constant.numeric.matlab
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab keyword.control.end.switch.matlab
+L 
+L switch t
+T 6 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab keyword.control.switch.matlab
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab
+L     otherwise z = 4;
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab keyword.control.otherwise.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab constant.numeric.matlab
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab meta.otherwise.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.switch.matlab keyword.control.end.switch.matlab
+L 
+L function [a, b] = two_outputs(x, y)
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab punctuation.definition.arguments.begin.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab variable.parameter.output.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab variable.parameter.output.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab punctuation.definition.arguments.end.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab entity.name.function.matlab
+T 30 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+T 31 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 33 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+T 34 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 35 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+L     a = x;
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+L     b = y;
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab keyword.control.end.function.matlab
+L 
+L function single = one_output(x)
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 28 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab entity.name.function.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+T 30 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 31 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+L     single = x;
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab keyword.control.end.function.matlab
+L 
+L function no_outputs(varargin)
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab entity.name.function.matlab
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+T 28 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+L     disp(nargin);
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab variable.other.function.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab keyword.control.end.function.matlab
+L 
+L classdef (Sealed, Abstract = true) Shape < handle & matlab.mixin.Copyable % a shape
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab storage.type.class.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab variable.parameter.class.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab variable.parameter.class.matlab
+T 27 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 33 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab constant.language.boolean.matlab
+T 34 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 35 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 40 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.class-declaration.matlab entity.name.section.class.matlab
+T 41 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.class-declaration.matlab
+T 42 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.class-declaration.matlab keyword.operator.other.matlab
+T 43 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.class-declaration.matlab
+T 49 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab entity.other.inherited-class.matlab
+T 50 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 51 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab keyword.operator.other.matlab
+T 52 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 73 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab entity.other.inherited-class.matlab
+T 74 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab
+T 75 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab comment.line.percentage.matlab punctuation.definition.comment.matlab
+T 83 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab comment.line.percentage.matlab
+L     properties (Access = private, Constant = false)
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab keyword.control.properties.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 22 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab variable.parameter.properties.matlab
+T 23 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 25 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 32 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab constant.language.access.matlab
+T 33 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 34 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 42 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab variable.parameter.properties.matlab
+T 43 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 45 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 50 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab constant.language.boolean.matlab
+T 51 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+L         width (1,1) double {mustBePositive} = 1
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 27 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 28 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 42 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 43 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 44 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 46 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 47 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab constant.numeric.matlab
+L         height {mustBeNumeric, mustBeFinite}
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 43 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 44 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+L         name string = "shape"; label = 'none'
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 22 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 23 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab string.quoted.double.matlab punctuation.definition.string.begin.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab string.quoted.double.matlab
+T 36 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 37 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 39 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 40 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 45 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab string.quoted.single.matlab
+L         tags cell {mustBeMember(tags, {'a', "b", 'it''s', "q""q"})}
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 38 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 39 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 40 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 41 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 42 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 44 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 45 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 46 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 47 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 49 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 50 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 52 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 54 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 55 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 56 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 58 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 59 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 60 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 62 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 63 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 64 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 65 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 66 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+T 67 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab storage.type.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab keyword.control.end.properties.matlab
+L     properties (SetAccess = protected, GetAccess = public)
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 14 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab keyword.control.properties.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 25 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab variable.parameter.properties.matlab
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 28 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 37 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab constant.language.access.matlab
+T 38 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 39 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 48 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab variable.parameter.properties.matlab
+T 49 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 51 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 57 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab constant.language.access.matlab
+T 58 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+L         area
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.properties.matlab keyword.control.end.properties.matlab
+L     methods (Access = private, Static = true)
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab keyword.control.methods.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab variable.parameter.methods.matlab
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 22 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab constant.language.access.matlab
+T 30 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 31 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 37 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab variable.parameter.methods.matlab
+T 38 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 40 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 44 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab constant.language.boolean.matlab
+T 45 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+L         function r = scale(obj, k)
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab storage.type.function.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 21 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab entity.name.function.matlab
+T 27 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab
+T 30 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 32 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab
+T 33 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 34 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab
+L             r = obj.width * k;
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 27 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab keyword.operator.symbols.matlab
+T 30 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+L         end
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab keyword.control.end.function.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab keyword.control.end.methods.matlab
+L     methods
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab keyword.control.methods.matlab
+L         function obj = Shape(w)
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab storage.type.function.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab variable.parameter.output.function.matlab
+T 23 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 28 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab entity.name.function.matlab
+T 29 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab
+T 30 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 31 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab meta.arguments.function.matlab
+L             obj.width = w;
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+L         end
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab
+T 11 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab meta.function.matlab keyword.control.end.function.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.methods.matlab keyword.control.end.methods.matlab
+L     events (ListenAccess = protected, NotifyAccess = private, Hidden = false)
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 10 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab keyword.control.events.matlab
+T 12 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 24 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab variable.parameter.events.matlab
+T 25 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 27 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 36 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab constant.language.access.matlab
+T 37 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 38 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 50 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab variable.parameter.events.matlab
+T 51 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 53 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 60 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab constant.language.access.matlab
+T 61 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 62 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 68 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab variable.parameter.events.matlab
+T 69 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 71 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 76 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab constant.language.boolean.matlab
+T 77 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+L         Changed
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.events.matlab keyword.control.end.events.matlab
+L     enumeration
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.enumeration.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.enumeration.matlab keyword.control.enumeration.matlab
+L         Small, Large
+T 20 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.enumeration.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.enumeration.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab meta.enumeration.matlab keyword.control.end.enumeration.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.class.matlab keyword.control.end.class.matlab
+L 
+L function validate(x, opts)
+T 8 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab storage.type.function.matlab
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab entity.name.function.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 21 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+T 25 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab variable.parameter.input.matlab
+T 26 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.function.matlab
+L     arguments
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 13 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab keyword.control.arguments.matlab
+L         x (1,:) double {mustBeReal}
+T 9 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 15 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 16 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 22 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 23 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 24 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 34 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 35 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+L         opts.Mode char {mustBeMember(opts.Mode, {'fast', 'slow'})} = 'fast'
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 22 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 23 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 24 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 41 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 42 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 48 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 49 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 50 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 54 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 55 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 57 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 58 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 62 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 63 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 64 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 65 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 66 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 67 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 69 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 70 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab string.quoted.single.matlab punctuation.definition.string.begin.matlab
+T 75 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab string.quoted.single.matlab
+L         opts.Count
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+L         opts.Name {mustBeMember(opts.Name, {'a'b', "c"d"})}
+T 17 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 18 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 19 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 36 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 37 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 43 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 44 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 45 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 46 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 47 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 48 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 49 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 51 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 52 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 53 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 54 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 55 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 56 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 57 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 58 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+T 59 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab storage.type.matlab
+L     end
+T 4 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab
+T 7 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab meta.arguments.matlab keyword.control.end.arguments.matlab
+L end
+T 3 source.matlab meta.try.matlab meta.if.matlab meta.function.matlab keyword.control.end.function.matlab
+L 

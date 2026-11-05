@@ -1,0 +1,25 @@
+// MATLAB for the differential fuzzer (fuzz.ts) and the Oniguruma harness
+// (onig.ts): pieces of MATLAB to build documents from, texts to insert,
+// the info strings of Markdown fences, and the texts the harness probes
+// expressions with.
+// The quote snippets put a quote after and before every byte the string and
+// transpose expressions look at.
+
+/** Pieces that random documents are made of. */
+export const pieces: string[] = ["function y = f(x)","function [a, b] = g(x, y)","function h","end","if x > 0","elseif x < 0","else","for k = 1:10","parfor k = 1:n","while true","switch s","case 1","case {'a', 'b'}","otherwise","try","catch err","break","continue","return","spmd","global g","persistent p","classdef A < handle","classdef (Sealed, Abstract = true) B < A & C % c","properties (Access = private)","properties","methods (Static)","methods","events","enumeration","arguments","x (1,1) double {mustBePositive} = 1","y {mustBeMember(y, ['a', 'b'])}","hold on","format long","disp hello world","warning off all % quiet","x = a' + b';","y = [a ' str'];","z = {x', y.'};","s = 'it''s';","t = \"a \"\" b\";","fprintf('%d %5.2f\\n', a, b);","c = a(end);","d = x{end}{1};","e = @(t) t.^2 + 1;","f = 1e-3 * 2.5i;","g = .5 + 3j;","h = [1, 2; 3, 4];","k = x == y && ~z || w;","m = a ... continued","% comment","%% Section title","%{","block comment line","%}","!ls -la","x = 1; % trailing","ans","eps","nargin","pi","NaN","Inf","é = 1;","x = a(1,  ","y = b{2 ==  ","","  "];
+
+/** Texts that mutation inserts. */
+export const mutations: string[] = ["'","\"","%","%%","%{\n","%}\n","...","(",")","[","]","{","}","end",";",",","=","é"];
+
+/** Info strings of Markdown fences. Shiki's Markdown grammar has no MATLAB fence. */
+export const fences: string[] = ["matlab"];
+
+/** For the Oniguruma harness. */
+export const probe = {
+  /** Texts inserted into fixture lines. */
+  snippets: ["x&'","&'a'","x('","('a'","x*'","*'a'","x+'","+'a'","x,'",",'a'","x-'","-'a'","x.'",".'a'","x/'","/'a'","x:'",":'a'","x;'",";'a'","x<'","<'a'","x='","='a'","x>'",">'a'","x['","['a'","x\\'","\\'a'","x^'","^'a'","x{'","{'a'","x|'","|'a'","x~'","~'a'","x]'","]'a'","x)'",")'a'","x}'","}'a'","'a'&","'a'(","'a')","'a'*","'a'+","'a',","'a'-","'a'.","'a'/","'a':","'a';","'a'<","'a'=","'a'>","'a'[","'a'\\","'a']","'a'^","'a'{","'a'|","'a'}","'a'~"," 'a'","'a'","''","'it''s'","\"a\"\"b\"","'%d %5.2f %% \\n'","'%-03.2e %bx %tu %c'","a.'","x)'","x]'","x}'","hold on","hold  on % c","ans x","eps x","i x","in x","inf x","Inf x","Inx x","j x","jx y","NaN x","Nax y","nan x","nargin x","nargout x","nargp x","nargou1 x","pi x","pix y","disp x == y","disp +x","disp + x","disp .x","disp .5","disp {1}","a ...comment","x = 1:end","a(end)","1.5e3","2i","3.j","1e","1.","12.e3","x == y","x ~= y","x >= y","x .* y","x \\ y","@(x)","function y = f(x)","function [a,b] = g","function h(","function obj.m","classdef A","classdef (S) A < B & C","properties (Access=private)","methods % c","arguments","end"," end",",end",";end","if x",",if x","while x"," while x",";while x","try"," try",",try","spmd"," spmd",";spmd","elseif y","else z","case 1","otherwise","catch e","global g","persistent p","%{","  %{  ","%}","%% t","%%","% c","!ls","  !ls","{mustBePositive}","(1,1) double","x {mustBeA(x, \"a\")}","= 1","; y","a.b{1}","x{","é"] as string[],
+  /** Texts tried at 0 for an expression that starts with `\\G`. */
+  anchored: ["(","(a, b)"," ",""] as string[],
+  /** Whole texts tried at 0. */
+  whole: ["function y = f(x)","function [a, b] = f(x)","function f","function x = ","classdef A < handle","classdef (Sealed) A","properties","properties (Access = private) % c","methods","events","enumeration","arguments","%{","%{  ","%}","  %} ","block","!ls","  ! cmd","hold on","format long g","disp hello % c","ans x","x = 1","global x y","persistent z","%% Title","%%","% c","  % c","for k = 1:3","end"] as string[],
+};

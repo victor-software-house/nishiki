@@ -1024,12 +1024,19 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
-    /// MATLAB, with the scopes of Shiki's `matlab` grammar, which nishiki's
-    /// `TextMate` engine runs.
+    /// MATLAB, with the scopes of Shiki's `matlab` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A quote right after a name, `)`, `]` or `}` is a transpose; after a blank or an operator it opens a string, so `[a ' b']` holds a string.
+    /// - A line that starts with a name and a blank, such as `hold on`, is a command, whose arguments read as one interpolated string; `ans`, `eps`, `i`, `j`, `inf`, `NaN`, `nargin`, `nargout` and `pi` never start one.
+    /// - A file-level `function` with no `end` stays open to the end of the document.
+    /// - Capture groups lexed again inside one another stop after 64 levels, and the text of a deeper one keeps its own scopes.
+    ///   The bound is a constant in `src/matlab/engine.rs` until the next minor release moves it into `Limits`.
     Matlab {
         feature: "lang-matlab",
         names: ["matlab"],
-        engine: crate::matlab::grammar::GRAMMAR,
+        module: matlab,
         reads_line_feed: true,
         halts: true,
     }
