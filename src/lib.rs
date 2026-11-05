@@ -424,6 +424,7 @@ mod svelte;
 mod swift;
 mod tag;
 #[cfg(test)]
+#[cfg(feature = "_language")]
 mod test_support;
 #[cfg(feature = "lang-tex")]
 mod tex;

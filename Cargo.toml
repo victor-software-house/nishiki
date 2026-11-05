@@ -147,8 +147,9 @@ docs = ["config", "lang-latex", "lang-markdown", "lang-tex"]
 textmate = ["_textmate"]
 
 # One feature per lexer module. A language that embeds another needs it.
-lang-asm = ["_scope-table", "_rule-tables", "_classes"]
+lang-asm = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-astro = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_embedding",
@@ -165,34 +166,43 @@ lang-astro = [
   "_classes",
   "_utf8",
 ]
-lang-bat = ["_scope-table", "_rule-tables", "_classes"]
-lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
-lang-cmake = ["_scope-table", "_rule-tables", "_classes"]
+lang-bat = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-c = ["_language", "_scope-table", "_rule-engine", "_classes", "_utf8"]
+lang-cmake = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-coffee = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
   "_halting-embedding",
   "lang-javascript",
 ]
-lang-common-lisp = ["_scope-table", "_rule-tables", "_classes"]
-lang-cpp = ["_scope-table", "_rule-tables", "_classes"]
-lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
-lang-css = ["_scope-table", "_rule-tables", "_classes"]
-lang-dart = ["_scope-table", "_rule-tables", "_classes"]
-lang-diff = ["_scope-table", "_classes", "_utf8"]
-lang-dockerfile = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-common-lisp = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-cpp = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-csharp = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-css = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-dart = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-diff = ["_language", "_scope-table", "_classes", "_utf8"]
+lang-dockerfile = [
+  "_language",
+  "_scope-table",
+  "_classes",
+  "_utf8",
+  "_frame-kinds",
+]
 lang-elixir = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
   "_utf8",
   "_halting-embedding",
 ]
-lang-erb = ["lang-html", "lang-ruby"]
-lang-gdscript = ["_scope-table", "_rule-tables", "_classes"]
-lang-go = ["_scope-table", "_rule-tables", "_classes"]
+lang-erb = ["_language", "lang-html", "lang-ruby"]
+lang-gdscript = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-go = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-graphql = [
+  "_language",
   "_scope-table",
   "_rule-engine",
   "_halting-embedding",
@@ -202,6 +212,7 @@ lang-graphql = [
   "_frame-kinds",
 ]
 lang-hack = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
@@ -212,6 +223,7 @@ lang-hack = [
   "lang-sql",
 ]
 lang-haml = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
@@ -223,25 +235,27 @@ lang-haml = [
   "lang-ruby",
   "lang-sass",
 ]
-lang-haskell = ["_scope-table", "_rule-tables", "_classes"]
-lang-hcl = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-haskell = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-hcl = ["_language", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-html = [
+  "_language",
   "_scope-table",
   "lang-css",
   "lang-javascript",
   "_classes",
   "_html-words",
 ]
-lang-html-derivative = ["lang-html"]
-lang-ini = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
-lang-java = ["_scope-table", "_rule-tables", "_classes"]
+lang-html-derivative = ["_language", "lang-html"]
+lang-ini = ["_language", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-java = ["_language", "_scope-table", "_rule-tables", "_classes"]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,
 # lang-tsx and lang-typescript, each a copy of the lexer.
-lang-javascript = ["_classes", "_space"]
-lang-jinja = ["_scope-table", "_rule-tables", "_classes"]
-lang-json = ["_classes", "_utf8", "_frame-kinds"]
-lang-jsx = ["_classes", "_space"]
+lang-javascript = ["_language", "_classes", "_space"]
+lang-jinja = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-json = ["_language", "_classes", "_utf8", "_frame-kinds"]
+lang-jsx = ["_language", "_classes", "_space"]
 lang-julia = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
@@ -252,31 +266,40 @@ lang-julia = [
   "lang-r",
   "lang-sql",
 ]
-lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
+lang-kotlin = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-latex = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
   "_halting-embedding",
   "lang-tex",
 ]
-lang-less = ["_scope-table", "_rule-tables", "_classes"]
-lang-lua = ["_scope-table", "_rule-tables", "_classes", "_embedding"]
+lang-less = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-lua = [
+  "_language",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_embedding",
+]
 lang-make = [
+  "_language",
   "_scope-table",
   "_rule-engine",
   "_classes",
   "_utf8",
   "_frame-kinds",
 ]
-lang-markdown = ["_scope-table", "_classes", "_utf8"]
-lang-matlab = ["_scope-table", "_rule-tables", "_classes"]
-lang-mermaid = ["_scope-table", "_rule-tables", "_classes"]
-lang-nix = ["_scope-table", "_rule-tables", "_classes"]
-lang-objective-c = ["_scope-table", "_rule-tables", "_classes"]
-lang-objective-cpp = ["lang-objective-c"]
-lang-pascal = ["_scope-table", "_rule-tables", "_classes"]
+lang-markdown = ["_language", "_scope-table", "_classes", "_utf8"]
+lang-matlab = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-mermaid = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-nix = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-objective-c = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-objective-cpp = ["_language", "lang-objective-c"]
+lang-pascal = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-perl = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
@@ -289,6 +312,7 @@ lang-perl = [
   "lang-xml",
 ]
 lang-php = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_classes",
@@ -301,19 +325,33 @@ lang-php = [
   "lang-sql",
   "lang-xml",
 ]
-lang-postcss = ["_scope-table", "_rule-tables", "_classes"]
-lang-powershell = ["_scope-table", "_rule-tables", "_classes"]
-lang-proto = ["_scope-table", "_rule-tables", "_classes"]
-lang-python = ["_scope-table", "_rule-tables"]
-lang-r = ["_scope-table", "_rule-tables", "_identifier-classes"]
-lang-ruby = ["_scope-table", "_rule-tables", "_classes", "_embedding"]
-lang-rust = ["_scope-table", "_classes", "_space", "_utf8"]
-lang-sass = ["_scope-table", "_rule-tables", "_classes"]
-lang-scala = ["_scope-table", "_rule-tables", "_classes"]
-lang-scss = ["lang-css"]
-lang-shell = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
-lang-sql = ["_scope-table", "_rule-engine", "_classes", "_utf8", "_frame-kinds"]
+lang-postcss = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-powershell = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-proto = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-python = ["_language", "_scope-table", "_rule-tables"]
+lang-r = ["_language", "_scope-table", "_rule-tables", "_identifier-classes"]
+lang-ruby = [
+  "_language",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_embedding",
+]
+lang-rust = ["_language", "_scope-table", "_classes", "_space", "_utf8"]
+lang-sass = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-scala = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-scss = ["_language", "lang-css"]
+lang-shell = ["_language", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-sql = [
+  "_language",
+  "_scope-table",
+  "_rule-engine",
+  "_classes",
+  "_utf8",
+  "_frame-kinds",
+]
 lang-svelte = [
+  "_language",
   "_scope-table",
   "_rule-tables",
   "_embedding",
@@ -327,13 +365,20 @@ lang-svelte = [
   "_classes",
   "_utf8",
 ]
-lang-swift = ["_scope-table", "_rule-tables", "_classes"]
-lang-tex = ["_scope-table", "_rule-tables", "_classes", "_embedding"]
-lang-toml = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
-lang-tsx = ["_classes", "_space"]
-lang-typescript = ["_classes", "_space"]
-lang-vb = ["_scope-table", "_rule-tables", "_classes"]
+lang-swift = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-tex = [
+  "_language",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_embedding",
+]
+lang-toml = ["_language", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-tsx = ["_language", "_classes", "_space"]
+lang-typescript = ["_language", "_classes", "_space"]
+lang-vb = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-vue = [
+  "_language",
   "lang-html-derivative",
   "lang-scss",
   "lang-less",
@@ -344,11 +389,15 @@ lang-vue = [
   "lang-yaml",
   "lang-graphql",
 ]
-lang-xml = ["_scope-table", "lang-java", "_classes", "_utf8"]
-lang-yaml = ["_scope-table", "_utf8", "_space", "_frame-kinds"]
-lang-zig = ["_scope-table", "_rule-tables", "_classes"]
+lang-xml = ["_language", "_scope-table", "lang-java", "_classes", "_utf8"]
+lang-yaml = ["_language", "_scope-table", "_utf8", "_space", "_frame-kinds"]
+lang-zig = ["_language", "_scope-table", "_rule-tables", "_classes"]
 
 # Shared code that only some languages use; not for callers.
+# The code every lexer shares, on with any language and with the TextMate
+# engine, which runs grammars through it.
+# A build with neither leaves it unused.
+_language = []
 # The classes read characters through the UTF-8 helpers.
 _classes = ["_utf8"]
 # The rule engine's hand-over to a language a rule embeds, for Ruby's here
@@ -376,7 +425,7 @@ _rule-engine = ["_classes"]
 _rule-tables = ["_rule-engine"]
 _space = []
 # nishiki's own TextMate engine, which runs bundled grammars.
-_textmate = ["dep:regex-automata", "dep:regex-syntax", "_utf8"]
+_textmate = ["dep:regex-automata", "dep:regex-syntax", "_utf8", "_language"]
 _utf8 = []
 
 # Theme::from_json, for theme files in Shiki's JSON format. Not the JSON

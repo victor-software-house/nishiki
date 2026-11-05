@@ -251,6 +251,7 @@ impl Scratch {
     /// The number of the current line. [`Scratch::start_line`] advances it.
     /// An embedding language may lex many texts of one line. A lexer that
     /// keeps an answer for every text of one line keys it by this number.
+    #[cfg(feature = "_language")]
     pub(crate) fn line(&self) -> u64 {
         self.line
     }

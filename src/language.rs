@@ -214,6 +214,7 @@ macro_rules! languages {
             /// The state at the start of a Markdown fence's body, whose text
             /// sits on `base` with no root scope of the language's own, as in
             /// Shiki's embedding.
+            #[cfg(feature = "_language")]
             #[cfg_attr(
                 not(any($(feature = $feature),*)),
                 expect(
@@ -1382,6 +1383,13 @@ impl Language {
 /// has left, and adds what it spent, which comes back from its `lex`, so the
 /// embedded language spends the line's one work budget
 /// (`CODING_STANDARDS.md` 1.6).
+#[cfg_attr(
+    not(feature = "_language"),
+    expect(
+        dead_code,
+        reason = "with no language, Highlighter::line builds a context that nothing reads"
+    )
+)]
 pub(crate) struct Context<'a> {
     pub(crate) scratch: &'a mut Scratch,
     pub(crate) arena: &'a mut Arena,
@@ -1396,6 +1404,7 @@ pub(crate) struct Context<'a> {
 
 /// A [`Context`] without its scratch, for a lexer that keeps its buffers in
 /// one field of the scratch and borrows that field beside these.
+#[cfg(feature = "_language")]
 pub(crate) struct Parts<'a> {
     pub(crate) arena: &'a mut Arena,
     pub(crate) limits: &'a Limits,
@@ -1423,6 +1432,7 @@ pub(crate) enum StopKind {
     /// vscode-textmate then pops the innermost rule, which there is the rule
     /// that embeds the language, and ends the line.
     /// The language has lexed the rest of the line as its own, from the byte.
+    #[cfg(feature = "_language")]
     PopHost,
 }
 
@@ -1456,6 +1466,7 @@ pub(crate) fn cut_tokens(out: &mut Vec<Token>, first: usize, at: usize) {
 
 impl Stopped {
     /// A stop at `at` where a halt held.
+    #[cfg(feature = "_language")]
     pub(crate) const fn halt(at: usize) -> Stopped {
         Stopped {
             at,
@@ -1495,6 +1506,7 @@ pub(crate) trait Halt {
     /// So it does not hold under an embedded source, a `source` scope inside a
     /// `meta` scope, which the selector shuts out.
     /// Most halts have none, and a language that does not read it ignores it.
+    #[cfg(feature = "_language")]
     fn deep(&self) -> Option<&dyn Halt> {
         None
     }
@@ -1519,13 +1531,16 @@ impl Halt for Places<'_> {
 /// The second stands for the patterns the embedding rule lists after the
 /// embedded grammar. A lexer tries it where none of the embedded patterns
 /// match. A lexer keeps one reference to the caller's pair.
+#[cfg(feature = "_language")]
 pub(crate) type Halts<'a> = (&'a dyn Halt, Option<&'a dyn Halt>);
 
 /// The halts of a scan compiled without halts.
 /// They never hold.
+#[cfg(feature = "_language")]
 pub(crate) const NO_HALTS: Halts<'static> = (&never, None);
 
 /// A halt that never holds.
+#[cfg(feature = "_language")]
 fn never(_: &[u8], _: usize) -> bool {
     false
 }
@@ -1599,6 +1614,13 @@ pub(crate) fn halt_before(
 /// The line a lexer reads: all of it, and the byte where its own text starts,
 /// which is past the containers when a Markdown fence embeds it.
 #[derive(Clone, Copy)]
+#[cfg_attr(
+    not(feature = "_language"),
+    expect(
+        dead_code,
+        reason = "with no language, Highlighter::line builds a line that nothing reads"
+    )
+)]
 pub(crate) struct Line<'a> {
     pub(crate) text: &'a str,
     pub(crate) start: usize,
@@ -1607,6 +1629,7 @@ pub(crate) struct Line<'a> {
     pub(crate) embedded: bool,
 }
 
+#[cfg(feature = "_language")]
 impl Context<'_> {
     /// The context split into its scratch and the rest.
     #[inline]
@@ -1658,6 +1681,7 @@ impl Context<'_> {
 /// The rest of a line whose start lies past its text: nothing.
 /// Cold and out of line, so [`Context::lex_from_start`] keeps the shape a
 /// slice had.
+#[cfg(feature = "_language")]
 #[cold]
 #[inline(never)]
 fn past_end() -> &'static str {

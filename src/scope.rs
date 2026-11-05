@@ -27,6 +27,7 @@ const TABLE_SPAN: usize = 1 << 16;
 const SLOTS: usize = 0x100;
 
 /// The slot of the table whose language has the frame tag `tag`.
+#[cfg(feature = "_language")]
 #[expect(
     clippy::as_conversions,
     reason = "`usize::from` is not const, and a `u16` widens without loss"
@@ -36,6 +37,7 @@ const fn slot(tag: u16) -> usize {
 }
 
 /// The base of the table whose language has the frame tag `tag`.
+#[cfg(feature = "_language")]
 #[expect(
     clippy::as_conversions,
     reason = "`u32::from` is not const, and a `u16` widens without loss"
@@ -367,6 +369,7 @@ mod tests {
 /// An address moves when another language's tables change, which moved the
 /// caches' hits and misses with it.
 /// A `&Keyed<[S]>` is as wide as the `&[S]` it replaces.
+#[cfg(feature = "_language")]
 #[derive(Debug)]
 pub(crate) struct Keyed<T: ?Sized> {
     /// The codes of the scopes, folded as the digits of a number in base
@@ -377,6 +380,7 @@ pub(crate) struct Keyed<T: ?Sized> {
 }
 
 /// A static scope list with its key; [`scopes!`] makes one.
+#[cfg(feature = "_language")]
 pub(crate) type Scopes<S> = &'static Keyed<[S]>;
 
 /// The base of the fold that keys a list.
@@ -388,8 +392,10 @@ pub(crate) type Scopes<S> = &'static Keyed<[S]>;
 /// A random key collides more.
 /// An FNV key missed a third more often in CSS: 3,110 misses against 2,330.
 /// The plus one keeps a list apart from the same list after a code 0.
+#[cfg(feature = "_language")]
 const KEY_STEP: u16 = 0x9e37;
 
+#[cfg(feature = "_language")]
 impl<S, const N: usize> Keyed<[S; N]> {
     /// The list `list`, keyed by `codes`, the codes of its scopes in order.
     pub(crate) const fn new(list: [S; N], codes: [u16; N]) -> Self {
@@ -449,6 +455,7 @@ pub(crate) use scopes;
 impl Scope {
     /// The low half of the scope's number, which keys the scope lists of the
     /// engine's test grammars, whose scopes are made at run time.
+    #[cfg(feature = "_language")]
     #[expect(
         clippy::as_conversions,
         clippy::cast_possible_truncation,
@@ -459,5 +466,6 @@ impl Scope {
     }
 
     /// The empty scope list.
+    #[cfg(feature = "_language")]
     pub(crate) const NO_SCOPES: Scopes<Scope> = &Keyed::new([], []);
 }

@@ -49,7 +49,7 @@ A new language is wired in with:
 2. its scope table: one line in `src/scope.rs`;
 3. its frame tag in `src/tag.rs`;
 4. its fence names in `src/markdown/fence.rs`;
-5. its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of the above (5.2).
+5. its `lang-*` feature in `Cargo.toml`, which turns on `_language`, with a `cfg` on each of the above (5.2).
 
 The scope tables, the frame tags and the `lang-*` features are sorted by language, and so are the other lists a language adds to: the README's language table, `src/scratch.rs`, `mise-tasks/check/features.sh`, `oracle/inputs.ts`, `tests/oracle/SOURCES.md`, Markdown's fence languages and fence scopes in `src/markdown/rules.rs` and `src/markdown/scope.rs`, and the sections of `THIRD-PARTY-NOTICES.md`.
 A new row goes in its sorted place, never at the end, so two languages added in parallel edit different lines.
@@ -301,7 +301,8 @@ A new file is a module there, not a new binary.
 - A fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
 - `check:features` builds each language, each tier and the empty set alone.
   It denies every warning except dead code: a language built without the ones that embed it leaves some embedding code unused, which no set avoids.
-  The empty set and `json` alone only have to compile.
+  The empty set and `json` alone deny every warning, dead code included.
+  The code every lexer shares sits behind the private `_language` feature, which every `lang-*` feature and the TextMate engine turn on.
 - Unit tests that name another language are gated on its feature.
 
 ### 5.3 What ships

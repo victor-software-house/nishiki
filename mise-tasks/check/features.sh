@@ -5,13 +5,14 @@
 # nothing else on, and warns of nothing but dead code: a language built
 # without the ones that embed it leaves some of their helpers unused, which
 # no set can avoid, while an unused import or an unreachable pattern is a
-# bug. The empty set has no language, so `Language` has no variants and the
-# engine is unused; it only has to compile, and so has `json`, which is the
-# theme files feature, not the JSON language.
+# bug. The empty set has no language, so `Language` has no variants.
+# The code only languages use sits behind the private `_language` feature,
+# so the empty set warns of nothing, dead code included.
+# So does `json`, which is the theme files feature, not the JSON language.
 set -euo pipefail
-RUSTFLAGS="" cargo check --locked --tests --no-default-features
+RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features
 # Markdown alone: its own tests, which need no other language.
-RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
+RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features json
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features docs
 cargo check --locked --tests --no-default-features --features lang-asm
