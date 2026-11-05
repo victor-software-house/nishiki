@@ -23,11 +23,17 @@ mkdir -p "$dir/base"
 git archive "$base" | tar -x -C "$dir/base"
 mkdir -p "$dir/base/examples"
 cp examples/identity.rs "$dir/base/examples/identity.rs"
+# The example builds in its own package, which a base from before it lacks.
+# Such a base builds the copy above as its own example.
+base_manifest="$dir/base/Cargo.toml"
+if [ -f "$dir/base/examples/Cargo.toml" ]; then
+  base_manifest="$dir/base/examples/Cargo.toml"
+fi
 fixtures="$PWD/tests/oracle"
 CARGO_TARGET_DIR="$base_target" cargo run --quiet --release --locked \
-  --manifest-path "$dir/base/Cargo.toml" --example identity -- "$fixtures" >"$dir/base.txt"
+  --manifest-path "$base_manifest" --example identity -- "$fixtures" >"$dir/base.txt"
 CARGO_TARGET_DIR="$head_target" cargo run --quiet --release --locked \
-  --example identity -- "$fixtures" >"$dir/head.txt"
+  --package nishiki-examples --example identity -- "$fixtures" >"$dir/head.txt"
 if diff "$dir/base.txt" "$dir/head.txt" >"$dir/diff.txt"; then
   echo "identical to $base: $(tail -n 1 "$dir/head.txt")"
   exit 0

@@ -12,6 +12,7 @@ Each directory below has a README that says what it holds, and an `AGENTS.md` wi
 - [openspec/](openspec/README.md): specs, changes in flight and research notes, with [their rules](openspec/AGENTS.md).
 - [oracle/](oracle/README.md): the Bun scripts that run Shiki, with [their rules](oracle/AGENTS.md).
 - [tests/](tests/README.md): the integration tests and fixtures, with [their rules](tests/AGENTS.md).
+- [examples/](examples/README.md): the programs the identity and callgrind tasks run.
 - [bench/AGENTS.md](bench/AGENTS.md): the rules for measuring.
 - [mise-tasks/](mise-tasks/README.md): the repository's tasks.
 

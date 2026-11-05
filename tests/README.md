@@ -6,6 +6,9 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
 
 ## `it/`: one test binary
 
+The test `it` builds in `nishiki-tests`, the package of [`Cargo.toml`](Cargo.toml) here, which is never published.
+It reads the fixtures below in place, and its archive leaves them out.
+
 | File | Checks |
 |:--|:--|
 | [`oracle.rs`](it/oracle.rs) | Every fixture gets Shiki's scopes and colours, for every language. |

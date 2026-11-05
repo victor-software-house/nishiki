@@ -310,6 +310,8 @@ A new file is a module there, not a new binary.
 - `include` in `Cargo.toml` lists what a published crate ships.
   Tests, fixtures, the oracle, benchmarks and docs never ship.
 - A workspace member that is not for crates.io sets `publish = false`.
+- The integration test builds in `tests/`, and the examples in `examples/`, two such members.
+  The published package then declares no target whose file `include` leaves out, and `cargo package` warns of none.
   `.ctl/ver.yaml` lists only the packages that publish.
 - Measurement and research programs live in their own workspace, excluded from the root,
   so the root's lints, deny rules and versions never read them.

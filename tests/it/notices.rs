@@ -8,7 +8,7 @@ use std::path::Path;
 
 /// The text of `path`, relative to the repository root.
 fn read(path: &str) -> String {
-    fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join(path))
+    fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join(path))
         .unwrap_or_else(|error| panic!("{path}: {error}"))
 }
 

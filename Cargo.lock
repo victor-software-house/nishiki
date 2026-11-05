@@ -49,6 +49,23 @@ name = "nishiki-alloc-count"
 version = "0.0.0"
 
 [[package]]
+name = "nishiki-examples"
+version = "0.0.0"
+dependencies = [
+ "nishiki",
+ "nishiki-alloc-count",
+]
+
+[[package]]
+name = "nishiki-tests"
+version = "0.0.0"
+dependencies = [
+ "indoc",
+ "nishiki",
+ "nishiki-alloc-count",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.107"
 source = "registry+https://github.com/rust-lang/crates.io-index"

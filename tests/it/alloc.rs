@@ -102,7 +102,6 @@ fn lexing_event_handlers_again_allocates_nothing() {
 /// A Markdown document with fences in two of the engine's languages, which
 /// no fixture had. Each fence's first line switches the engine's scratch to
 /// the other grammar. The first pass already built that grammar's caches.
-#[cfg(all(feature = "lang-powershell", feature = "lang-scala"))]
 #[test]
 fn switching_between_engine_grammars_again_allocates_nothing() {
     let lines: Vec<String> = indoc::indoc! {r#"
@@ -134,7 +133,6 @@ fn switching_between_engine_grammars_again_allocates_nothing() {
 /// A Markdown document with Batch and PowerShell fences.
 /// The first pass allocates each lexer's scratch.
 /// A second pass switches between them again and allocates nothing.
-#[cfg(all(feature = "lang-bat", feature = "lang-powershell"))]
 #[test]
 fn switching_between_fenced_lexers_again_allocates_nothing() {
     let lines: Vec<String> = indoc::indoc! {r#"

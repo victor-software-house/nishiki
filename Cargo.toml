@@ -9,8 +9,11 @@ repository = "https://github.com/victor-software-house/nishiki"
 readme = "README.md"
 keywords = ["syntax", "highlighting", "lexer", "textmate"]
 categories = ["text-processing", "parser-implementations"]
-# One integration test binary, tests/it/main.rs, rather than one per file.
+# The integration test and the examples build in tests/ and examples/,
+# members that are never published, so the published package declares no
+# target it leaves out.
 autotests = false
+autoexamples = false
 # The published source holds only what builds and documents the crate.
 include = [
   "src/**",
@@ -447,24 +450,24 @@ regex-automata = { version = "0.4.18", optional = true, default-features = false
 regex-syntax = { version = "0.8.11", optional = true, default-features = false }
 serde_json = { version = "1.0.154", optional = true }
 
-[[test]]
-name = "it"
-path = "tests/it/main.rs"
-# The tests name languages across the whole list, so they need all of it.
-required-features = ["all"]
-
 [dev-dependencies]
+indoc = { workspace = true }
+nishiki-alloc-count = { workspace = true }
+
+# The library, the integration test, the examples,
+# and the test-support crate that holds the one unsafe implementation the
+# tests need (CODING_STANDARDS 3.3). The benchmarks keep a workspace of their
+# own (CODING_STANDARDS 5.3).
+[workspace]
+members = ["examples", "nishiki-alloc-count", "tests"]
+exclude = ["bench"]
+resolver = "3"
+
+# The development dependencies that nishiki and its test members share.
+[workspace.dependencies]
 indoc = "2.0.8"
 # Path only, so cargo drops it from the published manifest.
 nishiki-alloc-count = { path = "nishiki-alloc-count" }
-
-# The library and the test-support crate that holds the one unsafe
-# implementation the tests need (CODING_STANDARDS 3.3). The benchmarks keep
-# a workspace of their own (CODING_STANDARDS 5.3).
-[workspace]
-members = ["nishiki-alloc-count"]
-exclude = ["bench"]
-resolver = "3"
 
 # Line tables keep backtraces readable at a fraction of full debug info.
 [profile.dev]

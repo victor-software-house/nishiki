@@ -89,6 +89,12 @@ base_features=(--features json)
 if grep -q '^textmate = ' "$dir/base/Cargo.toml"; then
   base_features=(--features textmate --features json)
 fi
+# The examples build in their own package, which a base from before it lacks.
+# Such a base builds the copies above as its own examples.
+base_manifest="$dir/base/Cargo.toml"
+if [ -f "$dir/base/examples/Cargo.toml" ]; then
+  base_manifest="$dir/base/examples/Cargo.toml"
+fi
 # Each side builds once at one codegen unit, which gates.
 # Each side also builds at the default sixteen, which the table shows for
 # information only.
@@ -100,10 +106,11 @@ for units in 1 16; do
     examples+=(--example memory)
   fi
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$base_target/cgu-$units" \
-    cargo build --quiet --release --locked --manifest-path "$dir/base/Cargo.toml" \
+    cargo build --quiet --release --locked --manifest-path "$base_manifest" \
     "${base_features[@]}" "${examples[@]}"
   CARGO_PROFILE_RELEASE_CODEGEN_UNITS=$units CARGO_TARGET_DIR="$head_target/cgu-$units" \
-    cargo build --quiet --release --locked "${head_features[@]}" "${examples[@]}"
+    cargo build --quiet --release --locked --package nishiki-examples \
+    "${head_features[@]}" "${examples[@]}"
 done
 # Counts one build (base-1, head-1, base-16 or head-16) on one language.
 # It writes counts/<build>.<language>.<pass>, for the passes first, lex and
