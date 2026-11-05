@@ -151,7 +151,12 @@ class RegexParser {
    * Inside a word the next byte is a word character, so `\s*` in `\s*\bx`
    * must match empty there.
    * In `(?:[-\w]*\\)?\bx` a match inside a word can start at the word's
-   * start instead. */
+   * start instead.
+   * A `\G` counts toward `any` only while every item before it can match
+   * empty.
+   * A match starts at or after the search start, so a `\G` after a consumed
+   * byte never holds: Hack's class list writes `Gender\Gender` with one
+   * backslash. */
   sequence(): Info {
     let set = EMPTY();
     let empty: Set | null = FULL(); // the empty path's constraint, while it lasts
@@ -163,8 +168,8 @@ class RegexParser {
     let any = false;
     while (this.pos < this.src.length && this.src[this.pos] !== "|" && this.src[this.pos] !== ")") {
       const item = this.quantified();
-      any = any || item.any;
       if (empty !== null) {
+        if (item.any) any = true;
         const first = set.every((w) => w === 0n);
         set = union(set, item.set);
         if (item.bol) bol = true;

@@ -5696,13 +5696,13 @@ impl Pat {
             },
             Pat::ClassBuiltin => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x07ff_fffe_17ff_fffe,
+                    0x0000_0000_0000_0000,
+                    0x0000_8004_0000_0028,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::ClassNameAt2 => Start {
                 bytes: [

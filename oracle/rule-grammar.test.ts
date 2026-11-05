@@ -93,6 +93,33 @@ test("a back reference inside a lookahead that needs a byte cannot match where n
   expect(startOf("(?=(?><<[-~](\"?)(SQL)\\b\\1))", "any").atEnd).toBe(false);
 });
 
+test("a back reference that can repeat an empty capture keeps a match where no byte follows", () => {
+  expect(startOf("(a?)\\1", "any").atEnd).toBe(true);
+  expect(startOf("(?:x|())\\1", "any").atEnd).toBe(true);
+  expect(startOf("(?=(a?))\\1", "any").atEnd).toBe(true);
+});
+
+test("every form of a call or a back reference keeps a match where no byte follows", () => {
+  expect(startOf("(?<n>a*)\\g'n'", "any").atEnd).toBe(true);
+  expect(startOf("(?<n>a*)\\k'n'", "any").atEnd).toBe(true);
+  expect(startOf("(a*)\\g<-1>", "any").atEnd).toBe(true);
+  expect(startOf("(a*)\\g<1>", "any").atEnd).toBe(true);
+  expect(startOf("a*\\g<0>", "any").atEnd).toBe(true);
+});
+
+test("a call of the group it sits in is not followed", () => {
+  expect(startOf("(?<n>a\\g<n>?b)", "any").atEnd).toBe(false);
+  expect(startOf("(?<n>a\\g<n>|)", "any").atEnd).toBe(true);
+});
+
+test("a \\G lets a match start anywhere only before the first item that consumes a byte", () => {
+  expect(startOf("\\Gx", "any").any).toBe(true);
+  expect(startOf("x?\\Gy", "any").any).toBe(true);
+  const hack = startOf("(?i)(\\\\)?\\bG(ender\\Gender|lobIterator)\\b", "any");
+  expect(hack.any).toBe(false);
+  expect(hack.atEnd).toBe(false);
+});
+
 test("an item before a \\b counts as safe inside a word only when a match there cannot start or can start earlier", () => {
   expect(startOf("a?\\b-").wb).toBe(false);
   expect(startOf("(?:a\\b)?-").wb).toBe(false);
