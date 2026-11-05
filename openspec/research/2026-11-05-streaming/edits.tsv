@@ -1,0 +1,7 @@
+file	commits	hunks	file_lines_mean	tail_mean	tail_p50	tail_p99	tail_max	to_end
+src/highlighter.rs	12	40	138	0.00	0	0	0	0
+src/limits.rs	8	38	401	0.00	0	0	0	0
+oracle/generate.ts	8	23	91	0.00	0	0	0	0
+oracle/fuzz.ts	3	4	142	0.00	0	0	0	0
+AGENTS.md	48	73	138	0.29	0	2	2	1
+mise-tasks/callgrind.sh	17	61	128	0.00	0	0	0	0

@@ -1,0 +1,200 @@
+mise lock                                python@3.15.2 linux-x64
+mise lock                                mr-boxington@1.29.1 macos-arm64
+mise lock                              ✓ 37 targets checked
+[bench:latency] $ ~/nishiki/mise-tasks/bench/latency.sh --tier medium
+timer overhead 20.0 ns, subtracted; below 0.080 µs is below resolution; 11 passes, the first apart
+
+| language | tier | lines | below resolution | steady p50 µs | steady p99 µs | steady max µs | first-contact max µs |
+|:--|:--|--:|--:|--:|--:|--:|--:|
+| bat | medium | 1328 | 187 | 0.420 | 2.140 | 5.980 | 239.370 |
+| c | medium | 1013 | 266 | 0.489 | 2.380 | 4.780 | 514.030 |
+| cmake | medium | 733 | 77 | 2.981 | 18.510 | 26.370 | 75.799 |
+| coffee | medium | 653 | 72 | 0.580 | 3.030 | 3.970 | 247.400 |
+| common-lisp | medium | 738 | 27 | 0.560 | 2.700 | 4.890 | 132.041 |
+| cpp | medium | 1265 | 176 | 2.811 | 14.780 | 24.370 | 531.490 |
+| csharp | medium | 567 | 57 | 0.380 | 3.290 | 3.850 | 333.841 |
+| css | medium | 1899 | 289 | 0.420 | 1.480 | 3.630 | 134.949 |
+| dart | medium | 837 | 108 | 0.410 | 1.180 | 4.670 | 209.570 |
+| diff | medium | 532 | 530 | <0.080 | <0.080 | 0.140 | 1.160 |
+| docker | medium | 636 | 632 | <0.080 | <0.080 | 0.121 | 1.670 |
+| elixir | medium | 735 | 184 | 0.329 | 1.740 | 5.380 | 146.280 |
+| erb | medium | 235 | 23 | 0.550 | 2.831 | 4.540 | 115.140 |
+| gdscript | medium | 494 | 77 | 0.490 | 1.550 | 2.300 | 121.079 |
+| go | medium | 935 | 110 | 0.730 | 3.500 | 5.950 | 498.611 |
+| graphql | medium | 2588 | 536 | 0.140 | 0.761 | 1.630 | 10.930 |
+| haskell | medium | 828 | 109 | 0.489 | 2.340 | 5.480 | 188.970 |
+| html | medium | 700 | 114 | 0.271 | 2.230 | 4.660 | 51.060 |
+| html-derivative | medium | 979 | 122 | 0.350 | 1.950 | 4.641 | 4.700 |
+| ini | medium | 1457 | 342 | 0.110 | 0.269 | 0.710 | 2.540 |
+| java | medium | 776 | 79 | 0.770 | 2.841 | 5.050 | 361.550 |
+| javascript | medium | 1736 | 205 | 0.560 | 3.060 | 18.361 | 25.001 |
+| json | medium | 1382 | 642 | 0.080 | 0.161 | 1.529 | 1.751 |
+| jsonc | medium | 805 | 179 | 0.090 | 0.420 | 0.740 | 0.920 |
+| jsonl | medium | 5 | 0 | 0.810 | 1.750 | 1.750 | 2.630 |
+| jsx | medium | 1414 | 191 | 0.580 | 3.360 | 11.970 | 18.630 |
+| julia | medium | 704 | 56 | 0.431 | 1.500 | 3.660 | 144.860 |
+| kotlin | medium | 741 | 208 | 0.140 | 0.710 | 1.980 | 65.230 |
+| less | medium | 1422 | 234 | 0.640 | 1.420 | 3.510 | 269.770 |
+| lua | medium | 775 | 109 | 0.380 | 1.360 | 3.600 | 131.310 |
+| make | medium | 876 | 94 | 0.320 | 2.130 | 2.820 | 6.351 |
+| markdown | medium | 1160 | 1016 | <0.080 | 1.020 | 4.511 | 14.151 |
+| matlab | medium | 753 | 109 | 0.671 | 3.069 | 4.340 | 136.460 |
+| mermaid | medium | 245 | 1 | 0.280 | 4.240 | 4.690 | 91.510 |
+| nix | medium | 881 | 103 | 0.200 | 1.350 | 6.959 | 360.780 |
+| objective-c | medium | 836 | 201 | 0.880 | 7.229 | 13.911 | 197.821 |
+| objective-cpp | medium | 1010 | 177 | 1.100 | 8.489 | 12.860 | 302.880 |
+| pascal | medium | 516 | 71 | 0.161 | 1.650 | 1.681 | 83.160 |
+| perl | medium | 1630 | 366 | 0.451 | 1.309 | 2.160 | 149.480 |
+| postcss | medium | 510 | 51 | 0.280 | 0.900 | 1.109 | 65.140 |
+| powershell | medium | 637 | 83 | 0.749 | 1.940 | 5.521 | 180.210 |
+| proto | medium | 1562 | 253 | 0.211 | 0.820 | 3.231 | 67.140 |
+| python | medium | 1277 | 172 | 0.679 | 2.380 | 3.850 | 182.881 |
+| r | medium | 940 | 77 | 0.211 | 1.319 | 4.740 | 65.880 |
+| ruby | medium | 1147 | 117 | 0.290 | 1.860 | 2.680 | 141.130 |
+| rust | medium | 599 | 340 | <0.080 | 1.271 | 1.651 | 6.600 |
+| sass | medium | 1310 | 296 | 0.330 | 0.910 | 2.010 | 127.729 |
+| scala | medium | 591 | 138 | 0.269 | 1.940 | 2.140 | 112.111 |
+| scss | medium | 777 | 134 | 1.060 | 2.170 | 5.900 | 170.850 |
+| shellscript | medium | 816 | 222 | 0.210 | 2.000 | 9.331 | 965.561 |
+| sql | medium | 1414 | 172 | 1.190 | 3.420 | 6.121 | 18.241 |
+| svelte | medium | 676 | 43 | 0.800 | 4.580 | 10.990 | 247.500 |
+| swift | medium | 525 | 74 | 0.949 | 5.100 | 8.900 | 234.681 |
+| toml | medium | 638 | 416 | <0.080 | 0.400 | 0.841 | 2.279 |
+| tsx | medium | 944 | 145 | 0.820 | 4.330 | 7.500 | 17.170 |
+| typescript | medium | 1771 | 165 | 0.511 | 2.890 | 10.520 | 23.449 |
+| vb | medium | 541 | 85 | 0.260 | 1.560 | 2.050 | 131.440 |
+| xml | medium | 1495 | 77 | 0.100 | 0.201 | 1.220 | 4.560 |
+| yaml | medium | 1191 | 1080 | <0.080 | 0.100 | 0.291 | 1.370 |
+| zig | medium | 511 | 98 | 0.410 | 0.860 | 1.010 | 149.500 |
+[bench:latency] $ ~/nishiki/mise-tasks/bench/latency.sh --tier small
+timer overhead 20.0 ns, subtracted; below 0.080 µs is below resolution; 11 passes, the first apart
+
+| language | tier | lines | below resolution | steady p50 µs | steady p99 µs | steady max µs | first-contact max µs |
+|:--|:--|--:|--:|--:|--:|--:|--:|
+| bat | small | 53 | 12 | 0.390 | 1.260 | 1.260 | 127.100 |
+| c | small | 115 | 14 | 0.649 | 1.940 | 2.060 | 284.801 |
+| cmake | small | 87 | 25 | 0.290 | 20.200 | 20.200 | 91.959 |
+| coffee | small | 110 | 13 | 0.540 | 2.360 | 2.780 | 345.430 |
+| common-lisp | small | 80 | 10 | 1.511 | 4.330 | 4.330 | 144.850 |
+| cpp | small | 69 | 8 | 1.830 | 22.140 | 22.140 | 482.410 |
+| csharp | small | 69 | 22 | 0.470 | 1.540 | 1.540 | 204.591 |
+| css | small | 223 | 76 | 0.120 | 0.600 | 1.330 | 120.390 |
+| dart | small | 98 | 30 | 0.151 | 0.920 | 0.920 | 225.400 |
+| diff | small | 62 | 60 | <0.080 | 0.161 | 0.161 | 1.060 |
+| docker | small | 94 | 89 | <0.080 | 0.140 | 0.140 | 1.780 |
+| elixir | small | 128 | 27 | 0.360 | 1.769 | 1.801 | 140.750 |
+| erb | small | 111 | 17 | 0.550 | 2.710 | 3.439 | 186.000 |
+| gdscript | small | 128 | 28 | 0.551 | 1.750 | 1.931 | 172.320 |
+| go | small | 77 | 9 | 0.700 | 2.950 | 2.950 | 299.710 |
+| graphql | small | 90 | 0 | 0.160 | 0.949 | 0.949 | 9.631 |
+| haskell | small | 102 | 10 | 0.589 | 2.180 | 3.140 | 189.060 |
+| html | small | 108 | 39 | 0.230 | 1.830 | 2.170 | 4.841 |
+| html-derivative | small | 59 | 5 | 0.489 | 3.550 | 3.550 | 4.830 |
+| ini | small | 64 | 20 | 0.090 | 0.161 | 0.161 | 3.051 |
+| java | small | 91 | 16 | 0.300 | 2.170 | 2.170 | 252.440 |
+| javascript | small | 73 | 14 | 0.500 | 3.300 | 3.300 | 32.870 |
+| json | small | 90 | 56 | <0.080 | 0.480 | 0.480 | 1.460 |
+| jsonc | small | 60 | 34 | <0.080 | 0.401 | 0.401 | 0.549 |
+| jsonl | small | 15 | 0 | 0.260 | 0.540 | 0.540 | 1.100 |
+| jsx | small | 122 | 6 | 0.190 | 1.871 | 1.909 | 14.490 |
+| julia | small | 54 | 7 | 0.560 | 1.540 | 1.540 | 144.250 |
+| kotlin | small | 45 | 11 | 0.199 | 0.711 | 0.711 | 73.240 |
+| less | small | 116 | 19 | 0.780 | 4.010 | 4.320 | 255.230 |
+| lua | small | 97 | 9 | 0.310 | 1.079 | 1.079 | 168.070 |
+| make | small | 50 | 16 | 0.320 | 0.740 | 0.740 | 5.980 |
+| markdown | small | 54 | 21 | 0.080 | 0.490 | 0.490 | 12.080 |
+| matlab | small | 59 | 3 | 0.441 | 2.330 | 2.330 | 124.110 |
+| mermaid | small | 103 | 17 | 0.170 | 1.140 | 1.230 | 83.840 |
+| nix | small | 82 | 5 | 0.310 | 1.961 | 1.961 | 252.260 |
+| objective-c | small | 103 | 20 | 0.671 | 5.170 | 5.690 | 286.321 |
+| objective-cpp | small | 126 | 25 | 0.900 | 6.810 | 9.160 | 365.830 |
+| pascal | small | 92 | 14 | 0.151 | 2.730 | 2.730 | 69.180 |
+| perl | small | 142 | 44 | 0.270 | 1.430 | 1.440 | 79.511 |
+| postcss | small | 64 | 13 | 0.190 | 0.750 | 0.750 | 47.190 |
+| powershell | small | 81 | 7 | 0.670 | 1.990 | 1.990 | 244.890 |
+| proto | small | 57 | 18 | 0.121 | 0.710 | 0.710 | 178.160 |
+| python | small | 82 | 27 | 0.331 | 1.351 | 1.351 | 112.651 |
+| r | small | 112 | 9 | 0.291 | 1.160 | 1.180 | 120.189 |
+| ruby | small | 72 | 12 | 0.641 | 2.190 | 2.190 | 233.260 |
+| rust | small | 102 | 38 | 0.240 | 1.020 | 1.190 | 6.681 |
+| sass | small | 103 | 16 | 0.291 | 0.559 | 0.580 | 110.770 |
+| scala | small | 76 | 12 | 0.360 | 1.940 | 1.940 | 97.921 |
+| scss | small | 156 | 24 | 0.831 | 1.590 | 2.620 | 145.629 |
+| shellscript | small | 74 | 26 | 0.279 | 2.390 | 2.390 | 1745.441 |
+| sql | small | 67 | 15 | 0.519 | 2.790 | 2.790 | 12.681 |
+| svelte | small | 124 | 18 | 0.531 | 3.240 | 4.620 | 257.780 |
+| swift | small | 61 | 4 | 0.849 | 3.340 | 3.340 | 318.970 |
+| toml | small | 116 | 92 | <0.080 | 0.450 | 0.560 | 2.840 |
+| tsx | small | 63 | 12 | 0.460 | 2.840 | 2.840 | 16.640 |
+| typescript | small | 100 | 16 | 0.690 | 2.730 | 4.729 | 9.311 |
+| vb | small | 76 | 17 | 0.471 | 1.890 | 1.890 | 135.180 |
+| xml | small | 74 | 33 | 0.090 | 0.360 | 0.360 | 3.750 |
+| yaml | small | 113 | 85 | <0.080 | 0.171 | 0.191 | 2.500 |
+| zig | small | 101 | 15 | 0.371 | 0.679 | 0.910 | 150.460 |
+[bench:cold] $ ~/nishiki/mise-tasks/bench/cold.sh
+31 fresh processes per file, the first 3 rounds dropped; µs from just before the highlighter is created
+
+| file | new, median | new, p90 | first line, median | first line, p90 | document, median | document, p90 |
+|:--|--:|--:|--:|--:|--:|--:|
+| bat/small/zookeeper-zk-env.cmd | 14.2 | 16.0 | 112.4 | 116.5 | 571.6 | 588.7 |
+| c/small/libsodium-crypto-box-easy.c | 13.6 | 14.9 | 15.2 | 16.9 | 1405.8 | 1428.4 |
+| cmake/small/robin-map-cmake-lists.cmake | 14.2 | 17.0 | 105.1 | 148.7 | 351.1 | 391.5 |
+| coffee/small/hubot-listener.coffee | 14.2 | 34.4 | 349.9 | 384.5 | 1043.1 | 1071.2 |
+| common-lisp/small/split-sequence-api.lisp | 13.3 | 15.0 | 156.5 | 159.6 | 397.3 | 438.8 |
+| cpp/small/ninja-edit-distance.cc | 13.5 | 15.1 | 161.2 | 182.3 | 2047.6 | 2096.3 |
+| csharp/small/serilog-secondary-logger-sink.cs | 14.7 | 16.0 | 233.3 | 280.0 | 1648.4 | 1699.2 |
+| css/small/modern-normalize-modern-normalize.css | 14.4 | 15.8 | 137.2 | 139.8 | 387.7 | 432.1 |
+| dart/small/bloc-replay-cubit.dart | 13.8 | 14.8 | 256.6 | 291.2 | 540.5 | 558.6 |
+| diff/small/vcpkg-openssl-cmake-config.patch | 14.8 | 19.9 | 18.2 | 27.9 | 35.1 | 56.5 |
+| docker/small/hugo-dockerfile.dockerfile | 14.5 | 16.5 | 17.8 | 19.8 | 39.9 | 41.7 |
+| elixir/small/elixir-behaviour.ex | 13.7 | 16.3 | 172.0 | 187.7 | 833.9 | 864.3 |
+| erb/small/lobsters-table.html.erb | 14.0 | 16.3 | 37.0 | 39.5 | 684.3 | 715.5 |
+| gdscript/small/godot-ws-webrtc-client.gd | 13.6 | 15.1 | 96.2 | 101.1 | 721.5 | 771.1 |
+| go/small/chi-strip.go | 14.5 | 16.9 | 121.8 | 148.2 | 1383.9 | 1505.0 |
+| graphql/small/gitlab-group-work-items.query.graphql | 14.7 | 19.3 | 30.2 | 40.2 | 71.6 | 103.1 |
+| haskell/small/text-search.hs | 13.4 | 15.8 | 213.6 | 243.9 | 885.1 | 908.4 |
+| html/small/learning-area-document-and-website-structure.html | 14.2 | 16.0 | 34.3 | 36.7 | 107.5 | 126.1 |
+| html-derivative/small/ngx-admin-player-component.html | 14.9 | 16.6 | 36.9 | 42.4 | 110.4 | 136.9 |
+| ini/small/flink-log4j.properties | 14.5 | 23.1 | 30.4 | 38.7 | 43.7 | 71.7 |
+| java/small/mockito-string-util.java | 14.2 | 17.3 | 158.7 | 186.5 | 1255.5 | 1295.9 |
+| javascript/small/koa-compose-index.js | 14.9 | 19.7 | 45.5 | 69.1 | 170.7 | 221.1 |
+| json/small/chalk-package.json | 14.8 | 16.4 | 19.4 | 21.1 | 45.5 | 47.1 |
+| jsonc/small/typescript-dprint.jsonc | 14.1 | 16.1 | 19.0 | 21.0 | 42.2 | 46.3 |
+| jsonl/small/promptflow-data.jsonl | 14.5 | 16.8 | 35.5 | 38.4 | 39.9 | 42.7 |
+| jsx/small/vite-app.jsx | 13.9 | 15.9 | 53.2 | 59.6 | 140.1 | 160.8 |
+| julia/small/dataframes-show.jl | 13.9 | 15.2 | 169.6 | 196.8 | 565.9 | 587.8 |
+| kotlin/small/coil-size.kt | 13.2 | 19.7 | 93.6 | 97.5 | 196.5 | 214.5 |
+| less/small/stacks-modal.less | 13.9 | 15.2 | 254.7 | 284.0 | 2065.0 | 2094.4 |
+| lua/small/lazy-nvim-checker.lua | 14.4 | 16.4 | 155.9 | 177.8 | 467.8 | 512.1 |
+| make/small/chibicc-makefile.mk | 14.0 | 16.8 | 26.3 | 33.1 | 68.1 | 86.0 |
+| markdown/small/fd-contributing.md | 13.6 | 15.6 | 24.1 | 26.6 | 60.0 | 62.4 |
+| matlab/small/export-fig-copyfig.m | 14.3 | 16.2 | 151.1 | 175.7 | 541.3 | 579.5 |
+| mermaid/small/ipc-ipld-resolver.mmd | 13.9 | 17.0 | 117.9 | 145.7 | 151.6 | 180.7 |
+| nix/small/flake-utils-simple-flake.nix | 14.4 | 16.3 | 103.6 | 106.6 | 1095.3 | 1109.2 |
+| objective-c/small/afnetworking-global-timeline-view-controller.m | 13.4 | 15.2 | 195.7 | 239.4 | 2003.9 | 2073.9 |
+| objective-cpp/small/react-native-log-box.mm | 13.7 | 16.8 | 214.2 | 260.7 | 2502.2 | 2553.8 |
+| pascal/small/horse-callback.pas | 13.7 | 15.3 | 77.5 | 98.1 | 192.1 | 219.8 |
+| perl/small/sqitch-command-help.pm | 14.2 | 15.9 | 108.2 | 137.5 | 512.9 | 551.6 |
+| postcss/small/csstools-custom-media-layers.css | 13.6 | 15.2 | 82.3 | 106.8 | 177.8 | 206.4 |
+| powershell/small/scoop-getopt.ps1 | 13.6 | 23.3 | 112.9 | 144.0 | 694.0 | 731.0 |
+| proto/small/envoy-percent.proto | 13.9 | 15.9 | 75.7 | 78.2 | 499.7 | 537.0 |
+| python/small/attrs-setters.py | 13.5 | 14.8 | 118.6 | 146.9 | 589.5 | 615.9 |
+| r/small/dplyr-rename.R | 13.3 | 15.5 | 92.3 | 100.5 | 521.1 | 540.4 |
+| ruby/small/faraday-middleware.rb | 14.0 | 22.3 | 200.0 | 227.5 | 1021.9 | 1044.7 |
+| rust/small/anyhow-chain.rs | 13.7 | 15.9 | 20.1 | 22.3 | 89.3 | 92.9 |
+| sass/small/bulma-card.sass | 13.6 | 15.5 | 142.0 | 148.8 | 433.7 | 468.9 |
+| scala/small/os-lib-temp-ops.scala | 13.6 | 14.9 | 111.3 | 114.3 | 354.7 | 381.0 |
+| scss/small/primer-css-base.scss | 14.0 | 15.2 | 174.0 | 177.6 | 873.8 | 890.6 |
+| shellscript/small/rbenv-rbenv-which.sh | 14.6 | 19.4 | 412.8 | 547.4 | 4940.3 | 8886.0 |
+| sql/small/cloudstack-create-database.sql | 14.6 | 16.8 | 31.6 | 34.5 | 132.0 | 136.5 |
+| svelte/small/site-kit-banner.svelte | 14.4 | 16.9 | 294.8 | 337.9 | 1495.9 | 1538.3 |
+| swift/small/snapkit-constraint-item.swift | 13.8 | 17.7 | 159.0 | 177.8 | 1111.8 | 1133.5 |
+| toml/small/fd-cargo.toml | 14.4 | 15.8 | 30.8 | 32.2 | 51.6 | 53.3 |
+| tsx/small/radix-separator.tsx | 14.5 | 17.7 | 56.7 | 73.4 | 168.9 | 214.2 |
+| typescript/small/zustand-vanilla.ts | 14.0 | 15.6 | 49.8 | 53.3 | 228.9 | 287.9 |
+| vb/small/roslyn-using-block-binder.vb | 13.7 | 15.2 | 177.1 | 179.6 | 316.7 | 347.1 |
+| xml/small/nowinandroid-android-manifest.xml | 14.1 | 16.1 | 35.4 | 37.3 | 50.8 | 53.4 |
+| yaml/small/cli-goreleaser.yml | 14.2 | 16.8 | 32.8 | 40.4 | 51.1 | 58.6 |
+| zig/small/libxev-queue.zig | 13.9 | 16.1 | 182.1 | 202.8 | 253.1 | 276.1 |
+
+github-dark from JSON: median 127.8 µs, p90 162.6 µs
