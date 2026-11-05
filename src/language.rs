@@ -412,6 +412,7 @@ languages! {
         names: ["json"],
         module: json,
         dialect: crate::json::Dialect::Json,
+        halts: true,
         inlined: true,
     }
     /// JSON with comments, with the scopes of Shiki's `jsonc` grammar.
@@ -422,6 +423,7 @@ languages! {
         names: ["jsonc"],
         module: json,
         dialect: crate::json::Dialect::Jsonc,
+        halts: true,
         inlined: true,
     }
     /// JSON Lines, with the scopes of Shiki's `jsonl` grammar.
@@ -432,6 +434,7 @@ languages! {
         names: ["jsonl"],
         module: json,
         dialect: crate::json::Dialect::Jsonl,
+        halts: true,
         inlined: true,
     }
     /// Python, with the scopes of Shiki's `python` grammar.

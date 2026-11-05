@@ -7,31 +7,128 @@ use super::scope::S;
 use super::state::Kind;
 use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
 use crate::emit::Emitter;
-use crate::language::Context;
+use crate::language::{Context, Halt};
 use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_at;
 
 /// Lexes one line.
 /// `pos` is the end of the last token.
 /// The bytes between it and the cursor are plain text of the current context.
-pub(crate) struct Lexer<'a> {
+/// Its mode `H` says whether it stops where the halts of a language that
+/// embeds JSON hold (see [`super::lex_until`]).
+/// [`NoHalts`] has no size, and its tests compile out.
+pub(crate) struct Lexer<'a, H> {
     s: &'a [u8],
     /// The tokens, the contexts and the end of the last token.
     pub(super) em: Emitter<'a>,
     dialect: Dialect,
     /// The work this line has spent and may spend.
     pub(super) steps: Steps,
+    /// Whether the lexer halts, and where it did.
+    mode: H,
 }
 
-impl<'a> Lexer<'a> {
-    pub(crate) fn new(cx: &'a mut Context<'_>, dialect: Dialect, s: &'a [u8], state: u32) -> Self {
+/// Whether a lexer stops where the halts of a language that embeds JSON
+/// hold.
+pub(crate) trait Mode<'a> {
+    /// Whether the lexer tests halts at the top of the document.
+    const HALTS: bool;
+
+    /// The halts, for a lexer that tests them.
+    fn halts(&self) -> Option<Halts<'a>>;
+
+    /// Where the line halted, from the start of the lexed text.
+    fn halted(&self) -> Option<usize>;
+
+    /// Records that the line halts at `p`.
+    fn halt(&mut self, p: usize);
+}
+
+/// The mode of a lexer for a JSON document, which never halts.
+pub(crate) struct NoHalts;
+
+impl<'a> Mode<'a> for NoHalts {
+    const HALTS: bool = false;
+
+    fn halts(&self) -> Option<Halts<'a>> {
+        None
+    }
+
+    fn halted(&self) -> Option<usize> {
+        None
+    }
+
+    fn halt(&mut self, _: usize) {}
+}
+
+/// The mode of a lexer for JSON that another language embeds.
+pub(crate) struct Embedded<'a> {
+    /// The halts of the language that embeds JSON.
+    halts: Halts<'a>,
+    /// Where the line halted.
+    halted: Option<usize>,
+}
+
+impl<'a> Embedded<'a> {
+    /// The mode that stops where `halts` hold.
+    pub(crate) fn new(halts: Halts<'a>) -> Self {
+        Embedded {
+            halts,
+            halted: None,
+        }
+    }
+}
+
+impl<'a> Mode<'a> for Embedded<'a> {
+    const HALTS: bool = true;
+
+    fn halts(&self) -> Option<Halts<'a>> {
+        Some(self.halts)
+    }
+
+    fn halted(&self) -> Option<usize> {
+        self.halted
+    }
+
+    fn halt(&mut self, p: usize) {
+        self.halted = Some(p);
+    }
+}
+
+/// The halts of a language that embeds JSON.
+#[derive(Clone, Copy)]
+pub(crate) struct Halts<'a> {
+    /// The whole line, in which the halts read their places.
+    pub(crate) line: &'a [u8],
+    /// Where the lexed text starts in the line.
+    pub(crate) start: usize,
+    /// The halt of the embedding rule's end and of the patterns before JSON.
+    pub(crate) end: &'a dyn Halt,
+    /// The halt of the patterns after JSON.
+    pub(crate) after: Option<&'a dyn Halt>,
+}
+
+impl<'a, H: Mode<'a>> Lexer<'a, H> {
+    pub(crate) fn new(
+        cx: &'a mut Context<'_>,
+        dialect: Dialect,
+        s: &'a [u8],
+        state: u32,
+        mode: H,
+    ) -> Self {
         let steps = Steps::new(cx.limits, s.len());
         Lexer {
             s,
             em: Emitter::new(cx, state, 0),
             dialect,
             steps,
+            mode,
         }
+    }
+
+    /// Where the line halted, from the start of the lexed text.
+    pub(crate) fn halted(&self) -> Option<usize> {
+        self.mode.halted()
     }
 
     /// The state after the line, with its count given back to the lender.
@@ -52,11 +149,67 @@ impl<'a> Lexer<'a> {
             p = match self.top() {
                 Kind::Str | Kind::Key => self.in_string(p),
                 Kind::Block | Kind::Doc => self.in_comment(p),
+                Kind::Top if H::HALTS => match self.at_top(p) {
+                    Some(next) => next,
+                    None => break,
+                },
                 Kind::Top | Kind::Array | Kind::Object | Kind::Pair => self.in_code(p),
             };
             debug_assert!(p > from, "the JSON lexer made no progress at byte {from}");
         }
-        self.gap(len);
+        self.gap(self.mode.halted().unwrap_or(len));
+    }
+
+    /// A step at the top of the document for a lexer that halts.
+    ///
+    /// Only there do the embedding language's patterns stand beside JSON's.
+    /// Inside an array, an object, a string or a comment, JSON's rule alone
+    /// is open, as in Shiki.
+    /// - `end` is tested first, at the step's place and at each of its blanks.
+    /// - `after` is tested where no JSON token starts: at a blank, and at a
+    ///   character no value takes.
+    ///
+    /// It returns where the next step begins, or `None` where the line halts.
+    fn at_top(&mut self, p: usize) -> Option<usize> {
+        let halts = self.mode.halts()?;
+        let at = halts.start + p;
+        if halts.end.holds(halts.line, at) {
+            self.mode.halt(p);
+            return None;
+        }
+        let b = self.s[p];
+        let blank = if b < 0x80 {
+            usize::from(is_ascii_space(b))
+        } else {
+            space_width(self.s, p)
+        };
+        if blank > 0 {
+            let next = self.skip_space(p);
+            let last = halts.start + next - 1;
+            let end = (next > p + blank)
+                .then(|| halts.end.first(halts.line, at + blank, last))
+                .flatten();
+            let after = halts
+                .after
+                .and_then(|after| after.first(halts.line, at, last));
+            let halt = match (end, after) {
+                (Some(end), Some(after)) => Some(end.min(after)),
+                (end, after) => end.or(after),
+            };
+            if let Some(halt) = halt {
+                self.mode.halt(halt - halts.start);
+                return None;
+            }
+            return Some(next);
+        }
+        if let Some(end) = self.value(p, b) {
+            return Some(end);
+        }
+        if halts.after.is_some_and(|after| after.holds(halts.line, at)) {
+            self.mode.halt(p);
+            return None;
+        }
+        Some(p + self.width_at(p))
     }
 
     // Bytes.

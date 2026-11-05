@@ -26,7 +26,7 @@ use scope::S;
 use state::Kind;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line};
 use crate::limits::Finished;
 
 /// Which of the grammars' scope-name spellings to use.
@@ -76,10 +76,49 @@ pub(crate) fn lex(cx: &mut Context<'_>, dialect: Dialect, line: Line<'_>, state:
         if rest.is_empty() {
             return Finished::unspent(state);
         }
-        let mut lexer = lexer::Lexer::new(cx, dialect, rest.as_bytes(), state);
+        let mut lexer = lexer::Lexer::new(cx, dialect, rest.as_bytes(), state, lexer::NoHalts);
         lexer.run();
         lexer.finish_line()
     })
+}
+
+/// Lexes `line` like [`lex`], for JSON that another language embeds from
+/// [`start_embedded`], and returns where the line went back to it.
+///
+/// The halts are tested only at the top of the document, where no array,
+/// object, string or comment is open.
+/// Only there does Shiki try the embedding rule's patterns beside JSON's.
+/// - `end` is tested where a step begins and at each blank.
+/// - `after` is tested where no JSON token starts.
+///
+/// A PHP heredoc tagged `JSON` halts at its closing label and at an
+/// interpolation.
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    dialect: Dialect,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<usize>) {
+    let mut halted = None;
+    let next = cx.lex_from_start(line, |cx, rest| {
+        if rest.is_empty() {
+            return Finished::unspent(state);
+        }
+        let halts = lexer::Halts {
+            line: line.text.as_bytes(),
+            start: line.start,
+            end,
+            after,
+        };
+        let mode = lexer::Embedded::new(halts);
+        let mut lexer = lexer::Lexer::new(cx, dialect, rest.as_bytes(), state, mode);
+        lexer.run();
+        halted = lexer.halted().map(|p| line.start + p);
+        lexer.finish_line()
+    });
+    (next, halted)
 }
 
 #[cfg(test)]

@@ -159,3 +159,51 @@ fn a_value_ends_at_the_brace_that_closes_its_object() {
         ))
     );
 }
+
+/// JSON as a PHP heredoc tagged `JSON` embeds it.
+const EMBEDDED: test_support::Embedded = test_support::Embedded {
+    start: super::start_embedded,
+    lex: |cx, line, state| super::lex(cx, super::Dialect::Json, line, state),
+    lex_until: |cx, line, state, end, after| {
+        super::lex_until(cx, super::Dialect::Json, line, state, end, after)
+    },
+};
+
+/// A PHP heredoc's halts, much simplified: its closing label `EOT` with
+/// any blanks before it, and a `{$` interpolation.
+fn heredoc_end(bytes: &[u8], p: usize) -> bool {
+    let label = bytes.iter().take_while(|&&b| b == b' ').count();
+    (p == 0 && bytes[label..].starts_with(b"EOT")) || bytes[p..].starts_with(b"{$")
+}
+
+/// Where each line halts under [`heredoc_end`], and its tokens.
+fn heredoc_rows(lines: &[&str]) -> Vec<(Option<usize>, Row)> {
+    test_support::lex_embedded(EMBEDDED, &[], lines, Some((&heredoc_end, None)))
+}
+
+#[test]
+fn embedded_json_halts_at_a_closing_label_and_at_an_interpolation() {
+    let rows = heredoc_rows(&["  EOT;", "{$a}", "1 {$b}", "[{$c}]"]);
+    let halts: Vec<Option<usize>> = rows.iter().map(|(halt, _)| *halt).collect();
+    assert_eq!(halts, [Some(0), Some(0), Some(2), None]);
+    assert_eq!(
+        rows[2].1[0].1.last().map(String::as_str),
+        Some("constant.numeric.json")
+    );
+}
+
+#[test]
+fn embedded_json_halts_only_where_no_array_or_object_is_open() {
+    let rows = heredoc_rows(&["[", "  EOT;", "]", "  EOT;"]);
+    let halts: Vec<Option<usize>> = rows.iter().map(|(halt, _)| *halt).collect();
+    assert_eq!(halts, [None, None, None, Some(0)]);
+}
+
+#[test]
+fn embedded_json_without_halts_lexes_as_a_document_does() {
+    let lines = ["{\"a\": [1, true]}", "  // c"];
+    let plain = test_support::lex_embedded(EMBEDDED, &[], &lines, None);
+    let halting =
+        test_support::lex_embedded(EMBEDDED, &[], &lines, Some((&|_: &[u8], _| false, None)));
+    assert_eq!(plain, halting);
+}
