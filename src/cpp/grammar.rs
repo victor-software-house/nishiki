@@ -38035,10 +38035,14 @@ impl Pat {
             | Pat::ScopeResolutionNamespaceUsingInnerGenerated
             | Pat::ScopeResolutionNamespaceAliasInnerGenerated
             | Pat::ScopeResolutionFunctionDefinitionInnerGenerated
+            | Pat::FunctionCallAt0
             | Pat::ScopeResolutionFunctionCallInnerGenerated
+            | Pat::FunctionCallAt1
             | Pat::NamespaceBlockAt0At4
             | Pat::ScopeResolutionNamespaceBlockInnerGenerated
             | Pat::ScopeResolutionTemplateDefinitionInnerGenerated
+            | Pat::MacroFunctionCallAt0
+            | Pat::MacroFunctionCallAt1
             | Pat::MacroNamespaceBlockAt0At4 => Start {
                 bytes: [
                     0x0400_0001_0000_3e00,
@@ -38046,7 +38050,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::TemplateCallRange | Pat::TemplateCallInnards | Pat::MacroTemplateCallRange => {
@@ -38783,7 +38787,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::ConstructorRootCap9At1 | Pat::MacroConstructorRootCap9At1 => Start {
@@ -38863,19 +38867,6 @@ impl Pat {
                     0x2000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
-            Pat::FunctionCallAt0
-            | Pat::FunctionCallAt1
-            | Pat::MacroFunctionCallAt0
-            | Pat::MacroFunctionCallAt1 => Start {
-                bytes: [
-                    0x0400_0001_0000_3e00,
-                    0x07ff_fffe_97ff_fffe,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,

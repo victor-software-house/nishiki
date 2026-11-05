@@ -109,6 +109,15 @@ class RegexParser {
     );
   }
 
+  /** A run of items.
+   * A lookbehind counts toward `behind` only while no item before it can
+   * consume a byte.
+   * In `x?(?<=x)y` a match can start at `x`, where the lookbehind does not
+   * apply.
+   * A `\b` or a lookbehind counts toward `wb` only while no item before it
+   * can consume an ASCII word character.
+   * Inside a word the next byte is one, so such items must match empty there,
+   * as `\s*` does in `\s*\bx`. */
   sequence(): Info {
     let set = EMPTY();
     let empty: Set | null = FULL(); // the empty path's constraint, while it lasts
@@ -120,10 +129,12 @@ class RegexParser {
       const item = this.quantified();
       any = any || item.any;
       if (empty !== null) {
+        const first = set.every((w) => w === 0n);
+        const beforeWord = intersect(set, ASCII_WORD()).every((w) => w === 0n);
         set = union(set, item.set);
         if (item.bol) bol = true;
-        if (item.wb) wb = true;
-        if (item.behind) behind = true;
+        if (item.wb && beforeWord) wb = true;
+        if (item.behind && first) behind = true;
         if (item.empty === null) empty = null;
         else empty = intersect(empty, item.empty);
       }

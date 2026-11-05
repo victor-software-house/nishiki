@@ -72,3 +72,12 @@ test("a lookbehind of one character with no word character cannot match inside a
     expect(startOf(regex).wb).toBe(false);
   }
 });
+
+test("a lookbehind or \\b after an item that can consume the next byte does not constrain the start", () => {
+  expect(startOf("x?(?<=x)y").behind).toBe(false);
+  expect(startOf("\\s*(?<=\\.)x").wb).toBe(true);
+  expect(startOf("\\s*(?<=\\.)x").behind).toBe(false);
+  expect(startOf("\\s*\\bx").wb).toBe(true);
+  expect(startOf("a?\\bx").wb).toBe(false);
+  expect(startOf("(?<=\\.)\\s*x").behind).toBe(true);
+});

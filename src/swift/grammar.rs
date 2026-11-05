@@ -4999,7 +4999,7 @@ impl Pat {
             },
             Pat::DeclarationsOperator => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_8200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypesPrecedencegroupAt0 => Start {

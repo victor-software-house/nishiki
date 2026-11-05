@@ -8010,14 +8010,14 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::FunctionDeclaration | Pat::StatementKeywordAt0 => Start {
+            Pat::FunctionDeclaration => Start {
                 bytes: [
                     0x0000_0001_0000_3e00,
                     0x0000_0012_0000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::FunctionDeclarationEnd => Start {
@@ -8038,6 +8038,16 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::StatementKeywordAt0 => Start {
+                bytes: [
+                    0x0000_0001_0000_3e00,
+                    0x0000_0012_0000_0000,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::StatementKeywordAt3 => Start {

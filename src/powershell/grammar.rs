@@ -1474,7 +1474,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CommandsAt1 => Start {

@@ -9664,7 +9664,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::ObjectCreationExpressionWithParameters
@@ -9908,7 +9908,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::ClassDeclaration => Start {
+            Pat::ClassDeclaration | Pat::ClassDeclarationAt0 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0004_0008_0000_0000,
@@ -9916,16 +9916,6 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
-            Pat::ClassDeclarationAt0 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0004_0008_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::ClassDeclarationAt0End
@@ -9980,7 +9970,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::StructDeclaration | Pat::StructDeclarationAt0 => Start {
