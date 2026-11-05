@@ -264,7 +264,8 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// The stack `rule` opens on, when it is not the innermost rule's text:
     /// Svelte's template body, injected into the Markdown of an `@component`
     /// comment, opens on the stack Markdown reached.
-    /// Read only where [`Grammar::BEGIN_STACKS`] holds.
+    /// Read where a rule opens and where the frames are rebuilt from a state,
+    /// so both name it alike, and only where [`Grammar::BEGIN_STACKS`] holds.
     fn begin_stack(_lexer: &Lexer<'_, Self>, _rule: Self::Rule) -> Option<u32> {
         None
     }
