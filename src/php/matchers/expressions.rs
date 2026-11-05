@@ -5,11 +5,6 @@ use super::is_qualified;
 use crate::php_family::matchers::{is_name, is_name_start};
 use crate::rules::Chars;
 
-/// `(?i)[$_a-z]`, by character: `ſ` and the Kelvin sign fold to letters.
-fn starts_word(c: char) -> bool {
-    c == '$' || c == '_' || c.is_ascii_alphabetic() || c == 'ſ' || c == '\u{212a}'
-}
-
 impl Lexer<'_> {
     /// A variable in a string, with a property or an index:
     ///
@@ -92,14 +87,6 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `\$\{(?=.*?})`.
-    pub(super) fn dollar_brace(&self, p: usize) -> Option<usize> {
-        let open = self.lit(p, b"${")?;
-        (open..self.lim())
-            .any(|at| self.at(at) == b'}')
-            .then_some(open)
-    }
-
     /// `([A-Z\\_a-z\x7F-\x{10FFFF}][0-9A-Z\\_a-z\x7F-\x{10FFFF}]*)(?=\s*::)`.
     pub(super) fn class_before_scope(&mut self, p: usize) -> Option<usize> {
         let b = self.at(p);
@@ -127,19 +114,6 @@ impl Lexer<'_> {
         self.cap(2, at, name);
         self.cap(3, open, open + 1);
         Some(open + 1)
-    }
-
-    /// `(?i)(::)\s*(class)\b`.
-    pub(super) fn class_constant_name(&mut self, p: usize) -> Option<usize> {
-        let colons = self.lit(p, b"::")?;
-        let at = self.space_end(colons);
-        let end = self.ilit(at, b"class")?;
-        if self.word_at(end).is_some() {
-            return None;
-        }
-        self.cap(1, p, colons);
-        self.cap(2, at, end);
-        Some(end)
     }
 
     /// `(?i)(::)\s*(?:((\$+)NAME)|(NAME))?`.
@@ -272,28 +246,6 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `(?i)(=)(&)|(&)(?=[$_a-z])`.
-    pub(super) fn reference(&mut self, p: usize) -> Option<usize> {
-        if self.starts(p, b"=&") {
-            self.cap(1, p, p + 1);
-            self.cap(2, p + 1, p + 2);
-            return Some(p + 2);
-        }
-        if self.at(p) != b'&' || !self.char_at(p + 1).is_some_and(|(c, _)| starts_word(c)) {
-            return None;
-        }
-        self.cap(3, p, p + 1);
-        Some(p + 1)
-    }
-
-    /// `===?|!==?|<>`.
-    pub(super) fn comparison(&self, p: usize) -> Option<usize> {
-        if let Some(end) = self.lit(p, b"==").or_else(|| self.lit(p, b"!=")) {
-            return Some(end + usize::from(self.at(end) == b'='));
-        }
-        self.lit(p, b"<>")
-    }
-
     /// `(?:|[-+]|\*\*?|[%\&/^|]|<<|>>|\?\?)=`: the empty alternative comes
     /// first, so `=` alone matches before any compound form.
     pub(super) fn assignment(&self, p: usize) -> Option<usize> {
@@ -312,15 +264,6 @@ impl Lexer<'_> {
             _ => return None,
         };
         (self.at(op) == b'=').then_some(op + 1)
-    }
-
-    /// `<=>?|>=|[<>]`.
-    pub(super) fn relation(&self, p: usize) -> Option<usize> {
-        if let Some(end) = self.lit(p, b"<=") {
-            return Some(end + usize::from(self.at(end) == b'>'));
-        }
-        self.lit(p, b">=")
-            .or_else(|| matches!(self.at(p), b'<' | b'>').then_some(p + 1))
     }
 
     /// `[-+]|\*\*?|[%/]`.
@@ -388,23 +331,6 @@ impl Lexer<'_> {
         self.cap(2, at, end);
         self.cap(3, open, open + 1);
         Some(open + 1)
-    }
-
-    /// `(?i)\b(instanceof)\s+(?=[$\\_a-z])`.
-    pub(super) fn instanceof(&mut self, p: usize) -> Option<usize> {
-        if !self.boundary(p) {
-            return None;
-        }
-        let end = self.ilit(p, b"instanceof")?;
-        let at = self.space_end(end);
-        let next = self
-            .char_at(at)
-            .is_some_and(|(c, _)| c == '\\' || starts_word(c));
-        if at == end || !next {
-            return None;
-        }
-        self.cap(1, p, end);
-        Some(at)
     }
 
     /// `(?i)(new)\s+(?!class\b)([$0-9\\_a-z\x7F-\x{10FFFF}]+)` followed by
@@ -483,22 +409,6 @@ impl Lexer<'_> {
         }
         self.cap(1, at, end);
         Some(colon)
-    }
-
-    /// `\bswitch\b(?!\s*\(.*\)\s*:)`: a `switch` whose condition is not
-    /// followed by `:` on the line.
-    pub(super) fn switch(&self, p: usize) -> Option<usize> {
-        let end = self.keyword(p, b"switch")?;
-        let open = self.space_end(end);
-        if self.at(open) == b'(' && open < self.lim() {
-            let colon_after = (open + 1..self.lim())
-                .filter(|&at| self.at(at) == b')')
-                .any(|close| self.at(self.space_end(close + 1)) == b':');
-            if colon_after {
-                return None;
-            }
-        }
-        Some(end)
     }
 
     /// `\s*\b(yield\s+from)\b`.

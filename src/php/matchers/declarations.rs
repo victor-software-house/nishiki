@@ -128,32 +128,6 @@ impl Lexer<'_> {
         Some(colon + 1)
     }
 
-    /// `(?i)(?:^|(?<=<\?php))\s*(namespace)\s+([0-9\\_a-z\x7F-\x{10FFFF}]+)(?=\
-    /// s*;)` with `named`, else `(?i)(?:^|(?<=<\?php))\s*(namespace)\s+`.
-    pub(super) fn namespace_statement(&mut self, p: usize, named: bool) -> Option<usize> {
-        let after_tag = p >= 5 && self.text(p - 5, p).eq_ignore_ascii_case(b"<?php");
-        if p != 0 && !after_tag {
-            return None;
-        }
-        let word = self.space_end(p);
-        let word_end = self.ilit(word, b"namespace")?;
-        let at = self.space_end(word_end);
-        if at == word_end {
-            return None;
-        }
-        if !named {
-            self.cap(1, word, word_end);
-            return Some(at);
-        }
-        let end = self.qualified(at)?;
-        if self.at(self.space_end(end)) != b';' {
-            return None;
-        }
-        self.cap(1, word, word_end);
-        self.cap(2, at, end);
-        Some(end)
-    }
-
     /// `(?i)\b(as)\s+((final|abstract)|(p(?:ublic|rivate|rotected))|(static))\
     /// s+(NAME)`.
     pub(super) fn trait_alias_modifier(&mut self, p: usize) -> Option<usize> {
@@ -186,14 +160,6 @@ impl Lexer<'_> {
         self.cap(group, at, end);
         self.cap(6, name_at, name);
         Some(name)
-    }
-
-    /// `(?i)\b(as)\s+`.
-    pub(super) fn use_as(&mut self, p: usize) -> Option<usize> {
-        if !self.boundary(p) {
-            return None;
-        }
-        self.word_then_spaces(p, b"as")
     }
 
     /// `(?i)(?=[^0-9A-Z\\_a-z\x7F-\x{10FFFF}])`, and with `dollar` also not
@@ -879,18 +845,6 @@ impl Lexer<'_> {
         self.cap(3, dollar, end);
         self.cap(4, dollar, dollar + 1);
         Some(end)
-    }
-
-    /// `(array)\s*(\()`.
-    pub(super) fn array_open(&mut self, p: usize) -> Option<usize> {
-        let end = self.lit(p, b"array")?;
-        let open = self.space_end(end);
-        if self.at(open) != b'(' {
-            return None;
-        }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
-        Some(open + 1)
     }
 
     /// `(?i)(::)\s*(NAME)?`.
