@@ -2478,6 +2478,17 @@ impl Pat {
 }
 
 impl Pat {
+    /// Whether the pattern takes exactly one blank and then requires a
+    /// character that is not a blank, as `oracle/rule-grammar.ts`'s
+    /// `takesOneBlank` reads its expression.
+    /// Such a pattern can match at the last blank of a run and nowhere before
+    /// it.
+    pub(crate) const fn takes_one_blank(self) -> bool {
+        matches!(self, Pat::CharacterRange)
+    }
+}
+
+impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn start(self) -> Start {
         match self {

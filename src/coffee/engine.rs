@@ -64,9 +64,14 @@ impl Grammar for Coffee {
     const ROOT: Rule = Rule::Root;
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 10;
-    /// A heregex's character range starts with `.`, which takes a blank.
-    /// It can match at the last blank of a run, before a `-`.
-    const BLANK_RUNS: BlankRuns = BlankRuns::Visit;
+    /// A heregex's character range, `(?:.|\\.)-…`, takes one blank with its
+    /// `.` and then requires `-` ([`Pat::takes_one_blank`]).
+    /// It matches only at the last blank of a run.
+    const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
+
+    fn takes_one_blank(pat: Pat) -> bool {
+        pat.takes_one_blank()
+    }
 
     fn scope(scope: S) -> ScopeName {
         ScopeName::Fixed(scope.scope())

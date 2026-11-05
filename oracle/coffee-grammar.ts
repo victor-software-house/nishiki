@@ -17,7 +17,7 @@
 // Run with `bun run oracle/coffee-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import coffee from "@shikijs/langs@4.6.0/coffee";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type CaptureNode = { name?: string; patterns?: Node[] };
 type Captures = Record<string, CaptureNode>;
@@ -458,6 +458,7 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
+g += oneBlankTable(patList);
 g += startTable(patList);
 g += groupsCheck("Coffee", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 g += ruleCodes("Coffee", "COFFEE");
