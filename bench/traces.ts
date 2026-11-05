@@ -125,9 +125,14 @@ function appendTraces(): Map<string, string> {
 }
 
 /** One hunk of a `-U0` diff: the old lines it replaces, from a 0-based line. */
-type Hunk = { start: number; count: number; added: string[] };
+export type Hunk = { start: number; count: number; added: string[] };
 
-function hunks(diff: string): Hunk[] {
+/** The hunks of a `-U0` diff of one file.
+ * The file header, `+++` included, comes before the first hunk, so it
+ * belongs to none.
+ * Inside a hunk, every row that starts with `+` is an added line, even one
+ * whose text starts with `++`. */
+export function hunks(diff: string): Hunk[] {
   const out: Hunk[] = [];
   let current: Hunk | undefined;
   for (const row of diff.split("\n")) {
@@ -136,7 +141,7 @@ function hunks(diff: string): Hunk[] {
       const count = at[2] === undefined ? 1 : Number(at[2]);
       current = { start: count === 0 ? Number(at[1]) : Number(at[1]) - 1, count, added: [] };
       out.push(current);
-    } else if (current && row.startsWith("+") && !row.startsWith("+++")) {
+    } else if (current && row.startsWith("+")) {
       current.added.push(row.slice(1));
     }
   }
@@ -330,7 +335,9 @@ async function check() {
   }
 }
 
-const mode = Bun.argv[2];
-if (mode === "write") await write();
-else if (mode === "check") await check();
-else throw new Error("usage: traces.ts write|check");
+if (import.meta.main) {
+  const mode = Bun.argv[2];
+  if (mode === "write") await write();
+  else if (mode === "check") await check();
+  else throw new Error("usage: traces.ts write|check");
+}
