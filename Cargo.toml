@@ -454,6 +454,11 @@ serde_json = { version = "1.0.154", optional = true }
 indoc = { workspace = true }
 nishiki-alloc-count = { workspace = true }
 
+# The workspace's lints, which the test and example members share.
+# nishiki-alloc-count keeps its own, for its one unsafe implementation.
+[lints]
+workspace = true
+
 # The library, the integration test, the examples,
 # and the test-support crate that holds the one unsafe implementation the
 # tests need (CODING_STANDARDS 3.3). The benchmarks keep a workspace of their
@@ -473,14 +478,14 @@ nishiki-alloc-count = { path = "nishiki-alloc-count" }
 [profile.dev]
 debug = "line-tables-only"
 
-[lints.rust]
+[workspace.lints.rust]
 unsafe_code = "forbid"
 missing_docs = "deny"
 missing_debug_implementations = "deny"
 unreachable_pub = "deny"
 rust_2018_idioms = { level = "deny", priority = -1 }
 
-[lints.rustdoc]
+[workspace.lints.rustdoc]
 broken_intra_doc_links = "deny"
 private_intra_doc_links = "deny"
 invalid_html_tags = "deny"
@@ -489,7 +494,7 @@ invalid_codeblock_attributes = "deny"
 # backtick renders the rest of the paragraph as code.
 unescaped_backticks = "deny"
 
-[lints.clippy]
+[workspace.lints.clippy]
 all = { level = "deny", priority = -1 }
 pedantic = { level = "deny", priority = -1 }
 cargo = { level = "deny", priority = -1 }
