@@ -7,8 +7,8 @@
 //!
 //! - [`first_pass`] lexes and styles every token in a fresh process.
 //! - [`measured`] lexes again, and styles nothing.
-//! - [`colour_pass`] lexes and styles every token with github-dark, as a
-//!   renderer does.
+//! - [`colour_pass`] lexes and styles every token with github-dark through
+//!   [`Highlighter::style`], as a renderer does.
 //!
 //! The first pass holds the work a process does once, such as building each
 //! rule's pattern tables.
@@ -128,7 +128,7 @@ fn lex(language: Language, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
 }
 
 /// Lexes each document's lines from a fresh highlighter and styles every
-/// token with `theme`.
+/// token with `theme`, through the highlighter's cache of styles.
 fn colour(language: Language, theme: &Theme, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
     for lines in documents {
         let mut highlighter = Highlighter::new(language);
@@ -138,7 +138,7 @@ fn colour(language: Language, theme: &Theme, documents: &[Vec<&str>], tokens: &m
             let report = highlighter.line(line, &mut state, tokens);
             black_box(&report);
             for token in tokens.iter() {
-                black_box(theme.style(highlighter.scopes(token.stack())));
+                black_box(highlighter.style(theme, token.stack()));
             }
         }
     }
