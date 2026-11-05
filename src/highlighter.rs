@@ -25,15 +25,47 @@ pub struct Highlighter {
     /// The state at the start of a document.
     /// [`State::default`] stands for it.
     start: u32,
-    /// The styles [`Highlighter::style`] computed, for one theme.
+    /// The styles [`Highlighter::style`] computed, for the last two themes.
     styles: Styles,
+}
+
+/// The styles of the theme used last and of the one before it.
+///
+/// A renderer can style each token with a light and a dark theme in turn.
+/// Two slots keep both themes' styles across those calls.
+#[derive(Debug, Default)]
+struct Styles {
+    current: ThemeStyles,
+    previous: ThemeStyles,
+}
+
+impl Styles {
+    /// Makes `theme` the current slot.
+    /// The previous slot becomes current when it holds `theme`.
+    /// Otherwise the older slot is emptied for `theme`.
+    fn switch(&mut self, theme: u64) {
+        std::mem::swap(&mut self.current, &mut self.previous);
+        if self.current.theme != Some(theme) {
+            self.current.theme = Some(theme);
+            self.current.by_stack.clear();
+        }
+    }
+
+    /// The current slot's style for `stack`, if it has one.
+    fn cached(&self, stack: u32) -> Option<Style> {
+        usize::try_from(stack)
+            .ok()
+            .and_then(|index| self.current.by_stack.get(index))
+            .copied()
+            .flatten()
+    }
 }
 
 /// Each stack's style under one theme, indexed by stack id, filled on first
 /// use.
 #[derive(Debug, Default)]
-struct Styles {
-    /// The [`Theme`] id the styles belong to; `None` before the first call.
+struct ThemeStyles {
+    /// The [`Theme`] id the styles belong to; `None` before its first call.
     theme: Option<u64>,
     by_stack: Vec<Option<Style>>,
 }
@@ -140,23 +172,32 @@ impl Highlighter {
     ///
     /// The highlighter keeps each stack's style once computed.
     /// Styling another token with the same stack is then one lookup.
-    /// It keeps the styles of one theme, and drops them when called with
-    /// another.
+    /// It keeps the styles of the two themes used last.
+    /// A call with a third theme drops the styles of the older one.
     /// It allocates only when a new stack first appears.
     #[must_use]
     pub fn style(&mut self, theme: &Theme, stack: Stack) -> Style {
-        if self.styles.theme != Some(theme.id()) {
-            self.styles.theme = Some(theme.id());
-            self.styles.by_stack.clear();
+        if self.styles.current.theme != Some(theme.id()) {
+            return self.style_switch(theme, stack.0);
         }
-        let cached = usize::try_from(stack.0)
-            .ok()
-            .and_then(|index| self.styles.by_stack.get(index))
-            .copied()
-            .flatten();
-        match cached {
+        match self.styles.cached(stack.0) {
             Some(style) => style,
             None => self.style_miss(theme, stack.0),
+        }
+    }
+
+    /// [`Highlighter::style`] with a theme other than the current slot's:
+    /// switches slots, then styles `stack`.
+    ///
+    /// Out of line, so a call with the current theme saves no registers.
+    /// With the switch inlined into [`Highlighter::style`], every call saved
+    /// four registers, and colouring JSON ran 4% more instructions.
+    #[inline(never)]
+    fn style_switch(&mut self, theme: &Theme, stack: u32) -> Style {
+        self.styles.switch(theme.id());
+        match self.styles.cached(stack) {
+            Some(style) => style,
+            None => self.style_miss(theme, stack),
         }
     }
 
@@ -174,10 +215,11 @@ impl Highlighter {
         let count = self.arena.stack_count();
         let style = theme.style(self.arena.scopes(stack));
         if let Some(index) = usize::try_from(stack).ok().filter(|&index| index < count) {
-            if self.styles.by_stack.len() < count {
-                self.styles.by_stack.resize(count, None);
+            let by_stack = &mut self.styles.current.by_stack;
+            if by_stack.len() < count {
+                by_stack.resize(count, None);
             }
-            if let Some(slot) = self.styles.by_stack.get_mut(index) {
+            if let Some(slot) = by_stack.get_mut(index) {
                 *slot = Some(style);
             }
         }

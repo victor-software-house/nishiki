@@ -233,8 +233,11 @@ fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
 /// The fixture and theme pairs of `language` whose colours differ from
 /// Shiki's, as reports.
 ///
-/// One highlighter styles a fixture with every theme in turn, so
-/// [`Highlighter::style`] drops its cache at each theme.
+/// One highlighter styles a fixture with every theme in turn.
+/// It also styles each token with the theme before, as a renderer that
+/// shows a light and a dark theme does.
+/// [`Highlighter::style`] then switches between its two slots at every token,
+/// and the third theme takes the older slot.
 /// Each style it gives must equal [`nishiki::Theme::style`]'s.
 fn colour_failures(language: Language) -> Vec<String> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("oracle");
@@ -245,6 +248,7 @@ fn colour_failures(language: Language) -> Vec<String> {
             .and_then(|stem| stem.to_str())
             .expect("a UTF-8 name");
         let mut highlighter = Highlighter::new(language);
+        let mut previous: Option<nishiki::Theme> = None;
         for theme_path in fs::read_dir(root.join("themes")).expect("the themes directory exists") {
             let theme_path = theme_path.expect("a readable directory entry").path();
             let name = theme_path
@@ -270,6 +274,14 @@ fn colour_failures(language: Language) -> Vec<String> {
                             "the cached style of a token in {}",
                             fixture.display()
                         );
+                        if let Some(other) = &previous {
+                            assert_eq!(
+                                highlighter.style(other, token.stack()),
+                                other.style(highlighter.scopes(token.stack())),
+                                "the cached style of a token in {} under the theme before",
+                                fixture.display()
+                            );
+                        }
                         (
                             token.end(),
                             format!("{}:{}", style.foreground, style.font.bits()),
@@ -280,6 +292,7 @@ fn colour_failures(language: Language) -> Vec<String> {
             if !misses.is_empty() {
                 failures.push(report(&colours, checked, &misses));
             }
+            previous = Some(theme);
         }
     }
     failures
