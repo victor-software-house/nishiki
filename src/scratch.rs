@@ -27,6 +27,10 @@ pub(crate) struct Scratch {
     /// is.
     #[cfg(feature = "lang-coffee")]
     pub(crate) coffee: Option<Box<crate::coffee::Scratch>>,
+    /// The Common Lisp lexer's, for Common Lisp documents.
+    /// It is boxed and allocated by the first Common Lisp line.
+    #[cfg(feature = "lang-common-lisp")]
+    pub(crate) common_lisp: Option<Box<crate::common_lisp::Scratch>>,
     /// The C++ lexer's, for C++ documents and Markdown C++ fences.
     #[cfg(feature = "lang-cpp")]
     pub(crate) cpp: crate::cpp::Scratch,

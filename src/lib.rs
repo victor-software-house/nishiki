@@ -167,7 +167,7 @@
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
-//! | `textmate` | Assembly, Common Lisp, HAML |
+//! | `textmate` | Assembly, HAML |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
 //! from Shiki's grammars, compiled in as tables.
@@ -214,6 +214,7 @@ mod c;
 #[cfg(any(
     feature = "lang-bat",
     feature = "lang-cmake",
+    feature = "lang-common-lisp",
     feature = "lang-css",
     feature = "lang-haskell",
     feature = "lang-less",

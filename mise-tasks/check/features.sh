@@ -14,12 +14,13 @@ RUSTFLAGS="" cargo check --locked --tests --no-default-features
 RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features docs
+# One engine language alone, Assembly, with no language that hands off.
+# The engine's hand-off code still builds, since any capture can reach it.
+cargo check --locked --tests --no-default-features --features lang-asm
 cargo check --locked --tests --no-default-features --features lang-bat
 cargo check --locked --tests --no-default-features --features lang-c
 cargo check --locked --tests --no-default-features --features lang-cmake
 cargo check --locked --tests --no-default-features --features lang-coffee
-# One engine language alone, Common Lisp, with no language that hands off.
-# The engine's hand-off code still builds, since any capture can reach it.
 cargo check --locked --tests --no-default-features --features lang-common-lisp
 cargo check --locked --tests --no-default-features --features lang-cpp
 cargo check --locked --tests --no-default-features --features lang-csharp

@@ -17,6 +17,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
 | CoffeeScript | `coffee` | 136 of 143 | 95.1% | 132 of 134 | 98.5% | 9 | 0 | yes |
+| Common Lisp | `common-lisp` | 60 of 62 | 96.8% | 51 of 56 | 91.1% | 7 | 0 | yes |
 | C++ | `cpp` | 877 of 912 | 96.2% | 2480 of 2679 | 92.6% | 234 | 0 | yes |
 | C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 131 | 0 | yes |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
@@ -129,6 +130,15 @@ patterns[29].match  ((?<=Array\.)(isArray))\b  waived: the method must follow `c
 patterns[30].match  ((?<=Object\.)(create|definePropert(ies|y)|freeze|getOwnPro…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
 patterns[31].match  ((?<=Math\.)(abs|acosh??|asinh??|atan2??|atanh|ceil|cosh??|…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
 patterns[32].match  ((?<=Number\.)(is(Finite|Integer|NaN)|toInteger))\b  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
+```
+
+### `common-lisp`
+
+```text
+#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#punctuation.patterns[10].match  (?i)(?<=^|[(\s]|,@|,\.?)(#)(:)(?=\S)  waived: `#package`, before it in the root, matches the same `#` before a `:` after the same lookbehind
+#punctuation.patterns[11].match  groups 2 (waived: `#punctuation`'s first pattern, before this one, matches every backquote before a `\S`, after a lookbehind that holds wherever this one's does), 3 (waived: `#punctuation`'s first pattern, before this one, matches every backquote before a `\S`, after a lookbehind that holds wherever this one's does), 4 (waived: `#punctuation`'s first pattern, before this one, matches every backquote before a `\S`, after a lookbehind that holds wherever this one's does)
+#variable.patterns[0].match  (?i)(?<=^|[(\s]|,@|,\.?)\*(?:trace-output|terminal-io|stand…  waived: `#style-guide`'s `(\*[^*\s]+\*)`, before it in the root, matches every `*name*` it does, after a lookbehind that holds wherever its own does
 ```
 
 ### `cpp`

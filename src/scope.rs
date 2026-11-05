@@ -86,6 +86,8 @@ tables! {
     CMAKE = cmake;
     #[cfg(feature = "lang-coffee")]
     COFFEE = coffee;
+    #[cfg(feature = "lang-common-lisp")]
+    COMMON_LISP = common_lisp;
     #[cfg(feature = "lang-cpp")]
     CPP = cpp;
     #[cfg(feature = "lang-csharp")]

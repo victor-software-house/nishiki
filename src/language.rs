@@ -1101,14 +1101,21 @@ languages! {
         module: postcss,
         halts: true,
     }
-    /// Common Lisp, with the scopes of Shiki's `common-lisp` grammar, which
-    /// nishiki's `TextMate` engine runs.
+    /// Common Lisp, with the scopes of Shiki's `common-lisp` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Words match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
+    /// - A word is scoped only when a `(`, a `)` or a blank follows it, and most only after a `(`, a blank or the start of the line.
+    /// - `(defun (foo) …)` names `o`: the list form's head gives back its last character when no name follows it.
+    /// - A `'` parameter of a `format` directive takes the next character, a `"` too, so `"~'"a"` holds the directive `~'"a` and the string goes on.
+    /// - `#|…|#` comments nest.
+    /// - `\s` for non-ASCII characters comes from the table measured for JSON (`oracle/classes.ts`).
     CommonLisp {
         feature: "lang-common-lisp",
         names: ["common-lisp", "lisp"],
-        engine: crate::common_lisp::grammar::GRAMMAR,
+        module: common_lisp,
         reads_line_feed: true,
-        halts: true,
     }
     /// Objective-C++, with the scopes of Shiki's `objective-cpp` grammar.
     /// It runs Objective-C's matchers for the expressions the two grammars

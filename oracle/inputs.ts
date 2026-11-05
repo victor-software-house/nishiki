@@ -11,6 +11,7 @@ import cppCoverage from "./inputs/cpp-coverage.cpp" with { type: "text" };
 import csharpCoverage from "./inputs/csharp-coverage.cs" with { type: "text" };
 import cssCharsetNoSpace from "./inputs/css-charset-no-space.css" with { type: "text" };
 import cssCharsetUnclosed from "./inputs/css-charset-unclosed.css" with { type: "text" };
+import commonLispCoverage from "./inputs/common-lisp-coverage.lisp" with { type: "text" };
 import cssCharsetUnquoted from "./inputs/css-charset-unquoted.css" with { type: "text" };
 import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import dartCoverage from "./inputs/dart-coverage.dart" with { type: "text" };
@@ -548,14 +549,18 @@ export const inputs: Input[] = [
   { lang: "coffee", name: "coffeescript-repl", url: `${coffeescript}/src/repl.coffee` },
   { lang: "coffee", name: "coverage", text: coffeeCoverage },
   { lang: "coffee", name: "sample", url: `${samples}/coffee.sample` },
-  // Common Lisp runs on the TextMate engine.
   { lang: "common-lisp", name: "cl-ppcre-optimize", url: `${clPpcre}/optimize.lisp` },
+  { lang: "common-lisp", name: "cl-ppcre-regex-class", url: `${clPpcre}/regex-class.lisp` },
   { lang: "common-lisp", name: "cl-ppcre-scanner", url: `${clPpcre}/scanner.lisp` },
+  { lang: "common-lisp", name: "coverage", text: commonLispCoverage },
   { lang: "common-lisp", name: "grammar-demo", url: `${commonLispGrammar}/syntaxes/fixtures/cases/demo.lsp` },
   { lang: "common-lisp", name: "grammar-format-strings", url: `${commonLispGrammar}/syntaxes/fixtures/cases/fstr.lsp` },
+  { lang: "common-lisp", name: "quicklisp-dist", url: `${quicklispClient}/quicklisp/dist.lisp` },
   { lang: "common-lisp", name: "quicklisp-http", url: `${quicklispClient}/quicklisp/http.lisp` },
   { lang: "common-lisp", name: "sample", url: `${samples}/common-lisp.sample` },
   { lang: "common-lisp", name: "split-sequence-list", url: `${splitSequence}/list.lisp` },
+  { lang: "common-lisp", name: "split-sequence-vector", url: `${splitSequence}/vector.lisp` },
+  { lang: "common-lisp", name: "woo-main", url: `${woo}/src/woo.lisp` },
   { lang: "common-lisp", name: "woo-response", url: `${woo}/src/response.lisp` },
   { lang: "cpp", name: "absl-any-invocable", url: `${abseil}/absl/functional/internal/any_invocable.h` },
   { lang: "cpp", name: "absl-any-invocable-test", url: `${abseil}/absl/functional/any_invocable_test.h` },

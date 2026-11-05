@@ -13,6 +13,8 @@ use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limit, Limits, LineReport};
 
+#[path = "../../tests/engine/common-lisp.rs"]
+mod common_lisp_tables;
 #[cfg(feature = "lang-html")]
 #[path = "../../tests/engine/elixir.rs"]
 mod elixir_tables;
@@ -299,6 +301,13 @@ fn elixir_grammar_matches_shiki() {
     check(&elixir_tables::GRAMMAR, "elixir", Scanners::On);
 }
 
+/// Common Lisp has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn common_lisp_grammar_matches_shiki() {
+    check(&common_lisp_tables::GRAMMAR, "common-lisp", Scanners::On);
+}
+
 /// GDScript has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
@@ -503,8 +512,6 @@ fn kept_frames_lex_as_rebuilt_ones() {
 static SHIPPED: &[(&Grammar, &str)] = &[
     #[cfg(feature = "lang-asm")]
     (&crate::asm::grammar::GRAMMAR, "asm"),
-    #[cfg(feature = "lang-common-lisp")]
-    (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
     #[cfg(feature = "lang-haml")]
     (&crate::haml::grammar::GRAMMAR, "haml"),
 ];

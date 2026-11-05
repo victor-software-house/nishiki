@@ -1,0 +1,464 @@
+L ;;;; Written for nishiki: the units of the common-lisp grammar that the
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 71 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;; third-party fixtures leave out.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 36 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L #| A block comment,
+T 2 source.commonlisp comment
+T 19 source.commonlisp comment comment.block.commonlisp
+L    #| with one nested inside |#
+T 3 source.commonlisp comment comment.block.commonlisp
+T 5 source.commonlisp comment comment.block.commonlisp comment
+T 29 source.commonlisp comment comment.block.commonlisp comment comment.block.commonlisp
+T 31 source.commonlisp comment comment.block.commonlisp comment
+L    that ends here. |#
+T 19 source.commonlisp comment comment.block.commonlisp
+T 21 source.commonlisp comment
+L 
+L (defun area (r)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp
+L   ;; A comment after blanks.
+T 2 source.commonlisp punctuation.whitespace.comment.leading.commonlisp
+T 3 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 28 source.commonlisp comment.line.semicolon.commonlisp
+L   (* pi r r))
+T 3 source.commonlisp
+T 4 source.commonlisp support.function.f.sideeffects.commonlisp
+T 5 source.commonlisp
+T 7 source.commonlisp constant.language.commonlisp
+T 13 source.commonlisp
+L 
+L (defun (setf point-x) (value point)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 8 source.commonlisp
+T 12 source.commonlisp storage.type.function.defname.commonlisp
+T 13 source.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 35 source.commonlisp
+L   (setf (car point) value))
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 9 source.commonlisp
+T 12 source.commonlisp support.function.accessor.commonlisp
+T 27 source.commonlisp
+L 
+L (defmacro define-reader (name)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp
+L   `(defun (setf ,name) (value object)
+T 2 source.commonlisp
+T 3 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 4 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 15 source.commonlisp storage.type.function.defname.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp variable.other.constant.defname.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 37 source.commonlisp
+L      (setf (slot-value object ',name) value)))
+T 6 source.commonlisp
+T 10 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 12 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 46 source.commonlisp
+L 
+L (defmacro define-getter (name)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp
+L   `(defun ,name (object)
+T 2 source.commonlisp
+T 3 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 4 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 11 source.commonlisp variable.other.constant.defname.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp
+L      (slot-value object ',name)))
+T 6 source.commonlisp
+T 16 source.commonlisp support.function.f.sideeffects.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 33 source.commonlisp
+L 
+L (defconstant +limit+ 10)
+T 1 source.commonlisp
+T 12 source.commonlisp storage.type.function.defname.commonlisp
+T 13 source.commonlisp
+T 14 source.commonlisp variable.other.constant.defname.commonlisp
+T 15 source.commonlisp variable.other.constant.defname.commonlisp
+T 16 source.commonlisp variable.other.constant.defname.commonlisp
+T 17 source.commonlisp variable.other.constant.defname.commonlisp
+T 18 source.commonlisp variable.other.constant.defname.commonlisp
+T 19 source.commonlisp variable.other.constant.defname.commonlisp
+T 20 source.commonlisp variable.other.constant.defname.commonlisp
+T 21 source.commonlisp
+T 23 source.commonlisp constant.numeric.commonlisp
+T 24 source.commonlisp
+L (defconstant cl-user::+other-limit+ 20)
+T 1 source.commonlisp
+T 12 source.commonlisp storage.type.function.defname.commonlisp
+T 13 source.commonlisp
+T 20 source.commonlisp support.type.package.commonlisp
+T 21 source.commonlisp variable.other.constant.defname.commonlisp
+T 22 source.commonlisp variable.other.constant.defname.commonlisp
+T 23 source.commonlisp variable.other.constant.defname.commonlisp
+T 24 source.commonlisp variable.other.constant.defname.commonlisp
+T 25 source.commonlisp variable.other.constant.defname.commonlisp
+T 26 source.commonlisp variable.other.constant.defname.commonlisp
+T 27 source.commonlisp variable.other.constant.defname.commonlisp
+T 28 source.commonlisp variable.other.constant.defname.commonlisp
+T 29 source.commonlisp variable.other.constant.defname.commonlisp
+T 30 source.commonlisp variable.other.constant.defname.commonlisp
+T 31 source.commonlisp variable.other.constant.defname.commonlisp
+T 32 source.commonlisp variable.other.constant.defname.commonlisp
+T 33 source.commonlisp variable.other.constant.defname.commonlisp
+T 34 source.commonlisp variable.other.constant.defname.commonlisp
+T 35 source.commonlisp variable.other.constant.defname.commonlisp
+T 36 source.commonlisp
+T 38 source.commonlisp constant.numeric.commonlisp
+T 39 source.commonlisp
+L 
+L (defvar  *counter* 0)
+T 1 source.commonlisp
+T 7 source.commonlisp storage.type.function.defname.commonlisp
+T 8 source.commonlisp
+T 9 source.commonlisp
+T 18 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 19 source.commonlisp
+T 20 source.commonlisp constant.numeric.commonlisp
+T 21 source.commonlisp
+L (defparameter  *table* (make-hash-table))
+T 1 source.commonlisp
+T 13 source.commonlisp storage.type.function.defname.commonlisp
+T 14 source.commonlisp
+T 15 source.commonlisp
+T 22 source.commonlisp string.regexp.earmuffsasterisk.commonlisp
+T 24 source.commonlisp
+T 39 source.commonlisp support.function.f.sideeffects.commonlisp
+T 41 source.commonlisp
+L 
+L (defstruct point x y)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 16 source.commonlisp entity.name.type.commonlisp
+T 21 source.commonlisp
+L (defstruct (circle (:conc-name c-)) radius)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp entity.name.type.commonlisp
+T 20 source.commonlisp
+T 30 source.commonlisp entity.name.variable.commonlisp
+T 43 source.commonlisp
+L 
+L (progn flet ((twice (x) (* 2 x)))
+T 1 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 7 source.commonlisp
+T 11 source.commonlisp keyword.control.commonlisp
+T 14 source.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp support.function.f.sideeffects.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp constant.numeric.commonlisp
+T 33 source.commonlisp
+L   (twice 3))
+T 9 source.commonlisp
+T 10 source.commonlisp constant.numeric.commonlisp
+T 12 source.commonlisp
+L 
+L (defmethod update ((object point))
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 34 source.commonlisp
+L   (reinitialize-instance object)
+T 3 source.commonlisp
+T 24 source.commonlisp support.function.sgf.sideeffects.commonlisp
+T 32 source.commonlisp
+L   (typep object '(satisfies point-p)))
+T 3 source.commonlisp
+T 8 source.commonlisp support.function.f.sideeffects.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 18 source.commonlisp
+T 27 source.commonlisp support.function.typespecifier.commonlisp
+T 38 source.commonlisp
+L 
+L (defun shapes ()
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp
+L   (list #2(1 2) #*1010 #3*101 #* #0* #2A((1 2) (3 4))
+T 3 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 8 source.commonlisp
+T 9 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 10 source.commonlisp constant.numeric.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp constant.numeric.commonlisp
+T 13 source.commonlisp
+T 14 source.commonlisp constant.numeric.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 18 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 25 source.commonlisp constant.numeric.commonlisp
+T 26 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 30 source.commonlisp
+T 32 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 33 source.commonlisp
+T 36 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 37 source.commonlisp
+T 38 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 39 source.commonlisp constant.numeric.commonlisp
+T 40 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+T 43 source.commonlisp constant.numeric.commonlisp
+T 44 source.commonlisp
+T 45 source.commonlisp constant.numeric.commonlisp
+T 48 source.commonlisp
+T 49 source.commonlisp constant.numeric.commonlisp
+T 50 source.commonlisp
+T 51 source.commonlisp constant.numeric.commonlisp
+T 53 source.commonlisp
+L         #1=(a . #1#) 1. 1.5d0 1d0 -2f-3 .5s0))
+T 8 source.commonlisp
+T 9 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 10 source.commonlisp constant.numeric.commonlisp
+T 11 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 14 source.commonlisp
+T 15 source.commonlisp variable.other.constant.dot.commonlisp
+T 16 source.commonlisp
+T 17 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 18 source.commonlisp constant.numeric.commonlisp
+T 19 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 21 source.commonlisp
+T 23 source.commonlisp constant.numeric.commonlisp
+T 24 source.commonlisp
+T 29 source.commonlisp constant.numeric.commonlisp
+T 30 source.commonlisp
+T 33 source.commonlisp constant.numeric.commonlisp
+T 34 source.commonlisp
+T 39 source.commonlisp constant.numeric.commonlisp
+T 40 source.commonlisp
+T 44 source.commonlisp constant.numeric.commonlisp
+T 46 source.commonlisp
+L 
+L (defun banners (stream n)
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp
+T 22 source.commonlisp support.class.commonlisp
+T 25 source.commonlisp
+L   (format stream "~2,'0[zero~;one~:;many~]" n)
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp support.class.commonlisp
+T 17 source.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp variable.other.constant.formattedstring.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp storage.type.function.formattedstring.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 46 source.commonlisp
+L   (format stream "~/cl-user::pprint-point/" n)
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp support.class.commonlisp
+T 17 source.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 46 source.commonlisp
+L   (format stream "~1,2:@/cl-user::pprint-point/" n)
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp support.class.commonlisp
+T 17 source.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp variable.other.constant.formattedstring.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+L   (format stream "first line ~
+T 3 source.commonlisp
+T 9 source.commonlisp support.function.f.sideeffects.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp support.class.commonlisp
+T 17 source.commonlisp
+T 18 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp variable.other.constant.formattedstring.commonlisp
+L                   second line~%"))
+T 29 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 34 source.commonlisp
+L 
+L (defun quoted ()
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp
+L   (list 'cl:*print-base* 'cl-user::+limit+ 'a:b:*c*))
+T 3 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 8 source.commonlisp
+T 9 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 12 source.commonlisp
+T 24 source.commonlisp source.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 35 source.commonlisp
+T 42 source.commonlisp source.commonlisp
+T 43 source.commonlisp
+T 44 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 48 source.commonlisp
+T 51 source.commonlisp source.commonlisp
+T 53 source.commonlisp
+L 
+L (defun repl-values ()
+T 1 source.commonlisp
+T 6 source.commonlisp storage.type.function.defname.commonlisp
+T 7 source.commonlisp
+T 8 source.commonlisp entity.name.function.commonlisp
+T 9 source.commonlisp entity.name.function.commonlisp
+T 10 source.commonlisp entity.name.function.commonlisp
+T 11 source.commonlisp entity.name.function.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp
+L   (list ** *** ++ +++ // ///))
+T 3 source.commonlisp
+T 7 source.commonlisp support.function.f.sideeffects.commonlisp
+T 8 source.commonlisp
+T 10 source.commonlisp variable.other.repl.commonlisp
+T 11 source.commonlisp
+T 14 source.commonlisp variable.other.repl.commonlisp
+T 15 source.commonlisp
+T 17 source.commonlisp variable.other.repl.commonlisp
+T 18 source.commonlisp
+T 21 source.commonlisp variable.other.repl.commonlisp
+T 22 source.commonlisp
+T 24 source.commonlisp variable.other.repl.commonlisp
+T 25 source.commonlisp
+T 28 source.commonlisp variable.other.repl.commonlisp
+T 30 source.commonlisp
+L 

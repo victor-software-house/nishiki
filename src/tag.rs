@@ -57,6 +57,9 @@ tags! {
     /// CoffeeScript.
     #[cfg(feature = "lang-coffee")]
     COFFEE = 0x3e00,
+    /// Common Lisp.
+    #[cfg(feature = "lang-common-lisp")]
+    COMMON_LISP = 0x4900,
     /// C++, with the next byte for the number of its rule.
     #[cfg(feature = "lang-cpp")]
     CPP = 0x2400 mask 0xfe00,

@@ -1656,6 +1656,30 @@ export const waivers: Waiver[] = [
     reason: "the group is `()`, the closing quote of a label that has none, so it never holds text",
     probe: probe!,
   })),
+  { grammar: "common-lisp", path: "#comment.begin", group: 1, reason: blanks, probe: "Comment" },
+  {
+    grammar: "common-lisp",
+    path: "#variable.patterns[0].match",
+    reason:
+      "`#style-guide`'s `(\\*[^*\\s]+\\*)`, before it in the root, matches every `*name*` it does, after a lookbehind that holds wherever its own does",
+    probe: "VariableAt0",
+  },
+  {
+    grammar: "common-lisp",
+    path: "#punctuation.patterns[10].match",
+    reason: "`#package`, before it in the root, matches the same `#` before a `:` after the same lookbehind",
+    probe: "PunctuationAt10",
+  },
+  ...[2, 3, 4].map(
+    (group): Waiver => ({
+      grammar: "common-lisp",
+      path: "#punctuation.patterns[11].match",
+      group,
+      reason:
+        "`#punctuation`'s first pattern, before this one, matches every backquote before a `\\S`, after a lookbehind that holds wherever this one's does",
+      probe: "PunctuationAt11",
+    }),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1665,6 +1689,7 @@ export const complete: string[] = [
   "c",
   "cmake",
   "coffee",
+  "common-lisp",
   "cpp",
   "cpp-macro",
   "csharp",

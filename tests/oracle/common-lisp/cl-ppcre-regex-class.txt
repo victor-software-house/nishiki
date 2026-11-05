@@ -1,0 +1,1427 @@
+L ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-PPCRE; Base: 10 -*-
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 72 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; $Header: /usr/local/cvsrep/cl-ppcre/regex-class.lisp,v 1.44 2009/10/28 07:36:15 edi Exp $
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 93 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; This file defines the REGEX class.  REGEX objects are used to
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 65 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; represent the (transformed) parse trees internally
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 54 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Copyright (c) 2002-2009, Dr. Edmund Weitz. All rights reserved.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; Redistribution and use in source and binary forms, with or without
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; modification, are permitted provided that the following conditions
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; are met:
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 12 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;;   * Redistributions of source code must retain the above copyright
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     notice, this list of conditions and the following disclaimer.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;;   * Redistributions in binary form must reproduce the above
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 63 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     copyright notice, this list of conditions and the following
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     disclaimer in the documentation and/or other materials
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 62 source.commonlisp comment.line.semicolon.commonlisp
+L ;;;     provided with the distribution.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 39 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L ;;; THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 67 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 69 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 65 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 61 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 70 source.commonlisp comment.line.semicolon.commonlisp
+L ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+T 1 source.commonlisp comment.line.semicolon.commonlisp punctuation.definition.comment.commonlisp
+T 64 source.commonlisp comment.line.semicolon.commonlisp
+L 
+L (in-package :cl-ppcre)
+T 1 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.sideeffects.commonlisp
+T 12 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+L 
+L (defclass regex ()
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 15 source.commonlisp entity.name.type.commonlisp
+T 18 source.commonlisp
+L   ()
+T 4 source.commonlisp
+L   (:documentation "The REGEX base class.  All other classes inherit
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+L from this one."))
+T 14 source.commonlisp string.quoted.double.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 17 source.commonlisp
+L 
+L (defclass seq (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 13 source.commonlisp entity.name.type.commonlisp
+T 21 source.commonlisp
+L   ((elements :initarg :elements
+T 13 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+L              :accessor elements
+T 13 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp
+L              :type cons
+T 13 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+L              :documentation "A list of REGEX objects."))
+T 13 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 56 source.commonlisp
+L   (:documentation "SEQ objects represents sequences of regexes.
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+L \(Like \"ab\" is the sequence of \"a\" and \"b\".)"))
+T 2 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 7 source.commonlisp string.quoted.double.commonlisp
+T 9 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 11 source.commonlisp string.quoted.double.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 46 source.commonlisp string.quoted.double.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 53 source.commonlisp
+L 
+L (defclass alternation (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 21 source.commonlisp entity.name.type.commonlisp
+T 29 source.commonlisp
+L   ((choices :initarg :choices
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+L             :accessor choices
+T 12 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+L             :type cons
+T 12 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 22 source.commonlisp support.function.f.sideeffects.commonlisp
+L             :documentation "A list of REGEX objects"))
+T 12 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 54 source.commonlisp
+L   (:documentation "ALTERNATION objects represent alternations of
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+L regexes.  \(Like \"a|b\" ist the alternation of \"a\" or \"b\".)"))
+T 10 source.commonlisp string.quoted.double.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 17 source.commonlisp string.quoted.double.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 67 source.commonlisp
+L 
+L (defclass lookahead (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 19 source.commonlisp entity.name.type.commonlisp
+T 27 source.commonlisp
+L   ((regex :initarg :regex
+T 10 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L           :accessor regex
+T 10 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+L           :documentation "The REGEX object we're checking.")
+T 10 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 60 source.commonlisp
+L    (positivep :initarg :positivep
+T 14 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 33 source.commonlisp entity.name.variable.commonlisp
+L               :reader positivep
+T 14 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp
+L               :documentation "Whether this assertion is positive."))
+T 14 source.commonlisp
+T 28 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 68 source.commonlisp
+L   (:documentation "LOOKAHEAD objects represent look-ahead assertions."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 69 source.commonlisp string.quoted.double.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 72 source.commonlisp
+L 
+L (defclass lookbehind (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 20 source.commonlisp entity.name.type.commonlisp
+T 28 source.commonlisp
+L   ((regex :initarg :regex
+T 10 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L           :accessor regex
+T 10 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+L           :documentation "The REGEX object we're checking.")
+T 10 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 60 source.commonlisp
+L    (positivep :initarg :positivep
+T 14 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 33 source.commonlisp entity.name.variable.commonlisp
+L               :reader positivep
+T 14 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp
+L               :documentation "Whether this assertion is positive.")
+T 14 source.commonlisp
+T 28 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 67 source.commonlisp
+L    (len :initarg :len
+T 8 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+L         :accessor len
+T 8 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+L         :type fixnum
+T 8 source.commonlisp
+T 13 source.commonlisp entity.name.variable.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+L         :documentation "The \(fixed) length of the enclosed regex."))
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 69 source.commonlisp
+L   (:documentation "LOOKBEHIND objects represent look-behind assertions."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 71 source.commonlisp string.quoted.double.commonlisp
+T 72 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 74 source.commonlisp
+L 
+L (defclass repetition (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 20 source.commonlisp entity.name.type.commonlisp
+T 28 source.commonlisp
+L   ((regex :initarg :regex
+T 10 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L           :accessor regex
+T 10 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+L           :documentation "The REGEX that's repeated.")
+T 10 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 54 source.commonlisp
+L    (greedyp :initarg :greedyp
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+L             :reader greedyp
+T 12 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+L             :documentation "Whether the repetition is greedy.")
+T 12 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 61 source.commonlisp string.quoted.double.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 63 source.commonlisp
+L    (minimum :initarg :minimum
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+L             :accessor minimum
+T 12 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+L             :type fixnum
+T 12 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 24 source.commonlisp support.type.t.commonlisp
+L             :documentation "The minimal number of repetitions.")
+T 12 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 64 source.commonlisp
+L    (maximum :initarg :maximum
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+L             :accessor maximum
+T 12 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+L             :documentation "The maximal number of repetitions.
+T 12 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp
+L Can be NIL for unbounded.")
+T 25 source.commonlisp string.quoted.double.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 27 source.commonlisp
+L    (min-len :initarg :min-len
+T 12 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+L             :reader min-len
+T 12 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+L             :documentation "The minimal length of the enclosed regex.")
+T 12 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 69 source.commonlisp string.quoted.double.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 71 source.commonlisp
+L    (len :initarg :len
+T 8 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+L         :reader len
+T 8 source.commonlisp
+T 15 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+L         :documentation "The length of the enclosed regex.  NIL if
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 65 source.commonlisp string.quoted.double.commonlisp
+L unknown.")
+T 8 source.commonlisp string.quoted.double.commonlisp
+T 9 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 10 source.commonlisp
+L    (min-rest :initform 0
+T 13 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp constant.numeric.commonlisp
+L              :accessor min-rest
+T 13 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 31 source.commonlisp
+L              :type fixnum
+T 13 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp support.type.t.commonlisp
+L              :documentation "The minimal number of characters which
+T 13 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+L must appear after this repetition.")
+T 34 source.commonlisp string.quoted.double.commonlisp
+T 35 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 36 source.commonlisp
+L    (contains-register-p :initarg :contains-register-p
+T 24 source.commonlisp
+T 32 source.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp
+T 53 source.commonlisp entity.name.variable.commonlisp
+L                         :reader contains-register-p
+T 24 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 51 source.commonlisp
+L                         :documentation "Whether the regex contains a
+T 24 source.commonlisp
+T 38 source.commonlisp entity.name.variable.commonlisp
+T 39 source.commonlisp
+T 40 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp
+L register."))
+T 9 source.commonlisp string.quoted.double.commonlisp
+T 10 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 12 source.commonlisp
+L   (:documentation "REPETITION objects represent repetitions of regexes."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 71 source.commonlisp string.quoted.double.commonlisp
+T 72 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 74 source.commonlisp
+L 
+L (defmethod print-object ((repetition repetition) stream)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 49 source.commonlisp
+T 55 source.commonlisp support.class.commonlisp
+T 56 source.commonlisp
+L   (print-unreadable-object (repetition stream :type t :identity t)
+T 3 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 39 source.commonlisp
+T 45 source.commonlisp support.class.commonlisp
+T 46 source.commonlisp
+T 51 source.commonlisp entity.name.variable.commonlisp
+T 52 source.commonlisp
+T 53 source.commonlisp constant.language.commonlisp
+T 54 source.commonlisp
+T 63 source.commonlisp entity.name.variable.commonlisp
+T 64 source.commonlisp
+T 65 source.commonlisp constant.language.commonlisp
+T 66 source.commonlisp
+L     (princ (regex repetition) stream)))
+T 5 source.commonlisp
+T 10 source.commonlisp support.function.f.sideeffects.commonlisp
+T 30 source.commonlisp
+T 36 source.commonlisp support.class.commonlisp
+T 39 source.commonlisp
+L 
+L (defclass register (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 18 source.commonlisp entity.name.type.commonlisp
+T 26 source.commonlisp
+L   ((regex :initarg :regex
+T 10 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L           :accessor regex
+T 10 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+L           :documentation "The inner regex.")
+T 10 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 44 source.commonlisp
+L    (num :initarg :num
+T 8 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+L         :reader num
+T 8 source.commonlisp
+T 15 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+L         :type fixnum
+T 8 source.commonlisp
+T 13 source.commonlisp entity.name.variable.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+L         :documentation "The number of this register, starting from 0.
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 69 source.commonlisp string.quoted.double.commonlisp
+L This is the index into *REGS-START* and *REGS-END*.")
+T 51 source.commonlisp string.quoted.double.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 53 source.commonlisp
+L    (name :initarg :name
+T 9 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+L          :reader name
+T 9 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+L          :documentation "Name of this register or NIL."))
+T 9 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 57 source.commonlisp
+L   (:documentation "REGISTER objects represent register groups."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 65 source.commonlisp
+L 
+L (defmethod print-object ((register register) stream)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 45 source.commonlisp
+T 51 source.commonlisp support.class.commonlisp
+T 52 source.commonlisp
+L   (print-unreadable-object (register stream :type t :identity t)
+T 3 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 37 source.commonlisp
+T 43 source.commonlisp support.class.commonlisp
+T 44 source.commonlisp
+T 49 source.commonlisp entity.name.variable.commonlisp
+T 50 source.commonlisp
+T 51 source.commonlisp constant.language.commonlisp
+T 52 source.commonlisp
+T 61 source.commonlisp entity.name.variable.commonlisp
+T 62 source.commonlisp
+T 63 source.commonlisp constant.language.commonlisp
+T 64 source.commonlisp
+L     (princ (regex register) stream)))
+T 5 source.commonlisp
+T 10 source.commonlisp support.function.f.sideeffects.commonlisp
+T 28 source.commonlisp
+T 34 source.commonlisp support.class.commonlisp
+T 37 source.commonlisp
+L 
+L (defclass standalone (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 20 source.commonlisp entity.name.type.commonlisp
+T 28 source.commonlisp
+L   ((regex :initarg :regex
+T 10 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+L           :accessor regex
+T 10 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+L           :documentation "The inner regex."))
+T 10 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 45 source.commonlisp
+L   (:documentation "A standalone regular expression."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 54 source.commonlisp
+L   
+T 2 source.commonlisp
+L (defclass back-reference (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 24 source.commonlisp entity.name.type.commonlisp
+T 32 source.commonlisp
+L   ((num :initarg :num
+T 8 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+L         :accessor num
+T 8 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+L         :type fixnum
+T 8 source.commonlisp
+T 13 source.commonlisp entity.name.variable.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+L         :documentation "The number of the register this
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp
+L reference refers to.")
+T 20 source.commonlisp string.quoted.double.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 22 source.commonlisp
+L    (name :initarg :name
+T 9 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+L          :accessor name
+T 9 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+L          :documentation "The name of the register this
+T 9 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp
+L reference refers to or NIL.")
+T 27 source.commonlisp string.quoted.double.commonlisp
+T 28 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 29 source.commonlisp
+L    (case-insensitive-p :initarg :case-insensitive-p
+T 23 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp
+T 51 source.commonlisp entity.name.variable.commonlisp
+L                        :reader case-insensitive-p
+T 23 source.commonlisp
+T 30 source.commonlisp entity.name.variable.commonlisp
+T 49 source.commonlisp
+L                        :documentation "Whether we check
+T 23 source.commonlisp
+T 37 source.commonlisp entity.name.variable.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp
+L case-insensitively."))
+T 19 source.commonlisp string.quoted.double.commonlisp
+T 20 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 22 source.commonlisp
+L   (:documentation "BACK-REFERENCE objects represent backreferences."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 70 source.commonlisp
+L 
+L (defclass char-class (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 20 source.commonlisp entity.name.type.commonlisp
+T 28 source.commonlisp
+L   ((test-function :initarg :test-function
+T 18 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 41 source.commonlisp entity.name.variable.commonlisp
+L                   :reader test-function
+T 18 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 39 source.commonlisp
+L                   :type (or function symbol nil)
+T 18 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+T 27 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 37 source.commonlisp
+T 43 source.commonlisp support.class.commonlisp
+T 44 source.commonlisp
+T 47 source.commonlisp constant.language.commonlisp
+T 48 source.commonlisp
+L                   :documentation "A unary function \(accepting a
+T 18 source.commonlisp
+T 32 source.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 51 source.commonlisp string.quoted.double.commonlisp
+T 53 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+L character) which stands in for the character class and does the work
+T 68 source.commonlisp string.quoted.double.commonlisp
+L of checking whether a character belongs to the class."))
+T 53 source.commonlisp string.quoted.double.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 56 source.commonlisp
+L   (:documentation "CHAR-CLASS objects represent character classes."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 69 source.commonlisp
+L 
+L (defclass str (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 13 source.commonlisp entity.name.type.commonlisp
+T 21 source.commonlisp
+L   ((str :initarg :str
+T 8 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+L         :accessor str
+T 8 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+L         :type string
+T 8 source.commonlisp
+T 13 source.commonlisp entity.name.variable.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.function.f.sideeffects.commonlisp
+L         :documentation "The actual string.")
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp
+T 43 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 44 source.commonlisp
+L    (len :initform 0
+T 8 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp constant.numeric.commonlisp
+L         :accessor len
+T 8 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+L         :type fixnum
+T 8 source.commonlisp
+T 13 source.commonlisp entity.name.variable.commonlisp
+T 14 source.commonlisp
+T 20 source.commonlisp support.type.t.commonlisp
+L         :documentation "The length of the string.")
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+L    (case-insensitive-p :initarg :case-insensitive-p
+T 23 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp
+T 51 source.commonlisp entity.name.variable.commonlisp
+L                        :reader case-insensitive-p
+T 23 source.commonlisp
+T 30 source.commonlisp entity.name.variable.commonlisp
+T 49 source.commonlisp
+L                        :documentation "If we match case-insensitively.")
+T 23 source.commonlisp
+T 37 source.commonlisp entity.name.variable.commonlisp
+T 38 source.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp
+T 71 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 72 source.commonlisp
+L    (offset :initform nil
+T 11 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 21 source.commonlisp
+T 24 source.commonlisp constant.language.commonlisp
+L            :accessor offset
+T 11 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+L            :documentation "Offset from the left of the whole
+T 11 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp
+L parse tree. The first regex has offset 0. NIL if unknown, i.e. behind
+T 69 source.commonlisp string.quoted.double.commonlisp
+L a variable-length regex.")
+T 24 source.commonlisp string.quoted.double.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 26 source.commonlisp
+L    (skip :initform nil
+T 9 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+T 22 source.commonlisp constant.language.commonlisp
+L          :initarg :skip
+T 9 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+L          :accessor skip
+T 9 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+L          :documentation "If we can avoid testing for this
+T 9 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp
+L string because the SCAN function has done this already.")
+T 55 source.commonlisp string.quoted.double.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 57 source.commonlisp
+L    (start-of-end-string-p :initform nil
+T 26 source.commonlisp
+T 35 source.commonlisp entity.name.variable.commonlisp
+T 36 source.commonlisp
+T 39 source.commonlisp constant.language.commonlisp
+L                           :accessor start-of-end-string-p
+T 26 source.commonlisp
+T 35 source.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp
+L                           :documentation "If this is the unique
+T 26 source.commonlisp
+T 40 source.commonlisp entity.name.variable.commonlisp
+T 41 source.commonlisp
+T 42 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+L STR which starts END-STRING (a slot of MATCHER)."))
+T 48 source.commonlisp string.quoted.double.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+L   (:documentation "STR objects represent string."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 48 source.commonlisp string.quoted.double.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+L 
+L (defmethod print-object ((str str) stream)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 35 source.commonlisp
+T 41 source.commonlisp support.class.commonlisp
+T 42 source.commonlisp
+L   (print-unreadable-object (str stream :type t :identity t)
+T 3 source.commonlisp
+T 26 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 32 source.commonlisp
+T 38 source.commonlisp support.class.commonlisp
+T 39 source.commonlisp
+T 44 source.commonlisp entity.name.variable.commonlisp
+T 45 source.commonlisp
+T 46 source.commonlisp constant.language.commonlisp
+T 47 source.commonlisp
+T 56 source.commonlisp entity.name.variable.commonlisp
+T 57 source.commonlisp
+T 58 source.commonlisp constant.language.commonlisp
+T 59 source.commonlisp
+L     (princ (str str) stream)))
+T 5 source.commonlisp
+T 10 source.commonlisp support.function.f.sideeffects.commonlisp
+T 21 source.commonlisp
+T 27 source.commonlisp support.class.commonlisp
+T 30 source.commonlisp
+L 
+L (defclass anchor (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp entity.name.type.commonlisp
+T 24 source.commonlisp
+L   ((startp :initarg :startp
+T 11 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+T 20 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+L            :reader startp
+T 11 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 25 source.commonlisp
+L            :documentation "Whether this is a \"start anchor\".")
+T 11 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 45 source.commonlisp string.quoted.double.commonlisp
+T 47 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp
+T 61 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 64 source.commonlisp
+L    (multi-line-p :initarg :multi-line-p
+T 17 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+T 39 source.commonlisp entity.name.variable.commonlisp
+L                  :initform nil
+T 17 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 30 source.commonlisp constant.language.commonlisp
+L                  :reader multi-line-p
+T 17 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 37 source.commonlisp
+L                  :documentation "Whether we're in multi-line mode,
+T 17 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp
+L i.e. whether each #\\Newline is surrounded by anchors.")
+T 19 source.commonlisp string.quoted.double.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp
+T 55 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 56 source.commonlisp
+L    (no-newline-p :initarg :no-newline-p
+T 17 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+T 39 source.commonlisp entity.name.variable.commonlisp
+L                  :initform nil
+T 17 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 30 source.commonlisp constant.language.commonlisp
+L                  :reader no-newline-p
+T 17 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 37 source.commonlisp
+L                  :documentation "Whether we ignore #\\Newline at the end."))
+T 17 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 52 source.commonlisp string.quoted.double.commonlisp
+T 54 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 73 source.commonlisp string.quoted.double.commonlisp
+T 74 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 76 source.commonlisp
+L   (:documentation "ANCHOR objects represent anchors like \"^\" or \"$\"."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 57 source.commonlisp string.quoted.double.commonlisp
+T 59 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 60 source.commonlisp string.quoted.double.commonlisp
+T 62 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 66 source.commonlisp string.quoted.double.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 69 source.commonlisp string.quoted.double.commonlisp
+T 71 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 72 source.commonlisp string.quoted.double.commonlisp
+T 73 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 75 source.commonlisp
+L 
+L (defclass everything (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 20 source.commonlisp entity.name.type.commonlisp
+T 28 source.commonlisp
+L   ((single-line-p :initarg :single-line-p
+T 18 source.commonlisp
+T 26 source.commonlisp entity.name.variable.commonlisp
+T 27 source.commonlisp
+T 41 source.commonlisp entity.name.variable.commonlisp
+L                   :reader single-line-p
+T 18 source.commonlisp
+T 25 source.commonlisp entity.name.variable.commonlisp
+T 39 source.commonlisp
+L                   :documentation "Whether we're in single-line mode,
+T 18 source.commonlisp
+T 32 source.commonlisp entity.name.variable.commonlisp
+T 33 source.commonlisp
+T 34 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp
+L i.e. whether we also match #\\Newline."))
+T 28 source.commonlisp string.quoted.double.commonlisp
+T 30 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 38 source.commonlisp string.quoted.double.commonlisp
+T 39 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 41 source.commonlisp
+L   (:documentation "EVERYTHING objects represent regexes matching
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp
+L \"everything\", i.e. dots."))
+T 2 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp
+T 14 source.commonlisp string.quoted.double.commonlisp constant.character.escape.commonlisp
+T 26 source.commonlisp string.quoted.double.commonlisp
+T 27 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 29 source.commonlisp
+L 
+L (defclass word-boundary (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 23 source.commonlisp entity.name.type.commonlisp
+T 31 source.commonlisp
+L   ((negatedp :initarg :negatedp
+T 13 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+T 31 source.commonlisp entity.name.variable.commonlisp
+L              :reader negatedp
+T 13 source.commonlisp
+T 20 source.commonlisp entity.name.variable.commonlisp
+T 29 source.commonlisp
+L              :documentation "Whether we mean the opposite,
+T 13 source.commonlisp
+T 27 source.commonlisp entity.name.variable.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 58 source.commonlisp string.quoted.double.commonlisp
+L i.e. no word-boundary."))
+T 22 source.commonlisp string.quoted.double.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 25 source.commonlisp
+L   (:documentation "WORD-BOUNDARY objects represent word-boundary assertions."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 76 source.commonlisp string.quoted.double.commonlisp
+T 77 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 79 source.commonlisp
+L 
+L (defclass branch (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp entity.name.type.commonlisp
+T 24 source.commonlisp
+L   ((test :initarg :test
+T 9 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+L          :accessor test
+T 9 source.commonlisp
+T 18 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+L          :documentation "The test of this branch, one of
+T 9 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 25 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 56 source.commonlisp string.quoted.double.commonlisp
+L LOOKAHEAD, LOOKBEHIND, or a number.")
+T 35 source.commonlisp string.quoted.double.commonlisp
+T 36 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 37 source.commonlisp
+L    (then-regex :initarg :then-regex
+T 15 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 35 source.commonlisp entity.name.variable.commonlisp
+L                :accessor then-regex
+T 15 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 35 source.commonlisp
+L                :documentation "The regex that's to be matched if the
+T 15 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp
+L test succeeds.")
+T 14 source.commonlisp string.quoted.double.commonlisp
+T 15 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 16 source.commonlisp
+L    (else-regex :initarg :else-regex
+T 15 source.commonlisp
+T 23 source.commonlisp entity.name.variable.commonlisp
+T 24 source.commonlisp
+T 35 source.commonlisp entity.name.variable.commonlisp
+L                :initform (make-instance 'void)
+T 15 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 26 source.commonlisp
+T 39 source.commonlisp support.function.sgf.nosideeffects.commonlisp
+T 40 source.commonlisp
+T 41 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 46 source.commonlisp
+L                :accessor else-regex
+T 15 source.commonlisp
+T 24 source.commonlisp entity.name.variable.commonlisp
+T 35 source.commonlisp
+L                :documentation "The regex that's to be matched if the
+T 15 source.commonlisp
+T 29 source.commonlisp entity.name.variable.commonlisp
+T 30 source.commonlisp
+T 31 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp
+L test fails."))
+T 11 source.commonlisp string.quoted.double.commonlisp
+T 12 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 14 source.commonlisp
+L   (:documentation "BRANCH objects represent Perl's conditional regular
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 70 source.commonlisp string.quoted.double.commonlisp
+L expressions."))
+T 12 source.commonlisp string.quoted.double.commonlisp
+T 13 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 15 source.commonlisp
+L     
+T 4 source.commonlisp
+L (defclass filter (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 16 source.commonlisp entity.name.type.commonlisp
+T 24 source.commonlisp
+L   ((fn :initarg :fn
+T 7 source.commonlisp
+T 15 source.commonlisp entity.name.variable.commonlisp
+T 16 source.commonlisp
+T 19 source.commonlisp entity.name.variable.commonlisp
+L        :accessor fn
+T 7 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+L        :type (or function symbol)
+T 7 source.commonlisp
+T 12 source.commonlisp entity.name.variable.commonlisp
+T 14 source.commonlisp
+T 16 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 26 source.commonlisp
+T 32 source.commonlisp support.class.commonlisp
+T 33 source.commonlisp
+L        :documentation "The user-defined function.")
+T 7 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+T 22 source.commonlisp
+T 23 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 49 source.commonlisp string.quoted.double.commonlisp
+T 50 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 51 source.commonlisp
+L    (len :initarg :len
+T 8 source.commonlisp
+T 16 source.commonlisp entity.name.variable.commonlisp
+T 17 source.commonlisp
+T 21 source.commonlisp entity.name.variable.commonlisp
+L         :reader len
+T 8 source.commonlisp
+T 15 source.commonlisp entity.name.variable.commonlisp
+T 19 source.commonlisp
+L         :documentation "The fixed length of this filter or NIL."))
+T 8 source.commonlisp
+T 22 source.commonlisp entity.name.variable.commonlisp
+T 23 source.commonlisp
+T 24 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+T 64 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 66 source.commonlisp
+L   (:documentation "FILTER objects represent arbitrary functions
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 63 source.commonlisp string.quoted.double.commonlisp
+L defined by the user."))
+T 20 source.commonlisp string.quoted.double.commonlisp
+T 21 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 23 source.commonlisp
+L 
+L (defclass void (regex)
+T 1 source.commonlisp
+T 9 source.commonlisp storage.type.function.defname.commonlisp
+T 10 source.commonlisp
+T 14 source.commonlisp entity.name.type.commonlisp
+T 22 source.commonlisp
+L   ()
+T 4 source.commonlisp
+L   (:documentation "VOID objects represent empty regular expressions."))
+T 3 source.commonlisp
+T 17 source.commonlisp entity.name.variable.commonlisp
+T 18 source.commonlisp
+T 19 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp
+T 69 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+T 71 source.commonlisp
+L 
+L (defmethod initialize-instance :after ((str str) &rest init-args)
+T 1 source.commonlisp
+T 10 source.commonlisp storage.type.function.defname.commonlisp
+T 11 source.commonlisp
+T 12 source.commonlisp entity.name.function.commonlisp
+T 13 source.commonlisp entity.name.function.commonlisp
+T 14 source.commonlisp entity.name.function.commonlisp
+T 15 source.commonlisp entity.name.function.commonlisp
+T 16 source.commonlisp entity.name.function.commonlisp
+T 17 source.commonlisp entity.name.function.commonlisp
+T 18 source.commonlisp entity.name.function.commonlisp
+T 19 source.commonlisp entity.name.function.commonlisp
+T 20 source.commonlisp entity.name.function.commonlisp
+T 21 source.commonlisp entity.name.function.commonlisp
+T 22 source.commonlisp entity.name.function.commonlisp
+T 23 source.commonlisp entity.name.function.commonlisp
+T 24 source.commonlisp entity.name.function.commonlisp
+T 25 source.commonlisp entity.name.function.commonlisp
+T 26 source.commonlisp entity.name.function.commonlisp
+T 27 source.commonlisp entity.name.function.commonlisp
+T 28 source.commonlisp entity.name.function.commonlisp
+T 29 source.commonlisp entity.name.function.commonlisp
+T 30 source.commonlisp entity.name.function.commonlisp
+T 31 source.commonlisp
+T 37 source.commonlisp entity.name.variable.commonlisp
+T 49 source.commonlisp
+T 54 source.commonlisp keyword.other.lambdalist.commonlisp
+T 65 source.commonlisp
+L   (declare #.*standard-optimize-settings*)
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 11 source.commonlisp
+T 13 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 42 source.commonlisp
+L   (declare (ignore init-args))
+T 3 source.commonlisp
+T 10 source.commonlisp storage.type.function.symbol.commonlisp
+T 12 source.commonlisp
+T 18 source.commonlisp storage.type.function.declaration.commonlisp
+T 30 source.commonlisp
+L   "Automatically computes the length of a STR after initialization."
+T 2 source.commonlisp
+T 3 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.begin.commonlisp
+T 67 source.commonlisp string.quoted.double.commonlisp
+T 68 source.commonlisp string.quoted.double.commonlisp punctuation.definition.string.end.commonlisp
+L   (let ((str-slot (slot-value str 'str)))
+T 2 source.commonlisp
+T 3 source.commonlisp
+T 6 source.commonlisp keyword.control.commonlisp
+T 19 source.commonlisp
+T 29 source.commonlisp support.function.f.sideeffects.commonlisp
+T 34 source.commonlisp
+T 35 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 41 source.commonlisp
+L     (unless (typep str-slot
+T 5 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 18 source.commonlisp support.function.f.sideeffects.commonlisp
+T 27 source.commonlisp
+L                    #-:lispworks 'simple-string
+T 19 source.commonlisp
+T 21 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 46 source.commonlisp
+L                    #+:lispworks 'lw:simple-text-string)
+T 19 source.commonlisp
+T 21 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 55 source.commonlisp
+L       (setf (slot-value str 'str)
+T 7 source.commonlisp
+T 11 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 13 source.commonlisp
+T 23 source.commonlisp support.function.f.sideeffects.commonlisp
+T 28 source.commonlisp
+T 29 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 33 source.commonlisp
+L             (coerce str-slot
+T 13 source.commonlisp
+T 19 source.commonlisp support.function.f.sideeffects.commonlisp
+T 28 source.commonlisp
+L                    #-:lispworks 'simple-string
+T 19 source.commonlisp
+T 21 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 46 source.commonlisp
+L                    #+:lispworks 'lw:simple-text-string))))
+T 19 source.commonlisp
+T 21 source.commonlisp variable.other.constant.sharpsign.commonlisp
+T 32 source.commonlisp
+T 33 source.commonlisp variable.other.constant.singlequote.commonlisp
+T 58 source.commonlisp
+L   (setf (len str) (length (str str))))
+T 3 source.commonlisp
+T 7 source.commonlisp storage.type.function.m.nosideeffects.commonlisp
+T 19 source.commonlisp
+T 25 source.commonlisp support.function.f.sideeffects.commonlisp
+T 38 source.commonlisp
+L 
+L 
