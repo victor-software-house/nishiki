@@ -5010,7 +5010,7 @@ impl Pat {
             },
             Pat::DeclarationsOperator => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_8200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypesPrecedencegroupAt0 => Start {
@@ -5345,6 +5345,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -5372,6 +5376,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Swift {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

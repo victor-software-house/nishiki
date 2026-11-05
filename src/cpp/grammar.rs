@@ -38016,14 +38016,10 @@ impl Pat {
             | Pat::ScopeResolutionNamespaceUsingInnerGenerated
             | Pat::ScopeResolutionNamespaceAliasInnerGenerated
             | Pat::ScopeResolutionFunctionDefinitionInnerGenerated
-            | Pat::FunctionCallAt0
             | Pat::ScopeResolutionFunctionCallInnerGenerated
-            | Pat::FunctionCallAt1
             | Pat::NamespaceBlockAt0At4
             | Pat::ScopeResolutionNamespaceBlockInnerGenerated
             | Pat::ScopeResolutionTemplateDefinitionInnerGenerated
-            | Pat::MacroFunctionCallAt0
-            | Pat::MacroFunctionCallAt1
             | Pat::MacroNamespaceBlockAt0At4 => Start {
                 bytes: [
                     0x0400_0001_0000_3e00,
@@ -38031,7 +38027,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::TemplateCallRange | Pat::TemplateCallInnards | Pat::MacroTemplateCallRange => {
@@ -38852,6 +38848,19 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
+            Pat::FunctionCallAt0
+            | Pat::FunctionCallAt1
+            | Pat::MacroFunctionCallAt0
+            | Pat::MacroFunctionCallAt1 => Start {
+                bytes: [
+                    0x0400_0001_0000_3e00,
+                    0x07ff_fffe_97ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
             Pat::FunctionDefinitionAt0At2 | Pat::MacroFunctionDefinitionAt0At2 => Start {
                 bytes: [
                     0x0000_2001_0000_3e00,
@@ -39431,6 +39440,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -39458,6 +39471,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Cpp {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

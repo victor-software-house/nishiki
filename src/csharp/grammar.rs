@@ -9664,7 +9664,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::ObjectCreationExpressionWithParameters
@@ -9908,7 +9908,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::ClassDeclaration | Pat::ClassDeclarationAt0 => Start {
+            Pat::ClassDeclaration => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0004_0008_0000_0000,
@@ -9916,6 +9916,16 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::ClassDeclarationAt0 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0004_0008_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::ClassDeclarationAt0End
@@ -9970,7 +9980,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::StructDeclaration | Pat::StructDeclarationAt0 => Start {
@@ -10025,6 +10035,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -10052,6 +10066,8 @@ impl Rule {
 }
 
 impl rules::Tabled for CSharp {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

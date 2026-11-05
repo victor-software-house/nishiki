@@ -1510,6 +1510,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -1537,6 +1541,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Dart {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

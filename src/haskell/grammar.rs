@@ -4927,7 +4927,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::PragmaAt3 => Start {
@@ -5402,6 +5402,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -5429,6 +5433,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Haskell {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

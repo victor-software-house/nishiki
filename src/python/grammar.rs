@@ -8010,14 +8010,14 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::FunctionDeclaration => Start {
+            Pat::FunctionDeclaration | Pat::StatementKeywordAt0 => Start {
                 bytes: [
                     0x0000_0001_0000_3e00,
                     0x0000_0012_0000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::FunctionDeclarationEnd => Start {
@@ -8038,16 +8038,6 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
-            Pat::StatementKeywordAt0 => Start {
-                bytes: [
-                    0x0000_0001_0000_3e00,
-                    0x0000_0012_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::StatementKeywordAt3 => Start {
@@ -8172,6 +8162,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -8199,6 +8193,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Python {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

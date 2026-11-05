@@ -7110,11 +7110,7 @@ impl Pat {
             | Pat::Nested3At3
             | Pat::Nested7At1
             | Pat::Nested12At1
-            | Pat::GenericParamTypesAt3
             | Pat::Nested13At1
-            | Pat::GenericParamTypesAt5
-            | Pat::FunctionParamTypesAt3
-            | Pat::FunctionParamTypesAt5
             | Pat::Nested14At5
             | Pat::Nested16At3
             | Pat::Nested17At7
@@ -7758,6 +7754,25 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
+            Pat::GenericParamTypesAt3
+            | Pat::GenericParamTypesAt5
+            | Pat::FunctionParamTypesAt3
+            | Pat::FunctionParamTypesAt5
+            | Pat::SupportFunctions
+            | Pat::VariableAssignmentAt0
+            | Pat::StructVariableTypesFieldsMultiAt0
+            | Pat::StructVariableTypesFieldsMultiAt1
+            | Pat::StructVariableTypesFieldsMultiAt2
+            | Pat::StructVariablesTypesFieldsAt5 => Start {
+                bytes: [
+                    0x03ff_0000_0000_0000,
+                    0x07ff_fffe_87ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                matches_at_end: false,
+            },
             Pat::GenericParamTypesAt4 | Pat::FunctionParamTypesAt4 => Start {
                 bytes: [
                     0x03ff_0001_0000_3e00,
@@ -7796,21 +7811,6 @@ impl Pat {
                     0x0000_4000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: false,
-            },
-            Pat::SupportFunctions
-            | Pat::VariableAssignmentAt0
-            | Pat::StructVariableTypesFieldsMultiAt0
-            | Pat::StructVariableTypesFieldsMultiAt1
-            | Pat::StructVariableTypesFieldsMultiAt2
-            | Pat::StructVariablesTypesFieldsAt5 => Start {
-                bytes: [
-                    0x03ff_0000_0000_0000,
-                    0x07ff_fffe_87ff_fffe,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
@@ -8057,6 +8057,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -8084,6 +8088,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Go {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }
