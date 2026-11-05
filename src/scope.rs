@@ -134,6 +134,8 @@ tables! {
     OBJECTIVE_C = objective_c;
     #[cfg(feature = "lang-objective-cpp")]
     OBJECTIVE_CPP = objective_cpp;
+    #[cfg(feature = "lang-pascal")]
+    PASCAL = pascal;
     #[cfg(feature = "lang-php")]
     PHP = php;
     #[cfg(feature = "lang-postcss")]

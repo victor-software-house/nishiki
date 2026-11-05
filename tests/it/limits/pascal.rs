@@ -1,9 +1,7 @@
-//! Hostile lines for Pascal, under the default limits.
-//! The `TextMate` engine runs the language.
+//! Hostile lines for Pascal under the default limits.
 //!
-//! The engine interprets the grammar's own regular expressions.
-//! A line that would cost more than the default work ends at the work limit.
-//! Its tokens still cover the whole line.
+//! A line that would cost more than the default work ends at the work limit,
+//! with tokens that cover it, rather than running on.
 
 use nishiki::{Highlighter, Language, Limit};
 
@@ -14,6 +12,10 @@ fn hostile_pascal_lines_finish_within_the_default_limits() {
     let mut highlighter = Highlighter::new(Language::Pascal);
     for line in [
         "'".repeat(12_000),
+        format!("'{}'", "''".repeat(6_000)),
+        format!("x := '{}", "a".repeat(12_000)),
+        format!("{{{}", "comment ".repeat(1_500)),
+        format!("(*{}", "comment ".repeat(1_500)),
         "{".repeat(12_000),
         "{$".repeat(6_000),
         "(*".repeat(6_000),
@@ -39,4 +41,14 @@ fn hostile_pascal_lines_finish_within_the_default_limits() {
             report.limits().collect::<Vec<_>>()
         );
     }
+}
+
+#[test]
+fn an_unterminated_string_runs_on_across_many_lines_within_the_default_limits() {
+    let mut highlighter = Highlighter::new(Language::Pascal);
+    let filler = "a line of text with no quote in it";
+    let mut lines = vec!["s := 'open"];
+    lines.extend(std::iter::repeat_n(filler, 2_000));
+    let (rows, _) = lex(&mut highlighter, &lines);
+    assert!(rows.iter().all(|(_, report)| report.is_complete()));
 }

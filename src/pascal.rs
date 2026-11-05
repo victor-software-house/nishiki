@@ -1,10 +1,53 @@
-//! Pascal, run by nishiki's `TextMate` engine on the `pascal` grammar that
-//! Shiki bundles.
-//! `oracle/engine-tables.ts` compiles that grammar into `grammar.rs`.
+//! Pascal, including Delphi and Free Pascal, with the scopes of the `pascal`
+//! grammar that Shiki bundles.
+//! The grammar comes from alefragnani's Pascal extension for Visual Studio
+//! Code, after the Pascal `TextMate` bundle.
 //!
-//! The language has no lexer of its own.
-//! Its row in `languages!` names the table.
-//! The engine runs the grammar's rules as Shiki does.
-//! Shiki's Markdown grammar has no Pascal fence.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
+//! Comments, compiler directives and strings are such rules.
 
-pub(crate) mod grammar;
+mod engine;
+mod grammar;
+mod matchers;
+mod scope;
+mod words;
+
+use engine::Pascal;
+pub(crate) use engine::Scratch;
+pub(crate) use scope::NAMES;
+
+use crate::arena::Arena;
+use crate::language::{Context, Line};
+use crate::limits::Finished;
+use crate::rules;
+
+/// Pascal's buffers in the highlighter's scratch.
+/// The first Pascal line allocates them.
+fn buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch {
+    scratch.pascal.get_or_insert_with(Box::default)
+}
+
+/// The state at the start of a Pascal document whose scopes sit on the
+/// stack `base`.
+pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
+    rules::start::<Pascal>(arena, base)
+}
+
+/// The state at the start of the Pascal lines of a fenced code block.
+pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
+    rules::start_embedded::<Pascal>(arena, base)
+}
+
+/// Lexes one line under the crate's lexer contract.
+#[inline]
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
+    rules::lex::<Pascal>(cx, line, state, buffers)
+}
+
+#[cfg(test)]
+mod tests;

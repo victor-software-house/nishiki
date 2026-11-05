@@ -63,6 +63,7 @@ all = [
   "lang-nix",
   "lang-objective-c",
   "lang-objective-cpp",
+  "lang-pascal",
   "lang-php",
   "lang-postcss",
   "lang-powershell",
@@ -133,7 +134,6 @@ textmate = [
   "lang-gdscript",
   "lang-haml",
   "lang-matlab",
-  "lang-pascal",
   "lang-perl",
   "lang-vb",
 ]
@@ -221,7 +221,7 @@ lang-mermaid = ["_scope-table", "_rule-tables", "_classes"]
 lang-nix = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-c = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-cpp = ["lang-objective-c"]
-lang-pascal = ["_textmate"]
+lang-pascal = ["_scope-table", "_rule-tables", "_classes"]
 lang-perl = [
   "_textmate",
   "lang-css",

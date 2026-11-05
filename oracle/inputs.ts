@@ -38,6 +38,7 @@ import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" 
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import objectiveCCoverage from "./inputs/objective-c-coverage.m" with { type: "text" };
 import objectiveCppCoverage from "./inputs/objective-cpp-coverage.mm" with { type: "text" };
+import pascalCoverage from "./inputs/pascal-coverage.pas" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpCoverage from "./inputs/php-coverage.php" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
@@ -1163,7 +1164,7 @@ export const inputs: Input[] = [
   { lang: "objective-cpp", name: "react-native-surface-presenter", url: `${reactNative}/packages/react-native/React/Fabric/RCTSurfacePresenter.mm` },
   { lang: "objective-cpp", name: "react-native-virtual-view", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm` },
   { lang: "objective-cpp", name: "sample", url: `${samples}/objective-cpp.sample` },
-  // Pascal runs on the TextMate engine.
+  { lang: "pascal", name: "coverage", text: pascalCoverage },
   { lang: "pascal", name: "horse-commons", url: `${horse}/src/Horse.Commons.pas` },
   { lang: "pascal", name: "horse-http2-framing", url: `${horse}/src/Horse.Core.Http2.Framing.pas` },
   { lang: "pascal", name: "horse-websocket-console", url: `${horse}/samples/lazarus/console_websocket/console_websocket.lpr` },

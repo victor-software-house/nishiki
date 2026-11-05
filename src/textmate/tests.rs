@@ -483,8 +483,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::haml::grammar::GRAMMAR, "haml"),
     #[cfg(feature = "lang-matlab")]
     (&crate::matlab::grammar::GRAMMAR, "matlab"),
-    #[cfg(feature = "lang-pascal")]
-    (&crate::pascal::grammar::GRAMMAR, "pascal"),
     #[cfg(feature = "lang-perl")]
     (&crate::perl::grammar::GRAMMAR, "perl"),
     #[cfg(feature = "lang-vb")]

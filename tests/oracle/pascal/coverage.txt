@@ -1,0 +1,94 @@
+L { Reaches the units of Shiki's pascal grammar that the other inputs miss. }
+T 1 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+T 74 source.pascal comment.block.pascal.two
+T 75 source.pascal comment.block.pascal.two punctuation.definition.comment.pascal
+L unit Coverage;
+T 4 source.pascal keyword.pascal
+T 14 source.pascal
+L 
+L interface
+T 9 source.pascal keyword.pascal
+L 
+L procedure Forwarded(A: Integer; B: (X)); forward;
+T 9 source.pascal meta.function.prototype.pascal storage.type.prototype.pascal
+T 10 source.pascal meta.function.prototype.pascal
+T 19 source.pascal meta.function.prototype.pascal entity.name.function.prototype.pascal
+T 41 source.pascal meta.function.prototype.pascal
+T 48 source.pascal keyword.pascal
+T 49 source.pascal
+L function Imported; external 'lib';
+T 8 source.pascal meta.function.prototype.pascal storage.type.prototype.pascal
+T 9 source.pascal meta.function.prototype.pascal
+T 17 source.pascal meta.function.prototype.pascal entity.name.function.prototype.pascal
+T 19 source.pascal meta.function.prototype.pascal
+T 27 source.pascal keyword.pascal
+T 28 source.pascal
+T 29 source.pascal string.quoted.single.pascal punctuation.definition.string.begin.pascal
+T 32 source.pascal string.quoted.single.pascal
+T 33 source.pascal string.quoted.single.pascal punctuation.definition.string.end.pascal
+T 34 source.pascal
+L function TBox.Make(const S: string);   Attribute;
+T 8 source.pascal meta.function.prototype.pascal storage.type.prototype.pascal
+T 9 source.pascal meta.function.prototype.pascal
+T 18 source.pascal meta.function.prototype.pascal entity.name.function.prototype.pascal
+T 39 source.pascal meta.function.prototype.pascal
+T 48 source.pascal keyword.pascal
+T 49 source.pascal
+L constructor Create; FORWARD;
+T 11 source.pascal meta.function.prototype.pascal storage.type.prototype.pascal
+T 12 source.pascal meta.function.prototype.pascal
+T 18 source.pascal meta.function.prototype.pascal entity.name.function.prototype.pascal
+T 20 source.pascal meta.function.prototype.pascal
+T 27 source.pascal keyword.pascal
+T 28 source.pascal
+L 
+L implementation
+T 14 source.pascal keyword.pascal
+L 
+L (* A parenthesised comment
+T 2 source.pascal comment.block.pascal.one punctuation.definition.comment.pascal
+T 26 source.pascal comment.block.pascal.one
+L    across two lines *)
+T 20 source.pascal comment.block.pascal.one
+T 22 source.pascal comment.block.pascal.one punctuation.definition.comment.pascal
+L     // A comment after blanks
+T 4 source.pascal punctuation.whitespace.comment.leading.pascal
+T 6 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 29 source.pascal comment.line.double-slash.pascal.two
+L 	// A comment after a tab
+T 1 source.pascal punctuation.whitespace.comment.leading.pascal
+T 3 source.pascal comment.line.double-slash.pascal.two punctuation.definition.comment.pascal
+T 25 source.pascal comment.line.double-slash.pascal.two
+L 
+L procedure Check;
+T 9 source.pascal meta.function.pascal storage.type.function.pascal
+T 10 source.pascal meta.function.pascal
+T 15 source.pascal meta.function.pascal entity.name.function.pascal
+T 16 source.pascal
+L begin
+T 5 source.pascal keyword.pascal
+L   Assert(1 < 2);
+T 2 source.pascal
+T 8 source.pascal keyword.control
+T 9 source.pascal
+T 10 source.pascal constant.numeric.pascal
+T 13 source.pascal
+T 14 source.pascal constant.numeric.pascal
+T 16 source.pascal
+L   ASSERT(True); (* inline *)
+T 2 source.pascal
+T 8 source.pascal keyword.control
+T 9 source.pascal
+T 13 source.pascal constant.language.pascal
+T 16 source.pascal
+T 18 source.pascal comment.block.pascal.one punctuation.definition.comment.pascal
+T 26 source.pascal comment.block.pascal.one
+T 28 source.pascal comment.block.pascal.one punctuation.definition.comment.pascal
+L end;
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 
+L end.
+T 3 source.pascal keyword.pascal
+T 4 source.pascal
+L 

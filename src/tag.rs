@@ -129,6 +129,9 @@ tags! {
     /// Objective-C++.
     #[cfg(feature = "lang-objective-cpp")]
     OBJECTIVE_CPP = 0x4100,
+    /// Pascal.
+    #[cfg(feature = "lang-pascal")]
+    PASCAL = 0x4500,
     /// PHP.
     #[cfg(feature = "lang-php")]
     PHP = 0x3F00,

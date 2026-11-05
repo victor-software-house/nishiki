@@ -49,6 +49,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | Objective-C | `objective-c` | 371 of 377 | 98.4% | 346 of 377 | 91.8% | 37 | 0 | yes |
 | Objective-C++ | `objective-cpp` | 395 of 427 | 92.5% | 380 of 433 | 87.8% | 85 | 0 | yes |
+| Pascal | `pascal` | 24 of 25 | 96.0% | 13 of 14 | 92.9% | 2 | 0 | yes |
 | PHP | `php` | 476 of 476 | 100.0% | 411 of 433 | 94.9% | 22 | 0 | yes |
 | PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
@@ -789,6 +790,13 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #preprocessor-rule-enabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
 #preprocessor-rule-enabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
 #preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+```
+
+### `pascal`
+
+```text
+patterns[12].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[15].patterns[0].match  ''  waived: the string's end `'` is tried before its patterns at every quote, so `''` ends the string and the next quote starts another
 ```
 
 ### `php`

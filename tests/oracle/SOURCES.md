@@ -482,6 +482,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `objective-cpp/react-native-surface-presenter` | [`RCTSurfacePresenter.mm`][react-native-surface-presenter] in facebook/react-native | [MIT][react-native-licence] |
 | `objective-cpp/react-native-virtual-view` | [`RCTVirtualViewComponentView.mm`][react-native-virtual-view] in facebook/react-native | [MIT][react-native-licence] |
 | `objective-cpp/sample` | [`samples/objective-cpp.sample`][objective-cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `pascal/coverage` | `oracle/inputs/pascal-coverage.pas`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `pascal/horse-commons` | [`src/Horse.Commons.pas`][horse-commons] in HashLoad/horse | [MIT][horse-licence] |
 | `pascal/horse-http2-framing` | [`src/Horse.Core.Http2.Framing.pas`][horse-http2-framing] in HashLoad/horse | [MIT][horse-licence] |
 | `pascal/horse-websocket-console` | [`samples/lazarus/console_websocket/console_websocket.lpr`][horse-websocket-console] in HashLoad/horse | [MIT][horse-licence] |
@@ -887,6 +888,8 @@ Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 None of them has an `R` string macro, whose contents Shiki lexes as R and nishiki leaves plain.
 `coffee/sample`, `coffee/coffeescript-helpers`, `coffee/coffeescript-javascript-literals`, `coffee/coffeescript-browser` and `coffee/coverage` are CoffeeScript's development inputs, and `markdown/coffeescript-classes` is the development input for CoffeeScript fences.
 `coffee/coffeescript-cake`, `coffee/coffeescript-optparse`, `coffee/coffeescript-repl` and `markdown/coffeescript-super-this` are held out.
+`pascal/sample`, `pascal/horse-commons`, `pascal/horse-http2-framing` and `pascal/coverage` are Pascal's development inputs.
+`pascal/horse-websocket-console` and `pascal/r8brain-dll` are held out.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.

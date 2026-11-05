@@ -101,6 +101,10 @@ pub(crate) struct Scratch {
     /// Objective-C's is.
     #[cfg(feature = "lang-objective-cpp")]
     pub(crate) objective_cpp: Option<Box<crate::objective_cpp::Scratch>>,
+    /// The Pascal lexer's, for Pascal documents.
+    /// It is boxed and allocated by the first Pascal line.
+    #[cfg(feature = "lang-pascal")]
+    pub(crate) pascal: Option<Box<crate::pascal::Scratch>>,
     /// The PHP lexer's, for PHP documents and Markdown PHP fences.
     /// It is boxed and allocated by the first PHP line, as Dart's is.
     #[cfg(feature = "lang-php")]

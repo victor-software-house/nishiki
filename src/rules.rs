@@ -45,6 +45,7 @@ use std::fmt::Debug;
     feature = "lang-mermaid",
     feature = "lang-objective-c",
     feature = "lang-objective-cpp",
+    feature = "lang-pascal",
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-elixir"

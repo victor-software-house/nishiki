@@ -50,6 +50,7 @@ cargo check --locked --tests --no-default-features --features lang-mermaid
 cargo check --locked --tests --no-default-features --features lang-nix
 cargo check --locked --tests --no-default-features --features lang-objective-c
 cargo check --locked --tests --no-default-features --features lang-objective-cpp
+cargo check --locked --tests --no-default-features --features lang-pascal
 cargo check --locked --tests --no-default-features --features lang-php
 cargo check --locked --tests --no-default-features --features lang-postcss
 cargo check --locked --tests --no-default-features --features lang-powershell

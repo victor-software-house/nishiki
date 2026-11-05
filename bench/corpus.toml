@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 9
+version = 10
 
 [[file]]
 language = "bat"
@@ -918,6 +918,28 @@ licence = "MIT"
 licence_source = "https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/LICENSE"
 bytes = 34356
 sha256 = "3521948583b9abb08df2e0fc91c190ed54f462fc21f573dbd655eda45050e6fa"
+
+[[file]]
+language = "pascal"
+tier = "small"
+origin = "neutral"
+path = "pascal/small/horse-callback.pas"
+source = "https://raw.githubusercontent.com/HashLoad/horse/a0ac019be1d29fd9deb20f61ca779d5631718bdb/src/Horse.Callback.pas"
+licence = "MIT"
+licence_source = "https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/LICENSE"
+bytes = 3023
+sha256 = "5a1f9008f93d9f47477f39fe21fe1fafecb01909ad4814a58a9d3bb7383898ca"
+
+[[file]]
+language = "pascal"
+tier = "medium"
+origin = "neutral"
+path = "pascal/medium/horse-core-route.pas"
+source = "https://raw.githubusercontent.com/HashLoad/horse/a0ac019be1d29fd9deb20f61ca779d5631718bdb/src/Horse.Core.Route.pas"
+licence = "MIT"
+licence_source = "https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/LICENSE"
+bytes = 19008
+sha256 = "c7b1507c9da0c32609bd5923c7f1372e124348047e6c2cc56216f69d0d655c10"
 
 [[file]]
 language = "postcss"

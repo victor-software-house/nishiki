@@ -1023,14 +1023,19 @@ languages! {
         halts: true,
     }
     /// Pascal, including Delphi and Free Pascal, with the scopes of Shiki's
-    /// `pascal` grammar, which nishiki's `TextMate` engine runs.
-    Pascal {
-        feature: "lang-pascal",
-        names: ["pascal"],
-        engine: crate::pascal::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// `pascal` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - `read`, `write`, `result` and `file` are always `keyword.pascal`: the keyword list comes first, so a property accessor, the `result` variable and the `file` type never get their own scopes.
+    /// - `''` inside a string ends the string and starts another, since a string's end is tried before its escape.
+    /// - A `{…}` or `(*…*)` comment ends at its first closer; comments do not nest.
+    /// - `{$…}` is a compiler directive, scoped `string.regexp`.
+    /// - An `asm` block lexes as Pascal.
+    /// - A number's first branch, `\b\d+`, has no `\b` after it, so `12ab` starts with the number `12`; its second, `\d*\.\d+`, has none before it, so `x1.5` holds the number `1.5`.
+    /// - Words match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Pascal { feature: "lang-pascal", names: ["pascal"], module: pascal }
     /// GDScript, Godot's scripting language, with the scopes of Shiki's
     /// `gdscript` grammar, which nishiki's `TextMate` engine runs.
     GdScript {

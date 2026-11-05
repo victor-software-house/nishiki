@@ -1362,6 +1362,12 @@ export const waivers: Waiver[] = [
   { grammar: "elixir", path: "#core_syntax.patterns[21].match", group: 1, reason: missing(0) },
   { grammar: "elixir", path: "#core_syntax.patterns[47].begin", group: 1, reason: blanks },
   { grammar: "elixir", path: "#core_syntax.patterns[48].begin", group: 1, reason: blanks },
+  { grammar: "pascal", path: "patterns[12].begin", group: 1, reason: blanks },
+  {
+    grammar: "pascal",
+    path: "patterns[15].patterns[0].match",
+    reason: "the string's end `'` is tried before its patterns at every quote, so `''` ends the string and the next quote starts another",
+  },
   { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
   {
@@ -1562,6 +1568,7 @@ export const complete: string[] = [
   "nix",
   "objective-c",
   "objective-cpp",
+  "pascal",
   "php",
   "postcss",
   "powershell",

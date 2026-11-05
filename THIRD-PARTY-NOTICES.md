@@ -1474,7 +1474,7 @@ SOFTWARE.
 
 ## Pascal
 
-Its TextMate engine runs the Pascal TextMate grammar that Shiki bundles as `pascal` (`syntaxes/pascal.tmLanguage` in [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal) at commit `f2d6345bd9fe83932f4d04fcacf98ce7d74b8034`), with its rules compiled into tables (`src/pascal/grammar.rs`).
+Its Pascal lexer emits the scope names of the Pascal TextMate grammar that Shiki bundles as `pascal` (`syntaxes/pascal.tmLanguage` in [alefragnani/vscode-language-pascal](https://github.com/alefragnani/vscode-language-pascal) at commit `f2d6345bd9fe83932f4d04fcacf98ce7d74b8034`), and tries that grammar's rules in its order, from tables generated from it (`src/pascal/grammar.rs` and `src/pascal/words.rs`).
 That repository's grammar extends `Syntaxes/Pascal.plist` in [textmate/pascal.tmbundle](https://github.com/textmate/pascal.tmbundle), and keeps its UUID.
 That repository is licensed under the MIT License:
 

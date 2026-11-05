@@ -92,7 +92,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Nix | `Language::Nix` | `lang-nix` | `all` | `nix` |
 | Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `all` | `objective-c`, `objc` |
 | Objective-C++ | `Language::ObjectiveCpp` | `lang-objective-cpp` | `all` | `objective-cpp` |
-| Pascal | `Language::Pascal` | `lang-pascal` | `textmate` | `pascal` |
+| Pascal | `Language::Pascal` | `lang-pascal` | `all` | `pascal` |
 | Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |
 | PHP | `Language::Php` | `lang-php` | `all` | `php` |
 | PostCSS | `Language::PostCss` | `lang-postcss` | `all` | `postcss` |
