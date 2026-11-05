@@ -219,9 +219,13 @@ pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, 
     match lexer.root_halts() {
         Some(&(end, after)) => scan::<G, true>(lexer, end, after),
         None if G::DEPTH_HALTS
-            && let Some(deep) = lexer.deep_halt() =>
+            && let Some((deep, loses_ties)) = lexer.deep_halt() =>
         {
-            scan::<G, true>(lexer, deep, None)
+            if loses_ties {
+                scan::<G, true>(lexer, crate::language::NO_HALTS.0, Some(deep))
+            } else {
+                scan::<G, true>(lexer, deep, None)
+            }
         }
         None => scan::<G, false>(lexer, &|_: &[u8], _: usize| false, None),
     }

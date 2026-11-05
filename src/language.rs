@@ -1551,6 +1551,14 @@ pub(crate) trait Halt {
     fn deep(&self) -> Option<&dyn Halt> {
         None
     }
+
+    /// Whether [`Halt::deep`] loses a tie with the embedded patterns.
+    /// It then holds only where none of them matches, as an injection without
+    /// `L:` does, such as Blade's between tags.
+    #[cfg(feature = "_language")]
+    fn deep_loses_ties(&self) -> bool {
+        false
+    }
 }
 
 /// Places in order, as a halt that holds at each of them, such as the starts
