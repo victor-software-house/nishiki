@@ -177,3 +177,17 @@ fn an_embedded_line_pops_the_host_at_a_root_close() {
         ]
     );
 }
+
+/// Embedded, a `}` at Less's root after a closed rule pops the host where it
+/// stands, mid-line.
+#[test]
+fn an_embedded_line_pops_the_host_at_a_root_close_mid_line() {
+    let line = "a { b: c; } }</style>";
+    assert_eq!(
+        stops(&[line]),
+        [Some(Stopped {
+            at: line.rfind('}').expect("the second close"),
+            kind: StopKind::PopHost,
+        })]
+    );
+}

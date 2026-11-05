@@ -892,6 +892,36 @@ fn less_fences_embed_the_less_lexer_without_its_root() {
     }
 }
 
+/// A `}` at Less's root after a closed rule pops the fence's body mid-line.
+/// Less's tokens end at that `}`, and the text from it sits on the fence.
+#[cfg(feature = "lang-less")]
+#[test]
+fn a_less_fence_pops_its_body_at_a_root_close_mid_line() {
+    let line = "h { i: j; } } k";
+    let text = formatdoc! {"
+        ```less
+        {line}
+        ```
+    "};
+    let lines = lex(&text);
+    let tokens = lines
+        .iter()
+        .find(|tokens| {
+            tokens
+                .iter()
+                .map(|(t, _)| t.as_str())
+                .collect::<String>()
+                .starts_with(line)
+        })
+        .expect("the popping line");
+    let less: usize = tokens
+        .iter()
+        .take_while(|(_, scopes)| scopes.iter().any(|s| s == "meta.embedded.block.less"))
+        .map(|(t, _)| t.len())
+        .sum();
+    assert_eq!(less, line.rfind('}').expect("the second close"));
+}
+
 #[test]
 fn go_state_continues_across_the_lines_of_a_fence() {
     let text = indoc! {"

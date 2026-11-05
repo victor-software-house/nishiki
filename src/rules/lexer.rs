@@ -1813,6 +1813,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// one that embeds the grammar.
     /// The line then drops its halts and stops at the match
     /// ([`StopKind::PopHost`]).
+    ///
+    /// That stop is read from the cursor, which equals `start` there:
+    /// - the scan searches from the cursor, so `start` is at or past it;
+    /// - a match that did not advance ends at or before the cursor;
+    /// - [`Lexer::emit_match`] leaves the cursor where it was, and
+    ///   [`Lexer::retokenise`] restores it after a capture's patterns.
+    ///
+    /// Reading `start` instead keeps it live across `emit_match`'s calls,
+    /// which costs `tokenize` a stack reload on every match.
     fn match_rule(
         &mut self,
         name: Scopes<G::Scope>,
@@ -1832,7 +1841,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             if self.depth() > 0 {
                 self.pop_frame();
             } else if self.halt.take().is_some() {
-                self.halted = Some(start);
+                self.halted = Some(self.pos);
             }
             let node = self.top().content;
             self.emit(line_length, node);
