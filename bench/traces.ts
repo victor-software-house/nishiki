@@ -5,6 +5,9 @@
 // `bun bench/traces.ts write` writes every trace into bench/traces/.
 // `bun bench/traces.ts check`, run by `mise run check:traces`, fails when a
 // trace and its source disagree.
+// An edit trace's source is the file at its `to` commit.
+// Where the clone lacks that commit, as CI's shallow clone does, the check
+// says so and holds the trace to the `sha256` that `write` read from git.
 //
 // Three kinds of trace:
 //
@@ -249,12 +252,14 @@ function split(trace: string, last: RegExp): { fields: Map<string, string>; rest
   throw new Error("the trace has no body");
 }
 
+/** Builds every trace, then replaces the folders, so a failing git command
+ * leaves the committed traces in place. */
 async function write() {
+  const all = appendTraces();
+  for (const [path, language] of HISTORY) all.set(`edits/${path.replaceAll("/", "-")}.edits`, await editTrace(path, language));
   rmSync(join(traces, "reply"), { recursive: true, force: true });
   rmSync(join(traces, "tool-write"), { recursive: true, force: true });
   rmSync(join(traces, "edits"), { recursive: true, force: true });
-  const all = appendTraces();
-  for (const [path, language] of HISTORY) all.set(`edits/${path.replaceAll("/", "-")}.edits`, await editTrace(path, language));
   for (const [name, trace] of all) {
     mkdirSync(join(traces, name.split("/")[0]!), { recursive: true });
     writeFileSync(join(traces, name), trace);
@@ -262,8 +267,15 @@ async function write() {
   console.log(`wrote ${all.size} traces`);
 }
 
-function check() {
+/** The file `path` at `commit`, or `undefined` where the clone lacks it. */
+async function shown(commit: string, path: string): Promise<string | undefined> {
+  const result = await $`git -C ${root} show ${commit}:${path}`.nothrow().quiet();
+  return result.exitCode === 0 ? result.text() : undefined;
+}
+
+async function check() {
   const problems: string[] = [];
+  const unread: string[] = [];
   const expected = appendTraces();
   for (const [name, trace] of expected) {
     let found: string;
@@ -292,6 +304,12 @@ function check() {
     const { text, problems: found } = replay(parseEdits(rest));
     problems.push(...found.map((problem) => `edits/${file}: ${problem}`));
     if (sha256(encoder.encode(text)) !== fields.get("sha256")) problems.push(`edits/${file}: replaying it does not give its sha256`);
+    const source = await shown(fields.get("to") ?? "", fields.get("source") ?? "");
+    if (source === undefined) unread.push(`edits/${file}`);
+    else if (source !== text) problems.push(`edits/${file}: replaying it does not give its source at its \`to\` commit`);
+  }
+  if (unread.length > 0) {
+    console.error(`this clone lacks the \`to\` commit of ${unread.join(", ")}; those traces are held to their sha256 alone`);
   }
   if (problems.length > 0) {
     console.error(problems.join("\n"));
@@ -301,5 +319,5 @@ function check() {
 
 const mode = Bun.argv[2];
 if (mode === "write") await write();
-else if (mode === "check") check();
+else if (mode === "check") await check();
 else throw new Error("usage: traces.ts write|check");
