@@ -19,6 +19,7 @@ import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "t
 import elixirCoverage from "./inputs/elixir-coverage.ex" with { type: "text" };
 import elixirEmbedded from "./inputs/elixir-embedded.ex" with { type: "text" };
 import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
+import gdscriptCoverage from "./inputs/gdscript-coverage.gd" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
@@ -689,7 +690,10 @@ export const inputs: Input[] = [
   { lang: "erb", name: "rails-scaffold-form", url: `${rails}/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt` },
   { lang: "erb", name: "rails-welcome", url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb` },
   { lang: "erb", name: "sample", url: `${samples}/erb.sample` },
-  // GDScript runs on the TextMate engine.
+  { lang: "gdscript", name: "coverage", text: gdscriptCoverage },
+  { lang: "gdscript", name: "godot-custom-drawing-lines", url: `${godotDemos}/2d/custom_drawing/lines.gd` },
+  { lang: "gdscript", name: "godot-ik-fabrik", url: `${godotDemos}/3d/ik/addons/sade/ik_fabrik.gd` },
+  { lang: "gdscript", name: "godot-midi-piano", url: `${godotDemos}/audio/midi_piano/piano.gd` },
   { lang: "gdscript", name: "godot-paint-control", url: `${godotDemos}/gui/gd_paint/paint_control.gd` },
   { lang: "gdscript", name: "godot-voxel-chunk", url: `${godotDemos}/3d/voxel/world/chunk.gd` },
   { lang: "gdscript", name: "grammar-example-1", url: `${godotVscode}/syntaxes/examples/gdscript1.gd` },

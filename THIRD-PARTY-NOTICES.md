@@ -811,7 +811,7 @@ An exception is made for files in readable text which contain their own license 
 
 ## GDScript
 
-Its TextMate engine runs the GDScript TextMate grammar that Shiki bundles as `gdscript` (`syntaxes/GDScript.tmLanguage.json` in [godotengine/godot-vscode-plugin](https://github.com/godotengine/godot-vscode-plugin) at commit `3f2860fd76c591a6010f0d35220490933e41d01d`), with its rules compiled into tables (`src/gdscript/grammar.rs`).
+Its GDScript lexer emits the scope names of the GDScript TextMate grammar that Shiki bundles as `gdscript` (`syntaxes/GDScript.tmLanguage.json` in [godotengine/godot-vscode-plugin](https://github.com/godotengine/godot-vscode-plugin) at commit `3f2860fd76c591a6010f0d35220490933e41d01d`), and tries that grammar's rules in its order, from tables generated from it (`src/gdscript/grammar.rs`).
 That repository is licensed under the MIT License:
 
 ```text

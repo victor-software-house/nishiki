@@ -78,6 +78,9 @@ tags! {
     /// Elixir.
     #[cfg(feature = "lang-elixir")]
     ELIXIR = 0x4300,
+    /// GDScript.
+    #[cfg(feature = "lang-gdscript")]
+    GDSCRIPT = 0x4600,
     /// Go.
     #[cfg(feature = "lang-go")]
     GO = 0x2300,

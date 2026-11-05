@@ -44,6 +44,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Elixir line, as Haskell's is.
     #[cfg(feature = "lang-elixir")]
     pub(crate) elixir: Option<Box<crate::elixir::Scratch>>,
+    /// The GDScript lexer's, for GDScript documents.
+    /// It is boxed and allocated by the first GDScript line, as Haskell's is.
+    #[cfg(feature = "lang-gdscript")]
+    pub(crate) gdscript: Option<Box<crate::gdscript::Scratch>>,
     /// The Go lexer's, for Go documents.
     #[cfg(feature = "lang-go")]
     pub(crate) go: crate::go::Scratch,

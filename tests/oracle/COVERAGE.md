@@ -26,6 +26,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
 | Elixir | `elixir` | 130 of 130 | 100.0% | 80 of 84 | 95.2% | 4 | 0 | yes |
 | ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
+| GDScript | `gdscript` | 102 of 105 | 97.1% | 94 of 99 | 94.9% | 8 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
@@ -320,6 +321,19 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].end  groups 0 (waived: the match is only blanks and the line feed that end the line, and the oracle compares no blank)
 injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].begin  groups 0 (waived: the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank)
 injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].end  groups 0 (waived: the match is only blanks and the line feed that end the line, and the oracle compares no blank)
+```
+
+### `gdscript`
+
+```text
+#annotated_parameter.patterns[1].match  =(?!=)  waived: `#expression`, before it in its only list, holds `#assignment_operator`, whose `=` matches at every `=` this does
+#any_method.match  \b([A-Z_a-z]\w*)\b(?=\s*\()  waived: `#function_call` has the same test, `(?=\b[A-Z_a-z]\w*\b\s*\()`, and `#base_expression` holds it before it in `#expression`, its only list
+#builtin_get_node_shorthand_bare.match  groups 4 (waived: the grammar names the group, but the expression has three groups)
+#class_declaration.match  groups 2 (waived: the grammar names the group, but the expression has one group)
+#class_new.match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#in_keyword.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#lambda_declaration.begin  groups 2 (waived: the grammar names the group, but the expression has one group)
+#statement_keyword.patterns[1].match  \b(?<!\.)(class)\b  waived: `#keywords`, before it in `#base_expression`, its only list, matches `class` with the same `\b` on each side
 ```
 
 ### `go`

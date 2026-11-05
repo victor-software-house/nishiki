@@ -16,6 +16,8 @@ use crate::limits::{Limit, Limits, LineReport};
 #[cfg(feature = "lang-html")]
 #[path = "../../tests/engine/elixir.rs"]
 mod elixir_tables;
+#[path = "../../tests/engine/gdscript.rs"]
+mod gdscript_tables;
 #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
 #[path = "../../tests/engine/html.rs"]
 mod html_tables;
@@ -293,6 +295,13 @@ fn elixir_grammar_matches_shiki() {
     check(&elixir_tables::GRAMMAR, "elixir", Scanners::On);
 }
 
+/// GDScript has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn gdscript_grammar_matches_shiki() {
+    check(&gdscript_tables::GRAMMAR, "gdscript", Scanners::On);
+}
+
 /// Objective-C has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
@@ -477,8 +486,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::asm::grammar::GRAMMAR, "asm"),
     #[cfg(feature = "lang-common-lisp")]
     (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
-    #[cfg(feature = "lang-gdscript")]
-    (&crate::gdscript::grammar::GRAMMAR, "gdscript"),
     #[cfg(feature = "lang-haml")]
     (&crate::haml::grammar::GRAMMAR, "haml"),
     #[cfg(feature = "lang-matlab")]

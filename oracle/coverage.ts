@@ -63,6 +63,7 @@ const handLexed = new Map([
   ["docker", "Dockerfile"],
   ["elixir", "Elixir"],
   ["erb", "ERB"],
+  ["gdscript", "GDScript"],
   ["go", "Go"],
   ["graphql", "GraphQL"],
   ["haskell", "Haskell"],

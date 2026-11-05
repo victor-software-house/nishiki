@@ -30,6 +30,7 @@ cargo check --locked --tests --no-default-features --features lang-dockerfile
 # Elixir alone, with HTML off: its `~H` and `~L` sigils embed nothing.
 cargo check --locked --tests --no-default-features --features lang-elixir
 cargo check --locked --tests --no-default-features --features lang-erb
+cargo check --locked --tests --no-default-features --features lang-gdscript
 cargo check --locked --tests --no-default-features --features lang-go
 cargo check --locked --tests --no-default-features --features lang-graphql
 cargo check --locked --tests --no-default-features --features lang-haskell

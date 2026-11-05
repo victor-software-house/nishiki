@@ -1037,13 +1037,17 @@ languages! {
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     Pascal { feature: "lang-pascal", names: ["pascal"], module: pascal }
     /// GDScript, Godot's scripting language, with the scopes of Shiki's
-    /// `gdscript` grammar, which nishiki's `TextMate` engine runs.
+    /// `gdscript` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A bare node path such as `$Node` does not start right after a `/` and any blanks, as the grammar's `(?<!/\s*)` says, although Oniguruma rarely accepts a lookbehind of varying length.
+    /// - A line continuation, `\` at the end of a line, goes on only while the next line opens a string.
     GdScript {
         feature: "lang-gdscript",
         names: ["gdscript", "gd"],
-        engine: crate::gdscript::grammar::GRAMMAR,
+        module: gdscript,
         reads_line_feed: true,
-        halts: true,
     }
     /// PostCSS, with the scopes of Shiki's `postcss` grammar.
     ///

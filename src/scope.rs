@@ -100,6 +100,8 @@ tables! {
     DOCKERFILE = dockerfile;
     #[cfg(feature = "lang-elixir")]
     ELIXIR = elixir;
+    #[cfg(feature = "lang-gdscript")]
+    GDSCRIPT = gdscript;
     #[cfg(feature = "lang-go")]
     GO = go;
     #[cfg(feature = "lang-graphql")]

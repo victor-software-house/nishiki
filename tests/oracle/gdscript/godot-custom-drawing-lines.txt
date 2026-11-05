@@ -1,0 +1,1035 @@
+L # This is a `@tool` script so that the custom 2D drawing can be seen in the editor.
+T 1 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 83 source.gdscript comment.line.number-sign.gdscript
+L @tool
+T 1 source.gdscript entity.name.function.decorator.gdscript
+T 5 source.gdscript entity.name.function.decorator.gdscript
+L extends Panel
+T 7 source.gdscript keyword.language.gdscript
+T 8 source.gdscript
+T 13 source.gdscript entity.name.type.class.gdscript
+L 
+L var use_antialiasing: bool = false
+T 3 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript punctuation.separator.annotation.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 29 source.gdscript meta.variable.declaration.gdscript
+T 34 source.gdscript meta.variable.declaration.gdscript constant.language.literal.gdscript
+L 
+L 
+L func _draw() -> void:
+T 4 source.gdscript meta.function.gdscript keyword.language.gdscript storage.type.function.gdscript
+T 5 source.gdscript meta.function.gdscript
+T 10 source.gdscript meta.function.gdscript entity.name.function.gdscript
+T 11 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.begin.gdscript
+T 12 source.gdscript meta.function.gdscript meta.function.parameters.gdscript punctuation.definition.parameters.end.gdscript
+T 13 source.gdscript meta.function.gdscript
+T 15 source.gdscript meta.function.gdscript keyword.operator.arithmetic.gdscript
+T 16 source.gdscript meta.function.gdscript
+T 20 source.gdscript meta.function.gdscript entity.name.type.class.builtin.gdscript
+T 21 source.gdscript meta.function.gdscript punctuation.section.function.begin.gdscript
+L 	var margin := Vector2(200, 50)
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 
+L 	# Line width of `-1.0` is only usable with draw antialiasing disabled,
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 71 source.gdscript comment.line.number-sign.gdscript
+L 	# as it uses hardware line drawing as opposed to polygon-based line drawing.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 77 source.gdscript comment.line.number-sign.gdscript
+L 	# Automatically use polygon-based line drawing when needed to avoid runtime warnings.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 86 source.gdscript comment.line.number-sign.gdscript
+L 	# We also use a line width of `0.5` instead of `1.0` to better match the appearance
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 84 source.gdscript comment.line.number-sign.gdscript
+L 	# of non-antialiased line drawing, as draw antialiasing tends to make lines look thicker.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 90 source.gdscript comment.line.number-sign.gdscript
+L 	var line_width_thin := 0.5 if use_antialiasing else -1.0
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 21 source.gdscript meta.variable.declaration.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript constant.numeric.float.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript
+T 30 source.gdscript meta.variable.declaration.gdscript keyword.control.flow.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript
+T 47 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 48 source.gdscript meta.variable.declaration.gdscript
+T 52 source.gdscript meta.variable.declaration.gdscript keyword.control.flow.gdscript
+T 53 source.gdscript meta.variable.declaration.gdscript
+T 54 source.gdscript meta.variable.declaration.gdscript keyword.operator.arithmetic.gdscript
+T 57 source.gdscript meta.variable.declaration.gdscript constant.numeric.float.gdscript
+L 
+L 	var offset := Vector2()
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 11 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 12 source.gdscript meta.variable.declaration.gdscript
+T 14 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 15 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 	var line_length := Vector2(140, 35)
+T 1 source.gdscript
+T 4 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.var.gdscript
+T 5 source.gdscript meta.variable.declaration.gdscript
+T 16 source.gdscript meta.variable.declaration.gdscript variable.other.gdscript
+T 17 source.gdscript meta.variable.declaration.gdscript
+T 19 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 20 source.gdscript meta.variable.declaration.gdscript
+T 27 source.gdscript meta.variable.declaration.gdscript entity.name.type.class.builtin.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.begin.gdscript
+T 31 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.variable.declaration.gdscript
+T 35 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+T 36 source.gdscript meta.variable.declaration.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_line(margin + offset, margin + offset + line_length, Color.GREEN, line_width_thin, use_antialiasing)
+T 1 source.gdscript
+T 10 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 11 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 105 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 106 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	offset += Vector2(line_length.x + 15, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 32 source.gdscript variable.other.gdscript
+T 33 source.gdscript
+T 34 source.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript
+T 37 source.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript
+T 40 source.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_line(margin + offset, margin + offset + line_length, Color.GREEN, 2.0, use_antialiasing)
+T 1 source.gdscript
+T 10 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 11 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 94 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	offset += Vector2(line_length.x + 15, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 32 source.gdscript variable.other.gdscript
+T 33 source.gdscript
+T 34 source.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript
+T 37 source.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript
+T 40 source.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_line(margin + offset, margin + offset + line_length, Color.GREEN, 6.0, use_antialiasing)
+T 1 source.gdscript
+T 10 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 11 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 37 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 75 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 94 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	offset += Vector2(line_length.x + 15, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 32 source.gdscript variable.other.gdscript
+T 33 source.gdscript
+T 34 source.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript
+T 37 source.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript
+T 40 source.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_dashed_line(margin + offset, margin + offset + line_length, Color.CYAN, line_width_thin, 5.0, true, use_antialiasing)
+T 1 source.gdscript
+T 17 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 18 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 98 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 99 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 100 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 104 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 105 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 106 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 122 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 123 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	offset += Vector2(line_length.x + 15, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 32 source.gdscript variable.other.gdscript
+T 33 source.gdscript
+T 34 source.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript
+T 37 source.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript
+T 40 source.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_dashed_line(margin + offset, margin + offset + line_length, Color.CYAN, 2.0, 10.0, true, use_antialiasing)
+T 1 source.gdscript
+T 17 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 18 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 111 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 112 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 	offset += Vector2(line_length.x + 15, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 30 source.gdscript variable.other.gdscript
+T 31 source.gdscript
+T 32 source.gdscript variable.other.gdscript
+T 33 source.gdscript
+T 34 source.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript
+T 37 source.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript
+T 40 source.gdscript constant.numeric.integer.gdscript
+T 41 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_dashed_line(margin + offset, margin + offset + line_length, Color.CYAN, 6.0, 15.0, true, use_antialiasing)
+T 1 source.gdscript
+T 17 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 18 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 87 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 111 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 112 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 
+L 	offset = Vector2(40, 170)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 9 source.gdscript keyword.operator.assignment.gdscript
+T 10 source.gdscript
+T 17 source.gdscript entity.name.type.class.builtin.gdscript
+T 18 source.gdscript punctuation.parenthesis.begin.gdscript
+T 20 source.gdscript constant.numeric.integer.gdscript
+T 22 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_circle(margin + offset, 40, Color.ORANGE, false, line_width_thin, use_antialiasing)
+T 1 source.gdscript
+T 12 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 13 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 21 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 22 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 88 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 89 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_circle(margin + offset, 40, Color.ORANGE, false, 2.0, use_antialiasing)
+T 1 source.gdscript
+T 12 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 13 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 21 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 22 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_circle(margin + offset, 40, Color.ORANGE, false, 6.0, use_antialiasing)
+T 1 source.gdscript
+T 12 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 13 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 21 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 22 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 77 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Draw a filled circle. The width parameter is ignored for filled circles (it's set to `-1.0` to avoid warnings).
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 114 source.gdscript comment.line.number-sign.gdscript
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_circle(margin + offset, 40 * 0.5, Color.ORANGE, true, -1.0, use_antialiasing)
+T 1 source.gdscript
+T 12 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 13 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 21 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 22 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 28 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 59 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 83 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Draw an ellipse (oval circle).
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 33 source.gdscript comment.line.number-sign.gdscript
+L 	offset += Vector2(200, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_ellipse(margin + offset, 120, 40, Color.ORANGE_RED, false, line_width_thin, use_antialiasing)
+T 1 source.gdscript
+T 13 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 14 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 20 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 21 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 22 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 23 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 56 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 58 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 63 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.literal.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 65 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 80 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 98 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 99 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Draw a quarter circle (`TAU` represents a full turn in radians).
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 67 source.gdscript comment.line.number-sign.gdscript
+L 	const POINT_COUNT_HIGH = 24
+T 1 source.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 7 source.gdscript meta.variable.declaration.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript
+T 28 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+L 	offset = Vector2(0, 300)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 9 source.gdscript keyword.operator.assignment.gdscript
+T 10 source.gdscript
+T 17 source.gdscript entity.name.type.class.builtin.gdscript
+T 18 source.gdscript punctuation.parenthesis.begin.gdscript
+T 19 source.gdscript constant.numeric.integer.gdscript
+T 21 source.gdscript
+T 24 source.gdscript constant.numeric.integer.gdscript
+T 25 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_arc(margin + offset, 60, 0, 0.25 * TAU, POINT_COUNT_HIGH, Color.YELLOW, line_width_thin, use_antialiasing)
+T 1 source.gdscript
+T 9 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 10 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 63 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 93 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 94 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 95 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 111 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 112 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_arc(margin + offset, 60, 0, 0.25 * TAU, POINT_COUNT_HIGH, Color.YELLOW, 2.0, use_antialiasing)
+T 1 source.gdscript
+T 9 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 10 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 63 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 99 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 100 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_arc(margin + offset, 60, 0, 0.25 * TAU, POINT_COUNT_HIGH, Color.YELLOW, 6.0, use_antialiasing)
+T 1 source.gdscript
+T 9 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 10 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 41 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 46 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 63 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 64 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 69 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 76 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 81 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 82 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 99 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 100 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Draw three quarters of a circle with a low point count, which gives it an angular look.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 90 source.gdscript comment.line.number-sign.gdscript
+L 	const POINT_COUNT_LOW = 7
+T 1 source.gdscript
+T 6 source.gdscript meta.variable.declaration.gdscript keyword.language.gdscript storage.type.const.gdscript
+T 7 source.gdscript meta.variable.declaration.gdscript
+T 22 source.gdscript meta.variable.declaration.gdscript variable.other.constant.gdscript
+T 23 source.gdscript meta.variable.declaration.gdscript
+T 24 source.gdscript meta.variable.declaration.gdscript keyword.operator.assignment.gdscript
+T 25 source.gdscript meta.variable.declaration.gdscript
+T 26 source.gdscript meta.variable.declaration.gdscript constant.numeric.integer.gdscript
+L 	offset += Vector2(125, 30)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 26 source.gdscript constant.numeric.integer.gdscript
+T 27 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_arc(margin + offset, 40, -0.25 * TAU, 0.5 * TAU, POINT_COUNT_LOW, Color.YELLOW, line_width_thin, use_antialiasing)
+T 1 source.gdscript
+T 9 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 10 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 37 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 84 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 85 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 86 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 101 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 102 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 103 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 119 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 120 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_arc(margin + offset, 40, -0.25 * TAU, 0.5 * TAU, POINT_COUNT_LOW, Color.YELLOW, 2.0, use_antialiasing)
+T 1 source.gdscript
+T 9 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 10 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 37 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 84 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 85 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 86 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 90 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 91 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 107 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 108 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	offset += Vector2(100, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_arc(margin + offset, 40, -0.25 * TAU, 0.5 * TAU, POINT_COUNT_LOW, Color.YELLOW, 6.0, use_antialiasing)
+T 1 source.gdscript
+T 9 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 10 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 16 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 17 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 18 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 19 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 29 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 30 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 31 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 32 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 36 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 37 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 47 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 48 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 53 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 54 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 70 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 71 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 72 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 77 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 78 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 84 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 85 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 86 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 89 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 90 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 91 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 107 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 108 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 
+L 	# Draw three quarters of an ellipse (oval) with a low point count, which gives it an angular look.
+T 1 source.gdscript
+T 2 source.gdscript comment.line.number-sign.gdscript punctuation.definition.comment.number-sign.gdscript
+T 99 source.gdscript comment.line.number-sign.gdscript
+L 	offset += Vector2(230, 0)
+T 1 source.gdscript
+T 7 source.gdscript variable.other.gdscript
+T 8 source.gdscript
+T 10 source.gdscript keyword.operator.arithmetic.gdscript
+T 11 source.gdscript
+T 18 source.gdscript entity.name.type.class.builtin.gdscript
+T 19 source.gdscript punctuation.parenthesis.begin.gdscript
+T 22 source.gdscript constant.numeric.integer.gdscript
+T 24 source.gdscript
+T 25 source.gdscript constant.numeric.integer.gdscript
+T 26 source.gdscript punctuation.parenthesis.end.gdscript
+L 	draw_ellipse_arc(margin + offset, 120, 40, -0.25 * TAU, 0.5 * TAU, POINT_COUNT_LOW, Color.PALE_GREEN, line_width_thin, use_antialiasing)
+T 1 source.gdscript
+T 17 source.gdscript meta.function-call.gdscript entity.name.function.gdscript
+T 18 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.begin.gdscript
+T 24 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 25 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 26 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 27 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 33 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 34 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 35 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 38 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 39 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 40 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 42 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.integer.gdscript
+T 43 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 44 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 45 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 49 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 50 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 51 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 52 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 55 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 56 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 57 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 60 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.numeric.float.gdscript
+T 61 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 62 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript keyword.operator.arithmetic.gdscript
+T 63 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 66 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 67 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 68 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 83 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.constant.gdscript
+T 84 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 85 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 90 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript entity.name.type.class.builtin.gdscript
+T 91 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.accessor.gdscript
+T 101 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript constant.language.gdscript
+T 102 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 103 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 118 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 119 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript punctuation.separator.arguments.gdscript
+T 120 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript
+T 136 source.gdscript meta.function-call.gdscript meta.function.parameters.gdscript variable.other.gdscript
+T 137 source.gdscript meta.function-call.gdscript punctuation.definition.arguments.end.gdscript
+L 

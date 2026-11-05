@@ -164,6 +164,10 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `erb/rails-scaffold-form` | [`railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt`][rails-scaffold-form] in rails/rails | [MIT][railties-licence] |
 | `erb/rails-welcome` | [`railties/lib/rails/templates/rails/welcome/index.html.erb`][rails-welcome] in rails/rails | [MIT][railties-licence] |
 | `erb/sample` | [`samples/erb.sample`][erb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `gdscript/coverage` | `oracle/inputs/gdscript-coverage.gd`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `gdscript/godot-custom-drawing-lines` | [`2d/custom_drawing/lines.gd`][godot-custom-drawing-lines] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
+| `gdscript/godot-ik-fabrik` | [`3d/ik/addons/sade/ik_fabrik.gd`][godot-ik-fabrik] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
+| `gdscript/godot-midi-piano` | [`audio/midi_piano/piano.gd`][godot-midi-piano] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
 | `gdscript/godot-paint-control` | [`gui/gd_paint/paint_control.gd`][godot-paint-control] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
 | `gdscript/godot-voxel-chunk` | [`3d/voxel/world/chunk.gd`][godot-voxel-chunk] in godotengine/godot-demo-projects | [MIT][godot-demos-licence] |
 | `gdscript/grammar-example-1` | [`syntaxes/examples/gdscript1.gd`][godot-vscode-example-1] in godotengine/godot-vscode-plugin | [MIT][godot-vscode-licence] |
@@ -1205,7 +1209,10 @@ The hand lexer was written against all seven.
 [go-test-issue15528]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/test/fixedbugs/issue15528.go
 [go-types-typeinst1]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/internal/types/testdata/check/typeinst1.go
 [go-types-typeparams]: https://github.com/golang/go/blob/736a1652a0d65f0eb8d95db7e8125a2d381a2cc6/src/internal/types/testdata/check/typeparams.go
+[godot-custom-drawing-lines]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/2d/custom_drawing/lines.gd
 [godot-demos-licence]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/LICENSE.md
+[godot-ik-fabrik]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/3d/ik/addons/sade/ik_fabrik.gd
+[godot-midi-piano]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/audio/midi_piano/piano.gd
 [godot-paint-control]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/gui/gd_paint/paint_control.gd
 [godot-voxel-chunk]: https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/3d/voxel/world/chunk.gd
 [godot-vscode-example-1]: https://github.com/godotengine/godot-vscode-plugin/blob/3f2860fd76c591a6010f0d35220490933e41d01d/syntaxes/examples/gdscript1.gd

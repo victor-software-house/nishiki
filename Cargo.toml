@@ -43,6 +43,7 @@ all = [
   "lang-dockerfile",
   "lang-elixir",
   "lang-erb",
+  "lang-gdscript",
   "lang-go",
   "lang-graphql",
   "lang-haskell",
@@ -131,7 +132,6 @@ docs = ["config", "lang-markdown"]
 textmate = [
   "lang-asm",
   "lang-common-lisp",
-  "lang-gdscript",
   "lang-haml",
   "lang-matlab",
   "lang-perl",
@@ -165,7 +165,7 @@ lang-elixir = [
   "_halting-embedding",
 ]
 lang-erb = ["lang-html", "lang-ruby"]
-lang-gdscript = ["_textmate"]
+lang-gdscript = ["_scope-table", "_rule-tables", "_classes"]
 lang-go = ["_scope-table", "_rule-tables", "_classes"]
 lang-graphql = [
   "_scope-table",

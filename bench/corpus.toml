@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 10
+version = 11
 
 [[file]]
 language = "bat"
@@ -332,6 +332,28 @@ licence = "MIT"
 licence_source = "https://github.com/rubygems/rubygems.org/blob/5b5020aec561a6c56c6da4cb240e076297429117/MIT-LICENSE"
 bytes = 17633
 sha256 = "8ce3c383133105059fa95d05a802e775b46b8ef2f9219fa08f6d1c7834c5d6b2"
+
+[[file]]
+language = "gdscript"
+tier = "small"
+origin = "neutral"
+path = "gdscript/small/godot-ws-webrtc-client.gd"
+source = "https://raw.githubusercontent.com/godotengine/godot-demo-projects/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/networking/webrtc_signaling/client/ws_webrtc_client.gd"
+licence = "MIT"
+licence_source = "https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/LICENSE.md"
+bytes = 3329
+sha256 = "7eab7ed3f0b1f91c3d1339085949e0081e2cf9ed79fc9689a1ab5b1665e5177a"
+
+[[file]]
+language = "gdscript"
+tier = "medium"
+origin = "neutral"
+path = "gdscript/medium/godot-graphics-settings.gd"
+source = "https://raw.githubusercontent.com/godotengine/godot-demo-projects/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/3d/graphics_settings/settings.gd"
+licence = "MIT"
+licence_source = "https://github.com/godotengine/godot-demo-projects/blob/b761b4cd5718a7118f2c95eb55f181d0a5f004f1/LICENSE.md"
+bytes = 21061
+sha256 = "3121239b6f34c33c680d07bbe2ad0db7a895ffab0e206e7dc2e66f45a1f8b942"
 
 [[file]]
 language = "go"
