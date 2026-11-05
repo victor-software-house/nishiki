@@ -460,7 +460,7 @@ export function requireGroup(name: string, group: number, regex: string): void {
 export function startOf(
   regex: string,
   backref: Backref = "quote",
-): { set: Set; bol: boolean; any: boolean; wb: boolean } {
+): { set: Set; bol: boolean; any: boolean; wb: boolean; atEnd: boolean } {
   let result: Info;
   let ci = false;
   let source = regex;
@@ -472,7 +472,7 @@ export function startOf(
     result = new RegexParser(source, backref).parse();
   } catch {
     // Syntax the analysis does not read: a match can start anywhere.
-    return { set: FULL(), bol: false, any: true, wb: false };
+    return { set: FULL(), bol: false, any: true, wb: false, atEnd: true };
   }
   // A match that starts with a lookaround starts at the bytes the lookaround
   // reads, which `(?i)` folds like the rest.
@@ -496,7 +496,15 @@ export function startOf(
     if (has(102)) add(set, 0xef);
     if (has(107)) add(set, 0xe2);
   }
-  return { set, bol: result.bol, any: result.any, wb: result.wb };
+  // A match where no byte follows takes the empty path, and none of its
+  // lookaheads may need a byte, so that path's constraint is every byte.
+  // A backreference can repeat an empty capture, which the analysis does not
+  // read, so a pattern with one counts too.
+  const atEnd =
+    result.any ||
+    (result.empty !== null && result.empty.every((w) => w === 0xffffffffffffffffn)) ||
+    /\\(?:[1-9]|k<)/.test(source);
+  return { set, bol: result.bol, any: result.any, wb: result.wb, atEnd };
 }
 
 /** The top-level alternatives of `regex`, looking inside a lookahead or a
@@ -750,9 +758,12 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
 `;
   starts += arms(
     pats.map((p): [string, string] => {
-      const { set, bol, any, wb } = startOf(p.regex, backref);
+      const { set, bol, any, wb, atEnd } = startOf(p.regex, backref);
       const words = (any ? FULL() : set).map(hex).join(", ");
-      return [p.id, `Start {\n                bytes: [${words}],\n                bol: ${bol},\n                wb: ${wb},\n            }`];
+      return [
+        p.id,
+        `Start {\n                bytes: [${words}],\n                bol: ${bol},\n                wb: ${wb},\n                matches_at_end: ${atEnd},\n            }`,
+      ];
     }),
     "Pat",
   );

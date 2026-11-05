@@ -957,8 +957,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::BracketsAt0End | Pat::RawStringsAt0End | Pat::RawStringsAt1End => Start {
+            Pat::BracketsAt0End => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x2000_0000_0000_0000,
@@ -967,6 +968,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Roxygen | Pat::MarkdownAt0At0 | Pat::RoxygenExample => Start {
                 bytes: [
@@ -977,6 +979,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoxygenEnd | Pat::MarkdownAt0End | Pat::RoxygenTokensAt1End => Start {
                 bytes: [
@@ -987,6 +990,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::MarkdownAt0
             | Pat::MarkdownAt6
@@ -1000,6 +1004,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MarkdownAt1 | Pat::BracketsAt1 => Start {
                 bytes: [
@@ -1010,6 +1015,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MarkdownAt2 | Pat::MarkdownAt3 => Start {
                 bytes: [
@@ -1020,6 +1026,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MarkdownAt4 | Pat::MarkdownAt5 => Start {
                 bytes: [
@@ -1030,6 +1037,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MarkdownAt7 => Start {
                 bytes: [
@@ -1040,6 +1048,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoxygenTokensAt0 | Pat::RoxygenTokensAt1 | Pat::RoxygenTokensAt2 => Start {
                 bytes: [
@@ -1050,6 +1059,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoxygenTokensAt1At0
             | Pat::BracketsAt1At0
@@ -1063,6 +1073,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoxygenTokensAt1At1 => Start {
                 bytes: [
@@ -1073,6 +1084,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Latex
             | Pat::EscapeCode
@@ -1089,6 +1101,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoxygenAt3 => Start {
                 bytes: [
@@ -1099,6 +1112,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Comment => Start {
                 bytes: [
@@ -1109,8 +1123,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::BracketsAt1End | Pat::RawStringsAt2End | Pat::RawStringsAt3End => Start {
+            Pat::BracketsAt1End => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0000_2000_0000,
@@ -1119,6 +1134,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BracketsAt2 => Start {
                 bytes: [
@@ -1129,11 +1145,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::BracketsAt2End
-            | Pat::RawStringsAt4End
-            | Pat::RawStringsAt5End
-            | Pat::FunctionDefinitionEnd => Start {
+            Pat::BracketsAt2End | Pat::FunctionDefinitionEnd => Start {
                 bytes: [
                     0x0000_0200_0000_0000,
                     0x0000_0000_0000_0000,
@@ -1142,6 +1156,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RawStringsAt0
             | Pat::RawStringsAt1
@@ -1157,6 +1172,40 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::RawStringsAt0End | Pat::RawStringsAt1End => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x2000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
+            },
+            Pat::RawStringsAt2End | Pat::RawStringsAt3End => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_2000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
+            },
+            Pat::RawStringsAt4End | Pat::RawStringsAt5End => Start {
+                bytes: [
+                    0x0000_0200_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::Qstring | Pat::QstringEnd => Start {
                 bytes: [
@@ -1167,6 +1216,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Qqstring | Pat::QqstringEnd => Start {
                 bytes: [
@@ -1177,6 +1227,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionDefinition => Start {
                 bytes: [
@@ -1187,6 +1238,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionDefinitionAt0End => Start {
                 bytes: [
@@ -1197,6 +1249,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KeywordsControl => Start {
                 bytes: [
@@ -1207,6 +1260,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KeywordsBuiltin => Start {
                 bytes: [
@@ -1217,6 +1271,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KeywordsConstant => Start {
                 bytes: [
@@ -1227,6 +1282,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NamespaceCall => Start {
                 bytes: [
@@ -1237,6 +1293,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::IdentifierSyntactic => Start {
                 bytes: [
@@ -1247,6 +1304,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NumbersAt0 => Start {
                 bytes: [
@@ -1257,6 +1315,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NumbersAt1 => Start {
                 bytes: [
@@ -1267,6 +1326,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Operators => Start {
                 bytes: [
@@ -1277,6 +1337,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoxygenExampleEnd => Start {
                 bytes: [
@@ -1287,6 +1348,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::RoxygenExampleAt1 => Start {
                 bytes: [
@@ -1297,6 +1359,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

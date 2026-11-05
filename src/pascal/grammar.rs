@@ -346,6 +346,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Prototype => Start {
                 bytes: [
@@ -356,6 +357,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Function => Start {
                 bytes: [
@@ -366,6 +368,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Variable => Start {
                 bytes: [
@@ -376,6 +379,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Operator => Start {
                 bytes: [
@@ -386,6 +390,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Control => Start {
                 bytes: [
@@ -396,6 +401,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Directive | Pat::BraceComment => Start {
                 bytes: [
@@ -406,6 +412,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DirectiveEnd | Pat::BraceCommentEnd => Start {
                 bytes: [
@@ -416,6 +423,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Types => Start {
                 bytes: [
@@ -426,6 +434,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Number => Start {
                 bytes: [
@@ -436,6 +445,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Hex => Start {
                 bytes: [
@@ -446,6 +456,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Constant => Start {
                 bytes: [
@@ -456,6 +467,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Assert => Start {
                 bytes: [
@@ -466,6 +478,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::LineComment => Start {
                 bytes: [
@@ -476,6 +489,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LineCommentEnd => Start {
                 bytes: [
@@ -486,6 +500,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::LineCommentAt0 => Start {
                 bytes: [
@@ -496,6 +511,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LineCommentAt0End => Start {
                 bytes: [
@@ -506,6 +522,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ParenComment => Start {
                 bytes: [
@@ -516,6 +533,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ParenCommentEnd => Start {
                 bytes: [
@@ -526,6 +544,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::String | Pat::StringEnd | Pat::StringAt0 => Start {
                 bytes: [
@@ -536,6 +555,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CharCode => Start {
                 bytes: [
@@ -546,6 +566,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

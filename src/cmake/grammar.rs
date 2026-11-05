@@ -266,6 +266,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Keywords => Start {
                 bytes: [
@@ -276,6 +277,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Commands => Start {
                 bytes: [
@@ -286,6 +288,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Variables => Start {
                 bytes: [
@@ -296,6 +299,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Expansion | Pat::EnvExpansion => Start {
                 bytes: [
@@ -306,6 +310,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TargetVariables | Pat::CmakeVariables | Pat::TargetProperties => Start {
                 bytes: [
@@ -316,6 +321,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BracketComment | Pat::LineComment => Start {
                 bytes: [
@@ -326,6 +332,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BracketCommentEnd | Pat::BracketArgumentEnd => Start {
                 bytes: [
@@ -336,6 +343,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::BracketCommentAt0
             | Pat::BracketArgumentAt0
@@ -351,6 +359,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BracketArgument => Start {
                 bytes: [
@@ -361,6 +370,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CacheProperties => Start {
                 bytes: [
@@ -371,6 +381,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::SourceProperties => Start {
                 bytes: [
@@ -381,6 +392,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TestProperties => Start {
                 bytes: [
@@ -391,6 +403,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DirectoryProperties => Start {
                 bytes: [
@@ -401,6 +414,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::GlobalProperties => Start {
                 bytes: [
@@ -411,6 +425,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::String | Pat::StringEnd => Start {
                 bytes: [
@@ -421,6 +436,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuildName => Start {
                 bytes: [
@@ -431,6 +447,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CxxFlags => Start {
                 bytes: [
@@ -441,6 +458,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
         }
     }

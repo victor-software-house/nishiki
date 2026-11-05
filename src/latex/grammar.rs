@@ -12724,6 +12724,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SongsEnvAt0
             | Pat::MacroWithArgsTokenizer
@@ -12766,11 +12767,9 @@ impl Pat {
             | Pat::DocumentEnvAt0
             | Pat::DocumentEnvAt1
             | Pat::AllBalancedEnvAt0
-            | Pat::AllBalancedEnvAt0End
             | Pat::AllBalancedEnvAt1
             | Pat::AllBalancedEnvAt1End
             | Pat::AllBalancedEnvAt2
-            | Pat::AllBalancedEnvAt2End
             | Pat::AllBalancedEnvAt3
             | Pat::AllBalancedEnvAt4
             | Pat::AllBalancedEnvAt5
@@ -12789,11 +12788,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SongsEnvAt0End
-            | Pat::EmbeddedCodeEnvAt0End
-            | Pat::EmbeddedCodeEnvAt15End
-            | Pat::EmbeddedCodeEnvAt16End
             | Pat::EmbeddedCodeEnvAt16At0End
             | Pat::EmbeddedCodeEnvAt16At1End
             | Pat::EmbeddedCodeEnvAt16At2End
@@ -12813,12 +12810,9 @@ impl Pat {
             | Pat::EmbeddedCodeEnvAt16At16End
             | Pat::EmbeddedCodeEnvAt16At17End
             | Pat::EmbeddedCodeEnvAt16At18End
-            | Pat::EmbeddedCodeEnvAt17End
-            | Pat::VerbatimEnvAt0End
             | Pat::VerbatimEnvAt1End
             | Pat::VerbatimEnvAt2End
             | Pat::VerbatimEnvAt2At0
-            | Pat::VerbatimEnvAt3End
             | Pat::AllBalancedEnvAt0At1
             | Pat::LabelMacro
             | Pat::TexMathContentAt0
@@ -12843,11 +12837,8 @@ impl Pat {
             | Pat::TexMathContentAt7
             | Pat::AllBalancedEnvAt1At1
             | Pat::AllBalancedEnvAt2At1
-            | Pat::AllBalancedEnvAt3End
             | Pat::AllBalancedEnvAt4End
             | Pat::AllBalancedEnvAt5End
-            | Pat::AllBalancedEnvAt6End
-            | Pat::AllBalancedEnvAt8End
             | Pat::DocumentclassUsepackageMacro
             | Pat::InputMacro
             | Pat::SectionsMacro
@@ -12867,12 +12858,7 @@ impl Pat {
             | Pat::AllOtherMacroAt5
             | Pat::NewcommandMacro
             | Pat::VerbMacroAt0
-            | Pat::VerbMacroAt1
             | Pat::InlineCodeMacroAt0
-            | Pat::InlineCodeMacroAt1
-            | Pat::InlineCodeMacroAt2
-            | Pat::InlineCodeMacroAt3
-            | Pat::InlineCodeMacroAt4
             | Pat::InlineCodeMacroAt5
             | Pat::InlineCodeMacroAt6
             | Pat::InlineCodeMacroAt7
@@ -12910,6 +12896,31 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::EmbeddedCodeEnvAt0End
+            | Pat::EmbeddedCodeEnvAt15End
+            | Pat::EmbeddedCodeEnvAt16End
+            | Pat::EmbeddedCodeEnvAt17End
+            | Pat::VerbatimEnvAt0End
+            | Pat::VerbatimEnvAt3End
+            | Pat::AllBalancedEnvAt3End
+            | Pat::AllBalancedEnvAt6End
+            | Pat::AllBalancedEnvAt8End
+            | Pat::VerbMacroAt1
+            | Pat::InlineCodeMacroAt1
+            | Pat::InlineCodeMacroAt2
+            | Pat::InlineCodeMacroAt3
+            | Pat::InlineCodeMacroAt4 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_1000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::MultilineOptionalArgNoHighlight
             | Pat::EmbeddedCodeEnvAt0At2
@@ -13020,6 +13031,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::MultilineOptionalArgNoHighlightEnd
             | Pat::MultilineOptionalArgEnd
@@ -13032,6 +13044,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt0At2End
             | Pat::EmbeddedCodeEnvAt0At4End
@@ -13083,6 +13096,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt1At1End
             | Pat::EmbeddedCodeEnvAt2At1End
@@ -13168,6 +13182,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt5At2
             | Pat::EmbeddedCodeEnvAt6At2
@@ -13203,6 +13218,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::TexBraces
             | Pat::TexMathContentAt8
@@ -13231,6 +13247,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::AllBalancedEnvAt0End | Pat::AllBalancedEnvAt2End => Start {
+                bytes: [
+                    0x0000_0001_0000_3e00,
+                    0x0000_0000_1000_0000,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::AllBalancedEnvAt0At0 | Pat::AllBalancedEnvAt1At0 | Pat::AllBalancedEnvAt2At0 => {
                 Start {
@@ -13242,6 +13270,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::OptionalArgBracketAt0 | Pat::OptionalArgBracketNoHighlightAt0 => Start {
@@ -13253,6 +13282,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LabelMacroAt0 | Pat::ReferencesMacroAt0At0 => Start {
                 bytes: [
@@ -13263,6 +13293,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexComment => Start {
                 bytes: [
@@ -13273,6 +13304,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexCommentAt0 | Pat::CitationMacroAt0 | Pat::InlineCodeMacroAt0At0 => Start {
                 bytes: [
@@ -13283,6 +13315,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexCommentAt1 => Start {
                 bytes: [
@@ -13293,6 +13326,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexRootAt4 => Start {
                 bytes: [
@@ -13303,6 +13337,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexDollarMath
             | Pat::DisplayMathAt1
@@ -13317,6 +13352,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexMacroGeneralAt1 => Start {
                 bytes: [
@@ -13327,6 +13363,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexMathContentAt10 | Pat::OptionalArgParenthesisNoHighlightAt0 => Start {
                 bytes: [
@@ -13337,6 +13374,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexMathContentAt11 => Start {
                 bytes: [
@@ -13347,6 +13385,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexMathContentAt12 => Start {
                 bytes: [
@@ -13357,6 +13396,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TexMathContentAt13 => Start {
                 bytes: [
@@ -13367,6 +13407,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AutocitesArgAt0 => Start {
                 bytes: [
@@ -13377,6 +13418,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OptionalArgAngleNoHighlightAt0 => Start {
                 bytes: [
@@ -13387,6 +13429,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CitationMacroAt1 => Start {
                 bytes: [
@@ -13397,6 +13440,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ReferencesMacroAt2At0 => Start {
                 bytes: [
@@ -13407,6 +13451,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InlineCodeMacroAt0End => Start {
                 bytes: [
@@ -13417,6 +13462,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ColumnSpecials => Start {
                 bytes: [
@@ -13427,6 +13473,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SongsChordsAt1 => Start {
                 bytes: [
@@ -13437,6 +13484,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

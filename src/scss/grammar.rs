@@ -4843,6 +4843,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::VariableSettingEnd | Pat::VariableSettingAt1End | Pat::RootAt20 => Start {
                 bytes: [
@@ -4853,6 +4854,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::VariableSettingAt1
             | Pat::FunctionAttributesAt0
@@ -4873,6 +4875,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentBlock | Pat::CommentLine | Pat::CssCommentBlock => Start {
                 bytes: [
@@ -4883,6 +4886,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentBlockEnd
             | Pat::AtRuleUseAt2
@@ -4897,6 +4901,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentLineEnd => Start {
                 bytes: [
@@ -4907,6 +4912,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Map
             | Pat::ParametersAt1
@@ -4923,6 +4929,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MapEnd
             | Pat::ConstantFunctionsEnd
@@ -4961,6 +4968,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MapAt3
             | Pat::VariablesAt0
@@ -4976,6 +4984,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::MapAt4 | Pat::ParametersAt5 | Pat::VariableSettingAt1At6 | Pat::CssCommas => {
                 Start {
@@ -4987,6 +4996,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::VariablesAt1 => Start {
@@ -4998,6 +5008,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Interpolation
             | Pat::CssNumericValuesAt0
@@ -5011,6 +5022,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolationEnd
             | Pat::CssPropertyValuesAt0End
@@ -5024,6 +5036,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringSingle
             | Pat::StringSingleEnd
@@ -5039,6 +5052,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringSingleAt0
             | Pat::StringDoubleAt0
@@ -5057,6 +5071,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringDouble
             | Pat::StringDoubleEnd
@@ -5072,6 +5087,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConstantFunctions | Pat::FunctionsAt0 | Pat::FunctionsAt1 => Start {
                 bytes: [
@@ -5082,6 +5098,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConstantSassFunctions => Start {
                 bytes: [
@@ -5092,6 +5109,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConstantImportant
             | Pat::ConstantDefault
@@ -5105,6 +5123,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssNumericValuesAt1 | Pat::CssNumericValuesAt2 | Pat::CssNumericValuesAt3 => {
                 Start {
@@ -5116,6 +5135,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: true,
+                    matches_at_end: false,
                 }
             }
             Pat::CssPropertyKeywordsAt0 => Start {
@@ -5127,6 +5147,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssPropertyKeywordsAt1 => Start {
                 bytes: [
@@ -5137,6 +5158,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssPropertyKeywordsAt2 | Pat::CssPropertyNamesAt1 => Start {
                 bytes: [
@@ -5147,6 +5169,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssPropertyKeywordsAt3 => Start {
                 bytes: [
@@ -5157,6 +5180,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssColorKeywordsAt0 => Start {
                 bytes: [
@@ -5167,6 +5191,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssColorKeywordsAt1 => Start {
                 bytes: [
@@ -5177,6 +5202,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssColorKeywordsAt2 | Pat::CssFunctionsAt0 => Start {
                 bytes: [
@@ -5187,6 +5213,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssColorKeywordsAt3 => Start {
                 bytes: [
@@ -5197,6 +5224,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssPropertyNamesAt0 => Start {
                 bytes: [
@@ -5207,6 +5235,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ConstantMathematicalSymbols => Start {
                 bytes: [
@@ -5217,6 +5246,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Operators | Pat::CssArithmeticOperators => Start {
                 bytes: [
@@ -5227,6 +5257,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ParametersAt4 => Start {
                 bytes: [
@@ -5237,6 +5268,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionAttributesAt3 => Start {
                 bytes: [
@@ -5247,6 +5279,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleForward
             | Pat::AtRuleUse
@@ -5272,6 +5305,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleForwardEnd
             | Pat::AtRuleUseEnd
@@ -5287,6 +5321,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleForwardAt0 => Start {
                 bytes: [
@@ -5297,6 +5332,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AtRuleUseAt0 => Start {
                 bytes: [
@@ -5307,6 +5343,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AtRuleIncludeAt0
             | Pat::AtRuleIncludeAt1
@@ -5325,6 +5362,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleIncludeAt2
             | Pat::AtRuleMixinAt2
@@ -5339,6 +5377,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleImportEnd => Start {
                 bytes: [
@@ -5349,6 +5388,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleIfEnd
             | Pat::AtRuleElseEnd
@@ -5366,6 +5406,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ComparisonOperators => Start {
                 bytes: [
@@ -5376,6 +5417,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LogicalOperators => Start {
                 bytes: [
@@ -5386,6 +5428,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AtRuleForAt0 => Start {
                 bytes: [
@@ -5396,6 +5439,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleWhileEnd | Pat::AtRuleEachEnd => Start {
                 bytes: [
@@ -5406,6 +5450,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleEachAt0 => Start {
                 bytes: [
@@ -5416,6 +5461,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssTagNames => Start {
                 bytes: [
@@ -5426,6 +5472,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::SelectorCustom => Start {
                 bytes: [
@@ -5436,6 +5483,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Nested0At2 | Pat::Nested1At2 => Start {
                 bytes: [
@@ -5446,6 +5494,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorClass | Pat::CssSelectorInnardsAt9 => Start {
                 bytes: [
@@ -5456,6 +5505,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorPseudoClassAt0At1 | Pat::CssFunctionsAt4At0 => Start {
                 bytes: [
@@ -5466,6 +5516,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorPseudoClassAt0At2 => Start {
                 bytes: [
@@ -5476,6 +5527,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorPseudoClassAt0At3 => Start {
                 bytes: [
@@ -5486,6 +5538,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssEscapesAt1End => Start {
                 bytes: [
@@ -5496,6 +5549,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::CssFunctionalPseudoClassesAt0At2 => Start {
                 bytes: [
@@ -5506,6 +5560,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssPropertyValuesAt0 | Pat::PropertyList | Pat::AtRuleKeyframesAt3 => Start {
                 bytes: [
@@ -5516,6 +5571,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt1 => Start {
                 bytes: [
@@ -5526,6 +5582,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt2 => Start {
                 bytes: [
@@ -5536,6 +5593,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt2At0 => Start {
                 bytes: [
@@ -5546,6 +5604,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt3 | Pat::CssFunctionsAt9 => Start {
                 bytes: [
@@ -5556,6 +5615,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt3At0 => Start {
                 bytes: [
@@ -5566,6 +5626,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt4 => Start {
                 bytes: [
@@ -5576,6 +5637,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt5 => Start {
                 bytes: [
@@ -5586,6 +5648,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt5At0 => Start {
                 bytes: [
@@ -5596,6 +5659,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt6 => Start {
                 bytes: [
@@ -5606,6 +5670,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt6At0 => Start {
                 bytes: [
@@ -5616,6 +5681,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt7 => Start {
                 bytes: [
@@ -5626,6 +5692,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssUrl | Pat::CssUnicodeRange => Start {
                 bytes: [
@@ -5636,6 +5703,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssUrlAt0 => Start {
                 bytes: [
@@ -5646,6 +5714,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssStringAt0End
             | Pat::CssStringAt0At0
@@ -5668,6 +5737,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::CssFunctionsAt10 => Start {
                 bytes: [
@@ -5678,6 +5748,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt10At0 => Start {
                 bytes: [
@@ -5688,6 +5759,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionsAt4At3 => Start {
                 bytes: [
@@ -5698,6 +5770,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionalPseudoClassesAt1At0 => Start {
                 bytes: [
@@ -5708,6 +5781,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionalPseudoClassesAt1At1At1 | Pat::CssFunctionalPseudoClassesAt1At2At1 => {
                 Start {
@@ -5719,6 +5793,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::CssCombinatorInvalid => Start {
@@ -5730,6 +5805,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssCombinatorsAt1 => Start {
                 bytes: [
@@ -5740,6 +5816,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt4 => Start {
                 bytes: [
@@ -5750,6 +5827,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt6 | Pat::TagParentReference => Start {
                 bytes: [
@@ -5760,6 +5838,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt8 => Start {
                 bytes: [
@@ -5770,6 +5849,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11 | Pat::SelectorAttribute => Start {
                 bytes: [
@@ -5780,6 +5860,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11End => Start {
                 bytes: [
@@ -5790,6 +5871,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11At2 => Start {
                 bytes: [
@@ -5800,6 +5882,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11At3 => Start {
                 bytes: [
@@ -5810,6 +5893,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11At5 => Start {
                 bytes: [
@@ -5820,6 +5904,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11At6 => Start {
                 bytes: [
@@ -5830,6 +5915,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11At7 => Start {
                 bytes: [
@@ -5840,6 +5926,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssSelectorInnardsAt11At8 => Start {
                 bytes: [
@@ -5850,6 +5937,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionalPseudoClassesAt3At0 => Start {
                 bytes: [
@@ -5860,6 +5948,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssFunctionalPseudoClassesAt3At1 => Start {
                 bytes: [
@@ -5870,6 +5959,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorPlaceholder => Start {
                 bytes: [
@@ -5880,6 +5970,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ParentSelectorSuffix => Start {
                 bytes: [
@@ -5890,6 +5981,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleMediaAt0
             | Pat::AtRuleOption
@@ -5903,6 +5995,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleMediaAt0At3 => Start {
                 bytes: [
@@ -5913,6 +6006,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AtRuleMediaAt0At4At0 | Pat::PropertiesAt0 => Start {
                 bytes: [
@@ -5923,6 +6017,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssMediaFeatures => Start {
                 bytes: [
@@ -5933,6 +6028,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleMediaAt0At4At1End | Pat::PropertiesAt1End => Start {
                 bytes: [
@@ -5943,6 +6039,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CssMediaTypes => Start {
                 bytes: [
@@ -5953,6 +6050,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRuleKeyframesAt3At0 => Start {
                 bytes: [
@@ -5963,6 +6061,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
         }
     }

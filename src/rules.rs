@@ -197,12 +197,6 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_payload(_rule: Self::Rule) -> Payload {
         Payload::None
     }
-    /// The byte a match of `pat` must have right after its first, where the
-    /// pattern fixes it. Such a pattern needs two bytes, so the tables leave
-    /// it out where no byte stands (see [`Tables::all`]).
-    fn pat_next(_pat: Self::Pat) -> Option<u8> {
-        None
-    }
     /// The prefix of a content scope that ends in the rule's payload text,
     /// for a rule whose content scope is named by it.
     fn rule_content_delimiter(_rule: Self::Rule) -> Option<&'static str> {
@@ -1369,6 +1363,13 @@ pub(crate) struct Start {
     /// A `\b` or a lookbehind for a non-word character comes before its first
     /// character, so it cannot match inside a word.
     pub(crate) wb: bool,
+    /// The pattern can match where no byte follows: past the line feed, or
+    /// at the end of a last line without one.
+    /// Such a match is empty, as an anchor such as `$` or `\z`, an optional
+    /// atom or a negative lookahead can be.
+    /// A lookahead that needs a byte, such as `(?=<<)`, cannot match there.
+    /// A backreference counts, since it can repeat an empty capture.
+    pub(crate) matches_at_end: bool,
 }
 
 /// A line and where lexing it starts: byte `start`, where a Markdown fence's
