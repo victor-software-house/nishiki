@@ -11,8 +11,6 @@
 //! enclosing begin ended, and a rule that opens or closes without advancing
 //! stops the line.
 
-use std::borrow::Cow;
-
 #[cfg(feature = "_embedding")]
 use super::Embedding;
 #[cfg(feature = "lang-graphql")]
@@ -1100,24 +1098,31 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// `suffix` spell out on top. A name with spaces is several scopes, and
     /// leading dots of the text are dropped, as a `TextMate` engine does for
     /// the text of a capture.
-    fn dynamic_path(&mut self, base: u32, prefix: &str, source: NameSource, suffix: &str) -> u32 {
+    fn dynamic_path(
+        &mut self,
+        base: u32,
+        prefix: &'static str,
+        source: NameSource,
+        suffix: &str,
+    ) -> u32 {
         let mut name = std::mem::take(&mut self.scratch.name);
         name.clear();
         name.push_str(prefix);
         {
             let s = self.s;
-            let text = match source {
+            match source {
                 NameSource::Line { start, end, case } => {
                     let text = String::from_utf8_lossy(s.get(start..end).unwrap_or_default());
-                    match case {
-                        NameCase::AsWritten => text,
-                        NameCase::Lowered => Cow::Owned(text.to_lowercase()),
-                    }
+                    push_spelled(&mut name, &text, case);
                 }
-                NameSource::Interned(id) => Cow::Borrowed(self.arena.string(id)),
-                NameSource::Group(group) => String::from_utf8_lossy(self.cap_text(group.into())),
-            };
-            name.push_str(text.trim_start_matches('.'));
+                NameSource::Interned(id) => {
+                    name.push_str(self.arena.string(id).trim_start_matches('.'));
+                }
+                NameSource::Group(group) => {
+                    let text = String::from_utf8_lossy(self.cap_text(group.into()));
+                    push_spelled(&mut name, &text, G::dyn_name_case(prefix));
+                }
+            }
         }
         name.push_str(suffix);
         let mut stack = base;
@@ -1814,6 +1819,55 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 }
 
+/// Pushes `text` onto `name` without its leading dots, spelled as `case`
+/// says.
+/// Inlined, so a grammar that spells every name as written pushes the text
+/// directly, as before names could be lowered.
+#[inline]
+fn push_spelled(name: &mut String, text: &str, case: NameCase) {
+    let text = text.trim_start_matches('.');
+    match case {
+        NameCase::AsWritten => name.push_str(text),
+        NameCase::Lowered => push_lowered(name, text),
+    }
+}
+
+/// Pushes `text` onto `name` lowered, as `${1:/downcase}` does.
+///
+/// The text lowers one character at a time, with no allocation.
+/// A text that holds a `Σ` goes to [`lower_with_final_sigma`].
+///
+/// This is out of line.
+/// Inlined into `emit_match`, the loop raised CSS's count by 0.22% and
+/// SCSS's by 0.17% at one codegen unit, all in `emit_match`'s own cost.
+#[inline(never)]
+fn push_lowered(name: &mut String, text: &str) {
+    if text.contains('Σ') {
+        lower_with_final_sigma(name, text);
+    } else {
+        name.extend(text.chars().flat_map(char::to_lowercase));
+    }
+}
+
+/// Pushes `text` onto `name` lowered as JavaScript's `toLowerCase` does, for a
+/// text that holds a `Σ`.
+///
+/// JavaScript lowers a `Σ` that ends a word to the final sigma `ς`.
+/// It lowers every other `Σ` to `σ`.
+/// `char::to_lowercase` sees one character at a time, so it gives `σ` for
+/// every `Σ`.
+/// `str::to_lowercase` applies the final-sigma rule.
+/// std has no public test for the cased and case-ignorable letters that the
+/// rule needs, so the lexer cannot apply it in place.
+///
+/// This allocates the lowered text.
+/// It is cold, so only a text with a `Σ` pays for it.
+#[cold]
+#[inline(never)]
+fn lower_with_final_sigma(name: &mut String, text: &str) {
+    name.push_str(&text.to_lowercase());
+}
+
 /// The state `state` with its innermost rule's payload replaced by
 /// `payload`, such as the state of the language the rule embeds after a
 /// line, or `None` when the node limit keeps the new state from being made.
@@ -1836,7 +1890,7 @@ mod tests {
     use crate::language::Halt;
     use crate::language::Parts;
     use crate::limits::{Limits, LineReport};
-    use crate::rules::{Act, Captures, Grammar, Payload, ScopeName, Text};
+    use crate::rules::{Act, Captures, Grammar, NameCase, Payload, ScopeName, Text};
     #[cfg(feature = "_embedding")]
     use crate::rules::{Embedding, Embeds, FnHalt};
     use crate::scope::{Scope, Scopes, scopes};
@@ -2280,6 +2334,15 @@ mod tests {
             }
         }
 
+        /// A word's name lowers its text, as `${0:/downcase}` would.
+        fn dyn_name_case(prefix: &'static str) -> NameCase {
+            if prefix == "word." {
+                NameCase::Lowered
+            } else {
+                NameCase::AsWritten
+            }
+        }
+
         fn rule_code(rule: Rule) -> u16 {
             match rule {
                 Rule::Root => 0,
@@ -2410,7 +2473,7 @@ mod tests {
         fn matcher(lexer: &mut Lexer<'_, Self>, pat: Mark, p: usize) -> Option<usize> {
             match pat {
                 Mark::Word => {
-                    let end = lexer.skip(p, |b| b.is_ascii_alphabetic());
+                    let end = lexer.skip(p, |b| b.is_ascii_alphabetic() || !b.is_ascii());
                     (end > p).then_some(end)
                 }
                 Mark::Look => {
@@ -2552,6 +2615,34 @@ mod tests {
                 "mark.?"
             ]
         );
+    }
+
+    #[test]
+    fn a_lowered_name_folds_its_group_and_no_other_name() {
+        let mut arena = Arena::new(None);
+        assert_eq!(arena.named_scope("after.test"), Some(AFTER));
+        let rows = named_tokens(&mut arena, &[b"<<AB Xy", b"zz AB"]);
+        assert_eq!(rows[0][0], (4, "quote.AB.q after.test".to_owned()));
+        assert_eq!(
+            rows[0][2],
+            (7, "quote.AB.q after.test word.xy.test".to_owned())
+        );
+        assert_eq!(
+            rows[1][0],
+            (2, "quote.AB.q after.test word.zz.test".to_owned())
+        );
+    }
+
+    /// JavaScript's `toLowerCase` lowers a `Σ` that ends a word to `ς`, and
+    /// any other `Σ` to `σ`.
+    /// No grammar the crate ships lowers a text that can hold a `Σ`.
+    /// `Named` lowers its `word.` names, and its words take any letter above
+    /// ASCII.
+    #[test]
+    fn a_lowered_name_ends_its_word_with_a_final_sigma() {
+        let mut arena = Arena::new(None);
+        let rows = named_tokens(&mut arena, &["ΣΑΣ".as_bytes()]);
+        assert_eq!(rows[0], [(6, "word.σας.test".to_owned())]);
     }
 
     #[test]

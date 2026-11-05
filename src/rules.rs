@@ -287,9 +287,10 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn skip_retok(_rule: Self::Rule, _text: &[u8]) -> bool {
         false
     }
-    /// How a [`DynName`] with `prefix` spells the line's text: as written,
-    /// unless the grammar's capture lowers it, as CSS's units do. Asked only
-    /// where a dynamic name is built, so that [`Span`] stays its size.
+    /// How a [`DynName`] or a [`ScopeName::Capture`] with `prefix` spells
+    /// the text it reads: as written, unless the grammar lowers it, as CSS's
+    /// units do with `${2:/downcase}`. Asked only where a dynamic name is
+    /// built, so that [`Span`] stays its size.
     fn dyn_name_case(_prefix: &'static str) -> NameCase {
         NameCase::AsWritten
     }
@@ -964,6 +965,10 @@ pub(crate) enum NameCase {
     AsWritten,
     /// Lowered, as `${1:/downcase}` does with JavaScript's `toLowerCase`:
     /// the Kelvin sign is `k`, but `ſ` and the ligatures stay.
+    /// The text lowers into the name's buffer one character at a time, with
+    /// no allocation.
+    /// Only a text with a `Σ` goes through `str::to_lowercase`, which gives
+    /// a final sigma `ς` as JavaScript does and allocates.
     Lowered,
 }
 
