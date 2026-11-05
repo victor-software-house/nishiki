@@ -1374,8 +1374,8 @@ fn vue_lex(
     }
 }
 
-/// Lexes a Vue body in `language`, a language on nishiki's `TextMate`
-/// engine, like [`vue_lex`].
+/// Lexes a Vue body in `language`, through its `Language` row, like
+/// [`vue_lex`].
 /// A language that cannot halt lexes the whole line, as `rules::lex_until`
 /// does.
 #[cfg(all(

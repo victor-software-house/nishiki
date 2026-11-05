@@ -17,6 +17,7 @@ cargo check --locked --tests --no-default-features --features docs
 cargo check --locked --tests --no-default-features --features lang-bat
 cargo check --locked --tests --no-default-features --features lang-c
 cargo check --locked --tests --no-default-features --features lang-cmake
+cargo check --locked --tests --no-default-features --features lang-coffee
 # One engine language alone, Common Lisp, with no language that hands off.
 # The engine's hand-off code still builds, since any capture can reach it.
 cargo check --locked --tests --no-default-features --features lang-common-lisp

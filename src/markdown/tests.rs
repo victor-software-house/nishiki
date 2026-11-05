@@ -722,8 +722,7 @@ fn batch_fences_embed_the_batch_lexer_without_its_root() {
     }
 }
 
-/// CoffeeScript runs on the engine with its handing loop. A fence named by
-/// any of the grammar's three words embeds it.
+/// A fence named by any of the grammar's three words embeds CoffeeScript.
 #[cfg(feature = "lang-coffee")]
 #[test]
 fn coffee_fences_embed_the_coffee_lexer() {

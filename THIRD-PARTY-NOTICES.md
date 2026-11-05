@@ -182,7 +182,7 @@ SOFTWARE.
 
 ## CoffeeScript
 
-Its TextMate engine runs the CoffeeScript TextMate grammar that Shiki bundles through VS Code as `coffee` (`extensions/coffeescript` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `ff58f5083f57b50e6a100ab60454dfb72fe21e80`), with its rules compiled into tables (`src/coffee/grammar.rs`).
+Its CoffeeScript lexer emits the scope names of the CoffeeScript TextMate grammar that Shiki bundles through VS Code as `coffee` (`extensions/coffeescript` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `ff58f5083f57b50e6a100ab60454dfb72fe21e80`), and tries that grammar's rules in its order, from tables generated from it (`src/coffee/grammar.rs` and `src/coffee/words.rs`).
 VS Code derived it from [atom/language-coffee-script](https://github.com/atom/language-coffee-script), which Atom converted from [jashkenas/coffee-script-tmbundle](https://github.com/jashkenas/coffee-script-tmbundle).
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
 That repository's `LICENSE.md`, read at commit `0f6db9143663e18b1ad00667820f46747dba495e`, holds its own MIT licence and the TextMate bundle's:

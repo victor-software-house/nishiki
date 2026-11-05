@@ -902,17 +902,15 @@ languages! {
     /// - A unit needs a digit or `}` before it and no word boundary after it, so `1sec` is `1`, `s` and `ec`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     Sass { feature: "lang-sass", names: ["sass"], module: sass, halts: true }
-    /// CoffeeScript, with the scopes of Shiki's `coffee` grammar, which
-    /// nishiki's `TextMate` engine runs. Its embedded JavaScript goes to the
-    /// JavaScript lexer.
-    CoffeeScript {
-        feature: "lang-coffee",
-        names: ["coffee", "coffeescript"],
-        engine: crate::coffee::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-        hands_off: true,
-    }
+    /// CoffeeScript, with the scopes of Shiki's `coffee` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - The JavaScript between backticks goes to the JavaScript lexer, up to the last backtick of the line.
+    ///   It is lexed as if the line ended there.
+    /// - A regular expression literal is plain operators and words.
+    ///   The grammar's rule for it includes only `source.js.regexp`, which no grammar provides, so Shiki skips the rule.
+    CoffeeScript { feature: "lang-coffee", names: ["coffee", "coffeescript"], module: coffee, halts: true }
     /// PHP, with the scopes of Shiki's `php` grammar. HTML, SQL, JavaScript,
     /// JSON, CSS and XML in its strings and heredocs go to their lexers.
     ///

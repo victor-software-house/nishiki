@@ -1,0 +1,347 @@
+L # Reaches the units of the coffee grammar that the other inputs do not.
+T 1 source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 71 source.coffee comment.line.number-sign.coffee
+L x = new class Foo.Bar
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 7 source.coffee meta.class.instance.constructor.coffee keyword.operator.new.coffee
+T 8 source.coffee meta.class.instance.constructor.coffee
+T 13 source.coffee meta.class.instance.constructor.coffee storage.type.class.coffee
+T 14 source.coffee meta.class.instance.constructor.coffee
+T 21 source.coffee meta.class.instance.constructor.coffee entity.name.type.instance.coffee
+L y = new class
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 7 source.coffee meta.class.instance.constructor.coffee keyword.operator.new.coffee
+T 8 source.coffee meta.class.instance.constructor.coffee
+T 13 source.coffee meta.class.instance.constructor.coffee storage.type.class.coffee
+L s = """
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 7 source.coffee string.quoted.double.heredoc.coffee punctuation.definition.string.begin.coffee
+L   a\tb #{x}
+T 3 source.coffee string.quoted.double.heredoc.coffee
+T 4 source.coffee string.quoted.double.heredoc.coffee constant.character.escape.backslash.coffee punctuation.definition.escape.backslash.coffee
+T 5 source.coffee string.quoted.double.heredoc.coffee constant.character.escape.backslash.coffee
+T 7 source.coffee string.quoted.double.heredoc.coffee
+T 9 source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 10 source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source
+T 11 source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+L """
+T 3 source.coffee string.quoted.double.heredoc.coffee punctuation.definition.string.end.coffee
+L ###
+T 3 source.coffee comment.block.coffee punctuation.definition.comment.coffee
+L   @param x
+T 2 source.coffee comment.block.coffee
+T 8 source.coffee comment.block.coffee storage.type.annotation.coffee
+T 10 source.coffee comment.block.coffee
+L ###
+T 3 source.coffee comment.block.coffee punctuation.definition.comment.coffee
+L 'f': -> 1
+T 1 source.coffee meta.function.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 2 source.coffee meta.function.coffee string.quoted.single.coffee entity.name.function.coffee
+T 3 source.coffee meta.function.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+T 4 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 5 source.coffee meta.function.coffee
+T 7 source.coffee meta.function.coffee storage.type.function.coffee
+T 8 source.coffee
+T 9 source.coffee constant.numeric.decimal.coffee
+L "g" = -> 2
+T 1 source.coffee meta.function.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 2 source.coffee meta.function.coffee string.quoted.double.coffee entity.name.function.coffee
+T 3 source.coffee meta.function.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 4 source.coffee meta.function.coffee
+T 5 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 6 source.coffee meta.function.coffee
+T 8 source.coffee meta.function.coffee storage.type.function.coffee
+T 9 source.coffee
+T 10 source.coffee constant.numeric.decimal.coffee
+L a extends b
+T 1 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 2 source.coffee meta.function-call.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee variable.language.coffee
+T 11 source.coffee meta.function-call.coffee meta.arguments.coffee
+L class extends Base
+T 5 source.coffee meta.class.coffee storage.type.class.coffee
+T 6 source.coffee meta.class.coffee
+T 13 source.coffee meta.class.coffee keyword.control.inheritance.coffee
+T 14 source.coffee meta.class.coffee
+T 18 source.coffee meta.class.coffee entity.other.inherited-class.coffee
+L class C extends @D
+T 5 source.coffee meta.class.coffee storage.type.class.coffee
+T 6 source.coffee meta.class.coffee
+T 7 source.coffee meta.class.coffee entity.name.type.class.coffee
+T 8 source.coffee meta.class.coffee
+T 15 source.coffee meta.class.coffee keyword.control.inheritance.coffee
+T 16 source.coffee meta.class.coffee
+T 18 source.coffee meta.class.coffee entity.other.inherited-class.coffee
+L x...map
+T 1 source.coffee
+T 4 source.coffee keyword.operator.splat.coffee
+T 7 source.coffee support.function.method.array.coffee
+L f = (@x, @y...) ->
+T 1 source.coffee meta.function.coffee entity.name.function.coffee
+T 2 source.coffee meta.function.coffee
+T 3 source.coffee meta.function.coffee keyword.operator.assignment.coffee
+T 4 source.coffee meta.function.coffee
+T 5 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 7 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.readwrite.instance.coffee
+T 8 source.coffee meta.function.coffee meta.parameters.coffee punctuation.separator.delimiter.coffee
+T 9 source.coffee meta.function.coffee meta.parameters.coffee
+T 11 source.coffee meta.function.coffee meta.parameters.coffee variable.parameter.function.readwrite.instance.coffee
+T 14 source.coffee meta.function.coffee meta.parameters.coffee keyword.operator.splat.coffee
+T 15 source.coffee meta.function.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 16 source.coffee meta.function.coffee
+T 18 source.coffee meta.function.coffee storage.type.function.coffee
+L q = 9lives
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 10 source.coffee invalid.illegal.identifier.coffee
+L h = 3abc()
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 8 source.coffee meta.function-call.coffee invalid.illegal.identifier.coffee
+T 9 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 10 source.coffee meta.function-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+L r = ///
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 7 source.coffee string.regexp.multiline.coffee punctuation.definition.string.begin.coffee
+L   \1 (?=a) (?!b) [^a-z] [\x41-B] [\cA-\101] [\.-\-] [a-\cB]
+T 2 source.coffee string.regexp.multiline.coffee
+T 4 source.coffee string.regexp.multiline.coffee keyword.other.back-reference.regexp
+T 5 source.coffee string.regexp.multiline.coffee
+T 6 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp punctuation.definition.group.regexp
+T 8 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp meta.assertion.look-ahead.regexp
+T 9 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp
+T 10 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp punctuation.definition.group.regexp
+T 11 source.coffee string.regexp.multiline.coffee
+T 12 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp punctuation.definition.group.regexp
+T 14 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp meta.assertion.negative-look-ahead.regexp
+T 15 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp
+T 16 source.coffee string.regexp.multiline.coffee meta.group.assertion.regexp punctuation.definition.group.regexp
+T 17 source.coffee string.regexp.multiline.coffee
+T 18 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 19 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp keyword.operator.negation.regexp
+T 22 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 23 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 24 source.coffee string.regexp.multiline.coffee
+T 25 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 29 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.numeric.regexp
+T 31 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 32 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 33 source.coffee string.regexp.multiline.coffee
+T 34 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 37 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.control.regexp
+T 38 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 42 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.numeric.regexp
+T 43 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 44 source.coffee string.regexp.multiline.coffee
+T 45 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 47 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.escape.backslash.regexp
+T 48 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 50 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.escape.backslash.regexp
+T 51 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 52 source.coffee string.regexp.multiline.coffee
+T 53 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+T 55 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp
+T 58 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp constant.other.character-class.range.regexp constant.character.control.regexp
+T 59 source.coffee string.regexp.multiline.coffee constant.other.character-class.set.regexp punctuation.definition.character-class.regexp
+L   \x41 \012 \cB
+T 2 source.coffee string.regexp.multiline.coffee
+T 6 source.coffee string.regexp.multiline.coffee constant.character.numeric.regexp
+T 7 source.coffee string.regexp.multiline.coffee
+T 11 source.coffee string.regexp.multiline.coffee constant.character.numeric.regexp
+T 12 source.coffee string.regexp.multiline.coffee
+T 15 source.coffee string.regexp.multiline.coffee constant.character.control.regexp
+L ///
+T 3 source.coffee string.regexp.multiline.coffee punctuation.definition.string.end.coffee
+L <div class="a" b={x}>{x}</div>
+T 1 source.coffee meta.tag.coffee punctuation.definition.tag.coffee
+T 4 source.coffee meta.tag.coffee entity.name.tag.coffee
+T 5 source.coffee meta.tag.coffee
+T 10 source.coffee meta.tag.coffee entity.other.attribute-name.coffee
+T 11 source.coffee meta.tag.coffee keyword.operator.assignment.coffee
+T 12 source.coffee meta.tag.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 13 source.coffee meta.tag.coffee string.quoted.double.coffee
+T 14 source.coffee meta.tag.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+T 15 source.coffee meta.tag.coffee
+T 16 source.coffee meta.tag.coffee entity.other.attribute-name.coffee
+T 17 source.coffee meta.tag.coffee keyword.operator.assignment.coffee
+T 18 source.coffee meta.tag.coffee meta.brace.curly.coffee
+T 19 source.coffee meta.tag.coffee
+T 20 source.coffee meta.tag.coffee meta.brace.curly.coffee
+T 21 source.coffee meta.tag.coffee
+T 22 source.coffee meta.brace.curly.coffee
+T 23 source.coffee
+T 24 source.coffee meta.brace.curly.coffee
+T 26 source.coffee meta.tag.coffee punctuation.definition.tag.coffee
+T 29 source.coffee meta.tag.coffee entity.name.tag.coffee
+T 30 source.coffee meta.tag.coffee
+L <span/>
+T 1 source.coffee meta.tag.coffee punctuation.definition.tag.coffee
+T 5 source.coffee meta.tag.coffee entity.name.tag.coffee
+T 7 source.coffee meta.tag.coffee
+L foo.bar baz
+T 3 source.coffee variable.other.object.coffee
+T 4 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 7 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 8 source.coffee meta.method-call.coffee
+T 11 source.coffee meta.method-call.coffee meta.arguments.coffee
+L Foo::bar()
+T 3 source.coffee variable.other.object.coffee
+T 5 source.coffee meta.method-call.coffee keyword.operator.prototype.coffee
+T 8 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 9 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 10 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+L Foo::bar qux
+T 3 source.coffee variable.other.object.coffee
+T 5 source.coffee meta.method-call.coffee keyword.operator.prototype.coffee
+T 8 source.coffee meta.method-call.coffee entity.name.function.coffee
+T 9 source.coffee meta.method-call.coffee
+T 12 source.coffee meta.method-call.coffee meta.arguments.coffee
+L el.onBlur()
+T 2 source.coffee variable.other.object.coffee
+T 3 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 9 source.coffee meta.method-call.coffee support.function.event-handler.coffee
+T 10 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 11 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+L o.4bad()
+T 1 source.coffee
+T 2 source.coffee meta.method-call.coffee punctuation.separator.method.period.coffee
+T 6 source.coffee meta.method-call.coffee invalid.illegal.identifier.coffee
+T 7 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.begin.bracket.round.coffee
+T 8 source.coffee meta.method-call.coffee meta.arguments.coffee punctuation.definition.arguments.end.bracket.round.coffee
+L @go a
+T 1 source.coffee meta.function-call.coffee variable.other.readwrite.instance.coffee
+T 3 source.coffee meta.function-call.coffee entity.name.function.coffee
+T 4 source.coffee meta.function-call.coffee
+T 5 source.coffee meta.function-call.coffee meta.arguments.coffee
+L n = 0b101 + 0o17 + 017
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 9 source.coffee constant.numeric.binary.coffee
+T 10 source.coffee
+T 11 source.coffee keyword.operator.coffee
+T 12 source.coffee
+T 16 source.coffee constant.numeric.octal.coffee
+T 17 source.coffee
+T 18 source.coffee keyword.operator.coffee
+T 19 source.coffee
+T 22 source.coffee constant.numeric.octal.coffee
+L d = [1.5e3, 1.e5, .5e2, 1e3, 1.5, 1..3, 3., .5, 7]
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 5 source.coffee punctuation.definition.array.begin.bracket.square.coffee
+T 6 source.coffee constant.numeric.decimal.coffee
+T 7 source.coffee constant.numeric.decimal.coffee punctuation.separator.decimal.period.coffee
+T 10 source.coffee constant.numeric.decimal.coffee
+T 11 source.coffee punctuation.separator.delimiter.coffee
+T 12 source.coffee
+T 13 source.coffee constant.numeric.decimal.coffee
+T 14 source.coffee constant.numeric.decimal.coffee punctuation.separator.decimal.period.coffee
+T 16 source.coffee constant.numeric.decimal.coffee
+T 17 source.coffee punctuation.separator.delimiter.coffee
+T 18 source.coffee
+T 19 source.coffee constant.numeric.decimal.coffee punctuation.separator.decimal.period.coffee
+T 22 source.coffee constant.numeric.decimal.coffee
+T 23 source.coffee punctuation.separator.delimiter.coffee
+T 24 source.coffee
+T 27 source.coffee constant.numeric.decimal.coffee
+T 28 source.coffee punctuation.separator.delimiter.coffee
+T 29 source.coffee
+T 30 source.coffee constant.numeric.decimal.coffee
+T 31 source.coffee constant.numeric.decimal.coffee punctuation.separator.decimal.period.coffee
+T 32 source.coffee constant.numeric.decimal.coffee
+T 33 source.coffee punctuation.separator.delimiter.coffee
+T 34 source.coffee
+T 35 source.coffee constant.numeric.decimal.coffee
+T 37 source.coffee keyword.operator.slice.inclusive.coffee
+T 38 source.coffee constant.numeric.decimal.coffee
+T 39 source.coffee punctuation.separator.delimiter.coffee
+T 40 source.coffee
+T 41 source.coffee constant.numeric.decimal.coffee
+T 42 source.coffee constant.numeric.decimal.coffee punctuation.separator.decimal.period.coffee
+T 43 source.coffee punctuation.separator.delimiter.coffee
+T 44 source.coffee
+T 45 source.coffee constant.numeric.decimal.coffee punctuation.separator.decimal.period.coffee
+T 46 source.coffee constant.numeric.decimal.coffee
+T 47 source.coffee punctuation.separator.delimiter.coffee
+T 48 source.coffee
+T 49 source.coffee constant.numeric.decimal.coffee
+T 50 source.coffee punctuation.definition.array.end.bracket.square.coffee
+L CONST.x
+T 5 source.coffee constant.other.object.coffee
+T 6 source.coffee punctuation.separator.property.period.coffee
+T 7 source.coffee variable.other.property.coffee
+L a.FOO.b
+T 1 source.coffee variable.other.object.coffee
+T 2 source.coffee punctuation.separator.property.period.coffee
+T 5 source.coffee constant.other.object.property.coffee
+T 6 source.coffee punctuation.separator.property.period.coffee
+T 7 source.coffee variable.other.property.coffee
+L a::BAR.c
+T 1 source.coffee variable.other.object.coffee
+T 3 source.coffee keyword.operator.prototype.coffee
+T 6 source.coffee constant.other.object.property.coffee
+T 7 source.coffee punctuation.separator.property.period.coffee
+T 8 source.coffee variable.other.property.coffee
+L a::BAR
+T 1 source.coffee variable.other.object.coffee
+T 3 source.coffee keyword.operator.prototype.coffee
+T 6 source.coffee constant.other.property.coffee
+L a.5
+T 1 source.coffee
+T 2 source.coffee punctuation.separator.property.period.coffee
+T 3 source.coffee invalid.illegal.identifier.coffee
+L a::5
+T 1 source.coffee variable.other.object.coffee
+T 3 source.coffee keyword.operator.prototype.coffee
+T 4 source.coffee invalid.illegal.identifier.coffee
+L a ?= b
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 4 source.coffee keyword.operator.assignment.compound.coffee
+T 6 source.coffee
+L b and= c
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 6 source.coffee keyword.operator.assignment.compound.coffee
+T 8 source.coffee
+L a <<= 1
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 5 source.coffee keyword.operator.assignment.compound.bitwise.coffee
+T 6 source.coffee
+T 7 source.coffee constant.numeric.decimal.coffee
+L b = 1 << 2 >>> 3
+T 1 source.coffee variable.assignment.coffee
+T 2 source.coffee
+T 3 source.coffee keyword.operator.assignment.coffee
+T 4 source.coffee
+T 5 source.coffee constant.numeric.decimal.coffee
+T 6 source.coffee
+T 8 source.coffee keyword.operator.bitwise.shift.coffee
+T 9 source.coffee
+T 10 source.coffee constant.numeric.decimal.coffee
+T 11 source.coffee
+T 14 source.coffee keyword.operator.bitwise.shift.coffee
+T 15 source.coffee
+T 16 source.coffee constant.numeric.decimal.coffee
+L 

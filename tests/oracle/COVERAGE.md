@@ -16,6 +16,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Batch | `bat` | 79 of 79 | 100.0% | 53 of 54 | 98.1% | 1 | 0 | yes |
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
+| CoffeeScript | `coffee` | 136 of 143 | 95.1% | 132 of 134 | 98.5% | 9 | 0 | yes |
 | C++ | `cpp` | 877 of 912 | 96.2% | 2480 of 2679 | 92.6% | 234 | 0 | yes |
 | C++ | `cpp-macro` | 593 of 611 | 97.1% | 1532 of 1645 | 93.1% | 131 | 0 | yes |
 | C# | `csharp` | 544 of 547 | 99.5% | 515 of 525 | 98.1% | 13 | 0 | yes |
@@ -110,6 +111,18 @@ The groups of an unexercised expression count as unexercised and are not listed.
 #switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: its begin never matches
 #switch_statement.beginCaptures[5].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
 #switch_statement.beginCaptures[5].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+```
+
+### `coffee`
+
+```text
+patterns[8].begin  (?<![$\w])(/)(?=(?![*+/?])(.+)(/)[gimuy]*(?!\s*[$(/\w]))  waived: the regular expression rule includes only `source.js.regexp`, which no grammar provides, so vscode-textmate skips it
+patterns[8].end  (/)[gimuy]*(?!\s*[$(/\w])  waived: the regular expression rule includes only `source.js.regexp`, which no grammar provides, so vscode-textmate skips it
+patterns[27].match  ((?<=console\.)(debug|warn|info|log|error|time|timeEnd|asse…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
+patterns[29].match  ((?<=Array\.)(isArray))\b  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
+patterns[30].match  ((?<=Object\.)(create|definePropert(ies|y)|freeze|getOwnPro…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
+patterns[31].match  ((?<=Math\.)(abs|acosh??|asinh??|atan2??|atanh|ceil|cosh??|…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
+patterns[32].match  ((?<=Number\.)(is(Finite|Integer|NaN)|toInteger))\b  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
 ```
 
 ### `cpp`

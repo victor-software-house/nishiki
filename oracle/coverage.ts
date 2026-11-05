@@ -53,6 +53,7 @@ const handLexed = new Map([
   ["bat", "Batch"],
   ["c", "C"],
   ["cmake", "CMake"],
+  ["coffee", "CoffeeScript"],
   ["cpp", "C++"],
   ["cpp-macro", "C++"],
   ["csharp", "C#"],

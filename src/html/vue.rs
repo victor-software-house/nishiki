@@ -1055,10 +1055,10 @@ pub(super) enum Lexed {
     Script(Dialect),
     Yaml,
     Graphql,
-    /// Sass, on nishiki's `TextMate` engine.
+    /// Sass, through `Language::Sass`.
     #[cfg(feature = "lang-sass")]
     Sass,
-    /// CoffeeScript, on nishiki's `TextMate` engine.
+    /// CoffeeScript, through `Language::CoffeeScript`.
     #[cfg(feature = "lang-coffee")]
     Coffee,
     /// A TypeScript expression: a directive's value.

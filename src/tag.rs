@@ -54,6 +54,9 @@ tags! {
     /// CMake.
     #[cfg(feature = "lang-cmake")]
     CMAKE = 0x3300,
+    /// CoffeeScript.
+    #[cfg(feature = "lang-coffee")]
+    COFFEE = 0x3e00,
     /// C++, with the next byte for the number of its rule.
     #[cfg(feature = "lang-cpp")]
     CPP = 0x2400 mask 0xfe00,

@@ -1343,6 +1343,21 @@ export const waivers: Waiver[] = [
         "the rule's begin `([^\"]*)` takes the text up to the quote, where its end `(?=\")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty",
     }),
   ),
+  ...["patterns[8].begin", "patterns[8].end"].map(
+    (path): Waiver => ({
+      grammar: "coffee",
+      path,
+      reason: "the regular expression rule includes only `source.js.regexp`, which no grammar provides, so vscode-textmate skips it",
+    }),
+  ),
+  ...["patterns[27].match", "patterns[29].match", "patterns[30].match", "patterns[31].match", "patterns[32].match"].map(
+    (path): Waiver => ({
+      grammar: "coffee",
+      path,
+      reason:
+        "the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it",
+    }),
+  ),
   { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
   {
@@ -1513,6 +1528,7 @@ export const complete: string[] = [
   "bat",
   "c",
   "cmake",
+  "coffee",
   "cpp",
   "cpp-macro",
   "csharp",

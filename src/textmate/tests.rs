@@ -439,8 +439,6 @@ fn kept_frames_lex_as_rebuilt_ones() {
 static SHIPPED: &[(&Grammar, &str)] = &[
     #[cfg(feature = "lang-asm")]
     (&crate::asm::grammar::GRAMMAR, "asm"),
-    #[cfg(feature = "lang-coffee")]
-    (&crate::coffee::grammar::GRAMMAR, "coffee"),
     #[cfg(feature = "lang-common-lisp")]
     (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
     #[cfg(feature = "lang-elixir")]
@@ -1966,11 +1964,10 @@ mod hand_offs {
     }
 
     /// As in Shiki, a `:sass` filter scopes only its own line, and its body
-    /// lexes as HAML. A `:coffee` filter runs CoffeeScript on the engine,
-    /// inside the hand-off on the spare scratch. Its backticks hand on to
-    /// JavaScript, three levels down.
+    /// lexes as HAML. A `:coffee` filter hands its lines to the CoffeeScript
+    /// lexer. Its backticks hand on to JavaScript, three levels down.
     #[test]
-    fn a_coffee_filter_runs_the_engine_and_a_sass_filter_ends_at_its_line() {
+    fn a_coffee_filter_lexes_coffeescript_and_a_sass_filter_ends_at_its_line() {
         let rows = Document::new(&HAML).lex(indoc! {"
             :sass
               .a
@@ -2136,36 +2133,6 @@ mod hand_offs {
         assert_eq!(
             scope_of(&rows[0], ">"),
             "punctuation.definition.tag.end.html",
-            "{:?}",
-            rows[0]
-        );
-    }
-
-    /// CoffeeScript's backticks hold JavaScript in a capture,
-    /// `` (`)(.*)(`) ``. The capture's text goes to the JavaScript lexer, and
-    /// the closing backtick stays CoffeeScript's.
-    #[cfg(feature = "lang-coffee")]
-    #[test]
-    fn a_coffee_backtick_hands_its_javascript_to_the_javascript_lexer() {
-        let rows = Document::new(&crate::coffee::grammar::GRAMMAR).lex("x = `var raw = 1;`\n");
-        assert_eq!(
-            scope_of(&rows[0], "var"),
-            "storage.type.js",
-            "{:?}",
-            rows[0]
-        );
-        assert_eq!(
-            scope_of(&rows[0], ";"),
-            "punctuation.terminator.statement.js",
-            "{:?}",
-            rows[0]
-        );
-        assert_eq!(
-            rows[0]
-                .last()
-                .and_then(|(_, scopes)| scopes.last())
-                .map(String::as_str),
-            Some("punctuation.definition.string.end.coffee"),
             "{:?}",
             rows[0]
         );

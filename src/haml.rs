@@ -6,7 +6,6 @@
 //! The grammar includes the whole Ruby, JavaScript, CSS, Markdown, Sass and
 //! CoffeeScript grammars.
 //! Each such include hands its region to nishiki's lexer for that language.
-//! CoffeeScript runs on the engine again.
 //! So the engine runs this grammar with its handing loop.
 //! Ruby's `<<~HAML` heredoc embeds HAML.
 //! Markdown cannot embed it, because Shiki's Markdown grammar has no HAML

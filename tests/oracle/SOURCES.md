@@ -36,6 +36,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `coffee/coffeescript-javascript-literals` | [`test/javascript_literals.coffee`][coffeescript-javascript-literals] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-optparse` | [`src/optparse.coffee`][coffeescript-optparse] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
 | `coffee/coffeescript-repl` | [`src/repl.coffee`][coffeescript-repl] in jashkenas/coffeescript | [MIT][coffeescript-licence] |
+| `coffee/coverage` | `oracle/inputs/coffee-coverage.coffee`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `coffee/sample` | [`samples/coffee.sample`][coffee-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `common-lisp/cl-ppcre-optimize` | [`optimize.lisp`][cl-ppcre-optimize] in edicl/cl-ppcre | [BSD-2-Clause][cl-ppcre-licence] |
 | `common-lisp/cl-ppcre-scanner` | [`scanner.lisp`][cl-ppcre-scanner] in edicl/cl-ppcre | [BSD-2-Clause][cl-ppcre-licence] |
@@ -880,6 +881,8 @@ Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
 `julia/sample`, `julia/base-abstractset` and `julia/coverage` are Julia's development inputs, and `markdown/julia-functions` is the development input for Julia fences.
 `julia/base-sort`, `julia/strings-util` and `markdown/julia-strings` are held out.
 None of them has an `R` string macro, whose contents Shiki lexes as R and nishiki leaves plain.
+`coffee/sample`, `coffee/coffeescript-helpers`, `coffee/coffeescript-javascript-literals`, `coffee/coffeescript-browser` and `coffee/coverage` are CoffeeScript's development inputs, and `markdown/coffeescript-classes` is the development input for CoffeeScript fences.
+`coffee/coffeescript-cake`, `coffee/coffeescript-optparse`, `coffee/coffeescript-repl` and `markdown/coffeescript-super-this` are held out.
 
 `html/sample`, `html/h5bp-index`, `html/todomvc-backbone`, `html/three-animation-keyframes`, `html/mathjax-mml-chtml`, `html/three-css3d-periodictable` and `html/jquery-qunit-fixture` are the development inputs for HTML.
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.

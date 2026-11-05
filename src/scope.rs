@@ -84,6 +84,8 @@ tables! {
     C = c;
     #[cfg(feature = "lang-cmake")]
     CMAKE = cmake;
+    #[cfg(feature = "lang-coffee")]
+    COFFEE = coffee;
     #[cfg(feature = "lang-cpp")]
     CPP = cpp;
     #[cfg(feature = "lang-csharp")]

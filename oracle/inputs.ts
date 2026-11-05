@@ -6,6 +6,7 @@
 import batCoverage from "./inputs/bat-coverage.bat" with { type: "text" };
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
+import coffeeCoverage from "./inputs/coffee-coverage.coffee" with { type: "text" };
 import cppCoverage from "./inputs/cpp-coverage.cpp" with { type: "text" };
 import csharpCoverage from "./inputs/csharp-coverage.cs" with { type: "text" };
 import cssCharsetNoSpace from "./inputs/css-charset-no-space.css" with { type: "text" };
@@ -530,6 +531,7 @@ export const inputs: Input[] = [
   { lang: "coffee", name: "coffeescript-javascript-literals", url: `${coffeescript}/test/javascript_literals.coffee` },
   { lang: "coffee", name: "coffeescript-optparse", url: `${coffeescript}/src/optparse.coffee` },
   { lang: "coffee", name: "coffeescript-repl", url: `${coffeescript}/src/repl.coffee` },
+  { lang: "coffee", name: "coverage", text: coffeeCoverage },
   { lang: "coffee", name: "sample", url: `${samples}/coffee.sample` },
   // Common Lisp runs on the TextMate engine.
   { lang: "common-lisp", name: "cl-ppcre-optimize", url: `${clPpcre}/optimize.lisp` },

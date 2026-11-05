@@ -34,6 +34,7 @@ all = [
   "lang-bat",
   "lang-c",
   "lang-cmake",
+  "lang-coffee",
   "lang-cpp",
   "lang-csharp",
   "lang-css",
@@ -127,7 +128,6 @@ systems = [
 docs = ["config", "lang-markdown"]
 textmate = [
   "lang-asm",
-  "lang-coffee",
   "lang-common-lisp",
   "lang-elixir",
   "lang-gdscript",
@@ -143,7 +143,13 @@ lang-asm = ["_textmate"]
 lang-bat = ["_scope-table", "_rule-tables", "_classes"]
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cmake = ["_scope-table", "_rule-tables", "_classes"]
-lang-coffee = ["_textmate", "lang-javascript"]
+lang-coffee = [
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_halting-embedding",
+  "lang-javascript",
+]
 lang-common-lisp = ["_textmate"]
 lang-cpp = ["_scope-table", "_rule-tables", "_classes"]
 lang-csharp = ["_scope-table", "_rule-tables", "_classes"]
@@ -283,7 +289,7 @@ _classes = ["_utf8"]
 # expressions and blocks.
 _embedding = ["_rule-engine"]
 # The hand-over of a grammar that embeds a language and is itself embedded,
-# for GraphQL in Vue and PHP.
+# for GraphQL in Vue, CoffeeScript in Vue and HAML, and PHP.
 _halting-embedding = ["_embedding"]
 _scope-table = []
 # tag::frame_kinds!, for the lexers that declare their frame kinds with it.

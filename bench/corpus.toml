@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 7
+version = 8
 
 [[file]]
 language = "bat"
@@ -90,6 +90,28 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/google/flatbuffers/blob/f58d5768f1fd0df9f71aa6ae5f63645e2637c31f/LICENSE"
 bytes = 24543
 sha256 = "92e3dea4bd8a021efccd42f16ac3b5224bbaf52d9f4cf9b4f584ad648187ab3f"
+
+[[file]]
+language = "coffee"
+tier = "small"
+origin = "neutral"
+path = "coffee/small/hubot-listener.coffee"
+source = "https://raw.githubusercontent.com/hubotio/hubot/c0f6bdf947c5271c2cac5d48730320b129c2e44f/src/listener.coffee"
+licence = "MIT"
+licence_source = "https://github.com/hubotio/hubot/blob/c0f6bdf947c5271c2cac5d48730320b129c2e44f/LICENSE.md"
+bytes = 3879
+sha256 = "c7be79dbdea23127e03d7f991eb2ed2c41415dedc7ffa814d372864eecdadac1"
+
+[[file]]
+language = "coffee"
+tier = "medium"
+origin = "neutral"
+path = "coffee/medium/hubot-robot.coffee"
+source = "https://raw.githubusercontent.com/hubotio/hubot/c0f6bdf947c5271c2cac5d48730320b129c2e44f/src/robot.coffee"
+licence = "MIT"
+licence_source = "https://github.com/hubotio/hubot/blob/c0f6bdf947c5271c2cac5d48730320b129c2e44f/LICENSE.md"
+bytes = 20860
+sha256 = "0e69c35477fb28970827b852529a9432785ff5712939546dfa1d42b0ed6546d5"
 
 [[file]]
 language = "common-lisp"

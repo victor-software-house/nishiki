@@ -21,6 +21,12 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first CMake line, as GraphQL's is.
     #[cfg(feature = "lang-cmake")]
     pub(crate) cmake: Option<Box<crate::cmake::Scratch>>,
+    /// The CoffeeScript lexer's, for CoffeeScript documents, Markdown
+    /// CoffeeScript fences and the CoffeeScript that Vue and HAML embed.
+    /// It is boxed and allocated by the first CoffeeScript line, as GraphQL's
+    /// is.
+    #[cfg(feature = "lang-coffee")]
+    pub(crate) coffee: Option<Box<crate::coffee::Scratch>>,
     /// The C++ lexer's, for C++ documents and Markdown C++ fences.
     #[cfg(feature = "lang-cpp")]
     pub(crate) cpp: crate::cpp::Scratch,
