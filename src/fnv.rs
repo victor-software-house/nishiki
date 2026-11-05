@@ -9,14 +9,14 @@
 //! Text only looks parts up there, so it cannot add children that collide,
 //! and the fixed hasher is safe for it too.
 
-#[cfg(any(feature = "lang-c", feature = "lang-python"))]
+#[cfg(feature = "_rule-engine")]
 use std::collections::HashMap;
-#[cfg(any(feature = "lang-c", feature = "lang-python"))]
+#[cfg(feature = "_rule-engine")]
 use std::hash::BuildHasherDefault;
 use std::hash::Hasher;
 
 /// A map keyed through [`Fnv`].
-#[cfg(any(feature = "lang-c", feature = "lang-python"))]
+#[cfg(feature = "_rule-engine")]
 pub(crate) type FnvMap<K, V> = HashMap<K, V, BuildHasherDefault<Fnv>>;
 
 /// FNV-1a over the bytes written.

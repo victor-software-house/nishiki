@@ -1,10 +1,10 @@
 //! For each rule, the patterns that can match at a byte, in the order the
 //! grammar tries them, so the engine tries only those where a byte stands.
 
-use std::collections::HashMap;
 use std::ops::ControlFlow;
 
 use super::{Act, BlankRuns, Lexer, RuleData, Start, Tabled};
+use crate::fnv::FnvMap;
 use crate::language::Halt;
 
 /// Where a position lies, for the patterns that need a word boundary or the
@@ -126,37 +126,51 @@ impl<G: Tabled> Tables<G> {
 /// of every place and byte, each distinct list once, and where each place
 /// and byte's list lies among them. It works on positions, so it is built
 /// once for every grammar.
+///
+/// Each place and byte gets a bit set of patterns, one bit per position.
+/// A pattern sets its bit only at the bytes its start allows, so the work
+/// follows the starts, not 768 times the patterns.
+/// Equal sets share one list, which lists the positions in increasing order.
+/// So the lists come out in the order a filter over the patterns gives.
 fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
-    let mut lists = Vec::new();
-    let mut seen: HashMap<Vec<usize>, (usize, usize)> = HashMap::new();
-    let mut spans = Vec::with_capacity(768);
-    let mut picks = Vec::new();
-    for place in [Place::Away, Place::LineStart, Place::InWord] {
-        for byte in 0..=255_u8 {
-            picks.clear();
-            picks.extend(
-                starts
-                    .iter()
-                    .enumerate()
-                    .filter(|(_, start)| {
-                        (place == Place::LineStart || !start.bol)
-                            && (place != Place::InWord || !start.wb)
-                            && start.bytes[usize::from(byte >> 6)] >> (byte & 63) & 1 == 1
-                    })
-                    .map(|(index, _)| index),
-            );
-            let span = if let Some(&span) = seen.get(&picks) {
-                span
-            } else {
-                let span = (lists.len(), picks.len());
-                lists.extend_from_slice(&picks);
-                seen.insert(picks.clone(), span);
-                span
-            };
-            spans.push(span);
+    let words = starts.len().div_ceil(64).max(1);
+    let mut sets = vec![0_u64; 3 * 256 * words];
+    for (index, start) in starts.iter().enumerate() {
+        let (word, bit) = (index / 64, 1_u64 << (index % 64));
+        for place in [Place::Away, Place::LineStart, Place::InWord] {
+            if (place != Place::LineStart && start.bol) || (place == Place::InWord && start.wb) {
+                continue;
+            }
+            for byte in set_bits(&start.bytes) {
+                if let Some(set) = sets.get_mut((place.index() * 256 + byte) * words + word) {
+                    *set |= bit;
+                }
+            }
         }
     }
+    let mut lists = Vec::new();
+    let mut seen: FnvMap<&[u64], (usize, usize)> = FnvMap::default();
+    let spans = sets
+        .chunks_exact(words)
+        .map(|set| {
+            *seen.entry(set).or_insert_with(|| {
+                let first = lists.len();
+                lists.extend(set_bits(set));
+                (first, lists.len() - first)
+            })
+        })
+        .collect();
     (lists, spans)
+}
+
+/// The positions of the set bits of `words`, bit `i` of word `w` being
+/// position `64 * w + i`, in increasing order.
+fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
+    words.iter().enumerate().flat_map(|(word, &bits)| {
+        std::iter::successors(Some(bits), |&left| Some(left & left.wrapping_sub(1)))
+            .take_while(|&left| left != 0)
+            .map(move |left| word * 64 + usize::try_from(left.trailing_zeros()).unwrap_or(0))
+    })
 }
 
 /// The first pattern of the innermost rule that matches at or after the
@@ -325,4 +339,63 @@ fn at_final_blank<G: Tabled, const HALTING: bool>(
 /// Whether `byte` is an ASCII word character.
 fn is_word_byte(byte: u8) -> bool {
     byte.is_ascii_alphanumeric() || byte == b'_'
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A start that allows the bytes `bytes`.
+    fn start(bytes: &[u8], bol: bool, wb: bool) -> Start {
+        let mut set = [0_u64; 4];
+        for &byte in bytes {
+            set[usize::from(byte >> 6)] |= 1 << (byte & 63);
+        }
+        Start {
+            bytes: set,
+            bol,
+            wb,
+        }
+    }
+
+    /// The list of `place` and `byte`.
+    fn list(tables: &(Vec<usize>, Vec<(usize, usize)>), place: Place, byte: u8) -> &[usize] {
+        let (lists, spans) = tables;
+        let (first, len) = spans[place.index() * 256 + usize::from(byte)];
+        &lists[first..first + len]
+    }
+
+    #[test]
+    fn each_place_and_byte_lists_the_patterns_its_starts_allow_in_order() {
+        let starts = [
+            start(b"ab", false, true),
+            start(b"a", true, false),
+            start(b"bc", false, false),
+        ];
+        let tables = candidate_lists(&starts);
+        assert_eq!(list(&tables, Place::Away, b'a'), [0]);
+        assert_eq!(list(&tables, Place::LineStart, b'a'), [0, 1]);
+        assert_eq!(list(&tables, Place::InWord, b'a'), [0_usize; 0]);
+        assert_eq!(list(&tables, Place::Away, b'b'), [0, 2]);
+        assert_eq!(list(&tables, Place::InWord, b'b'), [2]);
+        assert_eq!(list(&tables, Place::InWord, b'c'), [2]);
+        assert_eq!(list(&tables, Place::Away, b'z'), [0_usize; 0]);
+    }
+
+    #[test]
+    fn equal_lists_are_stored_once() {
+        let starts = [start(b"xy", false, false)];
+        let (lists, spans) = candidate_lists(&starts);
+        assert_eq!(lists, [0]);
+        assert_eq!(spans[usize::from(b'x')], spans[usize::from(b'y')]);
+    }
+
+    #[test]
+    fn a_pattern_past_the_first_word_of_the_sets_keeps_its_position() {
+        let mut starts: Vec<Start> = (0..70).map(|_| start(b"q", false, false)).collect();
+        starts.push(start(b"r", false, false));
+        let tables = candidate_lists(&starts);
+        assert_eq!(list(&tables, Place::Away, b'r'), [70]);
+        assert_eq!(list(&tables, Place::Away, b'q').len(), 70);
+    }
 }
