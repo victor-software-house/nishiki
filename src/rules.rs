@@ -813,7 +813,11 @@ pub(crate) fn lex_embedding_until_resuming<G: Embeds>(
 
 /// The body of [`lex_embedding_until`], for a line it does not skip.
 #[cfg(feature = "_halting-embedding")]
-#[inline]
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: with `#[inline]`, LLVM split it from `lex_embedding_until` and took `settle_deferred` out of line in CoffeeScript and LaTeX"
+)]
+#[inline(always)]
 fn lex_embedding_through<G: Embeds>(
     cx: &mut Context<'_>,
     line: Line<'_>,
