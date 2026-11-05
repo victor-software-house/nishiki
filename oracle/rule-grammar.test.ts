@@ -122,6 +122,13 @@ test("a \\G lets a match start anywhere only before the first item that consumes
   const hack = startOf("(?i)(\\\\)?\\bG(ender\\Gender|lobIterator)\\b", "any");
   expect(hack.any).toBe(false);
   expect(hack.atEnd).toBe(false);
+  expect(startOf("a\\Gb", "any").atEnd).toBe(false);
+  expect(startOf("x?\\G$", "any").atEnd).toBe(true);
+});
+
+test("a named back reference counts as empty where a numbered one does", () => {
+  expect(startOf("(?<n>a?)\\k<n>", "any").atEnd).toBe(true);
+  expect(startOf("(?=<<(?<n>x?)\\k<n>)", "any").atEnd).toBe(false);
 });
 
 test("an item before a \\b counts as safe inside a word only when a match there cannot start or can start earlier", () => {

@@ -575,6 +575,10 @@ export function startOf(
   // A match where no byte follows takes the empty path, and none of its
   // lookaheads may need a byte, so that path's constraint is every byte.
   // A back reference or a call can match empty, so that parse lets them.
+  // Both parses run the same parser and differ only in how a reference
+  // counts as empty, so this one cannot fail where the first passed.
+  // Syntax handled only here would lose that, and its failure would escape
+  // the catch above.
   const end = new RegexParser(source, backref, true).parse();
   const atEnd = end.any || (end.empty !== null && end.empty.every((w) => w === 0xffffffffffffffffn));
   // Without that case a pattern that `wb` keeps out of words only because a
