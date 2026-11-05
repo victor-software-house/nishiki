@@ -1,0 +1,368 @@
+L %!TEX root = main.tex
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 21 text.tex comment.line.percentage.tex
+L % Written for nishiki: TeX that reaches the rules the other inputs leave
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 72 text.tex comment.line.percentage.tex
+L % out, as tests/oracle/COVERAGE.md counts them.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 47 text.tex comment.line.percentage.tex
+L   % an indented comment
+T 2 text.tex punctuation.whitespace.comment.leading.tex
+T 3 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 23 text.tex comment.line.percentage.tex
+L %: a comment with a colon
+T 2 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 25 text.tex comment.line.percentage.tex
+L 
+L \catcode`\@=11
+T 1 text.tex meta.catcode.tex keyword.control.catcode.tex punctuation.definition.keyword.tex
+T 8 text.tex meta.catcode.tex keyword.control.catcode.tex
+T 11 text.tex meta.catcode.tex
+T 12 text.tex meta.catcode.tex punctuation.separator.key-value.tex
+T 14 text.tex meta.catcode.tex constant.numeric.category.tex
+L \catcode`|=12
+T 1 text.tex meta.catcode.tex keyword.control.catcode.tex punctuation.definition.keyword.tex
+T 8 text.tex meta.catcode.tex keyword.control.catcode.tex
+T 10 text.tex meta.catcode.tex
+T 11 text.tex meta.catcode.tex punctuation.separator.key-value.tex
+T 13 text.tex meta.catcode.tex constant.numeric.category.tex
+L \def\name{value} \edef\other{\name}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex support.function.general.tex
+T 17 text.tex
+T 18 text.tex support.function.general.tex punctuation.definition.function.tex
+T 22 text.tex support.function.general.tex
+T 23 text.tex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex support.function.general.tex
+T 29 text.tex
+T 30 text.tex support.function.general.tex punctuation.definition.function.tex
+T 34 text.tex support.function.general.tex
+T 35 text.tex
+L \let\a=\b \relax \\ [ ] { }
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 7 text.tex
+T 8 text.tex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex support.function.general.tex
+T 10 text.tex
+T 11 text.tex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex support.function.general.tex
+T 17 text.tex
+T 19 text.tex keyword.control.newline.tex
+T 20 text.tex
+T 21 text.tex punctuation.definition.brackets.tex
+T 22 text.tex
+T 23 text.tex punctuation.definition.brackets.tex
+T 27 text.tex
+L 
+L \iffalse
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+L   hidden text
+T 13 text.tex comment.line.percentage.tex
+L \else
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 5 text.tex keyword.control.tex
+L   shown text
+T 12 text.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L \iffalse{}\fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+T 9 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.begin.tex
+T 10 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.end.tex
+T 11 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 13 text.tex keyword.control.tex
+L 
+L \ifx\a\b
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 4 text.tex keyword.control.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 7 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+L   \relax
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L \ifdefined\name \expandafter\fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 10 text.tex keyword.control.tex
+T 11 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 16 text.tex
+T 17 text.tex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex support.function.general.tex
+T 29 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 31 text.tex keyword.control.tex
+L \csname foo\endcsname \unless\ifnum1<2 \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 7 text.tex keyword.control.tex
+T 11 text.tex
+T 12 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 21 text.tex keyword.control.tex
+T 22 text.tex
+T 23 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 29 text.tex keyword.control.tex
+T 30 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 35 text.tex keyword.control.tex
+T 39 text.tex
+T 40 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 42 text.tex keyword.control.tex
+L 
+L \@ifnextchar[{\opt}{\noopt}
+T 13 text.tex keyword.control.ifnextchar.tex
+T 14 text.tex
+T 15 text.tex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex support.function.general.tex
+T 20 text.tex
+T 21 text.tex support.function.general.tex punctuation.definition.function.tex
+T 26 text.tex support.function.general.tex
+T 27 text.tex
+L \@ifnextchar({\paren}{\none}
+T 13 text.tex keyword.control.ifnextchar.tex
+T 14 text.tex
+T 15 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 22 text.tex
+T 23 text.tex support.function.general.tex punctuation.definition.function.tex
+T 27 text.tex support.function.general.tex
+T 28 text.tex
+L \ExplSyntaxOn
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+L \cs_new:Npn \my_func:nn #1#2 { #1 #2 }
+T 1 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 11 text.tex support.class.general.latex3.tex
+T 12 text.tex
+T 13 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 23 text.tex support.class.general.latex3.tex
+T 38 text.tex
+L \tl_set:Nn \l_my_tl { x }
+T 1 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 10 text.tex support.class.general.latex3.tex
+T 11 text.tex
+T 12 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 25 text.tex
+L \__private_name:N .key_name:n
+T 1 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 17 text.tex support.class.general.latex3.tex
+T 18 text.tex
+T 19 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 29 text.tex support.class.general.latex3.tex
+L \ExplSyntaxOff
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+L 
+L $a + b - c * d / e$ and $x^2 + y_i$ and $a^^b$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex
+T 4 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 11 text.tex meta.math.block.tex support.class.math.block.tex
+T 12 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 15 text.tex meta.math.block.tex support.class.math.block.tex
+T 16 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex
+T 19 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 24 text.tex
+T 25 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 26 text.tex meta.math.block.tex support.class.math.block.tex
+T 27 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 28 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 29 text.tex meta.math.block.tex support.class.math.block.tex
+T 30 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 32 text.tex meta.math.block.tex support.class.math.block.tex
+T 33 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 34 text.tex meta.math.block.tex support.class.math.block.tex
+T 35 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 40 text.tex
+T 41 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 45 text.tex meta.math.block.tex support.class.math.block.tex
+T 46 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $$\sum_{i=1}^{n} \int_0^1 \sin x \, dx \leq \alpha$$
+T 2 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 6 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 10 text.tex meta.math.block.tex support.class.math.block.tex
+T 11 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 12 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 14 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 15 text.tex meta.math.block.tex support.class.math.block.tex
+T 16 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 17 text.tex meta.math.block.tex support.class.math.block.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 21 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 22 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 23 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 24 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 25 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 26 text.tex meta.math.block.tex support.class.math.block.tex
+T 27 text.tex meta.math.block.tex support.class.math.block.tex constant.other.math.tex punctuation.definition.constant.math.tex
+T 30 text.tex meta.math.block.tex support.class.math.block.tex constant.other.math.tex
+T 33 text.tex meta.math.block.tex support.class.math.block.tex
+T 34 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex punctuation.definition.function.tex
+T 35 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex
+T 39 text.tex meta.math.block.tex support.class.math.block.tex
+T 40 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 43 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex
+T 45 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 50 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 52 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\left( \frac{1}{2} \right) \bigl[ x \bigr] \Bigg\{ y \Bigg\}$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex
+T 9 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 14 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 15 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 16 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 17 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 19 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 20 text.tex meta.math.block.tex support.class.math.block.tex
+T 27 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 28 text.tex meta.math.block.tex support.class.math.block.tex
+T 34 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 37 text.tex meta.math.block.tex support.class.math.block.tex
+T 43 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex
+T 51 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 54 text.tex meta.math.block.tex support.class.math.block.tex
+T 61 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 62 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\left\langle v \right\rangle \bigl\lvert z \bigr\rVert \left. f \right|$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 16 text.tex meta.math.block.tex support.class.math.block.tex
+T 29 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 30 text.tex meta.math.block.tex support.class.math.block.tex
+T 41 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex
+T 55 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 56 text.tex meta.math.block.tex support.class.math.block.tex
+T 62 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 65 text.tex meta.math.block.tex support.class.math.block.tex
+T 72 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.big.tex
+T 73 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\text{in words} \mbox{box} \{ \} \( \) 3.14 .5 42$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 2 text.tex meta.math.block.tex support.class.math.block.tex constant.other.math.tex punctuation.definition.function.tex
+T 6 text.tex meta.math.block.tex support.class.math.block.tex constant.other.math.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.arguments.begin.tex meta.text.normal.tex
+T 15 text.tex meta.math.block.tex support.class.math.block.tex meta.text.normal.tex
+T 16 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.arguments.end.tex meta.text.normal.tex
+T 17 text.tex meta.math.block.tex support.class.math.block.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex constant.other.math.tex punctuation.definition.function.tex
+T 22 text.tex meta.math.block.tex support.class.math.block.tex constant.other.math.tex
+T 23 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.arguments.begin.tex meta.text.normal.tex
+T 26 text.tex meta.math.block.tex support.class.math.block.tex meta.text.normal.tex
+T 27 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.arguments.end.tex meta.text.normal.tex
+T 28 text.tex meta.math.block.tex support.class.math.block.tex
+T 30 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 31 text.tex meta.math.block.tex support.class.math.block.tex
+T 33 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 34 text.tex meta.math.block.tex support.class.math.block.tex
+T 35 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 36 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 37 text.tex meta.math.block.tex support.class.math.block.tex
+T 38 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 39 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 40 text.tex meta.math.block.tex support.class.math.block.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 45 text.tex meta.math.block.tex support.class.math.block.tex
+T 47 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 48 text.tex meta.math.block.tex support.class.math.block.tex
+T 50 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 51 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\Sexpr{mean(x)} \operatorname{op} \mathbb{R} \$ \\$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 2 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex punctuation.definition.function.math.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex punctuation.section.embedded.begin.math.tex
+T 12 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex source.r meta.function-call entity.name.function
+T 13 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex source.r meta.bracket
+T 14 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex source.r meta.bracket variable.object
+T 15 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex source.r meta.bracket
+T 16 text.tex meta.math.block.tex support.class.math.block.tex meta.embedded.line.r support.function.sexpr.math.tex punctuation.section.embedded.end.math.tex source.r
+T 17 text.tex meta.math.block.tex support.class.math.block.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 30 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 31 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 33 text.tex meta.math.block.tex support.class.math.block.tex
+T 34 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 35 text.tex meta.math.block.tex support.class.math.block.tex
+T 36 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 42 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 43 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex
+T 45 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 46 text.tex meta.math.block.tex support.class.math.block.tex
+T 48 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 49 text.tex meta.math.block.tex support.class.math.block.tex
+T 51 text.tex meta.math.block.tex support.class.math.block.tex keyword.control.newline.tex
+T 52 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\bogoplus x \sum x$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 2 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 10 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex
+T 14 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 17 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 19 text.tex meta.math.block.tex support.class.math.block.tex
+T 20 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\alpha\beta \leftarrow \notasymbol \verb|x| \begin{x}$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 2 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 12 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex
+T 14 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 23 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 24 text.tex meta.math.block.tex support.class.math.block.tex
+T 25 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 35 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 36 text.tex meta.math.block.tex support.class.math.block.tex
+T 37 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex punctuation.definition.function.tex
+T 41 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex
+T 45 text.tex meta.math.block.tex support.class.math.block.tex
+T 46 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex punctuation.definition.function.tex
+T 51 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex
+T 52 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 53 text.tex meta.math.block.tex support.class.math.block.tex
+T 54 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 55 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L \, \; \@ \# \%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 2 text.tex support.function.general.tex
+T 3 text.tex
+T 4 text.tex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex support.function.general.tex
+T 6 text.tex
+T 7 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+T 9 text.tex
+T 10 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 11 text.tex constant.character.escape.tex
+T 12 text.tex
+T 13 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 14 text.tex constant.character.escape.tex
+L 

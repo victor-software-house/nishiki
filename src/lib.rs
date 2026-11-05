@@ -166,7 +166,7 @@
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
-//! | `docs` | Markdown and `config` |
+//! | `docs` | Markdown, TeX and `config` |
 //! | `textmate` | HAML |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
@@ -209,7 +209,11 @@ mod arena;
 mod asm;
 #[cfg(feature = "lang-bat")]
 mod bat;
-#[cfg(any(feature = "lang-common-lisp", feature = "lang-pascal"))]
+#[cfg(any(
+    feature = "lang-common-lisp",
+    feature = "lang-pascal",
+    feature = "lang-tex"
+))]
 mod bytes;
 #[cfg(feature = "lang-c")]
 mod c;
@@ -358,6 +362,8 @@ mod swift;
 mod tag;
 #[cfg(test)]
 mod test_support;
+#[cfg(feature = "lang-tex")]
+mod tex;
 #[cfg(feature = "_textmate")]
 mod textmate;
 mod theme;

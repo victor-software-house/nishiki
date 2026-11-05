@@ -86,6 +86,7 @@ all = [
   "lang-sql",
   "lang-svelte",
   "lang-swift",
+  "lang-tex",
   "lang-toml",
   "lang-tsx",
   "lang-typescript",
@@ -136,7 +137,7 @@ systems = [
   "lang-shell",
   "lang-swift",
 ]
-docs = ["config", "lang-markdown"]
+docs = ["config", "lang-markdown", "lang-tex"]
 textmate = ["lang-haml"]
 
 # One feature per lexer module. A language that embeds another needs it.
@@ -277,6 +278,7 @@ lang-svelte = [
   "_utf8",
 ]
 lang-swift = ["_scope-table", "_rule-tables", "_classes"]
+lang-tex = ["_scope-table", "_rule-tables", "_classes", "_embedding"]
 lang-toml = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-tsx = ["_classes", "_space"]
 lang-typescript = ["_classes", "_space"]

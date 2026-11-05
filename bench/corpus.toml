@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 18
-digest = "800539d0c3e149ed46ff4585ebbd678effe6bb8b3c3eadc630705c153374ab54"
+version = 19
+digest = "15893f1a56bb41c1648af1c13195d1f90b231a307bb248eb3c3870ed4c2469e2"
 
 [[file]]
 language = "asm"
@@ -1440,6 +1440,28 @@ licence = "MIT"
 licence_source = "https://github.com/vapor/vapor/blob/0f2a8ee9f38b2589c066b604de3e3168ed54c82d/LICENSE"
 bytes = 21865
 sha256 = "4803beb42511e3cb8d5dbf5b8924e40555a8b57c908baff3dfb80cdc465f939d"
+
+[[file]]
+language = "tex"
+tier = "small"
+origin = "neutral"
+path = "tex/small/kks32-thesis-info.tex"
+source = "https://raw.githubusercontent.com/kks32/phd-thesis-template/8d6c2d59790d93ef58e50f908d98d49e00b4fb1d/thesis-info.tex"
+licence = "MIT"
+licence_source = "https://github.com/kks32/phd-thesis-template/blob/8d6c2d59790d93ef58e50f908d98d49e00b4fb1d/LICENSE"
+bytes = 2347
+sha256 = "18a0b1db31a9b7c1662c1b1afa9b4f0e1afbf4682746145839f778e5464aab2b"
+
+[[file]]
+language = "tex"
+tier = "medium"
+origin = "neutral"
+path = "tex/medium/kks32-phd-thesis-class.cls"
+source = "https://raw.githubusercontent.com/kks32/phd-thesis-template/8d6c2d59790d93ef58e50f908d98d49e00b4fb1d/PhDThesisPSnPDF.cls"
+licence = "MIT"
+licence_source = "https://github.com/kks32/phd-thesis-template/blob/8d6c2d59790d93ef58e50f908d98d49e00b4fb1d/LICENSE"
+bytes = 39282
+sha256 = "08bdb2c28523c0599e87845a30e65953c8d9122fd62bec010e4fb74f12558ad8"
 
 [[file]]
 language = "toml"

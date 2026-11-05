@@ -72,6 +72,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | SQL | `sql` | 72 of 75 | 96.0% | 75 of 79 | 94.9% | 7 | 0 | yes |
 | Svelte | `svelte` | 162 of 166 | 97.6% | 70 of 70 | 100.0% | 4 | 0 | yes |
 | Swift | `swift` | 425 of 448 | 94.9% | 441 of 448 | 98.4% | 30 | 0 | yes |
+| TeX | `tex` | 40 of 42 | 95.2% | 32 of 34 | 94.1% | 4 | 0 | yes |
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
@@ -1183,6 +1184,14 @@ injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end
 #operators.patterns[1].patterns[2].captures[0].patterns[9].match  \G([!=]==)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
 #operators.patterns[1].patterns[2].captures[0].patterns[10].match  \G\?$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
 #operators.patterns[1].patterns[5].captures[0].patterns[0].match  \G\.\.[.<]$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+```
+
+### `tex`
+
+```text
+#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comment.patterns[1].begin  ^(%!TEX) (\S*) =  waived: `%:?`, earlier in the same list, matches at the same `%`, so this begin never wins
+#comment.patterns[1].end  $\n?  waived: its rule never opens, so its end is never tried
 ```
 
 ### `toml`

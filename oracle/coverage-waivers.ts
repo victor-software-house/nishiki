@@ -899,6 +899,19 @@ export const waivers: Waiver[] = [
   { grammar: "matlab", path: "#comment_block.begin", group: 1, reason: blanks, probe: "CommentBlock" },
   { grammar: "matlab", path: "#comments.patterns[0].begin", group: 1, reason: blanks, probe: "CommentsAt0" },
   { grammar: "matlab", path: "#comments.patterns[2].begin", group: 1, reason: blanks, probe: "CommentsAt2" },
+  { grammar: "tex", path: "#comment.begin", group: 1, reason: blanks, probe: "Comment" },
+  {
+    grammar: "tex",
+    path: "#comment.patterns[1].begin",
+    reason: "`%:?`, earlier in the same list, matches at the same `%`, so this begin never wins",
+    probe: "CommentAt1",
+  },
+  {
+    grammar: "tex",
+    path: "#comment.patterns[1].end",
+    reason: "its rule never opens, so its end is never tried",
+    probe: "CommentAt0End",
+  },
   { grammar: "toml", path: "#comments.begin", group: 1, reason: blanks },
   ...(
     [
@@ -1780,6 +1793,7 @@ export const complete: string[] = [
   "sql",
   "svelte",
   "swift",
+  "tex",
   "toml",
   "tsx",
   "typescript",

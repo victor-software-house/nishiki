@@ -1,0 +1,23 @@
+// TeX for the differential fuzzer (fuzz.ts) and the Oniguruma harness
+// (onig.ts): pieces of TeX to build documents from, texts to insert, the
+// info strings of Markdown fences, and the texts the harness probes
+// expressions with.
+
+/** Pieces that random documents are made of. */
+export const pieces: string[] = ["\\def\\name{value}","\\let\\a=\\b","\\relax","\\iffalse","hidden text","\\else","\\fi","\\iffalse{}\\fi","\\ifx\\a\\b","\\ifnum1<2 \\fi","\\csname foo\\endcsname","\\catcode`\\@=11","\\catcode`|=12","\\@ifnextchar[{\\opt}{\\noopt}","\\ExplSyntaxOn","\\cs_new:Npn \\my_func:nn #1#2 { #1 #2 }","\\tl_set:Nn \\l_my_tl { x }","\\ExplSyntaxOff","$a + b$","$x^2 + y_i$","$$\\sum_{i=1}^{n} \\int_0^1 \\sin x \\, dx$$","$\\left( \\frac{1}{2} \\right)$","$\\bigl[ x \\bigr]$","$\\text{words} 3.14$","$\\Sexpr{mean(x)}$","$\\alpha\\beta \\leq$","% comment","  % indented","%!TEX root = main.tex","\\\\ [ ] { }","\\, \; \\@ \\#","é","",""];
+
+/** Texts that mutation inserts. */
+export const mutations: string[] = ["$","$$","\\","{","}","[","]","%","\\fi","\\else","\\iffalse","^","_","`","é"];
+
+/** Info strings of Markdown fences. Shiki's Markdown grammar has no TeX fence of its own: `tex` embeds LaTeX. */
+export const fences: string[] = [];
+
+/** For the Oniguruma harness. */
+export const probe = {
+  /** Texts inserted into fixture lines. */
+  snippets: ["\\iffalse","  \\iffalse","x\\iffalse","\\iffalse {}\\fi","\\iffalse{ } \\fi x","\\else","\\fi","\\fix","\\if","\\iff","\\iffoo","\\ifx","  \\ifx","\\fi","  \\fi","\\else","\\elsex","\\catcode`\\@=11","\\catcode`|=12","\\catcode`\\=1","\\catcode`=","$","$$","\\$","\\\\","\\{","\\}","[","]","\\(","\\)","\\text{","\\mbox{","\\textx{","\\@ifnextchar[","\\@ifnextchar(","\\@ifnextchar{","\\@ifnextcharx","\\cs_new:Npn","\\__a_b:nN","\\_x:","\\a_:n","\\a_b_:n",".key:n",".a_b:x","\\,","\;","\\@","\\é","\\a","\\","\\1","\\left(","\\right)","\\left.","\\bigl[","\\biggl\\{","\\Bigr\\}","\\bigg|","\\Biggl\\langle","\\left\\lvert","\\right\\Vert","\\rangle","\\leftarrow","\\alpha","\\alphax","\\bogoplus","\\sum","\\sumx","\\sin","\\sinh","\\sin2","\\begin{x}","\\verb|x|","\\verbx","3.14",".5","42","1.","x^y","x^^y","x_y","x__y","+","-","*","/","%","%:","  %","x%"] as string[],
+  /** Texts tried at 0 for an expression that starts with `\\G`. */
+  anchored: ["%"," ",""] as string[],
+  /** Whole texts tried at 0. */
+  whole: ["%!TEX root = main.tex","%!TEX x =","%!TEX  =","  % c","% c","\\iffalse","  \\iffalse x","\\ifx","\\fi"] as string[],
+};

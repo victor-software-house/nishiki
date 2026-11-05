@@ -72,6 +72,8 @@ mod shell;
 mod sql;
 mod svelte;
 mod swift;
+#[cfg(feature = "lang-tex")]
+mod tex;
 mod toml;
 mod typescript;
 #[cfg(feature = "lang-vb")]

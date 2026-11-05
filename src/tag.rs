@@ -198,6 +198,9 @@ tags! {
     /// Swift.
     #[cfg(feature = "lang-swift")]
     SWIFT = 0x2b00,
+    /// TeX.
+    #[cfg(feature = "lang-tex")]
+    TEX = 0x4c00,
     /// The `TextMate` engine's, for every language it runs.
     #[cfg(feature = "_textmate")]
     TEXTMATE = 0x1000,

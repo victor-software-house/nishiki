@@ -197,6 +197,10 @@ pub(crate) struct Scratch {
     /// of its own here.
     #[cfg(all(test, feature = "_embedding"))]
     pub(crate) test_grammar: Option<Box<dyn std::any::Any>>,
+    /// The TeX lexer's, for TeX documents.
+    /// It is boxed and allocated by the first TeX line, as MATLAB's is.
+    #[cfg(feature = "lang-tex")]
+    pub(crate) tex: Option<Box<crate::tex::Scratch>>,
     /// The `TextMate` engine's, for every language it runs.
     /// Boxed, so a line of a grammar that hands off swaps it for its spare by
     /// swapping two pointers.

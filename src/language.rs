@@ -1218,6 +1218,17 @@ languages! {
     /// - A heredoc starts only where its label ends the line.
     /// - `\d`, `\w`, `\s` and `[[:alpha:]]` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
     Hcl { feature: "lang-hcl", names: ["hcl"], module: hcl }
+    /// TeX, with the scopes of Shiki's `tex` grammar.
+    /// LaTeX's lexer runs the same rules for the TeX its grammar includes.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - `\Sexpr{…}` in math is R.
+    ///   R hands the text back at a `}` where no R rule is open.
+    /// - A `%!TEX root = …` magic comment is an ordinary comment: the comment's `%:?` matches at the same `%` first, so the grammar's rule for magic comments never applies.
+    /// - `\bogoplus`, a typo for `\bigoplus` in the grammar's list of big operators, is a math constant.
+    ///   Every other big operator is also in the symbol list, which comes first, so only that word reaches the operator rule.
+    Tex { feature: "lang-tex", names: ["tex"], module: tex }
 }
 
 impl Language {

@@ -180,6 +180,8 @@ tables! {
     SVELTE = svelte;
     #[cfg(feature = "lang-swift")]
     SWIFT = swift;
+    #[cfg(feature = "lang-tex")]
+    TEX = tex;
     #[cfg(feature = "lang-toml")]
     TOML = toml;
     #[cfg(any(

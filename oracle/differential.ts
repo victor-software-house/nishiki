@@ -179,6 +179,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["{{", "}}", "{{-", "-}}", "{%", "%}", "{%-", "-%}", "{#", "#}", "{#-", "-#}", "(", ")", "[", "]", "{", "}", ",", ".", ":", "|", "=", "==", "!=", "<", ">", "<=", ">=", "=>", "+", "-", "*", "**", "/", "//", "%", "\"", "'", "\\n", "\\\\", "\\x41", "\\u00e9", "\\", "@/", "<div>", "</div>"],
     heads: ["", "", " ", "  ", "\t", "{{ ", "{% ", "{# ", "{% raw %}", "<p>", "text "],
   },
+  tex: {
+    words: ["\\def","\\edef","\\let","\\relax","\\iffalse","\\ifx","\\ifnum","\\ifdefined","\\else","\\fi","\\unless","\\csname","\\endcsname","\\expandafter","\\catcode","\\@ifnextchar","\\ExplSyntaxOn","\\cs_new:Npn","\\tl_set:Nn","\\__my_fn:nn",".key_name:n","\\l_my_tl","\\alpha","\\beta","\\leq","\\leftarrow","\\infty","\\sum","\\int","\\bogoplus","\\sin","\\log","\\lim","\\frac","\\left","\\right","\\bigl","\\Bigg","\\langle","\\rVert","\\text","\\mbox","\\Sexpr","\\verb","\\begin","\\end","\\name","\\a","\\b","\\@","\\,","\;","x","y","é","1","3.14",".5"],
+    marks: ["$","$$","\\$","\\\\","{","}","\\{","\\}","[","]","(",")","\\(","\\)","^","_","^^","__","+","-","*","/","=","`","`\\@","%","% c","%:","&","#","#1","~"],
+    heads: ["",""," ","  ","% ","  % ","%!TEX root = ","\\iffalse","\\fi","\\ifx\\a\\b","$","$$","\\catcode`\\@=11 "],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

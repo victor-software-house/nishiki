@@ -58,7 +58,8 @@ use std::ops::ControlFlow;
     feature = "lang-common-lisp",
     feature = "lang-r",
     feature = "lang-jinja",
-    feature = "lang-asm"
+    feature = "lang-asm",
+    feature = "lang-tex"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]
@@ -400,7 +401,8 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-perl",
-    feature = "lang-elixir"
+    feature = "lang-elixir",
+    feature = "lang-tex"
 ))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
@@ -417,7 +419,8 @@ macro_rules! embedded {
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-perl",
-    feature = "lang-elixir"
+    feature = "lang-elixir",
+    feature = "lang-tex"
 ))]
 pub(crate) use embedded;
 

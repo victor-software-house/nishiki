@@ -1,0 +1,485 @@
+L \iffalse
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+L some text within a long sentence
+T 32 text.tex comment.line.percentage.tex
+L  \ifdim
+T 1 text.tex comment.line.percentage.tex
+T 7 text.tex comment.line.percentage.tex
+L % some other case
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 17 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L \else
+T 5 text.tex comment.line.percentage.tex
+L poo
+T 3 text.tex comment.line.percentage.tex
+L \fi
+T 3 text.tex comment.line.percentage.tex
+L and more 
+T 9 text.tex comment.line.percentage.tex
+L \else
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 5 text.tex keyword.control.tex
+L some alternative
+T 16 text.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L 
+L 
+L \iffalse
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+L some text within a long sentence
+T 32 text.tex comment.line.percentage.tex
+L %\ifdim
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 7 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L % some other case
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 17 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L %\else
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 6 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L poo
+T 3 text.tex comment.line.percentage.tex
+L %\fi
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 4 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L and more
+T 8 text.tex comment.line.percentage.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L 
+L \newcommand{\file}[1]{\texttt{#1}}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 12 text.tex
+T 13 text.tex support.function.general.tex punctuation.definition.function.tex
+T 17 text.tex support.function.general.tex
+T 18 text.tex
+T 19 text.tex punctuation.definition.brackets.tex
+T 20 text.tex
+T 21 text.tex punctuation.definition.brackets.tex
+T 22 text.tex
+T 23 text.tex support.function.general.tex punctuation.definition.function.tex
+T 29 text.tex support.function.general.tex
+T 34 text.tex
+L \iffalse
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+L Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+T 56 text.tex comment.line.percentage.tex
+L The file \file{main.tex} contains the main content of the document.
+T 14 text.tex comment.line.percentage.tex
+T 15 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.begin.tex
+T 23 text.tex comment.line.percentage.tex meta.group.braces.tex
+T 24 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.end.tex
+T 67 text.tex comment.line.percentage.tex
+L Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+T 56 text.tex comment.line.percentage.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L 
+L \iftrue
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 7 text.tex keyword.control.tex
+L some text within a long sentence
+T 32 text.tex
+L %\ifdim
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 7 text.tex comment.line.percentage.tex
+L % some other case
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 17 text.tex comment.line.percentage.tex
+L %\else
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 6 text.tex comment.line.percentage.tex
+L poo
+T 3 text.tex
+L %\fi
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 4 text.tex comment.line.percentage.tex
+L and more
+T 8 text.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L 
+L 
+L \iffalse
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+L some text within a long sentence
+T 32 text.tex comment.line.percentage.tex
+L %\ifdim
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 7 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L % some other case
+T 1 text.tex comment.line.percentage.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 17 text.tex comment.line.percentage.tex comment.line.percentage.tex
+L \else
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 5 text.tex keyword.control.tex
+L poo
+T 3 text.tex
+L %\fi
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 4 text.tex comment.line.percentage.tex
+L and more
+T 8 text.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L 
+L % #97, skip brace tricks
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 24 text.tex comment.line.percentage.tex
+L % array.sty v2.6d (2024/06/14), line 229-232
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 44 text.tex comment.line.percentage.tex
+L \protected\def\@arraycr {
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex support.function.general.tex
+T 11 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+T 15 text.tex support.function.general.tex punctuation.definition.function.tex
+T 23 text.tex support.function.general.tex
+T 25 text.tex
+L   \tbl_count_missing_cells:n {@arraycr}
+T 2 text.tex
+T 3 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 28 text.tex support.class.general.latex3.tex
+T 39 text.tex
+L   \iffalse{\fi\ifnum 0=`}\fi
+T 2 text.tex
+T 3 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 10 text.tex keyword.control.tex
+T 11 text.tex
+T 12 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 14 text.tex keyword.control.tex
+T 15 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 20 text.tex keyword.control.tex
+T 25 text.tex
+T 26 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 28 text.tex keyword.control.tex
+L   \@ifstar \@xarraycr \@xarraycr}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex support.function.general.tex
+T 11 text.tex
+T 12 text.tex support.function.general.tex punctuation.definition.function.tex
+T 21 text.tex support.function.general.tex
+T 22 text.tex
+T 23 text.tex support.function.general.tex punctuation.definition.function.tex
+T 32 text.tex support.function.general.tex
+T 33 text.tex
+L 
+L % From https://github.com/texstudio-org/texstudio/issues/618#issuecomment-499325441
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 83 text.tex comment.line.percentage.tex
+L \def\newif#1{%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex support.function.general.tex
+T 13 text.tex
+T 14 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \count@\escapechar \escapechar\m@ne
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex support.function.general.tex
+T 10 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex support.function.general.tex punctuation.definition.function.tex
+T 32 text.tex support.function.general.tex
+T 33 text.tex support.function.general.tex punctuation.definition.function.tex
+T 37 text.tex support.function.general.tex
+L     \let#1\iffalse
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+T 10 text.tex
+T 11 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 18 text.tex keyword.control.tex
+L     \@if#1\iftrue
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+T 10 text.tex
+T 11 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 17 text.tex keyword.control.tex
+L     \@if#1\iffalse
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+T 10 text.tex
+T 11 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 18 text.tex keyword.control.tex
+L   \escapechar\count@}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 14 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 21 text.tex
+L 
+L \def\environment{\begingroup
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex support.function.general.tex
+T 17 text.tex
+T 18 text.tex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex support.function.general.tex
+L    \catcode`\\12
+T 3 text.tex
+T 4 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 12 text.tex
+T 14 text.tex keyword.control.newline.tex
+T 16 text.tex
+L    \MakePrivateLetters \m@cro@ \iffalse}
+T 3 text.tex
+T 4 text.tex support.function.general.tex punctuation.definition.function.tex
+T 22 text.tex support.function.general.tex
+T 23 text.tex
+T 24 text.tex support.function.general.tex punctuation.definition.function.tex
+T 30 text.tex support.function.general.tex
+T 31 text.tex
+T 32 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 39 text.tex keyword.control.tex
+T 40 text.tex
+L 
+L % #97 skip \iffalse}\fi and \iffalse{\fi
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 40 text.tex comment.line.percentage.tex
+L \def\bbgroup{{\iffalse}\fi}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex support.function.general.tex
+T 14 text.tex
+T 15 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 22 text.tex keyword.control.tex
+T 23 text.tex
+T 24 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 26 text.tex keyword.control.tex
+T 27 text.tex
+L \def\eegroup{\iffalse{\fi}text text}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex support.function.general.tex
+T 13 text.tex
+T 14 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 21 text.tex keyword.control.tex
+T 22 text.tex
+T 23 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 25 text.tex keyword.control.tex
+T 36 text.tex
+L 
+L \def\bbgroup{{%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex support.function.general.tex
+T 14 text.tex
+T 15 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \iffalse}\fi}
+T 2 text.tex
+T 3 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 10 text.tex keyword.control.tex
+T 11 text.tex
+T 12 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 14 text.tex keyword.control.tex
+T 15 text.tex
+L \def\eegroup{%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex support.function.general.tex
+T 13 text.tex
+T 14 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \iffalse{\fi}%
+T 2 text.tex
+T 3 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 10 text.tex keyword.control.tex
+T 11 text.tex
+T 12 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 14 text.tex keyword.control.tex
+T 15 text.tex
+T 16 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L   text text}
+T 12 text.tex
+L 
+L \renewcommand\ensureTABstackMath[1]{%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 14 text.tex support.function.general.tex punctuation.definition.function.tex
+T 32 text.tex support.function.general.tex
+T 33 text.tex punctuation.definition.brackets.tex
+T 34 text.tex
+T 35 text.tex punctuation.definition.brackets.tex
+T 36 text.tex
+T 37 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L \iffalse{\fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+T 9 text.tex
+T 10 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 12 text.tex keyword.control.tex
+L \let\sv@TABmode\TAB@delim\TABstackMath#1\let\TAB@delim\sv@TABmode
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 16 text.tex support.function.general.tex punctuation.definition.function.tex
+T 25 text.tex support.function.general.tex
+T 26 text.tex support.function.general.tex punctuation.definition.function.tex
+T 38 text.tex support.function.general.tex
+T 40 text.tex
+T 41 text.tex support.function.general.tex punctuation.definition.function.tex
+T 44 text.tex support.function.general.tex
+T 45 text.tex support.function.general.tex punctuation.definition.function.tex
+T 54 text.tex support.function.general.tex
+T 55 text.tex support.function.general.tex punctuation.definition.function.tex
+T 65 text.tex support.function.general.tex
+L \iffalse}\fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+T 9 text.tex
+T 10 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 12 text.tex keyword.control.tex
+L }
+T 1 text.tex
+L 
+L % From tex/latex/bigfoot/bigfoot.sty:192
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 40 text.tex comment.line.percentage.tex
+L \def\PopFootnoteMark#1{\expandafter
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 23 text.tex
+T 24 text.tex support.function.general.tex punctuation.definition.function.tex
+T 35 text.tex support.function.general.tex
+L   \ifx\csname FN@stack@#1\endcsname\@empty
+T 2 text.tex
+T 3 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 6 text.tex keyword.control.tex
+T 7 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 13 text.tex keyword.control.tex
+T 25 text.tex
+T 26 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 35 text.tex keyword.control.tex
+T 36 text.tex support.function.general.tex punctuation.definition.function.tex
+T 42 text.tex support.function.general.tex
+L     \PackageError{bigfoot}{Empty footnote stack #1}%
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 17 text.tex support.function.general.tex
+T 51 text.tex
+T 52 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L     {The specified footnote type has no uncompleted range}%
+T 58 text.tex
+T 59 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \else
+T 2 text.tex
+T 3 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 7 text.tex keyword.control.tex
+L   {\let\@elt\FN@firstpop
+T 3 text.tex
+T 4 text.tex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex support.function.general.tex
+T 8 text.tex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex support.function.general.tex
+T 13 text.tex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex support.function.general.tex
+L     \iffalse{\fi\csname FN@stack@#1\endcsname}}\fi}
+T 4 text.tex
+T 5 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 12 text.tex keyword.control.tex
+T 13 text.tex
+T 14 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 16 text.tex keyword.control.tex
+T 17 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 23 text.tex keyword.control.tex
+T 35 text.tex
+T 36 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 45 text.tex keyword.control.tex
+T 47 text.tex
+T 48 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 50 text.tex keyword.control.tex
+T 51 text.tex
+L \def\FN@firstpop#1#2#3{\protected@xdef\@thefnmark{#2}%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex support.function.general.tex
+T 23 text.tex
+T 24 text.tex support.function.general.tex punctuation.definition.function.tex
+T 38 text.tex support.function.general.tex
+T 39 text.tex support.function.general.tex punctuation.definition.function.tex
+T 49 text.tex support.function.general.tex
+T 53 text.tex
+T 54 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \let\@elt\relax
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 7 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 12 text.tex support.function.general.tex punctuation.definition.function.tex
+T 17 text.tex support.function.general.tex
+L   \expandafter\protected@xdef\csname FN@stack@#1\endcsname{%
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+T 15 text.tex support.function.general.tex punctuation.definition.function.tex
+T 29 text.tex support.function.general.tex
+T 30 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 36 text.tex keyword.control.tex
+T 48 text.tex
+T 49 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 58 text.tex keyword.control.tex
+T 59 text.tex
+T 60 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L     \iffalse}\fi}
+T 4 text.tex
+T 5 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 12 text.tex keyword.control.tex
+T 13 text.tex
+T 14 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 16 text.tex keyword.control.tex
+T 17 text.tex
+L 
+L \iffalse
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 8 text.tex keyword.control.tex
+L   \begin{equation}
+T 8 text.tex comment.line.percentage.tex
+T 9 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.begin.tex
+T 17 text.tex comment.line.percentage.tex meta.group.braces.tex
+T 18 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.end.tex
+L     a+b 
+T 8 text.tex comment.line.percentage.tex
+L     \iff
+T 8 text.tex comment.line.percentage.tex
+L     b+a
+T 7 text.tex comment.line.percentage.tex
+L   \end{equation}
+T 6 text.tex comment.line.percentage.tex
+T 7 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.begin.tex
+T 15 text.tex comment.line.percentage.tex meta.group.braces.tex
+T 16 text.tex comment.line.percentage.tex meta.group.braces.tex punctuation.group.end.tex
+L \fi
+T 1 text.tex keyword.control.tex punctuation.definition.keyword.tex
+T 3 text.tex keyword.control.tex
+L some text...
+T 12 text.tex
+L 

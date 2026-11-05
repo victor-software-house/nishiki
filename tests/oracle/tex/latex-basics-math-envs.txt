@@ -1,0 +1,647 @@
+L \begin{align*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 14 text.tex
+L   f(t,T) = f(0,T) + \int_0^t \sigma(s,T) \partial_T \sigma(s,T) ds -
+T 20 text.tex
+T 21 text.tex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex support.function.general.tex
+T 29 text.tex
+T 30 text.tex support.function.general.tex punctuation.definition.function.tex
+T 35 text.tex support.function.general.tex
+T 41 text.tex
+T 42 text.tex support.function.general.tex punctuation.definition.function.tex
+T 49 text.tex support.function.general.tex
+T 52 text.tex
+T 53 text.tex support.function.general.tex punctuation.definition.function.tex
+T 58 text.tex support.function.general.tex
+T 68 text.tex
+L   \int_0^t \partial_T \sigma(s,T) dW_s.
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 11 text.tex
+T 12 text.tex support.function.general.tex punctuation.definition.function.tex
+T 19 text.tex support.function.general.tex
+T 22 text.tex
+T 23 text.tex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex support.function.general.tex
+T 39 text.tex
+L \end{align*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 12 text.tex
+L 
+L $B(T, T+\delta) = \frac{1}{1 + \delta L(T, T+\delta)}$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 2 text.tex meta.math.block.tex support.class.math.block.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.round.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 9 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 14 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 15 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.round.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex
+T 19 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 23 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 24 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 25 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 26 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 27 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 28 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 29 text.tex meta.math.block.tex support.class.math.block.tex
+T 30 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 31 text.tex meta.math.block.tex support.class.math.block.tex
+T 32 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 37 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 39 text.tex meta.math.block.tex support.class.math.block.tex
+T 40 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.round.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex
+T 45 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 46 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 51 text.tex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 52 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.round.tex
+T 53 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 54 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L \begin{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 17 text.tex
+L   B(T, T+\delta) = \frac{1}{1 + \delta L(T, T+\delta)}
+T 9 text.tex
+T 10 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 19 text.tex
+T 20 text.tex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex support.function.general.tex
+T 32 text.tex
+T 33 text.tex support.function.general.tex punctuation.definition.function.tex
+T 38 text.tex support.function.general.tex
+T 46 text.tex
+T 47 text.tex support.function.general.tex punctuation.definition.function.tex
+T 52 text.tex support.function.general.tex
+T 54 text.tex
+L \end{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 15 text.tex
+L 
+L \begin{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 17 text.tex
+L   f(x) = \begin{cases}
+T 9 text.tex
+T 10 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 22 text.tex
+L     1 & \text{if } 0 \le x \le \frac{1}{2} \\
+T 8 text.tex
+T 9 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex support.function.general.tex
+T 27 text.tex
+T 28 text.tex support.function.general.tex punctuation.definition.function.tex
+T 30 text.tex support.function.general.tex
+T 31 text.tex
+T 32 text.tex support.function.general.tex punctuation.definition.function.tex
+T 36 text.tex support.function.general.tex
+T 43 text.tex
+T 45 text.tex keyword.control.newline.tex
+L     -1 & \text{if } \frac{1}{2} < x \le 1
+T 9 text.tex
+T 10 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+T 20 text.tex
+T 21 text.tex support.function.general.tex punctuation.definition.function.tex
+T 25 text.tex support.function.general.tex
+T 36 text.tex
+T 37 text.tex support.function.general.tex punctuation.definition.function.tex
+T 39 text.tex support.function.general.tex
+T 41 text.tex
+L   \end{cases}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 13 text.tex
+L \end{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 15 text.tex
+L 
+L \begin{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 17 text.tex
+L   f(x) = \begin{+cases}
+T 9 text.tex
+T 10 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 23 text.tex
+L     1 & \text{if } 0 \le x \le \frac{1}{2} \\
+T 8 text.tex
+T 9 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex support.function.general.tex
+T 27 text.tex
+T 28 text.tex support.function.general.tex punctuation.definition.function.tex
+T 30 text.tex support.function.general.tex
+T 31 text.tex
+T 32 text.tex support.function.general.tex punctuation.definition.function.tex
+T 36 text.tex support.function.general.tex
+T 43 text.tex
+T 45 text.tex keyword.control.newline.tex
+L     -1 & \text{if } \frac{1}{2} < x \le 1
+T 9 text.tex
+T 10 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+T 20 text.tex
+T 21 text.tex support.function.general.tex punctuation.definition.function.tex
+T 25 text.tex support.function.general.tex
+T 36 text.tex
+T 37 text.tex support.function.general.tex punctuation.definition.function.tex
+T 39 text.tex support.function.general.tex
+T 41 text.tex
+L   \end{+cases}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 14 text.tex
+L \end{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 15 text.tex
+L 
+L \begin{align*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 14 text.tex
+L   x &= \left( y + z \right)\\
+T 7 text.tex
+T 8 text.tex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex support.function.general.tex
+T 20 text.tex
+T 21 text.tex support.function.general.tex punctuation.definition.function.tex
+T 26 text.tex support.function.general.tex
+T 27 text.tex
+T 29 text.tex keyword.control.newline.tex
+L   y_0 = 1
+T 9 text.tex
+L \end{align*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 12 text.tex
+L 
+L \begin{equation}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 16 text.tex
+L   \underbrace{\{ foo\} }
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 14 text.tex
+T 15 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 16 text.tex constant.character.escape.tex
+T 20 text.tex
+T 21 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 22 text.tex constant.character.escape.tex
+T 24 text.tex
+L   \underbrace{\{\foo \}}  \;
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 14 text.tex
+T 15 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 16 text.tex constant.character.escape.tex
+T 17 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 23 text.tex constant.character.escape.tex
+T 26 text.tex
+T 27 text.tex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex support.function.general.tex
+L   \begingroup
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+L   \underbrace{\{ \foo \}}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 14 text.tex
+T 15 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 16 text.tex constant.character.escape.tex
+T 17 text.tex
+T 18 text.tex support.function.general.tex punctuation.definition.function.tex
+T 21 text.tex support.function.general.tex
+T 22 text.tex
+T 23 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 24 text.tex constant.character.escape.tex
+T 25 text.tex
+L   \underbrace{\{foo\}}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 14 text.tex
+T 15 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 16 text.tex constant.character.escape.tex
+T 19 text.tex
+T 20 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 21 text.tex constant.character.escape.tex
+T 22 text.tex
+L   \endgroup
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+L   \verb!toto!
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex support.function.general.tex
+T 13 text.tex
+L \end{equation}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 14 text.tex
+L 
+L \begin{align}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 13 text.tex
+L   \{  \}.  \},  \||  \|}  \|> \\
+T 2 text.tex
+T 3 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 4 text.tex constant.character.escape.tex
+T 6 text.tex
+T 7 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 8 text.tex constant.character.escape.tex
+T 11 text.tex
+T 12 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 13 text.tex constant.character.escape.tex
+T 16 text.tex
+T 17 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 18 text.tex constant.character.escape.tex
+T 21 text.tex
+T 22 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 23 text.tex constant.character.escape.tex
+T 26 text.tex
+T 27 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 28 text.tex constant.character.escape.tex
+T 30 text.tex
+T 32 text.tex keyword.control.newline.tex
+L   \{.  \}.    \{,  \},
+T 2 text.tex
+T 3 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 4 text.tex constant.character.escape.tex
+T 7 text.tex
+T 8 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 9 text.tex constant.character.escape.tex
+T 14 text.tex
+T 15 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 16 text.tex constant.character.escape.tex
+T 19 text.tex
+T 20 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 21 text.tex constant.character.escape.tex
+T 22 text.tex
+L \end{align}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 11 text.tex
+L $\{  \}.  \||  \|}  \|>  \|$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 5 text.tex meta.math.block.tex support.class.math.block.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 10 text.tex meta.math.block.tex support.class.math.block.tex
+T 11 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 12 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 15 text.tex meta.math.block.tex support.class.math.block.tex
+T 16 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 17 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 18 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 20 text.tex meta.math.block.tex support.class.math.block.tex
+T 21 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 22 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 25 text.tex meta.math.block.tex support.class.math.block.tex
+T 26 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 27 text.tex meta.math.block.tex support.class.math.block.tex constant.character.escape.tex
+T 28 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\{. \}.   \{,   \},$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 5 text.tex meta.math.block.tex support.class.math.block.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 11 text.tex meta.math.block.tex support.class.math.block.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 17 text.tex meta.math.block.tex support.class.math.block.tex
+T 19 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 20 text.tex meta.math.block.tex support.class.math.block.tex
+T 21 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\{\}$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 5 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 6 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L $\{a\}+b$
+T 1 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 4 text.tex meta.math.block.tex support.class.math.block.tex
+T 6 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.bracket.pair.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex
+T 9 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L 
+L 
+L $$
+T 2 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+L \begin{split}
+T 1 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex meta.math.block.tex support.class.math.block.tex support.function.general.tex
+T 7 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 12 text.tex meta.math.block.tex support.class.math.block.tex
+T 13 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+L x&{}=y\\
+T 2 text.tex meta.math.block.tex support.class.math.block.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 4 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 6 text.tex meta.math.block.tex support.class.math.block.tex
+T 8 text.tex meta.math.block.tex support.class.math.block.tex keyword.control.newline.tex
+L &{}=z
+T 1 text.tex meta.math.block.tex support.class.math.block.tex
+T 2 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 3 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 5 text.tex meta.math.block.tex support.class.math.block.tex
+L \end{split}
+T 1 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 4 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 5 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 10 text.tex meta.math.block.tex support.class.math.block.tex
+T 11 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+L $$
+T 2 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L 
+L 
+L \[
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L \begin{split}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 13 text.tex
+L x&{}=y\\
+T 6 text.tex
+T 8 text.tex keyword.control.newline.tex
+L &{}=z
+T 5 text.tex
+L \end{split}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 11 text.tex
+L \]
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L 
+L \[
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L   \begin{split}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+T 15 text.tex
+L      x&=y\\
+T 9 text.tex
+T 11 text.tex keyword.control.newline.tex
+L      &=z
+T 8 text.tex
+L   \end{split}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 13 text.tex
+L \]
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L 
+L \begin{equation}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 16 text.tex
+L   \begin{split}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex support.function.general.tex
+T 15 text.tex
+L   x&{}=y\\
+T 8 text.tex
+T 10 text.tex keyword.control.newline.tex
+L   &{}=z
+T 7 text.tex
+L   \end{split}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 13 text.tex
+L \end{equation}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 14 text.tex
+L 
+L Hello \\ World! \\[1ex] Have \(\{(a,b)\}\), \(y\).
+T 6 text.tex
+T 8 text.tex keyword.control.newline.tex
+T 16 text.tex
+T 18 text.tex keyword.control.newline.tex
+T 19 text.tex punctuation.definition.brackets.tex
+T 22 text.tex
+T 23 text.tex punctuation.definition.brackets.tex
+T 29 text.tex
+T 30 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 31 text.tex constant.character.escape.tex
+T 32 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 33 text.tex constant.character.escape.tex
+T 38 text.tex
+T 39 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 40 text.tex constant.character.escape.tex
+T 41 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 42 text.tex constant.character.escape.tex
+T 44 text.tex
+T 45 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 46 text.tex constant.character.escape.tex
+T 47 text.tex
+T 48 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 49 text.tex constant.character.escape.tex
+T 50 text.tex
+L \[
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L 	\begin{aligned}
+T 1 text.tex
+T 2 text.tex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex support.function.general.tex
+T 16 text.tex
+L 		1   & 2, \\[1ex]
+T 11 text.tex
+T 13 text.tex keyword.control.newline.tex
+T 14 text.tex punctuation.definition.brackets.tex
+T 17 text.tex
+T 18 text.tex punctuation.definition.brackets.tex
+L     3 & 4
+T 9 text.tex
+L 	\end{aligned}
+T 1 text.tex
+T 2 text.tex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex support.function.general.tex
+T 14 text.tex
+L \]
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L 
+L \begin{array}{ll}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 17 text.tex
+L   1 & 2 \\
+T 8 text.tex
+T 10 text.tex keyword.control.newline.tex
+L   2 & 3
+T 7 text.tex
+L \end{array}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 11 text.tex
+L 
+L \begin{+array}{ll}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 18 text.tex
+L   1 & 2 \\
+T 8 text.tex
+T 10 text.tex keyword.control.newline.tex
+L   2 & 3
+T 7 text.tex
+L \end{+array}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 12 text.tex
+L 
+L \begin{equation*} 1 + 1 = 2 \end{equation*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 28 text.tex
+T 29 text.tex support.function.general.tex punctuation.definition.function.tex
+T 32 text.tex support.function.general.tex
+T 43 text.tex
+L 
+L \begin{bmatrix}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 15 text.tex
+L   1 & 2 \\
+T 8 text.tex
+T 10 text.tex keyword.control.newline.tex
+L   2 & 3
+T 7 text.tex
+L \end{bmatrix}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 13 text.tex
+L 
+L \begin{+bmatrix}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 16 text.tex
+L   1 & 2 \\
+T 8 text.tex
+T 10 text.tex keyword.control.newline.tex
+L   2 & 3
+T 7 text.tex
+L \end{+bmatrix}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 14 text.tex
+L 
+L 
+L \begin{IEEEeqnarray}{rCl}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 25 text.tex
+L   a & = & b + c \\
+T 16 text.tex
+T 18 text.tex keyword.control.newline.tex
+L   & = & d + e + f + g + h + i + j + k \\
+T 38 text.tex
+T 40 text.tex keyword.control.newline.tex
+L   & = & l + m + n
+T 17 text.tex
+L \end{IEEEeqnarray}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 18 text.tex
+L 
+L \begin{dcases}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 14 text.tex
+L a & b \\ %<- this "&" highlight wrong
+T 6 text.tex
+T 8 text.tex keyword.control.newline.tex
+T 9 text.tex
+T 10 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 37 text.tex comment.line.percentage.tex
+L \end{dcases}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 12 text.tex
+L 
+L \begin{dcases*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 15 text.tex
+L a & b \\ %<- this "&" highlight wrong
+T 6 text.tex
+T 8 text.tex keyword.control.newline.tex
+T 9 text.tex
+T 10 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 37 text.tex comment.line.percentage.tex
+L \end{dcases*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 13 text.tex
+L 
+L \begin{rcases}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 14 text.tex
+L a & b \\ %<- this "&" highlight wrong
+T 6 text.tex
+T 8 text.tex keyword.control.newline.tex
+T 9 text.tex
+T 10 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 37 text.tex comment.line.percentage.tex
+L \end{rcases}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 12 text.tex
+L 
+L \begin{drcases*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 16 text.tex
+L a & b \\ %<- this "&" highlight wrong
+T 6 text.tex
+T 8 text.tex keyword.control.newline.tex
+T 9 text.tex
+T 10 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 37 text.tex comment.line.percentage.tex
+L \end{drcases*}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 14 text.tex
+L 
+L 

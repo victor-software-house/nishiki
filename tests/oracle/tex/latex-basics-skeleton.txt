@@ -1,0 +1,383 @@
+L % \iffalse meta-comment
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 23 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % Copyright (C) 2015-2024 Scott Pakin <scott+dtx@pakin.org>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 59 text.tex comment.line.percentage.tex
+L % ---------------------------------------------------------
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 59 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % This file may be distributed and/or modified under the
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 56 text.tex comment.line.percentage.tex
+L % conditions of the LaTeX Project Public License, either version 1.3
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 68 text.tex comment.line.percentage.tex
+L % of this license or (at your option) any later version.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 56 text.tex comment.line.percentage.tex
+L % The latest version of this license is in:
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 43 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L %    http://www.latex-project.org/lppl.txt
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 42 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % and version 1.3c or later is part of all distributions of LaTeX
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 65 text.tex comment.line.percentage.tex
+L % version 2008-05-04 or later.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 30 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \fi
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 5 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \iffalse
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 10 text.tex comment.line.percentage.tex
+L %<*driver>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 10 text.tex comment.line.percentage.tex
+L \ProvidesFile{skeleton.dtx}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+T 27 text.tex
+L %</driver>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 10 text.tex comment.line.percentage.tex
+L %<package>\NeedsTeXFormat{LaTeX2e}[2023-11-01]
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 46 text.tex comment.line.percentage.tex
+L %<package>\ProvidesPackage{skeleton}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 36 text.tex comment.line.percentage.tex
+L %<*package>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 11 text.tex comment.line.percentage.tex
+L     [2024/01/21 v1.1 .dtx skeleton file]
+T 4 text.tex
+T 5 text.tex punctuation.definition.brackets.tex
+T 39 text.tex
+T 40 text.tex punctuation.definition.brackets.tex
+L %</package>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 11 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L %<*driver>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 10 text.tex comment.line.percentage.tex
+L \documentclass{ltxdoc}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+T 22 text.tex
+L \usepackage{skeleton}[2004/11/05]
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex punctuation.definition.brackets.tex
+T 32 text.tex
+T 33 text.tex punctuation.definition.brackets.tex
+L \EnableCrossrefs
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex support.function.general.tex
+L \CodelineIndex
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+L \RecordChanges
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+L \begin{document}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 16 text.tex
+L   \DocInput{skeleton.dtx}
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 25 text.tex
+L   \PrintChanges
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+L   \PrintIndex
+T 2 text.tex
+T 3 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+L \end{document}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 14 text.tex
+L %</driver>
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 10 text.tex comment.line.percentage.tex
+L % \fi
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 5 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % Make "|" and |"| be \enquote{short verb} characters, but not in the
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % document preamble, where an active character may interfere with
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 65 text.tex comment.line.percentage.tex
+L % packages that are loaded.  Remove these short-hands at the end of the
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 71 text.tex comment.line.percentage.tex
+L % document before reading the \file{.aux} file, as they may appear in
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % labels (for instance, \pkg{l3fp} documents an operation "||").
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 64 text.tex comment.line.percentage.tex
+L %    \begin{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex comment.line.percentage.tex
+L \AtBeginDocument
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex support.function.general.tex
+L   {
+T 3 text.tex
+L     \MakeShortVerb \"
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex support.function.general.tex
+T 19 text.tex
+T 20 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 21 text.tex constant.character.escape.tex
+L     \MakeShortVerb \|
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex support.function.general.tex
+T 19 text.tex
+T 20 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 21 text.tex constant.character.escape.tex
+L   }
+T 3 text.tex
+L \AtEndDocument
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+L   {
+T 3 text.tex
+L     \DeleteShortVerb \"
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 23 text.tex constant.character.escape.tex
+L     \DeleteShortVerb \|
+T 4 text.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 21 text.tex
+T 22 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 23 text.tex constant.character.escape.tex
+L   }
+T 3 text.tex
+L %    \end{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex comment.line.percentage.tex
+L % \changes{v1.0}{2004/11/05}{Initial version}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 45 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \GetFileInfo{skeleton.dtx}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 28 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \DoNotIndex{\newcommand,\newenvironment}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 42 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \title{The \textsf{skeleton} package\thanks{This document
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 59 text.tex comment.line.percentage.tex
+L %   corresponds to \textsf{skeleton}~\fileversion, dated \filedate.}}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % \author{Scott Pakin \\ \texttt{scott+dtx@pakin.org}}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 54 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \maketitle
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 12 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \section{Introduction}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 24 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % Put text here.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 16 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \section{Usage}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 17 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % Put text here.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 16 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \DescribeMacro{\dummyMacro}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 29 text.tex comment.line.percentage.tex
+L % This macro does nothing.\index{doing nothing|usage} It is merely an
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % example.  If this were a real macro, you would put a paragraph here
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % describing what the macro is supposed to do, what its mandatory and
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % optional arguments are, and so forth.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 39 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \DescribeEnv{dummyEnv}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 24 text.tex comment.line.percentage.tex
+L % This environment does nothing.  It is merely an example.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 58 text.tex comment.line.percentage.tex
+L % If this were a real environment, you would put a paragraph here
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 65 text.tex comment.line.percentage.tex
+L % describing what the environment is supposed to do, what its
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 61 text.tex comment.line.percentage.tex
+L % mandatory and optional arguments are, and so forth.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 53 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \MaybeStop{}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 14 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \section{Implementation}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 26 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \begin{macro}{\dummyMacro}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 28 text.tex comment.line.percentage.tex
+L % This is a dummy macro.  If it did anything, we'd describe its
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 63 text.tex comment.line.percentage.tex
+L % implementation here.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex comment.line.percentage.tex
+L %    \begin{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex comment.line.percentage.tex
+L \newcommand{\dummyMacro}{}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 12 text.tex
+T 13 text.tex support.function.general.tex punctuation.definition.function.tex
+T 23 text.tex support.function.general.tex
+T 26 text.tex
+L %    \end{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex comment.line.percentage.tex
+L % \end{macro}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 13 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \begin{environment}{dummyEnv}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 31 text.tex comment.line.percentage.tex
+L % This is a dummy environment.  If it did anything, we'd describe its
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % implementation here.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex comment.line.percentage.tex
+L %    \begin{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex comment.line.percentage.tex
+L \newenvironment{dummyEnv}{%
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 26 text.tex
+T 27 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L }{%
+T 2 text.tex
+T 3 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L %    \end{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex comment.line.percentage.tex
+L % \changes{v1.0a}{2004/11/05}{Added a spurious change log entry to
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 66 text.tex comment.line.percentage.tex
+L %   show what a change \emph{within} an environment definition looks
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 68 text.tex comment.line.percentage.tex
+L %   like.}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 10 text.tex comment.line.percentage.tex
+L % Don't use |%| to introduce a code comment within a |macrocode|
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 64 text.tex comment.line.percentage.tex
+L % environment.  Instead, you should typeset all of your comments with
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 69 text.tex comment.line.percentage.tex
+L % \LaTeX---doing so gives much prettier results.  For comments within a
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 71 text.tex comment.line.percentage.tex
+L % macro/environment body, just do an |\end{macrocode}|, include some
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 68 text.tex comment.line.percentage.tex
+L % commentary, and do another |\begin{macrocode}|.  It's that simple.
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 68 text.tex comment.line.percentage.tex
+L %    \begin{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex comment.line.percentage.tex
+L }
+T 1 text.tex
+L %    \end{macrocode}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex comment.line.percentage.tex
+L % \end{environment}
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 19 text.tex comment.line.percentage.tex
+L %
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+L % \Finale
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 9 text.tex comment.line.percentage.tex
+L \endinput
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex support.function.general.tex
+L 

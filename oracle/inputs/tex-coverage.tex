@@ -1,0 +1,41 @@
+%!TEX root = main.tex
+% Written for nishiki: TeX that reaches the rules the other inputs leave
+% out, as tests/oracle/COVERAGE.md counts them.
+  % an indented comment
+%: a comment with a colon
+
+\catcode`\@=11
+\catcode`|=12
+\def\name{value} \edef\other{\name}
+\let\a=\b \relax \\ [ ] { }
+
+\iffalse
+  hidden text
+\else
+  shown text
+\fi
+\iffalse{}\fi
+
+\ifx\a\b
+  \relax
+\fi
+\ifdefined\name \expandafter\fi
+\csname foo\endcsname \unless\ifnum1<2 \fi
+
+\@ifnextchar[{\opt}{\noopt}
+\@ifnextchar({\paren}{\none}
+\ExplSyntaxOn
+\cs_new:Npn \my_func:nn #1#2 { #1 #2 }
+\tl_set:Nn \l_my_tl { x }
+\__private_name:N .key_name:n
+\ExplSyntaxOff
+
+$a + b - c * d / e$ and $x^2 + y_i$ and $a^^b$
+$$\sum_{i=1}^{n} \int_0^1 \sin x \, dx \leq \alpha$$
+$\left( \frac{1}{2} \right) \bigl[ x \bigr] \Bigg\{ y \Bigg\}$
+$\left\langle v \right\rangle \bigl\lvert z \bigr\rVert \left. f \right|$
+$\text{in words} \mbox{box} \{ \} \( \) 3.14 .5 42$
+$\Sexpr{mean(x)} \operatorname{op} \mathbb{R} \$ \\$
+$\bogoplus x \sum x$
+$\alpha\beta \leftarrow \notasymbol \verb|x| \begin{x}$
+\, \; \@ \# \%

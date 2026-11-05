@@ -83,6 +83,7 @@ import svelteInvalidTags from "./inputs/svelte-invalid-tags.svelte" with { type:
 import svelteLessPop from "./inputs/svelte-less-pop.svelte" with { type: "text" };
 import svelteScriptClose from "./inputs/svelte-script-close.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
+import texCoverage from "./inputs/tex-coverage.tex" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
 import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
@@ -307,6 +308,8 @@ const ky =
   "https://raw.githubusercontent.com/sindresorhus/ky/3541888878c4d303a8bc2ad61815f4e048f55a5d";
 const laravel =
   "https://raw.githubusercontent.com/laravel/framework/64dc24f5d965add4d402b4b8b64f59b561112af5";
+const latexBasics =
+  "https://raw.githubusercontent.com/jlelong/vscode-latex-basics/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe";
 const latexrun =
   "https://raw.githubusercontent.com/aclements/latexrun/38ff6ec2815654513c91f64bdf2a5760c85da26e";
 const lessjs =
@@ -1515,6 +1518,14 @@ export const inputs: Input[] = [
     name: "testing-runner-tests",
     url: `${swiftTesting}/Tests/TestingTests/RunnerTests.swift`,
   },
+  // Shiki's Markdown grammar has no fence of its own for TeX: its `tex` fence embeds LaTeX.
+  { lang: "tex", name: "coverage", text: texCoverage },
+  { lang: "tex", name: "latex-basics-iffalse", url: `${latexBasics}/test/colorize-fixtures/iffalse.tex` },
+  { lang: "tex", name: "latex-basics-math-envs", url: `${latexBasics}/test/colorize-fixtures/math-envs.tex` },
+  { lang: "tex", name: "latex-basics-maths-inline", url: `${latexBasics}/test/colorize-fixtures/maths-inline.tex` },
+  { lang: "tex", name: "latex-basics-skeleton", url: `${latexBasics}/test/colorize-fixtures/skeleton.dtx` },
+  { lang: "tex", name: "latex-basics-subeqn", url: `${latexBasics}/test/colorize-fixtures/subeqn.dtx` },
+  { lang: "tex", name: "sample", url: `${samples}/tex.sample` },
   { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
   { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
   { lang: "toml", name: "clap-manifest", url: `${clap}/Cargo.toml` },

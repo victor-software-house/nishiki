@@ -1,0 +1,174 @@
+L \documentclass{article}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+T 23 text.tex
+L 
+L \usepackage{expl3}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 18 text.tex
+L 
+L \ExplSyntaxOn
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex support.function.general.tex
+L   \cs_new_eq:NN \calc \fp_eval:n
+T 2 text.tex
+T 3 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 15 text.tex support.class.general.latex3.tex
+T 16 text.tex
+T 17 text.tex support.function.general.tex punctuation.definition.function.tex
+T 21 text.tex support.function.general.tex
+T 22 text.tex
+T 23 text.tex support.class.general.latex3.tex punctuation.definition.function.tex
+T 32 text.tex support.class.general.latex3.tex
+L \ExplSyntaxOff
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex support.function.general.tex
+L 
+L \def\valueA{7}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 14 text.tex
+L \def\valueB{19}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 15 text.tex
+L \def\valueC{41}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 15 text.tex
+L \def\valueD{31}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 15 text.tex
+L \def\valueE{25}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 15 text.tex
+L \def\valueF{17}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 15 text.tex
+L \def\valueG{7}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 14 text.tex
+L \def\valueH{3}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 5 text.tex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex support.function.general.tex
+T 14 text.tex
+L 
+L \begin{document}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex support.function.general.tex
+T 16 text.tex
+L 
+L \noindent I have the list
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex support.function.general.tex
+T 25 text.tex
+L \[
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L \valueA,\valueB,\valueC,\valueD,\valueE,\valueF,\valueG,\valueH
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex support.function.general.tex
+T 8 text.tex
+T 9 text.tex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex support.function.general.tex
+T 16 text.tex
+T 17 text.tex support.function.general.tex punctuation.definition.function.tex
+T 23 text.tex support.function.general.tex
+T 24 text.tex
+T 25 text.tex support.function.general.tex punctuation.definition.function.tex
+T 31 text.tex support.function.general.tex
+T 32 text.tex
+T 33 text.tex support.function.general.tex punctuation.definition.function.tex
+T 39 text.tex support.function.general.tex
+T 40 text.tex
+T 41 text.tex support.function.general.tex punctuation.definition.function.tex
+T 47 text.tex support.function.general.tex
+T 48 text.tex
+T 49 text.tex support.function.general.tex punctuation.definition.function.tex
+T 55 text.tex support.function.general.tex
+T 56 text.tex
+T 57 text.tex support.function.general.tex punctuation.definition.function.tex
+T 63 text.tex support.function.general.tex
+L \]
+T 1 text.tex constant.character.escape.tex punctuation.definition.keyword.tex
+T 2 text.tex constant.character.escape.tex
+L in which the largest element is $\calc{max(\valueA,\valueB,\valueC,\valueD,\valueE,\valueF,\valueG,\valueH)}$ (but that is of no importance to me).\\[\baselineskip]
+T 32 text.tex
+T 33 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 34 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 38 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 39 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 42 text.tex meta.math.block.tex support.class.math.block.tex
+T 43 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.round.tex
+T 44 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 50 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 51 text.tex meta.math.block.tex support.class.math.block.tex
+T 52 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 58 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 59 text.tex meta.math.block.tex support.class.math.block.tex
+T 60 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 66 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 67 text.tex meta.math.block.tex support.class.math.block.tex
+T 68 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 74 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 75 text.tex meta.math.block.tex support.class.math.block.tex
+T 76 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 82 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 83 text.tex meta.math.block.tex support.class.math.block.tex
+T 84 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 90 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 91 text.tex meta.math.block.tex support.class.math.block.tex
+T 92 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 98 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 99 text.tex meta.math.block.tex support.class.math.block.tex
+T 100 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex punctuation.definition.constant.math.tex
+T 106 text.tex meta.math.block.tex support.class.math.block.tex constant.other.general.math.tex
+T 107 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.round.tex
+T 108 text.tex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 109 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 147 text.tex
+T 149 text.tex keyword.control.newline.tex
+T 150 text.tex punctuation.definition.brackets.tex
+T 151 text.tex support.function.general.tex punctuation.definition.function.tex
+T 163 text.tex support.function.general.tex
+T 164 text.tex punctuation.definition.brackets.tex
+L How can I get \LaTeX{} to extract the position number of the largest element in a list? (In the example above, the answer is of course `$3$'.)
+T 14 text.tex
+T 15 text.tex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex support.function.general.tex
+T 136 text.tex
+T 137 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 138 text.tex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 139 text.tex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 142 text.tex
+L 
+L \end{document}
+T 1 text.tex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex support.function.general.tex
+T 14 text.tex
+L 
+L % From https://tex.stackexchange.com/questions/231558/position-of-largest-element-in-a-list
+T 1 text.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 91 text.tex comment.line.percentage.tex
+L 

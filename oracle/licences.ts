@@ -250,6 +250,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  tex: {
+    bundled: "microsoft/vscode@609f17a76734f092792a33c891af40bbcaea0c64",
+    origin: "jlelong/vscode-latex-basics",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
   toml: {
     bundled: "textmate/toml.tmbundle@e82b64c1e86396220786846201e9aa3f0a2d9ca2",
     origin: "textmate/toml.tmbundle",

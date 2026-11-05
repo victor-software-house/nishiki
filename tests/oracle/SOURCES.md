@@ -711,6 +711,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `swift/swift-test-parse-trailing-comma` | [`test/Parse/trailing-comma.swift`][swift-test-parse-trailing-comma] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
 | `swift/swift-test-parse-type-expr` | [`test/Parse/type_expr.swift`][swift-test-parse-type-expr] in swiftlang/swift | [Apache-2.0 with the Runtime Library Exception][swift-licence] |
 | `swift/testing-runner-tests` | [`RunnerTests.swift`][testing-runner-tests] in swiftlang/swift-testing | [Apache-2.0][swift-testing-licence] |
+| `tex/coverage` | `oracle/inputs/tex-coverage.tex`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `tex/latex-basics-iffalse` | [`test/colorize-fixtures/iffalse.tex`][latex-basics-iffalse] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `tex/latex-basics-math-envs` | [`test/colorize-fixtures/math-envs.tex`][latex-basics-math-envs] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `tex/latex-basics-maths-inline` | [`test/colorize-fixtures/maths-inline.tex`][latex-basics-maths-inline] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `tex/latex-basics-skeleton` | [`test/colorize-fixtures/skeleton.dtx`][latex-basics-skeleton] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `tex/latex-basics-subeqn` | [`test/colorize-fixtures/subeqn.dtx`][latex-basics-subeqn] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `tex/sample` | [`samples/tex.sample`][tex-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `toml/burntsushi-example` | [`_example/example.toml`][burntsushi-example] in BurntSushi/toml | [MIT][burntsushi-toml-licence] |
 | `toml/cargo-manifest` | [`Cargo.toml`][cargo-manifest] in rust-lang/cargo | [MIT or Apache-2.0][cargo-licence] |
 | `toml/clap-manifest` | [`Cargo.toml`][clap-manifest] in clap-rs/clap | [MIT or Apache-2.0][clap-licence] |
@@ -920,6 +927,11 @@ The last one is full of regex literals.
 Their first score, before any fix, was 2 of 27,734 non-whitespace bytes different for `kingfisher-image-processor` and none for the other five: a name that two capture groups of the operator declaration cover got its scope twice.
 The `swift-test-*` and `coverage` inputs of `swift` are held out too: they were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 The swiftlang/swift files are parser tests, some of them invalid Swift on purpose.
+
+`tex/sample`, `tex/latex-basics-iffalse`, `tex/latex-basics-math-envs` and `tex/latex-basics-maths-inline` are the development inputs for TeX.
+`tex/latex-basics-skeleton` and `tex/latex-basics-subeqn` are held out: they were added after the development inputs passed.
+`tex/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+The vscode-latex-basics files are LaTeX, which the TeX grammar lexes as TeX.
 `markdown/argument-parser-declaring-arguments` is the development input for `swift` fences, and `markdown/kingfisher-common-tasks-cache` and `markdown/argument-parser-getting-started` are held out.
 Their first scores, before any fix, were 538 of 17,090 non-whitespace bytes different for `argument-parser-declaring-arguments` and 276 of 8,936 for `argument-parser-getting-started`; the score of `kingfisher-common-tasks-cache` was not recorded.
 Two causes made them differ: `\G` holds at the start of every line in a fence, which the lexer did not apply to Swift, and the first-byte table of the enum case list's end left out letters, so a case list that a fence's `\G` kept open did not close.
@@ -1426,6 +1438,12 @@ The hand lexer was written against all seven.
 [laravel-licence]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/LICENSE.md
 [laravel-postgres-grammar]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php
 [laravel-router]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Routing/Router.php
+[latex-basics-iffalse]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/iffalse.tex
+[latex-basics-licence]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/LICENSE.txt
+[latex-basics-math-envs]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/math-envs.tex
+[latex-basics-maths-inline]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/maths-inline.tex
+[latex-basics-skeleton]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/skeleton.dtx
+[latex-basics-subeqn]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/subeqn.dtx
 [latexrun-licence]: https://github.com/aclements/latexrun/blob/38ff6ec2815654513c91f64bdf2a5760c85da26e/LICENSE
 [latexrun-readme]: https://github.com/aclements/latexrun/blob/38ff6ec2815654513c91f64bdf2a5760c85da26e/README.md
 [less-antd-button-mixin]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/components/button/style/mixin.less
@@ -1796,6 +1814,7 @@ The hand lexer was written against all seven.
 [testify-assertions]: https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/assert/assertions.go
 [testify-licence]: https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/LICENSE
 [testing-runner-tests]: https://github.com/swiftlang/swift-testing/blob/87ec972e0b5725ee02b31a6e9ed690d85abb460a/Tests/TestingTests/RunnerTests.swift
+[tex-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/tex.sample
 [thor]: https://github.com/rails/thor/blob/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d/lib/thor.rb
 [thor-licence]: https://github.com/rails/thor/blob/cb11e8e87b3cfe6bc9f6d4b092897f0dfda2476d/LICENSE.md
 [three-animation-keyframes]: https://github.com/mrdoob/three.js/blob/f06340e459f19609d3dd82253f38831f58ab6c84/examples/webgl_animation_keyframes.html

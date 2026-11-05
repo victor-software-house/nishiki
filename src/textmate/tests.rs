@@ -45,6 +45,8 @@ mod python_tables;
 mod rust_tables;
 #[path = "../../tests/engine/shellscript.rs"]
 mod shell_tables;
+#[path = "../../tests/engine/tex.rs"]
+mod tex_tables;
 #[path = "../../tests/engine/toml.rs"]
 mod toml_tables;
 #[path = "../../tests/engine/typescript.rs"]
@@ -399,6 +401,13 @@ fn vb_grammar_matches_shiki() {
 #[test]
 fn jinja_grammar_matches_shiki() {
     check(&jinja_tables::GRAMMAR, "jinja", Scanners::On);
+}
+
+/// TeX has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn tex_grammar_matches_shiki() {
+    check(&tex_tables::GRAMMAR, "tex", Scanners::On);
 }
 
 /// Objective-C has a hand lexer.
