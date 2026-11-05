@@ -1,0 +1,606 @@
+L {% extends "layouts/base.html.jinja2" %} {% set style_bundle = 'help_page_css'
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 10 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 11 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 36 source.jinja meta.scope.jinja.tag string.quoted.double.jinja
+T 37 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 38 source.jinja meta.scope.jinja.tag
+T 40 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 41 source.jinja
+T 43 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 44 source.jinja meta.scope.jinja.tag
+T 47 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 48 source.jinja meta.scope.jinja.tag
+T 60 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 61 source.jinja meta.scope.jinja.tag
+T 62 source.jinja meta.scope.jinja.tag keyword.operator.assignment.jinja
+T 63 source.jinja meta.scope.jinja.tag
+T 64 source.jinja meta.scope.jinja.tag string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 77 source.jinja meta.scope.jinja.tag string.quoted.single.jinja
+T 78 source.jinja meta.scope.jinja.tag string.quoted.single.jinja punctuation.definition.string.end.jinja
+L %} {% block meta %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja
+T 5 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 6 source.jinja meta.scope.jinja.tag
+T 11 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 12 source.jinja meta.scope.jinja.tag
+T 16 source.jinja meta.scope.jinja.tag variable.other.jinja.block
+T 17 source.jinja meta.scope.jinja.tag
+T 19 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L <link
+T 5 source.jinja
+L   href="//fonts.googleapis.com/css?family=Lato:400,300"
+T 55 source.jinja
+L   rel="stylesheet"
+T 18 source.jinja
+L   type="text/css"
+T 17 source.jinja
+L />
+T 2 source.jinja
+L {{ super() }}
+T 2 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 3 source.jinja variable.meta.scope.jinja
+T 8 source.jinja variable.meta.scope.jinja variable.language.jinja
+T 9 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 10 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 11 source.jinja variable.meta.scope.jinja
+T 13 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L <script type="application/json" class="js-hypothesis-config">
+T 61 source.jinja
+L   {
+T 3 source.jinja
+L     "openSidebar": true,
+T 24 source.jinja
+L     "openLoginForm": true
+T 25 source.jinja
+L   }
+T 3 source.jinja
+L </script>
+T 9 source.jinja
+L {% if not is_onboarding %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 5 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 6 source.jinja meta.scope.jinja.tag
+T 9 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 10 source.jinja meta.scope.jinja.tag
+T 23 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 24 source.jinja meta.scope.jinja.tag
+T 26 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L <script type="application/json" class="js-hypothesis-config">
+T 61 source.jinja
+L   {
+T 3 source.jinja
+L     "sidebarAppUrl": "{{ request.route_url('sidebar_app') }}"
+T 22 source.jinja
+T 24 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 25 source.jinja variable.meta.scope.jinja
+T 32 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 33 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 42 source.jinja variable.meta.scope.jinja variable.other.jinja.attribute
+T 43 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 44 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 55 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 56 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 57 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 58 source.jinja variable.meta.scope.jinja
+T 60 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 61 source.jinja
+L   }
+T 3 source.jinja
+L </script>
+T 9 source.jinja
+L <script async defer src="{{ embed_js_url }}"></script>
+T 25 source.jinja
+T 27 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 28 source.jinja variable.meta.scope.jinja
+T 40 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 41 source.jinja variable.meta.scope.jinja
+T 43 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 54 source.jinja
+L {% endif %} {% endblock %} {% block content %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 8 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 9 source.jinja meta.scope.jinja.tag
+T 11 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 12 source.jinja
+T 14 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 15 source.jinja meta.scope.jinja.tag
+T 23 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 24 source.jinja meta.scope.jinja.tag
+T 26 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 27 source.jinja
+T 29 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 30 source.jinja meta.scope.jinja.tag
+T 35 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 36 source.jinja meta.scope.jinja.tag
+T 43 source.jinja meta.scope.jinja.tag variable.other.jinja.block
+T 44 source.jinja meta.scope.jinja.tag
+T 46 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L <div class="help-page">
+T 23 source.jinja
+L   <div class="help-page-content masthead-small">
+T 48 source.jinja
+L     {% include "includes/logo-header.html.jinja2" %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 14 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 15 source.jinja meta.scope.jinja.tag
+T 16 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 48 source.jinja meta.scope.jinja.tag string.quoted.double.jinja
+T 49 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 50 source.jinja meta.scope.jinja.tag
+T 52 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L   </div>
+T 8 source.jinja
+L   <article class="help-page-content">
+T 37 source.jinja
+L     {% if is_help %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 9 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 10 source.jinja meta.scope.jinja.tag
+T 17 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 18 source.jinja meta.scope.jinja.tag
+T 20 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L     <section class="help-page-section">
+T 39 source.jinja
+L       <h2 id="installation" class="help-page-heading">Installation</h2>
+T 71 source.jinja
+L       <p class="help-page-lede">
+T 32 source.jinja
+L         There are a couple of installations of Hypothesis to choose from:
+T 73 source.jinja
+L       </p>
+T 10 source.jinja
+L       <ol class="numbered-list columns">
+T 40 source.jinja
+L         <div class="columns__col-1-2">
+T 38 source.jinja
+L           <li class="numbered-list-item">
+T 41 source.jinja
+L             If you want to annotate and comment on documents then install our
+T 77 source.jinja
+L             <a href="{{ request.route_url('chrome-extension') }}"
+T 21 source.jinja
+T 23 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 24 source.jinja variable.meta.scope.jinja
+T 31 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 32 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 41 source.jinja variable.meta.scope.jinja variable.other.jinja.attribute
+T 42 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 43 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 59 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 60 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 61 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 62 source.jinja variable.meta.scope.jinja
+T 64 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 65 source.jinja
+L               >browser extension</a
+T 35 source.jinja
+L             >.
+T 14 source.jinja
+L           </li>
+T 15 source.jinja
+L         </div>
+T 14 source.jinja
+L         <div class="columns__col-1-2">
+T 38 source.jinja
+L           <li class="numbered-list-item">
+T 41 source.jinja
+L             If you wish to install Hypothesis on your own site then head over to
+T 80 source.jinja
+L             GitHub.
+T 19 source.jinja
+L           </li>
+T 15 source.jinja
+L         </div>
+T 14 source.jinja
+L       </ol>
+T 11 source.jinja
+L     </section>
+T 14 source.jinja
+L     {% endif %} {% if is_onboarding %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 13 source.jinja meta.scope.jinja.tag
+T 15 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 16 source.jinja
+T 18 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 19 source.jinja meta.scope.jinja.tag
+T 21 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 22 source.jinja meta.scope.jinja.tag
+T 35 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 36 source.jinja meta.scope.jinja.tag
+T 38 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L     <section class="help-page-section">
+T 39 source.jinja
+L       <h2 id="getting-started" class="help-page-heading">Getting started</h2>
+T 77 source.jinja
+L       <p class="help-page-lede">
+T 32 source.jinja
+L         Now you have the extension up and running. It's time to start annotating
+T 80 source.jinja
+L         some documents.
+T 23 source.jinja
+L       </p>
+T 10 source.jinja
+L       <ol class="numbered-list">
+T 32 source.jinja
+L         <li class="numbered-list-item">
+T 39 source.jinja
+L           Create an account using the sidebar on the right of the screen.
+T 73 source.jinja
+L         </li>
+T 13 source.jinja
+L 
+L         <li class="numbered-list-item">
+T 39 source.jinja
+L           Pin the Hypothesis extension in Chrome (1 and 2), then activate the
+T 77 source.jinja
+L           sidebar by clicking the button in the location bar (3).
+T 65 source.jinja
+L 
+L           <div class="wrap-columns">
+T 36 source.jinja
+L             <div class="wrap-columns__col">
+T 43 source.jinja
+L               <img
+T 18 source.jinja
+L                 alt="Select the puzzle-piece icon (extension menu) in the Chrome location bar, then 'pin' the Hypothesis extension so it is always available"
+T 157 source.jinja
+L                 src="{{ asset_url('images/chrome-pin-extension-01.jpg') }}"
+T 21 source.jinja
+T 23 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 24 source.jinja variable.meta.scope.jinja
+T 33 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 34 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 35 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 69 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 70 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 71 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 72 source.jinja variable.meta.scope.jinja
+T 74 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 75 source.jinja
+L               />
+T 16 source.jinja
+L             </div>
+T 18 source.jinja
+L             <div class="wrap-columns__col">
+T 43 source.jinja
+L               <img
+T 18 source.jinja
+L                 alt="Click the Hypothesis icon to activate the Hypothesis extension"
+T 84 source.jinja
+L                 src="{{ asset_url('images/chrome-pin-extension-02.jpg') }}"
+T 21 source.jinja
+T 23 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 24 source.jinja variable.meta.scope.jinja
+T 33 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 34 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 35 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 69 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 70 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 71 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 72 source.jinja variable.meta.scope.jinja
+T 74 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 75 source.jinja
+L               />
+T 16 source.jinja
+L             </div>
+T 18 source.jinja
+L           </div>
+T 16 source.jinja
+L         </li>
+T 13 source.jinja
+L         <li class="numbered-list-item">Go forth and annotate!</li>
+T 66 source.jinja
+L       </ol>
+T 11 source.jinja
+L     </section>
+T 14 source.jinja
+L     {% endif %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 13 source.jinja meta.scope.jinja.tag
+T 15 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L     <section class="help-page-section">
+T 39 source.jinja
+L       <h2 id="key-features" class="help-page-heading">Annotation Types</h2>
+T 75 source.jinja
+L       <p class="help-page-lede">
+T 32 source.jinja
+L         There are a few types of annotations that can be created with the
+T 73 source.jinja
+L         application:
+T 20 source.jinja
+L       </p>
+T 10 source.jinja
+L       <div class="feature-content">
+T 35 source.jinja
+L         <section class="feature">
+T 33 source.jinja
+L           <h3 class="feature-heading">
+T 38 source.jinja
+L             <i class="feature-icon h-icon-annotate"></i> Notes
+T 62 source.jinja
+L           </h3>
+T 15 source.jinja
+L           <div class="feature-content styled-text">
+T 51 source.jinja
+L             <p>
+T 15 source.jinja
+L               Create a <em>note</em> by selecting some text and clicking the
+T 76 source.jinja
+L               <i class="help-icon h-icon-annotate"></i> button
+T 62 source.jinja
+L             </p>
+T 16 source.jinja
+L           </div>
+T 16 source.jinja
+L         </section>
+T 18 source.jinja
+L         <section class="feature">
+T 33 source.jinja
+L           <h3 class="feature-heading">
+T 38 source.jinja
+L             <i class="feature-icon h-icon-highlight"></i> Highlights
+T 68 source.jinja
+L           </h3>
+T 15 source.jinja
+L           <div class="feature-content">
+T 39 source.jinja
+L             <p>
+T 15 source.jinja
+L               <em>Highlights</em> can be created by clicking the
+T 64 source.jinja
+L               <i class="help-icon h-icon-highlight"></i> button. Try it on this
+T 79 source.jinja
+L               sentence.
+T 23 source.jinja
+L             </p>
+T 16 source.jinja
+L           </div>
+T 16 source.jinja
+L         </section>
+T 18 source.jinja
+L         <section class="feature">
+T 33 source.jinja
+L           <h3 class="feature-heading">
+T 38 source.jinja
+L             <i class="feature-icon h-icon-reply"></i> Replies
+T 61 source.jinja
+L           </h3>
+T 15 source.jinja
+L           <div class="feature-content">
+T 39 source.jinja
+L             <p>
+T 15 source.jinja
+L               You can <em>reply</em> to any annotation by using the
+T 67 source.jinja
+L               <i class="help-icon h-icon-reply"></i> reply action on every card.
+T 80 source.jinja
+L             </p>
+T 16 source.jinja
+L           </div>
+T 16 source.jinja
+L         </section>
+T 18 source.jinja
+L       </div>
+T 12 source.jinja
+L     </section>
+T 14 source.jinja
+L     <section class="help-page-section">
+T 39 source.jinja
+L       <h2 id="key-features" class="help-page-heading">Privacy</h2>
+T 66 source.jinja
+L       <p class="help-page-lede">
+T 32 source.jinja
+L         Annotations are either public and visible to everyone or private and
+T 76 source.jinja
+L         visible only to you.
+T 28 source.jinja
+L       </p>
+T 10 source.jinja
+L       <div class="columns feature-content">
+T 43 source.jinja
+L         <section class="feature columns__col-1-2">
+T 50 source.jinja
+L           <h3 class="feature-heading">
+T 38 source.jinja
+L             <i class="feature-icon h-icon-public"></i> Public
+T 61 source.jinja
+L           </h3>
+T 15 source.jinja
+L           <div class="feature-content styled-text">
+T 51 source.jinja
+L             <p>
+T 15 source.jinja
+L               These annotations are visible to everyone both in the document
+T 76 source.jinja
+L               itself and our
+T 28 source.jinja
+L               <a href="{{ request.route_url('stream') }}">public stream</a>.
+T 23 source.jinja
+T 25 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 26 source.jinja variable.meta.scope.jinja
+T 33 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 34 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 43 source.jinja variable.meta.scope.jinja variable.other.jinja.attribute
+T 44 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 45 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 51 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 52 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 53 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 54 source.jinja variable.meta.scope.jinja
+T 56 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 76 source.jinja
+L             </p>
+T 16 source.jinja
+L           </div>
+T 16 source.jinja
+L         </section>
+T 18 source.jinja
+L         <section class="feature columns__col-1-2">
+T 50 source.jinja
+L           <h3 class="feature-heading">
+T 38 source.jinja
+L             <i class="feature-icon h-icon-lock"></i> Private
+T 60 source.jinja
+L           </h3>
+T 15 source.jinja
+L           <div class="feature-content">
+T 39 source.jinja
+L             <p>Private annotations are visible only to you when logged in.</p>
+T 78 source.jinja
+L           </div>
+T 16 source.jinja
+L         </section>
+T 18 source.jinja
+L       </div>
+T 12 source.jinja
+L     </section>
+T 14 source.jinja
+L     <section class="help-page-section">
+T 39 source.jinja
+L       <section class="feature">
+T 31 source.jinja
+L         <h3 class="feature-heading">
+T 36 source.jinja
+L           <i class="feature-icon h-icon-visibility"></i>Show/Hide Highlights
+T 76 source.jinja
+L         </h3>
+T 13 source.jinja
+L         <p class="feature-content">
+T 35 source.jinja
+L           Use the <i class="help-icon h-icon-visibility"></i> button to toggle
+T 78 source.jinja
+L           highlight visibility on a page.
+T 41 source.jinja
+L         </p>
+T 12 source.jinja
+L       </section>
+T 16 source.jinja
+L       <section class="feature">
+T 31 source.jinja
+L         <h3 class="feature-heading">
+T 36 source.jinja
+L           <i class="feature-icon h-icon-share"></i>Sharing a page
+T 65 source.jinja
+L         </h3>
+T 13 source.jinja
+L         <div class="feature-content">
+T 37 source.jinja
+L           <p>
+T 13 source.jinja
+L             Use the <i class="help-icon h-icon-share"></i> button to get a
+T 74 source.jinja
+L             sharable link to the page with annotations.
+T 55 source.jinja
+L           </p>
+T 14 source.jinja
+L         </div>
+T 14 source.jinja
+L       </section>
+T 16 source.jinja
+L     </section>
+T 14 source.jinja
+L     <section class="help-page-section">
+T 39 source.jinja
+L       <h2 class="help-page-heading">Resources</h2>
+T 50 source.jinja
+L       <div class="styled-text">
+T 31 source.jinja
+L         <ul>
+T 12 source.jinja
+L           <li>
+T 14 source.jinja
+L             View the
+T 20 source.jinja
+L             <a href="https://hypothes.is/roadmap/">product roadmap</a> to check
+T 79 source.jinja
+L             out what we're working on.
+T 38 source.jinja
+L           </li>
+T 15 source.jinja
+L           <li>
+T 14 source.jinja
+L             Request features, report bugs and meet other users in our
+T 69 source.jinja
+L             <a href="https://groups.google.com/forum/#!forum/hypothesis-forum"
+T 78 source.jinja
+L               >discussion forums</a
+T 35 source.jinja
+L             >.
+T 14 source.jinja
+L           </li>
+T 15 source.jinja
+L           <li>
+T 14 source.jinja
+L             If you need help please don't hesitate to
+T 53 source.jinja
+L             <a href="mailto:support@hypothes.is">get in touch</a>.
+T 66 source.jinja
+L           </li>
+T 15 source.jinja
+L           <li>
+T 14 source.jinja
+L             Visit <a href="https://hypothes.is/about/">our website</a> to learn
+T 79 source.jinja
+L             more about the project.
+T 35 source.jinja
+L           </li>
+T 15 source.jinja
+L           <li>
+T 14 source.jinja
+L             Check out the code on
+T 33 source.jinja
+L             <a href="https://github.com/hypothesis/h">GitHub</a>.
+T 65 source.jinja
+L           </li>
+T 15 source.jinja
+L         </ul>
+T 13 source.jinja
+L       </div>
+T 12 source.jinja
+L     </section>
+T 14 source.jinja
+L   </article>
+T 12 source.jinja
+L   <div class="help-page-sidebar">
+T 33 source.jinja
+L     <div id="help-1">
+T 21 source.jinja
+L       <p>
+T 9 source.jinja
+L         Show and hide the sidebar using the
+T 43 source.jinja
+L         <i class="h-icon-chevron-left"></i> button
+T 50 source.jinja
+L       </p>
+T 10 source.jinja
+L     </div>
+T 10 source.jinja
+L     <div id="help-2"></div>
+T 27 source.jinja
+L   </div>
+T 8 source.jinja
+L </div>
+T 6 source.jinja
+L {% endblock %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 11 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 12 source.jinja meta.scope.jinja.tag
+T 14 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L 

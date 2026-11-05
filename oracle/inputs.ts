@@ -29,6 +29,7 @@ import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" }
 import htmlInvalidTags from "./inputs/html-invalid-tags.html" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
+import jinjaCoverage from "./inputs/jinja-coverage.jinja" with { type: "text" };
 import jsonCoverage from "./inputs/json-coverage.json" with { type: "text" };
 import jsoncCoverage from "./inputs/jsonc-coverage.jsonc" with { type: "text" };
 import jsonlCoverage from "./inputs/jsonl-coverage.jsonl" with { type: "text" };
@@ -263,12 +264,16 @@ const horse =
   "https://raw.githubusercontent.com/HashLoad/horse/a0ac019be1d29fd9deb20f61ca779d5631718bdb";
 const httparser =
   "https://raw.githubusercontent.com/antlabs/httparser/622df4409cddf119cf437633f620947235d2d1eb";
+const hypothesis =
+  "https://raw.githubusercontent.com/hypothesis/h/18e30d6b1feda29f291140e29dbdedd33c45fb47";
 const inspectLua =
   "https://raw.githubusercontent.com/kikito/inspect.lua/a8ca3120dfec48801036eaeff9335ab7a096dd24";
 const javapoet =
   "https://raw.githubusercontent.com/square/javapoet/b9017a9503b76e11b4ad4c1a9f050e2d29112cb0";
 const jekyll =
   "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
+const jinjahtml =
+  "https://raw.githubusercontent.com/samuelcolvin/jinjahtml-vscode/be729c88f723602e7b5df2e9dc5e8c016c31c38f";
 const jq =
   "https://raw.githubusercontent.com/jqlang/jq/5c001b18d7237cce1fdba63608732163f978dd23";
 const jquery =
@@ -329,6 +334,8 @@ const milligram =
   "https://raw.githubusercontent.com/milligram/milligram/5e56af462aea08baf5011a045bf1bfaaef72552c";
 const minikube =
   "https://raw.githubusercontent.com/kubernetes/minikube/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996";
+const mkdocsMaterial =
+  "https://raw.githubusercontent.com/squidfunk/mkdocs-material/7590e14da9fcab7c81bb2496a4c3389f0901988e";
 const moby =
   "https://raw.githubusercontent.com/moby/moby/aed2b781abc209a639b79d00f6962b629242aa1a";
 const moshi =
@@ -864,6 +871,16 @@ export const inputs: Input[] = [
   { lang: "javascript", name: "tsc-tsx-react-emit-entities", url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx` },
   { lang: "javascript", name: "tsc-variadic-tuples1", url: `${typescriptTests}/conformance/types/tuple/variadicTuples1.ts` },
   { lang: "javascript", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
+  { lang: "jinja", name: "coverage", text: jinjaCoverage },
+  { lang: "jinja", name: "hypothesis-annotation-card", url: `${hypothesis}/h/templates/includes/annotation_card.html.jinja2` },
+  { lang: "jinja", name: "hypothesis-help", url: `${hypothesis}/h/templates/help.html.jinja2` },
+  { lang: "jinja", name: "hypothesis-navbar", url: `${hypothesis}/h/templates/includes/navbar.html.jinja2` },
+  { lang: "jinja", name: "hypothesis-users", url: `${hypothesis}/h/templates/admin/users.html.jinja2` },
+  { lang: "jinja", name: "jinjahtml-conf", url: `${jinjahtml}/examples/testing.conf.j2` },
+  { lang: "jinja", name: "jinjahtml-service", url: `${jinjahtml}/examples/testing.service.j2` },
+  { lang: "jinja", name: "jinjahtml-testing", url: `${jinjahtml}/examples/testing.jinja` },
+  { lang: "jinja", name: "mkdocs-material-nav-item", url: `${mkdocsMaterial}/src/templates/partials/nav-item.html` },
+  { lang: "jinja", name: "sample", url: `${samples}/jinja.sample` },
   { lang: "json", name: "coverage", text: jsonCoverage },
   { lang: "json", name: "sample", url: `${samples}/json.sample` },
   {

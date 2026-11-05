@@ -1,0 +1,12 @@
+{% raw %}{{ not an expression }}{% endraw %}
+{%- filter upper -%}text{%- endfilter -%}
+{% if x is defined and y is not none %}{{ true or false }}{% endif %}
+{{ "\x41 \u00e9 \U0001F600 \N{LATIN SMALL LETTER A}" }}
+{{ '\\ \" \' \a \b \f \n \r \t \v' }}
+{{ "a string that \
+goes on" }}
+{{ value | replace(@/a\/b/, "c") }}
+{% include "nav.html" with context %}{% import "macros.html" as m without context %}
+{# a {# nested #} comment #}
+{{- {"k": [1, 2], "n": (3 ** 2) // 4 % 5} -}}
+{% set total = a.b + c - d * e / f %}{{ a == b and c != d or e <= f and g >= h and i < j > k }}

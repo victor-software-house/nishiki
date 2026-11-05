@@ -72,6 +72,10 @@ pub(crate) struct Scratch {
     /// The Java lexer's, for Java documents.
     #[cfg(feature = "lang-java")]
     pub(crate) java: crate::java::Scratch,
+    /// The Jinja lexer's, for Jinja documents.
+    /// It is boxed and allocated by the first Jinja line, as Haskell's is.
+    #[cfg(feature = "lang-jinja")]
+    pub(crate) jinja: Option<Box<crate::jinja::Scratch>>,
     /// The Julia lexer's, for Julia documents and Markdown Julia fences.
     /// It is boxed and allocated by the first Julia line, as GraphQL's is.
     #[cfg(feature = "lang-julia")]

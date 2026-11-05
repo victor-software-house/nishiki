@@ -40,6 +40,7 @@ cargo check --locked --tests --no-default-features --features lang-html-derivati
 cargo check --locked --tests --no-default-features --features lang-ini
 cargo check --locked --tests --no-default-features --features lang-java
 cargo check --locked --tests --no-default-features --features lang-javascript
+cargo check --locked --tests --no-default-features --features lang-jinja
 cargo check --locked --tests --no-default-features --features lang-json
 cargo check --locked --tests --no-default-features --features lang-jsx
 cargo check --locked --tests --no-default-features --features lang-julia

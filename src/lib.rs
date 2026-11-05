@@ -274,6 +274,8 @@ mod html_derivative;
 mod ini;
 #[cfg(feature = "lang-java")]
 mod java;
+#[cfg(feature = "lang-jinja")]
+mod jinja;
 #[cfg(feature = "lang-json")]
 mod json;
 #[cfg(feature = "lang-julia")]

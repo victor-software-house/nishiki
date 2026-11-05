@@ -56,7 +56,8 @@ use std::ops::ControlFlow;
     feature = "lang-gdscript",
     feature = "lang-vb",
     feature = "lang-common-lisp",
-    feature = "lang-r"
+    feature = "lang-r",
+    feature = "lang-jinja"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]

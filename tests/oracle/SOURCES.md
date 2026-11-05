@@ -289,6 +289,16 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `javascript/tsc-tsx-react-emit-entities` | [`tsxReactEmitEntities.tsx`][tsc-tsx-react-emit-entities] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `javascript/tsc-variadic-tuples1` | [`variadicTuples1.ts`][tsc-variadic-tuples1] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
 | `javascript/tsc-yield-expression-inner-comment-emit` | [`yieldExpressionInnerCommentEmit.ts`][tsc-yield-expression-inner-comment-emit] in microsoft/TypeScript | [Apache-2.0][typescript-tests-licence] |
+| `jinja/coverage` | `oracle/inputs/jinja-coverage.jinja`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `jinja/hypothesis-annotation-card` | [`h/templates/includes/annotation_card.html.jinja2`][hypothesis-annotation-card] in hypothesis/h | [BSD-2-Clause][hypothesis-licence] |
+| `jinja/hypothesis-help` | [`h/templates/help.html.jinja2`][hypothesis-help] in hypothesis/h | [BSD-2-Clause][hypothesis-licence] |
+| `jinja/hypothesis-navbar` | [`h/templates/includes/navbar.html.jinja2`][hypothesis-navbar] in hypothesis/h | [BSD-2-Clause][hypothesis-licence] |
+| `jinja/hypothesis-users` | [`h/templates/admin/users.html.jinja2`][hypothesis-users] in hypothesis/h | [BSD-2-Clause][hypothesis-licence] |
+| `jinja/jinjahtml-conf` | [`examples/testing.conf.j2`][jinjahtml-conf] in samuelcolvin/jinjahtml-vscode | [MIT][jinjahtml-licence] |
+| `jinja/jinjahtml-service` | [`examples/testing.service.j2`][jinjahtml-service] in samuelcolvin/jinjahtml-vscode | [MIT][jinjahtml-licence] |
+| `jinja/jinjahtml-testing` | [`examples/testing.jinja`][jinjahtml-testing] in samuelcolvin/jinjahtml-vscode | [MIT][jinjahtml-licence] |
+| `jinja/mkdocs-material-nav-item` | [`src/templates/partials/nav-item.html`][mkdocs-material-nav-item] in squidfunk/mkdocs-material | [MIT][mkdocs-material-licence] |
+| `jinja/sample` | [`samples/jinja.sample`][jinja-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `json/coverage` | `oracle/inputs/json-coverage.json`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `json/sample` | [`samples/json.sample`][json-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `json/vscode-typescript-grammar` | [`extensions/typescript-basics/syntaxes/TypeScript.tmLanguage.json`][vscode-ts-grammar] in microsoft/vscode | [MIT][vscode-licence] |
@@ -1325,6 +1335,11 @@ The hand lexer was written against all seven.
 [html-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/html.sample
 [httparser-licence]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/LICENSE
 [httparser-readme]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/README.md
+[hypothesis-annotation-card]: https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/h/templates/includes/annotation_card.html.jinja2
+[hypothesis-help]: https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/h/templates/help.html.jinja2
+[hypothesis-licence]: https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/LICENSE
+[hypothesis-navbar]: https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/h/templates/includes/navbar.html.jinja2
+[hypothesis-users]: https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/h/templates/admin/users.html.jinja2
 [ini-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/ini.sample
 [inspect-lua]: https://github.com/kikito/inspect.lua/blob/a8ca3120dfec48801036eaeff9335ab7a096dd24/inspect.lua
 [inspect-lua-licence]: https://github.com/kikito/inspect.lua/blob/a8ca3120dfec48801036eaeff9335ab7a096dd24/MIT-LICENSE.txt
@@ -1335,6 +1350,11 @@ The hand lexer was written against all seven.
 [jekyll-front-matter]: https://github.com/jekyll/jekyll/blob/97c3bdc822df9d5bea4c269b29a28de5a5e29d70/docs/_docs/front-matter.md
 [jekyll-licence]: https://github.com/jekyll/jekyll/blob/97c3bdc822df9d5bea4c269b29a28de5a5e29d70/LICENSE
 [jekyll-site]: https://github.com/jekyll/jekyll/blob/97c3bdc822df9d5bea4c269b29a28de5a5e29d70/lib/jekyll/site.rb
+[jinja-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/jinja.sample
+[jinjahtml-conf]: https://github.com/samuelcolvin/jinjahtml-vscode/blob/be729c88f723602e7b5df2e9dc5e8c016c31c38f/examples/testing.conf.j2
+[jinjahtml-licence]: https://github.com/samuelcolvin/jinjahtml-vscode/blob/be729c88f723602e7b5df2e9dc5e8c016c31c38f/LICENSE
+[jinjahtml-service]: https://github.com/samuelcolvin/jinjahtml-vscode/blob/be729c88f723602e7b5df2e9dc5e8c016c31c38f/examples/testing.service.j2
+[jinjahtml-testing]: https://github.com/samuelcolvin/jinjahtml-vscode/blob/be729c88f723602e7b5df2e9dc5e8c016c31c38f/examples/testing.jinja
 [jq-licence]: https://github.com/jqlang/jq/blob/5c001b18d7237cce1fdba63608732163f978dd23/COPYING
 [jq-print]: https://github.com/jqlang/jq/blob/5c001b18d7237cce1fdba63608732163f978dd23/src/jv_print.c
 [jquery-delegatetest]: https://github.com/jquery/jquery/blob/feaa9fcdb68cdeadf013d97d8fd40848d4618578/test/delegatetest.html
@@ -1453,6 +1473,8 @@ The hand lexer was written against all seven.
 [minikube-make]: https://github.com/kubernetes/minikube/blob/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996/Makefile
 [mir-cast]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/tests/mir-opt/const_prop/cast.main.GVN.diff
 [mir-slices]: https://github.com/rust-lang/rust/blob/ae36fe22c7e590df40ffd53ac25fea35597c3f3d/tests/mir-opt/gvn.slices.GVN.panic-abort.diff
+[mkdocs-material-licence]: https://github.com/squidfunk/mkdocs-material/blob/7590e14da9fcab7c81bb2496a4c3389f0901988e/LICENSE
+[mkdocs-material-nav-item]: https://github.com/squidfunk/mkdocs-material/blob/7590e14da9fcab7c81bb2496a4c3389f0901988e/src/templates/partials/nav-item.html
 [moby-docker]: https://github.com/moby/moby/blob/aed2b781abc209a639b79d00f6962b629242aa1a/Dockerfile
 [moby-licence]: https://github.com/moby/moby/blob/aed2b781abc209a639b79d00f6962b629242aa1a/LICENSE
 [moby-make]: https://github.com/moby/moby/blob/aed2b781abc209a639b79d00f6962b629242aa1a/Makefile

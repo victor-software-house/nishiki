@@ -73,6 +73,7 @@ const handLexed = new Map([
   ["ini", "INI"],
   ["java", "Java"],
   ["javascript", "TypeScript"],
+  ["jinja", "Jinja"],
   ["json", "JSON"],
   ["jsonc", "JSON"],
   ["jsonl", "JSON"],

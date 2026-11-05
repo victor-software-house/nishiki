@@ -31,6 +31,8 @@ mod html;
 mod html_derivative;
 mod ini;
 mod java;
+#[cfg(feature = "lang-jinja")]
+mod jinja;
 mod json;
 mod julia;
 mod kotlin;

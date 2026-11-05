@@ -1,0 +1,281 @@
+L {% raw %}{{ not an expression }}{% endraw %}
+T 2 source.jinja comment.block.jinja.raw entity.other.jinja.delimiter.tag
+T 3 source.jinja comment.block.jinja.raw
+T 6 source.jinja comment.block.jinja.raw keyword.control.jinja
+T 7 source.jinja comment.block.jinja.raw
+T 9 source.jinja comment.block.jinja.raw entity.other.jinja.delimiter.tag
+T 32 source.jinja comment.block.jinja.raw
+T 34 source.jinja comment.block.jinja.raw entity.other.jinja.delimiter.tag
+T 35 source.jinja comment.block.jinja.raw
+T 41 source.jinja comment.block.jinja.raw keyword.control.jinja
+T 42 source.jinja comment.block.jinja.raw
+T 44 source.jinja comment.block.jinja.raw entity.other.jinja.delimiter.tag
+L {%- filter upper -%}text{%- endfilter -%}
+T 3 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 4 source.jinja meta.scope.jinja.tag
+T 10 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 11 source.jinja meta.scope.jinja.tag
+T 16 source.jinja meta.scope.jinja.tag variable.other.jinja.filter
+T 17 source.jinja meta.scope.jinja.tag
+T 20 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 24 source.jinja
+T 27 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 28 source.jinja meta.scope.jinja.tag
+T 37 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 38 source.jinja meta.scope.jinja.tag
+T 41 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L {% if x is defined and y is not none %}{{ true or false }}{% endif %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 5 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 6 source.jinja meta.scope.jinja.tag
+T 7 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 8 source.jinja meta.scope.jinja.tag
+T 10 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 11 source.jinja meta.scope.jinja.tag
+T 18 source.jinja meta.scope.jinja.tag variable.other.jinja.test
+T 19 source.jinja meta.scope.jinja.tag
+T 22 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 23 source.jinja meta.scope.jinja.tag
+T 24 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 25 source.jinja meta.scope.jinja.tag
+T 27 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 28 source.jinja meta.scope.jinja.tag
+T 31 source.jinja meta.scope.jinja.tag variable.other.jinja.test
+T 32 source.jinja meta.scope.jinja.tag
+T 36 source.jinja meta.scope.jinja.tag constant.language.jinja
+T 37 source.jinja meta.scope.jinja.tag
+T 39 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 41 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 42 source.jinja variable.meta.scope.jinja
+T 46 source.jinja variable.meta.scope.jinja constant.language.jinja
+T 47 source.jinja variable.meta.scope.jinja
+T 49 source.jinja variable.meta.scope.jinja keyword.control.jinja
+T 50 source.jinja variable.meta.scope.jinja
+T 55 source.jinja variable.meta.scope.jinja constant.language.jinja
+T 56 source.jinja variable.meta.scope.jinja
+T 58 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 60 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 61 source.jinja meta.scope.jinja.tag
+T 66 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 67 source.jinja meta.scope.jinja.tag
+T 69 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L {{ "\x41 \u00e9 \U0001F600 \N{LATIN SMALL LETTER A}" }}
+T 2 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 3 source.jinja variable.meta.scope.jinja
+T 4 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 8 source.jinja variable.meta.scope.jinja string.quoted.double.jinja constant.character.escape.hex.jinja
+T 9 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 15 source.jinja variable.meta.scope.jinja string.quoted.double.jinja constant.character.escape.unicode.32-bit-hex.jinja
+T 16 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 26 source.jinja variable.meta.scope.jinja string.quoted.double.jinja constant.character.escape.unicode.16-bit-hex.jinja
+T 27 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 51 source.jinja variable.meta.scope.jinja string.quoted.double.jinja constant.character.escape.unicode.name.jinja
+T 52 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 53 source.jinja variable.meta.scope.jinja
+T 55 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L {{ '\\ \" \' \a \b \f \n \r \t \v' }}
+T 2 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 3 source.jinja variable.meta.scope.jinja
+T 4 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 6 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.backlash.jinja
+T 7 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 9 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.double-quote.jinja
+T 10 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 12 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.single-quote.jinja
+T 13 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 15 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.bell.jinja
+T 16 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 18 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.backspace.jinja
+T 19 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 21 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.formfeed.jinja
+T 22 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 24 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.linefeed.jinja
+T 25 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 27 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.return.jinja
+T 28 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 30 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.tab.jinja
+T 31 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 33 source.jinja variable.meta.scope.jinja string.quoted.single.jinja constant.character.escape.vertical-tab.jinja
+T 34 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 35 source.jinja variable.meta.scope.jinja
+T 37 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L {{ "a string that \
+T 2 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 3 source.jinja variable.meta.scope.jinja
+T 4 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 18 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 19 source.jinja variable.meta.scope.jinja string.quoted.double.jinja constant.character.escape.newline.jinja
+L goes on" }}
+T 7 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 8 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 9 source.jinja variable.meta.scope.jinja
+T 11 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L {{ value | replace(@/a\/b/, "c") }}
+T 2 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 3 source.jinja variable.meta.scope.jinja
+T 8 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 9 source.jinja variable.meta.scope.jinja
+T 10 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 11 source.jinja variable.meta.scope.jinja
+T 18 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 19 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 21 source.jinja variable.meta.scope.jinja string.regexp.jinja punctuation.definition.regexp.begin.jinja
+T 23 source.jinja variable.meta.scope.jinja string.regexp.jinja
+T 24 source.jinja variable.meta.scope.jinja string.regexp.jinja punctuation.definition.regexp.end.jinja
+T 25 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 26 source.jinja variable.meta.scope.jinja keyword.operator.arithmetic.jinja
+T 27 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 28 source.jinja variable.meta.scope.jinja
+T 29 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 30 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 31 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 32 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 33 source.jinja variable.meta.scope.jinja
+T 35 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L {% include "nav.html" with context %}{% import "macros.html" as m without context %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 10 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 11 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 20 source.jinja meta.scope.jinja.tag string.quoted.double.jinja
+T 21 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 22 source.jinja meta.scope.jinja.tag
+T 34 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 35 source.jinja meta.scope.jinja.tag
+T 37 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 39 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 40 source.jinja meta.scope.jinja.tag
+T 46 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 47 source.jinja meta.scope.jinja.tag
+T 48 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 59 source.jinja meta.scope.jinja.tag string.quoted.double.jinja
+T 60 source.jinja meta.scope.jinja.tag string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 61 source.jinja meta.scope.jinja.tag
+T 63 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 64 source.jinja meta.scope.jinja.tag
+T 65 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 66 source.jinja meta.scope.jinja.tag
+T 81 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 82 source.jinja meta.scope.jinja.tag
+T 84 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L {# a {# nested #} comment #}
+T 2 source.jinja comment.block.jinja entity.other.jinja.delimiter.comment
+T 5 source.jinja comment.block.jinja
+T 7 source.jinja comment.block.jinja comment.block.jinja entity.other.jinja.delimiter.comment
+T 15 source.jinja comment.block.jinja comment.block.jinja
+T 17 source.jinja comment.block.jinja comment.block.jinja entity.other.jinja.delimiter.comment
+T 26 source.jinja comment.block.jinja
+T 28 source.jinja comment.block.jinja entity.other.jinja.delimiter.comment
+L {{- {"k": [1, 2], "n": (3 ** 2) // 4 % 5} -}}
+T 3 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 4 source.jinja variable.meta.scope.jinja
+T 5 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 6 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 7 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 8 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 9 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 10 source.jinja variable.meta.scope.jinja
+T 11 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 12 source.jinja variable.meta.scope.jinja
+T 13 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 15 source.jinja variable.meta.scope.jinja
+T 16 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 17 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 18 source.jinja variable.meta.scope.jinja
+T 19 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.begin.jinja
+T 20 source.jinja variable.meta.scope.jinja string.quoted.double.jinja
+T 21 source.jinja variable.meta.scope.jinja string.quoted.double.jinja punctuation.definition.string.end.jinja
+T 22 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 23 source.jinja variable.meta.scope.jinja
+T 24 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 26 source.jinja variable.meta.scope.jinja
+T 28 source.jinja variable.meta.scope.jinja keyword.operator.arithmetic.jinja
+T 30 source.jinja variable.meta.scope.jinja
+T 31 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 32 source.jinja variable.meta.scope.jinja
+T 34 source.jinja variable.meta.scope.jinja keyword.operator.arithmetic.jinja
+T 37 source.jinja variable.meta.scope.jinja
+T 38 source.jinja variable.meta.scope.jinja keyword.operator.arithmetic.jinja
+T 40 source.jinja variable.meta.scope.jinja
+T 41 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 42 source.jinja variable.meta.scope.jinja
+T 45 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L {% set total = a.b + c - d * e / f %}{{ a == b and c != d or e <= f and g >= h and i < j > k }}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 6 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 7 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 13 source.jinja meta.scope.jinja.tag
+T 14 source.jinja meta.scope.jinja.tag keyword.operator.assignment.jinja
+T 15 source.jinja meta.scope.jinja.tag
+T 16 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 17 source.jinja meta.scope.jinja.tag punctuation.other.jinja
+T 18 source.jinja meta.scope.jinja.tag variable.other.jinja.attribute
+T 19 source.jinja meta.scope.jinja.tag
+T 20 source.jinja meta.scope.jinja.tag keyword.operator.arithmetic.jinja
+T 21 source.jinja meta.scope.jinja.tag
+T 22 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 23 source.jinja meta.scope.jinja.tag
+T 24 source.jinja meta.scope.jinja.tag keyword.operator.arithmetic.jinja
+T 25 source.jinja meta.scope.jinja.tag
+T 26 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 27 source.jinja meta.scope.jinja.tag
+T 28 source.jinja meta.scope.jinja.tag keyword.operator.arithmetic.jinja
+T 29 source.jinja meta.scope.jinja.tag
+T 30 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 31 source.jinja meta.scope.jinja.tag
+T 32 source.jinja meta.scope.jinja.tag keyword.operator.arithmetic.jinja
+T 33 source.jinja meta.scope.jinja.tag
+T 34 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 35 source.jinja meta.scope.jinja.tag
+T 37 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 39 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 40 source.jinja variable.meta.scope.jinja
+T 41 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 42 source.jinja variable.meta.scope.jinja
+T 44 source.jinja variable.meta.scope.jinja keyword.operator.comparison.jinja
+T 45 source.jinja variable.meta.scope.jinja
+T 46 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 47 source.jinja variable.meta.scope.jinja
+T 50 source.jinja variable.meta.scope.jinja keyword.control.jinja
+T 51 source.jinja variable.meta.scope.jinja
+T 52 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 53 source.jinja variable.meta.scope.jinja
+T 55 source.jinja variable.meta.scope.jinja keyword.operator.comparison.jinja
+T 56 source.jinja variable.meta.scope.jinja
+T 57 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 58 source.jinja variable.meta.scope.jinja
+T 60 source.jinja variable.meta.scope.jinja keyword.control.jinja
+T 61 source.jinja variable.meta.scope.jinja
+T 62 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 63 source.jinja variable.meta.scope.jinja
+T 65 source.jinja variable.meta.scope.jinja keyword.operator.comparison.jinja
+T 66 source.jinja variable.meta.scope.jinja
+T 67 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 68 source.jinja variable.meta.scope.jinja
+T 71 source.jinja variable.meta.scope.jinja keyword.control.jinja
+T 72 source.jinja variable.meta.scope.jinja
+T 73 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 74 source.jinja variable.meta.scope.jinja
+T 75 source.jinja variable.meta.scope.jinja keyword.operator.comparison.jinja
+T 76 source.jinja variable.meta.scope.jinja keyword.operator.assignment.jinja
+T 77 source.jinja variable.meta.scope.jinja
+T 78 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 79 source.jinja variable.meta.scope.jinja
+T 82 source.jinja variable.meta.scope.jinja keyword.control.jinja
+T 83 source.jinja variable.meta.scope.jinja
+T 84 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 85 source.jinja variable.meta.scope.jinja
+T 86 source.jinja variable.meta.scope.jinja keyword.operator.comparison.jinja
+T 87 source.jinja variable.meta.scope.jinja
+T 88 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 89 source.jinja variable.meta.scope.jinja
+T 90 source.jinja variable.meta.scope.jinja keyword.operator.comparison.jinja
+T 91 source.jinja variable.meta.scope.jinja
+T 92 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 93 source.jinja variable.meta.scope.jinja
+T 95 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L 

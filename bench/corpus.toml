@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 15
-digest = "4c6f8622668e32d2fb174d18dcb16f2645cfc96d5f3eaf13e311d869c99b435a"
+version = 16
+digest = "92fad439c3d35aae97bc32d0f26f4dc831419d3d3d1d35df470e4a2acd187da9"
 
 [[file]]
 language = "bat"
@@ -579,6 +579,28 @@ licence = "MIT"
 licence_source = "https://github.com/jquery/jquery/blob/7751e69b615c6eca6f783a81e292a55725af6b85/MIT-LICENSE.txt"
 bytes = 247597
 sha256 = "b2215cce5830e2350b9d420271d9bd82340f664c3f60f0ea850f7e9c0392704e"
+
+[[file]]
+language = "jinja"
+tier = "small"
+origin = "neutral"
+path = "jinja/small/hypothesis-base.jinja2"
+source = "https://raw.githubusercontent.com/hypothesis/h/18e30d6b1feda29f291140e29dbdedd33c45fb47/h/templates/layouts/base.html.jinja2"
+licence = "BSD-2-Clause"
+licence_source = "https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/LICENSE"
+bytes = 3061
+sha256 = "62afbd8bdb793515be9207fbda5914b3a52e90b84007b47b4538365025ebc607"
+
+[[file]]
+language = "jinja"
+tier = "medium"
+origin = "neutral"
+path = "jinja/medium/hypothesis-search.jinja2"
+source = "https://raw.githubusercontent.com/hypothesis/h/18e30d6b1feda29f291140e29dbdedd33c45fb47/h/templates/activity/search.html.jinja2"
+licence = "BSD-2-Clause"
+licence_source = "https://github.com/hypothesis/h/blob/18e30d6b1feda29f291140e29dbdedd33c45fb47/LICENSE"
+bytes = 17304
+sha256 = "353d8515c654a6dab18e666712c04e4b4751860509a7c861aca4b553661c8323"
 
 [[file]]
 language = "json"

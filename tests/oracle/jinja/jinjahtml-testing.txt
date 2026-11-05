@@ -1,0 +1,148 @@
+L {% extends 'whatever.jinja' %}
+T 2 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 3 source.jinja meta.scope.jinja.tag
+T 10 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 11 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 26 source.jinja meta.scope.jinja.tag string.quoted.single.jinja
+T 27 source.jinja meta.scope.jinja.tag string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 28 source.jinja meta.scope.jinja.tag
+T 30 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L <!doctype html>
+T 15 source.jinja
+L <html amp lang="en">
+T 20 source.jinja
+L   <head>
+T 8 source.jinja
+L     <meta charset="utf-8">
+T 26 source.jinja
+L     <script async src="https://cdn.ampproject.org/v0.js"></script>
+T 66 source.jinja
+L     <title>Hello, AMPs</title>
+T 30 source.jinja
+L     <link rel="canonical" href="http://example.ampproject.org/article-metadata.html">
+T 85 source.jinja
+L     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+T 87 source.jinja
+L     <style amp-boilerplate>{{ inline_css('amp-boilerplate.css') }}</style>
+T 27 source.jinja
+T 29 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 30 source.jinja variable.meta.scope.jinja
+T 40 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 41 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 42 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 61 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 62 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 63 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 64 source.jinja variable.meta.scope.jinja
+T 66 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 74 source.jinja
+L     <noscript>
+T 14 source.jinja
+L       <style amp-boilerplate>body {-webkit-animation: none;-moz-animation: none; -ms-animation: none; animation: none}</style>
+T 126 source.jinja
+L     </noscript>
+T 15 source.jinja
+L     <style amp-custom>{{ inline_css('inline.css') }}</style>
+T 22 source.jinja
+T 24 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 25 source.jinja variable.meta.scope.jinja
+T 35 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 36 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 37 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 47 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 48 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 49 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 50 source.jinja variable.meta.scope.jinja
+T 52 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 60 source.jinja
+L     <foobar>{{ (4 * 7)|int }}</foobar>
+T 12 source.jinja
+T 14 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 15 source.jinja variable.meta.scope.jinja
+T 16 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 18 source.jinja variable.meta.scope.jinja
+T 19 source.jinja variable.meta.scope.jinja keyword.operator.arithmetic.jinja
+T 21 source.jinja variable.meta.scope.jinja
+T 22 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 23 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 26 source.jinja variable.meta.scope.jinja variable.other.jinja.filter
+T 27 source.jinja variable.meta.scope.jinja
+T 29 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 38 source.jinja
+L   </head>
+T 9 source.jinja
+L 
+L   <body>
+T 8 source.jinja
+L   {% if foo == bar %}
+T 2 source.jinja
+T 4 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 5 source.jinja meta.scope.jinja.tag
+T 7 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 8 source.jinja meta.scope.jinja.tag
+T 11 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 12 source.jinja meta.scope.jinja.tag
+T 14 source.jinja meta.scope.jinja.tag keyword.operator.comparison.jinja
+T 15 source.jinja meta.scope.jinja.tag
+T 18 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 19 source.jinja meta.scope.jinja.tag
+T 21 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L     {% block body %}{% endblock %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 13 source.jinja meta.scope.jinja.tag
+T 17 source.jinja meta.scope.jinja.tag variable.other.jinja.block
+T 18 source.jinja meta.scope.jinja.tag
+T 20 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 22 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 23 source.jinja meta.scope.jinja.tag
+T 31 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 32 source.jinja meta.scope.jinja.tag
+T 34 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L     {% for x in foobar %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 10 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 11 source.jinja meta.scope.jinja.tag
+T 12 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 13 source.jinja meta.scope.jinja.tag
+T 15 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 16 source.jinja meta.scope.jinja.tag
+T 22 source.jinja meta.scope.jinja.tag variable.other.jinja
+T 23 source.jinja meta.scope.jinja.tag
+T 25 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L      {{ for}}
+T 5 source.jinja
+T 7 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 8 source.jinja variable.meta.scope.jinja
+T 11 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 13 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L     {% endfor %}
+T 4 source.jinja
+T 6 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+T 7 source.jinja meta.scope.jinja.tag
+T 13 source.jinja meta.scope.jinja.tag keyword.control.jinja
+T 14 source.jinja meta.scope.jinja.tag
+T 16 source.jinja meta.scope.jinja.tag entity.other.jinja.delimiter.tag
+L 
+L     {{ inline_css('inline.css') }}
+T 4 source.jinja
+T 6 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 7 source.jinja variable.meta.scope.jinja
+T 17 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 18 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 19 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 29 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 30 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 31 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 32 source.jinja variable.meta.scope.jinja
+T 34 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L   </body>
+T 9 source.jinja
+L </html>
+T 7 source.jinja
+L 

@@ -116,6 +116,8 @@ tables! {
     INI = ini;
     #[cfg(feature = "lang-java")]
     JAVA = java;
+    #[cfg(feature = "lang-jinja")]
+    JINJA = jinja;
     #[cfg(feature = "lang-json")]
     JSON = json;
     #[cfg(feature = "lang-julia")]

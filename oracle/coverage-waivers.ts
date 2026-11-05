@@ -1724,6 +1724,7 @@ export const complete: string[] = [
   "ini",
   "java",
   "javascript",
+  "jinja",
   "json",
   "jsonc",
   "jsonl",

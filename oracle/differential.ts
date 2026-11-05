@@ -164,6 +164,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", ",", ".", "=", "<>", "<", ">", "<=", ">=", "&", "+", "-", "*", "/", "\\", "^", ":", "\"", "\"\"", "'", "!", "$", "%", "?:", "++", "===", "\t", "  "],
     heads: ["", "", "\t", "\t\t", "  ", "    ", "' ", "Sub f(", "Dim ", "If ", "\"", "  ' "],
   },
+  jinja: {
+    words: ["block", "endblock", "extends", "if", "elif", "else", "endif", "for", "in", "endfor", "recursive", "set", "macro", "endmacro", "call", "endcall", "filter", "endfilter", "include", "import", "from", "as", "with", "without", "context", "raw", "endraw", "is", "not", "and", "or", "true", "false", "none", "loop", "super", "self", "varargs", "kwargs", "x", "_x", "x1", "1abc", "items", "upper", "default", "range", "\u00e9", "1", "1.5", "\"s\"", "'s'", "@/re/"],
+    marks: ["{{", "}}", "{{-", "-}}", "{%", "%}", "{%-", "-%}", "{#", "#}", "{#-", "-#}", "(", ")", "[", "]", "{", "}", ",", ".", ":", "|", "=", "==", "!=", "<", ">", "<=", ">=", "=>", "+", "-", "*", "**", "/", "//", "%", "\"", "'", "\\n", "\\\\", "\\x41", "\\u00e9", "\\", "@/", "<div>", "</div>"],
+    heads: ["", "", " ", "  ", "\t", "{{ ", "{% ", "{# ", "{% raw %}", "<p>", "text "],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

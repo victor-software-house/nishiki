@@ -1,0 +1,62 @@
+L [Unit]
+T 6 source.jinja
+L Description=Node.js Video Server
+T 32 source.jinja
+L After=network.target
+T 20 source.jinja
+L 
+L [Service]
+T 9 source.jinja
+L WorkingDirectory={{ app_path }}/sites/www/ui/
+T 17 source.jinja
+T 19 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 20 source.jinja variable.meta.scope.jinja
+T 28 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 29 source.jinja variable.meta.scope.jinja
+T 31 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 45 source.jinja
+L ExecStart=/usr/bin/node {{ app_path }}/sites/www/ui/server.js
+T 24 source.jinja
+T 26 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 27 source.jinja variable.meta.scope.jinja
+T 35 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 36 source.jinja variable.meta.scope.jinja
+T 38 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 61 source.jinja
+L Restart=on-failure
+T 18 source.jinja
+L # Restart service after 10 seconds if node service crashes
+T 58 source.jinja
+L RestartSec=10
+T 13 source.jinja
+L # Output to syslog
+T 18 source.jinja
+L StandardOutput=syslog
+T 21 source.jinja
+L StandardError=syslog
+T 20 source.jinja
+L SyslogIdentifier=nodejs-video-server
+T 36 source.jinja
+L Type=simple
+T 11 source.jinja
+L User={{ app_user }}
+T 5 source.jinja
+T 7 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 8 source.jinja variable.meta.scope.jinja
+T 16 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 17 source.jinja variable.meta.scope.jinja
+T 19 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L Group={{ app_group }}
+T 6 source.jinja
+T 8 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 9 source.jinja variable.meta.scope.jinja
+T 18 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 19 source.jinja variable.meta.scope.jinja
+T 21 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+L Environment=NODE_ENV=production PORT=3000
+T 41 source.jinja
+L 
+L [Install]
+T 9 source.jinja
+L WantedBy=multi-user.target
+T 26 source.jinja

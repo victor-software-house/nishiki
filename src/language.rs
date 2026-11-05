@@ -1177,6 +1177,15 @@ languages! {
     /// - `\w` and `\d` for non-ASCII characters come from the tables measured on Shiki's engine, and so do the `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` of names (`oracle/classes.ts`).
     /// - A Markdown fence names the language `r`, `s` or `rprofile`, in any case, or `{.r …}`.
     R { feature: "lang-r", names: ["r"], module: r, halts: true }
+    /// Jinja, with the scopes of Shiki's `jinja` grammar: its tags,
+    /// expressions and comments over plain text.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - The text between tags is plain, as the grammar reads it: Shiki's `jinja` is the only Jinja language a user can name.
+    /// - A name, `[A-Z_a-z][0-9A-Z_a-z]*`, needs no `\b` before it, so `1abc` holds the name `abc`.
+    /// - The name after `{%` or `{%-` that no `,` or `=` follows is the tag's keyword, as `endfor` is.
+    Jinja { feature: "lang-jinja", names: ["jinja"], module: jinja }
 }
 
 impl Language {

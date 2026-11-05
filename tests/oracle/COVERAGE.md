@@ -36,6 +36,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
 | TypeScript | `javascript` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
+| Jinja | `jinja` | 37 of 37 | 100.0% | 49 of 49 | 100.0% | 0 | 0 | yes |
 | JSON | `json` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
 | JSON | `jsonc` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |
 | JSON | `jsonl` | 23 of 23 | 100.0% | 15 of 15 | 100.0% | 0 | 0 | yes |

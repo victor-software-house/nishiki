@@ -53,6 +53,7 @@ all = [
   "lang-ini",
   "lang-java",
   "lang-javascript",
+  "lang-jinja",
   "lang-json",
   "lang-jsx",
   "lang-julia",
@@ -191,6 +192,7 @@ lang-java = ["_scope-table", "_rule-tables", "_classes"]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,
 # lang-tsx and lang-typescript, each a copy of the lexer.
 lang-javascript = ["_classes", "_space"]
+lang-jinja = ["_scope-table", "_rule-tables", "_classes"]
 lang-json = ["_classes", "_utf8", "_frame-kinds"]
 lang-jsx = ["_classes", "_space"]
 lang-julia = [

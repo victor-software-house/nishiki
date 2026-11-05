@@ -77,6 +77,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | INI | `Language::Ini` | `lang-ini` | `all` | `ini`, `properties` |
 | Java | `Language::Java` | `lang-java` | `all` | `java` |
 | JavaScript | `Language::JavaScript` | `lang-javascript` | `all` | `javascript`, `js`, `cjs`, `mjs` |
+| Jinja | `Language::Jinja` | `lang-jinja` | `all` | `jinja` |
 | JSON | `Language::Json` | `lang-json` | `all` | `json` |
 | JSON with comments | `Language::Jsonc` | `lang-json` | `all` | `jsonc` |
 | JSON Lines | `Language::Jsonl` | `lang-json` | `all` | `jsonl` |

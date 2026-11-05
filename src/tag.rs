@@ -102,6 +102,9 @@ tags! {
     /// Java.
     #[cfg(feature = "lang-java")]
     JAVA = 0x0a00,
+    /// Jinja.
+    #[cfg(feature = "lang-jinja")]
+    JINJA = 0x4e00,
     /// JSON.
     #[cfg(feature = "lang-json")]
     JSON = 0x0500,

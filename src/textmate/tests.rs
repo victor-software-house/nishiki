@@ -25,6 +25,8 @@ mod gdscript_tables;
 mod html_tables;
 #[path = "../../tests/engine/javascript.rs"]
 mod javascript_tables;
+#[path = "../../tests/engine/jinja.rs"]
+mod jinja_tables;
 #[path = "../../tests/engine/make.rs"]
 mod make_tables;
 #[path = "../../tests/engine/markdown.rs"]
@@ -327,6 +329,13 @@ fn matlab_grammar_matches_shiki() {
 #[test]
 fn vb_grammar_matches_shiki() {
     check(&vb_tables::GRAMMAR, "vb", Scanners::On);
+}
+
+/// Jinja has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn jinja_grammar_matches_shiki() {
+    check(&jinja_tables::GRAMMAR, "jinja", Scanners::On);
 }
 
 /// Objective-C has a hand lexer.

@@ -1,0 +1,93 @@
+L user              nginx;
+T 24 source.jinja
+L worker_processes  4;
+T 20 source.jinja
+L 
+L error_log  /var/log/nginx/error.log;
+T 36 source.jinja
+L pid        /var/run/nginx.pid;
+T 30 source.jinja
+L 
+L events {
+T 8 source.jinja
+L     worker_connections  1024;
+T 29 source.jinja
+L }
+T 1 source.jinja
+L 
+L http {
+T 6 source.jinja
+L     include       /etc/nginx/mime.types;
+T 40 source.jinja
+L     default_type  application/octet-stream;
+T 43 source.jinja
+L 
+L     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+T 77 source.jinja
+L                       '$status $body_bytes_sent "$http_referer" '
+T 65 source.jinja
+L                       '"$http_user_agent" "$http_x_forwarded_for"';
+T 67 source.jinja
+L 
+L     access_log  /var/log/nginx/access.log  main;
+T 48 source.jinja
+L     sendfile        on;
+T 23 source.jinja
+L     keepalive_timeout  65;
+T 26 source.jinja
+L 
+L     include /etc/nginx/conf.d/*.conf;
+T 37 source.jinja
+L 
+L     server {
+T 12 source.jinja
+L         listen 80 default;
+T 26 source.jinja
+L         location /nginx_status {
+T 32 source.jinja
+L             stub_status on;
+T 27 source.jinja
+L             access_log off;
+T 27 source.jinja
+L             allow 127.0.0.1;
+T 28 source.jinja
+L             allow {{ salt['pillar.get']('pypi_internal_network', '127.0.0.0/24') }};
+T 18 source.jinja
+T 20 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 21 source.jinja variable.meta.scope.jinja
+T 25 source.jinja variable.meta.scope.jinja variable.other.jinja
+T 26 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 27 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 37 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 38 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 39 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 40 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 41 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 62 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 63 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 64 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 65 source.jinja variable.meta.scope.jinja
+T 66 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.begin.jinja
+T 78 source.jinja variable.meta.scope.jinja string.quoted.single.jinja
+T 79 source.jinja variable.meta.scope.jinja string.quoted.single.jinja punctuation.definition.string.end.jinja
+T 80 source.jinja variable.meta.scope.jinja punctuation.other.jinja
+T 81 source.jinja variable.meta.scope.jinja
+T 83 source.jinja variable.meta.scope.jinja variable.entity.other.jinja.delimiter
+T 84 source.jinja
+L             deny all;
+T 21 source.jinja
+L         }
+T 9 source.jinja
+L         location /.well-known/acme-challenge/ {
+T 47 source.jinja
+L             alias /etc/lego/.well-known/acme-challenge/;
+T 56 source.jinja
+L             try_files $uri =404;
+T 32 source.jinja
+L         }
+T 9 source.jinja
+L     }
+T 5 source.jinja
+L }
+T 1 source.jinja
+L 
