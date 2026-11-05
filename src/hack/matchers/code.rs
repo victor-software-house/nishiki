@@ -5,6 +5,15 @@ use super::super::engine::Lexer;
 use super::{is_iletter, is_iname, is_iname_start, is_ipath, is_iword, is_name, is_name_start};
 use crate::rules::Chars;
 
+/// Which declaration of a module a line opens.
+#[derive(Clone, Copy, Debug)]
+pub(super) enum Module {
+    /// `new module name`: the module's definition.
+    New,
+    /// `module name`: a file's membership in the module.
+    Plain,
+}
+
 /// `public|internal`: the visibility before a declaration.
 const VISIBILITY: [&[u8]; 2] = [b"public", b"internal"];
 
@@ -355,28 +364,30 @@ impl Lexer<'_> {
         })
     }
 
-    /// `^\s*(new)\s+(module)\s+([.0-9A-Z_a-z]+)\b` for `new`, and
-    /// `^\s*(module)\s+([.0-9A-Z_a-z]+)\b` otherwise.
+    /// `^\s*(new)\s+(module)\s+([.0-9A-Z_a-z]+)\b` for [`Module::New`], and
+    /// `^\s*(module)\s+([.0-9A-Z_a-z]+)\b` for [`Module::Plain`].
     /// The name gives back trailing dots until `\b` holds.
-    pub(super) fn module_declaration(&mut self, p: usize, new: bool) -> Option<usize> {
+    pub(super) fn module_declaration(&mut self, p: usize, module: Module) -> Option<usize> {
         if p != 0 {
             return None;
         }
         let mut at = self.space_end(0);
-        let mut group = 1;
-        if new {
-            let end = self.lit(at, b"new")?;
-            let next = self.space_end(end);
-            if next == end {
-                return None;
+        let group = match module {
+            Module::New => {
+                let end = self.lit(at, b"new")?;
+                let next = self.space_end(end);
+                if next == end {
+                    return None;
+                }
+                self.cap(1, at, end);
+                at = next;
+                2
             }
-            self.cap(1, at, end);
-            at = next;
-            group = 2;
-        }
-        let module = self.lit(at, b"module")?;
-        let name = self.space_end(module);
-        if name == module {
+            Module::Plain => 1,
+        };
+        let keyword = self.lit(at, b"module")?;
+        let name = self.space_end(keyword);
+        if name == keyword {
             return None;
         }
         let mut end = self.skip(name, |b| b == b'.' || super::is_ident(b));
@@ -386,7 +397,7 @@ impl Lexer<'_> {
         if end == name {
             return None;
         }
-        self.cap(group, at, module);
+        self.cap(group, at, keyword);
         self.cap(group + 1, name, end);
         Some(end)
     }

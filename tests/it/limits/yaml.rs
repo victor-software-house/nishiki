@@ -2,7 +2,7 @@
 
 use nishiki::{Highlighter, Language, Limit, Limits, Work};
 
-use super::lex;
+use super::{lex, steps_spent};
 
 #[test]
 fn hostile_yaml_lines_finish_within_the_default_limits() {
@@ -16,6 +16,8 @@ fn hostile_yaml_lines_finish_within_the_default_limits() {
         "!t ".repeat(100_000),
         "- ".repeat(100_000),
         "a: ".repeat(100_000),
+        "a:: ".repeat(100_000),
+        format!("{}b: c", "a:: ".repeat(100_000)),
         format!("{}\t", "# ".repeat(100_000)),
         "\"\\".repeat(100_000),
         "x ".repeat(150_000),
@@ -28,6 +30,20 @@ fn hostile_yaml_lines_finish_within_the_default_limits() {
             "{:?} reached {:?}",
             &line[..4],
             report.limits().collect::<Vec<_>>()
+        );
+    }
+}
+
+/// Each `a:` ends in an odd run of colons, so each looks ahead for a later key.
+/// The lookahead reads the rest of the line once, not once per scalar.
+#[test]
+fn a_line_of_unpaired_colons_spends_work_linear_in_its_length() {
+    for tail in ["", "b: c"] {
+        let short = steps_spent(Language::Yaml, &format!("{}{tail}", "a:: ".repeat(1_000)));
+        let long = steps_spent(Language::Yaml, &format!("{}{tail}", "a:: ".repeat(2_000)));
+        assert!(
+            long <= 2 * short + 16,
+            "{tail:?} spent {short} steps at 1,000 scalars and {long} at 2,000"
         );
     }
 }

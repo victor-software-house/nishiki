@@ -1,5 +1,7 @@
 //! The per-line lexer: cursor, token emission and the context stack.
 
+use std::cell::Cell;
+
 use memchr::memchr2;
 
 use super::scalar;
@@ -32,6 +34,18 @@ pub(crate) struct Lexer<'a> {
     pub(super) halts: Option<Halts<'a>>,
     /// Where in `s` the line went back to the embedding language.
     halted: Option<usize>,
+    /// The last key lookahead of the line ([`Lexer::key_ahead`]).
+    last_ahead: Cell<Option<Ahead>>,
+}
+
+/// A key lookahead: where it started and stopped, whether it ran in a flow
+/// collection, and whether it found a key.
+#[derive(Clone, Copy)]
+struct Ahead {
+    from: usize,
+    to: usize,
+    flow: bool,
+    found: bool,
 }
 
 /// The halts of a language that embeds YAML.
@@ -137,6 +151,7 @@ impl<'a> Lexer<'a> {
             text_start,
             halts: None,
             halted: None,
+            last_ahead: Cell::new(None),
         }
     }
 
@@ -675,7 +690,27 @@ impl<'a> Lexer<'a> {
     /// It skips blanks on its own: sharing `skip_blanks_unspent` took that
     /// function out of `scan_plain`, and YAML rose 1.9% at one codegen
     /// unit.
+    ///
+    /// A lookahead that passes `i` gives `i`'s answer, so the last one is kept.
+    /// The plain scalar before `i` ends in a `:`, and a `:` stands at `i - 1`.
+    /// A lookahead from further left that reaches past `i - 1` lands on `i`:
+    /// - the pair at `i - 2` steps over both colons to `i`;
+    /// - at `i - 1`, a blank, the line end or a flow indicator follows, so it
+    ///   stops there;
+    /// - a single character or a run of blanks cannot step over a `:`.
+    ///
+    /// From `i` on, both lookaheads take the same steps.
+    /// So the kept one answers for every `i` between its ends, in the same
+    /// kind of collection.
+    /// Without it, a line such as `a:: a:: a::` read the rest of the line from
+    /// every scalar.
     fn key_ahead(&self, mut i: usize, flow: bool) -> bool {
+        if let Some(last) = self.last_ahead.get()
+            && last.flow == flow
+            && (last.from..=last.to).contains(&i)
+        {
+            return last.found;
+        }
         let start = i;
         let len = self.s.len();
         let found = loop {
@@ -708,6 +743,12 @@ impl<'a> Lexer<'a> {
             }
         };
         self.steps.spend(i - start);
+        self.last_ahead.set(Some(Ahead {
+            from: start,
+            to: i,
+            flow,
+            found,
+        }));
         found
     }
 

@@ -22,6 +22,8 @@ mod code;
 mod strings;
 mod xhp;
 
+use code::Module;
+
 use super::engine::Lexer;
 use super::grammar::{Pat, table_pats};
 use crate::rules::Chars;
@@ -273,8 +275,8 @@ impl Lexer<'_> {
             }
             Pat::LanguageAt6 => self.enum_declaration(p),
             Pat::LanguageAt7 => self.trait_declaration(p),
-            Pat::LanguageAt8 => self.module_declaration(p, true),
-            Pat::LanguageAt9 => self.module_declaration(p, false),
+            Pat::LanguageAt8 => self.module_declaration(p, Module::New),
+            Pat::LanguageAt9 => self.module_declaration(p, Module::Plain),
             Pat::LanguageAt9End | Pat::LanguageAt14End => {
                 (self.at_eol(p) || self.at(p) == b';' || self.space_at(p) > 0).then_some(p)
             }

@@ -525,6 +525,8 @@ pub(crate) struct Nested {
 
   // A rule that includes another language hands its text to that language.
   // A capture group's list that includes one defers the group to it.
+  // A list can reach one language through several includes.
+  // The first mark counts: the later ones repeat patterns it already tries.
   /** What each rule embeds, and whether its own patterns come after the language. */
   const embeds = new Map<string, { embed: Embed; afterOwn: boolean }>();
   /** The language each capture group's list defers its group to. */
@@ -535,11 +537,11 @@ pub(crate) struct Nested {
       return embed ? [{ embed, index }] : [];
     });
     if (marks.length === 0) continue;
-    if (marks.length > 1) throw new Error(`${r.id}: embeds two languages`);
+    if (new Set(marks.map((mark) => embedMark(mark.embed))).size > 1) throw new Error(`${r.id}: embeds two languages`);
     const { embed, index } = marks[0]!;
     if (r.id === "Root") throw new Error("the root embeds a language");
     if (r.end === "") {
-      if (r.patterns.length > 1) throw new Error(`${r.id}: a capture group embeds a language beside other patterns`);
+      if (r.patterns.length > marks.length) throw new Error(`${r.id}: a capture group embeds a language beside other patterns`);
       deferred.set(r.id, embed);
     } else {
       if (r.backref !== null) throw new Error(`${r.id}: embeds a language and repeats a group`);

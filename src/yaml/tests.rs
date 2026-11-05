@@ -473,6 +473,11 @@ fn a_later_key_tags_a_key_whose_colons_do_not_pair_up() {
     );
     assert_eq!(scope_of("a:: b", "a:"), "string.unquoted.plain.out");
     assert_eq!(
+        scope_of("a:: c:: d:: b: e", "d:"),
+        "string.unquoted.plain.out entity.name.tag"
+    );
+    assert_eq!(scope_of("a:: c:: d::", "d:"), "string.unquoted.plain.out");
+    assert_eq!(
         scope_of("{a:: b: c}", "a:"),
         "meta.flow-mapping meta.flow-pair.key string.unquoted.plain.in entity.name.tag"
     );
