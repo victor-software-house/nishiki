@@ -4,6 +4,8 @@
 use super::grammar::{Pat, Rule, Sc};
 use super::scope::S;
 use crate::arena::Arena;
+use crate::php_family::halts::{quoted_to, sql_common};
+use crate::php_family::matchers::{is_name, is_name_start};
 pub(crate) use crate::rules::embedded;
 use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -91,7 +93,7 @@ impl Grammar for Php {
         let (start, pat, end) = table_scan(lexer)?;
         match pat.words() {
             Some((table, 0)) => {
-                let list = lexer.word_list(table, start)?;
+                let list = lexer.word_list(table.words(), start)?;
                 Some((start, Pat::of_list(table, list), end))
             }
             Some(_) | None => Some((start, pat, end)),
@@ -152,6 +154,8 @@ impl crate::language::Halt for End {
         }
     }
 }
+
+impl crate::php_family::PhpFamily for Php {}
 
 impl rules::Embeds for Php {
     type End = End;
@@ -225,44 +229,7 @@ fn interpolation(s: &[u8], p: usize) -> bool {
     }
 }
 
-/// The patterns that a SQL string of either quote starts with: `#` and `--`
-/// comments, and the escape ``\\["'\\`]``.
-fn sql_common(s: &[u8], p: usize) -> bool {
-    match s.get(p) {
-        Some(b'-') => s.get(p + 1) == Some(&b'-'),
-        Some(b'\\') => matches!(s.get(p + 1), Some(b'"' | b'\'' | b'\\' | b'`')),
-        _ => false,
-    }
-}
-
-/// `(?=((\\q)|[^oq])*(o|$))` from `at`, after a quote `q` in a SQL string
-/// whose own quote is `o`: the rest of the string holds no unescaped `q`
-/// before its end or the line's.
-fn quoted_to(s: &[u8], mut at: usize, quote: u8, own: u8) -> bool {
-    loop {
-        match s.get(at) {
-            Some(&b'\\') if s.get(at + 1) == Some(&quote) => at += 2,
-            Some(&b) if b == own => return true,
-            Some(&b) if b == quote => return false,
-            Some(b'\n') if at + 1 == s.len() => return true,
-            Some(_) => at += 1,
-            None => return true,
-        }
-    }
-}
-
 /// `\s`.
 fn is_space(b: u8) -> bool {
     matches!(b, b' ' | b'\t' | b'\n' | b'\x0B' | b'\x0C' | b'\r')
-}
-
-/// `[_a-z\x7F-\x{10FFFF}]` under `(?i)`, by byte: every byte of a character
-/// past ASCII is at least `0x80`.
-pub(super) fn is_name_start(b: u8) -> bool {
-    b == b'_' || b.is_ascii_alphabetic() || b >= 0x7f
-}
-
-/// `[0-9_a-z\x7F-\x{10FFFF}]` under `(?i)`, by byte.
-pub(super) fn is_name(b: u8) -> bool {
-    is_name_start(b) || b.is_ascii_digit()
 }

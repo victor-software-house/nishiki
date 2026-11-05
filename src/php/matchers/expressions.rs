@@ -1,7 +1,8 @@
 //! Variables, objects, calls, operators, keywords and numbers.
 
-use super::super::engine::{Lexer, is_name, is_name_start};
+use super::super::engine::Lexer;
 use super::is_qualified;
+use crate::php_family::matchers::{is_name, is_name_start};
 use crate::rules::Chars;
 
 /// `(?i)[$_a-z]`, by character: `ſ` and the Kelvin sign fold to letters.
@@ -10,39 +11,6 @@ fn starts_word(c: char) -> bool {
 }
 
 impl Lexer<'_> {
-    /// `(\$)((_(COOKIE|FILES|GET|POST|REQUEST))|arg([cv]))\b`.
-    pub(super) fn global_variable(&mut self, p: usize) -> Option<usize> {
-        if self.at(p) != b'$' {
-            return None;
-        }
-        let names: [&[u8]; 7] = [
-            b"_COOKIE",
-            b"_FILES",
-            b"_GET",
-            b"_POST",
-            b"_REQUEST",
-            b"argc",
-            b"argv",
-        ];
-        let end = names.iter().find_map(|name| {
-            self.lit(p + 1, name)
-                .filter(|&end| self.word_at(end).is_none())
-        })?;
-        self.cap(1, p, p + 1);
-        Some(end)
-    }
-
-    /// `(\$)((GLOBALS|_(ENV|SERVER|SESSION)))`.
-    pub(super) fn superglobal(&mut self, p: usize) -> Option<usize> {
-        if self.at(p) != b'$' {
-            return None;
-        }
-        let names: [&[u8]; 4] = [b"GLOBALS", b"_ENV", b"_SERVER", b"_SESSION"];
-        let end = names.iter().find_map(|name| self.lit(p + 1, name))?;
-        self.cap(1, p, p + 1);
-        Some(end)
-    }
-
     /// A variable in a string, with a property or an index:
     ///
     /// ```text
@@ -374,13 +342,6 @@ impl Lexer<'_> {
             .or_else(|| self.iword_in(p, &[b"and", b"or", b"xor"]))
     }
 
-    /// `<<|>>|[\&^|~]`.
-    pub(super) fn bitwise(&self, p: usize) -> Option<usize> {
-        self.lit(p, b"<<")
-            .or_else(|| self.lit(p, b">>"))
-            .or_else(|| matches!(self.at(p), b'&' | b'^' | b'|' | b'~').then_some(p + 1))
-    }
-
     /// `(?<![0-9A-Z_a-z\x7F-\x{10FFFF}])`, by byte.
     fn after_non_name(&self, p: usize) -> bool {
         self.prev(p).is_none_or(|b| !is_name(b))
@@ -617,21 +578,6 @@ impl Lexer<'_> {
             }
         }
         None
-    }
-
-    /// `\b(catch)\s*(\()`.
-    pub(super) fn catch(&mut self, p: usize) -> Option<usize> {
-        if !self.boundary(p) {
-            return None;
-        }
-        let end = self.lit(p, b"catch")?;
-        let open = self.space_end(end);
-        if self.at(open) != b'(' {
-            return None;
-        }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
-        Some(open + 1)
     }
 
     /// `(?i)([0-9\\_a-z\x7F-\x{10FFFF}]+(?:\s*\|\s*[0-9\\_a-z\x7F-\

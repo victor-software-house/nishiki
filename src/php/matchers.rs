@@ -27,12 +27,11 @@ mod comments;
 mod declarations;
 mod expressions;
 mod strings;
-mod words;
 
-use super::engine::{Lexer, is_name, is_name_start};
+use super::engine::Lexer;
 use super::grammar::{Pat, table_pats};
-use crate::case_fold;
 use crate::classes::is_space;
+use crate::php_family::matchers::{is_name, is_name_start};
 use crate::rules::Chars;
 
 /// `[0-9\\_a-z\x7F-\x{10FFFF}]` under `(?i)`: a character of a qualified
@@ -333,13 +332,7 @@ impl Lexer<'_> {
             Pat::ScopeResolutionAt2 => self.class_constant_name(p),
             Pat::ScopeResolutionAt3 => self.static_access(p),
             Pat::InvokeCall => self.invoke(p),
-            Pat::RootAt26 => {
-                let end = self.lit(p, b"array()")?;
-                self.cap(1, p, p + 5);
-                self.cap(2, p + 5, p + 6);
-                self.cap(3, p + 6, end);
-                Some(end)
-            }
+            Pat::RootAt26 => self.empty_array(p),
             Pat::RootAt28 => self.cast(p),
             Pat::RootAt29 => self.iword_in(
                 p,
@@ -446,9 +439,7 @@ impl Lexer<'_> {
             Pat::RootAt15 => self.catch(p),
             Pat::Nested8At0 => self.lit(p, b"|"),
             Pat::RootAt15At0 => self.caught(p),
-            Pat::RootAt16 => {
-                self.word_in(p, &[b"catch", b"try", b"throw", b"exception", b"finally"])
-            }
+            Pat::RootAt16 => self.exception_keyword(p),
             Pat::NumbersAt0 => self.radix(p, b"xX", |b| b.is_ascii_hexdigit()),
             Pat::NumbersAt1 => self.radix(p, b"bB", |b| matches!(b, b'0' | b'1')),
             Pat::NumbersAt2 => self.radix(p, b"oO", |b| matches!(b, b'0'..=b'7')),
@@ -466,12 +457,8 @@ impl Lexer<'_> {
             }
             Pat::SingleQuoteRegexEscape => self.single_quoted_regex_escape(p),
             Pat::RegexSingleQuotedAt1 | Pat::HeredocInteriorAt6At2 => self.regex_repeat(p),
-            Pat::RegexSingleQuotedAt3 => {
-                matches!(self.at(p), b'$' | b'*' | b'+' | b'^').then_some(p + 1)
-            }
-            Pat::HeredocInteriorAt6At3At0 => (self.at(p) == b'\\'
-                && matches!(self.at(p + 1), b']' | b'\'' | b'[' | b'\\'))
-            .then_some(p + 2),
+            Pat::RegexSingleQuotedAt3 => self.regex_operator(p),
+            Pat::HeredocInteriorAt6At3At0 => self.regex_class_escape(p),
             Pat::HeredocInteriorAt6At5 => self.regex_comment(p),
             Pat::HeredocInteriorAt6At5End => self.at_eol(p).then_some(p),
             Pat::InterpolationDoubleQuotedAt0 => self.lit(p, b"\\\""),
@@ -491,9 +478,7 @@ impl Lexer<'_> {
             Pat::SqlStringDoubleQuotedAt1 => self.sql_comment(p, b"--", b'"'),
             Pat::SqlStringSingleQuotedAt0 => self.sql_comment(p, b"#", b'\''),
             Pat::SqlStringSingleQuotedAt1 => self.sql_comment(p, b"--", b'\''),
-            Pat::SqlStringDoubleQuotedAt2 => (self.at(p) == b'\\'
-                && matches!(self.at(p + 1), b'"' | b'\'' | b'\\' | b'`'))
-            .then_some(p + 2),
+            Pat::SqlStringDoubleQuotedAt2 => self.sql_escape(p),
             Pat::SqlStringDoubleQuotedAt3 => self.sql_quote(p, b'\'', b'"'),
             Pat::SqlStringDoubleQuotedAt4 => self.sql_quote(p, b'`', b'"'),
             Pat::SqlStringSingleQuotedAt4 => self.sql_quote(p, b'`', b'\''),
@@ -513,9 +498,7 @@ impl Lexer<'_> {
             | Pat::SqlStringDoubleQuotedAt6End
             | Pat::StringBacktick
             | Pat::StringBacktickEnd => self.lit(p, b"`"),
-            Pat::StringSingleQuotedAt0 => {
-                (self.at(p) == b'\\' && matches!(self.at(p + 1), b'\'' | b'\\')).then_some(p + 2)
-            }
+            Pat::StringSingleQuotedAt0 => self.single_quote_escape(p),
             Pat::StringBacktickAt0 => self.lit(p, b"\\`"),
             Pat::HeredocAt0 => self.heredoc_ahead(p, b'"'),
             Pat::HeredocAt1 => self.heredoc_ahead(p, b'\''),
@@ -574,17 +557,12 @@ impl Lexer<'_> {
 
             table_pats!() => {
                 let (table, list) = pat.words()?;
-                self.table_list(table, list, p)
+                self.table_list(table.words(), list, p)
             }
         }
     }
 
     // Shared pieces.
-
-    /// `[_a-z\x7F-\x{10FFFF}][0-9_a-z\x7F-\x{10FFFF}]*` under `(?i)`: a name.
-    fn name(&self, p: usize) -> Option<usize> {
-        (p < self.lim() && is_name_start(self.at(p))).then(|| self.skip(p + 1, is_name))
-    }
 
     /// `[0-9\\_a-z\x7F-\x{10FFFF}]+` under `(?i)`: a qualified name, which may
     /// start with a digit.
@@ -608,38 +586,6 @@ impl Lexer<'_> {
             Some(end),
             (trimmed > from && trimmed < end).then_some(trimmed),
         ]
-    }
-
-    /// The end of the literal `word` at `p`, without regard to case.
-    fn ilit(&self, p: usize, word: &[u8]) -> Option<usize> {
-        case_fold::literal_end(self.text(0, self.lim()), p, word)
-    }
-
-    /// `(?i)\bword\b`.
-    fn ikeyword(&self, p: usize, word: &[u8]) -> Option<usize> {
-        if !self.boundary(p) {
-            return None;
-        }
-        let end = self.ilit(p, word)?;
-        self.word_at(end).is_none().then_some(end)
-    }
-
-    /// `(?i)\b(a|b|…)\b`, for words of which none is the start of a later one
-    /// that the same run of `\w` could be.
-    fn iword_in(&self, p: usize, words: &[&[u8]]) -> Option<usize> {
-        if !self.boundary(p) || self.word_at(p).is_none() {
-            return None;
-        }
-        let end = self.word_end(p);
-        let mut buf = [0; 32];
-        let len = case_fold::lower_into(self.text(p, end), &mut buf)?;
-        let word = buf.get(..len)?;
-        words.contains(&word).then_some(end)
-    }
-
-    /// `\?>`, where PHP's code ends.
-    fn php_close(&self, p: usize) -> bool {
-        self.starts(p, b"?>")
     }
 
     /// `X|(?=\?>)` for the byte `close`.
@@ -691,17 +637,6 @@ impl Lexer<'_> {
         self.cap(1, p, end);
         self.cap(2, at, name);
         Some(name)
-    }
-
-    /// `(?i)(word)\s+`, with the word as group 1.
-    fn word_then_spaces(&mut self, p: usize, word: &[u8]) -> Option<usize> {
-        let end = self.ilit(p, word)?;
-        let at = self.space_end(end);
-        if at == end {
-            return None;
-        }
-        self.cap(1, p, end);
-        Some(at)
     }
 
     /// The ends of the type `T` at `p` that signatures, properties and

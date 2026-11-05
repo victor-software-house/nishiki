@@ -1,8 +1,9 @@
 //! Names, attributes and declarations: namespaces, `use`, classes, traits,
 //! interfaces, enums, functions, parameters, properties and constants.
 
-use super::super::engine::{Lexer, is_name};
+use super::super::engine::Lexer;
 use super::{ParameterVariable, ReturnEnd, is_qualified};
+use crate::php_family::matchers::is_name;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
@@ -447,18 +448,6 @@ impl Lexer<'_> {
         let end = self.lit(p, b"(")?;
         self.cap(2, p, end);
         Some(end)
-    }
-
-    /// `(?i)(use)\s*(\()`.
-    pub(super) fn closure_use(&mut self, p: usize) -> Option<usize> {
-        let end = self.ilit(p, b"use")?;
-        let open = self.space_end(end);
-        if self.at(open) != b'(' {
-            return None;
-        }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
-        Some(open + 1)
     }
 
     /// `(?i)((?:(&)\s*)?(\$+)NAME)\s*(?=[),])`.

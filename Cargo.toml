@@ -252,6 +252,7 @@ lang-php = [
   "_rule-tables",
   "_classes",
   "_halting-embedding",
+  "_php-family",
   "lang-css",
   "lang-html",
   "lang-javascript",
@@ -320,6 +321,8 @@ _halting-embedding = ["_embedding"]
 # The Unicode classes that identifiers read beside the letters and digits:
 # `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}`.
 _identifier-classes = ["_classes"]
+# The matchers and word tables that PHP's and Hack's grammars share.
+_php-family = ["_rule-tables"]
 _scope-table = []
 # tag::frame_kinds!, for the lexers that declare their frame kinds with it.
 _frame-kinds = []

@@ -1,16 +1,9 @@
 //! Strings, regular expressions in strings, SQL strings, interpolation,
 //! heredocs and nowdocs.
 
-use super::super::engine::{Lexer, is_name};
+use super::super::engine::Lexer;
+use crate::php_family::matchers::{is_flag, is_name};
 use crate::rules::Chars;
-
-/// `[ADSUXeimsux]`: a flag after a regular expression.
-fn is_flag(b: u8) -> bool {
-    matches!(
-        b,
-        b'A' | b'D' | b'S' | b'U' | b'X' | b'e' | b'i' | b'm' | b's' | b'u' | b'x'
-    )
-}
 
 impl Lexer<'_> {
     /// `"/(?=(\\.|[^"/])++/[ADSUXeimsux]*")` for `"`, and for `'`:
@@ -83,62 +76,6 @@ impl Lexer<'_> {
         (p + 1 < self.lim()).then(|| self.char_end(p + 1))
     }
 
-    /// `(/)([ADSUXeimsux]*)(")` for `"`, and with `'` for `'`.
-    pub(super) fn regex_close(&self, p: usize, quote: u8) -> Option<usize> {
-        if self.at(p) != b'/' {
-            return None;
-        }
-        let flags = self.skip(p + 1, is_flag);
-        (self.at(flags) == quote && flags < self.lim()).then_some(flags + 1)
-    }
-
-    /// `(\\){1,2}[]$.\[^{}]`.
-    pub(super) fn regex_escape(&self, p: usize) -> Option<usize> {
-        let special = |b: u8| matches!(b, b']' | b'$' | b'.' | b'[' | b'^' | b'{' | b'}');
-        if self.at(p) != b'\\' {
-            return None;
-        }
-        if self.at(p + 1) == b'\\' && special(self.at(p + 2)) {
-            return Some(p + 3);
-        }
-        special(self.at(p + 1)).then_some(p + 2)
-    }
-
-    /// `\[(?:\^?])?`.
-    pub(super) fn regex_class_open(&self, p: usize) -> Option<usize> {
-        if self.at(p) != b'[' {
-            return None;
-        }
-        if self.at(p + 1) == b'^' && self.at(p + 2) == b']' {
-            return Some(p + 3);
-        }
-        Some(p + 1 + usize::from(self.at(p + 1) == b']'))
-    }
-
-    /// `(\{)\d+(,\d+)?(})`.
-    pub(super) fn regex_repeat(&mut self, p: usize) -> Option<usize> {
-        if self.at(p) != b'{' {
-            return None;
-        }
-        let digits = self.digit_end(p + 1);
-        if digits == p + 1 {
-            return None;
-        }
-        let mut close = digits;
-        if self.at(digits) == b',' {
-            let more = self.digit_end(digits + 1);
-            if more > digits + 1 {
-                close = more;
-            }
-        }
-        if self.at(close) != b'}' {
-            return None;
-        }
-        self.cap(1, p, p + 1);
-        self.cap(3, close, close + 1);
-        Some(close + 1)
-    }
-
     /// `(?i)(?<=^|\s)(#)\s(?=[-\t !,.0-9?_a-z\x7F-\x{10FFFF}[^\x00-\x7F]]*$)`:
     /// a comment in a heredoc's regular expression, whose text holds only
     /// words, digits, blanks and light punctuation.
@@ -164,26 +101,6 @@ impl Lexer<'_> {
         }
         self.cap(1, p, p + 1);
         Some(text)
-    }
-
-    /// `\\[0-7]{1,3}`.
-    pub(super) fn octal_escape(&self, p: usize) -> Option<usize> {
-        if self.at(p) != b'\\' {
-            return None;
-        }
-        let digits = (p + 1..p + 4)
-            .take_while(|&at| matches!(self.at(at), b'0'..=b'7'))
-            .count();
-        (digits > 0).then_some(p + 1 + digits)
-    }
-
-    /// `\\x\h{1,2}`.
-    pub(super) fn hex_escape(&self, p: usize) -> Option<usize> {
-        let at = self.lit(p, b"\\x")?;
-        let digits = (at..at + 2)
-            .take_while(|&k| self.at(k).is_ascii_hexdigit())
-            .count();
-        (digits > 0).then_some(at + digits)
     }
 
     /// `\\u\{\h+}`.
@@ -244,31 +161,6 @@ impl Lexer<'_> {
         self.spend(at - p);
         self.cap(1, p, p + mark.len());
         Some(at)
-    }
-
-    /// `'(?=((\\')|[^"'])*("|$))` and its kin: a quote `quote` inside a SQL
-    /// string whose own quote is `own`, when the rest of the string holds no
-    /// unescaped `quote` before its end or the line's.
-    pub(super) fn sql_quote(&self, p: usize, quote: u8, own: u8) -> Option<usize> {
-        if self.at(p) != quote || p >= self.lim() {
-            return None;
-        }
-        let mut at = p + 1;
-        loop {
-            let b = self.at(at);
-            if at >= self.lim() {
-                return Some(p + 1);
-            }
-            if b == b'\\' && self.at(at + 1) == quote && at + 1 < self.lim() {
-                at += 2;
-            } else if b == own {
-                return Some(p + 1);
-            } else if b == quote {
-                return None;
-            } else {
-                at = self.char_end(at);
-            }
-        }
     }
 
     /// `(?i)(?=<<<\s*("?)(NAME)(\1)\s*$)` for `"`, and

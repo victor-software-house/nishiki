@@ -232,7 +232,8 @@ mod c;
     feature = "lang-php",
     feature = "lang-powershell",
     feature = "lang-sql",
-    feature = "lang-vb"
+    feature = "lang-vb",
+    feature = "_php-family"
 ))]
 mod case_fold;
 #[cfg(feature = "_classes")]
@@ -325,6 +326,8 @@ mod pascal;
 mod perl;
 #[cfg(feature = "lang-php")]
 mod php;
+#[cfg(feature = "_php-family")]
+mod php_family;
 #[cfg(feature = "lang-postcss")]
 mod postcss;
 #[cfg(feature = "lang-powershell")]

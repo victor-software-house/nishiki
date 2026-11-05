@@ -29,15 +29,6 @@ impl Lexer<'_> {
         opens(self, p).then_some(p)
     }
 
-    /// `\n|(?=\?>)`.
-    pub(super) fn comment_end(&self, p: usize) -> Option<usize> {
-        if p == self.lim() && self.avail(p) {
-            Some(p + 1)
-        } else {
-            self.php_close(p).then_some(p)
-        }
-    }
-
     /// `^(?!\s*\*).*?(?:(?=\*/)|$\n?)`: a doc comment's line that does not
     /// start with `*`, up to the comment's end or the line's, with its line
     /// feed.
@@ -91,29 +82,6 @@ impl Lexer<'_> {
             at = self.char_start_before(at);
         }
         None
-    }
-
-    /// `(@xlink)\s+(.+)\s*$`.
-    /// When the spaces run to the line's end, they give back their last one
-    /// to `.+`.
-    /// The trailing `\s*` takes the line feed.
-    pub(super) fn doc_xlink(&mut self, p: usize) -> Option<usize> {
-        let tag_end = self.lit(p, b"@xlink")?;
-        let spaces = self.space_end(tag_end);
-        if spaces == tag_end {
-            return None;
-        }
-        let text = if spaces < self.lim() {
-            spaces
-        } else {
-            self.char_start_before(self.lim())
-        };
-        if text <= tag_end || text >= self.lim() {
-            return None;
-        }
-        self.cap(1, p, tag_end);
-        self.cap(2, text, self.lim());
-        Some(self.space_end(self.lim()))
     }
 
     /// `(@(?:global|param|property(-(read|write))?|return|throws|var))\s+(?=[(?

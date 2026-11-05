@@ -26,39 +26,7 @@ impl Table {
     }
 }
 
-/// How a table compares a word.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Case {
-    /// `(?i)`: the words are lowercase, and the text is folded to compare.
-    Folded,
-    /// The text compares as written.
-    Exact,
-}
-
-/// Whether a match takes a backslash before the word.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Backslash {
-    /// `(\\)?\b(…)\b`: a backslash right before the word joins the match.
-    Optional,
-    /// `\b(…)\b`: the match is the word alone.
-    Never,
-}
-
-/// A table of words: their text, each word's end in it, and the list that
-/// holds the word first.
-/// A word is a run of word bytes, or two runs joined by `\` or `-`.
-pub(crate) struct Words {
-    /// The words, one after another, sorted.
-    pub(crate) text: &'static str,
-    /// Where each word ends in `text`.
-    pub(crate) ends: &'static [u16],
-    /// The list that holds each word first.
-    pub(crate) lists: &'static [u8],
-    /// How the table compares a word.
-    pub(crate) case: Case,
-    /// Whether a match takes a backslash before the word.
-    pub(crate) backslash: Backslash,
-}
+pub(crate) use crate::php_family::words::{Backslash, Case, Words};
 
 /// The `support` lists: 3102 words in 105 lists.
 pub(crate) static SUPPORT: Words = Words {

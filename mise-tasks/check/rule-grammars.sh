@@ -3,6 +3,7 @@
 #MISE tools={bun="1.4.4"}
 # Runs every rule-engine generator, oracle/<language>-grammar.ts.
 # oracle/rule-grammar.ts is the library they share, not a generator.
+# oracle/php-family-grammar.ts is the one PHP's and Hack's generators share.
 # Its tests in oracle/rule-grammar.test.ts run first.
 # oracle/fence-stops.ts then checks Language::pops_fence against the grammars.
 # Each generator regenerates its language's tables under src/ in place.
@@ -17,7 +18,7 @@ bun test oracle/rule-grammar.test.ts
 bun oracle/fence-stops.ts
 
 for generator in oracle/*-grammar.ts; do
-  if [ "$generator" = oracle/rule-grammar.ts ]; then
+  if [ "$generator" = oracle/rule-grammar.ts ] || [ "$generator" = oracle/php-family-grammar.ts ]; then
     continue
   fi
   bun "$generator" >/dev/null

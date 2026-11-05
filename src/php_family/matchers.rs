@@ -1,0 +1,319 @@
+//! The matchers PHP's and Hack's grammars share: each answers for an
+//! expression that both grammars spell the same way.
+//! Scopes come from each grammar's tables, so a matcher is shared even where
+//! the two grammars name its match differently.
+
+use super::PhpFamily;
+use crate::case_fold;
+use crate::rules::{Chars, Lexer};
+
+/// `[_a-z\x7F-\x{10FFFF}]` under `(?i)`, by byte: every byte of a character
+/// past ASCII is at least `0x80`.
+pub(crate) fn is_name_start(b: u8) -> bool {
+    b == b'_' || b.is_ascii_alphabetic() || b >= 0x7f
+}
+
+/// `[0-9_a-z\x7F-\x{10FFFF}]` under `(?i)`, by byte.
+pub(crate) fn is_name(b: u8) -> bool {
+    is_name_start(b) || b.is_ascii_digit()
+}
+
+/// `[ADSUXeimsux]`: a flag after a regular expression.
+pub(crate) fn is_flag(b: u8) -> bool {
+    matches!(
+        b,
+        b'A' | b'D' | b'S' | b'U' | b'X' | b'e' | b'i' | b'm' | b's' | b'u' | b'x'
+    )
+}
+
+/// The shared matchers, on the rule engine's lexer of either grammar.
+impl<G: PhpFamily> Lexer<'_, G> {
+    /// `[_a-z\x7F-\x{10FFFF}][0-9_a-z\x7F-\x{10FFFF}]*` under `(?i)`: a name.
+    pub(crate) fn name(&self, p: usize) -> Option<usize> {
+        (p < self.lim() && is_name_start(self.at(p))).then(|| self.skip(p + 1, is_name))
+    }
+
+    /// The end of the literal `word` at `p`, without regard to case.
+    pub(crate) fn ilit(&self, p: usize, word: &[u8]) -> Option<usize> {
+        case_fold::literal_end(self.text(0, self.lim()), p, word)
+    }
+
+    /// `\?>`, where PHP's code ends.
+    pub(crate) fn php_close(&self, p: usize) -> bool {
+        self.starts(p, b"?>")
+    }
+
+    /// `(?i)(word)\s+`, with the word as group 1.
+    pub(crate) fn word_then_spaces(&mut self, p: usize, word: &[u8]) -> Option<usize> {
+        let end = self.ilit(p, word)?;
+        let at = self.space_end(end);
+        if at == end {
+            return None;
+        }
+        self.cap(1, p, end);
+        Some(at)
+    }
+
+    /// `\n|(?=\?>)`.
+    pub(crate) fn comment_end(&self, p: usize) -> Option<usize> {
+        if p == self.lim() && self.avail(p) {
+            Some(p + 1)
+        } else {
+            self.php_close(p).then_some(p)
+        }
+    }
+
+    /// `(@xlink)\s+(.+)\s*$`.
+    /// When the spaces run to the line's end, they give back their last one
+    /// to `.+`.
+    /// The trailing `\s*` takes the line feed.
+    pub(crate) fn doc_xlink(&mut self, p: usize) -> Option<usize> {
+        let tag_end = self.lit(p, b"@xlink")?;
+        let spaces = self.space_end(tag_end);
+        if spaces == tag_end {
+            return None;
+        }
+        let text = if spaces < self.lim() {
+            spaces
+        } else {
+            self.char_start_before(self.lim())
+        };
+        if text <= tag_end || text >= self.lim() {
+            return None;
+        }
+        self.cap(1, p, tag_end);
+        self.cap(2, text, self.lim());
+        Some(self.space_end(self.lim()))
+    }
+
+    /// `(/)([ADSUXeimsux]*)(")` for `"`, and with `'` for `'`.
+    pub(crate) fn regex_close(&self, p: usize, quote: u8) -> Option<usize> {
+        if self.at(p) != b'/' {
+            return None;
+        }
+        let flags = self.skip(p + 1, is_flag);
+        (self.at(flags) == quote && flags < self.lim()).then_some(flags + 1)
+    }
+
+    /// `(\\){1,2}[]$.\[^{}]`.
+    pub(crate) fn regex_escape(&self, p: usize) -> Option<usize> {
+        let special = |b: u8| matches!(b, b']' | b'$' | b'.' | b'[' | b'^' | b'{' | b'}');
+        if self.at(p) != b'\\' {
+            return None;
+        }
+        if self.at(p + 1) == b'\\' && special(self.at(p + 2)) {
+            return Some(p + 3);
+        }
+        special(self.at(p + 1)).then_some(p + 2)
+    }
+
+    /// `(\{)\d+(,\d+)?(})`.
+    pub(crate) fn regex_repeat(&mut self, p: usize) -> Option<usize> {
+        if self.at(p) != b'{' {
+            return None;
+        }
+        let digits = self.digit_end(p + 1);
+        if digits == p + 1 {
+            return None;
+        }
+        let mut close = digits;
+        if self.at(digits) == b',' {
+            let more = self.digit_end(digits + 1);
+            if more > digits + 1 {
+                close = more;
+            }
+        }
+        if self.at(close) != b'}' {
+            return None;
+        }
+        self.cap(1, p, p + 1);
+        self.cap(3, close, close + 1);
+        Some(close + 1)
+    }
+
+    /// `\\[0-7]{1,3}`.
+    pub(crate) fn octal_escape(&self, p: usize) -> Option<usize> {
+        if self.at(p) != b'\\' {
+            return None;
+        }
+        let digits = (p + 1..p + 4)
+            .take_while(|&at| matches!(self.at(at), b'0'..=b'7'))
+            .count();
+        (digits > 0).then_some(p + 1 + digits)
+    }
+
+    /// `\\x\h{1,2}`.
+    pub(crate) fn hex_escape(&self, p: usize) -> Option<usize> {
+        let at = self.lit(p, b"\\x")?;
+        let digits = (at..at + 2)
+            .take_while(|&k| self.at(k).is_ascii_hexdigit())
+            .count();
+        (digits > 0).then_some(at + digits)
+    }
+
+    /// `'(?=((\\')|[^"'])*("|$))` and its kin: a quote `quote` inside a SQL
+    /// string whose own quote is `own`, when the rest of the string holds no
+    /// unescaped `quote` before its end or the line's.
+    pub(crate) fn sql_quote(&self, p: usize, quote: u8, own: u8) -> Option<usize> {
+        if self.at(p) != quote || p >= self.lim() {
+            return None;
+        }
+        let mut at = p + 1;
+        loop {
+            let b = self.at(at);
+            if at >= self.lim() {
+                return Some(p + 1);
+            }
+            if b == b'\\' && self.at(at + 1) == quote && at + 1 < self.lim() {
+                at += 2;
+            } else if b == own {
+                return Some(p + 1);
+            } else if b == quote {
+                return None;
+            } else {
+                at = self.char_end(at);
+            }
+        }
+    }
+
+    /// `(\$)((_(COOKIE|FILES|GET|POST|REQUEST))|arg([cv]))\b`.
+    pub(crate) fn global_variable(&mut self, p: usize) -> Option<usize> {
+        if self.at(p) != b'$' {
+            return None;
+        }
+        let names: [&[u8]; 7] = [
+            b"_COOKIE",
+            b"_FILES",
+            b"_GET",
+            b"_POST",
+            b"_REQUEST",
+            b"argc",
+            b"argv",
+        ];
+        let end = names.iter().find_map(|name| {
+            self.lit(p + 1, name)
+                .filter(|&end| self.word_at(end).is_none())
+        })?;
+        self.cap(1, p, p + 1);
+        Some(end)
+    }
+
+    /// `(\$)((GLOBALS|_(ENV|SERVER|SESSION)))`.
+    pub(crate) fn superglobal(&mut self, p: usize) -> Option<usize> {
+        if self.at(p) != b'$' {
+            return None;
+        }
+        let names: [&[u8]; 4] = [b"GLOBALS", b"_ENV", b"_SERVER", b"_SESSION"];
+        let end = names.iter().find_map(|name| self.lit(p + 1, name))?;
+        self.cap(1, p, p + 1);
+        Some(end)
+    }
+
+    /// `<<|>>|[\&^|~]`.
+    pub(crate) fn bitwise(&self, p: usize) -> Option<usize> {
+        self.lit(p, b"<<")
+            .or_else(|| self.lit(p, b">>"))
+            .or_else(|| matches!(self.at(p), b'&' | b'^' | b'|' | b'~').then_some(p + 1))
+    }
+
+    /// `\b(catch)\s*(\()`.
+    pub(crate) fn catch(&mut self, p: usize) -> Option<usize> {
+        if !self.boundary(p) {
+            return None;
+        }
+        let end = self.lit(p, b"catch")?;
+        let open = self.space_end(end);
+        if self.at(open) != b'(' {
+            return None;
+        }
+        self.cap(1, p, end);
+        self.cap(2, open, open + 1);
+        Some(open + 1)
+    }
+
+    /// `(?i)(use)\s*(\()`.
+    pub(crate) fn closure_use(&mut self, p: usize) -> Option<usize> {
+        let end = self.ilit(p, b"use")?;
+        let open = self.space_end(end);
+        if self.at(open) != b'(' {
+            return None;
+        }
+        self.cap(1, p, end);
+        self.cap(2, open, open + 1);
+        Some(open + 1)
+    }
+    /// `(?i)\bword\b`.
+    pub(crate) fn ikeyword(&self, p: usize, word: &[u8]) -> Option<usize> {
+        if !self.boundary(p) {
+            return None;
+        }
+        let end = self.ilit(p, word)?;
+        self.word_at(end).is_none().then_some(end)
+    }
+
+    /// `(?i)\b(a|b|…)\b`, for words of which none is the start of a later one
+    /// that the same run of `\w` could be.
+    pub(crate) fn iword_in(&self, p: usize, words: &[&[u8]]) -> Option<usize> {
+        if !self.boundary(p) || self.word_at(p).is_none() {
+            return None;
+        }
+        let end = self.word_end(p);
+        let mut buf = [0; 32];
+        let len = case_fold::lower_into(self.text(p, end), &mut buf)?;
+        let word = buf.get(..len)?;
+        words.contains(&word).then_some(end)
+    }
+
+    /// `\[(?:\^?])?`.
+    pub(crate) fn regex_class_open(&self, p: usize) -> Option<usize> {
+        if self.at(p) != b'[' {
+            return None;
+        }
+        if self.at(p + 1) == b'^' && self.at(p + 2) == b']' {
+            return Some(p + 3);
+        }
+        Some(p + 1 + usize::from(self.at(p + 1) == b']'))
+    }
+
+    /// `(array)(\()(\))`.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: its body sat in PHP's dispatch before the move, and with `#[inline]` it stayed a call, at 0.04% of PHP's instructions"
+    )]
+    #[inline(always)]
+    pub(crate) fn empty_array(&mut self, p: usize) -> Option<usize> {
+        let end = self.lit(p, b"array()")?;
+        self.cap(1, p, p + 5);
+        self.cap(2, p + 5, p + 6);
+        self.cap(3, p + 6, end);
+        Some(end)
+    }
+
+    /// `\b(catch|try|throw|exception|finally)\b`.
+    pub(crate) fn exception_keyword(&self, p: usize) -> Option<usize> {
+        self.word_in(p, &[b"catch", b"try", b"throw", b"exception", b"finally"])
+    }
+
+    /// `[$*+^]`: an operator of a regular expression in a string.
+    pub(crate) fn regex_operator(&self, p: usize) -> Option<usize> {
+        matches!(self.at(p), b'$' | b'*' | b'+' | b'^').then_some(p + 1)
+    }
+
+    /// `\\[]'\[\\]`: an escape in a character class of a single-quoted
+    /// regular expression.
+    pub(crate) fn regex_class_escape(&self, p: usize) -> Option<usize> {
+        (self.at(p) == b'\\' && matches!(self.at(p + 1), b']' | b'\'' | b'[' | b'\\'))
+            .then_some(p + 2)
+    }
+
+    /// ``\\["'\\`]``: an escape in a SQL string.
+    pub(crate) fn sql_escape(&self, p: usize) -> Option<usize> {
+        (self.at(p) == b'\\' && matches!(self.at(p + 1), b'"' | b'\'' | b'\\' | b'`'))
+            .then_some(p + 2)
+    }
+
+    /// `\\['\\]`: an escape in a single-quoted string.
+    pub(crate) fn single_quote_escape(&self, p: usize) -> Option<usize> {
+        (self.at(p) == b'\\' && matches!(self.at(p + 1), b'\'' | b'\\')).then_some(p + 2)
+    }
+}
