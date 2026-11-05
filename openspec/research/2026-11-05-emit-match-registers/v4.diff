@@ -1,5 +1,4 @@
 diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
-index 6afdc039..92d650cc 100644
 --- a/src/rules/lexer.rs
 +++ b/src/rules/lexer.rs
 @@ -1125,22 +1125,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {

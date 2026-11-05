@@ -25,7 +25,7 @@ It informs the decision to accept the cost; it does not make it.
 
 | Field | Value |
 |:--|:--|
-| Host | a Boat `large` box: 8 vCPUs, 15 GB, x86-64 Linux |
+| Host | a Boat `large` box: 8 vCPUs, 16 GB, x86-64 Linux |
 | Toolchain | rustc 1.99.1, valgrind 3.27.1 from `mise.bench.toml` |
 | When | 2026-11-05 |
 

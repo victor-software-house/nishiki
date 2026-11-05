@@ -1,0 +1,25 @@
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -1338,7 +1338,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+         if !captures.0.is_empty() || !captures.1.is_empty() {
+             self.emit_captures(captures, base, start, end);
+         }
+-        self.emit_spans(base);
++        if self.span_base < self.spans.len() {
++            self.emit_spans(base);
++        }
+         self.emit(end, base);
+     }
+ 
+@@ -1460,6 +1462,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+     /// it takes that span's scopes too, as capture groups do. A span lexed
+     /// again does not, and runs under the match's stack `base` and its own
+     /// scopes, as vscode-textmate's `handleCaptures` does.
++    ///
++    /// It stays out of line, so the dynamic names it builds share no registers
++    /// with the loop over a match's capture groups.
++    #[inline(never)]
+     fn emit_spans(&mut self, base: u32) {
+         let mut open = 0;
+         for i in self.span_base..self.spans.len() {
