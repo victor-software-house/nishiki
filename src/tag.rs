@@ -75,6 +75,9 @@ tags! {
     /// Dockerfiles.
     #[cfg(feature = "lang-dockerfile")]
     DOCKERFILE = 0x2000,
+    /// Elixir.
+    #[cfg(feature = "lang-elixir")]
+    ELIXIR = 0x4300,
     /// Go.
     #[cfg(feature = "lang-go")]
     GO = 0x2300,

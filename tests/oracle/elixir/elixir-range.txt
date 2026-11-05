@@ -1,0 +1,2407 @@
+L # SPDX-License-Identifier: Apache-2.0
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 37 source.elixir comment.line.number-sign.elixir
+L # SPDX-FileCopyrightText: 2021 The Elixir Team
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 46 source.elixir comment.line.number-sign.elixir
+L # SPDX-FileCopyrightText: 2012 Plataformatec
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 44 source.elixir comment.line.number-sign.elixir
+L 
+L defmodule Range do
+T 9 source.elixir meta.module.elixir keyword.control.module.elixir
+T 10 source.elixir meta.module.elixir
+T 15 source.elixir meta.module.elixir entity.name.type.class.elixir
+T 16 source.elixir meta.module.elixir
+T 18 source.elixir meta.module.elixir keyword.control.module.elixir
+L   @moduledoc """
+T 2 source.elixir
+T 16 source.elixir comment.block.documentation.heredoc
+L   Ranges represent a sequence of zero, one or many, ascending
+T 61 source.elixir comment.block.documentation.heredoc
+L   or descending integers with a common difference called step.
+T 62 source.elixir comment.block.documentation.heredoc
+L 
+L   The most common form of creating and matching on ranges is
+T 60 source.elixir comment.block.documentation.heredoc
+L   via the [`first..last`](`../2`) and [`first..last//step`](`..///3`)
+T 69 source.elixir comment.block.documentation.heredoc
+L   notations, auto-imported from `Kernel`:
+T 41 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> 1 in 1..10
+T 21 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> 5 in 1..10
+T 21 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> 10 in 1..10
+T 22 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L 
+L   Ranges are always inclusive in Elixir. When a step is defined,
+T 64 source.elixir comment.block.documentation.heredoc
+L   integers will only belong to the range if they match the step:
+T 64 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> 5 in 1..10//2
+T 24 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> 4 in 1..10//2
+T 24 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L   When defining a range without a step, the step will be
+T 56 source.elixir comment.block.documentation.heredoc
+L   defined based on the first and last position of the
+T 53 source.elixir comment.block.documentation.heredoc
+L   range, If `last >= first`, it will be an increasing range
+T 59 source.elixir comment.block.documentation.heredoc
+L   with a step of 1. Otherwise, it is a decreasing range.
+T 56 source.elixir comment.block.documentation.heredoc
+L   Note, however, implicit decreasing ranges are deprecated.
+T 59 source.elixir comment.block.documentation.heredoc
+L   Therefore, if you need a decreasing range from `3` to `1`,
+T 60 source.elixir comment.block.documentation.heredoc
+L   prefer to write `3..1//-1` instead.
+T 37 source.elixir comment.block.documentation.heredoc
+L 
+L   `../0` can also be used as a shortcut to create the range `0..-1//1`,
+T 71 source.elixir comment.block.documentation.heredoc
+L   also known as the full-slice range:
+T 37 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> ..
+T 13 source.elixir comment.block.documentation.heredoc
+L       0..-1//1
+T 14 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Use cases
+T 14 source.elixir comment.block.documentation.heredoc
+L 
+L   Ranges typically have two uses in Elixir: as a collection or
+T 62 source.elixir comment.block.documentation.heredoc
+L   to represent a slice of another data structure.
+T 49 source.elixir comment.block.documentation.heredoc
+L 
+L   ### Ranges as collections
+T 27 source.elixir comment.block.documentation.heredoc
+L 
+L   Ranges in Elixir are enumerables and therefore can be used
+T 60 source.elixir comment.block.documentation.heredoc
+L   with the `Enum` module:
+T 25 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Enum.to_list(1..3)
+T 29 source.elixir comment.block.documentation.heredoc
+L       [1, 2, 3]
+T 15 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.to_list(3..1//-1)
+T 33 source.elixir comment.block.documentation.heredoc
+L       [3, 2, 1]
+T 15 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.to_list(1..5//2)
+T 32 source.elixir comment.block.documentation.heredoc
+L       [1, 3, 5]
+T 15 source.elixir comment.block.documentation.heredoc
+L 
+L   Ranges may also have a single element:
+T 40 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Enum.to_list(1..1)
+T 29 source.elixir comment.block.documentation.heredoc
+L       [1]
+T 9 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.to_list(1..1//2)
+T 32 source.elixir comment.block.documentation.heredoc
+L       [1]
+T 9 source.elixir comment.block.documentation.heredoc
+L 
+L   Or even no elements at all:
+T 29 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Enum.to_list(10..0//1)
+T 33 source.elixir comment.block.documentation.heredoc
+L       []
+T 8 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.to_list(0..10//-1)
+T 34 source.elixir comment.block.documentation.heredoc
+L       []
+T 8 source.elixir comment.block.documentation.heredoc
+L 
+L   The full-slice range, returned by `../0`, is an empty collection:
+T 67 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Enum.to_list(..)
+T 27 source.elixir comment.block.documentation.heredoc
+L       []
+T 8 source.elixir comment.block.documentation.heredoc
+L 
+L   ### Ranges as slices
+T 22 source.elixir comment.block.documentation.heredoc
+L 
+L   Ranges are also frequently used to slice collections.
+T 55 source.elixir comment.block.documentation.heredoc
+L   You can slice strings or any enumerable:
+T 42 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> String.slice("elixir", 1..4)
+T 39 source.elixir comment.block.documentation.heredoc
+L       "lixi"
+T 12 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.slice([0, 1, 2, 3, 4, 5], 1..4)
+T 47 source.elixir comment.block.documentation.heredoc
+L       [1, 2, 3, 4]
+T 18 source.elixir comment.block.documentation.heredoc
+L 
+L   In those cases, the first and last values of the range
+T 56 source.elixir comment.block.documentation.heredoc
+L   are mapped to positions in the collections.
+T 45 source.elixir comment.block.documentation.heredoc
+L 
+L   If a negative number is given, it maps to a position
+T 54 source.elixir comment.block.documentation.heredoc
+L   from the back:
+T 16 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> String.slice("elixir", 1..-2//1)
+T 43 source.elixir comment.block.documentation.heredoc
+L       "lixi"
+T 12 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.slice([0, 1, 2, 3, 4, 5], 1..-2//1)
+T 51 source.elixir comment.block.documentation.heredoc
+L       [1, 2, 3, 4]
+T 18 source.elixir comment.block.documentation.heredoc
+L 
+L   The range `0..-1//1`, returned by `../0`, returns the
+T 55 source.elixir comment.block.documentation.heredoc
+L   collection as is, which is why it is called the full-slice
+T 60 source.elixir comment.block.documentation.heredoc
+L   range:
+T 8 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> String.slice("elixir", ..)
+T 37 source.elixir comment.block.documentation.heredoc
+L       "elixir"
+T 14 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.slice([0, 1, 2, 3, 4, 5], ..)
+T 45 source.elixir comment.block.documentation.heredoc
+L       [0, 1, 2, 3, 4, 5]
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Definition
+T 15 source.elixir comment.block.documentation.heredoc
+L 
+L   An increasing range `first..last//step` is a range from `first`
+T 65 source.elixir comment.block.documentation.heredoc
+L   to `last` increasing by `step` where  `step` must be a positive
+T 65 source.elixir comment.block.documentation.heredoc
+L   integer and all values `v` must be `first <= v and v <= last`.
+T 64 source.elixir comment.block.documentation.heredoc
+L   Therefore, a range `10..0//1` is an empty range because there
+T 63 source.elixir comment.block.documentation.heredoc
+L   is no value `v` that is `10 <= v and v <= 0`.
+T 47 source.elixir comment.block.documentation.heredoc
+L 
+L   Similarly, a decreasing range `first..last//step` is a range
+T 62 source.elixir comment.block.documentation.heredoc
+L   from `first` to `last` decreasing by `step` where `step` must
+T 63 source.elixir comment.block.documentation.heredoc
+L   be a negative integer and  values `v` must be `first >= v and v >= last`.
+T 75 source.elixir comment.block.documentation.heredoc
+L   Therefore, a range `0..10//-1` is an empty range because there
+T 64 source.elixir comment.block.documentation.heredoc
+L   is no value `v` that is `0 >= v and v >= 10`.
+T 47 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Representation
+T 19 source.elixir comment.block.documentation.heredoc
+L 
+L   Internally, ranges are represented as structs:
+T 48 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> range = 1..9//2
+T 26 source.elixir comment.block.documentation.heredoc
+L       1..9//2
+T 13 source.elixir comment.block.documentation.heredoc
+L       iex> first..last//step = range
+T 36 source.elixir comment.block.documentation.heredoc
+L       iex> first
+T 16 source.elixir comment.block.documentation.heredoc
+L       1
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> last
+T 15 source.elixir comment.block.documentation.heredoc
+L       9
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> step
+T 15 source.elixir comment.block.documentation.heredoc
+L       2
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> range.step
+T 21 source.elixir comment.block.documentation.heredoc
+L       2
+T 7 source.elixir comment.block.documentation.heredoc
+L 
+L   You can access the range fields (`first`, `last`, and `step`)
+T 63 source.elixir comment.block.documentation.heredoc
+L   directly but you should not modify nor create ranges by hand.
+T 63 source.elixir comment.block.documentation.heredoc
+L   Instead use the proper operators or `new/2` and `new/3`.
+T 58 source.elixir comment.block.documentation.heredoc
+L 
+L   Ranges implement the `Enumerable` protocol with memory
+T 56 source.elixir comment.block.documentation.heredoc
+L   efficient versions of all `Enumerable` callbacks:
+T 51 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> range = 1..10
+T 24 source.elixir comment.block.documentation.heredoc
+L       1..10
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.reduce(range, 0, fn i, acc -> i * i + acc end)
+T 62 source.elixir comment.block.documentation.heredoc
+L       385
+T 9 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.count(range)
+T 28 source.elixir comment.block.documentation.heredoc
+L       10
+T 8 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.member?(range, 11)
+T 34 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Enum.member?(range, 8)
+T 33 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L 
+L   Such function calls are efficient memory-wise no matter the
+T 61 source.elixir comment.block.documentation.heredoc
+L   size of the range. The implementation of the `Enumerable`
+T 59 source.elixir comment.block.documentation.heredoc
+L   protocol uses logic based solely on the endpoints and does
+T 60 source.elixir comment.block.documentation.heredoc
+L   not materialize the whole list of integers.
+T 45 source.elixir comment.block.documentation.heredoc
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L 
+L   @enforce_keys [:first, :last, :step]
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 15 source.elixir variable.other.readwrite.module.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.section.array.elixir
+T 18 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 23 source.elixir constant.other.symbol.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 26 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 30 source.elixir constant.other.symbol.elixir
+T 31 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 37 source.elixir constant.other.symbol.elixir
+T 38 source.elixir punctuation.section.array.elixir
+L   defstruct first: nil, last: nil, step: nil
+T 2 source.elixir
+T 11 source.elixir keyword.control.elixir
+T 12 source.elixir
+T 17 source.elixir constant.other.keywords.elixir
+T 18 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 19 source.elixir
+T 22 source.elixir constant.language.elixir
+T 23 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 28 source.elixir constant.other.keywords.elixir
+T 29 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 30 source.elixir
+T 33 source.elixir constant.language.elixir
+T 34 source.elixir punctuation.separator.object.elixir
+T 35 source.elixir
+T 39 source.elixir constant.other.keywords.elixir
+T 40 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 41 source.elixir
+T 44 source.elixir constant.language.elixir
+L 
+L   @type limit :: integer
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 14 source.elixir
+T 16 source.elixir keyword.operator.other.elixir
+T 24 source.elixir
+L   @type step :: pos_integer | neg_integer
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+T 28 source.elixir
+T 29 source.elixir keyword.operator.other.elixir
+T 41 source.elixir
+L   @type t :: %__MODULE__{first: limit, last: limit, step: step}
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 10 source.elixir
+T 12 source.elixir keyword.operator.other.elixir
+T 14 source.elixir
+T 24 source.elixir variable.language.elixir
+T 25 source.elixir punctuation.section.scope.elixir
+T 30 source.elixir constant.other.keywords.elixir
+T 31 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.separator.object.elixir
+T 39 source.elixir
+T 43 source.elixir constant.other.keywords.elixir
+T 44 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 50 source.elixir
+T 51 source.elixir punctuation.separator.object.elixir
+T 52 source.elixir
+T 56 source.elixir constant.other.keywords.elixir
+T 57 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 62 source.elixir
+T 63 source.elixir punctuation.section.scope.elixir
+L   @type t(first, last) :: %__MODULE__{first: first, last: last, step: step}
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 9 source.elixir entity.name.function.elixir
+T 10 source.elixir punctuation.section.function.elixir
+T 15 source.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 23 source.elixir
+T 25 source.elixir keyword.operator.other.elixir
+T 27 source.elixir
+T 37 source.elixir variable.language.elixir
+T 38 source.elixir punctuation.section.scope.elixir
+T 43 source.elixir constant.other.keywords.elixir
+T 44 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 50 source.elixir
+T 51 source.elixir punctuation.separator.object.elixir
+T 52 source.elixir
+T 56 source.elixir constant.other.keywords.elixir
+T 57 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 62 source.elixir
+T 63 source.elixir punctuation.separator.object.elixir
+T 64 source.elixir
+T 68 source.elixir constant.other.keywords.elixir
+T 69 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 74 source.elixir
+T 75 source.elixir punctuation.section.scope.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Creates a new range.
+T 22 source.elixir comment.block.documentation.heredoc
+L 
+L   If `first` is less than `last`, the range will be increasing from
+T 67 source.elixir comment.block.documentation.heredoc
+L   `first` to `last`. If `first` is equal to `last`, the range will contain
+T 74 source.elixir comment.block.documentation.heredoc
+L   one element, which is the number itself.
+T 42 source.elixir comment.block.documentation.heredoc
+L 
+L   If `first` is greater than `last`, the range will be decreasing from `first`
+T 78 source.elixir comment.block.documentation.heredoc
+L   to `last`, albeit this behavior is deprecated. Therefore, it is advised to
+T 76 source.elixir comment.block.documentation.heredoc
+L   explicitly list the step with `new/3`.
+T 40 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.new(-100, 100)
+T 31 source.elixir comment.block.documentation.heredoc
+L       -100..100
+T 15 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L 
+L   @spec new(limit, limit) :: t
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 28 source.elixir keyword.operator.other.elixir
+T 30 source.elixir
+L   def new(first, last) when is_integer(first) and is_integer(last) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 21 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 23 source.elixir meta.function.public.elixir
+T 27 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 28 source.elixir meta.function.public.elixir
+T 38 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 39 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 44 source.elixir meta.function.public.elixir
+T 45 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 46 source.elixir meta.function.public.elixir
+T 49 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 50 source.elixir meta.function.public.elixir
+T 60 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 61 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 65 source.elixir meta.function.public.elixir
+T 66 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 67 source.elixir meta.function.public.elixir
+T 69 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     step =
+T 9 source.elixir
+T 10 source.elixir keyword.operator.assignment.elixir
+L       if first <= last do
+T 6 source.elixir
+T 8 source.elixir keyword.control.elixir
+T 15 source.elixir
+T 17 source.elixir keyword.operator.comparison.elixir
+T 23 source.elixir
+T 25 source.elixir keyword.control.elixir
+L         1
+T 8 source.elixir
+T 9 source.elixir constant.numeric.integer.elixir
+L       else
+T 6 source.elixir
+T 10 source.elixir keyword.control.elixir
+L         # TODO: Remove me on v2.0
+T 8 source.elixir punctuation.whitespace.comment.leading.elixir
+T 9 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 33 source.elixir comment.line.number-sign.elixir
+L         IO.warn_once(
+T 8 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+L           {__MODULE__, :new},
+T 10 source.elixir
+T 11 source.elixir punctuation.section.scope.elixir
+T 21 source.elixir variable.language.elixir
+T 22 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 27 source.elixir constant.other.symbol.elixir
+T 28 source.elixir punctuation.section.scope.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+L           fn ->
+T 10 source.elixir
+T 12 source.elixir keyword.control.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+L             "Range.new/2 and first..last default to a step of -1 when last < first. Use Range.new(first, last, -1) or first..last//-1, or pass 1 if that was your intention"
+T 12 source.elixir
+T 13 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 171 source.elixir string.quoted.double.elixir
+T 172 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L           end,
+T 10 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 14 source.elixir punctuation.separator.object.elixir
+L           3
+T 10 source.elixir
+T 11 source.elixir constant.numeric.integer.elixir
+L         )
+T 8 source.elixir
+T 9 source.elixir punctuation.section.function.elixir
+L 
+L         -1
+T 8 source.elixir
+T 9 source.elixir keyword.operator.arithmetic.elixir
+T 10 source.elixir constant.numeric.integer.elixir
+L       end
+T 6 source.elixir
+T 9 source.elixir keyword.control.elixir
+L 
+L     %Range{first: first, last: last, step: step}
+T 5 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.section.scope.elixir
+T 16 source.elixir constant.other.keywords.elixir
+T 17 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 29 source.elixir constant.other.keywords.elixir
+T 30 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 41 source.elixir constant.other.keywords.elixir
+T 42 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Creates a new range with `step`.
+T 34 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.new(-100, 100, 2)
+T 34 source.elixir comment.block.documentation.heredoc
+L       -100..100//2
+T 18 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.12.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec new(limit, limit, step) :: t
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.separator.object.elixir
+T 30 source.elixir
+T 31 source.elixir punctuation.section.function.elixir
+T 32 source.elixir
+T 34 source.elixir keyword.operator.other.elixir
+T 36 source.elixir
+L   def new(first, last, step)
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 21 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+L       when is_integer(first) and is_integer(last) and is_integer(step) and step != 0 do
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 11 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 33 source.elixir meta.function.public.elixir
+T 43 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 44 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 48 source.elixir meta.function.public.elixir
+T 49 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 50 source.elixir meta.function.public.elixir
+T 53 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 54 source.elixir meta.function.public.elixir
+T 64 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 65 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 69 source.elixir meta.function.public.elixir
+T 70 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 71 source.elixir meta.function.public.elixir
+T 74 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 80 source.elixir meta.function.public.elixir
+T 82 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 83 source.elixir meta.function.public.elixir
+T 84 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 85 source.elixir meta.function.public.elixir
+T 87 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     %Range{first: first, last: last, step: step}
+T 5 source.elixir
+T 10 source.elixir entity.name.type.class.elixir
+T 11 source.elixir punctuation.section.scope.elixir
+T 16 source.elixir constant.other.keywords.elixir
+T 17 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 29 source.elixir constant.other.keywords.elixir
+T 30 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 41 source.elixir constant.other.keywords.elixir
+T 42 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def new(first, last, step) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 21 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     raise ArgumentError,
+T 4 source.elixir
+T 9 source.elixir keyword.control.elixir
+T 10 source.elixir
+T 23 source.elixir entity.name.type.class.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+L           "ranges (first..last//step) expect both sides to be integers and the step to be a " <>
+T 10 source.elixir
+T 11 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 92 source.elixir string.quoted.double.elixir
+T 93 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 94 source.elixir
+T 96 source.elixir keyword.operator.sigils_1.elixir
+L             "non-zero integer, got: #{inspect(first)}..#{inspect(last)}//#{inspect(step)}"
+T 12 source.elixir
+T 13 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 36 source.elixir string.quoted.double.elixir
+T 38 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 45 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir entity.name.function.elixir
+T 46 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 51 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 52 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 53 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 55 source.elixir string.quoted.double.elixir
+T 57 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 64 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir entity.name.function.elixir
+T 65 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 69 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 70 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 71 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 73 source.elixir string.quoted.double.elixir
+T 75 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 82 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir entity.name.function.elixir
+T 83 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 87 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 88 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.function.elixir
+T 89 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 90 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns the size of `range`.
+T 30 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.size(1..10)
+T 28 source.elixir comment.block.documentation.heredoc
+L       10
+T 8 source.elixir comment.block.documentation.heredoc
+L       iex> Range.size(1..10//2)
+T 31 source.elixir comment.block.documentation.heredoc
+L       5
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> Range.size(1..10//3)
+T 31 source.elixir comment.block.documentation.heredoc
+L       4
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> Range.size(1..10//-1)
+T 32 source.elixir comment.block.documentation.heredoc
+L       0
+T 7 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.size(10..1//-1)
+T 32 source.elixir comment.block.documentation.heredoc
+L       10
+T 8 source.elixir comment.block.documentation.heredoc
+L       iex> Range.size(10..1//-2)
+T 32 source.elixir comment.block.documentation.heredoc
+L       5
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> Range.size(10..1//-3)
+T 32 source.elixir comment.block.documentation.heredoc
+L       4
+T 7 source.elixir comment.block.documentation.heredoc
+L       iex> Range.size(10..1//1)
+T 31 source.elixir comment.block.documentation.heredoc
+L       0
+T 7 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.12.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec size(t) :: non_neg_integer
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 12 source.elixir entity.name.function.elixir
+T 13 source.elixir punctuation.section.function.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir
+T 18 source.elixir keyword.operator.other.elixir
+T 34 source.elixir
+L   def size(range)
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.public.elixir
+T 17 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+L   def size(first..last//step) when step > 0 and first > last, do: 0
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 22 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 24 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 40 source.elixir meta.function.public.elixir
+T 41 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 42 source.elixir meta.function.public.elixir
+T 43 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 44 source.elixir meta.function.public.elixir
+T 47 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 54 source.elixir meta.function.public.elixir
+T 55 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 60 source.elixir meta.function.public.elixir
+T 61 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 62 source.elixir meta.function.public.elixir
+T 65 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 66 source.elixir
+T 67 source.elixir constant.numeric.integer.elixir
+L   def size(first..last//step) when step < 0 and first < last, do: 0
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 22 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 24 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 40 source.elixir meta.function.public.elixir
+T 41 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 42 source.elixir meta.function.public.elixir
+T 43 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 44 source.elixir meta.function.public.elixir
+T 47 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 54 source.elixir meta.function.public.elixir
+T 55 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 60 source.elixir meta.function.public.elixir
+T 61 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 62 source.elixir meta.function.public.elixir
+T 65 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 66 source.elixir
+T 67 source.elixir constant.numeric.integer.elixir
+L   def size(first..last//step), do: div(last - first, step) + 1
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 22 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 24 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 31 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 35 source.elixir
+T 38 source.elixir entity.name.function.elixir
+T 39 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir keyword.operator.arithmetic.elixir
+T 51 source.elixir
+T 52 source.elixir punctuation.separator.object.elixir
+T 57 source.elixir
+T 58 source.elixir punctuation.section.function.elixir
+T 59 source.elixir
+T 60 source.elixir keyword.operator.arithmetic.elixir
+T 61 source.elixir
+T 62 source.elixir constant.numeric.integer.elixir
+L 
+L   # TODO: Remove me on v2.0
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 27 source.elixir comment.line.number-sign.elixir
+L   def size(%{__struct__: Range, first: first, last: last} = range) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 12 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 23 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 24 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 25 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 31 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 32 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 38 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 44 source.elixir meta.function.public.elixir
+T 45 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 46 source.elixir meta.function.public.elixir
+T 50 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 51 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 56 source.elixir meta.function.public.elixir
+T 57 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 58 source.elixir meta.function.public.elixir
+T 59 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 65 source.elixir meta.function.public.elixir
+T 66 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 67 source.elixir meta.function.public.elixir
+T 69 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     step = if first <= last, do: 1, else: -1
+T 9 source.elixir
+T 10 source.elixir keyword.operator.assignment.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 20 source.elixir
+T 22 source.elixir keyword.operator.comparison.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 31 source.elixir constant.other.keywords.elixir
+T 32 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 33 source.elixir
+T 34 source.elixir constant.numeric.integer.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 40 source.elixir constant.other.keywords.elixir
+T 41 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 42 source.elixir
+T 43 source.elixir keyword.operator.arithmetic.elixir
+T 44 source.elixir constant.numeric.integer.elixir
+L     size(Map.put(range, :step, step))
+T 4 source.elixir
+T 8 source.elixir entity.name.function.elixir
+T 9 source.elixir punctuation.section.function.elixir
+T 12 source.elixir entity.name.type.class.elixir
+T 13 source.elixir punctuation.separator.method.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 29 source.elixir constant.other.symbol.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 37 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Shifts a range by the given number of steps.
+T 46 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.shift(0..10, 1)
+T 32 source.elixir comment.block.documentation.heredoc
+L       1..11
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Range.shift(0..10, 2)
+T 32 source.elixir comment.block.documentation.heredoc
+L       2..12
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.shift(0..10//2, 2)
+T 35 source.elixir comment.block.documentation.heredoc
+L       4..14//2
+T 14 source.elixir comment.block.documentation.heredoc
+L       iex> Range.shift(10..0//-2, 2)
+T 36 source.elixir comment.block.documentation.heredoc
+L       6..-4//-2
+T 15 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.14.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec shift(t, integer) :: t
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 13 source.elixir entity.name.function.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 15 source.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 28 source.elixir keyword.operator.other.elixir
+T 30 source.elixir
+L   def shift(%Range{} = range, 0), do: range
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 11 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 12 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 13 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 20 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 21 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 30 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 33 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 43 source.elixir
+L 
+L   def shift(first..last//step, steps_to_shift) when is_integer(steps_to_shift) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 11 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 12 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 17 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 23 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 25 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 45 source.elixir meta.function.public.elixir
+T 46 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 47 source.elixir meta.function.public.elixir
+T 51 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 52 source.elixir meta.function.public.elixir
+T 62 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 63 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 77 source.elixir meta.function.public.elixir
+T 78 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 79 source.elixir meta.function.public.elixir
+T 81 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     shift = steps_to_shift * step
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 27 source.elixir
+T 28 source.elixir keyword.operator.arithmetic.elixir
+T 33 source.elixir
+L 
+L     new(first + shift, last + shift, step)
+T 4 source.elixir
+T 7 source.elixir entity.name.function.elixir
+T 8 source.elixir punctuation.section.function.elixir
+T 14 source.elixir
+T 15 source.elixir keyword.operator.arithmetic.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 29 source.elixir keyword.operator.arithmetic.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.separator.object.elixir
+T 41 source.elixir
+T 42 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Splits a range in two.
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   It returns a tuple of two elements.
+T 37 source.elixir comment.block.documentation.heredoc
+L 
+L   If `split` is less than the number of elements in the range, the first
+T 72 source.elixir comment.block.documentation.heredoc
+L   element in the range will have `split` entries and the second will have
+T 73 source.elixir comment.block.documentation.heredoc
+L   all remaining entries.
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   If `split` is more than the number of elements in the range, the second
+T 73 source.elixir comment.block.documentation.heredoc
+L   range in the tuple will emit zero elements.
+T 45 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L   Increasing ranges:
+T 20 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(1..5, 2)
+T 31 source.elixir comment.block.documentation.heredoc
+L       {1..2, 3..5}
+T 18 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(1..5//2, 2)
+T 34 source.elixir comment.block.documentation.heredoc
+L       {1..3//2, 5..5//2}
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(1..5//2, 0)
+T 34 source.elixir comment.block.documentation.heredoc
+L       {1..-1//2, 1..5//2}
+T 25 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(1..5//2, 10)
+T 35 source.elixir comment.block.documentation.heredoc
+L       {1..5//2, 7..5//2}
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   Decreasing ranges can also be split:
+T 38 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..1//-1, 2)
+T 35 source.elixir comment.block.documentation.heredoc
+L       {5..4//-1, 3..1//-1}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..1//-2, 2)
+T 35 source.elixir comment.block.documentation.heredoc
+L       {5..3//-2, 1..1//-2}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..1//-2, 0)
+T 35 source.elixir comment.block.documentation.heredoc
+L       {5..7//-2, 5..1//-2}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..1//-2, 10)
+T 36 source.elixir comment.block.documentation.heredoc
+L       {5..1//-2, -1..1//-2}
+T 27 source.elixir comment.block.documentation.heredoc
+L 
+L   Empty ranges preserve their property but still return empty ranges:
+T 69 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(2..5//-1, 2)
+T 35 source.elixir comment.block.documentation.heredoc
+L       {2..3//-1, 4..5//-1}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(2..5//-1, 10)
+T 36 source.elixir comment.block.documentation.heredoc
+L       {2..3//-1, 4..5//-1}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..2//1, 2)
+T 34 source.elixir comment.block.documentation.heredoc
+L       {5..4//1, 3..2//1}
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..2//1, 10)
+T 35 source.elixir comment.block.documentation.heredoc
+L       {5..4//1, 3..2//1}
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   If the number to split is negative, it splits from the back:
+T 62 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(1..5, -2)
+T 32 source.elixir comment.block.documentation.heredoc
+L       {1..3, 4..5}
+T 18 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..1//-1, -2)
+T 36 source.elixir comment.block.documentation.heredoc
+L       {5..3//-1, 2..1//-1}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L   If it is negative and greater than the elements in the range,
+T 63 source.elixir comment.block.documentation.heredoc
+L   the first element of the tuple will be an empty range:
+T 56 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(1..5, -10)
+T 33 source.elixir comment.block.documentation.heredoc
+L       {1..0//1, 1..5}
+T 21 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.split(5..1//-1, -10)
+T 37 source.elixir comment.block.documentation.heredoc
+L       {5..6//-1, 5..1//-1}
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Properties
+T 15 source.elixir comment.block.documentation.heredoc
+L 
+L   When a range is split, the following properties are observed.
+T 63 source.elixir comment.block.documentation.heredoc
+L   Given `split(input)` returns `{left, right}`, we have:
+T 56 source.elixir comment.block.documentation.heredoc
+L 
+L       assert input.first == left.first
+T 38 source.elixir comment.block.documentation.heredoc
+L       assert input.last == right.last
+T 37 source.elixir comment.block.documentation.heredoc
+L       assert input.step == left.step
+T 36 source.elixir comment.block.documentation.heredoc
+L       assert input.step == right.step
+T 37 source.elixir comment.block.documentation.heredoc
+L       assert Range.size(input) == Range.size(left) + Range.size(right)
+T 70 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.15.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec split(t, integer) :: {t, t}
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 13 source.elixir entity.name.function.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 15 source.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 28 source.elixir keyword.operator.other.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.section.scope.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.scope.elixir
+L   def split(first..last//step = range, split) when is_integer(split) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 11 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 12 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 17 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 23 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 25 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 30 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 37 source.elixir meta.function.public.elixir
+T 38 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 44 source.elixir meta.function.public.elixir
+T 45 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 46 source.elixir meta.function.public.elixir
+T 50 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 51 source.elixir meta.function.public.elixir
+T 61 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 62 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 67 source.elixir meta.function.public.elixir
+T 68 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 69 source.elixir meta.function.public.elixir
+T 71 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     if split >= 0 do
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.operator.comparison.elixir
+T 16 source.elixir
+T 17 source.elixir constant.numeric.integer.elixir
+T 18 source.elixir
+T 20 source.elixir keyword.control.elixir
+L       split(first, last, step, split)
+T 6 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 37 source.elixir punctuation.section.function.elixir
+L     else
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+L       split(first, last, step, size(range) + split)
+T 6 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 35 source.elixir entity.name.function.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 42 source.elixir punctuation.section.function.elixir
+T 43 source.elixir
+T 44 source.elixir keyword.operator.arithmetic.elixir
+T 50 source.elixir
+T 51 source.elixir punctuation.section.function.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp split(first, last, step, split) when first < last or (first == last and step > 0) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 12 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 13 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 18 source.elixir meta.function.private.elixir
+T 19 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 24 source.elixir meta.function.private.elixir
+T 25 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 37 source.elixir meta.function.private.elixir
+T 38 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 39 source.elixir meta.function.private.elixir
+T 43 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 50 source.elixir meta.function.private.elixir
+T 51 source.elixir meta.function.private.elixir keyword.operator.comparison.elixir
+T 57 source.elixir meta.function.private.elixir
+T 59 source.elixir meta.function.private.elixir entity.name.function.elixir
+T 60 source.elixir meta.function.private.elixir
+T 61 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 67 source.elixir meta.function.private.elixir
+T 69 source.elixir meta.function.private.elixir keyword.operator.comparison.elixir
+T 75 source.elixir meta.function.private.elixir
+T 78 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 84 source.elixir meta.function.private.elixir
+T 85 source.elixir meta.function.private.elixir keyword.operator.comparison.elixir
+T 86 source.elixir meta.function.private.elixir
+T 87 source.elixir meta.function.private.elixir constant.numeric.integer.elixir
+T 88 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 89 source.elixir meta.function.private.elixir
+T 91 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     if step > 0 do
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 12 source.elixir
+T 13 source.elixir keyword.operator.comparison.elixir
+T 14 source.elixir
+T 15 source.elixir constant.numeric.integer.elixir
+T 16 source.elixir
+T 18 source.elixir keyword.control.elixir
+L       mid = max(min(first + step * (split - 1), last), first - step)
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 19 source.elixir entity.name.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 27 source.elixir keyword.operator.arithmetic.elixir
+T 33 source.elixir
+T 34 source.elixir keyword.operator.arithmetic.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 42 source.elixir
+T 43 source.elixir keyword.operator.arithmetic.elixir
+T 44 source.elixir
+T 45 source.elixir constant.numeric.integer.elixir
+T 46 source.elixir punctuation.section.function.elixir
+T 47 source.elixir punctuation.separator.object.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 54 source.elixir punctuation.separator.object.elixir
+T 61 source.elixir
+T 62 source.elixir keyword.operator.arithmetic.elixir
+T 67 source.elixir
+T 68 source.elixir punctuation.section.function.elixir
+L       {first..mid//step, (mid + step)..last//step}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 12 source.elixir
+T 14 source.elixir keyword.operator.other.elixir
+T 17 source.elixir
+T 18 source.elixir keyword.operator.arithmetic.elixir
+T 19 source.elixir keyword.operator.arithmetic.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 30 source.elixir
+T 31 source.elixir keyword.operator.arithmetic.elixir
+T 36 source.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 39 source.elixir keyword.operator.other.elixir
+T 43 source.elixir
+T 44 source.elixir keyword.operator.arithmetic.elixir
+T 45 source.elixir keyword.operator.arithmetic.elixir
+T 49 source.elixir
+T 50 source.elixir punctuation.section.scope.elixir
+L     else
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+L       {first..(first - step)//step, (last + step)..last//step}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 12 source.elixir
+T 14 source.elixir keyword.operator.other.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 21 source.elixir
+T 22 source.elixir keyword.operator.arithmetic.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.function.elixir
+T 29 source.elixir keyword.operator.arithmetic.elixir
+T 30 source.elixir keyword.operator.arithmetic.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 42 source.elixir
+T 43 source.elixir keyword.operator.arithmetic.elixir
+T 48 source.elixir
+T 49 source.elixir punctuation.section.function.elixir
+T 51 source.elixir keyword.operator.other.elixir
+T 55 source.elixir
+T 56 source.elixir keyword.operator.arithmetic.elixir
+T 57 source.elixir keyword.operator.arithmetic.elixir
+T 61 source.elixir
+T 62 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp split(last, first, step, split) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 12 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 13 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 17 source.elixir meta.function.private.elixir
+T 18 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 24 source.elixir meta.function.private.elixir
+T 25 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 30 source.elixir meta.function.private.elixir
+T 31 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 37 source.elixir meta.function.private.elixir
+T 38 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 39 source.elixir meta.function.private.elixir
+T 41 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     if step < 0 do
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 12 source.elixir
+T 13 source.elixir keyword.operator.comparison.elixir
+T 14 source.elixir
+T 15 source.elixir constant.numeric.integer.elixir
+T 16 source.elixir
+T 18 source.elixir keyword.control.elixir
+L       mid = min(max(last + step * (split - 1), first), last - step)
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 19 source.elixir entity.name.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 25 source.elixir
+T 26 source.elixir keyword.operator.arithmetic.elixir
+T 32 source.elixir
+T 33 source.elixir keyword.operator.arithmetic.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 42 source.elixir keyword.operator.arithmetic.elixir
+T 43 source.elixir
+T 44 source.elixir constant.numeric.integer.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir punctuation.separator.object.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 54 source.elixir punctuation.separator.object.elixir
+T 60 source.elixir
+T 61 source.elixir keyword.operator.arithmetic.elixir
+T 66 source.elixir
+T 67 source.elixir punctuation.section.function.elixir
+L       {last..mid//step, (mid + step)..first//step}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.operator.other.elixir
+T 16 source.elixir
+T 17 source.elixir keyword.operator.arithmetic.elixir
+T 18 source.elixir keyword.operator.arithmetic.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 29 source.elixir
+T 30 source.elixir keyword.operator.arithmetic.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 38 source.elixir keyword.operator.other.elixir
+T 43 source.elixir
+T 44 source.elixir keyword.operator.arithmetic.elixir
+T 45 source.elixir keyword.operator.arithmetic.elixir
+T 49 source.elixir
+T 50 source.elixir punctuation.section.scope.elixir
+L     else
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+L       {last..(last - step)//step, (first + step)..first//step}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.operator.other.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 19 source.elixir
+T 20 source.elixir keyword.operator.arithmetic.elixir
+T 25 source.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 27 source.elixir keyword.operator.arithmetic.elixir
+T 28 source.elixir keyword.operator.arithmetic.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 42 source.elixir keyword.operator.arithmetic.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.function.elixir
+T 50 source.elixir keyword.operator.other.elixir
+T 55 source.elixir
+T 56 source.elixir keyword.operator.arithmetic.elixir
+T 57 source.elixir keyword.operator.arithmetic.elixir
+T 61 source.elixir
+T 62 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Converts a range to a list.
+T 29 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.to_list(0..5)
+T 30 source.elixir comment.block.documentation.heredoc
+L       [0, 1, 2, 3, 4, 5]
+T 24 source.elixir comment.block.documentation.heredoc
+L       iex> Range.to_list(-3..0)
+T 31 source.elixir comment.block.documentation.heredoc
+L       [-3, -2, -1, 0]
+T 21 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.15.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec to_list(t) :: list(integer)
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir
+T 21 source.elixir keyword.operator.other.elixir
+T 22 source.elixir
+T 26 source.elixir entity.name.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.function.elixir
+L   def to_list(first..last//step)
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 19 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 25 source.elixir meta.function.public.elixir
+T 26 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 27 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+L       when step > 0 and first <= last
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 16 source.elixir meta.function.public.elixir
+T 17 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 18 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 20 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 30 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 37 source.elixir meta.function.public.elixir
+L       when step < 0 and first >= last do
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 16 source.elixir meta.function.public.elixir
+T 17 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 18 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 20 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 30 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.comparison.elixir
+T 38 source.elixir meta.function.public.elixir
+T 40 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     :lists.seq(first, last, step)
+T 4 source.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def to_list(_first.._last//_step) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir comment.unused.elixir
+T 22 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 27 source.elixir meta.function.public.elixir comment.unused.elixir
+T 28 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 29 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 34 source.elixir meta.function.public.elixir comment.unused.elixir
+T 35 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 36 source.elixir meta.function.public.elixir
+T 38 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     []
+T 4 source.elixir
+T 5 source.elixir punctuation.section.array.elixir
+T 6 source.elixir punctuation.section.array.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   # TODO: Remove me on v2.0
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 27 source.elixir comment.line.number-sign.elixir
+L   def to_list(%{__struct__: Range, first: first, last: last}) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 26 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 27 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 28 source.elixir meta.function.public.elixir
+T 33 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 34 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 35 source.elixir meta.function.public.elixir
+T 40 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 41 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 47 source.elixir meta.function.public.elixir
+T 48 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 49 source.elixir meta.function.public.elixir
+T 53 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 54 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 59 source.elixir meta.function.public.elixir
+T 60 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 61 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 62 source.elixir meta.function.public.elixir
+T 64 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     step = if first <= last, do: 1, else: -1
+T 9 source.elixir
+T 10 source.elixir keyword.operator.assignment.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 20 source.elixir
+T 22 source.elixir keyword.operator.comparison.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 31 source.elixir constant.other.keywords.elixir
+T 32 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 33 source.elixir
+T 34 source.elixir constant.numeric.integer.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 40 source.elixir constant.other.keywords.elixir
+T 41 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 42 source.elixir
+T 43 source.elixir keyword.operator.arithmetic.elixir
+T 44 source.elixir constant.numeric.integer.elixir
+L     :lists.seq(first, last, step)
+T 4 source.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.method.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Checks if two ranges are disjoint.
+T 36 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.disjoint?(1..5, 6..9)
+T 38 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(5..1//-1, 6..9)
+T 42 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(1..5, 5..9)
+T 38 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(1..5, 2..7)
+T 38 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L   Steps are also considered when computing the ranges to be disjoint:
+T 69 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> Range.disjoint?(1..10//2, 2..10//2)
+T 46 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L 
+L       # First element in common is 29
+T 37 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(1..100//14, 8..100//21)
+T 50 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(57..-1//-14, 8..100//21)
+T 51 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(1..100//14, 50..8//-21)
+T 50 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(1..28//14, 8..28//21)
+T 48 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L 
+L       # First element in common is 14
+T 37 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(2..28//3, 9..28//5)
+T 46 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(26..2//-3, 29..9//-5)
+T 48 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L       # Starting from the back without alignment
+T 48 source.elixir comment.block.documentation.heredoc
+L       iex> Range.disjoint?(27..11//-3, 30..0//-7)
+T 49 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.8.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 20 source.elixir string.quoted.double.elixir
+T 21 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec disjoint?(t, t) :: boolean
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 26 source.elixir keyword.operator.other.elixir
+T 34 source.elixir
+L   def disjoint?(first1..last1//step1, first2..last2//step2) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 31 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 36 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 44 source.elixir meta.function.public.elixir
+T 46 source.elixir meta.function.public.elixir keyword.operator.other.elixir
+T 51 source.elixir meta.function.public.elixir
+T 52 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 53 source.elixir meta.function.public.elixir keyword.operator.arithmetic.elixir
+T 58 source.elixir meta.function.public.elixir
+T 59 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 60 source.elixir meta.function.public.elixir
+T 62 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     if empty?(first1, last1, step1) or empty?(first2, last2, step2) do
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 7 source.elixir
+T 13 source.elixir entity.name.function.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 36 source.elixir
+T 38 source.elixir keyword.operator.elixir
+T 39 source.elixir
+T 45 source.elixir entity.name.function.elixir
+T 46 source.elixir punctuation.section.function.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.separator.object.elixir
+T 59 source.elixir
+T 60 source.elixir punctuation.separator.object.elixir
+T 66 source.elixir
+T 67 source.elixir punctuation.section.function.elixir
+T 68 source.elixir
+T 70 source.elixir keyword.control.elixir
+L       true
+T 6 source.elixir
+T 10 source.elixir constant.language.elixir
+L     else
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+L       {first1, last1, step1} = normalize(first1, last1, step1)
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 13 source.elixir
+T 14 source.elixir punctuation.separator.object.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.scope.elixir
+T 29 source.elixir
+T 30 source.elixir keyword.operator.assignment.elixir
+T 31 source.elixir
+T 40 source.elixir entity.name.function.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 54 source.elixir
+T 55 source.elixir punctuation.separator.object.elixir
+T 61 source.elixir
+T 62 source.elixir punctuation.section.function.elixir
+L       {first2, last2, step2} = normalize(first2, last2, step2)
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 13 source.elixir
+T 14 source.elixir punctuation.separator.object.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.scope.elixir
+T 29 source.elixir
+T 30 source.elixir keyword.operator.assignment.elixir
+T 31 source.elixir
+T 40 source.elixir entity.name.function.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 54 source.elixir
+T 55 source.elixir punctuation.separator.object.elixir
+T 61 source.elixir
+T 62 source.elixir punctuation.section.function.elixir
+L 
+L       cond do
+T 6 source.elixir
+T 10 source.elixir keyword.control.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.control.elixir
+L         last2 < first1 or last1 < first2 ->
+T 14 source.elixir
+T 15 source.elixir keyword.operator.comparison.elixir
+T 23 source.elixir
+T 25 source.elixir keyword.operator.elixir
+T 32 source.elixir
+T 33 source.elixir keyword.operator.comparison.elixir
+T 41 source.elixir
+T 43 source.elixir keyword.operator.other.elixir
+L           true
+T 10 source.elixir
+T 14 source.elixir constant.language.elixir
+L 
+L         step1 == 1 and step2 == 1 ->
+T 14 source.elixir
+T 16 source.elixir keyword.operator.comparison.elixir
+T 17 source.elixir
+T 18 source.elixir constant.numeric.integer.elixir
+T 19 source.elixir
+T 22 source.elixir keyword.operator.elixir
+T 29 source.elixir
+T 31 source.elixir keyword.operator.comparison.elixir
+T 32 source.elixir
+T 33 source.elixir constant.numeric.integer.elixir
+T 34 source.elixir
+T 36 source.elixir keyword.operator.other.elixir
+L           false
+T 10 source.elixir
+T 15 source.elixir constant.language.elixir
+L 
+L         true ->
+T 8 source.elixir
+T 12 source.elixir constant.language.elixir
+T 13 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+L           # We need to find the first intersection of two arithmetic
+T 10 source.elixir punctuation.whitespace.comment.leading.elixir
+T 11 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 68 source.elixir comment.line.number-sign.elixir
+L           # progressions and see if they belong within the ranges
+T 10 source.elixir punctuation.whitespace.comment.leading.elixir
+T 11 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 65 source.elixir comment.line.number-sign.elixir
+L           # https://math.stackexchange.com/questions/1656120/formula-to-find-the-first-intersection-of-two-arithmetic-progressions
+T 10 source.elixir punctuation.whitespace.comment.leading.elixir
+T 11 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 130 source.elixir comment.line.number-sign.elixir
+L           {gcd, u, v} = Integer.extended_gcd(-step1, step2)
+T 10 source.elixir
+T 11 source.elixir punctuation.section.scope.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.separator.object.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.scope.elixir
+T 22 source.elixir
+T 23 source.elixir keyword.operator.assignment.elixir
+T 24 source.elixir
+T 31 source.elixir entity.name.type.class.elixir
+T 32 source.elixir punctuation.separator.method.elixir
+T 44 source.elixir entity.name.function.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir keyword.operator.arithmetic.elixir
+T 51 source.elixir
+T 52 source.elixir punctuation.separator.object.elixir
+T 58 source.elixir
+T 59 source.elixir punctuation.section.function.elixir
+L 
+L           if rem(first2 - first1, gcd) == 0 do
+T 10 source.elixir
+T 12 source.elixir keyword.control.elixir
+T 13 source.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 25 source.elixir keyword.operator.arithmetic.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.section.function.elixir
+T 39 source.elixir
+T 41 source.elixir keyword.operator.comparison.elixir
+T 42 source.elixir
+T 43 source.elixir constant.numeric.integer.elixir
+T 44 source.elixir
+T 46 source.elixir keyword.control.elixir
+L             factor = div(first1 - first2, gcd)
+T 19 source.elixir
+T 20 source.elixir keyword.operator.assignment.elixir
+T 21 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 32 source.elixir
+T 33 source.elixir keyword.operator.arithmetic.elixir
+T 40 source.elixir
+T 41 source.elixir punctuation.separator.object.elixir
+T 45 source.elixir
+T 46 source.elixir punctuation.section.function.elixir
+L 
+L             # The first nonnegative index in the later progression gives
+T 12 source.elixir punctuation.whitespace.comment.leading.elixir
+T 13 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 72 source.elixir comment.line.number-sign.elixir
+L             # the first intersection at or beyond both starts.
+T 12 source.elixir punctuation.whitespace.comment.leading.elixir
+T 13 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 62 source.elixir comment.line.number-sign.elixir
+L             intersection =
+T 25 source.elixir
+T 26 source.elixir keyword.operator.assignment.elixir
+L               if first1 >= first2 do
+T 14 source.elixir
+T 16 source.elixir keyword.control.elixir
+T 24 source.elixir
+T 26 source.elixir keyword.operator.comparison.elixir
+T 34 source.elixir
+T 36 source.elixir keyword.control.elixir
+L                 first1 + Integer.mod(factor * u, div(step2, gcd)) * step1
+T 23 source.elixir
+T 24 source.elixir keyword.operator.arithmetic.elixir
+T 25 source.elixir
+T 32 source.elixir entity.name.type.class.elixir
+T 33 source.elixir punctuation.separator.method.elixir
+T 36 source.elixir entity.name.function.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir keyword.operator.arithmetic.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 49 source.elixir
+T 52 source.elixir entity.name.function.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 58 source.elixir
+T 59 source.elixir punctuation.separator.object.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.section.function.elixir
+T 65 source.elixir punctuation.section.function.elixir
+T 66 source.elixir
+T 67 source.elixir keyword.operator.arithmetic.elixir
+T 73 source.elixir
+L               else
+T 14 source.elixir
+T 18 source.elixir keyword.control.elixir
+L                 first2 + Integer.mod(factor * v, div(step1, gcd)) * step2
+T 23 source.elixir
+T 24 source.elixir keyword.operator.arithmetic.elixir
+T 25 source.elixir
+T 32 source.elixir entity.name.type.class.elixir
+T 33 source.elixir punctuation.separator.method.elixir
+T 36 source.elixir entity.name.function.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir keyword.operator.arithmetic.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 49 source.elixir
+T 52 source.elixir entity.name.function.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 58 source.elixir
+T 59 source.elixir punctuation.separator.object.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.section.function.elixir
+T 65 source.elixir punctuation.section.function.elixir
+T 66 source.elixir
+T 67 source.elixir keyword.operator.arithmetic.elixir
+T 73 source.elixir
+L               end
+T 14 source.elixir
+T 17 source.elixir keyword.control.elixir
+L 
+L             intersection > last1 or intersection > last2
+T 25 source.elixir
+T 26 source.elixir keyword.operator.comparison.elixir
+T 33 source.elixir
+T 35 source.elixir keyword.operator.elixir
+T 49 source.elixir
+T 50 source.elixir keyword.operator.comparison.elixir
+T 56 source.elixir
+L           else
+T 10 source.elixir
+T 14 source.elixir keyword.control.elixir
+L             true
+T 12 source.elixir
+T 16 source.elixir constant.language.elixir
+L           end
+T 10 source.elixir
+T 13 source.elixir keyword.control.elixir
+L       end
+T 6 source.elixir
+T 9 source.elixir keyword.control.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @compile inline: [empty?: 3, normalize: 3]
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 10 source.elixir variable.other.readwrite.module.elixir
+T 11 source.elixir
+T 17 source.elixir constant.other.keywords.elixir
+T 18 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 19 source.elixir
+T 20 source.elixir punctuation.section.array.elixir
+T 26 source.elixir constant.other.keywords.elixir
+T 27 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 28 source.elixir
+T 29 source.elixir constant.numeric.integer.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 40 source.elixir constant.other.keywords.elixir
+T 41 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 42 source.elixir
+T 43 source.elixir constant.numeric.integer.elixir
+T 44 source.elixir punctuation.section.array.elixir
+L   defp empty?(first, last, step) do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 13 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 14 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 19 source.elixir meta.function.private.elixir
+T 20 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 25 source.elixir meta.function.private.elixir
+T 26 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 31 source.elixir meta.function.private.elixir
+T 32 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 33 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     case step > 0 do
+T 4 source.elixir
+T 8 source.elixir keyword.control.elixir
+T 14 source.elixir
+T 15 source.elixir keyword.operator.comparison.elixir
+T 16 source.elixir
+T 17 source.elixir constant.numeric.integer.elixir
+T 18 source.elixir
+T 20 source.elixir keyword.control.elixir
+L       true -> first > last
+T 6 source.elixir
+T 10 source.elixir constant.language.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.operator.other.elixir
+T 20 source.elixir
+T 21 source.elixir keyword.operator.comparison.elixir
+T 26 source.elixir
+L       false -> first < last
+T 6 source.elixir
+T 11 source.elixir constant.language.elixir
+T 12 source.elixir
+T 14 source.elixir keyword.operator.other.elixir
+T 21 source.elixir
+T 22 source.elixir keyword.operator.comparison.elixir
+T 27 source.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp normalize(first, last, step) when first > last,
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 16 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 17 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 28 source.elixir meta.function.private.elixir
+T 29 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 36 source.elixir meta.function.private.elixir
+T 40 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 47 source.elixir meta.function.private.elixir
+T 48 source.elixir meta.function.private.elixir keyword.operator.comparison.elixir
+T 53 source.elixir meta.function.private.elixir
+T 54 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+L     do: {first - div(first - last, step) * step, first, -step}
+T 4 source.elixir meta.function.private.elixir
+T 7 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 8 source.elixir
+T 9 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 16 source.elixir keyword.operator.arithmetic.elixir
+T 17 source.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 27 source.elixir
+T 28 source.elixir keyword.operator.arithmetic.elixir
+T 33 source.elixir
+T 34 source.elixir punctuation.separator.object.elixir
+T 39 source.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 42 source.elixir keyword.operator.arithmetic.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 54 source.elixir
+T 55 source.elixir punctuation.separator.object.elixir
+T 56 source.elixir
+T 57 source.elixir keyword.operator.arithmetic.elixir
+T 61 source.elixir
+T 62 source.elixir punctuation.section.scope.elixir
+L 
+L   # A single-element range holds the same element regardless of the step, so
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 76 source.elixir comment.line.number-sign.elixir
+L   # make the step positive to keep the progression in disjoint?/2 increasing.
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 77 source.elixir comment.line.number-sign.elixir
+L   defp normalize(first, last, step) when first == last, do: {first, last, abs(step)}
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 16 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 17 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 28 source.elixir meta.function.private.elixir
+T 29 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 36 source.elixir meta.function.private.elixir
+T 40 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 47 source.elixir meta.function.private.elixir
+T 49 source.elixir meta.function.private.elixir keyword.operator.comparison.elixir
+T 54 source.elixir meta.function.private.elixir
+T 55 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 56 source.elixir meta.function.private.elixir
+T 59 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 60 source.elixir
+T 61 source.elixir punctuation.section.scope.elixir
+T 66 source.elixir
+T 67 source.elixir punctuation.separator.object.elixir
+T 72 source.elixir
+T 73 source.elixir punctuation.separator.object.elixir
+T 74 source.elixir
+T 77 source.elixir entity.name.function.elixir
+T 78 source.elixir punctuation.section.function.elixir
+T 82 source.elixir
+T 83 source.elixir punctuation.section.function.elixir
+T 84 source.elixir punctuation.section.scope.elixir
+L 
+L   defp normalize(first, last, step), do: {first, last, step}
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 16 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 17 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.private.elixir
+T 23 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 28 source.elixir meta.function.private.elixir
+T 29 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.private.elixir
+T 35 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 36 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 37 source.elixir meta.function.private.elixir
+T 40 source.elixir meta.function.private.elixir constant.other.keywords.elixir
+T 41 source.elixir
+T 42 source.elixir punctuation.section.scope.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.separator.object.elixir
+T 53 source.elixir
+T 54 source.elixir punctuation.separator.object.elixir
+T 59 source.elixir
+T 60 source.elixir punctuation.section.scope.elixir
+L 
+L   @doc false
+T 2 source.elixir
+T 12 source.elixir comment.block.documentation.false
+L   @deprecated "Pattern match on first..last//step instead"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 13 source.elixir variable.other.readwrite.module.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 57 source.elixir string.quoted.double.elixir
+T 58 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   def range?(%{__struct__: Range, first: first, last: last})
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 26 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 27 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 33 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.public.elixir
+T 39 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 40 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 46 source.elixir meta.function.public.elixir
+T 47 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 48 source.elixir meta.function.public.elixir
+T 52 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 53 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 58 source.elixir meta.function.public.elixir
+T 59 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 60 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+L       when is_integer(first) and is_integer(last),
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 11 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 29 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 33 source.elixir meta.function.public.elixir
+T 43 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 44 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 48 source.elixir meta.function.public.elixir
+T 49 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 50 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+L       do: true
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 10 source.elixir
+T 14 source.elixir constant.language.elixir
+L 
+L   def range?(_), do: false
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir comment.wildcard.elixir
+T 15 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 17 source.elixir meta.function.public.elixir
+T 20 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 21 source.elixir
+T 26 source.elixir constant.language.elixir
+L end
+T 3 source.elixir keyword.control.elixir
+L 

@@ -1,0 +1,2449 @@
+L # SPDX-License-Identifier: Apache-2.0
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 37 source.elixir comment.line.number-sign.elixir
+L # SPDX-FileCopyrightText: 2021 The Elixir Team
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 46 source.elixir comment.line.number-sign.elixir
+L # SPDX-FileCopyrightText: 2012 Plataformatec
+T 1 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 44 source.elixir comment.line.number-sign.elixir
+L 
+L defmodule MapSet do
+T 9 source.elixir meta.module.elixir keyword.control.module.elixir
+T 10 source.elixir meta.module.elixir
+T 16 source.elixir meta.module.elixir entity.name.type.class.elixir
+T 17 source.elixir meta.module.elixir
+T 19 source.elixir meta.module.elixir keyword.control.module.elixir
+L   @moduledoc """
+T 2 source.elixir
+T 16 source.elixir comment.block.documentation.heredoc
+L   Functions that work on sets.
+T 30 source.elixir comment.block.documentation.heredoc
+L 
+L   A set is a data structure that can contain unique elements of any kind,
+T 73 source.elixir comment.block.documentation.heredoc
+L   without any particular order. `MapSet` is the "go to" set data structure in Elixir.
+T 85 source.elixir comment.block.documentation.heredoc
+L 
+L   A set can be constructed using `MapSet.new/0`:
+T 48 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.new()
+T 23 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([])
+T 20 source.elixir comment.block.documentation.heredoc
+L 
+L   Elements in a set don't have to be of the same type and they can be
+T 69 source.elixir comment.block.documentation.heredoc
+L   populated from an [enumerable](`t:Enumerable.t/0`) using `MapSet.new/1`:
+T 74 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.new([1, :two, {"three"}])
+T 43 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, :two, {"three"}])
+T 38 source.elixir comment.block.documentation.heredoc
+L 
+L   Elements can be inserted using `MapSet.put/2`:
+T 48 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.new([2]) |> MapSet.put(4) |> MapSet.put(0)
+T 60 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([0, 2, 4])
+T 27 source.elixir comment.block.documentation.heredoc
+L 
+L   By definition, sets can't contain duplicate elements: when
+T 60 source.elixir comment.block.documentation.heredoc
+L   inserting an element in a set where it's already present, the insertion is
+T 76 source.elixir comment.block.documentation.heredoc
+L   simply a no-op.
+T 17 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> map_set = MapSet.new()
+T 33 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.put(map_set, "foo")
+T 37 source.elixir comment.block.documentation.heredoc
+L       MapSet.new(["foo"])
+T 25 source.elixir comment.block.documentation.heredoc
+L       iex> map_set |> MapSet.put("foo") |> MapSet.put("foo")
+T 60 source.elixir comment.block.documentation.heredoc
+L       MapSet.new(["foo"])
+T 25 source.elixir comment.block.documentation.heredoc
+L 
+L   A `MapSet` is represented internally using the `%MapSet{}` struct. This struct
+T 80 source.elixir comment.block.documentation.heredoc
+L   can be used whenever there's a need to pattern match on something being a `MapSet`:
+T 85 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> match?(%MapSet{}, MapSet.new())
+T 42 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L 
+L   Note that, however, the struct fields are private and must not be accessed
+T 76 source.elixir comment.block.documentation.heredoc
+L   directly; use the functions in this module to perform operations on sets.
+T 75 source.elixir comment.block.documentation.heredoc
+L 
+L   `MapSet`s can also be constructed starting from other collection-type data
+T 76 source.elixir comment.block.documentation.heredoc
+L   structures: for example, see `MapSet.new/1` or `Enum.into/2`.
+T 63 source.elixir comment.block.documentation.heredoc
+L 
+L   `MapSet` is built on top of Erlang's [`:sets`](`:sets`) (version 2). This means
+T 81 source.elixir comment.block.documentation.heredoc
+L   that they share many properties, including logarithmic time complexity. Erlang
+T 80 source.elixir comment.block.documentation.heredoc
+L   `:sets` (version 2) are implemented on top of maps, so see the documentation
+T 78 source.elixir comment.block.documentation.heredoc
+L   for `Map` for more information on its execution time complexity.
+T 66 source.elixir comment.block.documentation.heredoc
+L 
+L   > #### Dialyzer opaqueness warnings {: .warning}
+T 50 source.elixir comment.block.documentation.heredoc
+L   >
+T 3 source.elixir comment.block.documentation.heredoc
+L   > `MapSet` internally relies on the `:sets` module which uses
+T 63 source.elixir comment.block.documentation.heredoc
+L   > opaque types. This might cause Dialyzer to report opaqueness violations.
+T 76 source.elixir comment.block.documentation.heredoc
+L   > These can be silenced by setting the following module attribute: 
+T 69 source.elixir comment.block.documentation.heredoc
+L   >   
+T 6 source.elixir comment.block.documentation.heredoc
+L   >     @dialyzer :no_opaque
+T 28 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L 
+L   @type value :: term
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 14 source.elixir
+T 16 source.elixir keyword.operator.other.elixir
+T 21 source.elixir
+L 
+L   # We don't use @opaque (or `:sets.set` which is opaque) because MapSets can be inlined,
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 89 source.elixir comment.line.number-sign.elixir
+L   # either via module attributes or by the compiler.
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 52 source.elixir comment.line.number-sign.elixir
+L   # Defaulting to a broad `term()` type to prevent opaqueness violations.
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 73 source.elixir comment.line.number-sign.elixir
+L   @typep internal(_value) :: term()
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 8 source.elixir variable.other.readwrite.module.elixir
+T 9 source.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 24 source.elixir comment.unused.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 28 source.elixir keyword.operator.other.elixir
+T 29 source.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 35 source.elixir punctuation.section.function.elixir
+L 
+L   @type t(value) :: %__MODULE__{map: internal(value)}
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 9 source.elixir entity.name.function.elixir
+T 10 source.elixir punctuation.section.function.elixir
+T 15 source.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 19 source.elixir keyword.operator.other.elixir
+T 21 source.elixir
+T 31 source.elixir variable.language.elixir
+T 32 source.elixir punctuation.section.scope.elixir
+T 35 source.elixir constant.other.keywords.elixir
+T 36 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 37 source.elixir
+T 45 source.elixir entity.name.function.elixir
+T 46 source.elixir punctuation.section.function.elixir
+T 51 source.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 53 source.elixir punctuation.section.scope.elixir
+L   @type t :: t(term)
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 10 source.elixir
+T 12 source.elixir keyword.operator.other.elixir
+T 13 source.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 19 source.elixir
+T 20 source.elixir punctuation.section.function.elixir
+L 
+L   # The key name is :map because the MapSet implementation used to be based on top of maps before
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 97 source.elixir comment.line.number-sign.elixir
+L   # Elixir 1.15 (and Erlang/OTP 24, which introduced :sets version 2). :sets v2's internal
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 90 source.elixir comment.line.number-sign.elixir
+L   # representation is, anyways, exactly the same as MapSet's previous implementation. We cannot
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 95 source.elixir comment.line.number-sign.elixir
+L   # change the :map key name here because we'd break backwards compatibility with code compiled
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 95 source.elixir comment.line.number-sign.elixir
+L   # with Elixir 1.14 and earlier and executed on Elixir 1.15+.
+T 2 source.elixir punctuation.whitespace.comment.leading.elixir
+T 3 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 62 source.elixir comment.line.number-sign.elixir
+L   defstruct map: :sets.new(version: 2)
+T 2 source.elixir
+T 11 source.elixir keyword.control.elixir
+T 12 source.elixir
+T 15 source.elixir constant.other.keywords.elixir
+T 16 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 17 source.elixir
+T 22 source.elixir constant.other.symbol.elixir
+T 23 source.elixir punctuation.separator.method.elixir
+T 26 source.elixir entity.name.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 34 source.elixir constant.other.keywords.elixir
+T 35 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 36 source.elixir
+T 37 source.elixir constant.numeric.integer.elixir
+T 38 source.elixir punctuation.section.function.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns a new set.
+T 20 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.new()
+T 23 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([])
+T 20 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec new :: t
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 12 source.elixir
+T 14 source.elixir keyword.operator.other.elixir
+T 16 source.elixir
+L   def new(), do: %MapSet{}
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 12 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 13 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 18 source.elixir
+T 24 source.elixir entity.name.type.class.elixir
+T 25 source.elixir punctuation.section.scope.elixir
+T 26 source.elixir punctuation.section.scope.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Creates a set from an enumerable.
+T 35 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.new([:b, :a, 3])
+T 34 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([3, :a, :b])
+T 29 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.new([3, 3, 3, 2, 2, 1])
+T 41 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 2, 3])
+T 27 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec new(Enumerable.t()) :: t
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 22 source.elixir entity.name.type.class.elixir
+T 23 source.elixir punctuation.separator.method.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 28 source.elixir
+T 30 source.elixir keyword.operator.other.elixir
+T 32 source.elixir
+L   def new(enumerable)
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+L 
+L   def new(%__MODULE__{} = map_set), do: map_set
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 11 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir variable.language.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 23 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 24 source.elixir meta.function.public.elixir
+T 25 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 33 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 35 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 36 source.elixir meta.function.public.elixir
+T 39 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 47 source.elixir
+L 
+L   def new(enumerable) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     set =
+T 8 source.elixir
+T 9 source.elixir keyword.operator.assignment.elixir
+L       enumerable
+T 16 source.elixir
+L       |> Enum.to_list()
+T 6 source.elixir
+T 8 source.elixir keyword.operator.sigils_1.elixir
+T 9 source.elixir
+T 13 source.elixir entity.name.type.class.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 21 source.elixir entity.name.function.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 23 source.elixir punctuation.section.function.elixir
+L       |> :sets.from_list(version: 2)
+T 6 source.elixir
+T 8 source.elixir keyword.operator.sigils_1.elixir
+T 9 source.elixir
+T 14 source.elixir constant.other.symbol.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 32 source.elixir constant.other.keywords.elixir
+T 33 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir
+T 35 source.elixir constant.numeric.integer.elixir
+T 36 source.elixir punctuation.section.function.elixir
+L 
+L     %MapSet{map: set}
+T 5 source.elixir
+T 11 source.elixir entity.name.type.class.elixir
+T 12 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir constant.other.keywords.elixir
+T 16 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Creates a set from an enumerable via the transformation function.
+T 67 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.new([1, 2, 1], fn x -> 2 * x end)
+T 51 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([2, 4])
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec new(Enumerable.t(), (term -> val)) :: t(val) when val: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 22 source.elixir entity.name.type.class.elixir
+T 23 source.elixir punctuation.separator.method.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 34 source.elixir
+T 35 source.elixir keyword.operator.arithmetic.elixir
+T 36 source.elixir keyword.operator.comparison.elixir
+T 40 source.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 42 source.elixir punctuation.section.function.elixir
+T 43 source.elixir
+T 45 source.elixir keyword.operator.other.elixir
+T 46 source.elixir
+T 47 source.elixir entity.name.function.elixir
+T 48 source.elixir punctuation.section.function.elixir
+T 51 source.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 53 source.elixir
+T 57 source.elixir keyword.operator.elixir
+T 58 source.elixir
+T 61 source.elixir constant.other.keywords.elixir
+T 62 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 68 source.elixir
+L   def new(enumerable, transform) when is_function(transform, 1) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 33 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 38 source.elixir meta.function.public.elixir
+T 49 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 50 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 59 source.elixir meta.function.public.elixir
+T 60 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 61 source.elixir meta.function.public.elixir
+T 62 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 63 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 64 source.elixir meta.function.public.elixir
+T 66 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     set =
+T 8 source.elixir
+T 9 source.elixir keyword.operator.assignment.elixir
+L       enumerable
+T 16 source.elixir
+L       |> Enum.map(transform)
+T 6 source.elixir
+T 8 source.elixir keyword.operator.sigils_1.elixir
+T 9 source.elixir
+T 13 source.elixir entity.name.type.class.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.function.elixir
+L       |> :sets.from_list(version: 2)
+T 6 source.elixir
+T 8 source.elixir keyword.operator.sigils_1.elixir
+T 9 source.elixir
+T 14 source.elixir constant.other.symbol.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 32 source.elixir constant.other.keywords.elixir
+T 33 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir
+T 35 source.elixir constant.numeric.integer.elixir
+T 36 source.elixir punctuation.section.function.elixir
+L 
+L     %MapSet{map: set}
+T 5 source.elixir
+T 11 source.elixir entity.name.type.class.elixir
+T 12 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir constant.other.keywords.elixir
+T 16 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Deletes `value` from `map_set`.
+T 33 source.elixir comment.block.documentation.heredoc
+L 
+L   Returns a new set which is a copy of `map_set` but without `value`.
+T 69 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> map_set = MapSet.new([1, 2, 3])
+T 42 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.delete(map_set, 4)
+T 36 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 2, 3])
+T 27 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.delete(map_set, 2)
+T 36 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 3])
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec delete(t(val1), val2) :: t(val1) when val1: value, val2: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 23 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 30 source.elixir
+T 32 source.elixir keyword.operator.other.elixir
+T 33 source.elixir
+T 34 source.elixir entity.name.function.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 39 source.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 45 source.elixir keyword.operator.elixir
+T 46 source.elixir
+T 50 source.elixir constant.other.keywords.elixir
+T 51 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 57 source.elixir
+T 58 source.elixir punctuation.separator.object.elixir
+T 59 source.elixir
+T 63 source.elixir constant.other.keywords.elixir
+T 64 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 70 source.elixir
+L   def delete(%MapSet{map: set} = map_set, value) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 20 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 24 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 40 source.elixir meta.function.public.elixir
+T 41 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 47 source.elixir meta.function.public.elixir
+T 48 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 49 source.elixir meta.function.public.elixir
+T 51 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     %{map_set | map: :sets.del_element(value, set)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 14 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+T 16 source.elixir
+T 19 source.elixir constant.other.keywords.elixir
+T 20 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 21 source.elixir
+T 26 source.elixir constant.other.symbol.elixir
+T 27 source.elixir punctuation.separator.method.elixir
+T 38 source.elixir entity.name.function.elixir
+T 39 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir punctuation.separator.object.elixir
+T 49 source.elixir
+T 50 source.elixir punctuation.section.function.elixir
+T 51 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns a set that is `map_set1` without the members of `map_set2`.
+T 69 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.difference(MapSet.new([1, 2]), MapSet.new([2, 3, 4]))
+T 71 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1])
+T 21 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec difference(t(val1), t(val2)) :: t(val1) when val1: value, val2: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 25 source.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 29 source.elixir entity.name.function.elixir
+T 30 source.elixir punctuation.section.function.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 37 source.elixir
+T 39 source.elixir keyword.operator.other.elixir
+T 40 source.elixir
+T 41 source.elixir entity.name.function.elixir
+T 42 source.elixir punctuation.section.function.elixir
+T 46 source.elixir
+T 47 source.elixir punctuation.section.function.elixir
+T 48 source.elixir
+T 52 source.elixir keyword.operator.elixir
+T 53 source.elixir
+T 57 source.elixir constant.other.keywords.elixir
+T 58 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 64 source.elixir
+T 65 source.elixir punctuation.separator.object.elixir
+T 66 source.elixir
+T 70 source.elixir constant.other.keywords.elixir
+T 71 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 77 source.elixir
+L   def difference(%MapSet{map: set1} = map_set1, %MapSet{map: set2} = _map_set2) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 17 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 18 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 25 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 28 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 29 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 34 source.elixir meta.function.public.elixir
+T 35 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 36 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 46 source.elixir meta.function.public.elixir
+T 47 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 49 source.elixir meta.function.public.elixir
+T 55 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 56 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 59 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 60 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 65 source.elixir meta.function.public.elixir
+T 66 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 67 source.elixir meta.function.public.elixir
+T 68 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 69 source.elixir meta.function.public.elixir
+T 78 source.elixir meta.function.public.elixir comment.unused.elixir
+T 79 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 80 source.elixir meta.function.public.elixir
+T 82 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     %{map_set1 | map: :sets.subtract(set1, set2)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 16 source.elixir keyword.operator.other.elixir
+T 17 source.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 22 source.elixir
+T 27 source.elixir constant.other.symbol.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 36 source.elixir entity.name.function.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 42 source.elixir punctuation.separator.object.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.function.elixir
+T 49 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns a set with elements that are present in only one but not both sets.
+T 77 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.symmetric_difference(MapSet.new([1, 2, 3]), MapSet.new([2, 3, 4]))
+T 84 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 4])
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.14.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec symmetric_difference(t(val1), t(val2)) :: t(val1 | val2) when val1: value, val2: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 28 source.elixir entity.name.function.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 30 source.elixir entity.name.function.elixir
+T 31 source.elixir punctuation.section.function.elixir
+T 35 source.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 37 source.elixir punctuation.separator.object.elixir
+T 38 source.elixir
+T 39 source.elixir entity.name.function.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 49 source.elixir keyword.operator.other.elixir
+T 50 source.elixir
+T 51 source.elixir entity.name.function.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 57 source.elixir
+T 58 source.elixir keyword.operator.other.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.section.function.elixir
+T 65 source.elixir
+T 69 source.elixir keyword.operator.elixir
+T 70 source.elixir
+T 74 source.elixir constant.other.keywords.elixir
+T 75 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 81 source.elixir
+T 82 source.elixir punctuation.separator.object.elixir
+T 83 source.elixir
+T 87 source.elixir constant.other.keywords.elixir
+T 88 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 94 source.elixir
+L   def symmetric_difference(%MapSet{map: set1} = map_set1, %MapSet{map: set2} = _map_set2) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 26 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 27 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 28 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 35 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 38 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 39 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 44 source.elixir meta.function.public.elixir
+T 45 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 46 source.elixir meta.function.public.elixir
+T 47 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 56 source.elixir meta.function.public.elixir
+T 57 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 59 source.elixir meta.function.public.elixir
+T 65 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 66 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 69 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 70 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 75 source.elixir meta.function.public.elixir
+T 76 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 77 source.elixir meta.function.public.elixir
+T 78 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 79 source.elixir meta.function.public.elixir
+T 88 source.elixir meta.function.public.elixir comment.unused.elixir
+T 89 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 90 source.elixir meta.function.public.elixir
+T 92 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     map =
+T 8 source.elixir
+T 9 source.elixir keyword.operator.assignment.elixir
+L       if :sets.is_disjoint(set1, set2) do
+T 6 source.elixir
+T 8 source.elixir keyword.control.elixir
+T 9 source.elixir
+T 14 source.elixir constant.other.symbol.elixir
+T 15 source.elixir punctuation.separator.method.elixir
+T 26 source.elixir entity.name.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.separator.object.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.section.function.elixir
+T 39 source.elixir
+T 41 source.elixir keyword.control.elixir
+L         :sets.union(set1, set2)
+T 8 source.elixir
+T 13 source.elixir constant.other.symbol.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 19 source.elixir entity.name.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.separator.object.elixir
+T 30 source.elixir
+T 31 source.elixir punctuation.section.function.elixir
+L       else
+T 6 source.elixir
+T 10 source.elixir keyword.control.elixir
+L         :sets.union(:sets.subtract(set1, set2), :sets.subtract(set2, set1))
+T 8 source.elixir
+T 13 source.elixir constant.other.symbol.elixir
+T 14 source.elixir punctuation.separator.method.elixir
+T 19 source.elixir entity.name.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 25 source.elixir constant.other.symbol.elixir
+T 26 source.elixir punctuation.separator.method.elixir
+T 34 source.elixir entity.name.function.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 39 source.elixir
+T 40 source.elixir punctuation.separator.object.elixir
+T 45 source.elixir
+T 46 source.elixir punctuation.section.function.elixir
+T 47 source.elixir punctuation.separator.object.elixir
+T 48 source.elixir
+T 53 source.elixir constant.other.symbol.elixir
+T 54 source.elixir punctuation.separator.method.elixir
+T 62 source.elixir entity.name.function.elixir
+T 63 source.elixir punctuation.section.function.elixir
+T 67 source.elixir
+T 68 source.elixir punctuation.separator.object.elixir
+T 73 source.elixir
+T 74 source.elixir punctuation.section.function.elixir
+T 75 source.elixir punctuation.section.function.elixir
+L       end
+T 6 source.elixir
+T 9 source.elixir keyword.control.elixir
+L 
+L     %{map_set1 | map: map}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 16 source.elixir keyword.operator.other.elixir
+T 17 source.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 25 source.elixir
+T 26 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Checks if `map_set1` and `map_set2` have no members in common.
+T 64 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.disjoint?(MapSet.new([1, 2]), MapSet.new([3, 4]))
+T 67 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.disjoint?(MapSet.new([1, 2]), MapSet.new([2, 3]))
+T 67 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec disjoint?(t, t) :: boolean
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 26 source.elixir keyword.operator.other.elixir
+T 34 source.elixir
+L   def disjoint?(%MapSet{map: set1}, %MapSet{map: set2}) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 17 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 24 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 27 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 28 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 33 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 35 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 37 source.elixir meta.function.public.elixir
+T 43 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 44 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 47 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 48 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 53 source.elixir meta.function.public.elixir
+T 54 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 55 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 56 source.elixir meta.function.public.elixir
+T 58 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     :sets.is_disjoint(set1, set2)
+T 4 source.elixir
+T 9 source.elixir constant.other.symbol.elixir
+T 10 source.elixir punctuation.separator.method.elixir
+T 21 source.elixir entity.name.function.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Checks if two sets are equal.
+T 31 source.elixir comment.block.documentation.heredoc
+L 
+L   The comparison between elements is done using `===/2`,
+T 56 source.elixir comment.block.documentation.heredoc
+L   which means a set with `1` is not equivalent to a set with
+T 60 source.elixir comment.block.documentation.heredoc
+L   `1.0`.
+T 8 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.equal?(MapSet.new([1, 2]), MapSet.new([2, 1, 1]))
+T 67 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.equal?(MapSet.new([1, 2]), MapSet.new([3, 4]))
+T 64 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.equal?(MapSet.new([1]), MapSet.new([1.0]))
+T 60 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec equal?(t, t) :: boolean
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 19 source.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 21 source.elixir
+T 23 source.elixir keyword.operator.other.elixir
+T 31 source.elixir
+L   def equal?(%MapSet{map: set1}, %MapSet{map: set2}) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 20 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 24 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 30 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 34 source.elixir meta.function.public.elixir
+T 40 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 41 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 44 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 45 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 50 source.elixir meta.function.public.elixir
+T 51 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 52 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 53 source.elixir meta.function.public.elixir
+T 55 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     set1 === set2
+T 9 source.elixir
+T 12 source.elixir keyword.operator.comparison.elixir
+T 17 source.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns a set containing only members that `map_set1` and `map_set2` have in common.
+T 86 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.intersection(MapSet.new([1, 2]), MapSet.new([2, 3, 4]))
+T 73 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([2])
+T 21 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.intersection(MapSet.new([1, 2]), MapSet.new([3, 4]))
+T 70 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([])
+T 20 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec intersection(t(val), t(val)) :: t(val) when val: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 22 source.elixir entity.name.function.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 30 source.elixir entity.name.function.elixir
+T 31 source.elixir punctuation.section.function.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.section.function.elixir
+T 36 source.elixir punctuation.section.function.elixir
+T 37 source.elixir
+T 39 source.elixir keyword.operator.other.elixir
+T 40 source.elixir
+T 41 source.elixir entity.name.function.elixir
+T 42 source.elixir punctuation.section.function.elixir
+T 45 source.elixir
+T 46 source.elixir punctuation.section.function.elixir
+T 47 source.elixir
+T 51 source.elixir keyword.operator.elixir
+T 52 source.elixir
+T 55 source.elixir constant.other.keywords.elixir
+T 56 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 62 source.elixir
+L   def intersection(%MapSet{map: set1} = map_set1, %MapSet{map: set2} = _map_set2) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 26 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 27 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 30 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 31 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 36 source.elixir meta.function.public.elixir
+T 37 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 38 source.elixir meta.function.public.elixir
+T 39 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 48 source.elixir meta.function.public.elixir
+T 49 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 51 source.elixir meta.function.public.elixir
+T 57 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 58 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 61 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 62 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 67 source.elixir meta.function.public.elixir
+T 68 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 69 source.elixir meta.function.public.elixir
+T 70 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 71 source.elixir meta.function.public.elixir
+T 80 source.elixir meta.function.public.elixir comment.unused.elixir
+T 81 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 82 source.elixir meta.function.public.elixir
+T 84 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     %{map_set1 | map: :sets.intersection(set1, set2)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 16 source.elixir keyword.operator.other.elixir
+T 17 source.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 22 source.elixir
+T 27 source.elixir constant.other.symbol.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 40 source.elixir entity.name.function.elixir
+T 41 source.elixir punctuation.section.function.elixir
+T 45 source.elixir
+T 46 source.elixir punctuation.separator.object.elixir
+T 51 source.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 53 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Checks if `map_set` contains `value`.
+T 39 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.member?(MapSet.new([1, 2, 3]), 2)
+T 51 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.member?(MapSet.new([1, 2, 3]), 4)
+T 51 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec member?(t, value) :: boolean
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 28 source.elixir keyword.operator.other.elixir
+T 36 source.elixir
+L   def member?(%MapSet{map: set}, value) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 26 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 30 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 38 source.elixir meta.function.public.elixir
+T 39 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 40 source.elixir meta.function.public.elixir
+T 42 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     :sets.is_element(value, set)
+T 4 source.elixir
+T 9 source.elixir constant.other.symbol.elixir
+T 10 source.elixir punctuation.separator.method.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Inserts `value` into `map_set` if `map_set` doesn't already contain it.
+T 73 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.put(MapSet.new([1, 2, 3]), 3)
+T 47 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 2, 3])
+T 27 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.put(MapSet.new([1, 2, 3]), 4)
+T 47 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 2, 3, 4])
+T 30 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec put(t(val), new_val) :: t(val | new_val) when val: value, new_val: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 11 source.elixir entity.name.function.elixir
+T 12 source.elixir punctuation.section.function.elixir
+T 13 source.elixir entity.name.function.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 19 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.function.elixir
+T 29 source.elixir
+T 31 source.elixir keyword.operator.other.elixir
+T 32 source.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 39 source.elixir keyword.operator.other.elixir
+T 47 source.elixir
+T 48 source.elixir punctuation.section.function.elixir
+T 49 source.elixir
+T 53 source.elixir keyword.operator.elixir
+T 54 source.elixir
+T 57 source.elixir constant.other.keywords.elixir
+T 58 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 64 source.elixir
+T 65 source.elixir punctuation.separator.object.elixir
+T 66 source.elixir
+T 73 source.elixir constant.other.keywords.elixir
+T 74 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 80 source.elixir
+L   def put(%MapSet{map: set} = map_set, value) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 9 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 10 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 11 source.elixir meta.function.public.elixir
+T 17 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 18 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 21 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 22 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 26 source.elixir meta.function.public.elixir
+T 27 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 37 source.elixir meta.function.public.elixir
+T 38 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 44 source.elixir meta.function.public.elixir
+T 45 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 46 source.elixir meta.function.public.elixir
+T 48 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     %{map_set | map: :sets.add_element(value, set)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 14 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+T 16 source.elixir
+T 19 source.elixir constant.other.keywords.elixir
+T 20 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 21 source.elixir
+T 26 source.elixir constant.other.symbol.elixir
+T 27 source.elixir punctuation.separator.method.elixir
+T 38 source.elixir entity.name.function.elixir
+T 39 source.elixir punctuation.section.function.elixir
+T 44 source.elixir
+T 45 source.elixir punctuation.separator.object.elixir
+T 49 source.elixir
+T 50 source.elixir punctuation.section.function.elixir
+T 51 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns the number of elements in `map_set`.
+T 46 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.size(MapSet.new([1, 2, 3]))
+T 45 source.elixir comment.block.documentation.heredoc
+L       3
+T 7 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec size(t) :: non_neg_integer
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 12 source.elixir entity.name.function.elixir
+T 13 source.elixir punctuation.section.function.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir
+T 18 source.elixir keyword.operator.other.elixir
+T 34 source.elixir
+L   def size(%MapSet{map: set}) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 12 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 22 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 23 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     :sets.size(set)
+T 4 source.elixir
+T 9 source.elixir constant.other.symbol.elixir
+T 10 source.elixir punctuation.separator.method.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 18 source.elixir
+T 19 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Checks if `map_set1`'s members are all contained in `map_set2`.
+T 65 source.elixir comment.block.documentation.heredoc
+L 
+L   This function checks if `map_set1` is a subset of `map_set2`.
+T 63 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.subset?(MapSet.new([1, 2]), MapSet.new([1, 2, 3]))
+T 68 source.elixir comment.block.documentation.heredoc
+L       true
+T 10 source.elixir comment.block.documentation.heredoc
+L       iex> MapSet.subset?(MapSet.new([1, 2, 3]), MapSet.new([1, 2]))
+T 68 source.elixir comment.block.documentation.heredoc
+L       false
+T 11 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec subset?(t, t) :: boolean
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 22 source.elixir
+T 24 source.elixir keyword.operator.other.elixir
+T 32 source.elixir
+L   def subset?(%MapSet{map: set1}, %MapSet{map: set2}) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 26 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 33 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 35 source.elixir meta.function.public.elixir
+T 41 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 42 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 45 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 46 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 51 source.elixir meta.function.public.elixir
+T 52 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 53 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 54 source.elixir meta.function.public.elixir
+T 56 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     :sets.is_subset(set1, set2)
+T 4 source.elixir
+T 9 source.elixir constant.other.symbol.elixir
+T 10 source.elixir punctuation.separator.method.elixir
+T 19 source.elixir entity.name.function.elixir
+T 20 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.separator.object.elixir
+T 30 source.elixir
+T 31 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Converts `map_set` to a list.
+T 31 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.to_list(MapSet.new([1, 2, 3]))
+T 48 source.elixir comment.block.documentation.heredoc
+L       [1, 2, 3]
+T 15 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec to_list(t(val)) :: [val] when val: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 26 source.elixir keyword.operator.other.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.array.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.section.array.elixir
+T 33 source.elixir
+T 37 source.elixir keyword.operator.elixir
+T 38 source.elixir
+T 41 source.elixir constant.other.keywords.elixir
+T 42 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 48 source.elixir
+L   def to_list(%MapSet{map: set}) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 26 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 30 source.elixir meta.function.public.elixir
+T 31 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 32 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 33 source.elixir meta.function.public.elixir
+T 35 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     :sets.to_list(set)
+T 4 source.elixir
+T 9 source.elixir constant.other.symbol.elixir
+T 10 source.elixir punctuation.separator.method.elixir
+T 17 source.elixir entity.name.function.elixir
+T 18 source.elixir punctuation.section.function.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns a set containing all members of `map_set1` and `map_set2`.
+T 68 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.union(MapSet.new([1, 2]), MapSet.new([2, 3, 4]))
+T 66 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 2, 3, 4])
+T 30 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @spec union(t(val1), t(val2)) :: t(val1 | val2) when val1: value, val2: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 13 source.elixir entity.name.function.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 15 source.elixir entity.name.function.elixir
+T 16 source.elixir punctuation.section.function.elixir
+T 20 source.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 22 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.section.function.elixir
+T 31 source.elixir punctuation.section.function.elixir
+T 32 source.elixir
+T 34 source.elixir keyword.operator.other.elixir
+T 35 source.elixir
+T 36 source.elixir entity.name.function.elixir
+T 37 source.elixir punctuation.section.function.elixir
+T 42 source.elixir
+T 43 source.elixir keyword.operator.other.elixir
+T 48 source.elixir
+T 49 source.elixir punctuation.section.function.elixir
+T 50 source.elixir
+T 54 source.elixir keyword.operator.elixir
+T 55 source.elixir
+T 59 source.elixir constant.other.keywords.elixir
+T 60 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 66 source.elixir
+T 67 source.elixir punctuation.separator.object.elixir
+T 68 source.elixir
+T 72 source.elixir constant.other.keywords.elixir
+T 73 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 79 source.elixir
+L   def union(%MapSet{map: set1} = map_set1, %MapSet{map: set2} = _map_set2) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 11 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 12 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 13 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 20 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 23 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 24 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 41 source.elixir meta.function.public.elixir
+T 42 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 44 source.elixir meta.function.public.elixir
+T 50 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 51 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 54 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 55 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 60 source.elixir meta.function.public.elixir
+T 61 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 62 source.elixir meta.function.public.elixir
+T 63 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 64 source.elixir meta.function.public.elixir
+T 73 source.elixir meta.function.public.elixir comment.unused.elixir
+T 74 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 75 source.elixir meta.function.public.elixir
+T 77 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     %{map_set1 | map: :sets.union(set1, set2)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 16 source.elixir keyword.operator.other.elixir
+T 17 source.elixir
+T 20 source.elixir constant.other.keywords.elixir
+T 21 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 22 source.elixir
+T 27 source.elixir constant.other.symbol.elixir
+T 28 source.elixir punctuation.separator.method.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.separator.object.elixir
+T 44 source.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Filters the set by returning only the elements from `map_set` for which invoking
+T 82 source.elixir comment.block.documentation.heredoc
+L   `fun` returns a truthy value.
+T 31 source.elixir comment.block.documentation.heredoc
+L 
+L   Also see `reject/2` which discards all elements where the function returns
+T 76 source.elixir comment.block.documentation.heredoc
+L   a truthy value.
+T 17 source.elixir comment.block.documentation.heredoc
+L 
+L   > #### Performance considerations {: .tip}
+T 44 source.elixir comment.block.documentation.heredoc
+L   >
+T 3 source.elixir comment.block.documentation.heredoc
+L   > If you find yourself doing multiple calls to `MapSet.filter/2`
+T 66 source.elixir comment.block.documentation.heredoc
+L   > and `MapSet.reject/2` in a pipeline, it is likely more efficient
+T 68 source.elixir comment.block.documentation.heredoc
+L   > to use `Enum.map/2` and `Enum.filter/2` instead and convert to
+T 66 source.elixir comment.block.documentation.heredoc
+L   > a set at the end using `MapSet.new/1`.
+T 42 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.filter(MapSet.new(1..5), fn x -> x > 3 end)
+T 61 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([4, 5])
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.filter(MapSet.new(["a", :b, "c"]), &is_atom/1)
+T 64 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([:b])
+T 22 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.14.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec filter(t(a), (a -> as_boolean(term))) :: t(a) when a: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 18 source.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 25 source.elixir keyword.operator.arithmetic.elixir
+T 26 source.elixir keyword.operator.comparison.elixir
+T 27 source.elixir
+T 37 source.elixir entity.name.function.elixir
+T 38 source.elixir punctuation.section.function.elixir
+T 42 source.elixir
+T 43 source.elixir punctuation.section.function.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir
+T 48 source.elixir keyword.operator.other.elixir
+T 49 source.elixir
+T 50 source.elixir entity.name.function.elixir
+T 51 source.elixir punctuation.section.function.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 54 source.elixir
+T 58 source.elixir keyword.operator.elixir
+T 59 source.elixir
+T 60 source.elixir constant.other.keywords.elixir
+T 61 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 67 source.elixir
+L   def filter(%MapSet{map: set} = map_set, fun) when is_function(fun) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 20 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 24 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 40 source.elixir meta.function.public.elixir
+T 41 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 45 source.elixir meta.function.public.elixir
+T 46 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 47 source.elixir meta.function.public.elixir
+T 51 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 52 source.elixir meta.function.public.elixir
+T 63 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 64 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 67 source.elixir meta.function.public.elixir
+T 68 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 69 source.elixir meta.function.public.elixir
+T 71 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     pred = fn element -> !!fun.(element) end
+T 9 source.elixir
+T 10 source.elixir keyword.operator.assignment.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 22 source.elixir
+T 24 source.elixir keyword.operator.other.elixir
+T 25 source.elixir
+T 27 source.elixir keyword.operator.logical.elixir
+T 30 source.elixir entity.name.function.elixir
+T 31 source.elixir punctuation.separator.method.elixir
+T 32 source.elixir punctuation.section.function.elixir
+T 39 source.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 41 source.elixir
+T 44 source.elixir keyword.control.elixir
+L     %{map_set | map: :sets.filter(pred, set)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 14 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+T 16 source.elixir
+T 19 source.elixir constant.other.keywords.elixir
+T 20 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 21 source.elixir
+T 26 source.elixir constant.other.symbol.elixir
+T 27 source.elixir punctuation.separator.method.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.separator.object.elixir
+T 43 source.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 45 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Returns a set by excluding the elements from `map_set` for which invoking `fun`
+T 81 source.elixir comment.block.documentation.heredoc
+L   returns a truthy value.
+T 25 source.elixir comment.block.documentation.heredoc
+L 
+L   See also `filter/2`.
+T 22 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.reject(MapSet.new(1..5), fn x -> rem(x, 2) != 0 end)
+T 70 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([2, 4])
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> MapSet.reject(MapSet.new(["a", :b, "c"]), &is_atom/1)
+T 64 source.elixir comment.block.documentation.heredoc
+L       MapSet.new(["a", "c"])
+T 28 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.14.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec reject(t(a), (a -> as_boolean(term))) :: t(a) when a: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 14 source.elixir entity.name.function.elixir
+T 15 source.elixir punctuation.section.function.elixir
+T 16 source.elixir entity.name.function.elixir
+T 17 source.elixir punctuation.section.function.elixir
+T 18 source.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 21 source.elixir
+T 22 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 25 source.elixir keyword.operator.arithmetic.elixir
+T 26 source.elixir keyword.operator.comparison.elixir
+T 27 source.elixir
+T 37 source.elixir entity.name.function.elixir
+T 38 source.elixir punctuation.section.function.elixir
+T 42 source.elixir
+T 43 source.elixir punctuation.section.function.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 45 source.elixir punctuation.section.function.elixir
+T 46 source.elixir
+T 48 source.elixir keyword.operator.other.elixir
+T 49 source.elixir
+T 50 source.elixir entity.name.function.elixir
+T 51 source.elixir punctuation.section.function.elixir
+T 52 source.elixir
+T 53 source.elixir punctuation.section.function.elixir
+T 54 source.elixir
+T 58 source.elixir keyword.operator.elixir
+T 59 source.elixir
+T 60 source.elixir constant.other.keywords.elixir
+T 61 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 67 source.elixir
+L   def reject(%MapSet{map: set} = map_set, fun) when is_function(fun) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 20 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 24 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 25 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 31 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 40 source.elixir meta.function.public.elixir
+T 41 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 45 source.elixir meta.function.public.elixir
+T 46 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 47 source.elixir meta.function.public.elixir
+T 51 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 52 source.elixir meta.function.public.elixir
+T 63 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 64 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 67 source.elixir meta.function.public.elixir
+T 68 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 69 source.elixir meta.function.public.elixir
+T 71 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     pred = fn element -> !fun.(element) end
+T 9 source.elixir
+T 10 source.elixir keyword.operator.assignment.elixir
+T 11 source.elixir
+T 13 source.elixir keyword.control.elixir
+T 22 source.elixir
+T 24 source.elixir keyword.operator.other.elixir
+T 25 source.elixir
+T 26 source.elixir keyword.operator.logical.elixir
+T 29 source.elixir entity.name.function.elixir
+T 30 source.elixir punctuation.separator.method.elixir
+T 31 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.section.function.elixir
+T 40 source.elixir
+T 43 source.elixir keyword.control.elixir
+L     %{map_set | map: :sets.filter(pred, set)}
+T 5 source.elixir
+T 6 source.elixir punctuation.section.scope.elixir
+T 14 source.elixir
+T 15 source.elixir keyword.operator.other.elixir
+T 16 source.elixir
+T 19 source.elixir constant.other.keywords.elixir
+T 20 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 21 source.elixir
+T 26 source.elixir constant.other.symbol.elixir
+T 27 source.elixir punctuation.separator.method.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 38 source.elixir
+T 39 source.elixir punctuation.separator.object.elixir
+T 43 source.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 45 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   @doc """
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Splits the `map_set` into two `MapSet`s according to the given function `fun`.
+T 80 source.elixir comment.block.documentation.heredoc
+L 
+L   `fun` receives each element in the `map_set` as its only argument. Returns
+T 76 source.elixir comment.block.documentation.heredoc
+L   a tuple with the first `MapSet` containing all the elements in `map_set` for which
+T 84 source.elixir comment.block.documentation.heredoc
+L   applying `fun` returned a truthy value, and a second `MapSet` with all the elements
+T 85 source.elixir comment.block.documentation.heredoc
+L   for which applying `fun` returned a falsy value (`false` or `nil`).
+T 69 source.elixir comment.block.documentation.heredoc
+L 
+L   ## Examples
+T 13 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> {while_true, while_false} = MapSet.split_with(MapSet.new([1, 2, 3, 4]), fn v -> rem(v, 2) == 0 end)
+T 110 source.elixir comment.block.documentation.heredoc
+L       iex> while_true
+T 21 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([2, 4])
+T 24 source.elixir comment.block.documentation.heredoc
+L       iex> while_false
+T 22 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([1, 3])
+T 24 source.elixir comment.block.documentation.heredoc
+L 
+L       iex> {while_true, while_false} = MapSet.split_with(MapSet.new([10, 20, 60, 70]), fn v -> v > 50 end)
+T 106 source.elixir comment.block.documentation.heredoc
+L       iex> while_true
+T 21 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([60, 70])
+T 26 source.elixir comment.block.documentation.heredoc
+L       iex> while_false
+T 22 source.elixir comment.block.documentation.heredoc
+L       MapSet.new([10, 20])
+T 26 source.elixir comment.block.documentation.heredoc
+L 
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L   @doc since: "1.15.0"
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 6 source.elixir variable.other.readwrite.module.elixir
+T 7 source.elixir
+T 12 source.elixir constant.other.keywords.elixir
+T 13 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 14 source.elixir
+T 15 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 21 source.elixir string.quoted.double.elixir
+T 22 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   @spec split_with(t(a), (a -> as_boolean(term))) :: {t(a), t(a)} when a: value
+T 2 source.elixir
+T 3 source.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 7 source.elixir variable.other.readwrite.module.elixir
+T 8 source.elixir
+T 18 source.elixir entity.name.function.elixir
+T 19 source.elixir punctuation.section.function.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir punctuation.separator.object.elixir
+T 25 source.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 28 source.elixir
+T 29 source.elixir keyword.operator.arithmetic.elixir
+T 30 source.elixir keyword.operator.comparison.elixir
+T 31 source.elixir
+T 41 source.elixir entity.name.function.elixir
+T 42 source.elixir punctuation.section.function.elixir
+T 46 source.elixir
+T 47 source.elixir punctuation.section.function.elixir
+T 48 source.elixir punctuation.section.function.elixir
+T 49 source.elixir punctuation.section.function.elixir
+T 50 source.elixir
+T 52 source.elixir keyword.operator.other.elixir
+T 53 source.elixir
+T 54 source.elixir punctuation.section.scope.elixir
+T 55 source.elixir entity.name.function.elixir
+T 56 source.elixir punctuation.section.function.elixir
+T 57 source.elixir
+T 58 source.elixir punctuation.section.function.elixir
+T 59 source.elixir punctuation.separator.object.elixir
+T 60 source.elixir
+T 61 source.elixir entity.name.function.elixir
+T 62 source.elixir punctuation.section.function.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.section.function.elixir
+T 65 source.elixir punctuation.section.scope.elixir
+T 66 source.elixir
+T 70 source.elixir keyword.operator.elixir
+T 71 source.elixir
+T 72 source.elixir constant.other.keywords.elixir
+T 73 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 79 source.elixir
+L   def split_with(%MapSet{map: map}, fun) when is_function(fun, 1) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 17 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 18 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 25 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 28 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 29 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 33 source.elixir meta.function.public.elixir
+T 34 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 35 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 39 source.elixir meta.function.public.elixir
+T 40 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 41 source.elixir meta.function.public.elixir
+T 45 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 46 source.elixir meta.function.public.elixir
+T 57 source.elixir meta.function.public.elixir entity.name.function.elixir
+T 58 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 61 source.elixir meta.function.public.elixir
+T 62 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 63 source.elixir meta.function.public.elixir
+T 64 source.elixir meta.function.public.elixir constant.numeric.integer.elixir
+T 65 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 66 source.elixir meta.function.public.elixir
+T 68 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     {while_true, while_false} = Map.split_with(map, fn {key, _} -> fun.(key) end)
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.section.scope.elixir
+T 30 source.elixir
+T 31 source.elixir keyword.operator.assignment.elixir
+T 32 source.elixir
+T 35 source.elixir entity.name.type.class.elixir
+T 36 source.elixir punctuation.separator.method.elixir
+T 46 source.elixir entity.name.function.elixir
+T 47 source.elixir punctuation.section.function.elixir
+T 50 source.elixir
+T 51 source.elixir punctuation.separator.object.elixir
+T 52 source.elixir
+T 54 source.elixir keyword.control.elixir
+T 55 source.elixir
+T 56 source.elixir punctuation.section.scope.elixir
+T 59 source.elixir
+T 60 source.elixir punctuation.separator.object.elixir
+T 61 source.elixir
+T 62 source.elixir comment.wildcard.elixir
+T 63 source.elixir punctuation.section.scope.elixir
+T 64 source.elixir
+T 66 source.elixir keyword.operator.other.elixir
+T 67 source.elixir
+T 70 source.elixir entity.name.function.elixir
+T 71 source.elixir punctuation.separator.method.elixir
+T 72 source.elixir punctuation.section.function.elixir
+T 75 source.elixir
+T 76 source.elixir punctuation.section.function.elixir
+T 77 source.elixir
+T 80 source.elixir keyword.control.elixir
+T 81 source.elixir punctuation.section.function.elixir
+L     {%MapSet{map: while_true}, %MapSet{map: while_false}}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 6 source.elixir
+T 12 source.elixir entity.name.type.class.elixir
+T 13 source.elixir punctuation.section.scope.elixir
+T 16 source.elixir constant.other.keywords.elixir
+T 17 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.section.scope.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 32 source.elixir
+T 38 source.elixir entity.name.type.class.elixir
+T 39 source.elixir punctuation.section.scope.elixir
+T 42 source.elixir constant.other.keywords.elixir
+T 43 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 55 source.elixir
+T 56 source.elixir punctuation.section.scope.elixir
+T 57 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defimpl Enumerable do
+T 2 source.elixir meta.protocol_implementation.elixir
+T 9 source.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+T 10 source.elixir meta.protocol_implementation.elixir
+T 20 source.elixir meta.protocol_implementation.elixir entity.name.type.protocol.elixir
+T 21 source.elixir meta.protocol_implementation.elixir
+T 23 source.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+L     def count(map_set) do
+T 4 source.elixir meta.function.public.elixir
+T 7 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 8 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 21 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 23 source.elixir meta.function.public.elixir
+T 25 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L       {:ok, MapSet.size(map_set)}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 12 source.elixir
+T 18 source.elixir entity.name.type.class.elixir
+T 19 source.elixir punctuation.separator.method.elixir
+T 23 source.elixir entity.name.function.elixir
+T 24 source.elixir punctuation.section.function.elixir
+T 31 source.elixir
+T 32 source.elixir punctuation.section.function.elixir
+T 33 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L 
+L     def member?(map_set, val) do
+T 4 source.elixir meta.function.public.elixir
+T 7 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 8 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 23 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 28 source.elixir meta.function.public.elixir
+T 29 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 30 source.elixir meta.function.public.elixir
+T 32 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L       {:ok, MapSet.member?(map_set, val)}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 12 source.elixir
+T 18 source.elixir entity.name.type.class.elixir
+T 19 source.elixir punctuation.separator.method.elixir
+T 26 source.elixir entity.name.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+T 34 source.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 39 source.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 41 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L 
+L     def slice(map_set) do
+T 4 source.elixir meta.function.public.elixir
+T 7 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 8 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 21 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 23 source.elixir meta.function.public.elixir
+T 25 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L       size = MapSet.size(map_set)
+T 11 source.elixir
+T 12 source.elixir keyword.operator.assignment.elixir
+T 13 source.elixir
+T 19 source.elixir entity.name.type.class.elixir
+T 20 source.elixir punctuation.separator.method.elixir
+T 24 source.elixir entity.name.function.elixir
+T 25 source.elixir punctuation.section.function.elixir
+T 32 source.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L       {:ok, size, &MapSet.to_list/1}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 10 source.elixir constant.other.symbol.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 16 source.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 18 source.elixir
+T 19 source.elixir variable.other.anonymous.elixir
+T 25 source.elixir entity.name.type.class.elixir
+T 26 source.elixir punctuation.separator.method.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir keyword.operator.arithmetic.elixir
+T 35 source.elixir constant.numeric.integer.elixir
+T 36 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L 
+L     def reduce(map_set, acc, fun) do
+T 4 source.elixir meta.function.public.elixir
+T 7 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 8 source.elixir meta.function.public.elixir
+T 14 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 15 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 32 source.elixir meta.function.public.elixir
+T 33 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 34 source.elixir meta.function.public.elixir
+T 36 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L       Enumerable.List.reduce(MapSet.to_list(map_set), acc, fun)
+T 6 source.elixir
+T 16 source.elixir entity.name.type.class.elixir
+T 17 source.elixir punctuation.separator.method.elixir
+T 21 source.elixir entity.name.type.class.elixir
+T 22 source.elixir punctuation.separator.method.elixir
+T 28 source.elixir entity.name.function.elixir
+T 29 source.elixir punctuation.section.function.elixir
+T 35 source.elixir entity.name.type.class.elixir
+T 36 source.elixir punctuation.separator.method.elixir
+T 43 source.elixir entity.name.function.elixir
+T 44 source.elixir punctuation.section.function.elixir
+T 51 source.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 53 source.elixir punctuation.separator.object.elixir
+T 57 source.elixir
+T 58 source.elixir punctuation.separator.object.elixir
+T 62 source.elixir
+T 63 source.elixir punctuation.section.function.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defimpl Collectable do
+T 2 source.elixir meta.protocol_implementation.elixir
+T 9 source.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+T 10 source.elixir meta.protocol_implementation.elixir
+T 21 source.elixir meta.protocol_implementation.elixir entity.name.type.protocol.elixir
+T 22 source.elixir meta.protocol_implementation.elixir
+T 24 source.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+L     def into(%@for{map: set} = map_set) do
+T 4 source.elixir meta.function.public.elixir
+T 7 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 8 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir variable.other.readwrite.module.elixir punctuation.definition.variable.elixir
+T 18 source.elixir meta.function.public.elixir variable.other.readwrite.module.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 22 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 23 source.elixir meta.function.public.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 27 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 29 source.elixir meta.function.public.elixir
+T 30 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 38 source.elixir meta.function.public.elixir
+T 39 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 40 source.elixir meta.function.public.elixir
+T 42 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L       fun = fn
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 14 source.elixir keyword.control.elixir
+L         list, {:cont, x} -> [x | list]
+T 12 source.elixir
+T 13 source.elixir punctuation.separator.object.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.section.scope.elixir
+T 16 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 20 source.elixir constant.other.symbol.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 23 source.elixir
+T 24 source.elixir punctuation.section.scope.elixir
+T 25 source.elixir
+T 27 source.elixir keyword.operator.other.elixir
+T 28 source.elixir
+T 29 source.elixir punctuation.section.array.elixir
+T 31 source.elixir
+T 32 source.elixir keyword.operator.other.elixir
+T 37 source.elixir
+T 38 source.elixir punctuation.section.array.elixir
+L         list, :done -> %{map_set | map: :sets.union(set, :sets.from_list(list, version: 2))}
+T 12 source.elixir
+T 13 source.elixir punctuation.separator.object.elixir
+T 14 source.elixir
+T 15 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 19 source.elixir constant.other.symbol.elixir
+T 20 source.elixir
+T 22 source.elixir keyword.operator.other.elixir
+T 24 source.elixir
+T 25 source.elixir punctuation.section.scope.elixir
+T 33 source.elixir
+T 34 source.elixir keyword.operator.other.elixir
+T 35 source.elixir
+T 38 source.elixir constant.other.keywords.elixir
+T 39 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 40 source.elixir
+T 45 source.elixir constant.other.symbol.elixir
+T 46 source.elixir punctuation.separator.method.elixir
+T 51 source.elixir entity.name.function.elixir
+T 52 source.elixir punctuation.section.function.elixir
+T 55 source.elixir
+T 56 source.elixir punctuation.separator.object.elixir
+T 57 source.elixir
+T 62 source.elixir constant.other.symbol.elixir
+T 63 source.elixir punctuation.separator.method.elixir
+T 72 source.elixir entity.name.function.elixir
+T 73 source.elixir punctuation.section.function.elixir
+T 77 source.elixir
+T 78 source.elixir punctuation.separator.object.elixir
+T 79 source.elixir
+T 86 source.elixir constant.other.keywords.elixir
+T 87 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 88 source.elixir
+T 89 source.elixir constant.numeric.integer.elixir
+T 90 source.elixir punctuation.section.function.elixir
+T 91 source.elixir punctuation.section.function.elixir
+T 92 source.elixir punctuation.section.scope.elixir
+L         _, :halt -> :ok
+T 8 source.elixir
+T 9 source.elixir comment.wildcard.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 11 source.elixir
+T 12 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 16 source.elixir constant.other.symbol.elixir
+T 17 source.elixir
+T 19 source.elixir keyword.operator.other.elixir
+T 20 source.elixir
+T 21 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 23 source.elixir constant.other.symbol.elixir
+L       end
+T 6 source.elixir
+T 9 source.elixir keyword.control.elixir
+L 
+L       {[], fun}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 8 source.elixir punctuation.section.array.elixir
+T 9 source.elixir punctuation.section.array.elixir
+T 10 source.elixir punctuation.separator.object.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defimpl Inspect do
+T 2 source.elixir meta.protocol_implementation.elixir
+T 9 source.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+T 10 source.elixir meta.protocol_implementation.elixir
+T 17 source.elixir meta.protocol_implementation.elixir entity.name.type.protocol.elixir
+T 18 source.elixir meta.protocol_implementation.elixir
+T 20 source.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+L     import Inspect.Algebra
+T 4 source.elixir
+T 10 source.elixir keyword.control.elixir
+T 11 source.elixir
+T 18 source.elixir entity.name.type.class.elixir
+T 19 source.elixir punctuation.separator.method.elixir
+T 26 source.elixir entity.name.type.class.elixir
+L 
+L     def inspect(map_set, %Inspect.Opts{} = opts) do
+T 4 source.elixir meta.function.public.elixir
+T 7 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 8 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 23 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 26 source.elixir meta.function.public.elixir
+T 33 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 34 source.elixir meta.function.public.elixir punctuation.separator.method.elixir
+T 38 source.elixir meta.function.public.elixir entity.name.type.class.elixir
+T 39 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 40 source.elixir meta.function.public.elixir punctuation.section.scope.elixir
+T 41 source.elixir meta.function.public.elixir
+T 42 source.elixir meta.function.public.elixir keyword.operator.assignment.elixir
+T 47 source.elixir meta.function.public.elixir
+T 48 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 49 source.elixir meta.function.public.elixir
+T 51 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L       {doc, %{limit: limit}} =
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 10 source.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 13 source.elixir
+T 14 source.elixir punctuation.section.scope.elixir
+T 19 source.elixir constant.other.keywords.elixir
+T 20 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.section.scope.elixir
+T 28 source.elixir punctuation.section.scope.elixir
+T 29 source.elixir
+T 30 source.elixir keyword.operator.assignment.elixir
+L         map_set
+T 15 source.elixir
+L         |> MapSet.to_list()
+T 8 source.elixir
+T 10 source.elixir keyword.operator.sigils_1.elixir
+T 11 source.elixir
+T 17 source.elixir entity.name.type.class.elixir
+T 18 source.elixir punctuation.separator.method.elixir
+T 25 source.elixir entity.name.function.elixir
+T 26 source.elixir punctuation.section.function.elixir
+T 27 source.elixir punctuation.section.function.elixir
+L         |> to_doc_with_opts(%{opts | charlists: :as_lists})
+T 8 source.elixir
+T 10 source.elixir keyword.operator.other.elixir
+T 11 source.elixir
+T 27 source.elixir entity.name.function.elixir
+T 28 source.elixir punctuation.section.function.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.section.scope.elixir
+T 35 source.elixir
+T 36 source.elixir keyword.operator.other.elixir
+T 37 source.elixir
+T 46 source.elixir constant.other.keywords.elixir
+T 47 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 48 source.elixir
+T 49 source.elixir constant.other.symbol.elixir punctuation.definition.constant.elixir
+T 57 source.elixir constant.other.symbol.elixir
+T 58 source.elixir punctuation.section.scope.elixir
+T 59 source.elixir punctuation.section.function.elixir
+L 
+L       {concat(["MapSet.new(", doc, ")"]), %{opts | limit: limit}}
+T 6 source.elixir
+T 7 source.elixir punctuation.section.scope.elixir
+T 13 source.elixir entity.name.function.elixir
+T 14 source.elixir punctuation.section.function.elixir
+T 15 source.elixir punctuation.section.array.elixir
+T 16 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 27 source.elixir string.quoted.double.elixir
+T 28 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 29 source.elixir punctuation.separator.object.elixir
+T 33 source.elixir
+T 34 source.elixir punctuation.separator.object.elixir
+T 35 source.elixir
+T 36 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 37 source.elixir string.quoted.double.elixir
+T 38 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 39 source.elixir punctuation.section.array.elixir
+T 40 source.elixir punctuation.section.function.elixir
+T 41 source.elixir punctuation.separator.object.elixir
+T 43 source.elixir
+T 44 source.elixir punctuation.section.scope.elixir
+T 49 source.elixir
+T 50 source.elixir keyword.operator.other.elixir
+T 51 source.elixir
+T 56 source.elixir constant.other.keywords.elixir
+T 57 source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 63 source.elixir
+T 64 source.elixir punctuation.section.scope.elixir
+T 65 source.elixir punctuation.section.scope.elixir
+L     end
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L end
+T 3 source.elixir keyword.control.elixir
+L 

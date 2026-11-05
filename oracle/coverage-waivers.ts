@@ -1358,6 +1358,10 @@ export const waivers: Waiver[] = [
         "the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it",
     }),
   ),
+  { grammar: "elixir", path: "patterns[7].begin", group: 1, reason: lookahead },
+  { grammar: "elixir", path: "#core_syntax.patterns[21].match", group: 1, reason: missing(0) },
+  { grammar: "elixir", path: "#core_syntax.patterns[47].begin", group: 1, reason: blanks },
+  { grammar: "elixir", path: "#core_syntax.patterns[48].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
   {
@@ -1536,6 +1540,7 @@ export const complete: string[] = [
   "dart",
   "diff",
   "docker",
+  "elixir",
   "erb",
   "go",
   "graphql",

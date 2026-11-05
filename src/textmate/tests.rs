@@ -13,6 +13,9 @@ use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limit, Limits, LineReport};
 
+#[cfg(feature = "lang-html")]
+#[path = "../../tests/engine/elixir.rs"]
+mod elixir_tables;
 #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
 #[path = "../../tests/engine/html.rs"]
 mod html_tables;
@@ -165,11 +168,14 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
 
 /// The bytes of `lines` whose stack differs from Shiki's, with a message for
 /// each of the first few.
+/// A grammar that hands regions to languages lexed by hand runs with the
+/// handing loop, as its language would.
 fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize, usize, String) {
     let mut arena = Arena::new(None);
     let limits = Limits::unlimited();
     let mut scratch = Scratch::default();
     scratch.no_scanner = scanners == Scanners::Off;
+    let mut whole = crate::scratch::Scratch::default();
     let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
     let mut names: HashMap<u32, String> = HashMap::new();
     let (mut checked, mut missed) = (0, 0);
@@ -179,20 +185,41 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
     for (number, line) in lines.iter().enumerate() {
         let mut out = Vec::new();
         let mut report = LineReport::default();
-        state = tokenizer::line(
-            &mut scratch,
-            &mut arena,
-            &limits,
-            Text {
-                grammar,
-                bytes: line.text.as_bytes(),
+        state = if grammar.hand_offs.is_empty() {
+            tokenizer::line(
+                &mut scratch,
+                &mut arena,
+                &limits,
+                Text {
+                    grammar,
+                    bytes: line.text.as_bytes(),
+                    start: 0,
+                    anchored: false,
+                },
+                state,
+                &mut out,
+                &mut report,
+            )
+        } else {
+            whole.textmate.no_scanner = scanners == Scanners::Off;
+            let text = crate::language::Line {
+                text: &line.text,
                 start: 0,
-                anchored: false,
-            },
-            state,
-            &mut out,
-            &mut report,
-        );
+                embedded: false,
+            };
+            tokenizer::line_handing(
+                &mut whole,
+                &mut arena,
+                &limits,
+                grammar,
+                text,
+                state,
+                &mut out,
+                &mut report,
+                None,
+            )
+            .0
+        };
         let mut actual: Vec<u32> = Vec::new();
         let mut start = 0;
         for token in &out {
@@ -255,6 +282,15 @@ fn check(grammar: &'static Grammar, language: &str, scanners: Scanners) {
 #[test]
 fn rust_grammar_matches_shiki() {
     check(&rust_tables::GRAMMAR, "rust", Scanners::On);
+}
+
+/// Elixir has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+/// The table hands its `~H` and `~L` sigils to HTML.
+#[cfg(feature = "lang-html")]
+#[test]
+fn elixir_grammar_matches_shiki() {
+    check(&elixir_tables::GRAMMAR, "elixir", Scanners::On);
 }
 
 /// Objective-C has a hand lexer.
@@ -441,8 +477,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::asm::grammar::GRAMMAR, "asm"),
     #[cfg(feature = "lang-common-lisp")]
     (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
-    #[cfg(feature = "lang-elixir")]
-    (&crate::elixir::grammar::GRAMMAR, "elixir"),
     #[cfg(feature = "lang-gdscript")]
     (&crate::gdscript::grammar::GRAMMAR, "gdscript"),
     #[cfg(feature = "lang-haml")]

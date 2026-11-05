@@ -589,7 +589,7 @@ VS Code's copy of the grammar is licensed under the MIT License, whose text is u
 
 ## Elixir
 
-Its TextMate engine runs the Elixir TextMate grammar that Shiki bundles as `elixir`, with its rules compiled into tables (`src/elixir/grammar.rs`).
+Its Elixir lexer emits the scope names of the Elixir TextMate grammar that Shiki bundles as `elixir`, and tries that grammar's rules in its order, from tables generated from it (`src/elixir/grammar.rs`).
 Shiki takes it from `Syntaxes/Elixir.tmLanguage` in [elixir-editors/elixir-tmbundle](https://github.com/elixir-editors/elixir-tmbundle) at commit `43c8cd957d5ac6e1abbd8730fc7a08c81a6e76c9`.
 That repository's `LICENSE` licenses it under the Apache License, Version 2.0.
 The repository has no NOTICE file.

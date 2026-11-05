@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 8
+version = 9
 
 [[file]]
 language = "bat"
@@ -288,6 +288,28 @@ licence = "MIT"
 licence_source = "https://github.com/OSGeo/gdal/blob/fa1fc3c77e75787c614e12a2ba5ac366db833e1f/docker/ubuntu-full/Dockerfile"
 bytes = 30979
 sha256 = "96d12ee7ce9d27fa135299789948d30125ad842beff972a5f41dd1a8fbe741c1"
+
+[[file]]
+language = "elixir"
+tier = "small"
+origin = "neutral"
+path = "elixir/small/elixir-behaviour.ex"
+source = "https://raw.githubusercontent.com/elixir-lang/elixir/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/behaviour.ex"
+licence = "Apache-2.0"
+licence_source = "https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/LICENSE"
+bytes = 3699
+sha256 = "db9cdd62adc2d2a58dd9dd66ddf46e854836df424fd3b29f7ce8f3e6f46af512"
+
+[[file]]
+language = "elixir"
+tier = "medium"
+origin = "neutral"
+path = "elixir/medium/elixir-version.ex"
+source = "https://raw.githubusercontent.com/elixir-lang/elixir/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/version.ex"
+licence = "Apache-2.0"
+licence_source = "https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/LICENSE"
+bytes = 22762
+sha256 = "8336eb75fc9875a07d345f4ab112ee076f94e0bb8dc437c1822f88e4756299da"
 
 [[file]]
 language = "erb"

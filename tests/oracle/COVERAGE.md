@@ -24,11 +24,12 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Dart | `dart` | 92 of 93 | 98.9% | 18 of 18 | 100.0% | 1 | 0 | yes |
 | diff | `diff` | 16 of 16 | 100.0% | 22 of 23 | 95.7% | 1 | 0 | yes |
 | Dockerfile | `docker` | 8 of 9 | 88.9% | 6 of 13 | 46.2% | 8 | 0 | yes |
+| Elixir | `elixir` | 130 of 130 | 100.0% | 80 of 84 | 95.2% | 4 | 0 | yes |
 | ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
-| HTML | `html` | 136 of 227 | 59.9% | 167 of 368 | 45.4% | 0 | 2 |  |
+| HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
@@ -302,6 +303,15 @@ patterns[5].end  groups 1 (waived: the grammar names the group, but the expressi
 patterns[6].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 ```
 
+### `elixir`
+
+```text
+patterns[7].begin  groups 1 (waived: the group is a lookahead, so it never holds text)
+#core_syntax.patterns[21].match  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#core_syntax.patterns[47].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#core_syntax.patterns[48].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+```
+
 ### `erb`
 
 ```text
@@ -414,25 +424,18 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #math.repository.#tags.patterns[9].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)
 #math.repository.#tags.patterns[9].patterns[0].begin  (?<!>)\G
 #math.repository.#tags.patterns[9].patterns[0].end  (?=/>)|>
-#svg.patterns[0].patterns[0].begin  (?<!>)\G
-#svg.patterns[0].patterns[0].end  >
-#svg.repository.#attribute.patterns[2].match  [^>\s]+
 #svg.repository.#tags.patterns[2].match  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
 #svg.repository.#tags.patterns[3].begin  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
 #svg.repository.#tags.patterns[3].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
 #svg.repository.#tags.patterns[3].patterns[0].begin  (?<!>)\G
 #svg.repository.#tags.patterns[3].patterns[0].end  (?=/>)|>
 #svg.repository.#tags.patterns[4].match  (?i)(<)(animateMotion|clipPath|defs|feComponentTransfer|feD…
-#svg.repository.#tags.patterns[5].begin  (?i)(<)(animateMotion|clipPath|defs|feComponentTransfer|feD…
-#svg.repository.#tags.patterns[5].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
-#svg.repository.#tags.patterns[5].patterns[0].begin  (?<!>)\G
-#svg.repository.#tags.patterns[5].patterns[0].end  (?=/>)|>
+#svg.repository.#tags.patterns[5].end  groups 4
 #svg.repository.#tags.patterns[6].match  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
 #svg.repository.#tags.patterns[7].begin  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
 #svg.repository.#tags.patterns[7].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
 #svg.repository.#tags.patterns[7].patterns[0].begin  (?<!>)\G
 #svg.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[8].match  (?i)(<)(circle|ellipse|feImage|foreignObject|image|line|pat…
 #svg.repository.#tags.patterns[9].begin  groups 3, 5
 #svg.repository.#tags.patterns[9].end  groups 1, 2, 3
 #svg.repository.#tags.patterns[9].patterns[0].end  groups 0

@@ -1,0 +1,524 @@
+L ## Reaches the units of the `elixir` grammar that the other inputs miss.
+T 2 source.elixir comment.line.section.elixir punctuation.definition.comment.elixir
+T 72 source.elixir comment.line.section.elixir
+L ## Written for nishiki.
+T 2 source.elixir comment.line.section.elixir punctuation.definition.comment.elixir
+T 23 source.elixir comment.line.section.elixir
+L 
+L defprotocol Size do
+T 11 source.elixir meta.protocol_declaration.elixir keyword.control.protocol.elixir
+T 12 source.elixir meta.protocol_declaration.elixir
+T 16 source.elixir meta.protocol_declaration.elixir entity.name.type.protocol.elixir
+T 17 source.elixir meta.protocol_declaration.elixir
+T 19 source.elixir meta.protocol_declaration.elixir keyword.control.protocol.elixir
+L   def size(data)
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 15 source.elixir meta.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+L end
+T 3 source.elixir meta.function.public.elixir keyword.control.elixir
+L 
+L defimpl Size, for: BitString do
+T 7 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+T 8 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir
+T 12 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir entity.name.type.protocol.elixir
+T 19 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir
+T 28 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir entity.name.type.protocol.elixir
+T 29 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir
+T 31 source.elixir meta.function.public.elixir meta.protocol_implementation.elixir keyword.control.protocol.elixir
+L   def size(string), do: byte_size(string)
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 10 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 11 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 17 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 20 source.elixir meta.function.public.elixir
+T 23 source.elixir meta.function.public.elixir constant.other.keywords.elixir
+T 24 source.elixir
+T 33 source.elixir entity.name.function.elixir
+T 34 source.elixir punctuation.section.function.elixir
+T 40 source.elixir
+T 41 source.elixir punctuation.section.function.elixir
+L end
+T 3 source.elixir keyword.control.elixir
+L 
+L defmodule Coverage do
+T 9 source.elixir meta.module.elixir keyword.control.module.elixir
+T 10 source.elixir meta.module.elixir
+T 18 source.elixir meta.module.elixir entity.name.type.class.elixir
+T 19 source.elixir meta.module.elixir
+T 21 source.elixir meta.module.elixir keyword.control.module.elixir
+L   @moduledoc ~S"""
+T 2 source.elixir
+T 18 source.elixir comment.block.documentation.heredoc
+L   Literal documentation, with #{no} interpolation.
+T 50 source.elixir comment.block.documentation.heredoc
+L   """
+T 5 source.elixir comment.block.documentation.heredoc
+L 
+L   @doc '''
+T 2 source.elixir
+T 10 source.elixir comment.block.documentation.heredoc
+L   Charlist documentation, with #{1 + 1} interpolation.
+T 31 source.elixir comment.block.documentation.heredoc
+T 33 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 34 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir source.elixir constant.numeric.integer.elixir
+T 35 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir source.elixir
+T 36 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir source.elixir keyword.operator.arithmetic.elixir
+T 37 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir source.elixir
+T 38 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir source.elixir constant.numeric.integer.elixir
+T 39 source.elixir comment.block.documentation.heredoc meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 54 source.elixir comment.block.documentation.heredoc
+L   '''
+T 5 source.elixir comment.block.documentation.heredoc
+L 
+L   @typedoc ~S'''
+T 2 source.elixir
+T 16 source.elixir comment.block.documentation.heredoc
+L   Literal charlist documentation.
+T 33 source.elixir comment.block.documentation.heredoc
+L   '''
+T 5 source.elixir comment.block.documentation.heredoc
+L 
+L   @doc "One line of documentation, with a \t tab."
+T 2 source.elixir
+T 8 source.elixir comment.block.documentation.string
+T 42 source.elixir comment.block.documentation.string
+T 44 source.elixir comment.block.documentation.string constant.character.escaped.elixir
+T 49 source.elixir comment.block.documentation.string
+T 50 source.elixir comment.block.documentation.string
+L 
+L   def public(a) when is_atom a do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 14 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.public.elixir
+T 20 source.elixir meta.function.public.elixir keyword.operator.elixir
+T 21 source.elixir meta.function.public.elixir
+T 28 source.elixir meta.function.public.elixir keyword.control.elixir
+T 31 source.elixir meta.function.public.elixir
+T 33 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     {__MODULE__, __ENV__, a}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 15 source.elixir variable.language.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 17 source.elixir
+T 24 source.elixir variable.language.elixir
+T 25 source.elixir punctuation.separator.object.elixir
+T 27 source.elixir
+T 28 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   defp private(a, b \\ 1) when is_list a do
+T 2 source.elixir meta.function.private.elixir
+T 6 source.elixir meta.function.private.elixir keyword.control.module.elixir
+T 7 source.elixir meta.function.private.elixir
+T 14 source.elixir meta.function.private.elixir entity.name.function.private.elixir
+T 15 source.elixir meta.function.private.elixir punctuation.section.function.elixir
+T 16 source.elixir meta.function.private.elixir
+T 17 source.elixir meta.function.private.elixir punctuation.separator.object.elixir
+T 19 source.elixir meta.function.private.elixir
+T 20 source.elixir meta.function.private.elixir
+T 22 source.elixir meta.function.private.elixir keyword.operator.other.elixir
+T 23 source.elixir meta.function.private.elixir
+T 24 source.elixir meta.function.private.elixir constant.numeric.integer.elixir
+T 25 source.elixir meta.function.private.elixir
+T 26 source.elixir meta.function.private.elixir
+T 30 source.elixir meta.function.private.elixir keyword.operator.elixir
+T 31 source.elixir meta.function.private.elixir
+T 38 source.elixir meta.function.private.elixir keyword.control.elixir
+T 41 source.elixir meta.function.private.elixir
+T 43 source.elixir meta.function.private.elixir keyword.control.module.elixir
+L     numbers = [0x1F, 0x1_f, 1.5e10, 2.0, 0b101, 0o17, 1_000]
+T 12 source.elixir
+T 13 source.elixir keyword.operator.assignment.elixir
+T 14 source.elixir
+T 15 source.elixir punctuation.section.array.elixir
+T 19 source.elixir constant.numeric.hex.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 21 source.elixir
+T 26 source.elixir constant.numeric.hex.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 28 source.elixir
+T 34 source.elixir constant.numeric.float.elixir
+T 35 source.elixir punctuation.separator.object.elixir
+T 36 source.elixir
+T 39 source.elixir constant.numeric.float.elixir
+T 40 source.elixir punctuation.separator.object.elixir
+T 41 source.elixir
+T 46 source.elixir constant.numeric.binary.elixir
+T 47 source.elixir punctuation.separator.object.elixir
+T 48 source.elixir
+T 52 source.elixir constant.numeric.octal.elixir
+T 53 source.elixir punctuation.separator.object.elixir
+T 54 source.elixir
+T 59 source.elixir constant.numeric.integer.elixir
+T 60 source.elixir punctuation.section.array.elixir
+L     atoms = [:'single quoted', :"double #{a} quoted"]
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 13 source.elixir punctuation.section.array.elixir
+T 15 source.elixir constant.other.symbol.single-quoted.elixir punctuation.definition.constant.elixir
+T 28 source.elixir constant.other.symbol.single-quoted.elixir
+T 29 source.elixir constant.other.symbol.single-quoted.elixir punctuation.definition.constant.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 33 source.elixir constant.other.symbol.double-quoted.elixir punctuation.definition.constant.elixir
+T 40 source.elixir constant.other.symbol.double-quoted.elixir
+T 42 source.elixir constant.other.symbol.double-quoted.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 43 source.elixir constant.other.symbol.double-quoted.elixir meta.embedded.line.elixir source.elixir
+T 44 source.elixir constant.other.symbol.double-quoted.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 51 source.elixir constant.other.symbol.double-quoted.elixir
+T 52 source.elixir constant.other.symbol.double-quoted.elixir punctuation.definition.constant.elixir
+T 53 source.elixir punctuation.section.array.elixir
+L     chars = [?a, ?\n, ?\x41, ?\s]
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 13 source.elixir punctuation.section.array.elixir
+T 15 source.elixir constant.numeric.elixir
+T 16 source.elixir punctuation.separator.object.elixir
+T 17 source.elixir
+T 20 source.elixir constant.numeric.elixir
+T 21 source.elixir punctuation.separator.object.elixir
+T 22 source.elixir
+T 27 source.elixir constant.numeric.elixir
+T 28 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 32 source.elixir constant.numeric.elixir
+T 33 source.elixir punctuation.section.array.elixir
+L     {numbers, atoms, chars, b}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 12 source.elixir
+T 13 source.elixir punctuation.separator.object.elixir
+T 19 source.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 26 source.elixir
+T 27 source.elixir punctuation.separator.object.elixir
+T 29 source.elixir
+T 30 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def heredocs do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 14 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 15 source.elixir meta.function.public.elixir
+T 17 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     """
+T 4 source.elixir
+T 7 source.elixir string.quoted.double.heredoc.elixir punctuation.definition.string.begin.elixir
+L     A string heredoc with "quotes" and #{interpolation}.
+T 39 source.elixir string.quoted.double.heredoc.elixir
+T 41 source.elixir string.quoted.double.heredoc.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 54 source.elixir string.quoted.double.heredoc.elixir meta.embedded.line.elixir source.elixir
+T 55 source.elixir string.quoted.double.heredoc.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 56 source.elixir string.quoted.double.heredoc.elixir
+L     """
+T 7 source.elixir string.quoted.double.heredoc.elixir punctuation.definition.string.end.elixir
+L 
+L     '''
+T 4 source.elixir
+T 7 source.elixir string.quoted.single.heredoc.elixir punctuation.definition.string.begin.elixir
+L     A charlist heredoc.
+T 23 source.elixir string.quoted.single.heredoc.elixir
+L     '''
+T 7 source.elixir string.quoted.single.heredoc.elixir punctuation.definition.string.end.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def sigils do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 12 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 13 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     lower = [~s"""
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 13 source.elixir punctuation.section.array.elixir
+T 18 source.elixir string.quoted.other.sigil.heredoc.elixir punctuation.definition.string.begin.elixir
+L     a heredoc sigil
+T 19 source.elixir string.quoted.other.sigil.heredoc.elixir
+L     """, ~s{braces}, ~s[brackets], ~s<angles>, ~s(parens), ~s|bars|]
+T 7 source.elixir string.quoted.other.sigil.heredoc.elixir punctuation.definition.string.end.elixir
+T 8 source.elixir punctuation.separator.object.elixir
+T 9 source.elixir
+T 12 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 18 source.elixir string.quoted.other.sigil.elixir
+T 19 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 21 source.elixir
+T 24 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 32 source.elixir string.quoted.other.sigil.elixir
+T 33 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+T 34 source.elixir punctuation.separator.object.elixir
+T 35 source.elixir
+T 38 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 44 source.elixir string.quoted.other.sigil.elixir
+T 45 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+T 46 source.elixir punctuation.separator.object.elixir
+T 47 source.elixir
+T 50 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 56 source.elixir string.quoted.other.sigil.elixir
+T 57 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+T 58 source.elixir punctuation.separator.object.elixir
+T 59 source.elixir
+T 62 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.begin.elixir
+T 66 source.elixir string.quoted.other.sigil.elixir
+T 67 source.elixir string.quoted.other.sigil.elixir punctuation.definition.string.end.elixir
+T 68 source.elixir punctuation.section.array.elixir
+L     upper = [~S"""
+T 10 source.elixir
+T 11 source.elixir keyword.operator.assignment.elixir
+T 12 source.elixir
+T 13 source.elixir punctuation.section.array.elixir
+T 18 source.elixir string.quoted.other.sigil.heredoc.literal.elixir punctuation.definition.string.begin.elixir
+L     a literal heredoc sigil
+T 27 source.elixir string.quoted.other.sigil.heredoc.literal.elixir
+L     """, ~S{braces}, ~S[brackets], ~S<angles>, ~S(parens), ~S|bars|]
+T 7 source.elixir string.quoted.other.sigil.heredoc.literal.elixir punctuation.definition.string.end.elixir
+T 8 source.elixir punctuation.separator.object.elixir
+T 9 source.elixir
+T 12 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
+T 18 source.elixir string.quoted.other.sigil.literal.elixir
+T 19 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
+T 20 source.elixir punctuation.separator.object.elixir
+T 21 source.elixir
+T 24 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
+T 32 source.elixir string.quoted.other.sigil.literal.elixir
+T 33 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
+T 34 source.elixir punctuation.separator.object.elixir
+T 35 source.elixir
+T 38 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
+T 44 source.elixir string.quoted.other.sigil.literal.elixir
+T 45 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
+T 46 source.elixir punctuation.separator.object.elixir
+T 47 source.elixir
+T 50 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
+T 56 source.elixir string.quoted.other.sigil.literal.elixir
+T 57 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
+T 58 source.elixir punctuation.separator.object.elixir
+T 59 source.elixir
+T 62 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.begin.elixir
+T 66 source.elixir string.quoted.other.sigil.literal.elixir
+T 67 source.elixir string.quoted.other.sigil.literal.elixir punctuation.definition.string.end.elixir
+T 68 source.elixir punctuation.section.array.elixir
+L     {lower, upper, 'charlist', "a\nb"}
+T 4 source.elixir
+T 5 source.elixir punctuation.section.scope.elixir
+T 10 source.elixir
+T 11 source.elixir punctuation.separator.object.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 19 source.elixir
+T 20 source.elixir string.quoted.single.elixir punctuation.definition.string.begin.elixir
+T 28 source.elixir string.quoted.single.elixir
+T 29 source.elixir string.quoted.single.elixir punctuation.definition.string.end.elixir
+T 30 source.elixir punctuation.separator.object.elixir
+T 31 source.elixir
+T 32 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 33 source.elixir string.quoted.double.elixir
+T 35 source.elixir string.quoted.double.elixir constant.character.escaped.elixir
+T 36 source.elixir string.quoted.double.elixir
+T 37 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+T 38 source.elixir punctuation.section.scope.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def operators(a, b) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 17 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir punctuation.separator.object.elixir
+T 20 source.elixir meta.function.public.elixir
+T 21 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 22 source.elixir meta.function.public.elixir
+T 24 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     a ||| b
+T 6 source.elixir
+T 9 source.elixir keyword.operator.bitwise.elixir
+T 11 source.elixir
+L     a ^^^ b
+T 6 source.elixir
+T 9 source.elixir keyword.operator.bitwise.elixir
+T 11 source.elixir
+L     a : b
+T 6 source.elixir
+T 7 source.elixir punctuation.separator.other.elixir
+T 9 source.elixir
+L     a; b
+T 5 source.elixir
+T 6 source.elixir punctuation.separator.statement.elixir
+T 8 source.elixir
+L     "#{%{key: a}}"
+T 4 source.elixir
+T 5 source.elixir string.quoted.double.elixir punctuation.definition.string.begin.elixir
+T 7 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.begin.elixir
+T 8 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 9 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.scope.elixir
+T 12 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir constant.other.keywords.elixir
+T 13 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir constant.other.keywords.elixir punctuation.definition.constant.elixir
+T 15 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir
+T 16 source.elixir string.quoted.double.elixir meta.embedded.line.elixir source.elixir punctuation.section.scope.elixir
+T 17 source.elixir string.quoted.double.elixir meta.embedded.line.elixir punctuation.section.embedded.end.elixir
+T 18 source.elixir string.quoted.double.elixir punctuation.definition.string.end.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def anonymous do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 15 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 16 source.elixir meta.function.public.elixir
+T 18 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     Enum.map([1], fn(x) -> x end)
+T 4 source.elixir
+T 8 source.elixir entity.name.type.class.elixir
+T 9 source.elixir punctuation.separator.method.elixir
+T 12 source.elixir entity.name.function.elixir
+T 13 source.elixir punctuation.section.function.elixir
+T 14 source.elixir punctuation.section.array.elixir
+T 15 source.elixir constant.numeric.integer.elixir
+T 16 source.elixir punctuation.section.array.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 18 source.elixir
+T 20 source.elixir entity.name.function.elixir
+T 21 source.elixir punctuation.section.function.elixir
+T 22 source.elixir
+T 23 source.elixir punctuation.section.function.elixir
+T 24 source.elixir
+T 25 source.elixir keyword.operator.arithmetic.elixir
+T 26 source.elixir keyword.operator.comparison.elixir
+T 29 source.elixir
+T 32 source.elixir keyword.control.elixir
+T 33 source.elixir punctuation.section.function.elixir
+L     Enum.map([1], fn x when x > 0 -> x end)
+T 4 source.elixir
+T 8 source.elixir entity.name.type.class.elixir
+T 9 source.elixir punctuation.separator.method.elixir
+T 12 source.elixir entity.name.function.elixir
+T 13 source.elixir punctuation.section.function.elixir
+T 14 source.elixir punctuation.section.array.elixir
+T 15 source.elixir constant.numeric.integer.elixir
+T 16 source.elixir punctuation.section.array.elixir
+T 17 source.elixir punctuation.separator.object.elixir
+T 18 source.elixir
+T 20 source.elixir keyword.control.elixir
+T 23 source.elixir
+T 27 source.elixir keyword.control.elixir
+T 30 source.elixir
+T 31 source.elixir keyword.operator.comparison.elixir
+T 32 source.elixir
+T 33 source.elixir constant.numeric.integer.elixir
+T 34 source.elixir
+T 35 source.elixir keyword.operator.arithmetic.elixir
+T 36 source.elixir keyword.operator.comparison.elixir
+T 39 source.elixir
+T 42 source.elixir keyword.control.elixir
+T 43 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L 
+L   def clauses(list) do
+T 2 source.elixir meta.function.public.elixir
+T 5 source.elixir meta.function.public.elixir keyword.control.module.elixir
+T 6 source.elixir meta.function.public.elixir
+T 13 source.elixir meta.function.public.elixir entity.name.function.public.elixir
+T 14 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 18 source.elixir meta.function.public.elixir
+T 19 source.elixir meta.function.public.elixir punctuation.section.function.elixir
+T 20 source.elixir meta.function.public.elixir
+T 22 source.elixir meta.function.public.elixir keyword.control.module.elixir
+L     Enum.map(list, fn x ->
+T 4 source.elixir
+T 8 source.elixir entity.name.type.class.elixir
+T 9 source.elixir punctuation.separator.method.elixir
+T 12 source.elixir entity.name.function.elixir
+T 13 source.elixir punctuation.section.function.elixir
+T 17 source.elixir
+T 18 source.elixir punctuation.separator.object.elixir
+T 19 source.elixir
+T 21 source.elixir keyword.control.elixir
+T 24 source.elixir
+T 26 source.elixir keyword.operator.other.elixir
+L       x
+T 7 source.elixir
+L     end)
+T 4 source.elixir
+T 7 source.elixir keyword.control.elixir
+T 8 source.elixir punctuation.section.function.elixir
+L   end
+T 2 source.elixir
+T 5 source.elixir keyword.control.elixir
+L end
+T 3 source.elixir keyword.control.elixir
+L 
+L ## A section comment
+T 2 source.elixir comment.line.section.elixir punctuation.definition.comment.elixir
+T 20 source.elixir comment.line.section.elixir
+L ## that runs on.
+T 2 source.elixir comment.line.section.elixir punctuation.definition.comment.elixir
+T 16 source.elixir comment.line.section.elixir
+L     # A comment after blanks.
+T 4 source.elixir punctuation.whitespace.comment.leading.elixir
+T 5 source.elixir comment.line.number-sign.elixir punctuation.definition.comment.elixir
+T 29 source.elixir comment.line.number-sign.elixir
+L 
+L   foo(a) -> a
+T 5 source.elixir
+T 6 source.elixir punctuation.section.function.elixir
+T 7 source.elixir
+T 8 source.elixir punctuation.section.function.elixir
+T 9 source.elixir
+T 10 source.elixir keyword.operator.arithmetic.elixir
+T 11 source.elixir keyword.operator.comparison.elixir
+T 13 source.elixir
+L 
+L ## Not valid Elixir: a `)` ends an anonymous function's head, as while the
+T 2 source.elixir comment.line.section.elixir punctuation.definition.comment.elixir
+T 74 source.elixir comment.line.section.elixir
+L ## text is being edited.
+T 2 source.elixir comment.line.section.elixir punctuation.definition.comment.elixir
+T 24 source.elixir comment.line.section.elixir
+L f = fn a) -> a
+T 2 source.elixir
+T 3 source.elixir keyword.operator.assignment.elixir
+T 4 source.elixir
+T 6 source.elixir keyword.control.elixir
+T 8 source.elixir
+T 9 source.elixir punctuation.section.function.elixir
+T 10 source.elixir
+T 11 source.elixir keyword.operator.arithmetic.elixir
+T 12 source.elixir keyword.operator.comparison.elixir
+T 14 source.elixir
+L 

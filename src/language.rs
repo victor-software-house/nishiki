@@ -948,16 +948,20 @@ languages! {
         halts: true,
         hands_off: true,
     }
-    /// Elixir, with the scopes of Shiki's `elixir` grammar, which nishiki's
-    /// `TextMate` engine runs. HTML in its `~H` and `~L` sigils goes to
-    /// HTML's lexer.
+    /// Elixir, with the scopes of Shiki's `elixir` grammar. HTML in its `~H`
+    /// and `~L` sigils goes to HTML's lexer.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Shiki bundles no `EEx` grammar, so `<%= %>` tags and `{…}` attribute values in a `~H` or `~L` sigil are HTML text.
+    /// - Without `lang-html`, a `~H` or `~L` sigil's text keeps the sigil's scope alone.
+    /// - A sigil whose delimiter is the line feed, such as `~s` at the end of a line, runs to the end of the next line.
     Elixir {
         feature: "lang-elixir",
         names: ["elixir"],
-        engine: crate::elixir::grammar::GRAMMAR,
+        module: elixir,
         reads_line_feed: true,
         halts: true,
-        hands_off: true,
     }
     /// Vue, with the scopes of Shiki's `vue` grammar: single-file components
     /// whose blocks hold a template, scripts and styles.

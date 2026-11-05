@@ -40,6 +40,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Dart line, as GraphQL's is.
     #[cfg(feature = "lang-dart")]
     pub(crate) dart: Option<Box<crate::dart::Scratch>>,
+    /// The Elixir lexer's, for Elixir documents and Markdown Elixir fences.
+    /// It is boxed and allocated by the first Elixir line, as Haskell's is.
+    #[cfg(feature = "lang-elixir")]
+    pub(crate) elixir: Option<Box<crate::elixir::Scratch>>,
     /// The Go lexer's, for Go documents.
     #[cfg(feature = "lang-go")]
     pub(crate) go: crate::go::Scratch,

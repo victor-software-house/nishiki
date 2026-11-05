@@ -61,6 +61,7 @@ const handLexed = new Map([
   ["dart", "Dart"],
   ["diff", "diff"],
   ["docker", "Dockerfile"],
+  ["elixir", "Elixir"],
   ["erb", "ERB"],
   ["go", "Go"],
   ["graphql", "GraphQL"],

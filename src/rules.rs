@@ -46,7 +46,8 @@ use std::fmt::Debug;
     feature = "lang-objective-c",
     feature = "lang-objective-cpp",
     feature = "lang-svelte",
-    feature = "lang-php"
+    feature = "lang-php",
+    feature = "lang-elixir"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]
@@ -384,7 +385,8 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-ruby",
     feature = "lang-lua",
     feature = "lang-svelte",
-    feature = "lang-php"
+    feature = "lang-php",
+    feature = "lang-elixir"
 ))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
@@ -399,7 +401,8 @@ macro_rules! embedded {
     feature = "lang-ruby",
     feature = "lang-lua",
     feature = "lang-svelte",
-    feature = "lang-php"
+    feature = "lang-php",
+    feature = "lang-elixir"
 ))]
 pub(crate) use embedded;
 

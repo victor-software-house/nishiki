@@ -98,6 +98,8 @@ tables! {
     DIFF = diff;
     #[cfg(feature = "lang-dockerfile")]
     DOCKERFILE = dockerfile;
+    #[cfg(feature = "lang-elixir")]
+    ELIXIR = elixir;
     #[cfg(feature = "lang-go")]
     GO = go;
     #[cfg(feature = "lang-graphql")]

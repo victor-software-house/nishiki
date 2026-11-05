@@ -1,0 +1,35 @@
+// Elixir for the differential fuzzer (fuzz.ts): pieces of Elixir to build
+// documents from, texts to insert, and the info strings of Markdown fences.
+
+/** Pieces that random documents are made of. */
+export const pieces: string[] = [
+  "defmodule A.B do", "defprotocol P do", "defimpl P, for: A do", "end", "def f(a, b \\\\ 1) when is_atom(a) do",
+  "defp g(x), do: x", "defmacro m(ast) do", "defdelegate d(x), to: A", "defguard is_ok(x) when x == :ok",
+  "def a.b(x)", "def +(a, b)", "def [](a)", "def sum!(a)", "def valid?(a)", "def name=(v)", "def unquote(n)(a) do",
+  "fn x -> x end", "fn x when x > 0 -> x end", "fn(x) -> x end", "fn -> :ok end", "&(&1 + 1)", "&Enum.map/2",
+  "case x do", "  {:ok, v} -> v", "  _ -> nil", "cond do", "  true -> 1", "with {:ok, a} <- f() do", "receive do",
+  "after 100 -> :timeout", "try do", "rescue e -> e", "catch :exit, _ -> nil", "if a, do: b, else: c", "unless x do",
+  "@moduledoc \"\"\"", "@doc \"\"\"", "@doc ~S\"\"\"", "@doc '''", "@typedoc ~S'''", "@doc false", "@doc \"one line\"",
+  "\"\"\"", "'''", "@spec f(integer) :: atom", "@type t :: %__MODULE__{}", "@impl true", "@behaviour B", "@attr 1",
+  "\"a #{b} c\"", "\"a #{%{k: 1}} c\"", "'charlist'", "\"\\x41\\n\\t\"", ":atom", ":\"quoted atom\"", ":'single'",
+  ":+", ":===", ":<<>>", ":..//", ":%{}", "key: value", "Kernel.+(1, 2)", "Enum.map(list, &f/1)", ":lists.reverse(l)",
+  "x |> f() |> g", "a <> b", "a ++ b", "a -- b", "a ||| b", "a &&& b", "a <<< b", "~~~a", "a in b", "not a", "a and b",
+  "!a", "a != b", "a === b", "a =~ ~r/x/", "a..b//2", "^pin", "_unused", "_", "__MODULE__", "__CALLER__", "@x",
+  "?a", "?\\n", "?\\x41", "?\\s", "0x1F", "0b1010", "0o777", "1_000_000", "3.14", "1.0e-10", "1.5E+3", "12",
+  "~s(text)", "~s{text}", "~s[text]", "~s<text>", "~s|text|", "~s/text/", "~S(literal)", "~w(a b c)a", "~r/a+b/iu",
+  "~s\"\"\"", "~S\"\"\"", "~H\"\"\"", "~L\"\"\"", "<div class=\"a\">{@b}</div>", "<%= @x %>", "<.link navigate={@p}>",
+  "%{a: 1, b: 2}", "%A{a | b: 1}", "<<1, 2>>", "{:ok, value}", "[head | tail]", "# comment", "## section",
+  "alias A.{B, C}", "import A, only: [f: 1]", "require Logger", "use GenServer", "quote do: unquote(x)",
+  "send(pid, :msg)", "spawn(fn -> 1 end)", "x = 1; y = 2", "a : b", "f.(x)", "Mod.fun!(a)", "Mod.fun?(a)",
+  "  (a) -> a", "  a, b -> a", "  x when is_list(x) ->", "é = 1", "café(1)", "Ünïcode.f(x)",
+];
+
+/** Texts that mutation inserts. */
+export const mutations: string[] = [
+  "\"", "'", "\"\"\"", "'''", "#{", "}", "{", "(", ")", "[", "]", "<", ">", "|", "/", "~s", "~S", "~H\"\"\"", "~s\n",
+  "fn ", "->", " when ", "def ", "defp ", "do", "end", "do:", "#", "##", ":", "::", "?", "\\", "\\\\", "@", "&", "^",
+  "_", "é", " ", "\t", " ", "  ",
+];
+
+/** Info strings of Markdown fences, some of which do not name Elixir. */
+export const fences: string[] = ["elixir", "ex", "exs", "heex", "eex"];

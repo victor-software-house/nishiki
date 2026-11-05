@@ -167,7 +167,7 @@
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
-//! | `textmate` | Assembly, CoffeeScript, Common Lisp, Elixir, GDScript, HAML, MATLAB, Pascal, Perl, Visual Basic |
+//! | `textmate` | Assembly, CoffeeScript, Common Lisp, GDScript, HAML, MATLAB, Pascal, Perl, Visual Basic |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
 //! from Shiki's grammars, compiled in as tables.

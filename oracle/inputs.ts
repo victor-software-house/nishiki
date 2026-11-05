@@ -16,6 +16,7 @@ import cssCoverage from "./inputs/css-coverage.css" with { type: "text" };
 import dartCoverage from "./inputs/dart-coverage.dart" with { type: "text" };
 import diffCoverage from "./inputs/diff-coverage.diff" with { type: "text" };
 import dockerCoverage from "./inputs/docker-coverage.dockerfile" with { type: "text" };
+import elixirCoverage from "./inputs/elixir-coverage.ex" with { type: "text" };
 import elixirEmbedded from "./inputs/elixir-embedded.ex" with { type: "text" };
 import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
@@ -661,8 +662,12 @@ export const inputs: Input[] = [
   { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
   // Elixir runs on the TextMate engine. Its `~H` and `~L` sigils hand HTML
   // to its lexer.
+  { lang: "elixir", name: "coverage", text: elixirCoverage },
   { lang: "elixir", name: "elixir-keyword", url: `${elixirLang}/lib/elixir/lib/keyword.ex` },
+  { lang: "elixir", name: "elixir-map-set", url: `${elixirLang}/lib/elixir/lib/map_set.ex` },
+  { lang: "elixir", name: "elixir-range", url: `${elixirLang}/lib/elixir/lib/range.ex` },
   { lang: "elixir", name: "embedded", text: elixirEmbedded },
+  { lang: "elixir", name: "live-dashboard-layered-graph", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/layered_graph_component.ex` },
   { lang: "elixir", name: "live-dashboard-nav-bar", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/nav_bar_component.ex` },
   { lang: "elixir", name: "live-dashboard-table", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/table_component.ex` },
   { lang: "elixir", name: "sample", url: `${samples}/elixir.sample` },
