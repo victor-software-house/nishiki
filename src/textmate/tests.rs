@@ -82,6 +82,12 @@ fn fixtures(language: &str) -> Vec<PathBuf> {
 
 fn parse(path: &Path) -> Vec<Line> {
     let content = fs::read_to_string(path).expect("a readable fixture");
+    parse_text(&content, &path.display().to_string())
+}
+
+/// The lines of a fixture's text, each with the scope stack of every byte.
+/// `source` names the fixture in a panic.
+fn parse_text(content: &str, source: &str) -> Vec<Line> {
     let mut lines: Vec<Line> = Vec::new();
     let mut start = 0;
     for record in content.lines() {
@@ -98,20 +104,29 @@ fn parse(path: &Path) -> Vec<Line> {
             line.stacks.extend((start..end).map(|_| scopes.to_owned()));
             start = end;
         } else {
-            panic!("{}: unknown record {record:?}", path.display());
+            panic!("{source}: unknown record {record:?}");
         }
     }
     lines
 }
 
 /// Which lines sit in an embedded block, a fence or front matter, of a
-/// language the grammar's tables do not hold. The tables hold the languages
-/// the oracle had when they were written, so a block of a language added
-/// since cannot match, and it is left out rather than failing every new
-/// language's pull request. A block is of such a language when Shiki gives a
-/// scope the tables never name, or a `meta.embedded.block.*` scope that no
-/// rule reachable from the root gives its contents, because the rule that
-/// embeds the language was dropped from every list with the language.
+/// language the grammar's tables do not hold.
+/// The tables hold the languages the oracle had when they were written.
+/// A block of a language added since cannot match.
+/// It is left out rather than failing every new language's pull request.
+///
+/// A block is of such a language when Shiki gives it a scope the tables never
+/// name, or when the rule that embeds the language was dropped from every list
+/// with the language.
+/// Either of two signs shows the dropped rule:
+/// - a `meta.embedded.block.*` scope in the block that no rule reachable from
+///   the root gives its contents;
+/// - a fence line that Shiki names `fenced_code.block.language.markdown`, a
+///   language's own fence rule, where no reachable rule that names its language
+///   so has a begin that matches the line. A body that ends at once, as a Less
+///   body popped by its first character does, holds no embedded scope, so only
+///   this sign shows it.
 fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
     let inside = |line: &Line| {
         line.stacks.iter().any(|stack| {
@@ -149,6 +164,44 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
                         .any(|&name| grammar.names.get(usize::from(name)) == Some(&scope))
             })
     };
+    let fence_language = grammar
+        .names
+        .iter()
+        .position(|&name| name == "fenced_code.block.language.markdown")
+        .and_then(|index| u16::try_from(index).ok());
+    let fence_rules: Vec<Regex> = grammar
+        .rules
+        .iter()
+        .zip(&reachable)
+        .filter(|&(rule, &reached)| {
+            reached
+                && rule
+                    .captures
+                    .iter()
+                    .any(|cap| fence_language.is_some_and(|name| cap.name.contains(&name)))
+        })
+        .filter_map(|(rule, _)| {
+            Regex::for_grammar(grammar.patterns[rule.begin].source, LineKind::Full).ok()
+        })
+        .collect();
+    let opens_known_fence = |line: &Line| {
+        let text = format!("{}\n", line.text);
+        let mut scratch = regex::Scratch::default();
+        fence_rules.iter().any(|regex| {
+            let mut steps = 10_000_000;
+            let context = Context {
+                search: Some(0),
+                text_start: false,
+            };
+            regex.find(&mut scratch, text.as_bytes(), 0, context, &mut steps)
+        })
+    };
+    let dropped_fence = |line: &Line| {
+        line.stacks
+            .iter()
+            .any(|stack| stack.ends_with("fenced_code.block.language.markdown"))
+            && !opens_known_fence(line)
+    };
     let mut skip = vec![false; lines.len()];
     let mut at = 0;
     while at < lines.len() {
@@ -159,15 +212,16 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
         let end = (at..lines.len())
             .find(|&next| !inside(&lines[next]))
             .unwrap_or(lines.len());
-        let unknown = lines[at..end]
-            .iter()
-            .flat_map(|line| &line.stacks)
-            .flat_map(|stack| stack.split(' '))
-            .any(|scope| {
-                scope != grammar.scope
-                    && (!grammar.names.contains(&scope)
-                        || (scope.starts_with("meta.embedded.block.") && !embeds(scope)))
-            });
+        let unknown = dropped_fence(&lines[at])
+            || lines[at..end]
+                .iter()
+                .flat_map(|line| &line.stacks)
+                .flat_map(|stack| stack.split(' '))
+                .any(|scope| {
+                    scope != grammar.scope
+                        && (!grammar.names.contains(&scope)
+                            || (scope.starts_with("meta.embedded.block.") && !embeds(scope)))
+                });
         if unknown {
             skip[at..end].fill(true);
         }
@@ -369,6 +423,49 @@ fn typescript_grammar_matches_shiki() {
 #[test]
 fn markdown_grammar_matches_shiki() {
     check(&markdown_tables::GRAMMAR, "markdown", Scanners::On);
+}
+
+/// Shiki's lines for a `less` fence whose body `)` pops at once.
+/// The body holds no `meta.embedded.block.less`.
+const POPPED_LESS_FENCE: &str = "\
+L ```less
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ) a
+T 3 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+";
+
+/// Shiki's lines for a `css` fence that closes at once.
+const EMPTY_CSS_FENCE: &str = "\
+L ```css
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+";
+
+/// The Markdown tables drop the `less` fence rule with Less.
+/// A popped `less` fence shows it only by its fence line, and is left out.
+#[test]
+fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
+    let lines = parse_text(POPPED_LESS_FENCE, "a popped less fence");
+    assert_eq!(
+        unknown_fences(&markdown_tables::GRAMMAR, &lines),
+        [true, true, true]
+    );
+}
+
+/// The Markdown tables keep the `css` fence rule.
+/// An empty `css` fence holds no embedded scope either, and is still compared.
+#[test]
+fn an_empty_fence_of_a_kept_language_is_compared() {
+    let lines = parse_text(EMPTY_CSS_FENCE, "an empty css fence");
+    assert_eq!(
+        unknown_fences(&markdown_tables::GRAMMAR, &lines),
+        [false, false]
+    );
 }
 
 #[test]
