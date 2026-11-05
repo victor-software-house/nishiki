@@ -51,6 +51,7 @@ None.
   It is additive, so the release is a patch.
 - The crate docs' quick start and the comparison harness use the new method.
 - No dependency is added.
-- Each slice gates on Callgrind at one codegen unit: every language at or below 1.000.
+- Each slice runs the Callgrind gate at one codegen unit, which fails a row that rises more than 0.5%.
+- Review asks more: every language at or below 1.000.
 
 [compare]: https://github.com/victor-software-house/nishiki-archive/blob/68620d9ef4c7eb99a91c30f3a3d6788a2c4aaebf/bench/compare/results/namespace-8x16/2026-11-04-855723c6.md

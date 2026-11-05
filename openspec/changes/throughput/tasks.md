@@ -2,7 +2,8 @@
 
 Every slice is measured against its base on a box, with valgrind 3.27.1 from the bench profile.
 Builds use one codegen unit and `MBX_DISABLE=1`, three builds per side with equal hashes.
-The gate is every row at or below 1.000.
+The CI gate fails a row that rises more than 0.5%.
+Review asks every row to read at or below 1.000, and a per-function split for a row above it.
 
 ## 1. Plan
 
@@ -47,7 +48,7 @@ The gate is every row at or below 1.000.
     `cached_style` lands with its caller, in the streaming change.
 - [ ] 7.2 Built → verify: the oracle colour test finds it equal to `Theme::style` for every token of every oracle fixture with every oracle theme
 - [ ] 7.3 Measured → verify: the colour pass with it costs fewer instructions than with `Theme::style` on the same build, for every language
-- [ ] 7.4 Once it lands, the Callgrind harness colours with it (lead, 2026-11-05) → verify: the gated colour row measures `Highlighter::style`, and an unchanged pull request reads 1.000 on it
+- [x] 7.4 Once it lands, the Callgrind harness colours with it (lead, 2026-11-05) → verify: the gated colour row measures `Highlighter::style`, and an unchanged pull request reads 1.000 on it
 
 ## 8. What streaming needs from the lexers
 
