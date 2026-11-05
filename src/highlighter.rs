@@ -51,6 +51,12 @@ impl Styles {
         }
     }
 
+    /// Empties both slots, and keeps their themes and their memory.
+    fn forget(&mut self) {
+        self.current.by_stack.clear();
+        self.previous.by_stack.clear();
+    }
+
     /// The current slot's style for `stack`, if it has one.
     fn cached(&self, stack: u32) -> Option<Style> {
         usize::try_from(stack)
@@ -112,10 +118,15 @@ impl Highlighter {
     /// has `Highlighter`.
     /// Code after a call that returns either is then unreachable, which
     /// `check:features` denies.
+    ///
+    /// It also forgets every cached style.
+    /// The new arena gives its ids to other stacks, so a style kept for an
+    /// old id would colour an unrelated stack.
     pub(crate) fn renew(&mut self) {
         self.arena = Arena::new(self.limits.nodes);
         self.start = self.language.start(&mut self.arena, ROOT);
         self.scratch = Scratch::default();
+        self.styles.forget();
     }
 
     /// Lexes `line`, which excludes its line ending, starting from `state`.
@@ -232,5 +243,50 @@ impl Highlighter {
     pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
         self.arena
             .frame(if state.0 == ROOT { self.start } else { state.0 })
+    }
+}
+
+#[cfg(all(test, feature = "lang-python"))]
+mod tests {
+    use super::*;
+    use crate::theme::{RuleScope, ThemeRule, ThemeSource};
+
+    fn rule(scope: &str, foreground: &str) -> ThemeRule {
+        ThemeRule {
+            scope: RuleScope::Selectors(scope.into()),
+            foreground: Some(foreground.into()),
+            ..ThemeRule::default()
+        }
+    }
+
+    fn styles(highlighter: &mut Highlighter, theme: &Theme, line: &str) -> Vec<(Style, Style)> {
+        let mut state = State::default();
+        let mut tokens = Vec::new();
+        let _ = highlighter.line(line, &mut state, &mut tokens);
+        tokens
+            .iter()
+            .map(|token| {
+                (
+                    highlighter.style(theme, token.stack()),
+                    theme.style(highlighter.scopes(token.stack())),
+                )
+            })
+            .collect()
+    }
+
+    #[test]
+    fn it_forgets_its_cached_styles_when_renewed() {
+        let theme = Theme::new(ThemeSource {
+            editor_foreground: Some("#000000".into()),
+            editor_background: Some("#ffffff".into()),
+            rules: vec![rule("string", "#ff0000"), rule("comment", "#00ff00")],
+            ..ThemeSource::default()
+        });
+        let mut highlighter = Highlighter::new(Language::Python);
+        let _ = styles(&mut highlighter, &theme, "x = 'a'");
+        highlighter.renew();
+        for (cached, direct) in styles(&mut highlighter, &theme, "# a comment") {
+            assert_eq!(cached, direct);
+        }
     }
 }
