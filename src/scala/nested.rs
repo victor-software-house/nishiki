@@ -70,6 +70,11 @@ impl Lexer<'_> {
     /// The patterns of a `//> using` directive's name: names, quoted names and
     /// operator names are imports, and `.` is punctuation.
     /// Other characters take neither.
+    ///
+    /// The patterns see only the name, which ends at the first blank.
+    /// A quoted name that closes after it does not match, and its backtick
+    /// takes neither.
+    /// The other names hold no blank, so they end inside the name.
     fn using_name(&mut self, from: usize, to: usize, base: u32) {
         let mut i = from;
         while i < to {
@@ -78,7 +83,7 @@ impl Lexer<'_> {
                 i += 1;
                 continue;
             }
-            match self.using_name_at(i).map(|end| end.min(to)) {
+            match self.using_name_at(i).filter(|&end| end <= to) {
                 Some(end) if end > i => {
                     self.emit_under(i, end, base, scopes![S::EntNameImport]);
                     i = end;

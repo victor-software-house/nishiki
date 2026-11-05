@@ -74,6 +74,30 @@ fn an_import_ends_at_its_line() {
     );
 }
 
+/// The name after `//> using` ends at the first blank.
+/// A quoted name counts only when it closes inside that name.
+#[test]
+fn a_using_name_quotes_only_inside_its_text() {
+    let row = lex("//> using `my var` x").remove(0);
+    let tick = row
+        .iter()
+        .find(|(t, _)| t.contains('`'))
+        .unwrap_or_else(|| panic!("no backtick in {row:?}"));
+    assert_eq!(
+        tick.1.last().map(String::as_str),
+        Some("comment.line.shebang.scala"),
+        "{row:?}"
+    );
+    assert_eq!(
+        leaf("//> using `my var` x", "my"),
+        "entity.name.import.scala"
+    );
+    assert_eq!(
+        leaf("//> using `dep`.b x", "`dep`"),
+        "entity.name.import.scala"
+    );
+}
+
 #[test]
 fn operators_take_their_kind() {
     assert_eq!(leaf("a && b", "&&"), "keyword.operator.logical.scala");
