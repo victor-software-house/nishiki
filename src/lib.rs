@@ -446,7 +446,7 @@ mod yaml;
 mod zig;
 
 pub use arena::Scopes;
-pub use document::{Changes, Document, DocumentLine, LineKind, Tail, Until};
+pub use document::{Changes, Document, DocumentLine, EditError, LineKind, Tail, Until};
 pub use highlighter::Highlighter;
 pub use language::Language;
 pub use limits::{Budget, Limit, Limits, LineReport, Work};

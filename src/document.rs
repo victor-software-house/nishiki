@@ -4,20 +4,33 @@
 //! A completed line's tokens depend only on the state before it and its own
 //! text, so a completed line is lexed once.
 //! Only the last line, still being written, is lexed again on each delta.
+//! After an edit, lexing runs from the first changed line until a line's
+//! state before it equals the state it was last lexed from.
+
+use std::fmt;
+use std::ops::Range;
 
 use crate::{Highlighter, Language, Limits, LineReport, State, Theme, Token};
 
 /// The tests name several languages, so they need them all.
-#[cfg(all(test, feature = "all"))]
+/// The two conditions sit apart, because clippy lets tests use `expect` only
+/// under a plain `#[cfg(test)]`.
+#[cfg(test)]
+#[cfg(feature = "all")]
 mod tests;
+
+/// The garbage tokens below which [`Document`] never packs its token runs.
+/// Past it, a pack runs once garbage outweighs the tokens in use, so packing
+/// costs at most one copy of each token it keeps.
+const COMPACT_FLOOR: usize = 4096;
 
 /// A document highlighted as it arrives, such as a model's reply or a file a
 /// tool writes.
 ///
 /// It owns one [`Highlighter`], the text, and each line's tokens and end
 /// state.
-/// [`Document::push`] and [`Document::push_str`] append text and mark lines
-/// stale.
+/// [`Document::push`], [`Document::push_str`] and [`Document::replace`]
+/// change the text and mark lines stale.
 /// [`Document::lex`] lexes the stale lines, so a caller can lex its viewport
 /// first and the rest later.
 /// [`Document::take_changes`] tells a renderer which lines to draw again.
@@ -38,8 +51,12 @@ pub struct Document {
     carry: Carry,
     /// One entry per completed line: every line but the last.
     lines: Vec<Entry>,
-    /// The tokens of the completed lines lexed so far, in order.
+    /// The tokens of the completed lines, each line's in one run.
+    /// A line lexed again appends a new run, and its old run becomes garbage.
+    /// A stale line keeps the tokens it had, or none.
     tokens: Vec<Token>,
+    /// How many tokens in `tokens` no line refers to.
+    garbage: usize,
     /// How many completed lines, from the first, are lexed.
     lexed: usize,
     /// The last line: its tokens and what they were lexed from.
@@ -66,13 +83,18 @@ struct Counts {
 }
 
 /// A completed line: where its text ends, where the next line starts, where
-/// its tokens end in [`Document::tokens`], its end state and its report.
-/// `tokens_end`, `state` and `report` hold only once the line is lexed.
+/// its run of tokens starts in [`Document::tokens`] and how long it is, the
+/// state it was last lexed from, its end state and its report.
+/// `from` is `None` until the line is lexed, and again after its text
+/// changes.
+/// `state` and `report` hold only while `from` is set.
 #[derive(Clone, Copy, Debug)]
 struct Entry {
     end: usize,
     next: usize,
-    tokens_end: usize,
+    first_token: usize,
+    token_count: usize,
+    from: Option<State>,
     state: State,
     report: LineReport,
 }
@@ -188,6 +210,27 @@ pub struct Changes {
     pub new_end: usize,
 }
 
+/// Why [`Document::replace`] refused an edit.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[non_exhaustive]
+pub enum EditError {
+    /// The range ends past the text, or starts after it ends.
+    OutOfBounds,
+    /// An end of the range falls inside a character.
+    NotCharBoundary,
+}
+
+impl fmt::Display for EditError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            EditError::OutOfBounds => f.write_str("the range is outside the text"),
+            EditError::NotCharBoundary => f.write_str("the range cuts a character"),
+        }
+    }
+}
+
+impl std::error::Error for EditError {}
+
 /// How final a line's tokens are.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[non_exhaustive]
@@ -261,6 +304,7 @@ impl Document {
             carry: Carry::default(),
             lines: Vec::new(),
             tokens: Vec::new(),
+            garbage: 0,
             lexed: 0,
             tail: LastLine::default(),
             tail_rule: Tail::default(),
@@ -332,11 +376,108 @@ impl Document {
             Until::End => usize::MAX,
         };
         while self.lexed < self.lines.len() && self.lexed <= last {
-            self.lex_completed(self.lexed);
+            let index = self.lexed;
+            let before = self.state_before(index);
+            if self
+                .lines
+                .get(index)
+                .is_some_and(|line| line.from == Some(before))
+            {
+                self.lexed = index + 1;
+                continue;
+            }
+            self.lex_completed(index);
         }
         if self.lexed == self.lines.len() && last >= self.lines.len() {
             self.lex_tail();
         }
+        self.compact();
+    }
+
+    /// Replaces the bytes of `range` with `text`.
+    ///
+    /// The lines from the one `range` starts in become stale.
+    /// [`Document::lex`] lexes the changed lines, then lexes on until a
+    /// line's state before it equals the state it was last lexed from.
+    /// That line and every unchanged line after it keep their tokens.
+    ///
+    /// # Errors
+    ///
+    /// [`EditError::OutOfBounds`] when `range` ends past the text or starts
+    /// after it ends, and [`EditError::NotCharBoundary`] when either end
+    /// falls inside a character.
+    /// The document is unchanged then.
+    pub fn replace(&mut self, range: Range<usize>, text: &str) -> Result<(), EditError> {
+        if range.start > range.end || range.end > self.text.len() {
+            return Err(EditError::OutOfBounds);
+        }
+        if !self.text.is_char_boundary(range.start) || !self.text.is_char_boundary(range.end) {
+            return Err(EditError::NotCharBoundary);
+        }
+        let count = self.lines.len();
+        let first = self.line_of(range.start);
+        let last = self.line_of(range.end);
+        let region_start = self.start_of(first);
+        let removed = (last + 1).min(count) - first;
+        for line in self.lines.get(first..first + removed).unwrap_or_default() {
+            self.garbage += line.token_count;
+        }
+        self.text.replace_range(range.clone(), text);
+        let grew = text.len() >= range.len();
+        let by = text.len().abs_diff(range.len());
+        let region_end = match self.lines.get(last) {
+            Some(line) if grew => line.next + by,
+            Some(line) => line.next - by,
+            None => self.text.len(),
+        };
+        let added = self.split(first, removed, region_start, region_end);
+        for line in self.lines.get_mut(first + added..).unwrap_or_default() {
+            if grew {
+                line.end += by;
+                line.next += by;
+            } else {
+                line.end -= by;
+                line.next -= by;
+            }
+        }
+        let end = first + added;
+        self.lexed = self.lexed.min(first);
+        if last >= count {
+            self.tail.lexed = None;
+            self.tail.tokens.clear();
+            self.mark(first, self.line_count());
+        } else {
+            if let Some(lexed) = self.tail.lexed.as_mut() {
+                lexed.start = if grew {
+                    lexed.start + by
+                } else {
+                    lexed.start - by
+                };
+            }
+            self.mark(first, end);
+        }
+        Ok(())
+    }
+
+    /// Starts a fresh highlighter and marks every line stale.
+    ///
+    /// The highlighter interns each distinct state and stack once.
+    /// Under many edits it can fill to [`Limits::nodes`], and a line's
+    /// [`LineReport`] then names that limit.
+    /// A reset empties it, at the cost of lexing the document again.
+    pub fn reset(&mut self) {
+        self.highlighter.renew();
+        self.tokens.clear();
+        self.garbage = 0;
+        for line in &mut self.lines {
+            line.first_token = 0;
+            line.token_count = 0;
+            line.from = None;
+        }
+        self.lexed = 0;
+        self.tail.lexed = None;
+        self.tail.tokens.clear();
+        self.mark(0, self.line_count());
     }
 
     /// The lines whose text or tokens changed since the last call, or `None`
@@ -395,6 +536,59 @@ impl Document {
         &self.theme
     }
 
+    /// The index of the line that holds byte `offset`; the last line for the
+    /// text's end.
+    fn line_of(&self, offset: usize) -> usize {
+        self.lines.partition_point(|line| line.next <= offset)
+    }
+
+    /// Replaces `removed` entries from `first` with one entry for each line
+    /// feed in the text from `start` to `end`, and gives the number added.
+    fn split(&mut self, first: usize, removed: usize, start: usize, end: usize) -> usize {
+        let bytes = self.text.as_bytes();
+        let region = bytes.get(start..end).unwrap_or_default();
+        let mut line_start = start;
+        let entries = memchr::memchr_iter(b'\n', region).map(|at| {
+            let feed = start + at;
+            let end = if feed > line_start && bytes.get(feed - 1) == Some(&b'\r') {
+                feed - 1
+            } else {
+                feed
+            };
+            line_start = feed + 1;
+            Entry {
+                end,
+                next: feed + 1,
+                first_token: 0,
+                token_count: 0,
+                from: None,
+                state: State::default(),
+                report: LineReport::default(),
+            }
+        });
+        let before = self.lines.len();
+        self.lines.splice(first..first + removed, entries);
+        self.lines.len() + removed - before
+    }
+
+    /// Packs the token runs once garbage outweighs the tokens in use.
+    fn compact(&mut self) {
+        if self.garbage < COMPACT_FLOOR || self.garbage * 2 < self.tokens.len() {
+            return;
+        }
+        let mut packed = Vec::with_capacity(self.tokens.len() - self.garbage);
+        for line in &mut self.lines {
+            let run = self
+                .tokens
+                .get(line.first_token..line.first_token + line.token_count)
+                .unwrap_or_default();
+            line.first_token = packed.len();
+            packed.extend_from_slice(run);
+        }
+        self.tokens = packed;
+        self.garbage = 0;
+    }
+
     /// Appends text that holds no unfinished character.
     fn append(&mut self, delta: &str) {
         if delta.is_empty() {
@@ -415,7 +609,9 @@ impl Document {
             self.lines.push(Entry {
                 end,
                 next: feed + 1,
-                tokens_end: 0,
+                first_token: 0,
+                token_count: 0,
+                from: None,
                 state: State::default(),
                 report: LineReport::default(),
             });
@@ -474,14 +670,6 @@ impl Document {
             .map_or(State::default(), |line| line.state)
     }
 
-    /// Where the tokens of the line of `index` start in [`Document::tokens`].
-    fn tokens_start(&self, index: usize) -> usize {
-        index
-            .checked_sub(1)
-            .and_then(|above| self.lines.get(above))
-            .map_or(0, |line| line.tokens_end)
-    }
-
     /// The bytes of the last line that are lexed: all of it, but a `\r` that
     /// may begin a line ending while more text can arrive.
     fn tail_len(&self) -> usize {
@@ -498,6 +686,7 @@ impl Document {
         let Some(&entry) = self.lines.get(index) else {
             return;
         };
+        let first_token = self.tokens.len();
         let start = self.start_of(index);
         let from = self.state_before(index);
         let len = entry.end.saturating_sub(start);
@@ -521,8 +710,11 @@ impl Document {
             self.tail.lexed = None;
             self.tail.tokens.clear();
         }
+        self.garbage += entry.token_count;
         if let Some(line) = self.lines.get_mut(index) {
-            line.tokens_end = self.tokens.len();
+            line.first_token = first_token;
+            line.token_count = self.tokens.len() - first_token;
+            line.from = Some(from);
             line.state = state;
             line.report = report;
         }
@@ -583,11 +775,11 @@ impl Document {
     fn completed_line(&self, index: usize) -> Option<DocumentLine<'_>> {
         let entry = self.lines.get(index)?;
         let text = self.text.get(self.start_of(index)..entry.end)?;
+        let tokens = self
+            .tokens
+            .get(entry.first_token..entry.first_token + entry.token_count)
+            .unwrap_or_default();
         if index < self.lexed {
-            let tokens = self
-                .tokens
-                .get(self.tokens_start(index)..entry.tokens_end)
-                .unwrap_or_default();
             return Some(DocumentLine {
                 text,
                 tokens,
@@ -597,7 +789,7 @@ impl Document {
         }
         Some(DocumentLine {
             text,
-            tokens: &[],
+            tokens,
             kind: LineKind::Stale,
             report: LineReport::default(),
         })

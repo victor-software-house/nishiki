@@ -86,6 +86,7 @@ fn warm(
         carry: Carry::default(),
         lines: Vec::with_capacity(lines),
         tokens: Vec::with_capacity(tokens),
+        garbage: 0,
         lexed: 0,
         tail: LastLine {
             tokens: Vec::with_capacity(tail),
@@ -148,5 +149,114 @@ fn a_long_line_is_lexed_in_bounded_steps() {
         "{} bytes lexed for a line of {}, over {bound}",
         document.counts.tail_bytes,
         line.len()
+    );
+}
+
+/// One edit trace of `bench/traces/edits/`: its language, its first text and
+/// its replacements.
+struct Trace {
+    language: Language,
+    base: String,
+    edits: Vec<(std::ops::Range<usize>, String)>,
+}
+
+/// Reads an edit trace (`bench/traces/README.md` has the format).
+fn trace(path: &std::path::Path) -> Trace {
+    let bytes = std::fs::read(path).expect("a readable trace");
+    let mut at = 0;
+    let mut line = || {
+        let end = at
+            + bytes[at..]
+                .iter()
+                .position(|&b| b == b'\n')
+                .expect("a line");
+        let text = std::str::from_utf8(&bytes[at..end])
+            .expect("UTF-8")
+            .to_owned();
+        at = end + 1;
+        text
+    };
+    let mut language = None;
+    let base_len = loop {
+        let row = line();
+        let (key, value) = row.split_once(' ').expect("a key and a value");
+        match key {
+            "language" => language = Language::from_name(value),
+            "base" => break value.parse::<usize>().expect("a length"),
+            _ => {}
+        }
+    };
+    let blob = |at: &mut usize, len: usize| {
+        let text = std::str::from_utf8(&bytes[*at..*at + len])
+            .expect("UTF-8")
+            .to_owned();
+        *at += len + 1;
+        text
+    };
+    let base = blob(&mut at, base_len);
+    let mut edits = Vec::new();
+    while at < bytes.len() {
+        let end = at
+            + bytes[at..]
+                .iter()
+                .position(|&b| b == b'\n')
+                .expect("a line");
+        let row = std::str::from_utf8(&bytes[at..end])
+            .expect("UTF-8")
+            .to_owned();
+        at = end + 1;
+        let fields: Vec<usize> = row
+            .split(' ')
+            .skip(1)
+            .map(|field| field.parse().expect("a number"))
+            .collect();
+        let text = blob(&mut at, fields[2]);
+        edits.push((fields[0]..fields[1], text));
+    }
+    Trace {
+        language: language.expect("a language nishiki lexes"),
+        base,
+        edits,
+    }
+}
+
+/// Replaying nishiki's own history, each edit lexes its own lines and lexes
+/// at most two lines past them, as the research note's probe found with
+/// Shiki's states (`openspec/research/2026-11-05-streaming.md`, section 3).
+#[test]
+fn an_edit_stops_where_the_states_agree() {
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("bench/traces/edits");
+    let mut paths: Vec<_> = std::fs::read_dir(&dir)
+        .expect("the edit traces")
+        .map(|entry| entry.expect("an entry").path())
+        .collect();
+    paths.sort();
+    let mut pasts = Vec::new();
+    for path in paths {
+        let trace = trace(&path);
+        let mut document = Document::new(trace.language, theme());
+        document.push_str(&trace.base);
+        document.finish();
+        document.lex(Until::End);
+        for (range, text) in &trace.edits {
+            document
+                .replace(range.clone(), text)
+                .expect("a trace's range");
+            let region = document.lines[document.lexed..]
+                .iter()
+                .take_while(|line| line.from.is_none())
+                .count();
+            let before = document.counts.completed;
+            document.lex(Until::End);
+            let lexed = document.counts.completed - before;
+            pasts.push((lexed.saturating_sub(region), path.display().to_string()));
+        }
+    }
+    let worst = pasts.iter().max().expect("some edits");
+    assert!(
+        worst.0 <= 2,
+        "an edit in {} lexed {} lines past it",
+        worst.1,
+        worst.0
     );
 }

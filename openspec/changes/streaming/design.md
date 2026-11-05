@@ -77,9 +77,13 @@ Two things can change tokens already shown:
   A stream is a document whose edits all land at the end.
 - The name says what it holds.
   `Stream` would mislead for edits.
-- Storage is flat: the text in one `String`, the tokens of every line in one `Vec<Token>`, and one `Vec` of line entries holding token ranges.
+- Storage is flat: the text in one `String`, the tokens of every line in one `Vec<Token>`, and one `Vec` of line entries.
+  - Each entry names its line's run of tokens: where it starts and how long it is.
   - An append grows each buffer, amortized, so no line allocates.
-  - An edit splices them, which moves the bytes after it.
+  - A line lexed again appends a new run, and its old run becomes garbage.
+    The buffer packs itself once garbage outweighs the tokens in use, so lexing one line never shifts another's tokens.
+    A cumulative end per line would shift every later entry, which makes a large paste quadratic.
+  - An edit splices the text and the entries, which moves the bytes after it.
     On a 1 MiB document that is about a megabyte of copying.
     A gap buffer or a rope waits until a trace shows the splice in the per-edit time.
 - Token offsets stay line-relative, as `Highlighter::line` gives them.
@@ -230,15 +234,19 @@ When a tool writes a whole file in one delta, the caller lexes to its viewport, 
 
 ### 7. Edits stop where the states agree
 
-`replace` marks the lines from the edit's first line stale and records the end of the edited region.
-`lex` then runs from the first stale line:
+Each line records the state it was last lexed from.
+`replace` gives the lines it touches new entries, which have none, and moves the lexed frontier back to the first of them.
+`lex` then runs from that line:
 
-- through the new lines;
-- past them, it compares each line's end state with the end state cached for the same text line before the edit;
-- at the first equal state, every line after keeps its tokens, and is exact again if it was before.
+- it lexes each line that has no recorded state, or whose recorded state differs from the state before it now;
+- it skips each line whose recorded state equals the state before it, and keeps its tokens.
+
+So past the edit, the first line whose state agrees stops the lexing, and every unchanged line after it is only compared.
+The check is exact however edits and partial `lex` calls interleave.
+A first version compared with the end state cached above the line instead.
+After a partial `lex` and a second edit, that state could belong to a newer pass than the line below, and the stream test caught it on 18 fixtures.
 
 Replaying 239 hunks of nishiki's own history, 238 stopped at their own last line, and one lexed two lines more ([note][note], section 3).
-Several edits before one `lex` merge into one stale region, from the first edit's line to the last edited line.
 
 ### 8. The arena
 

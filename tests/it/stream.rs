@@ -237,3 +237,197 @@ fn a_carriage_return_before_a_line_feed_ends_the_line() {
     assert_eq!(document.line(0).map(|line| line.text()), Some("let a = 1;"));
     assert_eq!(document.line(1).map(|line| line.text()), Some("let b = 2;"));
 }
+
+/// A seeded generator of small numbers, for the edit tests.
+struct Rng(u64);
+
+impl Rng {
+    fn below(&mut self, bound: usize) -> usize {
+        self.0 ^= self.0 << 13;
+        self.0 ^= self.0 >> 7;
+        self.0 ^= self.0 << 17;
+        usize::try_from(self.0 % u64::try_from(bound.max(1)).unwrap_or(1)).unwrap_or(0)
+    }
+}
+
+/// A random character boundary of `text`.
+fn boundary(text: &str, rng: &mut Rng) -> usize {
+    let mut at = rng.below(text.len() + 1);
+    while !text.is_char_boundary(at) {
+        at -= 1;
+    }
+    at
+}
+
+/// A random edit of `text`: a range of up to 40 bytes and a piece of `source`
+/// of up to 40 bytes to put there.
+fn random_edit(text: &str, source: &str, rng: &mut Rng) -> (std::ops::Range<usize>, String) {
+    let start = boundary(text, rng);
+    let mut end = (start + rng.below(41)).min(text.len());
+    while !text.is_char_boundary(end) {
+        end -= 1;
+    }
+    let from = boundary(source, rng);
+    let mut to = (from + rng.below(41)).min(source.len());
+    while !source.is_char_boundary(to) {
+        to -= 1;
+    }
+    (start..end, source[from..to].to_owned())
+}
+
+/// Each line of `text` lexed from the start by a fresh highlighter, as the
+/// oracle comparison reads tokens.
+fn one_shot(language: Language, text: &str) -> Vec<Tokens> {
+    let mut highlighter = nishiki::Highlighter::new(language);
+    let mut state = nishiki::State::default();
+    let mut tokens = Vec::new();
+    text.split('\n')
+        .map(|line| {
+            tokens.clear();
+            let _ = highlighter.line(line, &mut state, &mut tokens);
+            tokens
+                .iter()
+                .map(|token| {
+                    let mut scopes: Vec<&str> = highlighter.scopes(token.stack()).collect();
+                    scopes.reverse();
+                    (token.end(), scopes.join(" "))
+                })
+                .collect()
+        })
+        .collect()
+}
+
+#[expect(
+    clippy::expect_used,
+    reason = "a test helper; a refused edit fails the test"
+)]
+/// The fixtures of `language` that differ after edits, as reports.
+/// Twelve random edits land on each fixture, lexed after some of them, so
+/// some edits merge before a lex.
+/// The result must equal lexing its text from the start.
+/// Undoing the edits, last first, must give Shiki's scopes again.
+fn edit_failures(language: Language) -> Vec<String> {
+    let mut failures = Vec::new();
+    for (number, path) in fixtures(language.id()).into_iter().enumerate() {
+        let lines: Vec<Line> = parse(&path);
+        let original = lines
+            .iter()
+            .map(|line| line.text.as_str())
+            .collect::<Vec<_>>()
+            .join("\n");
+        let mut rng = Rng(u64::try_from(number).unwrap_or(0) * 7919 + 0x5851_f42d);
+        let mut document = streamed(language, &original, Cut::Whole);
+        let mut text = original.clone();
+        let mut undo = Vec::new();
+        for edit in 0..12 {
+            let (range, piece) = random_edit(&text, &original, &mut rng);
+            let old = text[range.clone()].to_owned();
+            text.replace_range(range.clone(), &piece);
+            document
+                .replace(range.clone(), &piece)
+                .expect("a range on character boundaries");
+            undo.push((range.start..range.start + piece.len(), old));
+            match edit % 3 {
+                0 => document.lex(Until::End),
+                1 => document.lex(Until::Line(rng.below(document.line_count()))),
+                _ => {}
+            }
+        }
+        document.lex(Until::End);
+        assert_eq!(document.text(), text, "{}", path.display());
+        let expected = one_shot(language, &text);
+        let actual: Vec<Tokens> = (0..document.line_count())
+            .map(|index| tokens_of(&document, document.line(index)))
+            .collect();
+        if let Some(line) = expected.iter().zip(&actual).position(|(a, b)| a != b) {
+            failures.push(format!(
+                "{}: after the edits, line {} differs from lexing the text from the start",
+                path.display(),
+                line + 1
+            ));
+            continue;
+        }
+        for (range, old) in undo.into_iter().rev() {
+            document
+                .replace(range, &old)
+                .expect("an undo on character boundaries");
+            if rng.below(2) == 0 {
+                document.lex(Until::End);
+            }
+        }
+        document.lex(Until::End);
+        assert_eq!(document.text(), original, "{}", path.display());
+        let mut index = 0;
+        let (checked, misses) = compare(&lines, |_| {
+            let line = document.line(index);
+            index += 1;
+            tokens_of(&document, line)
+        });
+        if !misses.is_empty() {
+            failures.push(format!("undone edits: {}", report(&path, checked, &misses)));
+        }
+    }
+    failures
+}
+
+#[test]
+fn every_language_edits_as_shiki_lexes() {
+    every_language(edit_failures);
+}
+
+/// A range outside the text, or inside a character, is refused and changes
+/// nothing.
+#[test]
+fn a_bad_range_leaves_the_document_unchanged() {
+    let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+    document.push_str("let é = 1;");
+    document.lex(Until::End);
+    assert_eq!(
+        document.replace(3..20, "x"),
+        Err(nishiki::EditError::OutOfBounds)
+    );
+    let reversed = std::ops::Range { start: 5, end: 4 };
+    assert_eq!(
+        document.replace(reversed, "x"),
+        Err(nishiki::EditError::OutOfBounds)
+    );
+    assert_eq!(
+        document.replace(5..6, "x"),
+        Err(nishiki::EditError::NotCharBoundary)
+    );
+    assert_eq!(document.text(), "let é = 1;");
+}
+
+/// A reset at a small node limit lexes the document again from a fresh
+/// highlighter, and gives the tokens a fresh highlighter gives.
+#[test]
+fn a_reset_lexes_again_from_a_fresh_highlighter() {
+    let limits = nishiki::Limits {
+        nodes: Some(64),
+        ..nishiki::Limits::default()
+    };
+    let text = (0..40)
+        .map(|n| format!("let v{n} = \"{n}\";"))
+        .collect::<Vec<_>>()
+        .join("\n");
+    let mut document =
+        Document::new_with_limits(Language::Rust, Theme::new(ThemeSource::default()), limits);
+    document.push_str(&text);
+    document.finish();
+    document.lex(Until::End);
+    document.reset();
+    assert_eq!(
+        document.line(0).map(|line| line.kind()),
+        Some(LineKind::Stale)
+    );
+    document.lex(Until::End);
+    let mut fresh = nishiki::Highlighter::new_with_limits(Language::Rust, limits);
+    let mut state = nishiki::State::default();
+    let mut tokens = Vec::new();
+    for (index, line) in text.split('\n').enumerate() {
+        tokens.clear();
+        let _ = fresh.line(line, &mut state, &mut tokens);
+        let ours = document.line(index).map(|line| line.tokens().len());
+        assert_eq!(ours, Some(tokens.len()), "line {}", index + 1);
+    }
+}

@@ -60,6 +60,20 @@ impl Highlighter {
         self.limits
     }
 
+    /// Forgets every interned state and stack, and keeps the language and
+    /// limits.
+    ///
+    /// It resets the fields in place.
+    /// With no language feature on, `Language` has no variants, and neither
+    /// has `Highlighter`.
+    /// Code after a call that returns either is then unreachable, which
+    /// `check:features` denies.
+    pub(crate) fn renew(&mut self) {
+        self.arena = Arena::new(self.limits.nodes);
+        self.start = self.language.start(&mut self.arena, ROOT);
+        self.scratch = Scratch::default();
+    }
+
     /// Lexes `line`, which excludes its line ending, starting from `state`.
     ///
     /// Appends tokens that cover every byte of `line` in order.
