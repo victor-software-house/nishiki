@@ -20,6 +20,7 @@ The public API and its docs are on [docs.rs](https://docs.rs/nishiki); this page
 - [`utf8.rs`](utf8.rs), [`space.rs`](space.rs), [`classes.rs`](classes.rs) and [`case_fold.rs`](case_fold.rs): characters as Oniguruma reads them, that is UTF-8, `\s`, the classes and `(?i)` folds.
 - [`fnv.rs`](fnv.rs): a fixed-hash map for tables built from the crate's own words.
 - [`bytes.rs`](bytes.rs): byte comparisons as loops, for word tables, whose cost does not follow where the bytes lie.
+- [`html_words.rs`](html_words.rs): the event handler and character entity names of the `html` grammar, for every grammar that spells them the same way.
 - [`test_support.rs`](test_support.rs): helpers the unit tests share.
 
 ## Engines

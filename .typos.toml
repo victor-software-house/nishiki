@@ -1,7 +1,8 @@
 # Spelling, checked by `mise run lint:typos`.
 [files]
-# src/html/words.rs is generated from the html grammar's word lists, whose
-# entity and attribute names (`ofr`, `pluse`, `seeked`) are not English, and
+# src/html/words.rs and src/html_words.rs are generated from the html
+# grammar's word lists, whose attribute, entity and event names (`ofr`,
+# `pluse`, `seeked`) are not English, and
 # src/less/words.rs spells out `[ensw]{1,4}-resize`, as `nees-resize`.
 # src/php/words.rs and src/hack/words.rs hold their grammars' constant names,
 # such as `EXITT`, and src/php/scope.rs its scope names, which spell `repitition`.
@@ -20,6 +21,7 @@ extend-exclude = [
   "src/hack/words.rs",
   "src/haml/grammar.rs",
   "src/html/words.rs",
+  "src/html_words.rs",
   "src/julia/grammar.rs",
   "src/latex/grammar.rs",
   "src/less/words.rs",

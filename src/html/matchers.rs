@@ -11,8 +11,8 @@ use super::state::{
 #[cfg(feature = "lang-vue")]
 use super::vue;
 use super::words;
-use crate::case_fold;
 use crate::classes::{is_space, is_word};
+use crate::{case_fold, html_words};
 
 /// How a tag's category is told apart from the list that names it.
 #[derive(Clone, Copy)]
@@ -885,7 +885,7 @@ impl Lexer<'_> {
             && self
                 .text
                 .get(p + 1..q)
-                .is_some_and(|name| contains(words::ENTITIES, name))
+                .is_some_and(|name| contains(html_words::ENTITIES, name))
         {
             return Some(Hit::new(Pat::EntityNamed, p, q + 1).with([p + 1, q, q, 0, 0], 0));
         }
@@ -1464,7 +1464,7 @@ impl Lexer<'_> {
                     return Some(attribute(AttributeKind::Style, p, run));
                 }
                 if let Some(rest) = word.strip_prefix("on")
-                    && contains(words::EVENT_HANDLERS, rest)
+                    && contains(html_words::EVENT_HANDLERS, rest)
                 {
                     return Some(attribute(AttributeKind::Event, p + 2, run));
                 }

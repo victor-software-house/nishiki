@@ -335,6 +335,8 @@ mod highlighter;
 mod html;
 #[cfg(feature = "lang-html-derivative")]
 mod html_derivative;
+#[cfg(feature = "_html-words")]
+mod html_words;
 #[cfg(feature = "lang-ini")]
 mod ini;
 #[cfg(feature = "lang-java")]
