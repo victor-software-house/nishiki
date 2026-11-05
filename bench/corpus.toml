@@ -12,7 +12,12 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
+# It also changes digest, the SHA-256 of each file's path and SHA-256, sorted
+# by path; `mise run check:corpus` prints the new value.
+# Two pull requests that raise version to the same number write different
+# digests, so their merge conflicts here instead of passing silently.
 version = 11
+digest = "ae2846116bb3219bf68dff07010502871eba9b3bad0a8cb2ae007e9a4489fd31"
 
 [[file]]
 language = "bat"

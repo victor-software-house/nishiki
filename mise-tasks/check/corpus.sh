@@ -8,7 +8,15 @@
 # - a row has no file, or a file has no row;
 # - a size falls outside its tier;
 # - a source is not pinned to a commit;
-# - a licence is not on the list below.
+# - a licence is not on the list below;
+# - the manifest's digest differs from the digest of the files.
+#
+# The digest stands for the corpus version.
+# Two pull requests that each add files both raise version from N to N+1.
+# Git takes that identical line without a conflict, so the version alone
+# merged silently four times on 2026-11-05.
+# Each pull request writes a different digest on the line below it, so the
+# same merge now conflicts there.
 set -euo pipefail
 
 root=bench/corpus
@@ -21,6 +29,17 @@ if command -v sha256sum >/dev/null; then
 else
   sum() { shasum -a 256 "$1" | cut -d' ' -f1; }
 fi
+
+# The SHA-256 of one line per file, its path and its SHA-256, sorted by path.
+digest_of_files() {
+  local file
+  while IFS= read -r file; do
+    printf '%s\t%s\n' "${file#"$root/"}" "$(sum "$file")"
+  done < <(find "$root" -type f ! -name README.md ! -name .ignore ! -name .gitattributes | LC_ALL=C sort) >"$tmp"
+  sum "$tmp"
+}
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
 
 problems=()
 # Every row's path, each between line feeds, for a membership test without a
@@ -60,6 +79,13 @@ while IFS= read -r file; do
   [ "$path" = .gitattributes ] && continue
   [[ $listed == *$'\n'"$path"$'\n'* ]] || problems+=("$path: no row in $manifest")
 done < <(find "$root" -type f | sort)
+
+recorded=$(taplo get -f "$manifest" digest)
+actual=$(digest_of_files)
+if [ "$recorded" != "$actual" ]; then
+  problems+=("$manifest: digest is $recorded, but the files give $actual")
+  problems+=("  raise version past main's, then set digest = \"$actual\"")
+fi
 
 if [ "${#problems[@]}" -gt 0 ]; then
   printf '%s\n' "${problems[@]}" >&2

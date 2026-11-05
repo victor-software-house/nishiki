@@ -119,6 +119,9 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
     A file enters only with its row in `bench/corpus.toml` and a permissive licence read at its source.
     `mise run check:corpus` holds the files and the rows together.
     Changing the corpus raises its `version`, and a record names the version it ran on.
+    It also updates the `digest` line below `version`, which `check:corpus` prints when it differs.
+    Two pull requests that raise `version` to the same number then conflict on `digest`.
+    The second to land raises `version` again and takes the digest of the merged files.
 19. The bench workspace (`Cargo.toml`, `src/`, `benches/`) is its own Cargo workspace, with its own `Cargo.lock`.
     The root workspace excludes it.
     `verify` does not build it.
