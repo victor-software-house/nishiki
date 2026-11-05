@@ -36970,7 +36970,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
-            Pat::CommentsAt0 | Pat::MacroCommentsAt0 => Start {
+            Pat::CommentsAt0 | Pat::EmacsFileBanner | Pat::MacroCommentsAt0 => Start {
                 bytes: [
                     0x0000_8001_0000_3e00,
                     0x0000_0000_0000_0000,
@@ -37256,16 +37256,6 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::EmacsFileBanner => Start {
-                bytes: [
-                    0x0000_8001_0000_3e00,
-                    0x0000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                places: PlaceSet::of(&[Place::LineStart]),
-                matches_at_end: true,
-            },
             Pat::BlockCommentEnd
             | Pat::InvalidCommentEnd
             | Pat::SimpleArrayAssignmentCap13At0
@@ -37399,6 +37389,7 @@ impl Pat {
             Pat::StringContextAt2End
             | Pat::StringContextAt3End
             | Pat::StringContextAt4End
+            | Pat::StringContextAt5End
             | Pat::OperatorsAt0End
             | Pat::MethodAccessEnd
             | Pat::CppAttributesAt1End
@@ -37444,16 +37435,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::StringContextAt5End => Start {
-                bytes: [
-                    0x0000_0200_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::PragmaAt2 | Pat::MacroPragmaAt2 => Start {
                 bytes: [
@@ -38788,7 +38769,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::ConstructorRootCap9At1 | Pat::MacroConstructorRootCap9At1 => Start {
                 bytes: [
@@ -39243,6 +39224,7 @@ impl Pat {
             Pat::MacroStringContextAt2End
             | Pat::MacroStringContextAt3End
             | Pat::MacroStringContextAt4End
+            | Pat::MacroStringContextAt5End
             | Pat::MacroOperatorsAt0End
             | Pat::MacroMethodAccessEnd
             | Pat::MacroBuiltinStorageTypeInitializerEnd
@@ -39288,16 +39270,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::MacroStringContextAt5End => Start {
-                bytes: [
-                    0x0000_0200_0000_0400,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::MacroParameterEnd
             | Pat::MacroParameterAt9End

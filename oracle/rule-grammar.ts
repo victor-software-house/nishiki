@@ -73,10 +73,19 @@ export type Backref = "quote" | "any";
 class RegexParser {
   pos = 0;
   groups = 0;
+  /** With `refsMayBeEmpty`, a back reference or a call of a group may match
+   * the empty string, as it can when the group it names does. */
   constructor(
     readonly src: string,
     readonly backref: Backref,
+    readonly refsMayBeEmpty = false,
   ) {}
+
+  /** The empty path of a back reference or a call: every byte may follow,
+   * when such a reference may match empty. */
+  refEmpty(): Set | null {
+    return this.refsMayBeEmpty ? FULL() : null;
+  }
 
   parse(): Info {
     const result = this.alternation();
@@ -299,7 +308,7 @@ class RegexParser {
         const m = /^<\w+>/.exec(this.src.slice(this.pos));
         if (!m) throw new Error(`regex ${this.src}: \\g`);
         this.pos += m[0].length;
-        return info(FULL());
+        return info(FULL(), this.refEmpty());
       }
       case "p": {
         const m = /^\{(\^?)(\w+)\}/.exec(this.src.slice(this.pos));
@@ -324,10 +333,10 @@ class RegexParser {
         const m = /^<\w+>/.exec(this.src.slice(this.pos));
         if (!m) throw new Error(`regex ${this.src}: \\k`);
         this.pos += m[0].length;
-        return info(FULL());
+        return info(FULL(), this.refEmpty());
       }
       default:
-        if (/[1-9]/.test(c)) return info(this.backref === "quote" ? union(single(39), single(34)) : FULL());
+        if (/[1-9]/.test(c)) return info(this.backref === "quote" ? union(single(39), single(34)) : FULL(), this.refEmpty());
         return info(single(c.charCodeAt(0)));
     }
   }
@@ -521,12 +530,9 @@ export function startOf(
   }
   // A match where no byte follows takes the empty path, and none of its
   // lookaheads may need a byte, so that path's constraint is every byte.
-  // A backreference can repeat an empty capture, which the analysis does not
-  // read, so a pattern with one counts too.
-  const atEnd =
-    result.any ||
-    (result.empty !== null && result.empty.every((w) => w === 0xffffffffffffffffn)) ||
-    /\\(?:[1-9]|k<)/.test(source);
+  // A back reference or a call can match empty, so that parse lets them.
+  const end = new RegexParser(source, backref, true).parse();
+  const atEnd = end.any || (end.empty !== null && end.empty.every((w) => w === 0xffffffffffffffffn));
   return { set, bol: result.bol, any: result.any, wb: result.wb, behind: result.behind, atEnd };
 }
 

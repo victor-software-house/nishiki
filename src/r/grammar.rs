@@ -959,7 +959,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::BracketsAt0End => Start {
+            Pat::BracketsAt0End | Pat::RawStringsAt0End | Pat::RawStringsAt1End => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x2000_0000_0000_0000,
@@ -1111,7 +1111,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::BracketsAt1End => Start {
+            Pat::BracketsAt1End | Pat::RawStringsAt2End | Pat::RawStringsAt3End => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0000_2000_0000,
@@ -1131,7 +1131,10 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::BracketsAt2End | Pat::FunctionDefinitionEnd => Start {
+            Pat::BracketsAt2End
+            | Pat::RawStringsAt4End
+            | Pat::RawStringsAt5End
+            | Pat::FunctionDefinitionEnd => Start {
                 bytes: [
                     0x0000_0200_0000_0000,
                     0x0000_0000_0000_0000,
@@ -1155,36 +1158,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::RawStringsAt0End | Pat::RawStringsAt1End => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x2000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
-            Pat::RawStringsAt2End | Pat::RawStringsAt3End => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_2000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
-            Pat::RawStringsAt4End | Pat::RawStringsAt5End => Start {
-                bytes: [
-                    0x0000_0200_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::Qstring | Pat::QstringEnd => Start {
                 bytes: [

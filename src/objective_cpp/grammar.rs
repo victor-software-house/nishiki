@@ -18100,6 +18100,7 @@ impl Pat {
             | Pat::CFunctionInnardsAt4End
             | Pat::CFunctionInnardsAt5End
             | Pat::AnonymousPattern14End
+            | Pat::CppStringsAt1End
             | Pat::CppLangAt16End
             | Pat::CppLangAt17End => Start {
                 bytes: [
@@ -19188,16 +19189,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::CppStringsAt1End => Start {
-                bytes: [
-                    0x0000_0200_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::CppLangAt2 => Start {
                 bytes: [

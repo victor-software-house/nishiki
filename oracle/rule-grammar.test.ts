@@ -81,3 +81,14 @@ test("a lookbehind or \\b after an item that can consume the next byte does not 
   expect(startOf("a?\\bx").wb).toBe(false);
   expect(startOf("(?<=\\.)\\s*x").behind).toBe(true);
 });
+
+test("a back reference or a call that can match empty can match where no byte follows", () => {
+  expect(startOf("(\\w*)\\1", "any").atEnd).toBe(true);
+  expect(startOf("(?<n>a*)\\k<n>", "any").atEnd).toBe(true);
+  expect(startOf("(?<n>a*)\\g<n>", "any").atEnd).toBe(true);
+  expect(startOf("(a*)(?=\\1)", "any").atEnd).toBe(true);
+});
+
+test("a back reference inside a lookahead that needs a byte cannot match where no byte follows", () => {
+  expect(startOf("(?=(?><<[-~](\"?)(SQL)\\b\\1))", "any").atEnd).toBe(false);
+});

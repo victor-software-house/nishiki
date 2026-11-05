@@ -2153,19 +2153,9 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::XmlLiteralAt0 => Start {
+            Pat::XmlLiteralAt0 | Pat::XmlLiteralAt1 => Start {
                 bytes: [
                     0x1000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
-            Pat::XmlLiteralAt0End => Start {
-                bytes: [
-                    0x4000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -2173,9 +2163,9 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::XmlLiteralAt1 => Start {
+            Pat::XmlLiteralAt0End => Start {
                 bytes: [
-                    0x1000_0000_0000_0000,
+                    0x4000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,

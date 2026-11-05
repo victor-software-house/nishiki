@@ -7491,7 +7491,18 @@ impl Pat {
             | Pat::HeredocInteriorAt5
             | Pat::HeredocInteriorAt6
             | Pat::HeredocInteriorAt7
-            | Pat::HeredocInteriorAt8 => Start {
+            | Pat::HeredocInteriorAt8
+            | Pat::HeredocAt1
+            | Pat::NowdocInteriorAt0
+            | Pat::NowdocInteriorAt1
+            | Pat::NowdocInteriorAt2
+            | Pat::NowdocInteriorAt3
+            | Pat::NowdocInteriorAt4Javascript
+            | Pat::NowdocInteriorAt4Js
+            | Pat::NowdocInteriorAt5
+            | Pat::NowdocInteriorAt6
+            | Pat::NowdocInteriorAt7
+            | Pat::NowdocInteriorAt8 => Start {
                 bytes: [
                     0x1000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -7499,7 +7510,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::HeredocInteriorAt0End | Pat::NowdocInteriorAt0End => Start {
                 bytes: [
@@ -7564,26 +7575,6 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::LineStart]),
-                matches_at_end: false,
-            },
-            Pat::HeredocAt1
-            | Pat::NowdocInteriorAt0
-            | Pat::NowdocInteriorAt1
-            | Pat::NowdocInteriorAt2
-            | Pat::NowdocInteriorAt3
-            | Pat::NowdocInteriorAt4Javascript
-            | Pat::NowdocInteriorAt4Js
-            | Pat::NowdocInteriorAt5
-            | Pat::NowdocInteriorAt6
-            | Pat::NowdocInteriorAt7
-            | Pat::NowdocInteriorAt8 => Start {
-                bytes: [
-                    0x1000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LanguageAt29 | Pat::SupportTailAt1 => Start {

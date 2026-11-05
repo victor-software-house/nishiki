@@ -5082,7 +5082,6 @@ impl Pat {
             | Pat::RootAt6At0End
             | Pat::RootAt6At2End
             | Pat::RootAt7At0End
-            | Pat::RootAt7At2End
             | Pat::RootAt8End
             | Pat::RootAt17End
             | Pat::RootAt24End
@@ -5497,7 +5496,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::RootAt5 | Pat::RootAt7 | Pat::RootAt12 => Start {
+            Pat::RootAt5 | Pat::RootAt6 | Pat::RootAt7 | Pat::RootAt12 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0008_0000_0000_0000,
@@ -5542,16 +5541,6 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::RootAt6 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0008_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
-            },
             Pat::RootAt6At2 => Start {
                 bytes: [
                     0xec00_fefe_ffff_c1ff,
@@ -5575,6 +5564,16 @@ impl Pat {
             Pat::RootAt7At2 => Start {
                 bytes: [
                     0xffff_ffff_ffff_fbff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::RootAt7At2End => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -5670,7 +5669,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::RootAt16 | Pat::RootAt17 => Start {
                 bytes: [

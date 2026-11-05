@@ -4677,10 +4677,7 @@ impl Pat {
             | Pat::RootAt22End
             | Pat::FunDeclEnd
             | Pat::StartTypeSignatureAt0End
-            | Pat::StartTypeSignatureAt1End
-            | Pat::QuasiQuoteAt0End
-            | Pat::QuasiQuoteAt1End
-            | Pat::QuasiQuoteAt2End => Start {
+            | Pat::StartTypeSignatureAt1End => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -4819,7 +4816,12 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::StringLiteralAt3At0 | Pat::TypeOperatorAt0 | Pat::InfixOpAt0 => Start {
+            Pat::StringLiteralAt3At0
+            | Pat::TypeOperatorAt0
+            | Pat::InfixOpAt0
+            | Pat::QuasiQuoteAt0End
+            | Pat::QuasiQuoteAt1End
+            | Pat::QuasiQuoteAt2End => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,

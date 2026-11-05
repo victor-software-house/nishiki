@@ -3001,7 +3001,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::TagsEndNode | Pat::TagsLangAt0End => Start {
+            Pat::TagsEndNode | Pat::TagsLangEnd | Pat::TagsLangAt0End => Start {
                 bytes: [
                     0x1000_8000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -3010,16 +3010,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::TagsLangEnd => Start {
-                bytes: [
-                    0x1000_8000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::TagsLangStartAttributesEnd
             | Pat::TagsVoidEnd
@@ -3172,7 +3162,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::AttributesValueAt2 => Start {
                 bytes: [

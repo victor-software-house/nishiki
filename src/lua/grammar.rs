@@ -1892,7 +1892,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::RootAt1 | Pat::RootAt2 | Pat::RootAt3 => Start {
                 bytes: [
@@ -2009,7 +2009,10 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::StringAt3End | Pat::StringAt3At0End | Pat::StringAt4End => Start {
+            Pat::StringAt3End
+            | Pat::StringAt3At0End
+            | Pat::StringAt4End
+            | Pat::EmmydocAt8At0At2 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0000_2000_0000,
@@ -2017,7 +2020,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::StringAt4 => Start {
                 bytes: [
@@ -2322,16 +2325,6 @@ impl Pat {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x07ff_fffe_8fff_fffe,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
-            Pat::EmmydocAt8At0At2 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_2000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],

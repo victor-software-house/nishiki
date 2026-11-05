@@ -336,7 +336,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::BracketCommentAt0
             | Pat::BracketArgumentAt0

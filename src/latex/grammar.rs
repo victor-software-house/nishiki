@@ -12767,9 +12767,11 @@ impl Pat {
             | Pat::DocumentEnvAt0
             | Pat::DocumentEnvAt1
             | Pat::AllBalancedEnvAt0
+            | Pat::AllBalancedEnvAt0End
             | Pat::AllBalancedEnvAt1
             | Pat::AllBalancedEnvAt1End
             | Pat::AllBalancedEnvAt2
+            | Pat::AllBalancedEnvAt2End
             | Pat::AllBalancedEnvAt3
             | Pat::AllBalancedEnvAt4
             | Pat::AllBalancedEnvAt5
@@ -12790,6 +12792,9 @@ impl Pat {
                 matches_at_end: false,
             },
             Pat::SongsEnvAt0End
+            | Pat::EmbeddedCodeEnvAt0End
+            | Pat::EmbeddedCodeEnvAt15End
+            | Pat::EmbeddedCodeEnvAt16End
             | Pat::EmbeddedCodeEnvAt16At0End
             | Pat::EmbeddedCodeEnvAt16At1End
             | Pat::EmbeddedCodeEnvAt16At2End
@@ -12809,9 +12814,12 @@ impl Pat {
             | Pat::EmbeddedCodeEnvAt16At16End
             | Pat::EmbeddedCodeEnvAt16At17End
             | Pat::EmbeddedCodeEnvAt16At18End
+            | Pat::EmbeddedCodeEnvAt17End
+            | Pat::VerbatimEnvAt0End
             | Pat::VerbatimEnvAt1End
             | Pat::VerbatimEnvAt2End
             | Pat::VerbatimEnvAt2At0
+            | Pat::VerbatimEnvAt3End
             | Pat::AllBalancedEnvAt0At1
             | Pat::LabelMacro
             | Pat::TexMathContentAt0
@@ -12836,8 +12844,11 @@ impl Pat {
             | Pat::TexMathContentAt7
             | Pat::AllBalancedEnvAt1At1
             | Pat::AllBalancedEnvAt2At1
+            | Pat::AllBalancedEnvAt3End
             | Pat::AllBalancedEnvAt4End
             | Pat::AllBalancedEnvAt5End
+            | Pat::AllBalancedEnvAt6End
+            | Pat::AllBalancedEnvAt8End
             | Pat::DocumentclassUsepackageMacro
             | Pat::InputMacro
             | Pat::SectionsMacro
@@ -12857,7 +12868,12 @@ impl Pat {
             | Pat::AllOtherMacroAt5
             | Pat::NewcommandMacro
             | Pat::VerbMacroAt0
+            | Pat::VerbMacroAt1
             | Pat::InlineCodeMacroAt0
+            | Pat::InlineCodeMacroAt1
+            | Pat::InlineCodeMacroAt2
+            | Pat::InlineCodeMacroAt3
+            | Pat::InlineCodeMacroAt4
             | Pat::InlineCodeMacroAt5
             | Pat::InlineCodeMacroAt6
             | Pat::InlineCodeMacroAt7
@@ -12895,29 +12911,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::EmbeddedCodeEnvAt0End
-            | Pat::EmbeddedCodeEnvAt15End
-            | Pat::EmbeddedCodeEnvAt16End
-            | Pat::EmbeddedCodeEnvAt17End
-            | Pat::VerbatimEnvAt0End
-            | Pat::VerbatimEnvAt3End
-            | Pat::AllBalancedEnvAt3End
-            | Pat::AllBalancedEnvAt6End
-            | Pat::AllBalancedEnvAt8End
-            | Pat::VerbMacroAt1
-            | Pat::InlineCodeMacroAt1
-            | Pat::InlineCodeMacroAt2
-            | Pat::InlineCodeMacroAt3
-            | Pat::InlineCodeMacroAt4 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_1000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::MultilineOptionalArgNoHighlight
             | Pat::EmbeddedCodeEnvAt0At2
@@ -13201,16 +13194,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::AllBalancedEnvAt0End | Pat::AllBalancedEnvAt2End => Start {
-                bytes: [
-                    0x0000_0001_0000_3e00,
-                    0x0000_0000_1000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::AllBalancedEnvAt0At0 | Pat::AllBalancedEnvAt1At0 | Pat::AllBalancedEnvAt2At0 => {
                 Start {
