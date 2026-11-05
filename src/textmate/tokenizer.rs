@@ -27,6 +27,9 @@ use crate::limits::{Limit, Limits, LineReport, Steps, Work};
 use crate::scope::Scope;
 use crate::{Stack, Token};
 
+#[cfg(test)]
+mod tests;
+
 /// The frame kind of the engine's states, tagged as the engine's.
 const KIND: u16 = crate::tag::TEXTMATE;
 /// The frame kind of a hand-off region. The frame sits on top of the frame of
@@ -945,18 +948,24 @@ fn fill_backrefs(source: &str, text: &[u8], caps: &Caps, out: &mut String) {
 /// Returns how many characters of `rest`, which follows the `$`, it took, or
 /// `None`, writing nothing, when the `$` starts no such form.
 ///
+/// A form whose group the pattern does not have is no such form.
+/// It stays as written, as in vscode-textmate.
+/// Objective-C++'s `keyword.control.namespace.$2.objcpp` names a group 2 that
+/// its end pattern lacks.
+/// A group that took no part in the match writes nothing.
+///
 /// Leading dots of a group's text are dropped, since they would make an invalid
 /// scope name. Case is changed a character at a time, which differs from
 /// Shiki's only for a final capital sigma.
 fn dollar(rest: &str, text: &[u8], caps: &Caps, out: &mut String) -> Option<usize> {
     let group = |digits: &str| {
-        let (s, e) = caps.get(digits.parse::<usize>().ok()?).copied().flatten()?;
-        text.get(s..e).map(String::from_utf8_lossy)
+        let slot = caps.get(digits.parse::<usize>().ok()?)?;
+        Some(slot.and_then(|(s, e)| text.get(s..e).map(String::from_utf8_lossy)))
     };
     if let Some(body) = rest.strip_prefix('{') {
         let close = body.find('}')?;
         let (digits, case) = body[..close].split_once(":/")?;
-        let found = group(digits);
+        let found = group(digits)?;
         let found = found.as_deref().unwrap_or_default().trim_start_matches('.');
         match case {
             "downcase" => out.extend(found.chars().flat_map(char::to_lowercase)),
@@ -969,7 +978,7 @@ fn dollar(rest: &str, text: &[u8], caps: &Caps, out: &mut String) -> Option<usiz
     if digits == 0 {
         return None;
     }
-    let found = group(&rest[..digits]);
+    let found = group(&rest[..digits])?;
     out.push_str(found.as_deref().unwrap_or_default().trim_start_matches('.'));
     Some(digits)
 }

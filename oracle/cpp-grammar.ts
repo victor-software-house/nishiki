@@ -11,7 +11,7 @@
 // expressions there for oracle/onig.ts.
 import langs from "@shikijs/langs@4.6.0/cpp";
 
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupCount, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -96,12 +96,18 @@ function scope(name: string): string {
 
 /** A scope of a rule or capture: a fixed one, or one built from capture text. */
 type Sc = { fixed: string } | { prefix: string; group: number; suffix: string };
-function scopeList(name: string | undefined): Sc[] {
+
+/** The scopes of `name`, which a match of `regex` fills in.
+ * A `$N` whose group `regex` lacks fails the generator.
+ * vscode-textmate keeps such a form as written, and the engine would write nothing. */
+function scopeList(name: string | undefined, regex: string): Sc[] {
   if (name === undefined) return [];
   return name.split(" ").map((part): Sc => {
     const m = /^(.*?)\$(\d+)(.*)$/.exec(part);
     if (!m) return { fixed: scope(part) };
-    return { prefix: m[1]!, group: Number(m[2]), suffix: m[3]! };
+    const group = Number(m[2]);
+    if (group > groupCount(regex)) throw new Error(`${name} names group ${group}, which ${regex} lacks`);
+    return { prefix: m[1]!, group, suffix: m[3]! };
   });
 }
 const scText = (list: Sc[]) =>
@@ -148,11 +154,11 @@ const captureSources: { cap: Cap; g: Grammar; patterns: Node[]; name: string }[]
 /** Nested contexts by the patterns they try, so equal ones are one rule. */
 const contexts = new Map<string, string>();
 
-function captureList(g: Grammar, captures: Captures | undefined, owner: string): Cap[] {
+function captureList(g: Grammar, captures: Captures | undefined, owner: string, regex: string): Cap[] {
   if (!captures) return [];
   const out: Cap[] = [];
   for (const [group, value] of Object.entries(captures)) {
-    const scopes = scopeList(value.name);
+    const scopes = scopeList(value.name, regex);
     let nested: string | null = null;
     if (value.patterns) {
       const list = flatten(g, value.patterns, `${owner}Cap${group}`);
@@ -191,10 +197,10 @@ function register(g: Grammar, node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.match,
-      act: { kind: "match", name: scopeList(node.name) },
+      act: { kind: "match", name: scopeList(node.name, node.match) },
       captures: [],
     });
-    pats.get(id)!.captures = captureList(g, node.captures, id);
+    pats.get(id)!.captures = captureList(g, node.captures, id, node.match);
     return id;
   }
   if (node.begin !== undefined && node.end !== undefined) {
@@ -202,15 +208,15 @@ function register(g: Grammar, node: Node, id: string): string {
     pats.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: [] });
     const rule: Rule = {
       id,
-      name: scopeList(node.name),
-      content: scopeList(node.contentName),
+      name: scopeList(node.name, node.begin),
+      content: scopeList(node.contentName, node.begin),
       end: `${id}End`,
       endLast: node.applyEndPatternLast === 1,
       patterns: [],
     };
     rules.set(id, rule);
-    pats.get(id)!.captures = captureList(g, node.beginCaptures ?? node.captures, id);
-    pats.get(`${id}End`)!.captures = captureList(g, node.endCaptures ?? node.captures, `${id}End`);
+    pats.get(id)!.captures = captureList(g, node.beginCaptures ?? node.captures, id, node.begin);
+    pats.get(`${id}End`)!.captures = captureList(g, node.endCaptures ?? node.captures, `${id}End`, node.end);
     sources.push({ g, node, id });
     rule.patterns = flatten(g, node.patterns ?? [], id);
     return id;

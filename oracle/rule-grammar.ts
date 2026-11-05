@@ -215,6 +215,7 @@ class RegexParser {
         throw new Error(`regex ${this.src}: group ${rest.slice(0, 4)}`);
       }
     }
+    if (kind === "capture") this.groups++;
     const bodyStart = this.pos;
     const body = this.alternation();
     const bodySource = this.src.slice(bodyStart, this.pos);
@@ -439,6 +440,13 @@ function propertySet(negated: boolean, name: string): Set {
   return FULL();
 }
 
+
+/** The number of capture groups in `regex`. */
+export function groupCount(regex: string): number {
+  const parser = new RegexParser(regex, "any");
+  parser.parse();
+  return parser.groups;
+}
 
 /** The bytes a match of `regex` can start at, and its anchors. */
 export function startOf(
