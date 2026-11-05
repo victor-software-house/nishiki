@@ -3,7 +3,7 @@
 
 use nishiki_alloc_count::count;
 
-use super::{Carry, Counts, Document, LastLine, Stream, Until};
+use super::{Carry, Counts, Document, LastLine, Stream, Tail, Until};
 use crate::test_support::oracle_documents;
 use crate::{Highlighter, Language, Limits, Theme, ThemeSource};
 
@@ -91,6 +91,7 @@ fn warm(
             tokens: Vec::with_capacity(tail),
             lexed: None,
         },
+        tail_rule: Tail::default(),
         stream: Stream::Open,
         dirty: None,
         taken_lines: 1,
@@ -122,4 +123,30 @@ fn streaming_allocates_nothing_per_line() {
         });
         assert_eq!(allocations, 0, "{language:?}: {allocations} allocations");
     }
+}
+
+/// A line of 100 KiB written four bytes at a time is lexed in bounded steps:
+/// past its first KiB, at most nine times its length, and once more whole
+/// when the stream ends.
+#[test]
+fn a_long_line_is_lexed_in_bounded_steps() {
+    let mut line = String::from("[");
+    while line.len() < 100 * 1024 {
+        line.push_str("1, ");
+    }
+    let mut document = Document::new(Language::Json, theme());
+    for piece in line.as_bytes().chunks(4) {
+        document.push(piece);
+        document.lex(Until::End);
+    }
+    document.finish();
+    document.lex(Until::End);
+    let first_kib = 1024 * (1024 / 4 + 1);
+    let bound = 9 * line.len() + line.len() + first_kib;
+    assert!(
+        document.counts.tail_bytes <= bound,
+        "{} bytes lexed for a line of {}, over {bound}",
+        document.counts.tail_bytes,
+        line.len()
+    );
 }

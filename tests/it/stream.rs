@@ -4,7 +4,7 @@
 //! The fixtures are Shiki's output for the whole text, so a document whose
 //! final lines match them matches Shiki however its deltas were cut.
 
-use nishiki::{Document, Language, LineKind, Theme, ThemeSource, Until};
+use nishiki::{Document, Language, LineKind, Tail, Theme, ThemeSource, Until};
 
 use crate::oracle::{Line, Tokens, compare, every_language, fixtures, parse, report};
 
@@ -19,6 +19,9 @@ enum Cut {
     Bytes(u64),
     /// The whole text at once, lexed through the middle line first.
     Whole,
+    /// Token-sized deltas, with the last line lexed again only once it has
+    /// doubled, so most deltas leave it lexed in part.
+    Deferred,
 }
 
 /// What kind of character `c` is, for cutting token-sized deltas.
@@ -78,6 +81,13 @@ fn streamed(language: Language, text: &str, cut: Cut) -> Document {
     let bytes = text.as_bytes();
     let ends = match cut {
         Cut::Tokens => token_ends(text),
+        Cut::Deferred => {
+            document.set_tail(Tail::Amortized {
+                short: 0,
+                growth: 1,
+            });
+            token_ends(text)
+        }
         Cut::Bytes(seed) => byte_ends(bytes.len(), seed),
         Cut::Whole => {
             document.push_str(text);
@@ -108,7 +118,7 @@ fn stream_failures(language: Language) -> Vec<String> {
             .collect::<Vec<_>>()
             .join("\n");
         let seed = u64::try_from(number).unwrap_or(0) + 0x9e37_79b9;
-        for cut in [Cut::Tokens, Cut::Bytes(seed), Cut::Whole] {
+        for cut in [Cut::Tokens, Cut::Bytes(seed), Cut::Whole, Cut::Deferred] {
             let document = streamed(language, &text, cut);
             assert_eq!(
                 document.text(),

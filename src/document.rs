@@ -44,6 +44,8 @@ pub struct Document {
     lexed: usize,
     /// The last line: its tokens and what they were lexed from.
     tail: LastLine,
+    /// When a long last line is lexed again.
+    tail_rule: Tail,
     stream: Stream,
     /// The lines changed since the last [`Document::take_changes`].
     dirty: Option<Dirty>,
@@ -60,6 +62,7 @@ pub struct Document {
 struct Counts {
     completed: usize,
     tail: usize,
+    tail_bytes: usize,
 }
 
 /// A completed line: where its text ends, where the next line starts, where
@@ -82,11 +85,13 @@ struct LastLine {
 }
 
 /// What the last line was lexed from: the byte where the line starts, the
-/// bytes lexed, the state before it, and what lexing gave.
+/// bytes lexed, the bytes it held when lexing last ran or chose not to, the
+/// state before it, and what lexing gave.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct Lexed {
     start: usize,
     len: usize,
+    seen: usize,
     from: State,
     to: State,
     report: LineReport,
@@ -115,6 +120,44 @@ struct Carry {
 struct Dirty {
     start: usize,
     keep: usize,
+}
+
+/// When a long last line is lexed again as it grows.
+///
+/// Lexing the last line on every delta costs the square of its length.
+/// For a line of 100 KiB written four bytes at a time, that is over a
+/// gigabyte of lexing.
+/// Past `short` bytes, [`Tail::Amortized`] lexes it again only once it has
+/// grown by `1 / growth` since its last lexing.
+/// Past its first `short` bytes, a line then costs at most `growth + 1`
+/// times its length.
+/// The bytes past the last lexing have no tokens until the next one.
+/// Both numbers count bytes, never time, so the same input gives the same
+/// tokens on every machine.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[non_exhaustive]
+pub enum Tail {
+    /// Lex the last line again on every delta.
+    EveryDelta,
+    /// Lex it again on every delta while it is at most `short` bytes, then
+    /// only once it has grown by `1 / growth`.
+    /// A `growth` of zero lexes it again only when it ends.
+    Amortized {
+        /// The length up to which every delta lexes the line again.
+        short: usize,
+        /// The share of its length a line grows by before it is lexed again.
+        growth: usize,
+    },
+}
+
+impl Default for Tail {
+    /// `Tail::Amortized { short: 1024, growth: 8 }`.
+    fn default() -> Tail {
+        Tail::Amortized {
+            short: 1024,
+            growth: 8,
+        }
+    }
 }
 
 /// How far [`Document::lex`] lexes.
@@ -154,6 +197,8 @@ pub enum LineKind {
     /// The last line of an open document, lexed as if it ended there.
     /// Its last token may still change as text arrives, so a renderer can
     /// show the bytes from `stable` in the default colour.
+    /// Under [`Tail::Amortized`], the tokens of a long line may cover only
+    /// part of it.
     Provisional {
         /// The byte where the line's last token starts.
         stable: usize,
@@ -218,6 +263,7 @@ impl Document {
             tokens: Vec::new(),
             lexed: 0,
             tail: LastLine::default(),
+            tail_rule: Tail::default(),
             stream: Stream::Open,
             dirty: None,
             taken_lines: 1,
@@ -336,6 +382,11 @@ impl Document {
     #[must_use]
     pub fn highlighter(&self) -> &Highlighter {
         &self.highlighter
+    }
+
+    /// Sets when a long last line is lexed again as it grows.
+    pub fn set_tail(&mut self, tail: Tail) {
+        self.tail_rule = tail;
     }
 
     /// The theme the document is styled with.
@@ -485,11 +536,13 @@ impl Document {
         let start = self.start_of(index);
         let len = self.tail_len();
         let from = self.state_before(index);
-        if self
+        if let Some(lexed) = self
             .tail
             .lexed
-            .is_some_and(|lexed| lexed.start == start && lexed.len == len && lexed.from == from)
+            .filter(|lexed| lexed.start == start && lexed.from == from)
+            && (lexed.len == len || self.defers(lexed.len, len))
         {
+            self.tail.lexed = Some(Lexed { seen: len, ..lexed });
             return;
         }
         self.tail.tokens.clear();
@@ -501,15 +554,29 @@ impl Document {
         #[cfg(test)]
         {
             self.counts.tail += 1;
+            self.counts.tail_bytes += len;
         }
         self.tail.lexed = Some(Lexed {
             start,
             len,
+            seen: len,
             from,
             to: state,
             report,
         });
         self.mark(index, index + 1);
+    }
+
+    /// Whether the last line, lexed through `lexed` bytes and now `len`
+    /// bytes long, waits for more text before it is lexed again.
+    fn defers(&self, lexed: usize, len: usize) -> bool {
+        match (self.stream, self.tail_rule) {
+            (Stream::Finished, Tail::EveryDelta | Tail::Amortized { .. })
+            | (Stream::Open, Tail::EveryDelta) => false,
+            (Stream::Open, Tail::Amortized { short, growth }) => {
+                len > short && lexed < len && (len - lexed).saturating_mul(growth) < lexed
+            }
+        }
     }
 
     /// The completed line of `index`.
@@ -551,12 +618,15 @@ impl Document {
                 report: LineReport::default(),
             };
         };
-        let current = lexed.len == len && lexed.from == from && self.lexed == index;
+        let current = lexed.seen == len && lexed.from == from && self.lexed == index;
+        let whole = lexed.len == len;
         let tokens = self.tail.tokens.as_slice();
-        let kind = match (current, self.stream) {
-            (false, Stream::Open | Stream::Finished) => LineKind::Stale,
-            (true, Stream::Finished) => LineKind::Exact,
-            (true, Stream::Open) => LineKind::Provisional {
+        let kind = match (current, self.stream, whole) {
+            (false, Stream::Open | Stream::Finished, _) | (true, Stream::Finished, false) => {
+                LineKind::Stale
+            }
+            (true, Stream::Finished, true) => LineKind::Exact,
+            (true, Stream::Open, _) => LineKind::Provisional {
                 stable: tokens
                     .len()
                     .checked_sub(2)
