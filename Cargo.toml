@@ -56,6 +56,7 @@ all = [
   "lang-haml",
   "lang-haskell",
   "lang-hcl",
+  "lang-hlsl",
   "lang-html",
   "lang-html-derivative",
   "lang-ini",
@@ -240,6 +241,7 @@ lang-haml = [
 ]
 lang-haskell = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-hcl = ["_language", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-hlsl = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-html = [
   "_language",
   "_scope-table",

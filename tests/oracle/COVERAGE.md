@@ -36,6 +36,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | HAML | `haml` | 64 of 83 | 77.1% | 24 of 40 | 60.0% | 35 | 0 | yes |
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HCL | `hcl` | 80 of 80 | 100.0% | 53 of 55 | 96.4% | 2 | 0 | yes |
+| HLSL | `hlsl` | 53 of 53 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
 | HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 4 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |

@@ -1,0 +1,267 @@
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft. All rights reserved.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L // This code is licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L // ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Developed by Minigraph
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 25 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Author:  James Stanard 
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 26 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L 
+L #include "ToneMappingUtility.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 34 source.hlsl string.quoted.double.hlsl
+T 35 source.hlsl string.quoted.double.hlsl
+L #include "PostEffectsRS.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 29 source.hlsl string.quoted.double.hlsl
+T 30 source.hlsl string.quoted.double.hlsl
+L #include "PixelPacking.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 28 source.hlsl string.quoted.double.hlsl
+T 29 source.hlsl string.quoted.double.hlsl
+L 
+L StructuredBuffer<float> Exposure : register( t0 );
+T 17 source.hlsl
+T 22 source.hlsl storage.type.basic.hlsl
+T 35 source.hlsl
+T 43 source.hlsl support.function.hlsl
+T 50 source.hlsl
+L Texture2D<float3> Bloom : register( t1 );
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 34 source.hlsl support.function.hlsl
+T 41 source.hlsl
+L #if SUPPORT_TYPED_UAV_LOADS
+T 3 source.hlsl keyword.preprocessor.hlsl
+T 27 source.hlsl
+L RWTexture2D<float3> ColorRW : register( u0 );
+T 11 source.hlsl support.type.object.rw.hlsl
+T 12 source.hlsl
+T 18 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L #else
+T 5 source.hlsl keyword.preprocessor.hlsl
+L RWTexture2D<uint> DstColor : register( u0 );
+T 11 source.hlsl support.type.object.rw.hlsl
+T 12 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 44 source.hlsl
+L Texture2D<float3> SrcColor : register( t2 );
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 44 source.hlsl
+L #endif
+T 6 source.hlsl keyword.preprocessor.hlsl
+L RWTexture2D<float> OutLuma : register( u1 );
+T 11 source.hlsl support.type.object.rw.hlsl
+T 12 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 44 source.hlsl
+L SamplerState LinearSampler : register( s0 );
+T 12 source.hlsl support.type.sampler.hlsl
+T 29 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 44 source.hlsl
+L 
+L cbuffer CB0 : register(b0)
+T 7 source.hlsl storage.type.structured.hlsl
+T 14 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 26 source.hlsl
+L {
+T 1 source.hlsl
+L     float2 g_RcpBufferDim;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+L     float g_BloomStrength;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+L     float PaperWhiteRatio; // PaperWhite / MaxBrightness
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 27 source.hlsl
+T 29 source.hlsl comment.line.double-slash.hlsl
+T 56 source.hlsl comment.line.double-slash.hlsl
+L     float MaxBrightness;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L [RootSignature(PostEffects_RootSig)]
+T 1 source.hlsl
+T 14 source.hlsl support.function.hlsl
+T 36 source.hlsl
+L [numthreads( 8, 8, 1 )]
+T 1 source.hlsl
+T 11 source.hlsl support.function.hlsl
+T 13 source.hlsl
+T 14 source.hlsl constant.numeric.decimal.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 19 source.hlsl
+T 20 source.hlsl constant.numeric.decimal.hlsl
+T 23 source.hlsl
+L void main( uint3 DTid : SV_DispatchThreadID )
+T 4 source.hlsl storage.type.basic.hlsl
+T 5 source.hlsl
+T 9 source.hlsl support.function.hlsl
+T 11 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 43 source.hlsl support.variable.semantic.sm5.hlsl
+T 45 source.hlsl
+L {
+T 1 source.hlsl
+L     float2 TexCoord = (DTid.xy + 0.5) * g_RcpBufferDim;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 36 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+L 
+L     // Load HDR and bloom
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 25 source.hlsl comment.line.double-slash.hlsl
+L #if SUPPORT_TYPED_UAV_LOADS
+T 3 source.hlsl keyword.preprocessor.hlsl
+T 27 source.hlsl
+L     float3 hdrColor = ColorRW[DTid.xy];
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+L #else
+T 5 source.hlsl keyword.preprocessor.hlsl
+L     float3 hdrColor = SrcColor[DTid.xy];
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 40 source.hlsl
+L #endif
+T 6 source.hlsl keyword.preprocessor.hlsl
+L 
+L     hdrColor += g_BloomStrength * Bloom.SampleLevel(LinearSampler, TexCoord, 0);
+T 40 source.hlsl
+T 51 source.hlsl support.function.hlsl
+T 77 source.hlsl
+T 78 source.hlsl constant.numeric.decimal.hlsl
+T 80 source.hlsl
+L     hdrColor *= Exposure[0];
+T 25 source.hlsl
+T 26 source.hlsl constant.numeric.decimal.hlsl
+T 28 source.hlsl
+L 
+L #if ENABLE_HDR_DISPLAY_MAPPING
+T 3 source.hlsl keyword.preprocessor.hlsl
+T 30 source.hlsl
+L 
+L     hdrColor = TM_Stanard(REC709toREC2020(hdrColor) * PaperWhiteRatio) * MaxBrightness;
+T 15 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 26 source.hlsl
+T 41 source.hlsl support.function.hlsl
+T 87 source.hlsl
+L     // Write the HDR color as-is and defer display mapping until we composite with UI
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 85 source.hlsl comment.line.double-slash.hlsl
+L #if SUPPORT_TYPED_UAV_LOADS
+T 3 source.hlsl keyword.preprocessor.hlsl
+T 27 source.hlsl
+L     ColorRW[DTid.xy] = hdrColor;
+T 32 source.hlsl
+L #else
+T 5 source.hlsl keyword.preprocessor.hlsl
+L     DstColor[DTid.xy] = Pack_R11G11B10_FLOAT(hdrColor);
+T 24 source.hlsl
+T 44 source.hlsl support.function.hlsl
+T 55 source.hlsl
+L #endif
+T 6 source.hlsl keyword.preprocessor.hlsl
+L     OutLuma[DTid.xy] = RGBToLogLuminance(hdrColor);
+T 23 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L 
+L #else
+T 5 source.hlsl keyword.preprocessor.hlsl
+L 
+L     // Tone map to SDR
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 22 source.hlsl comment.line.double-slash.hlsl
+L     float3 sdrColor = TM_Stanard(hdrColor);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 32 source.hlsl support.function.hlsl
+T 43 source.hlsl
+L 
+L #if SUPPORT_TYPED_UAV_LOADS
+T 3 source.hlsl keyword.preprocessor.hlsl
+T 27 source.hlsl
+L     ColorRW[DTid.xy] = sdrColor;
+T 32 source.hlsl
+L #else
+T 5 source.hlsl keyword.preprocessor.hlsl
+L     DstColor[DTid.xy] = Pack_R11G11B10_FLOAT(sdrColor);
+T 24 source.hlsl
+T 44 source.hlsl support.function.hlsl
+T 55 source.hlsl
+L #endif
+T 6 source.hlsl keyword.preprocessor.hlsl
+L 
+L     OutLuma[DTid.xy] = RGBToLogLuminance(sdrColor);
+T 23 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L 
+L #endif
+T 6 source.hlsl keyword.preprocessor.hlsl
+L }
+T 1 source.hlsl
+L 

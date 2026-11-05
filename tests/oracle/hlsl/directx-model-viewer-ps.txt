@@ -1,0 +1,335 @@
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft. All rights reserved.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L // This code is licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L // ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Developed by Minigraph
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 25 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Author(s):	James Stanard
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 27 source.hlsl comment.line.double-slash.hlsl
+L 
+L #include "Common.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 22 source.hlsl string.quoted.double.hlsl
+T 23 source.hlsl string.quoted.double.hlsl
+L #include "Lighting.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 24 source.hlsl string.quoted.double.hlsl
+T 25 source.hlsl string.quoted.double.hlsl
+L 
+L Texture2D<float3> texDiffuse		: register(t0);
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 32 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L Texture2D<float3> texSpecular		: register(t1);
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 41 source.hlsl support.function.hlsl
+T 46 source.hlsl
+L //Texture2D<float4> texEmissive		: register(t2);
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L Texture2D<float3> texNormal			: register(t3);
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 32 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L //Texture2D<float4> texLightmap		: register(t4);
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L //Texture2D<float4> texReflection	: register(t5);
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L Texture2D<float> texSSAO			: register(t12);
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 43 source.hlsl
+L Texture2D<float> texShadow			: register(t13);
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 31 source.hlsl
+T 39 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L 
+L struct VSOutput
+T 6 source.hlsl storage.type.structured.hlsl
+T 15 source.hlsl
+L {
+T 1 source.hlsl
+L 	sample float4 position : SV_Position;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 37 source.hlsl support.variable.semantic.sm4.hlsl
+T 38 source.hlsl
+L 	sample float3 worldPos : WorldPos;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 35 source.hlsl
+L 	sample float2 uv : TexCoord0;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+T 29 source.hlsl support.variable.semantic.hlsl
+T 30 source.hlsl
+L 	sample float3 viewDir : TexCoord1;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 25 source.hlsl
+T 34 source.hlsl support.variable.semantic.hlsl
+T 35 source.hlsl
+L 	sample float3 shadowCoord : TexCoord2;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 38 source.hlsl support.variable.semantic.hlsl
+T 39 source.hlsl
+L 	sample float3 normal : Normal;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 30 source.hlsl support.variable.semantic.hlsl
+T 31 source.hlsl
+L 	sample float3 tangent : Tangent;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 25 source.hlsl
+T 32 source.hlsl support.variable.semantic.hlsl
+T 33 source.hlsl
+L 	sample float3 bitangent : Bitangent;
+T 1 source.hlsl
+T 7 source.hlsl storage.modifier.interpolation.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 37 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L struct MRT
+T 6 source.hlsl storage.type.structured.hlsl
+T 10 source.hlsl
+L {
+T 1 source.hlsl
+L 	float3 Color : SV_Target0;
+T 1 source.hlsl
+T 7 source.hlsl storage.type.basic.hlsl
+T 16 source.hlsl
+T 26 source.hlsl support.variable.semantic.sm4.hlsl
+T 27 source.hlsl
+L 	float3 Normal : SV_Target1;
+T 1 source.hlsl
+T 7 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 27 source.hlsl support.variable.semantic.sm4.hlsl
+T 28 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L [RootSignature(Renderer_RootSig)]
+T 1 source.hlsl
+T 14 source.hlsl support.function.hlsl
+T 33 source.hlsl
+L MRT main(VSOutput vsOutput)
+T 4 source.hlsl
+T 8 source.hlsl support.function.hlsl
+T 27 source.hlsl
+L {
+T 1 source.hlsl
+L 	MRT mrt;
+T 9 source.hlsl
+L 
+L 	uint2 pixelPos = uint2(vsOutput.position.xy);
+T 1 source.hlsl
+T 6 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+T 23 source.hlsl storage.type.basic.hlsl
+T 46 source.hlsl
+L # define SAMPLE_TEX(texName) texName.Sample(defaultSampler, vsOutput.uv)
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 19 source.hlsl support.function.hlsl
+T 37 source.hlsl
+T 43 source.hlsl support.function.hlsl
+T 72 source.hlsl
+L 
+L     float3 diffuseAlbedo = SAMPLE_TEX(texDiffuse);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 27 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 50 source.hlsl
+L     float3 colorSum = 0;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 24 source.hlsl
+L     {
+T 5 source.hlsl
+L         float ao = texSSAO[pixelPos];
+T 8 source.hlsl
+T 13 source.hlsl storage.type.basic.hlsl
+T 37 source.hlsl
+L         colorSum += ApplyAmbientLight( diffuseAlbedo, ao, AmbientColor );
+T 20 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 73 source.hlsl
+L     }
+T 5 source.hlsl
+L 
+L     float gloss = 128.0;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 24 source.hlsl
+L     float3 normal;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+L     {
+T 5 source.hlsl
+L         normal = SAMPLE_TEX(texNormal) * 2.0 - 1.0;
+T 17 source.hlsl
+T 27 source.hlsl support.function.hlsl
+T 41 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+T 50 source.hlsl constant.numeric.decimal.hlsl
+T 51 source.hlsl
+L         AntiAliasSpecular(normal, gloss);
+T 8 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 41 source.hlsl
+L         float3x3 tbn = float3x3(normalize(vsOutput.tangent), normalize(vsOutput.bitangent), normalize(vsOutput.normal));
+T 8 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 32 source.hlsl
+T 41 source.hlsl support.function.hlsl
+T 61 source.hlsl
+T 70 source.hlsl support.function.hlsl
+T 92 source.hlsl
+T 101 source.hlsl support.function.hlsl
+T 120 source.hlsl
+L         normal = normalize(mul(normal, tbn));
+T 17 source.hlsl
+T 26 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 30 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L     }
+T 5 source.hlsl
+L 
+L     float3 specularAlbedo = float3( 0.56, 0.56, 0.56 );
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 28 source.hlsl
+T 34 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 42 source.hlsl
+T 46 source.hlsl constant.numeric.decimal.hlsl
+T 48 source.hlsl
+T 52 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+L     float specularMask = SAMPLE_TEX(texSpecular).g;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 25 source.hlsl
+T 35 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L     float3 viewDir = normalize(vsOutput.viewDir);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 21 source.hlsl
+T 30 source.hlsl support.function.hlsl
+T 49 source.hlsl
+L     colorSum += ApplyDirectionalLight( diffuseAlbedo, specularAlbedo, specularMask, gloss, normal, viewDir, SunDirection, SunColor, vsOutput.shadowCoord, texShadow );
+T 16 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 166 source.hlsl
+L 
+L 	ShadeLights(colorSum, pixelPos,
+T 1 source.hlsl
+T 12 source.hlsl support.function.hlsl
+T 32 source.hlsl
+L 		diffuseAlbedo,
+T 16 source.hlsl
+L 		specularAlbedo,
+T 17 source.hlsl
+L 		specularMask,
+T 15 source.hlsl
+L 		gloss,
+T 8 source.hlsl
+L 		normal,
+T 9 source.hlsl
+L 		viewDir,
+T 10 source.hlsl
+L 		vsOutput.worldPos
+T 19 source.hlsl
+L 		);
+T 4 source.hlsl
+L 
+L 	mrt.Normal = normal;
+T 21 source.hlsl
+L 	mrt.Color = colorSum;
+T 22 source.hlsl
+L 	return mrt;
+T 1 source.hlsl
+T 7 source.hlsl keyword.control.hlsl
+T 12 source.hlsl
+L }
+T 1 source.hlsl
+L 

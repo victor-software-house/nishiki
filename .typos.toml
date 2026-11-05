@@ -61,3 +61,6 @@ globa = "globa"
 # doc comments quote.
 includ = "includ"
 requir = "requir"
+# HLSL's level-of-detail state keys, such as `MaxLOD`, which the hlsl grammar
+# lists and oracle/inputs/hlsl-coverage.hlsl uses.
+lod = "lod"

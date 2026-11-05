@@ -1913,6 +1913,7 @@ export const complete: string[] = [
   "haml",
   "haskell",
   "hcl",
+  "hlsl",
   "ini",
   "java",
   "javascript",

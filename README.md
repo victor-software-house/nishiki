@@ -78,6 +78,7 @@ The opt-in `textmate` tier holds no language now.
 | HAML | `Language::Haml` | `lang-haml` | `all` | `haml` |
 | Haskell | `Language::Haskell` | `lang-haskell` | `all` | `haskell`, `hs` |
 | HCL | `Language::Hcl` | `lang-hcl` | `all` | `hcl` |
+| HLSL | `Language::Hlsl` | `lang-hlsl` | `all` | `hlsl` |
 | HTML | `Language::Html` | `lang-html` | `all` | `html` |
 | HTML (Derivative) | `Language::HtmlDerivative` | `lang-html-derivative` | `all` | `html-derivative` |
 | INI | `Language::Ini` | `lang-ini` | `all` | `ini`, `properties` |

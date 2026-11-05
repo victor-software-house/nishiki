@@ -1077,6 +1077,37 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
+## HLSL
+
+Its HLSL lexer emits the scope names of the HLSL TextMate grammar in [tgjones/shaders-tmLanguage](https://github.com/tgjones/shaders-tmLanguage) (`grammars/hlsl.json` at commit `87c0dca3a39170dbd7ee7e277db4f915fb2de14a`), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `hlsl`, and tries that grammar's rules in its order, from tables generated from it (`src/hlsl/grammar.rs` and `src/hlsl/words.rs`).
+That grammar is licensed under the MIT License:
+
+```text
+MIT License
+
+Copyright (c) 2017 Tim Jones
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
+
 ## HTML
 
 Its HTML lexer emits the scope names of the HTML TextMate grammar that Shiki bundles through VS Code as `html` (`extensions/html` in [microsoft/vscode](https://github.com/microsoft/vscode)), which VS Code converted from [textmate/html.tmbundle](https://github.com/textmate/html.tmbundle) at commit `0c3d5ee54de3a993f747f54186b73a4d2d3c44a2`, and tries that grammar's rules in its order.

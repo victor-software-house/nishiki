@@ -94,6 +94,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "BSD-3-Clause",
     file: "LICENSE",
   },
+  hlsl: {
+    bundled: "microsoft/vscode@efa12b2f49ec6ee84ed1e7bbd948808efec452f6",
+    origin: "tgjones/shaders-tmLanguage",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   html: {
     bundled: "microsoft/vscode@45324363153075dab0482312ae24d8c068d81e4f",
     origin: "textmate/html.tmbundle",

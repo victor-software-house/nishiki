@@ -1326,6 +1326,24 @@ languages! {
     /// - The frontmatter opens only at a `---` that starts the document.
     ///   It ends at a `---` that starts a line, or at a `...` before the end of a line, even one in TypeScript, such as a spread.
     Astro { feature: "lang-astro", names: ["astro"], module: astro }
+    /// HLSL, Microsoft's shading language, with the scopes of Shiki's `hlsl`
+    /// grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A block comment is scoped `comment.line.block.hlsl`.
+    /// - Any name before a `(`, with blanks between, is `support.function.hlsl`, unless a pattern listed before that one names it.
+    ///   So `float4(` keeps its type scope, but `Texture2D(`, `register(` and `max(` are functions.
+    /// - The FX state values match in any case, wherever they stand: `min`, `max`, `all`, `less`, `none`, `back` or `wrap` alone gets a `support.constant.property-value.fx` scope.
+    /// - A semantic is a listed name right after a `:`, or after a `:` and one blank, in any case.
+    ///   So the second branch of `c ? a : color` is the semantic `color`.
+    /// - A directive needs no end of word after it, so `#ifx` starts with the directive `#if`.
+    ///   Only the directive is scoped; the rest of its line lexes as code.
+    /// - A float's fraction may be empty, and the `\b` after it may fall between the `.` and a digit, so `1.5x` starts with the number `1.`.
+    ///   A fraction needs no `\b` before its `.`, so `a.5` holds the number `.5`.
+    /// - `true` and `false` are case-sensitive, and `TRUE`, `FALSE` and `NULL` are FX constants.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Hlsl { feature: "lang-hlsl", names: ["hlsl"], module: hlsl }
 }
 
 impl Language {

@@ -73,6 +73,7 @@ const handLexed = new Map([
   ["haml", "HAML"],
   ["haskell", "Haskell"],
   ["hcl", "HCL"],
+  ["hlsl", "HLSL"],
   ["html", "HTML"],
   ["html-derivative", "HTML"],
   ["ini", "INI"],

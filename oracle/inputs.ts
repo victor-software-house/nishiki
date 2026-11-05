@@ -31,6 +31,7 @@ import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import hamlInvalidTags from "./inputs/haml-invalid-tags.haml" with { type: "text" };
 import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" };
 import hclCoverage from "./inputs/hcl-coverage.hcl" with { type: "text" };
+import hlslCoverage from "./inputs/hlsl-coverage.hlsl" with { type: "text" };
 import htmlInvalidTags from "./inputs/html-invalid-tags.html" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
@@ -202,6 +203,8 @@ const deviceVirtual =
   "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
 const devise =
   "https://raw.githubusercontent.com/heartcombo/devise/05811fb8366edd08874111d0f6fb44543e1c91ef";
+const directxSamples =
+  "https://raw.githubusercontent.com/microsoft/DirectX-Graphics-Samples/68a2b1e97f71642924e74c7757ca21756ad221b5";
 const django =
   "https://raw.githubusercontent.com/django/django/b501b8493f31cf8cba31211d59b3b78642b8cb02";
 const dockerInstall =
@@ -849,6 +852,13 @@ export const inputs: Input[] = [
     name: "terragrunt-stack-deps-tree",
     url: `${terragrunt}/test/fixtures/stacks/stack-deps-tree/live/terragrunt.stack.hcl`,
   },
+  { lang: "hlsl", name: "coverage", text: hlslCoverage },
+  { lang: "hlsl", name: "directx-execute-indirect", url: `${directxSamples}/Samples/Desktop/D3D12ExecuteIndirect/src/compute.hlsl` },
+  { lang: "hlsl", name: "directx-frustum-ms", url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl` },
+  { lang: "hlsl", name: "directx-meshlet-ps", url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl` },
+  { lang: "hlsl", name: "directx-model-viewer-ps", url: `${directxSamples}/MiniEngine/Model/Shaders/ModelViewerPS.hlsl` },
+  { lang: "hlsl", name: "directx-tone-map", url: `${directxSamples}/MiniEngine/Core/Shaders/ToneMapCS.hlsl` },
+  { lang: "hlsl", name: "sample", url: `${samples}/hlsl.sample` },
   { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
   { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },

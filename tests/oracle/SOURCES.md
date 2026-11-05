@@ -251,6 +251,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `hcl/terraform-aws-vpc-variables` | [`variables.tf`][terraform-aws-vpc-variables] in terraform-aws-modules/terraform-aws-vpc | [Apache-2.0][terraform-aws-vpc-licence] |
 | `hcl/terragrunt-read-config` | [`test/fixtures/read-config/full/source.hcl`][terragrunt-read-config] in gruntwork-io/terragrunt | [MIT][terragrunt-licence] |
 | `hcl/terragrunt-stack-deps-tree` | [`test/fixtures/stacks/stack-deps-tree/live/terragrunt.stack.hcl`][terragrunt-stack-deps-tree] in gruntwork-io/terragrunt | [MIT][terragrunt-licence] |
+| `hlsl/coverage` | `oracle/inputs/hlsl-coverage.hlsl`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `hlsl/directx-execute-indirect` | [`Samples/Desktop/D3D12ExecuteIndirect/src/compute.hlsl`][directx-execute-indirect] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/directx-frustum-ms` | [`Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl`][directx-frustum-ms] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/directx-meshlet-ps` | [`Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl`][directx-meshlet-ps] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/directx-model-viewer-ps` | [`MiniEngine/Model/Shaders/ModelViewerPS.hlsl`][directx-model-viewer-ps] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/directx-tone-map` | [`MiniEngine/Core/Shaders/ToneMapCS.hlsl`][directx-tone-map] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/sample` | [`samples/hlsl.sample`][hlsl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
 | `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
@@ -1303,6 +1310,12 @@ The hand lexer was written against all seven.
 [devise-sessions-new]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/sessions/new.html.erb
 [devise-shared-links]: https://github.com/heartcombo/devise/blob/05811fb8366edd08874111d0f6fb44543e1c91ef/app/views/devise/shared/_links.html.erb
 [diff-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/diff.sample
+[directx-execute-indirect]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12ExecuteIndirect/src/compute.hlsl
+[directx-frustum-ms]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl
+[directx-meshlet-ps]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl
+[directx-model-viewer-ps]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/MiniEngine/Model/Shaders/ModelViewerPS.hlsl
+[directx-samples-licence]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/LICENSE
+[directx-tone-map]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/MiniEngine/Core/Shaders/ToneMapCS.hlsl
 [django-licence]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/LICENSE
 [django-tox]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/tox.ini
 [docker-install]: https://github.com/docker/docker-install/blob/ada7a567e59b3935bd601bb21e422da50e80e376/install.sh
@@ -1427,6 +1440,7 @@ The hand lexer was written against all seven.
 [highlightjs-github]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/src/styles/github.css
 [highlightjs-licence]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/LICENSE
 [highlightjs-readme]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/README.md
+[hlsl-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/hlsl.sample
 [home-manager-flake]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/flake.nix
 [home-manager-licence]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/LICENSE
 [home-manager-tmux]: https://github.com/nix-community/home-manager/blob/095fef2f265c3c0da4fe315efba8f8a04495ab34/modules/programs/tmux.nix
