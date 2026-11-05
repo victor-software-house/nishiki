@@ -61,6 +61,7 @@ import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
 import shellscriptCoverage from "./inputs/shellscript-coverage.sh" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
 import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
+import svelteCaptureEnds from "./inputs/svelte-capture-ends.svelte" with { type: "text" };
 import svelteCoverage from "./inputs/svelte-coverage.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
@@ -1321,6 +1322,7 @@ export const inputs: Input[] = [
     name: "ssms-create-table",
     url: `${sqlServerSamples}/samples/features/ssms-templates/Sql/Table/Create%20Table.sql`,
   },
+  { lang: "svelte", name: "capture-ends", text: svelteCaptureEnds },
   { lang: "svelte", name: "coverage", text: svelteCoverage },
   { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
   { lang: "svelte", name: "sample", url: `${samples}/svelte.sample` },

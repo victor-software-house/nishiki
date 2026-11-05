@@ -1,0 +1,555 @@
+L <!--
+T 4 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L   Capture groups that Svelte's grammar lexes again with TypeScript: the names
+T 77 source.svelte comment.block.svelte
+L   of `{@debug}` and the index of `{#each}`.
+T 43 source.svelte comment.block.svelte
+L   TextMate reads no line feed after such a group, so a keyword at its end
+T 73 source.svelte comment.block.svelte
+L   stays a name where a line feed would make it a keyword.
+T 57 source.svelte comment.block.svelte
+L   Each group ends where TypeScript might read past it: a keyword, blanks, a
+T 75 source.svelte comment.block.svelte
+L   `$` prefix, a member access, a comma, or the line's end.
+T 58 source.svelte comment.block.svelte
+L -->
+T 3 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L {@debug a}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a, b}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte punctuation.separator.svelte
+T 11 source.svelte meta.special.debug.svelte
+T 12 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug $a, $$props}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts punctuation.definition.variable.svelte
+T 10 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 11 source.svelte meta.special.debug.svelte punctuation.separator.svelte
+T 12 source.svelte meta.special.debug.svelte
+T 14 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts punctuation.definition.variable.svelte
+T 19 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 20 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a.b}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte
+T 11 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 12 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a // c}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.debug.svelte
+T 14 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 15 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a /* c */}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.debug.svelte
+T 14 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 17 source.svelte meta.special.debug.svelte
+T 18 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a /* c}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.debug.svelte
+T 14 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 15 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a   }
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 12 source.svelte meta.special.debug.svelte
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug as}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 10 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 11 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a as}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte
+T 12 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug in}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 10 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.in.ts
+T 11 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a in}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte
+T 12 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.in.ts
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug of}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 10 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.of.ts
+T 11 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a of}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte
+T 12 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.of.ts
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug is}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 10 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 11 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a is}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte
+T 12 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug satisfies}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 17 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 18 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a satisfies}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte
+T 19 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 20 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug keyof}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 13 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 14 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug typeof}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 14 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.typeof.ts
+T 15 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug await}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 13 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts keyword.control.flow.ts
+T 14 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a, }
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte punctuation.separator.svelte
+T 11 source.svelte meta.special.debug.svelte
+T 12 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a,b,}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 10 source.svelte meta.special.debug.svelte punctuation.separator.svelte
+T 11 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 12 source.svelte meta.special.debug.svelte punctuation.separator.svelte
+T 13 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug}
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L {@debug a
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.debug.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.debug.svelte keyword.other.debugger.svelte
+T 8 source.svelte meta.special.debug.svelte
+T 9 source.svelte meta.special.debug.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+L }
+T 1 source.svelte meta.special.debug.svelte punctuation.definition.block.end.svelte
+L 
+L {#each items as item, i}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 25 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 30 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, $i}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts punctuation.definition.variable.svelte
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, i (item.id)}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte meta.brace.round.svelte
+T 29 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.object.ts
+T 30 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts punctuation.accessor.ts
+T 32 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.property.ts
+T 33 source.svelte meta.special.each.svelte meta.special.start.svelte meta.brace.round.svelte
+T 34 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 35 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 36 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 40 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 41 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, i // c}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 26 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 28 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 29 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 30 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 35 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 36 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, i /* c */}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 26 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 28 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 29 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 31 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 33 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 34 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 38 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 39 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, i  }{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 26 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 28 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 33 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, as}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, in}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.in.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, of}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.of.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, is}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 27 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 32 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, satisfies}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 31 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 32 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 33 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 34 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 38 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 39 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, keyof}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 27 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 28 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 29 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 30 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 34 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 35 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, await}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 27 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts keyword.control.flow.ts
+T 28 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 29 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 30 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 34 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 35 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, typeof}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 28 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts keyword.operator.expression.typeof.ts
+T 29 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 30 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 31 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 35 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 36 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as { a, b }, index}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 17 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts punctuation.definition.binding-pattern.object.ts
+T 18 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 19 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts punctuation.separator.comma.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.definition.variable.ts variable.other.readwrite.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts punctuation.definition.binding-pattern.object.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 26 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 31 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 32 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 33 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 34 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 38 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 39 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item, i
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 23 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+L }{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 3 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 8 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {#each items as item,}{/each}
+T 1 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 6 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 12 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 15 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 16 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 20 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 21 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.separator.svelte
+T 22 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+T 23 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 24 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 28 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 29 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L 

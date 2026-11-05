@@ -610,6 +610,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sql/postgres-with` | [`src/test/regress/sql/with.sql`][pg-with] in postgres/postgres | [PostgreSQL][postgres-licence] |
 | `sql/sample` | [`samples/sql.sample`][sql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `sql/ssms-create-table` | [`samples/features/ssms-templates/Sql/Table/Create Table.sql`][ssms-create] in microsoft/sql-server-samples | [MIT][sqlserver-licence] |
+| `svelte/capture-ends` | `oracle/inputs/svelte-capture-ends.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/coverage` | `oracle/inputs/svelte-coverage.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/kit-root` | [`packages/kit/src/runtime/components/root.svelte`][svelte-kit-root] in sveltejs/kit | [MIT][svelte-kit-licence] |
 | `svelte/sample` | [`samples/svelte.sample`][svelte-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
