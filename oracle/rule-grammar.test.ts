@@ -93,6 +93,10 @@ test("a back reference inside a lookahead that needs a byte cannot match where n
   expect(startOf("(?=(?><<[-~](\"?)(SQL)\\b\\1))", "any").atEnd).toBe(false);
 });
 
+test("a back reference behind a byte the match needs cannot match where no byte follows", () => {
+  expect(startOf("<(\\w*)\\1", "any").atEnd).toBe(false);
+});
+
 test("a back reference that can repeat an empty capture keeps a match where no byte follows", () => {
   expect(startOf("(a?)\\1", "any").atEnd).toBe(true);
   expect(startOf("(?:x|())\\1", "any").atEnd).toBe(true);
