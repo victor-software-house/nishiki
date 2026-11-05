@@ -3295,8 +3295,11 @@ mod tests {
             fn pat_start(_: DeepPat) -> crate::rules::Start {
                 crate::rules::Start {
                     bytes: [u64::MAX; 4],
-                    bol: false,
-                    wb: false,
+                    places: crate::rules::PlaceSet::of(&[
+                        crate::rules::Place::Away,
+                        crate::rules::Place::LineStart,
+                        crate::rules::Place::InWord,
+                    ]),
                     matches_at_end: true,
                 }
             }

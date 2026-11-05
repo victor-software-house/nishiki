@@ -73,9 +73,9 @@ use lexer::with_payload;
 pub(crate) use lexer::{Lexer, Scratch};
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
-pub(crate) use tables::Tables;
 #[cfg(feature = "_rule-tables")]
-pub(crate) use tables::table_scan;
+pub(crate) use tables::{Place, table_scan};
+pub(crate) use tables::{PlaceSet, Tables};
 
 use crate::Language;
 use crate::arena::{Arena, ROOT};
@@ -1428,11 +1428,12 @@ pub(crate) struct RuleData<G: Grammar> {
 pub(crate) struct Start {
     /// Bit `b` of word `b / 64` says that a match can start before byte `b`.
     pub(crate) bytes: [u64; 4],
-    /// The pattern matches only at the start of the line.
-    pub(crate) bol: bool,
-    /// A `\b` or a lookbehind for a non-word character comes before its first
-    /// character, so it cannot match inside a word.
-    pub(crate) wb: bool,
+    /// Where in the line a match can start.
+    /// A pattern that opens with `^` matches only at the start of the line.
+    /// A lookbehind that needs a byte keeps a match off the start of the line.
+    /// A `\b`, or a lookbehind that fails after a word character, keeps it out
+    /// of words: `(?<!\w)` and `(?<=\.)` are such lookbehinds.
+    pub(crate) places: PlaceSet,
     /// The pattern can match where no byte follows: past the line feed, or
     /// at the end of a last line without one.
     /// Such a match is empty, as an anchor such as `$` or `\z`, an optional

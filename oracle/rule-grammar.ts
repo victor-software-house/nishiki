@@ -50,16 +50,18 @@ const range = (lo: number, hi: number): Set => {
 };
 const complement = (a: Set): Set => a.map((w) => ~w & 0xffffffffffffffffn);
 
-type Info = { set: Set; empty: Set | null; bol: boolean; any: boolean; wb: boolean };
-const info = (set: Set, empty: Set | null = null, bol = false, any = false, wb = false): Info => ({
+type Info = { set: Set; empty: Set | null; bol: boolean; any: boolean; wb: boolean; behind: boolean };
+const info = (set: Set, empty: Set | null = null, bol = false, any = false, wb = false, behind = false): Info => ({
   set,
   empty,
   bol,
   any,
   wb,
+  behind,
 });
 
 const WORD = () => union(union(union(range(48, 57), range(65, 90)), union(range(97, 122), single(95))), nonAscii());
+const ASCII_WORD = () => union(union(range(48, 57), range(65, 90)), union(range(97, 122), single(95)));
 const SPACE = () => union(union(single(32), range(9, 13)), nonAscii());
 const DIGIT = () => union(range(48, 57), nonAscii());
 
@@ -103,6 +105,7 @@ class RegexParser {
       branches.every((b) => b.bol),
       any,
       branches.every((b) => b.wb),
+      branches.every((b) => b.behind),
     );
   }
 
@@ -111,6 +114,7 @@ class RegexParser {
     let empty: Set | null = FULL(); // the empty path's constraint, while it lasts
     let bol = false;
     let wb = false;
+    let behind = false;
     let any = false;
     while (this.pos < this.src.length && this.src[this.pos] !== "|" && this.src[this.pos] !== ")") {
       const item = this.quantified();
@@ -119,11 +123,12 @@ class RegexParser {
         set = union(set, item.set);
         if (item.bol) bol = true;
         if (item.wb) wb = true;
+        if (item.behind) behind = true;
         if (item.empty === null) empty = null;
         else empty = intersect(empty, item.empty);
       }
     }
-    return info(set, empty, bol, any, wb);
+    return info(set, empty, bol, any, wb, behind);
   }
 
   /** An atom and its quantifiers. An interval can be optional three ways in
@@ -231,8 +236,15 @@ class RegexParser {
       case "not-behind":
         // `(?<!\\w)` and its kin fail after a word character.
         return info(EMPTY(), FULL(), false, false, /^(\\w|\[[^\]]*\\w[^\]]*\])$/.test(bodySource));
+      case "behind": {
+        // A body that cannot be empty needs a byte before the match, which
+        // the start of the line lacks. A body of one character with no ASCII
+        // word character also fails inside a word.
+        const one = /^(?:\\.|\[(?:\\.|\[:[a-z]+:\]|[^\]\\])*\]|[^\\()[\]|*+?{.])$/.test(bodySource);
+        const word = intersect(body.set, ASCII_WORD()).some((w) => w !== 0n);
+        return info(EMPTY(), FULL(), false, false, one && !word, body.empty === null);
+      }
       case "not-ahead":
-      case "behind":
         return info(EMPTY(), FULL());
       default:
         return body;
@@ -460,7 +472,7 @@ export function requireGroup(name: string, group: number, regex: string): void {
 export function startOf(
   regex: string,
   backref: Backref = "quote",
-): { set: Set; bol: boolean; any: boolean; wb: boolean; atEnd: boolean } {
+): { set: Set; bol: boolean; any: boolean; wb: boolean; behind: boolean; atEnd: boolean } {
   let result: Info;
   let ci = false;
   let source = regex;
@@ -472,7 +484,7 @@ export function startOf(
     result = new RegexParser(source, backref).parse();
   } catch {
     // Syntax the analysis does not read: a match can start anywhere.
-    return { set: FULL(), bol: false, any: true, wb: false, atEnd: true };
+    return { set: FULL(), bol: false, any: true, wb: false, behind: false, atEnd: true };
   }
   // A match that starts with a lookaround starts at the bytes the lookaround
   // reads, which `(?i)` folds like the rest.
@@ -504,7 +516,7 @@ export function startOf(
     result.any ||
     (result.empty !== null && result.empty.every((w) => w === 0xffffffffffffffffn)) ||
     /\\(?:[1-9]|k<)/.test(source);
-  return { set, bol: result.bol, any: result.any, wb: result.wb, atEnd };
+  return { set, bol: result.bol, any: result.any, wb: result.wb, behind: result.behind, atEnd };
 }
 
 /** The top-level alternatives of `regex`, looking inside a lookahead or a
@@ -754,15 +766,24 @@ export function startTable(pats: { id: string; regex: string }[], backref: Backr
 
 impl Pat {
 ${tooLong}    pub(crate) fn start(self) -> Start {
+        use crate::rules::{Place, PlaceSet};
         match self {
 `;
   starts += arms(
     pats.map((p): [string, string] => {
-      const { set, bol, any, wb, atEnd } = startOf(p.regex, backref);
+      const { set, bol, any, wb, behind, atEnd } = startOf(p.regex, backref);
       const words = (any ? FULL() : set).map(hex).join(", ");
+      // `^` keeps a match at the start of the line, a lookbehind that needs a
+      // byte keeps it off there, and `\\b` or a lookbehind that fails after a
+      // word character keeps it out of words.
+      const places = [
+        ...(bol ? [] : ["Place::Away"]),
+        ...(behind ? [] : ["Place::LineStart"]),
+        ...(bol || wb ? [] : ["Place::InWord"]),
+      ];
       return [
         p.id,
-        `Start {\n                bytes: [${words}],\n                bol: ${bol},\n                wb: ${wb},\n                matches_at_end: ${atEnd},\n            }`,
+        `Start {\n                bytes: [${words}],\n                places: PlaceSet::of(&[${places.join(", ")}]),\n                matches_at_end: ${atEnd},\n            }`,
       ];
     }),
     "Pat",

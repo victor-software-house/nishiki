@@ -1421,6 +1421,7 @@ impl Pat {
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn start(self) -> Start {
+        use crate::rules::{Place, PlaceSet};
         match self {
             Pat::BlockComment => Start {
                 bytes: [
@@ -1429,8 +1430,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::BlockCommentEnd | Pat::CommentLine => Start {
@@ -1440,8 +1440,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CommentEmbeddedDocsAt0
@@ -1455,8 +1454,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::RootAt1 => Start {
@@ -1466,8 +1464,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CommandsAt0 => Start {
@@ -1477,8 +1474,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CommandsAt1 => Start {
@@ -1488,8 +1484,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CommandsAt2 => Start {
@@ -1499,8 +1494,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CommandsAt3 => Start {
@@ -1510,8 +1504,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8000_0000_0028,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CommandsAt4 => Start {
@@ -1521,8 +1514,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::RequiresDirective => Start {
@@ -1532,8 +1524,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::RequiresDirectiveAt0 => Start {
@@ -1543,8 +1534,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RequiresDirectiveAt1 => Start {
@@ -1554,8 +1544,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::Hashtable | Pat::HereDouble | Pat::HereSingle | Pat::ArrayExpression => Start {
@@ -1565,8 +1554,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::HashtableEnd | Pat::ScriptblockEnd => Start {
@@ -1576,8 +1564,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::HashtableAt0 => Start {
@@ -1587,8 +1574,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::Scriptblock => Start {
@@ -1598,8 +1584,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::VariableAt0
@@ -1624,8 +1609,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::VariableAt4 | Pat::VariableAt6 => Start {
@@ -1635,8 +1619,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::Subexpression | Pat::AttributeAt0 => Start {
@@ -1646,8 +1629,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::SubexpressionEnd
@@ -1661,8 +1643,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::Function => Start {
@@ -1672,8 +1653,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::FunctionEnd => Start {
@@ -1683,8 +1663,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::Attribute | Pat::Type => Start {
@@ -1694,8 +1673,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::AttributeEnd | Pat::TypeEnd => Start {
@@ -1705,8 +1683,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::UsingDirective => Start {
@@ -1716,8 +1693,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::TypeAt0 => Start {
@@ -1727,8 +1703,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DoubleQuotedString | Pat::DoubleQuotedStringEnd | Pat::DoubleQuotedStringAt3 => {
@@ -1739,8 +1714,7 @@ impl Pat {
                         0xffff_ffff_ffff_ffff,
                         0xffff_ffff_ffff_ffff,
                     ],
-                    bol: false,
-                    wb: false,
+                    places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                     matches_at_end: false,
                 }
             }
@@ -1751,8 +1725,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8004_0000_0028,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DoubleQuotedStringEscapesAt0
@@ -1765,8 +1738,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::SingleQuoted | Pat::SingleQuotedEnd | Pat::SingleQuotedAt0 => Start {
@@ -1776,8 +1748,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::HereDoubleEnd => Start {
@@ -1787,8 +1758,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::HereSingleEnd => Start {
@@ -1798,8 +1768,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::NumericConstantAt0 | Pat::NumericConstantAt2 => Start {
@@ -1809,8 +1778,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::NumericConstantAt1 => Start {
@@ -1820,8 +1788,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::NumericConstantAt3
@@ -1834,8 +1801,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::RootAt20 => Start {
@@ -1845,8 +1811,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8004_0000_0028,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::RootAt21 => Start {
@@ -1856,8 +1821,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8000_0000_0028,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::RootAt22 => Start {
@@ -1867,8 +1831,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::StopParsing | Pat::RootAt26 | Pat::RootAt27 | Pat::RootAt30 | Pat::RootAt31 => {
@@ -1879,8 +1842,7 @@ impl Pat {
                         0x0000_0000_0000_0000,
                         0x0000_0000_0000_0000,
                     ],
-                    bol: false,
-                    wb: true,
+                    places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                     matches_at_end: false,
                 }
             }
@@ -1891,8 +1853,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RootAt24 => Start {
@@ -1902,8 +1863,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8000_0000_0028,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::RootAt25 => Start {
@@ -1913,8 +1873,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::RootAt28 | Pat::RootAt29 => Start {
@@ -1924,8 +1883,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RootAt32 => Start {
@@ -1935,8 +1893,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RootAt33 => Start {
@@ -1946,8 +1903,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RootAt34 => Start {
@@ -1957,8 +1913,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RootAt35 => Start {
@@ -1968,8 +1923,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::AttributeAt0At1 => Start {
@@ -1979,8 +1933,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_8000_0000_0028,
                 ],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
         }

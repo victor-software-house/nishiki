@@ -12714,6 +12714,7 @@ impl Pat {
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn start(self) -> Start {
+        use crate::rules::{Place, PlaceSet};
         match self {
             Pat::RootAt0 => Start {
                 bytes: [
@@ -12722,8 +12723,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::SongsEnvAt0
@@ -12786,8 +12786,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::SongsEnvAt0End
@@ -12894,8 +12893,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt0End
@@ -12918,8 +12916,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::MultilineOptionalArgNoHighlight
@@ -12996,31 +12993,11 @@ impl Pat {
             | Pat::TexCommentAt1End
             | Pat::TexDollarMathEnd
             | Pat::TexMathContentAt6At0
-            | Pat::DocumentclassUsepackageMacroEnd
             | Pat::MultilineOptionalArg
             | Pat::DocumentclassUsepackageMacroAt1
             | Pat::HyperrefMacroAt0At1
             | Pat::HyperrefMacroAt0At2
             | Pat::InlineCodeMacroAt0At0End
-            | Pat::InlineCodeMacroAt6End
-            | Pat::InlineCodeMacroAt7End
-            | Pat::InlineCodeMacroAt8End
-            | Pat::InlineCodeMacroAt9End
-            | Pat::InlineCodeMacroAt10End
-            | Pat::InlineCodeMacroAt11End
-            | Pat::InlineCodeMacroAt12End
-            | Pat::InlineCodeMacroAt13End
-            | Pat::InlineCodeMacroAt14End
-            | Pat::InlineCodeMacroAt15End
-            | Pat::InlineCodeMacroAt16End
-            | Pat::InlineCodeMacroAt17End
-            | Pat::InlineCodeMacroAt18End
-            | Pat::InlineCodeMacroAt19End
-            | Pat::InlineCodeMacroAt20End
-            | Pat::InlineCodeMacroAt21End
-            | Pat::InlineCodeMacroAt22End
-            | Pat::InlineCodeMacroAt23End
-            | Pat::InlineCodeMacroAt24End
             | Pat::MultilineArgNoHighlight
             | Pat::SongsEnvAt1At2 => Start {
                 bytes: [
@@ -13029,8 +13006,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::MultilineOptionalArgNoHighlightEnd
@@ -13042,8 +13018,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt0At2End
@@ -13094,8 +13069,7 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt1At1End
@@ -13180,8 +13154,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::EmbeddedCodeEnvAt5At2
@@ -13216,14 +13189,245 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: true,
             },
-            Pat::TexBraces
-            | Pat::TexMathContentAt8
-            | Pat::Braces
-            | Pat::InlineCodeMacroAt7At1
+            Pat::TexBraces | Pat::TexMathContentAt8 | Pat::Braces => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0800_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::AllBalancedEnvAt0End | Pat::AllBalancedEnvAt2End => Start {
+                bytes: [
+                    0x0000_0001_0000_3e00,
+                    0x0000_0000_1000_0000,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: true,
+            },
+            Pat::AllBalancedEnvAt0At0 | Pat::AllBalancedEnvAt1At0 | Pat::AllBalancedEnvAt2At0 => {
+                Start {
+                    bytes: [
+                        0x0000_0040_0000_0000,
+                        0x0000_0000_0000_0000,
+                        0x0000_0000_0000_0000,
+                        0x0000_0000_0000_0000,
+                    ],
+                    places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                    matches_at_end: false,
+                }
+            }
+            Pat::OptionalArgBracketAt0 | Pat::OptionalArgBracketNoHighlightAt0 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0800_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::LabelMacroAt0 | Pat::ReferencesMacroAt0At0 => Start {
+                bytes: [
+                    0x07ff_f402_0000_0000,
+                    0x07ff_fffe_c7ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexComment => Start {
+                bytes: [
+                    0x0000_0021_0000_0200,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexCommentAt0 | Pat::CitationMacroAt0 | Pat::InlineCodeMacroAt0At0 => Start {
+                bytes: [
+                    0x0000_0020_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexCommentAt1 => Start {
+                bytes: [
+                    0x0000_0020_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::LineStart]),
+                matches_at_end: false,
+            },
+            Pat::TexRootAt4 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_2800_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexDollarMath
+            | Pat::DisplayMathAt1
+            | Pat::DisplayMathAt1End
+            | Pat::InlineMathAt1
+            | Pat::InlineMathAt1End => Start {
+                bytes: [
+                    0x0000_0010_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexMacroGeneralAt1 => Start {
+                bytes: [
+                    0x0000_4000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexMathContentAt10 | Pat::OptionalArgParenthesisNoHighlightAt0 => Start {
+                bytes: [
+                    0x0000_0100_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexMathContentAt11 => Start {
+                bytes: [
+                    0x0000_0200_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexMathContentAt12 => Start {
+                bytes: [
+                    0x03ff_4000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::TexMathContentAt13 => Start {
+                bytes: [
+                    0x0000_ac00_0000_0000,
+                    0x0000_0000_c000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::DocumentclassUsepackageMacroEnd
+            | Pat::InlineCodeMacroAt6End
+            | Pat::InlineCodeMacroAt7End
+            | Pat::InlineCodeMacroAt8End
+            | Pat::InlineCodeMacroAt9End
+            | Pat::InlineCodeMacroAt10End
+            | Pat::InlineCodeMacroAt11End
+            | Pat::InlineCodeMacroAt12End
+            | Pat::InlineCodeMacroAt13End
+            | Pat::InlineCodeMacroAt14End
+            | Pat::InlineCodeMacroAt15End
+            | Pat::InlineCodeMacroAt16End
+            | Pat::InlineCodeMacroAt17End
+            | Pat::InlineCodeMacroAt18End
+            | Pat::InlineCodeMacroAt19End
+            | Pat::InlineCodeMacroAt20End
+            | Pat::InlineCodeMacroAt21End
+            | Pat::InlineCodeMacroAt22End
+            | Pat::InlineCodeMacroAt23End
+            | Pat::InlineCodeMacroAt24End => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away]),
+                matches_at_end: true,
+            },
+            Pat::AutocitesArgAt0 => Start {
+                bytes: [
+                    0x0000_0100_0000_0000,
+                    0x0800_0000_0800_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::OptionalArgAngleNoHighlightAt0 => Start {
+                bytes: [
+                    0x1000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::CitationMacroAt1 => Start {
+                bytes: [
+                    0x07ff_6000_0000_0000,
+                    0x07ff_fffe_07ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::ReferencesMacroAt2At0 => Start {
+                bytes: [
+                    0x07ff_4000_0000_0000,
+                    0x07ff_fffe_07ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::InlineCodeMacroAt0End => Start {
+                bytes: [
+                    0x0000_0001_0000_3e00,
+                    0x2000_0000_0000_0000,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::InlineCodeMacroAt7At1
             | Pat::InlineCodeMacroAt9At1
             | Pat::InlineCodeMacroAt11At1
             | Pat::InlineCodeMacroAt12At1
@@ -13245,223 +13449,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::AllBalancedEnvAt0End | Pat::AllBalancedEnvAt2End => Start {
-                bytes: [
-                    0x0000_0001_0000_3e00,
-                    0x0000_0000_1000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: true,
-            },
-            Pat::AllBalancedEnvAt0At0 | Pat::AllBalancedEnvAt1At0 | Pat::AllBalancedEnvAt2At0 => {
-                Start {
-                    bytes: [
-                        0x0000_0040_0000_0000,
-                        0x0000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                    ],
-                    bol: false,
-                    wb: false,
-                    matches_at_end: false,
-                }
-            }
-            Pat::OptionalArgBracketAt0 | Pat::OptionalArgBracketNoHighlightAt0 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0800_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::LabelMacroAt0 | Pat::ReferencesMacroAt0At0 => Start {
-                bytes: [
-                    0x07ff_f402_0000_0000,
-                    0x07ff_fffe_c7ff_fffe,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexComment => Start {
-                bytes: [
-                    0x0000_0021_0000_0200,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexCommentAt0 | Pat::CitationMacroAt0 | Pat::InlineCodeMacroAt0At0 => Start {
-                bytes: [
-                    0x0000_0020_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexCommentAt1 => Start {
-                bytes: [
-                    0x0000_0020_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: true,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexRootAt4 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_2800_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexDollarMath
-            | Pat::DisplayMathAt1
-            | Pat::DisplayMathAt1End
-            | Pat::InlineMathAt1
-            | Pat::InlineMathAt1End => Start {
-                bytes: [
-                    0x0000_0010_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexMacroGeneralAt1 => Start {
-                bytes: [
-                    0x0000_4000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexMathContentAt10 | Pat::OptionalArgParenthesisNoHighlightAt0 => Start {
-                bytes: [
-                    0x0000_0100_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexMathContentAt11 => Start {
-                bytes: [
-                    0x0000_0200_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexMathContentAt12 => Start {
-                bytes: [
-                    0x03ff_4000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::TexMathContentAt13 => Start {
-                bytes: [
-                    0x0000_ac00_0000_0000,
-                    0x0000_0000_c000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::AutocitesArgAt0 => Start {
-                bytes: [
-                    0x0000_0100_0000_0000,
-                    0x0800_0000_0800_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::OptionalArgAngleNoHighlightAt0 => Start {
-                bytes: [
-                    0x1000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::CitationMacroAt1 => Start {
-                bytes: [
-                    0x07ff_6000_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::ReferencesMacroAt2At0 => Start {
-                bytes: [
-                    0x07ff_4000_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: false,
-                wb: false,
-                matches_at_end: false,
-            },
-            Pat::InlineCodeMacroAt0End => Start {
-                bytes: [
-                    0x0000_0001_0000_3e00,
-                    0x2000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::ColumnSpecials => Start {
@@ -13471,8 +13459,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::SongsChordsAt1 => Start {
@@ -13482,8 +13469,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
         }

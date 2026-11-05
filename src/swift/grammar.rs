@@ -4338,20 +4338,19 @@ impl Pat {
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn start(self) -> Start {
+        use crate::rules::{Place, PlaceSet};
         match self {
             Pat::CompilerControlAt0
             | Pat::CompilerControlAt1
             | Pat::CompilerControlAt2
             | Pat::CompilerControlAt3 => Start {
                 bytes: [0x0000_0009_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt0End => Start {
                 bytes: [0x0000_0009_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1End
@@ -4384,7 +4383,6 @@ impl Pat {
             | Pat::DeclarationsOperatorSwift2
             | Pat::DeclarationsOperatorSwift3
             | Pat::DeclarationsPrecedencegroupEnd
-            | Pat::DeclarationsProtocolProtocolEnd
             | Pat::DeclarationsInheritanceClauseEnd
             | Pat::DeclarationsInheritanceClauseMoreTypesEnd
             | Pat::DeclarationsInheritanceClauseInheritedTypeEnd
@@ -4393,10 +4391,6 @@ impl Pat {
             | Pat::DeclarationsInheritanceClauseAt1
             | Pat::DeclarationsInheritanceClauseAt1End
             | Pat::DeclarationsProtocolProtocolMethodEnd
-            | Pat::DeclarationsTypeAt0ClassEnd
-            | Pat::DeclarationsTypeAt0StructEnd
-            | Pat::DeclarationsTypeAt0ActorEnd
-            | Pat::DeclarationsTypeEnumEnumEnd
             | Pat::DeclarationsTypeEnumEnumCaseEnd
             | Pat::DeclarationsTypeEnumAssociatedValues
             | Pat::DeclarationsTypeEnumAssociatedValuesAt3
@@ -4429,7 +4423,6 @@ impl Pat {
             | Pat::OperatorsAt1At5
             | Pat::ConditionalsAt1End
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2
-            | Pat::DeclarationsExtensionExtensionEnd
             | Pat::DeclarationsExtensionExtensionAt0
             | Pat::DeclarationsTypealiasEnd
             | Pat::DeclarationsTypealiasAt0
@@ -4441,21 +4434,18 @@ impl Pat {
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4At0
             | Pat::DeclarationsGenericParameterClauseAt6At0 => Start {
                 bytes: [0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::CompilerControlAt1At0 => Start {
                 bytes: [0x0000_0040_0000_0000, 0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At1
             | Pat::LiteralsBoolean => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At2
@@ -4470,16 +4460,12 @@ impl Pat {
             | Pat::KeywordsAt7
             | Pat::KeywordsAt13Actor => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::CompilerControlAt1At3
-            | Pat::DeclarationsAvailableTypesCollectionTypeAt3
-            | Pat::KeywordsAt3 => Start {
+            Pat::CompilerControlAt1At3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At4
@@ -4489,40 +4475,34 @@ impl Pat {
             | Pat::KeywordsAt24
             | Pat::KeywordsAt25 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At5
             | Pat::BuiltinGlobalFunctionsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At5At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0020_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At6 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At6At0 => Start {
                 bytes: [0x5000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At6At1
             | Pat::AttributesAt0At1At0 => Start {
                 bytes: [0x03ff_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::Nested0At0
@@ -4531,22 +4511,19 @@ impl Pat {
             | Pat::LiteralsStringAt0At3
             | Pat::Nested1At3 => Start {
                 bytes: [0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::Nested1At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsNumericAt0
             | Pat::LiteralsNumericAt9
             | Pat::LiteralsNumericAt11 => Start {
                 bytes: [0x03ff_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsNumericAt1
@@ -4557,20 +4534,17 @@ impl Pat {
             | Pat::LiteralsNumericAt8
             | Pat::LiteralsNumericAt10 => Start {
                 bytes: [0x0001_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsNumericAt4 => Start {
                 bytes: [0x0000_6000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsNumericAt6 => Start {
                 bytes: [0x03ff_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsStringAt0
@@ -4580,8 +4554,7 @@ impl Pat {
             | Pat::LiteralsStringAt3End
             | Pat::LiteralsStringAt5End => Start {
                 bytes: [0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsStringAt0At1
@@ -4606,8 +4579,7 @@ impl Pat {
             | Pat::LiteralsRegularExpressionLiteralRegexGutsAt11
             | Pat::LiteralsRegularExpressionLiteralCustomCharClassMembersAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsStringStringGutsAt2End
@@ -4630,21 +4602,18 @@ impl Pat {
             | Pat::LiteralsStringRawStringGutsAt2At1End
             | Pat::LiteralsStringStringGutsAt2At1End => Start {
                 bytes: [0x0000_0200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsFunction
             | Pat::DeclarationsProtocolProtocolMethod => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::CommentsAt0 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: true,
-                wb: false,
+                places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::CommentsAt1
@@ -4656,8 +4625,7 @@ impl Pat {
             | Pat::CommentsAt5At2
             | Pat::LiteralsRegularExpressionLiteralAt1 => Start {
                 bytes: [0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CommentsAt1End
@@ -4667,14 +4635,12 @@ impl Pat {
             | Pat::CommentsAt4
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt1 => Start {
                 bytes: [0x0000_0400_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CommentsAt5 => Start {
                 bytes: [0x0000_8001_0000_0200, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClause
@@ -4682,125 +4648,105 @@ impl Pat {
             | Pat::DeclarationsTypeIdentifierAt0
             | Pat::LiteralsRegularExpressionLiteralRegexGutsAt2 => Start {
                 bytes: [0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseEnd => Start {
                 bytes: [0xc800_efbe_ffff_c1ff, 0xf800_0000_7800_0001, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericWhereClause
             | Pat::ConditionalsAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0080_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericWhereClauseRequirementListEnd => Start {
                 bytes: [0x4800_9000_0000_0400, 0x2800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinClassType => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_6002, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0001_0008, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_4000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_002d_e256, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0002_2000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinProtocolTypeAt0
             | Pat::BuiltinTypesAt5 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0002, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinProtocolTypeAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_003c_b36e, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinProtocolTypeAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_002c_e2fe, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinStructTypeAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_042d_b7fe, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinStructTypeAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_040c_3052, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinTypealiasAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_006c_4a7e, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinTypealiasAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_00a1_0080, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::AttributesAt0
             | Pat::AttributesAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::AttributesAt0At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x00d8_2200_0020_8000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::AttributesAt0At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_8210_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::AttributesAt0At2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0004_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::LiteralsStringAt1
@@ -4814,15 +4760,12 @@ impl Pat {
             | Pat::LiteralsRegularExpressionLiteralLineComment
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::Nested2At0
-            | Pat::DeclarationsAvailableTypesAt13 => Start {
+            Pat::Nested2At0 => Start {
                 bytes: [0x8000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::DeclarationsFunctionInitializer
@@ -4830,8 +4773,7 @@ impl Pat {
             | Pat::KeywordsAt23
             | Pat::DeclarationsProtocolProtocolInitializer => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsParameterClause
@@ -4851,8 +4793,7 @@ impl Pat {
             | Pat::LiteralsStringRawStringGutsAt2At1
             | Pat::LiteralsStringStringGutsAt2At1 => Start {
                 bytes: [0x0000_0100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt0
@@ -4865,11 +4806,9 @@ impl Pat {
             | Pat::Nested13At0
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1
-            | Pat::ExpressionsTrailingClosureAt1
-            | Pat::MemberReferenceAt0 => Start {
+            | Pat::ExpressionsTrailingClosureAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::DeclarationsParameterListAt2
@@ -4882,15 +4821,13 @@ impl Pat {
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4
             | Pat::DeclarationsGenericParameterClauseAt6 => Start {
                 bytes: [0x0400_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt2End
             | Pat::DeclarationsParameterListAt2At3End => Start {
                 bytes: [0x0000_1200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt2At0
@@ -4899,14 +4836,12 @@ impl Pat {
             | Pat::DeclarationsAvailableTypesAt5
             | Pat::KeywordsAt13Struct => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::AttributesAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::CodeBlock
@@ -4925,8 +4860,7 @@ impl Pat {
             | Pat::DeclarationsFunctionInitializerAt5
             | Pat::DeclarationsFunctionAt6 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::CodeBlockEnd
@@ -4945,65 +4879,61 @@ impl Pat {
             | Pat::DeclarationsFunctionInitializerAt5End
             | Pat::DeclarationsFunctionAt6End => Start {
                 bytes: [0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsFunctionResult
             | Pat::DeclarationsAvailableTypesAt11
             | Pat::LiteralsRegularExpressionLiteralSetOperatorsAt1 => Start {
                 bytes: [0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt4
             | Pat::KeywordsAt9 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0014_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt7 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0004_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt8 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_020c_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt9
             | Pat::LiteralsAt3
             | Pat::KeywordsAt15 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_4000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt10 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0008_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt12
             | Pat::DeclarationsTypeOperatorsAt0
             | Pat::LiteralsRegularExpressionLiteralSetOperatorsAt0 => Start {
                 bytes: [0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::DeclarationsAvailableTypesAt13 => Start {
+                bytes: [0x8000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt14
             | Pat::Nested3At0
             | Pat::DeclarationsImportAt0At3 => Start {
                 bytes: [0x0000_4000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt15
@@ -5011,14 +4941,12 @@ impl Pat {
             | Pat::KeywordsAt13Precedencegroup
             | Pat::KeywordsAt13Protocol => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt16 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0011_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesTupleTypeEnd
@@ -5026,79 +4954,83 @@ impl Pat {
             | Pat::DeclarationsGenericArgumentClauseEnd
             | Pat::DeclarationsAvailableTypesCollectionTypeAt4End => Start {
                 bytes: [0x4000_0200_0000_0000, 0x2800_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesCollectionType
             | Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesCollectionTypeAt2
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_8000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                matches_at_end: false,
+            },
+            Pat::DeclarationsAvailableTypesCollectionTypeAt3
+            | Pat::KeywordsAt3 => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::AsyncThrows => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0014_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypedVariableDeclaration => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0040_1002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsImportAt0At1
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => Start {
                 bytes: [0x0000_0010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsImportAt0At2
             | Pat::OperatorsAt1 => Start {
                 bytes: [0xf000_ec62_0000_0000, 0x5000_0000_4000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsOperator => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_8200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypesPrecedencegroupAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0014_705e, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsPrecedencegroup
             | Pat::DeclarationsProtocolProtocol => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsPrecedencegroupAt0At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
+                matches_at_end: true,
+            },
+            Pat::DeclarationsProtocolProtocolEnd
+            | Pat::DeclarationsTypeAt0ClassEnd
+            | Pat::DeclarationsTypeAt0StructEnd
+            | Pat::DeclarationsTypeAt0ActorEnd
+            | Pat::DeclarationsTypeEnumEnumEnd
+            | Pat::DeclarationsExtensionExtensionEnd => Start {
+                bytes: [0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: true,
             },
             Pat::DeclarationsInheritanceClauseAt0End => Start {
                 bytes: [0x2000_0000_0000_0000, 0x2880_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsInheritanceClauseMoreTypes
@@ -5106,53 +5038,45 @@ impl Pat {
             | Pat::DeclarationsGenericParameterClauseAt5
             | Pat::Nested1At2 => Start {
                 bytes: [0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsInheritanceClauseInheritedType => Start {
                 bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypeOperatorsAt1
             | Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x4000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypeAt0Class => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsTypeAt0Struct => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsTypeAt0Actor
             | Pat::DeclarationsProtocolAssociatedType => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsTypeEnumEnum => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsTypeEnumEnumCaseClauseEnd
             | Pat::DeclarationsTypeEnumMoreCasesEnd => Start {
                 bytes: [0xffff_effe_ffff_c1ff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypeEnumAssociatedValuesAt1End
@@ -5161,8 +5085,7 @@ impl Pat {
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1End
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2End => Start {
                 bytes: [0x0000_1200_0000_0000, 0x0000_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypeEnumRawValueAssignment
@@ -5170,86 +5093,73 @@ impl Pat {
             | Pat::DeclarationsParameterListAt2At3
             | Pat::DeclarationsGenericWhereClauseRequirementListAt3 => Start {
                 bytes: [0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsStringAt2
             | Pat::LiteralsRegularExpressionLiteralAt2
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::LiteralsStringAt2End
             | Pat::LiteralsStringAt4End => Start {
                 bytes: [0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::LiteralsStringAt3At0
             | Pat::LiteralsStringAt4At0
             | Pat::LiteralsStringAt5At0 => Start {
                 bytes: [0x0000_0000_0000_2400, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralAt0End => Start {
                 bytes: [0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::LiteralsRegularExpressionLiteralQuoteEnd => Start {
                 bytes: [0x0000_0000_0000_0400, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralCharacterProperties => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_1800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt5 => Start {
                 bytes: [0x0000_0010_0000_0000, 0x0000_0000_5000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt9 => Start {
                 bytes: [0x0000_4000_0000_0000, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt12 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt13 => Start {
                 bytes: [0x8000_0c00_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0End
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::OperatorsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0202_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::Nested7At4
@@ -5259,112 +5169,94 @@ impl Pat {
             | Pat::Nested11At0
             | Pat::Nested12At1 => Start {
                 bytes: [0xffff_ffff_ffff_fbff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::BuiltinFunctionsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0089_2248_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::BuiltinFunctionsAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x00bd_f7fe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::BuiltinFunctionsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0089_fe88_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::BuiltinGlobalFunctionsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x04bd_62d2_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinGlobalFunctionsAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x008d_9632_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0020_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x006f_fbfe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x004a_8034_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x007f_e2fe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0088_02f8_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0204_004c_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0080_0260_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt5
             | Pat::Nested15At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0004_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt6
             | Pat::KeywordsAt10 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt8 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt11 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0040_1002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt12 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_8002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt13Enum
@@ -5372,150 +5264,131 @@ impl Pat {
             | Pat::DeclarationsExtensionExtension
             | Pat::DeclarationsGenericParameterClauseAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt14 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x000d_f25c_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt16 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0288_0250_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt17 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0080_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt18 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_8240_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt19 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x00a0_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt20 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0010_0011_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt21 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0008_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::KeywordsAt22 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_8000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::ConditionalsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_02c0_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0 => Start {
                 bytes: [0x0000_0001_0000_3e00, 0x00d0_2200_0020_8000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt2 => Start {
                 bytes: [0xffff_edfe_ffff_c1ff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0
             | Pat::ExpressionsTrailingClosureAt0 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => Start {
                 bytes: [0x0000_0101_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => Start {
                 bytes: [0x0000_0001_0000_3e00, 0x0000_0000_0800_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
+            },
+            Pat::MemberReferenceAt0 => Start {
+                bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
+                places: PlaceSet::of(&[Place::Away]),
+                matches_at_end: true,
             },
             Pat::DeclarationsExtensionExtensionAt0End => Start {
                 bytes: [0x0400_0001_0000_3e00, 0x0880_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsTypealias => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::DeclarationsMacro => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: true,
             },
             Pat::AttributesAt0At3 => Start {
                 bytes: [0x0000_0400_0000_0000, 0x0020_4010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericWhereClauseRequirementListAt3End
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4End
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4At0End => Start {
                 bytes: [0x4800_9001_0000_3e00, 0x2800_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseAt4 => Start {
                 bytes: [0x03ff_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                bol: false,
-                wb: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseAt6End
             | Pat::DeclarationsGenericParameterClauseAt6At0End => Start {
                 bytes: [0x4000_1000_0000_0000, 0x0080_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::Nested1At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                bol: false,
-                wb: false,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
         }

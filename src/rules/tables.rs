@@ -20,12 +20,33 @@ pub(crate) enum Place {
 }
 
 impl Place {
-    fn index(self) -> usize {
+    const fn index(self) -> usize {
         match self {
             Place::Away => 0,
             Place::LineStart => 1,
             Place::InWord => 2,
         }
+    }
+}
+
+/// A set of [`Place`]s: where in the line a match of a pattern can start.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct PlaceSet(u8);
+
+impl PlaceSet {
+    /// The set of `places`.
+    pub(crate) const fn of(mut places: &[Place]) -> Self {
+        let mut bits = 0;
+        while let [place, rest @ ..] = places {
+            bits |= 1 << place.index();
+            places = rest;
+        }
+        PlaceSet(bits)
+    }
+
+    /// Whether the set holds `place`.
+    fn contains(self, place: Place) -> bool {
+        self.0 >> place.index() & 1 == 1
     }
 }
 
@@ -139,7 +160,7 @@ fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
     for (index, start) in starts.iter().enumerate() {
         let (word, bit) = (index / 64, 1_u64 << (index % 64));
         for place in [Place::Away, Place::LineStart, Place::InWord] {
-            if (place != Place::LineStart && start.bol) || (place == Place::InWord && start.wb) {
+            if !start.places.contains(place) {
                 continue;
             }
             for byte in set_bits(&start.bytes) {
@@ -351,16 +372,18 @@ fn is_word_byte(byte: u8) -> bool {
 mod tests {
     use super::*;
 
-    /// A start that allows the bytes `bytes`.
-    fn start(bytes: &[u8], bol: bool, wb: bool) -> Start {
+    /// Every place.
+    const ANYWHERE: &[Place] = &[Place::Away, Place::LineStart, Place::InWord];
+
+    /// A start that allows the bytes `bytes` at the places `places`.
+    fn start(bytes: &[u8], places: &[Place]) -> Start {
         let mut set = [0_u64; 4];
         for &byte in bytes {
             set[usize::from(byte >> 6)] |= 1 << (byte & 63);
         }
         Start {
             bytes: set,
-            bol,
-            wb,
+            places: PlaceSet::of(places),
             matches_at_end: false,
         }
     }
@@ -375,9 +398,9 @@ mod tests {
     #[test]
     fn each_place_and_byte_lists_the_patterns_its_starts_allow_in_order() {
         let starts = [
-            start(b"ab", false, true),
-            start(b"a", true, false),
-            start(b"bc", false, false),
+            start(b"ab", &[Place::Away, Place::LineStart]),
+            start(b"a", &[Place::LineStart]),
+            start(b"bc", ANYWHERE),
         ];
         let tables = candidate_lists(&starts);
         assert_eq!(list(&tables, Place::Away, b'a'), [0]);
@@ -391,16 +414,28 @@ mod tests {
 
     #[test]
     fn equal_lists_are_stored_once() {
-        let starts = [start(b"xy", false, false)];
+        let starts = [start(b"xy", ANYWHERE)];
         let (lists, spans) = candidate_lists(&starts);
         assert_eq!(lists, [0]);
         assert_eq!(spans[usize::from(b'x')], spans[usize::from(b'y')]);
     }
 
     #[test]
+    fn a_pattern_that_needs_a_byte_before_it_is_left_out_at_the_line_start() {
+        let starts = [
+            start(b"a", &[Place::Away, Place::InWord]),
+            start(b"a", ANYWHERE),
+        ];
+        let tables = candidate_lists(&starts);
+        assert_eq!(list(&tables, Place::LineStart, b'a'), [1]);
+        assert_eq!(list(&tables, Place::Away, b'a'), [0, 1]);
+        assert_eq!(list(&tables, Place::InWord, b'a'), [0, 1]);
+    }
+
+    #[test]
     fn a_pattern_past_the_first_word_of_the_sets_keeps_its_position() {
-        let mut starts: Vec<Start> = (0..70).map(|_| start(b"q", false, false)).collect();
-        starts.push(start(b"r", false, false));
+        let mut starts: Vec<Start> = (0..70).map(|_| start(b"q", ANYWHERE)).collect();
+        starts.push(start(b"r", ANYWHERE));
         let tables = candidate_lists(&starts);
         assert_eq!(list(&tables, Place::Away, b'r'), [70]);
         assert_eq!(list(&tables, Place::Away, b'q').len(), 70);
