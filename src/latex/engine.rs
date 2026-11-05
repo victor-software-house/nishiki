@@ -185,6 +185,7 @@ impl Grammar for Latex {
 /// with `\end{…}`, or the `}` of a braced argument.
 impl rules::Embeds for Latex {
     type End = FnHalt;
+    const HALTS: bool = true;
 
     /// Every embedding rule picks its halt by the rule
     /// ([`rules::Embeds::embed_halts_for`]); this one never holds.

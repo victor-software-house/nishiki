@@ -159,6 +159,7 @@ impl crate::language::Halt for End {
 
 impl rules::Embeds for Haml {
     type End = End;
+    const HALTS: bool = true;
 
     fn embed_halts(_: &rules::Embedding, _: &Arena) -> (End, Option<rules::FnHalt>) {
         (End::Never, None)

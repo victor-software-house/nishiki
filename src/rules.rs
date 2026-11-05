@@ -905,6 +905,10 @@ fn hand_over<G: Embeds>(
     first: Finished,
     mut embedding: Embedding,
 ) -> (Finished, Option<Stopped>) {
+    debug_assert!(
+        outer.is_none() || G::HALTS,
+        "a grammar embedded with halts sets Embeds::HALTS"
+    );
     let steps = Steps::new(cx.limits, line.text.len());
     let mut next = steps.take_back(first);
     let mut starts: Option<(u16, Vec<usize>)> = None;
