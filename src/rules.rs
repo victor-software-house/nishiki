@@ -707,19 +707,6 @@ impl<G: Embeds> Halt for ParentTextEnd<'_, G> {
     }
 }
 
-/// Places in order, as a halt that holds at each of them: the starts of an
-/// embedding rule's own patterns ([`Embeds::embeds_after_own`]).
-#[cfg(feature = "_embedding")]
-struct Starts<'a>(&'a [usize]);
-
-#[cfg(feature = "_embedding")]
-impl Halt for Starts<'_> {
-    fn first(&self, _: &[u8], from: usize, to: usize) -> Option<usize> {
-        let at = self.0.partition_point(|&start| start < from);
-        self.0.get(at).copied().filter(|&start| start <= to)
-    }
-}
-
 /// Lexes `line` like [`lex`], for grammar `G` whose rules embed other languages
 /// ([`Payload::Embed`]). The engine stops where the innermost rule embeds a
 /// language. That language lexes the text from there.
@@ -928,7 +915,8 @@ fn hand_over<G: Embeds>(
                 own_starts(cx, line, scratch, &steps, at, buffer),
             ));
         }
-        let listed = Starts(starts.as_ref().map_or(&[], |(_, buffer)| buffer.as_slice()));
+        let listed =
+            crate::language::Places(starts.as_ref().map_or(&[], |(_, buffer)| buffer.as_slice()));
         let own_after: &dyn Halt = &listed;
         let after = if own {
             Some(own_after)
