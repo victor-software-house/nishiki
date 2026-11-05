@@ -259,6 +259,7 @@ mod astro;
 #[cfg(feature = "lang-bat")]
 mod bat;
 #[cfg(any(
+    feature = "lang-asm",
     feature = "lang-astro",
     feature = "lang-cmake",
     feature = "lang-common-lisp",
