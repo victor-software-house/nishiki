@@ -19,6 +19,7 @@ use std::cell::Cell;
 
 use memchr::memchr;
 
+use super::blade::{self, Blade, PhpHalt};
 use super::erb::{self, Erb};
 use super::scope::S;
 use super::state::{self, Injection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
@@ -119,6 +120,10 @@ pub(super) enum Pat {
     ErbHash,
     /// A pattern of Vue's rules.
     Vue(VuePat),
+    /// A pattern of Blade's injection or of Blade's rules that opens a rule.
+    Blade(Blade),
+    /// A pattern of Blade's injection or of Blade's rules that opens none.
+    BladeMatch(Blade),
 }
 
 /// The grammar a document is lexed with.
@@ -154,6 +159,13 @@ pub(super) enum Document {
         expect(dead_code, reason = "only the Vue language lexes Vue")
     )]
     Vue,
+    /// Blade: html-derivative with Blade's injection in place of the
+    /// grammar's.
+    #[cfg_attr(
+        not(feature = "lang-blade"),
+        expect(dead_code, reason = "only the Blade language lexes Blade")
+    )]
+    Blade,
 }
 
 /// How a `<script>`'s JavaScript is lexed, by the document around it.
@@ -176,7 +188,7 @@ impl Document {
     fn derivative_first(self) -> Self {
         match self {
             Document::Html | Document::DerivativeFirst => Document::DerivativeFirst,
-            Document::Derivative | Document::Erb | Document::Vue => self,
+            Document::Derivative | Document::Erb | Document::Blade | Document::Vue => self,
         }
     }
 }
@@ -261,9 +273,33 @@ pub(super) struct Frame {
 #[derive(Debug, Default)]
 pub(crate) struct Scratch {
     frames: Vec<Frame>,
+    /// Buffers of frames for HTML lexers that run while another holds
+    /// `frames`, such as a heredoc's HTML inside a Blade document's PHP: one
+    /// for each level of nesting.
+    #[cfg(feature = "lang-blade")]
+    spare: Vec<Vec<Frame>>,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The text of a scope name being built.
     name: String,
+}
+
+#[cfg(feature = "lang-blade")]
+impl Scratch {
+    /// A spare buffer for an HTML lexer that starts while another holds
+    /// `frames`.
+    #[cold]
+    #[inline(never)]
+    fn spare_frames(&mut self) -> Vec<Frame> {
+        self.spare.pop().unwrap_or_default()
+    }
+
+    /// Keeps `frames` for the next line where an HTML lexer that ran inside
+    /// this one already gave its buffer back to `frames`.
+    #[cold]
+    #[inline(never)]
+    fn keep_spare(&mut self, frames: Vec<Frame>) {
+        self.spare.push(frames);
+    }
 }
 
 /// The most steps in a row that do not advance: each opens or closes a rule
@@ -305,8 +341,8 @@ pub(super) struct Lexer<'a> {
     next_lt: Cell<(usize, Option<usize>)>,
     /// The grammar the document is lexed with.
     pub(super) document: Document,
-    /// The last place found where ERB's injection matches, kept like
-    /// `next_lt`.
+    /// The last place found where ERB's or Blade's injection matches, kept
+    /// like `next_lt`.
     next_erb: Cell<(usize, Option<usize>)>,
     /// Where the line goes back to the grammar that includes this one; none
     /// for a document or a body that takes whole lines.
@@ -329,6 +365,10 @@ impl<'a> Lexer<'a> {
         let s = line.text.as_bytes();
         let steps = Steps::new(cx.limits, s.len());
         let mut frames = std::mem::take(&mut cx.scratch.html.frames);
+        #[cfg(feature = "lang-blade")]
+        if frames.capacity() == 0 {
+            frames = cx.scratch.html.spare_frames();
+        }
         frames.clear();
         let mut lexer = Lexer {
             s,
@@ -381,15 +421,21 @@ impl<'a> Lexer<'a> {
                         frame.payload,
                         ROOT_EMBEDDED | ROOT_DERIVATIVE_FIRST | ROOT_SVELTE
                     ),
-                    injection: Injection::Applies,
+                    injection: if matches!(
+                        frame.payload,
+                        state::ROOT_BLADE_HEREDOC | state::ROOT_BLADE_HEREDOC_SEALED
+                    ) {
+                        Injection::ShutOut
+                    } else {
+                        Injection::Applies
+                    },
                 });
                 continue;
             }
             let rule = Rule::from_code(frame.kind);
             let top = *lexer.top();
-            let parent = lexer.inner_base(&top);
+            let (parent, injection) = lexer.frame_links(&top, rule);
             let no_inject = lexer.top().no_inject || rule.shuts_out_injection();
-            let injection = rule.injection(lexer.top().injection);
             let name = lexer.name_stack(parent, rule, frame.payload);
             lexer.frames.push(Frame {
                 rule,
@@ -426,7 +472,7 @@ impl<'a> Lexer<'a> {
         }
         self.tokenize();
         let state = self.top().state;
-        self.scratch.html.frames = std::mem::take(&mut self.frames);
+        self.keep_frames();
         (self.steps.finish(state), self.given_back)
     }
 
@@ -435,8 +481,21 @@ impl<'a> Lexer<'a> {
     #[cfg(feature = "lang-html-derivative")]
     pub(super) fn opens_at(mut self, p: usize) -> (bool, u64) {
         let opens = self.match_at(Rule::Root, p).is_some();
-        self.scratch.html.frames = std::mem::take(&mut self.frames);
+        self.keep_frames();
         (opens, self.steps.into_spent())
+    }
+
+    /// Gives the frames' buffer back to the scratch for the next line.
+    /// Where an HTML lexer that ran inside this one gave its own back first,
+    /// this one goes to the spares.
+    fn keep_frames(&mut self) {
+        let frames = std::mem::take(&mut self.frames);
+        #[cfg(feature = "lang-blade")]
+        if self.scratch.html.frames.capacity() != 0 {
+            self.scratch.html.keep_spare(frames);
+            return;
+        }
+        self.scratch.html.frames = frames;
     }
 
     // Bytes.
@@ -507,6 +566,64 @@ impl<'a> Lexer<'a> {
     /// The match of ERB's injection at `at`, which [`Lexer::find_erb`] found.
     fn erb_hit(&self, at: usize) -> Option<Hit> {
         erb::at(&self.s[..self.lim], at).map(|(kind, end)| Hit::new(Pat::Erb(kind), at, end))
+    }
+
+    /// The first place at or after the position where Blade's injection
+    /// matches, found once for the positions in a run, as
+    /// [`Lexer::find_erb`] does.
+    /// Where `injection` shuts it out, Blade's own rules at a heredoc's root
+    /// ([`Lexer::find_blade_heredoc`]).
+    /// One call serves both, so the search keeps one arm for Blade.
+    #[inline(never)]
+    fn find_blade(&self, injection: Injection) -> Option<usize> {
+        if injection == Injection::ShutOut {
+            return self.find_blade_heredoc();
+        }
+        let from = self.pos;
+        let (searched, found) = self.next_erb.get();
+        if searched <= from && found.is_none_or(|at| at >= from) && searched != usize::MAX {
+            return found;
+        }
+        let found = blade::find(&self.s[..self.lim], from);
+        self.spend(found.unwrap_or(self.lim).saturating_sub(from) / 16);
+        self.next_erb.set((from, found));
+        found
+    }
+
+    /// The match of Blade's injection at `at`, which [`Lexer::find_blade`]
+    /// found, or of Blade's own rules at a heredoc's root.
+    #[inline(never)]
+    fn blade_hit(&self, at: usize) -> Option<Hit> {
+        let text = &self.s[..self.lim];
+        let found = if self.blade_heredoc_root() {
+            blade::rules_at(text, at)
+        } else {
+            blade::at(text, at)
+        };
+        found.map(|(kind, end)| Hit::new(Pat::blade(kind), at, end))
+    }
+
+    /// Whether only the root of a Blade heredoc is open
+    /// ([`state::ROOT_BLADE_HEREDOC`]).
+    pub(super) fn blade_heredoc_root(&self) -> bool {
+        self.frames.len() == 1
+            && matches!(
+                self.frames[0].payload,
+                state::ROOT_BLADE_HEREDOC | state::ROOT_BLADE_HEREDOC_SEALED
+            )
+    }
+
+    /// Where Blade's own rules match next at a heredoc's root, where the
+    /// injection does not apply. No other rule of a heredoc tries them.
+    #[cold]
+    #[inline(never)]
+    fn find_blade_heredoc(&self) -> Option<usize> {
+        if !self.blade_heredoc_root() {
+            return None;
+        }
+        let found = blade::find_rules(&self.s[..self.lim], self.pos);
+        self.spend(found.unwrap_or(self.lim).saturating_sub(self.pos) / 16);
+        found
     }
 
     // Scopes and tokens.
@@ -635,6 +752,17 @@ impl<'a> Lexer<'a> {
             let found = match self.top().rule {
                 Rule::BodyCss | Rule::BodyJs => self.embedded(),
                 Rule::ErbBlock | Rule::ErbLine => self.ruby(),
+                Rule::BladeCommentPhpBlock
+                | Rule::BladePhpBlock
+                | Rule::BladePhpLineCode
+                | Rule::BladeEchoTriple
+                | Rule::BladeEcho
+                | Rule::BladeEchoRaw
+                | Rule::BladeEchoEscaped
+                | Rule::BladeDirective
+                | Rule::BladeDirectiveCustom
+                | Rule::BladePhpSection
+                | Rule::BladeAttribute => self.blade_php(),
                 Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpr => self.vue_embedded(),
                 Rule::Root
                 | Rule::Comment
@@ -673,6 +801,13 @@ impl<'a> Lexer<'a> {
                 | Rule::ErbCommentWrap
                 | Rule::ErbTagWrap
                 | Rule::ErbComment
+                | Rule::BladeComment
+                | Rule::BladeCommentPhpWrap
+                | Rule::BladeCommentPhpLine
+                | Rule::BladePhpWrap
+                | Rule::BladePhpLine
+                | Rule::BladeArgsComment
+                | Rule::BladeBalance
                 | Rule::VueComment
                 | Rule::VueCommentKv
                 | Rule::VueSelfClosing
@@ -794,6 +929,7 @@ impl<'a> Lexer<'a> {
         let inject = match self.document {
             Document::Erb if injection == Injection::ShutOut => None,
             Document::Erb => self.find_erb(self.pos),
+            Document::Blade => self.find_blade(injection),
             Document::Html | Document::DerivativeFirst | Document::Derivative
                 if self.top().no_inject =>
             {
@@ -836,6 +972,7 @@ impl<'a> Lexer<'a> {
     fn injection(&self, at: usize) -> Option<Hit> {
         match self.document {
             Document::Erb => self.erb_hit(at),
+            Document::Blade => self.blade_hit(at),
             Document::Html | Document::DerivativeFirst | Document::Derivative => {
                 Some(Hit::new(Pat::Inject, at, at + 1))
             }
@@ -878,7 +1015,11 @@ impl<'a> Lexer<'a> {
         };
         let script = match self.document {
             Document::Erb => Script::Erb,
-            Document::Html | Document::DerivativeFirst | Document::Derivative | Document::Vue
+            Document::Html
+            | Document::DerivativeFirst
+            | Document::Derivative
+            | Document::Blade
+            | Document::Vue
                 if self
                     .frames
                     .first()
@@ -886,9 +1027,11 @@ impl<'a> Lexer<'a> {
             {
                 Script::Svelte
             }
-            Document::Html | Document::DerivativeFirst | Document::Derivative | Document::Vue => {
-                Script::Plain
-            }
+            Document::Html
+            | Document::DerivativeFirst
+            | Document::Derivative
+            | Document::Blade
+            | Document::Vue => Script::Plain,
         };
         let (next, halt) = if css {
             Self::lex_style(&mut cx, line, inner, matches!(script, Script::Erb))
@@ -1141,6 +1284,90 @@ impl<'a> Lexer<'a> {
         Some(Hit::new(Pat::ErbHash, at, to))
     }
 
+    /// Lexes the PHP of a Blade rule up to its halts: the rule's end, and
+    /// Blade's injection where it applies.
+    /// It stays out of line, as [`Lexer::lex_style`] does.
+    #[cold]
+    #[inline(never)]
+    fn lex_blade_php(
+        cx: &mut Context<'_>,
+        line: Line<'_>,
+        state: u32,
+        rule: blade::BladeRule,
+        injection: Injection,
+    ) -> (Finished, Option<usize>) {
+        let halt = PhpHalt { rule, injection };
+        let begins: &dyn Halt = &blade::begins;
+        let after = (injection == Injection::Applies).then_some(begins);
+        let (next, stopped) = blade::lex_php(cx, line, state, (&halt, after));
+        (next, resumes_at(stopped))
+    }
+
+    /// The PHP of a Blade rule: the rest of the line up to the rule's end, or
+    /// up to a place where Blade's injection opens, at any depth of the PHP.
+    /// The PHP's state stays the rule's payload while a rule of the injection
+    /// is open inside it.
+    #[cold]
+    #[inline(never)]
+    fn blade_php(&mut self) -> Option<Hit> {
+        let top = *self.top();
+        let rule = top.rule.blade()?;
+        let pos = self.pos;
+        self.tok(top.content, pos);
+        let mut inner = self.arena.frame(top.state).payload;
+        if inner == 0 {
+            if pos >= self.lim {
+                return None;
+            }
+            inner = blade::php_start(self.arena, top.content);
+        }
+        let lent = self.steps.lend(self.limits);
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: &lent,
+            out: &mut *self.out,
+            report: &mut *self.report,
+            first_token: self.first_token,
+        };
+        let line = Line {
+            text: self.text.get(..self.lim).unwrap_or(self.text),
+            start: pos,
+            embedded: false,
+        };
+        let (next, halt) = Self::lex_blade_php(&mut cx, line, inner, rule, top.injection);
+        let next = self.steps.take_back(next);
+        self.advance_to(pos, halt);
+        let Some(at) = halt else {
+            self.keep_inner(next);
+            return None;
+        };
+        let text = &self.s[..self.lim];
+        if top.injection != Injection::ShutOut
+            && let Some((kind, end)) = blade::at(text, at)
+        {
+            self.keep_inner(next);
+            return Some(Hit::new(Pat::blade(kind), at, end));
+        }
+        rule.php_end(text, at)
+            .map(|end| Hit::new(Pat::End, at, end))
+    }
+
+    /// The stack a rule opened inside `top` sits on in a Blade document.
+    /// Inside a Blade rule's PHP, it is the stack of the PHP's innermost open
+    /// rule, since Blade's injection opens at any depth of the PHP.
+    #[cold]
+    #[inline(never)]
+    pub(super) fn blade_base(&self, rule: Rule, state: u32, content: u32) -> u32 {
+        if rule.blade().is_some_and(blade::BladeRule::holds_php) {
+            let inner = self.arena.frame(state).payload;
+            if inner != 0 {
+                return self.arena.frame(inner).stack;
+            }
+        }
+        content
+    }
+
     // Applying matches.
 
     /// Applies a match; true when the line stops.
@@ -1163,6 +1390,7 @@ impl<'a> Lexer<'a> {
             | Pat::UnquotedJs
             | Pat::JsText
             | Pat::ErbHash
+            | Pat::BladeMatch(_)
             | Pat::Vue(VuePat::Modifier) => self.match_rule(&hit),
             Pat::Zero(_)
             | Pat::Processing
@@ -1197,7 +1425,8 @@ impl<'a> Lexer<'a> {
                 | VuePat::DirectiveOriginal
                 | VuePat::ExprString
                 | VuePat::ExprBare,
-            ) => self.open(&hit),
+            )
+            | Pat::Blade(_) => self.open(&hit),
         }
     }
 
@@ -1284,7 +1513,7 @@ impl<'a> Lexer<'a> {
     /// Pushes `rule` on the stack, with the scopes of its name and content.
     fn push_frame(&mut self, rule: Rule, payload: u32) {
         let top = *self.top();
-        let base = self.inner_base(&top);
+        let (base, injection) = self.frame_links(&top, rule);
         let name = self.name_stack(base, rule, payload);
         let content = self.content_stack(name, rule, payload);
         let state = self
@@ -1303,19 +1532,63 @@ impl<'a> Lexer<'a> {
             state,
             payload,
             no_inject: top.no_inject || rule.shuts_out_injection(),
-            injection: rule.injection(top.injection),
+            injection,
         });
     }
 
-    /// The stack a rule opened inside `top` sits on: its content, and inside
-    /// a `<script>` element's code also the `source.js` that the JavaScript
-    /// lexer adds to its own stack, which ERB opened there keeps.
-    fn inner_base(&mut self, top: &Frame) -> u32 {
-        if top.rule == Rule::BodyJs {
+    /// What a rule opened inside `top` takes from it.
+    /// - The stack it sits on: `top`'s content, and inside a `<script>`
+    ///   element's code also the `source.js` that the JavaScript lexer adds to
+    ///   its own stack, which ERB opened there keeps.
+    /// - How a template's injection applies inside it: by ERB's selectors, or
+    ///   by Blade's in a Blade document ([`Lexer::blade_links`]).
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with two call sites it went out of line and cost HTML 124k instructions in calls"
+    )]
+    #[inline(always)]
+    fn frame_links(&mut self, top: &Frame, rule: Rule) -> (u32, Injection) {
+        if matches!(self.document, Document::Blade) {
+            return self.blade_links(top.rule, top.state, top.content, top.injection, rule);
+        }
+        let base = if top.rule == Rule::BodyJs {
             self.path(top.content, &[S::SourceJs])
         } else {
             top.content
-        }
+        };
+        (base, rule.injection(top.injection))
+    }
+
+    /// [`Lexer::frame_links`] in a Blade document.
+    /// - Inside a Blade rule's PHP, the stack is the PHP's
+    ///   ([`Lexer::blade_base`]).
+    /// - Under a sealed Blade heredoc, no rule lets the injection back in.
+    ///
+    /// It stays out of line, so the frame push of other documents tests the
+    /// document once.
+    #[cold]
+    #[inline(never)]
+    fn blade_links(
+        &mut self,
+        top_rule: Rule,
+        state: u32,
+        content: u32,
+        parent: Injection,
+        rule: Rule,
+    ) -> (u32, Injection) {
+        let base = if top_rule == Rule::BodyJs {
+            self.path(content, &[S::SourceJs])
+        } else {
+            self.blade_base(top_rule, state, content)
+        };
+        let injection = if parent == Injection::ShutOut
+            && self.frames[0].payload == state::ROOT_BLADE_HEREDOC_SEALED
+        {
+            Injection::ShutOut
+        } else {
+            rule.blade_injection(parent)
+        };
+        (base, injection)
     }
 
     /// Whether `rule`, just opened above frame `before`, repeats a rule that

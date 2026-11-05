@@ -155,11 +155,56 @@ pub(crate) enum Rule {
     /// Vue: the TypeScript of a directive's value. The payload is the lexer's
     /// state.
     VueExpr,
+    /// Blade: `{{--` up to `--}}`.
+    BladeComment,
+    /// Blade: the blanks before `<?` in a comment, when the line does not close
+    /// the tag, up to the tag's end.
+    BladeCommentPhpWrap,
+    /// Blade: `<?php` in a comment that the line does not close, up to `?>`.
+    /// The payload is the PHP lexer's state.
+    BladeCommentPhpBlock,
+    /// Blade: `<?php` in a comment, up to `>`.
+    BladeCommentPhpLine,
+    /// Blade: the blanks before `<?` that the line does not close, up to the
+    /// tag's end.
+    BladePhpWrap,
+    /// Blade: `<?php` that the line does not close, up to `?>`. The payload is
+    /// the PHP lexer's state.
+    BladePhpBlock,
+    /// Blade: `<?php` up to `>`.
+    BladePhpLine,
+    /// Blade: the code of such a tag, up to `?` before `>`. The payload is the
+    /// PHP lexer's state.
+    BladePhpLineCode,
+    /// Blade: `{{{` up to `}}}`. The payload is the PHP lexer's state.
+    BladeEchoTriple,
+    /// Blade: `{{` up to `}}`. The payload is the PHP lexer's state.
+    BladeEcho,
+    /// Blade: `{!!` up to `!!}`. The payload is the PHP lexer's state.
+    BladeEchoRaw,
+    /// Blade: `@{{` up to `}}`. The payload is the PHP lexer's state.
+    BladeEchoEscaped,
+    /// Blade: a directive of the grammar's list and its `(`, up to `)`. The
+    /// payload is the PHP lexer's state.
+    BladeDirective,
+    /// Blade: any other directive and its `(`, up to `)`. The payload is the
+    /// PHP lexer's state.
+    BladeDirectiveCustom,
+    /// Blade: the arguments of a closing directive, such as `@endif(`, up to
+    /// `)`, as `comment.blade`.
+    BladeArgsComment,
+    /// Blade: a `(` in those arguments, up to its `)`.
+    BladeBalance,
+    /// Blade: `@php` up to `@endphp`. The payload is the PHP lexer's state.
+    BladePhpSection,
+    /// Blade: a `:name="` binding up to its `"`. The payload is the PHP lexer's
+    /// state.
+    BladeAttribute,
 }
 
 impl Rule {
     /// The rules in code order, which [`Rule::code`] numbers.
-    const ALL: [Rule; 63] = [
+    const ALL: [Rule; 81] = [
         Rule::Root,
         Rule::Comment,
         Rule::Cdata,
@@ -223,6 +268,24 @@ impl Rule {
         Rule::VueExprString,
         Rule::VueExprBare,
         Rule::VueExpr,
+        Rule::BladeComment,
+        Rule::BladeCommentPhpWrap,
+        Rule::BladeCommentPhpBlock,
+        Rule::BladeCommentPhpLine,
+        Rule::BladePhpWrap,
+        Rule::BladePhpBlock,
+        Rule::BladePhpLine,
+        Rule::BladePhpLineCode,
+        Rule::BladeEchoTriple,
+        Rule::BladeEcho,
+        Rule::BladeEchoRaw,
+        Rule::BladeEchoEscaped,
+        Rule::BladeDirective,
+        Rule::BladeDirectiveCustom,
+        Rule::BladeArgsComment,
+        Rule::BladeBalance,
+        Rule::BladePhpSection,
+        Rule::BladeAttribute,
     ];
 
     /// The rule as a frame stores it: the HTML tag in the high byte, the
@@ -264,14 +327,25 @@ impl Rule {
 
     /// Whether a template's injection applies inside the rule, opened where
     /// it applies as `parent` says: not under a `comment` scope.
+    /// It reads [`ERB_SHUT_OUT`] by the rule's discriminant.
     pub(crate) fn injection(self, parent: Injection) -> Injection {
+        if ERB_SHUT_OUT[usize::from(self.code() & 0xff)] {
+            Injection::ShutOut
+        } else {
+            parent
+        }
+    }
+
+    /// Whether ERB's injection stays out of the rule's text, for
+    /// [`ERB_SHUT_OUT`].
+    const fn erb_shuts_out(self) -> bool {
         match self {
             Rule::Comment
             | Rule::ErbComment
             | Rule::JsLineComment
             | Rule::JsBlockComment
             | Rule::VueComment
-            | Rule::VueCommentKv => Injection::ShutOut,
+            | Rule::VueCommentKv => true,
             Rule::Root
             | Rule::Cdata
             | Rule::Doctype
@@ -309,6 +383,143 @@ impl Rule {
             | Rule::ErbTagWrap
             | Rule::ErbBlock
             | Rule::ErbLine
+            | Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute
+            | Rule::VueSelfClosing
+            | Rule::VueBlock
+            | Rule::VueElement
+            | Rule::VueTagStuff
+            | Rule::VueScriptTagStuff
+            | Rule::VueStyleTagStuff
+            | Rule::VueScriptStuff
+            | Rule::VueStyleStuff
+            | Rule::VueLangGroup
+            | Rule::VueBody
+            | Rule::VueBodyWhile
+            | Rule::VueTemplateBody
+            | Rule::VueTemplateTag
+            | Rule::VueTemplateTagEnd
+            | Rule::VueCapitalized
+            | Rule::VueCapitalizedAttrs
+            | Rule::VueDirective
+            | Rule::VueExprString
+            | Rule::VueExprBare
+            | Rule::VueExpr => false,
+        }
+    }
+}
+
+/// [`Rule::erb_shuts_out`] by the rule's discriminant, the low byte of its
+/// code.
+/// A load replaces a `match` over more rules than a 64-bit mask holds,
+/// which LLVM lowers to a jump table on every frame push.
+/// Every byte indexes it, so the read needs no bounds check.
+const ERB_SHUT_OUT: [bool; 256] = {
+    let mut table = [false; 256];
+    let mut i = 0;
+    while i < Rule::ALL.len() {
+        table[i] = Rule::ALL[i].erb_shuts_out();
+        i += 1;
+    }
+    table
+};
+
+impl Rule {
+    /// Whether Blade's injection applies inside the rule, opened where it
+    /// applies as `parent` says, and how it ranks there.
+    ///
+    /// The injection has two selectors:
+    /// - `text.html.php.blade - (meta.embedded | meta.tag |
+    ///   comment.block.blade)`, which loses a tie;
+    /// - `L:(text.html.php.blade meta.tag - (comment.block.blade |
+    ///   meta.embedded.block.blade))`, which wins one.
+    ///
+    /// So inside a tag it leads, even in an attribute's embedded CSS or
+    /// JavaScript, until a Blade comment or an `@php` section shuts it out.
+    pub(crate) fn blade_injection(self, parent: Injection) -> Injection {
+        match self {
+            Rule::BladeComment | Rule::BladePhpSection => Injection::ShutOut,
+            Rule::Cdata
+            | Rule::Doctype
+            | Rule::Processing
+            | Rule::Tag
+            | Rule::ElementStart
+            | Rule::OpenStyle
+            | Rule::OpenScript
+            | Rule::ScriptAttributes => Injection::Leads,
+            Rule::StyleTag
+            | Rule::ScriptTag
+            | Rule::WrapCss
+            | Rule::WrapJs
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine => {
+                if parent == Injection::Leads {
+                    Injection::Leads
+                } else {
+                    Injection::ShutOut
+                }
+            }
+            Rule::Root
+            | Rule::Comment
+            | Rule::DoctypeString
+            | Rule::Element
+            | Rule::StyleWrap
+            | Rule::BodyCss
+            | Rule::ScriptWrap
+            | Rule::ScriptHead
+            | Rule::ScriptJsOuter
+            | Rule::BodyJs
+            | Rule::ScriptTemplateOuter
+            | Rule::BodyTemplate
+            | Rule::ScriptOtherOuter
+            | Rule::BodyOther
+            | Rule::Attribute
+            | Rule::Value
+            | Rule::ValueCss
+            | Rule::ValueJs
+            | Rule::StringPlain
+            | Rule::StringCss
+            | Rule::StringJs
+            | Rule::JsLineComment
+            | Rule::JsBlockComment
+            | Rule::Region
+            | Rule::ErbCommentWrap
+            | Rule::ErbTagWrap
+            | Rule::ErbComment
+            | Rule::ErbBlock
+            | Rule::ErbLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladeAttribute
+            | Rule::VueComment
+            | Rule::VueCommentKv
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -341,6 +552,10 @@ pub(crate) enum Injection {
     /// same place comes first.
     /// A selector without `L:` ranks an injection after the rule's patterns.
     Applies,
+    /// It applies, and wins a tie: an `L:` selector ranks the injection
+    /// before the rule's patterns.
+    /// Blade's injection leads this way inside a `meta.tag` scope.
+    Leads,
     /// It does not: the text sits under a `comment` scope.
     ShutOut,
 }
@@ -351,6 +566,7 @@ impl Injection {
     pub(crate) fn precedes(self, at: usize, candidate: usize) -> bool {
         match self {
             Injection::Applies | Injection::ShutOut => at < candidate,
+            Injection::Leads => at <= candidate,
         }
     }
 }
@@ -375,6 +591,23 @@ pub(crate) const ROOT_DERIVATIVE_FIRST: u32 = 2;
 /// Svelte's grammar injects its `$` prefixes into the document's every
 /// `source.js`, so a `<script>`'s JavaScript takes them.
 pub(crate) const ROOT_SVELTE: u32 = 3;
+
+/// The payload of the root frame of the HTML of a Blade heredoc,
+/// `<<<BLADE`, in Blade's PHP.
+/// The heredoc's patterns are `text.html.basic` and then Blade's own rules,
+/// without the PHP tags that only Blade's injection holds.
+/// Its `meta.embedded.blade` scope shuts the injection out of every rule it
+/// opens but the tags, where the injection's `L:` selector still leads.
+/// The document is lexed as [`Document::Blade`].
+///
+/// [`Document::Blade`]: super::engine::Document::Blade
+pub(crate) const ROOT_BLADE_HEREDOC: u32 = 4;
+
+/// The payload of the root frame of a Blade heredoc's HTML under an `@php`
+/// section or a Blade comment, whose scopes shut Blade's injection out of
+/// the tags too.
+/// It is [`ROOT_BLADE_HEREDOC`] in every other way.
+pub(crate) const ROOT_BLADE_HEREDOC_SEALED: u32 = 5;
 
 /// The category the grammar sorts a tag into, which names its scope.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

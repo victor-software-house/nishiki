@@ -54,6 +54,9 @@ tags! {
     /// Batch.
     #[cfg(feature = "lang-bat")]
     BAT = 0x3500,
+    /// Blade's PHP.
+    #[cfg(feature = "lang-blade")]
+    BLADE = 0x5200,
     /// C, with the next byte for its end-of-line flag.
     #[cfg(feature = "lang-c")]
     C = 0x0c00 mask 0xfe00,

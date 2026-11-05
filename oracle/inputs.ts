@@ -6,6 +6,7 @@
 import asmCoverage from "./inputs/asm-coverage.asm" with { type: "text" };
 import astroCoverage from "./inputs/astro-coverage.astro" with { type: "text" };
 import batCoverage from "./inputs/bat-coverage.bat" with { type: "text" };
+import bladeCoverage from "./inputs/blade-coverage.blade.php" with { type: "text" };
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
 import coffeeCoverage from "./inputs/coffee-coverage.coffee" with { type: "text" };
@@ -594,6 +595,17 @@ export const inputs: Input[] = [
   { lang: "bat", name: "sample", url: `${samples}/bat.sample` },
   { lang: "bat", name: "tomcat-catalina", url: `${tomcat}/bin/catalina.bat` },
   { lang: "bat", name: "tomcat-setclasspath", url: `${tomcat}/bin/setclasspath.bat` },
+  // Shiki's Markdown grammar has no Blade fence, so no Markdown input embeds
+  // Blade.
+  { lang: "blade", name: "coverage", text: bladeCoverage },
+  { lang: "blade", name: "laravel-exception-query", url: `${laravel}/src/Illuminate/Foundation/resources/exceptions/renderer/components/query.blade.php` },
+  { lang: "blade", name: "laravel-exception-show", url: `${laravel}/src/Illuminate/Foundation/resources/exceptions/renderer/show.blade.php` },
+  { lang: "blade", name: "laravel-exceptions-minimal", url: `${laravel}/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php` },
+  { lang: "blade", name: "laravel-mail-layout", url: `${laravel}/src/Illuminate/Mail/resources/views/html/layout.blade.php` },
+  { lang: "blade", name: "laravel-notification-email", url: `${laravel}/src/Illuminate/Notifications/resources/views/email.blade.php` },
+  { lang: "blade", name: "laravel-pagination-bootstrap-5", url: `${laravel}/src/Illuminate/Pagination/resources/views/bootstrap-5.blade.php` },
+  { lang: "blade", name: "laravel-pagination-tailwind", url: `${laravel}/src/Illuminate/Pagination/resources/views/tailwind.blade.php` },
+  { lang: "blade", name: "sample", url: `${samples}/blade.sample` },
   { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
   { lang: "c", name: "coverage", text: cCoverage },
   { lang: "c", name: "jq-print", url: `${jq}/src/jv_print.c` },

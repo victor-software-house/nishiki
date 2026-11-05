@@ -22,6 +22,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Batch line, as Dart's is.
     #[cfg(feature = "lang-bat")]
     pub(crate) bat: Option<Box<crate::bat::Scratch>>,
+    /// The Blade lexer's, for the PHP of Blade documents.
+    /// It is boxed and allocated by the first line of PHP, as PHP's is.
+    #[cfg(feature = "lang-blade")]
+    pub(crate) blade: Option<Box<crate::blade::Scratch>>,
     /// The C lexer's, for C documents and Markdown C fences.
     #[cfg(feature = "lang-c")]
     pub(crate) c: crate::c::Scratch,

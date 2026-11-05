@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 25
-digest = "2927c8848f390a12f29ffb2a4f8f937443e8fd7491d1b8330111ee007ca5392c"
+version = 26
+digest = "2a2ec701172e0633746d351ba2eb573f4b13b1035ef5b7838197a33a537a4914"
 
 [[file]]
 language = "asm"
@@ -84,6 +84,28 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/apache/solr/blob/ad26fdf2c6bee8168eae043b94833f05643d1995/LICENSE.txt"
 bytes = 44589
 sha256 = "1e76b0de6e2519573e888281479a8b140680a49ad1cd10b2f573c5f4c340fd3b"
+
+[[file]]
+language = "blade"
+tier = "medium"
+origin = "neutral"
+path = "blade/medium/filament-column-manager-content.blade.php"
+source = "https://raw.githubusercontent.com/filamentphp/filament/25c742a7045fc497969e79ddc376613d42ba4a5a/packages/tables/resources/views/components/column-manager/content.blade.php"
+licence = "MIT"
+licence_source = "https://github.com/filamentphp/filament/blob/25c742a7045fc497969e79ddc376613d42ba4a5a/LICENSE.md"
+bytes = 16472
+sha256 = "84052bfceada6432935f01327c52e618913a076a0ca1f61e04fcf45c7884c697"
+
+[[file]]
+language = "blade"
+tier = "small"
+origin = "neutral"
+path = "blade/small/laravel-pagination-simple-tailwind.blade.php"
+source = "https://raw.githubusercontent.com/laravel/framework/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Pagination/resources/views/simple-tailwind.blade.php"
+licence = "MIT"
+licence_source = "https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/LICENSE.md"
+bytes = 2148
+sha256 = "b3980b073195d6231bb36b51349e17baf1c9d2380e372648119878b6a515bbb4"
 
 [[file]]
 language = "c"

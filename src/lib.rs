@@ -211,7 +211,7 @@
 //! |:--|:--|
 //! | `all` (the default) | Every language |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte, Astro |
+//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte, Astro, Blade |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown, LaTeX, TeX and `config` |
 //!
@@ -258,6 +258,8 @@ mod asm;
 mod astro;
 #[cfg(feature = "lang-bat")]
 mod bat;
+#[cfg(feature = "lang-blade")]
+mod blade;
 mod bytes;
 #[cfg(feature = "lang-c")]
 mod c;

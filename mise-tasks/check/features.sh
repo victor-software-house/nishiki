@@ -18,6 +18,7 @@ cargo check --locked --tests --no-default-features --features docs
 cargo check --locked --tests --no-default-features --features lang-asm
 cargo check --locked --tests --no-default-features --features lang-astro
 cargo check --locked --tests --no-default-features --features lang-bat
+cargo check --locked --tests --no-default-features --features lang-blade
 cargo check --locked --tests --no-default-features --features lang-c
 cargo check --locked --tests --no-default-features --features lang-cmake
 cargo check --locked --tests --no-default-features --features lang-coffee

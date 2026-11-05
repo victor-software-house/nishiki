@@ -1293,7 +1293,25 @@ impl Rule {
             | Rule::ErbTagWrap
             | Rule::ErbComment
             | Rule::ErbBlock
-            | Rule::ErbLine => return None,
+            | Rule::ErbLine
+            | Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => return None,
         })
     }
 

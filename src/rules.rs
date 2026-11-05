@@ -454,6 +454,7 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-hack",
+    feature = "lang-blade",
     feature = "lang-perl",
     feature = "lang-elixir",
     feature = "lang-tex",
@@ -477,6 +478,7 @@ macro_rules! embedded {
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-hack",
+    feature = "lang-blade",
     feature = "lang-perl",
     feature = "lang-elixir",
     feature = "lang-tex",
@@ -794,10 +796,6 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
 /// comment's `\n`, can still match.
 /// Blade's PHP resumes there after a Blade rule that ends the line.
 #[cfg(feature = "_halting-embedding")]
-#[expect(
-    dead_code,
-    reason = "Blade's PHP calls it, in the pull request above this one"
-)]
 pub(crate) fn lex_embedding_until_resuming<G: Embeds>(
     cx: &mut Context<'_>,
     line: Line<'_>,

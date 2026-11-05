@@ -1,0 +1,348 @@
+L <x-mail::message>
+T 1 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 16 text.html.php.blade meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 17 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L {{-- Greeting --}}
+T 4 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 14 text.html.php.blade comment.block.blade
+T 18 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L @if (! empty($greeting))
+T 4 text.html.php.blade meta.directive.blade keyword.blade
+T 5 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 6 text.html.php.blade meta.directive.blade source.php keyword.operator.logical.php
+T 7 text.html.php.blade meta.directive.blade source.php
+T 12 text.html.php.blade meta.directive.blade source.php meta.function-call.php support.function.construct.php
+T 13 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 22 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php
+T 23 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 24 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L # {{ $greeting }}
+T 2 text.html.php.blade
+T 4 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 5 text.html.php.blade meta.function.echo.blade source.php
+T 6 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 14 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 15 text.html.php.blade meta.function.echo.blade source.php
+T 17 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L @else
+T 5 text.html.php.blade keyword.blade
+L @if ($level === 'error')
+T 4 text.html.php.blade meta.directive.blade keyword.blade
+T 5 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 6 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 11 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 12 text.html.php.blade meta.directive.blade source.php
+T 15 text.html.php.blade meta.directive.blade source.php keyword.operator.comparison.php
+T 16 text.html.php.blade meta.directive.blade source.php
+T 17 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 22 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 23 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 24 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L # @lang('Whoops!')
+T 2 text.html.php.blade
+T 7 text.html.php.blade meta.directive.blade keyword.blade
+T 8 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 9 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 16 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 17 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 18 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L @else
+T 5 text.html.php.blade keyword.blade
+L # @lang('Hello!')
+T 2 text.html.php.blade
+T 7 text.html.php.blade meta.directive.blade keyword.blade
+T 8 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 9 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 15 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 16 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 17 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L @endif
+T 6 text.html.php.blade keyword.blade
+L @endif
+T 6 text.html.php.blade keyword.blade
+L 
+L {{-- Intro Lines --}}
+T 4 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 17 text.html.php.blade comment.block.blade
+T 21 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L @foreach ($introLines as $line)
+T 9 text.html.php.blade meta.directive.blade keyword.blade
+T 10 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 11 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 21 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 22 text.html.php.blade meta.directive.blade source.php
+T 24 text.html.php.blade meta.directive.blade source.php keyword.operator.logical.php
+T 25 text.html.php.blade meta.directive.blade source.php
+T 26 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 30 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 31 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L {{ $line }}
+T 2 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 3 text.html.php.blade meta.function.echo.blade source.php
+T 4 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 8 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 9 text.html.php.blade meta.function.echo.blade source.php
+T 11 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L 
+L @endforeach
+T 11 text.html.php.blade keyword.blade
+L 
+L {{-- Action Button --}}
+T 4 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 19 text.html.php.blade comment.block.blade
+T 23 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L @isset($actionText)
+T 6 text.html.php.blade meta.directive.blade keyword.blade
+T 7 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 8 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 18 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 19 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L <?php
+T 5 text.html.php.blade meta.embedded.block.php punctuation.section.embedded.begin.php
+L     $color = match ($level) {
+T 4 text.html.php.blade meta.embedded.block.php source.php
+T 5 text.html.php.blade meta.embedded.block.php source.php variable.other.php punctuation.definition.variable.php
+T 10 text.html.php.blade meta.embedded.block.php source.php variable.other.php
+T 11 text.html.php.blade meta.embedded.block.php source.php
+T 12 text.html.php.blade meta.embedded.block.php source.php keyword.operator.assignment.php
+T 13 text.html.php.blade meta.embedded.block.php source.php
+T 18 text.html.php.blade meta.embedded.block.php source.php meta.function-call.php entity.name.function.php
+T 19 text.html.php.blade meta.embedded.block.php source.php meta.function-call.php
+T 20 text.html.php.blade meta.embedded.block.php source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 21 text.html.php.blade meta.embedded.block.php source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 26 text.html.php.blade meta.embedded.block.php source.php meta.function-call.php variable.other.php
+T 27 text.html.php.blade meta.embedded.block.php source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 28 text.html.php.blade meta.embedded.block.php source.php
+T 29 text.html.php.blade meta.embedded.block.php source.php punctuation.definition.begin.bracket.curly.php
+L         'success', 'error' => $level,
+T 8 text.html.php.blade meta.embedded.block.php source.php
+T 9 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 16 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php
+T 17 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php punctuation.definition.string.end.php
+T 18 text.html.php.blade meta.embedded.block.php source.php punctuation.separator.delimiter.php
+T 19 text.html.php.blade meta.embedded.block.php source.php
+T 20 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 25 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php
+T 26 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php punctuation.definition.string.end.php
+T 27 text.html.php.blade meta.embedded.block.php source.php
+T 29 text.html.php.blade meta.embedded.block.php source.php keyword.operator.key.php
+T 30 text.html.php.blade meta.embedded.block.php source.php
+T 31 text.html.php.blade meta.embedded.block.php source.php variable.other.php punctuation.definition.variable.php
+T 36 text.html.php.blade meta.embedded.block.php source.php variable.other.php
+T 37 text.html.php.blade meta.embedded.block.php source.php punctuation.separator.delimiter.php
+L         default => 'primary',
+T 8 text.html.php.blade meta.embedded.block.php source.php
+T 15 text.html.php.blade meta.embedded.block.php source.php keyword.control.default.php
+T 16 text.html.php.blade meta.embedded.block.php source.php
+T 18 text.html.php.blade meta.embedded.block.php source.php keyword.operator.key.php
+T 19 text.html.php.blade meta.embedded.block.php source.php
+T 20 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 27 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php
+T 28 text.html.php.blade meta.embedded.block.php source.php string.quoted.single.php punctuation.definition.string.end.php
+T 29 text.html.php.blade meta.embedded.block.php source.php punctuation.separator.delimiter.php
+L     };
+T 4 text.html.php.blade meta.embedded.block.php source.php
+T 5 text.html.php.blade meta.embedded.block.php source.php punctuation.definition.end.bracket.curly.php
+T 6 text.html.php.blade meta.embedded.block.php source.php punctuation.terminator.expression.php
+L ?>
+T 1 text.html.php.blade meta.embedded.block.php punctuation.section.embedded.end.php source.php
+T 2 text.html.php.blade meta.embedded.block.php punctuation.section.embedded.end.php
+L <x-mail::button :url="$actionUrl" :color="$color">
+T 1 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 15 text.html.php.blade meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 16 text.html.php.blade meta.tag.other.unrecognized.html.derivative
+T 20 text.html.php.blade meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.:url.html entity.other.attribute-name.html
+T 21 text.html.php.blade meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.:url.html punctuation.separator.key-value.html
+T 22 text.html.php.blade meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.:url.html string.quoted.double.html
+T 23 text.html.php.blade meta.tag.other.unrecognized.html.derivative source.php variable.other.php punctuation.definition.variable.php
+T 32 text.html.php.blade meta.tag.other.unrecognized.html.derivative source.php variable.other.php
+T 33 text.html.php.blade meta.tag.other.unrecognized.html.derivative string.quoted.double.html punctuation.definition.string.end.html
+T 34 text.html.php.blade meta.tag.other.unrecognized.html.derivative
+T 40 text.html.php.blade meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.:color.html entity.other.attribute-name.html
+T 41 text.html.php.blade meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.:color.html punctuation.separator.key-value.html
+T 42 text.html.php.blade meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.:color.html string.quoted.double.html
+T 43 text.html.php.blade meta.tag.other.unrecognized.html.derivative source.php variable.other.php punctuation.definition.variable.php
+T 48 text.html.php.blade meta.tag.other.unrecognized.html.derivative source.php variable.other.php
+T 49 text.html.php.blade meta.tag.other.unrecognized.html.derivative string.quoted.double.html punctuation.definition.string.end.html
+T 50 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L {{ $actionText }}
+T 2 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 3 text.html.php.blade meta.function.echo.blade source.php
+T 4 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 14 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 15 text.html.php.blade meta.function.echo.blade source.php
+T 17 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L </x-mail::button>
+T 2 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 16 text.html.php.blade meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 17 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L @endisset
+T 9 text.html.php.blade keyword.blade
+L 
+L {{-- Outro Lines --}}
+T 4 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 17 text.html.php.blade comment.block.blade
+T 21 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L @foreach ($outroLines as $line)
+T 9 text.html.php.blade meta.directive.blade keyword.blade
+T 10 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 11 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 21 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 22 text.html.php.blade meta.directive.blade source.php
+T 24 text.html.php.blade meta.directive.blade source.php keyword.operator.logical.php
+T 25 text.html.php.blade meta.directive.blade source.php
+T 26 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 30 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 31 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L {{ $line }}
+T 2 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 3 text.html.php.blade meta.function.echo.blade source.php
+T 4 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 8 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 9 text.html.php.blade meta.function.echo.blade source.php
+T 11 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L 
+L @endforeach
+T 11 text.html.php.blade keyword.blade
+L 
+L {{-- Salutation --}}
+T 4 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 16 text.html.php.blade comment.block.blade
+T 20 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L @if (! empty($salutation))
+T 4 text.html.php.blade meta.directive.blade keyword.blade
+T 5 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 6 text.html.php.blade meta.directive.blade source.php keyword.operator.logical.php
+T 7 text.html.php.blade meta.directive.blade source.php
+T 12 text.html.php.blade meta.directive.blade source.php meta.function-call.php support.function.construct.php
+T 13 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 14 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 24 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php
+T 25 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 26 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L {{ $salutation }}
+T 2 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 3 text.html.php.blade meta.function.echo.blade source.php
+T 4 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 14 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 15 text.html.php.blade meta.function.echo.blade source.php
+T 17 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L @else
+T 5 text.html.php.blade keyword.blade
+L @lang('Regards,')<br>
+T 5 text.html.php.blade meta.directive.blade keyword.blade
+T 6 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 7 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 15 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 16 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 17 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+T 18 text.html.php.blade meta.tag.inline.br.void.html punctuation.definition.tag.begin.html
+T 20 text.html.php.blade meta.tag.inline.br.void.html entity.name.tag.html
+T 21 text.html.php.blade meta.tag.inline.br.void.html punctuation.definition.tag.end.html
+L {{ config('app.name') }}
+T 2 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 3 text.html.php.blade meta.function.echo.blade source.php
+T 9 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php entity.name.function.php
+T 10 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 11 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 19 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php
+T 20 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 21 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 22 text.html.php.blade meta.function.echo.blade source.php
+T 24 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L @endif
+T 6 text.html.php.blade keyword.blade
+L 
+L {{-- Subcopy --}}
+T 4 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 13 text.html.php.blade comment.block.blade
+T 17 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L @isset($actionText)
+T 6 text.html.php.blade meta.directive.blade keyword.blade
+T 7 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 8 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 18 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 19 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L <x-slot:subcopy>
+T 1 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 15 text.html.php.blade meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 16 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L @lang(
+T 5 text.html.php.blade meta.directive.blade keyword.blade
+T 6 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+L     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
+T 4 text.html.php.blade meta.directive.blade source.php
+T 5 text.html.php.blade meta.directive.blade source.php string.quoted.double.php punctuation.definition.string.begin.php
+T 43 text.html.php.blade meta.directive.blade source.php string.quoted.double.php
+T 45 text.html.php.blade meta.directive.blade source.php string.quoted.double.php constant.character.escape.php
+T 56 text.html.php.blade meta.directive.blade source.php string.quoted.double.php
+T 58 text.html.php.blade meta.directive.blade source.php string.quoted.double.php constant.character.escape.php
+T 95 text.html.php.blade meta.directive.blade source.php string.quoted.double.php
+T 97 text.html.php.blade meta.directive.blade source.php string.quoted.double.php constant.character.escape.php
+T 98 text.html.php.blade meta.directive.blade source.php string.quoted.double.php punctuation.definition.string.end.php
+T 99 text.html.php.blade meta.directive.blade source.php keyword.operator.string.php
+L     'into your web browser:',
+T 4 text.html.php.blade meta.directive.blade source.php
+T 5 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 27 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 28 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 29 text.html.php.blade meta.directive.blade source.php punctuation.separator.delimiter.php
+L     [
+T 4 text.html.php.blade meta.directive.blade source.php
+T 5 text.html.php.blade meta.directive.blade source.php punctuation.section.array.begin.php
+L         'actionText' => $actionText,
+T 8 text.html.php.blade meta.directive.blade source.php
+T 9 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 19 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 20 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 21 text.html.php.blade meta.directive.blade source.php
+T 23 text.html.php.blade meta.directive.blade source.php keyword.operator.key.php
+T 24 text.html.php.blade meta.directive.blade source.php
+T 25 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 35 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 36 text.html.php.blade meta.directive.blade source.php punctuation.separator.delimiter.php
+L     ]
+T 4 text.html.php.blade meta.directive.blade source.php
+T 5 text.html.php.blade meta.directive.blade source.php punctuation.section.array.end.php
+L ) <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
+T 1 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+T 2 text.html.php.blade
+T 3 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 7 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 8 text.html.php.blade meta.tag.inline.span.start.html
+T 13 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 14 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 15 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 25 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 26 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 27 text.html.php.blade
+T 29 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 30 text.html.php.blade meta.function.echo.blade source.php
+T 31 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 51 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 52 text.html.php.blade meta.function.echo.blade source.php
+T 54 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 56 text.html.php.blade
+T 58 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 59 text.html.php.blade meta.function.echo.blade source.php
+T 60 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 69 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 70 text.html.php.blade meta.function.echo.blade source.php
+T 72 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 73 text.html.php.blade
+T 75 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 79 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 80 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L </x-slot:subcopy>
+T 2 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 16 text.html.php.blade meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 17 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L @endisset
+T 9 text.html.php.blade keyword.blade
+L </x-mail::message>
+T 2 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 17 text.html.php.blade meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 18 text.html.php.blade meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L 

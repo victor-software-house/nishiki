@@ -19,6 +19,7 @@
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
 
+mod blade;
 mod engine;
 mod erb;
 mod matchers;
@@ -209,6 +210,65 @@ pub(crate) fn lex_erb(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finis
         return Finished::unspent(state);
     }
     engine::Lexer::new(cx, line, state, engine::Document::Erb).run()
+}
+
+/// The state at the start of a Blade document whose scopes sit on the stack
+/// `base`: the HTML root rule with `text.html.php.blade` on top of it.
+#[cfg(feature = "lang-blade")]
+pub(crate) fn start_blade(arena: &mut Arena, base: u32) -> u32 {
+    let stack = arena
+        .child(base, S::TextHtmlPhpBlade.scope())
+        .unwrap_or(base);
+    arena
+        .push(ROOT, Rule::Root.code(), 0, stack)
+        .unwrap_or(ROOT)
+}
+
+/// The state at the start of the HTML of a Blade heredoc in Blade's PHP,
+/// whose text sits on `base` (see [`state::ROOT_BLADE_HEREDOC`]).
+#[cfg(feature = "lang-blade")]
+pub(crate) fn start_blade_heredoc(arena: &mut Arena, base: u32) -> u32 {
+    let sealed = arena
+        .scopes(base)
+        .any(|name| matches!(name, "meta.embedded.block.blade" | "comment.block.blade"));
+    let payload = if sealed {
+        state::ROOT_BLADE_HEREDOC_SEALED
+    } else {
+        state::ROOT_BLADE_HEREDOC
+    };
+    arena
+        .push(ROOT, Rule::Root.code(), payload, base)
+        .unwrap_or(ROOT)
+}
+
+/// Lexes the HTML of a Blade heredoc like [`lex_blade`], up to where `end`
+/// or `after` takes the line back at the root (see [`Halt`]).
+#[cfg(feature = "lang-blade")]
+pub(crate) fn lex_blade_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<Stopped>) {
+    if line.text.len() <= line.start {
+        return (Finished::unspent(state), None);
+    }
+    let halts = (end, after);
+    let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Blade);
+    lexer.give_back = Some(engine::GiveBack::Halts(&halts));
+    let (finished, halt) = lexer.run_until();
+    (finished, halt.map(Stopped::halt))
+}
+
+/// Lexes a line of a Blade document like [`lex`], with Blade's injection in
+/// place of the grammar's.
+#[cfg(feature = "lang-blade")]
+pub(crate) fn lex_blade(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
+    if line.text.len() <= line.start {
+        return Finished::unspent(state);
+    }
+    engine::Lexer::new(cx, line, state, engine::Document::Blade).run()
 }
 
 /// The state at the start of a Vue component whose scopes sit on the stack

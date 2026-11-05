@@ -1021,7 +1021,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The rules open on the line, innermost first, each with its index for
     /// [`Lexer::payload_text_of`].
-    #[cfg(any(feature = "lang-svelte", feature = "lang-astro"))]
+    #[cfg(any(
+        feature = "lang-svelte",
+        feature = "lang-astro",
+        feature = "lang-blade"
+    ))]
     pub(crate) fn open_rules(&self) -> impl Iterator<Item = (usize, G::Rule)> + '_ {
         self.frames.iter().map(|frame| frame.rule).enumerate().rev()
     }
