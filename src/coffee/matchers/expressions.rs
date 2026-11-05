@@ -224,7 +224,7 @@ where
     /// Each word must be the whole run of `[$\w]`.
     fn stop_word_at(&self, p: usize) -> bool {
         let end = self.dollar_word_end(p);
-        ARGUMENT_STOPS.contains(&self.text(p, end))
+        crate::bytes::contains(ARGUMENT_STOPS, self.text(p, end))
     }
 
     /// `(?=\s*(?<![$\w])(of|…)(?![$\w]))|(?=\s*([]#)}]|$))` at `p`.

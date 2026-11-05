@@ -350,7 +350,7 @@ where
                     return None;
                 }
                 let end = self.word_end(p);
-                if !AVAILABILITY.contains(&self.text(p, end)) {
+                if !crate::bytes::contains(AVAILABILITY, self.text(p, end)) {
                     return None;
                 }
                 let paren = self.space_end(end);
@@ -669,7 +669,7 @@ where
                 let word = self.text(p, end);
                 let ok = word
                     .strip_suffix(b"_t")
-                    .is_some_and(|stem| STDINT.contains(&stem));
+                    .is_some_and(|stem| crate::bytes::contains(STDINT, stem));
                 ok.then_some(end)
             }
             Rx::CLangAt28 => self.word_in(
@@ -918,7 +918,7 @@ where
     fn at_sign_word(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let start = self.lit(p, b"@")?;
         let end = self.word_end(start);
-        if !words.contains(&self.text(start, end)) {
+        if !crate::bytes::contains(words, self.text(start, end)) {
             return None;
         }
         self.cap(1, p, start);
@@ -931,7 +931,7 @@ where
             return None;
         }
         let end = self.word_end(p);
-        words.contains(&self.text(p, end)).then_some(end)
+        crate::bytes::contains(words, self.text(p, end)).then_some(end)
     }
 
     /// `[$A-Z_a-z][$\w]*`, with `-` among the later characters when `dash`
@@ -964,7 +964,7 @@ where
         }
         let start = self.blank_end(hash + 1);
         let end = self.word_end(start);
-        ELSE_ELIF_ENDIF.contains(&self.text(start, end))
+        crate::bytes::contains(ELSE_ELIF_ENDIF, self.text(start, end))
     }
 
     /// `^\s*((#)\s*(words))\b\s*`, with the word recorded as group 3: the

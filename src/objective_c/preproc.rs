@@ -45,7 +45,7 @@ where
         let start = self.blank_end(hash + 1);
         let end = self.word_end(start);
         let word = self.text(start, end);
-        words.contains(&word).then_some((hash, start, end))
+        crate::bytes::contains(words, word).then_some((hash, start, end))
     }
 
     /// [`Lexer::directive`] for one word.
