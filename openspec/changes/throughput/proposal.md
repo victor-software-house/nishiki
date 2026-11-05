@@ -16,7 +16,7 @@ A Callgrind profile of the whole corpus finds where the instructions go ([design
 
 - Styling is 65% of the path from text to colours.
   `Theme::style` costs 4,082 instructions per token, against 2,211 for lexing it.
-- Building each rule's candidate tables is 65% of the work a fresh process does once.
+- Building each rule's candidate tables is 69% of the work a fresh process does once.
 - In lexing, the rule engine's matchers take half the instructions, and its scan a quarter.
 
 ## What Changes
