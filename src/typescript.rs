@@ -195,35 +195,24 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
 /// entry's patterns only.
 /// Its text sits on `base`, which holds the embedding's own scope.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
-#[cfg_attr(
-    all(not(test), not(feature = "lang-svelte")),
-    expect(dead_code, reason = "Astro reads it, in the next pull request")
-)]
 fn start_entry(arena: &mut Arena, base: u32, kind: Kind) -> u32 {
     arena.push(ROOT, kind.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// The start of `source.ts#object-literal`, which Svelte's `{ {a: 1} }`
-/// includes, and of `source.tsx#object-literal`.
+/// includes, and of `source.tsx#object-literal`, which Astro's does.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
-#[cfg_attr(
-    all(not(test), not(feature = "lang-svelte")),
-    expect(dead_code, reason = "Astro reads it, in the next pull request")
-)]
 pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Kind::EntryObjLit)
 }
 
 /// The start of a template string's body, without its `string.template`
 /// scope: `source.tsx#template-substitution-element` and
-/// `source.tsx#string-character-escape`, the two patterns of the body.
+/// `source.tsx#string-character-escape`, the two patterns of the body, which
+/// Astro's backtick attribute values include.
 /// Unlike a template string, it has no end of its own: the end of the rule
-/// that embeds it, such as a closing backtick, ends it.
+/// that embeds it, the closing backtick, ends it.
 #[cfg(feature = "lang-tsx")]
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "Astro reads it, in the next pull request")
-)]
 pub(crate) fn start_template(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Kind::EntryTemplate)
 }
@@ -371,9 +360,9 @@ pub(crate) fn lex(
 /// with no line feed after it, and the group starts at `line.start`. Returns
 /// the state after it.
 ///
-/// Only HTML's event handlers need it, so only `JavaScript` has the lexer that
-/// reads no line feed.
-#[cfg(feature = "lang-html")]
+/// Only the event handlers of HTML and Astro need it, so only `JavaScript`
+/// has the lexer that reads no line feed.
+#[cfg(any(feature = "lang-html", feature = "lang-astro"))]
 pub(crate) fn lex_capture(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,

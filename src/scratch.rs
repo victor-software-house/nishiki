@@ -14,6 +14,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Assembly line.
     #[cfg(feature = "lang-asm")]
     pub(crate) asm: Option<Box<crate::asm::Scratch>>,
+    /// The Astro lexer's, for Astro documents.
+    /// It is boxed and allocated by the first Astro line, as Svelte's is.
+    #[cfg(feature = "lang-astro")]
+    pub(crate) astro: Option<Box<crate::astro::Scratch>>,
     /// The Batch lexer's, for Batch documents and Markdown Batch fences.
     /// It is boxed and allocated by the first Batch line, as Dart's is.
     #[cfg(feature = "lang-bat")]

@@ -35,6 +35,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## Astro
+
+Its Astro lexer emits the scope names of the Astro TextMate grammar that Shiki bundles as `astro` (`packages/vscode/syntaxes/astro.tmLanguage.src.yaml` in [withastro/language-tools](https://github.com/withastro/language-tools) at commit `8e55c37cbcf134dedf0068781245da5a9d46d081`), and tries that grammar's rules in its order, from tables generated from it (`src/astro/grammar.rs`).
+That grammar's package, `packages/vscode`, is licensed under the MIT License:
+
+```text
+MIT License
+
+Copyright (c) 2023 The Astro Technology Company
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 ## Batch
 
 Its Batch lexer emits the scope names of the Batch TextMate grammar in [mmims/language-batchfile](https://github.com/mmims/language-batchfile), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `bat`, and tries that grammar's rules in its order, from tables generated from it (`src/bat/grammar.rs`).

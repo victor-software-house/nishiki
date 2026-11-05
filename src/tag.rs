@@ -48,6 +48,9 @@ tags! {
     /// Assembly.
     #[cfg(feature = "lang-asm")]
     ASM = 0x4a00,
+    /// Astro.
+    #[cfg(feature = "lang-astro")]
+    ASTRO = 0x5000,
     /// Batch.
     #[cfg(feature = "lang-bat")]
     BAT = 0x3500,

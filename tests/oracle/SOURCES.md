@@ -18,6 +18,17 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `asm/xv6-entry` | [`entry.S`][xv6-entry] in mit-pdos/xv6-public | [MIT][xv6-licence] |
 | `asm/xv6-swtch` | [`swtch.S`][xv6-swtch] in mit-pdos/xv6-public | [MIT][xv6-licence] |
 | `asm/xv6-trapasm` | [`trapasm.S`][xv6-trapasm] in mit-pdos/xv6-public | [MIT][xv6-licence] |
+| `astro/basics-welcome` | [`examples/basics/src/components/Welcome.astro`][astro-basics-welcome] in withastro/astro | [MIT][astro-licence] |
+| `astro/blog-header` | [`examples/blog/src/components/Header.astro`][astro-blog-header] in withastro/astro | [MIT][astro-licence] |
+| `astro/coverage` | `oracle/inputs/astro-coverage.astro`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `astro/hackernews-toggle` | [`examples/hackernews/src/components/Toggle.astro`][astro-hackernews-toggle] in withastro/astro | [MIT][astro-licence] |
+| `astro/markdoc-aside` | [`examples/with-markdoc/src/components/Aside.astro`][astro-markdoc-aside] in withastro/astro | [MIT][astro-licence] |
+| `astro/portfolio-base-layout` | [`examples/portfolio/src/layouts/BaseLayout.astro`][astro-portfolio-base-layout] in withastro/astro | [MIT][astro-licence] |
+| `astro/portfolio-index` | [`examples/portfolio/src/pages/index.astro`][astro-portfolio-index] in withastro/astro | [MIT][astro-licence] |
+| `astro/portfolio-nav` | [`examples/portfolio/src/components/Nav.astro`][astro-portfolio-nav] in withastro/astro | [MIT][astro-licence] |
+| `astro/portfolio-theme-toggle` | [`examples/portfolio/src/components/ThemeToggle.astro`][astro-portfolio-theme-toggle] in withastro/astro | [MIT][astro-licence] |
+| `astro/sample` | [`samples/astro.sample`][astro-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `astro/starlight-tabs` | [`packages/starlight/src/user-components/Tabs.astro`][astro-starlight-tabs] in withastro/starlight | [MIT][starlight-licence] |
 | `bat/coverage` | `oracle/inputs/bat-coverage.bat`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
 | `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -1115,6 +1126,17 @@ The hand lexer was written against all seven.
 [argument-parser-getting-started]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md
 [argument-parser-licence]: https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/LICENSE.txt
 [asm-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/asm.sample
+[astro-basics-welcome]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/basics/src/components/Welcome.astro
+[astro-blog-header]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/blog/src/components/Header.astro
+[astro-hackernews-toggle]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/hackernews/src/components/Toggle.astro
+[astro-licence]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/LICENSE
+[astro-markdoc-aside]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/with-markdoc/src/components/Aside.astro
+[astro-portfolio-base-layout]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/portfolio/src/layouts/BaseLayout.astro
+[astro-portfolio-index]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/portfolio/src/pages/index.astro
+[astro-portfolio-nav]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/portfolio/src/components/Nav.astro
+[astro-portfolio-theme-toggle]: https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/portfolio/src/components/ThemeToggle.astro
+[astro-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/astro.sample
+[astro-starlight-tabs]: https://github.com/withastro/starlight/blob/0a7c69ce22a4ca7b5082f9bfa5f8a61df7409859/packages/starlight/src/user-components/Tabs.astro
 [axios-licence]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/LICENSE
 [axios-xhr]: https://github.com/axios/axios/blob/7324e94d8a7b5156a4baf3c86c8b5daa242daee3/lib/adapters/xhr.js
 [bat-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/bat.sample
@@ -1831,6 +1853,7 @@ The hand lexer was written against all seven.
 [sqlalchemy-tox]: https://github.com/sqlalchemy/sqlalchemy/blob/679372836fe7343683248467d276036a6d6f1673/tox.ini
 [sqlserver-licence]: https://github.com/microsoft/sql-server-samples/blob/3c71696a3942879f0481f3bd65fe112a40023f18/license.txt
 [ssms-create]: https://github.com/microsoft/sql-server-samples/blob/3c71696a3942879f0481f3bd65fe112a40023f18/samples/features/ssms-templates/Sql/Table/Create%20Table.sql
+[starlight-licence]: https://github.com/withastro/starlight/blob/0a7c69ce22a4ca7b5082f9bfa5f8a61df7409859/LICENSE
 [string-processing-algorithms-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexTests/AlgorithmsTests.swift
 [string-processing-custom-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexBuilderTests/CustomTests.swift
 [string-processing-licence]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/LICENSE.txt

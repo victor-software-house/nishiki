@@ -29,6 +29,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: [",", ":", ".", "..", "..@", "[", "]", "+", "-", "*", "(", ")", "{", "}", "{k1}", "{z}", "{1to8}", "{rn-sae}", "{vex3}", "$", "$$", "%", "%%", "\"", "'", "`", ";", " # ", "#", "/*", "*/", "\\", "\u00a0"],
     heads: ["", "", " ", "    ", "\t", "; ", "# ", "%define X ", "%macro m 1", "%if 0", "#if 0", "%endif", "#include ", "%include \"", "label:", ".loop:", "section .text", "global "],
   },
+  astro: {
+    words: ["div", "p", "span", "Card", "my-el", "script", "style", "slot", "Fragment", "br", "img", "input", "meta", "class", "class:list", "set:html", "is:raw", "is:inline", "is:global", "client:load", "define:vars", "lang", "type", "src", "onclick", "onclickx", "onload", "onkeydown", "data-x", "@click", "$x", "x", "a", "title", "Astro.props", "const", "let", "import", "from", "export", "return", "ts", "tsx", "js", "json", "css", "scss", "less", "sass", "postcss", "stylus", "module", "text/partytown", "application/ld+json", "&amp;", "&#38;", "&#x26;", "&bogus;", "&nbsp;", "1", "\u00e9"],
+    marks: ["<", ">", "</", "/>", "<!--", "-->", "--!>", "---", "...", "{", "}", "{{", "}}", "=", "\"", "'", "`", "${", "\\", "\\`", "(", ")", "[", "]", ",", ";", ":", ".", "//", "/*", "*/", "=>", "+", "-", "&", "&&", "?", "<script>", "</script>", "<style>", "</style>", "<script lang=\"ts\">", "<style lang=\"scss\">", "<pre is:raw>", "</pre>"],
+    heads: ["", "", " ", "  ", "\t", "---", "<", "{", "<!-- ", "<script>", "<style>", "text "],
+  },
   bat: {
     words: ["echo", "ECHO", "echo.", "off", "on", "set", "SET", "setlocal", "EnableDelayedExpansion", "endlocal", "call", "goto", "exit", "if", "not", "exist", "defined", "errorlevel", "else", "for", "in", "do", "rem", "REM.", "copy", "xcopy", "net user", "net", "dir", "find", "NUL", "EQU", "LSS", "x", "name", "value", "1", "-2", "0x1F", "\u017fet", "L\u00df", "/a", "/p", "/A", "%1", "%~dp0", "%*", "%%i", "%%~nxi", "%%~dp$PATH:f", "%path%", "%x:~1,2%", "%x:a=b%", "!x!", "!x:~0,3!", "!x:a=b!", ":label", "::"],
     marks: ["(", ")", ",", ";", "=", "==", "+=", "<<=", "%%=", "&", "&&", "|", "||", "<", ">", ">>", "2>&1", "@", "^", "^^!", "^&", "!", "~", "%", "\"", "'", ":", ":~", "*.txt"],

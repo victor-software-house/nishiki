@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 22
-digest = "e4717b6889a03e1f0a58ec9dcf9e04f28ad01230bebf55eae444167ba731f935"
+version = 23
+digest = "0a9cfa7aa345ac1ce38ff5a0f40d011b83b7f6d15b0ff84f361ee5b183b68a95"
 
 [[file]]
 language = "asm"
@@ -40,6 +40,28 @@ licence = "BSD-2-Clause"
 licence_source = "https://github.com/videolan/dav1d/blob/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a/COPYING"
 bytes = 30088
 sha256 = "120365f044460761563220778459a269de0651e3bb27f2a8a3b7a74ce9b13f62"
+
+[[file]]
+language = "astro"
+tier = "small"
+origin = "neutral"
+path = "astro/small/starlog-header.astro"
+source = "https://raw.githubusercontent.com/withastro/astro/ff1e2fb2f908d637e6b60a293c26db552c88f562/examples/starlog/src/components/Header.astro"
+licence = "MIT"
+licence_source = "https://github.com/withastro/astro/blob/ff1e2fb2f908d637e6b60a293c26db552c88f562/LICENSE"
+bytes = 2717
+sha256 = "d95bd5043129151bb80649e007c8886e58a645c9366e60d46853ab3c129e9765"
+
+[[file]]
+language = "astro"
+tier = "medium"
+origin = "neutral"
+path = "astro/medium/starlight-search.astro"
+source = "https://raw.githubusercontent.com/withastro/starlight/0a7c69ce22a4ca7b5082f9bfa5f8a61df7409859/packages/starlight/src/components/Search.astro"
+licence = "MIT"
+licence_source = "https://github.com/withastro/starlight/blob/0a7c69ce22a4ca7b5082f9bfa5f8a61df7409859/LICENSE"
+bytes = 16740
+sha256 = "619c5c441e1f836ff8df96bbaae71b8ac638f226bc04bbac90c56ba6ddc86874"
 
 [[file]]
 language = "bat"

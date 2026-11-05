@@ -1,0 +1,582 @@
+L ---
+T 3 source.astro comment
+L interface Props {
+T 9 source.astro source.ts meta.interface.ts storage.type.interface.ts
+T 10 source.astro source.ts meta.interface.ts
+T 15 source.astro source.ts meta.interface.ts entity.name.type.interface.ts
+T 16 source.astro source.ts meta.interface.ts
+T 17 source.astro source.ts meta.interface.ts punctuation.definition.block.ts
+L 	open?: boolean;
+T 1 source.astro source.ts meta.interface.ts meta.field.declaration.ts
+T 5 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 6 source.astro source.ts meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 7 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 8 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 15 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+T 16 source.astro source.ts meta.interface.ts punctuation.terminator.statement.ts
+L }
+T 1 source.astro source.ts meta.interface.ts punctuation.definition.block.ts
+L 
+L const { open = false } = Astro.props;
+T 5 source.astro source.ts meta.var.expr.ts storage.type.ts
+T 6 source.astro source.ts meta.var.expr.ts
+T 7 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 12 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 13 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 14 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts keyword.operator.assignment.ts
+T 15 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 20 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts constant.language.boolean.false.ts
+T 21 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 22 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 23 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 24 source.astro source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 25 source.astro source.ts meta.var.expr.ts
+T 30 source.astro source.ts meta.var.expr.ts variable.other.object.ts
+T 31 source.astro source.ts meta.var.expr.ts punctuation.accessor.ts
+T 36 source.astro source.ts meta.var.expr.ts variable.other.property.ts
+T 37 source.astro source.ts punctuation.terminator.statement.ts
+L ---
+T 3 source.astro comment
+L 
+L <hn-toggle open={open ? '' : undefined}>
+T 1 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 10 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.tag.custom.astro entity.name.tag.astro
+T 11 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro
+T 15 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro entity.other.attribute-name.astro
+T 16 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro punctuation.separator.key-value.astro
+T 17 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro punctuation.section.embedded.begin.astro
+T 21 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx variable.other.readwrite.tsx
+T 22 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx
+T 23 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx keyword.operator.ternary.tsx
+T 24 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx
+T 25 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx punctuation.definition.string.begin.tsx
+T 26 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx punctuation.definition.string.end.tsx
+T 27 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx
+T 28 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx keyword.operator.ternary.tsx
+T 29 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx
+T 38 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro meta.embedded.expression.astro source.tsx constant.language.undefined.tsx
+T 39 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro meta.attribute.open.astro punctuation.section.embedded.end.astro
+T 40 source.astro meta.scope.tag.hn-toggle.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 	<div class="toggle">
+T 1 source.astro text.astro
+T 2 source.astro meta.scope.tag.div.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 5 source.astro meta.scope.tag.div.astro meta.tag.start.astro entity.name.tag.astro
+T 6 source.astro meta.scope.tag.div.astro meta.tag.start.astro
+T 11 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro entity.other.attribute-name.astro
+T 12 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro punctuation.separator.key-value.astro
+T 13 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro punctuation.definition.string.begin.astro
+T 19 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro
+T 20 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro punctuation.definition.string.end.astro
+T 21 source.astro meta.scope.tag.div.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 		<a>{open ? '[-]' : '[+] comments collapsed'}</a>
+T 2 source.astro text.astro
+T 3 source.astro meta.scope.tag.a.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 4 source.astro meta.scope.tag.a.astro meta.tag.start.astro entity.name.tag.astro
+T 5 source.astro meta.scope.tag.a.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+T 6 source.astro punctuation.section.embedded.begin.astro
+T 10 source.astro meta.embedded.expression.astro source.tsx variable.other.readwrite.tsx
+T 11 source.astro meta.embedded.expression.astro source.tsx
+T 12 source.astro meta.embedded.expression.astro source.tsx keyword.operator.ternary.tsx
+T 13 source.astro meta.embedded.expression.astro source.tsx
+T 14 source.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx punctuation.definition.string.begin.tsx
+T 17 source.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx
+T 18 source.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx punctuation.definition.string.end.tsx
+T 19 source.astro meta.embedded.expression.astro source.tsx
+T 20 source.astro meta.embedded.expression.astro source.tsx keyword.operator.ternary.tsx
+T 21 source.astro meta.embedded.expression.astro source.tsx
+T 22 source.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx punctuation.definition.string.begin.tsx
+T 44 source.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx
+T 45 source.astro meta.embedded.expression.astro source.tsx string.quoted.single.tsx punctuation.definition.string.end.tsx
+T 46 source.astro punctuation.section.embedded.end.astro
+T 48 source.astro meta.scope.tag.a.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 49 source.astro meta.scope.tag.a.astro meta.tag.end.astro entity.name.tag.astro
+T 50 source.astro meta.scope.tag.a.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 	</div>
+T 1 source.astro text.astro
+T 3 source.astro meta.scope.tag.div.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 6 source.astro meta.scope.tag.div.astro meta.tag.end.astro entity.name.tag.astro
+T 7 source.astro meta.scope.tag.div.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 	<ul class="comment-children">
+T 1 source.astro text.astro
+T 2 source.astro meta.scope.tag.ul.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 4 source.astro meta.scope.tag.ul.astro meta.tag.start.astro entity.name.tag.astro
+T 5 source.astro meta.scope.tag.ul.astro meta.tag.start.astro
+T 10 source.astro meta.scope.tag.ul.astro meta.tag.start.astro meta.attribute.class.astro entity.other.attribute-name.astro
+T 11 source.astro meta.scope.tag.ul.astro meta.tag.start.astro meta.attribute.class.astro punctuation.separator.key-value.astro
+T 12 source.astro meta.scope.tag.ul.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro punctuation.definition.string.begin.astro
+T 28 source.astro meta.scope.tag.ul.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro
+T 29 source.astro meta.scope.tag.ul.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro punctuation.definition.string.end.astro
+T 30 source.astro meta.scope.tag.ul.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 		<slot />
+T 2 source.astro text.astro
+T 3 source.astro meta.scope.tag.slot.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.slot.astro meta.tag.start.astro entity.name.tag.astro
+T 8 source.astro meta.scope.tag.slot.astro meta.tag.start.astro
+T 10 source.astro meta.scope.tag.slot.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 	</ul>
+T 1 source.astro text.astro
+T 3 source.astro meta.scope.tag.ul.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 5 source.astro meta.scope.tag.ul.astro meta.tag.end.astro entity.name.tag.astro
+T 6 source.astro meta.scope.tag.ul.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L </hn-toggle>
+T 2 source.astro meta.scope.tag.hn-toggle.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 11 source.astro meta.scope.tag.hn-toggle.astro meta.tag.end.astro meta.tag.custom.astro entity.name.tag.astro
+T 12 source.astro meta.scope.tag.hn-toggle.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 
+L <style>
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 6 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.start.astro entity.name.tag.astro
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 	hn-toggle[open] > .toggle {
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.name.tag.custom.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css keyword.operator.combinator.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 		padding: 0;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 12 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 		background-color: transparent;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 		margin-bottom: -0.5em;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 	}
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 	hn-toggle:not([open]) > .toggle {
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.name.tag.custom.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css keyword.operator.combinator.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 34 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 		background-color: rgb(255 247 237);
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css support.function.misc.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 35 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 36 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 37 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 	}
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 	hn-toggle:not([open]) ul {
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.name.tag.custom.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css punctuation.section.function.begin.bracket.round.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.begin.bracket.square.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css entity.other.attribute-name.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css meta.attribute-selector.css punctuation.definition.entity.end.bracket.square.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css punctuation.section.function.end.bracket.round.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.name.tag.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 		display: none;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 	}
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 	.toggle {
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 		font-size: 0.9em;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 12 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 		margin: 1em 0;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 		padding: 0.3em 0.5em;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.em.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 		border-radius: 4px;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 	}
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 	a {
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.name.tag.css
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 		color: rgb(51 65 85);
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 12 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css support.function.misc.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.section.function.begin.bracket.round.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css constant.numeric.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.color.css punctuation.section.function.end.bracket.round.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 		cursor: pointer;
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 	}
+T 1 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L </style>
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.end.astro entity.name.tag.astro
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 
+L <script>
+T 1 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.start.astro entity.name.tag.astro
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 	class HnToggle extends HTMLElement {
+T 1 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js
+T 6 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js storage.type.class.js
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js entity.name.type.class.js
+T 16 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 23 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js storage.modifier.js
+T 24 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 35 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js entity.other.inherited-class.js
+T 36 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 37 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js punctuation.definition.block.js
+L 		#btn = this.querySelector<HTMLAnchorElement>('a')!;
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js
+T 6 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.definition.property.js variable.object.property.js
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js keyword.operator.assignment.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js variable.language.this.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js punctuation.accessor.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js entity.name.function.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.type.parameters.js punctuation.definition.typeparameters.begin.js
+T 45 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.type.parameters.js entity.name.type.js
+T 46 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.type.parameters.js punctuation.definition.typeparameters.end.js
+T 47 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.brace.round.js
+T 48 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js string.quoted.single.js punctuation.definition.string.begin.js
+T 49 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js string.quoted.single.js
+T 50 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js string.quoted.single.js punctuation.definition.string.end.js
+T 51 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.brace.round.js
+T 52 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js keyword.operator.logical.js
+T 53 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js punctuation.terminator.statement.js
+L 		#toggleOpen = this.toggleOpen.bind(this);
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.definition.property.js variable.object.property.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js keyword.operator.assignment.js
+T 16 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js
+T 20 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js variable.language.this.js
+T 21 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js punctuation.accessor.js
+T 31 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js variable.other.object.property.js
+T 32 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js punctuation.accessor.js
+T 36 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.function-call.js entity.name.function.js
+T 37 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.brace.round.js
+T 41 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js variable.language.this.js
+T 42 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.field.declaration.js meta.brace.round.js
+T 43 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js punctuation.terminator.statement.js
+L 
+L 		connectedCallback() {
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 19 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 20 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 21 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 22 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 23 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 			this.#btn.addEventListener('click', this.#toggleOpen, false);
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js variable.language.this.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 12 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 30 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 31 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 36 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 37 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 38 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.separator.comma.js
+T 39 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 43 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.language.this.js
+T 44 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 55 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 56 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.separator.comma.js
+T 57 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 62 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js constant.language.boolean.false.js
+T 63 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 64 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L 		}
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 
+L 		disconnectedCallback() {
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 22 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 23 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 24 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 			this.#btn.addEventListener('click', this.#toggleOpen);
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js variable.language.this.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 12 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 30 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 31 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 36 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 37 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 38 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.separator.comma.js
+T 39 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 43 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.language.this.js
+T 44 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 55 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 56 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 57 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L 		}
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 
+L 		get open() {
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 5 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js storage.type.property.js
+T 6 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 10 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 11 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 12 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 			return this.hasAttribute('open');
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js keyword.control.flow.js
+T 10 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js variable.language.this.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.function-call.js entity.name.function.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 33 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js
+T 34 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 35 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 36 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L 		}
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 
+L 		set open(value: boolean) {
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 5 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js storage.type.property.js
+T 6 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 10 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 11 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 16 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js variable.parameter.js
+T 17 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js meta.type.annotation.js keyword.operator.type.annotation.js
+T 18 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js meta.type.annotation.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js meta.type.annotation.js support.type.primitive.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 			if (value) {
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 5 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js keyword.control.conditional.js
+T 6 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 12 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.other.readwrite.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.brace.round.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.definition.block.js
+L 				this.setAttribute('open', '');
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js variable.language.this.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 21 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js entity.name.function.js
+T 22 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.brace.round.js
+T 23 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.separator.comma.js
+T 30 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 31 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 32 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 33 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.brace.round.js
+T 34 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.terminator.statement.js
+L 				this.#btn.textContent = '[-]';
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js variable.language.this.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.accessor.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js variable.other.object.property.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.accessor.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js variable.other.property.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js keyword.operator.assignment.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 32 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js
+T 33 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 34 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.terminator.statement.js
+L 			} else {
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.definition.block.js
+T 5 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js keyword.control.conditional.js
+T 10 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 11 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.definition.block.js
+L 				this.removeAttribute('open');
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js variable.language.this.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 24 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.function-call.js entity.name.function.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.brace.round.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 30 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js
+T 31 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 32 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js meta.brace.round.js
+T 33 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.terminator.statement.js
+L 				this.#btn.textContent = '[+] comments collapsed';
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js variable.language.this.js
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.accessor.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js variable.other.object.property.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.accessor.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js variable.other.property.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js keyword.operator.assignment.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.begin.js
+T 51 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js
+T 52 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js string.quoted.single.js punctuation.definition.string.end.js
+T 53 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.terminator.statement.js
+L 			}
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js meta.block.js punctuation.definition.block.js
+L 		}
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 
+L 		toggleOpen() {
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 12 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.definition.method.js entity.name.function.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.parameters.js punctuation.definition.parameters.end.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js
+T 16 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 			this.open = !this.open;
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 7 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.language.this.js
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 12 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 13 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 14 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js keyword.operator.assignment.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 16 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js keyword.operator.logical.js
+T 20 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.language.this.js
+T 21 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.accessor.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js variable.other.property.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.terminator.statement.js
+L 		}
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js meta.method.declaration.js meta.block.js punctuation.definition.block.js
+L 	}
+T 1 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.class.js punctuation.definition.block.js
+L 
+L 	customElements.define('hn-toggle', HnToggle);
+T 1 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js
+T 15 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js variable.other.object.js
+T 16 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js punctuation.accessor.js
+T 22 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js entity.name.function.js
+T 23 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.brace.round.js
+T 24 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js punctuation.definition.string.begin.js
+T 33 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js
+T 34 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js punctuation.definition.string.end.js
+T 35 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js punctuation.separator.comma.js
+T 36 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js
+T 44 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js variable.other.readwrite.js
+T 45 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.brace.round.js
+T 46 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js punctuation.terminator.statement.js
+L </script>
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 8 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.end.astro entity.name.tag.astro
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 

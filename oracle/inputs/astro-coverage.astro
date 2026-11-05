@@ -1,0 +1,63 @@
+---
+import Card from "../components/Card.astro";
+const { title = "Home" } = Astro.props;
+const list = [1, 2, ...rest];
+---
+<!-- A comment --!> with <!--> and <!---> marks -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel=stylesheet href="/a.css">
+  <title>{title} &amp; more &#38; &#x26; &bogus; &nbsp;</title>
+  <script is:inline type="application/ld+json">{"@context": "https://schema.org", "n": 1}</script>
+  <script type="module">import { a } from "./a.js"; a();</script>
+  <script type="text/partytown">window.dataLayer = [];</script>
+  <script lang="tsx">const el = <div />;</script>
+  <script src="/x.js" />
+  <script>
+    document.querySelector("button")?.addEventListener("click", () => {
+      console.log(`clicked ${1 + 1}`);
+    });
+  </script>
+  <script define:vars={{ title }}></script>
+  <style>
+    h1 { color: red; }
+  </style>
+  <style lang="css">p { margin: 0 }</style>
+  <style lang="scss">
+    $c: blue;
+    .a { .b { color: $c; } }
+  </style>
+  <style lang="less">@c: green; .a { color: @c; }</style>
+  <style lang="sass">
+.a
+  color: red
+  </style>
+  <style lang="postcss">.a { @apply p-4; }</style>
+  <style lang="stylus">
+.a
+  color red
+  </style>
+  <style is:global>body { margin: 0 }</style>
+</head>
+<body>
+  <Card title={title} {...props} class:list={["a", { b: true }]} />
+  <my-element some-attr="x" data-n=1></my-element>
+  <button onclick="go(); // done" onmouseover='a /* b */ c' onclickx="x()" onkeydown=handle()>Go</button>
+  <button onfocus="a /* b */ c" onblur='go() // done'>Go</button>
+  <a onclick={handler} onload=`x ${y}`>x</a>
+  <div title=`hello ${name} \n \x41 \u{1F600}` @click="x" $y=z>Text &copy; 2024</div>
+  <Fragment set:html={html} />
+  <pre is:raw>{not an expression} <b>raw</b></pre>
+  <pre is:raw />
+  {list.map((item) => <li>{item}</li>)}
+  { {a: 1} }
+  {cond && <p>yes</p>}
+  <input type="checkbox" checked disabled>
+  <img src={src} alt="" />
+  <br>
+</body>
+</html>
+<script lang="ts" data-x="a>b">
+</script>

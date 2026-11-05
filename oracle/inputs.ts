@@ -4,6 +4,7 @@
 // Keep the two lists in step.
 
 import asmCoverage from "./inputs/asm-coverage.asm" with { type: "text" };
+import astroCoverage from "./inputs/astro-coverage.astro" with { type: "text" };
 import batCoverage from "./inputs/bat-coverage.bat" with { type: "text" };
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
@@ -128,6 +129,8 @@ const argumentParser =
   "https://raw.githubusercontent.com/apple/swift-argument-parser/38ca4eceb349155836701b88da3e0986eb9d1e1c";
 const aspnetcore =
   "https://raw.githubusercontent.com/dotnet/aspnetcore/cd236906b73c6540703e51fa583d55de091ae047";
+const astro =
+  "https://raw.githubusercontent.com/withastro/astro/ff1e2fb2f908d637e6b60a293c26db552c88f562";
 const axios =
   "https://raw.githubusercontent.com/axios/axios/7324e94d8a7b5156a4baf3c86c8b5daa242daee3";
 const batsCore =
@@ -471,6 +474,8 @@ const sqlalchemy =
   "https://raw.githubusercontent.com/sqlalchemy/sqlalchemy/679372836fe7343683248467d276036a6d6f1673";
 const sqlServerSamples =
   "https://raw.githubusercontent.com/microsoft/sql-server-samples/3c71696a3942879f0481f3bd65fe112a40023f18";
+const starlight =
+  "https://raw.githubusercontent.com/withastro/starlight/0a7c69ce22a4ca7b5082f9bfa5f8a61df7409859";
 const stringProcessing =
   "https://raw.githubusercontent.com/swiftlang/swift-experimental-string-processing/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee";
 const svelte =
@@ -563,6 +568,17 @@ export const inputs: Input[] = [
   { lang: "asm", name: "xv6-entry", url: `${xv6}/entry.S` },
   { lang: "asm", name: "xv6-swtch", url: `${xv6}/swtch.S` },
   { lang: "asm", name: "xv6-trapasm", url: `${xv6}/trapasm.S` },
+  { lang: "astro", name: "basics-welcome", url: `${astro}/examples/basics/src/components/Welcome.astro` },
+  { lang: "astro", name: "blog-header", url: `${astro}/examples/blog/src/components/Header.astro` },
+  { lang: "astro", name: "coverage", text: astroCoverage },
+  { lang: "astro", name: "hackernews-toggle", url: `${astro}/examples/hackernews/src/components/Toggle.astro` },
+  { lang: "astro", name: "markdoc-aside", url: `${astro}/examples/with-markdoc/src/components/Aside.astro` },
+  { lang: "astro", name: "portfolio-base-layout", url: `${astro}/examples/portfolio/src/layouts/BaseLayout.astro` },
+  { lang: "astro", name: "portfolio-index", url: `${astro}/examples/portfolio/src/pages/index.astro` },
+  { lang: "astro", name: "portfolio-nav", url: `${astro}/examples/portfolio/src/components/Nav.astro` },
+  { lang: "astro", name: "portfolio-theme-toggle", url: `${astro}/examples/portfolio/src/components/ThemeToggle.astro` },
+  { lang: "astro", name: "sample", url: `${samples}/astro.sample` },
+  { lang: "astro", name: "starlight-tabs", url: `${starlight}/packages/starlight/src/user-components/Tabs.astro` },
   { lang: "bat", name: "coverage", text: batCoverage },
   { lang: "bat", name: "gradlew", url: `${gradle}/gradlew.bat` },
   { lang: "bat", name: "sample", url: `${samples}/bat.sample` },

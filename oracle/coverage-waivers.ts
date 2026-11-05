@@ -1449,6 +1449,20 @@ export const waivers: Waiver[] = [
       reason: "the rule's `captures` name the begin's groups for its end too, and the end's expression has one group",
     }),
   ),
+  { grammar: "astro", path: "#entities.patterns[1].match", group: 3, reason: missing(2) },
+  { grammar: "astro", path: "#entities.patterns[2].match", group: 3, reason: missing(2) },
+  {
+    grammar: "astro",
+    path: "injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].begin",
+    reason: "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
+  },
+  {
+    grammar: "astro",
+    path: "injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end",
+    reason: "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
+  },
   { grammar: "bat", path: "#strings.patterns[0].end", group: 2, reason: lineFeed },
   ...["#mermaid.patterns[1].patterns[9]", "#mermaid.patterns[2].patterns[11]", "#mermaid.patterns[3].patterns[9]", "#mermaid.patterns[4].patterns[11]"].map(
     (rule): Waiver => ({
@@ -1877,6 +1891,7 @@ export const waivers: Waiver[] = [
  * pull request that closes its last gap. */
 export const complete: string[] = [
   "asm",
+  "astro",
   "bat",
   "c",
   "cmake",

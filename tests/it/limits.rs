@@ -3,6 +3,8 @@
 
 #[cfg(feature = "lang-asm")]
 mod asm;
+#[cfg(feature = "lang-astro")]
+mod astro;
 #[cfg(feature = "lang-bat")]
 mod bat;
 mod c;

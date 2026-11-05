@@ -983,14 +983,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The rules open on the line, innermost first, each with its index for
     /// [`Lexer::payload_text_of`].
-    #[cfg(feature = "lang-svelte")]
+    #[cfg(any(feature = "lang-svelte", feature = "lang-astro"))]
     pub(crate) fn open_rules(&self) -> impl Iterator<Item = (usize, G::Rule)> + '_ {
         self.frames.iter().map(|frame| frame.rule).enumerate().rev()
     }
 
     /// The payload text of the open rule at `index`, a rule whose payload is
     /// a begin capture.
-    #[cfg(feature = "lang-svelte")]
+    #[cfg(any(feature = "lang-svelte", feature = "lang-astro"))]
     pub(crate) fn payload_text_of(&self, index: usize) -> &str {
         self.arena.string(self.frames[index].payload)
     }

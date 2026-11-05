@@ -14,6 +14,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
 | Assembly | `asm` | 298 of 305 | 97.7% | 25 of 36 | 69.4% | 18 | 0 | yes |
+| Astro | `astro` | 94 of 96 | 97.9% | 49 of 51 | 96.1% | 4 | 0 | yes |
 | Batch | `bat` | 79 of 79 | 100.0% | 53 of 54 | 98.1% | 1 | 0 | yes |
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
@@ -106,6 +107,15 @@ The groups of an unexercised expression count as unexercised and are not listed.
 #strings.patterns[1].end  '  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
 #strings.patterns[2].begin  `  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
 #strings.patterns[2].end  `  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+```
+
+### `astro`
+
+```text
+#entities.patterns[1].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#entities.patterns[2].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
+injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].begin  (?<=>)(?!</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
+injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end  (?=</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
 ```
 
 ### `bat`

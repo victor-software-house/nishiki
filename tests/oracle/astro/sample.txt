@@ -1,0 +1,186 @@
+L ---
+T 3 source.astro comment
+L // Your component script here!
+T 2 source.astro source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 30 source.astro source.ts comment.line.double-slash.ts
+L import Banner from '../components/Banner.astro';
+T 6 source.astro source.ts meta.import.ts keyword.control.import.ts
+T 7 source.astro source.ts meta.import.ts
+T 13 source.astro source.ts meta.import.ts variable.other.readwrite.alias.ts
+T 14 source.astro source.ts meta.import.ts
+T 18 source.astro source.ts meta.import.ts keyword.control.from.ts
+T 19 source.astro source.ts meta.import.ts
+T 20 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 46 source.astro source.ts meta.import.ts string.quoted.single.ts
+T 47 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 48 source.astro source.ts punctuation.terminator.statement.ts
+L import ReactPokemonComponent from '../components/ReactPokemonComponent.jsx';
+T 6 source.astro source.ts meta.import.ts keyword.control.import.ts
+T 7 source.astro source.ts meta.import.ts
+T 28 source.astro source.ts meta.import.ts variable.other.readwrite.alias.ts
+T 29 source.astro source.ts meta.import.ts
+T 33 source.astro source.ts meta.import.ts keyword.control.from.ts
+T 34 source.astro source.ts meta.import.ts
+T 35 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 74 source.astro source.ts meta.import.ts string.quoted.single.ts
+T 75 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 76 source.astro source.ts punctuation.terminator.statement.ts
+L const myFavoritePokemon = [/* ... */];
+T 5 source.astro source.ts meta.var.expr.ts storage.type.ts
+T 6 source.astro source.ts meta.var.expr.ts
+T 23 source.astro source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 24 source.astro source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 25 source.astro source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 26 source.astro source.ts meta.var.expr.ts meta.array.literal.ts
+T 27 source.astro source.ts meta.var.expr.ts meta.array.literal.ts meta.brace.square.ts
+T 29 source.astro source.ts meta.var.expr.ts meta.array.literal.ts comment.block.ts punctuation.definition.comment.ts
+T 34 source.astro source.ts meta.var.expr.ts meta.array.literal.ts comment.block.ts
+T 36 source.astro source.ts meta.var.expr.ts meta.array.literal.ts comment.block.ts punctuation.definition.comment.ts
+T 37 source.astro source.ts meta.var.expr.ts meta.array.literal.ts meta.brace.square.ts
+T 38 source.astro source.ts punctuation.terminator.statement.ts
+L const { title } = Astro.props;
+T 5 source.astro source.ts meta.var.expr.ts storage.type.ts
+T 6 source.astro source.ts meta.var.expr.ts
+T 7 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 13 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 14 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 15 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 16 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 17 source.astro source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 18 source.astro source.ts meta.var.expr.ts
+T 23 source.astro source.ts meta.var.expr.ts variable.other.object.ts
+T 24 source.astro source.ts meta.var.expr.ts punctuation.accessor.ts
+T 29 source.astro source.ts meta.var.expr.ts variable.other.property.ts
+T 30 source.astro source.ts punctuation.terminator.statement.ts
+L ---
+T 3 source.astro comment
+L <!-- HTML comments supported! -->
+T 4 source.astro comment.block.astro punctuation.definition.comment.astro
+T 30 source.astro comment.block.astro
+T 33 source.astro comment.block.astro punctuation.definition.comment.astro
+L {/* JS comment syntax is also valid! */}
+T 1 source.astro punctuation.section.embedded.begin.astro
+T 3 source.astro meta.embedded.expression.astro source.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 37 source.astro meta.embedded.expression.astro source.tsx comment.block.tsx
+T 39 source.astro meta.embedded.expression.astro source.tsx comment.block.tsx punctuation.definition.comment.tsx
+T 40 source.astro punctuation.section.embedded.end.astro
+L 
+L <Banner />
+T 1 source.astro meta.scope.tag.Banner.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.Banner.astro meta.tag.start.astro support.class.component.astro
+T 8 source.astro meta.scope.tag.Banner.astro meta.tag.start.astro
+T 10 source.astro meta.scope.tag.Banner.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L <h1>Hello, world!</h1>
+T 1 source.astro meta.scope.tag.h1.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 3 source.astro meta.scope.tag.h1.astro meta.tag.start.astro entity.name.tag.astro
+T 4 source.astro meta.scope.tag.h1.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+T 17 source.astro text.astro
+T 19 source.astro meta.scope.tag.h1.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 21 source.astro meta.scope.tag.h1.astro meta.tag.end.astro entity.name.tag.astro
+T 22 source.astro meta.scope.tag.h1.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 
+L <!-- Use props and other variables from the component script: -->
+T 4 source.astro comment.block.astro punctuation.definition.comment.astro
+T 62 source.astro comment.block.astro
+T 65 source.astro comment.block.astro punctuation.definition.comment.astro
+L <p>{title}</p>
+T 1 source.astro meta.scope.tag.p.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 2 source.astro meta.scope.tag.p.astro meta.tag.start.astro entity.name.tag.astro
+T 3 source.astro meta.scope.tag.p.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+T 4 source.astro punctuation.section.embedded.begin.astro
+T 9 source.astro meta.embedded.expression.astro source.tsx variable.other.readwrite.tsx
+T 10 source.astro punctuation.section.embedded.end.astro
+T 12 source.astro meta.scope.tag.p.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 13 source.astro meta.scope.tag.p.astro meta.tag.end.astro entity.name.tag.astro
+T 14 source.astro meta.scope.tag.p.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 
+L <!-- Include other UI framework components with a `client:` directive to hydrate: -->
+T 4 source.astro comment.block.astro punctuation.definition.comment.astro
+T 82 source.astro comment.block.astro
+T 85 source.astro comment.block.astro punctuation.definition.comment.astro
+L <ReactPokemonComponent client:visible />
+T 1 source.astro meta.scope.tag.ReactPokemonComponent.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 22 source.astro meta.scope.tag.ReactPokemonComponent.astro meta.tag.start.astro support.class.component.astro
+T 23 source.astro meta.scope.tag.ReactPokemonComponent.astro meta.tag.start.astro
+T 37 source.astro meta.scope.tag.ReactPokemonComponent.astro meta.tag.start.astro meta.attribute.client:visible.astro entity.other.attribute-name.astro
+T 38 source.astro meta.scope.tag.ReactPokemonComponent.astro meta.tag.start.astro
+T 40 source.astro meta.scope.tag.ReactPokemonComponent.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 
+L <!-- Mix HTML with JavaScript expressions, similar to JSX: -->
+T 4 source.astro comment.block.astro punctuation.definition.comment.astro
+T 59 source.astro comment.block.astro
+T 62 source.astro comment.block.astro punctuation.definition.comment.astro
+L <ul>
+T 1 source.astro meta.scope.tag.ul.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 3 source.astro meta.scope.tag.ul.astro meta.tag.start.astro entity.name.tag.astro
+T 4 source.astro meta.scope.tag.ul.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L   {myFavoritePokemon.map((data) => <li>{data.name}</li>)}
+T 2 source.astro text.astro
+T 3 source.astro punctuation.section.embedded.begin.astro
+T 20 source.astro meta.embedded.expression.astro source.tsx meta.function-call.tsx variable.other.object.tsx
+T 21 source.astro meta.embedded.expression.astro source.tsx meta.function-call.tsx punctuation.accessor.tsx
+T 24 source.astro meta.embedded.expression.astro source.tsx meta.function-call.tsx entity.name.function.tsx
+T 25 source.astro meta.embedded.expression.astro source.tsx meta.brace.round.tsx
+T 26 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.parameters.tsx punctuation.definition.parameters.begin.tsx
+T 30 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.parameters.tsx variable.parameter.tsx
+T 31 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.parameters.tsx punctuation.definition.parameters.end.tsx
+T 32 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx
+T 34 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx storage.type.function.arrow.tsx
+T 35 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx
+T 36 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 38 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 39 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 40 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx punctuation.section.embedded.begin.tsx
+T 44 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.object.tsx
+T 45 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.embedded.expression.tsx punctuation.accessor.tsx
+T 49 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx meta.embedded.expression.tsx variable.other.property.tsx
+T 50 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx punctuation.section.embedded.end.tsx
+T 52 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 54 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 55 source.astro meta.embedded.expression.astro source.tsx meta.arrow.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 56 source.astro meta.embedded.expression.astro source.tsx meta.brace.round.tsx
+T 57 source.astro punctuation.section.embedded.end.astro
+L </ul>
+T 2 source.astro meta.scope.tag.ul.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 4 source.astro meta.scope.tag.ul.astro meta.tag.end.astro entity.name.tag.astro
+T 5 source.astro meta.scope.tag.ul.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 
+L <!-- Use a template directive to build class names from multiple strings or even objects! -->
+T 4 source.astro comment.block.astro punctuation.definition.comment.astro
+T 90 source.astro comment.block.astro
+T 93 source.astro comment.block.astro punctuation.definition.comment.astro
+L <p class:list={["add", "dynamic", {classNames: true}]} />
+T 1 source.astro meta.scope.tag.p.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 2 source.astro meta.scope.tag.p.astro meta.tag.start.astro entity.name.tag.astro
+T 3 source.astro meta.scope.tag.p.astro meta.tag.start.astro
+T 13 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro entity.other.attribute-name.astro
+T 14 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro punctuation.separator.key-value.astro
+T 15 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro punctuation.section.embedded.begin.astro
+T 16 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 17 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 20 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx string.quoted.double.tsx
+T 21 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 22 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx punctuation.separator.comma.tsx
+T 23 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx
+T 24 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx string.quoted.double.tsx punctuation.definition.string.begin.tsx
+T 31 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx string.quoted.double.tsx
+T 32 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx string.quoted.double.tsx punctuation.definition.string.end.tsx
+T 33 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx punctuation.separator.comma.tsx
+T 34 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx
+T 35 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+T 45 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx
+T 46 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.objectliteral.tsx meta.object.member.tsx meta.object-literal.key.tsx punctuation.separator.key-value.tsx
+T 47 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.objectliteral.tsx meta.object.member.tsx
+T 51 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.objectliteral.tsx meta.object.member.tsx constant.language.boolean.true.tsx
+T 52 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.objectliteral.tsx punctuation.definition.block.tsx
+T 53 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro meta.embedded.expression.astro source.tsx meta.array.literal.tsx meta.brace.square.tsx
+T 54 source.astro meta.scope.tag.p.astro meta.tag.start.astro meta.attribute.class:list.astro punctuation.section.embedded.end.astro
+T 55 source.astro meta.scope.tag.p.astro meta.tag.start.astro
+T 57 source.astro meta.scope.tag.p.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 
+L <!-- From https://docs.astro.build/en/core-concepts/astro-components/ -->
+T 4 source.astro comment.block.astro punctuation.definition.comment.astro
+T 70 source.astro comment.block.astro
+T 73 source.astro comment.block.astro punctuation.definition.comment.astro
+L 

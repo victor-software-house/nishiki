@@ -1,0 +1,931 @@
+L ---
+T 3 source.astro comment
+L // Learn about using Astro layouts:
+T 2 source.astro source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 35 source.astro source.ts comment.line.double-slash.ts
+L // https://docs.astro.build/en/basics/layouts/
+T 2 source.astro source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 46 source.astro source.ts comment.line.double-slash.ts
+L 
+L import Footer from '../components/Footer.astro';
+T 6 source.astro source.ts meta.import.ts keyword.control.import.ts
+T 7 source.astro source.ts meta.import.ts
+T 13 source.astro source.ts meta.import.ts variable.other.readwrite.alias.ts
+T 14 source.astro source.ts meta.import.ts
+T 18 source.astro source.ts meta.import.ts keyword.control.from.ts
+T 19 source.astro source.ts meta.import.ts
+T 20 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 46 source.astro source.ts meta.import.ts string.quoted.single.ts
+T 47 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 48 source.astro source.ts punctuation.terminator.statement.ts
+L // Component Imports
+T 2 source.astro source.ts comment.line.double-slash.ts punctuation.definition.comment.ts
+T 20 source.astro source.ts comment.line.double-slash.ts
+L import MainHead from '../components/MainHead.astro';
+T 6 source.astro source.ts meta.import.ts keyword.control.import.ts
+T 7 source.astro source.ts meta.import.ts
+T 15 source.astro source.ts meta.import.ts variable.other.readwrite.alias.ts
+T 16 source.astro source.ts meta.import.ts
+T 20 source.astro source.ts meta.import.ts keyword.control.from.ts
+T 21 source.astro source.ts meta.import.ts
+T 22 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 50 source.astro source.ts meta.import.ts string.quoted.single.ts
+T 51 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 52 source.astro source.ts punctuation.terminator.statement.ts
+L import Nav from '../components/Nav.astro';
+T 6 source.astro source.ts meta.import.ts keyword.control.import.ts
+T 7 source.astro source.ts meta.import.ts
+T 10 source.astro source.ts meta.import.ts variable.other.readwrite.alias.ts
+T 11 source.astro source.ts meta.import.ts
+T 15 source.astro source.ts meta.import.ts keyword.control.from.ts
+T 16 source.astro source.ts meta.import.ts
+T 17 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 40 source.astro source.ts meta.import.ts string.quoted.single.ts
+T 41 source.astro source.ts meta.import.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 42 source.astro source.ts punctuation.terminator.statement.ts
+L 
+L interface Props {
+T 9 source.astro source.ts meta.interface.ts storage.type.interface.ts
+T 10 source.astro source.ts meta.interface.ts
+T 15 source.astro source.ts meta.interface.ts entity.name.type.interface.ts
+T 16 source.astro source.ts meta.interface.ts
+T 17 source.astro source.ts meta.interface.ts punctuation.definition.block.ts
+L 	title?: string | undefined;
+T 1 source.astro source.ts meta.interface.ts meta.field.declaration.ts
+T 6 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 7 source.astro source.ts meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 8 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 9 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 15 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+T 16 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 17 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.ts
+T 18 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 27 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.builtin.ts
+T 28 source.astro source.ts meta.interface.ts punctuation.terminator.statement.ts
+L 	description?: string | undefined;
+T 1 source.astro source.ts meta.interface.ts meta.field.declaration.ts
+T 12 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 13 source.astro source.ts meta.interface.ts meta.field.declaration.ts keyword.operator.optional.ts
+T 14 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 15 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 21 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.primitive.ts
+T 22 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 23 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.ts
+T 24 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts
+T 33 source.astro source.ts meta.interface.ts meta.field.declaration.ts meta.type.annotation.ts support.type.builtin.ts
+T 34 source.astro source.ts meta.interface.ts punctuation.terminator.statement.ts
+L }
+T 1 source.astro source.ts meta.interface.ts punctuation.definition.block.ts
+L 
+L const { title, description } = Astro.props;
+T 5 source.astro source.ts meta.var.expr.ts storage.type.ts
+T 6 source.astro source.ts meta.var.expr.ts
+T 7 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 8 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 13 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 14 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.separator.comma.ts
+T 15 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 26 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts meta.definition.variable.ts variable.other.constant.ts
+T 27 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 28 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts punctuation.definition.binding-pattern.object.ts
+T 29 source.astro source.ts meta.var.expr.ts meta.object-binding-pattern-variable.ts
+T 30 source.astro source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 31 source.astro source.ts meta.var.expr.ts
+T 36 source.astro source.ts meta.var.expr.ts variable.other.object.ts
+T 37 source.astro source.ts meta.var.expr.ts punctuation.accessor.ts
+T 42 source.astro source.ts meta.var.expr.ts variable.other.property.ts
+T 43 source.astro source.ts punctuation.terminator.statement.ts
+L ---
+T 3 source.astro comment
+L 
+L <html lang="en">
+T 1 source.astro meta.scope.tag.html.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 5 source.astro meta.scope.tag.html.astro meta.tag.start.astro entity.name.tag.astro
+T 6 source.astro meta.scope.tag.html.astro meta.tag.start.astro
+T 10 source.astro meta.scope.tag.html.astro meta.tag.start.astro meta.attribute.lang.astro entity.other.attribute-name.astro
+T 11 source.astro meta.scope.tag.html.astro meta.tag.start.astro meta.attribute.lang.astro punctuation.separator.key-value.astro
+T 12 source.astro meta.scope.tag.html.astro meta.tag.start.astro meta.attribute.lang.astro string.quoted.astro punctuation.definition.string.begin.astro
+T 14 source.astro meta.scope.tag.html.astro meta.tag.start.astro meta.attribute.lang.astro string.quoted.astro
+T 15 source.astro meta.scope.tag.html.astro meta.tag.start.astro meta.attribute.lang.astro string.quoted.astro punctuation.definition.string.end.astro
+T 16 source.astro meta.scope.tag.html.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 	<head>
+T 1 source.astro text.astro
+T 2 source.astro meta.scope.tag.head.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 6 source.astro meta.scope.tag.head.astro meta.tag.start.astro entity.name.tag.astro
+T 7 source.astro meta.scope.tag.head.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 		<MainHead title={title} description={description} />
+T 2 source.astro text.astro
+T 3 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 11 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro support.class.component.astro
+T 12 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro
+T 17 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.title.astro entity.other.attribute-name.astro
+T 18 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.title.astro punctuation.separator.key-value.astro
+T 19 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.title.astro punctuation.section.embedded.begin.astro
+T 24 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.title.astro meta.embedded.expression.astro source.tsx variable.other.readwrite.tsx
+T 25 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.title.astro punctuation.section.embedded.end.astro
+T 26 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro
+T 37 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.description.astro entity.other.attribute-name.astro
+T 38 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.description.astro punctuation.separator.key-value.astro
+T 39 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.description.astro punctuation.section.embedded.begin.astro
+T 50 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.description.astro meta.embedded.expression.astro source.tsx variable.other.readwrite.tsx
+T 51 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro meta.attribute.description.astro punctuation.section.embedded.end.astro
+T 52 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro
+T 54 source.astro meta.scope.tag.MainHead.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 	</head>
+T 1 source.astro text.astro
+T 3 source.astro meta.scope.tag.head.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.head.astro meta.tag.end.astro entity.name.tag.astro
+T 8 source.astro meta.scope.tag.head.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 	<body>
+T 1 source.astro text.astro
+T 2 source.astro meta.scope.tag.body.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 6 source.astro meta.scope.tag.body.astro meta.tag.start.astro entity.name.tag.astro
+T 7 source.astro meta.scope.tag.body.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 		<div class="stack backgrounds">
+T 2 source.astro text.astro
+T 3 source.astro meta.scope.tag.div.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 6 source.astro meta.scope.tag.div.astro meta.tag.start.astro entity.name.tag.astro
+T 7 source.astro meta.scope.tag.div.astro meta.tag.start.astro
+T 12 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro entity.other.attribute-name.astro
+T 13 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro punctuation.separator.key-value.astro
+T 14 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro punctuation.definition.string.begin.astro
+T 31 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro
+T 32 source.astro meta.scope.tag.div.astro meta.tag.start.astro meta.attribute.class.astro string.quoted.astro punctuation.definition.string.end.astro
+T 33 source.astro meta.scope.tag.div.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 			<Nav />
+T 3 source.astro text.astro
+T 4 source.astro meta.scope.tag.Nav.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.Nav.astro meta.tag.start.astro support.class.component.astro
+T 8 source.astro meta.scope.tag.Nav.astro meta.tag.start.astro
+T 10 source.astro meta.scope.tag.Nav.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 			<slot />
+T 3 source.astro text.astro
+T 4 source.astro meta.scope.tag.slot.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 8 source.astro meta.scope.tag.slot.astro meta.tag.start.astro entity.name.tag.astro
+T 9 source.astro meta.scope.tag.slot.astro meta.tag.start.astro
+T 11 source.astro meta.scope.tag.slot.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 			<Footer />
+T 3 source.astro text.astro
+T 4 source.astro meta.scope.tag.Footer.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 10 source.astro meta.scope.tag.Footer.astro meta.tag.start.astro support.class.component.astro
+T 11 source.astro meta.scope.tag.Footer.astro meta.tag.start.astro
+T 13 source.astro meta.scope.tag.Footer.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 		</div>
+T 2 source.astro text.astro
+T 4 source.astro meta.scope.tag.div.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.div.astro meta.tag.end.astro entity.name.tag.astro
+T 8 source.astro meta.scope.tag.div.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 
+L 		<script>
+T 2 source.astro text.astro
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 9 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.start.astro entity.name.tag.astro
+T 10 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 			// Add “loaded” class once the document has completely loaded.
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js punctuation.whitespace.comment.leading.js
+T 5 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js comment.line.double-slash.js punctuation.definition.comment.js
+T 69 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js comment.line.double-slash.js
+L 			addEventListener('load', () => document.documentElement.classList.add('loaded'));
+T 3 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js
+T 19 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js entity.name.function.js
+T 20 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.brace.round.js
+T 21 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js punctuation.definition.string.begin.js
+T 25 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js
+T 26 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js punctuation.definition.string.end.js
+T 27 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js punctuation.separator.comma.js
+T 28 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.arrow.js
+T 29 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 30 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 31 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.arrow.js
+T 33 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.arrow.js storage.type.function.arrow.js
+T 34 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.arrow.js
+T 42 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js variable.other.object.js
+T 43 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js punctuation.accessor.js
+T 58 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js variable.other.object.property.js
+T 59 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js punctuation.accessor.js
+T 68 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js variable.other.object.property.js
+T 69 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js punctuation.accessor.js
+T 72 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.function-call.js entity.name.function.js
+T 73 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.brace.round.js
+T 74 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js punctuation.definition.string.begin.js
+T 80 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js
+T 81 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js string.quoted.single.js punctuation.definition.string.end.js
+T 82 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.brace.round.js
+T 83 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js meta.brace.round.js
+T 84 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js punctuation.terminator.statement.js
+L 		</script>
+T 2 source.astro meta.scope.tag.script.astro meta.script.astro meta.embedded.block.astro source.js
+T 4 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 10 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.end.astro entity.name.tag.astro
+T 11 source.astro meta.scope.tag.script.astro meta.script.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 		<style>
+T 2 source.astro text.astro
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.start.astro punctuation.definition.tag.begin.astro
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.start.astro entity.name.tag.astro
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.start.astro punctuation.definition.tag.end.astro
+L 			:root {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 				--_placeholder-bg: linear-gradient(transparent, transparent);
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 38 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css support.function.gradient.css
+T 39 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css punctuation.section.function.begin.bracket.round.css
+T 50 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css support.constant.property-value.css
+T 51 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css punctuation.separator.list.comma.css
+T 52 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css
+T 63 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css support.constant.property-value.css
+T 64 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.gradient.css punctuation.section.function.end.bracket.round.css
+T 65 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-main: url('/assets/backgrounds/bg-main-light-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 68 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 69 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 70 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-main-curves: url('/assets/backgrounds/bg-main-light.svg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 70 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-subtle-1: var(--_placeholder-bg);
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 47 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 48 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-subtle-2: var(--_placeholder-bg);
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 47 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 48 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-footer: var(--_placeholder-bg);
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 44 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 45 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-svg-blend-mode: overlay;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-blend-mode: darken;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-aspect-ratio: 2.25;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 34 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-scale: 1.68;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-aspect-ratio: calc(var(--bg-image-aspect-ratio) / var(--bg-scale));
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css support.function.calc.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css punctuation.section.function.begin.bracket.round.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css support.function.misc.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 55 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css variable.argument.css
+T 56 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 57 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css
+T 58 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css keyword.operator.arithmetic.css
+T 59 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css
+T 62 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css support.function.misc.css
+T 63 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css variable.argument.css
+T 74 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css punctuation.section.function.end.bracket.round.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-gradient-size: calc(var(--bg-scale) * 100%);
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css support.function.calc.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css punctuation.section.function.begin.bracket.round.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css support.function.misc.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 43 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css variable.argument.css
+T 44 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 45 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css keyword.operator.arithmetic.css
+T 47 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css
+T 50 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css constant.numeric.css
+T 51 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css constant.numeric.css keyword.other.unit.percentage.css
+T 52 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.calc.css punctuation.section.function.end.bracket.round.css
+T 53 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 			:root.theme-dark {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 				--bg-image-main: url('/assets/backgrounds/bg-main-dark-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 67 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 68 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 69 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 70 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-main-curves: url('/assets/backgrounds/bg-main-dark.svg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 69 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 70 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-svg-blend-mode: darken;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-blend-mode: lighten;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 			/* These backgrounds are displayed below the fold, so we lazy load them
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css comment.block.css punctuation.definition.comment.begin.css
+T 74 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css comment.block.css
+L 			   once the `.loaded` class has been set.  */
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css comment.block.css
+T 48 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css comment.block.css punctuation.definition.comment.end.css
+L 			:root.loaded {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 				--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-light-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-light-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-footer: url('/assets/backgrounds/bg-footer-light-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 74 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 			:root.loaded.theme-dark {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 				--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-dark-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-dark-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				--bg-image-footer: url('/assets/backgrounds/bg-footer-dark-800w.jpg');
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css variable.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 74 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 			@media (min-width: 50em) {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css support.type.property-name.media.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css constant.numeric.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css constant.numeric.css keyword.other.unit.em.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L 				:root {
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 					--bg-scale: 1;
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					--bg-image-main: url('/assets/backgrounds/bg-main-light-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 70 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 				}
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 				:root.theme-dark {
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 					--bg-image-main: url('/assets/backgrounds/bg-main-dark-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 69 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 70 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 				}
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 
+L 				:root.loaded {
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 					--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-light-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 80 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 81 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-light-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 80 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 81 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					--bg-image-footer: url('/assets/backgrounds/bg-footer-light-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 74 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 				}
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 				:root.loaded.theme-dark {
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.pseudo-class.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 					--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-dark-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 80 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-dark-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 31 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 80 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					--bg-image-footer: url('/assets/backgrounds/bg-footer-dark-1440w.jpg');
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 74 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 				}
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L 
+L 			.backgrounds {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.selector.css entity.other.attribute-name.class.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 				min-height: 100%;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.percentage.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				isolation: isolate;
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				background:
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+L 					/*noise*/
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 12 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+L 					url('/assets/backgrounds/noise.png') top center/220px repeat,
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 8 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css support.function.url.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.begin.bracket.round.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.begin.css
+T 39 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css
+T 40 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css string.quoted.single.css punctuation.definition.string.end.css
+T 41 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.url.css punctuation.section.function.end.bracket.round.css
+T 42 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 45 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 52 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 53 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 56 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 58 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 59 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 65 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 66 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*footer*/ var(--bg-image-footer) bottom center/var(--bg-gradient-size) no-repeat,
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 37 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 38 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 39 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 45 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 46 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 52 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 53 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 56 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 57 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 75 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 76 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 77 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 86 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 87 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*header1*/ var(--bg-image-main-curves) top center/var(--bg-gradient-size) no-repeat,
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 43 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 44 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 45 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 48 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 49 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 55 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 56 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 59 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 60 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 78 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 79 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 80 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 89 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 90 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*header2*/ var(--bg-image-main) top center/var(--bg-gradient-size) no-repeat,
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 36 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 37 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 38 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 41 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 42 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 48 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 49 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 52 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 53 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 71 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 72 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 73 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 82 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 83 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*base*/ var(--gray-999);
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 				background-blend-mode: /*noise*/
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.separator.key-value.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 34 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 36 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+L 					overlay,
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 12 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*footer*/ var(--bg-blend-mode),
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 19 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 35 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 36 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 37 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*header1*/ var(--bg-svg-blend-mode),
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css support.function.misc.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.begin.bracket.round.css
+T 40 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css variable.argument.css
+T 41 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css meta.function.variable.css punctuation.section.function.end.bracket.round.css
+T 42 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*header2*/ normal,
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css punctuation.separator.list.comma.css
+L 					/*base*/ normal;
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 7 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.begin.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css
+T 13 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css comment.block.css punctuation.definition.comment.end.css
+T 14 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css
+T 20 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.terminator.rule.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 			@media (forced-colors: active) {
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css punctuation.definition.keyword.css
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css keyword.control.at-rule.media.css
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css
+T 11 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css punctuation.definition.parameters.begin.bracket.round.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css punctuation.separator.key-value.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.header.css punctuation.definition.parameters.end.bracket.round.css
+T 34 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 35 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css punctuation.section.media.begin.bracket.curly.css
+L 				/* Deactivate custom backgrounds for high contrast users. */
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 6 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css comment.block.css punctuation.definition.comment.begin.css
+T 62 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css comment.block.css
+T 64 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css comment.block.css punctuation.definition.comment.end.css
+L 				.backgrounds {
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.selector.css entity.other.attribute-name.class.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 18 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L 					background: none;
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 15 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 16 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 17 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 21 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 22 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					background-blend-mode: none;
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 26 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 27 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 28 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 32 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 33 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 					--bg-gradient-size: none;
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 23 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css variable.css
+T 24 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.separator.key-value.css
+T 25 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 29 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 30 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.terminator.rule.css
+L 				}
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css
+T 5 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L 			}
+T 3 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css meta.at-rule.media.body.css punctuation.section.media.end.bracket.curly.css
+L 		</style>
+T 2 source.astro meta.scope.tag.style.astro meta.style.astro meta.embedded.block.astro source.css
+T 4 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 9 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.end.astro entity.name.tag.astro
+T 10 source.astro meta.scope.tag.style.astro meta.style.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 	</body>
+T 1 source.astro text.astro
+T 3 source.astro meta.scope.tag.body.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 7 source.astro meta.scope.tag.body.astro meta.tag.end.astro entity.name.tag.astro
+T 8 source.astro meta.scope.tag.body.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L </html>
+T 2 source.astro meta.scope.tag.html.astro meta.tag.end.astro punctuation.definition.tag.begin.astro
+T 6 source.astro meta.scope.tag.html.astro meta.tag.end.astro entity.name.tag.astro
+T 7 source.astro meta.scope.tag.html.astro meta.tag.end.astro punctuation.definition.tag.end.astro
+L 

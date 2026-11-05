@@ -211,7 +211,7 @@
 //! |:--|:--|
 //! | `all` (the default) | Every language |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
+//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte, Astro |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown, LaTeX, TeX and `config` |
 //!
@@ -254,9 +254,12 @@ static ALLOCATOR: nishiki_alloc_count::CountingAllocator = nishiki_alloc_count::
 mod arena;
 #[cfg(feature = "lang-asm")]
 mod asm;
+#[cfg(feature = "lang-astro")]
+mod astro;
 #[cfg(feature = "lang-bat")]
 mod bat;
 #[cfg(any(
+    feature = "lang-astro",
     feature = "lang-common-lisp",
     feature = "lang-pascal",
     feature = "lang-tex"

@@ -1304,6 +1304,27 @@ languages! {
     /// - `Gender\Gender` in the list of built-in classes holds the anchor `\G`, so it never matches.
     /// - `\d`, `\w`, `\s`, `\p{L}`, `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
     Hack { feature: "lang-hack", names: ["hack"], module: hack }
+    /// Astro, with the scopes of Shiki's `astro` grammar.
+    /// Its frontmatter is lexed by the TypeScript lexer, its expressions and
+    /// backtick attribute values by the TSX lexer, and its event handler
+    /// values by the JavaScript lexer.
+    /// A `<script>` body goes to the JavaScript, TypeScript or JSON lexer,
+    /// and a `<style>` body to the CSS, PostCSS, SCSS, Less or Sass lexer.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A `lang="stylus"` body is plain text under `meta.lang.stylus.astro`, as nishiki lexes no Stylus.
+    ///   So is a body whose `lang` or `type` no injection names, such as `tsx` or `text/babel`.
+    /// - A `<script>` or `<style>` body opens after any `>` in the tag's start, even one inside a quoted attribute value, such as `<script x="a>b">`.
+    /// - A `<script` or `<style` right after a `>`, as in `</p><script>`, is lexed as the start of its own body, because the injection holds while Shiki lexes the tag's capture again: JavaScript's `<` and a name, or plain CSS.
+    /// - Any `</` where the embedded language's root is open ends a body, not only the tag's own closing tag.
+    /// - A `lang` or `type` value counts only on the line that opens the tag.
+    /// - An event attribute's name may be followed by any character but `-`, `:`, `\` and `w`, so `onclickx=` is the event `onclick` and an `x`.
+    ///   The grammar's lookahead escapes its backslash, `(?![-:\\w])`.
+    /// - The `;` of a numeric entity, such as `&#38;`, gets no punctuation scope, because the grammar names group 3 of a pattern with two groups.
+    /// - The frontmatter opens only at a `---` that starts the document.
+    ///   It ends at a `---` that starts a line, or at a `...` before the end of a line, even one in TypeScript, such as a spread.
+    Astro { feature: "lang-astro", names: ["astro"], module: astro }
 }
 
 impl Language {

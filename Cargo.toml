@@ -32,6 +32,7 @@ rustdoc-args = ["--cap-lints", "warn"]
 default = ["all"]
 all = [
   "lang-asm",
+  "lang-astro",
   "lang-bat",
   "lang-c",
   "lang-cmake",
@@ -112,6 +113,7 @@ config = [
   "lang-yaml",
 ]
 web = [
+  "lang-astro",
   "lang-css",
   "lang-erb",
   "lang-graphql",
@@ -146,6 +148,23 @@ textmate = ["_textmate"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-asm = ["_scope-table", "_rule-tables", "_classes"]
+lang-astro = [
+  "_scope-table",
+  "_rule-tables",
+  "_embedding",
+  "_html-words",
+  "lang-javascript",
+  "lang-typescript",
+  "lang-tsx",
+  "lang-json",
+  "lang-css",
+  "lang-postcss",
+  "lang-scss",
+  "lang-less",
+  "lang-sass",
+  "_classes",
+  "_utf8",
+]
 lang-bat = ["_scope-table", "_rule-tables", "_classes"]
 lang-c = ["_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cmake = ["_scope-table", "_rule-tables", "_classes"]
@@ -333,8 +352,8 @@ lang-zig = ["_scope-table", "_rule-tables", "_classes"]
 # The classes read characters through the UTF-8 helpers.
 _classes = ["_utf8"]
 # The rule engine's hand-over to a language a rule embeds, for Ruby's here
-# documents, Lua's `ffi.cdef`, GraphQL's interpolations and Svelte's
-# expressions and blocks.
+# documents, Lua's `ffi.cdef`, GraphQL's interpolations, Svelte's
+# expressions and blocks, and Astro's expressions and bodies.
 _embedding = ["_rule-engine"]
 # The hand-over of a grammar that embeds a language and is itself embedded,
 # for GraphQL in Vue, CoffeeScript in Vue and HAML, PHP, and Elixir and LaTeX

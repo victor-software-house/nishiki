@@ -57,6 +57,7 @@ The opt-in `textmate` tier holds no language now.
 | Language | Variant | Feature | Tier | Names `Language::from_name` takes |
 |:--|:--|:--|:--|:--|
 | Assembly | `Language::Asm` | `lang-asm` | `all` | `asm` |
+| Astro | `Language::Astro` | `lang-astro` | `all` | `astro` |
 | Batch | `Language::Bat` | `lang-bat` | `all` | `bat`, `batch`, `cmd` |
 | C | `Language::C` | `lang-c` | `all` | `c` |
 | CMake | `Language::CMake` | `lang-cmake` | `all` | `cmake` |
