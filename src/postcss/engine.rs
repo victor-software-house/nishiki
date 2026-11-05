@@ -4,7 +4,7 @@ use std::convert::Infallible;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The PostCSS lexer for one line.
@@ -30,9 +30,14 @@ impl Grammar for PostCss {
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 1;
     /// The operator `\s-(?=\$)` and the property list's end `(?=\s\()` take
-    /// one blank and then test the next character.
-    /// In `.a  -$x` the operator starts at the second blank.
-    const SKIPS_BLANK_RUNS: bool = false;
+    /// one blank and then require a character that is not a blank
+    /// ([`Pat::takes_one_blank`]).
+    /// In `.a  -$x` the operator starts at the second blank, the last.
+    const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
+
+    fn takes_one_blank(pat: Pat) -> bool {
+        pat.takes_one_blank()
+    }
 
     fn scope(scope: S) -> ScopeName {
         ScopeName::Fixed(scope.scope())

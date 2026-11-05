@@ -16,7 +16,7 @@
 // Run with `bun run oracle/mermaid-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import mermaid from "@shikijs/langs@4.6.0/mermaid";
-import { arms, groupsCheck, ruleCodes, scopeFile, startOf, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startOf, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -295,6 +295,7 @@ for (const p of patList) {
   }
 }
 g += startTable(patList);
+g += oneBlankTable(patList);
 g += ruleCodes("Mermaid", "MERMAID");
 g += groupsCheck("Mermaid", patList.flatMap((p) => p.captures.map(([n]) => n)));
 

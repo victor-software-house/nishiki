@@ -959,6 +959,17 @@ impl Pat {
     }
 }
 
+impl Pat {
+    /// Whether the pattern takes exactly one blank and then requires a
+    /// character that is not a blank, as `oracle/rule-grammar.ts`'s
+    /// `takesOneBlank` reads its expression.
+    /// Such a pattern can match at the last blank of a run and nowhere before
+    /// it.
+    pub(crate) const fn takes_one_blank(self) -> bool {
+        matches!(self, Pat::Operator | Pat::RootAt20End)
+    }
+}
+
 const _: () = assert!(
     1 <= <super::engine::PostCss as crate::rules::Grammar>::GROUPS,
     "a pattern's table names a capture group past the grammar's GROUPS"

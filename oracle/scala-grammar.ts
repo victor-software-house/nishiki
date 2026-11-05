@@ -7,7 +7,7 @@
 // Run with `bun run oracle/scala-grammar.ts` and commit the result; the
 // output is generated, do not edit it.
 import scala from "@shikijs/langs@4.6.0/scala";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -301,6 +301,7 @@ g += `        }\n    }\n}\n`;
 
 
 g += startTable(patList);
+g += oneBlankTable(patList);
 g += ruleCodes("Scala", "SCALA");
 g += groupsCheck("Scala", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 

@@ -499,6 +499,98 @@ export function startOf(
   return { set, bol: result.bol, any: result.any, wb: result.wb };
 }
 
+/** The top-level alternatives of `regex`, looking inside a lookahead or a
+ * group that spans the whole of it. */
+function alternatives(regex: string): string[] {
+  const out: string[] = [];
+  let depth = 0;
+  let inClass = false;
+  let start = 0;
+  for (let i = 0; i < regex.length; i++) {
+    const c = regex[i];
+    if (c === "\\") {
+      i++;
+    } else if (inClass) {
+      if (c === "]") inClass = false;
+    } else if (c === "[") {
+      inClass = true;
+    } else if (c === "(") {
+      depth++;
+    } else if (c === ")") {
+      depth--;
+    } else if (c === "|" && depth === 0) {
+      out.push(regex.slice(start, i));
+      start = i + 1;
+    }
+  }
+  out.push(regex.slice(start));
+  if (out.length > 1) return out.flatMap(alternatives);
+  const whole = /^\((?:\?:|\?=)?(.*)\)$/s.exec(regex);
+  return whole !== null && balanced(whole[1]!) ? alternatives(whole[1]!) : out;
+}
+
+/** Whether the parentheses of `regex` balance, so that a leading `(` and a
+ * trailing `)` enclose all of it. */
+function balanced(regex: string): boolean {
+  let depth = 0;
+  let inClass = false;
+  for (let i = 0; i < regex.length; i++) {
+    const c = regex[i];
+    if (c === "\\") i++;
+    else if (inClass) inClass = c !== "]";
+    else if (c === "[") inClass = true;
+    else if (c === "(") depth++;
+    else if (c === ")" && --depth < 0) return false;
+  }
+  return depth === 0;
+}
+
+/** The length of a blank atom at the start of `regex`: `\s`, `\t`, a space,
+ * or a class of only spaces and tabs; 0 for anything else. */
+function blankAtom(regex: string): number {
+  if (regex.startsWith("\\s") || regex.startsWith("\\t")) return 2;
+  if (regex.startsWith(" ")) return 1;
+  const cls = /^\[((?:\\t| )+)\]/.exec(regex);
+  return cls === null ? 0 : cls[0].length;
+}
+
+/** Whether some alternative of `regex` takes exactly one blank and then
+ * requires a character that is not a blank: one unquantified blank atom,
+ * then a rest whose first byte cannot be a space or a tab.
+ * Such a pattern can match at the last blank of a run and nowhere before it.
+ * A `BlankRuns::ToLast` grammar tries only these patterns there. */
+export function takesOneBlank(regex: string, backref: Backref = "quote"): boolean {
+  return alternatives(regex.startsWith("(?i)") ? regex.slice(4) : regex).some((alt) => {
+    const atom = blankAtom(alt);
+    if (atom === 0 || /^[*+?{]/.test(alt.slice(atom))) return false;
+    const rest = alt.slice(atom);
+    if (rest === "") return false;
+    const { set, bol, any } = startOf(rest, backref);
+    const blank = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
+    return !any && !bol && !blank(0x20) && !blank(0x09) && !blank(0x0a);
+  });
+}
+
+/** `Pat::takes_one_blank`, from [`takesOneBlank`], for a grammar on
+ * `BlankRuns::ToLast`. */
+export function oneBlankTable(pats: { id: string; regex: string }[], backref: Backref = "quote"): string {
+  const ids = pats.filter((p) => takesOneBlank(p.regex, backref)).map((p) => `Pat::${p.id}`);
+  if (ids.length === 0) throw new Error("a BlankRuns::ToLast grammar with no pattern that takes one blank");
+  return `
+
+impl Pat {
+    /// Whether the pattern takes exactly one blank and then requires a
+    /// character that is not a blank, as \`oracle/rule-grammar.ts\`'s
+    /// \`takesOneBlank\` reads its expression.
+    /// Such a pattern can match at the last blank of a run and nowhere before
+    /// it.
+    pub(crate) const fn takes_one_blank(self) -> bool {
+        matches!(self, ${ids.join(" | ")})
+    }
+}
+`;
+}
+
 /** Groups equal bodies into one arm of a `match` on `type`. */
 export function arms(entries: [string, string][], type: string): string {
   const groups = new Map<string, string[]>();

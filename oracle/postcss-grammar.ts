@@ -8,7 +8,7 @@
 // Run with `bun run oracle/postcss-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import postcss from "@shikijs/langs@4.6.0/postcss";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -270,6 +270,7 @@ g += arms(
 g += `        }\n    }\n}\n`;
 
 g += startTable(patList, "any");
+g += oneBlankTable(patList, "any");
 g += groupsCheck("PostCss", patList.flatMap((p) => p.captures.map(([n]) => n)));
 g += ruleCodes("PostCss", "POSTCSS");
 

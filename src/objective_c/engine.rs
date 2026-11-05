@@ -5,7 +5,7 @@ use std::cell::Cell;
 
 use super::grammar::{Nested, Pat, Rule, Sc};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Objective-C lexer for one line.
@@ -96,7 +96,7 @@ impl Grammar for ObjectiveC {
     const CAPTURED_EOL: bool = true;
     /// A parameter name, `(?<=[0-9A-Z_a-z] |…)\s*([A-Z_a-z]\w*)`, can start
     /// at the second blank of a run: the blank before it must follow a word.
-    const SKIPS_BLANK_RUNS: bool = false;
+    const BLANK_RUNS: BlankRuns = BlankRuns::Visit;
 
     fn scope(scope: Sc) -> ScopeName {
         match scope {

@@ -2,7 +2,7 @@
 
 use super::grammar::{Nested, Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Scala lexer for one line.
@@ -28,6 +28,18 @@ impl Grammar for Scala {
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 8;
     const CAPTURED_EOL: bool = true;
+    /// `\s(as)\s` in an import and ` …=` before an XML attribute take one
+    /// blank and then require a character that is not a blank
+    /// ([`Pat::takes_one_blank`]).
+    /// They match only at the last blank of a run.
+    /// In a character literal, `(?<!')[^']` can match at the second blank.
+    /// `[^']{2,}`, before it in the same list, matches at the first blank of
+    /// any run of two or more.
+    const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
+
+    fn takes_one_blank(pat: Pat) -> bool {
+        pat.takes_one_blank()
+    }
 
     fn scope(scope: S) -> ScopeName {
         ScopeName::Fixed(scope.scope())

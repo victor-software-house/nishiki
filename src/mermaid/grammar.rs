@@ -3205,6 +3205,20 @@ impl Pat {
     }
 }
 
+impl Pat {
+    /// Whether the pattern takes exactly one blank and then requires a
+    /// character that is not a blank, as `oracle/rule-grammar.ts`'s
+    /// `takesOneBlank` reads its expression.
+    /// Such a pattern can match at the last blank of a run and nowhere before
+    /// it.
+    pub(crate) const fn takes_one_blank(self) -> bool {
+        matches!(
+            self,
+            Pat::ClassDiagramAt2At1At1 | Pat::ClassDiagramAt2At1At4
+        )
+    }
+}
+
 impl Rule {
     /// The rule as a frame stores it: the language's tag in the high byte, the
     /// position in [`Rule::ALL`] in the low one.

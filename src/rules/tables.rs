@@ -2,8 +2,9 @@
 //! grammar tries them, so the engine tries only those where a byte stands.
 
 use std::collections::HashMap;
+use std::ops::ControlFlow;
 
-use super::{Act, Lexer, RuleData, Start, Tabled};
+use super::{Act, BlankRuns, Lexer, RuleData, Start, Tabled};
 use crate::language::Halt;
 
 /// Where a position lies, for the patterns that need a word boundary or the
@@ -36,18 +37,30 @@ pub(crate) struct Tables<G: Tabled> {
     /// ([`Grammar::pat_next`](super::Grammar::pat_next)).
     all: Box<[G::Pat]>,
     /// The candidates for each byte, away from the start of the line (the
-    /// first 256), at it (the next 256) and inside a word (the last 256).
+    /// first 256), at it (the next 256) and inside a word (the next 256).
     /// Bytes with the same candidates share one list.
+    ///
+    /// A rule of a [`BlankRuns::ToLast`] grammar can have one more list,
+    /// after those three sets.
+    /// It holds the patterns that take exactly one blank
+    /// ([`Grammar::takes_one_blank`](super::Grammar::takes_one_blank)), tried
+    /// at the last blank of a run.
+    /// The list is there only when it is not empty.
+    /// So the slice's length says whether the scan tries the last blank.
+    /// It sits in this slice so that every grammar's tables keep one size.
     by_byte: Box<[&'static [G::Pat]]>,
 }
 
 impl<G: Tabled> Tables<G> {
     /// The tables of the rule whose data is `data`.
     ///
-    /// Each pattern's start is read once, and each distinct list of
-    /// candidates is stored once, in one allocation that lives as long as
-    /// the program: the tables are built into statics that are never
-    /// dropped, so it is leaked rather than owned.
+    /// Each pattern's start is read once.
+    /// Each distinct list of candidates is stored once, in one allocation
+    /// that lives as long as the program.
+    /// The one-blank list of a [`BlankRuns::ToLast`] grammar is a second such
+    /// allocation.
+    /// The tables are built into statics that are never dropped, so both are
+    /// leaked rather than owned.
     pub(crate) fn build(data: RuleData<G>) -> Self {
         let all: Vec<G::Pat> = data
             .end
@@ -61,15 +74,26 @@ impl<G: Tabled> Tables<G> {
             .filter_map(|&index| all.get(index).copied())
             .collect();
         let lists: &'static [G::Pat] = Box::leak(lists.into_boxed_slice());
+        let mut by_byte: Vec<&'static [G::Pat]> = spans
+            .into_iter()
+            .map(|(start, len)| lists.get(start..start + len).unwrap_or_default())
+            .collect();
+        if matches!(G::BLANK_RUNS, BlankRuns::ToLast) {
+            let one_blank: Vec<G::Pat> = all
+                .iter()
+                .copied()
+                .filter(|&pat| G::takes_one_blank(pat))
+                .collect();
+            if !one_blank.is_empty() {
+                by_byte.push(Box::leak(one_blank.into_boxed_slice()));
+            }
+        }
         Tables {
             all: all
                 .into_iter()
                 .filter(|&pat| G::pat_next(pat).is_none())
                 .collect(),
-            by_byte: spans
-                .into_iter()
-                .map(|(start, len)| lists.get(start..start + len).unwrap_or_default())
-                .collect(),
+            by_byte: by_byte.into_boxed_slice(),
         }
     }
 
@@ -82,6 +106,19 @@ impl<G: Tabled> Tables<G> {
     /// first.
     pub(crate) fn all(&self) -> &[G::Pat] {
         &self.all
+    }
+
+    /// The patterns tried at the last blank of a run, the end pattern first
+    /// when it is one of them.
+    /// Empty for a grammar that does not use [`BlankRuns::ToLast`].
+    pub(crate) fn one_blank(&self) -> &[G::Pat] {
+        self.by_byte.get(3 * 256).copied().unwrap_or_default()
+    }
+
+    /// Whether the rule has patterns to try at the last blank of a run.
+    /// It reads only the length of the byte table.
+    pub(crate) fn tries_final_blank(&self) -> bool {
+        self.by_byte.len() > 3 * 256
     }
 }
 
@@ -136,6 +173,12 @@ fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
 /// blanks are consumed first, what follows decides, and no lookbehind or
 /// boundary holds between two of them; so the search skips a run of blanks
 /// at once.
+/// A pattern that takes one blank and then a character that is not a blank
+/// is the exception.
+/// A [`BlankRuns::ToLast`] grammar tries those patterns at the run's last
+/// blank.
+/// It steps over a single blank by one byte, since that blank is the run's
+/// last and was just tried.
 pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
     match lexer.root_halts() {
         Some(&(end, after)) => scan::<G, true>(lexer, end, after),
@@ -213,9 +256,25 @@ fn scan<G: Tabled, const HALTING: bool>(
             break None;
         }
         p = match s.get(p) {
-            Some(b' ' | b'\t') if G::SKIPS_BLANK_RUNS => {
-                lexer.skip(p, |b| matches!(b, b' ' | b'\t'))
-            }
+            Some(b' ' | b'\t') => match G::BLANK_RUNS {
+                BlankRuns::Skip => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),
+                BlankRuns::ToLast => {
+                    if matches!(s.get(p + 1), Some(b' ' | b'\t')) {
+                        let run_end = lexer.skip(p, |b| matches!(b, b' ' | b'\t'));
+                        if tables.tries_final_blank()
+                            && let ControlFlow::Break(found) =
+                                at_final_blank::<G, HALTING>(lexer, tables, end, run_end - 1, full)
+                        {
+                            break found;
+                        }
+                        run_end
+                    } else {
+                        p + 1
+                    }
+                }
+                BlankRuns::Visit if G::SKIPS_PLACES => G::next_place(lexer, p),
+                BlankRuns::Visit => lexer.char_end(p),
+            },
             Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
             Some(_) => lexer.char_end(p),
             None => p + 1,
@@ -223,6 +282,44 @@ fn scan<G: Tabled, const HALTING: bool>(
     };
     lexer.spend(visited);
     found
+}
+
+/// The scan's step at `p`, the last blank of a run, for a
+/// [`BlankRuns::ToLast`] grammar.
+///
+/// It breaks with `None` when the halt `end` holds at `p`.
+/// It breaks with the first one-blank pattern that matches at `p`.
+/// It continues when neither happens.
+/// A begin pattern of a rule the depth limit keeps closed is tried only to
+/// record the limit, as in the scan.
+///
+/// It stays out of line.
+/// Inlined, its values stayed live across the scan's loop, and the loop
+/// reloaded spilled registers at every byte.
+#[inline(never)]
+fn at_final_blank<G: Tabled, const HALTING: bool>(
+    lexer: &mut Lexer<'_, G>,
+    tables: &Tables<G>,
+    end: &dyn Halt,
+    p: usize,
+    full: bool,
+) -> ControlFlow<Option<(usize, G::Pat, usize)>> {
+    if HALTING && end.holds(lexer.s, p) {
+        lexer.halt_here(p);
+        return ControlFlow::Break(None);
+    }
+    for &pat in tables.one_blank() {
+        if full && matches!(G::pat_act(pat), Act::Begin(_)) {
+            if lexer.try_pat(pat, p).is_some() {
+                lexer.record_depth();
+            }
+            continue;
+        }
+        if let Some(found) = lexer.try_pat(pat, p) {
+            return ControlFlow::Break(Some((p, pat, found)));
+        }
+    }
+    ControlFlow::Continue(())
 }
 
 /// Whether `byte` is an ASCII word character.

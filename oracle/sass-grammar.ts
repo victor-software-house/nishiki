@@ -8,7 +8,7 @@
 // Run with `bun run oracle/sass-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import sass from "@shikijs/langs@4.6.0/sass";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: unknown[] }>;
 type Node = {
@@ -264,6 +264,7 @@ g += arms(
 g += `        }\n    }\n}\n`;
 
 g += startTable(patList, "any");
+g += oneBlankTable(patList, "any");
 g += groupsCheck("Sass", patList.flatMap((p) => p.captures.map(([n]) => n)));
 g += ruleCodes("Sass", "SASS");
 

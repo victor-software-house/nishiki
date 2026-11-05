@@ -152,14 +152,18 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// Without the flag, a line visits every frame.
     /// The flag only saves work: the tokens are the same either way.
     const WHILES: bool = false;
-    /// Whether the scan may skip the rest of a run of spaces and tabs where
-    /// no pattern matched at its first byte.
-    /// The skip is sound only when no pattern takes exactly one blank and then
-    /// tests the next character.
-    /// Such a pattern, as Sass's `\s-\s`, can match at the last blank of a
-    /// run and nowhere before it.
-    /// A grammar with one turns the skip off.
-    const SKIPS_BLANK_RUNS: bool = true;
+    /// What the scan does with the rest of a run of spaces and tabs where no
+    /// pattern matched at its first byte ([`BlankRuns`]).
+    const BLANK_RUNS: BlankRuns = BlankRuns::Skip;
+    /// Whether `pat` takes exactly one blank and then requires a character
+    /// that is not a blank.
+    /// A [`BlankRuns::ToLast`] grammar tries these patterns at the last blank
+    /// of a run.
+    /// Its generator writes them from `oracle/rule-grammar.ts`'s
+    /// `takesOneBlank`.
+    fn takes_one_blank(_pat: Self::Pat) -> bool {
+        false
+    }
     /// Whether the loop tests at each step whether the innermost rule embeds
     /// another language ([`Payload::Embed`]). A rule that embeds hands its line
     /// over when it opens, without this test. The test is for a grammar whose
@@ -919,6 +923,38 @@ pub(crate) trait Tabled: Grammar {
     fn pat_start(pat: Self::Pat) -> Start;
     /// The tables of `rule`, built on first use.
     fn tables(rule: Self::Rule) -> &'static Tables<Self>;
+}
+
+/// What the scan does with the rest of a run of spaces and tabs where no
+/// pattern matched at the run's first blank.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum BlankRuns {
+    /// It skips the rest of the run.
+    ///
+    /// Sound when no pattern can match at a later blank of a run and not at
+    /// its first.
+    Skip,
+    /// It jumps to the run's last blank and tries there only the patterns
+    /// that take exactly one blank ([`Grammar::takes_one_blank`]).
+    ///
+    /// Such a pattern, as Sass's `\s-\s`, requires a character that is not a
+    /// blank after its blank.
+    /// It can match only at the last blank of a run.
+    /// `ToLast` is sound when every pattern that can match at a later blank
+    /// either matches at the first blank too or is such a pattern.
+    /// Then no other pattern can match at the last blank where it failed at
+    /// the first.
+    /// A lookbehind on the blank before a pattern can break that: it can let
+    /// the pattern fail at the first blank and at the last, and match between
+    /// them.
+    /// A grammar with such a pattern takes [`BlankRuns::Visit`].
+    ToLast,
+    /// It tries every blank of the run, one byte at a time.
+    ///
+    /// Sound for every grammar.
+    /// A grammar takes it when a lookbehind on the blank before a pattern
+    /// rules out [`BlankRuns::ToLast`], as Objective-C's parameter name does.
+    Visit,
 }
 
 /// What a rule carries from line to line.

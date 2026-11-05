@@ -130,3 +130,25 @@ fn an_end_marker_names_what_it_ends() {
                 .is_some_and(|l| l == "entity.name.type.declaration")
     }));
 }
+
+/// `\s(as)\s` takes the last blank of a run before `as`, as in Shiki.
+#[test]
+fn an_import_renames_after_a_run_of_blanks() {
+    assert_eq!(
+        leaf("import a.b  as c", " as "),
+        "keyword.other.import.as.scala"
+    );
+    assert_eq!(
+        leaf("import a.b\t as c", " as "),
+        "keyword.other.import.as.scala"
+    );
+}
+
+/// An XML attribute's name follows the last blank of a run, as in Shiki.
+#[test]
+fn an_xml_attribute_follows_a_run_of_blanks() {
+    assert_eq!(
+        leaf("val x = <a  href=\"u\">t</a>", "href"),
+        "entity.other.attribute-name.localname.xml"
+    );
+}

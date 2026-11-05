@@ -4,7 +4,7 @@ use std::convert::Infallible;
 
 use super::grammar::{Pat, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Mermaid lexer for one line.
@@ -29,9 +29,17 @@ impl Grammar for Mermaid {
     const ROOT: Rule = Rule::Root;
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 20;
-    /// A class member, `\s([-#+~])?…`, starts with one blank and then tests
-    /// the next character, so it matches only at the last blank of a run.
-    const SKIPS_BLANK_RUNS: bool = false;
+    /// A class member `\s([-#+~])?([-.\w]+)…` and a method head take one blank
+    /// and then require a character that is not a blank
+    /// ([`Pat::takes_one_blank`]).
+    /// They match only at the last blank of a run.
+    /// The pie slice `\s(.*)(:)` and the state's `\s+(})\s+` match at the
+    /// first blank of a run too.
+    const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
+
+    fn takes_one_blank(pat: Pat) -> bool {
+        pat.takes_one_blank()
+    }
 
     fn scope(scope: S) -> ScopeName {
         ScopeName::Fixed(scope.scope())
