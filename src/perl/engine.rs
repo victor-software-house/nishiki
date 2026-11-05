@@ -280,6 +280,7 @@ fn pod_html_ends(s: &[u8]) -> bool {
 
 impl rules::Embeds for Perl {
     type End = End;
+    const HALTS: bool = true;
 
     fn embed_halts(_: &rules::Embedding, _: &Arena) -> (End, Option<rules::FnHalt>) {
         (End::Never, None)

@@ -159,6 +159,7 @@ impl crate::php_family::PhpFamily for Php {}
 
 impl rules::Embeds for Php {
     type End = End;
+    const HALTS: bool = true;
 
     fn embed_halts(_: &rules::Embedding, _: &Arena) -> (End, Option<rules::FnHalt>) {
         (End::Never, None)

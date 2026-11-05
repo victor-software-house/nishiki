@@ -99,6 +99,7 @@ fn svelte_buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch<SVELTE>
 /// group, which [`rules::Embeds::lex_nested`] lexes.
 impl rules::Embeds for Coffee {
     type End = rules::FnHalt;
+    const HALTS: bool = true;
 
     fn embed_halts(_: &rules::Embedding, _: &Arena) -> (Self::End, Option<rules::FnHalt>) {
         (no_end, None)
@@ -123,6 +124,7 @@ impl rules::Embeds for Coffee {
 #[cfg(feature = "lang-svelte")]
 impl rules::Embeds for Coffee<SVELTE> {
     type End = rules::FnHalt;
+    const HALTS: bool = true;
 
     fn embed_halts(_: &rules::Embedding, _: &Arena) -> (Self::End, Option<rules::FnHalt>) {
         (no_end, None)

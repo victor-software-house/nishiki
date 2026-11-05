@@ -464,6 +464,16 @@ pub(crate) trait Embeds: Grammar {
     /// the embedded grammar.
     type End: Halt;
 
+    /// Whether another grammar embeds this one with halts
+    /// ([`lex_embedding_until`]).
+    /// Such a grammar resumes after its own embedded language halting too.
+    /// `hand_over` then tests the halts at run time, so the grammar has one
+    /// copy of it.
+    /// A second copy took `resume_at` and `Lexer::resume_embedding` out of
+    /// both.
+    /// By default, none does, and the test compiles out.
+    const HALTS: bool = false;
+
     /// The halts for `embedding`.
     /// The first is tried before the embedded patterns at each place.
     /// The second stands for the patterns after the embedded grammar.
@@ -706,7 +716,7 @@ pub(crate) fn lex_embedding<G: Embeds>(
     let (first, embedding) = Lexer::new(parts, text, state, scratch(buffers)).run_embedding();
     let first = settle_deferred(cx, line, scratch, first);
     match embedding {
-        Some(embedding) => hand_over::<G, false>(cx, line, scratch, None, first, embedding).0,
+        Some(embedding) => hand_over::<G>(cx, line, scratch, None, first, embedding).0,
         None => first,
     }
 }
@@ -741,7 +751,7 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
         Stop::Line => (first, None),
         Stop::Halted(stopped) => (first, Some(stopped)),
         Stop::Embedding(embedding) => {
-            hand_over::<G, true>(cx, line, scratch, Some(&outer), first, embedding)
+            hand_over::<G>(cx, line, scratch, Some(&outer), first, embedding)
         }
     }
 }
@@ -846,7 +856,7 @@ fn lex_again<G: Embeds>(
     clippy::too_many_lines,
     reason = "one loop: split, it changed the hand-over code of every grammar, and the hot path's codegen with it"
 )]
-fn hand_over<G: Embeds, const HALTING: bool>(
+fn hand_over<G: Embeds>(
     cx: &mut Context<'_>,
     line: Line<'_>,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
@@ -951,11 +961,12 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             report: &mut *cx.report,
         };
         let lexer = Lexer::new(parts, text, state, scratch(&mut *cx.scratch));
-        let (finished, found) = if HALTING {
-            resume_halting(lexer, outer)
-        } else {
-            let (finished, found) = lexer.resume_embedding();
-            (finished, found.map_or(Stop::Line, Stop::Embedding))
+        let (finished, found) = match outer {
+            Some(halts) if G::HALTS => resume_halting(lexer, halts),
+            Some(_) | None => {
+                let (finished, found) = lexer.resume_embedding();
+                (finished, found.map_or(Stop::Line, Stop::Embedding))
+            }
         };
         let resumed = steps.take_back(finished);
         if G::DEFERS_NESTED && has_deferred(scratch(cx.scratch)) {
@@ -1133,21 +1144,15 @@ fn own_starts<G: Embeds>(
 }
 
 /// Goes on with a halting line where an embedded language halted, halting
-/// at `outer` when the grammar is itself embedded.
+/// at `outer`, as the grammar is itself embedded.
 #[cfg(feature = "_halting-embedding")]
-fn resume_halting<'a, G: Grammar>(
-    lexer: Lexer<'a, G>,
-    outer: Option<&'a Halts<'a>>,
-) -> (Finished, Stop) {
-    match outer {
-        Some(halts) => lexer.halting(halts).resume_embedding_halting(),
-        None => lexer.resume_embedding_halting(),
-    }
+fn resume_halting<'a, G: Grammar>(lexer: Lexer<'a, G>, outer: &'a Halts<'a>) -> (Finished, Stop) {
+    lexer.halting(outer).resume_embedding_halting()
 }
 
 /// A grammar that nothing embeds never resumes a halting line.
 #[cfg(all(feature = "_embedding", not(feature = "_halting-embedding")))]
-fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: Option<&Halts<'_>>) -> (Finished, Stop) {
+fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: &Halts<'_>) -> (Finished, Stop) {
     let (finished, found) = lexer.resume_embedding();
     (finished, found.map_or(Stop::Line, Stop::Embedding))
 }
