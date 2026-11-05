@@ -344,3 +344,21 @@ fn contexts_past_the_depth_limit_are_not_opened() {
     assert!(report.is_complete(), "the state after the limit lexes on");
     assert_eq!(tokens.last().map(|token| token.end()), Some(next.len()));
 }
+
+/// A line of spaces inside an assembly statement lexes within its text.
+/// The line-end pattern's `\s+` takes the line feed with the spaces.
+/// Shiki 4.6.0 scopes the spaces `meta.asm.c` after `asm`, and plain
+/// `source.c` once a comment line has closed the statement.
+#[test]
+fn a_line_of_spaces_inside_an_assembly_statement() {
+    let rows = lex(&["asm", "   ", "(\"nop\");"].join("\n"));
+    assert_eq!(
+        rows[1],
+        [(
+            "   ".to_owned(),
+            vec!["source.c".to_owned(), "meta.asm.c".to_owned()]
+        )]
+    );
+    let rows = lex(&["asm", "/* c */", "  ", "(\"nop\");"].join("\n"));
+    assert_eq!(rows[2], [("  ".to_owned(), vec!["source.c".to_owned()])]);
+}

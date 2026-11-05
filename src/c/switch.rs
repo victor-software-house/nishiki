@@ -165,6 +165,10 @@ impl Lexer<'_> {
     }
 
     /// `^(prefix)(?:\n|$)`: a line of white space and comments.
+    ///
+    /// On a line of spaces alone, the prefix's `\s+` takes the line feed too,
+    /// so `q` can stand one past the text.
+    /// The span lexed again stops at the text's end.
     pub(super) fn asm_line_end(&mut self, p: usize) -> bool {
         if p != 0 {
             return false;
@@ -172,7 +176,7 @@ impl Lexer<'_> {
         let Some(q) = self.lazy_prefix(0, |lexer, q| q >= lexer.lim()) else {
             return false;
         };
-        self.span_retok(0, q, S::NO_SCOPES, R::Inline);
+        self.span_retok(0, q.min(self.lim()), S::NO_SCOPES, R::Inline);
         let end = if q == self.lim() && self.nl { q + 1 } else { q };
         self.plain(0, end)
     }
