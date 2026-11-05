@@ -299,6 +299,9 @@ _embedding = ["_rule-engine"]
 # for GraphQL in Vue, CoffeeScript in Vue and HAML, PHP, and Elixir in
 # Markdown.
 _halting-embedding = ["_embedding"]
+# The Unicode classes that identifiers read beside the letters and digits:
+# `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}`.
+_identifier-classes = ["_classes"]
 _scope-table = []
 # tag::frame_kinds!, for the lexers that declare their frame kinds with it.
 _frame-kinds = []

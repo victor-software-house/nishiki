@@ -2,6 +2,7 @@
 //! `\p{N}` and `\p{M}` for a character, as Shiki's regex engine reads them.
 //! Scala adds three unions of categories: `[\p{Lt}\p{Lu}]`,
 //! `[\p{Lo}\p{Nl}\p{Ll}]` and `[\p{Sm}\p{So}]`.
+//! Identifiers add `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}`.
 //!
 //! Every grammar Shiki runs shares one engine, so every lexer shares these.
 //! ASCII is decided here; the rest comes from tables measured on Shiki.
@@ -172,6 +173,45 @@ pub(crate) fn is_symbol_or_punctuation(c: char) -> bool {
     }
 }
 
+/// The regex `\p{Nl}` for a character: a letter number, such as the Roman
+/// numeral U+2160.
+/// ASCII has none.
+#[cfg(feature = "_identifier-classes")]
+#[cfg_attr(
+    not(test),
+    expect(dead_code, reason = "the R lexer reads it, in the next pull request")
+)]
+pub(crate) fn is_letter_number(c: char) -> bool {
+    !c.is_ascii() && table::is_letter_number(c)
+}
+
+/// The regex `[\p{Mn}\p{Mc}]` for a character: a combining mark that does
+/// not enclose its base, such as U+0300.
+/// ASCII has none.
+#[cfg(feature = "_identifier-classes")]
+#[cfg_attr(
+    not(test),
+    expect(dead_code, reason = "the R lexer reads it, in the next pull request")
+)]
+pub(crate) fn is_nonenclosing_mark(c: char) -> bool {
+    !c.is_ascii() && table::is_nonenclosing_mark(c)
+}
+
+/// The regex `\p{Pc}` for a character: a connector punctuation mark.
+/// In ASCII, `_`.
+#[cfg(feature = "_identifier-classes")]
+#[cfg_attr(
+    not(test),
+    expect(dead_code, reason = "the R lexer reads it, in the next pull request")
+)]
+pub(crate) fn is_connector(c: char) -> bool {
+    if c.is_ascii() {
+        c == '_'
+    } else {
+        table::is_connector(c)
+    }
+}
+
 /// The regex `\s` for an ASCII byte.
 ///
 /// Unlike [`u8::is_ascii_whitespace`] it includes the vertical tab, 0x0b, as
@@ -242,5 +282,37 @@ mod tests {
         assert!(!word_before(s, 4));
         assert!(word_before(s, s.len()));
         assert!(!word_before(s, 0));
+    }
+
+    /// Each case is Oniguruma's answer in Shiki 4.6.0.
+    /// U+20DD and U+0488 are enclosing marks, which `[\p{Mn}\p{Mc}]` leaves
+    /// out.
+    #[cfg(feature = "_identifier-classes")]
+    #[test]
+    fn identifier_classes_follow_oniguruma() {
+        let cases = [
+            ('a', false, false, false),
+            ('_', false, false, true),
+            ('0', false, false, false),
+            ('\u{16ee}', true, false, false),
+            ('\u{2160}', true, false, false),
+            ('\u{3007}', true, false, false),
+            ('\u{10140}', true, false, false),
+            ('\u{300}', false, true, false),
+            ('\u{903}', false, true, false),
+            ('\u{20dd}', false, false, false),
+            ('\u{488}', false, false, false),
+            ('\u{203f}', false, false, true),
+            ('\u{fe33}', false, false, true),
+            ('\u{ff3f}', false, false, true),
+            ('\u{e9}', false, false, false),
+            ('\u{663}', false, false, false),
+            ('\u{1f600}', false, false, false),
+        ];
+        for (c, letter_number, mark, connector) in cases {
+            assert_eq!(is_letter_number(c), letter_number, "{c:?} \\p{{Nl}}");
+            assert_eq!(is_nonenclosing_mark(c), mark, "{c:?} [\\p{{Mn}}\\p{{Mc}}]");
+            assert_eq!(is_connector(c), connector, "{c:?} \\p{{Pc}}");
+        }
     }
 }
