@@ -621,7 +621,7 @@ pub(crate) fn lex_embedding<G: Embeds>(
 /// The line also halts where `outer` holds while only `G`'s root rule is
 /// open, as in [`lex_until`], and the second value is where.
 /// A line with no text from its start leaves the state as it is.
-#[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
+#[cfg(feature = "_halting-embedding")]
 pub(crate) fn lex_embedding_until<G: Embeds>(
     cx: &mut Context<'_>,
     line: Line<'_>,
@@ -889,7 +889,7 @@ fn own_starts<G: Embeds>(
 
 /// Goes on with a halting line where an embedded language halted, halting
 /// at `outer` when the grammar is itself embedded.
-#[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
+#[cfg(feature = "_halting-embedding")]
 fn resume_halting<'a, G: Grammar>(
     lexer: Lexer<'a, G>,
     outer: Option<&'a Halts<'a>>,
@@ -901,10 +901,7 @@ fn resume_halting<'a, G: Grammar>(
 }
 
 /// A grammar that nothing embeds never resumes a halting line.
-#[cfg(all(
-    feature = "_embedding",
-    not(any(feature = "lang-graphql", feature = "lang-php"))
-))]
+#[cfg(all(feature = "_embedding", not(feature = "_halting-embedding")))]
 fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: Option<&Halts<'_>>) -> (Finished, Stop) {
     let (finished, found) = lexer.resume_embedding();
     (finished, found.map_or(Stop::Line, Stop::Embedding))

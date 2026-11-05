@@ -158,7 +158,7 @@ lang-go = ["_scope-table", "_rule-tables", "_classes"]
 lang-graphql = [
   "_scope-table",
   "_rule-engine",
-  "_embedding",
+  "_halting-embedding",
   "lang-javascript",
   "_classes",
   "_utf8",
@@ -222,7 +222,7 @@ lang-php = [
   "_scope-table",
   "_rule-tables",
   "_classes",
-  "_embedding",
+  "_halting-embedding",
   "lang-css",
   "lang-html",
   "lang-javascript",
@@ -282,6 +282,9 @@ _classes = ["_utf8"]
 # documents, Lua's `ffi.cdef`, GraphQL's interpolations and Svelte's
 # expressions and blocks.
 _embedding = ["_rule-engine"]
+# The hand-over of a grammar that embeds a language and is itself embedded,
+# for GraphQL in Vue and PHP.
+_halting-embedding = ["_embedding"]
 _scope-table = []
 # tag::frame_kinds!, for the lexers that declare their frame kinds with it.
 _frame-kinds = []

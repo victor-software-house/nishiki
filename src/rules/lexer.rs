@@ -13,7 +13,7 @@
 
 #[cfg(feature = "_embedding")]
 use super::Embedding;
-#[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
+#[cfg(feature = "_halting-embedding")]
 use super::Stop;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
@@ -587,7 +587,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Lexes the line like [`Lexer::run_embedding`], for a grammar that
     /// another language embeds in turn.
     /// A line that halts ([`Lexer::halting`]) says where.
-    #[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
+    #[cfg(feature = "_halting-embedding")]
     pub(crate) fn run_embedding_halting(mut self) -> (Finished, Stop) {
         let embedding = self.embed(Entry::Start);
         let stop = self.stop(embedding);
@@ -597,7 +597,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Goes on with the line like [`Lexer::resume_embedding`], for a grammar
     /// that another language embeds in turn.
     /// A line that halts says where.
-    #[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
+    #[cfg(feature = "_halting-embedding")]
     pub(crate) fn resume_embedding_halting(mut self) -> (Finished, Stop) {
         let embedding = self.embed(Entry::Resume);
         let stop = self.stop(embedding);
@@ -606,7 +606,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// How a halting line stopped: for `embedding`, where it halted, or at
     /// its end.
-    #[cfg(any(feature = "lang-graphql", feature = "lang-php"))]
+    #[cfg(feature = "_halting-embedding")]
     fn stop(&self, embedding: Option<Embedding>) -> Stop {
         match (embedding, self.halted) {
             (Some(embedding), _) => Stop::Embedding(embedding),
