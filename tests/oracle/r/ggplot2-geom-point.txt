@@ -1,0 +1,3125 @@
+L #' @rdname Geom
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+L #' @format NULL
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+L #' @usage NULL
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 9 source.r keyword.other
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+L #' @export
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+L GeomPoint <- ggproto(
+T 9 source.r variable.object
+T 10 source.r
+T 12 source.r keyword.operator
+T 13 source.r
+T 20 source.r meta.function-call entity.name.function
+T 21 source.r meta.bracket
+L   "GeomPoint",
+T 2 source.r meta.bracket
+T 3 source.r meta.bracket string.quoted.double
+T 12 source.r meta.bracket string.quoted.double
+T 13 source.r meta.bracket string.quoted.double
+T 14 source.r meta.bracket keyword.operator
+L   Geom,
+T 2 source.r meta.bracket
+T 6 source.r meta.bracket variable.object
+T 7 source.r meta.bracket keyword.operator
+L   required_aes = c("x", "y"),
+T 2 source.r meta.bracket
+T 14 source.r meta.bracket variable.parameter
+T 15 source.r meta.bracket
+T 16 source.r meta.bracket keyword.operator
+T 17 source.r meta.bracket
+T 18 source.r meta.bracket meta.function-call entity.name.function
+T 19 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket string.quoted.double
+T 21 source.r meta.bracket meta.bracket string.quoted.double
+T 22 source.r meta.bracket meta.bracket string.quoted.double
+T 23 source.r meta.bracket meta.bracket keyword.operator
+T 24 source.r meta.bracket meta.bracket
+T 25 source.r meta.bracket meta.bracket string.quoted.double
+T 26 source.r meta.bracket meta.bracket string.quoted.double
+T 27 source.r meta.bracket meta.bracket string.quoted.double
+T 28 source.r meta.bracket meta.bracket
+T 29 source.r meta.bracket keyword.operator
+L   non_missing_aes = c("size", "shape", "colour"),
+T 2 source.r meta.bracket
+T 17 source.r meta.bracket variable.parameter
+T 18 source.r meta.bracket
+T 19 source.r meta.bracket keyword.operator
+T 20 source.r meta.bracket
+T 21 source.r meta.bracket meta.function-call entity.name.function
+T 22 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket string.quoted.double
+T 27 source.r meta.bracket meta.bracket string.quoted.double
+T 28 source.r meta.bracket meta.bracket string.quoted.double
+T 29 source.r meta.bracket meta.bracket keyword.operator
+T 30 source.r meta.bracket meta.bracket
+T 31 source.r meta.bracket meta.bracket string.quoted.double
+T 36 source.r meta.bracket meta.bracket string.quoted.double
+T 37 source.r meta.bracket meta.bracket string.quoted.double
+T 38 source.r meta.bracket meta.bracket keyword.operator
+T 39 source.r meta.bracket meta.bracket
+T 40 source.r meta.bracket meta.bracket string.quoted.double
+T 46 source.r meta.bracket meta.bracket string.quoted.double
+T 47 source.r meta.bracket meta.bracket string.quoted.double
+T 48 source.r meta.bracket meta.bracket
+T 49 source.r meta.bracket keyword.operator
+L   default_aes = aes(
+T 2 source.r meta.bracket
+T 13 source.r meta.bracket variable.parameter
+T 14 source.r meta.bracket
+T 15 source.r meta.bracket keyword.operator
+T 16 source.r meta.bracket
+T 19 source.r meta.bracket meta.function-call entity.name.function
+T 20 source.r meta.bracket meta.bracket
+L     shape = from_theme(pointshape),
+T 4 source.r meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket variable.parameter
+T 10 source.r meta.bracket meta.bracket
+T 11 source.r meta.bracket meta.bracket keyword.operator
+T 12 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 23 source.r meta.bracket meta.bracket meta.bracket
+T 33 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 34 source.r meta.bracket meta.bracket meta.bracket
+T 35 source.r meta.bracket meta.bracket keyword.operator
+L     colour = from_theme(colour %||% ink),
+T 4 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket variable.parameter
+T 11 source.r meta.bracket meta.bracket
+T 12 source.r meta.bracket meta.bracket keyword.operator
+T 13 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 24 source.r meta.bracket meta.bracket meta.bracket
+T 30 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 31 source.r meta.bracket meta.bracket meta.bracket
+T 35 source.r meta.bracket meta.bracket meta.bracket keyword.operator
+T 36 source.r meta.bracket meta.bracket meta.bracket
+T 39 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 40 source.r meta.bracket meta.bracket meta.bracket
+T 41 source.r meta.bracket meta.bracket keyword.operator
+L     fill = from_theme(fill %||% NA),
+T 4 source.r meta.bracket meta.bracket
+T 8 source.r meta.bracket meta.bracket variable.parameter
+T 9 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket keyword.operator
+T 11 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 22 source.r meta.bracket meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 27 source.r meta.bracket meta.bracket meta.bracket
+T 31 source.r meta.bracket meta.bracket meta.bracket keyword.operator
+T 32 source.r meta.bracket meta.bracket meta.bracket
+T 34 source.r meta.bracket meta.bracket meta.bracket constant.language
+T 35 source.r meta.bracket meta.bracket meta.bracket
+T 36 source.r meta.bracket meta.bracket keyword.operator
+L     size = from_theme(pointsize),
+T 4 source.r meta.bracket meta.bracket
+T 8 source.r meta.bracket meta.bracket variable.parameter
+T 9 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket keyword.operator
+T 11 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 22 source.r meta.bracket meta.bracket meta.bracket
+T 31 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 32 source.r meta.bracket meta.bracket meta.bracket
+T 33 source.r meta.bracket meta.bracket keyword.operator
+L     alpha = NA,
+T 4 source.r meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket variable.parameter
+T 10 source.r meta.bracket meta.bracket
+T 11 source.r meta.bracket meta.bracket keyword.operator
+T 12 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket constant.language
+T 15 source.r meta.bracket meta.bracket keyword.operator
+L     stroke = from_theme(borderwidth)
+T 4 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket variable.parameter
+T 11 source.r meta.bracket meta.bracket
+T 12 source.r meta.bracket meta.bracket keyword.operator
+T 13 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 24 source.r meta.bracket meta.bracket meta.bracket
+T 35 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 36 source.r meta.bracket meta.bracket meta.bracket
+L   ),
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+T 4 source.r meta.bracket keyword.operator
+L 
+L   draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
+T 2 source.r meta.bracket
+T 12 source.r meta.bracket variable.parameter
+T 13 source.r meta.bracket
+T 14 source.r meta.bracket keyword.operator
+T 15 source.r meta.bracket
+T 23 source.r meta.bracket meta.function.definition keyword.other
+T 24 source.r meta.bracket meta.function.definition meta.bracket
+T 28 source.r meta.bracket meta.function.definition variable.parameter
+T 29 source.r meta.bracket meta.function.definition keyword.operator
+T 30 source.r meta.bracket meta.function.definition
+T 34 source.r meta.bracket meta.function.definition variable.parameter
+T 35 source.r meta.bracket meta.function.definition keyword.operator
+T 36 source.r meta.bracket meta.function.definition
+T 48 source.r meta.bracket meta.function.definition variable.parameter
+T 49 source.r meta.bracket meta.function.definition keyword.operator
+T 50 source.r meta.bracket meta.function.definition
+T 55 source.r meta.bracket meta.function.definition variable.parameter
+T 56 source.r meta.bracket meta.function.definition keyword.operator
+T 57 source.r meta.bracket meta.function.definition
+T 62 source.r meta.bracket meta.function.definition variable.parameter
+T 63 source.r meta.bracket meta.function.definition
+T 64 source.r meta.bracket meta.function.definition keyword.operator
+T 65 source.r meta.bracket meta.function.definition
+T 70 source.r meta.bracket meta.function.definition constant.language
+T 71 source.r meta.bracket meta.function.definition meta.bracket
+T 72 source.r meta.bracket
+T 73 source.r meta.bracket meta.bracket
+L     data$shape <- translate_shape_string(data$shape)
+T 4 source.r meta.bracket meta.bracket
+T 8 source.r meta.bracket meta.bracket variable.object
+T 9 source.r meta.bracket meta.bracket keyword.operator
+T 14 source.r meta.bracket meta.bracket variable.object
+T 15 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket keyword.operator
+T 18 source.r meta.bracket meta.bracket
+T 40 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 41 source.r meta.bracket meta.bracket meta.bracket
+T 45 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 46 source.r meta.bracket meta.bracket meta.bracket keyword.operator
+T 51 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 52 source.r meta.bracket meta.bracket meta.bracket
+L     coords <- coord$transform(data, panel_params)
+T 4 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket variable.object
+T 11 source.r meta.bracket meta.bracket
+T 13 source.r meta.bracket meta.bracket keyword.operator
+T 14 source.r meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket variable.object
+T 20 source.r meta.bracket meta.bracket keyword.operator
+T 29 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 30 source.r meta.bracket meta.bracket meta.bracket
+T 34 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 35 source.r meta.bracket meta.bracket meta.bracket keyword.operator
+T 36 source.r meta.bracket meta.bracket meta.bracket
+T 48 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 49 source.r meta.bracket meta.bracket meta.bracket
+L     ggname(
+T 4 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 11 source.r meta.bracket meta.bracket meta.bracket
+L       "geom_point",
+T 6 source.r meta.bracket meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket meta.bracket keyword.operator
+L       pointsGrob(
+T 6 source.r meta.bracket meta.bracket meta.bracket
+T 16 source.r meta.bracket meta.bracket meta.bracket meta.function-call entity.name.function
+T 17 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+L         coords$x,
+T 8 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 15 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 16 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 17 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L         coords$y,
+T 8 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 15 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 16 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 17 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L         pch = coords$shape,
+T 8 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 11 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.parameter
+T 12 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 13 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 14 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 21 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 26 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 27 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L         gp = gg_par(
+T 8 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.parameter
+T 11 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 12 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 13 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.function-call entity.name.function
+T 20 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+L           col = alpha(coords$colour, coords$alpha),
+T 10 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 13 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.parameter
+T 14 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 15 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 16 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.function-call entity.name.function
+T 22 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 28 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 29 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 35 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 36 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 37 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 43 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 44 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 49 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 50 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 51 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L           fill = fill_alpha(coords$fill, coords$alpha),
+T 10 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.parameter
+T 15 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 16 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 17 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 27 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.function-call entity.name.function
+T 28 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 34 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 35 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 39 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 40 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 41 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 47 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 48 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 53 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 54 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 55 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L           pointsize = coords$size,
+T 10 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.parameter
+T 20 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 22 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 28 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 29 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 33 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 34 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L           stroke = coords$stroke
+T 10 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 16 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.parameter
+T 17 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 18 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 19 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 25 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 26 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 32 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+L         )
+T 8 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket meta.bracket meta.bracket meta.bracket
+L       )
+T 6 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+L     )
+T 4 source.r meta.bracket meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket meta.bracket
+L   },
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+T 4 source.r meta.bracket keyword.operator
+L 
+L   draw_key = draw_key_point
+T 2 source.r meta.bracket
+T 10 source.r meta.bracket variable.parameter
+T 11 source.r meta.bracket
+T 12 source.r meta.bracket keyword.operator
+T 13 source.r meta.bracket
+T 27 source.r meta.bracket variable.object
+L )
+T 1 source.r meta.bracket
+L 
+L #' Points
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' The point geom is used to create scatterplots. The scatterplot is most
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+L #' useful for displaying the relationship between two continuous variables.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+T 75 source.r comment.line
+L #' It can be used to compare one continuous and one categorical variable, or
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+T 75 source.r comment.line
+T 76 source.r comment.line
+L #' two categorical variables, but a variation like [geom_jitter()],
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r meta.bracket
+T 63 source.r entity.name.function
+T 65 source.r meta.bracket
+T 66 source.r meta.bracket
+T 67 source.r comment.line
+L #' [geom_count()], or [geom_bin_2d()] is usually more
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r meta.bracket
+T 14 source.r entity.name.function
+T 16 source.r meta.bracket
+T 17 source.r meta.bracket
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r meta.bracket
+T 34 source.r entity.name.function
+T 36 source.r meta.bracket
+T 37 source.r meta.bracket
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+L #' appropriate. A _bubblechart_ is a scatterplot with a third variable
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 31 source.r markdown.italic
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+L #' mapped to the size of points.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' @section Overplotting:
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 11 source.r keyword.other
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+L #' The biggest potential problem with a scatterplot is overplotting: whenever
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+T 75 source.r comment.line
+T 76 source.r comment.line
+T 77 source.r comment.line
+L #' you have more than a few points, points may be plotted on top of one
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+L #' another. This can severely distort the visual appearance of the plot.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+L #' There is no one solution to this problem, but there are some techniques
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+L #' that can help. You can add additional information with
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+L #' [geom_smooth()], [geom_quantile()] or
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r meta.bracket
+T 15 source.r entity.name.function
+T 17 source.r meta.bracket
+T 18 source.r meta.bracket
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r meta.bracket
+T 34 source.r entity.name.function
+T 36 source.r meta.bracket
+T 37 source.r meta.bracket
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+L #' [geom_density_2d()]. If you have few unique `x` values,
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r meta.bracket
+T 19 source.r entity.name.function
+T 21 source.r meta.bracket
+T 22 source.r meta.bracket
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 50 source.r markup.quote
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+L #' [geom_boxplot()] may also be useful.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r meta.bracket
+T 16 source.r entity.name.function
+T 18 source.r meta.bracket
+T 19 source.r meta.bracket
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' Alternatively, you can
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+L #' summarise the number of points at each location and display that in some
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+T 75 source.r comment.line
+L #' way, using [geom_count()], [geom_hex()], or
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r meta.bracket
+T 25 source.r entity.name.function
+T 27 source.r meta.bracket
+T 28 source.r meta.bracket
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r meta.bracket
+T 39 source.r entity.name.function
+T 41 source.r meta.bracket
+T 42 source.r meta.bracket
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+L #' [geom_density2d()].
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r meta.bracket
+T 18 source.r entity.name.function
+T 20 source.r meta.bracket
+T 21 source.r meta.bracket
+T 22 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' Another technique is to make the points transparent (e.g.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+L #' `geom_point(alpha = 0.05)`) or very small (e.g.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 29 source.r markup.quote
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+L #' `geom_point(shape = ".")`).
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 28 source.r markup.quote
+T 29 source.r comment.line
+T 30 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' @aesthetics GeomPoint
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 14 source.r keyword.other
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+L #' The `fill` aesthetic only applies to shapes 21-25.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 13 source.r markup.quote
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+L #' @inheritParams shared_layer_parameters
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 17 source.r keyword.other
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' @export
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+L #' @examples
+T 2 source.r comment.line
+T 3 source.r
+T 12 source.r keyword.other
+L #' p <- ggplot(mtcars, aes(wt, mpg))
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 7 source.r keyword.operator
+T 8 source.r
+T 14 source.r meta.function-call entity.name.function
+T 15 source.r meta.bracket
+T 21 source.r variable.object
+T 22 source.r keyword.operator
+T 23 source.r
+T 26 source.r meta.function-call entity.name.function
+T 27 source.r meta.bracket
+T 29 source.r variable.object
+T 30 source.r keyword.operator
+T 31 source.r
+T 34 source.r variable.object
+T 35 source.r meta.bracket
+T 36 source.r meta.bracket
+L #' p + geom_point()
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 19 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' # Add aesthetic mappings
+T 2 source.r comment.line
+T 3 source.r
+T 27 source.r comment.line
+L #' p + geom_point(aes(colour = factor(cyl)))
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 28 source.r variable.object
+T 29 source.r
+T 30 source.r keyword.operator
+T 31 source.r
+T 37 source.r meta.function-call entity.name.function
+T 38 source.r meta.bracket
+T 41 source.r variable.object
+T 42 source.r meta.bracket
+T 43 source.r meta.bracket
+T 44 source.r meta.bracket
+L #' p + geom_point(aes(shape = factor(cyl)))
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 27 source.r variable.object
+T 28 source.r
+T 29 source.r keyword.operator
+T 30 source.r
+T 36 source.r meta.function-call entity.name.function
+T 37 source.r meta.bracket
+T 40 source.r variable.object
+T 41 source.r meta.bracket
+T 42 source.r meta.bracket
+T 43 source.r meta.bracket
+L #' # A "bubblechart":
+T 2 source.r comment.line
+T 3 source.r
+T 21 source.r comment.line
+L #' p + geom_point(aes(size = qsec))
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 26 source.r variable.object
+T 27 source.r
+T 28 source.r keyword.operator
+T 29 source.r
+T 33 source.r variable.object
+T 34 source.r meta.bracket
+T 35 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' # Set aesthetics to fixed value
+T 2 source.r comment.line
+T 3 source.r
+T 34 source.r comment.line
+L #' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
+T 2 source.r comment.line
+T 3 source.r
+T 9 source.r meta.function-call entity.name.function
+T 10 source.r meta.bracket
+T 16 source.r variable.object
+T 17 source.r keyword.operator
+T 18 source.r
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 24 source.r variable.object
+T 25 source.r keyword.operator
+T 26 source.r
+T 29 source.r variable.object
+T 30 source.r meta.bracket
+T 31 source.r meta.bracket
+T 32 source.r
+T 33 source.r keyword.operator
+T 34 source.r
+T 44 source.r meta.function-call entity.name.function
+T 45 source.r meta.bracket
+T 51 source.r variable.object
+T 52 source.r
+T 53 source.r keyword.operator
+T 54 source.r
+T 55 source.r string.quoted.double
+T 58 source.r string.quoted.double
+T 59 source.r string.quoted.double
+T 60 source.r keyword.operator
+T 61 source.r
+T 65 source.r variable.object
+T 66 source.r
+T 67 source.r keyword.operator
+T 68 source.r
+T 69 source.r constant.numeric
+T 70 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' \donttest{
+T 2 source.r comment.line
+T 3 source.r
+T 12 source.r keyword.other
+T 13 source.r meta.bracket
+L #' # Varying alpha is useful for large datasets
+T 2 source.r comment.line
+T 3 source.r
+T 47 source.r comment.line
+L #' d <- ggplot(diamonds, aes(carat, price))
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 7 source.r keyword.operator
+T 8 source.r
+T 14 source.r meta.function-call entity.name.function
+T 15 source.r meta.bracket
+T 23 source.r variable.object
+T 24 source.r keyword.operator
+T 25 source.r
+T 28 source.r meta.function-call entity.name.function
+T 29 source.r meta.bracket
+T 34 source.r variable.object
+T 35 source.r keyword.operator
+T 36 source.r
+T 41 source.r variable.object
+T 42 source.r meta.bracket
+T 43 source.r meta.bracket
+L #' d + geom_point(alpha = 1/10)
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 23 source.r variable.object
+T 24 source.r
+T 25 source.r keyword.operator
+T 26 source.r
+T 27 source.r constant.numeric
+T 28 source.r keyword.operator
+T 30 source.r constant.numeric
+T 31 source.r meta.bracket
+L #' d + geom_point(alpha = 1/20)
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 23 source.r variable.object
+T 24 source.r
+T 25 source.r keyword.operator
+T 26 source.r
+T 27 source.r constant.numeric
+T 28 source.r keyword.operator
+T 30 source.r constant.numeric
+T 31 source.r meta.bracket
+L #' d + geom_point(alpha = 1/100)
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 23 source.r variable.object
+T 24 source.r
+T 25 source.r keyword.operator
+T 26 source.r
+T 27 source.r constant.numeric
+T 28 source.r keyword.operator
+T 31 source.r constant.numeric
+T 32 source.r meta.bracket
+L #' }
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' # For shapes that have a border (like 21), you can colour the inside and
+T 2 source.r comment.line
+T 3 source.r
+T 75 source.r comment.line
+L #' # outside separately. Use the stroke aesthetic to modify the width of the
+T 2 source.r comment.line
+T 3 source.r
+T 76 source.r comment.line
+L #' # border
+T 2 source.r comment.line
+T 3 source.r
+T 11 source.r comment.line
+L #' ggplot(mtcars, aes(wt, mpg)) +
+T 2 source.r comment.line
+T 3 source.r
+T 9 source.r meta.function-call entity.name.function
+T 10 source.r meta.bracket
+T 16 source.r variable.object
+T 17 source.r keyword.operator
+T 18 source.r
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 24 source.r variable.object
+T 25 source.r keyword.operator
+T 26 source.r
+T 29 source.r variable.object
+T 30 source.r meta.bracket
+T 31 source.r meta.bracket
+T 32 source.r
+T 33 source.r keyword.operator
+L #'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 21 source.r variable.object
+T 22 source.r
+T 23 source.r keyword.operator
+T 24 source.r
+T 26 source.r constant.numeric
+T 27 source.r keyword.operator
+T 28 source.r
+T 34 source.r variable.object
+T 35 source.r
+T 36 source.r keyword.operator
+T 37 source.r
+T 38 source.r string.quoted.double
+T 43 source.r string.quoted.double
+T 44 source.r string.quoted.double
+T 45 source.r keyword.operator
+T 46 source.r
+T 50 source.r variable.object
+T 51 source.r
+T 52 source.r keyword.operator
+T 53 source.r
+T 54 source.r string.quoted.double
+T 59 source.r string.quoted.double
+T 60 source.r string.quoted.double
+T 61 source.r keyword.operator
+T 62 source.r
+T 66 source.r variable.object
+T 67 source.r
+T 68 source.r keyword.operator
+T 69 source.r
+T 70 source.r constant.numeric
+T 71 source.r keyword.operator
+T 72 source.r
+T 78 source.r variable.object
+T 79 source.r
+T 80 source.r keyword.operator
+T 81 source.r
+T 82 source.r constant.numeric
+T 83 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' # The default shape in legends is not filled, but you can override the shape
+T 2 source.r comment.line
+T 3 source.r
+T 79 source.r comment.line
+L #' # in the guide to reflect the fill in the legend
+T 2 source.r comment.line
+T 3 source.r
+T 51 source.r comment.line
+L #' ggplot(mtcars, aes(wt, mpg, fill = factor(carb), shape = factor(cyl))) +
+T 2 source.r comment.line
+T 3 source.r
+T 9 source.r meta.function-call entity.name.function
+T 10 source.r meta.bracket
+T 16 source.r variable.object
+T 17 source.r keyword.operator
+T 18 source.r
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 24 source.r variable.object
+T 25 source.r keyword.operator
+T 26 source.r
+T 29 source.r variable.object
+T 30 source.r keyword.operator
+T 31 source.r
+T 35 source.r variable.object
+T 36 source.r
+T 37 source.r keyword.operator
+T 38 source.r
+T 44 source.r meta.function-call entity.name.function
+T 45 source.r meta.bracket
+T 49 source.r variable.object
+T 50 source.r meta.bracket
+T 51 source.r keyword.operator
+T 52 source.r
+T 57 source.r variable.object
+T 58 source.r
+T 59 source.r keyword.operator
+T 60 source.r
+T 66 source.r meta.function-call entity.name.function
+T 67 source.r meta.bracket
+T 70 source.r variable.object
+T 71 source.r meta.bracket
+T 72 source.r meta.bracket
+T 73 source.r meta.bracket
+T 74 source.r
+T 75 source.r keyword.operator
+L #'   geom_point(size = 5, stroke = 1) +
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 20 source.r variable.object
+T 21 source.r
+T 22 source.r keyword.operator
+T 23 source.r
+T 24 source.r constant.numeric
+T 25 source.r keyword.operator
+T 26 source.r
+T 32 source.r variable.object
+T 33 source.r
+T 34 source.r keyword.operator
+T 35 source.r
+T 36 source.r constant.numeric
+T 37 source.r meta.bracket
+T 38 source.r
+T 39 source.r keyword.operator
+L #'   scale_shape_manual(values = 21:25) +
+T 2 source.r comment.line
+T 5 source.r
+T 23 source.r meta.function-call entity.name.function
+T 24 source.r meta.bracket
+T 30 source.r variable.object
+T 31 source.r
+T 32 source.r keyword.operator
+T 33 source.r
+T 35 source.r constant.numeric
+T 36 source.r keyword.operator
+T 38 source.r constant.numeric
+T 39 source.r meta.bracket
+T 40 source.r
+T 41 source.r keyword.operator
+L #'   scale_fill_ordinal(guide = guide_legend(override.aes = list(shape = 21)))
+T 2 source.r comment.line
+T 5 source.r
+T 23 source.r meta.function-call entity.name.function
+T 24 source.r meta.bracket
+T 29 source.r variable.object
+T 30 source.r
+T 31 source.r keyword.operator
+T 32 source.r
+T 44 source.r meta.function-call entity.name.function
+T 45 source.r meta.bracket
+T 57 source.r variable.object
+T 58 source.r
+T 59 source.r keyword.operator
+T 60 source.r
+T 64 source.r meta.function-call entity.name.function
+T 65 source.r meta.bracket
+T 70 source.r variable.object
+T 71 source.r
+T 72 source.r keyword.operator
+T 73 source.r
+T 75 source.r constant.numeric
+T 76 source.r meta.bracket
+T 77 source.r meta.bracket
+T 78 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' \donttest{
+T 2 source.r comment.line
+T 3 source.r
+T 12 source.r keyword.other
+T 13 source.r meta.bracket
+L #' # You can create interesting shapes by layering multiple points of
+T 2 source.r comment.line
+T 3 source.r
+T 69 source.r comment.line
+L #' # different sizes
+T 2 source.r comment.line
+T 3 source.r
+T 20 source.r comment.line
+L #' p <- ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 7 source.r keyword.operator
+T 8 source.r
+T 14 source.r meta.function-call entity.name.function
+T 15 source.r meta.bracket
+T 21 source.r variable.object
+T 22 source.r keyword.operator
+T 23 source.r
+T 26 source.r meta.function-call entity.name.function
+T 27 source.r meta.bracket
+T 30 source.r variable.object
+T 31 source.r keyword.operator
+T 32 source.r
+T 34 source.r variable.object
+T 35 source.r keyword.operator
+T 36 source.r
+T 41 source.r variable.object
+T 42 source.r
+T 43 source.r keyword.operator
+T 44 source.r
+T 50 source.r meta.function-call entity.name.function
+T 51 source.r meta.bracket
+T 54 source.r variable.object
+T 55 source.r meta.bracket
+T 56 source.r meta.bracket
+T 57 source.r meta.bracket
+L #' p +
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+L #'   geom_point(aes(colour = factor(cyl)), size = 4) +
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 19 source.r meta.function-call entity.name.function
+T 20 source.r meta.bracket
+T 26 source.r variable.object
+T 27 source.r
+T 28 source.r keyword.operator
+T 29 source.r
+T 35 source.r meta.function-call entity.name.function
+T 36 source.r meta.bracket
+T 39 source.r variable.object
+T 40 source.r meta.bracket
+T 41 source.r meta.bracket
+T 42 source.r keyword.operator
+T 43 source.r
+T 47 source.r variable.object
+T 48 source.r
+T 49 source.r keyword.operator
+T 50 source.r
+T 51 source.r constant.numeric
+T 52 source.r meta.bracket
+T 53 source.r
+T 54 source.r keyword.operator
+L #'   geom_point(colour = "grey90", size = 1.5)
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 22 source.r variable.object
+T 23 source.r
+T 24 source.r keyword.operator
+T 25 source.r
+T 26 source.r string.quoted.double
+T 32 source.r string.quoted.double
+T 33 source.r string.quoted.double
+T 34 source.r keyword.operator
+T 35 source.r
+T 39 source.r variable.object
+T 40 source.r
+T 41 source.r keyword.operator
+T 42 source.r
+T 45 source.r constant.numeric
+T 46 source.r meta.bracket
+L #' p +
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r variable.object
+T 5 source.r
+T 6 source.r keyword.operator
+L #'   geom_point(colour = "black", size = 4.5) +
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 22 source.r variable.object
+T 23 source.r
+T 24 source.r keyword.operator
+T 25 source.r
+T 26 source.r string.quoted.double
+T 31 source.r string.quoted.double
+T 32 source.r string.quoted.double
+T 33 source.r keyword.operator
+T 34 source.r
+T 38 source.r variable.object
+T 39 source.r
+T 40 source.r keyword.operator
+T 41 source.r
+T 44 source.r constant.numeric
+T 45 source.r meta.bracket
+T 46 source.r
+T 47 source.r keyword.operator
+L #'   geom_point(colour = "pink", size = 4) +
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 22 source.r variable.object
+T 23 source.r
+T 24 source.r keyword.operator
+T 25 source.r
+T 26 source.r string.quoted.double
+T 30 source.r string.quoted.double
+T 31 source.r string.quoted.double
+T 32 source.r keyword.operator
+T 33 source.r
+T 37 source.r variable.object
+T 38 source.r
+T 39 source.r keyword.operator
+T 40 source.r
+T 41 source.r constant.numeric
+T 42 source.r meta.bracket
+T 43 source.r
+T 44 source.r keyword.operator
+L #'   geom_point(aes(shape = factor(cyl)))
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 19 source.r meta.function-call entity.name.function
+T 20 source.r meta.bracket
+T 25 source.r variable.object
+T 26 source.r
+T 27 source.r keyword.operator
+T 28 source.r
+T 34 source.r meta.function-call entity.name.function
+T 35 source.r meta.bracket
+T 38 source.r variable.object
+T 39 source.r meta.bracket
+T 40 source.r meta.bracket
+T 41 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' # geom_point warns when missing values have been dropped from the data set
+T 2 source.r comment.line
+T 3 source.r
+T 77 source.r comment.line
+L #' # and not plotted, you can turn this off by setting na.rm = TRUE
+T 2 source.r comment.line
+T 3 source.r
+T 67 source.r comment.line
+L #' set.seed(1)
+T 2 source.r comment.line
+T 3 source.r
+T 11 source.r meta.function-call entity.name.function
+T 12 source.r meta.bracket
+T 13 source.r constant.numeric
+T 14 source.r meta.bracket
+L #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
+T 2 source.r comment.line
+T 3 source.r
+T 10 source.r variable.object
+T 11 source.r
+T 13 source.r keyword.operator
+T 14 source.r
+T 23 source.r meta.function-call entity.name.function
+T 24 source.r meta.bracket
+T 30 source.r variable.object
+T 31 source.r keyword.operator
+T 32 source.r
+T 35 source.r variable.object
+T 36 source.r
+T 37 source.r keyword.operator
+T 38 source.r
+T 44 source.r meta.function-call entity.name.function
+T 45 source.r meta.bracket
+T 50 source.r meta.function-call entity.name.function
+T 51 source.r meta.bracket
+T 53 source.r constant.numeric
+T 54 source.r meta.bracket
+T 55 source.r
+T 56 source.r keyword.operator
+T 57 source.r
+T 60 source.r constant.numeric
+T 61 source.r keyword.operator
+T 62 source.r
+T 64 source.r constant.language
+T 65 source.r keyword.operator
+T 66 source.r
+T 69 source.r variable.object
+T 70 source.r meta.bracket
+T 71 source.r meta.bracket
+L #' ggplot(mtcars2, aes(wt, mpg)) +
+T 2 source.r comment.line
+T 3 source.r
+T 9 source.r meta.function-call entity.name.function
+T 10 source.r meta.bracket
+T 17 source.r variable.object
+T 18 source.r keyword.operator
+T 19 source.r
+T 22 source.r meta.function-call entity.name.function
+T 23 source.r meta.bracket
+T 25 source.r variable.object
+T 26 source.r keyword.operator
+T 27 source.r
+T 30 source.r variable.object
+T 31 source.r meta.bracket
+T 32 source.r meta.bracket
+T 33 source.r
+T 34 source.r keyword.operator
+L #'   geom_point()
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 17 source.r meta.bracket
+L #' ggplot(mtcars2, aes(wt, mpg)) +
+T 2 source.r comment.line
+T 3 source.r
+T 9 source.r meta.function-call entity.name.function
+T 10 source.r meta.bracket
+T 17 source.r variable.object
+T 18 source.r keyword.operator
+T 19 source.r
+T 22 source.r meta.function-call entity.name.function
+T 23 source.r meta.bracket
+T 25 source.r variable.object
+T 26 source.r keyword.operator
+T 27 source.r
+T 30 source.r variable.object
+T 31 source.r meta.bracket
+T 32 source.r meta.bracket
+T 33 source.r
+T 34 source.r keyword.operator
+L #'   geom_point(na.rm = TRUE)
+T 2 source.r comment.line
+T 5 source.r
+T 15 source.r meta.function-call entity.name.function
+T 16 source.r meta.bracket
+T 21 source.r variable.object
+T 22 source.r
+T 23 source.r keyword.operator
+T 24 source.r
+T 28 source.r constant.language
+T 29 source.r meta.bracket
+L #' }
+T 2 source.r comment.line
+T 3 source.r
+T 4 source.r meta.bracket
+L geom_point <- make_constructor(GeomPoint)
+T 10 source.r variable.object
+T 11 source.r
+T 13 source.r keyword.operator
+T 14 source.r
+T 30 source.r meta.function-call entity.name.function
+T 31 source.r meta.bracket
+T 40 source.r meta.bracket variable.object
+T 41 source.r meta.bracket
+L 
+L #' Translating shape strings
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' `translate_shape_string()` is a helper function for translating point shapes
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 29 source.r markup.quote
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+T 75 source.r comment.line
+T 76 source.r comment.line
+T 77 source.r comment.line
+T 78 source.r comment.line
+T 79 source.r comment.line
+L #' given as a character vector into integers that are interpreted by the
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+L #' grid system.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' @param shape_string A character vector giving point shapes. Non-character
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 9 source.r keyword.other
+T 10 source.r
+T 22 source.r variable.parameter
+T 23 source.r
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r comment.line
+T 55 source.r comment.line
+T 56 source.r comment.line
+T 57 source.r comment.line
+T 58 source.r comment.line
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 66 source.r comment.line
+T 67 source.r comment.line
+T 68 source.r comment.line
+T 69 source.r comment.line
+T 70 source.r comment.line
+T 71 source.r comment.line
+T 72 source.r comment.line
+T 73 source.r comment.line
+T 74 source.r comment.line
+T 75 source.r comment.line
+T 76 source.r comment.line
+L #'   input will be returned.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' @return An integer vector with translated shapes.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 33 source.r comment.line
+T 34 source.r comment.line
+T 35 source.r comment.line
+T 36 source.r comment.line
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+T 45 source.r comment.line
+T 46 source.r comment.line
+T 47 source.r comment.line
+T 48 source.r comment.line
+T 49 source.r comment.line
+T 50 source.r comment.line
+T 51 source.r comment.line
+T 52 source.r comment.line
+L #' @export
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+L #' @keywords internal
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 12 source.r keyword.other
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' @examples
+T 2 source.r comment.line
+T 3 source.r
+T 12 source.r keyword.other
+L #' translate_shape_string(c("circle", "square", "triangle"))
+T 2 source.r comment.line
+T 3 source.r
+T 25 source.r meta.function-call entity.name.function
+T 26 source.r meta.bracket
+T 27 source.r meta.function-call entity.name.function
+T 28 source.r meta.bracket
+T 29 source.r string.quoted.double
+T 35 source.r string.quoted.double
+T 36 source.r string.quoted.double
+T 37 source.r keyword.operator
+T 38 source.r
+T 39 source.r string.quoted.double
+T 45 source.r string.quoted.double
+T 46 source.r string.quoted.double
+T 47 source.r keyword.operator
+T 48 source.r
+T 49 source.r string.quoted.double
+T 57 source.r string.quoted.double
+T 58 source.r string.quoted.double
+T 59 source.r meta.bracket
+T 60 source.r meta.bracket
+L #'
+T 2 source.r comment.line
+L #' # Strings with 1 or less characters are interpreted as symbols
+T 2 source.r comment.line
+T 3 source.r
+T 65 source.r comment.line
+L #' translate_shape_string(c("a", "b", "?"))
+T 2 source.r comment.line
+T 3 source.r
+T 25 source.r meta.function-call entity.name.function
+T 26 source.r meta.bracket
+T 27 source.r meta.function-call entity.name.function
+T 28 source.r meta.bracket
+T 29 source.r string.quoted.double
+T 30 source.r string.quoted.double
+T 31 source.r string.quoted.double
+T 32 source.r keyword.operator
+T 33 source.r
+T 34 source.r string.quoted.double
+T 35 source.r string.quoted.double
+T 36 source.r string.quoted.double
+T 37 source.r keyword.operator
+T 38 source.r
+T 39 source.r string.quoted.double
+T 40 source.r string.quoted.double
+T 41 source.r string.quoted.double
+T 42 source.r meta.bracket
+T 43 source.r meta.bracket
+L translate_shape_string <- function(shape_string) {
+T 22 source.r variable.object
+T 23 source.r
+T 25 source.r keyword.operator
+T 26 source.r
+T 34 source.r meta.function.definition keyword.other
+T 35 source.r meta.function.definition meta.bracket
+T 47 source.r meta.function.definition variable.parameter
+T 48 source.r meta.function.definition meta.bracket
+T 49 source.r
+T 50 source.r meta.bracket
+L   if (!is.character(shape_string)) {
+T 2 source.r meta.bracket
+T 4 source.r meta.bracket keyword
+T 5 source.r meta.bracket
+T 6 source.r meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket keyword.operator
+T 19 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 20 source.r meta.bracket meta.bracket meta.bracket
+T 32 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 33 source.r meta.bracket meta.bracket meta.bracket
+T 34 source.r meta.bracket meta.bracket
+T 35 source.r meta.bracket
+T 36 source.r meta.bracket meta.bracket
+L     return(shape_string)
+T 4 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket keyword.other
+T 11 source.r meta.bracket meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 24 source.r meta.bracket meta.bracket meta.bracket
+L   }
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+L   # strings of length 0 or 1 are interpreted as symbols by grid
+T 2 source.r meta.bracket
+T 63 source.r meta.bracket comment.line
+L   if (nchar(shape_string[1]) <= 1) {
+T 2 source.r meta.bracket
+T 4 source.r meta.bracket keyword
+T 5 source.r meta.bracket
+T 6 source.r meta.bracket meta.bracket
+T 11 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 12 source.r meta.bracket meta.bracket meta.bracket
+T 24 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 25 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket meta.bracket meta.bracket constant.numeric
+T 27 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 28 source.r meta.bracket meta.bracket meta.bracket
+T 29 source.r meta.bracket meta.bracket
+T 31 source.r meta.bracket meta.bracket keyword.operator
+T 32 source.r meta.bracket meta.bracket
+T 33 source.r meta.bracket meta.bracket constant.numeric
+T 34 source.r meta.bracket meta.bracket
+T 35 source.r meta.bracket
+T 36 source.r meta.bracket meta.bracket
+L     return(shape_string)
+T 4 source.r meta.bracket meta.bracket
+T 10 source.r meta.bracket meta.bracket keyword.other
+T 11 source.r meta.bracket meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 24 source.r meta.bracket meta.bracket meta.bracket
+L   }
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+L 
+L   pch_table <- c(
+T 2 source.r meta.bracket
+T 11 source.r meta.bracket variable.object
+T 12 source.r meta.bracket
+T 14 source.r meta.bracket keyword.operator
+T 15 source.r meta.bracket
+T 16 source.r meta.bracket meta.function-call entity.name.function
+T 17 source.r meta.bracket meta.bracket
+L     "square open" = 0,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 16 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket keyword.operator
+T 20 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket constant.numeric
+T 22 source.r meta.bracket meta.bracket keyword.operator
+L     "circle open" = 1,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 16 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket keyword.operator
+T 20 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket constant.numeric
+T 22 source.r meta.bracket meta.bracket keyword.operator
+L     "triangle open" = 2,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket keyword.operator
+T 22 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket constant.numeric
+T 24 source.r meta.bracket meta.bracket keyword.operator
+L     "plus" = 3,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 9 source.r meta.bracket meta.bracket string.quoted.double
+T 10 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket
+T 12 source.r meta.bracket meta.bracket keyword.operator
+T 13 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket constant.numeric
+T 15 source.r meta.bracket meta.bracket keyword.operator
+L     "cross" = 4,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 10 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket
+T 13 source.r meta.bracket meta.bracket keyword.operator
+T 14 source.r meta.bracket meta.bracket
+T 15 source.r meta.bracket meta.bracket constant.numeric
+T 16 source.r meta.bracket meta.bracket keyword.operator
+L     "diamond open" = 5,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket keyword.operator
+T 21 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket constant.numeric
+T 23 source.r meta.bracket meta.bracket keyword.operator
+L     "triangle down open" = 6,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 23 source.r meta.bracket meta.bracket string.quoted.double
+T 24 source.r meta.bracket meta.bracket string.quoted.double
+T 25 source.r meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket keyword.operator
+T 27 source.r meta.bracket meta.bracket
+T 28 source.r meta.bracket meta.bracket constant.numeric
+T 29 source.r meta.bracket meta.bracket keyword.operator
+L     "square cross" = 7,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket keyword.operator
+T 21 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket constant.numeric
+T 23 source.r meta.bracket meta.bracket keyword.operator
+L     "asterisk" = 8,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket string.quoted.double
+T 14 source.r meta.bracket meta.bracket string.quoted.double
+T 15 source.r meta.bracket meta.bracket
+T 16 source.r meta.bracket meta.bracket keyword.operator
+T 17 source.r meta.bracket meta.bracket
+T 18 source.r meta.bracket meta.bracket constant.numeric
+T 19 source.r meta.bracket meta.bracket keyword.operator
+L     "diamond plus" = 9,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket keyword.operator
+T 21 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket constant.numeric
+T 23 source.r meta.bracket meta.bracket keyword.operator
+L     "circle plus" = 10,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 16 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket keyword.operator
+T 20 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket constant.numeric
+T 23 source.r meta.bracket meta.bracket keyword.operator
+L     "star" = 11,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 9 source.r meta.bracket meta.bracket string.quoted.double
+T 10 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket
+T 12 source.r meta.bracket meta.bracket keyword.operator
+T 13 source.r meta.bracket meta.bracket
+T 15 source.r meta.bracket meta.bracket constant.numeric
+T 16 source.r meta.bracket meta.bracket keyword.operator
+L     "square plus" = 12,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 16 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket keyword.operator
+T 20 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket constant.numeric
+T 23 source.r meta.bracket meta.bracket keyword.operator
+L     "circle cross" = 13,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket keyword.operator
+T 21 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket constant.numeric
+T 24 source.r meta.bracket meta.bracket keyword.operator
+L     "square triangle" = 14,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket string.quoted.double
+T 21 source.r meta.bracket meta.bracket string.quoted.double
+T 22 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket keyword.operator
+T 24 source.r meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket constant.numeric
+T 27 source.r meta.bracket meta.bracket keyword.operator
+L     "triangle square" = 14,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket string.quoted.double
+T 21 source.r meta.bracket meta.bracket string.quoted.double
+T 22 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket keyword.operator
+T 24 source.r meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket constant.numeric
+T 27 source.r meta.bracket meta.bracket keyword.operator
+L     "square" = 15,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket keyword.operator
+T 15 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket constant.numeric
+T 18 source.r meta.bracket meta.bracket keyword.operator
+L     "circle small" = 16,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 17 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket keyword.operator
+T 21 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket constant.numeric
+T 24 source.r meta.bracket meta.bracket keyword.operator
+L     "triangle" = 17,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket string.quoted.double
+T 14 source.r meta.bracket meta.bracket string.quoted.double
+T 15 source.r meta.bracket meta.bracket
+T 16 source.r meta.bracket meta.bracket keyword.operator
+T 17 source.r meta.bracket meta.bracket
+T 19 source.r meta.bracket meta.bracket constant.numeric
+T 20 source.r meta.bracket meta.bracket keyword.operator
+L     "diamond" = 18,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket string.quoted.double
+T 14 source.r meta.bracket meta.bracket
+T 15 source.r meta.bracket meta.bracket keyword.operator
+T 16 source.r meta.bracket meta.bracket
+T 18 source.r meta.bracket meta.bracket constant.numeric
+T 19 source.r meta.bracket meta.bracket keyword.operator
+L     "circle" = 19,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket keyword.operator
+T 15 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket constant.numeric
+T 18 source.r meta.bracket meta.bracket keyword.operator
+L     "bullet" = 20,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket keyword.operator
+T 15 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket constant.numeric
+T 18 source.r meta.bracket meta.bracket keyword.operator
+L     "circle filled" = 21,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket keyword.operator
+T 22 source.r meta.bracket meta.bracket
+T 24 source.r meta.bracket meta.bracket constant.numeric
+T 25 source.r meta.bracket meta.bracket keyword.operator
+L     "square filled" = 22,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 18 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket
+T 21 source.r meta.bracket meta.bracket keyword.operator
+T 22 source.r meta.bracket meta.bracket
+T 24 source.r meta.bracket meta.bracket constant.numeric
+T 25 source.r meta.bracket meta.bracket keyword.operator
+L     "diamond filled" = 23,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 19 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket string.quoted.double
+T 21 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket meta.bracket keyword.operator
+T 23 source.r meta.bracket meta.bracket
+T 25 source.r meta.bracket meta.bracket constant.numeric
+T 26 source.r meta.bracket meta.bracket keyword.operator
+L     "triangle filled" = 24,
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 20 source.r meta.bracket meta.bracket string.quoted.double
+T 21 source.r meta.bracket meta.bracket string.quoted.double
+T 22 source.r meta.bracket meta.bracket
+T 23 source.r meta.bracket meta.bracket keyword.operator
+T 24 source.r meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket constant.numeric
+T 27 source.r meta.bracket meta.bracket keyword.operator
+L     "triangle down filled" = 25
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket string.quoted.double
+T 25 source.r meta.bracket meta.bracket string.quoted.double
+T 26 source.r meta.bracket meta.bracket string.quoted.double
+T 27 source.r meta.bracket meta.bracket
+T 28 source.r meta.bracket meta.bracket keyword.operator
+T 29 source.r meta.bracket meta.bracket
+T 31 source.r meta.bracket meta.bracket constant.numeric
+L   )
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+L 
+L   shape_match <- charmatch(shape_string, names(pch_table))
+T 2 source.r meta.bracket
+T 13 source.r meta.bracket variable.object
+T 14 source.r meta.bracket
+T 16 source.r meta.bracket keyword.operator
+T 17 source.r meta.bracket
+T 26 source.r meta.bracket meta.function-call entity.name.function
+T 27 source.r meta.bracket meta.bracket
+T 39 source.r meta.bracket meta.bracket variable.object
+T 40 source.r meta.bracket meta.bracket keyword.operator
+T 41 source.r meta.bracket meta.bracket
+T 46 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 47 source.r meta.bracket meta.bracket meta.bracket
+T 56 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 57 source.r meta.bracket meta.bracket meta.bracket
+T 58 source.r meta.bracket meta.bracket
+L 
+L   invalid_strings <- is.na(shape_match)
+T 2 source.r meta.bracket
+T 17 source.r meta.bracket variable.object
+T 18 source.r meta.bracket
+T 20 source.r meta.bracket keyword.operator
+T 21 source.r meta.bracket
+T 26 source.r meta.bracket meta.function-call entity.name.function
+T 27 source.r meta.bracket meta.bracket
+T 38 source.r meta.bracket meta.bracket variable.object
+T 39 source.r meta.bracket meta.bracket
+L   nonunique_strings <- shape_match == 0
+T 2 source.r meta.bracket
+T 19 source.r meta.bracket variable.object
+T 20 source.r meta.bracket
+T 22 source.r meta.bracket keyword.operator
+T 23 source.r meta.bracket
+T 34 source.r meta.bracket variable.object
+T 35 source.r meta.bracket
+T 37 source.r meta.bracket keyword.operator
+T 38 source.r meta.bracket
+T 39 source.r meta.bracket constant.numeric
+L 
+L   if (any(invalid_strings)) {
+T 2 source.r meta.bracket
+T 4 source.r meta.bracket keyword
+T 5 source.r meta.bracket
+T 6 source.r meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 10 source.r meta.bracket meta.bracket meta.bracket
+T 25 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 26 source.r meta.bracket meta.bracket meta.bracket
+T 27 source.r meta.bracket meta.bracket
+T 28 source.r meta.bracket
+T 29 source.r meta.bracket meta.bracket
+L     bad_string <- unique0(shape_string[invalid_strings])
+T 4 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket variable.object
+T 15 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket keyword.operator
+T 18 source.r meta.bracket meta.bracket
+T 25 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 26 source.r meta.bracket meta.bracket meta.bracket
+T 38 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 39 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 54 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 55 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 56 source.r meta.bracket meta.bracket meta.bracket
+L     cli::cli_abort(
+T 4 source.r meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket entity.name.namespace.r
+T 9 source.r meta.bracket meta.bracket keyword.operator
+T 18 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 19 source.r meta.bracket meta.bracket meta.bracket
+L       "Shape aesthetic contains invalid value{?s}: {.val {bad_string}}."
+T 6 source.r meta.bracket meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket meta.bracket string.quoted.double
+T 71 source.r meta.bracket meta.bracket meta.bracket string.quoted.double
+T 72 source.r meta.bracket meta.bracket meta.bracket string.quoted.double
+L     )
+T 4 source.r meta.bracket meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket meta.bracket
+L   }
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+L 
+L   if (any(nonunique_strings)) {
+T 2 source.r meta.bracket
+T 4 source.r meta.bracket keyword
+T 5 source.r meta.bracket
+T 6 source.r meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 10 source.r meta.bracket meta.bracket meta.bracket
+T 27 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 28 source.r meta.bracket meta.bracket meta.bracket
+T 29 source.r meta.bracket meta.bracket
+T 30 source.r meta.bracket
+T 31 source.r meta.bracket meta.bracket
+L     bad_string <- unique0(shape_string[nonunique_strings])
+T 4 source.r meta.bracket meta.bracket
+T 14 source.r meta.bracket meta.bracket variable.object
+T 15 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket keyword.operator
+T 18 source.r meta.bracket meta.bracket
+T 25 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 26 source.r meta.bracket meta.bracket meta.bracket
+T 38 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 39 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 56 source.r meta.bracket meta.bracket meta.bracket meta.bracket variable.object
+T 57 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 58 source.r meta.bracket meta.bracket meta.bracket
+L     cli::cli_abort(c(
+T 4 source.r meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket entity.name.namespace.r
+T 9 source.r meta.bracket meta.bracket keyword.operator
+T 18 source.r meta.bracket meta.bracket meta.function-call entity.name.function
+T 19 source.r meta.bracket meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket meta.bracket meta.function-call entity.name.function
+T 21 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+L       "Shape names must be given unambiguously.",
+T 6 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 47 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 48 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 49 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+L       "i" = "Fix {.val {bad_string}}."
+T 6 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 7 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 8 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 9 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 10 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 11 source.r meta.bracket meta.bracket meta.bracket meta.bracket keyword.operator
+T 12 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 13 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 37 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+T 38 source.r meta.bracket meta.bracket meta.bracket meta.bracket string.quoted.double
+L     ))
+T 4 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket meta.bracket meta.bracket
+T 6 source.r meta.bracket meta.bracket meta.bracket
+L   }
+T 2 source.r meta.bracket meta.bracket
+T 3 source.r meta.bracket meta.bracket
+L 
+L   unname(pch_table[shape_match])
+T 2 source.r meta.bracket
+T 8 source.r meta.bracket meta.function-call entity.name.function
+T 9 source.r meta.bracket meta.bracket
+T 18 source.r meta.bracket meta.bracket variable.object
+T 19 source.r meta.bracket meta.bracket meta.bracket
+T 30 source.r meta.bracket meta.bracket meta.bracket variable.object
+T 31 source.r meta.bracket meta.bracket meta.bracket
+T 32 source.r meta.bracket meta.bracket
+L }
+T 1 source.r meta.bracket
+L 

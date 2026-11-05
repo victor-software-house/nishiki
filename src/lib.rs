@@ -314,6 +314,8 @@ mod powershell;
 mod proto;
 #[cfg(feature = "lang-python")]
 mod python;
+#[cfg(feature = "lang-r")]
+mod r;
 #[cfg(test)]
 #[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
 mod resume_check;

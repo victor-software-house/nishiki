@@ -550,6 +550,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `python/rich-console` | [`rich/console.py`][rich-console] in Textualize/rich | [MIT][rich-licence] |
 | `python/ruff-class` | [`class.py`][python-ruff-class] in astral-sh/ruff | [MIT][ruff-licence] |
 | `python/sample` | [`samples/python.sample`][python-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `r/coverage` | `oracle/inputs/r-coverage.R`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `r/dplyr-across` | [`R/across.R`][dplyr-across] in tidyverse/dplyr | [MIT][dplyr-licence] |
+| `r/dplyr-case-when` | [`R/case-when.R`][dplyr-case-when] in tidyverse/dplyr | [MIT][dplyr-licence] |
+| `r/dplyr-filter` | [`R/filter.R`][dplyr-filter] in tidyverse/dplyr | [MIT][dplyr-licence] |
+| `r/dplyr-mutate` | [`R/mutate.R`][dplyr-mutate] in tidyverse/dplyr | [MIT][dplyr-licence] |
+| `r/ggplot2-geom-point` | [`R/geom-point.R`][ggplot2-geom-point] in tidyverse/ggplot2 | [MIT][ggplot2-licence] |
+| `r/sample` | [`samples/r.sample`][r-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `ruby/coverage` | `oracle/inputs/ruby-coverage.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `ruby/cpp-lua-heredocs` | `oracle/inputs/ruby-cpp-lua-heredocs.rb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `ruby/devise` | [`lib/devise.rb`][devise] in heartcombo/devise | [MIT][devise-licence] |
@@ -975,6 +982,8 @@ The other `svelte` inputs are held out.
 `objective-cpp/grammar-misc-003`, `objective-cpp/react-native-legacy-interop-coordinator` and `objective-cpp/react-native-virtual-view` were held out from the `TextMate` engine's tables.
 The hand lexer was written against all seven.
 `objective-cpp/react-native-device-info`, `objective-cpp/react-native-mounting-manager` and `objective-cpp/react-native-surface-presenter` are held out from the hand lexer: they were added after the other inputs passed.
+
+`r/dplyr-case-when` and `r/ggplot2-geom-point` are held out: they were added after the development inputs passed.
 `objective-cpp/coverage` and `objective-cpp/objective-c-coverage` were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
@@ -1194,6 +1203,11 @@ The hand lexer was written against all seven.
 [dotnet-install]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/src/dotnet-install.ps1
 [dotnet-install-licence]: https://github.com/dotnet/install-scripts/blob/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e/LICENSE.TXT
 [dotnet-runtime-licence]: https://github.com/dotnet/runtime/blob/6375d63af99b6812f11b4dd8c4a18d227e277d73/LICENSE.TXT
+[dplyr-across]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/across.R
+[dplyr-case-when]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/case-when.R
+[dplyr-filter]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/filter.R
+[dplyr-licence]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/LICENSE.md
+[dplyr-mutate]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/mutate.R
 [elixir-keyword]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/keyword.ex
 [elixir-lang-licence]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/LICENSE
 [elixir-map-set]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/map_set.ex
@@ -1223,6 +1237,8 @@ The hand lexer was written against all seven.
 [foundation-keyed-archive]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist
 [foundation-licence]: https://github.com/apple/swift-corelibs-foundation/blob/cbfe1c7376ffe869d08b1b5f643d747ef0a16069/LICENSE
 [gdscript-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/gdscript.sample
+[ggplot2-geom-point]: https://github.com/tidyverse/ggplot2/blob/b638d654c8189db82a62307fefa84b1da1819da5/R/geom-point.R
+[ggplot2-licence]: https://github.com/tidyverse/ggplot2/blob/b638d654c8189db82a62307fefa84b1da1819da5/LICENSE.md
 [gin-context]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/context.go
 [gin-licence]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/LICENSE
 [gin-readme]: https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/README.md
@@ -1536,6 +1552,7 @@ The hand lexer was written against all seven.
 [quicklisp-dist]: https://github.com/quicklisp/quicklisp-client/blob/6d96fd86c114345bd74d995bb296fae46f1f26ec/quicklisp/dist.lisp
 [quicklisp-http]: https://github.com/quicklisp/quicklisp-client/blob/6d96fd86c114345bd74d995bb296fae46f1f26ec/quicklisp/http.lisp
 [quicklisp-licence]: https://github.com/quicklisp/quicklisp-client/blob/6d96fd86c114345bd74d995bb296fae46f1f26ec/LICENSE.txt
+[r-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/r.sample
 [r8brain-dll]: https://github.com/avaneev/r8brain-free-src/blob/cb2abb9977efe2471979b380ed95daa56ab4fdb9/DLL/r8bsrc.pas
 [r8brain-licence]: https://github.com/avaneev/r8brain-free-src/blob/cb2abb9977efe2471979b380ed95daa56ab4fdb9/LICENSE
 [rack-licence]: https://github.com/rack/rack/blob/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f/MIT-LICENSE

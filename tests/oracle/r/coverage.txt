@@ -1,0 +1,1021 @@
+L # R written for nishiki's oracle, to reach every expression of the grammar.
+T 75 source.r comment.line
+L library(dplyr)
+T 7 source.r keyword.other
+T 8 source.r meta.bracket
+T 13 source.r meta.bracket variable.object
+T 14 source.r meta.bracket
+L require("stats")
+T 7 source.r keyword.other
+T 8 source.r meta.bracket
+T 9 source.r meta.bracket string.quoted.double
+T 14 source.r meta.bracket string.quoted.double
+T 15 source.r meta.bracket string.quoted.double
+T 16 source.r meta.bracket
+L 
+L #' Add two numbers
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+L #'
+T 2 source.r comment.line.roxygen
+L #' Uses **bold**, *italic*, __bold words__, _italic words_ and `code`.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 16 source.r markdown.bold
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 26 source.r markdown.italic
+T 27 source.r comment.line
+T 42 source.r markdown.bold
+T 43 source.r comment.line
+T 58 source.r markdown.italic
+T 59 source.r comment.line
+T 60 source.r comment.line
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 69 source.r markup.quote
+T 70 source.r comment.line
+L #' Links: [stats::median()], [base:::sum], [mean()], [print] and <https://r-project.org>.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r meta.bracket
+T 16 source.r variable.object
+T 18 source.r keyword.operator
+T 24 source.r entity.name.function
+T 26 source.r meta.bracket
+T 27 source.r meta.bracket
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r meta.bracket
+T 34 source.r variable.object
+T 37 source.r keyword.operator
+T 40 source.r entity.name.function
+T 41 source.r meta.bracket
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r meta.bracket
+T 48 source.r entity.name.function
+T 50 source.r meta.bracket
+T 51 source.r meta.bracket
+T 52 source.r comment.line
+T 53 source.r comment.line
+T 54 source.r meta.bracket
+T 59 source.r entity.name.function
+T 60 source.r meta.bracket
+T 61 source.r comment.line
+T 62 source.r comment.line
+T 63 source.r comment.line
+T 64 source.r comment.line
+T 65 source.r comment.line
+T 88 source.r markup.underline.link
+T 89 source.r comment.line
+L #' Escapes: @@ and \code{x} and \eqn{a + b}.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 4 source.r comment.line
+T 5 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r comment.line
+T 8 source.r comment.line
+T 9 source.r comment.line
+T 10 source.r comment.line
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 14 source.r constant.character.escape
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 24 source.r keyword.other
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+T 30 source.r comment.line
+T 31 source.r comment.line
+T 32 source.r comment.line
+T 36 source.r keyword.other
+T 37 source.r comment.line
+T 38 source.r comment.line
+T 39 source.r comment.line
+T 40 source.r comment.line
+T 41 source.r comment.line
+T 42 source.r comment.line
+T 43 source.r comment.line
+T 44 source.r comment.line
+L #' @param x,y Numbers to add.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 9 source.r keyword.other
+T 10 source.r
+T 11 source.r variable.parameter
+T 12 source.r keyword.operator
+T 13 source.r variable.parameter
+T 14 source.r
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+T 25 source.r comment.line
+T 26 source.r comment.line
+T 27 source.r comment.line
+T 28 source.r comment.line
+T 29 source.r comment.line
+L #' @field value A field.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 9 source.r keyword.other
+T 10 source.r
+T 15 source.r variable.parameter
+T 16 source.r
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+T 22 source.r comment.line
+T 23 source.r comment.line
+T 24 source.r comment.line
+L #' @slot data A slot.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 8 source.r keyword.other
+T 9 source.r
+T 13 source.r variable.parameter
+T 14 source.r
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+T 20 source.r comment.line
+T 21 source.r comment.line
+L #' @return The sum.
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+T 11 source.r comment.line
+T 12 source.r comment.line
+T 13 source.r comment.line
+T 14 source.r comment.line
+T 15 source.r comment.line
+T 16 source.r comment.line
+T 17 source.r comment.line
+T 18 source.r comment.line
+T 19 source.r comment.line
+L #' @export
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 10 source.r keyword.other
+L #' ```r
+T 2 source.r comment.line.roxygen
+T 3 source.r comment.line
+T 6 source.r comment.line
+T 7 source.r entity.name.section
+L #' add(1, 2)
+T 2 source.r comment.line
+T 12 source.r
+L #' ```
+T 2 source.r comment.line
+T 3 source.r
+T 6 source.r comment.line
+L #' @examples
+T 2 source.r comment.line
+T 3 source.r
+T 12 source.r keyword.other
+L #' add(1, 2)
+T 2 source.r comment.line
+T 3 source.r
+T 6 source.r meta.function-call entity.name.function
+T 7 source.r meta.bracket
+T 8 source.r constant.numeric
+T 9 source.r keyword.operator
+T 10 source.r
+T 11 source.r constant.numeric
+T 12 source.r meta.bracket
+L #' if (TRUE) { add(x = 1, y = 2) } [1] \alpha @seealso
+T 2 source.r comment.line
+T 3 source.r
+T 5 source.r keyword
+T 6 source.r
+T 7 source.r meta.bracket
+T 11 source.r constant.language
+T 12 source.r meta.bracket
+T 13 source.r
+T 14 source.r meta.bracket
+T 15 source.r
+T 18 source.r meta.function-call entity.name.function
+T 19 source.r meta.bracket
+T 20 source.r variable.object
+T 21 source.r
+T 22 source.r keyword.operator
+T 23 source.r
+T 24 source.r constant.numeric
+T 25 source.r keyword.operator
+T 26 source.r
+T 27 source.r variable.object
+T 28 source.r
+T 29 source.r keyword.operator
+T 30 source.r
+T 31 source.r constant.numeric
+T 32 source.r meta.bracket
+T 33 source.r
+T 34 source.r meta.bracket
+T 35 source.r
+T 36 source.r meta.bracket
+T 37 source.r constant.numeric
+T 38 source.r meta.bracket
+T 39 source.r
+T 45 source.r keyword.other
+T 46 source.r
+T 54 source.r keyword.other
+L #' @examplesIf interactive()
+T 2 source.r comment.line
+T 3 source.r
+T 14 source.r keyword.other
+T 15 source.r
+T 26 source.r meta.function-call entity.name.function
+T 27 source.r meta.bracket
+T 28 source.r meta.bracket
+L #' add(3, 4)
+T 2 source.r comment.line
+T 3 source.r
+T 6 source.r meta.function-call entity.name.function
+T 7 source.r meta.bracket
+T 8 source.r constant.numeric
+T 9 source.r keyword.operator
+T 10 source.r
+T 11 source.r constant.numeric
+T 12 source.r meta.bracket
+L add <- function(x, y = 1, ...) {
+T 3 source.r variable.object
+T 4 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 15 source.r meta.function.definition keyword.other
+T 16 source.r meta.function.definition meta.bracket
+T 17 source.r meta.function.definition variable.parameter
+T 18 source.r meta.function.definition keyword.operator
+T 19 source.r meta.function.definition
+T 20 source.r meta.function.definition variable.parameter
+T 21 source.r meta.function.definition
+T 22 source.r meta.function.definition keyword.operator
+T 23 source.r meta.function.definition
+T 24 source.r meta.function.definition constant.numeric
+T 25 source.r meta.function.definition keyword.operator
+T 26 source.r meta.function.definition
+T 29 source.r meta.function.definition variable.parameter
+T 30 source.r meta.function.definition meta.bracket
+T 31 source.r
+T 32 source.r meta.bracket
+L   x + y
+T 2 source.r meta.bracket
+T 3 source.r meta.bracket variable.object
+T 4 source.r meta.bracket
+T 5 source.r meta.bracket keyword.operator
+T 6 source.r meta.bracket
+T 7 source.r meta.bracket variable.object
+L }
+T 1 source.r meta.bracket
+L 
+L f <- function (a, b) NULL
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 13 source.r meta.function.definition keyword.other
+T 14 source.r meta.function.definition
+T 15 source.r meta.function.definition meta.bracket
+T 16 source.r meta.function.definition variable.parameter
+T 17 source.r meta.function.definition keyword.operator
+T 18 source.r meta.function.definition
+T 19 source.r meta.function.definition variable.parameter
+T 20 source.r meta.function.definition meta.bracket
+T 21 source.r
+T 25 source.r constant.language
+L g <- \(x) x + 1
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 6 source.r
+T 7 source.r meta.bracket
+T 8 source.r meta.bracket variable.object
+T 9 source.r meta.bracket
+T 10 source.r
+T 11 source.r variable.object
+T 12 source.r
+T 13 source.r keyword.operator
+T 14 source.r
+T 15 source.r constant.numeric
+L h <- function() invisible()
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 13 source.r meta.function.definition keyword.other
+T 14 source.r meta.function.definition meta.bracket
+T 15 source.r meta.function.definition meta.bracket
+T 16 source.r
+T 25 source.r meta.function-call entity.name.function
+T 26 source.r meta.bracket
+T 27 source.r meta.bracket
+L 
+L x <- c(1L, 2.5, .5, 1e10, 1e-3, 2i, 0x1F, 0xFFp2L, 0x10i, 1.e5)
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 6 source.r meta.function-call entity.name.function
+T 7 source.r meta.bracket
+T 9 source.r meta.bracket constant.numeric
+T 10 source.r meta.bracket keyword.operator
+T 11 source.r meta.bracket
+T 14 source.r meta.bracket constant.numeric
+T 15 source.r meta.bracket keyword.operator
+T 16 source.r meta.bracket
+T 18 source.r meta.bracket variable.object
+T 19 source.r meta.bracket keyword.operator
+T 20 source.r meta.bracket
+T 24 source.r meta.bracket constant.numeric
+T 25 source.r meta.bracket keyword.operator
+T 26 source.r meta.bracket
+T 30 source.r meta.bracket constant.numeric
+T 31 source.r meta.bracket keyword.operator
+T 32 source.r meta.bracket
+T 34 source.r meta.bracket constant.numeric
+T 35 source.r meta.bracket keyword.operator
+T 36 source.r meta.bracket
+T 40 source.r meta.bracket constant.numeric
+T 41 source.r meta.bracket keyword.operator
+T 42 source.r meta.bracket
+T 49 source.r meta.bracket constant.numeric
+T 50 source.r meta.bracket keyword.operator
+T 51 source.r meta.bracket
+T 56 source.r meta.bracket constant.numeric
+T 57 source.r meta.bracket keyword.operator
+T 58 source.r meta.bracket
+T 62 source.r meta.bracket constant.numeric
+T 63 source.r meta.bracket
+L y <- TRUE && FALSE || NA
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 9 source.r constant.language
+T 10 source.r
+T 12 source.r keyword.operator
+T 13 source.r
+T 18 source.r constant.language
+T 19 source.r
+T 21 source.r keyword.operator
+T 22 source.r
+T 24 source.r constant.language
+L z <- list(NULL, Inf, NaN, NA_integer_, NA_real_, NA_complex_, NA_character_)
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 9 source.r meta.function-call entity.name.function
+T 10 source.r meta.bracket
+T 14 source.r meta.bracket constant.language
+T 15 source.r meta.bracket keyword.operator
+T 16 source.r meta.bracket
+T 19 source.r meta.bracket constant.language
+T 20 source.r meta.bracket keyword.operator
+T 21 source.r meta.bracket
+T 24 source.r meta.bracket constant.language
+T 25 source.r meta.bracket keyword.operator
+T 26 source.r meta.bracket
+T 37 source.r meta.bracket constant.language
+T 38 source.r meta.bracket keyword.operator
+T 39 source.r meta.bracket
+T 47 source.r meta.bracket constant.language
+T 48 source.r meta.bracket keyword.operator
+T 49 source.r meta.bracket
+T 60 source.r meta.bracket constant.language
+T 61 source.r meta.bracket keyword.operator
+T 62 source.r meta.bracket
+T 75 source.r meta.bracket constant.language
+T 76 source.r meta.bracket
+L 
+L s1 <- 'single \' quote \\ \n \t \x41 \101 é \U{1F600} \q'
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 7 source.r string.quoted.single
+T 14 source.r string.quoted.single
+T 16 source.r string.quoted.single constant.character.escape
+T 23 source.r string.quoted.single
+T 25 source.r string.quoted.single constant.character.escape
+T 26 source.r string.quoted.single
+T 28 source.r string.quoted.single constant.character.escape
+T 29 source.r string.quoted.single
+T 31 source.r string.quoted.single constant.character.escape
+T 32 source.r string.quoted.single
+T 36 source.r string.quoted.single constant.numeric
+T 37 source.r string.quoted.single
+T 41 source.r string.quoted.single constant.character.escape
+T 45 source.r string.quoted.single
+T 54 source.r string.quoted.single constant.character.escape
+T 55 source.r string.quoted.single
+T 57 source.r string.quoted.single invalid
+T 58 source.r string.quoted.single
+L s2 <- "double \" quote \a \b \e \f \r \v \` \1"
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 7 source.r string.quoted.double
+T 14 source.r string.quoted.double
+T 16 source.r string.quoted.double constant.character.escape
+T 23 source.r string.quoted.double
+T 25 source.r string.quoted.double constant.character.escape
+T 26 source.r string.quoted.double
+T 28 source.r string.quoted.double constant.character.escape
+T 29 source.r string.quoted.double
+T 31 source.r string.quoted.double constant.character.escape
+T 32 source.r string.quoted.double
+T 34 source.r string.quoted.double constant.character.escape
+T 35 source.r string.quoted.double
+T 37 source.r string.quoted.double constant.character.escape
+T 38 source.r string.quoted.double
+T 40 source.r string.quoted.double constant.character.escape
+T 41 source.r string.quoted.double
+T 43 source.r string.quoted.double constant.character.escape
+T 44 source.r string.quoted.double
+T 46 source.r string.quoted.double constant.character.escape
+T 47 source.r string.quoted.double
+L r1 <- r"(raw (string))"
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 9 source.r string.quoted.other
+T 21 source.r string.quoted.other
+T 23 source.r string.quoted.other
+L r2 <- R"--[raw ]-- string]--"
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 11 source.r string.quoted.other
+T 25 source.r string.quoted.other
+T 29 source.r string.quoted.other
+L r3 <- r'{raw '' string}'
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 9 source.r string.quoted.other
+T 22 source.r string.quoted.other
+T 24 source.r string.quoted.other
+L r4 <- R'-(raw)-'
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 10 source.r string.quoted.other
+T 13 source.r string.quoted.other
+T 16 source.r string.quoted.other
+L r5 <- r"[raw]"
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 9 source.r string.quoted.other
+T 12 source.r string.quoted.other
+T 14 source.r string.quoted.other
+L r6 <- r'[raw]'
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 9 source.r string.quoted.other
+T 12 source.r string.quoted.other
+T 14 source.r string.quoted.other
+L r7 <- r"{raw}"
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 9 source.r string.quoted.other
+T 12 source.r string.quoted.other
+T 14 source.r string.quoted.other
+L r8 <- R'(raw)'
+T 2 source.r variable.object
+T 3 source.r
+T 5 source.r keyword.operator
+T 6 source.r
+T 9 source.r string.quoted.other
+T 12 source.r string.quoted.other
+T 14 source.r string.quoted.other
+L `odd name` <- 1
+T 1 source.r variable.object
+T 9 source.r variable.object
+T 10 source.r variable.object
+T 11 source.r
+T 13 source.r keyword.operator
+T 14 source.r
+T 15 source.r constant.numeric
+L `with \` tick` <- 2
+T 1 source.r variable.object
+T 6 source.r variable.object
+T 8 source.r variable.object
+T 13 source.r variable.object
+T 14 source.r variable.object
+T 15 source.r
+T 17 source.r keyword.operator
+T 18 source.r
+T 19 source.r constant.numeric
+L 
+L if (x > 1) {
+T 2 source.r keyword
+T 3 source.r
+T 4 source.r meta.bracket
+T 5 source.r meta.bracket variable.object
+T 6 source.r meta.bracket
+T 7 source.r meta.bracket keyword.operator
+T 8 source.r meta.bracket
+T 9 source.r meta.bracket constant.numeric
+T 10 source.r meta.bracket
+T 11 source.r
+T 12 source.r meta.bracket
+L   print("yes")
+T 2 source.r meta.bracket
+T 7 source.r meta.bracket meta.function-call entity.name.function
+T 8 source.r meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket string.quoted.double
+T 14 source.r meta.bracket meta.bracket
+L } else if (x == 2) {
+T 1 source.r meta.bracket
+T 2 source.r
+T 6 source.r keyword
+T 7 source.r
+T 9 source.r keyword
+T 10 source.r
+T 11 source.r meta.bracket
+T 12 source.r meta.bracket variable.object
+T 13 source.r meta.bracket
+T 15 source.r meta.bracket keyword.operator
+T 16 source.r meta.bracket
+T 17 source.r meta.bracket constant.numeric
+T 18 source.r meta.bracket
+T 19 source.r
+T 20 source.r meta.bracket
+L   print("no")
+T 2 source.r meta.bracket
+T 7 source.r meta.bracket meta.function-call entity.name.function
+T 8 source.r meta.bracket meta.bracket
+T 9 source.r meta.bracket meta.bracket string.quoted.double
+T 11 source.r meta.bracket meta.bracket string.quoted.double
+T 12 source.r meta.bracket meta.bracket string.quoted.double
+T 13 source.r meta.bracket meta.bracket
+L } else {
+T 1 source.r meta.bracket
+T 2 source.r
+T 6 source.r keyword
+T 7 source.r
+T 8 source.r meta.bracket
+L   next
+T 2 source.r meta.bracket
+T 6 source.r meta.bracket keyword
+L }
+T 1 source.r meta.bracket
+L for (i in seq_len(10)) break
+T 3 source.r keyword
+T 4 source.r
+T 5 source.r meta.bracket
+T 6 source.r meta.bracket variable.object
+T 7 source.r meta.bracket
+T 9 source.r meta.bracket keyword
+T 10 source.r meta.bracket
+T 17 source.r meta.bracket meta.function-call entity.name.function
+T 18 source.r meta.bracket meta.bracket
+T 20 source.r meta.bracket meta.bracket constant.numeric
+T 21 source.r meta.bracket meta.bracket
+T 22 source.r meta.bracket
+T 23 source.r
+T 28 source.r keyword
+L while (FALSE) repeat {}
+T 5 source.r keyword
+T 6 source.r
+T 7 source.r meta.bracket
+T 12 source.r meta.bracket constant.language
+T 13 source.r meta.bracket
+T 14 source.r
+T 20 source.r keyword
+T 21 source.r
+T 22 source.r meta.bracket
+T 23 source.r meta.bracket
+L 
+L stats::median(x)
+T 5 source.r entity.name.namespace.r
+T 7 source.r keyword.operator
+T 13 source.r meta.function-call entity.name.function
+T 14 source.r meta.bracket
+T 15 source.r meta.bracket variable.object
+T 16 source.r meta.bracket
+L base:::sum(x)
+T 4 source.r entity.name.namespace.r
+T 7 source.r keyword.operator
+T 10 source.r meta.function-call entity.name.function
+T 11 source.r meta.bracket
+T 12 source.r meta.bracket variable.object
+T 13 source.r meta.bracket
+L pkg.name::fun.name(arg = 1, other=2)
+T 8 source.r entity.name.namespace.r
+T 10 source.r keyword.operator
+T 18 source.r meta.function-call entity.name.function
+T 19 source.r meta.bracket
+T 22 source.r meta.bracket variable.parameter
+T 23 source.r meta.bracket
+T 24 source.r meta.bracket keyword.operator
+T 25 source.r meta.bracket
+T 26 source.r meta.bracket constant.numeric
+T 27 source.r meta.bracket keyword.operator
+T 28 source.r meta.bracket
+T 33 source.r meta.bracket variable.parameter
+T 34 source.r meta.bracket keyword.operator
+T 35 source.r meta.bracket constant.numeric
+T 36 source.r meta.bracket
+L df[x == 1, col = 2]
+T 2 source.r variable.object
+T 3 source.r meta.bracket
+T 4 source.r meta.bracket variable.object
+T 5 source.r meta.bracket
+T 7 source.r meta.bracket keyword.operator
+T 8 source.r meta.bracket
+T 9 source.r meta.bracket constant.numeric
+T 10 source.r meta.bracket keyword.operator
+T 11 source.r meta.bracket
+T 14 source.r meta.bracket variable.parameter
+T 15 source.r meta.bracket
+T 16 source.r meta.bracket keyword.operator
+T 17 source.r meta.bracket
+T 18 source.r meta.bracket constant.numeric
+T 19 source.r meta.bracket
+L df[[1]]
+T 2 source.r variable.object
+T 3 source.r meta.bracket
+T 4 source.r meta.bracket meta.bracket
+T 5 source.r meta.bracket meta.bracket constant.numeric
+T 6 source.r meta.bracket meta.bracket
+T 7 source.r meta.bracket
+L 
+L a <- 1; a <<- 2; 3 -> b; 4 ->> d; e = 5
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 6 source.r constant.numeric
+T 8 source.r
+T 9 source.r variable.object
+T 10 source.r
+T 13 source.r keyword.operator
+T 14 source.r
+T 15 source.r constant.numeric
+T 17 source.r
+T 18 source.r constant.numeric
+T 19 source.r
+T 21 source.r keyword.operator
+T 22 source.r
+T 23 source.r variable.object
+T 25 source.r
+T 26 source.r constant.numeric
+T 27 source.r
+T 30 source.r keyword.operator
+T 31 source.r
+T 32 source.r variable.object
+T 34 source.r
+T 35 source.r variable.object
+T 36 source.r
+T 37 source.r keyword.operator
+T 38 source.r
+T 39 source.r constant.numeric
+L x %in% y; x %>% f(); x %% 2; x %/% 2
+T 1 source.r variable.object
+T 2 source.r
+T 6 source.r keyword.operator
+T 7 source.r
+T 8 source.r variable.object
+T 10 source.r
+T 11 source.r variable.object
+T 12 source.r
+T 15 source.r keyword.operator
+T 16 source.r
+T 17 source.r meta.function-call entity.name.function
+T 18 source.r meta.bracket
+T 19 source.r meta.bracket
+T 21 source.r
+T 22 source.r variable.object
+T 23 source.r
+T 25 source.r keyword.operator
+T 26 source.r
+T 27 source.r constant.numeric
+T 29 source.r
+T 30 source.r variable.object
+T 31 source.r
+T 34 source.r keyword.operator
+T 35 source.r
+T 36 source.r constant.numeric
+L x |> f(); \(x) x; function(x) x => 1
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 6 source.r meta.function-call entity.name.function
+T 7 source.r meta.bracket
+T 8 source.r meta.bracket
+T 11 source.r
+T 12 source.r meta.bracket
+T 13 source.r meta.bracket variable.object
+T 14 source.r meta.bracket
+T 15 source.r
+T 16 source.r variable.object
+T 18 source.r
+T 26 source.r meta.function.definition keyword.other
+T 27 source.r meta.function.definition meta.bracket
+T 28 source.r meta.function.definition variable.parameter
+T 29 source.r meta.function.definition meta.bracket
+T 30 source.r
+T 31 source.r variable.object
+T 32 source.r
+T 34 source.r keyword.operator
+T 35 source.r
+T 36 source.r constant.numeric
+L x := 1; x != 2; x >= 3; x <= 4; x == 5
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 6 source.r constant.numeric
+T 8 source.r
+T 9 source.r variable.object
+T 10 source.r
+T 12 source.r keyword.operator
+T 13 source.r
+T 14 source.r constant.numeric
+T 16 source.r
+T 17 source.r variable.object
+T 18 source.r
+T 20 source.r keyword.operator
+T 21 source.r
+T 22 source.r constant.numeric
+T 24 source.r
+T 25 source.r variable.object
+T 26 source.r
+T 28 source.r keyword.operator
+T 29 source.r
+T 30 source.r constant.numeric
+T 32 source.r
+T 33 source.r variable.object
+T 34 source.r
+T 36 source.r keyword.operator
+T 37 source.r
+T 38 source.r constant.numeric
+L x ** 2; x * 3; x / 4; x ^ 5; !x; -x; +x
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 6 source.r constant.numeric
+T 8 source.r
+T 9 source.r variable.object
+T 10 source.r
+T 11 source.r keyword.operator
+T 12 source.r
+T 13 source.r constant.numeric
+T 15 source.r
+T 16 source.r variable.object
+T 17 source.r
+T 18 source.r keyword.operator
+T 19 source.r
+T 20 source.r constant.numeric
+T 22 source.r
+T 23 source.r variable.object
+T 24 source.r
+T 25 source.r keyword.operator
+T 26 source.r
+T 27 source.r constant.numeric
+T 29 source.r
+T 30 source.r keyword.operator
+T 31 source.r variable.object
+T 33 source.r
+T 34 source.r keyword.operator
+T 35 source.r variable.object
+T 37 source.r
+T 38 source.r keyword.operator
+T 39 source.r variable.object
+L ~ x; x ? y; x@slot; x$name; x & y; x | y
+T 1 source.r keyword.operator
+T 2 source.r
+T 3 source.r variable.object
+T 5 source.r
+T 6 source.r variable.object
+T 7 source.r
+T 8 source.r keyword.operator
+T 9 source.r
+T 10 source.r variable.object
+T 12 source.r
+T 13 source.r variable.object
+T 14 source.r keyword.operator
+T 18 source.r variable.object
+T 20 source.r
+T 21 source.r variable.object
+T 22 source.r keyword.operator
+T 26 source.r variable.object
+T 28 source.r
+T 29 source.r variable.object
+T 30 source.r
+T 31 source.r keyword.operator
+T 32 source.r
+T 33 source.r variable.object
+T 35 source.r
+T 36 source.r variable.object
+T 37 source.r
+T 38 source.r keyword.operator
+T 39 source.r
+T 40 source.r variable.object
+L x : y; x < y; x > y
+T 1 source.r variable.object
+T 2 source.r
+T 3 source.r keyword.operator
+T 4 source.r
+T 5 source.r variable.object
+T 7 source.r
+T 8 source.r variable.object
+T 9 source.r
+T 10 source.r keyword.operator
+T 11 source.r
+T 12 source.r variable.object
+T 14 source.r
+T 15 source.r variable.object
+T 16 source.r
+T 17 source.r keyword.operator
+T 18 source.r
+T 19 source.r variable.object
+L 
+L setGroupGeneric("g"); setRefClass("C"); setGeneric("f"); NextMethod()
+T 15 source.r keyword.other
+T 16 source.r meta.bracket
+T 17 source.r meta.bracket string.quoted.double
+T 18 source.r meta.bracket string.quoted.double
+T 19 source.r meta.bracket string.quoted.double
+T 20 source.r meta.bracket
+T 22 source.r
+T 33 source.r keyword.other
+T 34 source.r meta.bracket
+T 35 source.r meta.bracket string.quoted.double
+T 36 source.r meta.bracket string.quoted.double
+T 37 source.r meta.bracket string.quoted.double
+T 38 source.r meta.bracket
+T 40 source.r
+T 50 source.r keyword.other
+T 51 source.r meta.bracket
+T 52 source.r meta.bracket string.quoted.double
+T 53 source.r meta.bracket string.quoted.double
+T 54 source.r meta.bracket string.quoted.double
+T 55 source.r meta.bracket
+T 57 source.r
+T 67 source.r keyword.other
+T 68 source.r meta.bracket
+T 69 source.r meta.bracket
+L setMethod("f", "C", identity); UseMethod("f"); tryCatch(stop("e"), error = identity)
+T 9 source.r keyword.other
+T 10 source.r meta.bracket
+T 11 source.r meta.bracket string.quoted.double
+T 12 source.r meta.bracket string.quoted.double
+T 13 source.r meta.bracket string.quoted.double
+T 14 source.r meta.bracket keyword.operator
+T 15 source.r meta.bracket
+T 16 source.r meta.bracket string.quoted.double
+T 17 source.r meta.bracket string.quoted.double
+T 18 source.r meta.bracket string.quoted.double
+T 19 source.r meta.bracket keyword.operator
+T 20 source.r meta.bracket
+T 28 source.r meta.bracket variable.object
+T 29 source.r meta.bracket
+T 31 source.r
+T 40 source.r keyword.other
+T 41 source.r meta.bracket
+T 42 source.r meta.bracket string.quoted.double
+T 43 source.r meta.bracket string.quoted.double
+T 44 source.r meta.bracket string.quoted.double
+T 45 source.r meta.bracket
+T 47 source.r
+T 55 source.r keyword.other
+T 56 source.r meta.bracket
+T 60 source.r meta.bracket keyword.other
+T 61 source.r meta.bracket meta.bracket
+T 62 source.r meta.bracket meta.bracket string.quoted.double
+T 63 source.r meta.bracket meta.bracket string.quoted.double
+T 64 source.r meta.bracket meta.bracket string.quoted.double
+T 65 source.r meta.bracket meta.bracket
+T 66 source.r meta.bracket keyword.operator
+T 67 source.r meta.bracket
+T 72 source.r meta.bracket variable.parameter
+T 73 source.r meta.bracket
+T 74 source.r meta.bracket keyword.operator
+T 75 source.r meta.bracket
+T 83 source.r meta.bracket variable.object
+T 84 source.r meta.bracket
+L setClass("C"); warning("w"); R6Class("C"); return(1); switch(x, a = 1)
+T 8 source.r keyword.other
+T 9 source.r meta.bracket
+T 10 source.r meta.bracket string.quoted.double
+T 11 source.r meta.bracket string.quoted.double
+T 12 source.r meta.bracket string.quoted.double
+T 13 source.r meta.bracket
+T 15 source.r
+T 22 source.r keyword.other
+T 23 source.r meta.bracket
+T 24 source.r meta.bracket string.quoted.double
+T 25 source.r meta.bracket string.quoted.double
+T 26 source.r meta.bracket string.quoted.double
+T 27 source.r meta.bracket
+T 29 source.r
+T 36 source.r keyword.other
+T 37 source.r meta.bracket
+T 38 source.r meta.bracket string.quoted.double
+T 39 source.r meta.bracket string.quoted.double
+T 40 source.r meta.bracket string.quoted.double
+T 41 source.r meta.bracket
+T 43 source.r
+T 49 source.r keyword.other
+T 50 source.r meta.bracket
+T 51 source.r meta.bracket constant.numeric
+T 52 source.r meta.bracket
+T 54 source.r
+T 60 source.r keyword.other
+T 61 source.r meta.bracket
+T 62 source.r meta.bracket variable.object
+T 63 source.r meta.bracket keyword.operator
+T 64 source.r meta.bracket
+T 65 source.r meta.bracket variable.parameter
+T 66 source.r meta.bracket
+T 67 source.r meta.bracket keyword.operator
+T 68 source.r meta.bracket
+T 69 source.r meta.bracket constant.numeric
+T 70 source.r meta.bracket
+L attach(df); detach(df); source("f.R"); try(1)
+T 6 source.r keyword.other
+T 7 source.r meta.bracket
+T 9 source.r meta.bracket variable.object
+T 10 source.r meta.bracket
+T 12 source.r
+T 18 source.r keyword.other
+T 19 source.r meta.bracket
+T 21 source.r meta.bracket variable.object
+T 22 source.r meta.bracket
+T 24 source.r
+T 30 source.r keyword.other
+T 31 source.r meta.bracket
+T 32 source.r meta.bracket string.quoted.double
+T 35 source.r meta.bracket string.quoted.double
+T 36 source.r meta.bracket string.quoted.double
+T 37 source.r meta.bracket
+T 39 source.r
+T 42 source.r keyword.other
+T 43 source.r meta.bracket
+T 44 source.r meta.bracket constant.numeric
+T 45 source.r meta.bracket
+L 

@@ -358,6 +358,13 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Perl),
     },
+    // The grammar's `[RSrs]|Rprofile|\{\.r.+?}`, matched without case.
+    #[cfg(feature = "lang-r")]
+    Name {
+        words: &["r", "s", "rprofile"],
+        brace: Some("r"),
+        embed: Embed::Lang(Language::R),
+    },
     // The grammar's `php3??|php4|php5|phpt|phtml|aw|ctp`.
     #[cfg(feature = "lang-html")]
     Name {

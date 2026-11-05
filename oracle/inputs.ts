@@ -55,6 +55,7 @@ import postcssCoverage from "./inputs/postcss-coverage.pcss" with { type: "text"
 import powershellCoverage from "./inputs/powershell-coverage.ps1" with { type: "text" };
 import protoCoverage from "./inputs/proto-coverage.proto" with { type: "text" };
 import pythonCoverage from "./inputs/python-coverage.py" with { type: "text" };
+import rCoverage from "./inputs/r-coverage.R" with { type: "text" };
 import rubyCoverage from "./inputs/ruby-coverage.rb" with { type: "text" };
 import rubyCppLuaHeredocs from "./inputs/ruby-cpp-lua-heredocs.rb" with { type: "text" };
 import rubyEndHtml from "./inputs/ruby-end-html.rb" with { type: "text" };
@@ -198,6 +199,8 @@ const dotnetInstall =
   "https://raw.githubusercontent.com/dotnet/install-scripts/e5cf1dd2d1540ed05ac84f8eb8c5cdec2807621e";
 const dotnetRuntime =
   "https://raw.githubusercontent.com/dotnet/runtime/6375d63af99b6812f11b4dd8c4a18d227e277d73";
+const dplyr =
+  "https://raw.githubusercontent.com/tidyverse/dplyr/819c99f7284b3a413b391c60bea49ae7bfb8bafc";
 const elixirLang =
   "https://raw.githubusercontent.com/elixir-lang/elixir/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde";
 const eslint =
@@ -214,6 +217,8 @@ const fmt =
   "https://raw.githubusercontent.com/fmtlib/fmt/4ed3535092a96ac9f56fab80df83416d51bcc78e";
 const foundation =
   "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/cbfe1c7376ffe869d08b1b5f643d747ef0a16069";
+const ggplot2 =
+  "https://raw.githubusercontent.com/tidyverse/ggplot2/b638d654c8189db82a62307fefa84b1da1819da5";
 const gin =
   "https://raw.githubusercontent.com/gin-gonic/gin/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646";
 const githubMarkdownCss =
@@ -1252,6 +1257,13 @@ export const inputs: Input[] = [
   { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
   { lang: "python", name: "ruff-class", url: `${ruff}/crates/ruff_python_parser/resources/valid/statement/class.py` },
   { lang: "python", name: "sample", url: `${samples}/python.sample` },
+  { lang: "r", name: "coverage", text: rCoverage },
+  { lang: "r", name: "dplyr-across", url: `${dplyr}/R/across.R` },
+  { lang: "r", name: "dplyr-case-when", url: `${dplyr}/R/case-when.R` },
+  { lang: "r", name: "dplyr-filter", url: `${dplyr}/R/filter.R` },
+  { lang: "r", name: "dplyr-mutate", url: `${dplyr}/R/mutate.R` },
+  { lang: "r", name: "ggplot2-geom-point", url: `${ggplot2}/R/geom-point.R` },
+  { lang: "r", name: "sample", url: `${samples}/r.sample` },
   { lang: "ruby", name: "coverage", text: rubyCoverage },
   { lang: "ruby", name: "cpp-lua-heredocs", text: rubyCppLuaHeredocs },
   { lang: "ruby", name: "devise", url: `${devise}/lib/devise.rb` },

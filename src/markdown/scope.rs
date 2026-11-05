@@ -84,6 +84,8 @@ crate::scope::scope_table! {
     EmbeddedPowershell "meta.embedded.block.powershell"
     #[cfg(feature = "lang-python")]
     EmbeddedPython "meta.embedded.block.python"
+    #[cfg(feature = "lang-r")]
+    EmbeddedR "meta.embedded.block.r"
     #[cfg(feature = "lang-ruby")]
     EmbeddedRuby "meta.embedded.block.ruby"
     #[cfg(feature = "lang-rust")]

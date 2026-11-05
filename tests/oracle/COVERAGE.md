@@ -45,7 +45,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
-| Markdown | `markdown` | 225 of 311 | 72.3% | 286 of 373 | 76.7% | 173 | 0 | yes |
+| Markdown | `markdown` | 229 of 311 | 73.6% | 290 of 373 | 77.7% | 165 | 0 | yes |
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
 | MATLAB | `matlab` | 127 of 132 | 96.2% | 77 of 91 | 84.6% | 19 | 0 | yes |
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
@@ -59,6 +59,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Protobuf | `proto` | 40 of 40 | 100.0% | 58 of 58 | 100.0% | 0 | 0 | yes |
 | Python | `python` | 349 of 350 | 99.7% | 311 of 372 | 83.6% | 62 | 0 | yes |
+| R | `r` | 70 of 71 | 98.6% | 25 of 25 | 100.0% | 1 | 0 | yes |
 | Ruby | `ruby` | 328 of 336 | 97.6% | 284 of 293 | 96.9% | 17 | 0 | yes |
 | Rust | `rust` | 94 of 95 | 98.9% | 97 of 99 | 98.0% | 3 | 0 | yes |
 | Sass | `sass` | 78 of 78 | 100.0% | 11 of 20 | 55.0% | 9 | 0 | yes |
@@ -675,10 +676,6 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #fenced_code_block_pug.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_pug.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_pug.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_r.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:([RSrs]|Rprofile|\{\.r.+?})(…  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_r.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_r.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_r.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.r`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_regexp_python.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(re)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_regexp_python.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_regexp_python.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
@@ -1011,6 +1008,12 @@ patterns[13].end  groups 0 (waived: the end matches only the line feed or a look
 #string-raw-bin-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
 #string-raw-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
 #string-raw-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+```
+
+### `r`
+
+```text
+#basic-roxygen-example.patterns[0].match  ^\s*#+'  waived: `#roxygen-example.patterns[0]`, the same expression, comes before it in the one list that holds it
 ```
 
 ### `ruby`

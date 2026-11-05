@@ -854,11 +854,10 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - The Python, JavaScript and SQL inside `py"""`, `js"""` and `sql"""` string macros are lexed as those languages, up to the macro's closing quotes or a `$` interpolation that the embedded language does not match.
+    /// - The Python, JavaScript, SQL and R inside `py"""`, `js"""`, `sql"""` and `R"""` string macros are lexed as those languages, up to the macro's closing quotes or a `$` interpolation that the embedded language does not match.
     /// - The end of `py"""` takes the spaces and word characters before its quotes, so a name before `"""` loses its Python scopes.
     /// - The C++ inside a `cxx"""` or `icxx"""` string macro is plain.
     ///   The grammar includes `source.cpp#root_context`, a rule the C++ grammar does not have.
-    /// - An R string macro is plain text; nishiki has no R lexer.
     /// - A `for` head runs to the end of a line that does not end in a comma.
     /// - A type declaration needs a literal `!:_` before `struct`, as the grammar's pattern reads, so in `struct Foo` the name gets no scope.
     /// - The identifier classes and the operator classes for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/julia-grammar.ts`).
@@ -1161,6 +1160,23 @@ languages! {
     ///   Shiki's injection adds them in every `source.ts` and `source.js` of the document.
     ///   One example is a script in the HTML of an `@component` comment's Markdown.
     Svelte { feature: "lang-svelte", names: ["svelte"], module: svelte }
+    /// R, with the scopes of Shiki's `r` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A fence opened in a roxygen comment, such as `` #' ``` ``, stays open past the comment's line.
+    ///   Until a run of as many backticks closes it, anywhere, the lines are plain text, apart from a leading `#'`.
+    ///   So R code after a fence that the comment never closes is not highlighted.
+    /// - After `#' @examples`, the lines are R, with each leading `#'` a comment.
+    ///   The block ends at a line that does not start with `#'`, or that goes on with a tag such as `#' @export`.
+    ///   An indented `#'` line ends it too, one blank before the `#`.
+    /// - `.5` is a name, not a number, because names come first and may start with a dot.
+    /// - `return`, `library`, `stop` and the other built-in functions are `keyword.other` only before a `(`.
+    /// - `%` starts an operator that runs to the next `%` on the line, such as `%in%` or `%>%`.
+    /// - A number's exponent may have no digits, so `1e` and `1e+` are numbers.
+    /// - `\w` and `\d` for non-ASCII characters come from the tables measured on Shiki's engine, and so do the `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` of names (`oracle/classes.ts`).
+    /// - A Markdown fence names the language `r`, `s` or `rprofile`, in any case, or `{.r …}`.
+    R { feature: "lang-r", names: ["r"], module: r, halts: true }
 }
 
 impl Language {

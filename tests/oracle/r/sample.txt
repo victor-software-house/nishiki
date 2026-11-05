@@ -1,0 +1,305 @@
+L Year.Release <- game$Year.Release
+T 12 source.r variable.object
+T 13 source.r
+T 15 source.r keyword.operator
+T 16 source.r
+T 20 source.r variable.object
+T 21 source.r keyword.operator
+T 33 source.r variable.object
+L counts <- data.frame(table(Year.Release))
+T 6 source.r variable.object
+T 7 source.r
+T 9 source.r keyword.operator
+T 10 source.r
+T 20 source.r meta.function-call entity.name.function
+T 21 source.r meta.bracket
+T 26 source.r meta.bracket meta.function-call entity.name.function
+T 27 source.r meta.bracket meta.bracket
+T 39 source.r meta.bracket meta.bracket variable.object
+T 40 source.r meta.bracket meta.bracket
+T 41 source.r meta.bracket
+L p <- game %>%
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 9 source.r variable.object
+T 10 source.r
+T 13 source.r keyword.operator
+L   select(Year.Release, Global.Sales) %>%
+T 2 source.r
+T 8 source.r meta.function-call entity.name.function
+T 9 source.r meta.bracket
+T 21 source.r meta.bracket variable.object
+T 22 source.r meta.bracket keyword.operator
+T 23 source.r meta.bracket
+T 35 source.r meta.bracket variable.object
+T 36 source.r meta.bracket
+T 37 source.r
+T 40 source.r keyword.operator
+L   group_by(Year.Release) %>%
+T 2 source.r
+T 10 source.r meta.function-call entity.name.function
+T 11 source.r meta.bracket
+T 23 source.r meta.bracket variable.object
+T 24 source.r meta.bracket
+T 25 source.r
+T 28 source.r keyword.operator
+L   summarise(Total.Sales = sum(Global.Sales))
+T 2 source.r
+T 11 source.r meta.function-call entity.name.function
+T 12 source.r meta.bracket
+T 23 source.r meta.bracket variable.parameter
+T 24 source.r meta.bracket
+T 25 source.r meta.bracket keyword.operator
+T 26 source.r meta.bracket
+T 29 source.r meta.bracket meta.function-call entity.name.function
+T 30 source.r meta.bracket meta.bracket
+T 42 source.r meta.bracket meta.bracket variable.object
+T 43 source.r meta.bracket meta.bracket
+T 44 source.r meta.bracket
+L q <- cbind.data.frame(p, counts[2])  # Add counts to data frame
+T 1 source.r variable.object
+T 2 source.r
+T 4 source.r keyword.operator
+T 5 source.r
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 23 source.r meta.bracket variable.object
+T 24 source.r meta.bracket keyword.operator
+T 25 source.r meta.bracket
+T 31 source.r meta.bracket variable.object
+T 32 source.r meta.bracket meta.bracket
+T 33 source.r meta.bracket meta.bracket constant.numeric
+T 34 source.r meta.bracket meta.bracket
+T 35 source.r meta.bracket
+T 37 source.r
+T 63 source.r comment.line
+L names(q)[3] <- "count"
+T 5 source.r meta.function-call entity.name.function
+T 6 source.r meta.bracket
+T 7 source.r meta.bracket variable.object
+T 8 source.r meta.bracket
+T 9 source.r meta.bracket
+T 10 source.r meta.bracket constant.numeric
+T 11 source.r meta.bracket
+T 12 source.r
+T 14 source.r keyword.operator
+T 15 source.r
+T 16 source.r string.quoted.double
+T 21 source.r string.quoted.double
+T 22 source.r string.quoted.double
+L q$count <- as.numeric(q$count)
+T 1 source.r variable.object
+T 2 source.r keyword.operator
+T 7 source.r variable.object
+T 8 source.r
+T 10 source.r keyword.operator
+T 11 source.r
+T 21 source.r meta.function-call entity.name.function
+T 22 source.r meta.bracket
+T 23 source.r meta.bracket variable.object
+T 24 source.r meta.bracket keyword.operator
+T 29 source.r meta.bracket variable.object
+T 30 source.r meta.bracket
+L 
+L ggplot(q, aes(x = Year.Release, y = Total.Sales, label = q$count)) +
+T 6 source.r meta.function-call entity.name.function
+T 7 source.r meta.bracket
+T 8 source.r meta.bracket variable.object
+T 9 source.r meta.bracket keyword.operator
+T 10 source.r meta.bracket
+T 13 source.r meta.bracket meta.function-call entity.name.function
+T 14 source.r meta.bracket meta.bracket
+T 15 source.r meta.bracket meta.bracket variable.parameter
+T 16 source.r meta.bracket meta.bracket
+T 17 source.r meta.bracket meta.bracket keyword.operator
+T 18 source.r meta.bracket meta.bracket
+T 30 source.r meta.bracket meta.bracket variable.object
+T 31 source.r meta.bracket meta.bracket keyword.operator
+T 32 source.r meta.bracket meta.bracket
+T 33 source.r meta.bracket meta.bracket variable.parameter
+T 34 source.r meta.bracket meta.bracket
+T 35 source.r meta.bracket meta.bracket keyword.operator
+T 36 source.r meta.bracket meta.bracket
+T 47 source.r meta.bracket meta.bracket variable.object
+T 48 source.r meta.bracket meta.bracket keyword.operator
+T 49 source.r meta.bracket meta.bracket
+T 54 source.r meta.bracket meta.bracket variable.parameter
+T 55 source.r meta.bracket meta.bracket
+T 56 source.r meta.bracket meta.bracket keyword.operator
+T 57 source.r meta.bracket meta.bracket
+T 58 source.r meta.bracket meta.bracket variable.object
+T 59 source.r meta.bracket meta.bracket keyword.operator
+T 64 source.r meta.bracket meta.bracket variable.object
+T 65 source.r meta.bracket meta.bracket
+T 66 source.r meta.bracket
+T 67 source.r
+T 68 source.r keyword.operator
+L   geom_col(fill = "green") +
+T 2 source.r
+T 10 source.r meta.function-call entity.name.function
+T 11 source.r meta.bracket
+T 15 source.r meta.bracket variable.parameter
+T 16 source.r meta.bracket
+T 17 source.r meta.bracket keyword.operator
+T 18 source.r meta.bracket
+T 19 source.r meta.bracket string.quoted.double
+T 24 source.r meta.bracket string.quoted.double
+T 25 source.r meta.bracket string.quoted.double
+T 26 source.r meta.bracket
+T 27 source.r
+T 28 source.r keyword.operator
+L   geom_point(y = q$count * 500000, size = 3, shape = 21, fill = "Yellow" ) +
+T 2 source.r
+T 12 source.r meta.function-call entity.name.function
+T 13 source.r meta.bracket
+T 14 source.r meta.bracket variable.parameter
+T 15 source.r meta.bracket
+T 16 source.r meta.bracket keyword.operator
+T 17 source.r meta.bracket
+T 18 source.r meta.bracket variable.object
+T 19 source.r meta.bracket keyword.operator
+T 24 source.r meta.bracket variable.object
+T 25 source.r meta.bracket
+T 26 source.r meta.bracket keyword.operator
+T 27 source.r meta.bracket
+T 33 source.r meta.bracket constant.numeric
+T 34 source.r meta.bracket keyword.operator
+T 35 source.r meta.bracket
+T 39 source.r meta.bracket variable.parameter
+T 40 source.r meta.bracket
+T 41 source.r meta.bracket keyword.operator
+T 42 source.r meta.bracket
+T 43 source.r meta.bracket constant.numeric
+T 44 source.r meta.bracket keyword.operator
+T 45 source.r meta.bracket
+T 50 source.r meta.bracket variable.parameter
+T 51 source.r meta.bracket
+T 52 source.r meta.bracket keyword.operator
+T 53 source.r meta.bracket
+T 55 source.r meta.bracket constant.numeric
+T 56 source.r meta.bracket keyword.operator
+T 57 source.r meta.bracket
+T 61 source.r meta.bracket variable.parameter
+T 62 source.r meta.bracket
+T 63 source.r meta.bracket keyword.operator
+T 64 source.r meta.bracket
+T 65 source.r meta.bracket string.quoted.double
+T 71 source.r meta.bracket string.quoted.double
+T 72 source.r meta.bracket string.quoted.double
+T 73 source.r meta.bracket
+T 74 source.r meta.bracket
+T 75 source.r
+T 76 source.r keyword.operator
+L   geom_text(y = (q$count + 50) * 500000) +  # Position of the text: count of games each year
+T 2 source.r
+T 11 source.r meta.function-call entity.name.function
+T 12 source.r meta.bracket
+T 13 source.r meta.bracket variable.parameter
+T 14 source.r meta.bracket
+T 15 source.r meta.bracket keyword.operator
+T 16 source.r meta.bracket
+T 17 source.r meta.bracket meta.bracket
+T 18 source.r meta.bracket meta.bracket variable.object
+T 19 source.r meta.bracket meta.bracket keyword.operator
+T 24 source.r meta.bracket meta.bracket variable.object
+T 25 source.r meta.bracket meta.bracket
+T 26 source.r meta.bracket meta.bracket keyword.operator
+T 27 source.r meta.bracket meta.bracket
+T 29 source.r meta.bracket meta.bracket constant.numeric
+T 30 source.r meta.bracket meta.bracket
+T 31 source.r meta.bracket
+T 32 source.r meta.bracket keyword.operator
+T 33 source.r meta.bracket
+T 39 source.r meta.bracket constant.numeric
+T 40 source.r meta.bracket
+T 41 source.r
+T 42 source.r keyword.operator
+T 44 source.r
+T 92 source.r comment.line
+L   theme(axis.text.x = element_text(angle = 90),
+T 2 source.r
+T 7 source.r meta.function-call entity.name.function
+T 8 source.r meta.bracket
+T 19 source.r meta.bracket variable.parameter
+T 20 source.r meta.bracket
+T 21 source.r meta.bracket keyword.operator
+T 22 source.r meta.bracket
+T 34 source.r meta.bracket meta.function-call entity.name.function
+T 35 source.r meta.bracket meta.bracket
+T 40 source.r meta.bracket meta.bracket variable.parameter
+T 41 source.r meta.bracket meta.bracket
+T 42 source.r meta.bracket meta.bracket keyword.operator
+T 43 source.r meta.bracket meta.bracket
+T 45 source.r meta.bracket meta.bracket constant.numeric
+T 46 source.r meta.bracket meta.bracket
+T 47 source.r meta.bracket keyword.operator
+L         panel.background = element_rect(fill = "purple"),
+T 8 source.r meta.bracket
+T 24 source.r meta.bracket variable.parameter
+T 25 source.r meta.bracket
+T 26 source.r meta.bracket keyword.operator
+T 27 source.r meta.bracket
+T 39 source.r meta.bracket meta.function-call entity.name.function
+T 40 source.r meta.bracket meta.bracket
+T 44 source.r meta.bracket meta.bracket variable.parameter
+T 45 source.r meta.bracket meta.bracket
+T 46 source.r meta.bracket meta.bracket keyword.operator
+T 47 source.r meta.bracket meta.bracket
+T 48 source.r meta.bracket meta.bracket string.quoted.double
+T 54 source.r meta.bracket meta.bracket string.quoted.double
+T 55 source.r meta.bracket meta.bracket string.quoted.double
+T 56 source.r meta.bracket meta.bracket
+T 57 source.r meta.bracket keyword.operator
+L         panel.grid.major = element_blank(),
+T 8 source.r meta.bracket
+T 24 source.r meta.bracket variable.parameter
+T 25 source.r meta.bracket
+T 26 source.r meta.bracket keyword.operator
+T 27 source.r meta.bracket
+T 40 source.r meta.bracket meta.function-call entity.name.function
+T 41 source.r meta.bracket meta.bracket
+T 42 source.r meta.bracket meta.bracket
+T 43 source.r meta.bracket keyword.operator
+L         panel.grid.minor = element_blank()) +
+T 8 source.r meta.bracket
+T 24 source.r meta.bracket variable.parameter
+T 25 source.r meta.bracket
+T 26 source.r meta.bracket keyword.operator
+T 27 source.r meta.bracket
+T 40 source.r meta.bracket meta.function-call entity.name.function
+T 41 source.r meta.bracket meta.bracket
+T 42 source.r meta.bracket meta.bracket
+T 43 source.r meta.bracket
+T 44 source.r
+T 45 source.r keyword.operator
+L   scale_x_discrete("Year.Release", labels = as.character(Year.Release), breaks = Year.Release)
+T 2 source.r
+T 18 source.r meta.function-call entity.name.function
+T 19 source.r meta.bracket
+T 20 source.r meta.bracket string.quoted.double
+T 32 source.r meta.bracket string.quoted.double
+T 33 source.r meta.bracket string.quoted.double
+T 34 source.r meta.bracket keyword.operator
+T 35 source.r meta.bracket
+T 41 source.r meta.bracket variable.parameter
+T 42 source.r meta.bracket
+T 43 source.r meta.bracket keyword.operator
+T 44 source.r meta.bracket
+T 56 source.r meta.bracket meta.function-call entity.name.function
+T 57 source.r meta.bracket meta.bracket
+T 69 source.r meta.bracket meta.bracket variable.object
+T 70 source.r meta.bracket meta.bracket
+T 71 source.r meta.bracket keyword.operator
+T 72 source.r meta.bracket
+T 78 source.r meta.bracket variable.parameter
+T 79 source.r meta.bracket
+T 80 source.r meta.bracket keyword.operator
+T 81 source.r meta.bracket
+T 93 source.r meta.bracket variable.object
+T 94 source.r meta.bracket
+L 
+L # From https://gexijin.github.io/learnR/the-game-sales-dataset.html#analysis-of-sales
+T 85 source.r comment.line
+L 

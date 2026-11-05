@@ -1748,6 +1748,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## R
+
+Its R lexer emits the scope names of the R TextMate grammar that Shiki bundles as `r` (`extensions/positron-r/syntaxes/r.tmGrammar.gen.json` in [posit-dev/positron](https://github.com/posit-dev/positron) at commit `c4d6bab60dd914427a2d47a4b64e75e025d94059`), and tries that grammar's rules in its order, from tables generated from it (`src/r/grammar.rs`).
+The grammar's folder holds its licence, `extensions/positron-r/syntaxes/LICENSE.md`, read at commit `f18e8663177f72eb94e4568ea583c277692014dd`:
+
+```text
+MIT License
+
+Copyright (c) 2025 Posit Software, PBC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 ## Ruby
 
 Its Ruby lexer emits the scope names of the Ruby TextMate grammar in [Shopify/ruby-lsp](https://github.com/Shopify/ruby-lsp), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `ruby`, and tries that grammar's rules in its order.

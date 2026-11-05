@@ -177,10 +177,6 @@ pub(crate) fn is_symbol_or_punctuation(c: char) -> bool {
 /// numeral U+2160.
 /// ASCII has none.
 #[cfg(feature = "_identifier-classes")]
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "the R lexer reads it, in the next pull request")
-)]
 pub(crate) fn is_letter_number(c: char) -> bool {
     !c.is_ascii() && table::is_letter_number(c)
 }
@@ -189,10 +185,6 @@ pub(crate) fn is_letter_number(c: char) -> bool {
 /// not enclose its base, such as U+0300.
 /// ASCII has none.
 #[cfg(feature = "_identifier-classes")]
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "the R lexer reads it, in the next pull request")
-)]
 pub(crate) fn is_nonenclosing_mark(c: char) -> bool {
     !c.is_ascii() && table::is_nonenclosing_mark(c)
 }
@@ -200,10 +192,6 @@ pub(crate) fn is_nonenclosing_mark(c: char) -> bool {
 /// The regex `\p{Pc}` for a character: a connector punctuation mark.
 /// In ASCII, `_`.
 #[cfg(feature = "_identifier-classes")]
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "the R lexer reads it, in the next pull request")
-)]
 pub(crate) fn is_connector(c: char) -> bool {
     if c.is_ascii() {
         c == '_'

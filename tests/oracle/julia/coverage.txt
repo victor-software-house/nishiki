@@ -903,8 +903,12 @@ T 21 source.julia embed.js.julia punctuation.definition.string.end.julia
 L R"""x <- $y"""
 T 1 source.julia embed.R.julia support.function.macro.julia
 T 4 source.julia embed.R.julia punctuation.definition.string.begin.julia
+T 5 source.julia embed.R.julia meta.embedded.inline.r variable.object
+T 6 source.julia embed.R.julia meta.embedded.inline.r
+T 8 source.julia embed.R.julia meta.embedded.inline.r keyword.operator
 T 9 source.julia embed.R.julia meta.embedded.inline.r
-T 11 source.julia embed.R.julia meta.embedded.inline.r variable.interpolation.julia
+T 10 source.julia embed.R.julia meta.embedded.inline.r keyword.operator
+T 11 source.julia embed.R.julia meta.embedded.inline.r variable.object
 T 14 source.julia embed.R.julia punctuation.definition.string.end.julia
 L sql"""SELECT * FROM t WHERE a = $(b)"""
 T 3 source.julia embed.sql.julia support.function.macro.julia

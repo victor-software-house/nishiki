@@ -96,6 +96,7 @@ const handLexed = new Map([
   ["powershell", "PowerShell"],
   ["proto", "Protobuf"],
   ["python", "Python"],
+  ["r", "R"],
   ["ruby", "Ruby"],
   ["rust", "Rust"],
   ["sass", "Sass"],

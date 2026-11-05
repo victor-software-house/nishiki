@@ -99,6 +99,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | PowerShell | `Language::PowerShell` | `lang-powershell` | `all` | `powershell`, `ps`, `ps1`, `pwsh` |
 | Protobuf | `Language::Proto` | `lang-proto` | `all` | `proto`, `protobuf` |
 | Python | `Language::Python` | `lang-python` | `all` | `python`, `py` |
+| R | `Language::R` | `lang-r` | `all` | `r` |
 | Ruby | `Language::Ruby` | `lang-ruby` | `all` | `ruby`, `rb` |
 | Rust | `Language::Rust` | `lang-rust` | `all` | `rust`, `rs` |
 | Sass | `Language::Sass` | `lang-sass` | `all` | `sass` |

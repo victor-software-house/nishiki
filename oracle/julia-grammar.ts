@@ -6,14 +6,13 @@
 // and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
 //
-// A string macro named for Python, JavaScript or SQL includes that language's
-// grammar.
+// A string macro named for Python, JavaScript, SQL or R includes that
+// language's grammar.
 // Its rule embeds the language (`Payload::Embed`), whose feature `lang-julia`
 // turns on.
 // The `cxx` macro includes `source.cpp#root_context`, a key the C++ grammar
 // lacks, so it adds no patterns.
-// The `R` macro includes `source.r`, which nishiki does not lex.
-// Both keep only their Julia patterns.
+// It keeps only its Julia patterns.
 //
 // classes.rs holds the characters of the grammar's identifier classes and of
 // `[[\p{S}\p{P}]&&[^@\s]]`.
@@ -181,11 +180,11 @@ const embeddable: Record<string, string> = {
   "source.python": "Python",
   "source.js": "JavaScript",
   "source.sql": "Sql",
+  "source.r": "R",
 };
 
-/** The includes that add no patterns: a key the C++ grammar lacks, and R,
- * which nishiki does not lex. */
-const empty = new Set(["source.cpp#root_context", "source.r"]);
+/** The include that adds no patterns: a key the C++ grammar lacks. */
+const empty = new Set(["source.cpp#root_context"]);
 
 type Pat = {
   id: string;

@@ -55,7 +55,8 @@ use std::ops::ControlFlow;
     feature = "lang-elixir",
     feature = "lang-gdscript",
     feature = "lang-vb",
-    feature = "lang-common-lisp"
+    feature = "lang-common-lisp",
+    feature = "lang-r"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]

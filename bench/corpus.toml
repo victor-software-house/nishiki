@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 14
-digest = "f398524b25faaa28aee9d8806e6b68d7092e4a49fd29418907dcd527dd73a757"
+version = 15
+digest = "4c6f8622668e32d2fb174d18dcb16f2645cfc96d5f3eaf13e311d869c99b435a"
 
 [[file]]
 language = "bat"
@@ -1110,6 +1110,28 @@ licence = "BSD-3-Clause"
 licence_source = "https://github.com/pandas-dev/pandas/blob/e832c367f1f9a71876264e83f73ff04184a7fe98/LICENSE"
 bytes = 459571
 sha256 = "35eaa4c28d9b1676e2353a00c4d7c9d1f1a90379d4d0ea3f25c48aa61b142407"
+
+[[file]]
+language = "r"
+tier = "small"
+origin = "neutral"
+path = "r/small/dplyr-rename.R"
+source = "https://raw.githubusercontent.com/tidyverse/dplyr/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/rename.R"
+licence = "MIT"
+licence_source = "https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/LICENSE.md"
+bytes = 3458
+sha256 = "88b9c0a733c841b9d4e4f5ae55a5cb99cd829230f5b1539e52adfd5d669cef44"
+
+[[file]]
+language = "r"
+tier = "medium"
+origin = "neutral"
+path = "r/medium/dplyr-join.R"
+source = "https://raw.githubusercontent.com/tidyverse/dplyr/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/join.R"
+licence = "MIT"
+licence_source = "https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/LICENSE.md"
+bytes = 27981
+sha256 = "d9b9a7e7233d392bc7c2094a2b5ce91741ee46f66a995a28d88293a0e689b3fb"
 
 [[file]]
 language = "ruby"

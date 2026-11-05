@@ -60,6 +60,7 @@ cargo check --locked --tests --no-default-features --features lang-postcss
 cargo check --locked --tests --no-default-features --features lang-powershell
 cargo check --locked --tests --no-default-features --features lang-proto
 cargo check --locked --tests --no-default-features --features lang-python
+cargo check --locked --tests --no-default-features --features lang-r
 cargo check --locked --tests --no-default-features --features lang-ruby
 cargo check --locked --tests --no-default-features --features lang-rust
 cargo check --locked --tests --no-default-features --features lang-sass

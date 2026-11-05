@@ -802,7 +802,6 @@ impl Rule {
             | Rule::DocMacro
             | Rule::Interpolation
             | Rule::Cxx
-            | Rule::RMacro
             | Rule::RawTriple
             | Rule::Raw
             | Rule::VarTriple
@@ -825,6 +824,7 @@ impl Rule {
             | Rule::ForBlock => rules::Payload::None,
             Rule::Py => rules::Payload::Embed(crate::Language::Python),
             Rule::Js => rules::Payload::Embed(crate::Language::JavaScript),
+            Rule::RMacro => rules::Payload::Embed(crate::Language::R),
             Rule::Sql => rules::Payload::Embed(crate::Language::Sql),
         }
     }

@@ -154,6 +154,8 @@ tables! {
     PROTO = proto;
     #[cfg(feature = "lang-python")]
     PYTHON = python;
+    #[cfg(feature = "lang-r")]
+    R = r;
     #[cfg(feature = "lang-ruby")]
     RUBY = ruby;
     #[cfg(feature = "lang-rust")]

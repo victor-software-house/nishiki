@@ -56,6 +56,8 @@ mod postcss;
 mod powershell;
 mod proto;
 mod python;
+#[cfg(feature = "lang-r")]
+mod r;
 mod ruby;
 mod rust;
 mod sass;

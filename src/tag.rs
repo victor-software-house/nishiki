@@ -159,6 +159,9 @@ tags! {
     /// Python.
     #[cfg(feature = "lang-python")]
     PYTHON = 0x0600,
+    /// R.
+    #[cfg(feature = "lang-r")]
+    R = 0x4D00,
     /// Ruby.
     #[cfg(feature = "lang-ruby")]
     RUBY = 0x2700,

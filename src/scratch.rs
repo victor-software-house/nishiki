@@ -142,6 +142,10 @@ pub(crate) struct Scratch {
     /// Julia's `py"""` string macros.
     #[cfg(feature = "lang-python")]
     pub(crate) python: crate::python::Scratch,
+    /// The R lexer's, for R documents and Markdown R fences.
+    /// It is boxed and allocated by the first R line, as Pascal's is.
+    #[cfg(feature = "lang-r")]
+    pub(crate) r: Option<Box<crate::r::Scratch>>,
     /// The Ruby lexer's, for Ruby documents.
     #[cfg(feature = "lang-ruby")]
     pub(crate) ruby: crate::ruby::Scratch,

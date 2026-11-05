@@ -152,14 +152,18 @@ fn an_embedded_language_keeps_its_state_across_lines() {
 }
 
 #[test]
-fn cxx_and_r_macros_stay_plain() {
+fn a_cxx_macro_stays_plain_and_an_r_macro_holds_r() {
     assert_eq!(
         scopes(r#"cxx"""int x;""""#, "int x;"),
         ["embed.cxx.julia", "meta.embedded.inline.cpp"]
     );
     assert_eq!(
-        scopes(r#"R"""x <- 1""""#, "x <- 1"),
-        ["embed.R.julia", "meta.embedded.inline.r"]
+        scopes(r#"R"""x <- 1""""#, "<-"),
+        [
+            "embed.R.julia",
+            "meta.embedded.inline.r",
+            "keyword.operator"
+        ]
     );
 }
 

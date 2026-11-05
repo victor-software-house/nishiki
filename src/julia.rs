@@ -9,8 +9,8 @@
 //! interned state.
 //! Strings, comments, brackets and `for` heads are such rules.
 //!
-//! The body of a `py"""`, `js"""` or `sql"""` string macro is lexed as Python,
-//! JavaScript or SQL (see [`rules::lex_embedding`]).
+//! The body of a `py"""`, `js"""`, `sql"""` or `R"""` string macro is lexed as
+//! Python, JavaScript, SQL or R (see [`rules::lex_embedding`]).
 
 mod chars;
 mod classes;
@@ -74,7 +74,7 @@ impl rules::Embeds for Julia {
 /// The end of a string macro that embeds a language.
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Close {
-    /// `"""`, the end of `js"""` and `sql"""`.
+    /// `"""`, the end of `js"""`, `sql"""` and `R"""`.
     Quotes,
     /// `[\s\w]*"""`, the end of `py"""`.
     /// It starts at the run of spaces and word characters before the quotes.

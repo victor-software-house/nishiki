@@ -58,7 +58,6 @@ const unloadedFences = [
   ["log", "text.log"],
   ["perl6", "source.perl.6"],
   ["pug", "text.pug"],
-  ["r", "source.r"],
   ["regexp_python", "source.regexp.python"],
   ["restructuredtext", "source.rst"],
   ["twig", "source.twig"],
@@ -1680,6 +1679,12 @@ export const waivers: Waiver[] = [
       probe: "PunctuationAt11",
     }),
   ),
+  {
+    grammar: "r",
+    path: "#basic-roxygen-example.patterns[0].match",
+    reason: "`#roxygen-example.patterns[0]`, the same expression, comes before it in the one list that holds it",
+    probe: "MarkdownAt0At0",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1728,6 +1733,7 @@ export const complete: string[] = [
   "powershell",
   "proto",
   "python",
+  "r",
   "ruby",
   "rust",
   "sass",

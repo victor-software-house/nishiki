@@ -541,6 +541,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::PowerShell, &[S::EmbeddedPowershell]),
     #[cfg(feature = "lang-python")]
     (Language::Python, &[S::EmbeddedPython]),
+    #[cfg(feature = "lang-r")]
+    (Language::R, &[S::EmbeddedR]),
     #[cfg(feature = "lang-ruby")]
     (Language::Ruby, &[S::EmbeddedRuby]),
     #[cfg(feature = "lang-rust")]
