@@ -724,8 +724,10 @@ struct ParentTextEnd<'a, G: Embeds> {
 
 #[cfg(feature = "_embedding")]
 impl<G: Embeds> Halt for ParentTextEnd<'_, G> {
+    /// Asks the end at character starts only, as a function halt does.
     fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
-        (from..=to).find(|&p| G::end_holds(self.end, self.parent_text, s, p))
+        let holds = |s: &[u8], p: usize| G::end_holds(self.end, self.parent_text, s, p);
+        holds.first(s, from, to)
     }
 
     fn holds(&self, s: &[u8], p: usize) -> bool {
