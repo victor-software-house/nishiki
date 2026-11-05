@@ -24,3 +24,10 @@ flow:
   - [ null, 1.5, 2001-12-14, =, *anchor/suffix ]
   - { ? explicit : value, <<: *anchor/suffix, ~: nothing }
 ...
+# A key whose colons do not pair up with the `:` after it is a key only when
+# a later key follows on the line.
+odd colons:
+  a:: b: c
+  YAML Test:: Suite:   yaml-test-suite/
+  a:: b
+flow odd colons: [{a:: b: c}, {a:: b}]

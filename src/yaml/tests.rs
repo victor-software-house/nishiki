@@ -457,3 +457,27 @@ fn ruby_takes_a_yaml_line_back_where_a_step_begins_at_its_interpolation() {
 fn a_ruby_escape_at_a_yaml_plain_scalar_stays_yaml() {
     assert_eq!(ruby_halts(&["\\n: c", "key: a \\n b"]), [None, None]);
 }
+
+/// The colons of `a::` do not pair up with the `:` after them, so the key
+/// lookahead reads on, and a later `b:` makes `a:` a key, as in Shiki.
+/// Without a later key, `a:` stays plain.
+#[test]
+fn a_later_key_tags_a_key_whose_colons_do_not_pair_up() {
+    assert_eq!(
+        scope_of("a:: b: c", "a:"),
+        "string.unquoted.plain.out entity.name.tag"
+    );
+    assert_eq!(
+        scope_of("YAML Test:: Suite:   x", "YAML Test:"),
+        "string.unquoted.plain.out entity.name.tag"
+    );
+    assert_eq!(scope_of("a:: b", "a:"), "string.unquoted.plain.out");
+    assert_eq!(
+        scope_of("{a:: b: c}", "a:"),
+        "meta.flow-mapping meta.flow-pair.key string.unquoted.plain.in entity.name.tag"
+    );
+    assert_eq!(
+        scope_of("{a:: b}", "a:"),
+        "meta.flow-mapping string.unquoted.plain.in"
+    );
+}

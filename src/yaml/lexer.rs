@@ -624,16 +624,17 @@ impl<'a> Lexer<'a> {
     ///
     /// The grammar tags a key only when the colons that end it pair up,
     /// counting the one that follows it directly.
+    /// When they do not, the grammar's lookahead goes on past that `:` and
+    /// tags the key when a later `:` before a blank ends a key on the line,
+    /// as in `a:: b: c`.
     /// A pair's value holds no key of its own.
     fn plain(&mut self, p: usize) -> usize {
         let flow = self.in_flow();
         let (end, key) = self.scan_plain(p, flow);
-        let trailing = self.s[p..end]
-            .iter()
-            .rev()
-            .take_while(|&&b| b == b':')
-            .count();
-        let key = key && (self.at(end) != b':' || trailing % 2 == 0);
+        let key = key
+            && (self.at(end) != b':'
+                || !(end > p && self.s[end - 1] == b':')
+                || self.colons_key(p, end, flow));
         let key = key && self.top() != Kind::Pair;
         let body = if flow { S::PlainIn } else { S::PlainOut };
         let end = end.max(p + char_len(self.s[p]).min(self.s.len() - p));
@@ -645,6 +646,69 @@ impl<'a> Lexer<'a> {
             None if key => self.token(p, end, &[body, S::KeyName]),
             None => self.token(p, end, &[body]),
         }
+    }
+
+    /// Whether the plain scalar `p..end`, which ends in a `:` and has a
+    /// `:` after it, is a key: its trailing colons pair up with that `:`,
+    /// or a later key follows ([`Lexer::key_ahead`]).
+    ///
+    /// Cold and out of line: a scalar that ends in a `:` is rare.
+    #[cold]
+    #[inline(never)]
+    fn colons_key(&self, p: usize, end: usize, flow: bool) -> bool {
+        let trailing = self.s[p..end]
+            .iter()
+            .rev()
+            .take_while(|&&b| b == b':')
+            .count();
+        trailing % 2 == 0 || self.key_ahead(end + 1, flow)
+    }
+
+    /// Whether a `:` before a blank or the line end ends a key from `i` on,
+    /// as the grammar's key lookahead reads the rest of the line.
+    ///
+    /// The lookahead steps over one character, a `:` and the character after
+    /// it, or a run of blanks that no `#` or line end follows.
+    /// In a flow collection it stops at a flow indicator.
+    /// It tags the key where a step ends at blanks and then such a `:`.
+    ///
+    /// It skips blanks on its own: sharing `skip_blanks_unspent` took that
+    /// function out of `scan_plain`, and YAML rose 1.9% at one codegen
+    /// unit.
+    fn key_ahead(&self, mut i: usize, flow: bool) -> bool {
+        let start = i;
+        let len = self.s.len();
+        let found = loop {
+            let mut colon = i;
+            while self.blank_at(colon) > 0 {
+                colon += self.blank_at(colon);
+            }
+            if self.s.get(colon) == Some(&b':') && self.blank_or_end(colon + 1) {
+                break true;
+            }
+            if i >= len {
+                break false;
+            }
+            let b = self.s[i];
+            if self.blank_at(i) > 0 {
+                if colon >= len || self.s[colon] == b'#' {
+                    break false;
+                }
+                i = colon;
+            } else if b == b':' {
+                let next = i + 1;
+                if next >= len || (flow && is_flow_indicator(self.s[next])) {
+                    break false;
+                }
+                i = next + char_len(self.s[next]).min(len - next);
+            } else if flow && is_flow_indicator(b) {
+                break false;
+            } else {
+                i += char_len(b).min(len - i);
+            }
+        };
+        self.steps.spend(i - start);
+        found
     }
 
     // Block context.

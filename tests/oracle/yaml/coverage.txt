@@ -191,4 +191,68 @@ T 57 source.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value
 T 58 source.yaml meta.flow-mapping.yaml punctuation.definition.mapping.end.yaml
 L ...
 T 3 source.yaml entity.other.document.end.yaml
+L # A key whose colons do not pair up with the `:` after it is a key only when
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 76 source.yaml comment.line.number-sign.yaml
+L # a later key follows on the line.
+T 1 source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 34 source.yaml comment.line.number-sign.yaml
+L odd colons:
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 11 source.yaml punctuation.separator.key-value.mapping.yaml
+L   a:: b: c
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 8 source.yaml punctuation.separator.key-value.mapping.yaml
+T 9 source.yaml
+T 10 source.yaml string.unquoted.plain.out.yaml
+L   YAML Test:: Suite:   yaml-test-suite/
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 source.yaml punctuation.separator.key-value.mapping.yaml
+T 14 source.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 source.yaml punctuation.separator.key-value.mapping.yaml
+T 23 source.yaml
+T 24 source.yaml string.unquoted.plain.out.yaml
+T 39 source.yaml string.unquoted.plain.out.yaml
+L   a:: b
+T 2 source.yaml
+T 3 source.yaml string.unquoted.plain.out.yaml
+T 4 source.yaml string.unquoted.plain.out.yaml
+T 5 source.yaml punctuation.separator.key-value.mapping.yaml
+T 6 source.yaml
+T 7 source.yaml string.unquoted.plain.out.yaml
+L flow odd colons: [{a:: b: c}, {a:: b}]
+T 1 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 source.yaml punctuation.separator.key-value.mapping.yaml
+T 17 source.yaml
+T 18 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.begin.yaml
+T 19 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml punctuation.definition.mapping.begin.yaml
+T 20 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.key.yaml string.unquoted.plain.in.yaml entity.name.tag.yaml
+T 21 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.key.yaml string.unquoted.plain.in.yaml entity.name.tag.yaml
+T 22 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml punctuation.separator.key-value.mapping.yaml
+T 23 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 24 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 26 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 27 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 28 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml punctuation.definition.mapping.end.yaml
+T 29 source.yaml meta.flow-sequence.yaml punctuation.separator.sequence.yaml
+T 30 source.yaml meta.flow-sequence.yaml
+T 31 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml punctuation.definition.mapping.begin.yaml
+T 32 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml string.unquoted.plain.in.yaml
+T 33 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml string.unquoted.plain.in.yaml
+T 34 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml punctuation.separator.key-value.mapping.yaml
+T 35 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml
+T 36 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml meta.flow-pair.yaml meta.flow-pair.value.yaml string.unquoted.plain.in.yaml
+T 37 source.yaml meta.flow-sequence.yaml meta.flow-mapping.yaml punctuation.definition.mapping.end.yaml
+T 38 source.yaml meta.flow-sequence.yaml punctuation.definition.sequence.end.yaml
 L 
