@@ -1,0 +1,440 @@
+L Shader "SkyboxPlus/Cubemap"
+T 6 source.shaderlab storage.type.structure.shaderlab
+T 7 source.shaderlab
+T 8 source.shaderlab string.quoted.double.shaderlab
+T 26 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+L {
+T 1 source.shaderlab
+L     Properties
+T 4 source.shaderlab
+T 14 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         [NoScaleOffset] _Tex("-", Cube) = "grey"{}
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 22 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 23 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab
+T 29 source.shaderlab support.variable.declaration.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 34 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 42 source.shaderlab
+T 43 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab
+L         _Tint("-", Color) = (.5, .5, .5)
+T 8 source.shaderlab
+T 14 source.shaderlab support.variable.declaration.shaderlab
+T 15 source.shaderlab string.quoted.double.shaderlab
+T 16 source.shaderlab string.quoted.double.shaderlab
+T 17 source.shaderlab string.quoted.double.shaderlab
+T 19 source.shaderlab
+T 24 source.shaderlab support.type.basic.shaderlab
+T 30 source.shaderlab
+T 31 source.shaderlab constant.numeric.shaderlab
+T 34 source.shaderlab
+T 35 source.shaderlab constant.numeric.shaderlab
+T 38 source.shaderlab
+T 39 source.shaderlab constant.numeric.shaderlab
+T 40 source.shaderlab
+L 
+L         _Euler("-", Vector) = (0, 0, 0)
+T 8 source.shaderlab
+T 15 source.shaderlab support.variable.declaration.shaderlab
+T 16 source.shaderlab string.quoted.double.shaderlab
+T 17 source.shaderlab string.quoted.double.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 20 source.shaderlab
+T 26 source.shaderlab support.type.basic.shaderlab
+T 31 source.shaderlab
+T 32 source.shaderlab constant.numeric.shaderlab
+T 34 source.shaderlab
+T 35 source.shaderlab constant.numeric.shaderlab
+T 37 source.shaderlab
+T 38 source.shaderlab constant.numeric.shaderlab
+T 39 source.shaderlab
+L         [HideInInspector] _Rotation1("-", Vector) = (1, 0, 0)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 37 source.shaderlab support.variable.declaration.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 42 source.shaderlab
+T 48 source.shaderlab support.type.basic.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab constant.numeric.shaderlab
+T 56 source.shaderlab
+T 57 source.shaderlab constant.numeric.shaderlab
+T 59 source.shaderlab
+T 60 source.shaderlab constant.numeric.shaderlab
+T 61 source.shaderlab
+L         [HideInInspector] _Rotation2("-", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 37 source.shaderlab support.variable.declaration.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 42 source.shaderlab
+T 48 source.shaderlab support.type.basic.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab constant.numeric.shaderlab
+T 56 source.shaderlab
+T 57 source.shaderlab constant.numeric.shaderlab
+T 59 source.shaderlab
+T 60 source.shaderlab constant.numeric.shaderlab
+T 61 source.shaderlab
+L         [HideInInspector] _Rotation3("-", Vector) = (0, 0, 1)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 37 source.shaderlab support.variable.declaration.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 42 source.shaderlab
+T 48 source.shaderlab support.type.basic.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab constant.numeric.shaderlab
+T 56 source.shaderlab
+T 57 source.shaderlab constant.numeric.shaderlab
+T 59 source.shaderlab
+T 60 source.shaderlab constant.numeric.shaderlab
+T 61 source.shaderlab
+L 
+L         [Gamma] _Exposure("-", Range(0, 8)) = 1
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab
+T 16 source.shaderlab
+T 26 source.shaderlab support.variable.declaration.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+T 28 source.shaderlab string.quoted.double.shaderlab
+T 29 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab
+T 36 source.shaderlab support.type.basic.shaderlab
+T 37 source.shaderlab
+T 38 source.shaderlab constant.numeric.shaderlab
+T 40 source.shaderlab
+T 41 source.shaderlab constant.numeric.shaderlab
+T 46 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+L         _Saturation("-", Range(0, 2)) = 1
+T 8 source.shaderlab
+T 20 source.shaderlab support.variable.declaration.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab
+T 30 source.shaderlab support.type.basic.shaderlab
+T 31 source.shaderlab
+T 32 source.shaderlab constant.numeric.shaderlab
+T 34 source.shaderlab
+T 35 source.shaderlab constant.numeric.shaderlab
+T 40 source.shaderlab
+T 41 source.shaderlab constant.numeric.shaderlab
+L 
+L         [Toggle] _Lod("-", Float) = 0
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 16 source.shaderlab meta.attribute.shaderlab
+T 17 source.shaderlab
+T 22 source.shaderlab support.variable.declaration.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab
+T 32 source.shaderlab support.type.basic.shaderlab
+T 36 source.shaderlab
+T 37 source.shaderlab constant.numeric.shaderlab
+L         _LodLevel("-", Range(0, 10)) = 0
+T 8 source.shaderlab
+T 18 source.shaderlab support.variable.declaration.shaderlab
+T 19 source.shaderlab string.quoted.double.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab
+T 28 source.shaderlab support.type.basic.shaderlab
+T 29 source.shaderlab
+T 30 source.shaderlab constant.numeric.shaderlab
+T 32 source.shaderlab
+T 34 source.shaderlab constant.numeric.shaderlab
+T 39 source.shaderlab
+T 40 source.shaderlab constant.numeric.shaderlab
+L     }
+T 5 source.shaderlab
+L     CGINCLUDE
+T 4 source.shaderlab
+T 13 source.shaderlab meta.cgblock keyword.other
+L 
+L     #pragma shader_feature _LOD_ON
+T 11 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 34 source.shaderlab meta.cgblock
+L     #include "UnityCG.cginc"
+T 12 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 13 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 27 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 28 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L 
+L     samplerCUBE _Tex;
+T 4 source.shaderlab meta.cgblock
+T 15 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 21 source.shaderlab meta.cgblock
+L     half4 _Tex_HDR;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 19 source.shaderlab meta.cgblock
+L 
+L     half4 _Tint;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 16 source.shaderlab meta.cgblock
+L     half _Exposure;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 19 source.shaderlab meta.cgblock
+L     half _Saturation;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 21 source.shaderlab meta.cgblock
+L     float _LodLevel;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+L 
+L     float4 _Rotation1;
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 22 source.shaderlab meta.cgblock
+L     float4 _Rotation2;
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 22 source.shaderlab meta.cgblock
+L     float4 _Rotation3;
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 22 source.shaderlab meta.cgblock
+L 
+L     struct appdata_t {
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 22 source.shaderlab meta.cgblock
+L         float4 vertex : POSITION;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 32 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 33 source.shaderlab meta.cgblock
+L     };
+T 6 source.shaderlab meta.cgblock
+L 
+L     struct v2f {
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 16 source.shaderlab meta.cgblock
+L         float4 vertex : SV_POSITION;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 36 source.shaderlab meta.cgblock
+L         float3 texcoord : TEXCOORD0;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 26 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 36 source.shaderlab meta.cgblock
+L     };
+T 6 source.shaderlab meta.cgblock
+L 
+L     v2f vert(appdata_t v)
+T 8 source.shaderlab meta.cgblock
+T 12 source.shaderlab meta.cgblock support.function.hlsl
+T 25 source.shaderlab meta.cgblock
+L     {
+T 5 source.shaderlab meta.cgblock
+L         v2f o;
+T 14 source.shaderlab meta.cgblock
+L         float3x3 m = float3x3(_Rotation1.xyz, _Rotation2.xyz, _Rotation3.xyz);
+T 8 source.shaderlab meta.cgblock
+T 16 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 21 source.shaderlab meta.cgblock
+T 29 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 78 source.shaderlab meta.cgblock
+L         float4 vp = float4(mul(m, v.vertex.xyz), v.vertex.w);
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock support.function.hlsl
+T 61 source.shaderlab meta.cgblock
+L         o.vertex = UnityObjectToClipPos(vp);
+T 19 source.shaderlab meta.cgblock
+T 39 source.shaderlab meta.cgblock support.function.hlsl
+T 44 source.shaderlab meta.cgblock
+L         o.texcoord = v.vertex.xyz;
+T 34 source.shaderlab meta.cgblock
+L         return o;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 17 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L 
+L     fixed4 frag(v2f i) : SV_Target
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.basic.shaderlab
+T 11 source.shaderlab meta.cgblock
+T 15 source.shaderlab meta.cgblock support.function.hlsl
+T 25 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+L     {
+T 5 source.shaderlab meta.cgblock
+L #ifdef _LOD_ON
+T 6 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 14 source.shaderlab meta.cgblock
+L         half4 tex = texCUBElod(_Tex, float4(i.texcoord, _LodLevel));
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock support.function.hlsl
+T 37 source.shaderlab meta.cgblock
+T 43 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 68 source.shaderlab meta.cgblock
+L #else
+T 5 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+L         half4 tex = texCUBE(_Tex, i.texcoord);
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+T 27 source.shaderlab meta.cgblock support.function.hlsl
+T 46 source.shaderlab meta.cgblock
+L #endif
+T 6 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+L         half3 c = DecodeHDR(tex, _Tex_HDR);
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+T 27 source.shaderlab meta.cgblock support.function.hlsl
+T 43 source.shaderlab meta.cgblock
+L         c *= _Tint.rgb * unity_ColorSpaceDouble.rgb * _Exposure;
+T 64 source.shaderlab meta.cgblock
+L         c = lerp((half3)Luminance(c), c, _Saturation);
+T 12 source.shaderlab meta.cgblock
+T 16 source.shaderlab meta.cgblock support.function.hlsl
+T 18 source.shaderlab meta.cgblock
+T 23 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 33 source.shaderlab meta.cgblock support.function.hlsl
+T 54 source.shaderlab meta.cgblock
+L         return half4(c, 1);
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 15 source.shaderlab meta.cgblock
+T 20 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 25 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 27 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L 
+L     ENDCG
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock keyword.other
+L     SubShader
+T 4 source.shaderlab
+T 13 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         Tags { "Queue"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
+T 8 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 15 source.shaderlab
+T 16 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 34 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab string.quoted.double.shaderlab
+T 36 source.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+T 60 source.shaderlab string.quoted.double.shaderlab
+T 61 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab
+T 63 source.shaderlab string.quoted.double.shaderlab
+T 74 source.shaderlab string.quoted.double.shaderlab
+T 75 source.shaderlab string.quoted.double.shaderlab
+T 76 source.shaderlab
+T 77 source.shaderlab string.quoted.double.shaderlab
+T 83 source.shaderlab string.quoted.double.shaderlab
+T 84 source.shaderlab string.quoted.double.shaderlab
+T 86 source.shaderlab
+L         Cull Off ZWrite Off
+T 8 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 13 source.shaderlab
+T 16 source.shaderlab support.constant.property-value.shaderlab
+T 17 source.shaderlab
+T 23 source.shaderlab support.type.propertyname.shaderlab
+T 24 source.shaderlab
+T 27 source.shaderlab support.constant.property-value.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L     }
+T 5 source.shaderlab
+L     Fallback Off
+T 4 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 13 source.shaderlab
+T 16 source.shaderlab support.constant.property-value.shaderlab
+L     CustomEditor "SkyboxPlus.CubemapMaterialEditor"
+T 4 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab string.quoted.double.shaderlab
+L }
+T 1 source.shaderlab
+L 
