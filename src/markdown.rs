@@ -131,14 +131,23 @@ pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: &str, state: u32
 
 /// Lexes `line` from byte `line.start` like [`line`], for Markdown that
 /// another language embeds, as Svelte's `@component` comments do.
-/// The line halts at its start when `end` holds there and the open
-/// containers that end there have closed, and the second value is where.
+/// The line halts where `end` holds at Markdown's root, and the second value
+/// is where.
 /// `after` never holds: Markdown's patterns match at the start of every
 /// line, and nowhere else at the document's level.
 ///
-/// The halt is tested here, once, and [`line`] reads the answer from the
-/// scratch: a second copy of the line's lexer would keep its parts from
-/// being inlined into [`line`] (2% more instructions on Markdown documents).
+/// The end can hold in two places:
+/// - At the line's start, once the open containers that end there have closed.
+///   The halt is tested here, once, and [`line`] reads the answer from the
+///   scratch: a second copy of the line's lexer would keep its parts from being
+///   inlined into [`line`] (2% more instructions on Markdown documents).
+/// - After a block that closed inside the line, such as a raw HTML block at
+///   `</style>`. The rest of the line is then at Markdown's root, where `\G` no
+///   longer holds, so no block opens there. The rest is one plain token, and
+///   the end is tested from its start.
+///
+/// The character before `line.start` goes to the lexer through the scratch,
+/// for the lookbehinds at the start ([`text::LineFacts::before_start`]).
 pub(crate) fn lex_until(
     cx: &mut crate::language::Context<'_>,
     line: crate::language::Line<'_>,
@@ -146,11 +155,56 @@ pub(crate) fn lex_until(
     end: &dyn crate::language::Halt,
     _after: Option<&dyn crate::language::Halt>,
 ) -> (Finished, Option<usize>) {
-    cx.scratch.markdown.stop_at_start = end.holds(line.text.as_bytes(), line.start);
+    let text = line.text.as_bytes();
+    cx.scratch.markdown.start = lexer::Start::Embedded {
+        stop: end.holds(text, line.start),
+        before: line
+            .text
+            .get(..line.start)
+            .and_then(|before| before.chars().next_back()),
+    };
+    let first = cx.out.len();
     let finished = cx.lex_from_start(line, |cx, rest| self::line(cx, rest, state));
-    cx.scratch.markdown.stop_at_start = false;
-    let stopped = std::mem::take(&mut cx.scratch.markdown.stopped);
-    (finished, stopped.then_some(line.start))
+    cx.scratch.markdown.start = lexer::Start::Document;
+    if std::mem::take(&mut cx.scratch.markdown.stopped) {
+        return (finished, Some(line.start));
+    }
+    let halt = halt_after_block(cx, line, end, first, finished.state());
+    (finished, halt)
+}
+
+/// Where `end` holds in the rest of a line that a block closed inside, now
+/// at Markdown's root in the state `state`, and the rest's token cut there.
+/// The line's tokens start at `first` in the output.
+/// The rest is the line's last token, on the root's stack, after another
+/// token of the line.
+fn halt_after_block(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    end: &dyn crate::language::Halt,
+    first: usize,
+    state: u32,
+) -> Option<usize> {
+    let root = cx.arena.frame(state);
+    if Kind::from_code(root.kind) != Kind::Base || cx.out.len() < first + 2 {
+        return None;
+    }
+    let last = cx.out.len() - 1;
+    let rest = cx.out[last];
+    let from = cx.out[last - 1].end();
+    if rest.stack().0 != root.stack {
+        return None;
+    }
+    let halt = end.first(line.text.as_bytes(), from, rest.end())?;
+    if halt >= rest.end() {
+        return None;
+    }
+    if halt > from {
+        cx.out[last].end = halt;
+    } else {
+        cx.out.truncate(last);
+    }
+    Some(halt)
 }
 
 /// The tests that name the languages Markdown embeds, so they need them all.

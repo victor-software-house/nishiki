@@ -413,7 +413,7 @@ mod tests {
     use crate::limits::{Limits, Steps};
     use crate::markdown::caps::Caps;
     use crate::markdown::inline::{code_span, strikethrough};
-    use crate::markdown::text::Cx;
+    use crate::markdown::text::{Cx, LineFacts};
 
     /// Every line of up to `max` bytes drawn from `alphabet`.
     fn lines(alphabet: &[u8], max: usize) -> Vec<Vec<u8>> {
@@ -527,7 +527,10 @@ mod tests {
         let mut fresh = Runs::default();
         let mut kept = Runs::default();
         for line in lines(alphabet, max) {
-            let steps = Steps::new(&Limits::default(), line.len());
+            let facts = LineFacts {
+                steps: Steps::new(&Limits::default(), line.len()),
+                before_start: None,
+            };
             kept.reset();
             for end in 1..=line.len() + 1 {
                 for p in (0..line.len().min(end)).filter(|&p| line[p] == delim) {
@@ -535,7 +538,7 @@ mod tests {
                         line: &line,
                         end,
                         anchor: None,
-                        steps: &steps,
+                        facts: &facts,
                     };
                     let expected = scanned(&cx, p);
                     let case = format!(

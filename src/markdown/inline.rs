@@ -869,7 +869,7 @@ mod tests {
     use crate::limits::{Limits, Steps};
     use crate::markdown::caps::Caps;
     use crate::markdown::runs::Runs;
-    use crate::markdown::text::Cx;
+    use crate::markdown::text::{Cx, LineFacts};
 
     /// The opening delimiter's end at `p`, found by the walk without a memo.
     fn walked(cx: &Cx<'_>, runs: &mut Runs, p: usize, emphasis: Emphasis) -> Option<usize> {
@@ -922,7 +922,10 @@ mod tests {
         let mut fresh = Runs::default();
         let mut kept = Runs::default();
         for line in &lines {
-            let steps = Steps::new(&Limits::default(), line.len());
+            let facts = LineFacts {
+                steps: Steps::new(&Limits::default(), line.len()),
+                before_start: None,
+            };
             kept.reset();
             for end in 1..=line.len() + 1 {
                 for p in 0..line.len().min(end) {
@@ -931,7 +934,7 @@ mod tests {
                             line,
                             end,
                             anchor: None,
-                            steps: &steps,
+                            facts: &facts,
                         };
                         let expected = walked(&cx, &mut runs, p, emphasis);
                         let case = format!(

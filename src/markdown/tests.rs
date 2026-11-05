@@ -2222,3 +2222,76 @@ fn an_embedding_rule_takes_a_line_back_where_no_block_is_open() {
         Some("meta.paragraph.markdown")
     );
 }
+
+/// A raw HTML block opened by `<style>` closes at `</script>`, inside the
+/// last line.
+/// The rest of that line is at Markdown's root, where no block opens, so the
+/// comment takes the line back at its `-->`.
+/// An earlier `-->` inside the block does not end it.
+/// The lines are those of a Svelte differential document.
+#[test]
+fn an_embedding_rule_takes_a_line_back_after_a_block_closes_inside_it() {
+    let lines = [
+        "",
+        "<style lang=\"scss\">{#await slot {@html item ) 1.5- ",
+        "<!-- @component html",
+        "$$propsp",
+        "  +my-element",
+        "<style lang=\"less\">null!html1.5 {:catch  */snippet module{@render  ",
+        "<!-- &&{/if}{@html  , Foo.Bar=",
+        "",
+        "{/each}my-element{:else if  my-elementrenderawait animate:flipspan $effecteach $count",
+        "{@html --> {/snippet}out:slide ",
+        "</script>generics+ :-->const module function debug < x$state ",
+    ];
+    let rows = test_support::lex_embedded(
+        EMBEDDED,
+        &["comment.block.documentation.svelte"],
+        &lines,
+        Some((&comment_end, None)),
+    );
+    let halts: Vec<Option<usize>> = rows.iter().map(|(halt, _)| *halt).collect();
+    let mut expected = vec![None; lines.len()];
+    expected[lines.len() - 1] = Some(20);
+    assert_eq!(halts, expected);
+}
+
+/// The end that never holds, for a line that lexes to its end.
+fn never(_: &[u8], _: usize) -> bool {
+    false
+}
+
+/// Markdown that starts inside its line sees the character before it, as
+/// vscode-textmate matches on the whole line.
+/// After `@component`, the `t` before `*` keeps it from opening an italic,
+/// since no word character follows it either.
+#[test]
+fn a_lookbehind_at_an_embedded_start_reads_the_line_before_it() {
+    let mut arena = crate::arena::Arena::new(None);
+    let state = super::start_embedded(&mut arena, crate::arena::ROOT);
+    let mut scratch = crate::scratch::Scratch::default();
+    scratch.start_line();
+    let limits = crate::limits::Limits::default();
+    let mut out = Vec::new();
+    let mut report = crate::limits::LineReport::default();
+    let mut cx = crate::language::Context {
+        scratch: &mut scratch,
+        arena: &mut arena,
+        limits: &limits,
+        out: &mut out,
+        report: &mut report,
+    };
+    let line = crate::language::Line {
+        text: "@component*{x}* ",
+        start: 10,
+        embedded: false,
+    };
+    let (_, halt) = super::lex_until(&mut cx, line, state, &never, None);
+    assert_eq!(halt, None);
+    let italic = out.iter().any(|token| {
+        arena
+            .scopes(token.stack().0)
+            .any(|name| name == "markup.italic.markdown")
+    });
+    assert!(!italic, "{out:?}");
+}

@@ -18,7 +18,7 @@ use super::rules::{self, Capture, End, List, P};
 use super::runs::Runs;
 use super::scope::S;
 use super::state::{Fence, Kind};
-use super::text::Cx;
+use super::text::{Cx, LineFacts};
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
 use crate::language::{Context, Line, Parts};
@@ -33,7 +33,7 @@ macro_rules! cx {
             line: $lexer.line.as_bytes(),
             end: $lexer.limit,
             anchor: $lexer.anchor,
-            steps: &$lexer.steps,
+            facts: &$lexer.facts,
         }
     };
 }
@@ -200,8 +200,9 @@ pub(crate) struct Lexer<'a> {
     /// The end of the last token emitted.
     last: usize,
     /// Steps spent on this line, counted in the matchers' scans too, and
-    /// lent to the languages of its fences.
-    steps: Steps,
+    /// lent to the languages of its fences, with the character before the
+    /// line's start.
+    facts: LineFacts,
     /// The fence the last match of the fence rule opened.
     opened: Option<block::FenceOpen>,
     /// What the highlighter keeps from line to line.
@@ -230,12 +231,24 @@ pub(crate) struct Scratch {
     /// The line's delimiter runs, found when a code span or a
     /// strikethrough first needs them.
     runs: Runs,
-    /// Whether the line stops at its start once no container is left open,
-    /// because the end of the rule that embeds Markdown holds there.
+    /// How the line starts.
     /// Only [`crate::markdown::lex_until`] sets it, for one line.
-    pub(super) stop_at_start: bool,
-    /// Whether the line stopped there, with no tokens.
+    pub(super) start: Start,
+    /// Whether the line stopped at its start, with no tokens.
     pub(super) stopped: bool,
+}
+
+/// How a line starts: as a line of a document, or as Markdown that another
+/// language embeds from `line.start`.
+#[derive(Clone, Copy, Debug, Default)]
+pub(crate) enum Start {
+    #[default]
+    Document,
+    /// `stop` when the end of the embedding rule holds at the start, so the
+    /// line stops there once no container is left open.
+    /// `before` is the character before the start
+    /// ([`LineFacts::before_start`]).
+    Embedded { stop: bool, before: Option<char> },
 }
 
 impl<'a> Lexer<'a> {
@@ -292,7 +305,10 @@ impl<'a> Lexer<'a> {
             anchor: None,
             limit: line.len() + 1,
             last: 0,
-            steps: Steps::new(limits, line.len()),
+            facts: LineFacts {
+                steps: Steps::new(limits, line.len()),
+                before_start: None,
+            },
             opened: None,
             scratch,
             first_line,
@@ -332,28 +348,35 @@ impl<'a> Lexer<'a> {
             self.scratch.markdown.resume = Some(state);
             state
         };
-        self.steps.finish(next)
+        self.facts.steps.finish(next)
     }
 
     /// Lexes the line. A line whose scans spent its work reports the work
     /// limit, though the scan that ran out gave up without a match and the
     /// loop then found nothing more.
     ///
-    /// A line that another language embeds stops at its start when
-    /// `stop_at_start` is set and the open containers' `while` rules closed
-    /// them all.
+    /// A line that another language embeds stops at its start when its
+    /// [`Start`] says so and the open containers' `while` rules closed them
+    /// all.
     /// That is the one place the embedding rule's end can hold.
     /// At the document's level every line opens a block at its start, and
     /// inside a block the embedding rule's end is not tried.
+    ///
+    /// The character before an embedded start is read only here, after the
+    /// `while` rules, which read nothing before the start.
+    /// A document's line reads only the one test it read before.
     pub(crate) fn run(&mut self) {
         let mut caps = Caps::new();
         self.check_whiles(&mut caps);
-        if self.scratch.markdown.stop_at_start && self.frames.len() == 1 {
-            self.scratch.markdown.stopped = true;
-            return;
+        if let Start::Embedded { stop, before } = self.scratch.markdown.start {
+            if stop && self.frames.len() == 1 {
+                self.scratch.markdown.stopped = true;
+                return;
+            }
+            self.facts.before_start = before;
         }
         while self.step(&mut caps) {}
-        if self.steps.exhausted() {
+        if self.facts.steps.exhausted() {
             self.report.record(Limit::Work);
         }
         let node = self.content();
@@ -498,7 +521,7 @@ impl<'a> Lexer<'a> {
     /// Takes the next match from the cursor. False when nothing matches, or
     /// the line has spent its work.
     fn step(&mut self, caps: &mut Caps) -> bool {
-        if self.steps.step() {
+        if self.facts.steps.step() {
             self.report.record(Limit::Work);
             return false;
         }
@@ -1096,7 +1119,7 @@ impl<'a> Lexer<'a> {
         let span = self.span();
         let text = &self.line[..self.limit.min(self.line.len())];
         let state = crate::html::start_embedded(self.arena, ROOT);
-        let lent = self.steps.lend(self.limits);
+        let lent = self.facts.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
@@ -1110,7 +1133,7 @@ impl<'a> Lexer<'a> {
             embedded: true,
         };
         let (opens, spent) = crate::html::derivative_opens_at(&mut cx, line, state, span);
-        self.steps.add(spent);
+        self.facts.steps.add(spent);
         opens
     }
 
@@ -1146,7 +1169,7 @@ impl<'a> Lexer<'a> {
         let [_, (text, close), _, _, (name, name_end), _] = groups;
         if text < close {
             let state = crate::html::start_embedded(self.arena, base);
-            let lent = self.steps.lend(self.limits);
+            let lent = self.facts.steps.lend(self.limits);
             let mut cx = Context {
                 scratch: &mut *self.scratch,
                 arena: &mut *self.arena,
@@ -1166,7 +1189,7 @@ impl<'a> Lexer<'a> {
                 crate::html::Span::Capture,
                 None,
             );
-            self.steps.take_back(finished);
+            self.facts.steps.take_back(finished);
             self.last = self.last.max(close);
         }
         let mut buffer = [0_u8; 40];
@@ -1277,7 +1300,7 @@ impl<'a> Lexer<'a> {
         self.emit(start, content);
         #[cfg(feature = "lang-html-derivative")]
         let span = self.span();
-        let lent = self.steps.lend(self.limits);
+        let lent = self.facts.steps.lend(self.limits);
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
@@ -1302,7 +1325,7 @@ impl<'a> Lexer<'a> {
             None => (lang.lex_embedded(&mut cx, line, payload), None),
         };
         #[cfg(feature = "lang-html-derivative")]
-        let state = self.steps.take_back(state);
+        let state = self.facts.steps.take_back(state);
         #[cfg(feature = "lang-html-derivative")]
         if let Some(at) = back {
             self.give_back_at(at, start, end, kind, content);
@@ -1311,7 +1334,7 @@ impl<'a> Lexer<'a> {
         #[cfg(not(feature = "lang-html-derivative"))]
         let state = lang.lex_embedded(&mut cx, line, payload);
         #[cfg(not(feature = "lang-html-derivative"))]
-        let state = self.steps.take_back(state);
+        let state = self.facts.steps.take_back(state);
         self.last = end;
         self.pos = self.limit;
         if state == payload {

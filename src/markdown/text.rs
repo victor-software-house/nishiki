@@ -20,9 +20,23 @@ pub(crate) struct Cx<'a> {
     pub(crate) end: usize,
     /// The position `\G` matches: where the last rule matched ended.
     pub(crate) anchor: Option<usize>,
+    /// The line's work and the character before its start, behind one
+    /// reference, so a window costs no more to make than one without it.
+    pub(crate) facts: &'a LineFacts,
+}
+
+/// What the rules read about a line besides its bytes.
+#[derive(Debug)]
+pub(crate) struct LineFacts {
     /// The steps the line has spent and may spend.
     /// The lexer's loop checks them each turn.
-    pub(crate) steps: &'a Steps,
+    pub(crate) steps: Steps,
+    /// The character before the line's start, for Markdown that another
+    /// language embeds from the middle of its line.
+    /// vscode-textmate matches on the whole line, so a lookbehind at the
+    /// start reads it.
+    /// None for a Markdown document.
+    pub(crate) before_start: Option<char>,
 }
 
 impl Cx<'_> {
@@ -43,9 +57,13 @@ impl Cx<'_> {
     }
 
     /// The byte before `p`.
+    /// Before the start it is the last byte of [`LineFacts::before_start`].
     #[inline]
     pub(crate) fn before(&self, p: usize) -> Option<u8> {
-        p.checked_sub(1).and_then(|q| self.get(q))
+        match p.checked_sub(1) {
+            Some(q) => self.get(q),
+            None => self.facts.before_start.map(last_byte),
+        }
     }
 
     /// Whether the text at `p` starts with `prefix`.
@@ -101,6 +119,16 @@ impl Cx<'_> {
         let last = self.before(p)?;
         if last < 0x80 {
             return Some(char::from(last));
+        }
+        self.wide_char_before(p)
+    }
+
+    /// The character of more than one byte that ends at `p`.
+    /// Out of line, so [`Cx::char_before`] stays small enough to inline.
+    #[cold]
+    fn wide_char_before(&self, p: usize) -> Option<char> {
+        if p == 0 {
+            return self.facts.before_start;
         }
         let start = (p.saturating_sub(4)..p)
             .rev()
@@ -175,11 +203,17 @@ impl Cx<'_> {
     /// Whether the line has spent its work.
     /// A long scan then gives up.
     pub(crate) fn over(&self) -> bool {
-        self.steps.exhausted()
+        self.facts.steps.exhausted()
     }
 
     /// Counts `bytes` read ahead of the cursor against the line's work.
     pub(crate) fn spend(&self, bytes: usize) {
-        self.steps.spend(bytes);
+        self.facts.steps.spend(bytes);
     }
+}
+
+/// The last byte of `c` in UTF-8, as a test of one byte reads it: the
+/// character when it is ASCII, else a continuation byte.
+fn last_byte(c: char) -> u8 {
+    u8::try_from(c).ok().filter(u8::is_ascii).unwrap_or(0x80)
 }
