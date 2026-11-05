@@ -1,13 +1,53 @@
-//! Haskell, run by nishiki's `TextMate` engine on the `haskell` grammar that
-//! Shiki bundles.
-//! `oracle/engine-tables.ts` compiles that grammar into `grammar.rs`.
+//! Haskell, with the scopes of the `haskell` grammar that Shiki bundles.
+//! The grammar comes from octref/language-haskell.
 //!
-//! The language has no lexer of its own.
-//! Its row in `languages!` names the table.
-//! The engine runs the grammar's rules as Shiki does and names their scopes at
-//! run time.
-//! The language therefore has no scope table or frame tag of its own either.
-//! Shiki's Markdown grammar has no Haskell fence.
-//! No language therefore embeds Haskell yet.
+//! The lexer runs the grammar's begin/end rules with hand-written matchers over
+//! bytes, in the `engine` module.
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The rules left open at the end of a line, such as a declaration that runs
+//! while the lines after it are indented further, are frames of the
+//! highlighter's interned state.
+//! Shiki's Markdown grammar has no Haskell fence, so no language embeds
+//! Haskell.
 
-pub(crate) mod grammar;
+mod engine;
+mod grammar;
+mod matchers;
+mod nested;
+mod scope;
+
+use engine::Haskell;
+pub(crate) use engine::Scratch;
+pub(crate) use scope::NAMES;
+
+use crate::arena::Arena;
+use crate::language::{Context, Line};
+use crate::limits::Finished;
+use crate::rules;
+
+/// Haskell's buffers in the highlighter's scratch.
+/// The first Haskell line allocates them.
+fn buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch {
+    scratch.haskell.get_or_insert_with(Box::default)
+}
+
+/// The state at the start of a Haskell document whose scopes sit on the
+/// stack `base`.
+pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
+    rules::start::<Haskell>(arena, base)
+}
+
+/// The state at the start of the Haskell lines of a fenced code block.
+pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
+    rules::start_embedded::<Haskell>(arena, base)
+}
+
+/// Lexes one line under the crate's lexer contract.
+#[inline]
+pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
+    rules::lex::<Haskell>(cx, line, state, buffers)
+}
+
+#[cfg(test)]
+mod tests;

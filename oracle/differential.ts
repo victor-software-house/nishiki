@@ -36,6 +36,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "'", "`", ",", ",@", "#'", "#\\a", "#\\Space", "#(", "#p\"a\"", "#+sbcl", "#-(or a b)", "#.", "|a b|", "\"", "\\\"", "\"~a~%\"", "\"~{~a~^, ~}\"", ";", ";;", "#|", "|#", ":", "::", "."],
     heads: ["", "", " ", "  ", "; ", ";; ", "(", "(defun f (", "#| "],
   },
+  haskell: {
+    words: ["module", "where", "import", "qualified", "as", "hiding", "class", "instance", "data", "newtype", "type", "family", "role", "nominal", "deriving", "stock", "anyclass", "via", "pattern", "foreign", "export", "ccall", "safe", "unsafe", "forall", "∀", "let", "in", "do", "mdo", "rec", "proc", "case", "of", "if", "then", "else", "infixl", "infixr", "Foo", "M.Map", "Data.List", "x", "x'", "_y", "f#", "1", "0x1F", "0b101", "1.5e3", "0x1.8p3", "'c'", "'\\n'", "'\\x41'", "\"str\"", "\"a\\\"b\"", "#label", "@Int", "@'[]", "LANGUAGE", "GADTs", "INLINE", "SPECIALISE", "language", "ſafe"],
+    marks: ["(", ")", "[", "]", "{", "}", ",", ";", "=", "|", "::", "∷", "->", "→", "<-", "=>", "⇒", "\\", "λ", "@", "!", "~", "$", "$$", "..", ".", ":", ":+", "`", "'", "(#", "#)", "(# #)", "(,)", "()", "[]", "[|", "|]", "[e||", "||]", "[expr|", "{-", "-}", "{-#", "#-}", "{-@", "@-}", "--", "-- |", "-- ^", "-<", "-<<", "+", "<>", "#"],
+    heads: ["", "", " ", "  ", "-- ", "{- ", "{-# ", "module ", "import ", "data ", "class ", "instance ", "type ", "newtype ", "  | ", "  , ", "  deriving ", "foreign import ccall ", "pattern ", "infixl 6 ", "#if ", "f :: ", ":: "],
+  },
   kotlin: {
     words: ["fun", "class", "interface", "object", "val", "var", "import", "package", "if", "else", "when", "in", "is", "as", "by", "get", "set", "this", "super", "private", "open", "data", "suspend", "true", "false", "null", "Foo", "x", "String", "List", "foo", "1", "0x1F", "1.5f", "@Foo", "@file:JvmName", "@param", "{@link a.B#c(d)}", "`a b`"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "?.", "::", ":", "?", "=", "==", "+", "-", "->", "\"", "\"\"\"", "'", "\"${x}\"", "$x", "/*", "*/", "/**", "//"],

@@ -26,6 +26,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | ERB | `erb` | 12 of 12 | 100.0% | 10 of 14 | 71.4% | 4 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
+| Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HTML | `html` | 136 of 227 | 59.9% | 167 of 368 | 45.4% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
@@ -336,6 +337,15 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #graphql-type-interface.end  (?=.)  waived: the rule's last pattern, `#graphql-ignore-spaces`, matches `\s*` at every place, and the rule tries its end after its patterns
 #graphql-union.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
 #graphql-union.patterns[0].end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
+```
+
+### `haskell`
+
+```text
+patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group for its end too, and the end's expression has no group)
+#comments.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#type_signature.patterns[4].match  (\()(#)\s*(#)(\))  waived: it repeats `patterns[2]`, which comes earlier in the same list
 ```
 
 ### `html`

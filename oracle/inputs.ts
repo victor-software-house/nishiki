@@ -20,6 +20,7 @@ import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
+import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
 import jsonCoverage from "./inputs/json-coverage.json" with { type: "text" };
@@ -706,11 +707,12 @@ export const inputs: Input[] = [
   { lang: "haml", name: "haml-standard", url: `${haml}/test/haml/templates/standard.haml` },
   { lang: "haml", name: "haml-whitespace", url: `${haml}/test/haml/templates/whitespace_handling.haml` },
   { lang: "haml", name: "sample", url: `${samples}/haml.sample` },
-  // Haskell runs on the TextMate engine. Shiki's Markdown grammar has no
-  // Haskell fence, so no Markdown input embeds it.
+  // Shiki's Markdown grammar has no Haskell fence, so no Markdown input
+  // embeds Haskell.
   { lang: "haskell", name: "aeson-builder", url: `${aeson}/src/Data/Aeson/Encoding/Builder.hs` },
   { lang: "haskell", name: "aeson-decoding-text", url: `${aeson}/src/Data/Aeson/Decoding/Text.hs` },
   { lang: "haskell", name: "aeson-github", url: `${aeson}/examples/src/GitHub.hs` },
+  { lang: "haskell", name: "coverage", text: haskellCoverage },
   { lang: "haskell", name: "sample", url: `${samples}/haskell.sample` },
   { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },

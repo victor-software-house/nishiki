@@ -78,6 +78,9 @@ tags! {
     /// GraphQL.
     #[cfg(feature = "lang-graphql")]
     GRAPHQL = 0x2200,
+    /// Haskell.
+    #[cfg(feature = "lang-haskell")]
+    HASKELL = 0x3600,
     /// HTML.
     #[cfg(feature = "lang-html")]
     HTML = 0x2800,

@@ -63,6 +63,7 @@ const handLexed = new Map([
   ["erb", "ERB"],
   ["go", "Go"],
   ["graphql", "GraphQL"],
+  ["haskell", "Haskell"],
   ["html", "HTML"],
   ["html-derivative", "HTML"],
   ["ini", "INI"],

@@ -1323,6 +1323,19 @@ export const waivers: Waiver[] = [
         "the rule's begin `([^\"]*)` takes the text up to the quote, where its end `(?=\")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty",
     }),
   ),
+  { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
+  { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
+  {
+    grammar: "haskell",
+    path: "patterns[17].end",
+    group: 1,
+    reason: "the rule's `captures` name the begin's group for its end too, and the end's expression has no group",
+  },
+  {
+    grammar: "haskell",
+    path: "#type_signature.patterns[4].match",
+    reason: "it repeats `patterns[2]`, which comes earlier in the same list",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1341,6 +1354,7 @@ export const complete: string[] = [
   "erb",
   "go",
   "graphql",
+  "haskell",
   "ini",
   "java",
   "javascript",

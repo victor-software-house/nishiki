@@ -109,7 +109,7 @@ pub(crate) fn is_mark(c: char) -> bool {
 /// The regex `[\p{Lt}\p{Lu}]` for a character: a title-case or upper-case
 /// letter.
 /// In ASCII, `A` to `Z`.
-#[cfg(feature = "lang-scala")]
+#[cfg(any(feature = "lang-scala", feature = "lang-haskell"))]
 pub(crate) fn is_title_or_upper(c: char) -> bool {
     if c.is_ascii() {
         c.is_ascii_uppercase()
@@ -138,6 +138,37 @@ pub(crate) fn is_symbol(c: char) -> bool {
         matches!(c, '+' | '<' | '=' | '>' | '|' | '~')
     } else {
         table::is_symbol(c)
+    }
+}
+
+/// The regex `\p{Ll}` for a character: a lower-case letter.
+/// In ASCII, `a` to `z`, as measured on Shiki's engine.
+#[cfg(feature = "lang-haskell")]
+pub(crate) fn is_lower(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_lowercase()
+    } else {
+        table::is_lower(c)
+    }
+}
+
+/// The regex `\p{Lt}` for a character: a title-case letter.
+/// ASCII has none.
+#[cfg(feature = "lang-haskell")]
+pub(crate) fn is_title(c: char) -> bool {
+    !c.is_ascii() && table::is_title(c)
+}
+
+/// The regex `[\p{S}\p{P}]` for a character: a symbol or a punctuation
+/// mark.
+/// In ASCII, every printable character that is not a letter, a digit or a
+/// space, as measured on Shiki's engine.
+#[cfg(feature = "lang-haskell")]
+pub(crate) fn is_symbol_or_punctuation(c: char) -> bool {
+    if c.is_ascii() {
+        c.is_ascii_punctuation()
+    } else {
+        table::is_symbol_or_punctuation(c)
     }
 }
 

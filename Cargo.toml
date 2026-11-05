@@ -43,6 +43,7 @@ all = [
   "lang-erb",
   "lang-go",
   "lang-graphql",
+  "lang-haskell",
   "lang-html",
   "lang-html-derivative",
   "lang-ini",
@@ -124,7 +125,6 @@ textmate = [
   "lang-elixir",
   "lang-gdscript",
   "lang-haml",
-  "lang-haskell",
   "lang-matlab",
   "lang-objective-c",
   "lang-objective-cpp",
@@ -169,7 +169,7 @@ lang-haml = [
   "lang-ruby",
   "lang-sass",
 ]
-lang-haskell = ["_textmate"]
+lang-haskell = ["_scope-table", "_rule-tables", "_classes"]
 lang-html = ["_scope-table", "lang-css", "lang-javascript", "_classes"]
 lang-html-derivative = ["lang-html"]
 lang-ini = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]

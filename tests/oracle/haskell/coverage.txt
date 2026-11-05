@@ -1,0 +1,2242 @@
+L {-# LANGUAGE GADTs, NoImplicitPrelude, AutoDeriveTypeable #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 12 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 13 source.haskell meta.preprocessor.haskell
+T 18 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 19 source.haskell meta.preprocessor.haskell punctuation.separator.comma.haskell
+T 20 source.haskell meta.preprocessor.haskell
+T 37 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.extension.haskell
+T 38 source.haskell meta.preprocessor.haskell punctuation.separator.comma.haskell
+T 39 source.haskell meta.preprocessor.haskell
+T 57 source.haskell meta.preprocessor.haskell invalid.deprecated
+T 58 source.haskell meta.preprocessor.haskell
+T 61 source.haskell meta.preprocessor.haskell
+L {-# OPTIONS_GHC -Wall #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 15 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 22 source.haskell meta.preprocessor.haskell
+T 25 source.haskell meta.preprocessor.haskell
+L {-# SPECIALISE instance Eq (T Int) #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 14 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 15 source.haskell meta.preprocessor.haskell
+T 23 source.haskell meta.preprocessor.haskell keyword.other.instance.haskell
+T 24 source.haskell meta.preprocessor.haskell
+T 26 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 27 source.haskell meta.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell punctuation.paren.haskell
+T 29 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 30 source.haskell meta.preprocessor.haskell
+T 33 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 34 source.haskell meta.preprocessor.haskell punctuation.paren.haskell
+T 35 source.haskell meta.preprocessor.haskell
+T 38 source.haskell meta.preprocessor.haskell
+L {-# SPECIALIZE [~1] instance Show (T Int) #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 14 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 15 source.haskell meta.preprocessor.haskell
+T 16 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.bracket.haskell
+T 17 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.tilde.haskell
+T 18 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell constant.numeric.integral.decimal.haskell
+T 19 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.bracket.haskell
+T 20 source.haskell meta.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell keyword.other.instance.haskell
+T 29 source.haskell meta.preprocessor.haskell
+T 33 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 34 source.haskell meta.preprocessor.haskell
+T 35 source.haskell meta.preprocessor.haskell punctuation.paren.haskell
+T 36 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 37 source.haskell meta.preprocessor.haskell
+T 40 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 41 source.haskell meta.preprocessor.haskell punctuation.paren.haskell
+T 42 source.haskell meta.preprocessor.haskell
+T 45 source.haskell meta.preprocessor.haskell
+L {-# SPECIALISE INLINE [1] f :: Int -> Int #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 14 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 15 source.haskell meta.preprocessor.haskell
+T 21 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 22 source.haskell meta.preprocessor.haskell
+T 23 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.bracket.haskell
+T 24 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell constant.numeric.integral.decimal.haskell
+T 25 source.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.bracket.haskell
+T 26 source.haskell meta.preprocessor.haskell
+T 28 source.haskell meta.preprocessor.haskell
+T 30 source.haskell meta.preprocessor.haskell keyword.operator.double-colon.haskell
+T 31 source.haskell meta.preprocessor.haskell
+T 34 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 35 source.haskell meta.preprocessor.haskell
+T 37 source.haskell meta.preprocessor.haskell keyword.operator.arrow.haskell
+T 38 source.haskell meta.preprocessor.haskell
+T 41 source.haskell meta.preprocessor.haskell storage.type.haskell
+T 42 source.haskell meta.preprocessor.haskell
+T 45 source.haskell meta.preprocessor.haskell
+L {-# INLINE [~2] g #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 10 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.haskell
+T 18 source.haskell meta.preprocessor.haskell
+T 21 source.haskell meta.preprocessor.haskell
+L {-# DEPRECATED f "use g instead" #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 14 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 17 source.haskell meta.preprocessor.haskell
+T 18 source.haskell meta.preprocessor.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 31 source.haskell meta.preprocessor.haskell string.quoted.double.haskell
+T 32 source.haskell meta.preprocessor.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 33 source.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.preprocessor.haskell
+L {-# WARNING h "unsafe" #-}
+T 3 source.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.preprocessor.haskell
+T 11 source.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 14 source.haskell meta.preprocessor.haskell
+T 15 source.haskell meta.preprocessor.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 21 source.haskell meta.preprocessor.haskell string.quoted.double.haskell
+T 22 source.haskell meta.preprocessor.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 23 source.haskell meta.preprocessor.haskell
+T 26 source.haskell meta.preprocessor.haskell
+L {-@ measure size @-}
+T 3 source.haskell block.liquidhaskell.haskell
+T 17 source.haskell block.liquidhaskell.haskell
+T 20 source.haskell block.liquidhaskell.haskell
+L #if defined(FOO)
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 16 source.haskell meta.preprocessor.c
+L module Coverage
+T 6 source.haskell meta.declaration.module.haskell keyword.other.module.haskell
+T 7 source.haskell meta.declaration.module.haskell
+T 15 source.haskell meta.declaration.module.haskell entity.name.namespace.haskell
+L   ( module Data.List
+T 2 source.haskell meta.declaration.module.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 10 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell keyword.other.module.haskell
+T 11 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 15 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 20 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell storage.type.haskell
+L   , pattern Pair
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 11 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell keyword.other.pattern.haskell
+T 12 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 16 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell constant.other.haskell
+L   , pattern (:>)
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 11 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell keyword.other.pattern.haskell
+T 12 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 13 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 15 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell constant.other.operator.haskell
+T 16 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L   , type (++)
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 8 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell keyword.other.type.haskell
+T 9 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 10 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 12 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell storage.type.operator.haskell
+T 13 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L   , type T
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 8 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell keyword.other.type.haskell
+T 9 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 10 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell storage.type.haskell
+L   , foo
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 7 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell entity.name.function.haskell
+L   , Bar (..)
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.separator.comma.haskell
+T 4 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 7 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 9 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 11 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell variable.other.member.wildcard.haskell
+T 12 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L   ) where
+T 2 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell
+T 3 source.haskell meta.declaration.module.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 4 source.haskell meta.declaration.module.haskell
+T 9 source.haskell keyword.other.where.haskell
+L #endif
+T 1 source.haskell meta.preprocessor.c punctuation.definition.preprocessor.c
+T 6 source.haskell meta.preprocessor.c
+L 
+L import qualified Data.Map as M
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell keyword.other.qualified.haskell
+T 17 source.haskell meta.import.haskell
+T 25 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 26 source.haskell meta.import.haskell
+T 28 source.haskell meta.import.haskell keyword.other.as.haskell
+T 29 source.haskell meta.import.haskell
+T 30 source.haskell meta.import.haskell entity.name.namespace.haskell
+L import Data.List hiding (insert)
+T 6 source.haskell meta.import.haskell keyword.other.import.haskell
+T 7 source.haskell meta.import.haskell
+T 16 source.haskell meta.import.haskell entity.name.namespace.haskell
+T 17 source.haskell meta.import.haskell
+T 23 source.haskell meta.import.haskell keyword.other.hiding.haskell
+T 24 source.haskell meta.import.haskell
+T 25 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+T 31 source.haskell meta.import.haskell meta.declaration.exports.haskell entity.name.function.haskell
+T 32 source.haskell meta.import.haskell meta.declaration.exports.haskell punctuation.paren.haskell
+L 
+L infixl 6 <+>
+T 6 source.haskell meta.fixity-declaration.haskell keyword.other.infixl.haskell
+T 7 source.haskell meta.fixity-declaration.haskell
+T 8 source.haskell meta.fixity-declaration.haskell constant.numeric.integral.decimal.haskell
+T 9 source.haskell meta.fixity-declaration.haskell
+T 12 source.haskell meta.fixity-declaration.haskell keyword.operator.infix.haskell
+L infixr 5 :>
+T 6 source.haskell meta.fixity-declaration.haskell keyword.other.infixr.haskell
+T 7 source.haskell meta.fixity-declaration.haskell
+T 8 source.haskell meta.fixity-declaration.haskell constant.numeric.integral.decimal.haskell
+T 9 source.haskell meta.fixity-declaration.haskell
+T 11 source.haskell meta.fixity-declaration.haskell keyword.operator.infix.haskell
+L infix 4 `elem'`
+T 5 source.haskell meta.fixity-declaration.haskell keyword.other.infix.haskell
+T 6 source.haskell meta.fixity-declaration.haskell
+T 7 source.haskell meta.fixity-declaration.haskell constant.numeric.integral.decimal.haskell
+T 8 source.haskell meta.fixity-declaration.haskell
+T 9 source.haskell meta.fixity-declaration.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 14 source.haskell meta.fixity-declaration.haskell keyword.operator.function.infix.haskell
+T 15 source.haskell meta.fixity-declaration.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+L 
+L -- | A Haddock comment
+T 4 source.haskell comment.block.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 22 source.haskell comment.block.documentation.haskell
+L -- that continues here.
+T 23 source.haskell comment.block.documentation.haskell
+L x = 1
+T 2 source.haskell
+T 3 source.haskell keyword.operator.eq.haskell
+T 4 source.haskell
+T 5 source.haskell constant.numeric.integral.decimal.haskell
+L   -- ^ after the binding
+T 2 source.haskell comment.line.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell comment.line.documentation.haskell
+T 24 source.haskell comment.line.documentation.haskell
+L {- block
+T 2 source.haskell comment.block.haskell punctuation.definition.comment.haskell
+T 8 source.haskell comment.block.haskell
+L    comment -}
+T 11 source.haskell comment.block.haskell
+T 13 source.haskell comment.block.haskell punctuation.definition.comment.haskell
+L {-| Haddock block -}
+T 3 source.haskell comment.block.documentation.haskell punctuation.definition.comment.haskell
+T 18 source.haskell comment.block.documentation.haskell
+T 20 source.haskell comment.block.documentation.haskell punctuation.definition.comment.haskell
+L {- ^ more -}
+T 4 source.haskell comment.block.documentation.haskell punctuation.definition.comment.haskell
+T 10 source.haskell comment.block.documentation.haskell
+T 12 source.haskell comment.block.documentation.haskell punctuation.definition.comment.haskell
+L 
+L class (Eq a, Show a) => Pretty a where
+T 5 source.haskell meta.declaration.class.haskell keyword.other.class.haskell
+T 6 source.haskell meta.declaration.class.haskell
+T 7 source.haskell meta.declaration.class.haskell punctuation.paren.haskell
+T 9 source.haskell meta.declaration.class.haskell storage.type.haskell
+T 10 source.haskell meta.declaration.class.haskell
+T 11 source.haskell meta.declaration.class.haskell variable.other.generic-type.haskell
+T 12 source.haskell meta.declaration.class.haskell punctuation.separator.comma.haskell
+T 13 source.haskell meta.declaration.class.haskell
+T 17 source.haskell meta.declaration.class.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.class.haskell
+T 19 source.haskell meta.declaration.class.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.declaration.class.haskell punctuation.paren.haskell
+T 21 source.haskell meta.declaration.class.haskell
+T 23 source.haskell meta.declaration.class.haskell keyword.operator.big-arrow.haskell
+T 24 source.haskell meta.declaration.class.haskell
+T 30 source.haskell meta.declaration.class.haskell storage.type.haskell
+T 31 source.haskell meta.declaration.class.haskell
+T 32 source.haskell meta.declaration.class.haskell variable.other.generic-type.haskell
+T 33 source.haskell meta.declaration.class.haskell
+T 38 source.haskell keyword.other.where.haskell
+L   pretty :: a -> String
+T 2 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 9 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L 
+L instance Pretty Int where
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 15 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.instance.haskell
+T 19 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.instance.haskell
+T 25 source.haskell keyword.other.where.haskell
+L   pretty = show
+T 9 source.haskell
+T 10 source.haskell keyword.operator.eq.haskell
+T 15 source.haskell
+L 
+L data T a = A a | B { field :: a, (<#>) :: Int } | a :+ a | a `Op` a
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.pipe.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.generic-type.haskell
+T 32 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 41 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 42 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 47 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 48 source.haskell meta.declaration.data.algebraic.haskell
+T 49 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.pipe.haskell
+T 50 source.haskell meta.declaration.data.algebraic.haskell
+T 51 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 52 source.haskell meta.declaration.data.algebraic.haskell
+T 54 source.haskell meta.declaration.data.algebraic.haskell constant.other.operator.haskell
+T 55 source.haskell meta.declaration.data.algebraic.haskell
+T 56 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 57 source.haskell meta.declaration.data.algebraic.haskell
+T 58 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.pipe.haskell
+T 59 source.haskell meta.declaration.data.algebraic.haskell
+T 60 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 61 source.haskell meta.declaration.data.algebraic.haskell
+T 62 source.haskell meta.declaration.data.algebraic.haskell punctuation.backtick.haskell
+T 64 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 65 source.haskell meta.declaration.data.algebraic.haskell punctuation.backtick.haskell
+T 66 source.haskell meta.declaration.data.algebraic.haskell
+T 67 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+L   deriving (Eq, Show)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.separator.comma.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L   deriving stock Ord
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.stock.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+L   deriving anyclass (NFData)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.anyclass.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L   deriving newtype Num via (Sum Int)
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.newtype.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.via.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 32 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 36 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L data P = (:%) Int Int | (Int, Int) :* Int | [Int] :& Int
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell constant.other.operator.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.pipe.haskell
+T 24 source.haskell meta.declaration.data.algebraic.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell punctuation.separator.comma.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell constant.other.operator.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell
+T 41 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 42 source.haskell meta.declaration.data.algebraic.haskell
+T 43 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.pipe.haskell
+T 45 source.haskell meta.declaration.data.algebraic.haskell
+T 48 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 50 source.haskell meta.declaration.data.algebraic.haskell
+T 52 source.haskell meta.declaration.data.algebraic.haskell storage.type.operator.infix.haskell
+T 53 source.haskell meta.declaration.data.algebraic.haskell
+T 56 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+L 
+L newtype N = N Int deriving Show
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 9 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 10 source.haskell meta.declaration.newtype.algebraic.haskell
+T 11 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 14 source.haskell meta.declaration.newtype.algebraic.haskell
+T 17 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell
+T 26 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 27 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 31 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+L 
+L data G a where
+T 4 source.haskell meta.declaration.data.generalized.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 6 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell variable.other.generic-type.haskell
+T 9 source.haskell meta.declaration.data.generalized.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell keyword.other.where.haskell
+L   GInt :: Int -> G Int
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 6 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell
+T 9 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell
+T 16 source.haskell meta.declaration.data.generalized.haskell keyword.operator.arrow.haskell
+T 17 source.haskell meta.declaration.data.generalized.haskell
+T 18 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell
+T 22 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+L   (:::) :: a -> G a -> G a
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 3 source.haskell meta.declaration.data.generalized.haskell punctuation.paren.haskell
+T 6 source.haskell meta.declaration.data.generalized.haskell constant.other.operator.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell punctuation.paren.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 11 source.haskell meta.declaration.data.generalized.haskell
+T 12 source.haskell meta.declaration.data.generalized.haskell variable.other.generic-type.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell
+T 15 source.haskell meta.declaration.data.generalized.haskell keyword.operator.arrow.haskell
+T 16 source.haskell meta.declaration.data.generalized.haskell
+T 17 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 18 source.haskell meta.declaration.data.generalized.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.declaration.data.generalized.haskell
+T 22 source.haskell meta.declaration.data.generalized.haskell keyword.operator.arrow.haskell
+T 23 source.haskell meta.declaration.data.generalized.haskell
+T 24 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 25 source.haskell meta.declaration.data.generalized.haskell
+T 26 source.haskell meta.declaration.data.generalized.haskell variable.other.generic-type.haskell
+L   GRec :: { gField :: Int } -> G Int
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 6 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell
+T 9 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell
+T 11 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 12 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell
+T 18 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell
+T 21 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 22 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell
+T 25 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell storage.type.haskell
+T 26 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell
+T 27 source.haskell meta.declaration.data.generalized.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 28 source.haskell meta.declaration.data.generalized.haskell
+T 30 source.haskell meta.declaration.data.generalized.haskell keyword.operator.arrow.haskell
+T 31 source.haskell meta.declaration.data.generalized.haskell
+T 32 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 33 source.haskell meta.declaration.data.generalized.haskell
+T 36 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+L   deriving (Show)
+T 2 source.haskell meta.declaration.data.generalized.haskell meta.deriving.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 11 source.haskell meta.declaration.data.generalized.haskell meta.deriving.haskell
+T 12 source.haskell meta.declaration.data.generalized.haskell meta.deriving.haskell punctuation.paren.haskell
+T 16 source.haskell meta.declaration.data.generalized.haskell meta.deriving.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.data.generalized.haskell meta.deriving.haskell punctuation.paren.haskell
+L 
+L data instance F Int where
+T 4 source.haskell meta.declaration.data.generalized.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell keyword.other.instance.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell
+T 15 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.data.generalized.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.data.generalized.haskell
+T 25 source.haskell meta.declaration.data.generalized.haskell keyword.other.where.haskell
+L   FI :: F Int
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 4 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 9 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+L 
+L data family D a
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell keyword.other.family.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+L data instance D Int = DI
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell keyword.other.instance.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell
+T 24 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L newtype instance D Bool = DB Bool
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 16 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.instance.haskell
+T 17 source.haskell meta.declaration.newtype.algebraic.haskell
+T 18 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell
+T 23 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 24 source.haskell meta.declaration.newtype.algebraic.haskell
+T 25 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 26 source.haskell meta.declaration.newtype.algebraic.haskell
+T 28 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 29 source.haskell meta.declaration.newtype.algebraic.haskell
+T 33 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+L 
+L type family TF a where
+T 4 source.haskell meta.declaration.type.family.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.family.haskell
+T 11 source.haskell meta.declaration.type.family.haskell keyword.other.family.haskell
+T 12 source.haskell meta.declaration.type.family.haskell
+T 14 source.haskell meta.declaration.type.family.haskell storage.type.haskell
+T 15 source.haskell meta.declaration.type.family.haskell
+T 16 source.haskell meta.declaration.type.family.haskell variable.other.generic-type.haskell
+T 17 source.haskell meta.declaration.type.family.haskell
+T 22 source.haskell meta.declaration.type.family.haskell keyword.other.where.haskell
+L   TF Int = Bool
+T 2 source.haskell meta.declaration.type.family.haskell
+T 4 source.haskell meta.declaration.type.family.haskell storage.type.haskell
+T 5 source.haskell meta.declaration.type.family.haskell
+T 8 source.haskell meta.declaration.type.family.haskell storage.type.haskell
+T 9 source.haskell meta.declaration.type.family.haskell
+T 10 source.haskell meta.declaration.type.family.haskell keyword.operator.eq.haskell
+T 11 source.haskell meta.declaration.type.family.haskell
+T 15 source.haskell meta.declaration.type.family.haskell storage.type.haskell
+L type instance TF Char = Int
+T 4 source.haskell meta.declaration.type.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.haskell
+T 13 source.haskell meta.declaration.type.haskell keyword.other.instance.haskell
+T 14 source.haskell meta.declaration.type.haskell
+T 16 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 17 source.haskell meta.declaration.type.haskell
+T 21 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 22 source.haskell meta.declaration.type.haskell
+T 23 source.haskell meta.declaration.type.haskell keyword.operator.eq.haskell
+T 24 source.haskell meta.declaration.type.haskell
+T 27 source.haskell meta.declaration.type.haskell storage.type.haskell
+L type S = (,) Int
+T 4 source.haskell meta.declaration.type.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.haskell
+T 6 source.haskell meta.declaration.type.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.type.haskell
+T 8 source.haskell meta.declaration.type.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.type.haskell
+T 10 source.haskell meta.declaration.type.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 11 source.haskell meta.declaration.type.haskell support.constant.tuple.haskell
+T 12 source.haskell meta.declaration.type.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 13 source.haskell meta.declaration.type.haskell
+T 16 source.haskell meta.declaration.type.haskell storage.type.haskell
+L type role Ptr nominal representational phantom
+T 4 source.haskell meta.role-annotation.haskell keyword.other.type.haskell
+T 5 source.haskell meta.role-annotation.haskell
+T 9 source.haskell meta.role-annotation.haskell keyword.other.role.haskell
+T 10 source.haskell meta.role-annotation.haskell
+T 13 source.haskell meta.role-annotation.haskell storage.type.haskell
+T 14 source.haskell meta.role-annotation.haskell
+T 21 source.haskell meta.role-annotation.haskell keyword.other.role.nominal.haskell
+T 22 source.haskell meta.role-annotation.haskell
+T 38 source.haskell meta.role-annotation.haskell keyword.other.role.representational.haskell
+T 39 source.haskell meta.role-annotation.haskell
+T 46 source.haskell meta.role-annotation.haskell keyword.other.role.phantom.haskell
+L 
+L pattern Pair :: a -> b -> (a, b)
+T 7 source.haskell meta.declaration.pattern.type.haskell keyword.other.pattern.haskell
+T 8 source.haskell meta.declaration.pattern.type.haskell
+T 12 source.haskell meta.declaration.pattern.type.haskell constant.other.haskell
+T 13 source.haskell meta.declaration.pattern.type.haskell
+T 15 source.haskell meta.declaration.pattern.type.haskell keyword.operator.double-colon.haskell
+T 16 source.haskell meta.declaration.pattern.type.haskell
+T 17 source.haskell meta.declaration.pattern.type.haskell variable.other.generic-type.haskell
+T 18 source.haskell meta.declaration.pattern.type.haskell
+T 20 source.haskell meta.declaration.pattern.type.haskell keyword.operator.arrow.haskell
+T 21 source.haskell meta.declaration.pattern.type.haskell
+T 22 source.haskell meta.declaration.pattern.type.haskell variable.other.generic-type.haskell
+T 23 source.haskell meta.declaration.pattern.type.haskell
+T 25 source.haskell meta.declaration.pattern.type.haskell keyword.operator.arrow.haskell
+T 26 source.haskell meta.declaration.pattern.type.haskell
+T 27 source.haskell meta.declaration.pattern.type.haskell punctuation.paren.haskell
+T 28 source.haskell meta.declaration.pattern.type.haskell variable.other.generic-type.haskell
+T 29 source.haskell meta.declaration.pattern.type.haskell punctuation.separator.comma.haskell
+T 30 source.haskell meta.declaration.pattern.type.haskell
+T 31 source.haskell meta.declaration.pattern.type.haskell variable.other.generic-type.haskell
+T 32 source.haskell meta.declaration.pattern.type.haskell punctuation.paren.haskell
+L pattern Pair a b = (a, b)
+T 7 source.haskell meta.declaration.pattern.haskell keyword.other.pattern.haskell
+T 8 source.haskell meta.declaration.pattern.haskell
+T 12 source.haskell meta.declaration.pattern.haskell constant.other.haskell
+T 17 source.haskell meta.declaration.pattern.haskell
+T 18 source.haskell meta.declaration.pattern.haskell keyword.operator.eq.haskell
+T 19 source.haskell meta.declaration.pattern.haskell
+T 20 source.haskell meta.declaration.pattern.haskell punctuation.paren.haskell
+T 21 source.haskell meta.declaration.pattern.haskell
+T 22 source.haskell meta.declaration.pattern.haskell punctuation.separator.comma.haskell
+T 24 source.haskell meta.declaration.pattern.haskell
+T 25 source.haskell meta.declaration.pattern.haskell punctuation.paren.haskell
+L pattern  :: Int
+T 7 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.type.haskell keyword.other.pattern.haskell
+T 9 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.type.haskell
+T 11 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.type.haskell keyword.operator.double-colon.haskell
+T 12 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.type.haskell
+T 15 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.type.haskell storage.type.haskell
+L pattern p :> q <- (p, q)
+T 7 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell keyword.other.pattern.haskell
+T 10 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell
+T 12 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell keyword.operator.infix.haskell
+T 15 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell
+T 17 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell keyword.operator.arrow.left.haskell
+T 18 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell
+T 19 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell punctuation.paren.haskell
+T 20 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell
+T 21 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell punctuation.separator.comma.haskell
+T 23 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell
+T 24 source.haskell meta.declaration.pattern.haskell meta.declaration.pattern.haskell punctuation.paren.haskell
+L 
+L foreign import ccall unsafe "math.h sin" c_sin :: Double -> Double
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 20 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.ccall.haskell
+T 21 source.haskell meta.import.foreign.haskell
+T 27 source.haskell meta.import.foreign.haskell keyword.other.safety.unsafe.haskell
+T 28 source.haskell meta.import.foreign.haskell
+T 29 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 39 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell
+T 40 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 41 source.haskell meta.import.foreign.haskell
+T 46 source.haskell meta.import.foreign.haskell entity.name.function.haskell
+T 47 source.haskell meta.import.foreign.haskell
+T 49 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 50 source.haskell meta.import.foreign.haskell
+T 56 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 57 source.haskell meta.import.foreign.haskell
+T 59 source.haskell meta.import.foreign.haskell keyword.operator.arrow.haskell
+T 60 source.haskell meta.import.foreign.haskell
+T 66 source.haskell meta.import.foreign.haskell storage.type.haskell
+L foreign import capi safe "stdio.h puts" (<!>) :: CString -> IO ()
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 19 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.capi.haskell
+T 20 source.haskell meta.import.foreign.haskell
+T 24 source.haskell meta.import.foreign.haskell keyword.other.safety.safe.haskell
+T 25 source.haskell meta.import.foreign.haskell
+T 26 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 38 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell
+T 39 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 41 source.haskell meta.import.foreign.haskell
+T 44 source.haskell meta.import.foreign.haskell entity.name.function.infix.haskell
+T 45 source.haskell meta.import.foreign.haskell
+T 46 source.haskell meta.import.foreign.haskell
+T 48 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 49 source.haskell meta.import.foreign.haskell
+T 56 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 57 source.haskell meta.import.foreign.haskell
+T 59 source.haskell meta.import.foreign.haskell keyword.operator.arrow.haskell
+T 60 source.haskell meta.import.foreign.haskell
+T 62 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 63 source.haskell meta.import.foreign.haskell
+T 64 source.haskell meta.import.foreign.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 65 source.haskell meta.import.foreign.haskell support.constant.unit.haskell punctuation.paren.haskell
+L foreign import stdcall interruptible
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 22 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.stdcall.haskell
+T 23 source.haskell meta.import.foreign.haskell
+T 36 source.haskell meta.import.foreign.haskell keyword.other.safety.interruptible.haskell
+L   "&free" p_free :: FunPtr (Ptr a -> IO ())
+T 2 source.haskell meta.import.foreign.haskell
+T 3 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 8 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell
+T 9 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 10 source.haskell meta.import.foreign.haskell
+T 16 source.haskell meta.import.foreign.haskell entity.name.function.haskell
+T 17 source.haskell meta.import.foreign.haskell
+T 19 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 20 source.haskell meta.import.foreign.haskell
+T 26 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 27 source.haskell meta.import.foreign.haskell
+T 28 source.haskell meta.import.foreign.haskell punctuation.paren.haskell
+T 31 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 32 source.haskell meta.import.foreign.haskell
+T 33 source.haskell meta.import.foreign.haskell variable.other.generic-type.haskell
+T 34 source.haskell meta.import.foreign.haskell
+T 36 source.haskell meta.import.foreign.haskell keyword.operator.arrow.haskell
+T 37 source.haskell meta.import.foreign.haskell
+T 39 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 40 source.haskell meta.import.foreign.haskell
+T 41 source.haskell meta.import.foreign.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 42 source.haskell meta.import.foreign.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 43 source.haskell meta.import.foreign.haskell punctuation.paren.haskell
+L foreign export ccall foo :: Int -> Int
+T 7 source.haskell meta.export.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.export.foreign.haskell
+T 14 source.haskell meta.export.foreign.haskell keyword.other.export.haskell
+T 15 source.haskell meta.export.foreign.haskell
+T 20 source.haskell meta.export.foreign.haskell keyword.other.calling-convention.ccall.haskell
+T 21 source.haskell meta.export.foreign.haskell
+T 24 source.haskell meta.export.foreign.haskell entity.name.function.haskell
+T 25 source.haskell meta.export.foreign.haskell
+T 27 source.haskell meta.export.foreign.haskell keyword.operator.double-colon.haskell
+T 28 source.haskell meta.export.foreign.haskell
+T 31 source.haskell meta.export.foreign.haskell storage.type.haskell
+T 32 source.haskell meta.export.foreign.haskell
+T 34 source.haskell meta.export.foreign.haskell keyword.operator.arrow.haskell
+T 35 source.haskell meta.export.foreign.haskell
+T 38 source.haskell meta.export.foreign.haskell storage.type.haskell
+L foreign import jvm "java.lang.Math.abs" jabs :: Int -> Int
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 18 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.jvm.haskell
+T 19 source.haskell meta.import.foreign.haskell
+T 20 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 38 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell
+T 39 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 40 source.haskell meta.import.foreign.haskell
+T 44 source.haskell meta.import.foreign.haskell entity.name.function.haskell
+T 45 source.haskell meta.import.foreign.haskell
+T 47 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 48 source.haskell meta.import.foreign.haskell
+T 51 source.haskell meta.import.foreign.haskell storage.type.haskell
+T 52 source.haskell meta.import.foreign.haskell
+T 54 source.haskell meta.import.foreign.haskell keyword.operator.arrow.haskell
+T 55 source.haskell meta.import.foreign.haskell
+T 58 source.haskell meta.import.foreign.haskell storage.type.haskell
+L foreign import prim safe
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 19 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.prim.haskell
+T 20 source.haskell meta.import.foreign.haskell
+T 24 source.haskell meta.import.foreign.haskell keyword.other.safety.safe.haskell
+L   bar :: Int
+T 2 source.haskell meta.import.foreign.haskell
+T 5 source.haskell meta.import.foreign.haskell entity.name.function.haskell
+T 6 source.haskell meta.import.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 9 source.haskell meta.import.foreign.haskell
+T 12 source.haskell meta.import.foreign.haskell storage.type.haskell
+L 
+L deriving instance Show a => Show (T a)
+T 8 source.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 9 source.haskell meta.deriving.haskell
+T 17 source.haskell meta.deriving.haskell keyword.other.instance.haskell
+T 18 source.haskell meta.deriving.haskell
+T 22 source.haskell meta.deriving.haskell storage.type.haskell
+T 23 source.haskell meta.deriving.haskell
+T 24 source.haskell meta.deriving.haskell variable.other.generic-type.haskell
+T 25 source.haskell meta.deriving.haskell
+T 27 source.haskell meta.deriving.haskell keyword.operator.big-arrow.haskell
+T 28 source.haskell meta.deriving.haskell
+T 32 source.haskell meta.deriving.haskell storage.type.haskell
+T 33 source.haskell meta.deriving.haskell
+T 34 source.haskell meta.deriving.haskell punctuation.paren.haskell
+T 35 source.haskell meta.deriving.haskell storage.type.haskell
+T 36 source.haskell meta.deriving.haskell
+T 37 source.haskell meta.deriving.haskell variable.other.generic-type.haskell
+T 38 source.haskell meta.deriving.haskell punctuation.paren.haskell
+L deriving stock instance Eq N
+T 8 source.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 9 source.haskell meta.deriving.haskell
+T 14 source.haskell meta.deriving.haskell keyword.other.deriving.strategy.stock.haskell
+T 15 source.haskell meta.deriving.haskell
+T 23 source.haskell meta.deriving.haskell keyword.other.instance.haskell
+T 24 source.haskell meta.deriving.haskell
+T 26 source.haskell meta.deriving.haskell storage.type.haskell
+T 27 source.haskell meta.deriving.haskell
+T 28 source.haskell meta.deriving.haskell storage.type.haskell
+L deriving via (Sum Int) instance Semigroup N
+T 8 source.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 9 source.haskell meta.deriving.haskell
+T 12 source.haskell meta.deriving.haskell keyword.other.deriving.strategy.via.haskell
+T 13 source.haskell meta.deriving.haskell
+T 14 source.haskell meta.deriving.haskell punctuation.paren.haskell
+T 17 source.haskell meta.deriving.haskell storage.type.haskell
+T 18 source.haskell meta.deriving.haskell
+T 21 source.haskell meta.deriving.haskell storage.type.haskell
+T 22 source.haskell meta.deriving.haskell punctuation.paren.haskell
+T 23 source.haskell meta.deriving.haskell
+T 31 source.haskell meta.deriving.haskell keyword.other.instance.haskell
+T 32 source.haskell meta.deriving.haskell
+T 41 source.haskell meta.deriving.haskell storage.type.haskell
+T 42 source.haskell meta.deriving.haskell
+T 43 source.haskell meta.deriving.haskell storage.type.haskell
+L 
+L f :: forall a b. (Show a) => a -> b -> String
+T 1 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.other.forall.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 15 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 16 source.haskell meta.function.type-declaration.haskell keyword.operator.period.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 22 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 23 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 25 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 26 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell keyword.operator.big-arrow.haskell
+T 29 source.haskell meta.function.type-declaration.haskell
+T 30 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 31 source.haskell meta.function.type-declaration.haskell
+T 33 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 34 source.haskell meta.function.type-declaration.haskell
+T 35 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 36 source.haskell meta.function.type-declaration.haskell
+T 38 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 39 source.haskell meta.function.type-declaration.haskell
+T 45 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L f x _ = show x
+T 6 source.haskell
+T 7 source.haskell keyword.operator.eq.haskell
+T 14 source.haskell
+L g, h :: ∀ a. a → a
+T 4 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 7 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.other.forall.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell storage.type.operator.infix.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 21 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L g = id
+T 2 source.haskell
+T 3 source.haskell keyword.operator.eq.haskell
+T 6 source.haskell
+L (<+>) :: Int -> Int -> Int
+T 1 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell punctuation.paren.haskell
+T 4 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell entity.name.function.infix.haskell
+T 5 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell punctuation.paren.haskell
+T 6 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 9 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 15 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 23 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L a <+> b = a + b
+T 2 source.haskell
+T 5 source.haskell keyword.operator.infix.haskell
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 13 source.haskell keyword.operator.infix.haskell
+T 15 source.haskell
+L 
+L k :: Int
+T 1 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L   -> (# Int, Int #)
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 7 source.haskell meta.function.type-declaration.haskell keyword.operator.hash.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 12 source.haskell meta.function.type-declaration.haskell punctuation.separator.comma.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell keyword.operator.hash.haskell
+T 19 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+L   -> (# , #) Int Int
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.tuple.unboxed.haskell punctuation.paren.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.tuple.unboxed.haskell keyword.operator.hash.haskell
+T 10 source.haskell meta.function.type-declaration.haskell support.constant.tuple.unboxed.haskell
+T 11 source.haskell meta.function.type-declaration.haskell support.constant.tuple.unboxed.haskell keyword.operator.hash.haskell
+T 12 source.haskell meta.function.type-declaration.haskell support.constant.tuple.unboxed.haskell punctuation.paren.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 17 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L   -> (# #)
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.unit.unboxed.haskell punctuation.paren.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.unit.unboxed.haskell keyword.operator.hash.haskell
+T 8 source.haskell meta.function.type-declaration.haskell support.constant.unit.unboxed.haskell
+T 9 source.haskell meta.function.type-declaration.haskell support.constant.unit.unboxed.haskell keyword.operator.hash.haskell
+T 10 source.haskell meta.function.type-declaration.haskell support.constant.unit.unboxed.haskell punctuation.paren.haskell
+L   -> '[ 'True, 'False ]
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 7 source.haskell meta.function.type-declaration.haskell punctuation.bracket.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 9 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 13 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell punctuation.separator.comma.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 21 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 22 source.haskell meta.function.type-declaration.haskell
+T 23 source.haskell meta.function.type-declaration.haskell punctuation.bracket.haskell
+L   -> '( 'Int, ' x' )
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 7 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 9 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 12 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 13 source.haskell meta.function.type-declaration.haskell punctuation.separator.comma.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 18 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 19 source.haskell meta.function.type-declaration.haskell
+T 20 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+L   -> '[]
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.empty-list.haskell keyword.operator.promotion.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.empty-list.haskell punctuation.bracket.haskell
+T 8 source.haskell meta.function.type-declaration.haskell support.constant.empty-list.haskell punctuation.bracket.haskell
+L   -> '()
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell keyword.operator.promotion.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 8 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell punctuation.paren.haskell
+L   -> '(,) Int Int
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell keyword.operator.promotion.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 8 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell
+T 9 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L   -> [] Int
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.empty-list.haskell punctuation.bracket.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.empty-list.haskell punctuation.bracket.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L   -> () -> (,,) a b c
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 7 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 14 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell
+T 15 source.haskell meta.function.type-declaration.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 21 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L   -> a ': b
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 7 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 9 source.haskell meta.function.type-declaration.haskell storage.type.operator.infix.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L   -> a `Either` b
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 7 source.haskell meta.function.type-declaration.haskell
+T 8 source.haskell meta.function.type-declaration.haskell punctuation.backtick.haskell
+T 14 source.haskell meta.function.type-declaration.haskell storage.type.infix.haskell
+T 15 source.haskell meta.function.type-declaration.haskell punctuation.backtick.haskell
+T 16 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L   -> '`Cons` a
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 7 source.haskell meta.function.type-declaration.haskell punctuation.backtick.haskell
+T 11 source.haskell meta.function.type-declaration.haskell storage.type.infix.haskell
+T 12 source.haskell meta.function.type-declaration.haskell punctuation.backtick.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L   -> M.Map ': Int
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 7 source.haskell meta.function.type-declaration.haskell entity.name.namespace.haskell
+T 10 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 13 source.haskell meta.function.type-declaration.haskell storage.type.operator.infix.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+L   -> (M.+++) a b
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 8 source.haskell meta.function.type-declaration.haskell entity.name.namespace.haskell
+T 11 source.haskell meta.function.type-declaration.haskell storage.type.operator.haskell
+T 12 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 16 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L   -> (# a | b #)
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 7 source.haskell meta.function.type-declaration.haskell keyword.operator.hash.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 9 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 10 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell keyword.operator.pipe.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 14 source.haskell meta.function.type-declaration.haskell
+T 15 source.haskell meta.function.type-declaration.haskell keyword.operator.hash.haskell
+T 16 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+L   -> Proxy "sym"
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 15 source.haskell meta.function.type-declaration.haskell string.quoted.double.haskell
+T 16 source.haskell meta.function.type-declaration.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L   -> 'Just 'c'
+T 2 source.haskell meta.function.type-declaration.haskell
+T 4 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 6 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 10 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell invalid
+L k = undefined
+T 2 source.haskell
+T 3 source.haskell keyword.operator.eq.haskell
+T 13 source.haskell
+L 
+L main :: IO ()
+T 4 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 5 source.haskell meta.function.type-declaration.haskell
+T 7 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 8 source.haskell meta.function.type-declaration.haskell
+T 10 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 11 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell punctuation.paren.haskell
+T 13 source.haskell meta.function.type-declaration.haskell support.constant.unit.haskell punctuation.paren.haskell
+L main = do
+T 5 source.haskell
+T 6 source.haskell keyword.operator.eq.haskell
+T 7 source.haskell
+T 9 source.haskell keyword.control.do.haskell
+L   let y = f @Int 1 'a'
+T 2 source.haskell
+T 5 source.haskell keyword.other.let.haskell
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 13 source.haskell meta.type-application.haskell keyword.operator.prefix.at.haskell
+T 16 source.haskell meta.type-application.haskell storage.type.haskell
+T 17 source.haskell
+T 18 source.haskell constant.numeric.integral.decimal.haskell
+T 19 source.haskell
+T 20 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 21 source.haskell string.quoted.single.haskell
+T 22 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L       z = g @(Maybe Int) Nothing
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 13 source.haskell meta.type-application.haskell keyword.operator.prefix.at.haskell
+T 14 source.haskell meta.type-application.haskell punctuation.paren.haskell
+T 19 source.haskell meta.type-application.haskell storage.type.haskell
+T 20 source.haskell meta.type-application.haskell
+T 23 source.haskell meta.type-application.haskell storage.type.haskell
+T 24 source.haskell meta.type-application.haskell punctuation.paren.haskell
+T 25 source.haskell
+T 32 source.haskell constant.other.haskell
+L       w = g @'[Int] []
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 13 source.haskell meta.type-application.haskell keyword.operator.prefix.at.haskell
+T 14 source.haskell meta.type-application.haskell keyword.operator.promotion.haskell
+T 15 source.haskell meta.type-application.haskell punctuation.bracket.haskell
+T 18 source.haskell meta.type-application.haskell storage.type.haskell
+T 19 source.haskell meta.type-application.haskell punctuation.bracket.haskell
+T 20 source.haskell
+T 21 source.haskell constant.language.empty-list.haskell punctuation.bracket.haskell
+T 22 source.haskell constant.language.empty-list.haskell punctuation.bracket.haskell
+L       v = show @"lit" ()
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 15 source.haskell
+T 16 source.haskell meta.type-application.haskell keyword.operator.prefix.at.haskell
+T 17 source.haskell meta.type-application.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 20 source.haskell meta.type-application.haskell string.quoted.double.haskell
+T 21 source.haskell meta.type-application.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 22 source.haskell
+T 23 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 24 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L       u = read @a' "1"
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 15 source.haskell
+T 16 source.haskell meta.type-application.haskell keyword.operator.prefix.at.haskell
+T 18 source.haskell meta.type-application.haskell variable.other.generic-type.haskell
+T 19 source.haskell
+T 20 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 21 source.haskell string.quoted.double.haskell
+T 22 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L   print (y, z, w, v)
+T 8 source.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 10 source.haskell
+T 11 source.haskell punctuation.separator.comma.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.separator.comma.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.separator.comma.haskell
+T 19 source.haskell
+T 20 source.haskell punctuation.paren.haskell
+L   case x of
+T 2 source.haskell
+T 6 source.haskell keyword.control.case.haskell
+T 9 source.haskell
+T 11 source.haskell keyword.control.of.haskell
+L     1 -> pure ()
+T 4 source.haskell
+T 5 source.haskell constant.numeric.integral.decimal.haskell
+T 6 source.haskell
+T 8 source.haskell keyword.operator.arrow.haskell
+T 14 source.haskell
+T 15 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 16 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L     _ -> pure ()
+T 6 source.haskell
+T 8 source.haskell keyword.operator.arrow.haskell
+T 14 source.haskell
+T 15 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 16 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L   if True then pure () else pure ()
+T 2 source.haskell
+T 4 source.haskell keyword.control.if.haskell
+T 5 source.haskell
+T 9 source.haskell constant.other.haskell
+T 10 source.haskell
+T 14 source.haskell keyword.control.then.haskell
+T 20 source.haskell
+T 21 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 22 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 23 source.haskell
+T 27 source.haskell keyword.control.else.haskell
+T 33 source.haskell
+T 34 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 35 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L   mdo pure ()
+T 2 source.haskell
+T 5 source.haskell keyword.control.mdo.haskell
+T 11 source.haskell
+T 12 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 13 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L   rec pure ()
+T 2 source.haskell
+T 5 source.haskell keyword.control.rec.haskell
+T 11 source.haskell
+T 12 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 13 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L   proc x -> f -< x
+T 2 source.haskell
+T 6 source.haskell keyword.control.proc.haskell
+T 9 source.haskell
+T 11 source.haskell keyword.operator.arrow.haskell
+T 14 source.haskell
+T 16 source.haskell keyword.operator.arrow.left.tail.haskell
+T 18 source.haskell
+L   proc x -> f -<< x
+T 2 source.haskell
+T 6 source.haskell keyword.control.proc.haskell
+T 9 source.haskell
+T 11 source.haskell keyword.operator.arrow.haskell
+T 14 source.haskell
+T 17 source.haskell keyword.operator.arrow.left.tail.double.haskell
+T 19 source.haskell
+L   arr >- y
+T 6 source.haskell
+T 8 source.haskell keyword.operator.arrow.tail.haskell
+T 10 source.haskell
+L   arr >>- y
+T 6 source.haskell
+T 9 source.haskell keyword.operator.arrow.tail.double.haskell
+T 11 source.haskell
+L   arr ⤚ y
+T 6 source.haskell
+T 9 source.haskell keyword.operator.arrow.tail.haskell
+T 11 source.haskell
+L   arr ⤜ y
+T 6 source.haskell
+T 9 source.haskell keyword.operator.arrow.tail.double.haskell
+T 11 source.haskell
+L   arr ↢ y
+T 6 source.haskell
+T 9 source.haskell keyword.operator.arrow.left.tail.haskell
+T 11 source.haskell
+L   arr ⤛ y
+T 6 source.haskell
+T 9 source.haskell keyword.operator.arrow.left.tail.double.haskell
+T 11 source.haskell
+L   x ← action
+T 4 source.haskell
+T 7 source.haskell keyword.operator.arrow.left.haskell
+T 14 source.haskell
+L   let r = R { a = 1, b.c = 2, .. }
+T 2 source.haskell
+T 5 source.haskell keyword.other.let.haskell
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 10 source.haskell
+T 11 source.haskell constant.other.haskell
+T 12 source.haskell
+T 13 source.haskell meta.record.haskell punctuation.brace.haskell
+T 14 source.haskell meta.record.haskell
+T 15 source.haskell meta.record.haskell variable.other.member.haskell
+T 16 source.haskell meta.record.haskell
+T 17 source.haskell meta.record.haskell keyword.operator.eq.haskell
+T 18 source.haskell meta.record.haskell
+T 19 source.haskell meta.record.haskell constant.numeric.integral.decimal.haskell
+T 20 source.haskell meta.record.haskell punctuation.comma.haskell
+T 21 source.haskell meta.record.haskell
+T 24 source.haskell meta.record.haskell variable.other.member.haskell
+T 25 source.haskell meta.record.haskell
+T 26 source.haskell meta.record.haskell keyword.operator.eq.haskell
+T 27 source.haskell meta.record.haskell
+T 28 source.haskell meta.record.haskell constant.numeric.integral.decimal.haskell
+T 29 source.haskell meta.record.haskell punctuation.comma.haskell
+T 30 source.haskell meta.record.haskell
+T 32 source.haskell meta.record.haskell variable.other.member.wildcard.haskell
+T 33 source.haskell meta.record.haskell
+T 34 source.haskell meta.record.haskell punctuation.brace.haskell
+L       s = R { M.a = 1 }
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 10 source.haskell
+T 11 source.haskell constant.other.haskell
+T 12 source.haskell
+T 13 source.haskell meta.record.haskell punctuation.brace.haskell
+T 14 source.haskell meta.record.haskell
+T 16 source.haskell meta.record.haskell variable.other.member.haskell entity.name.namespace.haskell
+T 17 source.haskell meta.record.haskell variable.other.member.haskell
+T 18 source.haskell meta.record.haskell
+T 19 source.haskell meta.record.haskell keyword.operator.eq.haskell
+T 20 source.haskell meta.record.haskell
+T 21 source.haskell meta.record.haskell constant.numeric.integral.decimal.haskell
+T 22 source.haskell meta.record.haskell
+T 23 source.haskell meta.record.haskell punctuation.brace.haskell
+L       t = r { (+++) = 3 }
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 13 source.haskell meta.record.haskell punctuation.brace.haskell
+T 14 source.haskell meta.record.haskell
+T 15 source.haskell meta.record.haskell punctuation.paren.haskell
+T 18 source.haskell meta.record.haskell variable.other.member.haskell
+T 19 source.haskell meta.record.haskell punctuation.paren.haskell
+T 20 source.haskell meta.record.haskell
+T 21 source.haskell meta.record.haskell keyword.operator.eq.haskell
+T 22 source.haskell meta.record.haskell
+T 23 source.haskell meta.record.haskell constant.numeric.integral.decimal.haskell
+T 24 source.haskell meta.record.haskell
+T 25 source.haskell meta.record.haskell punctuation.brace.haskell
+L   pure $ x ! y
+T 7 source.haskell
+T 8 source.haskell keyword.operator.infix.haskell
+T 11 source.haskell
+T 12 source.haskell keyword.operator.infix.haskell
+T 14 source.haskell
+L   pure $! ~x
+T 7 source.haskell
+T 9 source.haskell keyword.operator.infix.haskell
+T 10 source.haskell
+T 11 source.haskell keyword.operator.prefix.tilde.haskell
+T 12 source.haskell
+L   pure $$x
+T 7 source.haskell
+T 9 source.haskell keyword.operator.prefix.double-dollar.haskell
+T 10 source.haskell
+L   pure !x
+T 7 source.haskell
+T 8 source.haskell keyword.operator.prefix.bang.haskell
+T 9 source.haskell
+L   pure -x
+T 7 source.haskell
+T 8 source.haskell keyword.operator.prefix.minus.haskell
+T 9 source.haskell
+L   pure ~(a, b)
+T 7 source.haskell
+T 8 source.haskell keyword.operator.prefix.tilde.haskell
+T 9 source.haskell punctuation.paren.haskell
+T 10 source.haskell
+T 11 source.haskell punctuation.separator.comma.haskell
+T 13 source.haskell
+T 14 source.haskell punctuation.paren.haskell
+L   pure a@(Just _)
+T 8 source.haskell
+T 9 source.haskell keyword.operator.infix.tight.at.haskell
+T 10 source.haskell punctuation.paren.haskell
+T 14 source.haskell constant.other.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.paren.haskell
+L   pure x#
+T 8 source.haskell
+T 9 source.haskell keyword.operator.postfix.hash.haskell
+L   pure (# a, b #)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 9 source.haskell keyword.operator.hash.haskell
+T 10 source.haskell
+T 11 source.haskell
+T 12 source.haskell punctuation.separator.comma.haskell
+T 15 source.haskell
+T 16 source.haskell keyword.operator.hash.haskell
+T 17 source.haskell punctuation.paren.haskell
+L   pure (#a#)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 9 source.haskell entity.name.label.haskell keyword.operator.prefix.hash.haskell
+T 10 source.haskell entity.name.label.haskell
+T 11 source.haskell keyword.operator.postfix.hash.haskell
+T 12 source.haskell punctuation.paren.haskell
+L   pure (# a #)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 9 source.haskell keyword.operator.hash.haskell
+T 10 source.haskell
+T 12 source.haskell
+T 13 source.haskell keyword.operator.hash.haskell
+T 14 source.haskell punctuation.paren.haskell
+L   pure #label
+T 7 source.haskell
+T 8 source.haskell entity.name.label.haskell keyword.operator.prefix.hash.haskell
+T 13 source.haskell entity.name.label.haskell
+L   pure #"quoted label"
+T 7 source.haskell
+T 8 source.haskell entity.name.label.haskell keyword.operator.prefix.hash.haskell
+T 9 source.haskell entity.name.label.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 21 source.haskell entity.name.label.haskell string.quoted.double.haskell
+T 22 source.haskell entity.name.label.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L   pure (x `M.lookup` m)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 10 source.haskell
+T 11 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 13 source.haskell keyword.operator.function.infix.haskell entity.name.namespace.haskell
+T 19 source.haskell keyword.operator.function.infix.haskell
+T 20 source.haskell keyword.operator.function.infix.haskell punctuation.backtick.haskell
+T 22 source.haskell
+T 23 source.haskell punctuation.paren.haskell
+L   pure (a M.!? b)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 10 source.haskell
+T 12 source.haskell entity.name.namespace.haskell
+T 14 source.haskell keyword.operator.infix.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.paren.haskell
+L   pure (a ''M.T.+ b)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 10 source.haskell
+T 12 source.haskell keyword.operator.promotion.haskell entity.name.namespace.haskell
+T 16 source.haskell keyword.operator.promotion.haskell
+T 17 source.haskell keyword.operator.infix.haskell
+T 19 source.haskell
+T 20 source.haskell punctuation.paren.haskell
+L   pure (a ..: b)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 10 source.haskell
+T 13 source.haskell keyword.operator.infix.haskell
+T 15 source.haskell
+T 16 source.haskell punctuation.paren.haskell
+L   pure [1 .. 10]
+T 7 source.haskell
+T 8 source.haskell punctuation.bracket.haskell
+T 9 source.haskell constant.numeric.integral.decimal.haskell
+T 10 source.haskell
+T 12 source.haskell keyword.operator.double-dot.haskell
+T 13 source.haskell
+T 15 source.haskell constant.numeric.integral.decimal.haskell
+T 16 source.haskell punctuation.bracket.haskell
+L   pure (\x -> x)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 9 source.haskell keyword.operator.lambda.haskell
+T 11 source.haskell
+T 13 source.haskell keyword.operator.arrow.haskell
+T 15 source.haskell
+T 16 source.haskell punctuation.paren.haskell
+L   pure (λx -> x)
+T 7 source.haskell
+T 8 source.haskell punctuation.paren.haskell
+T 12 source.haskell
+T 14 source.haskell keyword.operator.arrow.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.paren.haskell
+L   pure 0x1F_FF
+T 7 source.haskell
+T 14 source.haskell constant.numeric.integral.hexadecimal.haskell
+L   pure 0o17
+T 7 source.haskell
+T 11 source.haskell constant.numeric.integral.octal.haskell
+L   pure 0b1010
+T 7 source.haskell
+T 13 source.haskell constant.numeric.integral.binary.haskell
+L   pure 1_000.5e-3
+T 7 source.haskell
+T 17 source.haskell constant.numeric.floating.decimal.haskell
+L   pure 0x1.8p3
+T 7 source.haskell
+T 14 source.haskell constant.numeric.floating.hexadecimal.haskell
+L   pure 0xA.Bp-2
+T 7 source.haskell
+T 15 source.haskell constant.numeric.floating.hexadecimal.haskell
+L   pure 'x'
+T 7 source.haskell
+T 8 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 9 source.haskell string.quoted.single.haskell
+T 10 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L   pure '\n'
+T 7 source.haskell
+T 8 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 10 source.haskell string.quoted.single.haskell constant.character.escape.haskell
+T 11 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L   pure '\o17'
+T 7 source.haskell
+T 8 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 12 source.haskell string.quoted.single.haskell constant.character.escape.octal.haskell
+T 13 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L   pure '\x7F'
+T 7 source.haskell
+T 8 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 12 source.haskell string.quoted.single.haskell constant.character.escape.hexadecimal.haskell
+T 13 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L   pure '\^A'
+T 7 source.haskell
+T 8 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 11 source.haskell string.quoted.single.haskell constant.character.escape.control.haskell
+T 12 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L   pure '\SOH'
+T 7 source.haskell
+T 8 source.haskell string.quoted.single.haskell punctuation.definition.string.begin.haskell
+T 12 source.haskell string.quoted.single.haskell constant.character.escape.haskell
+T 13 source.haskell string.quoted.single.haskell punctuation.definition.string.end.haskell
+L   pure "\NUL\SOH\o17\x41\123\^Z\&\"end"
+T 7 source.haskell
+T 8 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 12 source.haskell string.quoted.double.haskell constant.character.escape.haskell
+T 16 source.haskell string.quoted.double.haskell constant.character.escape.haskell
+T 20 source.haskell string.quoted.double.haskell constant.character.escape.octal.haskell
+T 24 source.haskell string.quoted.double.haskell constant.character.escape.octal.haskell
+T 28 source.haskell string.quoted.double.haskell constant.character.escape.octal.haskell
+T 31 source.haskell string.quoted.double.haskell constant.character.escape.control.haskell
+T 33 source.haskell string.quoted.double.haskell constant.character.escape.haskell
+T 35 source.haskell string.quoted.double.haskell constant.character.escape.haskell
+T 38 source.haskell string.quoted.double.haskell
+T 39 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L   pure "gap \
+T 7 source.haskell
+T 8 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 12 source.haskell string.quoted.double.haskell
+T 13 source.haskell string.quoted.double.haskell constant.character.escape.begin.haskell
+L        \continues"
+T 7 source.haskell string.quoted.double.haskell
+T 8 source.haskell string.quoted.double.haskell constant.character.escape.end.haskell
+T 17 source.haskell string.quoted.double.haskell
+T 18 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L   pure [d| x = 1 |]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 9 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 10 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 13 source.haskell meta.quasi-quotation.haskell
+T 14 source.haskell meta.quasi-quotation.haskell keyword.operator.eq.haskell
+T 15 source.haskell meta.quasi-quotation.haskell
+T 16 source.haskell meta.quasi-quotation.haskell constant.numeric.integral.decimal.haskell
+T 17 source.haskell meta.quasi-quotation.haskell
+T 19 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [e|| y ||]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 9 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 11 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 14 source.haskell meta.quasi-quotation.haskell
+T 17 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [p|z|]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 9 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 10 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 11 source.haskell meta.quasi-quotation.haskell
+T 13 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [t| Int |]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 9 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 10 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 11 source.haskell meta.quasi-quotation.haskell
+T 14 source.haskell meta.quasi-quotation.haskell storage.type.haskell
+T 15 source.haskell meta.quasi-quotation.haskell
+T 17 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [expr| a + b |]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 12 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 13 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 20 source.haskell meta.quasi-quotation.haskell
+T 22 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [$qq| a |]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 9 source.haskell meta.quasi-quotation.haskell keyword.operator.prefix.dollar.haskell
+T 11 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 12 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 15 source.haskell meta.quasi-quotation.haskell
+T 17 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [$$qq|| a ||]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 10 source.haskell meta.quasi-quotation.haskell keyword.operator.prefix.double-dollar.haskell
+T 12 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 14 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 17 source.haskell meta.quasi-quotation.haskell
+T 20 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure [M.qq| a |]
+T 7 source.haskell
+T 8 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 10 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell entity.name.namespace.haskell
+T 12 source.haskell meta.quasi-quotation.haskell entity.name.quasi-quoter.haskell
+T 13 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.begin.haskell
+T 16 source.haskell meta.quasi-quotation.haskell
+T 18 source.haskell meta.quasi-quotation.haskell keyword.operator.quasi-quotation.end.haskell
+L   pure ()
+T 7 source.haskell
+T 8 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+T 9 source.haskell constant.language.unit.haskell punctuation.paren.haskell
+L   pure [ ]
+T 7 source.haskell
+T 8 source.haskell constant.language.empty-list.haskell punctuation.bracket.haskell
+T 9 source.haskell constant.language.empty-list.haskell
+T 10 source.haskell constant.language.empty-list.haskell punctuation.bracket.haskell
+L   pure (,)
+T 7 source.haskell
+T 8 source.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 9 source.haskell support.constant.tuple.haskell
+T 10 source.haskell support.constant.tuple.haskell punctuation.paren.haskell
+L   pure (, ,)
+T 7 source.haskell
+T 8 source.haskell support.constant.tuple.haskell punctuation.paren.haskell
+T 11 source.haskell support.constant.tuple.haskell
+T 12 source.haskell support.constant.tuple.haskell punctuation.paren.haskell
+L   where
+T 2 source.haskell
+T 7 source.haskell keyword.other.where.haskell
+L     helper = let { a = 1; b = 2 } in a
+T 11 source.haskell
+T 12 source.haskell keyword.operator.eq.haskell
+T 13 source.haskell
+T 16 source.haskell keyword.other.let.haskell
+T 17 source.haskell
+T 18 source.haskell punctuation.brace.haskell
+T 21 source.haskell
+T 22 source.haskell keyword.operator.eq.haskell
+T 23 source.haskell
+T 24 source.haskell constant.numeric.integral.decimal.haskell
+T 25 source.haskell punctuation.semicolon.haskell
+T 28 source.haskell
+T 29 source.haskell keyword.operator.eq.haskell
+T 30 source.haskell
+T 31 source.haskell constant.numeric.integral.decimal.haskell
+T 32 source.haskell
+T 33 source.haskell punctuation.brace.haskell
+T 34 source.haskell
+T 36 source.haskell keyword.other.in.haskell
+T 38 source.haskell
+L     other = do { a; b }
+T 10 source.haskell
+T 11 source.haskell keyword.operator.eq.haskell
+T 12 source.haskell
+T 14 source.haskell keyword.other.do.haskell
+T 15 source.haskell
+T 16 source.haskell punctuation.brace.haskell
+T 18 source.haskell
+T 19 source.haskell punctuation.semicolon.haskell
+T 22 source.haskell
+T 23 source.haskell punctuation.brace.haskell
+L     more = case x of { _ -> 1 }
+T 9 source.haskell
+T 10 source.haskell keyword.operator.eq.haskell
+T 11 source.haskell
+T 15 source.haskell keyword.control.case.haskell
+T 18 source.haskell
+T 20 source.haskell keyword.control.of.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.brace.haskell
+T 25 source.haskell
+T 27 source.haskell keyword.operator.arrow.haskell
+T 28 source.haskell
+T 29 source.haskell constant.numeric.integral.decimal.haskell
+T 30 source.haskell
+T 31 source.haskell punctuation.brace.haskell
+L     mdoBlock = mdo { a }
+T 13 source.haskell
+T 14 source.haskell keyword.operator.eq.haskell
+T 15 source.haskell
+T 18 source.haskell keyword.other.mdo.haskell
+T 19 source.haskell
+T 20 source.haskell punctuation.brace.haskell
+T 23 source.haskell
+T 24 source.haskell punctuation.brace.haskell
+L     whr = 1 where { q = 2 }
+T 8 source.haskell
+T 9 source.haskell keyword.operator.eq.haskell
+T 10 source.haskell
+T 11 source.haskell constant.numeric.integral.decimal.haskell
+T 12 source.haskell
+T 17 source.haskell keyword.other.where.haskell
+T 18 source.haskell
+T 19 source.haskell punctuation.brace.haskell
+T 22 source.haskell
+T 23 source.haskell keyword.operator.eq.haskell
+T 24 source.haskell
+T 25 source.haskell constant.numeric.integral.decimal.haskell
+T 26 source.haskell
+T 27 source.haskell punctuation.brace.haskell
+L 
+L data X = X
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+L   { xa :: Int
+T 2 source.haskell meta.declaration.data.algebraic.haskell
+T 3 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L   , (+++) :: Int
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 3 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.paren.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L   , xb, xc :: Bool
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 3 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 4 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.comma.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell variable.other.member.definition.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell keyword.operator.double-colon.haskell
+T 14 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell storage.type.haskell
+L   }
+T 2 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 3 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+L 
+L class C a where { cm :: a }
+T 5 source.haskell meta.declaration.class.haskell keyword.other.class.haskell
+T 6 source.haskell meta.declaration.class.haskell
+T 7 source.haskell meta.declaration.class.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.class.haskell
+T 9 source.haskell meta.declaration.class.haskell variable.other.generic-type.haskell
+T 10 source.haskell meta.declaration.class.haskell
+T 15 source.haskell keyword.other.where.haskell
+T 16 source.haskell
+T 17 source.haskell punctuation.brace.haskell
+T 21 source.haskell
+T 23 source.haskell keyword.operator.double-colon.haskell
+T 24 source.haskell
+T 25 source.haskell variable.other.generic-type.haskell
+T 26 source.haskell
+T 27 source.haskell punctuation.brace.haskell
+L instance C Int where { cm = 1 }
+T 8 source.haskell meta.declaration.instance.haskell keyword.other.instance.haskell
+T 9 source.haskell meta.declaration.instance.haskell
+T 10 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 11 source.haskell meta.declaration.instance.haskell
+T 14 source.haskell meta.declaration.instance.haskell storage.type.haskell
+T 15 source.haskell meta.declaration.instance.haskell
+T 20 source.haskell keyword.other.where.haskell
+T 21 source.haskell
+T 22 source.haskell punctuation.brace.haskell
+T 26 source.haskell
+T 27 source.haskell keyword.operator.eq.haskell
+T 28 source.haskell
+T 29 source.haskell constant.numeric.integral.decimal.haskell
+T 30 source.haskell
+T 31 source.haskell punctuation.brace.haskell
+L data W = W where { }
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.record.definition.haskell punctuation.brace.haskell
+L stray = 1 -}
+T 6 source.haskell
+T 7 source.haskell keyword.operator.eq.haskell
+T 8 source.haskell
+T 9 source.haskell constant.numeric.integral.decimal.haskell
+T 10 source.haskell
+T 12 source.haskell invalid
+L 
+L uu = (# #)
+T 3 source.haskell
+T 4 source.haskell keyword.operator.eq.haskell
+T 5 source.haskell
+T 6 source.haskell constant.language.unit.unboxed.haskell punctuation.paren.haskell
+T 7 source.haskell constant.language.unit.unboxed.haskell keyword.operator.hash.haskell
+T 8 source.haskell constant.language.unit.unboxed.haskell
+T 9 source.haskell constant.language.unit.unboxed.haskell keyword.operator.hash.haskell
+T 10 source.haskell constant.language.unit.unboxed.haskell punctuation.paren.haskell
+L ut = (# , #) a b
+T 3 source.haskell
+T 4 source.haskell keyword.operator.eq.haskell
+T 5 source.haskell
+T 6 source.haskell support.constant.tuple.unboxed.haskell punctuation.paren.haskell
+T 7 source.haskell support.constant.tuple.unboxed.haskell keyword.operator.hash.haskell
+T 10 source.haskell support.constant.tuple.unboxed.haskell
+T 11 source.haskell support.constant.tuple.unboxed.haskell keyword.operator.hash.haskell
+T 12 source.haskell support.constant.tuple.unboxed.haskell punctuation.paren.haskell
+T 16 source.haskell
+L 
+L data Q = (a] :+ b
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell constant.other.operator.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+L 
+L   -- ^ indented Haddock at the root
+T 2 source.haskell meta.declaration.data.algebraic.haskell comment.line.documentation.haskell punctuation.whitespace.comment.leading.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell comment.line.documentation.haskell
+T 35 source.haskell meta.declaration.data.algebraic.haskell comment.line.documentation.haskell
+L 
+L   -- indented comment at the root
+T 2 source.haskell meta.declaration.data.algebraic.haskell punctuation.whitespace.comment.leading.haskell
+T 4 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell punctuation.definition.comment.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell comment.line.double-dash.haskell
+L 
+L data K = forall a. (Show a) => K a
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 15 source.haskell meta.declaration.data.algebraic.haskell keyword.other.forall.haskell
+T 16 source.haskell meta.declaration.data.algebraic.haskell
+T 17 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 18 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.period.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 24 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 25 source.haskell meta.declaration.data.algebraic.haskell
+T 26 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell
+T 30 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.big-arrow.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell
+T 32 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell variable.other.generic-type.haskell
+L data E = E deriving (Eq)
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 6 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 11 source.haskell meta.declaration.data.algebraic.haskell
+T 19 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 20 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 24 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L data E2 = E2 deriving stock (Eq)
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 27 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.stock.haskell
+T 28 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 29 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 31 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 32 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+L newtype E3 = E3 Int deriving newtype Num via Sum Int
+T 7 source.haskell meta.declaration.newtype.algebraic.haskell keyword.other.newtype.haskell
+T 8 source.haskell meta.declaration.newtype.algebraic.haskell
+T 10 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 11 source.haskell meta.declaration.newtype.algebraic.haskell
+T 12 source.haskell meta.declaration.newtype.algebraic.haskell keyword.operator.eq.haskell
+T 13 source.haskell meta.declaration.newtype.algebraic.haskell
+T 15 source.haskell meta.declaration.newtype.algebraic.haskell constant.other.haskell
+T 16 source.haskell meta.declaration.newtype.algebraic.haskell
+T 19 source.haskell meta.declaration.newtype.algebraic.haskell storage.type.haskell
+T 20 source.haskell meta.declaration.newtype.algebraic.haskell
+T 28 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 29 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 36 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.newtype.haskell
+T 37 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 40 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 41 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 44 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell keyword.other.deriving.strategy.via.haskell
+T 45 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 48 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 49 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell
+T 52 source.haskell meta.declaration.newtype.algebraic.haskell meta.deriving.haskell storage.type.haskell
+L data E4 = E4 deriving (Semigroup) via (Sum Int)
+T 4 source.haskell meta.declaration.data.algebraic.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.algebraic.haskell
+T 7 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.data.algebraic.haskell
+T 9 source.haskell meta.declaration.data.algebraic.haskell keyword.operator.eq.haskell
+T 10 source.haskell meta.declaration.data.algebraic.haskell
+T 12 source.haskell meta.declaration.data.algebraic.haskell constant.other.haskell
+T 13 source.haskell meta.declaration.data.algebraic.haskell
+T 21 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell keyword.other.deriving.haskell
+T 22 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell
+T 23 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 32 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell storage.type.haskell
+T 33 source.haskell meta.declaration.data.algebraic.haskell meta.deriving.haskell punctuation.paren.haskell
+T 34 source.haskell meta.declaration.data.algebraic.haskell
+T 37 source.haskell meta.declaration.data.algebraic.haskell keyword.other.deriving.strategy.via.haskell
+T 38 source.haskell meta.declaration.data.algebraic.haskell
+T 39 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+T 42 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 43 source.haskell meta.declaration.data.algebraic.haskell
+T 46 source.haskell meta.declaration.data.algebraic.haskell storage.type.haskell
+T 47 source.haskell meta.declaration.data.algebraic.haskell punctuation.paren.haskell
+L 
+L foreign import ccall safe "x.h y"
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 20 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.ccall.haskell
+T 21 source.haskell meta.import.foreign.haskell
+T 25 source.haskell meta.import.foreign.haskell keyword.other.safety.safe.haskell
+T 26 source.haskell meta.import.foreign.haskell
+T 27 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 32 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell
+T 33 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L   y :: Int
+T 2 source.haskell meta.import.foreign.haskell
+T 3 source.haskell meta.import.foreign.haskell entity.name.function.haskell
+T 4 source.haskell meta.import.foreign.haskell
+T 6 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 7 source.haskell meta.import.foreign.haskell
+T 10 source.haskell meta.import.foreign.haskell storage.type.haskell
+L foreign import ccall "x.h z" (<+.>) :: Int
+T 7 source.haskell meta.import.foreign.haskell keyword.other.foreign.haskell
+T 8 source.haskell meta.import.foreign.haskell
+T 14 source.haskell meta.import.foreign.haskell keyword.other.import.haskell
+T 15 source.haskell meta.import.foreign.haskell
+T 20 source.haskell meta.import.foreign.haskell keyword.other.calling-convention.ccall.haskell
+T 21 source.haskell meta.import.foreign.haskell
+T 22 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 27 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell
+T 28 source.haskell meta.import.foreign.haskell entity.name.foreign.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+T 29 source.haskell meta.import.foreign.haskell
+T 30 source.haskell meta.import.foreign.haskell punctuation.paren.haskell
+T 34 source.haskell meta.import.foreign.haskell entity.name.function.infix.haskell
+T 35 source.haskell meta.import.foreign.haskell punctuation.paren.haskell
+T 36 source.haskell meta.import.foreign.haskell
+T 38 source.haskell meta.import.foreign.haskell keyword.operator.double-colon.haskell
+T 39 source.haskell meta.import.foreign.haskell
+T 42 source.haskell meta.import.foreign.haskell storage.type.haskell
+L 
+L fa :: forall a -> a -> a
+T 2 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 3 source.haskell meta.function.type-declaration.haskell
+T 5 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 6 source.haskell meta.function.type-declaration.haskell
+T 12 source.haskell meta.function.type-declaration.haskell keyword.other.forall.haskell
+T 13 source.haskell meta.function.type-declaration.haskell
+T 14 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 19 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 20 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 23 source.haskell meta.function.type-declaration.haskell
+T 24 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L kk :: Proxy (a :: Type) -> '(:+) a b -> a M.+ b -> a `M.Either` b
+T 2 source.haskell meta.function.type-declaration.haskell entity.name.function.haskell
+T 3 source.haskell meta.function.type-declaration.haskell
+T 5 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 6 source.haskell meta.function.type-declaration.haskell
+T 11 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 12 source.haskell meta.function.type-declaration.haskell
+T 13 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 14 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 15 source.haskell meta.function.type-declaration.haskell
+T 17 source.haskell meta.function.type-declaration.haskell keyword.operator.double-colon.haskell
+T 18 source.haskell meta.function.type-declaration.haskell
+T 22 source.haskell meta.function.type-declaration.haskell storage.type.haskell
+T 23 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 24 source.haskell meta.function.type-declaration.haskell
+T 26 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 27 source.haskell meta.function.type-declaration.haskell
+T 28 source.haskell meta.function.type-declaration.haskell keyword.operator.promotion.haskell
+T 29 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 31 source.haskell meta.function.type-declaration.haskell storage.type.operator.haskell
+T 32 source.haskell meta.function.type-declaration.haskell punctuation.paren.haskell
+T 33 source.haskell meta.function.type-declaration.haskell
+T 34 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 35 source.haskell meta.function.type-declaration.haskell
+T 36 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 37 source.haskell meta.function.type-declaration.haskell
+T 39 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 40 source.haskell meta.function.type-declaration.haskell
+T 41 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 42 source.haskell meta.function.type-declaration.haskell
+T 44 source.haskell meta.function.type-declaration.haskell entity.name.namespace.haskell
+T 45 source.haskell meta.function.type-declaration.haskell storage.type.operator.infix.haskell
+T 46 source.haskell meta.function.type-declaration.haskell
+T 47 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 48 source.haskell meta.function.type-declaration.haskell
+T 50 source.haskell meta.function.type-declaration.haskell keyword.operator.arrow.haskell
+T 51 source.haskell meta.function.type-declaration.haskell
+T 52 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+T 53 source.haskell meta.function.type-declaration.haskell
+T 54 source.haskell meta.function.type-declaration.haskell punctuation.backtick.haskell
+T 56 source.haskell meta.function.type-declaration.haskell entity.name.namespace.haskell
+T 62 source.haskell meta.function.type-declaration.haskell storage.type.infix.haskell
+T 63 source.haskell meta.function.type-declaration.haskell punctuation.backtick.haskell
+T 64 source.haskell meta.function.type-declaration.haskell
+T 65 source.haskell meta.function.type-declaration.haskell variable.other.generic-type.haskell
+L kk = g @'(Int, Int) $x "a\ junk \b"
+T 3 source.haskell
+T 4 source.haskell keyword.operator.eq.haskell
+T 7 source.haskell
+T 8 source.haskell meta.type-application.haskell keyword.operator.prefix.at.haskell
+T 9 source.haskell meta.type-application.haskell keyword.operator.promotion.haskell
+T 10 source.haskell meta.type-application.haskell punctuation.paren.haskell
+T 13 source.haskell meta.type-application.haskell storage.type.haskell
+T 15 source.haskell meta.type-application.haskell
+T 18 source.haskell meta.type-application.haskell storage.type.haskell
+T 19 source.haskell meta.type-application.haskell punctuation.paren.haskell
+T 20 source.haskell
+T 21 source.haskell keyword.operator.prefix.dollar.haskell
+T 23 source.haskell
+T 24 source.haskell string.quoted.double.haskell punctuation.definition.string.begin.haskell
+T 25 source.haskell string.quoted.double.haskell
+T 27 source.haskell string.quoted.double.haskell constant.character.escape.begin.haskell
+T 31 source.haskell string.quoted.double.haskell invalid.illegal.character-not-allowed-here.haskell
+T 32 source.haskell string.quoted.double.haskell
+T 33 source.haskell string.quoted.double.haskell constant.character.escape.end.haskell
+T 34 source.haskell string.quoted.double.haskell
+T 35 source.haskell string.quoted.double.haskell punctuation.definition.string.end.haskell
+L 
+L data GG where
+T 4 source.haskell meta.declaration.data.generalized.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell keyword.other.where.haskell
+L   GA, (:%%), GB :: Int -> GG
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 4 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 6 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell punctuation.paren.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell storage.type.operator.haskell
+T 11 source.haskell meta.declaration.data.generalized.haskell punctuation.paren.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell
+T 15 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.data.generalized.haskell
+T 18 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell
+T 22 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 23 source.haskell meta.declaration.data.generalized.haskell
+T 25 source.haskell meta.declaration.data.generalized.haskell keyword.operator.arrow.haskell
+T 26 source.haskell meta.declaration.data.generalized.haskell
+T 28 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+L 
+L data GH where GH1 :: GH
+T 4 source.haskell meta.declaration.data.generalized.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell keyword.other.where.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell
+T 17 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 18 source.haskell meta.declaration.data.generalized.haskell
+T 20 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 21 source.haskell meta.declaration.data.generalized.haskell
+T 23 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+L data GO where (:%%%) :: Int -> GO
+T 4 source.haskell meta.declaration.data.generalized.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell keyword.other.where.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell
+T 15 source.haskell meta.declaration.data.generalized.haskell punctuation.paren.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell constant.other.operator.haskell
+T 20 source.haskell meta.declaration.data.generalized.haskell punctuation.paren.haskell
+T 21 source.haskell meta.declaration.data.generalized.haskell
+T 23 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 24 source.haskell meta.declaration.data.generalized.haskell
+T 27 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 28 source.haskell meta.declaration.data.generalized.haskell
+T 30 source.haskell meta.declaration.data.generalized.haskell keyword.operator.arrow.haskell
+T 31 source.haskell meta.declaration.data.generalized.haskell
+T 33 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+L 
+L {-# SPECIALISE [~1x] f :: Int -> Int #-}
+T 3 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 4 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell keyword.other.preprocessor.pragma.haskell
+T 15 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 16 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.bracket.haskell
+T 17 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.tilde.haskell
+T 19 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell meta.inlining-phase.haskell invalid
+T 20 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell meta.inlining-phase.haskell punctuation.bracket.haskell
+T 21 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 23 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 25 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell keyword.operator.double-colon.haskell
+T 26 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 29 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell storage.type.haskell
+T 30 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 32 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell keyword.operator.arrow.haskell
+T 33 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 36 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell storage.type.haskell
+T 37 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+T 40 source.haskell meta.declaration.data.generalized.haskell meta.preprocessor.haskell
+L 
+L type family TF2 a where { TF2 Int = Bool; TF2 a = a }
+T 4 source.haskell meta.declaration.type.family.haskell keyword.other.type.haskell
+T 5 source.haskell meta.declaration.type.family.haskell
+T 11 source.haskell meta.declaration.type.family.haskell keyword.other.family.haskell
+T 12 source.haskell meta.declaration.type.family.haskell
+T 15 source.haskell meta.declaration.type.family.haskell storage.type.haskell
+T 16 source.haskell meta.declaration.type.family.haskell
+T 17 source.haskell meta.declaration.type.family.haskell variable.other.generic-type.haskell
+T 18 source.haskell meta.declaration.type.family.haskell
+T 23 source.haskell meta.declaration.type.family.haskell keyword.other.where.haskell
+T 24 source.haskell meta.declaration.type.family.haskell
+T 25 source.haskell meta.declaration.type.family.haskell punctuation.brace.haskell
+T 26 source.haskell meta.declaration.type.family.haskell
+T 29 source.haskell meta.declaration.type.family.haskell constant.other.haskell
+T 30 source.haskell meta.declaration.type.family.haskell
+T 33 source.haskell meta.declaration.type.family.haskell constant.other.haskell
+T 34 source.haskell meta.declaration.type.family.haskell
+T 35 source.haskell meta.declaration.type.family.haskell keyword.operator.eq.haskell
+T 36 source.haskell meta.declaration.type.family.haskell
+T 40 source.haskell meta.declaration.type.family.haskell constant.other.haskell
+T 41 source.haskell meta.declaration.type.family.haskell punctuation.semicolon.haskell
+T 42 source.haskell meta.declaration.type.family.haskell
+T 45 source.haskell meta.declaration.type.family.haskell constant.other.haskell
+T 48 source.haskell meta.declaration.type.family.haskell
+T 49 source.haskell meta.declaration.type.family.haskell keyword.operator.eq.haskell
+T 52 source.haskell meta.declaration.type.family.haskell
+T 53 source.haskell meta.declaration.type.family.haskell punctuation.brace.haskell
+L signature Sig lower where
+T 9 source.haskell meta.declaration.module.haskell keyword.other.signature.haskell
+T 10 source.haskell meta.declaration.module.haskell
+T 13 source.haskell meta.declaration.module.haskell entity.name.namespace.haskell
+T 14 source.haskell meta.declaration.module.haskell
+T 19 source.haskell meta.declaration.module.haskell invalid
+T 20 source.haskell meta.declaration.module.haskell
+T 25 source.haskell keyword.other.where.haskell
+L 
+L data V where {
+T 4 source.haskell meta.declaration.data.generalized.haskell keyword.other.data.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 6 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell
+T 12 source.haskell meta.declaration.data.generalized.haskell keyword.other.where.haskell
+T 13 source.haskell meta.declaration.data.generalized.haskell
+T 14 source.haskell meta.declaration.data.generalized.haskell punctuation.brace.haskell
+L   VC :: V;
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 4 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 9 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell punctuation.semicolon.haskell
+L   VD :: V }
+T 2 source.haskell meta.declaration.data.generalized.haskell
+T 4 source.haskell meta.declaration.data.generalized.haskell constant.other.haskell
+T 5 source.haskell meta.declaration.data.generalized.haskell
+T 7 source.haskell meta.declaration.data.generalized.haskell keyword.operator.double-colon.haskell
+T 8 source.haskell meta.declaration.data.generalized.haskell
+T 9 source.haskell meta.declaration.data.generalized.haskell storage.type.haskell
+T 10 source.haskell meta.declaration.data.generalized.haskell
+T 11 source.haskell meta.declaration.data.generalized.haskell punctuation.brace.haskell
+L 

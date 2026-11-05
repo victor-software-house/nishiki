@@ -31,6 +31,7 @@ use std::fmt::Debug;
     feature = "lang-sass",
     feature = "lang-scala",
     feature = "lang-bat",
+    feature = "lang-haskell",
     feature = "lang-swift",
     feature = "lang-zig",
     feature = "lang-cpp",

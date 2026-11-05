@@ -201,6 +201,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/aeson-github` | [`examples/src/GitHub.hs`][aeson-github] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
+| `haskell/coverage` | `oracle/inputs/haskell-coverage.hs`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `haskell/sample` | [`samples/haskell.sample`][haskell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
@@ -860,8 +861,8 @@ The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript,
 TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
 `mermaid/sample`, `mermaid/flowchart-code-flow` and `mermaid/coverage` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
 Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Mermaid.
-Haskell runs on nishiki's TextMate engine as well.
-`haskell/sample` and `haskell/aeson-github` are its development inputs, and `haskell/aeson-builder` and `haskell/aeson-decoding-text` are held out.
+`haskell/sample` and `haskell/aeson-github` are Haskell's development inputs, and `haskell/aeson-builder` and `haskell/aeson-decoding-text` are held out.
+`haskell/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 Shiki's Markdown grammar has no Haskell fence, so no Markdown input embeds Haskell.
 
 `erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.

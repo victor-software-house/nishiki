@@ -855,15 +855,15 @@ languages! {
     /// - A diagram runs to a line of three or more colons, backticks or tildes, and the next diagram needs such a line before it.
     /// - Most keywords match without regard to case, and `ſ` and the Kelvin sign match `s` and `k`; the words that start a diagram match only as written.
     Mermaid { feature: "lang-mermaid", names: ["mermaid", "mmd"], module: mermaid, reads_line_feed: true }
-    /// Haskell, with the scopes of Shiki's `haskell` grammar, which nishiki's
-    /// `TextMate` engine runs.
-    Haskell {
-        feature: "lang-haskell",
-        names: ["haskell", "hs"],
-        engine: crate::haskell::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-    }
+    /// Haskell, with the scopes of Shiki's `haskell` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A declaration such as `class` or `data` runs on while the lines after it are indented further than it, blank, or only a comment.
+    /// - `^` holds only at the start of a line, so a line comment after code never continues a Haddock comment.
+    /// - Pragmas match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
+    /// - `\p{Ll}`, `\p{Lt}`, `[\p{Lu}\p{Lt}]` and `[\p{S}\p{P}]` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
+    Haskell { feature: "lang-haskell", names: ["haskell", "hs"], module: haskell }
     /// Less, with the scopes of Shiki's `less` grammar.
     ///
     /// # Behaviour kept from Shiki

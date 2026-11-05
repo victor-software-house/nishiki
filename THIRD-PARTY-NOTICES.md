@@ -956,7 +956,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ## Haskell
 
-Its TextMate engine runs the Haskell TextMate grammar in [octref/language-haskell](https://github.com/octref/language-haskell), which Shiki bundles as `haskell`, with its rules compiled into tables (`src/haskell/grammar.rs`).
+Its Haskell lexer emits the scope names of the Haskell TextMate grammar in [octref/language-haskell](https://github.com/octref/language-haskell), which Shiki bundles as `haskell`, and tries that grammar's rules in its order, from tables generated from it (`src/haskell/grammar.rs`).
 That grammar is licensed under the BSD 3-Clause License:
 
 ```text

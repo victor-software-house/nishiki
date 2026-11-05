@@ -100,6 +100,8 @@ tables! {
     GO = go;
     #[cfg(feature = "lang-graphql")]
     GRAPHQL = graphql;
+    #[cfg(feature = "lang-haskell")]
+    HASKELL = haskell;
     #[cfg(feature = "lang-html")]
     HTML = html;
     #[cfg(feature = "lang-ini")]
