@@ -17,8 +17,13 @@ export type Waiver = {
   /** Why no document reaches the unit. */
   reason: string;
   /** The oracle/onig.ts expression id whose probe cases check the matcher,
-   * required where oracle/fuzz/<grammar>.ts has probe support. */
+   * required where oracle/fuzz/<grammar>.ts has probe support, unless the
+   * waiver is for a rule vscode-textmate drops. */
   probe?: string;
+  /** Set for a rule that vscode-textmate drops, such as one whose only
+   * patterns include a grammar or a rule that is never loaded.
+   * No matcher answers for such a unit, so the waiver names no probe. */
+  dropped?: true;
 };
 
 /** The TypeScript family's grammars. They share their units' paths. */
@@ -660,11 +665,13 @@ export const waivers: Waiver[] = [
     grammar: "scss",
     path: "#comment_docblock.begin",
     reason: "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
   },
   {
     grammar: "scss",
     path: "#comment_docblock.end",
     reason: "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
   },
   {
     grammar: "scss",
@@ -851,6 +858,7 @@ export const waivers: Waiver[] = [
       grammar: "markdown",
       path: `#fenced_code_block_${name}.${part}`,
       reason: `the fence's only pattern includes \`${scope}\`, which the oracle does not load, so vscode-textmate drops the rule`,
+      dropped: true,
     })),
   ),
   {
@@ -926,21 +934,25 @@ export const waivers: Waiver[] = [
     grammar: "svelte",
     path: "injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].begin",
     reason: "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
   },
   {
     grammar: "svelte",
     path: "injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].end",
     reason: "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
   },
   {
     grammar: "svelte",
     path: "injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].begin",
     reason: "the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
   },
   {
     grammar: "svelte",
     path: "injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end",
     reason: "the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule",
+    dropped: true,
   },
   { grammar: "swift", path: "#comments.patterns[5].begin", group: 1, reason: blanks, probe: "CommentsAt5" },
   { grammar: "swift", path: "#compiler-control.patterns[1].end", group: 1, reason: missing(0), probe: "CompilerControlAt1End" },
@@ -1566,6 +1578,7 @@ export const waivers: Waiver[] = [
       grammar: "objective-cpp",
       path: `#cpp_lang.repository.#constructor.patterns[0].${part}`,
       reason: "vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and `function-innards`, which no repository in its reach defines",
+      dropped: true,
     }),
   ),
   {

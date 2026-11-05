@@ -576,7 +576,8 @@ for (const waiver of waivers) {
   if (hitIn(fixtures, u)) failures.push(`${where} is exercised by a fixture: remove its waiver`);
   const pieces = `${root}oracle/fuzz/${waiver.grammar}.ts`;
   const probed = (await Bun.file(pieces).exists()) && (await import(pieces)).probe !== undefined;
-  if (probed && !waiver.probe) failures.push(`the waiver for ${where} names no oracle/onig.ts probe`);
+  if (waiver.dropped && waiver.probe) failures.push(`the waiver for ${where} is for a dropped rule, which no probe answers`);
+  if (probed && !waiver.probe && !waiver.dropped) failures.push(`the waiver for ${where} names no oracle/onig.ts probe`);
   waived.set(keyOf(u), waiver.reason);
 }
 const isWaived = (u: Unit) =>
