@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 24
-digest = "b7eac8d7f572dae66e12c30d0d53ded1e1e34c2769be1af5f07af30901f80fe9"
+version = 25
+digest = "2927c8848f390a12f29ffb2a4f8f937443e8fd7491d1b8330111ee007ca5392c"
 
 [[file]]
 language = "asm"
@@ -1440,6 +1440,28 @@ licence = "MIT"
 licence_source = "https://github.com/angular/components/blob/2163de0fe01658260e0e40668574abf10181b999/LICENSE"
 bytes = 24849
 sha256 = "f690aa97e7c323ded0b1d216809ed767e151569523e7d14bf7b5daf8efe8d435"
+
+[[file]]
+language = "shaderlab"
+tier = "small"
+origin = "neutral"
+path = "shaderlab/small/unity-sprites-mask.shader"
+source = "https://raw.githubusercontent.com/TwoTailsGames/Unity-Built-in-Shaders/6a63f93bc1f20ce6cd47f981c7494e8328915621/DefaultResourcesExtra/Sprites-Mask.shader"
+licence = "MIT"
+licence_source = "https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/license.txt"
+bytes = 2396
+sha256 = "31fdce7b48f5be31396d552f604335892a7775ba6a7595d2b52c68c22aac2854"
+
+[[file]]
+language = "shaderlab"
+tier = "medium"
+origin = "neutral"
+path = "shaderlab/medium/unity-skybox-procedural.shader"
+source = "https://raw.githubusercontent.com/TwoTailsGames/Unity-Built-in-Shaders/6a63f93bc1f20ce6cd47f981c7494e8328915621/DefaultResourcesExtra/Skybox-Procedural.shader"
+licence = "MIT"
+licence_source = "https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/license.txt"
+bytes = 16938
+sha256 = "f5b14a6c09f507ecc3c9efc4224a46abd91bc2c48681c818125fc7ff619b23a2"
 
 [[file]]
 language = "shellscript"
