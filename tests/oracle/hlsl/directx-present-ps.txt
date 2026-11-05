@@ -1,0 +1,160 @@
+L //*********************************************************
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft. All rights reserved.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L // This code is licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L // ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L //*********************************************************
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L 
+L #include "present.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 23 source.hlsl string.quoted.double.hlsl
+T 24 source.hlsl string.quoted.double.hlsl
+L #include "color.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 21 source.hlsl string.quoted.double.hlsl
+T 22 source.hlsl string.quoted.double.hlsl
+L 
+L float3 PSMain(PSInput input) : SV_TARGET
+T 6 source.hlsl storage.type.basic.hlsl
+T 7 source.hlsl
+T 13 source.hlsl support.function.hlsl
+T 31 source.hlsl
+T 40 source.hlsl support.variable.semantic.sm4.hlsl
+L {
+T 1 source.hlsl
+L     // The scene, including brightness bars and color palettes, is rendered with linear gamma and Rec.709 primaries. (DXGI_COLOR_SPACE_RGB_FULL_G10_NONE_P709) 
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 159 source.hlsl comment.line.double-slash.hlsl
+L     float3 scene = g_scene.Sample(g_sampler, input.uv).rgb;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 27 source.hlsl
+T 33 source.hlsl support.function.hlsl
+T 59 source.hlsl
+L 
+L     // Direct2D renders the UI layer with gamma 2.2 in Rec.709 primaries. (DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709, known as sRGB)
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 130 source.hlsl comment.line.double-slash.hlsl
+L     float4 uiLayer = g_ui.Sample(g_sampler, input.uv);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 32 source.hlsl support.function.hlsl
+T 54 source.hlsl
+L 
+L     // Compose the scene and UI layers. Note that we convert UI layer from gamma 2.2 to to linear gamma before composing so both UI layers and the scene are with linear gamma and Rec.709 primaries. 
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 198 source.hlsl comment.line.double-slash.hlsl
+L     float3 result = lerp(scene, SRGBToLinear(uiLayer.rgb), uiLayer.a);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 32 source.hlsl
+T 44 source.hlsl support.function.hlsl
+T 70 source.hlsl
+L 
+L     if (displayCurve == DISPLAY_CURVE_SRGB)
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 43 source.hlsl
+L     {
+T 5 source.hlsl
+L         result = LinearToSRGB(result);
+T 17 source.hlsl
+T 29 source.hlsl support.function.hlsl
+T 38 source.hlsl
+L     }
+T 5 source.hlsl
+L     else if (displayCurve == DISPLAY_CURVE_ST2084)
+T 4 source.hlsl
+T 8 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 11 source.hlsl keyword.control.hlsl
+T 50 source.hlsl
+L     {
+T 5 source.hlsl
+L         const float st2084max = 10000.0;
+T 8 source.hlsl
+T 13 source.hlsl storage.modifier.hlsl
+T 14 source.hlsl
+T 19 source.hlsl storage.type.basic.hlsl
+T 32 source.hlsl
+T 39 source.hlsl constant.numeric.decimal.hlsl
+T 40 source.hlsl
+L         const float hdrScalar = standardNits / st2084max;
+T 8 source.hlsl
+T 13 source.hlsl storage.modifier.hlsl
+T 14 source.hlsl
+T 19 source.hlsl storage.type.basic.hlsl
+T 57 source.hlsl
+L 
+L         // The HDR scene is in Rec.709, but the display is Rec.2020
+T 8 source.hlsl
+T 10 source.hlsl comment.line.double-slash.hlsl
+T 67 source.hlsl comment.line.double-slash.hlsl
+L         result = Rec709ToRec2020(result);
+T 17 source.hlsl
+T 32 source.hlsl support.function.hlsl
+T 41 source.hlsl
+L 
+L         // Apply the ST.2084 curve to the scene.
+T 8 source.hlsl
+T 10 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L         result = LinearToST2084(result * hdrScalar);
+T 17 source.hlsl
+T 31 source.hlsl support.function.hlsl
+T 52 source.hlsl
+L     }
+T 5 source.hlsl
+L     else // displayCurve == DISPLAY_CURVE_LINEAR
+T 4 source.hlsl
+T 8 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 11 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L     {
+T 5 source.hlsl
+L         // Just pass through
+T 8 source.hlsl
+T 10 source.hlsl comment.line.double-slash.hlsl
+T 28 source.hlsl comment.line.double-slash.hlsl
+L     }
+T 5 source.hlsl
+L 
+L     return result;
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L }
+T 1 source.hlsl

@@ -256,7 +256,11 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `hlsl/directx-frustum-ms` | [`Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl`][directx-frustum-ms] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
 | `hlsl/directx-meshlet-ps` | [`Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl`][directx-meshlet-ps] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
 | `hlsl/directx-model-viewer-ps` | [`MiniEngine/Model/Shaders/ModelViewerPS.hlsl`][directx-model-viewer-ps] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/directx-present-ps` | [`Samples/Desktop/D3D12HDR/src/presentPS.hlsl`][directx-present-ps] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/directx-text-vs` | [`MiniEngine/Core/Shaders/TextVS.hlsl`][directx-text-vs] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
 | `hlsl/directx-tone-map` | [`MiniEngine/Core/Shaders/ToneMapCS.hlsl`][directx-tone-map] in microsoft/DirectX-Graphics-Samples | [MIT][directx-samples-licence] |
+| `hlsl/dxsdk-basic-hlsl-fx11` | [`BasicHLSLFX11/BasicHLSLFX11.fx`][dxsdk-basic-hlsl-fx11] in walbourn/directx-sdk-samples | [MIT][directx-sdk-samples-licence] |
+| `hlsl/dxsdk-tutorial13` | [`Direct3D11TutorialsFX11/Tutorial13/Tutorial13.fx`][dxsdk-tutorial13] in walbourn/directx-sdk-samples | [MIT][directx-sdk-samples-licence] |
 | `hlsl/sample` | [`samples/hlsl.sample`][hlsl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
@@ -1314,7 +1318,10 @@ The hand lexer was written against all seven.
 [directx-frustum-ms]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl
 [directx-meshlet-ps]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl
 [directx-model-viewer-ps]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/MiniEngine/Model/Shaders/ModelViewerPS.hlsl
+[directx-present-ps]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12HDR/src/presentPS.hlsl
 [directx-samples-licence]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/LICENSE
+[directx-sdk-samples-licence]: https://github.com/walbourn/directx-sdk-samples/blob/1ad8f0f6a3e4d9be7e54ca52640ac12b6565ab0c/LICENSE
+[directx-text-vs]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/MiniEngine/Core/Shaders/TextVS.hlsl
 [directx-tone-map]: https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/MiniEngine/Core/Shaders/ToneMapCS.hlsl
 [django-licence]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/LICENSE
 [django-tox]: https://github.com/django/django/blob/b501b8493f31cf8cba31211d59b3b78642b8cb02/tox.ini
@@ -1330,6 +1337,8 @@ The hand lexer was written against all seven.
 [dplyr-filter]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/filter.R
 [dplyr-licence]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/LICENSE.md
 [dplyr-mutate]: https://github.com/tidyverse/dplyr/blob/819c99f7284b3a413b391c60bea49ae7bfb8bafc/R/mutate.R
+[dxsdk-basic-hlsl-fx11]: https://github.com/walbourn/directx-sdk-samples/blob/1ad8f0f6a3e4d9be7e54ca52640ac12b6565ab0c/BasicHLSLFX11/BasicHLSLFX11.fx
+[dxsdk-tutorial13]: https://github.com/walbourn/directx-sdk-samples/blob/1ad8f0f6a3e4d9be7e54ca52640ac12b6565ab0c/Direct3D11TutorialsFX11/Tutorial13/Tutorial13.fx
 [elixir-keyword]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/keyword.ex
 [elixir-lang-licence]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/LICENSE
 [elixir-map-set]: https://github.com/elixir-lang/elixir/blob/cb8695250e2ff8b27c343e2a5ce91e2da7bbdfde/lib/elixir/lib/map_set.ex

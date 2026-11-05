@@ -205,6 +205,8 @@ const devise =
   "https://raw.githubusercontent.com/heartcombo/devise/05811fb8366edd08874111d0f6fb44543e1c91ef";
 const directxSamples =
   "https://raw.githubusercontent.com/microsoft/DirectX-Graphics-Samples/68a2b1e97f71642924e74c7757ca21756ad221b5";
+const directxSdkSamples =
+  "https://raw.githubusercontent.com/walbourn/directx-sdk-samples/1ad8f0f6a3e4d9be7e54ca52640ac12b6565ab0c";
 const django =
   "https://raw.githubusercontent.com/django/django/b501b8493f31cf8cba31211d59b3b78642b8cb02";
 const dockerInstall =
@@ -857,7 +859,11 @@ export const inputs: Input[] = [
   { lang: "hlsl", name: "directx-frustum-ms", url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl` },
   { lang: "hlsl", name: "directx-meshlet-ps", url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl` },
   { lang: "hlsl", name: "directx-model-viewer-ps", url: `${directxSamples}/MiniEngine/Model/Shaders/ModelViewerPS.hlsl` },
+  { lang: "hlsl", name: "directx-present-ps", url: `${directxSamples}/Samples/Desktop/D3D12HDR/src/presentPS.hlsl` },
+  { lang: "hlsl", name: "directx-text-vs", url: `${directxSamples}/MiniEngine/Core/Shaders/TextVS.hlsl` },
   { lang: "hlsl", name: "directx-tone-map", url: `${directxSamples}/MiniEngine/Core/Shaders/ToneMapCS.hlsl` },
+  { lang: "hlsl", name: "dxsdk-basic-hlsl-fx11", url: `${directxSdkSamples}/BasicHLSLFX11/BasicHLSLFX11.fx` },
+  { lang: "hlsl", name: "dxsdk-tutorial13", url: `${directxSdkSamples}/Direct3D11TutorialsFX11/Tutorial13/Tutorial13.fx` },
   { lang: "hlsl", name: "sample", url: `${samples}/hlsl.sample` },
   { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },

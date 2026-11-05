@@ -1,0 +1,703 @@
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // File: Tutorial13.fx
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 22 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft Corporation.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 39 source.hlsl comment.line.double-slash.hlsl
+L // Licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 40 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Constant Buffer Variables
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 28 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L Texture2D g_txDiffuse;
+T 9 source.hlsl support.type.texture.hlsl
+T 22 source.hlsl
+L SamplerState samLinear
+T 12 source.hlsl support.type.sampler.hlsl
+T 22 source.hlsl
+L {
+T 1 source.hlsl
+L     Filter = MIN_MAG_MIP_LINEAR;
+T 4 source.hlsl
+T 10 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 13 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.filter.hlsl
+T 32 source.hlsl
+L     AddressU = Wrap;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 15 source.hlsl
+T 19 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 20 source.hlsl
+L     AddressV = Wrap;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 15 source.hlsl
+T 19 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 20 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L TextureCube g_txEnvMap;
+T 11 source.hlsl support.type.texture.hlsl
+T 23 source.hlsl
+L SamplerState samLinearClamp
+T 12 source.hlsl support.type.sampler.hlsl
+T 27 source.hlsl
+L {
+T 1 source.hlsl
+L     Filter = MIN_MAG_MIP_LINEAR;
+T 4 source.hlsl
+T 10 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 13 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.filter.hlsl
+T 32 source.hlsl
+L     AddressU = Clamp;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 15 source.hlsl
+T 20 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 21 source.hlsl
+L     AddressV = Clamp;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 15 source.hlsl
+T 20 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 21 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L cbuffer cbConstant
+T 7 source.hlsl storage.type.structured.hlsl
+T 18 source.hlsl
+L {
+T 1 source.hlsl
+L     float3 vLightDir = float3(-0.577,0.577,-0.577);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 29 source.hlsl storage.type.basic.hlsl
+T 31 source.hlsl
+T 36 source.hlsl constant.numeric.decimal.hlsl
+T 37 source.hlsl
+T 42 source.hlsl constant.numeric.decimal.hlsl
+T 44 source.hlsl
+T 49 source.hlsl constant.numeric.decimal.hlsl
+T 51 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L cbuffer cbChangesEveryFrame
+T 7 source.hlsl storage.type.structured.hlsl
+T 27 source.hlsl
+L {
+T 1 source.hlsl
+L     matrix World;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+L     matrix View;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 16 source.hlsl
+L     matrix Projection;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+L     float Time;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 15 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L cbuffer cbUserChanges
+T 7 source.hlsl storage.type.structured.hlsl
+T 21 source.hlsl
+L {
+T 1 source.hlsl
+L     float Explode;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L struct VS_INPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 15 source.hlsl
+L {
+T 1 source.hlsl
+L     float3 Pos          : POSITION;         
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 34 source.hlsl support.variable.semantic.hlsl
+T 44 source.hlsl
+L     float3 Norm         : NORMAL;           
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 32 source.hlsl support.variable.semantic.hlsl
+T 44 source.hlsl
+L     float2 Tex          : TEXCOORD0;        
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 35 source.hlsl support.variable.semantic.hlsl
+T 44 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L struct GSPS_INPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 17 source.hlsl
+L {
+T 1 source.hlsl
+L     float4 Pos : SV_POSITION;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 28 source.hlsl support.variable.semantic.sm4.hlsl
+T 29 source.hlsl
+L     float3 Norm : TEXCOORD0;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+T 27 source.hlsl support.variable.semantic.hlsl
+T 28 source.hlsl
+L     float2 Tex : TEXCOORD1;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 26 source.hlsl support.variable.semantic.hlsl
+T 27 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // DepthStates
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 14 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L DepthStencilState EnableDepth
+T 17 source.hlsl support.type.fx.hlsl
+T 29 source.hlsl
+L {
+T 1 source.hlsl
+L     DepthEnable = TRUE;
+T 4 source.hlsl
+T 15 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 18 source.hlsl
+T 22 source.hlsl support.constant.property-value.fx.hlsl
+T 23 source.hlsl
+L     DepthWriteMask = ALL;
+T 4 source.hlsl
+T 18 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 21 source.hlsl
+T 24 source.hlsl support.constant.property-value.fx.depthwritemask.hlsl
+T 25 source.hlsl
+L     DepthFunc = LESS_EQUAL;
+T 4 source.hlsl
+T 13 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 16 source.hlsl
+T 26 source.hlsl support.constant.property-value.fx.comparisonfunc.hlsl
+T 27 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L BlendState NoBlending
+T 10 source.hlsl support.type.fx.hlsl
+T 21 source.hlsl
+L {
+T 1 source.hlsl
+L     AlphaToCoverageEnable = FALSE;
+T 4 source.hlsl
+T 25 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 28 source.hlsl
+T 33 source.hlsl support.constant.property-value.fx.hlsl
+T 34 source.hlsl
+L     BlendEnable[0] = FALSE;
+T 4 source.hlsl
+T 15 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 21 source.hlsl
+T 26 source.hlsl support.constant.property-value.fx.hlsl
+T 27 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Vertex Shader
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 16 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L GSPS_INPUT VS( VS_INPUT input )
+T 11 source.hlsl
+T 13 source.hlsl support.function.hlsl
+T 31 source.hlsl
+L {
+T 1 source.hlsl
+L     GSPS_INPUT output = (GSPS_INPUT)0;
+T 36 source.hlsl
+T 37 source.hlsl constant.numeric.decimal.hlsl
+T 38 source.hlsl
+L     
+T 4 source.hlsl
+L     output.Pos = mul( float4(input.Pos,1), World );
+T 17 source.hlsl
+T 20 source.hlsl support.function.hlsl
+T 22 source.hlsl
+T 28 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 51 source.hlsl
+L     output.Norm = mul( input.Norm, (float3x3)World );
+T 18 source.hlsl
+T 21 source.hlsl support.function.hlsl
+T 36 source.hlsl
+T 44 source.hlsl storage.type.basic.hlsl
+T 53 source.hlsl
+L     output.Tex = input.Tex;
+T 27 source.hlsl
+L     
+T 4 source.hlsl
+L     return output;
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Geometry Shader
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 18 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L [maxvertexcount(12)]
+T 1 source.hlsl
+T 15 source.hlsl support.function.hlsl
+T 16 source.hlsl
+T 18 source.hlsl constant.numeric.decimal.hlsl
+T 20 source.hlsl
+L void GS( triangle GSPS_INPUT input[3], inout TriangleStream<GSPS_INPUT> TriStream )
+T 4 source.hlsl storage.type.basic.hlsl
+T 5 source.hlsl
+T 7 source.hlsl support.function.hlsl
+T 9 source.hlsl
+T 17 source.hlsl storage.modifier.geometryshader.hlsl
+T 35 source.hlsl
+T 36 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+T 44 source.hlsl storage.modifier.hlsl
+T 45 source.hlsl
+T 59 source.hlsl support.type.object.geometryshader.hlsl
+T 83 source.hlsl
+L {
+T 1 source.hlsl
+L     GSPS_INPUT output;
+T 22 source.hlsl
+L     
+T 4 source.hlsl
+L     //
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+L     // Calculate the face normal
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 32 source.hlsl comment.line.double-slash.hlsl
+L     //
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+L     float3 faceEdgeA = input[1].Pos - input[0].Pos;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 30 source.hlsl constant.numeric.decimal.hlsl
+T 44 source.hlsl
+T 45 source.hlsl constant.numeric.decimal.hlsl
+T 51 source.hlsl
+L     float3 faceEdgeB = input[2].Pos - input[0].Pos;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 30 source.hlsl constant.numeric.decimal.hlsl
+T 44 source.hlsl
+T 45 source.hlsl constant.numeric.decimal.hlsl
+T 51 source.hlsl
+L     float3 faceNormal = normalize( cross(faceEdgeA, faceEdgeB) );
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 33 source.hlsl support.function.hlsl
+T 35 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 65 source.hlsl
+L     float3 ExplodeAmt = faceNormal*Explode;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 43 source.hlsl
+L     
+T 4 source.hlsl
+L     //
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+L     // Calculate the face center
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 32 source.hlsl comment.line.double-slash.hlsl
+L     //
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+L     float3 centerPos = (input[0].Pos.xyz + input[1].Pos.xyz + input[2].Pos.xyz)/3.0;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+T 31 source.hlsl constant.numeric.decimal.hlsl
+T 49 source.hlsl
+T 50 source.hlsl constant.numeric.decimal.hlsl
+T 68 source.hlsl
+T 69 source.hlsl constant.numeric.decimal.hlsl
+T 80 source.hlsl
+T 83 source.hlsl constant.numeric.decimal.hlsl
+T 84 source.hlsl
+L     float2 centerTex = (input[0].Tex + input[1].Tex + input[2].Tex)/3.0;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+T 31 source.hlsl constant.numeric.decimal.hlsl
+T 45 source.hlsl
+T 46 source.hlsl constant.numeric.decimal.hlsl
+T 60 source.hlsl
+T 61 source.hlsl constant.numeric.decimal.hlsl
+T 68 source.hlsl
+T 71 source.hlsl constant.numeric.decimal.hlsl
+T 72 source.hlsl
+L     centerPos += faceNormal*Explode;
+T 36 source.hlsl
+L     
+T 4 source.hlsl
+L     //
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+L     // Output the pyramid
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 25 source.hlsl comment.line.double-slash.hlsl
+L     //
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+L     for( int i=0; i<3; i++ )
+T 4 source.hlsl
+T 7 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 15 source.hlsl
+T 16 source.hlsl constant.numeric.decimal.hlsl
+T 20 source.hlsl
+T 21 source.hlsl constant.numeric.decimal.hlsl
+T 28 source.hlsl
+L     {
+T 5 source.hlsl
+L         output.Pos = input[i].Pos + float4(ExplodeAmt,0);
+T 36 source.hlsl
+T 42 source.hlsl storage.type.basic.hlsl
+T 54 source.hlsl
+T 55 source.hlsl constant.numeric.decimal.hlsl
+T 57 source.hlsl
+L         output.Pos = mul( output.Pos, View );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L         output.Pos = mul( output.Pos, Projection );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L         output.Norm = input[i].Norm;
+T 36 source.hlsl
+L         output.Tex = input[i].Tex;
+T 34 source.hlsl
+L         TriStream.Append( output );
+T 18 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 35 source.hlsl
+L         
+T 8 source.hlsl
+L         int iNext = (i+1)%3;
+T 8 source.hlsl
+T 11 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 26 source.hlsl
+T 27 source.hlsl constant.numeric.decimal.hlsl
+T 28 source.hlsl
+L         output.Pos = input[iNext].Pos + float4(ExplodeAmt,0);
+T 40 source.hlsl
+T 46 source.hlsl storage.type.basic.hlsl
+T 58 source.hlsl
+T 59 source.hlsl constant.numeric.decimal.hlsl
+T 61 source.hlsl
+L         output.Pos = mul( output.Pos, View );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L         output.Pos = mul( output.Pos, Projection );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L         output.Norm = input[iNext].Norm;
+T 40 source.hlsl
+L         output.Tex = input[iNext].Tex;
+T 38 source.hlsl
+L         TriStream.Append( output );
+T 18 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 35 source.hlsl
+L         
+T 8 source.hlsl
+L         output.Pos = float4(centerPos,1) + float4(ExplodeAmt,0);
+T 21 source.hlsl
+T 27 source.hlsl storage.type.basic.hlsl
+T 38 source.hlsl
+T 39 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+T 49 source.hlsl storage.type.basic.hlsl
+T 61 source.hlsl
+T 62 source.hlsl constant.numeric.decimal.hlsl
+T 64 source.hlsl
+L         output.Pos = mul( output.Pos, View );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L         output.Pos = mul( output.Pos, Projection );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L         output.Norm = faceNormal;
+T 33 source.hlsl
+L         output.Tex = centerTex;
+T 31 source.hlsl
+L         TriStream.Append( output );
+T 18 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 35 source.hlsl
+L         
+T 8 source.hlsl
+L         TriStream.RestartStrip();
+T 18 source.hlsl
+T 30 source.hlsl support.function.hlsl
+T 33 source.hlsl
+L     }
+T 5 source.hlsl
+L     
+T 4 source.hlsl
+L     for( int i=2; i>=0; i-- )
+T 4 source.hlsl
+T 7 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 15 source.hlsl
+T 16 source.hlsl constant.numeric.decimal.hlsl
+T 21 source.hlsl
+T 22 source.hlsl constant.numeric.decimal.hlsl
+T 29 source.hlsl
+L     {
+T 5 source.hlsl
+L         output.Pos = input[i].Pos + float4(ExplodeAmt,0);
+T 36 source.hlsl
+T 42 source.hlsl storage.type.basic.hlsl
+T 54 source.hlsl
+T 55 source.hlsl constant.numeric.decimal.hlsl
+T 57 source.hlsl
+L         output.Pos = mul( output.Pos, View );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 45 source.hlsl
+L         output.Pos = mul( output.Pos, Projection );
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 51 source.hlsl
+L         output.Norm = -input[i].Norm;
+T 37 source.hlsl
+L         output.Tex = input[i].Tex;
+T 34 source.hlsl
+L         TriStream.Append( output );
+T 18 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 35 source.hlsl
+L     }
+T 5 source.hlsl
+L     TriStream.RestartStrip();
+T 14 source.hlsl
+T 26 source.hlsl support.function.hlsl
+T 29 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Pixel Shader
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 15 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L float4 PS( GSPS_INPUT input) : SV_Target
+T 6 source.hlsl storage.type.basic.hlsl
+T 7 source.hlsl
+T 9 source.hlsl support.function.hlsl
+T 31 source.hlsl
+T 40 source.hlsl support.variable.semantic.sm4.hlsl
+L {
+T 1 source.hlsl
+L     // Calculate lighting assuming light color is <1,1,1,1>
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L     float fLighting = saturate( dot( input.Norm, vLightDir ) );
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 30 source.hlsl support.function.hlsl
+T 32 source.hlsl
+T 35 source.hlsl support.function.hlsl
+T 63 source.hlsl
+L     
+T 4 source.hlsl
+L     // Load the diffuse texture and multiply by the lighting amount
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 67 source.hlsl comment.line.double-slash.hlsl
+L     float4 cDiffuse = g_txDiffuse.Sample( samLinear, input.Tex ) * fLighting;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 34 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 77 source.hlsl
+L     cDiffuse.a = 1;
+T 17 source.hlsl
+T 18 source.hlsl constant.numeric.decimal.hlsl
+T 19 source.hlsl
+L     
+T 4 source.hlsl
+L     // return diffuse
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 21 source.hlsl comment.line.double-slash.hlsl
+L     return cDiffuse;
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 20 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Technique
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 12 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L technique11 Render
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 18 source.hlsl
+L {
+T 1 source.hlsl
+L     pass P0
+T 4 source.hlsl
+T 8 source.hlsl storage.type.fx.technique.hlsl
+T 11 source.hlsl
+L     {
+T 5 source.hlsl
+L         SetVertexShader( CompileShader( vs_4_0, VS() ) );
+T 8 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 48 source.hlsl
+T 50 source.hlsl support.function.hlsl
+T 57 source.hlsl
+L         SetGeometryShader( CompileShader( gs_4_0, GS() ) );
+T 8 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 40 source.hlsl support.function.hlsl
+T 50 source.hlsl
+T 52 source.hlsl support.function.hlsl
+T 59 source.hlsl
+L         SetPixelShader( CompileShader( ps_4_0, PS() ) );
+T 8 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 47 source.hlsl
+T 49 source.hlsl support.function.hlsl
+T 56 source.hlsl
+L         
+T 8 source.hlsl
+L         SetBlendState( NoBlending, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
+T 8 source.hlsl
+T 21 source.hlsl support.function.hlsl
+T 35 source.hlsl
+T 41 source.hlsl storage.type.basic.hlsl
+T 43 source.hlsl
+T 47 source.hlsl constant.numeric.decimal.hlsl
+T 49 source.hlsl
+T 53 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+T 59 source.hlsl constant.numeric.decimal.hlsl
+T 61 source.hlsl
+T 65 source.hlsl constant.numeric.decimal.hlsl
+T 69 source.hlsl
+T 79 source.hlsl constant.numeric.hex.hlsl
+T 82 source.hlsl
+L         SetDepthStencilState( EnableDepth, 0 );
+T 8 source.hlsl
+T 28 source.hlsl support.function.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L 
+L 
