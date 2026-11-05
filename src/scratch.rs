@@ -128,6 +128,10 @@ pub(crate) struct Scratch {
     /// The Swift lexer's, for Swift documents and Markdown Swift fences.
     #[cfg(feature = "lang-swift")]
     pub(crate) swift: crate::swift::Scratch,
+    /// The buffers of a test grammar of the rule engine, which has no field
+    /// of its own here.
+    #[cfg(all(test, feature = "_embedding"))]
+    pub(crate) test_grammar: Option<Box<dyn std::any::Any>>,
     /// The `TextMate` engine's, for every language it runs.
     /// Boxed, so a line of a grammar that hands off swaps it for its spare by
     /// swapping two pointers.

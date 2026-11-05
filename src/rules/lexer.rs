@@ -140,7 +140,42 @@ pub(crate) struct Scratch<G: Grammar> {
     kept: G::Kept,
 }
 
+/// A line's capture groups that another language lexes again, and the
+/// buffer their tokens go through.
+/// The lexer notes each group as it emits the group's placeholder token.
+/// The engine lexes them where the line hands control back.
+/// Only a grammar that defers groups keeps one ([`Grammar::deferred`]).
+#[cfg(feature = "_embedding")]
+#[derive(Debug, Default)]
+pub(crate) struct Deferrals {
+    /// The groups, in the order their placeholders went out.
+    pub(crate) groups: Vec<Deferred>,
+    /// The tokens a group's language emits, before they take its
+    /// placeholder's place.
+    pub(crate) tokens: Vec<Token>,
+}
+
+/// A capture group that `language` lexes again.
+/// `token` is the index of its placeholder token in the output.
+/// Its text is `from..to`, on the stack `base`.
+#[cfg(feature = "_embedding")]
+#[derive(Debug)]
+pub(crate) struct Deferred {
+    pub(crate) language: Language,
+    pub(crate) token: usize,
+    pub(crate) from: usize,
+    pub(crate) to: usize,
+    pub(crate) base: u32,
+}
+
 impl<G: Grammar> Scratch<G> {
+    /// The deferred capture groups the last run left, for a grammar that
+    /// keeps them ([`Grammar::deferred_kept`]).
+    #[cfg(feature = "_embedding")]
+    pub(crate) fn deferred(&mut self) -> Option<&mut Option<Box<Deferrals>>> {
+        G::deferred_kept(&mut self.kept)
+    }
+
     /// Drops the frames kept for the next line.
     /// That line then opens its rules from its state.
     #[cfg(feature = "_embedding")]
@@ -275,8 +310,9 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// Whether the cursor is where an embedded language halted, so the
     /// rule's own patterns are tried there before the text goes back to it.
     host: bool,
-    /// Where the line stopped for the embedded language, and the language.
-    yielded: Option<(usize, Language)>,
+    /// Where the line stopped for the embedded language, the language, and
+    /// whether `\G` holds there.
+    yielded: Option<(usize, Language, bool)>,
 }
 
 /// Where an embedding line enters the rule engine.
@@ -403,7 +439,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 && !self.embedding
                 && let Payload::Embed(language) = G::rule_payload(self.top().rule)
             {
-                self.yielded = Some((self.pos, language));
+                self.yielded = Some((self.pos, language, self.anchor == Some(self.pos)));
             }
         }
         if G::CAPTURED_EOL
@@ -606,10 +642,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         } else {
             self.tokenize();
         }
-        self.yielded.map(|(at, language)| {
+        self.yielded.map(|(at, language, anchored)| {
             let top = self.top();
             Embedding {
                 at,
+                anchored,
                 language,
                 state: top.payload,
                 base: top.content,
@@ -1090,26 +1127,20 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// `payload`, on top.
     fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {
         let name = self.path(parent, G::rule_name(rule));
-        match G::rule_name_delimiter(rule) {
-            Some(prefix) if self.arena.string(payload).len() > G::NAMED_PAYLOAD => self
-                .dynamic_path(
-                    name,
-                    prefix,
-                    NameSource::Line {
-                        start: 0,
-                        end: 0,
-                        case: NameCase::AsWritten,
-                    },
-                    G::rule_name_suffix(rule),
-                ),
-            Some(prefix) => self.dynamic_path(
-                name,
-                prefix,
-                NameSource::Interned(payload),
-                G::rule_name_suffix(rule),
-            ),
-            None => name,
-        }
+        let Some(prefix) = G::rule_name_delimiter(rule) else {
+            return name;
+        };
+        let source = if self.arena.string(payload).len() > G::NAMED_PAYLOAD {
+            NameSource::Line {
+                start: 0,
+                end: 0,
+                case: NameCase::AsWritten,
+            }
+        } else {
+            NameSource::Interned(payload)
+        };
+        let named = self.dynamic_path(name, prefix, source, G::rule_name_suffix(rule));
+        self.path(named, G::rule_name_after(rule))
     }
 
     fn push_frame(
@@ -1294,6 +1325,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// are saved meanwhile, on a stack, so the hook's matches, and the
     /// nested groups those emit in turn, do not overwrite them.
     fn nested(&mut self, kind: G::Nested, from: usize, to: usize, base: u32) {
+        #[cfg(feature = "_embedding")]
+        if G::DEFERS_NESTED
+            && let Some(language) = G::defers_nested(kind)
+        {
+            self.defer(language, from, to, base);
+            return;
+        }
         let mark = self.scratch.saved_caps.len();
         self.scratch.saved_caps.extend_from_slice(&self.caps);
         let dirty = self.dirty;
@@ -1303,6 +1341,26 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.caps.copy_from_slice(&self.scratch.saved_caps[mark..]);
         self.scratch.saved_caps.truncate(mark);
         self.dirty = dirty;
+    }
+
+    /// Emits the capture group text `from..to` as one placeholder token on
+    /// `base`, and notes it for `language` ([`super::Embeds::lex_nested`]).
+    #[cfg(feature = "_embedding")]
+    #[cold]
+    fn defer(&mut self, language: Language, from: usize, to: usize, base: u32) {
+        let token = self.out.len();
+        self.emit(to, base);
+        if self.out.len() > token
+            && let Some(slot) = G::deferred(&mut self.x)
+        {
+            slot.get_or_insert_with(Box::default).groups.push(Deferred {
+                language,
+                token,
+                from,
+                to: to.min(self.s.len()),
+                base,
+            });
+        }
     }
 
     /// Emits the spans the matcher recorded, in order. In a grammar with
@@ -1678,7 +1736,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             return false;
         }
         if !self.embedding {
-            self.yielded = Some((self.pos, language));
+            self.yielded = Some((self.pos, language, self.anchor == Some(self.pos)));
             return false;
         }
         self.pos = self.pos.max(end);
@@ -1691,7 +1749,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     fn yield_to(&mut self, language: Language) {
         let node = self.top().content;
         self.emit(self.pos, node);
-        self.yielded = Some((self.pos, language));
+        self.yielded = Some((self.pos, language, self.anchor == Some(self.pos)));
     }
 
     /// Whether `rule`, just opened above frame `before`, repeats a rule that
@@ -1754,7 +1812,11 @@ pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Optio
 #[cfg(test)]
 mod tests {
 
+    #[cfg(feature = "_embedding")]
+    use super::Deferrals;
     use super::{Lexer, Scratch};
+    #[cfg(feature = "_embedding")]
+    use crate::Language;
     use crate::arena::{Arena, ROOT};
     #[cfg(feature = "_embedding")]
     use crate::language::Halt;
@@ -2001,15 +2063,24 @@ mod tests {
     /// A grammar whose names repeat text of the line: a word is named
     /// `word.<the word>.test` (`$0`), `!` and `?` are named after themselves
     /// as group 1, with a group 2 past the match and a group 3 after it, and
-    /// `<<ab` opens a quote named `quote.ab.q` that the next `ab` closes.
+    /// `<<ab` opens a quote named `quote.ab.q after.test` that the next `ab`
+    /// closes.
     /// `>>` opens a rule that embeds Rust from an entry
     /// ([`Grammar::embed_start`]).
     /// `%%` opens a rule that embeds JavaScript, which halts before it lexes
     /// anything, and then names a `!` only where `\G` holds.
     /// `##` opens a rule that embeds HTML and lists the mark of `!` and `?`
     /// after it ([`Embeds::embeds_after_own`]).
+    /// `@@` starts a capture group that runs to the next blank, which
+    /// JavaScript lexes again ([`Grammar::defers_nested`]).
     #[derive(Clone, Copy, Debug)]
     struct Named;
+
+    /// The kind of [`Named`]'s capture group that JavaScript lexes again.
+    #[derive(Clone, Copy, Debug)]
+    enum Lexed {
+        Script,
+    }
 
     #[derive(Clone, Copy, Debug, PartialEq)]
     enum Rule {
@@ -2030,6 +2101,7 @@ mod tests {
         Hold,
         Mix,
         Anchored,
+        Call,
     }
 
     /// The entry [`Rule::Inner`] embeds Rust from: Rust's own start for an
@@ -2084,6 +2156,13 @@ mod tests {
     }
 
     #[cfg(feature = "_embedding")]
+    std::thread_local! {
+        /// How many times the engine asked [`Named`] to lex an embedded
+        /// language its own way, on this test's thread.
+        static ASKED: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+    }
+
+    #[cfg(feature = "_embedding")]
     impl Embeds for Named {
         type End = AtOnce;
 
@@ -2107,6 +2186,31 @@ mod tests {
         fn embeds_after_own(rule: Rule) -> bool {
             matches!(rule, Rule::Mixed)
         }
+
+        /// Counts the call and declines, so the language lexes itself.
+        fn lex_embedded_until(
+            _: Rule,
+            _: crate::Language,
+            _: &mut crate::language::Context<'_>,
+            _: crate::language::Line<'_>,
+            _: u32,
+            _: (&dyn Halt, Option<&dyn Halt>),
+        ) -> Option<(crate::limits::Finished, Option<usize>)> {
+            ASKED.with(|asked| asked.set(asked.get() + 1));
+            None
+        }
+
+        /// The group's language lexes it from its start, as an embedded body
+        /// on the group's stack.
+        fn lex_nested(
+            language: Language,
+            cx: &mut crate::language::Context<'_>,
+            line: crate::language::Line<'_>,
+            base: u32,
+        ) -> Option<crate::limits::Finished> {
+            let state = language.start_embedded(cx.arena, base);
+            Some(language.lex_embedded(cx, line, state))
+        }
     }
 
     #[derive(Clone, Copy, Debug)]
@@ -2129,9 +2233,6 @@ mod tests {
         const NO_SCOPES: Scopes<Name> = &crate::scope::Keyed::new([], []);
     }
 
-    #[derive(Clone, Copy, Debug)]
-    enum Never {}
-
     const AFTER: Scope = Scope::dynamic(1);
 
     impl Grammar for Named {
@@ -2139,8 +2240,14 @@ mod tests {
         type Scope = Name;
         type Rule = Rule;
         type Pat = Mark;
-        type Nested = Never;
+        type Nested = Lexed;
+        #[cfg(feature = "_embedding")]
+        type Extra = Option<Box<Deferrals>>;
+        #[cfg(not(feature = "_embedding"))]
         type Extra = ();
+        #[cfg(feature = "_embedding")]
+        type Kept = Option<Box<Deferrals>>;
+        #[cfg(not(feature = "_embedding"))]
         type Kept = ();
 
         const NAME: &'static str = "named";
@@ -2211,6 +2318,13 @@ mod tests {
             }
         }
 
+        fn rule_name_after(rule: Rule) -> Scopes<Name> {
+            match rule {
+                Rule::Root | Rule::Inner | Rule::Held | Rule::Mixed => Name::NO_SCOPES,
+                Rule::Quote => scopes![Name::Fixed(AFTER)],
+            }
+        }
+
         #[cfg(all(feature = "_embedding", feature = "lang-rust"))]
         fn embed_start(rule: Rule) -> Option<fn(&mut Arena, u32) -> u32> {
             match rule {
@@ -2222,7 +2336,7 @@ mod tests {
         fn pat_act(pat: Mark) -> Act<Self> {
             match pat {
                 Mark::Word => Act::Match(scopes![Name::Group("word.", 0, ".test")]),
-                Mark::Look => Act::Match(Name::NO_SCOPES),
+                Mark::Look | Mark::Call => Act::Match(Name::NO_SCOPES),
                 Mark::Open => Act::Begin(Rule::Quote),
                 Mark::Embed => Act::Begin(Rule::Inner),
                 Mark::Hold => Act::Begin(Rule::Held),
@@ -2242,6 +2356,7 @@ mod tests {
                     ],
                     &[],
                 ),
+                Mark::Call => (&[], &[(1, Lexed::Script)]),
                 Mark::Word
                 | Mark::Open
                 | Mark::Close
@@ -2259,6 +2374,7 @@ mod tests {
                     Mark::Embed,
                     Mark::Hold,
                     Mark::Mix,
+                    Mark::Call,
                     Mark::Look,
                     Mark::Word,
                 ],
@@ -2305,11 +2421,62 @@ mod tests {
                 Mark::Hold => lexer.starts(p, b"%%").then_some(p + 2),
                 Mark::Mix => lexer.starts(p, b"##").then_some(p + 2),
                 Mark::Anchored => (lexer.at_g(p) && lexer.at(p) == b'!').then_some(p + 1),
+                Mark::Call => {
+                    if !lexer.starts(p, b"@@") {
+                        return None;
+                    }
+                    let end = lexer.skip(p + 2, |b| b != b' ');
+                    lexer.cap(1, p + 2, end);
+                    Some(end)
+                }
             }
         }
 
-        fn tokenize_nested(_: &mut Lexer<'_, Self>, kind: Never, _: usize, _: usize, _: u32) {
-            match kind {}
+        /// A group of [`Lexed::Script`] is deferred, so this runs only in a
+        /// build without the embedding engine.
+        fn tokenize_nested(
+            lexer: &mut Lexer<'_, Self>,
+            kind: Lexed,
+            _: usize,
+            to: usize,
+            base: u32,
+        ) {
+            match kind {
+                Lexed::Script => lexer.emit(to, base),
+            }
+        }
+
+        #[cfg(feature = "_embedding")]
+        const DEFERS_NESTED: bool = true;
+
+        #[cfg(feature = "_embedding")]
+        fn extra(kept: Self::Kept) -> Self::Extra {
+            kept
+        }
+
+        #[cfg(feature = "_embedding")]
+        fn keep(extra: Self::Extra) -> Self::Kept {
+            extra
+        }
+
+        #[cfg(feature = "_embedding")]
+        fn deferred(extra: &mut Self::Extra) -> Option<&mut Option<Box<Deferrals>>> {
+            Some(extra)
+        }
+
+        #[cfg(feature = "_embedding")]
+        fn deferred_kept(kept: &mut Self::Kept) -> Option<&mut Option<Box<Deferrals>>> {
+            Some(kept)
+        }
+
+        #[cfg(feature = "_embedding")]
+        fn defers_nested(kind: Lexed) -> Option<Language> {
+            match kind {
+                #[cfg(feature = "lang-javascript")]
+                Lexed::Script => Some(Language::JavaScript),
+                #[cfg(not(feature = "lang-javascript"))]
+                Lexed::Script => None,
+            }
         }
     }
 
@@ -2384,11 +2551,18 @@ mod tests {
     #[test]
     fn a_rule_named_from_its_payload_keeps_the_name_on_the_next_line() {
         let mut arena = Arena::new(None);
+        assert_eq!(arena.named_scope("after.test"), Some(AFTER));
         let rows = named_tokens(&mut arena, &[b"<<ab xy", b"zz ab"]);
-        assert_eq!(rows[0][0], (4, "quote.ab.q".to_owned()));
-        assert_eq!(rows[0][2], (7, "quote.ab.q word.xy.test".to_owned()));
-        assert_eq!(rows[1][0], (2, "quote.ab.q word.zz.test".to_owned()));
-        assert_eq!(rows[1][2], (5, "quote.ab.q".to_owned()));
+        assert_eq!(rows[0][0], (4, "quote.ab.q after.test".to_owned()));
+        assert_eq!(
+            rows[0][2],
+            (7, "quote.ab.q after.test word.xy.test".to_owned())
+        );
+        assert_eq!(
+            rows[1][0],
+            (2, "quote.ab.q after.test word.zz.test".to_owned())
+        );
+        assert_eq!(rows[1][2], (5, "quote.ab.q after.test".to_owned()));
     }
 
     #[cfg(all(feature = "_embedding", feature = "lang-rust"))]
@@ -2424,19 +2598,112 @@ mod tests {
         assert!(std::ptr::fn_addr_eq(start, expected));
     }
 
-    /// [`Named`]'s buffers for [`crate::rules::lex_embedding`]: a new one
-    /// each time, since the crate's scratch has no field for a test grammar.
+    /// [`Named`]'s buffers for [`crate::rules::lex_embedding`], in the crate
+    /// scratch's slot for a test grammar.
+    /// The groups a run defers stay there until the engine lexes them.
     #[cfg(all(
         feature = "_embedding",
         any(feature = "lang-javascript", feature = "lang-html")
     ))]
-    fn named_buffers(_: &mut crate::scratch::Scratch) -> &mut Scratch<Named> {
-        Box::leak(Box::default())
+    fn named_buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch<Named> {
+        scratch
+            .test_grammar
+            .get_or_insert_with(|| Box::new(Scratch::<Named>::default()))
+            .downcast_mut()
+            .expect("the slot holds Named's buffers")
+    }
+
+    /// `@@1 x @@2` holds two groups that JavaScript lexes again, deferred to
+    /// where the line hands control back.
+    /// Each group's tokens take its placeholder's place, the second group's
+    /// first, so the tokens still end in order and cover the line.
+    /// Inside each group the digit is JavaScript's number.
+    #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
+    #[test]
+    fn deferred_groups_take_the_tokens_of_their_language() {
+        let mut arena = Arena::new(None);
+        let state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let limits = Limits::default();
+        let mut scratch = crate::scratch::Scratch::default();
+        scratch.start_line();
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        let mut cx = crate::language::Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let line = crate::language::Line {
+            text: "@@1 x @@2",
+            start: 0,
+            embedded: false,
+        };
+        crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
+        let ends: Vec<usize> = out.iter().map(|token| token.end()).collect();
+        assert!(ends.windows(2).all(|pair| pair[0] < pair[1]), "{ends:?}");
+        assert_eq!(ends.last(), Some(&9), "{ends:?}");
+        assert!(report.is_complete());
+        for end in [3, 9] {
+            let digit = out
+                .iter()
+                .find(|token| token.end() == end)
+                .expect("a token ends after each digit");
+            let names: Vec<&str> = arena.scopes(digit.stack().0).collect();
+            assert!(names.contains(&"constant.numeric.decimal.js"), "{names:?}");
+        }
+    }
+
+    /// Lexes the line `bytes` of [`Named`] from `state`, which must stop for
+    /// JavaScript, and returns the state and where it stopped.
+    #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
+    fn javascript_yield(arena: &mut Arena, bytes: &'static [u8], state: u32) -> (u32, Embedding) {
+        let limits = Limits::default();
+        let mut scratch = Scratch::<Named>::default();
+        let mut tokens = Vec::new();
+        let mut report = LineReport::default();
+        let text = Text {
+            bytes,
+            start: 0,
+            anchored: false,
+        };
+        let parts = Parts {
+            arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let (finished, embedding) = Lexer::new(parts, text, state, &mut scratch).run_embedding();
+        let embedding = embedding.expect("the line stops where JavaScript goes on");
+        assert_eq!(embedding.language, crate::Language::JavaScript);
+        (finished.state(), embedding)
+    }
+
+    /// `%%` opens a rule that embeds JavaScript at the end of its line.
+    /// That line stops with `\G` holding where JavaScript starts.
+    /// The next line stops at its start, where no match has ended, so `\G`
+    /// does not hold there.
+    #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
+    #[test]
+    fn a_later_line_stops_for_its_language_without_the_anchor() {
+        let mut arena = Arena::new(None);
+        let root = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let (state, first) = javascript_yield(&mut arena, b"%%", root);
+        assert_eq!((first.at, first.anchored), (2, true));
+        let (_, later) = javascript_yield(&mut arena, b"!x", state);
+        assert_eq!((later.at, later.anchored), (0, false));
     }
 
     /// JavaScript halts before it lexes anything after `%%`, so no match has
     /// ended since the one that opened the rule, and `\G` still holds where
     /// the grammar goes on: the `!` is named.
+    /// The engine asks [`Named`] first ([`Embeds::lex_embedded_until`]).
+    /// It declines, and JavaScript's own `lex_until` halts.
     #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
     #[test]
     fn a_language_that_halts_at_once_leaves_the_anchor_where_it_was() {
@@ -2462,7 +2729,13 @@ mod tests {
             start: 0,
             embedded: false,
         };
+        ASKED.with(|asked| asked.set(0));
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
+        assert_ne!(
+            ASKED.with(std::cell::Cell::get),
+            0,
+            "the engine asked the grammar"
+        );
         let bang = out
             .iter()
             .find(|token| token.end() == 3)

@@ -44,6 +44,8 @@ use std::fmt::Debug;
     feature = "lang-mermaid"
 ))]
 pub(crate) use chars::Chars;
+#[cfg(feature = "_embedding")]
+pub(crate) use lexer::Deferrals;
 use lexer::FIRST_LINE;
 #[cfg(feature = "_embedding")]
 use lexer::with_payload;
@@ -54,6 +56,7 @@ pub(crate) use tables::Tables;
 #[cfg(feature = "_rule-tables")]
 pub(crate) use tables::table_scan;
 
+use crate::Language;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
 #[cfg(feature = "_embedding")]
@@ -62,6 +65,8 @@ use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
 use crate::scope::{Scope, Scopes};
+#[cfg(feature = "_embedding")]
+use crate::{Stack, Token};
 
 /// One language's grammar: its rules and patterns, by type, and the
 /// hand-written matchers that decide where each pattern matches.
@@ -191,6 +196,13 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_name_suffix(_rule: Self::Rule) -> &'static str {
         ""
     }
+    /// The name scopes that come after that name scope, such as
+    /// `meta.special.start.svelte` in
+    /// `meta.special.$3.svelte meta.special.start.svelte`; none by default.
+    /// Only a rule with a [`Grammar::rule_name_delimiter`] reads them.
+    fn rule_name_after(_rule: Self::Rule) -> Scopes<Self::Scope> {
+        Self::NO_SCOPES
+    }
     /// Where a rule that embeds a language ([`Payload::Embed`]) starts it:
     /// the function that gives the language's state at one of its grammar's
     /// rules other than the root, as an `include` of `source.ts#object-literal`
@@ -227,6 +239,37 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
         to: usize,
         base: u32,
     );
+    /// Whether another language lexes some capture groups of the grammar
+    /// again, as `TextMate` does for a group whose patterns include another
+    /// grammar ([`Grammar::defers_nested`]).
+    /// Only a grammar that embeds languages ([`Embeds`]) sets it.
+    const DEFERS_NESTED: bool = false;
+    /// The language that lexes the capture groups of kind `kind` again, if
+    /// one does.
+    /// The engine then emits such a group as one placeholder token and
+    /// defers it.
+    /// Where the line hands control back, [`Embeds::lex_nested`] lexes it in
+    /// place of the placeholder.
+    /// It is read only where [`Grammar::DEFERS_NESTED`] is set.
+    fn defers_nested(_kind: Self::Nested) -> Option<Language> {
+        None
+    }
+    /// Where the line being lexed notes its deferred capture groups, in the
+    /// matchers' memory ([`Grammar::Extra`]).
+    /// A grammar with [`Grammar::DEFERS_NESTED`] keeps the slot there and in
+    /// [`Grammar::Kept`], which [`Grammar::extra`] and [`Grammar::keep`]
+    /// pass between them.
+    /// Every other grammar keeps none, so its scratch carries nothing of it.
+    #[cfg(feature = "_embedding")]
+    fn deferred(_extra: &mut Self::Extra) -> Option<&mut Option<Box<Deferrals>>> {
+        None
+    }
+    /// The same slot after the run, in what the line keeps
+    /// ([`Grammar::Kept`]), where the engine lexes the groups.
+    #[cfg(feature = "_embedding")]
+    fn deferred_kept(_kept: &mut Self::Kept) -> Option<&mut Option<Box<Deferrals>>> {
+        None
+    }
     /// Whether the scan asks [`Grammar::next_place`] where to go on after a
     /// place where no pattern matched.
     /// Off, it goes on at the next character.
@@ -384,6 +427,129 @@ pub(crate) trait Embeds: Grammar {
     fn embeds_after_own(_rule: Self::Rule) -> bool {
         false
     }
+
+    /// Lexes `line` from `state` in `language`, the language the embedding
+    /// rule embeds, when the grammar lexes that language its own way.
+    /// `rule` is the embedding rule.
+    /// It returns where the language halted, at one of `halts`.
+    /// None leaves the line to the language's own
+    /// [`crate::Language::lex_until`].
+    ///
+    /// By default, none, and the body names no function.
+    /// A default that called `Language::lex_until`, which is `#[inline]`,
+    /// made rustc export the functions that it reaches, such as
+    /// `Arena::child`.
+    /// Each call to an exported function then went through the GOT.
+    fn lex_embedded_until(
+        _rule: Self::Rule,
+        _language: crate::Language,
+        _cx: &mut Context<'_>,
+        _line: Line<'_>,
+        _state: u32,
+        _halts: (&dyn Halt, Option<&dyn Halt>),
+    ) -> Option<(Finished, Option<usize>)> {
+        None
+    }
+
+    /// Lexes a deferred capture group with `language`
+    /// ([`Grammar::defers_nested`]): the text from `line.start` to the end of
+    /// `line.text`, which is the group's end, with no line feed after it.
+    /// The group's text sits on the stack `base`.
+    /// Its tokens must end inside the group.
+    /// None leaves the group as its one placeholder token, as the default
+    /// does; its body names no function.
+    fn lex_nested(
+        _language: Language,
+        _cx: &mut Context<'_>,
+        _line: Line<'_>,
+        _base: u32,
+    ) -> Option<Finished> {
+        None
+    }
+}
+
+/// Lexes the capture groups that the last run of the grammar deferred
+/// ([`Grammar::defers_nested`]), from what is left of the line's budget,
+/// `steps`, and returns that budget's state.
+/// The count starts from `finished`, what the run spent.
+#[cfg(feature = "_embedding")]
+fn settle_deferred<G: Embeds>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    finished: Finished,
+) -> Finished {
+    if !G::DEFERS_NESTED || !has_deferred(scratch(cx.scratch)) {
+        return finished;
+    }
+    let steps = Steps::new(cx.limits, line.text.len());
+    let state = steps.take_back(finished);
+    lex_deferred(cx, line, scratch, &steps);
+    steps.finish(state)
+}
+
+/// Lexes each deferred capture group with [`Embeds::lex_nested`], and puts
+/// its tokens in place of its placeholder in the output.
+/// The groups go from the last to the first.
+/// Each splice moves only the tokens after it, so the placeholders before it
+/// stay where they were.
+/// Tokens are never merged or counted as they go out.
+/// The spliced ones need no other rule.
+/// Each group spends from `steps`, the line's one budget.
+/// A group whose language left its end uncovered keeps the rest on its
+/// placeholder's stack.
+#[cfg(feature = "_embedding")]
+#[cold]
+fn lex_deferred<G: Embeds>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    steps: &Steps,
+) {
+    let Some(mut deferrals) = scratch(cx.scratch).deferred().and_then(Option::take) else {
+        return;
+    };
+    let Deferrals { groups, tokens } = &mut *deferrals;
+    for group in groups.iter().rev() {
+        tokens.clear();
+        let lent = steps.lend(cx.limits);
+        let mut part_cx = Context {
+            scratch: &mut *cx.scratch,
+            arena: &mut *cx.arena,
+            limits: &lent,
+            out: &mut *tokens,
+            report: &mut *cx.report,
+        };
+        let part = Line {
+            text: line.text.get(..group.to).unwrap_or(line.text),
+            start: group.from,
+            embedded: false,
+        };
+        let Some(finished) = G::lex_nested(group.language, &mut part_cx, part, group.base) else {
+            continue;
+        };
+        steps.take_back(finished);
+        if tokens.last().is_none_or(|token| token.end() < group.to) {
+            tokens.push(Token {
+                end: group.to,
+                stack: Stack(group.base),
+            });
+        }
+        cx.out.splice(group.token..=group.token, tokens.drain(..));
+    }
+    groups.clear();
+    if let Some(slot) = scratch(cx.scratch).deferred() {
+        *slot = Some(deferrals);
+    }
+}
+
+/// Whether the last run deferred a capture group.
+#[cfg(feature = "_embedding")]
+fn has_deferred<G: Grammar>(scratch: &mut Scratch<G>) -> bool {
+    scratch
+        .deferred()
+        .and_then(|slot| slot.as_ref())
+        .is_some_and(|deferrals| !deferrals.groups.is_empty())
 }
 
 /// Places in order, as a halt that holds at each of them: the starts of an
@@ -423,6 +589,7 @@ pub(crate) fn lex_embedding<G: Embeds>(
     };
     let (parts, buffers) = cx.parts();
     let (first, embedding) = Lexer::new(parts, text, state, scratch(buffers)).run_embedding();
+    let first = settle_deferred(cx, line, scratch, first);
     match embedding {
         Some(embedding) => hand_over::<G, false>(cx, line, scratch, None, first, embedding).0,
         None => first,
@@ -454,6 +621,7 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
     let (first, stop) = Lexer::new(parts, text, state, scratch(buffers))
         .halting(&outer)
         .run_embedding_halting();
+    let first = settle_deferred(cx, line, scratch, first);
     match stop {
         Stop::Line => (first, None),
         Stop::Halted(at) => (first, Some(at)),
@@ -488,9 +656,16 @@ pub(crate) fn lex_on_demand<G: Embeds>(
     let (parts, buffers) = cx.parts();
     let (finished, embeds) = Lexer::new(parts, text, state, scratch(buffers)).run_on_demand();
     if embeds {
+        if G::DEFERS_NESTED
+            && let Some(deferrals) = scratch(cx.scratch)
+                .deferred()
+                .and_then(|slot| slot.as_mut())
+        {
+            deferrals.groups.clear();
+        }
         return lex_again(cx, line, state, scratch, first, finished);
     }
-    finished
+    settle_deferred(cx, line, scratch, finished)
 }
 
 /// Lexes `line` again with [`lex_embedding`].
@@ -540,9 +715,11 @@ fn lex_again<G: Embeds>(
 /// work budget. Out of line, since most lines embed nothing.
 ///
 /// Where the language halts before it lexed anything, the grammar goes on
-/// with `\G` still holding there.
+/// with `\G` still holding there, if it held where the language started.
 /// No match has ended anywhere else since the one the embedding started
 /// after, so `\G` holds as it would in a `TextMate` engine.
+/// At the start of a later line inside the rule, no match has ended on the
+/// line, so `\G` does not hold there.
 #[cfg(feature = "_embedding")]
 #[cold]
 fn hand_over<G: Embeds, const HALTING: bool>(
@@ -602,7 +779,10 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             out: &mut *cx.out,
             report: &mut *cx.report,
         };
-        let (inner, stop) = match language.lex_until(&mut part_cx, part, inner, &end, after) {
+        let halted =
+            G::lex_embedded_until(rule, language, &mut part_cx, part, inner, (&end, after))
+                .or_else(|| language.lex_until(&mut part_cx, part, inner, &end, after));
+        let (inner, stop) = match halted {
             Some(halted) => halted,
             None => (language.lex_embedded(&mut part_cx, part, inner), None),
         };
@@ -617,7 +797,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
         let text = Text {
             bytes: line.text.as_bytes(),
             start: at,
-            anchored: at == embedding.at,
+            anchored: embedding.anchored && at == embedding.at,
         };
         let lent = steps.lend(cx.limits);
         let parts = Parts {
@@ -634,6 +814,9 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             (finished, found.map_or(Stop::Line, Stop::Embedding))
         };
         let resumed = steps.take_back(finished);
+        if G::DEFERS_NESTED && has_deferred(scratch(cx.scratch)) {
+            lex_deferred(cx, line, scratch, &steps);
+        }
         match found {
             Stop::Line => break (resumed, None),
             Stop::Halted(at) => break (resumed, Some(at)),
@@ -751,6 +934,9 @@ pub(crate) enum Stop {
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Embedding {
     pub(crate) at: usize,
+    /// Whether `\G` holds at `at`: a match ended there on this line.
+    /// At the start of a line that goes on inside the rule, it does not.
+    pub(crate) anchored: bool,
     pub(crate) language: crate::Language,
     pub(crate) state: u32,
     pub(crate) base: u32,
