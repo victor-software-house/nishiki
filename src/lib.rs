@@ -84,7 +84,7 @@
 //! let mut highlighter = Highlighter::new(Language::Rust);
 //! let mut tokens = Vec::new();
 //! let _ = highlighter.line("let x = 42;", &mut State::default(), &mut tokens);
-//! let style = theme.style(highlighter.scopes(tokens[0].stack()));
+//! let style = highlighter.style(&theme, tokens[0].stack());
 //! assert_eq!(style.foreground.to_string(), "#F97583");
 //! ```
 //!

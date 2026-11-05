@@ -5,7 +5,7 @@ use crate::arena::{Arena, ROOT, Scopes};
 use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
-use crate::{Language, Stack, State, Token};
+use crate::{Language, Stack, State, Style, Theme, Token};
 
 /// Highlights one language, a line at a time.
 ///
@@ -25,6 +25,17 @@ pub struct Highlighter {
     /// The state at the start of a document.
     /// [`State::default`] stands for it.
     start: u32,
+    /// The styles [`Highlighter::style`] computed, for one theme.
+    styles: Styles,
+}
+
+/// Each stack's style under one theme, indexed by stack id, filled on first
+/// use.
+#[derive(Debug, Default)]
+struct Styles {
+    /// The [`Theme`] id the styles belong to; `None` before the first call.
+    theme: Option<u64>,
+    by_stack: Vec<Option<Style>>,
 }
 
 impl Highlighter {
@@ -45,6 +56,7 @@ impl Highlighter {
             arena,
             scratch: Scratch::default(),
             start,
+            styles: Styles::default(),
         }
     }
 
@@ -121,6 +133,55 @@ impl Highlighter {
     #[must_use]
     pub fn scopes(&self, stack: Stack) -> Scopes<'_> {
         self.arena.scopes(stack.0)
+    }
+
+    /// The style `theme` gives `stack`: the style [`Theme::style`] gives the
+    /// stack's [`scopes`](Highlighter::scopes).
+    ///
+    /// The highlighter keeps each stack's style once computed.
+    /// Styling another token with the same stack is then one lookup.
+    /// It keeps the styles of one theme, and drops them when called with
+    /// another.
+    /// It allocates only when a new stack first appears.
+    #[must_use]
+    pub fn style(&mut self, theme: &Theme, stack: Stack) -> Style {
+        if self.styles.theme != Some(theme.id()) {
+            self.styles.theme = Some(theme.id());
+            self.styles.by_stack.clear();
+        }
+        let cached = usize::try_from(stack.0)
+            .ok()
+            .and_then(|index| self.styles.by_stack.get(index))
+            .copied()
+            .flatten();
+        match cached {
+            Some(style) => style,
+            None => self.style_miss(theme, stack.0),
+        }
+    }
+
+    /// [`Highlighter::style`] for a stack not styled yet: [`Theme::style`] on
+    /// its scopes, kept for the next token with the stack.
+    ///
+    /// It goes through [`Theme::style`], so the theme's trie keeps one caller.
+    /// With a second caller, the trie stopped being inlined into
+    /// [`Theme::style`], and every caller of it ran about 4% more
+    /// instructions.
+    ///
+    /// Out of line, so a hit saves no registers for the miss.
+    #[inline(never)]
+    fn style_miss(&mut self, theme: &Theme, stack: u32) -> Style {
+        let count = self.arena.stack_count();
+        let style = theme.style(self.arena.scopes(stack));
+        if let Some(index) = usize::try_from(stack).ok().filter(|&index| index < count) {
+            if self.styles.by_stack.len() < count {
+                self.styles.by_stack.resize(count, None);
+            }
+            if let Some(slot) = self.styles.by_stack.get_mut(index) {
+                *slot = Some(style);
+            }
+        }
+        style
     }
 
     /// The open context of `state`, for the lexers' tests.

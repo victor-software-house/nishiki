@@ -232,6 +232,10 @@ fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
 )]
 /// The fixture and theme pairs of `language` whose colours differ from
 /// Shiki's, as reports.
+///
+/// One highlighter styles a fixture with every theme in turn, so
+/// [`Highlighter::style`] drops its cache at each theme.
+/// Each style it gives must equal [`nishiki::Theme::style`]'s.
 fn colour_failures(language: Language) -> Vec<String> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
     let mut failures = Vec::new();
@@ -240,6 +244,7 @@ fn colour_failures(language: Language) -> Vec<String> {
             .file_stem()
             .and_then(|stem| stem.to_str())
             .expect("a UTF-8 name");
+        let mut highlighter = Highlighter::new(language);
         for theme_path in fs::read_dir(root.join("themes")).expect("the themes directory exists") {
             let theme_path = theme_path.expect("a readable directory entry").path();
             let name = theme_path
@@ -250,7 +255,6 @@ fn colour_failures(language: Language) -> Vec<String> {
             let json = fs::read_to_string(&theme_path).expect("a readable theme");
             let theme = nishiki::Theme::from_json(&json).expect("a theme Shiki loads");
             let lines = parse_colours(&colours, &fixture);
-            let mut highlighter = Highlighter::new(language);
             let mut state = State::default();
             let mut tokens = Vec::new();
             let (checked, misses) = compare(&lines, |line: &str| {
@@ -259,7 +263,13 @@ fn colour_failures(language: Language) -> Vec<String> {
                 tokens
                     .iter()
                     .map(|token| {
-                        let style = theme.style(highlighter.scopes(token.stack()));
+                        let style = highlighter.style(&theme, token.stack());
+                        assert_eq!(
+                            style,
+                            theme.style(highlighter.scopes(token.stack())),
+                            "the cached style of a token in {}",
+                            fixture.display()
+                        );
                         (
                             token.end(),
                             format!("{}:{}", style.foreground, style.font.bits()),

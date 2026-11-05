@@ -92,7 +92,7 @@ impl Engine for Nishiki {
             let report = highlighter.line(line, &mut state, &mut tokens);
             black_box(&report);
             for token in &tokens {
-                black_box(self.theme.style(highlighter.scopes(token.stack())));
+                black_box(highlighter.style(&self.theme, token.stack()));
             }
             count += tokens.len();
         }
@@ -111,7 +111,7 @@ impl Engine for Nishiki {
                 tokens
                     .iter()
                     .map(|token| {
-                        let style = self.theme.style(highlighter.scopes(token.stack()));
+                        let style = highlighter.style(&self.theme, token.stack());
                         (token.end(), style.foreground.to_string().to_lowercase())
                     })
                     .collect()

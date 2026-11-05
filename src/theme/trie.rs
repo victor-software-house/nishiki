@@ -325,6 +325,11 @@ impl Trie {
     /// The child of `node` for `part`, if the trie has one.
     /// It follows the nodes that share the key, and checks the parent and
     /// the part byte by byte.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: once Highlighter::style instantiated Theme::style in the crate, this stopped being inlined into apply, and colouring ran 4% more instructions"
+    )]
+    #[inline(always)]
     fn find(&self, node: usize, part: &str) -> Option<usize> {
         let mut at = self.children.get(&child_key(node, part)).copied();
         while let Some(index) = at {

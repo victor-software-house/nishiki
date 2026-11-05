@@ -241,6 +241,12 @@ impl Arena {
         Some(node.scope)
     }
 
+    /// How many stacks this arena made, the empty one included.
+    /// Every stack id is below it.
+    pub(crate) fn stack_count(&self) -> usize {
+        self.scopes.len()
+    }
+
     /// The scopes of `stack`, innermost first.
     /// They are empty for an id this arena never made.
     pub(crate) fn scopes(&self, stack: u32) -> Scopes<'_> {

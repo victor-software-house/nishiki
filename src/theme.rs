@@ -9,6 +9,7 @@
 //! theme colours nishiki's scopes as it colours Shiki's.
 
 use std::fmt;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 #[cfg(feature = "json")]
 mod json;
@@ -237,7 +238,14 @@ pub struct Theme {
     kind: ThemeKind,
     defaults: Style,
     rules: trie::Trie,
+    /// Unique to the [`Theme::new`] call that built the theme; a clone keeps
+    /// it, since it holds the same rules.
+    /// A highlighter's style cache belongs to one id.
+    id: u64,
 }
+
+/// The id the next theme gets.
+static NEXT_THEME: AtomicU64 = AtomicU64::new(0);
 
 /// How many scopes [`Theme::style`] holds on the stack.
 /// A deeper stack moves to the heap, so styling a token allocates nothing
@@ -310,6 +318,7 @@ impl Theme {
             kind,
             defaults,
             rules,
+            id: NEXT_THEME.fetch_add(1, Ordering::Relaxed),
         }
     }
 
@@ -342,11 +351,16 @@ impl Theme {
         self.defaults
     }
 
+    /// The id that tells this theme's styles from another's.
+    pub(crate) fn id(&self) -> u64 {
+        self.id
+    }
     /// The style of a token whose scope stack is `scopes`, innermost first,
     /// as [`Highlighter::scopes`](crate::Highlighter::scopes) lists them.
     ///
-    /// A renderer styles many tokens with few distinct stacks, so it can keep
-    /// each [`Stack`](crate::Stack)'s style once computed.
+    /// A renderer styles many tokens with few distinct stacks.
+    /// [`Highlighter::style`](crate::Highlighter::style) keeps each stack's
+    /// style once computed, and gives the same style.
     #[must_use]
     pub fn style<'a>(&self, scopes: impl IntoIterator<Item = &'a str>) -> Style {
         let mut inline = [""; INLINE_SCOPES];

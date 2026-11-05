@@ -41,9 +41,13 @@ The gate is every row at or below 1.000.
 
 ## 7. The per-stack style cache
 
-- [ ] 7.1 Its public surface agreed with the streaming design, and approved by the operator → verify: the agreement recorded here
-- [ ] 7.2 Built → verify: a test finds it equal to `Theme::style` for every token of every oracle fixture with every oracle theme
-- [ ] 7.3 Measured → verify: every colour row falls, every lexing row stays at or under 1.000
+- [x] 7.1 Its public surface agreed with the streaming design, and approved by the operator → verify: the agreement recorded here
+  - 2026-11-05: agreed with the streaming change, as design section 6 records.
+    The operator approved `Highlighter::style` together with `Document` (lead, 2026-11-05).
+    `cached_style` lands with its caller, in the streaming change.
+- [ ] 7.2 Built → verify: the oracle colour test finds it equal to `Theme::style` for every token of every oracle fixture with every oracle theme
+- [ ] 7.3 Measured → verify: the colour pass with it costs fewer instructions than with `Theme::style` on the same build, for every language
+- [ ] 7.4 Once it lands, the Callgrind harness colours with it (lead, 2026-11-05) → verify: the gated colour row measures `Highlighter::style`, and an unchanged pull request reads 1.000 on it
 
 ## 8. What streaming needs from the lexers
 

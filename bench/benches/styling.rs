@@ -4,9 +4,9 @@
 //! - `style/<language>` times `Theme::style` alone, over the real token stream
 //!   of the language's medium files, per token.
 //! - `colour/<language>` times the whole path from text to colours: each line
-//!   lexed, then each of its tokens styled, per byte. This is the figure the
-//!   comparison with other highlighters uses, because every engine can produce
-//!   colours.
+//!   lexed, then each of its tokens styled with `Highlighter::style`, per byte.
+//!   This is the figure the comparison with other highlighters uses, because
+//!   every engine can produce colours.
 
 use std::hint::black_box;
 use std::time::Duration;
@@ -103,7 +103,7 @@ fn styling(c: &mut Criterion) {
                         tokens.clear();
                         let _ = highlighter.line(line, &mut state, &mut tokens);
                         for token in &tokens {
-                            black_box(theme.style(highlighter.scopes(token.stack())));
+                            black_box(highlighter.style(&theme, token.stack()));
                         }
                     }
                 }
