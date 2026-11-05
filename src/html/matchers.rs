@@ -12,7 +12,7 @@ use super::state::{
 use super::vue;
 use super::words;
 use crate::classes::{is_space, is_word};
-use crate::{case_fold, html_words};
+use crate::{bytes, case_fold, html_words};
 
 /// How a tag's category is told apart from the list that names it.
 #[derive(Clone, Copy)]
@@ -44,7 +44,8 @@ enum Attributes {
 }
 
 fn contains(list: &[&str], word: &str) -> bool {
-    list.binary_search(&word).is_ok()
+    list.binary_search_by(|entry| bytes::order(entry.as_bytes(), word.as_bytes()))
+        .is_ok()
 }
 
 /// `word`, an ASCII name, lower-cased into `buffer`, when it fits.
@@ -156,10 +157,15 @@ impl Lexer<'_> {
     }
 
     /// Whether the text at `i` starts with `literal`.
+    ///
+    /// It compares in a byte loop.
+    /// `starts_with` called libc's `memcmp` for literals of two to nine bytes.
+    /// Its cost then followed where the literals lay.
     pub(super) fn starts(&self, i: usize, literal: &[u8]) -> bool {
         self.s
             .get(i..self.lim)
-            .is_some_and(|rest| rest.starts_with(literal))
+            .and_then(|rest| rest.get(..literal.len()))
+            .is_some_and(|head| bytes::same(head, literal))
     }
 
     /// The end of `literal` at `i`, without regard to case, a character

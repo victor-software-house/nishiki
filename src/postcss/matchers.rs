@@ -13,6 +13,7 @@
 
 use super::engine::Lexer;
 use super::grammar::Pat;
+use crate::bytes;
 use crate::classes::{is_digit, is_space};
 use crate::rules::Chars;
 
@@ -536,7 +537,11 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_end(p);
-        if TAGS.binary_search(&self.text(p, end)).is_err() {
+        let word = self.text(p, end);
+        if TAGS
+            .binary_search_by(|tag| bytes::order(tag, word))
+            .is_err()
+        {
             return None;
         }
         let blocked = matches!(self.at(end), b'-' | b')')

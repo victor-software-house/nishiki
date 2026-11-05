@@ -262,7 +262,9 @@ mod bat;
     feature = "lang-astro",
     feature = "lang-cmake",
     feature = "lang-common-lisp",
+    feature = "lang-html",
     feature = "lang-pascal",
+    feature = "lang-postcss",
     feature = "lang-tex"
 ))]
 mod bytes;
