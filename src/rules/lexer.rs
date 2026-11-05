@@ -529,6 +529,27 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         (self.finish(), embedding)
     }
 
+    /// Fills `starts` with the places from the cursor where one of the
+    /// innermost rule's patterns matches, in order.
+    /// They are an embedding rule's own patterns
+    /// ([`crate::rules::Embeds::embeds_after_own`]).
+    /// Each place is the one the loop's search finds from the place before,
+    /// so the patterns are tried as the loop would try them there.
+    /// Nothing is emitted.
+    #[cfg(feature = "_embedding")]
+    pub(crate) fn pattern_starts(mut self, starts: &mut Vec<usize>) -> Finished {
+        self.open();
+        starts.clear();
+        while let Some((at, _, _)) = G::scan(&mut self) {
+            starts.push(at);
+            if at >= self.s.len() {
+                break;
+            }
+            self.pos = self.char_end(at);
+        }
+        self.finish()
+    }
+
     /// Lexes the line like [`Lexer::run_embedding`], for a grammar that
     /// another language embeds in turn.
     /// A line that halts ([`Lexer::halting`]) says where.
@@ -1985,6 +2006,8 @@ mod tests {
     /// ([`Grammar::embed_start`]).
     /// `%%` opens a rule that embeds JavaScript, which halts before it lexes
     /// anything, and then names a `!` only where `\G` holds.
+    /// `##` opens a rule that embeds HTML and lists the mark of `!` and `?`
+    /// after it ([`Embeds::embeds_after_own`]).
     #[derive(Clone, Copy, Debug)]
     struct Named;
 
@@ -1994,6 +2017,7 @@ mod tests {
         Quote,
         Inner,
         Held,
+        Mixed,
     }
 
     #[derive(Clone, Copy, Debug)]
@@ -2004,6 +2028,7 @@ mod tests {
         Close,
         Embed,
         Hold,
+        Mix,
         Anchored,
     }
 
@@ -2033,8 +2058,19 @@ mod tests {
         payload
     }
 
-    /// The halt of every rule of [`Named`] that embeds: it holds where the
-    /// embedded text starts, so the language halts before it lexes anything.
+    /// What [`Rule::Mixed`] carries: HTML, or nothing in a build without it.
+    fn mixed_payload() -> Payload {
+        #[cfg(feature = "lang-html")]
+        let payload = Payload::Embed(crate::Language::Html);
+        #[cfg(not(feature = "lang-html"))]
+        let payload = Payload::None;
+        payload
+    }
+
+    /// The halt of the rules of [`Named`] that embed.
+    /// For [`Rule::Inner`] and [`Rule::Held`] it holds where the embedded
+    /// text starts, so the language halts before it lexes anything.
+    /// For [`Rule::Mixed`] it holds nowhere.
     #[cfg(feature = "_embedding")]
     struct AtOnce {
         at: usize,
@@ -2053,6 +2089,23 @@ mod tests {
 
         fn embed_halts(embedding: &Embedding, _: &Arena) -> (AtOnce, Option<FnHalt>) {
             (AtOnce { at: embedding.at }, None)
+        }
+
+        fn embed_halts_for(
+            rule: Rule,
+            embedding: &Embedding,
+            arena: &Arena,
+        ) -> (AtOnce, Option<FnHalt>) {
+            match rule {
+                Rule::Mixed => (AtOnce { at: usize::MAX }, None),
+                Rule::Root | Rule::Quote | Rule::Inner | Rule::Held => {
+                    Self::embed_halts(embedding, arena)
+                }
+            }
+        }
+
+        fn embeds_after_own(rule: Rule) -> bool {
+            matches!(rule, Rule::Mixed)
         }
     }
 
@@ -2112,6 +2165,7 @@ mod tests {
                 Rule::Quote => 1,
                 Rule::Inner => 2,
                 Rule::Held => 3,
+                Rule::Mixed => 4,
             }
         }
 
@@ -2120,6 +2174,7 @@ mod tests {
                 1 => Rule::Quote,
                 2 => Rule::Inner,
                 3 => Rule::Held,
+                4 => Rule::Mixed,
                 _ => Rule::Root,
             }
         }
@@ -2138,19 +2193,20 @@ mod tests {
                 Rule::Quote => Payload::Backref(1),
                 Rule::Inner => inner_payload(),
                 Rule::Held => held_payload(),
+                Rule::Mixed => mixed_payload(),
             }
         }
 
         fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {
             match rule {
-                Rule::Root | Rule::Inner | Rule::Held => None,
+                Rule::Root | Rule::Inner | Rule::Held | Rule::Mixed => None,
                 Rule::Quote => Some("quote."),
             }
         }
 
         fn rule_name_suffix(rule: Rule) -> &'static str {
             match rule {
-                Rule::Root | Rule::Inner | Rule::Held => "",
+                Rule::Root | Rule::Inner | Rule::Held | Rule::Mixed => "",
                 Rule::Quote => ".q",
             }
         }
@@ -2159,7 +2215,7 @@ mod tests {
         fn embed_start(rule: Rule) -> Option<fn(&mut Arena, u32) -> u32> {
             match rule {
                 Rule::Inner => Some(inner_start),
-                Rule::Root | Rule::Quote | Rule::Held => None,
+                Rule::Root | Rule::Quote | Rule::Held | Rule::Mixed => None,
             }
         }
 
@@ -2170,6 +2226,7 @@ mod tests {
                 Mark::Open => Act::Begin(Rule::Quote),
                 Mark::Embed => Act::Begin(Rule::Inner),
                 Mark::Hold => Act::Begin(Rule::Held),
+                Mark::Mix => Act::Begin(Rule::Mixed),
                 Mark::Anchored => Act::Match(scopes![Name::Fixed(AFTER)]),
                 Mark::Close => Act::End,
             }
@@ -2190,16 +2247,25 @@ mod tests {
                 | Mark::Close
                 | Mark::Embed
                 | Mark::Hold
+                | Mark::Mix
                 | Mark::Anchored => (&[], &[]),
             }
         }
 
         fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Mark, usize)> {
             let pats: &[Mark] = match lexer.top_rule() {
-                Rule::Root => &[Mark::Open, Mark::Embed, Mark::Hold, Mark::Look, Mark::Word],
+                Rule::Root => &[
+                    Mark::Open,
+                    Mark::Embed,
+                    Mark::Hold,
+                    Mark::Mix,
+                    Mark::Look,
+                    Mark::Word,
+                ],
                 Rule::Quote => &[Mark::Close, Mark::Word],
                 Rule::Inner => &[],
                 Rule::Held => &[Mark::Anchored],
+                Rule::Mixed => &[Mark::Look],
             };
             for p in lexer.pos..lexer.lim() {
                 for &pat in pats {
@@ -2237,6 +2303,7 @@ mod tests {
                 Mark::Close => lexer.payload_at(p).map(|width| p + width),
                 Mark::Embed => lexer.starts(p, b">>").then_some(p + 2),
                 Mark::Hold => lexer.starts(p, b"%%").then_some(p + 2),
+                Mark::Mix => lexer.starts(p, b"##").then_some(p + 2),
                 Mark::Anchored => (lexer.at_g(p) && lexer.at(p) == b'!').then_some(p + 1),
             }
         }
@@ -2359,7 +2426,10 @@ mod tests {
 
     /// [`Named`]'s buffers for [`crate::rules::lex_embedding`]: a new one
     /// each time, since the crate's scratch has no field for a test grammar.
-    #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
+    #[cfg(all(
+        feature = "_embedding",
+        any(feature = "lang-javascript", feature = "lang-html")
+    ))]
     fn named_buffers(_: &mut crate::scratch::Scratch) -> &mut Scratch<Named> {
         Box::leak(Box::default())
     }
@@ -2399,5 +2469,42 @@ mod tests {
             .expect("a token ends after the `!`");
         let names: Vec<&str> = arena.scopes(bang.stack().0).collect();
         assert!(names.contains(&"after.test"), "{names:?}");
+    }
+
+    /// After `##`, HTML lexes `a ` as text and matches nothing at the `!`.
+    /// The rule lists its mark of `!` after HTML, so HTML halts there, and
+    /// the grammar names the `!`.
+    #[cfg(all(feature = "_embedding", feature = "lang-html"))]
+    #[test]
+    fn a_rule_that_lists_its_patterns_after_the_language_takes_them_back() {
+        let mut arena = Arena::new(None);
+        let state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let limits = Limits::default();
+        let mut scratch = crate::scratch::Scratch::default();
+        scratch.start_line();
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        let mut cx = crate::language::Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let line = crate::language::Line {
+            text: "##a ! b",
+            start: 0,
+            embedded: false,
+        };
+        crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
+        let bang = out
+            .iter()
+            .find(|token| token.end() == 5)
+            .expect("a token ends after the `!`");
+        let names: Vec<&str> = arena.scopes(bang.stack().0).collect();
+        assert!(names.contains(&"mark.!"), "{names:?}");
+        assert_eq!(scratch.rule_starts, [4]);
     }
 }

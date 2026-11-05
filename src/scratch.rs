@@ -101,6 +101,12 @@ pub(crate) struct Scratch {
     /// The Ruby lexer's, for Ruby documents.
     #[cfg(feature = "lang-ruby")]
     pub(crate) ruby: crate::ruby::Scratch,
+    /// The places where an embedding rule's own patterns start on the line,
+    /// for a rule that lists them after the language it embeds
+    /// ([`crate::rules::Embeds::embeds_after_own`]).
+    /// The rule engine fills it once a line, and keeps its room for the next.
+    #[cfg(feature = "_embedding")]
+    pub(crate) rule_starts: Vec<usize>,
     /// The Sass lexer's, for Sass documents, Vue's Sass styles and HAML's Sass
     /// filters.
     /// It is boxed and allocated by the first Sass line, as Dart's is.

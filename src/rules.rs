@@ -370,6 +370,33 @@ pub(crate) trait Embeds: Grammar {
     ) -> (Self::End, Option<FnHalt>) {
         Self::embed_halts(embedding, arena)
     }
+
+    /// Whether `rule` lists its own patterns after the language it embeds.
+    /// Markdown's `php` fence does: it lists PHP's rules after HTML.
+    ///
+    /// The embedded language then halts where one of the rule's patterns
+    /// starts and none of the language's own patterns match.
+    /// That halt takes the place of the second halt of
+    /// [`Embeds::embed_halts`].
+    /// The engine finds the starts once a line, from where the language
+    /// first takes the line, by the search its loop makes.
+    /// By default, no rule does.
+    fn embeds_after_own(_rule: Self::Rule) -> bool {
+        false
+    }
+}
+
+/// Places in order, as a halt that holds at each of them: the starts of an
+/// embedding rule's own patterns ([`Embeds::embeds_after_own`]).
+#[cfg(feature = "_embedding")]
+struct Starts<'a>(&'a [usize]);
+
+#[cfg(feature = "_embedding")]
+impl Halt for Starts<'_> {
+    fn first(&self, _: &[u8], from: usize, to: usize) -> Option<usize> {
+        let at = self.0.partition_point(|&start| start < from);
+        self.0.get(at).copied().filter(|&start| start <= to)
+    }
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` whose rules embed other languages
@@ -528,6 +555,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
 ) -> (Finished, Option<usize>) {
     let steps = Steps::new(cx.limits, line.text.len());
     let mut next = steps.take_back(first);
+    let mut starts: Option<(u16, Vec<usize>)> = None;
     let (state, halted) = loop {
         let language = embedding.language;
         let rule = G::rule_from_code(cx.arena.frame(next).kind);
@@ -544,10 +572,28 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             embedded: false,
         };
         let (end, after) = G::embed_halts_for(rule, &embedding, cx.arena);
-        let after = after.as_ref().map(|after| {
-            let after: &dyn Halt = after;
-            after
-        });
+        let own = G::embeds_after_own(rule);
+        if own && starts.as_ref().map(|&(code, _)| code) != Some(G::rule_code(rule)) {
+            let buffer = starts.take().map_or_else(
+                || std::mem::take(&mut cx.scratch.rule_starts),
+                |(_, buffer)| buffer,
+            );
+            let at = (next, embedding.at);
+            starts = Some((
+                G::rule_code(rule),
+                own_starts(cx, line, scratch, &steps, at, buffer),
+            ));
+        }
+        let listed = Starts(starts.as_ref().map_or(&[], |(_, buffer)| buffer.as_slice()));
+        let own_after: &dyn Halt = &listed;
+        let after = if own {
+            Some(own_after)
+        } else {
+            after.as_ref().map(|after| {
+                let after: &dyn Halt = after;
+                after
+            })
+        };
         let lent = steps.lend(cx.limits);
         let mut part_cx = Context {
             scratch: &mut *cx.scratch,
@@ -594,7 +640,41 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             Stop::Embedding(found) => (next, embedding) = (resumed, found),
         }
     };
+    if let Some((_, buffer)) = starts {
+        cx.scratch.rule_starts = buffer;
+    }
     (steps.finish(state), halted)
+}
+
+/// Fills `starts` with where the own patterns of the rule on top of
+/// `state` start on `line` from `at`, for a rule that lists them after
+/// the language it embeds ([`Embeds::embeds_after_own`]).
+/// The search spends from the line's one budget.
+#[cfg(feature = "_embedding")]
+fn own_starts<G: Embeds>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    steps: &Steps,
+    (state, at): (u32, usize),
+    mut starts: Vec<usize>,
+) -> Vec<usize> {
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: at,
+        anchored: true,
+    };
+    let lent = steps.lend(cx.limits);
+    let parts = Parts {
+        arena: &mut *cx.arena,
+        limits: &lent,
+        out: &mut *cx.out,
+        report: &mut *cx.report,
+    };
+    let found =
+        Lexer::new(parts, text, state, scratch(&mut *cx.scratch)).pattern_starts(&mut starts);
+    steps.take_back(found);
+    starts
 }
 
 /// Goes on with a halting line where an embedded language halted, halting
