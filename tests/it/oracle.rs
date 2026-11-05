@@ -298,6 +298,40 @@ fn every_language_matches_shiki() {
     every_language(scope_failures);
 }
 
+/// The fixtures of `language` whose scopes differ from Shiki's when every
+/// line appends to one buffer that keeps the lines before it, as reports.
+fn one_buffer_failures(language: Language) -> Vec<String> {
+    let mut failures = Vec::new();
+    for path in fixtures(language.id()) {
+        let mut highlighter = Highlighter::new(language);
+        let mut state = State::default();
+        let mut all = Vec::new();
+        let (checked, misses) = compare(&parse(&path), |line| {
+            let first = all.len();
+            let _ = highlighter.line(line, &mut state, &mut all);
+            all[first..]
+                .iter()
+                .map(|token| {
+                    let mut scopes: Vec<&str> = highlighter.scopes(token.stack()).collect();
+                    scopes.reverse();
+                    (token.end(), scopes.join(" "))
+                })
+                .collect()
+        });
+        if !misses.is_empty() {
+            failures.push(report(&path, checked, &misses));
+        }
+    }
+    failures
+}
+
+/// `Highlighter::line` appends a line's tokens and leaves the tokens before
+/// them as they were.
+#[test]
+fn every_language_matches_shiki_into_one_buffer() {
+    every_language(one_buffer_failures);
+}
+
 #[cfg(feature = "json")]
 #[test]
 fn every_language_colours_match_shiki() {

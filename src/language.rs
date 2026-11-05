@@ -1366,6 +1366,10 @@ pub(crate) struct Context<'a> {
     pub(crate) limits: &'a Limits,
     pub(crate) out: &'a mut Vec<Token>,
     pub(crate) report: &'a mut LineReport,
+    /// Where the line's tokens start in `out`.
+    /// A caller of `Highlighter::line` may keep earlier lines' tokens before
+    /// them, so a lexer that cuts tokens back reads only the line's own.
+    pub(crate) first_token: usize,
 }
 
 /// A [`Context`] without its scratch, for a lexer that keeps its buffers in
@@ -1403,14 +1407,22 @@ pub(crate) enum StopKind {
 /// Cuts the tokens in `out` back to `at`, for a host that pops the rule that
 /// embeds a language ([`StopKind::PopHost`]).
 /// The language lexed the rest of the line from `at` as its own.
+///
+/// The line's tokens start at `first` in `out` ([`Context::first_token`]).
+/// Earlier lines' tokens before them count their ends from those lines'
+/// starts, so only the line's own tokens are searched.
 #[cfg(any(
     feature = "_embedding",
     feature = "lang-vue",
     feature = "lang-markdown"
 ))]
-pub(crate) fn cut_tokens(out: &mut Vec<Token>, at: usize) {
-    let keep = out.partition_point(|token| token.end <= at);
-    let start = keep.checked_sub(1).map_or(0, |last| out[last].end);
+pub(crate) fn cut_tokens(out: &mut Vec<Token>, first: usize, at: usize) {
+    let line = out.get(first..).unwrap_or_default();
+    let keep = first + line.partition_point(|token| token.end <= at);
+    let start = keep
+        .checked_sub(1)
+        .filter(|&last| last >= first)
+        .map_or(0, |last| out[last].end);
     match out.get_mut(keep) {
         Some(token) if start < at => {
             token.end = at;

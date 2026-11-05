@@ -79,12 +79,14 @@ impl Highlighter {
             return report;
         }
         self.scratch.start_line();
+        let first_token = out.len();
         let mut cx = Context {
             scratch: &mut self.scratch,
             arena: &mut self.arena,
             limits: &self.limits,
             out,
             report: &mut report,
+            first_token,
         };
         let text = Line {
             text: line,

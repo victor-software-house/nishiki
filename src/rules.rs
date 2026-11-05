@@ -617,6 +617,7 @@ fn lex_deferred<G: Embeds>(
             limits: &lent,
             out: &mut *tokens,
             report: &mut *cx.report,
+            first_token: 0,
         };
         let part = Line {
             text: line.text.get(..group.to).unwrap_or(line.text),
@@ -814,6 +815,7 @@ fn lex_again<G: Embeds>(
         limits: &lent,
         out: &mut *cx.out,
         report: &mut *cx.report,
+        first_token: cx.first_token,
     };
     let state = lex_embedding::<G>(&mut again, line, state, scratch);
     let state = steps.take_back(state);
@@ -907,6 +909,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             limits: &lent,
             out: &mut *cx.out,
             report: &mut *cx.report,
+            first_token: cx.first_token,
         };
         let halted = if ends {
             let at = embedding.at;
@@ -1089,7 +1092,7 @@ fn pop_host<G: Grammar>(
     state: u32,
     at: usize,
 ) -> u32 {
-    cut_tokens(cx.out, at);
+    cut_tokens(cx.out, cx.first_token, at);
     let parent = cx.arena.frame(state).parent;
     if line.text.len() > at {
         cx.out.push(Token {

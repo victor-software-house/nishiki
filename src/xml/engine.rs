@@ -462,14 +462,20 @@ impl<'a> Lexer<'a> {
 
     /// Lexes the Java of the line from `from` and `state`, up to the `%>`
     /// that ends it, and returns the state after it and where that `%>` is.
+    ///
+    /// Java's tokens start at the end of `out`.
+    /// A pop of the host cuts only tokens Java gave, so that end serves as
+    /// [`Context::first_token`], and the lexer keeps no copy of it per line.
     fn java(&mut self, from: usize, state: u32) -> (u32, Option<usize>) {
         let lent = self.steps.lend(self.limits);
+        let first_token = self.out.len();
         let mut cx = Context {
             scratch: &mut *self.scratch,
             arena: &mut *self.arena,
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token,
         };
         let line = Line {
             text: self.text,

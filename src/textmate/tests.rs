@@ -1944,6 +1944,7 @@ mod halts {
             limits: &lent,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let text = Line {
             text: line,
@@ -2079,6 +2080,7 @@ mod hand_offs {
                     limits: &limits,
                     out: &mut self.tokens,
                     report: &mut report,
+                    first_token: 0,
                 };
                 let text = Line {
                     text: line,
@@ -2356,6 +2358,7 @@ mod hand_offs {
                 limits: &lent,
                 out: &mut out,
                 report: &mut report,
+                first_token: 0,
             };
             let text = Line {
                 text: line,

@@ -2817,6 +2817,7 @@ mod tests {
             limits: &limits,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let line = crate::language::Line {
             text: "@@1 x @@2",
@@ -2904,6 +2905,7 @@ mod tests {
             limits: &limits,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let line = crate::language::Line {
             text: "%%!x",
@@ -2948,6 +2950,7 @@ mod tests {
             limits: &limits,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let line = crate::language::Line {
             text: "a %%",
@@ -2989,6 +2992,7 @@ mod tests {
                 limits: &limits,
                 out: &mut out,
                 report: &mut report,
+                first_token: 0,
             };
             let line = crate::language::Line {
                 text,
@@ -3026,6 +3030,7 @@ mod tests {
             limits: &limits,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let line = crate::language::Line {
             text: "<<ab ##x y",
@@ -3067,6 +3072,7 @@ mod tests {
             limits: &limits,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let line = crate::language::Line {
             text: "##a ! b",

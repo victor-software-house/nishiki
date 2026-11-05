@@ -281,6 +281,9 @@ pub(super) struct Lexer<'a> {
     limits: &'a Limits,
     out: &'a mut Vec<Token>,
     report: &'a mut LineReport,
+    /// Where the physical line's tokens start in `out`
+    /// ([`Context::first_token`]).
+    first_token: usize,
     /// The text ends here: the line, or the capture group being lexed.
     pub(super) lim: usize,
     /// Whether a line feed follows the text, where the line ends.
@@ -335,6 +338,7 @@ impl<'a> Lexer<'a> {
             limits: cx.limits,
             out: &mut *cx.out,
             report: &mut *cx.report,
+            first_token: cx.first_token,
             lim: s.len(),
             lf: true,
             steps,
@@ -865,6 +869,7 @@ impl<'a> Lexer<'a> {
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token: self.first_token,
         };
         let line = Line {
             text: self.text,
@@ -947,6 +952,7 @@ impl<'a> Lexer<'a> {
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token: self.first_token,
         };
         let line = Line {
             text: self.text,
@@ -988,7 +994,7 @@ impl<'a> Lexer<'a> {
     #[cfg(feature = "lang-vue")]
     #[cold]
     fn pop_body(&mut self, at: usize) {
-        cut_tokens(self.out, at);
+        cut_tokens(self.out, self.first_token, at);
         self.last = at;
         self.frames.pop();
         self.finish();
@@ -1112,6 +1118,7 @@ impl<'a> Lexer<'a> {
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token: self.first_token,
         };
         let line = Line {
             text: self.text.get(..self.lim).unwrap_or(self.text),
@@ -1410,6 +1417,7 @@ impl<'a> Lexer<'a> {
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token: self.first_token,
         };
         let text = self.text.get(..to).unwrap_or(self.text);
         let line = Line {

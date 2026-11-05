@@ -2334,6 +2334,7 @@ fn a_lookbehind_at_an_embedded_start_reads_the_line_before_it() {
         limits: &limits,
         out: &mut out,
         report: &mut report,
+        first_token: 0,
     };
     let line = crate::language::Line {
         text: "@component*{x}* ",

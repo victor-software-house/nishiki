@@ -656,6 +656,7 @@ fn until(
             limits: &limits,
             out: &mut out,
             report: &mut report,
+            first_token: 0,
         };
         let line = Line {
             text,

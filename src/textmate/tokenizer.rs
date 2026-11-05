@@ -1847,6 +1847,7 @@ impl Tokenizer<'_> {
                 limits: &lent,
                 out: &mut *self.out,
                 report: &mut *self.report,
+                first_token: self.out_start,
             };
             let halting = if before.is_empty() && after.is_empty() {
                 None

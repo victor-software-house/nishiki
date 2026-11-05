@@ -1137,6 +1137,7 @@ impl<'a> Lexer<'a> {
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token: self.first_token,
         };
         let line = Line {
             text,
@@ -1187,6 +1188,7 @@ impl<'a> Lexer<'a> {
                 limits: &lent,
                 out: &mut *self.out,
                 report: &mut *self.report,
+                first_token: self.first_token,
             };
             let line = Line {
                 text: &self.line[..close],
@@ -1318,6 +1320,7 @@ impl<'a> Lexer<'a> {
             limits: &lent,
             out: &mut *self.out,
             report: &mut *self.report,
+            first_token: self.first_token,
         };
         #[cfg(feature = "lang-vue")]
         let anchored = !vue || self.anchor == Some(start);
@@ -1415,7 +1418,7 @@ impl<'a> Lexer<'a> {
     #[cold]
     #[inline(never)]
     fn pop_body(&mut self, at: usize, end: usize) {
-        crate::language::cut_tokens(self.out, at);
+        crate::language::cut_tokens(self.out, self.first_token, at);
         self.last = at;
         if let Some(frame) = self.frames.pop() {
             self.anchor = frame.saved_anchor;
