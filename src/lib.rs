@@ -407,6 +407,8 @@ mod scope;
 mod scratch;
 #[cfg(feature = "lang-scss")]
 mod scss;
+#[cfg(feature = "lang-shaderlab")]
+mod shaderlab;
 #[cfg(feature = "lang-shell")]
 mod shell;
 #[cfg(feature = "_space")]

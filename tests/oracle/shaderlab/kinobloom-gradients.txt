@@ -1,0 +1,669 @@
+L Shader "SkyboxPlus/Gradients"
+T 6 source.shaderlab storage.type.structure.shaderlab
+T 7 source.shaderlab
+T 8 source.shaderlab string.quoted.double.shaderlab
+T 28 source.shaderlab string.quoted.double.shaderlab
+T 29 source.shaderlab string.quoted.double.shaderlab
+L {
+T 1 source.shaderlab
+L     Properties
+T 4 source.shaderlab
+T 14 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         [HDR] _BaseColor("Base Color", Color) = (0.1, 0.1, 0.1)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 12 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 13 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab
+T 25 source.shaderlab support.variable.declaration.shaderlab
+T 26 source.shaderlab string.quoted.double.shaderlab
+T 36 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab
+T 44 source.shaderlab support.type.basic.shaderlab
+T 49 source.shaderlab
+T 52 source.shaderlab constant.numeric.shaderlab
+T 54 source.shaderlab
+T 57 source.shaderlab constant.numeric.shaderlab
+T 59 source.shaderlab
+T 62 source.shaderlab constant.numeric.shaderlab
+T 63 source.shaderlab
+L         [Gamma] _Exposure("Exposure", Range(0, 8)) = 1
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab
+T 16 source.shaderlab
+T 26 source.shaderlab support.variable.declaration.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab string.quoted.double.shaderlab
+T 36 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab
+T 43 source.shaderlab support.type.basic.shaderlab
+T 44 source.shaderlab
+T 45 source.shaderlab constant.numeric.shaderlab
+T 47 source.shaderlab
+T 48 source.shaderlab constant.numeric.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab constant.numeric.shaderlab
+L 
+L         [Toggle] _Switch2("Gradient 2", Float) = 1
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 16 source.shaderlab meta.attribute.shaderlab
+T 17 source.shaderlab
+T 26 source.shaderlab support.variable.declaration.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab
+T 45 source.shaderlab support.type.basic.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+L         [Toggle] _Switch3("Gradient 3", Float) = 1
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 16 source.shaderlab meta.attribute.shaderlab
+T 17 source.shaderlab
+T 26 source.shaderlab support.variable.declaration.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab
+T 45 source.shaderlab support.type.basic.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+L         [Toggle] _Switch4("Gradient 4", Float) = 1
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 16 source.shaderlab meta.attribute.shaderlab
+T 17 source.shaderlab
+T 26 source.shaderlab support.variable.declaration.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab
+T 45 source.shaderlab support.type.basic.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+L 
+L         _Direction1("Direction 1", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 20 source.shaderlab support.variable.declaration.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab
+T 41 source.shaderlab support.type.basic.shaderlab
+T 46 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+T 52 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 54 source.shaderlab
+L         _Direction2("Direction 2", Vector) = (0.5, 1, 0)
+T 8 source.shaderlab
+T 20 source.shaderlab support.variable.declaration.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab
+T 41 source.shaderlab support.type.basic.shaderlab
+T 46 source.shaderlab
+T 49 source.shaderlab constant.numeric.shaderlab
+T 51 source.shaderlab
+T 52 source.shaderlab constant.numeric.shaderlab
+T 54 source.shaderlab
+T 55 source.shaderlab constant.numeric.shaderlab
+T 56 source.shaderlab
+L         _Direction3("Direction 3", Vector) = (-0.3, -1, -0.2)
+T 8 source.shaderlab
+T 20 source.shaderlab support.variable.declaration.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab
+T 41 source.shaderlab support.type.basic.shaderlab
+T 47 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab constant.numeric.shaderlab
+T 57 source.shaderlab
+T 60 source.shaderlab constant.numeric.shaderlab
+T 61 source.shaderlab
+L         _Direction4("Direction 4", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 20 source.shaderlab support.variable.declaration.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab
+T 41 source.shaderlab support.type.basic.shaderlab
+T 46 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+T 52 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 54 source.shaderlab
+L 
+L         [HDR] _Color1("Color 1", Color) = (0.16, 0.18, 0.19)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 12 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 13 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab
+T 22 source.shaderlab support.variable.declaration.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 43 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 55 source.shaderlab
+T 59 source.shaderlab constant.numeric.shaderlab
+T 60 source.shaderlab
+L         [HDR] _Color2("Color 2", Color) = (0.26, 0.28, 0.21)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 12 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 13 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab
+T 22 source.shaderlab support.variable.declaration.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 43 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 55 source.shaderlab
+T 59 source.shaderlab constant.numeric.shaderlab
+T 60 source.shaderlab
+L         [HDR] _Color3("Color 3", Color) = (0.15, 0.15, 0.12)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 12 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 13 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab
+T 22 source.shaderlab support.variable.declaration.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 43 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 55 source.shaderlab
+T 59 source.shaderlab constant.numeric.shaderlab
+T 60 source.shaderlab
+L         [HDR] _Color4("Color 4", Color) = (1.00, 0.99, 0.95)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 12 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 13 source.shaderlab meta.attribute.shaderlab
+T 14 source.shaderlab
+T 22 source.shaderlab support.variable.declaration.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 43 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 55 source.shaderlab
+T 59 source.shaderlab constant.numeric.shaderlab
+T 60 source.shaderlab
+L 
+L         _Exponent1("Exponent 1", Range(1, 20)) = 1
+T 8 source.shaderlab
+T 19 source.shaderlab support.variable.declaration.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 39 source.shaderlab
+T 40 source.shaderlab constant.numeric.shaderlab
+T 42 source.shaderlab
+T 44 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+L         _Exponent2("Exponent 2", Range(1, 20)) = 1
+T 8 source.shaderlab
+T 19 source.shaderlab support.variable.declaration.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 39 source.shaderlab
+T 40 source.shaderlab constant.numeric.shaderlab
+T 42 source.shaderlab
+T 44 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+L         _Exponent3("Exponent 3", Range(1, 20)) = 1
+T 8 source.shaderlab
+T 19 source.shaderlab support.variable.declaration.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 39 source.shaderlab
+T 40 source.shaderlab constant.numeric.shaderlab
+T 42 source.shaderlab
+T 44 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+L         _Exponent4("Exponent 4", Range(1, 20)) = 20
+T 8 source.shaderlab
+T 19 source.shaderlab support.variable.declaration.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+T 38 source.shaderlab support.type.basic.shaderlab
+T 39 source.shaderlab
+T 40 source.shaderlab constant.numeric.shaderlab
+T 42 source.shaderlab
+T 44 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+T 51 source.shaderlab constant.numeric.shaderlab
+L 
+L         [HideInInspector] _NormalizedVector1("-", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 45 source.shaderlab support.variable.declaration.shaderlab
+T 46 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab
+T 56 source.shaderlab support.type.basic.shaderlab
+T 61 source.shaderlab
+T 62 source.shaderlab constant.numeric.shaderlab
+T 64 source.shaderlab
+T 65 source.shaderlab constant.numeric.shaderlab
+T 67 source.shaderlab
+T 68 source.shaderlab constant.numeric.shaderlab
+T 69 source.shaderlab
+L         [HideInInspector] _NormalizedVector2("-", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 45 source.shaderlab support.variable.declaration.shaderlab
+T 46 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab
+T 56 source.shaderlab support.type.basic.shaderlab
+T 61 source.shaderlab
+T 62 source.shaderlab constant.numeric.shaderlab
+T 64 source.shaderlab
+T 65 source.shaderlab constant.numeric.shaderlab
+T 67 source.shaderlab
+T 68 source.shaderlab constant.numeric.shaderlab
+T 69 source.shaderlab
+L         [HideInInspector] _NormalizedVector3("-", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 45 source.shaderlab support.variable.declaration.shaderlab
+T 46 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab
+T 56 source.shaderlab support.type.basic.shaderlab
+T 61 source.shaderlab
+T 62 source.shaderlab constant.numeric.shaderlab
+T 64 source.shaderlab
+T 65 source.shaderlab constant.numeric.shaderlab
+T 67 source.shaderlab
+T 68 source.shaderlab constant.numeric.shaderlab
+T 69 source.shaderlab
+L         [HideInInspector] _NormalizedVector4("-", Vector) = (0, 1, 0)
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab
+T 45 source.shaderlab support.variable.declaration.shaderlab
+T 46 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab
+T 56 source.shaderlab support.type.basic.shaderlab
+T 61 source.shaderlab
+T 62 source.shaderlab constant.numeric.shaderlab
+T 64 source.shaderlab
+T 65 source.shaderlab constant.numeric.shaderlab
+T 67 source.shaderlab
+T 68 source.shaderlab constant.numeric.shaderlab
+T 69 source.shaderlab
+L     }
+T 5 source.shaderlab
+L 
+L     CGINCLUDE
+T 4 source.shaderlab
+T 13 source.shaderlab meta.cgblock keyword.other
+L 
+L     #pragma shader_feature _SWITCH2_ON
+T 11 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 38 source.shaderlab meta.cgblock
+L     #pragma shader_feature _SWITCH3_ON
+T 11 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 38 source.shaderlab meta.cgblock
+L     #pragma shader_feature _SWITCH4_ON
+T 11 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 38 source.shaderlab meta.cgblock
+L 
+L     #include "UnityCG.cginc"
+T 12 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 13 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 27 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 28 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L 
+L     half3 _BaseColor;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 21 source.shaderlab meta.cgblock
+L     half _Exposure;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 19 source.shaderlab meta.cgblock
+L 
+L     half3 _NormalizedVector1;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 29 source.shaderlab meta.cgblock
+L     half3 _NormalizedVector2;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 29 source.shaderlab meta.cgblock
+L     half3 _NormalizedVector3;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 29 source.shaderlab meta.cgblock
+L     half3 _NormalizedVector4;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 29 source.shaderlab meta.cgblock
+L 
+L     half3 _Color1;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+L     half3 _Color2;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+L     half3 _Color3;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+L     half3 _Color4;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+L 
+L     half _Exponent1;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+L     half _Exponent2;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+L     half _Exponent3;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+L     half _Exponent4;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+L 
+L     struct appdata_t {
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 22 source.shaderlab meta.cgblock
+L         float4 vertex : POSITION;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 32 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 33 source.shaderlab meta.cgblock
+L     };
+T 6 source.shaderlab meta.cgblock
+L 
+L     struct v2f {
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 16 source.shaderlab meta.cgblock
+L         float4 vertex : SV_POSITION;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 36 source.shaderlab meta.cgblock
+L         float3 texcoord : TEXCOORD0;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 26 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 36 source.shaderlab meta.cgblock
+L     };
+T 6 source.shaderlab meta.cgblock
+L 
+L     v2f vert(appdata_t v)
+T 8 source.shaderlab meta.cgblock
+T 12 source.shaderlab meta.cgblock support.function.hlsl
+T 25 source.shaderlab meta.cgblock
+L     {
+T 5 source.shaderlab meta.cgblock
+L         v2f o;
+T 14 source.shaderlab meta.cgblock
+L         o.vertex = UnityObjectToClipPos(v.vertex);
+T 19 source.shaderlab meta.cgblock
+T 39 source.shaderlab meta.cgblock support.function.hlsl
+T 50 source.shaderlab meta.cgblock
+L         o.texcoord = v.vertex.xyz;
+T 34 source.shaderlab meta.cgblock
+L         return o;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 17 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L 
+L     half4 frag(v2f i) : SV_Target
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 10 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock support.function.hlsl
+T 24 source.shaderlab meta.cgblock
+T 33 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+L     {
+T 5 source.shaderlab meta.cgblock
+L         half3 d = normalize(i.texcoord.xyz);
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+T 27 source.shaderlab meta.cgblock support.function.hlsl
+T 44 source.shaderlab meta.cgblock
+L         half3 c = _BaseColor;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 29 source.shaderlab meta.cgblock
+L         c += _Color1 * pow((dot(d, _NormalizedVector1) + 1) * 0.5, _Exponent1);
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock support.function.hlsl
+T 28 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock support.function.hlsl
+T 57 source.shaderlab meta.cgblock
+T 58 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 62 source.shaderlab meta.cgblock
+T 65 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 79 source.shaderlab meta.cgblock
+L         #ifdef _SWITCH2_ON
+T 14 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 26 source.shaderlab meta.cgblock
+L         c += _Color2 * pow((dot(d, _NormalizedVector2) + 1) * 0.5, _Exponent2);
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock support.function.hlsl
+T 28 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock support.function.hlsl
+T 57 source.shaderlab meta.cgblock
+T 58 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 62 source.shaderlab meta.cgblock
+T 65 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 79 source.shaderlab meta.cgblock
+L         #endif
+T 14 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+L         #ifdef _SWITCH3_ON
+T 14 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 26 source.shaderlab meta.cgblock
+L         c += _Color3 * pow((dot(d, _NormalizedVector3) + 1) * 0.5, _Exponent3);
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock support.function.hlsl
+T 28 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock support.function.hlsl
+T 57 source.shaderlab meta.cgblock
+T 58 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 62 source.shaderlab meta.cgblock
+T 65 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 79 source.shaderlab meta.cgblock
+L         #endif
+T 14 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+L         #ifdef _SWITCH4_ON
+T 14 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 26 source.shaderlab meta.cgblock
+L         c += _Color4 * pow((dot(d, _NormalizedVector4) + 1) * 0.5, _Exponent4);
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock support.function.hlsl
+T 28 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock support.function.hlsl
+T 57 source.shaderlab meta.cgblock
+T 58 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 62 source.shaderlab meta.cgblock
+T 65 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 79 source.shaderlab meta.cgblock
+L         #endif
+T 14 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+L         return half4(c * _Exposure, 1);
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 15 source.shaderlab meta.cgblock
+T 20 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 36 source.shaderlab meta.cgblock
+T 37 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 39 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L 
+L     ENDCG
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock keyword.other
+L 
+L     SubShader
+T 4 source.shaderlab
+T 13 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         Tags { "Queue"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
+T 8 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 15 source.shaderlab
+T 16 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 34 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab string.quoted.double.shaderlab
+T 36 source.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+T 60 source.shaderlab string.quoted.double.shaderlab
+T 61 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab
+T 63 source.shaderlab string.quoted.double.shaderlab
+T 74 source.shaderlab string.quoted.double.shaderlab
+T 75 source.shaderlab string.quoted.double.shaderlab
+T 76 source.shaderlab
+T 77 source.shaderlab string.quoted.double.shaderlab
+T 83 source.shaderlab string.quoted.double.shaderlab
+T 84 source.shaderlab string.quoted.double.shaderlab
+T 86 source.shaderlab
+L         Cull Off ZWrite Off
+T 8 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 13 source.shaderlab
+T 16 source.shaderlab support.constant.property-value.shaderlab
+T 17 source.shaderlab
+T 23 source.shaderlab support.type.propertyname.shaderlab
+T 24 source.shaderlab
+T 27 source.shaderlab support.constant.property-value.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L     }
+T 5 source.shaderlab
+L     Fallback Off
+T 4 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 13 source.shaderlab
+T 16 source.shaderlab support.constant.property-value.shaderlab
+L     CustomEditor "SkyboxPlus.GradientsMaterialEditor"
+T 4 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 52 source.shaderlab string.quoted.double.shaderlab
+T 53 source.shaderlab string.quoted.double.shaderlab
+L }
+T 1 source.shaderlab
+L 

@@ -2218,6 +2218,12 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
+## ShaderLab
+
+Its ShaderLab lexer emits the scope names of the ShaderLab TextMate grammar in [tgjones/shaders-tmLanguage](https://github.com/tgjones/shaders-tmLanguage) (`grammars/shaderlab.json` at commit `c72c8b39380ba5a86c58ceed053b5d965ebf38b3`), which Shiki bundles through [microsoft/vscode](https://github.com/microsoft/vscode) as `shaderlab`, and tries that grammar's rules in its order, from tables generated from it (`src/shaderlab/grammar.rs` and `src/shaderlab/words.rs`).
+That grammar is licensed under the MIT License, whose text is under [HLSL](#hlsl), "Copyright (c) 2017 Tim Jones".
+VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
+
 ## Shell
 
 Its shell lexer emits the scope names of the Shell Script TextMate grammar in [jeff-hykin/better-shell-syntax](https://github.com/jeff-hykin/better-shell-syntax), which Shiki bundles through VS Code, and tries that grammar's rules in its order.

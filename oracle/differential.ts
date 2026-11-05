@@ -209,6 +209,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", ":", ": ", ":  ", ";", "=", "==", "+", "-", "*", "/", "%", "?", "!", "&&", "||", "\"", "\\\"", "\\", "/*", "*/", "//", "#", "\u00a0"],
     heads: ["", "", " ", "    ", "\t", "#define ", "  #  ifdef ", "#ifx", "#include ", "// ", "/* ", "[numthreads(8, 8, 1)]"],
   },
+  shaderlab: {
+    words: ["Shader", "Properties", "SubShader", "Pass", "Category", "Tags", "LOD", "Name", "Cull", "ZWrite", "ZTest", "Blend", "BlendOp", "ColorMask", "Stencil", "Ref", "Comp", "Fallback", "Fog", "Mode", "SetTexture", "Combine", "Range", "Float", "Int", "Color", "Vector", "2D", "3D", "Cube", "Any", "On", "Off", "Back", "front", "RGB", "A", "LEqual", "Always", "Keep", "IncrSat", "previous", "texture", "Exp2", "Vertex", "TexCoord0", "Add", "max", "One", "SrcAlpha", "OneMinusSrcAlpha", "CGPROGRAM", "CGINCLUDE", "HLSLPROGRAM", "HLSLINCLUDE", "ENDCG", "ENDHLSL", "fixed", "fixed4", "fixed2x2", "fixed5", "UNITY_MATRIX_MVP", "unity_ObjectToWorld", "_WorldSpaceCameraPos", "_Time", "_SinTime", "_LightColor0", "unity_FogColor", "unity_LODFade", "SHADER_API_D3D11", "SHADER_API_GLES3", "SHADER_TARGET", "UNITY_VERSION", "UNITY_UV_STARTS_AT_TOP", "UNITY_PASS_FORWARDBASE", "appdata_full", "SurfaceOutputStandard", "Input", "float4", "half3", "uint", "mul", "tex2D", "return", "struct", "SV_Target", "COLOR", "_MainTex", "_Cull", "Toggle", "x", "1", "1.", "1.5", "0.5x", "2D3", "\u017fhader", "\u212aeep", "é"],
+    marks: ["(", ")", "[", "]", "{", "}", ",", ".", ":", ";", "=", "+", "-", "*", "/", "\"", "\\\"", "\\", "/*", "*/", "//", "#", "(\"", "\u00a0"],
+    heads: ["", "", " ", "    ", "\t", "CGPROGRAM", "HLSLPROGRAM", "ENDCG", "ENDHLSL", "// ", "/* ", "#pragma ", "[Toggle] ", "Pass {"],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

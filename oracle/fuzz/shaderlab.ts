@@ -1,0 +1,25 @@
+// ShaderLab for the differential fuzzer (fuzz.ts) and the Oniguruma harness
+// (onig.ts): pieces of ShaderLab to build documents from, texts to insert,
+// the info strings of Markdown fences, and the texts the harness probes
+// expressions with.
+// The block pieces put Unity's names before a `(`, after digits and beside
+// HLSL's comments and strings, and end blocks on lines that hold code.
+
+/** Pieces that random documents are made of. */
+export const pieces: string[] = ["Shader \"Custom/Fuzz\"","{","}","Properties","_MainTex (\"Albedo\", 2D) = \"white\" {}","_Color (\"Color\", Color) = (1, 1, 1, 1)","[Toggle(_EMISSION)] _Emission (\"Emission\", Float) = 0","[NoScaleOffset] _Bump (\"Bump\", 2D) = \"bump\" {}","SubShader","Pass","Category","Tags { \"Queue\"=\"Transparent\" }","LOD 200","Cull [_Cull]","ZWrite Off ZTest LEqual","Blend SrcAlpha OneMinusSrcAlpha","BlendOp Add, Max","ColorMask RGB","Stencil { Ref 2 Comp Always Pass Replace }","Fog { Mode Exp2 Density 0.5 }","SetTexture [_MainTex] { Combine texture * primary double }","Fallback \"Diffuse\"","CGPROGRAM","HLSLPROGRAM","CGINCLUDE","ENDCG","ENDHLSL","#pragma vertex vert","#include \"UnityCG.cginc\"","fixed4 c = fixed4(1, 1, 1, 1);","fixed2x2 m; fixed5 n;","float4 p = mul(UNITY_MATRIX_MVP, v.vertex);","float t = _Time.y + _SinTime.x;","#if defined(SHADER_API_D3D11) && SHADER_TARGET >= 30","struct Input { float2 uv_MainTex; };","void surf (Input IN, inout SurfaceOutputStandard o) {}","/* comment with ENDCG","still a comment */ fixed3 x;","string s = \"ENDCG \\\"inside\\\"\";","return 0; } ENDCG","float y; ENDHLSL Pass","// line comment ENDCG","1.5x 2D3 0.5","é = 1;","x = ſhader;","","  "];
+
+/** Texts that mutation inserts. */
+export const mutations: string[] = ["\"","\\","/*","*/","//","[","]","(",")","{","}","ENDCG","ENDHLSL","CGPROGRAM","fixed4","é"];
+
+/** Info strings of Markdown fences. Shiki's Markdown grammar has no ShaderLab fence. */
+export const fences: string[] = ["shaderlab"];
+
+/** For the Oniguruma harness. */
+export const probe = {
+  /** Texts inserted into fixture lines. */
+  snippets: ["[_Cull]","[_A] _B (\"","[_A] b(\"","[_A]  b  (\"","[_A] (\"","[Toggle]","[Toggle(X)]","[1]","[ _A]","f(","f (","_a1(","1.","1.5","1.5x","1. 2","2D","2D3","3d","on","ON","oNe","rgb","ab","abga","exp","exp2","exp3","texcoord0","texcoord2","CGPROGRAM","CGPROGRAMX","CGINCLUDE","HLSLPROGRAM","ENDCG","ENDCGX","xENDCG","ENDHLSL","fixed","fixed4","fixed4x4","fixed5","fixed4(","UNITY_MATRIX_MVP","UNITY_MATRIX_MV","_Time","_SinTime","unity_DeltaTime","SHADER_API_GLES","SHADER_API_GLES3","SHADER_API_GLES2","Input","ſhader","\u212aeep","é"] as string[],
+  /** Texts tried at 0 for an expression that starts with `\\G`. */
+  anchored: ["Toggle","Toggle(X)","Enum1","1","",] as string[],
+  /** Whole texts tried at 0. */
+  whole: ["Shader \"a\"","[_Cull]","[Toggle] _A (\"A\", Float) = 0","CGPROGRAM","ENDCG","fixed4 c;","// c","\"s\""] as string[],
+};

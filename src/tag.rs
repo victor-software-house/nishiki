@@ -201,6 +201,9 @@ tags! {
     /// SCSS.
     #[cfg(feature = "lang-scss")]
     SCSS = 0x2e00,
+    /// ShaderLab.
+    #[cfg(feature = "lang-shaderlab")]
+    SHADERLAB = 0x5400,
     /// Shell.
     #[cfg(feature = "lang-shell")]
     SHELL = 0x0400,

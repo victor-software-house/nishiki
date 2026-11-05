@@ -701,6 +701,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `scss/bulma-mixins` | [`sass/utilities/mixins.scss`][scss-bulma-mixins] in jgthms/bulma | [MIT][bulma-licence] |
 | `scss/coverage` | `oracle/inputs/scss-coverage.scss`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `scss/sample` | [`samples/scss.sample`][scss-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `shaderlab/coverage` | `oracle/inputs/shaderlab-coverage.shader`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `shaderlab/kinobloom-bloom` | [`Assets/Kino/Bloom/Shader/Bloom.shader`][kinobloom-bloom] in keijiro/KinoBloom | [MIT][kinobloom-licence] |
+| `shaderlab/kinobloom-gradients` | [`Assets/SkyboxPlus/Gradients.shader`][kinobloom-gradients] in keijiro/KinoBloom | [MIT][kinobloom-licence] |
+| `shaderlab/sample` | [`samples/shaderlab.sample`][shaderlab-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `shaderlab/unity-mobile-vertexlit` | [`DefaultResourcesExtra/Mobile/Mobile-VertexLit.shader`][unity-mobile-vertexlit] in TwoTailsGames/Unity-Built-in-Shaders | [MIT][unity-builtin-shaders-licence] |
+| `shaderlab/unity-particle-add` | [`DefaultResourcesExtra/Particle Add.shader`][unity-particle-add] in TwoTailsGames/Unity-Built-in-Shaders | [MIT][unity-builtin-shaders-licence] |
+| `shaderlab/unity-skybox` | [`DefaultResourcesExtra/Skybox.shader`][unity-skybox] in TwoTailsGames/Unity-Built-in-Shaders | [MIT][unity-builtin-shaders-licence] |
+| `shaderlab/unity-unlit-alpha` | [`DefaultResourcesExtra/Unlit/Unlit-Alpha.shader`][unity-unlit-alpha] in TwoTailsGames/Unity-Built-in-Shaders | [MIT][unity-builtin-shaders-licence] |
 | `shellscript/bats-core-bats` | [`libexec/bats-core/bats`][bats-core-bats] in bats-core/bats-core | [MIT][bats-core-licence] |
 | `shellscript/bats-core-gather-tests` | [`libexec/bats-core/bats-gather-tests`][bats-core-gather-tests] in bats-core/bats-core | [MIT][bats-core-licence] |
 | `shellscript/coverage` | `oracle/inputs/shellscript-coverage.sh`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -1510,6 +1518,9 @@ The hand lexer was written against all seven.
 [kingfisher-common-tasks-cache]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/Sources/Documentation.docc/CommonTasks/CommonTasks_Cache.md
 [kingfisher-image-processor]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/Sources/Image/ImageProcessor.swift
 [kingfisher-licence]: https://github.com/onevcat/Kingfisher/blob/770465258c652c73fdef447c10004765c440e993/LICENSE
+[kinobloom-bloom]: https://github.com/keijiro/KinoBloom/blob/0a04c43fa47de12bb52edb325c8d3c0125d0b4ca/Assets/Kino/Bloom/Shader/Bloom.shader
+[kinobloom-gradients]: https://github.com/keijiro/KinoBloom/blob/0a04c43fa47de12bb52edb325c8d3c0125d0b4ca/Assets/SkyboxPlus/Gradients.shader
+[kinobloom-licence]: https://github.com/keijiro/KinoBloom/blob/0a04c43fa47de12bb52edb325c8d3c0125d0b4ca/LICENSE.md
 [knex-licence]: https://github.com/knex/knex/blob/e25d54bcb707714a17f5a5744eba5c4246bb4d1d/LICENSE
 [knex-schema]: https://github.com/knex/knex/blob/e25d54bcb707714a17f5a5744eba5c4246bb4d1d/docs/src/guide/schema-builder.md
 [kotlin-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/kotlin.sample
@@ -1859,6 +1870,7 @@ The hand lexer was written against all seven.
 [shadcn-licence]: https://github.com/shadcn-ui/ui/blob/4aaea19d9cff3e0908e12a8c1d504b8c5ec34610/LICENSE.md
 [shadcn-message-scroller]: https://github.com/shadcn-ui/ui/blob/4aaea19d9cff3e0908e12a8c1d504b8c5ec34610/apps/v4/content/docs/components/radix/message-scroller.mdx
 [shadcn-sidebar]: https://github.com/shadcn-ui/ui/blob/4aaea19d9cff3e0908e12a8c1d504b8c5ec34610/apps/v4/registry/new-york-v4/ui/sidebar.tsx
+[shaderlab-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/shaderlab.sample
 [shell-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/shellscript.sample
 [shiki-samples-licence]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/LICENSE
 [snapshot-assert-snapshot]: https://github.com/pointfreeco/swift-snapshot-testing/blob/0c6380dd46cd45e00f2bf87cf6002f3478e84452/Sources/SnapshotTesting/AssertSnapshot.swift
@@ -1998,8 +2010,13 @@ The hand lexer was written against all seven.
 [typeorm-licence]: https://github.com/typeorm/typeorm/blob/5bdc67882dee5a02d975d5ed140c9c3f91661116/LICENSE
 [typescript-tests-licence]: https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/LICENSE.txt
 [unity-assertions]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityAssertionsReference.md
+[unity-builtin-shaders-licence]: https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/license.txt
 [unity-getting-started]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/docs/UnityGettingStartedGuide.md
 [unity-licence]: https://github.com/ThrowTheSwitch/Unity/blob/54f864cf6027a50f4cc5424616e9e01e1bb729da/LICENSE.txt
+[unity-mobile-vertexlit]: https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/DefaultResourcesExtra/Mobile/Mobile-VertexLit.shader
+[unity-particle-add]: https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/DefaultResourcesExtra/Particle%20Add.shader
+[unity-skybox]: https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/DefaultResourcesExtra/Skybox.shader
+[unity-unlit-alpha]: https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/6a63f93bc1f20ce6cd47f981c7494e8328915621/DefaultResourcesExtra/Unlit/Unlit-Alpha.shader
 [vb-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/vb.sample
 [views-activity-entrance]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml
 [views-licence]: https://github.com/android/views-widgets-samples/blob/2238cc873501f9cda63605051de11832bb736a8a/LICENSE

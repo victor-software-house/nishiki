@@ -110,6 +110,7 @@ const handLexed = new Map([
   ["sass", "Sass"],
   ["scala", "Scala"],
   ["scss", "SCSS"],
+  ["shaderlab", "ShaderLab"],
   ["shellscript", "shell"],
   ["sql", "SQL"],
   ["svelte", "Svelte"],

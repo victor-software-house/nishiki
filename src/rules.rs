@@ -50,6 +50,7 @@ use std::ops::ControlFlow;
     feature = "lang-objective-cpp",
     feature = "lang-pascal",
     feature = "lang-hlsl",
+    feature = "lang-shaderlab",
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-perl",
@@ -458,7 +459,8 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-tex",
     feature = "lang-latex",
     feature = "lang-haml",
-    feature = "lang-astro"
+    feature = "lang-astro",
+    feature = "lang-shaderlab"
 ))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
@@ -480,7 +482,8 @@ macro_rules! embedded {
     feature = "lang-tex",
     feature = "lang-latex",
     feature = "lang-haml",
-    feature = "lang-astro"
+    feature = "lang-astro",
+    feature = "lang-shaderlab"
 ))]
 pub(crate) use embedded;
 
