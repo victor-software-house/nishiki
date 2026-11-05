@@ -406,6 +406,17 @@ impl<'a> Lexer<'a> {
             .fold(parent, |stack, &scope| self.child(stack, scope))
     }
 
+    /// Covers the text up to `upto` with a token on the scope stack `node`.
+    /// It extends the last token when that token has the same stack.
+    ///
+    /// Always inlined.
+    /// Left to LLVM, it went out of line once `step` read the line-feed
+    /// flags from a table, at a call per token.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: emit went out of line when step changed size, at a call per token"
+    )]
+    #[inline(always)]
     fn emit(&mut self, upto: usize, node: u32) {
         let upto = upto.min(self.line.len());
         if upto <= self.last {

@@ -176,10 +176,18 @@ macro_rules! languages {
             /// that the containers around a Markdown fence took whole, as
             /// Shiki's grammar sees it after them. The other lexers leave
             /// their state alone for such a line.
+            ///
+            /// It reads a table, not a `match`.
+            /// LLVM lowers a `match` on the language as a switch, and weighs
+            /// the switch's branches by how many rows set the flag.
+            /// Markdown's `step` inlines this test.
+            /// A `match` here let one row's flag move the blocks of `step`.
+            #[cfg(feature = "lang-markdown")]
             pub(crate) fn reads_line_feed(self) -> bool {
-                match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@flag $($line_feed)?),)*
-                }
+                /// Each row's flag, in the order of [`Language::ALL`].
+                static FLAGS: [bool; Language::ALL.len()] =
+                    [$(#[cfg(feature = $feature)] languages!(@flag $($line_feed)?)),*];
+                FLAGS.get(self.index()).copied().unwrap_or(false)
             }
 
             /// The state at the start of a document whose scopes sit on
