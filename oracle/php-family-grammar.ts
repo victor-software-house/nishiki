@@ -368,7 +368,7 @@ export async function generate(cfg: Family): Promise<void> {
         name: scopeList(node.name),
         content: scopeList(node.contentName),
         end,
-        endLast: node.applyEndPatternLast === 1,
+        endLast: Boolean(node.applyEndPatternLast),
         backref: backrefs[0] ?? null,
         embed: null,
         ownAfter: false,
