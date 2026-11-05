@@ -5,11 +5,15 @@
 # src/less/words.rs spells out `[ensw]{1,4}-resize`, as `nees-resize`.
 # src/php/words.rs holds the php grammar's constant names, such as `EXITT`,
 # and src/php/scope.rs its scope names, which spell `repitition`.
+# src/asm/scope.rs and src/asm/words.rs are generated from the asm grammar,
+# whose scope names spell `supplimental`.
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
 extend-exclude = [
   "*.lock",
   "src/asm/grammar.rs",
+  "src/asm/scope.rs",
+  "src/asm/words.rs",
   "src/bat/grammar.rs",
   "src/coffee/grammar.rs",
   "src/common_lisp/grammar.rs",
@@ -41,3 +45,9 @@ ublic = "ublic"
 # The MATLAB probe snippets spell near misses of `NaN`, such as `Nax`, to
 # probe the command-name expression.
 nax = "nax"
+# The asm grammar's `fpr0` to `fpr7` registers, which
+# oracle/inputs/asm-coverage.asm lists.
+fpr = "fpr"
+# The asm grammar's `globa?l`, which the Assembly matchers' doc comments
+# quote.
+globa = "globa"

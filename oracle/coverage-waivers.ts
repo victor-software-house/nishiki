@@ -1700,11 +1700,31 @@ export const waivers: Waiver[] = [
   },
   { grammar: "hcl", path: "#double_slash_line_comments.end", group: 0, reason: lineFeed },
   { grammar: "hcl", path: "#hash_line_comments.end", group: 0, reason: lineFeed },
+  {
+    grammar: "asm",
+    path: "#mnemonics-sgx.patterns[2].match",
+    reason: "every word it lists, such as `eadd`, an earlier mnemonic list holds too, and the first list that holds a word wins",
+    probe: "MnemonicsSgxAt2",
+  },
+  ...[0, 1, 2, 3].map(
+    (n): Waiver => ({ grammar: "asm", path: `#preprocessor.patterns[${n}].end`, group: 1, reason: missing(0), probe: `PreprocessorAt${n}End` }),
+  ),
+  { grammar: "asm", path: "#preprocessor-functions.patterns[0].end", group: 3, reason: missing(1), probe: "PreprocessorFunctionsAt0End" },
+  ...[0, 1, 2].flatMap((n): Waiver[] =>
+    ["begin", "end"].map((side) => ({
+      grammar: "asm",
+      path: `#strings.patterns[${n}].${side}`,
+      reason:
+        "vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines",
+      dropped: true,
+    })),
+  ),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
  * pull request that closes its last gap. */
 export const complete: string[] = [
+  "asm",
   "bat",
   "c",
   "cmake",

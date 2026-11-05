@@ -1,0 +1,105 @@
+L #include "mmu.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L   # vectors.S sends all traps here.
+T 1 source.asm.x86_64
+T 35 source.asm.x86_64 comment.line
+L .globl alltraps
+T 6 source.asm.x86_64 entity.directive
+T 15 source.asm.x86_64
+L alltraps:
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 9 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   # Build trap frame.
+T 1 source.asm.x86_64
+T 21 source.asm.x86_64 comment.line
+L   pushl %ds
+T 9 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   pushl %es
+T 9 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   pushl %fs
+T 9 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   pushl %gs
+T 9 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   pushal
+T 8 source.asm.x86_64
+L   
+T 2 source.asm.x86_64
+L   # Set up data segments.
+T 1 source.asm.x86_64
+T 25 source.asm.x86_64 comment.line
+L   movw $(SEG_KDATA<<3), %ax
+T 20 source.asm.x86_64
+T 21 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 25 source.asm.x86_64
+T 27 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movw %ax, %ds
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 13 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   movw %ax, %es
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 13 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L 
+L   # Call trap(tf), where tf=%esp
+T 1 source.asm.x86_64
+T 32 source.asm.x86_64 comment.line
+L   pushl %esp
+T 9 source.asm.x86_64
+T 12 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   call trap
+T 2 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+T 11 source.asm.x86_64
+L   addl $4, %esp
+T 7 source.asm.x86_64
+T 9 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 12 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L   # Return falls through to trapret...
+T 1 source.asm.x86_64
+T 38 source.asm.x86_64 comment.line
+L .globl trapret
+T 6 source.asm.x86_64 entity.directive
+T 14 source.asm.x86_64
+L trapret:
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   popal
+T 7 source.asm.x86_64
+L   popl %gs
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   popl %fs
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   popl %es
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   popl %ds
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L   addl $0x8, %esp  # trapno and errcode
+T 7 source.asm.x86_64
+T 11 source.asm.x86_64 text.variable
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 18 source.asm.x86_64
+T 39 source.asm.x86_64 comment.line
+L   iret
+T 2 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 

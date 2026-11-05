@@ -1,0 +1,200 @@
+L ; Copyright © 2018, VideoLAN and dav1d authors
+T 47 source.asm.x86_64 comment.line
+L ; Copyright © 2018, Two Orioles, LLC
+T 37 source.asm.x86_64 comment.line
+L ; All rights reserved.
+T 22 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Redistribution and use in source and binary forms, with or without
+T 68 source.asm.x86_64 comment.line
+L ; modification, are permitted provided that the following conditions are met:
+T 77 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; 1. Redistributions of source code must retain the above copyright notice, this
+T 80 source.asm.x86_64 comment.line
+L ;    list of conditions and the following disclaimer.
+T 53 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; 2. Redistributions in binary form must reproduce the above copyright notice,
+T 78 source.asm.x86_64 comment.line
+L ;    this list of conditions and the following disclaimer in the documentation
+T 78 source.asm.x86_64 comment.line
+L ;    and/or other materials provided with the distribution.
+T 59 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+T 81 source.asm.x86_64 comment.line
+L ; ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+T 79 source.asm.x86_64 comment.line
+L ; WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+T 72 source.asm.x86_64 comment.line
+L ; DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+T 81 source.asm.x86_64 comment.line
+L ; ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+T 80 source.asm.x86_64 comment.line
+L ; (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+T 78 source.asm.x86_64 comment.line
+L ; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+T 77 source.asm.x86_64 comment.line
+L ; ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+T 76 source.asm.x86_64 comment.line
+L ; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+T 79 source.asm.x86_64 comment.line
+L ; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+T 62 source.asm.x86_64 comment.line
+L 
+L %include "config.asm"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 20 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 21 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L %include "ext/x86/x86inc.asm"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 28 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 29 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L SECTION .text
+T 8 source.asm.x86_64
+T 13 source.asm.x86_64 entity.name.section
+L 
+L cglobal cpu_cpuid, 0, 5, 0, regs, leaf, subleaf
+T 19 source.asm.x86_64
+T 20 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 22 source.asm.x86_64
+T 23 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 25 source.asm.x86_64
+T 26 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 47 source.asm.x86_64
+L     mov        r4, regsmp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 25 source.asm.x86_64
+L     mov       eax, leafm
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 24 source.asm.x86_64
+L     mov       ecx, subleafm
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 27 source.asm.x86_64
+L %if ARCH_X86_64
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 3 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 15 source.asm.x86_64 meta.preprocessor.c
+L     mov        r5, rbx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L %endif
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 6 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+L     cpuid
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.misc
+L     mov  [r4+4*0], eax
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 13 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 15 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov  [r4+4*1], ebx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 13 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 15 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov  [r4+4*2], edx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 13 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 15 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov  [r4+4*3], ecx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 13 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 15 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L %if ARCH_X86_64
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 3 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 15 source.asm.x86_64 meta.preprocessor.c
+L     mov       rbx, r5
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+L %endif
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 6 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+L     RET
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 
+L cglobal cpu_xgetbv, 0, 0, 0, xcr
+T 20 source.asm.x86_64
+T 21 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 23 source.asm.x86_64
+T 24 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 26 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 32 source.asm.x86_64
+L     movifnidn ecx, xcrm
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 23 source.asm.x86_64
+L     xgetbv
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.system
+L %if ARCH_X86_64
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 3 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 15 source.asm.x86_64 meta.preprocessor.c
+L     shl       rdx, 32
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.rotate
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 19 source.asm.x86_64
+T 21 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     or        rax, rdx
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 19 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L %endif
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 6 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+L     RET
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 

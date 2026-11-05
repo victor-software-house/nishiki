@@ -53,7 +53,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 
 | Language | Variant | Feature | Tier | Names `Language::from_name` takes |
 |:--|:--|:--|:--|:--|
-| Assembly | `Language::Asm` | `lang-asm` | `textmate` | `asm` |
+| Assembly | `Language::Asm` | `lang-asm` | `all` | `asm` |
 | Batch | `Language::Bat` | `lang-bat` | `all` | `bat`, `batch`, `cmd` |
 | C | `Language::C` | `lang-c` | `all` | `c` |
 | CMake | `Language::CMake` | `lang-cmake` | `all` | `cmake` |

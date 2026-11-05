@@ -50,6 +50,7 @@ if (picking && (pickGrammar === undefined || pickLang === undefined || pickPaths
 /** The grammars a hand-written lexer follows, by Shiki's name, and the
  * lexer that follows each. */
 const handLexed = new Map([
+  ["asm", "Assembly"],
   ["bat", "Batch"],
   ["c", "C"],
   ["cmake", "CMake"],

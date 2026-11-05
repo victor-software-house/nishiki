@@ -29,7 +29,7 @@ fn between<'a>(line: &'a str, open: &str, close: &str) -> &'a str {
 
 /// Fails when a key of `list` is not after the one before it.
 fn assert_sorted<K: Ord + Debug>(list: &str, keys: &[K]) {
-    assert!(keys.len() > 1, "{list} has fewer than two entries");
+    assert!(!keys.is_empty(), "{list} has no entries");
     if let Some([before, after, ..]) = keys.windows(2).find(|pair| pair[0] >= pair[1]) {
         panic!("{list} is not sorted: {before:?} comes before {after:?}");
     }

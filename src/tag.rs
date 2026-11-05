@@ -45,6 +45,9 @@ macro_rules! tags {
 }
 
 tags! {
+    /// Assembly.
+    #[cfg(feature = "lang-asm")]
+    ASM = 0x4a00,
     /// Batch.
     #[cfg(feature = "lang-bat")]
     BAT = 0x3500,

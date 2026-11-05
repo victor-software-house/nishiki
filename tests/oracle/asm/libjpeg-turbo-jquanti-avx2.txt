@@ -1,0 +1,840 @@
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Integer Sample Conversion and Quantization (64-bit AVX2)
+T 58 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+T 63 source.asm.x86_64 comment.line
+L ; Copyright (C) 2009, 2016, 2018, 2024-2025, D. R. Commander.
+T 61 source.asm.x86_64 comment.line
+L ; Copyright (C) 2016, Matthieu Darbois.
+T 39 source.asm.x86_64 comment.line
+L ; Copyright (C) 2018, Matthias Räncker.
+T 40 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Based on the x86 SIMD extension for IJG JPEG library
+T 54 source.asm.x86_64 comment.line
+L ; Copyright (C) 1999-2006, MIYASAKA Masaru.
+T 43 source.asm.x86_64 comment.line
+L ; For conditions of distribution and use, see copyright notice in jsimdext.inc
+T 78 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; This file should be assembled with NASM (Netwide Assembler) or Yasm.
+T 70 source.asm.x86_64 comment.line
+L 
+L %include "jsimdext.inc"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 22 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 23 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L %include "jdct.inc"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 18 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 19 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L ; --------------------------------------------------------------------------
+T 76 source.asm.x86_64 comment.line
+L     SECTION     SEG_TEXT
+T 24 source.asm.x86_64
+L     BITS        64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L ; Load data into workspace, applying unsigned->signed conversion
+T 64 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; GLOBAL(void)
+T 14 source.asm.x86_64 comment.line
+L ; jsimd_convsamp_avx2(JSAMPARRAY sample_data, JDIMENSION start_col,
+T 67 source.asm.x86_64 comment.line
+L ;                     DCTELEM *workspace)
+T 41 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; r10 = JSAMPARRAY sample_data
+T 30 source.asm.x86_64 comment.line
+L ; r11d = JDIMENSION start_col
+T 29 source.asm.x86_64 comment.line
+L ; r12 = DCTELEM *workspace
+T 26 source.asm.x86_64 comment.line
+L 
+L     align       32
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     GLOBAL_FUNCTION(jsimd_convsamp_avx2)
+T 40 source.asm.x86_64
+L 
+L EXTN(jsimd_convsamp_avx2):
+T 26 source.asm.x86_64
+L     ENDBR64
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.cet
+L     push        rbp
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov         rbp, rsp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     COLLECT_ARGS 3
+T 17 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     mov         eax, r11d
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 25 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L     mov         rsip, JSAMPROW [r10 + 0 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     mov         rdip, JSAMPROW [r10 + 1 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     movq        xmm0, XMM_MMWORD [rsi + rax * SIZEOF_JSAMPLE]
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.data-transfer
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 61 source.asm.x86_64
+L     pinsrq      xmm0, XMM_MMWORD [rdi + rax * SIZEOF_JSAMPLE], 1
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.insertion-and-extraction
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 64 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     mov         rsip, JSAMPROW [r10 + 2 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     mov         rdip, JSAMPROW [r10 + 3 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     movq        xmm1, XMM_MMWORD [rsi + rax * SIZEOF_JSAMPLE]
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.data-transfer
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 61 source.asm.x86_64
+L     pinsrq      xmm1, XMM_MMWORD [rdi + rax * SIZEOF_JSAMPLE], 1
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.insertion-and-extraction
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 64 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     mov         rsip, JSAMPROW [r10 + 4 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     mov         rdip, JSAMPROW [r10 + 5 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     movq        xmm2, XMM_MMWORD [rsi + rax * SIZEOF_JSAMPLE]
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.data-transfer
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 61 source.asm.x86_64
+L     pinsrq      xmm2, XMM_MMWORD [rdi + rax * SIZEOF_JSAMPLE], 1
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.insertion-and-extraction
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 64 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     mov         rsip, JSAMPROW [r10 + 6 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     mov         rdip, JSAMPROW [r10 + 7 * SIZEOF_JSAMPROW]        ; (JSAMPLE *)
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 38 source.asm.x86_64
+T 39 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 66 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L     movq        xmm3, XMM_MMWORD [rsi + rax * SIZEOF_JSAMPLE]
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.data-transfer
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 61 source.asm.x86_64
+L     pinsrq      xmm3, XMM_MMWORD [rdi + rax * SIZEOF_JSAMPLE], 1
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.insertion-and-extraction
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 64 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     vpmovzxbw   ymm0, xmm0
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L                 ; ymm0 = (00 01 02 03 04 05 06 07 10 11 12 13 14 15 16 17)
+T 16 source.asm.x86_64
+T 74 source.asm.x86_64 comment.line
+L     vpmovzxbw   ymm1, xmm1
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L                 ; ymm1 = (20 21 22 23 24 25 26 27 30 31 32 33 34 35 36 37)
+T 16 source.asm.x86_64
+T 74 source.asm.x86_64 comment.line
+L     vpmovzxbw   ymm2, xmm2
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L                 ; ymm2 = (40 41 42 43 44 45 46 47 50 51 52 53 54 55 56 57)
+T 16 source.asm.x86_64
+T 74 source.asm.x86_64 comment.line
+L     vpmovzxbw   ymm3, xmm3
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L                 ; ymm3 = (60 61 62 63 64 65 66 67 70 71 72 73 74 75 76 77)
+T 16 source.asm.x86_64
+T 74 source.asm.x86_64 comment.line
+L 
+L     vpcmpeqw    ymm7, ymm7, ymm7
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.comparison
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpsllw      ymm7, ymm7, 7       ; ymm7 = { 0xFF80 0xFF80 0xFF80 0xFF80 .. }
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 29 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 36 source.asm.x86_64
+T 79 source.asm.x86_64 comment.line
+L 
+L     vpaddw      ymm0, ymm0, ymm7
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpaddw      ymm1, ymm1, ymm7
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpaddw      ymm2, ymm2, ymm7
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpaddw      ymm3, ymm3, ymm7
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L 
+L     vmovdqu     YMMWORD [YMMBLOCK(0, 0, r12, SIZEOF_DCTELEM)], ymm0
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 34 source.asm.x86_64
+T 35 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 67 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu     YMMWORD [YMMBLOCK(2, 0, r12, SIZEOF_DCTELEM)], ymm1
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 34 source.asm.x86_64
+T 35 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 67 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu     YMMWORD [YMMBLOCK(4, 0, r12, SIZEOF_DCTELEM)], ymm2
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 34 source.asm.x86_64
+T 35 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 67 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu     YMMWORD [YMMBLOCK(6, 0, r12, SIZEOF_DCTELEM)], ymm3
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 34 source.asm.x86_64
+T 35 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 43 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 63 source.asm.x86_64
+T 67 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L 
+L     vzeroupper
+T 4 source.asm.x86_64
+T 14 source.asm.x86_64 keyword.operator.word.mnemonic.avx
+L     UNCOLLECT_ARGS 3
+T 19 source.asm.x86_64
+T 20 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     pop         rbp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     ret
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 
+L ; --------------------------------------------------------------------------
+T 76 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Quantize/descale the coefficients, and store into coef_block
+T 62 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; This implementation is based on an algorithm described in
+T 59 source.asm.x86_64 comment.line
+L ;   "Optimizing subroutines in assembly language:
+T 49 source.asm.x86_64 comment.line
+L ;   An optimization guide for x86 platforms" (https://agner.org/optimize).
+T 74 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; GLOBAL(void)
+T 14 source.asm.x86_64 comment.line
+L ; jsimd_quantize_avx2(JCOEFPTR coef_block, DCTELEM *divisors,
+T 61 source.asm.x86_64 comment.line
+L ;                     DCTELEM *workspace)
+T 41 source.asm.x86_64 comment.line
+L 
+L %define RECIPROCAL(m, n, b) \
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 28 source.asm.x86_64 meta.preprocessor.c
+T 29 source.asm.x86_64 meta.preprocessor.c punctuation.separator.continuation.c
+L   YMMBLOCK(DCTSIZE * 0 + (m), (n), (b), SIZEOF_DCTELEM)
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 55 source.asm.x86_64
+L %define CORRECTION(m, n, b) \
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 28 source.asm.x86_64 meta.preprocessor.c
+T 29 source.asm.x86_64 meta.preprocessor.c punctuation.separator.continuation.c
+L   YMMBLOCK(DCTSIZE * 1 + (m), (n), (b), SIZEOF_DCTELEM)
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 55 source.asm.x86_64
+L %define SCALE(m, n, b) \
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 23 source.asm.x86_64 meta.preprocessor.c
+T 24 source.asm.x86_64 meta.preprocessor.c punctuation.separator.continuation.c
+L   YMMBLOCK(DCTSIZE * 2 + (m), (n), (b), SIZEOF_DCTELEM)
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 55 source.asm.x86_64
+L 
+L ; r10 = JCOEFPTR coef_block
+T 27 source.asm.x86_64 comment.line
+L ; r11 = DCTELEM *divisors
+T 25 source.asm.x86_64 comment.line
+L ; r12 = DCTELEM *workspace
+T 26 source.asm.x86_64 comment.line
+L 
+L     align       32
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     GLOBAL_FUNCTION(jsimd_quantize_avx2)
+T 40 source.asm.x86_64
+L 
+L EXTN(jsimd_quantize_avx2):
+T 26 source.asm.x86_64
+L     ENDBR64
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.cet
+L     push        rbp
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov         rbp, rsp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     COLLECT_ARGS 3
+T 17 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     vmovdqu     ymm4, [YMMBLOCK(0, 0, r12, SIZEOF_DCTELEM)]
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 32 source.asm.x86_64
+T 33 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 35 source.asm.x86_64
+T 36 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 38 source.asm.x86_64
+T 41 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 59 source.asm.x86_64
+L     vmovdqu     ymm5, [YMMBLOCK(2, 0, r12, SIZEOF_DCTELEM)]
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 32 source.asm.x86_64
+T 33 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 35 source.asm.x86_64
+T 36 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 38 source.asm.x86_64
+T 41 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 59 source.asm.x86_64
+L     vmovdqu     ymm6, [YMMBLOCK(4, 0, r12, SIZEOF_DCTELEM)]
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 32 source.asm.x86_64
+T 33 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 35 source.asm.x86_64
+T 36 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 38 source.asm.x86_64
+T 41 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 59 source.asm.x86_64
+L     vmovdqu     ymm7, [YMMBLOCK(6, 0, r12, SIZEOF_DCTELEM)]
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 32 source.asm.x86_64
+T 33 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 35 source.asm.x86_64
+T 36 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 38 source.asm.x86_64
+T 41 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 59 source.asm.x86_64
+L     vpabsw      ymm0, ymm4
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpabsw      ymm1, ymm5
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpabsw      ymm2, ymm6
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpabsw      ymm3, ymm7
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L 
+L     vpaddw      ymm0, YMMWORD [CORRECTION(0, 0, r11)]
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L                 ; correction + roundfactor
+T 16 source.asm.x86_64
+T 42 source.asm.x86_64 comment.line
+L     vpaddw      ymm1, YMMWORD [CORRECTION(2, 0, r11)]
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L     vpaddw      ymm2, YMMWORD [CORRECTION(4, 0, r11)]
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L     vpaddw      ymm3, YMMWORD [CORRECTION(6, 0, r11)]
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L     vpmulhuw    ymm0, YMMWORD [RECIPROCAL(0, 0, r11)]  ; reciprocal
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 55 source.asm.x86_64
+T 67 source.asm.x86_64 comment.line
+L     vpmulhuw    ymm1, YMMWORD [RECIPROCAL(2, 0, r11)]
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L     vpmulhuw    ymm2, YMMWORD [RECIPROCAL(4, 0, r11)]
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L     vpmulhuw    ymm3, YMMWORD [RECIPROCAL(6, 0, r11)]
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 42 source.asm.x86_64
+T 43 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 45 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 48 source.asm.x86_64
+T 51 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 53 source.asm.x86_64
+L     vpmulhuw    ymm0, YMMWORD [SCALE(0, 0, r11)]       ; scale
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 41 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 43 source.asm.x86_64
+T 46 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 55 source.asm.x86_64
+T 62 source.asm.x86_64 comment.line
+L     vpmulhuw    ymm1, YMMWORD [SCALE(2, 0, r11)]
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 41 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 43 source.asm.x86_64
+T 46 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 48 source.asm.x86_64
+L     vpmulhuw    ymm2, YMMWORD [SCALE(4, 0, r11)]
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 41 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 43 source.asm.x86_64
+T 46 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 48 source.asm.x86_64
+L     vpmulhuw    ymm3, YMMWORD [SCALE(6, 0, r11)]
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 37 source.asm.x86_64
+T 38 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 41 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 43 source.asm.x86_64
+T 46 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 48 source.asm.x86_64
+L 
+L     vpsignw     ymm0, ymm0, ymm4
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpsignw     ymm1, ymm1, ymm5
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpsignw     ymm2, ymm2, ymm6
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vpsignw     ymm3, ymm3, ymm7
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 16 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 22 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 28 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L 
+L     vmovdqu     [YMMBLOCK(0, 0, r10, SIZEOF_DCTELEM)], ymm0
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 26 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 29 source.asm.x86_64
+T 30 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 55 source.asm.x86_64
+T 59 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu     [YMMBLOCK(2, 0, r10, SIZEOF_DCTELEM)], ymm1
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 26 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 29 source.asm.x86_64
+T 30 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 55 source.asm.x86_64
+T 59 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu     [YMMBLOCK(4, 0, r10, SIZEOF_DCTELEM)], ymm2
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 26 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 29 source.asm.x86_64
+T 30 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 55 source.asm.x86_64
+T 59 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu     [YMMBLOCK(6, 0, r10, SIZEOF_DCTELEM)], ymm3
+T 4 source.asm.x86_64
+T 11 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 26 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 29 source.asm.x86_64
+T 30 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 32 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 55 source.asm.x86_64
+T 59 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L 
+L     vzeroupper
+T 4 source.asm.x86_64
+T 14 source.asm.x86_64 keyword.operator.word.mnemonic.avx
+L     UNCOLLECT_ARGS 3
+T 19 source.asm.x86_64
+T 20 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     pop         rbp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     ret
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 
+L ; For some reason, the OS X linker does not honor the request to align the
+T 74 source.asm.x86_64 comment.line
+L ; segment unless we do this.
+T 28 source.asm.x86_64 comment.line
+L     align       32
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 

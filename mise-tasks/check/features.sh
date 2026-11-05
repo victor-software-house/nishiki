@@ -14,8 +14,6 @@ RUSTFLAGS="" cargo check --locked --tests --no-default-features
 RUSTFLAGS="" cargo check --locked --tests --no-default-features --features json
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features docs
-# One engine language alone, Assembly, with no language that hands off.
-# The engine's hand-off code still builds, since any capture can reach it.
 cargo check --locked --tests --no-default-features --features lang-asm
 cargo check --locked --tests --no-default-features --features lang-bat
 cargo check --locked --tests --no-default-features --features lang-c
@@ -34,6 +32,9 @@ cargo check --locked --tests --no-default-features --features lang-erb
 cargo check --locked --tests --no-default-features --features lang-gdscript
 cargo check --locked --tests --no-default-features --features lang-go
 cargo check --locked --tests --no-default-features --features lang-graphql
+# HAML alone, with the languages it hands regions to.
+# It is the one language left on the TextMate engine until its own lexer lands.
+cargo check --locked --tests --no-default-features --features lang-haml
 cargo check --locked --tests --no-default-features --features lang-haskell
 cargo check --locked --tests --no-default-features --features lang-hcl
 cargo check --locked --tests --no-default-features --features lang-html

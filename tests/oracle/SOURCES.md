@@ -8,9 +8,16 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | Fixture | Source | Licence |
 |:--|:--|:--|
 | `asm/blake3-sse41-msvc` | [`c/blake3_sse41_x86-64_windows_msvc.asm`][blake3-sse41-msvc] in BLAKE3-team/BLAKE3 | [Apache-2.0][blake3-licence] |
+| `asm/coverage` | `oracle/inputs/asm-coverage.asm`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `asm/dav1d-cpuid` | [`src/x86/cpuid.asm`][dav1d-cpuid] in videolan/dav1d | [BSD-2-Clause][dav1d-licence] |
+| `asm/dav1d-msac` | [`src/x86/msac.asm`][dav1d-msac] in videolan/dav1d | [BSD-2-Clause][dav1d-licence] |
+| `asm/libjpeg-turbo-jquanti-avx2` | [`simd/x86_64/jquanti-avx2.asm`][libjpeg-turbo-jquanti-avx2] in libjpeg-turbo/libjpeg-turbo | [Zlib][libjpeg-turbo-licence] |
+| `asm/libjpeg-turbo-jsimdcpu` | [`simd/x86_64/jsimdcpu.asm`][libjpeg-turbo-jsimdcpu] in libjpeg-turbo/libjpeg-turbo | [Zlib][libjpeg-turbo-licence] |
 | `asm/sample` | [`samples/asm.sample`][asm-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `asm/xv6-bootasm` | [`bootasm.S`][xv6-bootasm] in mit-pdos/xv6-public | [MIT][xv6-licence] |
+| `asm/xv6-entry` | [`entry.S`][xv6-entry] in mit-pdos/xv6-public | [MIT][xv6-licence] |
 | `asm/xv6-swtch` | [`swtch.S`][xv6-swtch] in mit-pdos/xv6-public | [MIT][xv6-licence] |
+| `asm/xv6-trapasm` | [`trapasm.S`][xv6-trapasm] in mit-pdos/xv6-public | [MIT][xv6-licence] |
 | `bat/coverage` | `oracle/inputs/bat-coverage.bat`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `bat/gradlew` | [`gradlew.bat`][gradlew-bat] in gradle/gradle | [Apache-2.0][gradle-licence] |
 | `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
@@ -988,6 +995,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 `postcss/custom-selectors-basic`, `postcss/mixins-arguments` and `postcss/nesting-at-nest` are held out: they were added after the development inputs passed.
 `postcss/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 
+`asm/sample`, `asm/blake3-sse41-msvc`, `asm/xv6-bootasm`, `asm/xv6-swtch`, `asm/xv6-entry`, `asm/xv6-trapasm`, `asm/dav1d-cpuid`, `asm/libjpeg-turbo-jsimdcpu` and `asm/coverage` are the development inputs for Assembly.
+`asm/dav1d-msac` and `asm/libjpeg-turbo-jquanti-avx2` are held out: they were added after the development inputs passed.
+
 `common-lisp/sample`, `common-lisp/grammar-demo`, `common-lisp/grammar-format-strings`, `common-lisp/split-sequence-list`, `common-lisp/cl-ppcre-scanner` and `common-lisp/coverage` are the development inputs for Common Lisp.
 `common-lisp/cl-ppcre-optimize`, `common-lisp/quicklisp-http` and `common-lisp/woo-response` are held out: they were added after the development inputs passed on the `TextMate` engine.
 `common-lisp/cl-ppcre-regex-class`, `common-lisp/quicklisp-dist`, `common-lisp/split-sequence-vector` and `common-lisp/woo-main` are held out from the hand lexer: they were added after its development inputs passed.
@@ -1196,6 +1206,9 @@ The hand lexer was written against all seven.
 [dart-http-licence]: https://github.com/dart-lang/http/blob/8c0d66acd2385761182d34b48c4c80ca6cfa4513/LICENSE
 [dart-http-readme]: https://github.com/dart-lang/http/blob/8c0d66acd2385761182d34b48c4c80ca6cfa4513/pkgs/http/README.md
 [dart-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/dart.sample
+[dav1d-cpuid]: https://github.com/videolan/dav1d/blob/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a/src/x86/cpuid.asm
+[dav1d-licence]: https://github.com/videolan/dav1d/blob/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a/COPYING
+[dav1d-msac]: https://github.com/videolan/dav1d/blob/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a/src/x86/msac.asm
 [derivative-vue-classic-grid]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/classic/grid.html
 [derivative-vue-classic-todomvc]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/classic/todomvc.html
 [derivative-vue-commits]: https://github.com/vuejs/core/blob/68f25a4a1957710de71731702bd42e05535f494b/packages/vue/examples/composition/commits.html
@@ -1439,6 +1452,9 @@ The hand lexer was written against all seven.
 [lessjs-licence]: https://github.com/less/less.js/blob/713331655e437401dfea6cd233893a69762734e1/LICENSE
 [leveldb-licence]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/LICENSE
 [leveldb-version-set]: https://github.com/google/leveldb/blob/bb74ef739973a70ca9f0d90788a1da89b788c0ad/db/version_set.cc
+[libjpeg-turbo-jquanti-avx2]: https://github.com/libjpeg-turbo/libjpeg-turbo/blob/29e4d9b0178f08158fc72c6068f086c5ba27b772/simd/x86_64/jquanti-avx2.asm
+[libjpeg-turbo-jsimdcpu]: https://github.com/libjpeg-turbo/libjpeg-turbo/blob/29e4d9b0178f08158fc72c6068f086c5ba27b772/simd/x86_64/jsimdcpu.asm
+[libjpeg-turbo-licence]: https://github.com/libjpeg-turbo/libjpeg-turbo/blob/29e4d9b0178f08158fc72c6068f086c5ba27b772/LICENSE.md
 [libuv-core]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/src/unix/core.c
 [libuv-freertos-startup]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/test/freertos/mps2/startup.c
 [libuv-licence]: https://github.com/libuv/libuv/blob/7228e05f3e407ed3fa59edba920b8cd825b5d83d/LICENSE
@@ -1894,8 +1910,10 @@ The hand lexer was written against all seven.
 [xerces-xni-config]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/docs/xni-config.xml
 [xml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/xml.sample
 [xv6-bootasm]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/bootasm.S
+[xv6-entry]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/entry.S
 [xv6-licence]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/LICENSE
 [xv6-swtch]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/swtch.S
+[xv6-trapasm]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/trapasm.S
 [yaml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/yaml.sample
 [yaml-test-suite-c4hz]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/C4HZ/in.yaml
 [yaml-test-suite-kk5p]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/KK5P/in.yaml

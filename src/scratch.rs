@@ -10,6 +10,10 @@
 pub(crate) struct Scratch {
     /// The number of the current line (see [`Scratch::line`]).
     line: u64,
+    /// The Assembly lexer's, for Assembly documents.
+    /// It is boxed and allocated by the first Assembly line.
+    #[cfg(feature = "lang-asm")]
+    pub(crate) asm: Option<Box<crate::asm::Scratch>>,
     /// The Batch lexer's, for Batch documents and Markdown Batch fences.
     /// It is boxed and allocated by the first Batch line, as Dart's is.
     #[cfg(feature = "lang-bat")]

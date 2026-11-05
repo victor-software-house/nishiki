@@ -24,6 +24,11 @@ const pick = <T,>(a: T[]): T => a[Math.floor(rnd() * a.length)]!;
 
 /** Fragments to glue into lines: words, marks and line starts. */
 const pools: Record<string, { words: string[]; marks: string[]; heads: string[] }> = {
+  asm: {
+    words: ["mov", "MOV", "movzx", "lea", "push", "pop", "call", "ret", "jmp", "jne", "cmovne", "add", "sub", "xor", "int", "syscall", "nop", "rep", "lock", "vaddps", "vpxord", "vcvtph2ps", "vscatterdpd", "kmovw", "fld", "fstp", "eax", "rax", "rbx", "rsp", "r8d", "r15b", "al", "ah", "cs", "ds", "xmm0", "ymm15", "zmm31", "xmm16", "mm0", "st0", "st", "k1", "cr0", "cr8", "dr7", "bnd0", "rip", "eflags", "byte", "word", "dword", "qword", "db", "dw", "dd", "dq", "resb", "times", "equ", "incbin", "strict", "near", "rel", "a16", "o32", "section", "segment", ".text", ".data", ".rodata", ".bss", "global", ".globl", "extern", "main", "_start", "x", "1", "0x1F", "1Fh", "$1F", "101b", "0b101", "17o", "0q17", "123d", "0t9", "1.5", "1.", "1e10", "1.5e3", "0x1.8p3", "$1.8p3", "12p3", "Inf", "NaN", "float32", "ilog2e", "__?FILE?__", "__?USE_X?__", "__FILE__", "__USE_X__", "..start", "..got", "\u017fhl", "\u212aand", "é"],
+    marks: [",", ":", ".", "..", "..@", "[", "]", "+", "-", "*", "(", ")", "{", "}", "{k1}", "{z}", "{1to8}", "{rn-sae}", "{vex3}", "$", "$$", "%", "%%", "\"", "'", "`", ";", " # ", "#", "/*", "*/", "\\", "\u00a0"],
+    heads: ["", "", " ", "    ", "\t", "; ", "# ", "%define X ", "%macro m 1", "%if 0", "#if 0", "%endif", "#include ", "%include \"", "label:", ".loop:", "section .text", "global "],
+  },
   bat: {
     words: ["echo", "ECHO", "echo.", "off", "on", "set", "SET", "setlocal", "EnableDelayedExpansion", "endlocal", "call", "goto", "exit", "if", "not", "exist", "defined", "errorlevel", "else", "for", "in", "do", "rem", "REM.", "copy", "xcopy", "net user", "net", "dir", "find", "NUL", "EQU", "LSS", "x", "name", "value", "1", "-2", "0x1F", "\u017fet", "L\u00df", "/a", "/p", "/A", "%1", "%~dp0", "%*", "%%i", "%%~nxi", "%%~dp$PATH:f", "%path%", "%x:~1,2%", "%x:a=b%", "!x!", "!x:~0,3!", "!x:a=b!", ":label", "::"],
     marks: ["(", ")", ",", ";", "=", "==", "+=", "<<=", "%%=", "&", "&&", "|", "||", "<", ">", ">>", "2>&1", "@", "^", "^^!", "^&", "!", "~", "%", "\"", "'", ":", ":~", "*.txt"],

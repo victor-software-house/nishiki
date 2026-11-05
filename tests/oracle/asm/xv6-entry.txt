@@ -1,0 +1,198 @@
+L # The xv6 kernel starts executing in this file. This file is linked with
+T 72 source.asm.x86_64 comment.line
+L # the kernel C code, so it can refer to kernel symbols such as main().
+T 70 source.asm.x86_64 comment.line
+L # The boot block (bootasm.S and bootmain.c) jumps to entry below.
+T 65 source.asm.x86_64 comment.line
+L         
+T 8 source.asm.x86_64
+L # Multiboot header, for multiboot boot loaders like GNU Grub.
+T 61 source.asm.x86_64 comment.line
+L # http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
+T 66 source.asm.x86_64 comment.line
+L #
+T 1 source.asm.x86_64 comment.line
+L # Using GRUB 2, you can boot xv6 from a file stored in a
+T 56 source.asm.x86_64 comment.line
+L # Linux file system by copying kernel or kernelmemfs to /boot
+T 61 source.asm.x86_64 comment.line
+L # and then adding this menu entry:
+T 34 source.asm.x86_64 comment.line
+L #
+T 1 source.asm.x86_64 comment.line
+L # menuentry "xv6" {
+T 19 source.asm.x86_64 comment.line
+L # 	insmod ext2
+T 14 source.asm.x86_64 comment.line
+L # 	set root='(hd0,msdos1)'
+T 26 source.asm.x86_64 comment.line
+L # 	set kernel='/boot/kernel'
+T 28 source.asm.x86_64 comment.line
+L # 	echo "Loading ${kernel}..."
+T 30 source.asm.x86_64 comment.line
+L # 	multiboot ${kernel} ${kernel}
+T 32 source.asm.x86_64 comment.line
+L # 	boot
+T 7 source.asm.x86_64 comment.line
+L # }
+T 3 source.asm.x86_64 comment.line
+L 
+L #include "asm.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L #include "memlayout.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 21 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 22 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L #include "mmu.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L #include "param.h"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 17 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 18 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L # Multiboot header.  Data to direct multiboot loader.
+T 53 source.asm.x86_64 comment.line
+L .p2align 2
+T 9 source.asm.x86_64
+T 10 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L .text
+T 5 source.asm.x86_64 entity.name.section
+L .globl multiboot_header
+T 6 source.asm.x86_64 entity.directive
+T 23 source.asm.x86_64
+L multiboot_header:
+T 16 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 17 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   #define magic 0x1badb002
+T 3 source.asm.x86_64 meta.preprocessor.c
+T 9 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 26 source.asm.x86_64 meta.preprocessor.c
+L   #define flags 0
+T 3 source.asm.x86_64 meta.preprocessor.c
+T 9 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 17 source.asm.x86_64 meta.preprocessor.c
+L   .long magic
+T 13 source.asm.x86_64
+L   .long flags
+T 8 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.flags.asm.x86_64
+L   .long (-magic-flags)
+T 16 source.asm.x86_64
+T 21 source.asm.x86_64 constant.language.register.flags.asm.x86_64
+T 22 source.asm.x86_64
+L 
+L # By convention, the _start symbol specifies the ELF entry point.
+T 65 source.asm.x86_64 comment.line
+L # Since we haven't set up virtual memory yet, our entry point is
+T 64 source.asm.x86_64 comment.line
+L # the physical address of 'entry'.
+T 34 source.asm.x86_64 comment.line
+L .globl _start
+T 6 source.asm.x86_64 entity.directive
+T 13 source.asm.x86_64
+L _start = V2P_WO(entry)
+T 22 source.asm.x86_64
+L 
+L # Entering xv6 on boot processor, with paging off.
+T 50 source.asm.x86_64 comment.line
+L .globl entry
+T 6 source.asm.x86_64 entity.directive
+T 12 source.asm.x86_64
+L entry:
+T 5 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 6 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L   # Turn on page size extension for 4Mbyte pages
+T 1 source.asm.x86_64
+T 48 source.asm.x86_64 comment.line
+L   movl    %cr4, %eax
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.control.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   orl     $(CR4_PSE), %eax
+T 23 source.asm.x86_64
+T 26 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movl    %eax, %cr4
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.control.asm.x86_64
+L   # Set page directory
+T 1 source.asm.x86_64
+T 22 source.asm.x86_64 comment.line
+L   movl    $(V2P_WO(entrypgdir)), %eax
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movl    %eax, %cr3
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.control.asm.x86_64
+L   # Turn on paging.
+T 1 source.asm.x86_64
+T 19 source.asm.x86_64 comment.line
+L   movl    %cr0, %eax
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.control.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   orl     $(CR0_PG|CR0_WP), %eax
+T 29 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   movl    %eax, %cr0
+T 11 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.control.asm.x86_64
+L 
+L   # Set up the stack pointer.
+T 1 source.asm.x86_64
+T 29 source.asm.x86_64 comment.line
+L   movl $(stack + KSTACKSIZE), %esp
+T 31 source.asm.x86_64
+T 34 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L   # Jump to main(), and switch to executing at
+T 1 source.asm.x86_64
+T 46 source.asm.x86_64 comment.line
+L   # high addresses. The indirect call is needed because
+T 1 source.asm.x86_64
+T 55 source.asm.x86_64 comment.line
+L   # the assembler produces a PC-relative instruction
+T 1 source.asm.x86_64
+T 52 source.asm.x86_64 comment.line
+L   # for a direct jump.
+T 1 source.asm.x86_64
+T 22 source.asm.x86_64 comment.line
+L   mov $main, %eax
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 6 source.asm.x86_64
+T 11 source.asm.x86_64 text.variable
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L   jmp *%eax
+T 2 source.asm.x86_64
+T 5 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L .comm stack, KSTACKSIZE
+T 23 source.asm.x86_64
+L 

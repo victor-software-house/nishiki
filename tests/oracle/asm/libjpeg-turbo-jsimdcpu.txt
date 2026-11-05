@@ -1,0 +1,313 @@
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; SIMD instruction support check
+T 32 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+T 63 source.asm.x86_64 comment.line
+L ; Copyright (C) 2016, D. R. Commander.
+T 38 source.asm.x86_64 comment.line
+L ; Copyright (C) 2023, Aliaksiej Kandracienka.
+T 45 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; Based on
+T 10 source.asm.x86_64 comment.line
+L ; x86 SIMD extension for IJG JPEG library
+T 41 source.asm.x86_64 comment.line
+L ; Copyright (C) 1999-2006, MIYASAKA Masaru.
+T 43 source.asm.x86_64 comment.line
+L ; For conditions of distribution and use, see copyright notice in jsimdext.inc
+T 78 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; This file should be assembled with NASM (Netwide Assembler) or Yasm.
+T 70 source.asm.x86_64 comment.line
+L 
+L %include "jsimdext.inc"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 22 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 23 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L 
+L ; --------------------------------------------------------------------------
+T 76 source.asm.x86_64 comment.line
+L     SECTION     SEG_TEXT
+T 24 source.asm.x86_64
+L     BITS        64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L ; Check if the CPU supports SIMD instructions
+T 45 source.asm.x86_64 comment.line
+L ;
+T 1 source.asm.x86_64 comment.line
+L ; GLOBAL(unsigned int)
+T 22 source.asm.x86_64 comment.line
+L ; jpeg_simd_cpu_support(void)
+T 29 source.asm.x86_64 comment.line
+L 
+L     align       32
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     GLOBAL_FUNCTION(jpeg_simd_cpu_support)
+T 42 source.asm.x86_64
+L 
+L EXTN(jpeg_simd_cpu_support):
+T 28 source.asm.x86_64
+L     push        rbp
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov         rbp, rsp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     push        rbx
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     push        rdi
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L     xor         rdi, rdi                ; simd support flag
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 59 source.asm.x86_64 comment.line
+L 
+L     ; Assume that all x86-64 processors support SSE & SSE2 instructions
+T 4 source.asm.x86_64
+T 71 source.asm.x86_64 comment.line
+L     or          rdi, JSIMD_SSE2
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 31 source.asm.x86_64
+L     or          rdi, JSIMD_SSE
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 30 source.asm.x86_64
+L 
+L     ; Check whether CPUID leaf 07H is supported
+T 4 source.asm.x86_64
+T 47 source.asm.x86_64 comment.line
+L     ; (leaf 07H is used to check for AVX2 instruction support)
+T 4 source.asm.x86_64
+T 62 source.asm.x86_64 comment.line
+L     mov         rax, 0
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     cpuid
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.misc
+L     cmp         rax, 7
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.binary-arithmetic
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     jl          short .return           ; Maximum leaf < 07H
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 40 source.asm.x86_64
+T 60 source.asm.x86_64 comment.line
+L 
+L     ; Check for AVX2 instruction support
+T 4 source.asm.x86_64
+T 40 source.asm.x86_64 comment.line
+L     mov         rax, 7
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     xor         rcx, rcx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     cpuid
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.misc
+L     mov         rax, rbx                ; rax = Extended feature flags
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 40 source.asm.x86_64
+T 70 source.asm.x86_64 comment.line
+L 
+L     test        rax, 1 << 5             ; bit5:AVX2
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.bit-and-byte.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 26 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 51 source.asm.x86_64 comment.line
+L     jz          short .return
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 29 source.asm.x86_64
+L 
+L     ; Check for AVX2 O/S support
+T 4 source.asm.x86_64
+T 32 source.asm.x86_64 comment.line
+L     mov         rax, 1
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     xor         rcx, rcx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     cpuid
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.misc
+L     test        rcx, 1 << 27
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.bit-and-byte.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 26 source.asm.x86_64
+T 28 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     jz          short .return           ; O/S does not support XSAVE
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 40 source.asm.x86_64
+T 68 source.asm.x86_64 comment.line
+L     test        rcx, 1 << 28
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.bit-and-byte.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 26 source.asm.x86_64
+T 28 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     jz          short .return           ; CPU does not support AVX2
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 40 source.asm.x86_64
+T 67 source.asm.x86_64 comment.line
+L 
+L     xor         rcx, rcx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     xgetbv
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.system
+L     and         rax, 6
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     cmp         rax, 6                  ; O/S does not manage XMM/YMM state
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.binary-arithmetic
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 40 source.asm.x86_64
+T 75 source.asm.x86_64 comment.line
+L                                         ; using XSAVE
+T 40 source.asm.x86_64
+T 53 source.asm.x86_64 comment.line
+L     jnz         short .return
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 29 source.asm.x86_64
+L 
+L     or          rdi, JSIMD_AVX2
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 31 source.asm.x86_64
+L 
+L .return:
+T 1 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L     mov         rax, rdi
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L 
+L     pop         rdi
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     pop         rbx
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     pop         rbp
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     ret
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L 
+L ; For some reason, the OS X linker does not honor the request to align the
+T 74 source.asm.x86_64 comment.line
+L ; segment unless we do this.
+T 28 source.asm.x86_64 comment.line
+L     align       32
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 

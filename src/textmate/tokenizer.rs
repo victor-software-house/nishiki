@@ -624,6 +624,13 @@ pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) ->
 }
 
 /// A line to lex.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+    )
+)]
 #[derive(Clone, Copy)]
 pub(crate) struct Text<'a> {
     pub(crate) grammar: &'static Grammar,
@@ -640,6 +647,13 @@ pub(crate) struct Text<'a> {
 /// Lexes one line of a grammar from `state`, appending its tokens, which
 /// cover the line from `text.start` with ends counted from the line's start,
 /// and returns the state after it. An empty line leaves the state as it is.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+    )
+)]
 pub(crate) fn line(
     scratch: &mut Scratch,
     arena: &mut Arena,
@@ -656,6 +670,13 @@ pub(crate) fn line(
 /// embeds the grammar takes the line back: the tokens then end at the halt,
 /// and the second value is where. The state at a halt is the root's, since a
 /// halt holds only with the root rule open.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+    )
+)]
 #[expect(
     clippy::too_many_arguments,
     reason = "line's arguments and the halt; a struct for them would be built on every line"

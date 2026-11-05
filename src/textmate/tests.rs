@@ -13,6 +13,8 @@ use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::limits::{Limit, Limits, LineReport};
 
+#[path = "../../tests/engine/asm.rs"]
+mod asm_tables;
 #[path = "../../tests/engine/common-lisp.rs"]
 mod common_lisp_tables;
 #[cfg(feature = "lang-html")]
@@ -357,6 +359,13 @@ fn elixir_grammar_matches_shiki() {
     check(&elixir_tables::GRAMMAR, "elixir", Scanners::On);
 }
 
+/// Assembly has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn asm_grammar_matches_shiki() {
+    check(&asm_tables::GRAMMAR, "asm", Scanners::On);
+}
+
 /// Common Lisp has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
@@ -616,8 +625,6 @@ fn kept_frames_lex_as_rebuilt_ones() {
 /// The engine grammars the crate ships, with the oracle fixtures of each,
 /// for the features that are on.
 static SHIPPED: &[(&Grammar, &str)] = &[
-    #[cfg(feature = "lang-asm")]
-    (&crate::asm::grammar::GRAMMAR, "asm"),
     #[cfg(feature = "lang-haml")]
     (&crate::haml::grammar::GRAMMAR, "haml"),
 ];

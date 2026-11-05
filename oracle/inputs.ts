@@ -3,6 +3,7 @@
 // tests/oracle/SOURCES.md records each one's licence.
 // Keep the two lists in step.
 
+import asmCoverage from "./inputs/asm-coverage.asm" with { type: "text" };
 import batCoverage from "./inputs/bat-coverage.bat" with { type: "text" };
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
@@ -185,6 +186,8 @@ const dartCore =
   "https://raw.githubusercontent.com/dart-lang/core/36f57a994965785d641e436b7dd3aa8a18a26f62";
 const dartHttp =
   "https://raw.githubusercontent.com/dart-lang/http/8c0d66acd2385761182d34b48c4c80ca6cfa4513";
+const dav1d =
+  "https://raw.githubusercontent.com/videolan/dav1d/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a";
 const deviceVirtual =
   "https://raw.githubusercontent.com/edgexfoundry/device-virtual-go/51a4860f7a496206684d7bc404f1c64d674ea9c4";
 const devise =
@@ -307,6 +310,8 @@ const lessjs =
   "https://raw.githubusercontent.com/less/less.js/713331655e437401dfea6cd233893a69762734e1";
 const leveldb =
   "https://raw.githubusercontent.com/google/leveldb/bb74ef739973a70ca9f0d90788a1da89b788c0ad";
+const libjpegTurbo =
+  "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/29e4d9b0178f08158fc72c6068f086c5ba27b772";
 const libuv =
   "https://raw.githubusercontent.com/libuv/libuv/7228e05f3e407ed3fa59edba920b8cd825b5d83d";
 const linenoise =
@@ -533,9 +538,16 @@ const zod =
 export const inputs: Input[] = [
   // Assembly runs on the TextMate engine.
   { lang: "asm", name: "blake3-sse41-msvc", url: `${blake3}/c/blake3_sse41_x86-64_windows_msvc.asm` },
+  { lang: "asm", name: "coverage", text: asmCoverage },
+  { lang: "asm", name: "dav1d-cpuid", url: `${dav1d}/src/x86/cpuid.asm` },
+  { lang: "asm", name: "dav1d-msac", url: `${dav1d}/src/x86/msac.asm` },
+  { lang: "asm", name: "libjpeg-turbo-jquanti-avx2", url: `${libjpegTurbo}/simd/x86_64/jquanti-avx2.asm` },
+  { lang: "asm", name: "libjpeg-turbo-jsimdcpu", url: `${libjpegTurbo}/simd/x86_64/jsimdcpu.asm` },
   { lang: "asm", name: "sample", url: `${samples}/asm.sample` },
   { lang: "asm", name: "xv6-bootasm", url: `${xv6}/bootasm.S` },
+  { lang: "asm", name: "xv6-entry", url: `${xv6}/entry.S` },
   { lang: "asm", name: "xv6-swtch", url: `${xv6}/swtch.S` },
+  { lang: "asm", name: "xv6-trapasm", url: `${xv6}/trapasm.S` },
   { lang: "bat", name: "coverage", text: batCoverage },
   { lang: "bat", name: "gradlew", url: `${gradle}/gradlew.bat` },
   { lang: "bat", name: "sample", url: `${samples}/bat.sample` },

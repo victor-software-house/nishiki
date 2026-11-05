@@ -16,8 +16,30 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 17
-digest = "0151d03727254a45c93bad8ed88c56197fb52550a27029900dab8e3a388cbd7f"
+version = 18
+digest = "800539d0c3e149ed46ff4585ebbd678effe6bb8b3c3eadc630705c153374ab54"
+
+[[file]]
+language = "asm"
+tier = "small"
+origin = "neutral"
+path = "asm/small/libjpeg-turbo-jcgray-avx2.asm"
+source = "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/29e4d9b0178f08158fc72c6068f086c5ba27b772/simd/x86_64/jcgray-avx2.asm"
+licence = "Zlib"
+licence_source = "https://github.com/libjpeg-turbo/libjpeg-turbo/blob/29e4d9b0178f08158fc72c6068f086c5ba27b772/LICENSE.md"
+bytes = 3122
+sha256 = "d550bf965ba3a2c5e303febbd9ee0446a8122cc808998e2e862c6133dd9820b0"
+
+[[file]]
+language = "asm"
+tier = "medium"
+origin = "neutral"
+path = "asm/medium/dav1d-refmvs.asm"
+source = "https://raw.githubusercontent.com/videolan/dav1d/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a/src/x86/refmvs.asm"
+licence = "BSD-2-Clause"
+licence_source = "https://github.com/videolan/dav1d/blob/e5af12796d46cd7788e5f5349da1a27c5f7a8f1a/COPYING"
+bytes = 30088
+sha256 = "120365f044460761563220778459a269de0651e3bb27f2a8a3b7a74ce9b13f62"
 
 [[file]]
 language = "bat"

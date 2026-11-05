@@ -1,0 +1,1191 @@
+L ; Written for nishiki: the units of the asm grammar that the third-party
+T 72 source.asm.x86_64 comment.line
+L ; fixtures leave out.
+T 21 source.asm.x86_64 comment.line
+L 
+L section .text
+T 13 source.asm.x86_64 entity.name.section
+L segment .bss
+T 12 source.asm.x86_64 entity.name.section
+L .rodata
+T 7 source.asm.x86_64 entity.name.section
+L global _start
+T 6 source.asm.x86_64 entity.directive
+T 13 source.asm.x86_64
+L .globl main
+T 6 source.asm.x86_64 entity.directive
+T 11 source.asm.x86_64
+L extern printf
+T 6 source.asm.x86_64 entity.directive
+T 13 source.asm.x86_64
+L required x
+T 8 source.asm.x86_64 entity.directive
+T 10 source.asm.x86_64
+L 
+L _start:
+T 6 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L     ; One word that each register and mnemonic list owns.
+T 4 source.asm.x86_64
+T 57 source.asm.x86_64 comment.line
+L     ah cs eflags eip cr0 fpr0 mxcsr zmm0 bnd0 gdt
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 7 source.asm.x86_64
+T 9 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+T 10 source.asm.x86_64
+T 16 source.asm.x86_64 constant.language.register.flags.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.instruction-pointer.asm.x86_64
+T 21 source.asm.x86_64
+T 24 source.asm.x86_64 constant.language.register.control.asm.x86_64
+T 25 source.asm.x86_64
+T 29 source.asm.x86_64 constant.language.register.mmx.asm.x86_64
+T 30 source.asm.x86_64
+T 35 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 36 source.asm.x86_64
+T 40 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 41 source.asm.x86_64
+T 45 source.asm.x86_64 constant.language.register.memory-protection.asm.x86_64
+T 46 source.asm.x86_64
+T 49 source.asm.x86_64 constant.language.register.system-table-pointer.asm.x86_64
+L     dr0 cr8 db0 xmm16 cmova bswap cbw adc aaa and
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 constant.language.register.debug.asm.x86_64
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.amd.asm.x86_64
+T 12 source.asm.x86_64
+T 15 source.asm.x86_64 invalid.deprecated.constant.language.register.asm.x86_64
+T 16 source.asm.x86_64
+T 21 source.asm.x86_64 constant.language.register.general-purpose.alias.asm.x86_64
+T 22 source.asm.x86_64
+T 27 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 28 source.asm.x86_64
+T 33 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.xchg
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.other
+T 38 source.asm.x86_64
+T 41 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.binary-arithmetic
+T 42 source.asm.x86_64
+T 45 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.decimal-arithmetic
+T 46 source.asm.x86_64
+T 49 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.logical
+L     rcl seta bsf ja bound cmps in clc lds cpuid
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.rotate
+T 8 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.bit-and-byte.set
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.bit-and-byte.other
+T 17 source.asm.x86_64
+T 19 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 20 source.asm.x86_64
+T 25 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+T 26 source.asm.x86_64
+T 30 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.strings
+T 31 source.asm.x86_64
+T 33 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.io
+T 34 source.asm.x86_64
+T 37 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.flag-control
+T 38 source.asm.x86_64
+T 41 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.segment-registers
+T 42 source.asm.x86_64
+T 47 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.misc
+L     cldemote rdrand andn fcmovb fbld fadd fabs fcom f2xm1 fld1
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.cache-control
+T 13 source.asm.x86_64
+T 19 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.rng
+T 20 source.asm.x86_64
+T 24 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.bmi
+T 25 source.asm.x86_64
+T 31 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.data-transfer.mov
+T 32 source.asm.x86_64
+T 36 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.data-transfer.other
+T 37 source.asm.x86_64
+T 41 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.basic-arithmetic.basic
+T 42 source.asm.x86_64
+T 46 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.basic-arithmetic.other
+T 47 source.asm.x86_64
+T 51 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.comparison
+T 52 source.asm.x86_64
+T 57 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.transcendental
+T 58 source.asm.x86_64
+T 62 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.load-constants
+L     fclex fxrstor movd packssdw paddb pcmpeqb pand pslld emms movaps
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.control-management
+T 10 source.asm.x86_64
+T 17 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.state-management
+T 18 source.asm.x86_64
+T 22 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.data-transfer
+T 23 source.asm.x86_64
+T 31 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.conversion
+T 32 source.asm.x86_64
+T 37 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.packed-arithmetic
+T 38 source.asm.x86_64
+T 45 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.comparison
+T 46 source.asm.x86_64
+T 50 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.logical
+T 51 source.asm.x86_64
+T 56 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.shift-and-rotate
+T 57 source.asm.x86_64
+T 61 source.asm.x86_64 keyword.operator.word.mnemonic.mmx.state-management
+T 62 source.asm.x86_64
+T 68 source.asm.x86_64 keyword.operator.word.mnemonic.sse.data-transfer
+L     addps cmpps andnps shufps cvtpi2ps ldmxcsr pavgb maskmovq prefetchnta movapd
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.sse.packed-arithmetic
+T 10 source.asm.x86_64
+T 15 source.asm.x86_64 keyword.operator.word.mnemonic.sse.comparison
+T 16 source.asm.x86_64
+T 22 source.asm.x86_64 keyword.operator.word.mnemonic.sse.logical
+T 23 source.asm.x86_64
+T 29 source.asm.x86_64 keyword.operator.word.mnemonic.sse.shuffle-and-unpack
+T 30 source.asm.x86_64
+T 38 source.asm.x86_64 keyword.operator.word.mnemonic.sse.conversion
+T 39 source.asm.x86_64
+T 46 source.asm.x86_64 keyword.operator.word.mnemonic.sse.state-management
+T 47 source.asm.x86_64
+T 52 source.asm.x86_64 keyword.operator.word.mnemonic.sse.simd-integer
+T 53 source.asm.x86_64
+T 61 source.asm.x86_64 keyword.operator.word.mnemonic.sse.cacheability-control
+T 62 source.asm.x86_64
+T 73 source.asm.x86_64 keyword.operator.word.mnemonic.sse.prefetch
+T 74 source.asm.x86_64
+T 80 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.data-transfer
+L     addpd andnpd cmppd shufpd cvtdq2pd cvtdq2ps movdq2q paddq lfence addsubpd
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.packed-arithmetic
+T 10 source.asm.x86_64
+T 16 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.logical
+T 17 source.asm.x86_64
+T 22 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.compare
+T 23 source.asm.x86_64
+T 29 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.shuffle-and-unpack
+T 30 source.asm.x86_64
+T 38 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.conversion
+T 39 source.asm.x86_64
+T 47 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.packed-floating-point
+T 48 source.asm.x86_64
+T 55 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.simd-integer.mov
+T 56 source.asm.x86_64
+T 61 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.simd-integer.other
+T 62 source.asm.x86_64
+T 68 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.cacheability-control
+T 69 source.asm.x86_64
+T 77 source.asm.x86_64 keyword.operator.word.mnemonic.sse3
+L     phaddd pabsb dppd movntdqa blendpd pmaxsb roundpd extractps pmovsxbd mpsadbw
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.sse3.supplimental.horizontal-packed-arithmetic
+T 11 source.asm.x86_64
+T 16 source.asm.x86_64 keyword.operator.word.mnemonic.sse3.supplimental.other
+T 17 source.asm.x86_64
+T 21 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.arithmetic
+T 22 source.asm.x86_64
+T 30 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.load-hint
+T 31 source.asm.x86_64
+T 38 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.packed-blending
+T 39 source.asm.x86_64
+T 45 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.packed-integer
+T 46 source.asm.x86_64
+T 53 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.packed-floating-point
+T 54 source.asm.x86_64
+T 63 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.insertion-and-extraction
+T 64 source.asm.x86_64
+T 72 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.conversion
+T 73 source.asm.x86_64
+T 80 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.1.other
+L     pcmpestri aesdec vbroadcastf128 vaesdec vcmppd vcvtdq2pd vhaddpd vandnpd vmovapd vaddpd
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.sse4.2
+T 14 source.asm.x86_64
+T 20 source.asm.x86_64 keyword.operator.word.mnemonic.aesni
+T 21 source.asm.x86_64
+T 35 source.asm.x86_64 keyword.operator.word.mnemonic.avx
+T 36 source.asm.x86_64
+T 43 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.aes
+T 44 source.asm.x86_64
+T 50 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.comparison
+T 51 source.asm.x86_64
+T 60 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.conversion
+T 61 source.asm.x86_64
+T 68 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.horizontal-packed-arithmetic
+T 69 source.asm.x86_64
+T 76 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.logical
+T 77 source.asm.x86_64
+T 84 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.mov
+T 85 source.asm.x86_64
+T 91 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-arithmetic
+L     vpackssdw vpshufb vpabsb vpand vpblendvb vpmovmskb vpinsrb vpsrad vblendpd vpalignr
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-conversion
+T 14 source.asm.x86_64
+T 21 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-shuffle
+T 22 source.asm.x86_64
+T 28 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 29 source.asm.x86_64
+T 34 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.logical
+T 35 source.asm.x86_64
+T 44 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.blending
+T 45 source.asm.x86_64
+T 54 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.mov
+T 55 source.asm.x86_64
+T 62 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer
+T 63 source.asm.x86_64
+T 69 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.shift-and-rotate
+T 70 source.asm.x86_64
+T 78 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-blending
+T 79 source.asm.x86_64
+T 87 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-other
+L     vmovd vextractps vmaskmovdqu vcvtph2ps vfmadd132pd vbroadcasti128 vpbroadcastb vpblendd vgatherdd xabort
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.simd-integer.mov
+T 10 source.asm.x86_64
+T 20 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.other
+T 21 source.asm.x86_64
+T 32 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.cacheability-control
+T 33 source.asm.x86_64
+T 42 source.asm.x86_64 keyword.operator.word.mnemonic.16-bit-floating-point-conversion
+T 43 source.asm.x86_64
+T 54 source.asm.x86_64 keyword.operator.word.mnemonic.fma
+T 55 source.asm.x86_64
+T 69 source.asm.x86_64 keyword.operator.word.mnemonic.avx2.promoted.simd
+T 70 source.asm.x86_64
+T 82 source.asm.x86_64 keyword.operator.word.mnemonic.avx2.promoted.packed
+T 83 source.asm.x86_64
+T 91 source.asm.x86_64 keyword.operator.word.mnemonic.avx2.blend
+T 92 source.asm.x86_64
+T 101 source.asm.x86_64 keyword.operator.word.mnemonic.avx2.gather
+T 102 source.asm.x86_64
+T 108 source.asm.x86_64 keyword.operator.word.mnemonic.tsx
+L     sha1msg1 valignd vcvtpd2udq vcvtqq2pd vexpandpd vgetexppd vpblendmd vpermi2d vprold vpsravq
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.sha
+T 13 source.asm.x86_64
+T 20 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.align
+T 21 source.asm.x86_64
+T 31 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.cvtt
+T 32 source.asm.x86_64
+T 41 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.cvt
+T 42 source.asm.x86_64
+T 51 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.expand
+T 52 source.asm.x86_64
+T 61 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.getexp
+T 62 source.asm.x86_64
+T 71 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.pblend
+T 72 source.asm.x86_64
+T 80 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.permi
+T 81 source.asm.x86_64
+T 87 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.prol
+T 88 source.asm.x86_64
+T 95 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.sravq
+L     vrcp14pd vscatterdd vcvtpd2qq vextractf64x2 vpmovb2d vdbpsadbw vpblendmb vpermi2b vpmovb2m vpsllvw
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.rcp
+T 13 source.asm.x86_64
+T 23 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.scatter
+T 24 source.asm.x86_64
+T 33 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.dq.cvt
+T 34 source.asm.x86_64
+T 47 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.dq.extract
+T 48 source.asm.x86_64
+T 56 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.dq.pmov
+T 57 source.asm.x86_64
+T 66 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.bw.dbpsad
+T 67 source.asm.x86_64
+T 76 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.bw.pblend
+T 77 source.asm.x86_64
+T 85 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.bw.perpmi2
+T 86 source.asm.x86_64
+T 94 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.bw.pmov
+T 95 source.asm.x86_64
+T 102 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.bw.psll
+L     vpbroadcastmb2q kaddb kunpckbw vexp2pd vgatherpf0dpd vaddph vcvtdq2ph vcvtph2dq vcvtph2psx vcvtsd2sh
+T 4 source.asm.x86_64
+T 19 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.bw.broadcast
+T 20 source.asm.x86_64
+T 25 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.opmask
+T 26 source.asm.x86_64
+T 34 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.opmask.unpack
+T 35 source.asm.x86_64
+T 42 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.er
+T 43 source.asm.x86_64
+T 56 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.pf
+T 57 source.asm.x86_64
+T 63 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.add
+T 64 source.asm.x86_64
+T 73 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.cvtx2ph
+T 74 source.asm.x86_64
+T 83 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.cvtph2x
+T 84 source.asm.x86_64
+T 94 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.cvtx
+T 95 source.asm.x86_64
+T 104 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.cvtx2sh
+L     vcvtsh2sd vcvttph2dq vfmadd132ph vfmaddsub132ph vmaxph arpl hlt xgetbv cdqe invept
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.cvtsh2x
+T 14 source.asm.x86_64
+T 24 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.cvttph2x
+T 25 source.asm.x86_64
+T 36 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.fmadd
+T 37 source.asm.x86_64
+T 51 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.fmaddsub
+T 52 source.asm.x86_64
+T 58 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.fp16.max
+T 59 source.asm.x86_64
+T 63 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 64 source.asm.x86_64
+T 67 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 68 source.asm.x86_64
+T 74 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 75 source.asm.x86_64
+T 79 source.asm.x86_64 keyword.operator.word.mnemonic.64-bit-mode
+T 80 source.asm.x86_64
+T 86 source.asm.x86_64 keyword.operator.word.mnemonic.vmx
+L     getsec capabilities bndcl encls eadd eenter eaug eaccept clrssbsy endbranch
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.smx.getsec
+T 11 source.asm.x86_64
+T 23 source.asm.x86_64 support.constant.smx
+T 24 source.asm.x86_64
+T 29 source.asm.x86_64 keyword.operator.word.mnemonic.mpx
+T 30 source.asm.x86_64
+T 35 source.asm.x86_64 keyword.operator.word.mnemonic.sgx
+T 36 source.asm.x86_64
+T 40 source.asm.x86_64 support.constant.sgx1.supervisor
+T 41 source.asm.x86_64
+T 47 source.asm.x86_64 support.constant.sgx1.user
+T 48 source.asm.x86_64
+T 52 source.asm.x86_64 support.constant.sgx2.supervisor
+T 53 source.asm.x86_64
+T 60 source.asm.x86_64 support.constant.sgx2.user
+T 61 source.asm.x86_64
+T 69 source.asm.x86_64 keyword.operator.word.mnemonic.cet
+T 70 source.asm.x86_64
+T 79 source.asm.x86_64 keyword.operator.word.mnemonic.cet.misc
+L     ldtilecfg clui enqcmd ibhf cvtpd1pi gf2p8affineinvqb hreset incsspd movdir64b pabsq
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.amx
+T 14 source.asm.x86_64
+T 18 source.asm.x86_64 keyword.operator.word.mnemonic.uirq
+T 19 source.asm.x86_64
+T 25 source.asm.x86_64 keyword.operator.word.mnemonic.esi
+T 26 source.asm.x86_64
+T 30 source.asm.x86_64 keyword.operator.word.mnemonic.speculation
+T 31 source.asm.x86_64
+T 39 source.asm.x86_64 keyword.operator.word.mnemonic.other.c
+T 40 source.asm.x86_64
+T 56 source.asm.x86_64 keyword.operator.word.mnemonic.other.g
+T 57 source.asm.x86_64
+T 63 source.asm.x86_64 keyword.operator.word.mnemonic.other.h
+T 64 source.asm.x86_64
+T 71 source.asm.x86_64 keyword.operator.word.mnemonic.other.i
+T 72 source.asm.x86_64
+T 81 source.asm.x86_64 keyword.operator.word.mnemonic.other.m
+T 82 source.asm.x86_64
+T 87 source.asm.x86_64 keyword.operator.word.mnemonic.other.p
+L     rdpid serialize tpause umonitor vbroadcastf32x2 vcompressw vdpbf16ps vextractf32x8 vinsertf32x8 vmaskmov
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.other.r
+T 10 source.asm.x86_64
+T 19 source.asm.x86_64 keyword.operator.word.mnemonic.other.s
+T 20 source.asm.x86_64
+T 26 source.asm.x86_64 keyword.operator.word.mnemonic.other.t
+T 27 source.asm.x86_64
+T 35 source.asm.x86_64 keyword.operator.word.mnemonic.other.u
+T 36 source.asm.x86_64
+T 51 source.asm.x86_64 keyword.operator.word.mnemonic.other.vb
+T 52 source.asm.x86_64
+T 62 source.asm.x86_64 keyword.operator.word.mnemonic.other.vc
+T 63 source.asm.x86_64
+T 72 source.asm.x86_64 keyword.operator.word.mnemonic.other.vd
+T 73 source.asm.x86_64
+T 86 source.asm.x86_64 keyword.operator.word.mnemonic.other.ve
+T 87 source.asm.x86_64
+T 99 source.asm.x86_64 keyword.operator.word.mnemonic.other.vi
+T 100 source.asm.x86_64
+T 108 source.asm.x86_64 keyword.operator.word.mnemonic.other.vm
+L     vp2intersectd vpbroadcasti32x4 vpcompressb vpdpbusd vpermb vpmadd52huq vpopcntb vprorvd vpshldd vpternlogd
+T 4 source.asm.x86_64
+T 17 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpa
+T 18 source.asm.x86_64
+T 34 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpb
+T 35 source.asm.x86_64
+T 46 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpc
+T 47 source.asm.x86_64
+T 55 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpd
+T 56 source.asm.x86_64
+T 62 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpe
+T 63 source.asm.x86_64
+T 74 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpm
+T 75 source.asm.x86_64
+T 83 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpo
+T 84 source.asm.x86_64
+T 91 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpr
+T 92 source.asm.x86_64
+T 99 source.asm.x86_64 keyword.operator.word.mnemonic.other.vps
+T 100 source.asm.x86_64
+T 110 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpt
+L     vpxord vscalefpd wbnoinvd v4fmaddps aesdec128kl blcfill clgi llwpcb movntsd clzero
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpx
+T 11 source.asm.x86_64
+T 20 source.asm.x86_64 keyword.operator.word.mnemonic.other.vs
+T 21 source.asm.x86_64
+T 29 source.asm.x86_64 keyword.operator.word.mnemonic.other.w
+T 30 source.asm.x86_64
+T 39 source.asm.x86_64 keyword.operator.word.mnemonic.xeon-phi
+T 40 source.asm.x86_64
+T 51 source.asm.x86_64 keyword.operator.word.mnemonic.keylocker
+T 52 source.asm.x86_64
+T 59 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.general-purpose
+T 60 source.asm.x86_64
+T 64 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.system
+T 65 source.asm.x86_64
+T 71 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.profiling
+T 72 source.asm.x86_64
+T 79 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.memory-management
+T 80 source.asm.x86_64
+T 86 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.cache-management
+L     extrq vfmaddpd vpcmov vphaddbd vfrczpd femms pavgusb pfcmpeq paddsiw montmul
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.sse4.a
+T 10 source.asm.x86_64
+T 18 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.fma4
+T 19 source.asm.x86_64
+T 25 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.xop.simd
+T 26 source.asm.x86_64
+T 34 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.xop.simd-horizontal
+T 35 source.asm.x86_64
+T 42 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.xop.other
+T 43 source.asm.x86_64
+T 48 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.3dnow
+T 49 source.asm.x86_64
+T 56 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.3dnow.simd
+T 57 source.asm.x86_64
+T 64 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.amd.3dnow.comparison
+T 65 source.asm.x86_64
+T 72 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.cyrix
+T 73 source.asm.x86_64
+T 80 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.via
+L     xcryptcbc icebp ccmpb cfcmovb cmpbexadd jmpabs cmpeqpd pclmulhqhdq vcmpeq_ospd vpcmpeq
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.supplemental.via.padlock
+T 14 source.asm.x86_64
+T 19 source.asm.x86_64 keyword.operator.word.mnemonic.undocumented
+T 20 source.asm.x86_64
+T 25 source.asm.x86_64 keyword.operator.word.mnemonic.apx.ccmp_test
+T 26 source.asm.x86_64
+T 33 source.asm.x86_64 keyword.operator.word.mnemonic.apx.cfcmov
+T 34 source.asm.x86_64
+T 43 source.asm.x86_64 keyword.operator.word.mnemonic.apx.cmpxadd
+T 44 source.asm.x86_64
+T 50 source.asm.x86_64 keyword.operator.word.mnemonic.apx.other
+T 51 source.asm.x86_64
+T 58 source.asm.x86_64 keyword.operator.word.pseudo-mnemonic.sse2.compare
+T 59 source.asm.x86_64
+T 70 source.asm.x86_64 keyword.operator.word.pseudo-mnemonic.avx.promoted.aes
+T 71 source.asm.x86_64
+T 82 source.asm.x86_64 keyword.operator.word.pseudo-mnemonic.avx.promoted.comparison
+T 83 source.asm.x86_64
+T 90 source.asm.x86_64 keyword.operator.word.pseudo-mnemonic.avx512.compare
+L     vpcomeqb
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 keyword.operator.word.pseudo-mnemonic.supplemental.amd.xop.simd
+L 
+L ..@local: nop
+T 3 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 8 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.special.asm.x86_64
+T 9 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.misc
+L ..@back
+T 3 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 7 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.special.asm.x86_64
+L .1:
+T 1 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 2 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 3 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L .12ab
+T 1 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 5 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+L 1bad:
+T 4 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64
+T 5 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L .$odd:
+T 1 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 5 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64
+T 6 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L .@odd:
+T 1 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64 storage.modifier.asm.x86_64
+T 5 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64
+T 6 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L @weird:
+T 6 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64
+T 7 source.asm.x86_64 invalid.illegal.entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+L x.y: ret
+T 3 source.asm.x86_64 entity.name.function.asm.x86_64 entity.name.function.asm.x86_64
+T 4 source.asm.x86_64 entity.name.function.asm.x86_64 punctuation.separator.asm.x86_64
+T 5 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.other
+L $sym
+T 4 source.asm.x86_64 text.variable
+L     mov rax, $1_ff
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 13 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+L 
+L     vaddps zmm0{k1}{z}, zmm1, zmm2
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-arithmetic
+T 11 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 16 source.asm.x86_64
+T 18 source.asm.x86_64 storage.modifier.opmask.asm.x86_64
+T 19 source.asm.x86_64
+T 20 source.asm.x86_64
+T 21 source.asm.x86_64 storage.modifier.rounding.asm.x86_64
+T 22 source.asm.x86_64
+T 24 source.asm.x86_64
+T 28 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 30 source.asm.x86_64
+T 34 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+L     vpxord zmm3, zmm4, [rax]{1to16}
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.other.vpx
+T 11 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 17 source.asm.x86_64
+T 21 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 24 source.asm.x86_64
+T 27 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 28 source.asm.x86_64
+T 29 source.asm.x86_64
+T 34 source.asm.x86_64 storage.modifier.precision.asm.x86_64
+T 35 source.asm.x86_64
+L     {vex3} vpaddd ymm0, ymm1, ymm2
+T 4 source.asm.x86_64
+T 5 source.asm.x86_64
+T 9 source.asm.x86_64 storage.modifier.prefix.vex.asm.x86_64
+T 10 source.asm.x86_64
+T 11 source.asm.x86_64
+T 17 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.supplemental.arithmetic
+T 18 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 24 source.asm.x86_64
+T 28 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+T 30 source.asm.x86_64
+T 34 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     {evex} vmovdqu32 zmm0, [rdi]
+T 4 source.asm.x86_64
+T 5 source.asm.x86_64
+T 9 source.asm.x86_64 storage.modifier.prefix.vex.asm.x86_64
+T 10 source.asm.x86_64
+T 11 source.asm.x86_64
+T 20 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.getexp
+T 21 source.asm.x86_64
+T 25 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 28 source.asm.x86_64
+T 31 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 32 source.asm.x86_64
+L     {rex} add eax, 1
+T 4 source.asm.x86_64
+T 5 source.asm.x86_64
+T 8 source.asm.x86_64 storage.modifier.prefix.vex.asm.x86_64
+T 9 source.asm.x86_64
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.binary-arithmetic
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 19 source.asm.x86_64
+T 20 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     vaddps zmm0, zmm1, zmm2, {rn-sae}
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-arithmetic
+T 11 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 17 source.asm.x86_64
+T 21 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 23 source.asm.x86_64
+T 27 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 29 source.asm.x86_64
+T 30 source.asm.x86_64
+T 36 source.asm.x86_64 storage.modifier.rounding.asm.x86_64
+T 37 source.asm.x86_64
+L     vaddps zmm0, zmm1, zmm2, {sae}
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.avx.promoted.packed-arithmetic
+T 11 source.asm.x86_64
+T 15 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 17 source.asm.x86_64
+T 21 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 23 source.asm.x86_64
+T 27 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 29 source.asm.x86_64
+T 30 source.asm.x86_64
+T 33 source.asm.x86_64 storage.modifier.rounding.asm.x86_64
+T 34 source.asm.x86_64
+L     rep movsb
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.strings
+T 8 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.strings
+L     lock cmpxchg [rdi], ecx
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 9 source.asm.x86_64
+T 16 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.xchg
+T 18 source.asm.x86_64
+T 21 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 24 source.asm.x86_64
+T 27 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     xacquire lock add dword [rax], 1
+T 4 source.asm.x86_64
+T 12 source.asm.x86_64 storage.modifier.prefix.asm.x86_64
+T 13 source.asm.x86_64
+T 17 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 18 source.asm.x86_64
+T 21 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.binary-arithmetic
+T 22 source.asm.x86_64
+T 27 source.asm.x86_64 storage.type.asm.x86_64
+T 29 source.asm.x86_64
+T 32 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 35 source.asm.x86_64
+T 36 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     nobnd jmp rax
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 storage.modifier.prefix.asm.x86_64
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.control-transfer.jmp
+T 14 source.asm.x86_64
+T 17 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     fld st0
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.fpu.data-transfer.other
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.mmx.asm.x86_64
+L     mov cr0, eax
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.control.asm.x86_64
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov dr7, eax
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.debug.asm.x86_64
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov cr8, rax
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.amd.asm.x86_64
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     mov tr6, eax
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 invalid.deprecated.constant.language.register.asm.x86_64
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+L     lgdt [gdtr]
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 keyword.operator.word.mnemonic.system
+T 10 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.system-table-pointer.asm.x86_64
+T 15 source.asm.x86_64
+L     bndmk bnd0, [rax]
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 keyword.operator.word.mnemonic.mpx
+T 10 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.memory-protection.asm.x86_64
+T 17 source.asm.x86_64
+T 20 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+L     movdqa xmm16, xmm0
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.sse2.simd-integer.mov
+T 11 source.asm.x86_64
+T 16 source.asm.x86_64 constant.language.register.general-purpose.alias.asm.x86_64
+T 18 source.asm.x86_64
+T 22 source.asm.x86_64 constant.language.register.sse_avx.asm.x86_64
+L     vmovdqu64 zmm31, [rsi]
+T 4 source.asm.x86_64
+T 13 source.asm.x86_64 keyword.operator.word.mnemonic.avx512.f.getexp
+T 14 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.avx512.asm.x86_64
+T 22 source.asm.x86_64
+T 25 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 26 source.asm.x86_64
+L     mov ax, ds
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 10 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 12 source.asm.x86_64
+T 14 source.asm.x86_64 constant.language.register.segment.asm.x86_64
+L     pushfq
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.flag-control
+L     mov eip, 1
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 keyword.operator.word.mnemonic.general-purpose.data-transfer.mov
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 constant.language.register.instruction-pointer.asm.x86_64
+T 13 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L 
+L     db 0x1F, 1Fh, 0h1F, $1F, $0
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 11 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 18 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 24 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+T 29 source.asm.x86_64
+T 31 source.asm.x86_64 constant.numeric.hex.asm.x86_64
+L     dw 101b, 0b101, 0y1_0, 1y
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 11 source.asm.x86_64 constant.numeric.binary.asm.x86_64
+T 13 source.asm.x86_64
+T 18 source.asm.x86_64 constant.numeric.binary.asm.x86_64
+T 20 source.asm.x86_64
+T 25 source.asm.x86_64 constant.numeric.binary.asm.x86_64
+T 27 source.asm.x86_64
+T 29 source.asm.x86_64 constant.numeric.binary.asm.x86_64
+L     dd 17o, 0o17, 0q17, 17q
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.numeric.octal.asm.x86_64
+T 12 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.octal.asm.x86_64
+T 18 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.octal.asm.x86_64
+T 24 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.octal.asm.x86_64
+L     dq 123, 0d123, 123d, 0t9, 9t
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 12 source.asm.x86_64
+T 17 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 19 source.asm.x86_64
+T 23 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 25 source.asm.x86_64
+T 28 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 30 source.asm.x86_64
+T 32 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     dt 1.5, 1., 1.5e3, 1e10, 0d1.5, 1_000.5e-3
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 constant.numeric.decimal.floating-point.asm.x86_64
+T 12 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.decimal.floating-point.asm.x86_64
+T 16 source.asm.x86_64
+T 21 source.asm.x86_64 constant.numeric.decimal.floating-point.asm.x86_64
+T 23 source.asm.x86_64
+T 27 source.asm.x86_64 constant.numeric.decimal.floating-point.asm.x86_64
+T 29 source.asm.x86_64
+T 34 source.asm.x86_64 constant.numeric.decimal.floating-point.asm.x86_64
+T 36 source.asm.x86_64
+T 46 source.asm.x86_64 constant.numeric.decimal.floating-point.asm.x86_64
+L     dd 0x1.8p3, 0b1.1p2, 0o1.7p1, $1.8p3, 0x1p3, 0b1p2, 0o7p1, $1_fp3
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 14 source.asm.x86_64 constant.numeric.hex.floating-point.asm.x86_64
+T 16 source.asm.x86_64
+T 23 source.asm.x86_64 constant.numeric.binary.floating-point.asm.x86_64
+T 25 source.asm.x86_64
+T 32 source.asm.x86_64 constant.numeric.octal.floating-point.asm.x86_64
+T 34 source.asm.x86_64
+T 40 source.asm.x86_64 constant.numeric.hex.floating-point.asm.x86_64
+T 42 source.asm.x86_64
+T 47 source.asm.x86_64 constant.numeric.hex.floating-point.asm.x86_64
+T 49 source.asm.x86_64
+T 54 source.asm.x86_64 constant.numeric.binary.floating-point.asm.x86_64
+T 56 source.asm.x86_64
+T 61 source.asm.x86_64 constant.numeric.octal.floating-point.asm.x86_64
+T 63 source.asm.x86_64
+T 69 source.asm.x86_64 constant.numeric.hex.floating-point.asm.x86_64
+L     dt 12p3, 12p, 1_2p
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 11 source.asm.x86_64 constant.numeric.decimal.packed-bcd.asm.x86_64
+T 13 source.asm.x86_64
+T 16 source.asm.x86_64 constant.numeric.decimal.packed-bcd.asm.x86_64
+T 18 source.asm.x86_64
+T 22 source.asm.x86_64 constant.numeric.decimal.packed-bcd.asm.x86_64
+L     times 10 db 0
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 support.function.asm.x86_64
+T 10 source.asm.x86_64
+T 12 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+T 13 source.asm.x86_64
+T 15 source.asm.x86_64 storage.type.asm.x86_64
+T 16 source.asm.x86_64
+T 17 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     resb 64
+T 4 source.asm.x86_64
+T 8 source.asm.x86_64 storage.type.asm.x86_64
+T 9 source.asm.x86_64
+T 11 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     incbin "file.bin"
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 support.function.asm.x86_64
+T 21 source.asm.x86_64
+L five equ 5
+T 5 source.asm.x86_64
+T 8 source.asm.x86_64 support.function.asm.x86_64
+T 9 source.asm.x86_64
+T 10 source.asm.x86_64 constant.numeric.decimal.asm.x86_64
+L     strict near far abs rel nosplit
+T 4 source.asm.x86_64
+T 10 source.asm.x86_64 storage.modifier.asm.x86_64
+T 11 source.asm.x86_64
+T 15 source.asm.x86_64 storage.modifier.asm.x86_64
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 storage.modifier.asm.x86_64
+T 20 source.asm.x86_64
+T 23 source.asm.x86_64 storage.modifier.asm.x86_64
+T 24 source.asm.x86_64
+T 27 source.asm.x86_64 storage.modifier.asm.x86_64
+T 28 source.asm.x86_64
+T 35 source.asm.x86_64 storage.modifier.asm.x86_64
+L     a16 o32 a64
+T 4 source.asm.x86_64
+T 7 source.asm.x86_64 storage.modifier.prefix.asm.x86_64
+T 8 source.asm.x86_64
+T 11 source.asm.x86_64 storage.modifier.prefix.asm.x86_64
+T 12 source.asm.x86_64
+T 15 source.asm.x86_64 storage.modifier.prefix.asm.x86_64
+L     sbyte word dword qword tword oword yword zword ddq
+T 4 source.asm.x86_64
+T 9 source.asm.x86_64 storage.type.asm.x86_64
+T 10 source.asm.x86_64
+T 14 source.asm.x86_64 storage.type.asm.x86_64
+T 15 source.asm.x86_64
+T 20 source.asm.x86_64 storage.type.asm.x86_64
+T 21 source.asm.x86_64
+T 26 source.asm.x86_64 storage.type.asm.x86_64
+T 27 source.asm.x86_64
+T 32 source.asm.x86_64 storage.type.asm.x86_64
+T 33 source.asm.x86_64
+T 38 source.asm.x86_64 storage.type.asm.x86_64
+T 39 source.asm.x86_64
+T 44 source.asm.x86_64 storage.type.asm.x86_64
+T 45 source.asm.x86_64
+T 50 source.asm.x86_64 storage.type.asm.x86_64
+T 51 source.asm.x86_64
+T 54 source.asm.x86_64 storage.type.asm.x86_64
+L     dw __?FILE?__, __?LINE?__, __?BITS?__
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 17 source.asm.x86_64 support.function.asm.x86_64
+T 19 source.asm.x86_64
+T 29 source.asm.x86_64 support.function.asm.x86_64
+T 31 source.asm.x86_64
+T 41 source.asm.x86_64 support.function.asm.x86_64
+L     dw __?NASM_MAJOR?__, ___?NASM_PATCHLEVEL?__, __?USE_ALTREG?__
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 23 source.asm.x86_64 support.function.asm.x86_64
+T 25 source.asm.x86_64
+T 47 source.asm.x86_64 support.function.asm.x86_64
+T 49 source.asm.x86_64
+T 65 source.asm.x86_64 support.function.asm.x86_64
+L     dw __?ALIGN_NOPS?__, __?ALIGNMODE?__, __?PASS?__, __?DATE_NUM?__
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 23 source.asm.x86_64 support.function.smartalign.asm.x86_64
+T 25 source.asm.x86_64
+T 40 source.asm.x86_64 support.constant.smartalign.asm.x86_64
+T 42 source.asm.x86_64
+T 52 source.asm.x86_64 invalid.deprecated.support.constant.altreg.asm.x86_64
+T 54 source.asm.x86_64
+T 68 source.asm.x86_64 support.function.asm.x86_64
+L     dw __?utf16le?__, __?float32?__, __?Infinity?__, __?QNaN?__
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 20 source.asm.x86_64 support.function.asm.x86_64
+T 22 source.asm.x86_64
+T 35 source.asm.x86_64 support.function.asm.x86_64
+T 37 source.asm.x86_64
+T 51 source.asm.x86_64 support.function.asm.x86_64
+T 53 source.asm.x86_64
+T 63 source.asm.x86_64 support.function.asm.x86_64
+L     dw __FILE__, __USE_ALTREG__, __ALIGN_X__, __utf16__, __NASM_VER__
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 15 source.asm.x86_64 support.function.asm.x86_64
+T 17 source.asm.x86_64
+T 31 source.asm.x86_64 support.function.asm.x86_64
+T 33 source.asm.x86_64
+T 44 source.asm.x86_64 support.function.smartalign.asm.x86_64
+T 46 source.asm.x86_64
+T 55 source.asm.x86_64 support.function.legacy.asm.x86_64
+T 57 source.asm.x86_64
+T 69 source.asm.x86_64 support.function.asm.x86_64
+L     dw ___NASM_PATCHLEVEL__, __PASS__, __ALIGNMODE__, __UTC_TIME__
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 27 source.asm.x86_64 support.function.asm.x86_64
+T 29 source.asm.x86_64
+T 37 source.asm.x86_64 invalid.deprecated.support.constant.altreg.asm.x86_64
+T 39 source.asm.x86_64
+T 52 source.asm.x86_64 support.constant.smartalign.asm.x86_64
+T 54 source.asm.x86_64
+T 66 source.asm.x86_64 support.function.asm.x86_64
+L     dd Inf, NaN, QNaN, float32, float80m, ilog2e, ilog2cw
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 10 source.asm.x86_64 support.constant.fp.asm.x86_64
+T 12 source.asm.x86_64
+T 15 source.asm.x86_64 support.constant.fp.asm.x86_64
+T 17 source.asm.x86_64
+T 21 source.asm.x86_64 support.constant.fp.asm.x86_64
+T 23 source.asm.x86_64
+T 30 source.asm.x86_64 support.function.fp.asm.x86_64
+T 32 source.asm.x86_64
+T 40 source.asm.x86_64 support.function.fp.asm.x86_64
+T 42 source.asm.x86_64
+T 48 source.asm.x86_64 support.function.ifunc.asm.x86_64
+T 50 source.asm.x86_64
+T 57 source.asm.x86_64 support.function.ifunc.asm.x86_64
+L     dd ..start, ..got, ..gotpcrel, ..plt, ..tlsie, ..imagebase
+T 4 source.asm.x86_64
+T 6 source.asm.x86_64 storage.type.asm.x86_64
+T 7 source.asm.x86_64
+T 14 source.asm.x86_64 support.constant.asm.x86_64
+T 16 source.asm.x86_64
+T 21 source.asm.x86_64 support.constant.asm.x86_64
+T 23 source.asm.x86_64
+T 33 source.asm.x86_64 support.constant.asm.x86_64
+T 35 source.asm.x86_64
+T 40 source.asm.x86_64 support.constant.asm.x86_64
+T 42 source.asm.x86_64
+T 49 source.asm.x86_64 support.constant.asm.x86_64
+T 51 source.asm.x86_64
+T 62 source.asm.x86_64 support.constant.asm.x86_64
+L 
+L     movl %eax, %ebx   # a hash comment
+T 10 source.asm.x86_64
+T 13 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 16 source.asm.x86_64
+T 19 source.asm.x86_64 constant.language.register.general-purpose.asm.x86_64
+T 21 source.asm.x86_64
+T 38 source.asm.x86_64 comment.line
+L # a hash comment at the start
+T 29 source.asm.x86_64 comment.line
+L /* a block
+T 2 source.asm.x86_64 comment.block
+T 10 source.asm.x86_64 comment.block
+L    comment */
+T 11 source.asm.x86_64 comment.block
+T 13 source.asm.x86_64 comment.block
+L #if 0
+T 5 source.asm.x86_64 comment.preprocessor
+L skipped
+T 7 source.asm.x86_64 comment.preprocessor
+L #endif
+T 6 source.asm.x86_64 comment.preprocessor
+L %if 0
+T 5 source.asm.x86_64 comment.preprocessor
+L skipped
+T 7 source.asm.x86_64 comment.preprocessor
+L   %endif
+T 8 source.asm.x86_64 comment.preprocessor
+L #error stop here \
+T 1 source.asm.x86_64 meta.preprocessor.diagnostic.c
+T 6 source.asm.x86_64 meta.preprocessor.diagnostic.c keyword.control.import.error.c
+T 17 source.asm.x86_64 meta.preprocessor.diagnostic.c
+T 18 source.asm.x86_64 meta.preprocessor.diagnostic.c punctuation.separator.continuation.c
+L %warning careful
+T 1 source.asm.x86_64 meta.preprocessor.diagnostic.c
+T 8 source.asm.x86_64 meta.preprocessor.diagnostic.c keyword.control.import.error.c
+T 16 source.asm.x86_64 meta.preprocessor.diagnostic.c
+L #include "a.inc"
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.double.include.c punctuation.definition.string.end.c
+L %include <x.inc> // c
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include string.quoted.other.lt-gt.include.c punctuation.definition.string.begin.c
+T 15 source.asm.x86_64 meta.preprocessor.c.include string.quoted.other.lt-gt.include.c
+T 16 source.asm.x86_64 meta.preprocessor.c.include string.quoted.other.lt-gt.include.c punctuation.definition.string.end.c
+T 17 source.asm.x86_64 meta.preprocessor.c.include
+T 21 source.asm.x86_64
+L #include \
+T 1 source.asm.x86_64 meta.preprocessor.c.include
+T 8 source.asm.x86_64 meta.preprocessor.c.include keyword.control.import.include.c
+T 9 source.asm.x86_64 meta.preprocessor.c.include
+T 10 source.asm.x86_64 meta.preprocessor.c.include punctuation.separator.continuation.c
+L %define X 1
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 11 source.asm.x86_64 meta.preprocessor.c
+L %define F(x) %strlen(x) \
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 13 source.asm.x86_64 meta.preprocessor.c
+T 14 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 20 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 21 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 22 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 23 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 24 source.asm.x86_64 meta.preprocessor.c
+T 25 source.asm.x86_64 meta.preprocessor.c punctuation.separator.continuation.c
+L %xdefine Y %eval(1 + %count(a, b))
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 8 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 11 source.asm.x86_64 meta.preprocessor.c
+T 12 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 16 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 17 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 21 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 22 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 27 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 28 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 32 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 33 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 34 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+L %macro m 1
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 6 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 10 source.asm.x86_64 meta.preprocessor.c
+L %endmacro
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 9 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+L %ifdef X
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 6 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 8 source.asm.x86_64 meta.preprocessor.c
+L %elifdef Y
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 8 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 10 source.asm.x86_64 meta.preprocessor.c
+L %else
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 5 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+L %endif
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 6 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+L %pragma x
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 9 source.asm.x86_64 meta.preprocessor.c
+L %line 1
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 5 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 7 source.asm.x86_64 meta.preprocessor.c
+L %assign i i+1 \
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 7 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 14 source.asm.x86_64 meta.preprocessor.nasm
+T 15 source.asm.x86_64 meta.preprocessor.nasm punctuation.separator.continuation.c
+L %rep 4
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 4 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 6 source.asm.x86_64 meta.preprocessor.nasm
+L %endrep
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 7 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+L %push ctx
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 5 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 9 source.asm.x86_64 meta.preprocessor.nasm
+L %pop
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 4 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+L %undef X
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 6 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 8 source.asm.x86_64 meta.preprocessor.nasm
+L %defstr s x
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 7 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 11 source.asm.x86_64 meta.preprocessor.nasm
+L %deftok t x
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 7 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 11 source.asm.x86_64 meta.preprocessor.nasm
+L %use altreg
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 4 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 11 source.asm.x86_64 meta.preprocessor.nasm
+L %ifusing x
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 8 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 10 source.asm.x86_64 meta.preprocessor.nasm
+L %strlen n "abc"
+T 1 source.asm.x86_64 meta.preprocessor.nasm
+T 7 source.asm.x86_64 meta.preprocessor.nasm keyword.control
+T 15 source.asm.x86_64 meta.preprocessor.nasm
+L %define G %abs(%sel(1, a, b)) %tok("x") %cond(1, a) %isdef(x) %num(1)
+T 1 source.asm.x86_64 meta.preprocessor.c
+T 7 source.asm.x86_64 meta.preprocessor.c keyword.control.import.c
+T 10 source.asm.x86_64 meta.preprocessor.c
+T 11 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 14 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 15 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 16 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 19 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 20 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 27 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 28 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 meta.preprocessor.function.asm.x86_64
+T 29 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 30 source.asm.x86_64 meta.preprocessor.c
+T 31 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 34 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 35 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 38 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 39 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 40 source.asm.x86_64 meta.preprocessor.c
+T 41 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 45 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 46 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 50 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 51 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 52 source.asm.x86_64 meta.preprocessor.c
+T 53 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 58 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 59 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 60 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 61 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 62 source.asm.x86_64 meta.preprocessor.c
+T 63 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 66 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64 support.function.preprocessor.asm.x86_64
+T 67 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 68 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+T 69 source.asm.x86_64 meta.preprocessor.c meta.preprocessor.function.asm.x86_64
+L 

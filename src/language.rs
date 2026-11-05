@@ -1022,14 +1022,24 @@ languages! {
     ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Vue's style block.
     ///   The rest of the block is plain text up to `</style>`.
     Vue { feature: "lang-vue", names: ["vue"], module: vue }
-    /// x86 and x86-64 assembly, with the scopes of Shiki's `asm` grammar,
-    /// which nishiki's `TextMate` engine runs.
+    /// x86 and x86-64 assembly, with the scopes of Shiki's `asm` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A register or a mnemonic is a whole word that one of the grammar's lists holds, without regard to case; the registers' lists come first, then the mnemonics' in the grammar's order.
+    /// - `ſ` and the Kelvin sign match the letters they fold to.
+    ///   `ß` and the Latin ligatures do only where the grammar's pattern spells those letters in one piece: `ﬁld` is no mnemonic, since `f(i?(ld|…))` splits `fi`, but `fiﬆp` is.
+    /// - A label needs no word boundary before it, so `x.y:` makes `.y` a label inside a word.
+    /// - `.text`, `.data`, `.rodata` and `.bss` need no word boundary after them, so `.textual` starts with `.text`.
+    /// - A `#` comment starts at the blank before its `#`, which takes the comment's scope.
+    /// - A `\` that ends a preprocessor line takes the continuation scope, but the directive still ends with the line.
+    /// - A quote starts no string: the grammar's string rules list only patterns it never defines, and vscode-textmate drops such a rule.
+    /// - `\w`, `\s` and `[[:alpha:]]` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     Asm {
         feature: "lang-asm",
         names: ["asm"],
-        engine: crate::asm::grammar::GRAMMAR,
+        module: asm,
         reads_line_feed: true,
-        halts: true,
     }
     /// Visual Basic .NET, with the scopes of Shiki's `vb` grammar.
     ///

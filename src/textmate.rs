@@ -26,6 +26,10 @@ use crate::limits::{Finished, Steps};
 /// Never inlined, as `lex_handing` is not. With the engine's scratch boxed,
 /// this function was inlined into `Highlighter::line` and `line_until` was
 /// not inlined into it. Batch then rose 0.2% at one codegen unit.
+#[expect(
+    dead_code,
+    reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+)]
 #[inline(never)]
 pub(crate) fn lex(
     cx: &mut Context<'_>,
@@ -53,6 +57,10 @@ pub(crate) fn lex(
 /// and returns what the engine spent beside the state, so the embedding
 /// lexer counts it against the line's one budget: the engine starts from
 /// the work its limits lend, and spends it in steps of the work limit.
+#[expect(
+    dead_code,
+    reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+)]
 pub(crate) fn lex_embedded(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,
@@ -70,6 +78,13 @@ pub(crate) fn lex_embedded(
 /// none of the root's patterns match there; the second value is where. The
 /// state at a halt is the root's, and without one the state resumes on the
 /// next line.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+    )
+)]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,

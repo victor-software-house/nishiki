@@ -13,6 +13,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
+| Assembly | `asm` | 298 of 305 | 97.7% | 25 of 36 | 69.4% | 18 | 0 | yes |
 | Batch | `bat` | 79 of 79 | 100.0% | 53 of 54 | 98.1% | 1 | 0 | yes |
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
@@ -85,6 +86,23 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 Each line is an expression's path in its grammar, then the start of its regex, `fuzz` when the fuzz corpus exercises it, and the reason when a waiver covers it.
 An expression the fixtures do exercise is listed with the groups they do not, each marked `fuzz` and the waiver's reason likewise.
 The groups of an unexercised expression count as unexercised and are not listed.
+
+### `asm`
+
+```text
+#mnemonics-sgx.patterns[2].match  (?i)\be(add|block|create|dbg(rd|wr)|extend|init|ld[bu]|pa|r…  waived: every word it lists, such as `eadd`, an earlier mnemonic list holds too, and the first list that holds a word wins
+#preprocessor.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor.patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor.patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-functions.patterns[0].end  groups 3 (waived: the grammar names the group, but the expression has one group)
+#strings.patterns[0].begin  "  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+#strings.patterns[0].end  "  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+#strings.patterns[1].begin  '  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+#strings.patterns[1].end  '  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+#strings.patterns[2].begin  `  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+#strings.patterns[2].end  `  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+```
 
 ### `bat`
 
@@ -1312,6 +1330,15 @@ patterns[4].end  groups 2 (waived: the rule's `captures` name the group for its 
 ## Units no root reaches
 
 Neither an input language's grammar nor an injection reaches these, so they are left out of the shares.
+
+### `asm`
+
+```text
+#mnemonics-invalid-amd-sse5.patterns[0].match
+#mnemonics-invalid-amd-sse5.patterns[1].match
+#mnemonics-invalid-amd-sse5.patterns[2].match
+#mnemonics-invalid-amd-sse5.patterns[3].match
+```
 
 ### `c`
 
