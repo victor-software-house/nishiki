@@ -267,7 +267,13 @@ async function write() {
   console.log(`wrote ${all.size} traces`);
 }
 
-/** The file `path` at `commit`, or `undefined` where the clone lacks it. */
+/** Whether the clone holds `commit`. */
+async function holds(commit: string): Promise<boolean> {
+  const object = `${commit}^{commit}`;
+  return (await $`git -C ${root} cat-file -e ${object}`.nothrow().quiet()).exitCode === 0;
+}
+
+/** The file `path` at `commit`, or `undefined` where the commit has no such file. */
 async function shown(commit: string, path: string): Promise<string | undefined> {
   const result = await $`git -C ${root} show ${commit}:${path}`.nothrow().quiet();
   return result.exitCode === 0 ? result.text() : undefined;
@@ -304,8 +310,15 @@ async function check() {
     const { text, problems: found } = replay(parseEdits(rest));
     problems.push(...found.map((problem) => `edits/${file}: ${problem}`));
     if (sha256(encoder.encode(text)) !== fields.get("sha256")) problems.push(`edits/${file}: replaying it does not give its sha256`);
-    const source = await shown(fields.get("to") ?? "", fields.get("source") ?? "");
-    if (source === undefined) unread.push(`edits/${file}`);
+    const to = fields.get("to");
+    const path = fields.get("source");
+    if (to === undefined || path === undefined) continue;
+    if (!(await holds(to))) {
+      unread.push(`edits/${file}`);
+      continue;
+    }
+    const source = await shown(to, path);
+    if (source === undefined) problems.push(`edits/${file}: ${path} does not exist at ${to}`);
     else if (source !== text) problems.push(`edits/${file}: replaying it does not give its source at its \`to\` commit`);
   }
   if (unread.length > 0) {
