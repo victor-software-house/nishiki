@@ -31,7 +31,7 @@ The file it writes says so in its first line; edit the script, never the output.
 
 | Script | Writes |
 |:--|:--|
-| `<language>-grammar.ts` | `src/<language>/scope.rs` and `grammar.rs` for a language on the rule engine. [`rule-grammar.ts`](rule-grammar.ts) holds what they share. |
+| `<language>-grammar.ts` | `src/<language>/scope.rs` and `grammar.rs` for a language on the rule engine. [`rule-grammar.ts`](rule-grammar.ts) holds what they share, and [`rule-grammar.test.ts`](rule-grammar.test.ts) tests its pattern analysis. |
 | `<language>-words.ts` | `src/<language>/words.rs`: the words of a grammar's large alternations. [`alternation.ts`](alternation.ts) expands them. |
 | [`engine-tables.ts`](engine-tables.ts) | The tables of a language on nishiki's TextMate engine. [`licences.ts`](licences.ts) records each grammar's licence, read at its source, and [`hand-lexed.ts`](hand-lexed.ts) the hand-lexed languages a table can hand a region to. |
 | [`classes.ts`](classes.ts) | `src/classes/table.rs`: Oniguruma's character classes. |

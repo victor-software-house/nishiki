@@ -598,17 +598,7 @@ function oneBlankUnit(regex: string, backref: Backref): number {
   const atom = atomLength(regex);
   if (atom > 0) return blankStart(regex.slice(0, atom), backref) ? atom : 0;
   if (regex[0] !== "(" || (regex[1] === "?" && regex[2] !== ":")) return 0;
-  let depth = 0;
-  let inClass = false;
-  let close = -1;
-  for (let i = 0; i < regex.length && close < 0; i++) {
-    const c = regex[i];
-    if (c === "\\") i++;
-    else if (inClass) inClass = c !== "]";
-    else if (c === "[") inClass = true;
-    else if (c === "(") depth++;
-    else if (c === ")" && --depth === 0) close = i;
-  }
+  const close = closingParen(regex);
   if (close < 0) return 0;
   const inner = regex.slice(regex[1] === "?" ? 3 : 1, close);
   let found = false;
@@ -624,18 +614,66 @@ function oneBlankUnit(regex: string, backref: Backref): number {
  * requires a character that is not a blank: one unquantified unit that takes
  * one blank (`oneBlankUnit`), then a rest whose first byte cannot be a space
  * or a tab.
+ * A negative lookbehind before the unit is stepped over when its body has no atom that can match a blank, as in MATLAB's `(?<!\.\.\.).\n`.
+ * At a blank that follows another blank, such a lookbehind always passes.
+ * So it cannot let the pattern fail at the last blank of a run and match at an earlier one.
+ * A body that can match a blank, as in `(?<! )` or `(?<!\s\s)`, could do that, so the alternative does not count.
  * Such a pattern can match at the last blank of a run and nowhere before it.
  * A `BlankRuns::ToLast` grammar tries only these patterns there. */
 export function takesOneBlank(regex: string, backref: Backref = "quote"): boolean {
-  return alternatives(regex.startsWith("(?i)") ? regex.slice(4) : regex).some((alt) => {
+  return alternatives(regex.startsWith("(?i)") ? regex.slice(4) : regex).some((whole) => {
+    const alt = afterLookbehinds(whole, backref);
     const unit = oneBlankUnit(alt, backref);
     if (unit === 0 || /^[*+?{]/.test(alt.slice(unit))) return false;
     const rest = alt.slice(unit);
     if (rest === "") return false;
     const { set, bol, any } = startOf(rest, backref);
     const blank = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
-    return !any && !bol && !blank(0x20) && !blank(0x09) && !blank(0x0a);
+    return !any && !bol && !blank(0x20) && !blank(0x09);
   });
+}
+
+/** `regex` after the negative lookbehinds it starts with whose bodies cannot match a blank (`blankFree`). */
+function afterLookbehinds(regex: string, backref: Backref): string {
+  let rest = regex;
+  while (rest.startsWith("(?<!")) {
+    const close = closingParen(rest);
+    if (close < 0 || !blankFree(rest.slice(4, close), backref)) return rest;
+    rest = rest.slice(close + 1);
+  }
+  return rest;
+}
+
+/** Whether no atom of `regex` can match a space or a tab.
+ * A back-reference counts as one that can. */
+function blankFree(regex: string, backref: Backref): boolean {
+  for (let i = 0; i < regex.length; ) {
+    const rest = regex.slice(i);
+    if (/^\\([1-9]|k)/.test(rest)) return false;
+    const atom = atomLength(rest);
+    if (atom === 0) {
+      i++;
+      continue;
+    }
+    if (blankStart(rest.slice(0, atom), backref)) return false;
+    i += atom;
+  }
+  return true;
+}
+
+/** The index of the `)` that closes the group `regex` starts with; -1 when there is none. */
+function closingParen(regex: string): number {
+  let depth = 0;
+  let inClass = false;
+  for (let i = 0; i < regex.length; i++) {
+    const c = regex[i];
+    if (c === "\\") i++;
+    else if (inClass) inClass = c !== "]";
+    else if (c === "[") inClass = true;
+    else if (c === "(") depth++;
+    else if (c === ")" && --depth === 0) return i;
+  }
+  return -1;
 }
 
 /** `Pat::takes_one_blank`, from [`takesOneBlank`], for a grammar on

@@ -8,7 +8,8 @@ name: Generated tables
 #   (`mise run check:css-words`).
 # - Each rule-engine language's tables: its oracle/<language>-grammar.ts
 #   writes them and formats them with rustfmt
-#   (`mise run check:rule-grammars`).
+#   (`mise run check:rule-grammars`), after the tests in
+#   oracle/rule-grammar.test.ts.
 # Bun fetches Shiki from npm.
 # The checks therefore sit outside the offline verify in ci.yml.
 # The template renders ci.yml.
@@ -27,6 +28,7 @@ on:
       - src/css/words.rs
       - mise-tasks/check/css-words.sh
       - oracle/*-grammar.ts
+      - oracle/rule-grammar.test.ts
       - src/*/grammar.rs
       - src/*/scope.rs
       - src/cpp/types.rs
