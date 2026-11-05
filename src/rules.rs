@@ -896,6 +896,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
                 after
             })
         };
+        let ends = ends_at_line_end::<G>(cx.arena, line, &end, &embedding);
         let lent = steps.lend(cx.limits);
         let mut part_cx = Context {
             scratch: &mut *cx.scratch,
@@ -904,14 +905,25 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             out: &mut *cx.out,
             report: &mut *cx.report,
         };
-        let halted = match G::END_TEXT {
-            EndText::ParentPayload => {
-                let at = (&embedding, scratch);
-                lex_reading_parent_text::<G>(rule, &mut part_cx, part, inner, (&end, after), at)
-            }
-            EndText::Own => {
-                G::lex_embedded_until(rule, language, &mut part_cx, part, inner, (&end, after))
-                    .or_else(|| language.lex_until(&mut part_cx, part, inner, &end, after))
+        let halted = if ends {
+            let at = embedding.at;
+            Some((
+                Finished::unspent(inner),
+                Some(Stopped {
+                    at,
+                    kind: StopKind::Halt,
+                }),
+            ))
+        } else {
+            match G::END_TEXT {
+                EndText::ParentPayload => {
+                    let at = (&embedding, scratch);
+                    lex_reading_parent_text::<G>(rule, &mut part_cx, part, inner, (&end, after), at)
+                }
+                EndText::Own => {
+                    G::lex_embedded_until(rule, language, &mut part_cx, part, inner, (&end, after))
+                        .or_else(|| language.lex_until(&mut part_cx, part, inner, &end, after))
+                }
             }
         };
         let (inner, stop) = match halted {
@@ -956,6 +968,29 @@ fn hand_over<G: Embeds, const HALTING: bool>(
         cx.scratch.rule_starts = buffer;
     }
     (steps.finish(state), halted)
+}
+
+/// Whether the hand-over of `embedding` leaves no text on `line`, and the
+/// rule's end halt holds at the line's end.
+/// The language then lexes nothing, and the rule's end is tried there, as
+/// vscode-textmate tries it after a match that reaches the line's end.
+/// A Ruby line in HAML that ends with `# comment` or a bare `-` ends so.
+#[cfg(feature = "_embedding")]
+fn ends_at_line_end<G: Embeds>(
+    arena: &Arena,
+    line: Line<'_>,
+    end: &G::End,
+    embedding: &Embedding,
+) -> bool {
+    let len = line.text.len();
+    if embedding.at != len {
+        return false;
+    }
+    let parent_text: &[u8] = match G::END_TEXT {
+        EndText::ParentPayload => arena.string(embedding.parent).as_bytes(),
+        EndText::Own => &[],
+    };
+    G::end_holds(end, parent_text, line.text.as_bytes(), len)
 }
 
 /// Lexes `part` in the embedded language up to its halts, for a grammar

@@ -2925,6 +2925,47 @@ mod tests {
         assert!(names.contains(&"after.test"), "{names:?}");
     }
 
+    /// `%%` ends the line, so the hand-over leaves no text for JavaScript.
+    /// [`Rule::Held`]'s end halt holds at the line's end, so the engine
+    /// stops there without asking a language, and tries the grammar's own
+    /// patterns at that place, as vscode-textmate tries a rule's end there.
+    /// No pattern of the rule matches, and the line ends inside it.
+    #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
+    #[test]
+    fn a_hand_over_that_leaves_no_text_stops_where_its_end_holds() {
+        let mut arena = Arena::new(None);
+        let state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let limits = Limits::default();
+        let mut scratch = crate::scratch::Scratch::default();
+        scratch.start_line();
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        let mut cx = crate::language::Context {
+            scratch: &mut scratch,
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+        };
+        let line = crate::language::Line {
+            text: "a %%",
+            start: 0,
+            embedded: false,
+        };
+        ASKED.with(|asked| asked.set(0));
+        let next =
+            crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
+        assert_eq!(ASKED.with(std::cell::Cell::get), 0, "no language was asked");
+        assert_eq!(
+            Named::rule_from_code(arena.frame(next).kind),
+            Rule::Held,
+            "the line ends inside the rule"
+        );
+        assert_eq!(out.last().map(|token| token.end()), Some(4));
+    }
+
     /// `>>` ends the first line and takes its line feed, so no text is left
     /// for Rust there.
     /// The line ends inside the rule, and Rust lexes the second line.
