@@ -2134,7 +2134,8 @@ mod tests {
     /// `<<ab` opens a quote named `quote.ab.q after.test` that the next `ab`
     /// closes.
     /// `>>` opens a rule that embeds Rust from an entry
-    /// ([`Grammar::embed_start`]).
+    /// ([`Grammar::embed_start`]), and takes the line feed when it ends the
+    /// line.
     /// `%%` opens a rule that embeds JavaScript, which halts before it lexes
     /// anything, and then names a `!` only where `\G` holds.
     /// `##` opens a rule that embeds HTML and lists the mark of `!` and `?`
@@ -2494,7 +2495,9 @@ mod tests {
                     Some(end)
                 }
                 Mark::Close => lexer.payload_at(p).map(|width| p + width),
-                Mark::Embed => lexer.starts(p, b">>").then_some(p + 2),
+                Mark::Embed => lexer
+                    .starts(p, b">>")
+                    .then(|| p + 2 + usize::from(p + 2 == lexer.lim())),
                 Mark::Hold => lexer.starts(p, b"%%").then_some(p + 2),
                 Mark::Mix => lexer.starts(p, b"##").then_some(p + 2),
                 Mark::Anchored => (lexer.at_g(p) && lexer.at(p) == b'!').then_some(p + 1),
@@ -2708,7 +2711,11 @@ mod tests {
     /// The groups a run defers stay there until the engine lexes them.
     #[cfg(all(
         feature = "_embedding",
-        any(feature = "lang-javascript", feature = "lang-html")
+        any(
+            feature = "lang-javascript",
+            feature = "lang-html",
+            feature = "lang-rust"
+        )
     ))]
     fn named_buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch<Named> {
         scratch
@@ -2847,6 +2854,44 @@ mod tests {
             .expect("a token ends after the `!`");
         let names: Vec<&str> = arena.scopes(bang.stack().0).collect();
         assert!(names.contains(&"after.test"), "{names:?}");
+    }
+
+    /// `>>` ends the first line and takes its line feed, so no text is left
+    /// for Rust there.
+    /// The line ends inside the rule, and Rust lexes the second line.
+    #[cfg(all(feature = "_embedding", feature = "lang-rust"))]
+    #[test]
+    fn a_rule_that_takes_the_line_feed_starts_its_language_on_the_next_line() {
+        let mut arena = Arena::new(None);
+        let mut state = arena
+            .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)
+            .unwrap_or(ROOT);
+        let limits = Limits::default();
+        let mut scratch = crate::scratch::Scratch::default();
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        for text in [">>", "fn"] {
+            scratch.start_line();
+            out.clear();
+            let mut cx = crate::language::Context {
+                scratch: &mut scratch,
+                arena: &mut arena,
+                limits: &limits,
+                out: &mut out,
+                report: &mut report,
+            };
+            let line = crate::language::Line {
+                text,
+                start: 0,
+                embedded: false,
+            };
+            state =
+                crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
+        }
+        let rule = Named::rule_from_code(arena.frame(state).kind);
+        assert_eq!(Named::rule_code(rule), Named::rule_code(Rule::Inner));
+        let names: Vec<&str> = arena.scopes(out[0].stack().0).collect();
+        assert!(names.iter().any(|name| name.contains(".rust")), "{names:?}");
     }
 
     /// After `##`, HTML lexes `a ` as text and matches nothing at the `!`.

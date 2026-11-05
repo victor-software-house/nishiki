@@ -1290,6 +1290,11 @@ impl Context<'_> {
     /// Runs `lex` on the line's text from its start, for a lexer that counts
     /// token ends from there, then moves the new tokens' ends to count from
     /// the start of the whole line, as [`Language::lex`] promises.
+    /// A start past the text lexes an empty rest, so no caller can make it
+    /// panic.
+    /// That rest comes from [`past_end`], out of line, so the common path
+    /// keeps the shape a slice had: with the rest inline, Rust's lexer ran
+    /// 0.29% more instructions at one codegen unit.
     ///
     /// Each caller passes a closure of its own type.
     /// Each instance then has one caller, so forcing it inline copies nothing.
@@ -1304,7 +1309,10 @@ impl Context<'_> {
         lex: impl FnOnce(&mut Self, &str) -> Finished,
     ) -> Finished {
         let first = self.out.len();
-        let next = lex(self, &line.text[line.start..]);
+        let next = lex(
+            self,
+            line.text.get(line.start..).unwrap_or_else(|| past_end()),
+        );
         if line.start > 0 {
             for token in &mut self.out[first..] {
                 token.end += line.start;
@@ -1312,6 +1320,15 @@ impl Context<'_> {
         }
         next
     }
+}
+
+/// The rest of a line whose start lies past its text: nothing.
+/// Cold and out of line, so [`Context::lex_from_start`] keeps the shape a
+/// slice had.
+#[cold]
+#[inline(never)]
+fn past_end() -> &'static str {
+    ""
 }
 
 #[cfg(test)]

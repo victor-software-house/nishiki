@@ -724,6 +724,10 @@ fn lex_again<G: Embeds>(
 /// after, so `\G` holds as it would in a `TextMate` engine.
 /// At the start of a later line inside the rule, no match has ended on the
 /// line, so `\G` does not hold there.
+///
+/// A rule whose begin took the line feed embeds from past the text.
+/// No text is left on the line, so the line ends there.
+/// The language starts on the next line, from the rule's empty payload.
 #[cfg(feature = "_embedding")]
 #[cold]
 fn hand_over<G: Embeds, const HALTING: bool>(
@@ -738,6 +742,9 @@ fn hand_over<G: Embeds, const HALTING: bool>(
     let mut next = steps.take_back(first);
     let mut starts: Option<(u16, Vec<usize>)> = None;
     let (state, halted) = loop {
+        if embedding.at > line.text.len() {
+            break (next, None);
+        }
         let language = embedding.language;
         let rule = G::rule_from_code(cx.arena.frame(next).kind);
         let inner = match embedding.state {
