@@ -1,6 +1,6 @@
-//! Byte comparisons written as loops, for word tables.
+//! Byte comparisons written as loops, for word tables and a theme's trie.
 //!
-//! A word table compares a few bytes at a time.
+//! A word table or a scope part compares a few bytes at a time.
 //! `Ord` and `==` on byte slices call libc's `memcmp`, which costs more there.
 //! Its count of instructions also follows where the bytes lie.
 //! A change to another language's tables then moved Pascal's and Common
@@ -9,7 +9,6 @@
 use std::cmp::Ordering;
 
 /// Whether `a` and `b` hold the same bytes, as `==` on byte slices says.
-#[cfg(any(feature = "lang-cmake", feature = "lang-html"))]
 pub(crate) fn same(a: &[u8], b: &[u8]) -> bool {
     a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x == y)
 }
@@ -38,7 +37,6 @@ mod tests {
         }
     }
 
-    #[cfg(any(feature = "lang-cmake", feature = "lang-html"))]
     #[test]
     fn it_finds_slices_the_same_as_eq_does() {
         let words: [&[u8]; 7] = [b"", b"a", b"an", b"and", b"ant", b"b", b"be"];
