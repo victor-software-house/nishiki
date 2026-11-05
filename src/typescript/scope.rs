@@ -329,4 +329,5 @@ scopes! {
     PunctuationSectionEmbeddedEnd "punctuation.section.embedded.end.ts" "punctuation.section.embedded.end.js" "punctuation.section.embedded.end.js.jsx" "punctuation.section.embedded.end.tsx"
     PunctuationSeparatorNamespace "punctuation.separator.namespace.ts" "punctuation.separator.namespace.js" "punctuation.separator.namespace.js.jsx" "punctuation.separator.namespace.tsx"
     SupportClassComponent "support.class.component.ts" "support.class.component.js" "support.class.component.js.jsx" "support.class.component.tsx"
+    PunctuationDefinitionVariableSvelte "punctuation.definition.variable.svelte" "punctuation.definition.variable.svelte" "punctuation.definition.variable.svelte" "punctuation.definition.variable.svelte"
 }

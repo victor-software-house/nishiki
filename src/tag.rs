@@ -153,6 +153,9 @@ tags! {
     /// SQL.
     #[cfg(feature = "lang-sql")]
     SQL = 0x0f00,
+    /// Svelte.
+    #[cfg(feature = "lang-svelte")]
+    SVELTE = 0x3c00,
     /// Swift.
     #[cfg(feature = "lang-swift")]
     SWIFT = 0x2b00,

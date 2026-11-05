@@ -7,8 +7,11 @@
 // Compare each `<out dir>/<seed>-<n>.txt` with the lexer the way
 // tests/it/oracle.rs compares a fixture (write a small example that reads the
 // `L`/`T` records, or point a copy of the oracle test at the directory).
+// Shiki loads every input grammar, as generate.ts does.
+// An injection such as Svelte's SCSS body then applies as in the fixtures.
 import { createHighlighter } from "shiki@4.6.0";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { grammars } from "./grammars.ts";
 
 const [lang, seedArg, docsArg, linesArg, out, mode] = process.argv.slice(2);
 const fence = mode === "fence";
@@ -101,6 +104,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "[", "]", "{", "}", "#{", ",", ".", ":", ";", " - ", "+", "*", "/", "=", "~", "^=", "...", "\"", "'", "\"a#{$b}\"", "/*", "*/", "//", "{{", "}}"],
     heads: ["", "", "  ", "    ", "// ", "/* ", "=", "+", "@"],
   },
+  svelte: {
+    words: ["div", "span", "p", "a", "button", "input", "slot", "svelte:head", "svelte:window", "svelte:component", "svelte:fragment", "Foo", "Foo.Bar", "my-element", "class", "id", "href", "value", "on:click", "on:click|preventDefault", "bind:value", "bind:this", "class:active", "style:color", "use:action", "transition:fade", "in:fly", "out:slide", "animate:flip", "let:item", "--color", "generics", "lang", "type", "module", "context", "x", "item", "items", "count", "$count", "$$props", "$$restProps", "$$slots", "$state", "$derived", "$props", "$effect", "1", "1.5", "10px", "100%", "true", "null", "await", "then", "catch", "as", "each", "if", "else", "key", "snippet", "render", "html", "debug", "const", "import", "export", "let", "const x", "function", "return", "=>", "é"],
+    marks: ["<", ">", "</", "/>", "=", "\"", "'", "`", "{", "}", "{ ", "{#if ", "{:else}", "{:else if ", "{/if}", "{#each ", "{/each}", "{#await ", "{:then ", "{:catch ", "{/await}", "{#key ", "{/key}", "{#snippet ", "{/snippet}", "{@html ", "{@render ", "{@debug ", "{@const ", "{@attach ", "(", ")", "[", "]", ",", ":", ";", ".", "...", "|", "!", "?", "+", "-", "*", "/", "&&", "||", "==", "<!--", "-->", "@component", "//", "/*", "*/", "\\n", "${", "#"],
+    heads: ["", "", "  ", "\t", "<script>", "<script lang=\"ts\">", "<script context=\"module\">", "</script>", "<style>", "<style lang=\"scss\">", "<style lang=\"less\">", "</style>", "<template>", "</template>", "<div ", "<!-- ", "<!-- @component ", "{#if ", "{/if}", "{#each ", "{/each}", "{@html "],
+  },
   swift: {
     words: ["func", "init", "class", "struct", "enum", "protocol", "extension", "actor", "typealias", "operator", "infix", "import", "let", "var", "if", "else", "guard", "switch", "case", "default", "for", "in", "while", "return", "throws", "try", "await", "async", "where", "is", "as?", "self", "Self", "nil", "true", "some", "any", "static", "public", "private", "@available", "@objc", "@MainActor", "#if", "#else", "#endif", "#available", "Int", "String", "Array", "Foo", "x", "_", "é", "$0", "print", "1", "0x1F", "1_000", "2e10", "`class`", "\\(x)", "\\.self", "swift(>=5.9)", "os(macOS)"],
     marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", "...", "..<", "?", "!", "??", "?.", ":", ";", "=", "==", "+", "-", "*", "/", "&+", "->", "=>", "@", "#", "\\", "\"", "\"\"\"", "#\"", "\"#", "##\"", "\\(", "/*", "*/", "///", "//", "#/", "/#", "/a+/", "#/a|b/#", "(?i)", "|>"],
@@ -125,10 +133,7 @@ const line = () => {
   return s;
 };
 
-const highlighter = await createHighlighter({
-  langs: fence ? [lang!, "markdown"] : [lang!],
-  themes: ["github-dark"],
-});
+const highlighter = await createHighlighter({ langs: grammars, themes: ["github-dark"] });
 const enc = new TextEncoder();
 mkdirSync(out!, { recursive: true });
 for (let d = 0; d < Number(docsArg); d++) {

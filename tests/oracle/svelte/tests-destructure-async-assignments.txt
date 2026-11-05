@@ -1,0 +1,1452 @@
+L <script>
+T 1 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.script.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L     let a = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let b = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let c = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let d = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let e = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let f = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let g = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let h = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let i = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let j = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let k = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let l = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let m = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let n = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let o = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let p = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let q = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let r = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let s = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let t = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let u = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let v = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let w = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let x = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let y = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L     let z = $state(0);
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 
+L     const get_vwx = () => {
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js entity.name.function.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L         return Promise.resolve({ v: 22, rest: [23, 24] });
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.control.flow.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js support.class.promise.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js constant.numeric.decimal.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js punctuation.separator.comma.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js constant.numeric.decimal.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L     }
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L 
+L     const get_y = () => {
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js entity.name.function.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L         return Promise.resolve([24, 25]);
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.control.flow.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js support.class.promise.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js punctuation.separator.comma.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L     }
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L 
+L     const some = {
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L         fn: () => {}
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js entity.name.function.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js storage.type.function.arrow.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L     }
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+L 
+L     const update = async () => {
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js entity.name.function.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js storage.modifier.async.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L         [a, b] = [1, await Promise.resolve(2)];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js punctuation.separator.comma.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js punctuation.separator.comma.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ c = await Promise.resolve(3), d } = { d: 4 });
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [e] = [await Promise.resolve(2) + await Promise.resolve(3)];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.arithmetic.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 63 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 64 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 65 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 66 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 67 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 68 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ f = false || await Promise.resolve(6) } = {});
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.language.boolean.false.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.logical.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         let func = Promise.resolve(() => 7);
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js support.class.promise.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js constant.numeric.decimal.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [g = (await func)()] = [];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.assignment.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         let mult = (a, b) => (a * b);
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js entity.name.function.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.separator.parameter.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js storage.type.function.arrow.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.arrow.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js variable.other.readwrite.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.arithmetic.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js variable.other.readwrite.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ h } = { h: mult(2, await Promise.resolve(4))});
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js punctuation.separator.comma.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [i] = [new Date(await Promise.resolve(9)).getTime()];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js keyword.operator.new.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.function-call.js entity.name.function.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.brace.round.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js keyword.control.flow.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.function-call.js support.class.promise.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.function-call.js punctuation.accessor.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.function-call.js entity.name.function.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.brace.round.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js constant.numeric.decimal.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.brace.round.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.brace.round.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.function-call.js punctuation.accessor.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.function-call.js entity.name.function.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.brace.round.js
+T 59 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js new.expr.js meta.brace.round.js
+T 60 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 61 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [j = "19" ? 10 : await Promise.resolve(11)] = [];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.assignment.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.quoted.double.js punctuation.definition.string.begin.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.quoted.double.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.quoted.double.js punctuation.definition.string.end.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.ternary.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.ternary.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         let obj = ({ [await Promise.resolve("prop")]: k } = { prop: 11 });
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js entity.name.function.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.brace.square.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js keyword.control.flow.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js string.quoted.double.js punctuation.definition.string.begin.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js string.quoted.double.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js string.quoted.double.js punctuation.definition.string.end.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.brace.round.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js meta.array.literal.js meta.brace.square.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 59 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 60 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 61 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 62 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js
+T 66 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 67 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 68 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 70 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 71 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js meta.object.member.js
+T 72 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.objectliteral.js punctuation.definition.block.js
+T 73 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 74 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [l = obj[await Promise.resolve("prop")] + 1] = [];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.assignment.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.brace.square.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js keyword.control.flow.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.brace.round.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js string.quoted.double.js punctuation.definition.string.begin.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js string.quoted.double.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js string.quoted.double.js punctuation.definition.string.end.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.brace.round.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.array.literal.js meta.brace.square.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.arithmetic.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [m] = [`${1}${await Promise.resolve("3")}`];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js punctuation.definition.string.template.begin.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js constant.numeric.decimal.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js keyword.control.flow.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js meta.function-call.js support.class.promise.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js meta.function-call.js punctuation.accessor.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js meta.function-call.js entity.name.function.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js string.quoted.double.js punctuation.definition.string.begin.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js string.quoted.double.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js string.quoted.double.js punctuation.definition.string.end.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js meta.embedded.line.js meta.brace.round.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js string.template.js punctuation.definition.string.template.end.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [n] = [-(await Promise.resolve(-14))];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.arithmetic.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.arithmetic.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [o] = [(some.fn(), await Promise.resolve(15))];
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js variable.other.object.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js punctuation.separator.comma.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ anotherprop: p = await Promise.resolve(16) } = obj);
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 61 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 62 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 63 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         let val1, val2;
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js punctuation.separator.comma.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ val1 = (async function (x) { return await x; })(Promise.resolve(18)), r = await val1 }
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js storage.modifier.async.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js storage.type.function.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.parameters.js variable.parameter.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js keyword.control.flow.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js
+T 52 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js keyword.control.flow.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js variable.other.readwrite.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js punctuation.terminator.statement.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 59 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 66 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 67 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 74 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 75 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 77 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 78 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 79 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 80 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+T 81 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 82 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 83 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 84 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 85 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 90 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 91 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 95 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 96 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 97 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+L             = ({ val2 = (async (x) => await x)(Promise.resolve(17)), q = await val2 } = []));
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js storage.modifier.async.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js variable.parameter.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js storage.type.function.arrow.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.arrow.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 47 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 62 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 63 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 65 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 66 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 67 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 68 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+T 69 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 70 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 71 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 72 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 73 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 78 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 79 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 83 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 84 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 85 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 86 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 87 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 88 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 89 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 90 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 91 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 92 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 93 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ u = 21 } = ({ t = await Promise.resolve(20) } = ([s] = [await Promise.resolve(19)])));
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js keyword.control.flow.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js support.class.promise.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js punctuation.accessor.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.function-call.js entity.name.function.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 53 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 54 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.brace.round.js
+T 55 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 56 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 57 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 58 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 59 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 60 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 61 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 62 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 63 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 64 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 65 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 66 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 67 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 72 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.control.flow.js
+T 73 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 80 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js support.class.promise.js
+T 81 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js punctuation.accessor.js
+T 88 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.function-call.js entity.name.function.js
+T 89 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 91 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 92 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.round.js
+T 93 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 94 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 95 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 96 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 97 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         ({ v, rest: [w] } = await get_vwx());
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.separator.comma.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js variable.other.readwrite.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js meta.array.literal.js meta.brace.square.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js meta.object.member.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.objectliteral.js punctuation.definition.block.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.control.flow.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L         [x, y, ...{ z = 26 }] = await get_y();
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js punctuation.separator.comma.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js variable.other.readwrite.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js punctuation.separator.comma.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js keyword.operator.spread.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js meta.object.member.js variable.other.readwrite.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js meta.object.member.js keyword.operator.assignment.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js meta.object.member.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.objectliteral.js punctuation.definition.block.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js keyword.control.flow.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js meta.brace.round.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L     }
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L </script>
+T 2 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 8 source.svelte meta.script.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 9 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 
+L <button on:click={update}>Update me!</button>
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte
+T 10 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte keyword.control.svelte
+T 11 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.definition.keyword.svelte
+T 16 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte entity.name.type.svelte
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.separator.key-value.svelte
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.section.embedded.begin.svelte
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.section.embedded.end.svelte
+T 26 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 36 source.svelte text.svelte
+T 38 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 44 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 45 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{a}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{b}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{c}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{d}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{e}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{f}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{g}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{h}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{i}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{j}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{k}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{l}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{m}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{n}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{o}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{p}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{q}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{r}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{s}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{t}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{u}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{v}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{w}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{x}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{y}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{z}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 6 source.svelte punctuation.section.embedded.end.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte

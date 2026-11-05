@@ -71,6 +71,7 @@ all = [
   "lang-scss",
   "lang-shell",
   "lang-sql",
+  "lang-svelte",
   "lang-swift",
   "lang-toml",
   "lang-tsx",
@@ -104,6 +105,7 @@ web = [
   "lang-less",
   "lang-postcss",
   "lang-scss",
+  "lang-svelte",
   "lang-tsx",
   "lang-typescript",
   "lang-vue",
@@ -235,6 +237,20 @@ lang-scala = ["_scope-table", "_rule-tables", "_classes"]
 lang-scss = ["lang-css"]
 lang-shell = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-sql = ["_scope-table", "_rule-engine", "_classes", "_utf8", "_frame-kinds"]
+lang-svelte = [
+  "_scope-table",
+  "_rule-tables",
+  "_embedding",
+  "lang-javascript",
+  "lang-typescript",
+  "lang-css",
+  "lang-postcss",
+  "lang-scss",
+  "lang-less",
+  "lang-sass",
+  "_classes",
+  "_utf8",
+]
 lang-swift = ["_scope-table", "_rule-tables", "_classes"]
 lang-toml = ["_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-tsx = ["_classes", "_space"]
@@ -259,7 +275,8 @@ lang-zig = ["_scope-table", "_rule-tables", "_classes"]
 # The classes read characters through the UTF-8 helpers.
 _classes = ["_utf8"]
 # The rule engine's hand-over to a language a rule embeds, for Ruby's here
-# documents, Lua's `ffi.cdef` and GraphQL's interpolations.
+# documents, Lua's `ffi.cdef`, GraphQL's interpolations and Svelte's
+# expressions and blocks.
 _embedding = ["_rule-engine"]
 _scope-table = []
 # tag::frame_kinds!, for the lexers that declare their frame kinds with it.

@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 6
+version = 7
 
 [[file]]
 language = "bat"
@@ -1171,6 +1171,28 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/OHDSI/Vocabulary-v5.0/blob/fd0ca46c1b41f0fd60972bf8427b6a9c8ad01eb3/working/packages/vocabulary_pack/BuildRxE.sql"
 bytes = 220446
 sha256 = "cd7cbfc066fee74b95e106f63c06b15ddda3af33d381b18a4ef3dc0c59a049cd"
+
+[[file]]
+language = "svelte"
+tier = "small"
+origin = "neutral"
+path = "svelte/small/site-kit-banner.svelte"
+source = "https://raw.githubusercontent.com/sveltejs/svelte.dev/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/components/Banner.svelte"
+licence = "MIT"
+licence_source = "https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/LICENSE"
+bytes = 2243
+sha256 = "2b0a1ca330b357c36f5dcf50af960958d96e02c70c9f08347dd8dd4eef01b003"
+
+[[file]]
+language = "svelte"
+tier = "medium"
+origin = "neutral"
+path = "svelte/medium/shadcn-trace-chat.svelte"
+source = "https://raw.githubusercontent.com/huntabyte/shadcn-svelte/3c4152d7d3904e76f6f756ec8ffca7c9ec72f977/docs/src/lib/registry/examples/create/trace/trace-chat.svelte"
+licence = "MIT"
+licence_source = "https://github.com/huntabyte/shadcn-svelte/blob/3c4152d7d3904e76f6f756ec8ffca7c9ec72f977/LICENSE.md"
+bytes = 19218
+sha256 = "78f4e1d4b01edeadc9bc7582640f8c1cdb38422d18b3cedeed2960a81a750ca1"
 
 [[file]]
 language = "swift"

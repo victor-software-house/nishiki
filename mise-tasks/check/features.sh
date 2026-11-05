@@ -57,6 +57,7 @@ cargo check --locked --tests --no-default-features --features lang-scala
 cargo check --locked --tests --no-default-features --features lang-scss
 cargo check --locked --tests --no-default-features --features lang-shell
 cargo check --locked --tests --no-default-features --features lang-sql
+cargo check --locked --tests --no-default-features --features lang-svelte
 cargo check --locked --tests --no-default-features --features lang-swift
 cargo check --locked --tests --no-default-features --features lang-toml
 cargo check --locked --tests --no-default-features --features lang-tsx

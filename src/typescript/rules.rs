@@ -5,6 +5,17 @@ use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
 
+/// The entry of TypeScript's grammar that a Svelte expression starts at.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Entry {
+    /// `source.ts#object-literal`.
+    ObjLit,
+    /// `source.ts#object-binding-pattern` and the other binding patterns.
+    Binding(Pattern, Binding),
+    /// `source.ts#type-parameters`.
+    TypeParams,
+}
+
 impl<const D: u8> Lexer<'_, D> {
     /// Processes position `p` once: the innermost context's end rule first,
     /// then its other rules.
@@ -12,6 +23,12 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn step(&mut self, p: usize) -> Option<usize> {
         if self.halt_if(p, self.halts.map(|halts| halts.end)) {
             return Some(p);
+        }
+        #[cfg(feature = "lang-svelte")]
+        if D & super::Dialect::SVELTE != 0
+            && let Some(next) = self.svelte_variable(p)
+        {
+            return Some(next);
         }
         let kind = self.top();
         if let Some(next) = self.end(kind, p) {
@@ -37,6 +54,16 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::JsxStrDouble | Kind::JsxStrSingle => self.jsx_string_rules(p),
             Kind::Block | Kind::CaseBlock => self.statements(p),
             Kind::ObjLit => self.object_member(p),
+            Kind::EntryObjLit => self.entry(Entry::ObjLit, p),
+            Kind::EntryObjBind => self.entry(Entry::Binding(Pattern::Object, Binding::Variable), p),
+            Kind::EntryObjBindConst => {
+                self.entry(Entry::Binding(Pattern::Object, Binding::Constant), p)
+            }
+            Kind::EntryArrBind => self.entry(Entry::Binding(Pattern::Array, Binding::Variable), p),
+            Kind::EntryArrBindConst => {
+                self.entry(Entry::Binding(Pattern::Array, Binding::Constant), p)
+            }
+            Kind::EntryTypeParams => self.entry(Entry::TypeParams, p),
             Kind::Expression
             | Kind::JsxEval
             | Kind::ArrLit
@@ -226,6 +253,23 @@ impl<const D: u8> Lexer<'_, D> {
                 .type_annotation(p)
                 .or_else(|| self.string(p))
                 .or_else(|| self.comment(p)),
+        }
+    }
+
+    /// The rules of a Svelte expression that starts at `entry`, an entry of
+    /// TypeScript's grammar, as `typescript::start_entry` opens it.
+    /// Only Svelte's dialect opens an entry kind.
+    /// The test of `D` drops these calls from every other dialect's lexer.
+    /// There, `object_literal` and the others keep one call site each, and
+    /// stay inlined.
+    fn entry(&mut self, entry: Entry, p: usize) -> Option<usize> {
+        if D & super::Dialect::SVELTE == 0 {
+            return None;
+        }
+        match entry {
+            Entry::ObjLit => self.object_literal(p),
+            Entry::Binding(pattern, binding) => self.binding_pattern(p, pattern, binding),
+            Entry::TypeParams => self.type_params_rules(p),
         }
     }
 

@@ -57,6 +57,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
 | shell | `shellscript` | 172 of 174 | 98.9% | 188 of 199 | 94.5% | 13 | 0 | yes |
 | SQL | `sql` | 72 of 75 | 96.0% | 75 of 79 | 94.9% | 7 | 0 | yes |
+| Svelte | `svelte` | 162 of 166 | 97.6% | 70 of 70 | 100.0% | 4 | 0 | yes |
 | Swift | `swift` | 425 of 448 | 94.9% | 441 of 448 | 98.4% | 30 | 0 | yes |
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
@@ -899,6 +900,15 @@ patterns[20].end  groups 0 (waived: the end matches only the line feed, or nothi
 #regexps.patterns[0].begin  /(?=\S.*/)  waived: `patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, matches every `/`
 #regexps.patterns[0].end  /  waived: its begin never matches
 #regexps.patterns[0].patterns[1].match  \\/  waived: its rule's begin never matches
+```
+
+### `svelte`
+
+```text
+injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].begin  (?<=>)(?!</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
+injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].end  (?=</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
+injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].begin  (?<=>)(?!</)  waived: the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule
+injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end  (?=</)  waived: the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule
 ```
 
 ### `swift`

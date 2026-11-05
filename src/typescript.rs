@@ -51,6 +51,8 @@ mod regex;
 mod rules;
 mod scope;
 mod searches;
+#[cfg(feature = "lang-svelte")]
+mod svelte;
 mod text;
 mod typ;
 mod type_aliases;
@@ -100,15 +102,19 @@ impl Dialect {
     /// The bit that marks a lexer of a capture group that another grammar
     /// lexes again, added to the dialect's index.
     pub(crate) const BARE: u8 = 4;
+    /// The bit that marks a lexer of the TypeScript or JavaScript that
+    /// Svelte embeds, added to the dialect's index: Svelte's grammar injects
+    /// its `$` prefixes there.
+    pub(crate) const SVELTE: u8 = 8;
 
     /// The dialect at position `index` among the four, whatever
-    /// [`Dialect::BARE`] says.
+    /// [`Dialect::BARE`] and [`Dialect::SVELTE`] say.
     ///
     /// Evaluated at compile time for each `D` that [`line`] instantiates, so
     /// the arm of a dialect whose feature is off is never reached, and
     /// reaching it fails the build.
     pub(crate) const fn of(index: u8) -> Dialect {
-        match index & !Self::BARE {
+        match index & !(Self::BARE | Self::SVELTE) {
             #[cfg(feature = "lang-typescript")]
             Self::TYPESCRIPT => Dialect::TypeScript,
             #[cfg(feature = "lang-javascript")]
@@ -184,6 +190,57 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
+/// The state at the start of TypeScript that Svelte embeds at one entry of
+/// TypeScript's grammar: a context that runs that entry's patterns only.
+/// Its text sits on `base`, which holds the embedding's own scope.
+#[cfg(feature = "lang-svelte")]
+fn start_entry(arena: &mut Arena, base: u32, kind: Kind) -> u32 {
+    arena.push(ROOT, kind.code(), 0, base).unwrap_or(ROOT)
+}
+
+/// The start of `source.ts#object-literal`, which Svelte's `{ {a: 1} }`
+/// includes.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryObjLit)
+}
+
+/// The start of `source.ts#object-binding-pattern`, which Svelte's
+/// `{#each xs as {a, b}}` includes.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn start_object_binding(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryObjBind)
+}
+
+/// The start of `source.ts#object-binding-pattern-const`, which Svelte's
+/// `{@const {a, b} = x}` includes.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn start_object_binding_const(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryObjBindConst)
+}
+
+/// The start of `source.ts#array-binding-pattern`, which Svelte's
+/// `{#each xs as [a, b]}` includes.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn start_array_binding(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryArrBind)
+}
+
+/// The start of `source.ts#array-binding-pattern-const`, which Svelte's
+/// `{@const [a, b] = x}` includes.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryArrBindConst)
+}
+
+/// The start of the body of `source.ts#type-parameters`, which Svelte's
+/// `generics="T extends U"` copies: its comments, modifiers, types, commas
+/// and `=`, with no `<` or `>`.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn start_type_parameters(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryTypeParams)
+}
+
 /// Lexes the text of `line` from byte `from` and `state`, appending its
 /// tokens with ends counted from the start of `line`, and returns the state
 /// after it and where `halts` stopped it. The bytes before `from` belong to
@@ -218,6 +275,38 @@ fn line(
 
 /// Lexes the text of `line` from `from` as the dialect `D` numbers, and
 /// returns the state after it and where `halts` stopped it.
+/// Lexes `line` in `dialect` like [`lex_until`], for the TypeScript or
+/// JavaScript that Svelte embeds: Svelte's grammar injects its `$` prefixes
+/// into them, which [`Dialect::SVELTE`] turns on.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn lex_until_svelte(
+    cx: &mut crate::language::Context<'_>,
+    dialect: Dialect,
+    line: crate::language::Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<usize>) {
+    if line.text.len() <= line.start {
+        return (Finished::unspent(state), None);
+    }
+    let halts = Some(Halts { end, after });
+    match dialect {
+        #[cfg(feature = "lang-typescript")]
+        Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT | Dialect::SVELTE }>(
+            cx, line.text, line.start, state, halts,
+        ),
+        #[cfg(feature = "lang-javascript")]
+        Dialect::JavaScript => run::<{ Dialect::JAVASCRIPT | Dialect::SVELTE }>(
+            cx, line.text, line.start, state, halts,
+        ),
+        #[cfg(feature = "lang-jsx")]
+        Dialect::Jsx => self::line(cx, dialect, line.text, line.start, state, halts),
+        #[cfg(feature = "lang-tsx")]
+        Dialect::Tsx => self::line(cx, dialect, line.text, line.start, state, halts),
+    }
+}
+
 fn run<const D: u8>(
     cx: &mut crate::language::Context<'_>,
     line: &str,
@@ -270,6 +359,25 @@ pub(crate) fn lex_capture(
         return Finished::unspent(state);
     }
     run::<{ Dialect::JAVASCRIPT | Dialect::BARE }>(cx, line.text, line.start, state, None).0
+}
+
+/// Lexes as TypeScript a capture group that Svelte's grammar lexes again
+/// with TypeScript, with Svelte's `$` prefixes.
+/// `line.text` is the line up to the group's end, with no line feed after
+/// it, and the group starts at `line.start`.
+/// It starts afresh on `base`, the group's stack, and returns the state after
+/// it.
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn lex_capture_svelte(
+    cx: &mut crate::language::Context<'_>,
+    line: crate::language::Line<'_>,
+    base: u32,
+) -> Finished {
+    let state = start_embedded(cx.arena, base);
+    run::<{ Dialect::TYPESCRIPT | Dialect::BARE | Dialect::SVELTE }>(
+        cx, line.text, line.start, state, None,
+    )
+    .0
 }
 
 /// Lexes `line` in `dialect` from `state` like [`lex`], and halts where the

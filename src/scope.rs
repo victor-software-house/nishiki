@@ -150,6 +150,8 @@ tables! {
     SHELL = shell;
     #[cfg(feature = "lang-sql")]
     SQL = sql;
+    #[cfg(feature = "lang-svelte")]
+    SVELTE = svelte;
     #[cfg(feature = "lang-swift")]
     SWIFT = swift;
     #[cfg(feature = "lang-toml")]

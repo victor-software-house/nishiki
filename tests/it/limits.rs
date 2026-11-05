@@ -65,6 +65,7 @@ mod scala;
 mod scss;
 mod shell;
 mod sql;
+mod svelte;
 mod swift;
 mod toml;
 mod typescript;

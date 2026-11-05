@@ -94,6 +94,7 @@ const handLexed = new Map([
   ["scss", "SCSS"],
   ["shellscript", "shell"],
   ["sql", "SQL"],
+  ["svelte", "Svelte"],
   ["swift", "Swift"],
   ["toml", "TOML"],
   ["tsx", "TypeScript"],

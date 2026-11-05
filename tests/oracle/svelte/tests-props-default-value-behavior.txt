@@ -1,0 +1,574 @@
+L <script>
+T 1 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.script.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 	import Inner from "./inner.svelte";
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js keyword.control.import.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js variable.other.readwrite.alias.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js keyword.control.from.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js string.quoted.double.js punctuation.definition.string.begin.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js string.quoted.double.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.import.js string.quoted.double.js punctuation.definition.string.end.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 
+L 	let readonly_undefined = $state();
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let readonlyWithDefault_undefined = $state();
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 46 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let binding_undefined = $state();
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let readonly_defined = $state(0);
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let readonlyWithDefault_defined = $state(0);
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 43 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 44 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 45 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let binding_defined = $state(0);
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 24 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 33 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let bind_readonly_undefined = $state();
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 40 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let bind_binding_undefined = $state();
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 31 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let bind_readonly_defined = $state(0);
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 39 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 	let bind_binding_defined = $state(0);
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 25 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js keyword.operator.assignment.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 34 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 35 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js constant.numeric.decimal.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.brace.round.js
+T 38 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L </script>
+T 2 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 8 source.svelte meta.script.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 9 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 
+L <p>props undefined:</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 19 source.svelte text.svelte
+T 21 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 22 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 23 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <Inner
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte support.class.component.svelte
+L 	readonly={readonly_undefined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 9 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte entity.other.attribute-name.svelte
+T 10 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte punctuation.separator.key-value.svelte
+T 11 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte punctuation.section.embedded.begin.svelte
+T 29 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 30 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte punctuation.section.embedded.end.svelte
+L 	readonlyWithDefault={readonlyWithDefault_undefined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 20 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte entity.other.attribute-name.svelte
+T 21 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.separator.key-value.svelte
+T 22 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.begin.svelte
+T 51 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 52 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.end.svelte
+L 	binding={binding_undefined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 8 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte entity.other.attribute-name.svelte
+T 9 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte punctuation.separator.key-value.svelte
+T 10 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte punctuation.section.embedded.begin.svelte
+T 27 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 28 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte punctuation.section.embedded.end.svelte
+L />
+T 2 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 
+L <p>props defined:</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 17 source.svelte text.svelte
+T 19 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 20 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 21 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <Inner
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte support.class.component.svelte
+L 	readonly={readonly_defined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 9 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte entity.other.attribute-name.svelte
+T 10 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte punctuation.separator.key-value.svelte
+T 11 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte punctuation.section.embedded.begin.svelte
+T 27 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 28 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonly.svelte punctuation.section.embedded.end.svelte
+L 	readonlyWithDefault={readonlyWithDefault_defined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 20 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte entity.other.attribute-name.svelte
+T 21 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.separator.key-value.svelte
+T 22 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.begin.svelte
+T 49 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 50 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.end.svelte
+L 	binding={binding_defined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 8 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte entity.other.attribute-name.svelte
+T 9 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte punctuation.separator.key-value.svelte
+T 10 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte punctuation.section.embedded.begin.svelte
+T 25 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 26 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.binding.svelte punctuation.section.embedded.end.svelte
+L />
+T 2 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 
+L <p>bindings undefined:</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 22 source.svelte text.svelte
+T 24 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 25 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 26 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <Inner
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte support.class.component.svelte
+L 	bind:readonly={bind_readonly_undefined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 5 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte keyword.control.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.definition.keyword.svelte
+T 14 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte entity.name.type.svelte
+T 15 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.separator.key-value.svelte
+T 16 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.begin.svelte
+T 39 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 40 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.end.svelte
+L 	readonlyWithDefault={readonlyWithDefault_undefined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 20 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte entity.other.attribute-name.svelte
+T 21 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.separator.key-value.svelte
+T 22 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.begin.svelte
+T 51 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 52 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.end.svelte
+L 	bind:binding={bind_binding_undefined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 5 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte keyword.control.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.definition.keyword.svelte
+T 13 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte entity.name.type.svelte
+T 14 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.separator.key-value.svelte
+T 15 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.begin.svelte
+T 37 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 38 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.end.svelte
+L />
+T 2 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 
+L <p>bindings defined:</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 20 source.svelte text.svelte
+T 22 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 23 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 24 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <Inner
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte support.class.component.svelte
+L 	bind:readonly={bind_readonly_defined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 5 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte keyword.control.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.definition.keyword.svelte
+T 14 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte entity.name.type.svelte
+T 15 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.separator.key-value.svelte
+T 16 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.begin.svelte
+T 37 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 38 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.end.svelte
+L 	readonlyWithDefault={readonlyWithDefault_defined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 20 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte entity.other.attribute-name.svelte
+T 21 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.separator.key-value.svelte
+T 22 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.begin.svelte
+T 49 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 50 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.attribute.readonlyWithDefault.svelte punctuation.section.embedded.end.svelte
+L 	bind:binding={bind_binding_defined}
+T 1 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte
+T 5 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte keyword.control.svelte
+T 6 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.definition.keyword.svelte
+T 13 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte entity.name.type.svelte
+T 14 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.separator.key-value.svelte
+T 15 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.begin.svelte
+T 35 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 36 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte meta.directive.bind.svelte punctuation.section.embedded.end.svelte
+L />
+T 2 source.svelte meta.scope.tag.Inner.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 
+L <p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 	Main:
+T 6 source.svelte text.svelte
+L 	readonly_undefined: {readonly_undefined}
+T 21 source.svelte text.svelte
+T 22 source.svelte punctuation.section.embedded.begin.svelte
+T 40 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 41 source.svelte punctuation.section.embedded.end.svelte
+L 	readonlyWithDefault_undefined: {readonlyWithDefault_undefined}
+T 32 source.svelte text.svelte
+T 33 source.svelte punctuation.section.embedded.begin.svelte
+T 62 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 63 source.svelte punctuation.section.embedded.end.svelte
+L 	binding_undefined: {binding_undefined}
+T 20 source.svelte text.svelte
+T 21 source.svelte punctuation.section.embedded.begin.svelte
+T 38 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 39 source.svelte punctuation.section.embedded.end.svelte
+L 	readonly_defined: {readonly_defined}
+T 19 source.svelte text.svelte
+T 20 source.svelte punctuation.section.embedded.begin.svelte
+T 36 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 37 source.svelte punctuation.section.embedded.end.svelte
+L 	readonlyWithDefault_defined: {readonlyWithDefault_defined}
+T 30 source.svelte text.svelte
+T 31 source.svelte punctuation.section.embedded.begin.svelte
+T 58 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 59 source.svelte punctuation.section.embedded.end.svelte
+L 	binding_defined: {binding_defined}
+T 18 source.svelte text.svelte
+T 19 source.svelte punctuation.section.embedded.begin.svelte
+T 34 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 35 source.svelte punctuation.section.embedded.end.svelte
+L 	bind_readonly_undefined: {bind_readonly_undefined}
+T 26 source.svelte text.svelte
+T 27 source.svelte punctuation.section.embedded.begin.svelte
+T 50 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 51 source.svelte punctuation.section.embedded.end.svelte
+L 	bind_binding_undefined: {bind_binding_undefined}
+T 25 source.svelte text.svelte
+T 26 source.svelte punctuation.section.embedded.begin.svelte
+T 48 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 49 source.svelte punctuation.section.embedded.end.svelte
+L 	bind_readonly_defined: {bind_readonly_defined}
+T 24 source.svelte text.svelte
+T 25 source.svelte punctuation.section.embedded.begin.svelte
+T 46 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 47 source.svelte punctuation.section.embedded.end.svelte
+L 	bind_binding_defined: {bind_binding_defined}
+T 23 source.svelte text.svelte
+T 24 source.svelte punctuation.section.embedded.begin.svelte
+T 44 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 45 source.svelte punctuation.section.embedded.end.svelte
+L </p>
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 4 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 
+L <button on:click={() => {
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte
+T 10 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte keyword.control.svelte
+T 11 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.definition.keyword.svelte
+T 16 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte entity.name.type.svelte
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.separator.key-value.svelte
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.section.embedded.begin.svelte
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+L 	readonly_undefined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	readonlyWithDefault_undefined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 32 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 33 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 35 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 36 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	binding_undefined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	readonly_defined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	readonlyWithDefault_defined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 28 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 29 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 33 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 34 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	binding_defined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 16 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_readonly_undefined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 26 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 27 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 29 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_binding_undefined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 26 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 28 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 29 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_readonly_defined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 27 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 28 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_binding_defined = 10;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 26 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.numeric.decimal.ts
+T 27 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L }}>set everything to 10</button>
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+T 2 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.section.embedded.end.svelte
+T 3 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 23 source.svelte text.svelte
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 32 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 
+L <button on:click={() => {
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte
+T 10 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte keyword.control.svelte
+T 11 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.definition.keyword.svelte
+T 16 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte entity.name.type.svelte
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.separator.key-value.svelte
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.section.embedded.begin.svelte
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts storage.type.function.arrow.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+L 	readonly_undefined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 32 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	readonlyWithDefault_undefined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 32 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 33 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 42 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 43 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	binding_undefined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	readonly_defined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 20 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 29 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	readonlyWithDefault_defined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 28 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 29 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 30 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 31 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 40 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 41 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	binding_defined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 16 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 17 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 18 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 19 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 28 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 29 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_readonly_undefined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 26 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 27 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 36 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 37 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_binding_undefined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 26 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 35 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 36 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_readonly_defined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 25 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 34 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 35 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L 	bind_binding_defined = undefined;
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 21 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts variable.other.readwrite.ts
+T 22 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 23 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts keyword.operator.assignment.ts
+T 24 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts
+T 33 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts constant.language.undefined.ts
+T 34 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.terminator.statement.ts
+L }}>set everything to undefined</button>
+T 1 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte meta.embedded.expression.svelte source.ts meta.arrow.ts meta.block.ts punctuation.definition.block.ts
+T 2 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte meta.directive.on.svelte punctuation.section.embedded.end.svelte
+T 3 source.svelte meta.scope.tag.button.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 30 source.svelte text.svelte
+T 32 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 38 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 39 source.svelte meta.scope.tag.button.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 

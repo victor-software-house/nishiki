@@ -56,6 +56,7 @@ import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
 import shellscriptCoverage from "./inputs/shellscript-coverage.sh" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
 import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
+import svelteCoverage from "./inputs/svelte-coverage.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
@@ -418,6 +419,12 @@ const sqlServerSamples =
   "https://raw.githubusercontent.com/microsoft/sql-server-samples/3c71696a3942879f0481f3bd65fe112a40023f18";
 const stringProcessing =
   "https://raw.githubusercontent.com/swiftlang/swift-experimental-string-processing/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee";
+const svelte =
+  "https://raw.githubusercontent.com/sveltejs/svelte/628098d2c662fabf4c1f3cf6564c6b20964ad9a8";
+const svelteKit =
+  "https://raw.githubusercontent.com/sveltejs/kit/decaf66ff3198b70a4fafa0242f60c6a07481ee3";
+const svelteSiteKit =
+  "https://raw.githubusercontent.com/sveltejs/svelte.dev/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit";
 const swiftAlgorithms =
   "https://raw.githubusercontent.com/apple/swift-algorithms/5b7143f8e291dee0e14c118fd0212487f0b37af5";
 const swiftTesting =
@@ -1297,6 +1304,21 @@ export const inputs: Input[] = [
     name: "ssms-create-table",
     url: `${sqlServerSamples}/samples/features/ssms-templates/Sql/Table/Create%20Table.sql`,
   },
+  { lang: "svelte", name: "coverage", text: svelteCoverage },
+  { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
+  { lang: "svelte", name: "sample", url: `${samples}/svelte.sample` },
+  { lang: "svelte", name: "site-kit-docs-contents", url: `${svelteSiteKit}/src/lib/docs/DocsContents.svelte` },
+  { lang: "svelte", name: "site-kit-mobile-menu", url: `${svelteSiteKit}/src/lib/nav/MobileMenu.svelte` },
+  { lang: "svelte", name: "site-kit-nav", url: `${svelteSiteKit}/src/lib/nav/Nav.svelte` },
+  { lang: "svelte", name: "site-kit-search-box", url: `${svelteSiteKit}/src/lib/search/SearchBox.svelte` },
+  { lang: "svelte", name: "site-kit-search-result-list", url: `${svelteSiteKit}/src/lib/search/SearchResultList.svelte` },
+  { lang: "svelte", name: "site-kit-text", url: `${svelteSiteKit}/src/lib/components/Text.svelte` },
+  { lang: "svelte", name: "site-kit-tooltip", url: `${svelteSiteKit}/src/lib/docs/Tooltip.svelte` },
+  { lang: "svelte", name: "tests-const-tag-component", url: `${svelte}/packages/svelte/tests/runtime-legacy/samples/const-tag-component/main.svelte` },
+  { lang: "svelte", name: "tests-destructure-async-assignments", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/destructure-async-assignments/main.svelte` },
+  { lang: "svelte", name: "tests-form-default-value", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/form-default-value/main.svelte` },
+  { lang: "svelte", name: "tests-props-default-value-behavior", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/props-default-value-behavior/main.svelte` },
+  { lang: "svelte", name: "tests-style-directive-mutations", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/style-directive-mutations/main.svelte` },
   {
     lang: "swift",
     name: "alamofire-af-error",

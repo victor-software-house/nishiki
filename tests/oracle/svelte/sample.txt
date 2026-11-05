@@ -1,0 +1,243 @@
+L <script>
+T 1 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.script.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L 	let files;
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js storage.type.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.terminator.statement.js
+L 
+L 	$: if (files) {
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js entity.name.label.js
+T 3 source.svelte meta.script.svelte meta.embedded.block.svelte source.js punctuation.separator.label.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 6 source.svelte meta.script.svelte meta.embedded.block.svelte source.js keyword.control.conditional.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 8 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.brace.round.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js variable.other.readwrite.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.brace.round.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js punctuation.definition.block.js
+L 		// Note that `files` is of type `FileList`, not an Array:
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js punctuation.whitespace.comment.leading.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 59 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js comment.line.double-slash.js
+L 		// https://developer.mozilla.org/en-US/docs/Web/API/FileList
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js punctuation.whitespace.comment.leading.js
+T 4 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 62 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js comment.line.double-slash.js
+L 		console.log(files);
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js
+T 9 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.function-call.js variable.other.object.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.brace.round.js
+T 19 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js variable.other.readwrite.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.brace.round.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js punctuation.terminator.statement.js
+L 
+L 		for (const file of files) {
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js
+T 5 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js keyword.control.loop.js
+T 6 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js
+T 7 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.brace.round.js
+T 12 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.var.expr.js storage.type.js
+T 13 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.var.expr.js
+T 17 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 20 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js keyword.operator.expression.of.js
+T 21 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js
+T 26 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js variable.other.readwrite.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.brace.round.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js
+T 29 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js punctuation.definition.block.js
+L 			console.log(`${file.name}: ${file.size} bytes`);
+T 3 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js
+T 10 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js meta.function-call.js variable.other.object.js
+T 11 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 14 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js meta.function-call.js entity.name.function.js
+T 15 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js meta.brace.round.js
+T 16 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js punctuation.definition.string.template.begin.js
+T 18 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 22 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.object.js
+T 23 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js punctuation.accessor.js
+T 27 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.property.js
+T 28 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 30 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js
+T 32 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 36 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.object.js
+T 37 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js punctuation.accessor.js
+T 41 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js meta.embedded.line.js variable.other.property.js
+T 42 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 48 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js
+T 49 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js string.template.js punctuation.definition.string.template.end.js
+T 50 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js meta.brace.round.js
+T 51 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js punctuation.terminator.statement.js
+L 		}
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js
+T 3 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js meta.block.js punctuation.definition.block.js
+L 	}
+T 1 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js
+T 2 source.svelte meta.script.svelte meta.embedded.block.svelte source.js meta.block.js punctuation.definition.block.js
+L </script>
+T 2 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 8 source.svelte meta.script.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 9 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 
+L <label for="avatar">Upload a picture:</label>
+T 1 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 7 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte
+T 10 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte entity.other.attribute-name.svelte
+T 11 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte punctuation.separator.key-value.svelte
+T 12 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 18 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte string.quoted.svelte
+T 19 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 20 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 37 source.svelte text.svelte
+T 39 source.svelte meta.scope.tag.label.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 44 source.svelte meta.scope.tag.label.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 45 source.svelte meta.scope.tag.label.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <input accept="image/png, image/jpeg" bind:files id="avatar" name="avatar" type="file" />
+T 1 source.svelte meta.tag.void.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.tag.void.svelte entity.name.tag.svelte
+T 7 source.svelte meta.tag.void.svelte
+T 13 source.svelte meta.tag.void.svelte meta.attribute.accept.svelte entity.other.attribute-name.svelte
+T 14 source.svelte meta.tag.void.svelte meta.attribute.accept.svelte punctuation.separator.key-value.svelte
+T 15 source.svelte meta.tag.void.svelte meta.attribute.accept.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 36 source.svelte meta.tag.void.svelte meta.attribute.accept.svelte string.quoted.svelte
+T 37 source.svelte meta.tag.void.svelte meta.attribute.accept.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 38 source.svelte meta.tag.void.svelte
+T 42 source.svelte meta.tag.void.svelte meta.directive.bind.svelte keyword.control.svelte
+T 43 source.svelte meta.tag.void.svelte meta.directive.bind.svelte punctuation.definition.keyword.svelte
+T 48 source.svelte meta.tag.void.svelte meta.directive.bind.svelte variable.parameter.svelte
+T 49 source.svelte meta.tag.void.svelte
+T 51 source.svelte meta.tag.void.svelte meta.attribute.id.svelte entity.other.attribute-name.svelte
+T 52 source.svelte meta.tag.void.svelte meta.attribute.id.svelte punctuation.separator.key-value.svelte
+T 53 source.svelte meta.tag.void.svelte meta.attribute.id.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 59 source.svelte meta.tag.void.svelte meta.attribute.id.svelte string.quoted.svelte
+T 60 source.svelte meta.tag.void.svelte meta.attribute.id.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 61 source.svelte meta.tag.void.svelte
+T 65 source.svelte meta.tag.void.svelte meta.attribute.name.svelte entity.other.attribute-name.svelte
+T 66 source.svelte meta.tag.void.svelte meta.attribute.name.svelte punctuation.separator.key-value.svelte
+T 67 source.svelte meta.tag.void.svelte meta.attribute.name.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 73 source.svelte meta.tag.void.svelte meta.attribute.name.svelte string.quoted.svelte
+T 74 source.svelte meta.tag.void.svelte meta.attribute.name.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 75 source.svelte meta.tag.void.svelte
+T 79 source.svelte meta.tag.void.svelte meta.attribute.type.svelte entity.other.attribute-name.svelte
+T 80 source.svelte meta.tag.void.svelte meta.attribute.type.svelte punctuation.separator.key-value.svelte
+T 81 source.svelte meta.tag.void.svelte meta.attribute.type.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 85 source.svelte meta.tag.void.svelte meta.attribute.type.svelte string.quoted.svelte
+T 86 source.svelte meta.tag.void.svelte meta.attribute.type.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 87 source.svelte meta.tag.void.svelte
+T 89 source.svelte meta.tag.void.svelte punctuation.definition.tag.begin.svelte
+L 
+L <label for="many">Upload multiple files of any type:</label>
+T 1 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 7 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte
+T 10 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte entity.other.attribute-name.svelte
+T 11 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte punctuation.separator.key-value.svelte
+T 12 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 16 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte string.quoted.svelte
+T 17 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte meta.attribute.for.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 18 source.svelte meta.scope.tag.label.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 52 source.svelte text.svelte
+T 54 source.svelte meta.scope.tag.label.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 59 source.svelte meta.scope.tag.label.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 60 source.svelte meta.scope.tag.label.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <input bind:files id="many" multiple type="file" />
+T 1 source.svelte meta.tag.void.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.tag.void.svelte entity.name.tag.svelte
+T 7 source.svelte meta.tag.void.svelte
+T 11 source.svelte meta.tag.void.svelte meta.directive.bind.svelte keyword.control.svelte
+T 12 source.svelte meta.tag.void.svelte meta.directive.bind.svelte punctuation.definition.keyword.svelte
+T 17 source.svelte meta.tag.void.svelte meta.directive.bind.svelte variable.parameter.svelte
+T 18 source.svelte meta.tag.void.svelte
+T 20 source.svelte meta.tag.void.svelte meta.attribute.id.svelte entity.other.attribute-name.svelte
+T 21 source.svelte meta.tag.void.svelte meta.attribute.id.svelte punctuation.separator.key-value.svelte
+T 22 source.svelte meta.tag.void.svelte meta.attribute.id.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 26 source.svelte meta.tag.void.svelte meta.attribute.id.svelte string.quoted.svelte
+T 27 source.svelte meta.tag.void.svelte meta.attribute.id.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 28 source.svelte meta.tag.void.svelte
+T 36 source.svelte meta.tag.void.svelte meta.attribute.multiple.svelte entity.other.attribute-name.svelte
+T 37 source.svelte meta.tag.void.svelte
+T 41 source.svelte meta.tag.void.svelte meta.attribute.type.svelte entity.other.attribute-name.svelte
+T 42 source.svelte meta.tag.void.svelte meta.attribute.type.svelte punctuation.separator.key-value.svelte
+T 43 source.svelte meta.tag.void.svelte meta.attribute.type.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 47 source.svelte meta.tag.void.svelte meta.attribute.type.svelte string.quoted.svelte
+T 48 source.svelte meta.tag.void.svelte meta.attribute.type.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 49 source.svelte meta.tag.void.svelte
+T 51 source.svelte meta.tag.void.svelte punctuation.definition.tag.begin.svelte
+L 
+L {#if files}
+T 1 source.svelte meta.special.if.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.if.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 4 source.svelte meta.special.if.svelte meta.special.start.svelte keyword.control.conditional.svelte
+T 5 source.svelte meta.special.if.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 10 source.svelte meta.special.if.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 11 source.svelte meta.special.if.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+L 	<h2>Selected files:</h2>
+T 1 source.svelte text.svelte
+T 2 source.svelte meta.scope.tag.h2.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 4 source.svelte meta.scope.tag.h2.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 5 source.svelte meta.scope.tag.h2.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 20 source.svelte text.svelte
+T 22 source.svelte meta.scope.tag.h2.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 24 source.svelte meta.scope.tag.h2.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 25 source.svelte meta.scope.tag.h2.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 	{#each Array.from(files) as file}
+T 1 source.svelte text.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.begin.svelte
+T 3 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.svelte
+T 8 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 13 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.function-call.ts variable.other.object.ts
+T 14 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.function-call.ts punctuation.accessor.ts
+T 18 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.function-call.ts entity.name.function.ts
+T 19 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.brace.round.ts
+T 24 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 25 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts meta.brace.round.ts
+T 26 source.svelte meta.special.each.svelte meta.special.start.svelte
+T 28 source.svelte meta.special.each.svelte meta.special.start.svelte keyword.control.as.svelte
+T 29 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts
+T 33 source.svelte meta.special.each.svelte meta.special.start.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 34 source.svelte meta.special.each.svelte meta.special.start.svelte punctuation.definition.block.end.svelte
+L 		<p>{file.name} ({file.size} bytes)</p>
+T 2 source.svelte text.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 4 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 5 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 6 source.svelte punctuation.section.embedded.begin.svelte
+T 10 source.svelte meta.embedded.expression.svelte source.ts variable.other.object.ts
+T 11 source.svelte meta.embedded.expression.svelte source.ts punctuation.accessor.ts
+T 15 source.svelte meta.embedded.expression.svelte source.ts variable.other.property.ts
+T 16 source.svelte punctuation.section.embedded.end.svelte
+T 18 source.svelte text.svelte
+T 19 source.svelte punctuation.section.embedded.begin.svelte
+T 23 source.svelte meta.embedded.expression.svelte source.ts variable.other.object.ts
+T 24 source.svelte meta.embedded.expression.svelte source.ts punctuation.accessor.ts
+T 28 source.svelte meta.embedded.expression.svelte source.ts variable.other.property.ts
+T 29 source.svelte punctuation.section.embedded.end.svelte
+T 36 source.svelte text.svelte
+T 38 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 39 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 40 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 	{/each}
+T 1 source.svelte text.svelte
+T 2 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 3 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 7 source.svelte meta.special.each.svelte meta.special.end.svelte keyword.control.svelte
+T 8 source.svelte meta.special.each.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L {/if}
+T 1 source.svelte meta.special.if.svelte meta.special.end.svelte punctuation.definition.block.begin.svelte
+T 2 source.svelte meta.special.if.svelte meta.special.end.svelte punctuation.definition.keyword.svelte
+T 4 source.svelte meta.special.if.svelte meta.special.end.svelte keyword.control.conditional.svelte
+T 5 source.svelte meta.special.if.svelte meta.special.end.svelte punctuation.definition.block.end.svelte
+L 
+L // From https://svelte.dev/examples/file-inputs
+T 47 source.svelte text.svelte
+L 

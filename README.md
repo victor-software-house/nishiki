@@ -106,6 +106,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | SCSS | `Language::Scss` | `lang-scss` | `all` | `scss` |
 | Shell | `Language::Shell` | `lang-shell` | `all` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
 | SQL | `Language::Sql` | `lang-sql` | `all` | `sql` |
+| Svelte | `Language::Svelte` | `lang-svelte` | `all` | `svelte` |
 | Swift | `Language::Swift` | `lang-swift` | `all` | `swift` |
 | TOML | `Language::Toml` | `lang-toml` | `all` | `toml` |
 | TSX | `Language::Tsx` | `lang-tsx` | `all` | `tsx` |

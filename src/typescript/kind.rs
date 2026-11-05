@@ -44,6 +44,12 @@ kinds! {
     Started [] [];
     Script [] [];
     Expression [] [];
+    EntryObjLit [] [];
+    EntryObjBind [] [];
+    EntryObjBindConst [] [];
+    EntryArrBind [] [];
+    EntryArrBindConst [] [];
+    EntryTypeParams [] [];
     Block [S::MetaBlock] [];
     ObjLit [S::MetaObjectliteral] [];
     ArrLit [S::MetaArrayLiteral] [];

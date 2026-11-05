@@ -276,7 +276,16 @@ impl<'a, const D: u8> Lexer<'a, D> {
         if p > self.len
             || !matches!(
                 self.top(),
-                Kind::Top | Kind::Started | Kind::Script | Kind::Expression
+                Kind::Top
+                    | Kind::Started
+                    | Kind::Script
+                    | Kind::Expression
+                    | Kind::EntryObjLit
+                    | Kind::EntryObjBind
+                    | Kind::EntryObjBindConst
+                    | Kind::EntryArrBind
+                    | Kind::EntryArrBindConst
+                    | Kind::EntryTypeParams
             )
             || !test.holds(self.bytes, p)
         {
@@ -310,6 +319,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
         if p < self.len
             && let Some(target) = self.body_end(step)
         {
+            #[cfg(feature = "lang-svelte")]
+            let target = self.svelte_body_end(step, target);
             #[cfg(debug_assertions)]
             self.check_skipped(step, target);
             return target;

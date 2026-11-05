@@ -42,7 +42,8 @@ use std::fmt::Debug;
     feature = "lang-powershell",
     feature = "lang-julia",
     feature = "lang-mermaid",
-    feature = "lang-objective-c"
+    feature = "lang-objective-c",
+    feature = "lang-svelte"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]
@@ -371,7 +372,7 @@ pub(crate) fn lex_until<G: Grammar>(
 /// `embedded!(Variant, "lang-…")` is `Some(Language::Variant)` when the
 /// language's feature is on. It is `None` otherwise.
 /// The generated table of a rule that embeds a language uses it.
-#[cfg(any(feature = "lang-ruby", feature = "lang-lua"))]
+#[cfg(any(feature = "lang-ruby", feature = "lang-lua", feature = "lang-svelte"))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
         #[cfg(feature = $feature)]
@@ -381,7 +382,7 @@ macro_rules! embedded {
         language
     }};
 }
-#[cfg(any(feature = "lang-ruby", feature = "lang-lua"))]
+#[cfg(any(feature = "lang-ruby", feature = "lang-lua", feature = "lang-svelte"))]
 pub(crate) use embedded;
 
 /// A halt without context.
@@ -435,6 +436,7 @@ pub(crate) trait Embeds: Grammar {
     /// It returns where the language halted, at one of `halts`.
     /// None leaves the line to the language's own
     /// [`crate::Language::lex_until`].
+    /// Svelte lexes TypeScript and JavaScript with its `$` prefixes added.
     ///
     /// By default, none, and the body names no function.
     /// A default that called `Language::lex_until`, which is `#[inline]`,

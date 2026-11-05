@@ -164,7 +164,7 @@
 //! |:--|:--|
 //! | `all` (the default) | Every language but the `textmate` tier |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
-//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue |
+//! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
 //! | `textmate` | Assembly, CoffeeScript, Common Lisp, Elixir, GDScript, HAML, MATLAB, Objective-C++, Pascal, Perl, PHP, Visual Basic |
@@ -333,6 +333,8 @@ mod shell;
 mod space;
 #[cfg(feature = "lang-sql")]
 mod sql;
+#[cfg(feature = "lang-svelte")]
+mod svelte;
 #[cfg(feature = "lang-swift")]
 mod swift;
 mod tag;

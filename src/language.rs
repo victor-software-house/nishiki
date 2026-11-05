@@ -994,6 +994,13 @@ languages! {
     ///   Shiki's injection also opens it in another language's fence or in a raw block.
     /// - A `vue` fence opens only at the start of a line, or after a quote's or list's prefix.
     ///   Shiki's injection also opens one where an inner rule's match ended, at its `\G`, such as after a JSX tag's `>`.
+    ///
+    /// # Differences from Shiki
+    ///
+    /// - In a Less block, a `)` or `}` at Less's root ends the Less in Shiki.
+    ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Vue's style block.
+    ///   The rest of the block is plain text up to `</style>`.
+    ///   nishiki goes on lexing the block as Less.
     Vue { feature: "lang-vue", names: ["vue"], module: vue }
     /// x86 and x86-64 assembly, with the scopes of Shiki's `asm` grammar,
     /// which nishiki's `TextMate` engine runs.
@@ -1074,6 +1081,34 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// Svelte, with the scopes of Shiki's `svelte` grammar.
+    /// Its expressions and `<script>` bodies are lexed by the TypeScript and
+    /// JavaScript lexers, and its `<style>` bodies by the CSS, PostCSS, SCSS,
+    /// Less and Sass lexers.
+    /// A `lang="coffee"` body goes to the CoffeeScript lexer when `lang-coffee` is on.
+    /// An `@component` doc comment goes to the Markdown lexer when `lang-markdown` is on.
+    /// Without its feature, each is plain text.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A `lang="stylus"` or `pug` body is plain text under `meta.lang.<lang>.svelte`, as nishiki lexes neither language.
+    /// - A special tag's mode is picked by a word anywhere on the line before the tag's keyword ends.
+    ///   In `{#if a}{:else b}`, the `if` puts `{:else}` in the mode that lexes `b` as TypeScript.
+    ///   A `{:else b}` alone leaves `b` plain.
+    /// - TypeScript lexes a `{@debug}` name and an `{#each}` index again, each on its own, so a keyword there, such as `else`, reads as a keyword.
+    /// - The text of an `@component` comment's line is Markdown only where it starts the line, since Markdown's block patterns need `^` or `\G`.
+    /// - `\w`, `\s` and `[[:alpha:]]` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    ///
+    /// # Differences from Shiki
+    ///
+    /// - Svelte's `$` prefixes reach only the TypeScript and JavaScript that Svelte embeds itself.
+    ///   Shiki's injection adds them in every `source.ts` and `source.js` of the document.
+    ///   One example is a script in the HTML of an `@component` comment's Markdown.
+    /// - In a Less body, a `)` or `}` at Less's root ends the Less in Shiki.
+    ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Svelte's Less body.
+    ///   The rest of the body is plain text up to a later `>`.
+    ///   nishiki goes on lexing the body as Less.
+    Svelte { feature: "lang-svelte", names: ["svelte"], module: svelte }
 }
 
 impl Language {

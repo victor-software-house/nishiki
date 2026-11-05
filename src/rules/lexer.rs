@@ -956,10 +956,24 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.arena.string(self.top().payload)
     }
 
+    /// The rules open on the line, innermost first, each with its index for
+    /// [`Lexer::payload_text_of`].
+    #[cfg(feature = "lang-svelte")]
+    pub(crate) fn open_rules(&self) -> impl Iterator<Item = (usize, G::Rule)> + '_ {
+        self.frames.iter().map(|frame| frame.rule).enumerate().rev()
+    }
+
+    /// The payload text of the open rule at `index`, a rule whose payload is
+    /// a begin capture.
+    #[cfg(feature = "lang-svelte")]
+    pub(crate) fn payload_text_of(&self, index: usize) -> &str {
+        self.arena.string(self.frames[index].payload)
+    }
+
     /// The payload text of the rule around the innermost one.
     /// An example is the begin capture of an outer rule whose end the innermost
     /// rule waits for.
-    #[cfg(feature = "lang-lua")]
+    #[cfg(any(feature = "lang-lua", feature = "lang-svelte"))]
     pub(crate) fn parent_payload_text(&self) -> &str {
         self.frames
             .len()

@@ -130,6 +130,10 @@ pub(crate) struct Scratch {
     /// The SQL lexer's, for SQL documents and Markdown SQL fences.
     #[cfg(feature = "lang-sql")]
     pub(crate) sql: crate::sql::Scratch,
+    /// The Svelte lexer's, for Svelte documents.
+    /// It is boxed and allocated by the first Svelte line, as Dart's is.
+    #[cfg(feature = "lang-svelte")]
+    pub(crate) svelte: Option<Box<crate::svelte::Scratch>>,
     /// The Swift lexer's, for Swift documents and Markdown Swift fences.
     #[cfg(feature = "lang-swift")]
     pub(crate) swift: crate::swift::Scratch,

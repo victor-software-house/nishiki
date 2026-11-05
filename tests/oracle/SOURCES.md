@@ -598,6 +598,21 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sql/postgres-with` | [`src/test/regress/sql/with.sql`][pg-with] in postgres/postgres | [PostgreSQL][postgres-licence] |
 | `sql/sample` | [`samples/sql.sample`][sql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `sql/ssms-create-table` | [`samples/features/ssms-templates/Sql/Table/Create Table.sql`][ssms-create] in microsoft/sql-server-samples | [MIT][sqlserver-licence] |
+| `svelte/coverage` | `oracle/inputs/svelte-coverage.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `svelte/kit-root` | [`packages/kit/src/runtime/components/root.svelte`][svelte-kit-root] in sveltejs/kit | [MIT][svelte-kit-licence] |
+| `svelte/sample` | [`samples/svelte.sample`][svelte-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `svelte/site-kit-docs-contents` | [`packages/site-kit/src/lib/docs/DocsContents.svelte`][svelte-site-kit-docs-contents] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/site-kit-mobile-menu` | [`packages/site-kit/src/lib/nav/MobileMenu.svelte`][svelte-site-kit-mobile-menu] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/site-kit-nav` | [`packages/site-kit/src/lib/nav/Nav.svelte`][svelte-site-kit-nav] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/site-kit-search-box` | [`packages/site-kit/src/lib/search/SearchBox.svelte`][svelte-site-kit-search-box] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/site-kit-search-result-list` | [`packages/site-kit/src/lib/search/SearchResultList.svelte`][svelte-site-kit-search-result-list] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/site-kit-text` | [`packages/site-kit/src/lib/components/Text.svelte`][svelte-site-kit-text] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/site-kit-tooltip` | [`packages/site-kit/src/lib/docs/Tooltip.svelte`][svelte-site-kit-tooltip] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
+| `svelte/tests-const-tag-component` | [`packages/svelte/tests/runtime-legacy/samples/const-tag-component/main.svelte`][svelte-tests-const-tag-component] in sveltejs/svelte | [MIT][svelte-licence] |
+| `svelte/tests-destructure-async-assignments` | [`packages/svelte/tests/runtime-runes/samples/destructure-async-assignments/main.svelte`][svelte-tests-destructure-async-assignments] in sveltejs/svelte | [MIT][svelte-licence] |
+| `svelte/tests-form-default-value` | [`packages/svelte/tests/runtime-runes/samples/form-default-value/main.svelte`][svelte-tests-form-default-value] in sveltejs/svelte | [MIT][svelte-licence] |
+| `svelte/tests-props-default-value-behavior` | [`packages/svelte/tests/runtime-runes/samples/props-default-value-behavior/main.svelte`][svelte-tests-props-default-value-behavior] in sveltejs/svelte | [MIT][svelte-licence] |
+| `svelte/tests-style-directive-mutations` | [`packages/svelte/tests/runtime-runes/samples/style-directive-mutations/main.svelte`][svelte-tests-style-directive-mutations] in sveltejs/svelte | [MIT][svelte-licence] |
 | `swift/alamofire-af-error` | [`AFError.swift`][alamofire-af-error] in Alamofire/Alamofire | [MIT][alamofire-licence] |
 | `swift/algorithms-chunked` | [`Chunked.swift`][algorithms-chunked] in apple/swift-algorithms | [Apache-2.0][algorithms-licence] |
 | `swift/argument-parser-argument` | [`Argument.swift`][argument-parser-argument] in apple/swift-argument-parser | [Apache-2.0][argument-parser-licence] |
@@ -901,6 +916,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 
 `common-lisp/sample`, `common-lisp/grammar-demo`, `common-lisp/grammar-format-strings`, `common-lisp/split-sequence-list` and `common-lisp/cl-ppcre-scanner` are the development inputs for Common Lisp.
 `common-lisp/cl-ppcre-optimize`, `common-lisp/quicklisp-http` and `common-lisp/woo-response` are held out: they were added after the development inputs passed.
+`svelte/sample`, `svelte/kit-root`, `svelte/site-kit-nav`, `svelte/site-kit-search-box`, `svelte/tests-const-tag-component` and `svelte/tests-form-default-value` are the development inputs for Svelte.
+The other `svelte` inputs are held out.
 
 `objective-c/sample`, `objective-c/afnetworking-http-session-manager`, `objective-c/afnetworking-url-session-manager`, `objective-c/sdwebimage-image-cache`, `objective-c/sdwebimage-manager` and `objective-c/yykit-macro` are the development inputs for Objective-C.
 `objective-c/masonry-constraint-maker`, `objective-c/mbprogresshud` and `objective-c/sdwebimage-graphics-image-renderer` are held out: they were added after the development inputs passed.
@@ -1589,6 +1606,23 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [string-processing-algorithms-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexTests/AlgorithmsTests.swift
 [string-processing-custom-tests]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/Tests/RegexBuilderTests/CustomTests.swift
 [string-processing-licence]: https://github.com/swiftlang/swift-experimental-string-processing/blob/93065a071c4bcfc5b23e9ee3dec49f9bc9b257ee/LICENSE.txt
+[svelte-kit-licence]: https://github.com/sveltejs/kit/blob/decaf66ff3198b70a4fafa0242f60c6a07481ee3/LICENSE
+[svelte-kit-root]: https://github.com/sveltejs/kit/blob/decaf66ff3198b70a4fafa0242f60c6a07481ee3/packages/kit/src/runtime/components/root.svelte
+[svelte-licence]: https://github.com/sveltejs/svelte/blob/628098d2c662fabf4c1f3cf6564c6b20964ad9a8/LICENSE.md
+[svelte-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/svelte.sample
+[svelte-site-kit-docs-contents]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/docs/DocsContents.svelte
+[svelte-site-kit-licence]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/LICENSE
+[svelte-site-kit-mobile-menu]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/nav/MobileMenu.svelte
+[svelte-site-kit-nav]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/nav/Nav.svelte
+[svelte-site-kit-search-box]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/search/SearchBox.svelte
+[svelte-site-kit-search-result-list]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/search/SearchResultList.svelte
+[svelte-site-kit-text]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/components/Text.svelte
+[svelte-site-kit-tooltip]: https://github.com/sveltejs/svelte.dev/blob/d3b7b75aadce5184bf52ca211f58ec5ba0130bd8/packages/site-kit/src/lib/docs/Tooltip.svelte
+[svelte-tests-const-tag-component]: https://github.com/sveltejs/svelte/blob/628098d2c662fabf4c1f3cf6564c6b20964ad9a8/packages/svelte/tests/runtime-legacy/samples/const-tag-component/main.svelte
+[svelte-tests-destructure-async-assignments]: https://github.com/sveltejs/svelte/blob/628098d2c662fabf4c1f3cf6564c6b20964ad9a8/packages/svelte/tests/runtime-runes/samples/destructure-async-assignments/main.svelte
+[svelte-tests-form-default-value]: https://github.com/sveltejs/svelte/blob/628098d2c662fabf4c1f3cf6564c6b20964ad9a8/packages/svelte/tests/runtime-runes/samples/form-default-value/main.svelte
+[svelte-tests-props-default-value-behavior]: https://github.com/sveltejs/svelte/blob/628098d2c662fabf4c1f3cf6564c6b20964ad9a8/packages/svelte/tests/runtime-runes/samples/props-default-value-behavior/main.svelte
+[svelte-tests-style-directive-mutations]: https://github.com/sveltejs/svelte/blob/628098d2c662fabf4c1f3cf6564c6b20964ad9a8/packages/svelte/tests/runtime-runes/samples/style-directive-mutations/main.svelte
 [swift-licence]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/LICENSE.txt
 [swift-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/swift.sample
 [swift-test-decl-func-keyword-argument-labels]: https://github.com/swiftlang/swift/blob/f21f2c19ef734859c366829e0d23927813040968/test/decl/func/keyword-argument-labels.swift
