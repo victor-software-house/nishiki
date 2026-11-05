@@ -23,7 +23,9 @@ import gdscriptCoverage from "./inputs/gdscript-coverage.gd" with { type: "text"
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
+import hamlInvalidTags from "./inputs/haml-invalid-tags.haml" with { type: "text" };
 import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" };
+import htmlInvalidTags from "./inputs/html-invalid-tags.html" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
 import jsonCoverage from "./inputs/json-coverage.json" with { type: "text" };
@@ -35,6 +37,9 @@ import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
+import markdownInvalidTags from "./inputs/markdown-invalid-tags.md" with { type: "text" };
+import markdownPerlHeredocTags1 from "./inputs/markdown-perl-heredoc-tags-1.md" with { type: "text" };
+import markdownPerlHeredocTags2 from "./inputs/markdown-perl-heredoc-tags-2.md" with { type: "text" };
 import matlabCoverage from "./inputs/matlab-coverage.m" with { type: "text" };
 import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
@@ -66,6 +71,7 @@ import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with
 import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import svelteCaptureEnds from "./inputs/svelte-capture-ends.svelte" with { type: "text" };
 import svelteCoverage from "./inputs/svelte-coverage.svelte" with { type: "text" };
+import svelteInvalidTags from "./inputs/svelte-invalid-tags.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
@@ -738,6 +744,7 @@ export const inputs: Input[] = [
   { lang: "haml", name: "haml-silent-script", url: `${haml}/test/haml/templates/silent_script.haml` },
   { lang: "haml", name: "haml-standard", url: `${haml}/test/haml/templates/standard.haml` },
   { lang: "haml", name: "haml-whitespace", url: `${haml}/test/haml/templates/whitespace_handling.haml` },
+  { lang: "haml", name: "invalid-tags", text: hamlInvalidTags },
   { lang: "haml", name: "sample", url: `${samples}/haml.sample` },
   // Shiki's Markdown grammar has no Haskell fence, so no Markdown input
   // embeds Haskell.
@@ -749,6 +756,7 @@ export const inputs: Input[] = [
   { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
   { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },
+  { lang: "html", name: "invalid-tags", text: htmlInvalidTags },
   { lang: "html", name: "jquery-delegatetest", url: `${jquery}/test/delegatetest.html` },
   { lang: "html", name: "jquery-qunit-fixture", url: `${jquery}/test/data/qunit-fixture.html` },
   { lang: "html", name: "mathjax-mml-chtml", url: `${mathjaxDemos}/page/mml-chtml.html` },
@@ -1047,6 +1055,7 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "gson-user-guide", url: `${gson}/UserGuide.md` },
   { lang: "markdown", name: "highlightjs-readme", url: `${highlightjs}/README.md` },
   { lang: "markdown", name: "httparser-readme", url: `${httparser}/README.md` },
+  { lang: "markdown", name: "invalid-tags", text: markdownInvalidTags },
   { lang: "markdown", name: "javapoet-readme", url: `${javapoet}/README.md` },
   {
     lang: "markdown",
@@ -1068,6 +1077,8 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
   { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
   { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },
+  { lang: "markdown", name: "perl-heredoc-tags-1", text: markdownPerlHeredocTags1 },
+  { lang: "markdown", name: "perl-heredoc-tags-2", text: markdownPerlHeredocTags2 },
   { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
   { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
   { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
@@ -1336,6 +1347,7 @@ export const inputs: Input[] = [
   },
   { lang: "svelte", name: "capture-ends", text: svelteCaptureEnds },
   { lang: "svelte", name: "coverage", text: svelteCoverage },
+  { lang: "svelte", name: "invalid-tags", text: svelteInvalidTags },
   { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
   { lang: "svelte", name: "sample", url: `${samples}/svelte.sample` },
   { lang: "svelte", name: "site-kit-docs-contents", url: `${svelteSiteKit}/src/lib/docs/DocsContents.svelte` },

@@ -1,0 +1,60 @@
+L <!--
+T 4 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L @component
+T 1 source.svelte comment.block.svelte punctuation.definition.keyword.svelte
+T 10 source.svelte comment.block.svelte storage.type.class.component.svelte keyword.declaration.class.component.svelte
+L Written for nishiki: an invalid tag in a Markdown fence reads HTML's attribute list in a Svelte document.
+T 105 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+L 
+L ```html
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <foo close for="a" columnalign class>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 10 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 11 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 14 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html punctuation.separator.key-value.html
+T 16 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html
+T 18 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 30 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.columnalign.html entity.other.attribute-name.html
+T 31 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 36 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.class.html entity.other.attribute-name.html
+T 37 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.end.html
+L ```
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```php
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <foo close for>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html
+T 10 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 11 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html
+T 14 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html punctuation.definition.tag.end.html
+L ```
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown punctuation.definition.markdown
+L -->
+T 3 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L <p class="after">after</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte
+T 8 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte meta.attribute.class.svelte entity.other.attribute-name.svelte
+T 9 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte meta.attribute.class.svelte punctuation.separator.key-value.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte meta.attribute.class.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 15 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte meta.attribute.class.svelte string.quoted.svelte
+T 16 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte meta.attribute.class.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 17 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 22 source.svelte text.svelte
+T 24 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 25 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 26 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 

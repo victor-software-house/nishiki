@@ -724,6 +724,23 @@ languages! {
     /// - A `<` that no rule claims is an illegal angle bracket, even inside a quoted attribute value, as the grammar's injection makes it.
     /// - An attribute's name is a word of the grammar's lists, or any other run of name characters, which gets a scope built from its text, such as `meta.attribute.unrecognized.fooBar.html`.
     /// - `svg` and `math` elements have rules of their own, and read the attributes of a start tag that the line holds whole on that text alone.
+    /// - An invalid tag, such as `<foo>`, reads one of two attribute lists.
+    ///   With MathML's, `close` is a known attribute and `for` is not; with HTML's, the reverse.
+    ///   The list depends on the document's grammar, the outermost scope of the stack.
+    ///   Shiki compiles the rule once per document grammar, and its attributes resolve through the first rule that reaches it.
+    ///   Where html-derivative is loaded and the grammar reaches it first, the list is HTML's.
+    ///   With Shiki 4.6.0 and every bundled grammar loaded:
+    ///
+    ///   | Document | Where HTML sits | List |
+    ///   |:--|:--|:--|
+    ///   | HTML | the document | MathML's |
+    ///   | ERB | the document | MathML's |
+    ///   | Perl, PHP, Ruby | a heredoc | MathML's |
+    ///   | Elixir | a `~H` sigil | MathML's |
+    ///   | HAML | a Markdown fence in `:markdown` | MathML's |
+    ///   | Markdown | a fence, or PHP or Perl inside one | HTML's |
+    ///   | Svelte | a Markdown fence in an `@component` comment | HTML's |
+    ///   | html-derivative, Vue | the document | HTML's |
     /// - The CSS of a `<style>` element is lexed by the CSS lexer, and the JavaScript of a `<script>` element and of an event handler by the JavaScript lexer.
     ///   The code ends at its end tag, in any case, only where it has no rule open, so a `</style>` inside an open CSS block is CSS.
     ///   The grammar's own `//` and `/* */` rules in a script end at a lower-case `</script` only.

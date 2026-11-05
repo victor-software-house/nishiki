@@ -33,11 +33,12 @@ pub(crate) use engine::GiveBack;
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
-use state::{ROOT_EMBEDDED, Rule};
+use state::{ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rule};
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line};
 use crate::limits::Finished;
+use crate::scope::Scope;
 
 /// The state at the start of an HTML document whose scopes sit on the stack
 /// `base`: one rule with `text.html.basic` on top of it.
@@ -52,11 +53,35 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// text sits on the stack `base` with no `text.html.basic` of its own, as in
 /// Shiki's embedding. The grammar's injection does not apply there, as it
 /// does not when another grammar embeds this one.
+///
+/// The outermost scope of `base` names the document's grammar.
+/// When it is one of [`DERIVATIVE_FIRST`], the root frame records it with
+/// [`ROOT_DERIVATIVE_FIRST`].
+/// The scopes are read once each time another grammar opens HTML.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
+    let payload = if arena
+        .outermost(base)
+        .is_some_and(|root| DERIVATIVE_FIRST.contains(&root))
+    {
+        ROOT_DERIVATIVE_FIRST
+    } else {
+        ROOT_EMBEDDED
+    };
     arena
-        .push(ROOT, Rule::Root.code(), ROOT_EMBEDDED, base)
+        .push(ROOT, Rule::Root.code(), payload, base)
         .unwrap_or(ROOT)
 }
+
+/// The documents whose grammar Shiki compiles html-derivative's rules in
+/// before HTML's own: Markdown, and Svelte, whose `@component` comment
+/// embeds Markdown.
+/// HAML embeds Markdown too, but compiles HTML first.
+const DERIVATIVE_FIRST: &[Scope] = &[
+    #[cfg(feature = "lang-markdown")]
+    crate::markdown::DOCUMENT,
+    #[cfg(feature = "lang-svelte")]
+    crate::svelte::DOCUMENT,
+];
 
 /// Lexes `line` from `state`, under the crate's one lexer contract
 /// ([`Language::lex`](crate::Language)), with token ends counted from the

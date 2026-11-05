@@ -8,7 +8,9 @@ const TAG: u16 = crate::tag::HTML;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
 pub(crate) enum Rule {
-    /// Outside every rule. The payload is [`ROOT_EMBEDDED`] in a fence.
+    /// Outside every rule.
+    /// The payload is [`ROOT_EMBEDDED`] or [`ROOT_DERIVATIVE_FIRST`] where
+    /// another grammar embeds HTML.
     Root,
     /// `<!--` up to `-->`.
     Comment,
@@ -344,6 +346,15 @@ pub(crate) enum ErbInjection {
 /// of the grammar does not apply, as it does not when another grammar
 /// embeds this one.
 pub(crate) const ROOT_EMBEDDED: u32 = 1;
+
+/// The payload of the root frame of HTML embedded in a document whose
+/// grammar compiles html-derivative's rules first: a Markdown fence, or PHP
+/// or Perl inside one, also in a Svelte `@component` comment.
+/// The injection does not apply, as with [`ROOT_EMBEDDED`].
+/// The document is lexed as [`Document::DerivativeFirst`].
+///
+/// [`Document::DerivativeFirst`]: super::engine::Document::DerivativeFirst
+pub(crate) const ROOT_DERIVATIVE_FIRST: u32 = 2;
 
 /// The category the grammar sorts a tag into, which names its scope.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

@@ -227,6 +227,20 @@ impl Arena {
             .map_or(ROOT, |node| node.parent)
     }
 
+    /// The outermost scope of `stack`, which names the document's grammar.
+    /// It is `None` for the empty stack and for an id this arena never made.
+    #[cfg(feature = "lang-html")]
+    pub(crate) fn outermost(&self, stack: u32) -> Option<Scope> {
+        if stack == ROOT {
+            return None;
+        }
+        let mut node = *self.scopes.get(usize::try_from(stack).ok()?)?;
+        while node.parent != ROOT {
+            node = *self.scopes.get(usize::try_from(node.parent).ok()?)?;
+        }
+        Some(node.scope)
+    }
+
     /// The scopes of `stack`, innermost first.
     /// They are empty for an id this arena never made.
     pub(crate) fn scopes(&self, stack: u32) -> Scopes<'_> {
@@ -351,6 +365,17 @@ mod tests {
         let deeper = arena.child(a, Scope::new(1, 1)).unwrap();
         assert_ne!(deeper, a);
         assert_eq!(arena.scopes(deeper).count(), 2);
+    }
+
+    #[cfg(feature = "lang-html")]
+    #[test]
+    fn the_outermost_scope_is_the_first_one_pushed() {
+        let mut arena = Arena::new(None);
+        let document = arena.child(ROOT, Scope::new(1, 0)).unwrap();
+        let deeper = arena.child(document, Scope::new(2, 5)).unwrap();
+        assert_eq!(arena.outermost(deeper), Some(Scope::new(1, 0)));
+        assert_eq!(arena.outermost(document), Some(Scope::new(1, 0)));
+        assert_eq!(arena.outermost(ROOT), None);
     }
 
     #[test]

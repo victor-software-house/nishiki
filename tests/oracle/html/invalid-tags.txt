@@ -1,0 +1,45 @@
+L <!-- Written for nishiki: an invalid tag reads MathML's attribute list in an HTML document. -->
+T 4 text.html.basic comment.block.html punctuation.definition.comment.html
+T 92 text.html.basic comment.block.html
+T 95 text.html.basic comment.block.html punctuation.definition.comment.html
+L <foo close for="a" columnalign class>
+T 1 text.html.basic meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.basic meta.tag.other.foo.html
+T 10 text.html.basic meta.tag.other.foo.html meta.attribute.close.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.other.foo.html
+T 14 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html entity.other.attribute-name.html
+T 15 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html punctuation.separator.key-value.html
+T 16 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html
+T 18 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.basic meta.tag.other.foo.html
+T 30 text.html.basic meta.tag.other.foo.html meta.attribute.columnalign.html entity.other.attribute-name.html
+T 31 text.html.basic meta.tag.other.foo.html
+T 36 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.class.html entity.other.attribute-name.html
+T 37 text.html.basic meta.tag.other.foo.html punctuation.definition.tag.end.html
+L <foo
+T 1 text.html.basic meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+L   close
+T 2 text.html.basic meta.tag.other.foo.html
+T 7 text.html.basic meta.tag.other.foo.html meta.attribute.close.html entity.other.attribute-name.html
+L   for="b">
+T 2 text.html.basic meta.tag.other.foo.html
+T 5 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html entity.other.attribute-name.html
+T 6 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html punctuation.separator.key-value.html
+T 7 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 8 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html
+T 9 text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 10 text.html.basic meta.tag.other.foo.html punctuation.definition.tag.end.html
+L <bar mathsize href=c>
+T 1 text.html.basic meta.tag.other.bar.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.other.bar.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.basic meta.tag.other.bar.html
+T 13 text.html.basic meta.tag.other.bar.html meta.attribute.mathsize.html entity.other.attribute-name.html
+T 14 text.html.basic meta.tag.other.bar.html
+T 18 text.html.basic meta.tag.other.bar.html meta.attribute.href.html entity.other.attribute-name.html
+T 19 text.html.basic meta.tag.other.bar.html meta.attribute.href.html punctuation.separator.key-value.html
+T 20 text.html.basic meta.tag.other.bar.html meta.attribute.href.html string.unquoted.html
+T 21 text.html.basic meta.tag.other.bar.html punctuation.definition.tag.end.html
+L 

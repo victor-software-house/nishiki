@@ -21,7 +21,7 @@ use memchr::memchr;
 
 use super::erb::{self, Erb};
 use super::scope::S;
-use super::state::{self, ErbInjection, ROOT_EMBEDDED, Rule};
+use super::state::{self, ErbInjection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rule};
 #[cfg(feature = "lang-vue")]
 use super::vue as vue_rules;
 use super::vue::VuePat;
@@ -124,6 +124,14 @@ pub(super) enum Pat {
 pub(super) enum Document {
     /// HTML.
     Html,
+    /// HTML embedded in a document whose grammar compiles html-derivative's
+    /// rules before HTML's, such as Markdown.
+    ///
+    /// It is HTML, except for the grammar's rule for invalid tags.
+    /// Compiled through html-derivative, that rule's attributes resolve to
+    /// HTML's list.
+    /// Compiled through HTML, they resolve to MathML's.
+    DerivativeFirst,
     /// html-derivative: HTML with a rule of its own for the tags no other
     /// rule takes, which Vue's templates use.
     #[cfg_attr(
@@ -144,6 +152,19 @@ pub(super) enum Document {
         expect(dead_code, reason = "only the Vue language lexes Vue")
     )]
     Vue,
+}
+
+impl Document {
+    /// The document when a grammar that compiles html-derivative first
+    /// embeds it.
+    /// Markdown has no ERB fence, and html-derivative and Vue already read
+    /// HTML's attribute list for invalid tags.
+    fn derivative_first(self) -> Self {
+        match self {
+            Document::Html | Document::DerivativeFirst => Document::DerivativeFirst,
+            Document::Derivative | Document::Erb | Document::Vue => self,
+        }
+    }
 }
 
 /// Where HTML, lexed inside a rule of another grammar that includes the
@@ -326,6 +347,9 @@ impl<'a> Lexer<'a> {
         }
         for (index, &(id, frame)) in chain.iter().rev().enumerate() {
             if index == 0 {
+                if frame.payload == ROOT_DERIVATIVE_FIRST {
+                    lexer.document = lexer.document.derivative_first();
+                }
                 lexer.frames.push(Frame {
                     rule: Rule::Root,
                     enter: None,
@@ -334,7 +358,7 @@ impl<'a> Lexer<'a> {
                     content: frame.stack,
                     state: id,
                     payload: frame.payload,
-                    no_inject: frame.payload == ROOT_EMBEDDED,
+                    no_inject: matches!(frame.payload, ROOT_EMBEDDED | ROOT_DERIVATIVE_FIRST),
                     erb: ErbInjection::Applies,
                 });
                 continue;
@@ -746,8 +770,14 @@ impl<'a> Lexer<'a> {
         let inject = match self.document {
             Document::Erb if self.top().erb == ErbInjection::ShutOut => None,
             Document::Erb => self.find_erb(self.pos),
-            Document::Html | Document::Derivative if self.top().no_inject => None,
-            Document::Html | Document::Derivative => self.find_lt(self.pos),
+            Document::Html | Document::DerivativeFirst | Document::Derivative
+                if self.top().no_inject =>
+            {
+                None
+            }
+            Document::Html | Document::DerivativeFirst | Document::Derivative => {
+                self.find_lt(self.pos)
+            }
             Document::Vue => None,
         };
         let cut = inject.map_or(self.lim, |at| at + 1);
@@ -782,7 +812,9 @@ impl<'a> Lexer<'a> {
     fn injection(&self, at: usize) -> Option<Hit> {
         match self.document {
             Document::Erb => self.erb_hit(at),
-            Document::Html | Document::Derivative => Some(Hit::new(Pat::Inject, at, at + 1)),
+            Document::Html | Document::DerivativeFirst | Document::Derivative => {
+                Some(Hit::new(Pat::Inject, at, at + 1))
+            }
             Document::Vue => None,
         }
     }
@@ -820,7 +852,9 @@ impl<'a> Lexer<'a> {
             embedded: false,
         };
         let in_erb = match self.document {
-            Document::Html | Document::Derivative | Document::Vue => false,
+            Document::Html | Document::DerivativeFirst | Document::Derivative | Document::Vue => {
+                false
+            }
             Document::Erb => true,
         };
         let (next, halt) = if css {

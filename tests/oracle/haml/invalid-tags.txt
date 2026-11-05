@@ -1,0 +1,34 @@
+L -# Written for nishiki: an invalid tag in a Markdown fence reads MathML's attribute list in a HAML document.
+T 2 text.haml comment.block.haml punctuation.section.comment.haml
+T 108 text.haml comment.block.haml
+L %div
+T 1 text.haml meta.tag.haml punctuation.definition.tag.haml
+T 4 text.haml meta.tag.haml entity.name.tag.haml
+L   :markdown
+T 2 text.haml meta.embedded.markdown
+T 11 text.haml meta.embedded.markdown entity.name.tag.haml
+L     ```html
+T 4 text.haml meta.embedded.markdown markup.fenced_code.block.markdown
+T 7 text.haml meta.embedded.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 11 text.haml meta.embedded.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L     <foo close for="a" columnalign class>
+T 4 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html
+T 5 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 8 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 9 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 14 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.close.html entity.other.attribute-name.html
+T 15 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 18 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.for.html entity.other.attribute-name.html
+T 19 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.for.html punctuation.separator.key-value.html
+T 20 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 21 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html
+T 22 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 23 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 34 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.columnalign.html entity.other.attribute-name.html
+T 35 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 40 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.class.html entity.other.attribute-name.html
+T 41 text.haml meta.embedded.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.end.html
+L     ```
+T 4 text.haml meta.embedded.markdown markup.fenced_code.block.markdown
+T 7 text.haml meta.embedded.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

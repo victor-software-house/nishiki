@@ -605,7 +605,10 @@ impl Lexer<'_> {
                 let kind = TagInfo::from_bits(super::state::info(self.top().payload)).kind;
                 let which = match (kind, self.document) {
                     (TagKind::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
-                    (TagKind::Unrecognized, Document::Derivative | Document::Vue)
+                    (
+                        TagKind::Unrecognized,
+                        Document::DerivativeFirst | Document::Derivative | Document::Vue,
+                    )
                     | (
                         TagKind::Start
                         | TagKind::End
@@ -613,7 +616,11 @@ impl Lexer<'_> {
                         | TagKind::CustomStart
                         | TagKind::CustomEnd
                         | TagKind::Derivative,
-                        Document::Html | Document::Derivative | Document::Erb | Document::Vue,
+                        Document::Html
+                        | Document::DerivativeFirst
+                        | Document::Derivative
+                        | Document::Erb
+                        | Document::Vue,
                     ) => Attributes::Html,
                 };
                 self.attribute_patterns(p, which)
@@ -1207,7 +1214,7 @@ impl Lexer<'_> {
                 self.top().rule,
                 Rule::VueTemplateBody | Rule::VueElement | Rule::VueTemplateTagEnd
             ),
-            Document::Html | Document::Erb => false,
+            Document::Html | Document::DerivativeFirst | Document::Erb => false,
         };
         if !applies {
             return None;

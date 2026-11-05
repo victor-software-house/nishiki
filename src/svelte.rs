@@ -35,6 +35,10 @@ fn buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch {
     scratch.svelte.get_or_insert_with(Box::default)
 }
 
+/// The scope that a Svelte document's stack starts with.
+#[cfg(feature = "lang-html")]
+pub(crate) const DOCUMENT: crate::scope::Scope = scope::S::Source.scope();
+
 /// The state at the start of a Svelte document whose scopes sit on the stack
 /// `base`: one rule with `source.svelte` on top of it.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {

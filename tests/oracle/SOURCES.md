@@ -206,6 +206,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `haml/haml-silent-script` | [`test/haml/templates/silent_script.haml`][haml-silent-script] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-standard` | [`test/haml/templates/standard.haml`][haml-standard] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-whitespace` | [`test/haml/templates/whitespace_handling.haml`][haml-whitespace] in haml/haml | [MIT][haml-licence] |
+| `haml/invalid-tags` | `oracle/inputs/haml-invalid-tags.haml`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `haml/sample` | [`samples/haml.sample`][haml-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `haskell/aeson-builder` | [`src/Data/Aeson/Encoding/Builder.hs`][aeson-builder] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/aeson-decoding-text` | [`src/Data/Aeson/Decoding/Text.hs`][aeson-decoding-text] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
@@ -215,6 +216,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
 | `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
+| `html/invalid-tags` | `oracle/inputs/html-invalid-tags.html`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `html/jquery-delegatetest` | [`test/delegatetest.html`][jquery-delegatetest] in jquery/jquery | [MIT][jquery-licence] |
 | `html/jquery-qunit-fixture` | [`test/data/qunit-fixture.html`][jquery-qunit-fixture] in jquery/jquery | [MIT][jquery-licence] |
 | `html/mathjax-mml-chtml` | [`page/mml-chtml.html`][mathjax-mml-chtml] in mathjax/MathJax-demos-web | [Apache-2.0][mathjax-demos-licence] |
@@ -408,6 +410,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/gson-user-guide` | [`UserGuide.md`][gson-user-guide] in google/gson | [Apache-2.0][gson-licence] |
 | `markdown/highlightjs-readme` | [`README.md`][highlightjs-readme] in highlightjs/highlight.js | [BSD-3-Clause][highlightjs-licence] |
 | `markdown/httparser-readme` | [`README.md`][httparser-readme] in antlabs/httparser | [Apache-2.0][httparser-licence] |
+| `markdown/invalid-tags` | `oracle/inputs/markdown-invalid-tags.md`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/javapoet-readme` | [`README.md`][javapoet-readme] in square/javapoet | [Apache-2.0][javapoet-licence] |
 | `markdown/jekyll-front-matter` | [`docs/_docs/front-matter.md`][jekyll-front-matter] in jekyll/jekyll | [MIT][jekyll-licence] |
 | `markdown/julia-functions` | [`doc/src/manual/functions.md`][julia-manual-functions] in JuliaLang/julia | [MIT][julia-licence] |
@@ -421,6 +424,8 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |
 | `markdown/next-with-docker-readme` | [`examples/with-docker/README.md`][next-docker-readme] in vercel/next.js | [MIT][next-licence] |
 | `markdown/nvm-readme` | [`README.md`][nvm-readme] in nvm-sh/nvm | [MIT][nvm-licence] |
+| `markdown/perl-heredoc-tags-1` | `oracle/inputs/markdown-perl-heredoc-tags-1.md`, a document of the Shiki differential, generated for nishiki from `oracle/fuzz/perl.ts` | MIT or Apache-2.0, as nishiki |
+| `markdown/perl-heredoc-tags-2` | `oracle/inputs/markdown-perl-heredoc-tags-2.md`, a document of the Shiki differential, generated for nishiki from `oracle/fuzz/perl.ts` | MIT or Apache-2.0, as nishiki |
 | `markdown/pgvector-readme` | [`README.md`][pgvector-readme] in pgvector/pgvector | [PostgreSQL][pgvector-licence] |
 | `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
 | `markdown/powershell-releasing` | [`docs/maintainers/releasing.md`][powershell-releasing] in PowerShell/PowerShell | [MIT][powershell-licence] |
@@ -621,6 +626,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sql/ssms-create-table` | [`samples/features/ssms-templates/Sql/Table/Create Table.sql`][ssms-create] in microsoft/sql-server-samples | [MIT][sqlserver-licence] |
 | `svelte/capture-ends` | `oracle/inputs/svelte-capture-ends.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/coverage` | `oracle/inputs/svelte-coverage.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `svelte/invalid-tags` | `oracle/inputs/svelte-invalid-tags.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/kit-root` | [`packages/kit/src/runtime/components/root.svelte`][svelte-kit-root] in sveltejs/kit | [MIT][svelte-kit-licence] |
 | `svelte/sample` | [`samples/svelte.sample`][svelte-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `svelte/site-kit-docs-contents` | [`packages/site-kit/src/lib/docs/DocsContents.svelte`][svelte-site-kit-docs-contents] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |

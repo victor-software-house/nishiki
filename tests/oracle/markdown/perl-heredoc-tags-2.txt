@@ -1,0 +1,171 @@
+L ```perl
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L , }'a\'b' xor =$& <<HTMLpackage 
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl string.quoted.single.perl punctuation.definition.string.begin.perl
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl string.quoted.single.perl
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl string.quoted.single.perl constant.character.escape.perl
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl string.quoted.single.perl
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl string.quoted.single.perl punctuation.definition.string.end.perl
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl keyword.operator.logical.perl
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl variable.other.regexp.match.perl punctuation.definition.variable.perl
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl variable.other.regexp.match.perl
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html
+L  !~, 
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L sub $a[0] unless /a/ ) {/a/ ~/a/next 
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl punctuation.definition.variable.perl
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L EOTEOT ref close evalif /a/ (/a/ qx{ls}HTML"$x @y"if /a/ : || 
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 46 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 49 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L SQLunless $#x ARGVC<< c >>nextunlesssub -> $a[0]
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl punctuation.definition.variable.perl
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L EOT( y/a/b/ \~ <<HTMLprint
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic constant.character.escape.perl
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html punctuation.definition.tag.begin.html
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+L HTMLkeys<<"SQL" <<'EOT'printqq{$x}^ ~/a/&<<HTML $1 
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.HTMLkeys.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html invalid.illegal.character-not-allowed-here.html
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html invalid.illegal.character-not-allowed-here.html
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.~.html entity.other.attribute-name.html
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html invalid.illegal.character-not-allowed-here.html
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.$1.html entity.other.attribute-name.html
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.$1.html
+L SQL== sort use myor( + printf EOT1_000
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.SQL.html entity.other.attribute-name.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.SQL.html punctuation.separator.key-value.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.SQL.html invalid.illegal.unexpected-equals-sign.html
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.SQL.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.SQL.html string.unquoted.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.use.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.myor(.html entity.other.attribute-name.html
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.+.html entity.other.attribute-name.html
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.printf.html entity.other.attribute-name.html
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 38 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.EOT1_000.html entity.other.attribute-name.html
+L =head1 push s/a/b/g unless /a/ +
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.EOT1_000.html punctuation.separator.key-value.html
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.EOT1_000.html string.unquoted.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.push.html entity.other.attribute-name.html
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.s.html entity.other.attribute-name.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html invalid.illegal.character-not-allowed-here.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.unless.html entity.other.attribute-name.html
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html invalid.illegal.character-not-allowed-here.html
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.+.html entity.other.attribute-name.html
+L sub ;split__FILE__return=>
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.sub.html entity.other.attribute-name.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.;split__FILE__return.html entity.other.attribute-name.html
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html meta.attribute.unrecognized.;split__FILE__return.html punctuation.separator.key-value.html
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.HTMLprint.html punctuation.definition.tag.end.html
+L EOT// qw(a b) grep<<"SQL" die returnnext \x41 defined.q{a} ` 
+T 41 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic constant.character.escape.perl
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L /a/ unless /a/$_<<"SQL" %EOT ] &&our elsif until
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl punctuation.definition.variable.perl
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl punctuation.definition.variable.perl
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.perl
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L # // ~sort=pod*[
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L =item 'a\'b'|| q{a} <=>__PACKAGE__ or~/a/ <<EOT __PACKAGE__s{a}{b}x
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic constant.character.escape.perl
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html punctuation.definition.tag.begin.html
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 67 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.__PACKAGE__s{a}{b}x.html entity.other.attribute-name.html
+L s/a/b/g__DATA__ % 
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.s.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html invalid.illegal.character-not-allowed-here.html
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.%.html entity.other.attribute-name.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.%.html
+L `?(
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.`?(.html entity.other.attribute-name.html
+L /a/ %SQL
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html invalid.illegal.character-not-allowed-here.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.%SQL.html entity.other.attribute-name.html
+L package - STDIN -e
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.package.html entity.other.attribute-name.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.-.html entity.other.attribute-name.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.STDIN.html entity.other.attribute-name.html
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.-e.html entity.other.attribute-name.html
+L package or|/a/ nextprintfourqr/a/i qq{$x}format for&=pod C<< c >>
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.package.html entity.other.attribute-name.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.or|.html entity.other.attribute-name.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html invalid.illegal.character-not-allowed-here.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.nextprintfourqr.html entity.other.attribute-name.html
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html invalid.illegal.character-not-allowed-here.html
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 47 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.qq{$x}format.html entity.other.attribute-name.html
+T 48 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.for.html entity.other.attribute-name.html
+T 52 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.&.html entity.other.attribute-name.html
+T 53 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.&.html punctuation.separator.key-value.html
+T 56 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.&.html string.unquoted.html
+T 57 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 58 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.C.html entity.other.attribute-name.html
+T 60 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html invalid.illegal.character-not-allowed-here.html
+T 61 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 62 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html meta.attribute.unrecognized.c.html entity.other.attribute-name.html
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.EOT.html punctuation.definition.tag.end.html
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L EOTlast$a[0]( qw(a b)m{a}next 0x1F# qr/a/i @_ ]<=>
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl punctuation.definition.variable.perl
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.predefined.perl
+T 43 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+T 44 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.special.perl punctuation.definition.variable.perl
+T 45 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic variable.other.readwrite.global.special.perl
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

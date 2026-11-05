@@ -97,6 +97,10 @@ use state::Kind;
 use crate::arena::{Arena, ROOT};
 use crate::limits::Finished;
 
+/// The scope that a Markdown document's stack starts with.
+#[cfg(feature = "lang-html")]
+pub(crate) const DOCUMENT: crate::scope::Scope = S::Root.scope();
+
 /// The state at the start of a Markdown document whose scopes sit on the
 /// stack `base`: one context with `text.html.markdown` on top of it.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {

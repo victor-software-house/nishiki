@@ -1,0 +1,174 @@
+L # Attributes of invalid tags
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 28 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Written for nishiki.
+T 20 text.html.markdown meta.paragraph.markdown
+L An invalid tag reads HTML's attribute list in a Markdown document, and MathML's in an HTML document.
+T 100 text.html.markdown meta.paragraph.markdown
+L 
+L ```html
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <foo close for="a" columnalign class>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html punctuation.separator.key-value.html
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.columnalign.html entity.other.attribute-name.html
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 36 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.class.html entity.other.attribute-name.html
+T 37 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.end.html
+L <foo
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+L   close
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+L   for="b">
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html punctuation.separator.key-value.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.foo.html punctuation.definition.tag.end.html
+L <bar mathsize href=c>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html meta.attribute.unrecognized.mathsize.html entity.other.attribute-name.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html meta.attribute.href.html entity.other.attribute-name.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html meta.attribute.href.html punctuation.separator.key-value.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html meta.attribute.href.html string.unquoted.html
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.html meta.tag.other.bar.html punctuation.definition.tag.end.html
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```php
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <foo close for class>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html meta.attribute.class.html entity.other.attribute-name.html
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.other.foo.html punctuation.definition.tag.end.html
+L <?php
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.ternary.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+L $page = <<<HTML
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php variable.other.php punctuation.definition.variable.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php variable.other.php
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.assignment.php
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php punctuation.definition.string.php
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.begin.php keyword.operator.heredoc.php
+L <foo close for>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html text.html meta.tag.other.foo.html punctuation.definition.tag.end.html
+L HTML;
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.unquoted.heredoc.php meta.embedded.html punctuation.section.embedded.end.php keyword.operator.heredoc.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php punctuation.terminator.expression.php
+L ?>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.ternary.php
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+L <baz columnalign for>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.control.for.php
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```perl
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L print <<HTML;
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl support.function.perl
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.begin.perl
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html
+L <foo close for="$x" class>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.for.html punctuation.separator.key-value.html
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.for.html string.quoted.double.html punctuation.definition.string.end.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.class.html entity.other.attribute-name.html
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html punctuation.definition.tag.end.html
+L <foo
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+L   close
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+L   for>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html meta.attribute.for.html entity.other.attribute-name.html
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl text.html.basic meta.tag.other.foo.html punctuation.definition.tag.end.html
+L HTML
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl
+L print <<~'HTML';
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl support.function.perl
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.begin.perl
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.begin.perl punctuation.definition.delimiter.end.perl
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html
+L   <bar columnalign for>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html punctuation.definition.tag.begin.html
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html meta.attribute.unrecognized.columnalign.html entity.other.attribute-name.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html meta.attribute.for.html entity.other.attribute-name.html
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl text.html.basic meta.tag.other.bar.html punctuation.definition.tag.end.html
+L   HTML
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.perl meta.embedded.block.html string.unquoted.heredoc.raw.perl punctuation.definition.string.end.perl
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L Raw HTML in the document: <foo close for>.
+T 26 text.html.markdown meta.paragraph.markdown
+T 27 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 30 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 31 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative
+T 36 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.close.html entity.other.attribute-name.html
+T 37 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative
+T 40 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative meta.attribute.for.html entity.other.attribute-name.html
+T 41 text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+T 42 text.html.markdown meta.paragraph.markdown
+L 
