@@ -99,13 +99,15 @@ fn ruby_heredoc_calls_take_their_rules_over() {
     assert_same_tokens(crate::Language::Ruby, &call.repeat(300));
 }
 
-/// Svelte lines that end inside a style hand their rules on unchanged, even
-/// where the node limit keeps the style rule's new state out of the arena.
-/// Each limit from 1 to 400 stops the arena at another place in the document.
+/// Svelte lines that end inside a style or a script hand their rules on
+/// unchanged, even where the node limit keeps the embedding rule's new state
+/// out of the arena.
+/// Each limit from 1 to 400 stops the arena at another place in each
+/// document.
 #[cfg(feature = "lang-svelte")]
 #[test]
 fn embedded_lines_at_the_node_limit_take_their_rules_over() {
-    let document = indoc::indoc! {"
+    let style = indoc::indoc! {"
         <style>
           a {
             color: red;
@@ -120,11 +122,26 @@ fn embedded_lines_at_the_node_limit_take_their_rules_over() {
         </style>
         <div class=\"b\">x</div>
     "};
-    for nodes in 1..400 {
-        let limits = crate::Limits {
-            nodes: Some(nodes),
-            ..crate::Limits::default()
-        };
-        assert_same_tokens_under(crate::Language::Svelte, document, limits);
+    let script = indoc::indoc! {"
+        <script>
+          let a = 1;
+          const c = {
+            d: [a, 'two'],
+            e: `f ${a}
+              g`,
+          };
+          /* one
+             two */
+        </script>
+        <div>{a}</div>
+    "};
+    for document in [style, script] {
+        for nodes in 1..400 {
+            let limits = crate::Limits {
+                nodes: Some(nodes),
+                ..crate::Limits::default()
+            };
+            assert_same_tokens_under(crate::Language::Svelte, document, limits);
+        }
     }
 }
