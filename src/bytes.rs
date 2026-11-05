@@ -8,6 +8,12 @@
 
 use std::cmp::Ordering;
 
+/// Whether `a` and `b` hold the same bytes, as `==` on byte slices says.
+#[cfg(feature = "lang-cmake")]
+pub(crate) fn same(a: &[u8], b: &[u8]) -> bool {
+    a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x == y)
+}
+
 /// `a` against `b`, in the order `Ord` on byte slices gives.
 pub(crate) fn order(a: &[u8], b: &[u8]) -> Ordering {
     for (x, y) in a.iter().zip(b) {
@@ -28,6 +34,17 @@ mod tests {
         for a in words {
             for b in words {
                 assert_eq!(order(a, b), a.cmp(b), "{a:?} against {b:?}");
+            }
+        }
+    }
+
+    #[cfg(feature = "lang-cmake")]
+    #[test]
+    fn it_finds_slices_the_same_as_eq_does() {
+        let words: [&[u8]; 7] = [b"", b"a", b"an", b"and", b"ant", b"b", b"be"];
+        for a in words {
+            for b in words {
+                assert_eq!(same(a, b), a == b, "{a:?} against {b:?}");
             }
         }
     }

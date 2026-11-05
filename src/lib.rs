@@ -260,6 +260,7 @@ mod astro;
 mod bat;
 #[cfg(any(
     feature = "lang-astro",
+    feature = "lang-cmake",
     feature = "lang-common-lisp",
     feature = "lang-pascal",
     feature = "lang-tex"

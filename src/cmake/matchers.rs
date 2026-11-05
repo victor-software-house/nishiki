@@ -11,8 +11,8 @@
 use super::engine::{LONGEST_WORD, Lexer, Lowered};
 use super::grammar::Pat;
 use super::words::{self, Words};
-use crate::case_fold;
 use crate::rules::Chars;
+use crate::{bytes, case_fold};
 
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`, and where its match ends.
@@ -62,7 +62,10 @@ impl Lexer<'_> {
         if word.end > p {
             let found = match word.len.and_then(|len| word.letters.get(..len)) {
                 Some(letters) => {
-                    words.exact.binary_search(&letters).is_ok()
+                    words
+                        .exact
+                        .binary_search_by(|word| bytes::order(word, letters))
+                        .is_ok()
                         || words.globs.iter().any(|parts| fits(letters, parts))
                 }
                 None => words
@@ -189,15 +192,24 @@ impl Lexer<'_> {
 fn fits(letters: &[u8], parts: &[&[u8]]) -> bool {
     match parts {
         [] => letters.is_empty(),
-        [only] => letters == *only,
+        [only] => bytes::same(letters, only),
         [first, rest @ ..] => {
             let Some(last) = rest.last() else {
                 return false;
             };
-            if !letters.ends_with(last) {
+            let ends = letters
+                .len()
+                .checked_sub(last.len())
+                .and_then(|start| letters.get(start..))
+                .is_some_and(|tail| bytes::same(tail, last));
+            if !ends {
                 return false;
             }
-            letters.strip_prefix(*first).is_some_and(|tail| {
+            let tail = letters
+                .get(..first.len())
+                .filter(|head| bytes::same(head, first))
+                .and_then(|_| letters.get(first.len()..));
+            tail.is_some_and(|tail| {
                 (1..=tail.len()).any(|gap| tail.get(gap..).is_some_and(|after| fits(after, rest)))
             })
         }
