@@ -72,6 +72,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `all` | `graphql`, `gql` |
 | HAML | `Language::Haml` | `lang-haml` | `textmate` | `haml` |
 | Haskell | `Language::Haskell` | `lang-haskell` | `all` | `haskell`, `hs` |
+| HCL | `Language::Hcl` | `lang-hcl` | `all` | `hcl` |
 | HTML | `Language::Html` | `lang-html` | `all` | `html` |
 | HTML (Derivative) | `Language::HtmlDerivative` | `lang-html-derivative` | `all` | `html-derivative` |
 | INI | `Language::Ini` | `lang-ini` | `all` | `ini`, `properties` |

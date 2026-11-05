@@ -249,7 +249,12 @@ mod diff;
 mod dockerfile;
 #[cfg(feature = "lang-elixir")]
 mod elixir;
-#[cfg(any(feature = "lang-json", feature = "lang-toml", feature = "lang-yaml"))]
+#[cfg(any(
+    feature = "lang-hcl",
+    feature = "lang-json",
+    feature = "lang-toml",
+    feature = "lang-yaml"
+))]
 mod emit;
 #[cfg(feature = "lang-erb")]
 mod erb;
@@ -265,6 +270,8 @@ mod graphql;
 mod haml;
 #[cfg(feature = "lang-haskell")]
 mod haskell;
+#[cfg(feature = "lang-hcl")]
+mod hcl;
 mod highlighter;
 #[cfg(feature = "lang-html")]
 mod html;

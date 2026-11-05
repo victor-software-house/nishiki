@@ -27,6 +27,8 @@ mod graphql;
 mod haml;
 #[cfg(feature = "lang-haskell")]
 mod haskell;
+#[cfg(feature = "lang-hcl")]
+mod hcl;
 mod html;
 mod html_derivative;
 mod ini;

@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 16
-digest = "92fad439c3d35aae97bc32d0f26f4dc831419d3d3d1d35df470e4a2acd187da9"
+version = 17
+digest = "0151d03727254a45c93bad8ed88c56197fb52550a27029900dab8e3a388cbd7f"
 
 [[file]]
 language = "bat"
@@ -436,6 +436,28 @@ licence = "BSD-3-Clause"
 licence_source = "https://github.com/haskell/containers/blob/c9c0c887ca9ff6934e46ca1415ef9a41d31e2eca/containers/LICENSE"
 bytes = 27619
 sha256 = "062242488362e7bdb61de90693c0dfd3dfc50f544b57922f5d548a253499cd58"
+
+[[file]]
+language = "hcl"
+tier = "small"
+origin = "neutral"
+path = "hcl/small/terraform-aws-vpc-issues.tf"
+source = "https://raw.githubusercontent.com/terraform-aws-modules/terraform-aws-vpc/b3abd6df2ecf052451a361ed55b8f06f8742a795/examples/issues/main.tf"
+licence = "Apache-2.0"
+licence_source = "https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/LICENSE"
+bytes = 2990
+sha256 = "67bf435801b2b2fae8dc0204cd785ca9eb6bf1e1de61303264c9267386df38ab"
+
+[[file]]
+language = "hcl"
+tier = "medium"
+origin = "neutral"
+path = "hcl/medium/terraform-aws-vpc-wrappers.tf"
+source = "https://raw.githubusercontent.com/terraform-aws-modules/terraform-aws-vpc/b3abd6df2ecf052451a361ed55b8f06f8742a795/wrappers/main.tf"
+licence = "Apache-2.0"
+licence_source = "https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/LICENSE"
+bytes = 39445
+sha256 = "5c385e0e3a338e95bbd03ac49683e6be989cfaf9c40618f359d6266d2d456b7d"
 
 [[file]]
 language = "html"

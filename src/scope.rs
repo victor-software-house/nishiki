@@ -110,6 +110,8 @@ tables! {
     GRAPHQL = graphql;
     #[cfg(feature = "lang-haskell")]
     HASKELL = haskell;
+    #[cfg(feature = "lang-hcl")]
+    HCL = hcl;
     #[cfg(feature = "lang-html")]
     HTML = html;
     #[cfg(feature = "lang-ini")]

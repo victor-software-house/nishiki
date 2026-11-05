@@ -218,6 +218,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `haskell/aeson-github` | [`examples/src/GitHub.hs`][aeson-github] in haskell/aeson | [BSD-3-Clause][aeson-licence] |
 | `haskell/coverage` | `oracle/inputs/haskell-coverage.hs`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `haskell/sample` | [`samples/haskell.sample`][haskell-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `hcl/coverage` | `oracle/inputs/hcl-coverage.hcl`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `hcl/sample` | [`samples/hcl.sample`][hcl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `hcl/terraform-aws-vpc-flow-logs` | [`vpc-flow-logs.tf`][terraform-aws-vpc-flow-logs] in terraform-aws-modules/terraform-aws-vpc | [Apache-2.0][terraform-aws-vpc-licence] |
+| `hcl/terraform-aws-vpc-main` | [`main.tf`][terraform-aws-vpc-main] in terraform-aws-modules/terraform-aws-vpc | [Apache-2.0][terraform-aws-vpc-licence] |
+| `hcl/terraform-aws-vpc-outputs` | [`outputs.tf`][terraform-aws-vpc-outputs] in terraform-aws-modules/terraform-aws-vpc | [Apache-2.0][terraform-aws-vpc-licence] |
+| `hcl/terraform-aws-vpc-variables` | [`variables.tf`][terraform-aws-vpc-variables] in terraform-aws-modules/terraform-aws-vpc | [Apache-2.0][terraform-aws-vpc-licence] |
+| `hcl/terragrunt-read-config` | [`test/fixtures/read-config/full/source.hcl`][terragrunt-read-config] in gruntwork-io/terragrunt | [MIT][terragrunt-licence] |
+| `hcl/terragrunt-stack-deps-tree` | [`test/fixtures/stacks/stack-deps-tree/live/terragrunt.stack.hcl`][terragrunt-stack-deps-tree] in gruntwork-io/terragrunt | [MIT][terragrunt-licence] |
 | `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
 | `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
 | `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
@@ -945,6 +953,10 @@ Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Merma
 `haskell/sample` and `haskell/aeson-github` are Haskell's development inputs, and `haskell/aeson-builder` and `haskell/aeson-decoding-text` are held out.
 `haskell/coverage` is held out too: it was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 Shiki's Markdown grammar has no Haskell fence, so no Markdown input embeds Haskell.
+`hcl/sample`, `hcl/terraform-aws-vpc-main`, `hcl/terraform-aws-vpc-outputs`, `hcl/terraform-aws-vpc-flow-logs`, `hcl/terragrunt-read-config` and `hcl/coverage` are HCL's development inputs.
+`hcl/terraform-aws-vpc-variables` and `hcl/terragrunt-stack-deps-tree` are held out.
+Shiki's HCL grammar is MPL-2.0, and no HashiCorp source under MPL-2.0 or BUSL-1.1 is an input.
+Shiki's Markdown grammar has no HCL fence, so no Markdown input embeds HCL.
 
 `erb/sample`, `erb/rails-welcome`, `erb/rails-routes-table`, `erb/rails-rescues-source`, `erb/devise-registrations-edit` and `erb/rails-scaffold-form` are the development inputs for ERB.
 `erb/rails-mailer-email`, `erb/rails-rescues-diagnostics`, `erb/rails-info-notes`, `erb/rails-app-layout`, `erb/rails-pwa-offline`, `erb/devise-shared-links`, `erb/devise-confirmation-instructions`, `erb/devise-sessions-new` and `erb/devise-error-messages` are held out.
@@ -1318,6 +1330,7 @@ The hand lexer was written against all seven.
 [haml-standard]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/standard.haml
 [haml-whitespace]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/whitespace_handling.haml
 [haskell-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/haskell.sample
+[hcl-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/hcl.sample
 [helm-licence]: https://github.com/helm/helm/blob/bc232c5312e784e808ea95ae76f9e82d4fe142fc/LICENSE
 [helm-make]: https://github.com/helm/helm/blob/bc232c5312e784e808ea95ae76f9e82d4fe142fc/Makefile
 [highlightjs-atom-one-dark]: https://github.com/highlightjs/highlight.js/blob/60e092057673595fa542db0bc2b13a99df5d0551/src/styles/atom-one-dark.css
@@ -1752,6 +1765,14 @@ The hand lexer was written against all seven.
 [swift-testing-licence]: https://github.com/swiftlang/swift-testing/blob/87ec972e0b5725ee02b31a6e9ed690d85abb460a/LICENSE.txt
 [tailwind-licence]: https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/LICENSE
 [tailwind-preflight]: https://github.com/tailwindlabs/tailwindcss/blob/2626ae6ceddf36069ab6d55c53a5857c1e2e360a/packages/tailwindcss/preflight.css
+[terraform-aws-vpc-flow-logs]: https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/vpc-flow-logs.tf
+[terraform-aws-vpc-licence]: https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/LICENSE
+[terraform-aws-vpc-main]: https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/main.tf
+[terraform-aws-vpc-outputs]: https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/outputs.tf
+[terraform-aws-vpc-variables]: https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/variables.tf
+[terragrunt-licence]: https://github.com/gruntwork-io/terragrunt/blob/bce50e6e9bd6340b0cec4fe7d03c7cf11218d63b/LICENSE.txt
+[terragrunt-read-config]: https://github.com/gruntwork-io/terragrunt/blob/bce50e6e9bd6340b0cec4fe7d03c7cf11218d63b/test/fixtures/read-config/full/source.hcl
+[terragrunt-stack-deps-tree]: https://github.com/gruntwork-io/terragrunt/blob/bce50e6e9bd6340b0cec4fe7d03c7cf11218d63b/test/fixtures/stacks/stack-deps-tree/live/terragrunt.stack.hcl
 [testify-assertions]: https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/assert/assertions.go
 [testify-licence]: https://github.com/stretchr/testify/blob/87a7b9d57689f6579db2da795ab8deeab29cb724/LICENSE
 [testing-runner-tests]: https://github.com/swiftlang/swift-testing/blob/87ec972e0b5725ee02b31a6e9ed690d85abb460a/Tests/TestingTests/RunnerTests.swift

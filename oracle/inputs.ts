@@ -26,6 +26,7 @@ import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "te
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import hamlInvalidTags from "./inputs/haml-invalid-tags.haml" with { type: "text" };
 import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" };
+import hclCoverage from "./inputs/hcl-coverage.hcl" with { type: "text" };
 import htmlInvalidTags from "./inputs/html-invalid-tags.html" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
@@ -465,6 +466,10 @@ const swiftTests =
   "https://raw.githubusercontent.com/swiftlang/swift/f21f2c19ef734859c366829e0d23927813040968";
 const tailwind =
   "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/2626ae6ceddf36069ab6d55c53a5857c1e2e360a";
+const terraformAwsVpc =
+  "https://raw.githubusercontent.com/terraform-aws-modules/terraform-aws-vpc/b3abd6df2ecf052451a361ed55b8f06f8742a795";
+const terragrunt =
+  "https://raw.githubusercontent.com/gruntwork-io/terragrunt/bce50e6e9bd6340b0cec4fe7d03c7cf11218d63b";
 const testify =
   "https://raw.githubusercontent.com/stretchr/testify/87a7b9d57689f6579db2da795ab8deeab29cb724";
 const thor =
@@ -773,6 +778,24 @@ export const inputs: Input[] = [
   { lang: "haskell", name: "aeson-github", url: `${aeson}/examples/src/GitHub.hs` },
   { lang: "haskell", name: "coverage", text: haskellCoverage },
   { lang: "haskell", name: "sample", url: `${samples}/haskell.sample` },
+  // Shiki's Markdown grammar has no HCL fence, so no Markdown input embeds
+  // HCL.
+  { lang: "hcl", name: "coverage", text: hclCoverage },
+  { lang: "hcl", name: "sample", url: `${samples}/hcl.sample` },
+  { lang: "hcl", name: "terraform-aws-vpc-flow-logs", url: `${terraformAwsVpc}/vpc-flow-logs.tf` },
+  { lang: "hcl", name: "terraform-aws-vpc-main", url: `${terraformAwsVpc}/main.tf` },
+  { lang: "hcl", name: "terraform-aws-vpc-outputs", url: `${terraformAwsVpc}/outputs.tf` },
+  { lang: "hcl", name: "terraform-aws-vpc-variables", url: `${terraformAwsVpc}/variables.tf` },
+  {
+    lang: "hcl",
+    name: "terragrunt-read-config",
+    url: `${terragrunt}/test/fixtures/read-config/full/source.hcl`,
+  },
+  {
+    lang: "hcl",
+    name: "terragrunt-stack-deps-tree",
+    url: `${terragrunt}/test/fixtures/stacks/stack-deps-tree/live/terragrunt.stack.hcl`,
+  },
   { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
   { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },

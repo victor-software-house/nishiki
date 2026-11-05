@@ -35,6 +35,7 @@ cargo check --locked --tests --no-default-features --features lang-gdscript
 cargo check --locked --tests --no-default-features --features lang-go
 cargo check --locked --tests --no-default-features --features lang-graphql
 cargo check --locked --tests --no-default-features --features lang-haskell
+cargo check --locked --tests --no-default-features --features lang-hcl
 cargo check --locked --tests --no-default-features --features lang-html
 cargo check --locked --tests --no-default-features --features lang-html-derivative
 cargo check --locked --tests --no-default-features --features lang-ini

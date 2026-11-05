@@ -1,0 +1,467 @@
+L locals {
+T 6 source.hcl meta.block.hcl entity.name.type.hcl
+T 7 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   the_answer = 42
+T 2 source.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl
+T 17 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L generate "provider" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 20 source.hcl meta.block.hcl
+T 21 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   path = "provider.tf"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   if_exists = "overwrite_terragrunt"
+T 2 source.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   contents = <<EOF
+T 2 source.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl string.unquoted.heredoc.hcl keyword.operator.heredoc.hcl
+T 18 source.hcl meta.block.hcl string.unquoted.heredoc.hcl keyword.control.heredoc.hcl
+L provider "aws" {
+T 16 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+L   region = "us-east-1"
+T 22 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+L }
+T 1 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+L EOF
+T 3 source.hcl meta.block.hcl string.unquoted.heredoc.hcl keyword.control.heredoc.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L remote_state {
+T 12 source.hcl meta.block.hcl entity.name.type.hcl
+T 13 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   backend = "local"
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl
+T 19 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   generate = {
+T 2 source.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L     path = "backend.tf"
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 8 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl meta.braces.hcl
+T 10 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl meta.braces.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 22 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 23 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L     if_exists = "overwrite_terragrunt"
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 13 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl meta.braces.hcl
+T 15 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl
+T 17 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 37 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 38 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.braces.hcl
+T 3 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   config = {
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L     path = "foo.tfstate"
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 8 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl meta.braces.hcl
+T 10 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl meta.braces.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 23 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 24 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.braces.hcl
+T 3 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   encryption = {
+T 2 source.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L     key_provider = "foo"
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.braces.hcl
+T 18 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.braces.hcl
+T 20 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 23 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 24 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.braces.hcl
+T 3 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L terraform {
+T 9 source.hcl meta.block.hcl entity.name.type.hcl
+T 10 source.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source                   = "./delorean"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 27 source.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 40 source.hcl meta.block.hcl string.quoted.double.hcl
+T 41 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   include_in_copy          = ["time_machine.*"]
+T 2 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 27 source.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 31 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 45 source.hcl meta.block.hcl string.quoted.double.hcl
+T 46 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 47 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L   exclude_from_copy        = ["excluded_time_machine.*"]
+T 2 source.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 27 source.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 31 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 54 source.hcl meta.block.hcl string.quoted.double.hcl
+T 55 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 56 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L   copy_terraform_lock_file = true
+T 2 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 27 source.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 33 source.hcl meta.block.hcl constant.language.hcl
+L 
+L   extra_arguments "var-files" {
+T 2 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     commands = ["apply", "plan"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     required_var_files = ["extra.tfvars"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 27 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 39 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 40 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 41 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     optional_var_files = ["optional.tfvars"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 27 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 42 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 43 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 44 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     env_vars = {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L       TF_VAR_custom_var = "I'm set in extra_arguments env_vars"
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 27 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 62 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 63 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L   before_hook "before_hook_1" {
+T 2 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     commands = ["apply", "plan"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     execute = ["touch", "before.out"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 37 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     run_on_error = true
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl constant.language.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L   after_hook "after_hook_1" {
+T 2 source.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 28 source.hcl meta.block.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     commands = ["apply", "plan"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     execute = ["touch", "after.out"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     run_on_error = true
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl constant.language.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L dependencies {
+T 12 source.hcl meta.block.hcl entity.name.type.hcl
+T 13 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   paths = ["../../terragrunt"]
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 28 source.hcl meta.block.hcl string.quoted.double.hcl
+T 29 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 30 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L terraform_binary = "terragrunt"
+T 16 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 17 source.hcl variable.declaration.hcl
+T 18 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 19 source.hcl variable.declaration.hcl
+T 20 source.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 30 source.hcl string.quoted.double.hcl
+T 31 source.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L terraform_version_constraint = "= 0.12.20"
+T 28 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl variable.declaration.hcl
+T 30 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl variable.declaration.hcl
+T 32 source.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 41 source.hcl string.quoted.double.hcl
+T 42 source.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L terragrunt_version_constraint = "= 0.23.18"
+T 29 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 30 source.hcl variable.declaration.hcl
+T 31 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 32 source.hcl variable.declaration.hcl
+T 33 source.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 42 source.hcl string.quoted.double.hcl
+T 43 source.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L download_dir = ".terragrunt-cache"
+T 12 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl variable.declaration.hcl
+T 14 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl variable.declaration.hcl
+T 16 source.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 33 source.hcl string.quoted.double.hcl
+T 34 source.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L prevent_destroy = true
+T 15 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 16 source.hcl variable.declaration.hcl
+T 17 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 18 source.hcl variable.declaration.hcl
+T 22 source.hcl constant.language.hcl
+L iam_role = "TerragruntIAMRole"
+T 8 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl variable.declaration.hcl
+T 10 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl variable.declaration.hcl
+T 12 source.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 29 source.hcl string.quoted.double.hcl
+T 30 source.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L exclude {
+T 7 source.hcl meta.block.hcl entity.name.type.hcl
+T 8 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   if = true
+T 2 source.hcl meta.block.hcl
+T 4 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 5 source.hcl meta.block.hcl variable.declaration.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl constant.language.hcl
+L   actions = ["all"]
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 14 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 17 source.hcl meta.block.hcl string.quoted.double.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 19 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L   no_run = true
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl constant.language.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L inputs = {
+T 6 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 7 source.hcl variable.declaration.hcl
+T 8 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 9 source.hcl variable.declaration.hcl
+T 10 source.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L   doc = "Emmett Brown"
+T 2 source.hcl meta.braces.hcl
+T 5 source.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 6 source.hcl meta.braces.hcl
+T 7 source.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 8 source.hcl meta.braces.hcl
+T 9 source.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.braces.hcl string.quoted.double.hcl
+T 22 source.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L }
+T 1 source.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L 

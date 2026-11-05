@@ -1,0 +1,1225 @@
+L data "aws_region" "current" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 18 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 28 source.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = var.create_vpc && var.enable_flow_log ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 24 source.hcl meta.block.hcl variable.other.member.hcl
+T 25 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 31 source.hcl meta.block.hcl
+T 32 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 47 source.hcl meta.block.hcl variable.other.member.hcl
+T 48 source.hcl meta.block.hcl
+T 49 source.hcl meta.block.hcl keyword.operator.hcl
+T 50 source.hcl meta.block.hcl
+T 51 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   region = var.region
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 21 source.hcl meta.block.hcl variable.other.member.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L data "aws_caller_identity" "current" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 27 source.hcl meta.block.hcl
+T 36 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 37 source.hcl meta.block.hcl
+T 38 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = var.create_vpc && var.enable_flow_log ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 24 source.hcl meta.block.hcl variable.other.member.hcl
+T 25 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 31 source.hcl meta.block.hcl
+T 32 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 47 source.hcl meta.block.hcl variable.other.member.hcl
+T 48 source.hcl meta.block.hcl
+T 49 source.hcl meta.block.hcl keyword.operator.hcl
+T 50 source.hcl meta.block.hcl
+T 51 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L data "aws_partition" "current" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 21 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 31 source.hcl meta.block.hcl
+T 32 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = var.create_vpc && var.enable_flow_log ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 24 source.hcl meta.block.hcl variable.other.member.hcl
+T 25 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 31 source.hcl meta.block.hcl
+T 32 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 47 source.hcl meta.block.hcl variable.other.member.hcl
+T 48 source.hcl meta.block.hcl
+T 49 source.hcl meta.block.hcl keyword.operator.hcl
+T 50 source.hcl meta.block.hcl
+T 51 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L locals {
+T 6 source.hcl meta.block.hcl entity.name.type.hcl
+T 7 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   enable_flow_log = var.create_vpc && var.enable_flow_log
+T 2 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl
+T 23 source.hcl meta.block.hcl
+T 24 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 34 source.hcl meta.block.hcl variable.other.member.hcl
+T 35 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 41 source.hcl meta.block.hcl
+T 42 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 57 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   create_flow_log_cloudwatch_iam_role  = local.enable_flow_log && var.flow_log_destination_type != "s3" && var.create_flow_log_cloudwatch_iam_role
+T 2 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 39 source.hcl meta.block.hcl variable.declaration.hcl
+T 40 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 41 source.hcl meta.block.hcl variable.declaration.hcl
+T 46 source.hcl meta.block.hcl
+T 47 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 62 source.hcl meta.block.hcl variable.other.member.hcl
+T 63 source.hcl meta.block.hcl
+T 65 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 69 source.hcl meta.block.hcl
+T 70 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 95 source.hcl meta.block.hcl variable.other.member.hcl
+T 96 source.hcl meta.block.hcl
+T 98 source.hcl meta.block.hcl keyword.operator.hcl
+T 99 source.hcl meta.block.hcl
+T 100 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 102 source.hcl meta.block.hcl string.quoted.double.hcl
+T 103 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 104 source.hcl meta.block.hcl
+T 106 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 110 source.hcl meta.block.hcl
+T 111 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 146 source.hcl meta.block.hcl variable.other.member.hcl
+L   create_flow_log_cloudwatch_log_group = local.enable_flow_log && var.flow_log_destination_type != "s3" && var.create_flow_log_cloudwatch_log_group
+T 2 source.hcl meta.block.hcl
+T 38 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 39 source.hcl meta.block.hcl variable.declaration.hcl
+T 40 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 41 source.hcl meta.block.hcl variable.declaration.hcl
+T 46 source.hcl meta.block.hcl
+T 47 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 62 source.hcl meta.block.hcl variable.other.member.hcl
+T 63 source.hcl meta.block.hcl
+T 65 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 69 source.hcl meta.block.hcl
+T 70 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 95 source.hcl meta.block.hcl variable.other.member.hcl
+T 96 source.hcl meta.block.hcl
+T 98 source.hcl meta.block.hcl keyword.operator.hcl
+T 99 source.hcl meta.block.hcl
+T 100 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 102 source.hcl meta.block.hcl string.quoted.double.hcl
+T 103 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 104 source.hcl meta.block.hcl
+T 106 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 110 source.hcl meta.block.hcl
+T 111 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 147 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   flow_log_destination_arn                  = local.create_flow_log_cloudwatch_log_group ? try(aws_cloudwatch_log_group.flow_log[0].arn, null) : var.flow_log_destination_arn
+T 2 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 44 source.hcl meta.block.hcl variable.declaration.hcl
+T 45 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 46 source.hcl meta.block.hcl variable.declaration.hcl
+T 51 source.hcl meta.block.hcl
+T 52 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 88 source.hcl meta.block.hcl variable.other.member.hcl
+T 89 source.hcl meta.block.hcl
+T 90 source.hcl meta.block.hcl keyword.operator.hcl
+T 91 source.hcl meta.block.hcl
+T 94 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 95 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 119 source.hcl meta.block.hcl meta.function-call.hcl
+T 120 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 128 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 129 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.brackets.begin.hcl
+T 130 source.hcl meta.block.hcl meta.function-call.hcl constant.numeric.integer.hcl
+T 131 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.brackets.end.hcl
+T 132 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 135 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 136 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 137 source.hcl meta.block.hcl meta.function-call.hcl
+T 141 source.hcl meta.block.hcl meta.function-call.hcl constant.language.hcl
+T 142 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+T 143 source.hcl meta.block.hcl
+T 144 source.hcl meta.block.hcl keyword.operator.hcl
+T 148 source.hcl meta.block.hcl
+T 149 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 173 source.hcl meta.block.hcl variable.other.member.hcl
+L   flow_log_iam_role_arn                     = var.flow_log_destination_type != "s3" && local.create_flow_log_cloudwatch_iam_role ? try(aws_iam_role.vpc_flow_log_cloudwatch[0].arn, null) : var.flow_log_cloudwatch_iam_role_arn
+T 2 source.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 44 source.hcl meta.block.hcl variable.declaration.hcl
+T 45 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 46 source.hcl meta.block.hcl variable.declaration.hcl
+T 49 source.hcl meta.block.hcl
+T 50 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 75 source.hcl meta.block.hcl variable.other.member.hcl
+T 76 source.hcl meta.block.hcl
+T 78 source.hcl meta.block.hcl keyword.operator.hcl
+T 79 source.hcl meta.block.hcl
+T 80 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 82 source.hcl meta.block.hcl string.quoted.double.hcl
+T 83 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 84 source.hcl meta.block.hcl
+T 86 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 92 source.hcl meta.block.hcl
+T 93 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 128 source.hcl meta.block.hcl variable.other.member.hcl
+T 129 source.hcl meta.block.hcl
+T 130 source.hcl meta.block.hcl keyword.operator.hcl
+T 131 source.hcl meta.block.hcl
+T 134 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 135 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 147 source.hcl meta.block.hcl meta.function-call.hcl
+T 148 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 171 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 172 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.brackets.begin.hcl
+T 173 source.hcl meta.block.hcl meta.function-call.hcl constant.numeric.integer.hcl
+T 174 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.brackets.end.hcl
+T 175 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 178 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 179 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 180 source.hcl meta.block.hcl meta.function-call.hcl
+T 184 source.hcl meta.block.hcl meta.function-call.hcl constant.language.hcl
+T 185 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+T 186 source.hcl meta.block.hcl
+T 187 source.hcl meta.block.hcl keyword.operator.hcl
+T 191 source.hcl meta.block.hcl
+T 192 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 224 source.hcl meta.block.hcl variable.other.member.hcl
+L   flow_log_cloudwatch_log_group_name_suffix = var.flow_log_cloudwatch_log_group_name_suffix == "" ? local.vpc_id : var.flow_log_cloudwatch_log_group_name_suffix
+T 2 source.hcl meta.block.hcl
+T 43 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 44 source.hcl meta.block.hcl variable.declaration.hcl
+T 45 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 46 source.hcl meta.block.hcl variable.declaration.hcl
+T 49 source.hcl meta.block.hcl
+T 50 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 91 source.hcl meta.block.hcl variable.other.member.hcl
+T 92 source.hcl meta.block.hcl
+T 94 source.hcl meta.block.hcl keyword.operator.hcl
+T 95 source.hcl meta.block.hcl
+T 96 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 97 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 98 source.hcl meta.block.hcl
+T 99 source.hcl meta.block.hcl keyword.operator.hcl
+T 105 source.hcl meta.block.hcl
+T 106 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 112 source.hcl meta.block.hcl variable.other.member.hcl
+T 113 source.hcl meta.block.hcl
+T 114 source.hcl meta.block.hcl keyword.operator.hcl
+T 118 source.hcl meta.block.hcl
+T 119 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 160 source.hcl meta.block.hcl variable.other.member.hcl
+L   flow_log_group_arns = [
+T 2 source.hcl meta.block.hcl
+T 21 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl
+T 23 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 24 source.hcl meta.block.hcl variable.declaration.hcl
+T 25 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+L     for log_group in aws_cloudwatch_log_group.flow_log :
+T 4 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl keyword.control.hcl
+T 8 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.word.hcl
+T 21 source.hcl meta.block.hcl
+T 45 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 46 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 54 source.hcl meta.block.hcl variable.other.member.hcl
+T 55 source.hcl meta.block.hcl
+T 56 source.hcl meta.block.hcl keyword.operator.hcl
+L     "arn:${data.aws_partition.current[0].partition}:logs:${data.aws_region.current[0].region}:${data.aws_caller_identity.current[0].account_id}:log-group:${log_group.name}:*"
+T 4 source.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 9 source.hcl meta.block.hcl string.quoted.double.hcl
+T 11 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 15 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 16 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 29 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 30 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 37 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 38 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl punctuation.section.brackets.begin.hcl
+T 39 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl constant.numeric.integer.hcl
+T 40 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl punctuation.section.brackets.end.hcl
+T 41 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 50 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 51 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 57 source.hcl meta.block.hcl string.quoted.double.hcl
+T 59 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 63 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 64 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 74 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 75 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 82 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 83 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl punctuation.section.brackets.begin.hcl
+T 84 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl constant.numeric.integer.hcl
+T 85 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl punctuation.section.brackets.end.hcl
+T 86 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 92 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 93 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 94 source.hcl meta.block.hcl string.quoted.double.hcl
+T 96 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 100 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 101 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 120 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 121 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 128 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 129 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl punctuation.section.brackets.begin.hcl
+T 130 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl constant.numeric.integer.hcl
+T 131 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl punctuation.section.brackets.end.hcl
+T 132 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 142 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 143 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 154 source.hcl meta.block.hcl string.quoted.double.hcl
+T 156 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 165 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 166 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 170 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 171 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 173 source.hcl meta.block.hcl string.quoted.double.hcl
+T 174 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   ]
+T 2 source.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L ################################################################################
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 80 source.hcl comment.line.number-sign.hcl
+L # Flow Log
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 10 source.hcl comment.line.number-sign.hcl
+L ################################################################################
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 80 source.hcl comment.line.number-sign.hcl
+L 
+L resource "aws_flow_log" "this" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 31 source.hcl meta.block.hcl
+T 32 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.enable_flow_log ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 31 source.hcl meta.block.hcl variable.other.member.hcl
+T 32 source.hcl meta.block.hcl
+T 33 source.hcl meta.block.hcl keyword.operator.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 36 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl keyword.operator.hcl
+T 38 source.hcl meta.block.hcl
+T 39 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   region = var.region
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 21 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   log_destination_type       = var.flow_log_destination_type
+T 2 source.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 60 source.hcl meta.block.hcl variable.other.member.hcl
+L   log_destination            = local.flow_log_destination_arn
+T 2 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 36 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 61 source.hcl meta.block.hcl variable.other.member.hcl
+L   log_format                 = var.flow_log_log_format
+T 2 source.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 54 source.hcl meta.block.hcl variable.other.member.hcl
+L   iam_role_arn               = local.flow_log_iam_role_arn
+T 2 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 36 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 58 source.hcl meta.block.hcl variable.other.member.hcl
+L   deliver_cross_account_role = var.flow_log_deliver_cross_account_role
+T 2 source.hcl meta.block.hcl
+T 28 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 70 source.hcl meta.block.hcl variable.other.member.hcl
+L   traffic_type               = var.flow_log_traffic_type
+T 2 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 56 source.hcl meta.block.hcl variable.other.member.hcl
+L   vpc_id                     = local.vpc_id
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 36 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 43 source.hcl meta.block.hcl variable.other.member.hcl
+L   max_aggregation_interval   = var.flow_log_max_aggregation_interval
+T 2 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl variable.declaration.hcl
+T 30 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 31 source.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 68 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   dynamic "destination_options" {
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl
+T 33 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     for_each = var.flow_log_destination_type == "s3" ? [true] : []
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 44 source.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 45 source.hcl meta.block.hcl meta.block.hcl
+T 47 source.hcl meta.block.hcl meta.block.hcl keyword.operator.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl
+T 49 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 51 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 52 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 53 source.hcl meta.block.hcl meta.block.hcl
+T 54 source.hcl meta.block.hcl meta.block.hcl keyword.operator.hcl
+T 55 source.hcl meta.block.hcl meta.block.hcl
+T 56 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 60 source.hcl meta.block.hcl meta.block.hcl constant.language.hcl
+T 61 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+T 62 source.hcl meta.block.hcl meta.block.hcl
+T 63 source.hcl meta.block.hcl meta.block.hcl keyword.operator.hcl
+T 64 source.hcl meta.block.hcl meta.block.hcl
+T 65 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 66 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L 
+L     content {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       file_format                = var.flow_log_file_format
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 33 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 38 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 39 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 59 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L       hive_compatible_partitions = var.flow_log_hive_compatible_partitions
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 33 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 38 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 39 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 74 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L       per_hour_partition         = var.flow_log_per_hour_partition
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 33 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 38 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 39 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 66 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L   tags = merge(var.tags, var.vpc_flow_log_tags)
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 15 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 18 source.hcl meta.block.hcl meta.function-call.hcl
+T 19 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 23 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 24 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 28 source.hcl meta.block.hcl meta.function-call.hcl
+T 29 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 46 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 47 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L ################################################################################
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 80 source.hcl comment.line.number-sign.hcl
+L # Flow Log CloudWatch
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 21 source.hcl comment.line.number-sign.hcl
+L ################################################################################
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 80 source.hcl comment.line.number-sign.hcl
+L 
+L resource "aws_cloudwatch_log_group" "flow_log" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 36 source.hcl meta.block.hcl
+T 46 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 47 source.hcl meta.block.hcl
+T 48 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.create_flow_log_cloudwatch_log_group ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 52 source.hcl meta.block.hcl variable.other.member.hcl
+T 53 source.hcl meta.block.hcl
+T 54 source.hcl meta.block.hcl keyword.operator.hcl
+T 55 source.hcl meta.block.hcl
+T 56 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 57 source.hcl meta.block.hcl
+T 58 source.hcl meta.block.hcl keyword.operator.hcl
+T 59 source.hcl meta.block.hcl
+T 60 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   region = var.region
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 21 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   name              = "${var.flow_log_cloudwatch_log_group_name_prefix}${local.flow_log_cloudwatch_log_group_name_suffix}"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl
+T 23 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 25 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 28 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 70 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 71 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 73 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 78 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 79 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 120 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 121 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 122 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   retention_in_days = var.flow_log_cloudwatch_log_group_retention_in_days
+T 2 source.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl
+T 25 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 73 source.hcl meta.block.hcl variable.other.member.hcl
+L   kms_key_id        = var.flow_log_cloudwatch_log_group_kms_key_id
+T 2 source.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl
+T 25 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 66 source.hcl meta.block.hcl variable.other.member.hcl
+L   skip_destroy      = var.flow_log_cloudwatch_log_group_skip_destroy
+T 2 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl
+T 25 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 68 source.hcl meta.block.hcl variable.other.member.hcl
+L   log_group_class   = var.flow_log_cloudwatch_log_group_class
+T 2 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl
+T 25 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 61 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   tags = merge(var.tags, var.vpc_flow_log_tags)
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 15 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 18 source.hcl meta.block.hcl meta.function-call.hcl
+T 19 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 23 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 24 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 28 source.hcl meta.block.hcl meta.function-call.hcl
+T 29 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 46 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 47 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L resource "aws_iam_role" "vpc_flow_log_cloudwatch" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl
+T 49 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 50 source.hcl meta.block.hcl
+T 51 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.create_flow_log_cloudwatch_iam_role ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 51 source.hcl meta.block.hcl variable.other.member.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 56 source.hcl meta.block.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   name        = var.vpc_flow_log_iam_role_use_name_prefix ? null : var.vpc_flow_log_iam_role_name
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 57 source.hcl meta.block.hcl variable.other.member.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl keyword.operator.hcl
+T 60 source.hcl meta.block.hcl
+T 64 source.hcl meta.block.hcl constant.language.hcl
+T 65 source.hcl meta.block.hcl
+T 66 source.hcl meta.block.hcl keyword.operator.hcl
+T 70 source.hcl meta.block.hcl
+T 71 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 97 source.hcl meta.block.hcl variable.other.member.hcl
+L   name_prefix = var.vpc_flow_log_iam_role_use_name_prefix ? "${var.vpc_flow_log_iam_role_name}-" : null
+T 2 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 57 source.hcl meta.block.hcl variable.other.member.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl keyword.operator.hcl
+T 60 source.hcl meta.block.hcl
+T 61 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 63 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 66 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 67 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 93 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 94 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 95 source.hcl meta.block.hcl string.quoted.double.hcl
+T 96 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 97 source.hcl meta.block.hcl
+T 98 source.hcl meta.block.hcl keyword.operator.hcl
+T 99 source.hcl meta.block.hcl
+T 103 source.hcl meta.block.hcl constant.language.hcl
+L   path        = var.vpc_flow_log_iam_role_path
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 46 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   assume_role_policy   = data.aws_iam_policy_document.flow_log_cloudwatch_assume_role[0].json
+T 2 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 23 source.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 25 source.hcl meta.block.hcl variable.declaration.hcl
+T 29 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 53 source.hcl meta.block.hcl variable.other.member.hcl
+T 54 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 85 source.hcl meta.block.hcl variable.other.member.hcl
+T 86 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 87 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 88 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+T 89 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 93 source.hcl meta.block.hcl variable.other.member.hcl
+L   permissions_boundary = var.vpc_flow_log_permissions_boundary
+T 2 source.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 23 source.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 25 source.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 62 source.hcl meta.block.hcl variable.other.member.hcl
+L 
+L   tags = merge(var.tags, var.vpc_flow_log_tags)
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 15 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 18 source.hcl meta.block.hcl meta.function-call.hcl
+T 19 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 23 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 24 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 28 source.hcl meta.block.hcl meta.function-call.hcl
+T 29 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 46 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 47 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L data "aws_iam_policy_document" "flow_log_cloudwatch_assume_role" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 31 source.hcl meta.block.hcl
+T 64 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 65 source.hcl meta.block.hcl
+T 66 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.create_flow_log_cloudwatch_iam_role ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 51 source.hcl meta.block.hcl variable.other.member.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 56 source.hcl meta.block.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   statement {
+T 2 source.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     sid = "AWSVPCFlowLogsAssumeRole"
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L     principals {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       type        = "Service"
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 28 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L       identifiers = ["vpc-flow-logs.amazonaws.com"]
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 49 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 50 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 51 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L     effect = "Allow"
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L     actions = ["sts:AssumeRole"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L 
+L     dynamic "condition" {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       for_each = var.flow_log_cloudwatch_iam_role_conditions
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 60 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L       content {
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L         test     = condition.value.test
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 39 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L         variable = condition.value.variable
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 43 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L         values   = condition.value.values
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 28 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 34 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 35 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 41 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L       }
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L resource "aws_iam_role_policy_attachment" "vpc_flow_log_cloudwatch" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 41 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 42 source.hcl meta.block.hcl
+T 67 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 68 source.hcl meta.block.hcl
+T 69 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.create_flow_log_cloudwatch_iam_role ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 51 source.hcl meta.block.hcl variable.other.member.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 56 source.hcl meta.block.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   role       = aws_iam_role.vpc_flow_log_cloudwatch[0].name
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl
+T 27 source.hcl meta.block.hcl
+T 28 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 51 source.hcl meta.block.hcl variable.other.member.hcl
+T 52 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 53 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 54 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+T 55 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 59 source.hcl meta.block.hcl variable.other.member.hcl
+L   policy_arn = aws_iam_policy.vpc_flow_log_cloudwatch[0].arn
+T 2 source.hcl meta.block.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl
+T 29 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 53 source.hcl meta.block.hcl variable.other.member.hcl
+T 54 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 56 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 60 source.hcl meta.block.hcl variable.other.member.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L resource "aws_iam_policy" "vpc_flow_log_cloudwatch" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 26 source.hcl meta.block.hcl
+T 51 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.create_flow_log_cloudwatch_iam_role ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 51 source.hcl meta.block.hcl variable.other.member.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 56 source.hcl meta.block.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   name        = var.vpc_flow_log_iam_policy_use_name_prefix ? null : var.vpc_flow_log_iam_policy_name
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 59 source.hcl meta.block.hcl variable.other.member.hcl
+T 60 source.hcl meta.block.hcl
+T 61 source.hcl meta.block.hcl keyword.operator.hcl
+T 62 source.hcl meta.block.hcl
+T 66 source.hcl meta.block.hcl constant.language.hcl
+T 67 source.hcl meta.block.hcl
+T 68 source.hcl meta.block.hcl keyword.operator.hcl
+T 72 source.hcl meta.block.hcl
+T 73 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 101 source.hcl meta.block.hcl variable.other.member.hcl
+L   name_prefix = var.vpc_flow_log_iam_policy_use_name_prefix ? "${var.vpc_flow_log_iam_policy_name}-" : null
+T 2 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 59 source.hcl meta.block.hcl variable.other.member.hcl
+T 60 source.hcl meta.block.hcl
+T 61 source.hcl meta.block.hcl keyword.operator.hcl
+T 62 source.hcl meta.block.hcl
+T 63 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 65 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 68 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 69 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 97 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl variable.other.member.hcl
+T 98 source.hcl meta.block.hcl string.quoted.double.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 99 source.hcl meta.block.hcl string.quoted.double.hcl
+T 100 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 101 source.hcl meta.block.hcl
+T 102 source.hcl meta.block.hcl keyword.operator.hcl
+T 103 source.hcl meta.block.hcl
+T 107 source.hcl meta.block.hcl constant.language.hcl
+L   policy      = data.aws_iam_policy_document.vpc_flow_log_cloudwatch[0].json
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 20 source.hcl meta.block.hcl
+T 21 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 44 source.hcl meta.block.hcl variable.other.member.hcl
+T 45 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 68 source.hcl meta.block.hcl variable.other.member.hcl
+T 69 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 70 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 71 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+T 72 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 76 source.hcl meta.block.hcl variable.other.member.hcl
+L   tags        = merge(var.tags, var.vpc_flow_log_tags)
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 22 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 25 source.hcl meta.block.hcl meta.function-call.hcl
+T 26 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 30 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 31 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 35 source.hcl meta.block.hcl meta.function-call.hcl
+T 36 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 53 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 54 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L data "aws_iam_policy_document" "vpc_flow_log_cloudwatch" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 31 source.hcl meta.block.hcl
+T 56 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 57 source.hcl meta.block.hcl
+T 58 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   count = local.create_flow_log_cloudwatch_iam_role ? 1 : 0
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 51 source.hcl meta.block.hcl variable.other.member.hcl
+T 52 source.hcl meta.block.hcl
+T 53 source.hcl meta.block.hcl keyword.operator.hcl
+T 54 source.hcl meta.block.hcl
+T 55 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 56 source.hcl meta.block.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L 
+L   statement {
+T 2 source.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     sid = "AWSVPCFlowLogsPushToCloudWatch"
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 8 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 9 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 41 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 42 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L     effect = "Allow"
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L     actions = [
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+L       "logs:CreateLogStream",
+T 6 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 27 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 28 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+L       "logs:PutLogEvents",
+T 6 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 26 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+L       "logs:DescribeLogGroups",
+T 6 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+L       "logs:DescribeLogStreams",
+T 6 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+L     ]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L 
+L     resources = local.flow_log_group_arns
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 41 source.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 

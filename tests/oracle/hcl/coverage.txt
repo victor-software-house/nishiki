@@ -1,0 +1,594 @@
+L # Written for nishiki to reach the grammar units the third-party inputs miss.
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 77 source.hcl comment.line.number-sign.hcl
+L // A line comment with two slashes.
+T 2 source.hcl comment.line.double-slash.hcl punctuation.definition.comment.hcl
+T 35 source.hcl comment.line.double-slash.hcl
+L /* A block comment
+T 2 source.hcl comment.block.hcl punctuation.definition.comment.hcl
+T 18 source.hcl comment.block.hcl
+L    over two lines. */
+T 19 source.hcl comment.block.hcl
+T 21 source.hcl comment.block.hcl punctuation.definition.comment.hcl
+L 
+L variable "region" {
+T 8 source.hcl meta.block.hcl entity.name.type.hcl
+T 9 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 18 source.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   type    = string
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 18 source.hcl meta.block.hcl storage.type.hcl
+L   default = "eu-west-1" /* inline */
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 22 source.hcl meta.block.hcl string.quoted.double.hcl
+T 23 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 24 source.hcl meta.block.hcl
+T 26 source.hcl meta.block.hcl comment.block.hcl punctuation.definition.comment.hcl
+T 34 source.hcl meta.block.hcl comment.block.hcl
+T 36 source.hcl meta.block.hcl comment.block.hcl punctuation.definition.comment.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L module network vpc "main" {
+T 6 source.hcl meta.block.hcl entity.name.type.hcl
+T 7 source.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 15 source.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 19 source.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 26 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source  = "./modules/vpc"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 26 source.hcl meta.block.hcl string.quoted.double.hcl
+T 27 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   cidr    = "10.0.0.0/16"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 24 source.hcl meta.block.hcl string.quoted.double.hcl
+T 25 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   subnets = [for i, s in var.subnets : cidrsubnet(var.cidr, 8, i) if s != ""]
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 16 source.hcl meta.block.hcl keyword.control.hcl
+T 17 source.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 19 source.hcl meta.block.hcl punctuation.separator.hcl
+T 20 source.hcl meta.block.hcl
+T 21 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 22 source.hcl meta.block.hcl
+T 24 source.hcl meta.block.hcl keyword.operator.word.hcl
+T 25 source.hcl meta.block.hcl
+T 28 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 36 source.hcl meta.block.hcl variable.other.member.hcl
+T 37 source.hcl meta.block.hcl
+T 38 source.hcl meta.block.hcl keyword.operator.hcl
+T 39 source.hcl meta.block.hcl
+T 49 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 50 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 53 source.hcl meta.block.hcl meta.function-call.hcl
+T 54 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 58 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 59 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 60 source.hcl meta.block.hcl meta.function-call.hcl
+T 61 source.hcl meta.block.hcl meta.function-call.hcl constant.numeric.integer.hcl
+T 62 source.hcl meta.block.hcl meta.function-call.hcl punctuation.separator.hcl
+T 64 source.hcl meta.block.hcl meta.function-call.hcl
+T 65 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+T 66 source.hcl meta.block.hcl
+T 68 source.hcl meta.block.hcl keyword.control.conditional.hcl
+T 69 source.hcl meta.block.hcl
+T 70 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 71 source.hcl meta.block.hcl
+T 73 source.hcl meta.block.hcl keyword.operator.hcl
+T 74 source.hcl meta.block.hcl
+T 75 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 76 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 77 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L   azs     = data.aws_availability_zones.available.names[*]
+T 2 source.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 39 source.hcl meta.block.hcl variable.other.member.hcl
+T 40 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 49 source.hcl meta.block.hcl variable.other.member.hcl
+T 50 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 55 source.hcl meta.block.hcl variable.other.member.hcl
+T 56 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 57 source.hcl meta.block.hcl keyword.operator.splat.hcl
+T 58 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L   ids     = aws_subnet.private.*.id
+T 2 source.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 22 source.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 30 source.hcl meta.block.hcl variable.other.member.hcl
+T 31 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 32 source.hcl meta.block.hcl keyword.operator.splat.hcl
+T 33 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 35 source.hcl meta.block.hcl variable.other.member.hcl
+L   first   = aws_subnet.private.0.id
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 22 source.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 30 source.hcl meta.block.hcl variable.other.member.hcl
+T 31 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 32 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 33 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 35 source.hcl meta.block.hcl variable.other.member.hcl
+L   ratio   = 1.5e-3 * 2e10 / 4 % 3
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl constant.numeric.float.hcl
+T 14 source.hcl meta.block.hcl constant.numeric.float.hcl punctuation.separator.decimal.hcl
+T 15 source.hcl meta.block.hcl constant.numeric.float.hcl
+T 17 source.hcl meta.block.hcl constant.numeric.float.hcl punctuation.separator.exponent.hcl
+T 18 source.hcl meta.block.hcl constant.numeric.float.hcl
+T 19 source.hcl meta.block.hcl
+T 20 source.hcl meta.block.hcl keyword.operator.arithmetic.hcl
+T 21 source.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl constant.numeric.float.hcl
+T 23 source.hcl meta.block.hcl constant.numeric.float.hcl punctuation.separator.exponent.hcl
+T 25 source.hcl meta.block.hcl constant.numeric.float.hcl
+T 26 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl keyword.operator.arithmetic.hcl
+T 28 source.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 30 source.hcl meta.block.hcl
+T 31 source.hcl meta.block.hcl keyword.operator.arithmetic.hcl
+T 32 source.hcl meta.block.hcl
+T 33 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L   limit   = var.count <= 10 && var.count < 20 ? var.count - 1 : var.count + 1
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl
+T 16 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 21 source.hcl meta.block.hcl variable.other.member.hcl
+T 22 source.hcl meta.block.hcl
+T 24 source.hcl meta.block.hcl keyword.operator.hcl
+T 25 source.hcl meta.block.hcl
+T 27 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 28 source.hcl meta.block.hcl
+T 30 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 40 source.hcl meta.block.hcl variable.other.member.hcl
+T 41 source.hcl meta.block.hcl
+T 42 source.hcl meta.block.hcl keyword.operator.hcl
+T 43 source.hcl meta.block.hcl
+T 45 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 46 source.hcl meta.block.hcl
+T 47 source.hcl meta.block.hcl keyword.operator.hcl
+T 51 source.hcl meta.block.hcl
+T 52 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 57 source.hcl meta.block.hcl variable.other.member.hcl
+T 58 source.hcl meta.block.hcl
+T 59 source.hcl meta.block.hcl keyword.operator.arithmetic.hcl
+T 60 source.hcl meta.block.hcl
+T 61 source.hcl meta.block.hcl constant.numeric.integer.hcl
+T 62 source.hcl meta.block.hcl
+T 63 source.hcl meta.block.hcl keyword.operator.hcl
+T 67 source.hcl meta.block.hcl
+T 68 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 73 source.hcl meta.block.hcl variable.other.member.hcl
+T 74 source.hcl meta.block.hcl
+T 75 source.hcl meta.block.hcl keyword.operator.arithmetic.hcl
+T 76 source.hcl meta.block.hcl
+T 77 source.hcl meta.block.hcl constant.numeric.integer.hcl
+L   enabled = !var.disabled
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl keyword.operator.logical.hcl
+T 16 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 25 source.hcl meta.block.hcl variable.other.member.hcl
+L   merged  = merge(var.tags...)
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 17 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 18 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 21 source.hcl meta.block.hcl meta.function-call.hcl
+T 22 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.accessor.hcl
+T 26 source.hcl meta.block.hcl meta.function-call.hcl variable.other.member.hcl
+T 29 source.hcl meta.block.hcl meta.function-call.hcl keyword.operator.hcl
+T 30 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L   lookup  = { for k, v in var.map : k => upper(v) }
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl punctuation.section.braces.begin.hcl
+T 14 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl keyword.control.hcl
+T 18 source.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl punctuation.separator.hcl
+T 21 source.hcl meta.block.hcl
+T 22 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 23 source.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl keyword.operator.word.hcl
+T 26 source.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 30 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 33 source.hcl meta.block.hcl variable.other.member.hcl
+T 34 source.hcl meta.block.hcl
+T 35 source.hcl meta.block.hcl keyword.operator.hcl
+T 36 source.hcl meta.block.hcl
+T 37 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 38 source.hcl meta.block.hcl
+T 40 source.hcl meta.block.hcl storage.type.function.hcl
+T 41 source.hcl meta.block.hcl
+T 46 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 47 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 48 source.hcl meta.block.hcl meta.function-call.hcl
+T 49 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+T 50 source.hcl meta.block.hcl
+T 51 source.hcl meta.block.hcl punctuation.section.braces.end.hcl
+L   pairs   = [for k, v in var.map : k => v]
+T 2 source.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 16 source.hcl meta.block.hcl keyword.control.hcl
+T 17 source.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 19 source.hcl meta.block.hcl punctuation.separator.hcl
+T 20 source.hcl meta.block.hcl
+T 21 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 22 source.hcl meta.block.hcl
+T 24 source.hcl meta.block.hcl keyword.operator.word.hcl
+T 25 source.hcl meta.block.hcl
+T 28 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 29 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 32 source.hcl meta.block.hcl variable.other.member.hcl
+T 33 source.hcl meta.block.hcl
+T 34 source.hcl meta.block.hcl keyword.operator.hcl
+T 35 source.hcl meta.block.hcl
+T 36 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 37 source.hcl meta.block.hcl
+T 39 source.hcl meta.block.hcl keyword.operator.hcl
+T 40 source.hcl meta.block.hcl
+T 41 source.hcl meta.block.hcl variable.other.readwrite.hcl
+T 42 source.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L (parenthesised) = "a definition in parentheses"
+T 1 source.hcl variable.declaration.hcl punctuation.section.parens.begin.hcl
+T 14 source.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 15 source.hcl variable.declaration.hcl punctuation.section.parens.end.hcl
+T 16 source.hcl variable.declaration.hcl
+T 17 source.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 18 source.hcl variable.declaration.hcl
+T 19 source.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 46 source.hcl string.quoted.double.hcl
+T 47 source.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L locals {
+T 6 source.hcl meta.block.hcl entity.name.type.hcl
+T 7 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   escaped = "tab\tquote\" backslash\\ unicodeé wide\U0001F600 \u0001F600"
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 13 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 16 source.hcl meta.block.hcl string.quoted.double.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl constant.character.escape.hcl
+T 23 source.hcl meta.block.hcl string.quoted.double.hcl
+T 25 source.hcl meta.block.hcl string.quoted.double.hcl constant.character.escape.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 37 source.hcl meta.block.hcl string.quoted.double.hcl constant.character.escape.hcl
+T 63 source.hcl meta.block.hcl string.quoted.double.hcl
+T 73 source.hcl meta.block.hcl string.quoted.double.hcl constant.character.escape.hcl
+T 74 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   called  = provider::terraform::encode_tfvars({ a = 1 })
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 46 source.hcl meta.block.hcl meta.function-call.hcl support.function.namespaced.hcl
+T 47 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 48 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+T 49 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl
+T 50 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 51 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl
+T 52 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 53 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl
+T 54 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl constant.numeric.integer.hcl
+T 55 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl
+T 56 source.hcl meta.block.hcl meta.function-call.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+T 57 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L   nested  = provider::aws::arn_parse::sub("x")
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl
+T 36 source.hcl meta.block.hcl meta.function-call.hcl support.function.namespaced.hcl
+T 38 source.hcl meta.block.hcl meta.function-call.hcl
+T 41 source.hcl meta.block.hcl meta.function-call.hcl support.function.builtin.hcl
+T 42 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.begin.hcl
+T 43 source.hcl meta.block.hcl meta.function-call.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 44 source.hcl meta.block.hcl meta.function-call.hcl string.quoted.double.hcl
+T 45 source.hcl meta.block.hcl meta.function-call.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 46 source.hcl meta.block.hcl meta.function-call.hcl punctuation.section.parens.end.hcl
+L   object = {
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L     (var.key) = "computed key"
+T 5 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl punctuation.section.parens.begin.hcl
+T 8 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl
+T 9 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl keyword.operator.accessor.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.member.hcl
+T 13 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl punctuation.section.parens.end.hcl
+T 14 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl
+T 15 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl keyword.operator.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl
+T 17 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 29 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 30 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L     (local.prefix.name) : "colon"
+T 5 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl punctuation.section.parens.begin.hcl
+T 10 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl
+T 11 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl keyword.operator.accessor.hcl
+T 17 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.member.hcl
+T 18 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl keyword.operator.accessor.hcl
+T 22 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.member.hcl
+T 23 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl punctuation.section.parens.end.hcl
+T 24 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl
+T 25 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl keyword.operator.hcl
+T 26 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl
+T 27 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 32 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 33 source.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L     "quoted key" = true
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 5 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 15 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl string.quoted.double.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 17 source.hcl meta.block.hcl meta.braces.hcl
+T 18 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.hcl
+T 19 source.hcl meta.block.hcl meta.braces.hcl
+T 23 source.hcl meta.block.hcl meta.braces.hcl constant.language.hcl
+L     plain = null
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 9 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl meta.braces.hcl
+T 11 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl constant.language.hcl
+L     for k, v in var.extra : k => v
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 7 source.hcl meta.block.hcl meta.braces.hcl keyword.control.hcl
+T 8 source.hcl meta.block.hcl meta.braces.hcl
+T 9 source.hcl meta.block.hcl meta.braces.hcl variable.other.readwrite.hcl
+T 10 source.hcl meta.block.hcl meta.braces.hcl punctuation.separator.hcl
+T 11 source.hcl meta.block.hcl meta.braces.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl variable.other.readwrite.hcl
+T 13 source.hcl meta.block.hcl meta.braces.hcl
+T 15 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.word.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl
+T 19 source.hcl meta.block.hcl meta.braces.hcl variable.other.readwrite.hcl
+T 20 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.accessor.hcl
+T 25 source.hcl meta.block.hcl meta.braces.hcl variable.other.member.hcl
+T 26 source.hcl meta.block.hcl meta.braces.hcl
+T 27 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.hcl
+T 28 source.hcl meta.block.hcl meta.braces.hcl
+T 29 source.hcl meta.block.hcl meta.braces.hcl variable.other.readwrite.hcl
+T 30 source.hcl meta.block.hcl meta.braces.hcl
+T 32 source.hcl meta.block.hcl meta.braces.hcl storage.type.function.hcl
+T 33 source.hcl meta.block.hcl meta.braces.hcl
+T 34 source.hcl meta.block.hcl meta.braces.hcl variable.other.readwrite.hcl
+L     nullable = 1
+T 15 source.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.braces.hcl constant.numeric.integer.hcl
+L     x = [
+T 4 source.hcl meta.block.hcl meta.braces.hcl
+T 5 source.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 6 source.hcl meta.block.hcl meta.braces.hcl
+T 7 source.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 8 source.hcl meta.block.hcl meta.braces.hcl
+T 9 source.hcl meta.block.hcl meta.braces.hcl
+L       a if b
+T 8 source.hcl meta.block.hcl meta.braces.hcl
+T 10 source.hcl meta.block.hcl meta.braces.hcl keyword.control.conditional.hcl
+T 11 source.hcl meta.block.hcl meta.braces.hcl
+T 12 source.hcl meta.block.hcl meta.braces.hcl variable.other.readwrite.hcl
+L       c
+T 7 source.hcl meta.block.hcl meta.braces.hcl
+L     ]
+T 5 source.hcl meta.block.hcl meta.braces.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.braces.hcl
+T 3 source.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   template = <<-EOT
+T 2 source.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl string.unquoted.heredoc.hcl keyword.operator.heredoc.hcl
+T 19 source.hcl meta.block.hcl string.unquoted.heredoc.hcl keyword.control.heredoc.hcl
+L     %{~ for name in var.names ~}
+T 4 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+T 6 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 8 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.template.left.trim.hcl
+T 11 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl
+T 12 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 16 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 19 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl
+T 20 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 23 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 24 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.accessor.hcl
+T 29 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl variable.other.member.hcl
+T 31 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.template.right.trim.hcl
+T 32 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+L     hello ${name}
+T 10 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+T 12 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 16 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+L     %{ if name == "x" }X%{ else }Y%{ endif }
+T 4 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+T 6 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 7 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 9 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl
+T 10 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 14 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl variable.other.readwrite.hcl
+T 15 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 17 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.hcl
+T 18 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 19 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 20 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl string.quoted.double.hcl
+T 21 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 22 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 23 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 24 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+T 26 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 27 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 31 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl
+T 32 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 33 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+T 34 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+T 36 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 37 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 42 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl
+T 43 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl
+T 44 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+L     %{~ endfor ~}
+T 4 source.hcl meta.block.hcl string.unquoted.heredoc.hcl
+T 6 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.begin.hcl
+T 8 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.template.left.trim.hcl
+T 14 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl
+T 16 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.template.right.trim.hcl
+T 17 source.hcl meta.block.hcl string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.other.interpolation.end.hcl
+L   EOT
+T 5 source.hcl meta.block.hcl string.unquoted.heredoc.hcl keyword.control.heredoc.hcl
+L   member = var.nullable.truex.falsey
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 16 source.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl variable.other.member.hcl
+T 24 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 25 source.hcl meta.block.hcl
+T 29 source.hcl meta.block.hcl variable.other.member.hcl
+T 30 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 31 source.hcl meta.block.hcl
+T 36 source.hcl meta.block.hcl variable.other.member.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L dynamic "setting" {
+T 7 source.hcl meta.block.hcl entity.name.type.hcl
+T 8 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 18 source.hcl meta.block.hcl
+T 19 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   for_each = var.settings
+T 2 source.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl variable.declaration.hcl
+T 16 source.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 25 source.hcl meta.block.hcl variable.other.member.hcl
+L   content {
+T 2 source.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     namespace = setting.value["namespace"]
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 29 source.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 30 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 40 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 41 source.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 42 source.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L     map {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl storage.type.hcl
+T 8 source.hcl meta.block.hcl meta.block.hcl
+T 9 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 

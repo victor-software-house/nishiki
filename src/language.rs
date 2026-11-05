@@ -1188,6 +1188,25 @@ languages! {
     /// - A name, `[A-Z_a-z][0-9A-Z_a-z]*`, needs no `\b` before it, so `1abc` holds the name `abc`.
     /// - The name after `{%` or `{%-` that no `,` or `=` follows is the tag's keyword, as `endfor` is.
     Jinja { feature: "lang-jinja", names: ["jinja"], module: jinja }
+    /// HCL, with the scopes of Shiki's `hcl` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A line comment takes the line feed, so an inline `if` that it ends stays open on the next line.
+    /// - In an object or a bracket, `for` takes the rest of its line, with any `}` or `]` on it.
+    ///   A heredoc or bracket it opens ends with the line.
+    /// - In an object or a bracket, `for` or `if` starts at the end of a word that no other rule read, as in `xfor` or `elif`.
+    /// - A name that starts with `null`, `false` or `true`, such as `nullable` or `trueish`, gets no scope as a local name, a block type or an object key.
+    ///   As an attribute's member it loses the scope on its first character only.
+    /// - A name drops trailing dashes, so `a-` is the name `a` and the operator `-`.
+    /// - Inside a block, `map {` is the type keyword `map` and an object, not a nested block.
+    /// - An object reads no brackets, parentheses or attribute access, so `[1]` and `a.b` there are plain.
+    /// - A `(` that starts an object's line opens a key that runs to the next `)` followed by `=` or `:`, even across lines.
+    /// - A quoted object key runs to the line's last `"` that `=` follows.
+    /// - A `for` body and an inline `if` read `//` and `/*` as operators, because expressions come before comments there.
+    /// - A heredoc starts only where its label ends the line.
+    /// - `\d`, `\w`, `\s` and `[[:alpha:]]` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
+    Hcl { feature: "lang-hcl", names: ["hcl"], module: hcl }
 }
 
 impl Language {

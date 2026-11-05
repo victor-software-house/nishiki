@@ -1,0 +1,465 @@
+L # Multi-level dependency tree:
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 30 source.hcl comment.line.number-sign.hcl
+L #
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+L #       A
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 9 source.hcl comment.line.number-sign.hcl
+L #      / \
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 10 source.hcl comment.line.number-sign.hcl
+L #     B   C
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 11 source.hcl comment.line.number-sign.hcl
+L #    / \
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 8 source.hcl comment.line.number-sign.hcl
+L #   D   E
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 9 source.hcl comment.line.number-sign.hcl
+L #
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+L # D, E, C are leaves (no dependencies).
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 39 source.hcl comment.line.number-sign.hcl
+L # B depends on D and E.
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 23 source.hcl comment.line.number-sign.hcl
+L # A depends on B and C.
+T 1 source.hcl comment.line.number-sign.hcl punctuation.definition.comment.hcl
+T 23 source.hcl comment.line.number-sign.hcl
+L 
+L unit "unit_d" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source = "../catalog/units/unit-d"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   path   = "unit-d"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl
+T 19 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L unit "unit_e" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source = "../catalog/units/unit-e"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   path   = "unit-e"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl
+T 19 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L unit "unit_c" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source = "../catalog/units/unit-c"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   path   = "unit-c"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl
+T 19 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L unit "unit_b" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source = "../catalog/units/unit-b"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   path   = "unit-b"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl
+T 19 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L   autoinclude {
+T 2 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     dependency "unit_d" {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       config_path = unit.unit_d.path
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L 
+L       mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 45 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 46 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 47 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 49 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 50 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 58 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 59 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 60 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 61 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 62 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 66 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 67 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 68 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L       mock_outputs = {
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L         val = "mock-d"
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L       }
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L     dependency "unit_e" {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       config_path = unit.unit_e.path
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L 
+L       mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 45 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 46 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 47 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 49 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 50 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 58 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 59 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 60 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 61 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 62 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 66 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 67 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 68 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L       mock_outputs = {
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L         val = "mock-e"
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L       }
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L     inputs = {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L       val_from_d = dependency.unit_d.outputs.val
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+L       val_from_e = dependency.unit_e.outputs.val
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L unit "unit_a" {
+T 4 source.hcl meta.block.hcl entity.name.type.hcl
+T 5 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl variable.other.enummember.hcl
+T 14 source.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L   source = "../catalog/units/unit-a"
+T 2 source.hcl meta.block.hcl
+T 8 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 35 source.hcl meta.block.hcl string.quoted.double.hcl
+T 36 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L   path   = "unit-a"
+T 2 source.hcl meta.block.hcl
+T 6 source.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 9 source.hcl meta.block.hcl variable.declaration.hcl
+T 10 source.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 11 source.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 18 source.hcl meta.block.hcl string.quoted.double.hcl
+T 19 source.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L 
+L   autoinclude {
+T 2 source.hcl meta.block.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L     dependency "unit_b" {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       config_path = unit.unit_b.path
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L 
+L       mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 45 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 46 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 47 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 49 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 50 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 58 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 59 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 60 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 61 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 62 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 66 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 67 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 68 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L       mock_outputs = {
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L         val = "mock-b"
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L       }
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L     dependency "unit_c" {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl entity.name.type.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 23 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.enummember.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.begin.hcl
+L       config_path = unit.unit_c.path
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 24 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 25 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 31 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+T 32 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl keyword.operator.accessor.hcl
+T 36 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.other.member.hcl
+L 
+L       mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 45 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 46 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 47 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 49 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.begin.hcl
+T 50 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 58 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 59 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 60 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.separator.hcl
+T 61 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 62 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 66 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl
+T 67 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+T 68 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.brackets.end.hcl
+L       mock_outputs = {
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 20 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L         val = "mock-c"
+T 8 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 15 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.begin.hcl
+T 21 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl
+T 22 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl string.quoted.double.hcl punctuation.definition.string.end.hcl
+L       }
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 7 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 
+L     inputs = {
+T 4 source.hcl meta.block.hcl meta.block.hcl
+T 10 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl variable.other.readwrite.hcl
+T 11 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 12 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl keyword.operator.assignment.hcl
+T 13 source.hcl meta.block.hcl meta.block.hcl variable.declaration.hcl
+T 14 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.begin.hcl
+L       val_from_b = dependency.unit_b.outputs.val
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+L       val_from_c = dependency.unit_c.outputs.val
+T 6 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 16 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl meta.mapping.key.hcl variable.other.readwrite.hcl
+T 17 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 18 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl keyword.operator.assignment.hcl
+T 19 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 48 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+L     }
+T 4 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl
+T 5 source.hcl meta.block.hcl meta.block.hcl meta.braces.hcl punctuation.section.braces.end.hcl
+L   }
+T 2 source.hcl meta.block.hcl meta.block.hcl
+T 3 source.hcl meta.block.hcl meta.block.hcl punctuation.section.block.end.hcl
+L }
+T 1 source.hcl meta.block.hcl punctuation.section.block.end.hcl
+L 

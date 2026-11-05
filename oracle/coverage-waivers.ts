@@ -1698,6 +1698,8 @@ export const waivers: Waiver[] = [
     reason: "`#roxygen-example.patterns[0]`, the same expression, comes before it in the one list that holds it",
     probe: "MarkdownAt0At0",
   },
+  { grammar: "hcl", path: "#double_slash_line_comments.end", group: 0, reason: lineFeed },
+  { grammar: "hcl", path: "#hash_line_comments.end", group: 0, reason: lineFeed },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1721,6 +1723,7 @@ export const complete: string[] = [
   "go",
   "graphql",
   "haskell",
+  "hcl",
   "ini",
   "java",
   "javascript",

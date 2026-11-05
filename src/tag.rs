@@ -93,6 +93,9 @@ tags! {
     /// Haskell.
     #[cfg(feature = "lang-haskell")]
     HASKELL = 0x3600,
+    /// HCL.
+    #[cfg(feature = "lang-hcl")]
+    HCL = 0x4F00,
     /// HTML.
     #[cfg(feature = "lang-html")]
     HTML = 0x2800,
