@@ -275,6 +275,8 @@ mod gdscript;
 mod go;
 #[cfg(feature = "lang-graphql")]
 mod graphql;
+#[cfg(feature = "lang-hack")]
+mod hack;
 #[cfg(feature = "lang-haml")]
 mod haml;
 #[cfg(feature = "lang-haskell")]

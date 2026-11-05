@@ -211,6 +211,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphql-js-kitchen-sink` | [`benchmark/kitchen-sink.graphql`][graphql-js-kitchen-sink] in graphql/graphql-js | [MIT][graphql-js-licence] |
 | `graphql/sample` | [`samples/graphql.sample`][graphql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `hack/coverage` | `oracle/inputs/hack-coverage.hack`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `hack/hack-sql-fake-query-planner` | [`src/Query/QueryPlanner.hack`][hack-sql-fake-query-planner] in slackhq/hack-sql-fake | [MIT][hack-sql-fake-licence] |
+| `hack/hack-sql-fake-select-test` | [`tests/SelectExpressionTest.php`][hack-sql-fake-select-test] in slackhq/hack-sql-fake | [MIT][hack-sql-fake-licence] |
+| `hack/hsl-str-transform` | [`src/str/transform.php`][hsl-str-transform] in hhvm/hsl | [MIT][hsl-licence] |
+| `hack/sample` | [`samples/hack.sample`][hack-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `hack/xhp-lib-basics-test` | [`tests/BasicsTest.hack`][xhp-lib-basics-test] in hhvm/xhp-lib | [MIT][xhp-lib-licence] |
+| `hack/xhp-lib-element` | [`src/core/Element.hack`][xhp-lib-element] in hhvm/xhp-lib | [MIT][xhp-lib-licence] |
 | `haml/filters` | `oracle/inputs/haml-filters.haml`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `haml/haml-helpers` | [`test/haml/templates/helpers.haml`][haml-helpers] in haml/haml | [MIT][haml-licence] |
 | `haml/haml-just-stuff` | [`test/haml/templates/just_stuff.haml`][haml-just-stuff] in haml/haml | [MIT][haml-licence] |
@@ -1378,6 +1385,10 @@ The hand lexer was written against all seven.
 [h5bp-404]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/404.html
 [h5bp-index]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/src/index.html
 [h5bp-licence]: https://github.com/h5bp/html5-boilerplate/blob/b6597338e695dc4a8165c5abcb2bfffa586c3ee5/LICENSE.txt
+[hack-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/hack.sample
+[hack-sql-fake-licence]: https://github.com/slackhq/hack-sql-fake/blob/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4/LICENSE
+[hack-sql-fake-query-planner]: https://github.com/slackhq/hack-sql-fake/blob/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4/src/Query/QueryPlanner.hack
+[hack-sql-fake-select-test]: https://github.com/slackhq/hack-sql-fake/blob/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4/tests/SelectExpressionTest.php
 [haml-helpers]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/helpers.haml
 [haml-just-stuff]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/test/haml/templates/just_stuff.haml
 [haml-licence]: https://github.com/haml/haml/blob/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b/MIT-LICENSE
@@ -1403,6 +1414,8 @@ The hand lexer was written against all seven.
 [horse-http2-framing]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/src/Horse.Core.Http2.Framing.pas
 [horse-licence]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/LICENSE
 [horse-websocket-console]: https://github.com/HashLoad/horse/blob/a0ac019be1d29fd9deb20f61ca779d5631718bdb/samples/lazarus/console_websocket/console_websocket.lpr
+[hsl-licence]: https://github.com/hhvm/hsl/blob/16e8aa16d252ed218e357495179766adc09c3659/LICENSE
+[hsl-str-transform]: https://github.com/hhvm/hsl/blob/16e8aa16d252ed218e357495179766adc09c3659/src/str/transform.php
 [html-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/html.sample
 [httparser-licence]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/LICENSE
 [httparser-readme]: https://github.com/antlabs/httparser/blob/622df4409cddf119cf437633f620947235d2d1eb/README.md
@@ -1985,6 +1998,9 @@ The hand lexer was written against all seven.
 [xerces-licence]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/LICENSE
 [xerces-schedule]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/schedule.xml
 [xerces-xni-config]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/docs/xni-config.xml
+[xhp-lib-basics-test]: https://github.com/hhvm/xhp-lib/blob/4ec138f7ac9ef6d2eb646075799860459d3fb0d4/tests/BasicsTest.hack
+[xhp-lib-element]: https://github.com/hhvm/xhp-lib/blob/4ec138f7ac9ef6d2eb646075799860459d3fb0d4/src/core/Element.hack
+[xhp-lib-licence]: https://github.com/hhvm/xhp-lib/blob/4ec138f7ac9ef6d2eb646075799860459d3fb0d4/LICENSE
 [xml-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/xml.sample
 [xv6-bootasm]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/bootasm.S
 [xv6-entry]: https://github.com/mit-pdos/xv6-public/blob/eeb7b415dbcb12cc362d0783e41c3d1f44066b17/entry.S

@@ -71,6 +71,10 @@ pub(crate) struct Scratch {
     /// `Highlighter::new` moves with the rest.
     #[cfg(feature = "lang-graphql")]
     pub(crate) graphql: Option<Box<crate::graphql::Scratch>>,
+    /// The Hack lexer's, for Hack documents.
+    /// It is boxed and allocated by the first Hack line, as PHP's is.
+    #[cfg(feature = "lang-hack")]
+    pub(crate) hack: Option<Box<crate::hack::Scratch>>,
     /// The Haskell lexer's, for Haskell documents.
     /// It is boxed and allocated by the first Haskell line, as Dart's is.
     #[cfg(feature = "lang-haskell")]

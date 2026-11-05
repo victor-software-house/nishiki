@@ -1,0 +1,4624 @@
+L namespace Slack\SQLFake;
+T 9 source.hack meta.namespace.php keyword.other.namespace.php
+T 10 source.hack meta.namespace.php
+T 15 source.hack meta.namespace.php entity.name.type.namespace.php
+T 16 source.hack meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 23 source.hack meta.namespace.php entity.name.type.namespace.php
+T 24 source.hack punctuation.terminator.expression.php
+L 
+L use namespace HH\Lib\{C, Dict, Keyset, Str, Vec};
+T 3 source.hack meta.use.php keyword.other.use.php
+T 4 source.hack meta.use.php
+T 13 source.hack meta.use.php support.other.namespace.use.php
+T 14 source.hack meta.use.php support.other.namespace.use.php
+T 16 source.hack meta.use.php support.other.namespace.use.php
+T 17 source.hack meta.use.php support.other.namespace.use.php punctuation.separator.inheritance.php
+T 20 source.hack meta.use.php support.other.namespace.use.php
+T 21 source.hack meta.use.php support.other.namespace.use.php punctuation.separator.inheritance.php
+T 23 source.hack meta.use.php support.other.namespace.use.php
+T 25 source.hack meta.use.php
+T 29 source.hack meta.use.php support.other.namespace.use.php
+T 31 source.hack meta.use.php
+T 37 source.hack meta.use.php support.other.namespace.use.php
+T 39 source.hack meta.use.php
+T 42 source.hack meta.use.php support.other.namespace.use.php
+T 44 source.hack meta.use.php
+T 48 source.hack meta.use.php support.other.namespace.use.php
+T 49 source.hack punctuation.terminator.expression.php
+L 
+L abstract class QueryPlanner {
+T 8 source.hack meta.class.php storage.modifier.php
+T 9 source.hack meta.class.php
+T 14 source.hack meta.class.php storage.type.class.php
+T 15 source.hack meta.class.php
+T 27 source.hack meta.class.php entity.name.type.class.php
+T 28 source.hack meta.class.php
+T 29 source.hack punctuation.section.scope.begin.php
+L 	public static function filterWithIndexes(
+T 1 source.hack meta.function.php
+T 7 source.hack meta.function.php storage.modifier.php
+T 8 source.hack meta.function.php
+T 14 source.hack meta.function.php storage.modifier.php
+T 15 source.hack meta.function.php
+T 23 source.hack meta.function.php storage.type.function.php
+T 24 source.hack meta.function.php
+T 41 source.hack meta.function.php entity.name.function.php
+T 42 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L 		AsyncMysqlConnection $conn,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 22 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 28 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 29 source.hack meta.function.php meta.function.arguments.php
+L 		dataset $data,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 9 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 10 source.hack meta.function.php meta.function.arguments.php
+T 11 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 15 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 16 source.hack meta.function.php meta.function.arguments.php
+L 		index_refs $index_refs,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 25 source.hack meta.function.php meta.function.arguments.php
+L 		dict<string, Column> $columns,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 6 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 7 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 15 source.hack meta.function.php meta.function.arguments.php
+T 21 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 22 source.hack meta.function.php meta.function.arguments.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 31 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 32 source.hack meta.function.php meta.function.arguments.php
+L 		vec<Index> $indexes,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 5 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 6 source.hack meta.function.php meta.function.arguments.php
+T 11 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 12 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 21 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 22 source.hack meta.function.php meta.function.arguments.php
+L 		Expression $where,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 19 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 20 source.hack meta.function.php meta.function.arguments.php
+L 		inout bool $all_matched,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 8 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 25 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 26 source.hack meta.function.php meta.function.arguments.php
+L 	): dataset {
+T 1 source.hack meta.function.php meta.function.arguments.php
+T 2 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 3 source.hack meta.function.php punctuation.definition.type.php
+T 4 source.hack meta.function.php
+T 11 source.hack meta.function.php support.class.php
+T 12 source.hack meta.function.php
+T 13 source.hack punctuation.section.scope.begin.php
+L 		$ored_wheres = self::getOredExpressions($where);
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 17 source.hack
+T 21 source.hack support.type.php
+T 23 source.hack keyword.operator.class.php
+T 41 source.hack meta.function-call.static.php
+T 42 source.hack
+T 43 source.hack variable.other.php punctuation.definition.variable.php
+T 48 source.hack variable.other.php
+T 49 source.hack
+T 50 source.hack punctuation.terminator.expression.php
+L 
+L 		$data_keys = Keyset\keys($data);
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 14 source.hack keyword.operator.assignment.php
+T 15 source.hack
+T 21 source.hack support.type.php
+T 22 source.hack punctuation.separator.inheritance.php
+T 26 source.hack meta.function-call.php entity.name.function.php
+T 27 source.hack
+T 28 source.hack variable.other.php punctuation.definition.variable.php
+T 32 source.hack variable.other.php
+T 33 source.hack
+T 34 source.hack punctuation.terminator.expression.php
+L 
+L 		if (C\count($ored_wheres) === 1) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 8 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 13 source.hack meta.function-call.php entity.name.function.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 28 source.hack
+T 31 source.hack keyword.operator.comparison.php
+T 32 source.hack
+T 33 source.hack constant.numeric.php
+T 35 source.hack
+T 36 source.hack punctuation.section.scope.begin.php
+L 			$matched_all_expressions = true;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.assignment.php
+T 30 source.hack
+T 34 source.hack constant.language.php
+T 35 source.hack punctuation.terminator.expression.php
+L 			$candidates = self::getIndexCandidates($conn, $where, $columns, inout $matched_all_expressions);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 17 source.hack
+T 21 source.hack support.type.php
+T 23 source.hack keyword.operator.class.php
+T 41 source.hack meta.function-call.static.php
+T 42 source.hack
+T 43 source.hack variable.other.php punctuation.definition.variable.php
+T 47 source.hack variable.other.php
+T 49 source.hack
+T 50 source.hack variable.other.php punctuation.definition.variable.php
+T 55 source.hack variable.other.php
+T 57 source.hack
+T 58 source.hack variable.other.php punctuation.definition.variable.php
+T 65 source.hack variable.other.php
+T 67 source.hack
+T 72 source.hack constant.other.php
+T 73 source.hack
+T 74 source.hack variable.other.php punctuation.definition.variable.php
+T 97 source.hack variable.other.php
+T 98 source.hack
+T 99 source.hack punctuation.terminator.expression.php
+L 			if ($candidates) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack punctuation.section.scope.begin.php
+L 				$all_expressions_indexed = true;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack keyword.operator.assignment.php
+T 31 source.hack
+T 35 source.hack constant.language.php
+T 36 source.hack punctuation.terminator.expression.php
+L 				$filtered_keys = self::getKeysForConditional(
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 25 source.hack support.type.php
+T 27 source.hack keyword.operator.class.php
+T 48 source.hack meta.function-call.static.php
+T 49 source.hack
+L 					$data_keys,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+L 					$index_refs,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+L 					$indexes,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+L 					$candidates,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+L 					inout $all_expressions_indexed,
+T 5 source.hack
+T 10 source.hack constant.other.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 36 source.hack
+L 				);
+T 5 source.hack
+T 6 source.hack punctuation.terminator.expression.php
+L 
+L 				if ($filtered_keys is nonnull) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 25 source.hack keyword.operator.type.php
+T 26 source.hack
+T 33 source.hack support.class.php
+T 35 source.hack
+T 36 source.hack punctuation.section.scope.begin.php
+L 					$data = Dict\filter_keys($data, $row_pk ==> C\contains_key($filtered_keys, $row_pk));
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 10 source.hack variable.other.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.separator.inheritance.php
+T 29 source.hack meta.function-call.php entity.name.function.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack variable.other.php punctuation.definition.variable.php
+T 44 source.hack variable.other.php
+T 45 source.hack
+T 48 source.hack keyword.operator.lambda.php
+T 49 source.hack
+T 50 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 51 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 63 source.hack meta.function-call.php entity.name.function.php
+T 64 source.hack
+T 65 source.hack variable.other.php punctuation.definition.variable.php
+T 78 source.hack variable.other.php
+T 80 source.hack
+T 81 source.hack variable.other.php punctuation.definition.variable.php
+T 87 source.hack variable.other.php
+T 89 source.hack
+T 90 source.hack punctuation.terminator.expression.php
+L 					if ($matched_all_expressions) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 33 source.hack variable.other.php
+T 35 source.hack
+T 36 source.hack punctuation.section.scope.begin.php
+L 						if ($all_expressions_indexed) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 34 source.hack variable.other.php
+T 36 source.hack
+T 37 source.hack punctuation.section.scope.begin.php
+L 							$all_matched = true;
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack keyword.operator.assignment.php
+T 22 source.hack
+T 26 source.hack constant.language.php
+T 27 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 
+L 						return $data;
+T 6 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		} else {
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+T 4 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack punctuation.section.scope.begin.php
+L 			// calculating merged index
+T 3 source.hack punctuation.whitespace.comment.leading.php
+T 5 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 30 source.hack comment.line.double-slash.php
+L 
+L 			$all_filtered_keys = keyset[];
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 30 source.hack support.type.php
+T 31 source.hack punctuation.section.array.begin.php
+T 32 source.hack punctuation.section.array.end.php
+T 33 source.hack punctuation.terminator.expression.php
+L 
+L 			$can_filter = true;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 17 source.hack
+T 21 source.hack constant.language.php
+T 22 source.hack punctuation.terminator.expression.php
+L 
+L 			foreach ($ored_wheres as $ored_where) {
+T 3 source.hack
+T 10 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack
+T 27 source.hack keyword.operator.type.php
+T 28 source.hack
+T 29 source.hack variable.other.php punctuation.definition.variable.php
+T 39 source.hack variable.other.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 				$matched_all_expressions = true;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack keyword.operator.assignment.php
+T 31 source.hack
+T 35 source.hack constant.language.php
+T 36 source.hack punctuation.terminator.expression.php
+L 				$candidates = self::getIndexCandidates($conn, $ored_where, $columns, inout $matched_all_expressions);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+T 17 source.hack keyword.operator.assignment.php
+T 18 source.hack
+T 22 source.hack support.type.php
+T 24 source.hack keyword.operator.class.php
+T 42 source.hack meta.function-call.static.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 48 source.hack variable.other.php
+T 50 source.hack
+T 51 source.hack variable.other.php punctuation.definition.variable.php
+T 61 source.hack variable.other.php
+T 63 source.hack
+T 64 source.hack variable.other.php punctuation.definition.variable.php
+T 71 source.hack variable.other.php
+T 73 source.hack
+T 78 source.hack constant.other.php
+T 79 source.hack
+T 80 source.hack variable.other.php punctuation.definition.variable.php
+T 103 source.hack variable.other.php
+T 104 source.hack
+T 105 source.hack punctuation.terminator.expression.php
+L 
+L 				if ($candidates) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack punctuation.section.scope.begin.php
+L 					$filtered_keys = self::getKeysForConditional(
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack keyword.operator.assignment.php
+T 22 source.hack
+T 26 source.hack support.type.php
+T 28 source.hack keyword.operator.class.php
+T 49 source.hack meta.function-call.static.php
+T 50 source.hack
+L 						$data_keys,
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+L 						$index_refs,
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+L 						$indexes,
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+L 						$candidates,
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+L 						inout $matched_all_expressions,
+T 6 source.hack
+T 11 source.hack constant.other.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack
+L 					);
+T 6 source.hack
+T 7 source.hack punctuation.terminator.expression.php
+L 
+L 					if ($filtered_keys is nonnull) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack
+T 26 source.hack keyword.operator.type.php
+T 27 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack
+T 37 source.hack punctuation.section.scope.begin.php
+L 						$all_filtered_keys = Keyset\union($all_filtered_keys, $filtered_keys);
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack
+T 26 source.hack keyword.operator.assignment.php
+T 27 source.hack
+T 33 source.hack support.type.php
+T 34 source.hack punctuation.separator.inheritance.php
+T 39 source.hack meta.function-call.php entity.name.function.php
+T 40 source.hack
+T 41 source.hack variable.other.php punctuation.definition.variable.php
+T 58 source.hack variable.other.php
+T 60 source.hack
+T 61 source.hack variable.other.php punctuation.definition.variable.php
+T 74 source.hack variable.other.php
+T 75 source.hack
+T 76 source.hack punctuation.terminator.expression.php
+L 					} else {
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+T 7 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack punctuation.section.scope.begin.php
+L 						$can_filter = false;
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 25 source.hack constant.language.php
+T 26 source.hack punctuation.terminator.expression.php
+L 						break;
+T 6 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				} else {
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+T 6 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack punctuation.section.scope.begin.php
+L 					$can_filter = false;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 24 source.hack constant.language.php
+T 25 source.hack punctuation.terminator.expression.php
+L 					break;
+T 5 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			if ($can_filter) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack punctuation.section.scope.begin.php
+L 				return Dict\filter_keys($data, $row_pk ==> C\contains_key($all_filtered_keys, $row_pk));
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 15 source.hack support.type.php
+T 16 source.hack punctuation.separator.inheritance.php
+T 27 source.hack meta.function-call.php entity.name.function.php
+T 28 source.hack
+T 29 source.hack variable.other.php punctuation.definition.variable.php
+T 33 source.hack variable.other.php
+T 35 source.hack
+T 36 source.hack variable.other.php punctuation.definition.variable.php
+T 42 source.hack variable.other.php
+T 43 source.hack
+T 46 source.hack keyword.operator.lambda.php
+T 47 source.hack
+T 48 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 49 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 61 source.hack meta.function-call.php entity.name.function.php
+T 62 source.hack
+T 63 source.hack variable.other.php punctuation.definition.variable.php
+T 80 source.hack variable.other.php
+T 82 source.hack
+T 83 source.hack variable.other.php punctuation.definition.variable.php
+T 89 source.hack variable.other.php
+T 91 source.hack
+T 92 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		return $data;
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function getKeysForConditional(
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 46 source.hack meta.function.php entity.name.function.php
+T 47 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L 		keyset<arraykey> $data_keys,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 8 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 9 source.hack meta.function.php meta.function.arguments.php
+T 17 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 18 source.hack meta.function.php meta.function.arguments.php
+T 19 source.hack meta.function.php meta.function.arguments.php
+T 20 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 29 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 30 source.hack meta.function.php meta.function.arguments.php
+L 		index_refs $index_refs,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 25 source.hack meta.function.php meta.function.arguments.php
+L 		vec<Index> $indexes,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 5 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 6 source.hack meta.function.php meta.function.arguments.php
+T 11 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 12 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 21 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 22 source.hack meta.function.php meta.function.arguments.php
+L 		dict<string, vec<mixed>> $candidates,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 6 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 7 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 15 source.hack meta.function.php meta.function.arguments.php
+T 18 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 19 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 25 source.hack meta.function.php meta.function.arguments.php
+T 26 source.hack meta.function.php meta.function.arguments.php
+T 27 source.hack meta.function.php meta.function.arguments.php
+T 28 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 38 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 39 source.hack meta.function.php meta.function.arguments.php
+L 		inout bool $all_expressions_indexed,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 8 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 37 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 38 source.hack meta.function.php meta.function.arguments.php
+L 	): ?keyset<arraykey> {
+T 1 source.hack meta.function.php meta.function.arguments.php
+T 2 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 3 source.hack meta.function.php punctuation.definition.type.php
+T 5 source.hack meta.function.php
+T 11 source.hack meta.function.php support.class.php
+T 12 source.hack meta.function.php
+T 20 source.hack meta.function.php support.type.php
+T 21 source.hack meta.function.php
+T 22 source.hack meta.function.php
+T 23 source.hack punctuation.section.scope.begin.php
+L 		$candidate_keys = Keyset\keys($candidates);
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 26 source.hack support.type.php
+T 27 source.hack punctuation.separator.inheritance.php
+T 31 source.hack meta.function-call.php entity.name.function.php
+T 32 source.hack
+T 33 source.hack variable.other.php punctuation.definition.variable.php
+T 43 source.hack variable.other.php
+T 44 source.hack
+T 45 source.hack punctuation.terminator.expression.php
+L 		$matched_fields = 0;
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 21 source.hack constant.numeric.php
+T 22 source.hack punctuation.terminator.expression.php
+L 		$matched_index = null;
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 23 source.hack constant.language.php
+T 24 source.hack punctuation.terminator.expression.php
+L 		$has_multiple_fields = false;
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 24 source.hack keyword.operator.assignment.php
+T 25 source.hack
+T 30 source.hack constant.language.php
+T 31 source.hack punctuation.terminator.expression.php
+L 
+L 		foreach ($indexes as $index) {
+T 2 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 24 source.hack variable.other.php punctuation.definition.variable.php
+T 29 source.hack variable.other.php
+T 31 source.hack
+T 32 source.hack punctuation.section.scope.begin.php
+L 			$index_field_count = C\count($index->fields);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 25 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 26 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 31 source.hack meta.function-call.php entity.name.function.php
+T 32 source.hack
+T 33 source.hack variable.other.php punctuation.definition.variable.php
+T 38 source.hack variable.other.php
+T 40 source.hack keyword.operator.class.php
+T 46 source.hack variable.other.property.php
+T 47 source.hack
+T 48 source.hack punctuation.terminator.expression.php
+L 
+L 			if ($index->fields === $candidate_keys) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 15 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 27 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack
+T 44 source.hack punctuation.section.scope.begin.php
+L 				$matched_index = $index;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 22 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack punctuation.terminator.expression.php
+L 				$matched_fields = C\count($index->fields);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack keyword.operator.assignment.php
+T 22 source.hack
+T 23 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 24 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 29 source.hack meta.function-call.php entity.name.function.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 38 source.hack keyword.operator.class.php
+T 44 source.hack variable.other.property.php
+T 45 source.hack
+T 46 source.hack punctuation.terminator.expression.php
+L 				break;
+T 4 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			if (C\count(Keyset\intersect($candidate_keys, $index->fields)) === $index_field_count) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 9 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 14 source.hack meta.function-call.php entity.name.function.php
+T 15 source.hack
+T 21 source.hack support.type.php
+T 22 source.hack punctuation.separator.inheritance.php
+T 31 source.hack meta.function-call.php entity.name.function.php
+T 32 source.hack
+T 33 source.hack variable.other.php punctuation.definition.variable.php
+T 47 source.hack variable.other.php
+T 49 source.hack
+T 50 source.hack variable.other.php punctuation.definition.variable.php
+T 55 source.hack variable.other.php
+T 57 source.hack keyword.operator.class.php
+T 63 source.hack variable.other.property.php
+T 66 source.hack
+T 69 source.hack keyword.operator.comparison.php
+T 70 source.hack
+T 71 source.hack variable.other.php punctuation.definition.variable.php
+T 88 source.hack variable.other.php
+T 90 source.hack
+T 91 source.hack punctuation.section.scope.begin.php
+L 				if ($index_field_count > $matched_fields) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack
+T 28 source.hack keyword.operator.comparison.php
+T 29 source.hack
+T 30 source.hack variable.other.php punctuation.definition.variable.php
+T 44 source.hack variable.other.php
+T 46 source.hack
+T 47 source.hack punctuation.section.scope.begin.php
+L 					$matched_fields = $index_field_count;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack keyword.operator.assignment.php
+T 23 source.hack
+T 24 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 42 source.hack punctuation.terminator.expression.php
+L 					$matched_index = $index;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack keyword.operator.assignment.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			if ($index_field_count > 1) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 26 source.hack
+T 27 source.hack keyword.operator.comparison.php
+T 28 source.hack
+T 29 source.hack constant.numeric.php
+T 31 source.hack
+T 32 source.hack punctuation.section.scope.begin.php
+L 				$has_multiple_fields = true;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack
+T 26 source.hack keyword.operator.assignment.php
+T 27 source.hack
+T 31 source.hack constant.language.php
+T 32 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($matched_index) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack punctuation.section.scope.begin.php
+L 			if (C\count($candidates) > $matched_fields) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 9 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 14 source.hack meta.function-call.php entity.name.function.php
+T 15 source.hack
+T 16 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.comparison.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 45 source.hack variable.other.php
+T 47 source.hack
+T 48 source.hack punctuation.section.scope.begin.php
+L 				$all_expressions_indexed = false;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack keyword.operator.assignment.php
+T 31 source.hack
+T 36 source.hack constant.language.php
+T 37 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			return self::filterDataWithMatchedIndex(
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 14 source.hack support.type.php
+T 16 source.hack keyword.operator.class.php
+T 42 source.hack meta.function-call.static.php
+T 43 source.hack
+L 				$data_keys,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+L 				$index_refs,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+L 				$matched_index,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+L 				$matched_fields,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+L 				$candidates,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+L 				true,
+T 4 source.hack
+T 8 source.hack constant.language.php
+T 9 source.hack
+L 			);
+T 4 source.hack
+T 5 source.hack punctuation.terminator.expression.php
+L 		} else {
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+T 4 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack punctuation.section.scope.begin.php
+L 			$all_expressions_indexed = false;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.assignment.php
+T 30 source.hack
+T 35 source.hack constant.language.php
+T 36 source.hack punctuation.terminator.expression.php
+L 
+L 			if ($has_multiple_fields) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L 				foreach ($indexes as $index) {
+T 4 source.hack
+T 11 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 24 source.hack keyword.operator.type.php
+T 25 source.hack
+T 26 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 33 source.hack
+T 34 source.hack punctuation.section.scope.begin.php
+L 					if (C\count($index->fields) > 1) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 11 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 16 source.hack meta.function-call.php entity.name.function.php
+T 17 source.hack
+T 18 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 25 source.hack keyword.operator.class.php
+T 31 source.hack variable.other.property.php
+T 33 source.hack
+T 34 source.hack keyword.operator.comparison.php
+T 35 source.hack
+T 36 source.hack constant.numeric.php
+T 38 source.hack
+T 39 source.hack punctuation.section.scope.begin.php
+L 						$partial_index_candidate_fields = keyset[];
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 37 source.hack variable.other.php
+T 38 source.hack
+T 39 source.hack keyword.operator.assignment.php
+T 40 source.hack
+T 46 source.hack support.type.php
+T 47 source.hack punctuation.section.array.begin.php
+T 48 source.hack punctuation.section.array.end.php
+T 49 source.hack punctuation.terminator.expression.php
+L 
+L 						foreach ($index->fields as $field) {
+T 6 source.hack
+T 13 source.hack keyword.control.php
+T 15 source.hack
+T 16 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 23 source.hack keyword.operator.class.php
+T 29 source.hack variable.other.property.php
+T 30 source.hack
+T 32 source.hack keyword.operator.type.php
+T 33 source.hack
+T 34 source.hack variable.other.php punctuation.definition.variable.php
+T 39 source.hack variable.other.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 							if (C\contains_key($candidate_keys, $field)) {
+T 7 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 13 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 25 source.hack meta.function-call.php entity.name.function.php
+T 26 source.hack
+T 27 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 52 source.hack
+T 53 source.hack punctuation.section.scope.begin.php
+L 								$partial_index_candidate_fields[] = $field;
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 39 source.hack variable.other.php
+T 40 source.hack punctuation.section.array.begin.php
+T 41 source.hack punctuation.section.array.end.php
+T 42 source.hack
+T 43 source.hack keyword.operator.assignment.php
+T 44 source.hack
+T 45 source.hack variable.other.php punctuation.definition.variable.php
+T 50 source.hack variable.other.php
+T 51 source.hack punctuation.terminator.expression.php
+L 							} else {
+T 7 source.hack
+T 8 source.hack punctuation.section.scope.end.php
+T 9 source.hack
+T 13 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack punctuation.section.scope.begin.php
+L 								break;
+T 8 source.hack
+T 13 source.hack keyword.control.php
+T 14 source.hack punctuation.terminator.expression.php
+L 							}
+T 7 source.hack
+T 8 source.hack punctuation.section.scope.end.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 
+L 						if ($partial_index_candidate_fields) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack
+T 44 source.hack punctuation.section.scope.begin.php
+L 							if (C\count($partial_index_candidate_fields) >= $matched_fields) {
+T 7 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 13 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 18 source.hack meta.function-call.php entity.name.function.php
+T 19 source.hack
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 50 source.hack variable.other.php
+T 52 source.hack
+T 54 source.hack keyword.operator.comparison.php
+T 55 source.hack
+T 56 source.hack variable.other.php punctuation.definition.variable.php
+T 70 source.hack variable.other.php
+T 72 source.hack
+T 73 source.hack punctuation.section.scope.begin.php
+L 								$matched_fields = C\count($partial_index_candidate_fields);
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack
+T 25 source.hack keyword.operator.assignment.php
+T 26 source.hack
+T 27 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 28 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 33 source.hack meta.function-call.php entity.name.function.php
+T 34 source.hack
+T 35 source.hack variable.other.php punctuation.definition.variable.php
+T 65 source.hack variable.other.php
+T 66 source.hack
+T 67 source.hack punctuation.terminator.expression.php
+L 								$matched_index = new Index($index->name, $index->type, $partial_index_candidate_fields);
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 24 source.hack keyword.operator.assignment.php
+T 25 source.hack
+T 28 source.hack keyword.other.new.php
+T 29 source.hack
+T 34 source.hack support.class.php
+T 35 source.hack
+T 36 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack keyword.operator.class.php
+T 47 source.hack variable.other.property.php
+T 49 source.hack
+T 50 source.hack variable.other.php punctuation.definition.variable.php
+T 55 source.hack variable.other.php
+T 57 source.hack keyword.operator.class.php
+T 61 source.hack variable.other.property.php
+T 63 source.hack
+T 64 source.hack variable.other.php punctuation.definition.variable.php
+T 94 source.hack variable.other.php
+T 95 source.hack
+T 96 source.hack punctuation.terminator.expression.php
+L 							}
+T 7 source.hack
+T 8 source.hack punctuation.section.scope.end.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			if ($matched_index) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 23 source.hack
+T 24 source.hack punctuation.section.scope.begin.php
+L 				return self::filterDataWithMatchedIndex(
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 15 source.hack support.type.php
+T 17 source.hack keyword.operator.class.php
+T 43 source.hack meta.function-call.static.php
+T 44 source.hack
+L 					$data_keys,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+L 					$index_refs,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+L 					$matched_index,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+L 					$matched_fields,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+L 					$candidates,
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+L 					false,
+T 5 source.hack
+T 10 source.hack constant.language.php
+T 11 source.hack
+L 				);
+T 5 source.hack
+T 6 source.hack punctuation.terminator.expression.php
+L 			} else if (QueryContext::$requireIndexes) {
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+T 5 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 26 source.hack support.class.php
+T 28 source.hack keyword.operator.class.php
+T 29 source.hack variable.other.class.php punctuation.definition.variable.php
+T 43 source.hack variable.other.class.php
+T 45 source.hack
+T 46 source.hack punctuation.section.scope.begin.php
+L 				$stack = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 10 source.hack variable.other.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 14 source.hack punctuation.separator.inheritance.php
+T 29 source.hack support.function.errorfunc.php
+T 30 source.hack
+T 31 source.hack
+T 58 source.hack constant.other.php
+T 59 source.hack
+T 60 source.hack punctuation.terminator.expression.php
+L 				C\pop_front(inout $stack);
+T 4 source.hack
+T 5 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 6 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 15 source.hack meta.function-call.php entity.name.function.php
+T 16 source.hack
+T 21 source.hack constant.other.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack punctuation.terminator.expression.php
+L 
+L 				$grandfathered = false;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 26 source.hack constant.language.php
+T 27 source.hack punctuation.terminator.expression.php
+L 				foreach ($stack as $stack_frame) {
+T 4 source.hack
+T 11 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 24 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack punctuation.section.scope.begin.php
+L 					$class = $stack_frame['class'] ?? null;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack punctuation.section.array.begin.php
+T 28 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 33 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 34 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 35 source.hack punctuation.section.array.end.php
+T 39 source.hack
+T 43 source.hack constant.language.php
+T 44 source.hack punctuation.terminator.expression.php
+L 					$function = $stack_frame['function'];
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 17 source.hack
+T 18 source.hack variable.other.php punctuation.definition.variable.php
+T 29 source.hack variable.other.php
+T 30 source.hack punctuation.section.array.begin.php
+T 31 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 39 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 40 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 41 source.hack punctuation.section.array.end.php
+T 42 source.hack punctuation.terminator.expression.php
+L 
+L 					foreach (QueryContext::$allowed_index_violation_traces as $allowed_trace) {
+T 5 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 26 source.hack support.class.php
+T 28 source.hack keyword.operator.class.php
+T 29 source.hack variable.other.class.php punctuation.definition.variable.php
+T 59 source.hack variable.other.class.php
+T 60 source.hack
+T 62 source.hack keyword.operator.type.php
+T 63 source.hack
+T 64 source.hack variable.other.php punctuation.definition.variable.php
+T 77 source.hack variable.other.php
+T 79 source.hack
+T 80 source.hack punctuation.section.scope.begin.php
+L 						$allowed_trace_class = $allowed_trace['class'] ?? null;
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack
+T 28 source.hack keyword.operator.assignment.php
+T 29 source.hack
+T 30 source.hack variable.other.php punctuation.definition.variable.php
+T 43 source.hack variable.other.php
+T 44 source.hack punctuation.section.array.begin.php
+T 45 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 50 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 51 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 52 source.hack punctuation.section.array.end.php
+T 56 source.hack
+T 60 source.hack constant.language.php
+T 61 source.hack punctuation.terminator.expression.php
+L 
+L 						if ($class === $allowed_trace_class && $allowed_trace['function'] === $function) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 20 source.hack keyword.operator.comparison.php
+T 21 source.hack
+T 22 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 42 source.hack
+T 44 source.hack keyword.operator.logical.php
+T 45 source.hack
+T 46 source.hack variable.other.php punctuation.definition.variable.php
+T 59 source.hack variable.other.php
+T 60 source.hack punctuation.section.array.begin.php
+T 61 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 69 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 70 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 71 source.hack punctuation.section.array.end.php
+T 72 source.hack
+T 75 source.hack keyword.operator.comparison.php
+T 76 source.hack
+T 77 source.hack variable.other.php punctuation.definition.variable.php
+T 85 source.hack variable.other.php
+T 87 source.hack
+T 88 source.hack punctuation.section.scope.begin.php
+L 							$grandfathered = true;
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 28 source.hack constant.language.php
+T 29 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				if (!$grandfathered) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack keyword.operator.logical.php
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 25 source.hack
+T 26 source.hack punctuation.section.scope.begin.php
+L 					throw new \Exception('Query without index: '.(QueryContext::$query ?? ''));
+T 5 source.hack
+T 10 source.hack keyword.control.exception.php
+T 11 source.hack
+T 14 source.hack keyword.other.new.php
+T 15 source.hack
+T 16 source.hack support.class.builtin.php punctuation.separator.inheritance.php
+T 25 source.hack support.class.builtin.php
+T 26 source.hack
+T 27 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 48 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 49 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 50 source.hack keyword.operator.string.php
+T 51 source.hack
+T 63 source.hack support.class.php
+T 65 source.hack keyword.operator.class.php
+T 66 source.hack variable.other.class.php punctuation.definition.variable.php
+T 71 source.hack variable.other.class.php
+T 75 source.hack
+T 76 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 77 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 79 source.hack
+T 80 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			return null;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 14 source.hack constant.language.php
+T 15 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function getOredExpressions(Expression $expr): vec<Expression> {
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 43 source.hack meta.function.php entity.name.function.php
+T 44 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 54 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 55 source.hack meta.function.php meta.function.arguments.php
+T 56 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 60 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 61 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 62 source.hack meta.function.php punctuation.definition.type.php
+T 63 source.hack meta.function.php
+T 66 source.hack meta.function.php support.class.php
+T 67 source.hack meta.function.php
+T 77 source.hack meta.function.php support.class.php
+T 78 source.hack meta.function.php
+T 79 source.hack meta.function.php
+T 80 source.hack punctuation.section.scope.begin.php
+L 		if (!self::containsOrs($expr)) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack keyword.operator.logical.php
+T 11 source.hack support.type.php
+T 13 source.hack keyword.operator.class.php
+T 24 source.hack meta.function-call.static.php
+T 25 source.hack
+T 26 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 33 source.hack
+T 34 source.hack punctuation.section.scope.begin.php
+L 			return vec[$expr];
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 13 source.hack support.type.php
+T 14 source.hack punctuation.section.array.begin.php
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack punctuation.section.array.end.php
+T 21 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		$expr as BinaryOperatorExpression;
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 10 source.hack keyword.operator.type.php
+T 11 source.hack
+T 35 source.hack support.class.php
+T 36 source.hack punctuation.terminator.expression.php
+L 
+L 		if ($expr->negated) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 20 source.hack variable.other.property.php
+T 22 source.hack
+T 23 source.hack punctuation.section.scope.begin.php
+L 			return vec[$expr];
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 13 source.hack support.type.php
+T 14 source.hack punctuation.section.array.begin.php
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack punctuation.section.array.end.php
+T 21 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->operator === Operator::AND) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack keyword.operator.class.php
+T 39 source.hack constant.other.class.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 			$left_ored_exprs = self::getOredExpressions($expr->left);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack keyword.operator.assignment.php
+T 22 source.hack
+T 26 source.hack support.type.php
+T 28 source.hack keyword.operator.class.php
+T 46 source.hack meta.function-call.static.php
+T 47 source.hack
+T 48 source.hack variable.other.php punctuation.definition.variable.php
+T 52 source.hack variable.other.php
+T 54 source.hack keyword.operator.class.php
+T 58 source.hack variable.other.property.php
+T 59 source.hack
+T 60 source.hack punctuation.terminator.expression.php
+L 			$right_ored_exprs = self::getOredExpressions($expr->right as nonnull);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack keyword.operator.assignment.php
+T 23 source.hack
+T 27 source.hack support.type.php
+T 29 source.hack keyword.operator.class.php
+T 47 source.hack meta.function-call.static.php
+T 48 source.hack
+T 49 source.hack variable.other.php punctuation.definition.variable.php
+T 53 source.hack variable.other.php
+T 55 source.hack keyword.operator.class.php
+T 60 source.hack variable.other.property.php
+T 61 source.hack
+T 63 source.hack keyword.operator.type.php
+T 64 source.hack
+T 71 source.hack support.class.php
+T 72 source.hack
+T 73 source.hack punctuation.terminator.expression.php
+L 
+L 			$all_ored_exprs = vec[];
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 24 source.hack support.type.php
+T 25 source.hack punctuation.section.array.begin.php
+T 26 source.hack punctuation.section.array.end.php
+T 27 source.hack punctuation.terminator.expression.php
+L 
+L 			if (C\count($left_ored_exprs) > 1 || C\count($right_ored_exprs) > 1) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 9 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 14 source.hack meta.function-call.php entity.name.function.php
+T 15 source.hack
+T 16 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 33 source.hack
+T 34 source.hack keyword.operator.comparison.php
+T 35 source.hack
+T 36 source.hack constant.numeric.php
+T 37 source.hack
+T 39 source.hack keyword.operator.logical.php
+T 40 source.hack
+T 41 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 42 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 47 source.hack meta.function-call.php entity.name.function.php
+T 48 source.hack
+T 49 source.hack variable.other.php punctuation.definition.variable.php
+T 65 source.hack variable.other.php
+T 67 source.hack
+T 68 source.hack keyword.operator.comparison.php
+T 69 source.hack
+T 70 source.hack constant.numeric.php
+T 72 source.hack
+T 73 source.hack punctuation.section.scope.begin.php
+L 				foreach ($left_ored_exprs as $left_ored_expr) {
+T 4 source.hack
+T 11 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 29 source.hack variable.other.php
+T 30 source.hack
+T 32 source.hack keyword.operator.type.php
+T 33 source.hack
+T 34 source.hack variable.other.php punctuation.definition.variable.php
+T 48 source.hack variable.other.php
+T 50 source.hack
+T 51 source.hack punctuation.section.scope.begin.php
+L 					foreach ($right_ored_exprs as $right_ored_expr) {
+T 5 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 32 source.hack
+T 34 source.hack keyword.operator.type.php
+T 35 source.hack
+T 36 source.hack variable.other.php punctuation.definition.variable.php
+T 51 source.hack variable.other.php
+T 53 source.hack
+T 54 source.hack punctuation.section.scope.begin.php
+L 						$all_ored_exprs[] = new BinaryOperatorExpression(
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack punctuation.section.array.begin.php
+T 23 source.hack punctuation.section.array.end.php
+T 24 source.hack
+T 25 source.hack keyword.operator.assignment.php
+T 26 source.hack
+T 29 source.hack keyword.other.new.php
+T 30 source.hack
+T 54 source.hack support.class.php
+T 55 source.hack
+L 							$left_ored_expr,
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+L 							false,
+T 7 source.hack
+T 12 source.hack constant.language.php
+T 13 source.hack
+L 							Operator::AND,
+T 7 source.hack
+T 15 source.hack support.class.php
+T 17 source.hack keyword.operator.class.php
+T 20 source.hack constant.other.class.php
+T 21 source.hack
+L 							$right_ored_expr,
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack
+L 						);
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			} else {
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+T 5 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack punctuation.section.scope.begin.php
+L 				$all_ored_exprs[] = $expr;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack punctuation.section.array.begin.php
+T 21 source.hack punctuation.section.array.end.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 25 source.hack variable.other.php punctuation.definition.variable.php
+T 29 source.hack variable.other.php
+T 30 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			return $all_ored_exprs;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 26 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->operator === Operator::OR) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack keyword.operator.class.php
+T 38 source.hack constant.other.class.php
+T 40 source.hack
+T 41 source.hack punctuation.section.scope.begin.php
+L 			$left_ored_exprs = self::getOredExpressions($expr->left);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 21 source.hack keyword.operator.assignment.php
+T 22 source.hack
+T 26 source.hack support.type.php
+T 28 source.hack keyword.operator.class.php
+T 46 source.hack meta.function-call.static.php
+T 47 source.hack
+T 48 source.hack variable.other.php punctuation.definition.variable.php
+T 52 source.hack variable.other.php
+T 54 source.hack keyword.operator.class.php
+T 58 source.hack variable.other.property.php
+T 59 source.hack
+T 60 source.hack punctuation.terminator.expression.php
+L 			$right_ored_exprs = self::getOredExpressions($expr->right as nonnull);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack keyword.operator.assignment.php
+T 23 source.hack
+T 27 source.hack support.type.php
+T 29 source.hack keyword.operator.class.php
+T 47 source.hack meta.function-call.static.php
+T 48 source.hack
+T 49 source.hack variable.other.php punctuation.definition.variable.php
+T 53 source.hack variable.other.php
+T 55 source.hack keyword.operator.class.php
+T 60 source.hack variable.other.property.php
+T 61 source.hack
+T 63 source.hack keyword.operator.type.php
+T 64 source.hack
+T 71 source.hack support.class.php
+T 72 source.hack
+T 73 source.hack punctuation.terminator.expression.php
+L 
+L 			return Vec\concat($left_ored_exprs, $right_ored_exprs);
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 13 source.hack support.type.php
+T 14 source.hack punctuation.separator.inheritance.php
+T 20 source.hack meta.function-call.php entity.name.function.php
+T 21 source.hack
+T 22 source.hack variable.other.php punctuation.definition.variable.php
+T 37 source.hack variable.other.php
+T 39 source.hack
+T 40 source.hack variable.other.php punctuation.definition.variable.php
+T 56 source.hack variable.other.php
+T 57 source.hack
+T 58 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		return vec[];
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 12 source.hack support.type.php
+T 13 source.hack punctuation.section.array.begin.php
+T 14 source.hack punctuation.section.array.end.php
+T 15 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function containsOrs(Expression $expr): bool {
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 36 source.hack meta.function.php entity.name.function.php
+T 37 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 47 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 48 source.hack meta.function.php meta.function.arguments.php
+T 49 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 53 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 54 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 55 source.hack meta.function.php punctuation.definition.type.php
+T 56 source.hack meta.function.php
+T 60 source.hack meta.function.php support.type.php
+T 61 source.hack meta.function.php
+T 62 source.hack punctuation.section.scope.begin.php
+L 		if (!$expr is BinaryOperatorExpression) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack keyword.operator.logical.php
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 40 source.hack support.class.php
+T 42 source.hack
+T 43 source.hack punctuation.section.scope.begin.php
+L 			return false;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 15 source.hack constant.language.php
+T 16 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->operator === Operator::OR) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack keyword.operator.class.php
+T 38 source.hack constant.other.class.php
+T 40 source.hack
+T 41 source.hack punctuation.section.scope.begin.php
+L 			return true;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 14 source.hack constant.language.php
+T 15 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->operator === Operator::AND) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack keyword.operator.class.php
+T 39 source.hack constant.other.class.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 			return self::containsOrs($expr->left) || self::containsOrs($expr->right as nonnull);
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 14 source.hack support.type.php
+T 16 source.hack keyword.operator.class.php
+T 27 source.hack meta.function-call.static.php
+T 28 source.hack
+T 29 source.hack variable.other.php punctuation.definition.variable.php
+T 33 source.hack variable.other.php
+T 35 source.hack keyword.operator.class.php
+T 39 source.hack variable.other.property.php
+T 41 source.hack
+T 43 source.hack keyword.operator.logical.php
+T 44 source.hack
+T 48 source.hack support.type.php
+T 50 source.hack keyword.operator.class.php
+T 61 source.hack meta.function-call.static.php
+T 62 source.hack
+T 63 source.hack variable.other.php punctuation.definition.variable.php
+T 67 source.hack variable.other.php
+T 69 source.hack keyword.operator.class.php
+T 74 source.hack variable.other.property.php
+T 75 source.hack
+T 77 source.hack keyword.operator.type.php
+T 78 source.hack
+T 85 source.hack support.class.php
+T 86 source.hack
+T 87 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		return false;
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 14 source.hack constant.language.php
+T 15 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function getIndexCandidates(
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 43 source.hack meta.function.php entity.name.function.php
+T 44 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L 		AsyncMysqlConnection $conn,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 22 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 28 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 29 source.hack meta.function.php meta.function.arguments.php
+L 		Expression $expr,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 18 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 19 source.hack meta.function.php meta.function.arguments.php
+L 		dict<string, Column> $columns,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 6 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 7 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 15 source.hack meta.function.php meta.function.arguments.php
+T 21 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 22 source.hack meta.function.php meta.function.arguments.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 31 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 32 source.hack meta.function.php meta.function.arguments.php
+L 		inout bool $matched_all_expressions,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 8 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 37 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 38 source.hack meta.function.php meta.function.arguments.php
+L 	): dict<string, vec<mixed>> {
+T 1 source.hack meta.function.php meta.function.arguments.php
+T 2 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 3 source.hack meta.function.php punctuation.definition.type.php
+T 4 source.hack meta.function.php
+T 8 source.hack meta.function.php support.class.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php support.type.php
+T 17 source.hack meta.function.php
+T 20 source.hack meta.function.php support.class.php
+T 21 source.hack meta.function.php
+T 26 source.hack meta.function.php support.type.php
+T 27 source.hack meta.function.php
+T 28 source.hack meta.function.php
+T 29 source.hack meta.function.php
+T 30 source.hack punctuation.section.scope.begin.php
+L 		if ($expr is BinaryOperatorExpression) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 14 source.hack keyword.operator.type.php
+T 15 source.hack
+T 39 source.hack support.class.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 			return self::getIndexCandidatesFromBinop($conn, $expr, $columns, inout $matched_all_expressions);
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 14 source.hack support.type.php
+T 16 source.hack keyword.operator.class.php
+T 43 source.hack meta.function-call.static.php
+T 44 source.hack
+T 45 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 51 source.hack
+T 52 source.hack variable.other.php punctuation.definition.variable.php
+T 56 source.hack variable.other.php
+T 58 source.hack
+T 59 source.hack variable.other.php punctuation.definition.variable.php
+T 66 source.hack variable.other.php
+T 68 source.hack
+T 73 source.hack constant.other.php
+T 74 source.hack
+T 75 source.hack variable.other.php punctuation.definition.variable.php
+T 98 source.hack variable.other.php
+T 99 source.hack
+T 100 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr is InOperatorExpression && !$expr->negated) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 14 source.hack keyword.operator.type.php
+T 15 source.hack
+T 35 source.hack support.class.php
+T 36 source.hack
+T 38 source.hack keyword.operator.logical.php
+T 39 source.hack
+T 40 source.hack keyword.operator.logical.php
+T 41 source.hack variable.other.php punctuation.definition.variable.php
+T 45 source.hack variable.other.php
+T 47 source.hack keyword.operator.class.php
+T 54 source.hack variable.other.property.php
+T 56 source.hack
+T 57 source.hack punctuation.section.scope.begin.php
+L 			if ($expr->left is ColumnExpression) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 14 source.hack keyword.operator.class.php
+T 18 source.hack variable.other.property.php
+T 19 source.hack
+T 21 source.hack keyword.operator.type.php
+T 22 source.hack
+T 38 source.hack support.class.php
+T 40 source.hack
+T 41 source.hack punctuation.section.scope.begin.php
+L 				$column_names = dict[];
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 24 source.hack support.type.php
+T 25 source.hack punctuation.section.array.begin.php
+T 26 source.hack punctuation.section.array.end.php
+T 27 source.hack punctuation.terminator.expression.php
+L 
+L 				$table_name = $expr->left->tableName;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+T 17 source.hack keyword.operator.assignment.php
+T 18 source.hack
+T 19 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 25 source.hack keyword.operator.class.php
+T 29 source.hack variable.other.property.php
+T 31 source.hack keyword.operator.class.php
+T 40 source.hack variable.other.property.php
+T 41 source.hack punctuation.terminator.expression.php
+L 				$column_name = $expr->left->name;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 26 source.hack keyword.operator.class.php
+T 30 source.hack variable.other.property.php
+T 32 source.hack keyword.operator.class.php
+T 36 source.hack variable.other.property.php
+T 37 source.hack punctuation.terminator.expression.php
+L 
+L 				if ($table_name is null) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 27 source.hack support.class.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L 					$dot_column_name = '.'.$column_name;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 25 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 26 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 27 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 28 source.hack keyword.operator.string.php
+T 29 source.hack variable.other.php punctuation.definition.variable.php
+T 40 source.hack variable.other.php
+T 41 source.hack punctuation.terminator.expression.php
+L 					foreach ($columns as $key => $_) {
+T 5 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 25 source.hack keyword.operator.type.php
+T 26 source.hack
+T 27 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 31 source.hack
+T 33 source.hack keyword.operator.key.php
+T 34 source.hack
+T 35 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 38 source.hack
+T 39 source.hack punctuation.section.scope.begin.php
+L 						if (Str\ends_with($key, $dot_column_name)) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 13 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 14 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 23 source.hack meta.function-call.php entity.name.function.php
+T 24 source.hack
+T 25 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 46 source.hack variable.other.php
+T 49 source.hack
+T 50 source.hack punctuation.section.scope.begin.php
+L 							$table_name = Str\slice($key, 0, Str\length($key) - Str\length($dot_column_name));
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 24 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 25 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 30 source.hack meta.function-call.php entity.name.function.php
+T 31 source.hack
+T 32 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack constant.numeric.php
+T 40 source.hack
+T 43 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 44 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 50 source.hack meta.function-call.php entity.name.function.php
+T 51 source.hack
+T 52 source.hack variable.other.php punctuation.definition.variable.php
+T 55 source.hack variable.other.php
+T 57 source.hack
+T 58 source.hack keyword.operator.arithmetic.php
+T 59 source.hack
+T 62 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 63 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 69 source.hack meta.function-call.php entity.name.function.php
+T 70 source.hack
+T 71 source.hack variable.other.php punctuation.definition.variable.php
+T 86 source.hack variable.other.php
+T 88 source.hack
+T 89 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				if ($table_name is nonnull) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 30 source.hack support.class.php
+T 32 source.hack
+T 33 source.hack punctuation.section.scope.begin.php
+L 					$column_name = $table_name.'.'.$column_name;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 32 source.hack keyword.operator.string.php
+T 33 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 34 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 35 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 36 source.hack keyword.operator.string.php
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 48 source.hack variable.other.php
+T 49 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				$values = vec[];
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack punctuation.section.array.end.php
+T 20 source.hack punctuation.terminator.expression.php
+L 
+L 				foreach (($expr->inList as nonnull) as $in_expr) {
+T 4 source.hack
+T 11 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 21 source.hack keyword.operator.class.php
+T 27 source.hack variable.other.property.php
+T 28 source.hack
+T 30 source.hack keyword.operator.type.php
+T 31 source.hack
+T 38 source.hack support.class.php
+T 40 source.hack
+T 42 source.hack keyword.operator.type.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 51 source.hack variable.other.php
+T 53 source.hack
+T 54 source.hack punctuation.section.scope.begin.php
+L 					// found it? return the opposite of "negated". so if negated is false, return true.
+T 5 source.hack punctuation.whitespace.comment.leading.php
+T 7 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 88 source.hack comment.line.double-slash.php
+L 					// if it's a subquery, we have to iterate over the results and extract the field from each row
+T 5 source.hack punctuation.whitespace.comment.leading.php
+T 7 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 99 source.hack comment.line.double-slash.php
+L 					if ($in_expr is ConstantExpression || $in_expr is BinaryOperatorExpression) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 20 source.hack keyword.operator.type.php
+T 21 source.hack
+T 39 source.hack support.class.php
+T 40 source.hack
+T 42 source.hack keyword.operator.logical.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 51 source.hack variable.other.php
+T 52 source.hack
+T 54 source.hack keyword.operator.type.php
+T 55 source.hack
+T 79 source.hack support.class.php
+T 81 source.hack
+T 82 source.hack punctuation.section.scope.begin.php
+L 						$value = $in_expr->evaluateImpl(dict[], $conn);
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 14 source.hack keyword.operator.assignment.php
+T 15 source.hack
+T 16 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 25 source.hack keyword.operator.class.php
+T 37 source.hack meta.function-call.object.php
+T 38 source.hack
+T 42 source.hack support.type.php
+T 43 source.hack punctuation.section.array.begin.php
+T 44 source.hack punctuation.section.array.end.php
+T 46 source.hack
+T 47 source.hack variable.other.php punctuation.definition.variable.php
+T 51 source.hack variable.other.php
+T 52 source.hack
+T 53 source.hack punctuation.terminator.expression.php
+L 						if (isset($columns[$column_name])) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 15 source.hack support.function.construct.php
+T 16 source.hack
+T 17 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack punctuation.section.array.begin.php
+T 26 source.hack variable.other.php punctuation.definition.variable.php
+T 37 source.hack variable.other.php
+T 38 source.hack punctuation.section.array.end.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 							if ($columns[$column_name]->hack_type === 'int' && $value is string) {
+T 7 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack punctuation.section.array.begin.php
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 32 source.hack variable.other.php
+T 33 source.hack punctuation.section.array.end.php
+T 35 source.hack keyword.operator.class.php
+T 44 source.hack variable.other.property.php
+T 45 source.hack
+T 48 source.hack keyword.operator.comparison.php
+T 49 source.hack
+T 50 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 53 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 54 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 55 source.hack
+T 57 source.hack keyword.operator.logical.php
+T 58 source.hack
+T 59 source.hack variable.other.php punctuation.definition.variable.php
+T 64 source.hack variable.other.php
+T 65 source.hack
+T 67 source.hack keyword.operator.type.php
+T 68 source.hack
+T 74 source.hack support.class.php
+T 76 source.hack
+T 77 source.hack punctuation.section.scope.begin.php
+L 								$value = (int)$value;
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 18 source.hack
+T 21 source.hack support.type.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack punctuation.terminator.expression.php
+L 							}
+T 7 source.hack
+T 8 source.hack punctuation.section.scope.end.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 						$values[] = $value;
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack punctuation.section.array.begin.php
+T 15 source.hack punctuation.section.array.end.php
+T 16 source.hack
+T 17 source.hack keyword.operator.assignment.php
+T 18 source.hack
+T 19 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack punctuation.terminator.expression.php
+L 					} else {
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+T 7 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack punctuation.section.scope.begin.php
+L 						$values = vec[];
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 15 source.hack keyword.operator.assignment.php
+T 16 source.hack
+T 19 source.hack support.type.php
+T 20 source.hack punctuation.section.array.begin.php
+T 21 source.hack punctuation.section.array.end.php
+T 22 source.hack punctuation.terminator.expression.php
+L 						break;
+T 6 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				if ($values) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack punctuation.section.scope.begin.php
+L 					$column_names[$column_name] = $values;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack punctuation.section.array.begin.php
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 32 source.hack punctuation.section.array.end.php
+T 33 source.hack
+T 34 source.hack keyword.operator.assignment.php
+T 35 source.hack
+T 36 source.hack variable.other.php punctuation.definition.variable.php
+T 42 source.hack variable.other.php
+T 43 source.hack punctuation.terminator.expression.php
+L 
+L 					return $column_names;
+T 5 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 26 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		$matched_all_expressions = false;
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack
+T 28 source.hack keyword.operator.assignment.php
+T 29 source.hack
+T 34 source.hack constant.language.php
+T 35 source.hack punctuation.terminator.expression.php
+L 
+L 		return dict[];
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 13 source.hack support.type.php
+T 14 source.hack punctuation.section.array.begin.php
+T 15 source.hack punctuation.section.array.end.php
+T 16 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function getIndexCandidatesFromBinop(
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 52 source.hack meta.function.php entity.name.function.php
+T 53 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L 		AsyncMysqlConnection $conn,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 22 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 28 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 29 source.hack meta.function.php meta.function.arguments.php
+L 		BinaryOperatorExpression $expr,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 26 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 27 source.hack meta.function.php meta.function.arguments.php
+T 28 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 32 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 33 source.hack meta.function.php meta.function.arguments.php
+L 		dict<string, Column> $columns,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 6 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 7 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 15 source.hack meta.function.php meta.function.arguments.php
+T 21 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 22 source.hack meta.function.php meta.function.arguments.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 31 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 32 source.hack meta.function.php meta.function.arguments.php
+L 		inout bool $matched_all_expressions,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 8 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 37 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 38 source.hack meta.function.php meta.function.arguments.php
+L 	): dict<string, vec<mixed>> {
+T 1 source.hack meta.function.php meta.function.arguments.php
+T 2 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 3 source.hack meta.function.php punctuation.definition.type.php
+T 4 source.hack meta.function.php
+T 8 source.hack meta.function.php support.class.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php support.type.php
+T 17 source.hack meta.function.php
+T 20 source.hack meta.function.php support.class.php
+T 21 source.hack meta.function.php
+T 26 source.hack meta.function.php support.type.php
+T 27 source.hack meta.function.php
+T 28 source.hack meta.function.php
+T 29 source.hack meta.function.php
+T 30 source.hack punctuation.section.scope.begin.php
+L 		$column_names = dict[];
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+T 17 source.hack keyword.operator.assignment.php
+T 18 source.hack
+T 22 source.hack support.type.php
+T 23 source.hack punctuation.section.array.begin.php
+T 24 source.hack punctuation.section.array.end.php
+T 25 source.hack punctuation.terminator.expression.php
+L 
+L 		if ($expr->operator === null) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 30 source.hack constant.language.php
+T 32 source.hack
+T 33 source.hack punctuation.section.scope.begin.php
+L 			// an operator should only be in this state in the middle of parsing, never when evaluating
+T 3 source.hack punctuation.whitespace.comment.leading.php
+T 5 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 94 source.hack comment.line.double-slash.php
+L 			throw new SQLFakeRuntimeException('Attempted to evaluate BinaryOperatorExpression with empty operator');
+T 3 source.hack
+T 8 source.hack keyword.control.exception.php
+T 9 source.hack
+T 12 source.hack keyword.other.new.php
+T 13 source.hack
+T 36 source.hack support.class.php
+T 37 source.hack
+T 38 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 104 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 105 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 106 source.hack
+T 107 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->negated) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 20 source.hack variable.other.property.php
+T 22 source.hack
+T 23 source.hack punctuation.section.scope.begin.php
+L 			$matched_all_expressions = false;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.assignment.php
+T 30 source.hack
+T 35 source.hack constant.language.php
+T 36 source.hack punctuation.terminator.expression.php
+L 			return dict[];
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 14 source.hack support.type.php
+T 15 source.hack punctuation.section.array.begin.php
+T 16 source.hack punctuation.section.array.end.php
+T 17 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->operator === Operator::EQUALS) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack keyword.operator.class.php
+T 42 source.hack constant.other.class.php
+T 44 source.hack
+T 45 source.hack punctuation.section.scope.begin.php
+L 			if ($expr->left is ColumnExpression && $expr->left->name !== '*' && $expr->right is ConstantExpression) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 14 source.hack keyword.operator.class.php
+T 18 source.hack variable.other.property.php
+T 19 source.hack
+T 21 source.hack keyword.operator.type.php
+T 22 source.hack
+T 38 source.hack support.class.php
+T 39 source.hack
+T 41 source.hack keyword.operator.logical.php
+T 42 source.hack
+T 43 source.hack variable.other.php punctuation.definition.variable.php
+T 47 source.hack variable.other.php
+T 49 source.hack keyword.operator.class.php
+T 53 source.hack variable.other.property.php
+T 55 source.hack keyword.operator.class.php
+T 59 source.hack variable.other.property.php
+T 60 source.hack
+T 63 source.hack keyword.operator.comparison.php
+T 64 source.hack
+T 65 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 66 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 67 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 68 source.hack
+T 70 source.hack keyword.operator.logical.php
+T 71 source.hack
+T 72 source.hack variable.other.php punctuation.definition.variable.php
+T 76 source.hack variable.other.php
+T 78 source.hack keyword.operator.class.php
+T 83 source.hack variable.other.property.php
+T 84 source.hack
+T 86 source.hack keyword.operator.type.php
+T 87 source.hack
+T 105 source.hack support.class.php
+T 107 source.hack
+T 108 source.hack punctuation.section.scope.begin.php
+L 				$table_name = $expr->left->tableName;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack
+T 17 source.hack keyword.operator.assignment.php
+T 18 source.hack
+T 19 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 25 source.hack keyword.operator.class.php
+T 29 source.hack variable.other.property.php
+T 31 source.hack keyword.operator.class.php
+T 40 source.hack variable.other.property.php
+T 41 source.hack punctuation.terminator.expression.php
+L 				$column_name = $expr->left->name;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 26 source.hack keyword.operator.class.php
+T 30 source.hack variable.other.property.php
+T 32 source.hack keyword.operator.class.php
+T 36 source.hack variable.other.property.php
+T 37 source.hack punctuation.terminator.expression.php
+L 
+L 				if ($table_name is null) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 27 source.hack support.class.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L 					$dot_column_name = '.'.$column_name;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 25 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 26 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 27 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 28 source.hack keyword.operator.string.php
+T 29 source.hack variable.other.php punctuation.definition.variable.php
+T 40 source.hack variable.other.php
+T 41 source.hack punctuation.terminator.expression.php
+L 					foreach ($columns as $key => $_) {
+T 5 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 25 source.hack keyword.operator.type.php
+T 26 source.hack
+T 27 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 31 source.hack
+T 33 source.hack keyword.operator.key.php
+T 34 source.hack
+T 35 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 38 source.hack
+T 39 source.hack punctuation.section.scope.begin.php
+L 						if (Str\ends_with($key, $dot_column_name)) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 13 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 14 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 23 source.hack meta.function-call.php entity.name.function.php
+T 24 source.hack
+T 25 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 46 source.hack variable.other.php
+T 49 source.hack
+T 50 source.hack punctuation.section.scope.begin.php
+L 							$table_name = Str\slice($key, 0, Str\length($key) - Str\length($dot_column_name));
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 24 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 25 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 30 source.hack meta.function-call.php entity.name.function.php
+T 31 source.hack
+T 32 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack constant.numeric.php
+T 40 source.hack
+T 43 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 44 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 50 source.hack meta.function-call.php entity.name.function.php
+T 51 source.hack
+T 52 source.hack variable.other.php punctuation.definition.variable.php
+T 55 source.hack variable.other.php
+T 57 source.hack
+T 58 source.hack keyword.operator.arithmetic.php
+T 59 source.hack
+T 62 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 63 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 69 source.hack meta.function-call.php entity.name.function.php
+T 70 source.hack
+T 71 source.hack variable.other.php punctuation.definition.variable.php
+T 86 source.hack variable.other.php
+T 88 source.hack
+T 89 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				if ($table_name is nonnull) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 30 source.hack support.class.php
+T 32 source.hack
+T 33 source.hack punctuation.section.scope.begin.php
+L 					$column_name = $table_name.'.'.$column_name;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 32 source.hack keyword.operator.string.php
+T 33 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 34 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 35 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 36 source.hack keyword.operator.string.php
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 48 source.hack variable.other.php
+T 49 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				$value = $expr->right->value;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 10 source.hack variable.other.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 20 source.hack keyword.operator.class.php
+T 25 source.hack variable.other.property.php
+T 27 source.hack keyword.operator.class.php
+T 32 source.hack variable.other.property.php
+T 33 source.hack punctuation.terminator.expression.php
+L 				if (isset($columns[$column_name])) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 13 source.hack support.function.construct.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack punctuation.section.array.begin.php
+T 24 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 36 source.hack punctuation.section.array.end.php
+T 39 source.hack
+T 40 source.hack punctuation.section.scope.begin.php
+L 					if ($columns[$column_name]->hack_type === 'int') {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 31 source.hack punctuation.section.array.end.php
+T 33 source.hack keyword.operator.class.php
+T 42 source.hack variable.other.property.php
+T 43 source.hack
+T 46 source.hack keyword.operator.comparison.php
+T 47 source.hack
+T 48 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 51 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 52 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 54 source.hack
+T 55 source.hack punctuation.section.scope.begin.php
+L 						$value = (int)$value;
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 14 source.hack keyword.operator.assignment.php
+T 16 source.hack
+T 19 source.hack support.type.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 				$column_names[$column_name] = vec[$value];
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 31 source.hack punctuation.section.array.end.php
+T 32 source.hack
+T 33 source.hack keyword.operator.assignment.php
+T 34 source.hack
+T 37 source.hack support.type.php
+T 38 source.hack punctuation.section.array.begin.php
+T 39 source.hack variable.other.php punctuation.definition.variable.php
+T 44 source.hack variable.other.php
+T 45 source.hack punctuation.section.array.end.php
+T 46 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			$matched_all_expressions = false;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.assignment.php
+T 30 source.hack
+T 35 source.hack constant.language.php
+T 36 source.hack punctuation.terminator.expression.php
+L 
+L 			return $column_names;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($expr->operator === Operator::AND) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack keyword.operator.class.php
+T 39 source.hack constant.other.class.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 			$column_names = self::getIndexCandidates($conn, $expr->left, $columns, inout $matched_all_expressions);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 23 source.hack support.type.php
+T 25 source.hack keyword.operator.class.php
+T 43 source.hack meta.function-call.static.php
+T 44 source.hack
+T 45 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 51 source.hack
+T 52 source.hack variable.other.php punctuation.definition.variable.php
+T 56 source.hack variable.other.php
+T 58 source.hack keyword.operator.class.php
+T 62 source.hack variable.other.property.php
+T 64 source.hack
+T 65 source.hack variable.other.php punctuation.definition.variable.php
+T 72 source.hack variable.other.php
+T 74 source.hack
+T 79 source.hack constant.other.php
+T 80 source.hack
+T 81 source.hack variable.other.php punctuation.definition.variable.php
+T 104 source.hack variable.other.php
+T 105 source.hack
+T 106 source.hack punctuation.terminator.expression.php
+L 			$column_names = Dict\merge(
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 23 source.hack support.type.php
+T 24 source.hack punctuation.separator.inheritance.php
+T 29 source.hack meta.function-call.php entity.name.function.php
+T 30 source.hack
+L 				$column_names,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+L 				self::getIndexCandidates($conn, $expr->right as nonnull, $columns, inout $matched_all_expressions),
+T 4 source.hack
+T 8 source.hack support.type.php
+T 10 source.hack keyword.operator.class.php
+T 28 source.hack meta.function-call.static.php
+T 29 source.hack
+T 30 source.hack variable.other.php punctuation.definition.variable.php
+T 34 source.hack variable.other.php
+T 36 source.hack
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack keyword.operator.class.php
+T 48 source.hack variable.other.property.php
+T 49 source.hack
+T 51 source.hack keyword.operator.type.php
+T 52 source.hack
+T 59 source.hack support.class.php
+T 61 source.hack
+T 62 source.hack variable.other.php punctuation.definition.variable.php
+T 69 source.hack variable.other.php
+T 71 source.hack
+T 76 source.hack constant.other.php
+T 77 source.hack
+T 78 source.hack variable.other.php punctuation.definition.variable.php
+T 101 source.hack variable.other.php
+T 103 source.hack
+L 			);
+T 4 source.hack
+T 5 source.hack punctuation.terminator.expression.php
+L 
+L 			return $column_names;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		$matched_all_expressions = false;
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack
+T 28 source.hack keyword.operator.assignment.php
+T 29 source.hack
+T 34 source.hack constant.language.php
+T 35 source.hack punctuation.terminator.expression.php
+L 
+L 		return $column_names;
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function filterDataWithMatchedIndex(
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 51 source.hack meta.function.php entity.name.function.php
+T 52 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L 		keyset<arraykey> $data_keys,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 8 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 9 source.hack meta.function.php meta.function.arguments.php
+T 17 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 18 source.hack meta.function.php meta.function.arguments.php
+T 19 source.hack meta.function.php meta.function.arguments.php
+T 20 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 29 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 30 source.hack meta.function.php meta.function.arguments.php
+L 		index_refs $index_refs,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 24 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 25 source.hack meta.function.php meta.function.arguments.php
+L 		Index $matched_index,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 8 source.hack meta.function.php meta.function.arguments.php
+T 9 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 22 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 23 source.hack meta.function.php meta.function.arguments.php
+L 		int $matched_fields,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 5 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 6 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 21 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 22 source.hack meta.function.php meta.function.arguments.php
+L 		dict<string, vec<mixed>> $candidates,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 6 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 7 source.hack meta.function.php meta.function.arguments.php
+T 13 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 15 source.hack meta.function.php meta.function.arguments.php
+T 18 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 19 source.hack meta.function.php meta.function.arguments.php
+T 24 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 25 source.hack meta.function.php meta.function.arguments.php
+T 26 source.hack meta.function.php meta.function.arguments.php
+T 27 source.hack meta.function.php meta.function.arguments.php
+T 28 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 38 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 39 source.hack meta.function.php meta.function.arguments.php
+L 		bool $full_index,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 6 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 7 source.hack meta.function.php meta.function.arguments.php
+T 8 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 18 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 19 source.hack meta.function.php meta.function.arguments.php
+L 	): keyset<arraykey> {
+T 1 source.hack meta.function.php meta.function.arguments.php
+T 2 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 3 source.hack meta.function.php punctuation.definition.type.php
+T 4 source.hack meta.function.php
+T 10 source.hack meta.function.php support.class.php
+T 11 source.hack meta.function.php
+T 19 source.hack meta.function.php support.type.php
+T 20 source.hack meta.function.php
+T 21 source.hack meta.function.php
+T 22 source.hack punctuation.section.scope.begin.php
+L 		if ($matched_fields === 1) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 25 source.hack keyword.operator.comparison.php
+T 26 source.hack
+T 27 source.hack constant.numeric.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L 			$keys = keyset[];
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack punctuation.section.array.end.php
+T 20 source.hack punctuation.terminator.expression.php
+L 
+L 			$matched_field = C\firstx($matched_index->fields);
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 19 source.hack keyword.operator.assignment.php
+T 20 source.hack
+T 21 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 22 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 28 source.hack meta.function-call.php entity.name.function.php
+T 29 source.hack
+T 30 source.hack variable.other.php punctuation.definition.variable.php
+T 43 source.hack variable.other.php
+T 45 source.hack keyword.operator.class.php
+T 51 source.hack variable.other.property.php
+T 52 source.hack
+T 53 source.hack punctuation.terminator.expression.php
+L 			foreach ($candidates[$matched_field] as $candidate_value) {
+T 3 source.hack
+T 10 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack punctuation.section.array.begin.php
+T 25 source.hack variable.other.php punctuation.definition.variable.php
+T 38 source.hack variable.other.php
+T 39 source.hack punctuation.section.array.end.php
+T 40 source.hack
+T 42 source.hack keyword.operator.type.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 59 source.hack variable.other.php
+T 61 source.hack
+T 62 source.hack punctuation.section.scope.begin.php
+L 				if ($candidate_value is null) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack
+T 27 source.hack keyword.operator.type.php
+T 28 source.hack
+T 32 source.hack support.class.php
+T 34 source.hack
+T 35 source.hack punctuation.section.scope.begin.php
+L 					$candidate_value = '__NULL__';
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack variable.other.php
+T 22 source.hack
+T 23 source.hack keyword.operator.assignment.php
+T 24 source.hack
+T 25 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 33 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 34 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 35 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 				$keys[] = $candidate_value as arraykey;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 9 source.hack variable.other.php
+T 10 source.hack punctuation.section.array.begin.php
+T 11 source.hack punctuation.section.array.end.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 31 source.hack
+T 33 source.hack keyword.operator.type.php
+T 34 source.hack
+T 42 source.hack support.class.php
+T 43 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		} else {
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+T 4 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack punctuation.section.scope.begin.php
+L 			$keys = vec[];
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 14 source.hack support.type.php
+T 15 source.hack punctuation.section.array.begin.php
+T 16 source.hack punctuation.section.array.end.php
+T 17 source.hack punctuation.terminator.expression.php
+L 
+L 			foreach ($matched_index->fields as $matched_field) {
+T 3 source.hack
+T 10 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 28 source.hack keyword.operator.class.php
+T 34 source.hack variable.other.property.php
+T 35 source.hack
+T 37 source.hack keyword.operator.type.php
+T 38 source.hack
+T 39 source.hack variable.other.php punctuation.definition.variable.php
+T 52 source.hack variable.other.php
+T 54 source.hack
+T 55 source.hack punctuation.section.scope.begin.php
+L 				if ($keys === vec[]) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 17 source.hack keyword.operator.comparison.php
+T 18 source.hack
+T 21 source.hack support.type.php
+T 22 source.hack punctuation.section.array.begin.php
+T 23 source.hack punctuation.section.array.end.php
+T 25 source.hack
+T 26 source.hack punctuation.section.scope.begin.php
+L 					foreach ($candidates[$matched_field] as $candidate_value) {
+T 5 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 26 source.hack punctuation.section.array.begin.php
+T 27 source.hack variable.other.php punctuation.definition.variable.php
+T 40 source.hack variable.other.php
+T 41 source.hack punctuation.section.array.end.php
+T 42 source.hack
+T 44 source.hack keyword.operator.type.php
+T 45 source.hack
+T 46 source.hack variable.other.php punctuation.definition.variable.php
+T 61 source.hack variable.other.php
+T 63 source.hack
+T 64 source.hack punctuation.section.scope.begin.php
+L 						if (!$candidate_value is arraykey) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack keyword.operator.logical.php
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 30 source.hack keyword.operator.type.php
+T 31 source.hack
+T 39 source.hack support.class.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L 							continue;
+T 7 source.hack
+T 15 source.hack keyword.control.php
+T 16 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 
+L 						$keys[] = vec[$candidate_value];
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack punctuation.section.array.begin.php
+T 13 source.hack punctuation.section.array.end.php
+T 14 source.hack
+T 15 source.hack keyword.operator.assignment.php
+T 16 source.hack
+T 19 source.hack support.type.php
+T 20 source.hack punctuation.section.array.begin.php
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack punctuation.section.array.end.php
+T 38 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 				} else {
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+T 6 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack punctuation.section.scope.begin.php
+L 					$new_keys = vec[];
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 17 source.hack
+T 20 source.hack support.type.php
+T 21 source.hack punctuation.section.array.begin.php
+T 22 source.hack punctuation.section.array.end.php
+T 23 source.hack punctuation.terminator.expression.php
+L 
+L 					foreach ($keys as $key_parts) {
+T 5 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack
+T 22 source.hack keyword.operator.type.php
+T 23 source.hack
+T 24 source.hack variable.other.php punctuation.definition.variable.php
+T 33 source.hack variable.other.php
+T 35 source.hack
+T 36 source.hack punctuation.section.scope.begin.php
+L 						foreach ($candidates[$matched_field] as $candidate_value) {
+T 6 source.hack
+T 13 source.hack keyword.control.php
+T 15 source.hack
+T 16 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack punctuation.section.array.begin.php
+T 28 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 42 source.hack punctuation.section.array.end.php
+T 43 source.hack
+T 45 source.hack keyword.operator.type.php
+T 46 source.hack
+T 47 source.hack variable.other.php punctuation.definition.variable.php
+T 62 source.hack variable.other.php
+T 64 source.hack
+T 65 source.hack punctuation.section.scope.begin.php
+L 							if ($candidate_value is null) {
+T 7 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 30 source.hack keyword.operator.type.php
+T 31 source.hack
+T 35 source.hack support.class.php
+T 37 source.hack
+T 38 source.hack punctuation.section.scope.begin.php
+L 								$candidate_value = '__NULL__';
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack
+T 26 source.hack keyword.operator.assignment.php
+T 27 source.hack
+T 28 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 36 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 37 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 38 source.hack punctuation.terminator.expression.php
+L 							}
+T 7 source.hack
+T 8 source.hack punctuation.section.scope.end.php
+L 							$new_keys[] = Vec\concat($key_parts, vec[$candidate_value as arraykey]);
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack punctuation.section.array.begin.php
+T 18 source.hack punctuation.section.array.end.php
+T 19 source.hack
+T 20 source.hack keyword.operator.assignment.php
+T 21 source.hack
+T 24 source.hack support.type.php
+T 25 source.hack punctuation.separator.inheritance.php
+T 31 source.hack meta.function-call.php entity.name.function.php
+T 32 source.hack
+T 33 source.hack variable.other.php punctuation.definition.variable.php
+T 42 source.hack variable.other.php
+T 44 source.hack
+T 47 source.hack support.type.php
+T 48 source.hack punctuation.section.array.begin.php
+T 49 source.hack variable.other.php punctuation.definition.variable.php
+T 64 source.hack variable.other.php
+T 65 source.hack
+T 67 source.hack keyword.operator.type.php
+T 68 source.hack
+T 76 source.hack support.class.php
+T 77 source.hack punctuation.section.array.end.php
+T 78 source.hack
+T 79 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 
+L 					$keys = $new_keys;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 10 source.hack variable.other.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($matched_index->type === 'PRIMARY' && $keys is keyset<_> && $full_index) {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 22 source.hack keyword.operator.class.php
+T 26 source.hack variable.other.property.php
+T 27 source.hack
+T 30 source.hack keyword.operator.comparison.php
+T 31 source.hack
+T 32 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 39 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 40 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 41 source.hack
+T 43 source.hack keyword.operator.logical.php
+T 44 source.hack
+T 45 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack
+T 52 source.hack keyword.operator.type.php
+T 53 source.hack
+T 59 source.hack support.class.php
+T 60 source.hack keyword.operator.comparison.php
+T 61 source.hack constant.other.php
+T 62 source.hack keyword.operator.comparison.php
+T 63 source.hack
+T 65 source.hack keyword.operator.logical.php
+T 66 source.hack
+T 67 source.hack variable.other.php punctuation.definition.variable.php
+T 77 source.hack variable.other.php
+T 79 source.hack
+T 80 source.hack punctuation.section.scope.begin.php
+L 			// this is the happiest path - a simple primary key lookup on an index with a single column
+T 3 source.hack punctuation.whitespace.comment.leading.php
+T 5 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 94 source.hack comment.line.double-slash.php
+L 			return Keyset\intersect($data_keys, $keys);
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 16 source.hack support.type.php
+T 17 source.hack punctuation.separator.inheritance.php
+T 26 source.hack meta.function-call.php entity.name.function.php
+T 27 source.hack
+T 28 source.hack variable.other.php punctuation.definition.variable.php
+T 37 source.hack variable.other.php
+T 39 source.hack
+T 40 source.hack variable.other.php punctuation.definition.variable.php
+T 44 source.hack variable.other.php
+T 45 source.hack
+T 46 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		// for unique indexes and primary keys with more than one field we store indexes
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 82 source.hack comment.line.double-slash.php
+L 		// as nested dicts based on their fields
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 42 source.hack comment.line.double-slash.php
+L 		if ($matched_index->type === 'UNIQUE' || $matched_index->type === 'PRIMARY') {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 22 source.hack keyword.operator.class.php
+T 26 source.hack variable.other.property.php
+T 27 source.hack
+T 30 source.hack keyword.operator.comparison.php
+T 31 source.hack
+T 32 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 38 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 39 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 40 source.hack
+T 42 source.hack keyword.operator.logical.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 57 source.hack variable.other.php
+T 59 source.hack keyword.operator.class.php
+T 63 source.hack variable.other.property.php
+T 64 source.hack
+T 67 source.hack keyword.operator.comparison.php
+T 68 source.hack
+T 69 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 76 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 77 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 79 source.hack
+T 80 source.hack punctuation.section.scope.begin.php
+L 			$matched_index_refs = $index_refs[$matched_index->name] ?? null;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 24 source.hack keyword.operator.assignment.php
+T 25 source.hack
+T 26 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack punctuation.section.array.begin.php
+T 38 source.hack variable.other.php punctuation.definition.variable.php
+T 51 source.hack variable.other.php
+T 53 source.hack keyword.operator.class.php
+T 57 source.hack variable.other.property.php
+T 58 source.hack punctuation.section.array.end.php
+T 62 source.hack
+T 66 source.hack constant.language.php
+T 67 source.hack punctuation.terminator.expression.php
+L 
+L 			if ($matched_index_refs is null) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack
+T 29 source.hack keyword.operator.type.php
+T 30 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack
+T 37 source.hack punctuation.section.scope.begin.php
+L 				return keyset[];
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack punctuation.section.array.end.php
+T 20 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			if ($keys is keyset<_>) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 22 source.hack support.class.php
+T 23 source.hack keyword.operator.comparison.php
+T 24 source.hack constant.other.php
+T 25 source.hack keyword.operator.comparison.php
+T 27 source.hack
+T 28 source.hack punctuation.section.scope.begin.php
+L 				if ($full_index) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack punctuation.section.scope.begin.php
+L 					// this is the second-happiest-path — a unique index with a single column
+T 5 source.hack punctuation.whitespace.comment.leading.php
+T 7 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 80 source.hack comment.line.double-slash.php
+L 					return keyset<arraykey>(
+T 5 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack
+T 18 source.hack support.type.php
+T 19 source.hack keyword.operator.comparison.php
+T 27 source.hack support.type.php
+T 28 source.hack keyword.operator.comparison.php
+T 29 source.hack
+L 						Dict\filter_keys(
+T 6 source.hack
+T 10 source.hack support.type.php
+T 11 source.hack punctuation.separator.inheritance.php
+T 22 source.hack meta.function-call.php entity.name.function.php
+T 23 source.hack
+L 						/* HH_FIXME[4110] */
+T 6 source.hack
+T 8 source.hack comment.block.php punctuation.definition.comment.php
+T 24 source.hack comment.block.php
+T 26 source.hack comment.block.php punctuation.definition.comment.php
+L 						$matched_index_refs,
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 26 source.hack
+L 							$ref_k ==> C\contains_key($keys, $ref_k),
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 17 source.hack keyword.operator.lambda.php
+T 18 source.hack
+T 19 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 20 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 32 source.hack meta.function-call.php entity.name.function.php
+T 33 source.hack
+T 34 source.hack variable.other.php punctuation.definition.variable.php
+T 38 source.hack variable.other.php
+T 40 source.hack
+T 41 source.hack variable.other.php punctuation.definition.variable.php
+T 46 source.hack variable.other.php
+T 48 source.hack
+L 						),
+T 8 source.hack
+L 					);
+T 6 source.hack
+T 7 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				// we have a partial index lookup, which means we need to filter on those keys then collapse the result
+T 4 source.hack punctuation.whitespace.comment.leading.php
+T 6 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 107 source.hack comment.line.double-slash.php
+L 				return self::collapseRefs(
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 15 source.hack support.type.php
+T 17 source.hack keyword.operator.class.php
+T 29 source.hack meta.function-call.static.php
+T 30 source.hack
+L 					Dict\filter_keys($matched_index_refs, $ref_k ==> C\contains_key($keys, $ref_k)),
+T 5 source.hack
+T 9 source.hack support.type.php
+T 10 source.hack punctuation.separator.inheritance.php
+T 21 source.hack meta.function-call.php entity.name.function.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack
+T 53 source.hack keyword.operator.lambda.php
+T 54 source.hack
+T 55 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 56 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 68 source.hack meta.function-call.php entity.name.function.php
+T 69 source.hack
+T 70 source.hack variable.other.php punctuation.definition.variable.php
+T 74 source.hack variable.other.php
+T 76 source.hack
+T 77 source.hack variable.other.php punctuation.definition.variable.php
+T 82 source.hack variable.other.php
+T 85 source.hack
+L 				);
+T 5 source.hack
+T 6 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			$matched_keys = keyset[];
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 25 source.hack support.type.php
+T 26 source.hack punctuation.section.array.begin.php
+T 27 source.hack punctuation.section.array.end.php
+T 28 source.hack punctuation.terminator.expression.php
+L 
+L 			// this is a full or partial index lookup with multiple fields
+T 3 source.hack punctuation.whitespace.comment.leading.php
+T 5 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 65 source.hack comment.line.double-slash.php
+L 			foreach ($keys as $key_parts) {
+T 3 source.hack
+T 10 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 20 source.hack keyword.operator.type.php
+T 21 source.hack
+T 22 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 33 source.hack
+T 34 source.hack punctuation.section.scope.begin.php
+L 				$key_matched_index_refs = $matched_index_refs;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.assignment.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack punctuation.terminator.expression.php
+L 
+L 				foreach ($key_parts as $i => $key_part) {
+T 4 source.hack
+T 11 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack
+T 26 source.hack keyword.operator.type.php
+T 27 source.hack
+T 28 source.hack variable.other.php punctuation.definition.variable.php
+T 29 source.hack variable.other.php
+T 30 source.hack
+T 32 source.hack keyword.operator.key.php
+T 33 source.hack
+T 34 source.hack variable.other.php punctuation.definition.variable.php
+T 42 source.hack variable.other.php
+T 44 source.hack
+T 45 source.hack punctuation.section.scope.begin.php
+L 					$next = $key_matched_index_refs[$key_part] ?? null;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 10 source.hack variable.other.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack punctuation.section.array.begin.php
+T 38 source.hack variable.other.php punctuation.definition.variable.php
+T 46 source.hack variable.other.php
+T 47 source.hack punctuation.section.array.end.php
+T 51 source.hack
+T 55 source.hack constant.language.php
+T 56 source.hack punctuation.terminator.expression.php
+L 
+L 					if ($next is null) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 17 source.hack keyword.operator.type.php
+T 18 source.hack
+T 22 source.hack support.class.php
+T 24 source.hack
+T 25 source.hack punctuation.section.scope.begin.php
+L 						break;
+T 6 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 
+L 					if ($i + 1 === $matched_fields) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.arithmetic.php
+T 14 source.hack
+T 15 source.hack constant.numeric.php
+T 16 source.hack
+T 19 source.hack keyword.operator.comparison.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack punctuation.section.scope.begin.php
+L 						if (!$full_index) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack keyword.operator.logical.php
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 24 source.hack
+T 25 source.hack punctuation.section.scope.begin.php
+L 							$matched_keys = Keyset\union($matched_keys, self::collapseRefs($next as dict<_, _>));
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack keyword.operator.assignment.php
+T 23 source.hack
+T 29 source.hack support.type.php
+T 30 source.hack punctuation.separator.inheritance.php
+T 35 source.hack meta.function-call.php entity.name.function.php
+T 36 source.hack
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack
+T 51 source.hack
+T 55 source.hack support.type.php
+T 57 source.hack keyword.operator.class.php
+T 69 source.hack meta.function-call.static.php
+T 70 source.hack
+T 71 source.hack variable.other.php punctuation.definition.variable.php
+T 75 source.hack variable.other.php
+T 76 source.hack
+T 78 source.hack keyword.operator.type.php
+T 79 source.hack
+T 83 source.hack support.class.php
+T 84 source.hack keyword.operator.comparison.php
+T 85 source.hack constant.other.php
+T 87 source.hack
+T 88 source.hack constant.other.php
+T 89 source.hack keyword.operator.comparison.php
+T 91 source.hack
+T 92 source.hack punctuation.terminator.expression.php
+L 						} else {
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+T 8 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack punctuation.section.scope.begin.php
+L 							// for unique indexes this is always an arraykey
+T 7 source.hack punctuation.whitespace.comment.leading.php
+T 9 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 55 source.hack comment.line.double-slash.php
+L 							$matched_keys[] = $next as arraykey;
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack punctuation.section.array.begin.php
+T 22 source.hack punctuation.section.array.end.php
+T 23 source.hack
+T 24 source.hack keyword.operator.assignment.php
+T 25 source.hack
+T 26 source.hack variable.other.php punctuation.definition.variable.php
+T 30 source.hack variable.other.php
+T 31 source.hack
+T 33 source.hack keyword.operator.type.php
+T 34 source.hack
+T 42 source.hack support.class.php
+T 43 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 						break;
+T 6 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 
+L 					$key_matched_index_refs = $next as dict<_, _>;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack keyword.operator.assignment.php
+T 31 source.hack
+T 32 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack
+T 39 source.hack keyword.operator.type.php
+T 40 source.hack
+T 44 source.hack support.class.php
+T 45 source.hack keyword.operator.comparison.php
+T 46 source.hack constant.other.php
+T 48 source.hack
+T 49 source.hack constant.other.php
+T 50 source.hack keyword.operator.comparison.php
+T 51 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			return $matched_keys;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		if ($matched_index->type === 'INDEX') {
+T 2 source.hack
+T 4 source.hack keyword.control.php
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 22 source.hack keyword.operator.class.php
+T 26 source.hack variable.other.property.php
+T 27 source.hack
+T 30 source.hack keyword.operator.comparison.php
+T 31 source.hack
+T 32 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 37 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 38 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 40 source.hack
+T 41 source.hack punctuation.section.scope.begin.php
+L 			$matched_index_refs = $index_refs[$matched_index->name] ?? null;
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack
+T 24 source.hack keyword.operator.assignment.php
+T 25 source.hack
+T 26 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack punctuation.section.array.begin.php
+T 38 source.hack variable.other.php punctuation.definition.variable.php
+T 51 source.hack variable.other.php
+T 53 source.hack keyword.operator.class.php
+T 57 source.hack variable.other.property.php
+T 58 source.hack punctuation.section.array.end.php
+T 62 source.hack
+T 66 source.hack constant.language.php
+T 67 source.hack punctuation.terminator.expression.php
+L 
+L 			if ($matched_index_refs is null) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 27 source.hack
+T 29 source.hack keyword.operator.type.php
+T 30 source.hack
+T 34 source.hack support.class.php
+T 36 source.hack
+T 37 source.hack punctuation.section.scope.begin.php
+L 				return keyset[];
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack punctuation.section.array.end.php
+T 20 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			if ($keys is keyset<_>) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 22 source.hack support.class.php
+T 23 source.hack keyword.operator.comparison.php
+T 24 source.hack constant.other.php
+T 25 source.hack keyword.operator.comparison.php
+T 27 source.hack
+T 28 source.hack punctuation.section.scope.begin.php
+L 				if ($full_index) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack punctuation.section.scope.begin.php
+L 					// a non-unique index with a single column
+T 5 source.hack punctuation.whitespace.comment.leading.php
+T 7 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 47 source.hack comment.line.double-slash.php
+L 					return keyset<arraykey>(
+T 5 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack
+T 18 source.hack support.type.php
+T 19 source.hack keyword.operator.comparison.php
+T 27 source.hack support.type.php
+T 28 source.hack keyword.operator.comparison.php
+T 29 source.hack
+L 						Dict\flatten(
+T 6 source.hack
+T 10 source.hack support.type.php
+T 11 source.hack punctuation.separator.inheritance.php
+T 18 source.hack meta.function-call.php entity.name.function.php
+T 19 source.hack
+L 							Dict\filter_keys(
+T 7 source.hack
+T 11 source.hack support.type.php
+T 12 source.hack punctuation.separator.inheritance.php
+T 23 source.hack meta.function-call.php entity.name.function.php
+T 24 source.hack
+L 								/* HH_FIXME[4110] */
+T 8 source.hack
+T 10 source.hack comment.block.php punctuation.definition.comment.php
+T 26 source.hack comment.block.php
+T 28 source.hack comment.block.php punctuation.definition.comment.php
+L 								$matched_index_refs,
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+L 								$ref_k ==> C\contains_key($keys, $ref_k),
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 18 source.hack keyword.operator.lambda.php
+T 19 source.hack
+T 20 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 21 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 33 source.hack meta.function-call.php entity.name.function.php
+T 34 source.hack
+T 35 source.hack variable.other.php punctuation.definition.variable.php
+T 39 source.hack variable.other.php
+T 41 source.hack
+T 42 source.hack variable.other.php punctuation.definition.variable.php
+T 47 source.hack variable.other.php
+T 49 source.hack
+L 							),
+T 9 source.hack
+L 						),
+T 8 source.hack
+L 					);
+T 6 source.hack
+T 7 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L 				// we have a partial index lookup, which means we need to filter on those keys then collapse the result
+T 4 source.hack punctuation.whitespace.comment.leading.php
+T 6 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 107 source.hack comment.line.double-slash.php
+L 				return self::collapseRefs(
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 15 source.hack support.type.php
+T 17 source.hack keyword.operator.class.php
+T 29 source.hack meta.function-call.static.php
+T 30 source.hack
+L 					Dict\filter_keys($matched_index_refs, $ref_k ==> C\contains_key($keys, $ref_k)),
+T 5 source.hack
+T 9 source.hack support.type.php
+T 10 source.hack punctuation.separator.inheritance.php
+T 21 source.hack meta.function-call.php entity.name.function.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 41 source.hack variable.other.php
+T 43 source.hack
+T 44 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack
+T 53 source.hack keyword.operator.lambda.php
+T 54 source.hack
+T 55 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 56 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 68 source.hack meta.function-call.php entity.name.function.php
+T 69 source.hack
+T 70 source.hack variable.other.php punctuation.definition.variable.php
+T 74 source.hack variable.other.php
+T 76 source.hack
+T 77 source.hack variable.other.php punctuation.definition.variable.php
+T 82 source.hack variable.other.php
+T 85 source.hack
+L 				);
+T 5 source.hack
+T 6 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			$matched_keys = keyset[];
+T 3 source.hack
+T 4 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 25 source.hack support.type.php
+T 26 source.hack punctuation.section.array.begin.php
+T 27 source.hack punctuation.section.array.end.php
+T 28 source.hack punctuation.terminator.expression.php
+L 
+L 			// this is a full or partial index lookup with multiple fields
+T 3 source.hack punctuation.whitespace.comment.leading.php
+T 5 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 65 source.hack comment.line.double-slash.php
+L 			foreach ($keys as $key_parts) {
+T 3 source.hack
+T 10 source.hack keyword.control.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack
+T 20 source.hack keyword.operator.type.php
+T 21 source.hack
+T 22 source.hack variable.other.php punctuation.definition.variable.php
+T 31 source.hack variable.other.php
+T 33 source.hack
+T 34 source.hack punctuation.section.scope.begin.php
+L 				$key_matched_index_refs = $matched_index_refs;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack keyword.operator.assignment.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack punctuation.terminator.expression.php
+L 				foreach ($key_parts as $i => $key_part) {
+T 4 source.hack
+T 11 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack
+T 26 source.hack keyword.operator.type.php
+T 27 source.hack
+T 28 source.hack variable.other.php punctuation.definition.variable.php
+T 29 source.hack variable.other.php
+T 30 source.hack
+T 32 source.hack keyword.operator.key.php
+T 33 source.hack
+T 34 source.hack variable.other.php punctuation.definition.variable.php
+T 42 source.hack variable.other.php
+T 44 source.hack
+T 45 source.hack punctuation.section.scope.begin.php
+L 					$next = $key_matched_index_refs[$key_part] ?? null;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 10 source.hack variable.other.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack punctuation.section.array.begin.php
+T 38 source.hack variable.other.php punctuation.definition.variable.php
+T 46 source.hack variable.other.php
+T 47 source.hack punctuation.section.array.end.php
+T 51 source.hack
+T 55 source.hack constant.language.php
+T 56 source.hack punctuation.terminator.expression.php
+L 
+L 					if ($next is null) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack
+T 17 source.hack keyword.operator.type.php
+T 18 source.hack
+T 22 source.hack support.class.php
+T 24 source.hack
+T 25 source.hack punctuation.section.scope.begin.php
+L 						break;
+T 6 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 
+L 					if ($i + 1 === $matched_fields) {
+T 5 source.hack
+T 7 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.arithmetic.php
+T 14 source.hack
+T 15 source.hack constant.numeric.php
+T 16 source.hack
+T 19 source.hack keyword.operator.comparison.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 35 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack punctuation.section.scope.begin.php
+L 						if (!$full_index) {
+T 6 source.hack
+T 8 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack keyword.operator.logical.php
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 24 source.hack
+T 25 source.hack punctuation.section.scope.begin.php
+L 							$matched_keys = Keyset\union($matched_keys, self::collapseRefs($next as dict<_, _>));
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack keyword.operator.assignment.php
+T 23 source.hack
+T 29 source.hack support.type.php
+T 30 source.hack punctuation.separator.inheritance.php
+T 35 source.hack meta.function-call.php entity.name.function.php
+T 36 source.hack
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 50 source.hack
+T 51 source.hack
+T 55 source.hack support.type.php
+T 57 source.hack keyword.operator.class.php
+T 69 source.hack meta.function-call.static.php
+T 70 source.hack
+T 71 source.hack variable.other.php punctuation.definition.variable.php
+T 75 source.hack variable.other.php
+T 76 source.hack
+T 78 source.hack keyword.operator.type.php
+T 79 source.hack
+T 83 source.hack support.class.php
+T 84 source.hack keyword.operator.comparison.php
+T 85 source.hack constant.other.php
+T 87 source.hack
+T 88 source.hack constant.other.php
+T 89 source.hack keyword.operator.comparison.php
+T 91 source.hack
+T 92 source.hack punctuation.terminator.expression.php
+L 						} else {
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+T 8 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack punctuation.section.scope.begin.php
+L 							// for non-unique indexes this is always a keyset
+T 7 source.hack punctuation.whitespace.comment.leading.php
+T 9 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 56 source.hack comment.line.double-slash.php
+L 							$matched_keys = Keyset\union($matched_keys, $next as keyset<_>);
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 22 source.hack keyword.operator.assignment.php
+T 23 source.hack
+T 29 source.hack support.type.php
+T 30 source.hack punctuation.separator.inheritance.php
+T 35 source.hack meta.function-call.php entity.name.function.php
+T 36 source.hack
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 49 source.hack variable.other.php
+T 51 source.hack
+T 52 source.hack variable.other.php punctuation.definition.variable.php
+T 56 source.hack variable.other.php
+T 57 source.hack
+T 59 source.hack keyword.operator.type.php
+T 60 source.hack
+T 66 source.hack support.class.php
+T 67 source.hack keyword.operator.comparison.php
+T 68 source.hack constant.other.php
+T 69 source.hack keyword.operator.comparison.php
+T 70 source.hack
+T 71 source.hack punctuation.terminator.expression.php
+L 						}
+T 6 source.hack
+T 7 source.hack punctuation.section.scope.end.php
+L 						break;
+T 6 source.hack
+T 11 source.hack keyword.control.php
+T 12 source.hack punctuation.terminator.expression.php
+L 					}
+T 5 source.hack
+T 6 source.hack punctuation.section.scope.end.php
+L 
+L 					$key_matched_index_refs = $next as dict<_, _>;
+T 5 source.hack
+T 6 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack keyword.operator.assignment.php
+T 31 source.hack
+T 32 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack
+T 39 source.hack keyword.operator.type.php
+T 40 source.hack
+T 44 source.hack support.class.php
+T 45 source.hack keyword.operator.comparison.php
+T 46 source.hack constant.other.php
+T 48 source.hack
+T 49 source.hack constant.other.php
+T 50 source.hack keyword.operator.comparison.php
+T 51 source.hack punctuation.terminator.expression.php
+L 				}
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 
+L 			return $matched_keys;
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 23 source.hack variable.other.php
+T 24 source.hack punctuation.terminator.expression.php
+L 
+L 			return keyset[];
+T 3 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 16 source.hack support.type.php
+T 17 source.hack punctuation.section.array.begin.php
+T 18 source.hack punctuation.section.array.end.php
+T 19 source.hack punctuation.terminator.expression.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		throw new \Exception('Unrecognised index');
+T 2 source.hack
+T 7 source.hack keyword.control.exception.php
+T 8 source.hack
+T 11 source.hack keyword.other.new.php
+T 12 source.hack
+T 13 source.hack support.class.builtin.php punctuation.separator.inheritance.php
+T 22 source.hack support.class.builtin.php
+T 23 source.hack
+T 24 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 42 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 43 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 44 source.hack
+T 45 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L 
+L 	private static function collapseRefs(dict<arraykey, mixed> $refs): keyset<arraykey> {
+T 1 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 37 source.hack meta.function.php entity.name.function.php
+T 38 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 42 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 43 source.hack meta.function.php meta.function.arguments.php
+T 51 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 53 source.hack meta.function.php meta.function.arguments.php
+T 58 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 59 source.hack meta.function.php meta.function.arguments.php
+T 60 source.hack meta.function.php meta.function.arguments.php
+T 61 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 65 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 66 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 67 source.hack meta.function.php punctuation.definition.type.php
+T 68 source.hack meta.function.php
+T 74 source.hack meta.function.php support.class.php
+T 75 source.hack meta.function.php
+T 83 source.hack meta.function.php support.type.php
+T 84 source.hack meta.function.php
+T 85 source.hack meta.function.php
+T 86 source.hack punctuation.section.scope.begin.php
+L 		$out = keyset[];
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 15 source.hack support.type.php
+T 16 source.hack punctuation.section.array.begin.php
+T 17 source.hack punctuation.section.array.end.php
+T 18 source.hack punctuation.terminator.expression.php
+L 
+L 		foreach ($refs as $value) {
+T 2 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 19 source.hack keyword.operator.type.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 26 source.hack variable.other.php
+T 28 source.hack
+T 29 source.hack punctuation.section.scope.begin.php
+L 			if ($value is dict<_, _>) {
+T 3 source.hack
+T 5 source.hack keyword.control.php
+T 7 source.hack
+T 8 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 16 source.hack keyword.operator.type.php
+T 17 source.hack
+T 21 source.hack support.class.php
+T 22 source.hack keyword.operator.comparison.php
+T 23 source.hack constant.other.php
+T 25 source.hack
+T 26 source.hack constant.other.php
+T 27 source.hack keyword.operator.comparison.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L 				$out = Keyset\union($out, self::collapseRefs($value));
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.separator.inheritance.php
+T 23 source.hack meta.function-call.php entity.name.function.php
+T 24 source.hack
+T 25 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack
+T 34 source.hack support.type.php
+T 36 source.hack keyword.operator.class.php
+T 48 source.hack meta.function-call.static.php
+T 49 source.hack
+T 50 source.hack variable.other.php punctuation.definition.variable.php
+T 55 source.hack variable.other.php
+T 57 source.hack
+T 58 source.hack punctuation.terminator.expression.php
+L 			} else if ($value is keyset<_>) {
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+T 5 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 23 source.hack keyword.operator.type.php
+T 24 source.hack
+T 30 source.hack support.class.php
+T 31 source.hack keyword.operator.comparison.php
+T 32 source.hack constant.other.php
+T 33 source.hack keyword.operator.comparison.php
+T 35 source.hack
+T 36 source.hack punctuation.section.scope.begin.php
+L 				$out = Keyset\union($out, $value);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.separator.inheritance.php
+T 23 source.hack meta.function-call.php entity.name.function.php
+T 24 source.hack
+T 25 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 30 source.hack
+T 31 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack
+T 38 source.hack punctuation.terminator.expression.php
+L 			} else if ($value is arraykey) {
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+T 5 source.hack
+T 9 source.hack keyword.control.php
+T 10 source.hack
+T 12 source.hack keyword.control.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack
+T 23 source.hack keyword.operator.type.php
+T 24 source.hack
+T 32 source.hack support.class.php
+T 34 source.hack
+T 35 source.hack punctuation.section.scope.begin.php
+L 				$out[] = $value;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack punctuation.section.array.begin.php
+T 10 source.hack punctuation.section.array.end.php
+T 11 source.hack
+T 12 source.hack keyword.operator.assignment.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack punctuation.terminator.expression.php
+L 			}
+T 3 source.hack
+T 4 source.hack punctuation.section.scope.end.php
+L 		}
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L 		return $out;
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack punctuation.terminator.expression.php
+L 	}
+T 1 source.hack
+T 2 source.hack punctuation.section.scope.end.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 

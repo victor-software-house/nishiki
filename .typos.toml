@@ -3,8 +3,8 @@
 # src/html/words.rs is generated from the html grammar's word lists, whose
 # entity and attribute names (`ofr`, `pluse`, `seeked`) are not English, and
 # src/less/words.rs spells out `[ensw]{1,4}-resize`, as `nees-resize`.
-# src/php/words.rs holds the php grammar's constant names, such as `EXITT`,
-# and src/php/scope.rs its scope names, which spell `repitition`.
+# src/php/words.rs and src/hack/words.rs hold their grammars' constant names,
+# such as `EXITT`, and src/php/scope.rs its scope names, which spell `repitition`.
 # src/asm/scope.rs and src/asm/words.rs are generated from the asm grammar,
 # whose scope names spell `supplimental`.
 # Each src/<language>/grammar.rs listed here is generated from that
@@ -17,6 +17,7 @@ extend-exclude = [
   "src/bat/grammar.rs",
   "src/coffee/grammar.rs",
   "src/common_lisp/grammar.rs",
+  "src/hack/words.rs",
   "src/haml/grammar.rs",
   "src/html/words.rs",
   "src/julia/grammar.rs",

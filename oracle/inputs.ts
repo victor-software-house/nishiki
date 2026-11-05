@@ -24,6 +24,7 @@ import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import gdscriptCoverage from "./inputs/gdscript-coverage.gd" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
+import hackCoverage from "./inputs/hack-coverage.hack" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
 import hamlInvalidTags from "./inputs/haml-invalid-tags.haml" with { type: "text" };
 import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" };
@@ -261,10 +262,16 @@ const guava =
   "https://raw.githubusercontent.com/google/guava/e98ea2340f6acc94ed9e2cca08976ccae68c3412";
 const h5bp =
   "https://raw.githubusercontent.com/h5bp/html5-boilerplate/b6597338e695dc4a8165c5abcb2bfffa586c3ee5";
+const hackSqlFake =
+  "https://raw.githubusercontent.com/slackhq/hack-sql-fake/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4";
 const haml =
   "https://raw.githubusercontent.com/haml/haml/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b";
 const helm =
   "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
+const hhvmHsl =
+  "https://raw.githubusercontent.com/hhvm/hsl/16e8aa16d252ed218e357495179766adc09c3659";
+const hhvmXhpLib =
+  "https://raw.githubusercontent.com/hhvm/xhp-lib/4ec138f7ac9ef6d2eb646075799860459d3fb0d4";
 const highlightjs =
   "https://raw.githubusercontent.com/highlightjs/highlight.js/60e092057673595fa542db0bc2b13a99df5d0551";
 const homebrewInstall =
@@ -779,6 +786,15 @@ export const inputs: Input[] = [
   { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
   { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
   { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
+  // Shiki's Markdown grammar has no Hack fence, so no Markdown input embeds
+  // Hack.
+  { lang: "hack", name: "coverage", text: hackCoverage },
+  { lang: "hack", name: "hack-sql-fake-query-planner", url: `${hackSqlFake}/src/Query/QueryPlanner.hack` },
+  { lang: "hack", name: "hack-sql-fake-select-test", url: `${hackSqlFake}/tests/SelectExpressionTest.php` },
+  { lang: "hack", name: "hsl-str-transform", url: `${hhvmHsl}/src/str/transform.php` },
+  { lang: "hack", name: "sample", url: `${samples}/hack.sample` },
+  { lang: "hack", name: "xhp-lib-basics-test", url: `${hhvmXhpLib}/tests/BasicsTest.hack` },
+  { lang: "hack", name: "xhp-lib-element", url: `${hhvmXhpLib}/src/core/Element.hack` },
   // HAML runs on the TextMate engine, which hands its filters and Ruby lines
   // to the hand-written lexers. Shiki's Markdown grammar has no HAML fence,
   // so no Markdown input embeds it.

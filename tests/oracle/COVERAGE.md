@@ -31,9 +31,10 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | GDScript | `gdscript` | 102 of 105 | 97.1% | 94 of 99 | 94.9% | 8 | 0 | yes |
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
+| Hack | `hack` | 354 of 355 | 99.7% | 193 of 195 | 99.0% | 3 | 0 | yes |
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HCL | `hcl` | 80 of 80 | 100.0% | 53 of 55 | 96.4% | 2 | 0 | yes |
-| HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 2 |  |
+| HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 4 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
@@ -417,6 +418,14 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #graphql-union.patterns[0].end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
 ```
 
+### `hack`
+
+```text
+#comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#language.patterns[19].begin  groups 5 (waived: the expression has four groups, so no match holds a fifth)
+#support.patterns[101].match  (?i)\bis_int(eger)?\b  waived: its words, `is_int` and `is_integer`, are in `patterns[93]`, which comes first and takes them
+```
+
 ### `haskell`
 
 ```text
@@ -459,7 +468,7 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #comment.patterns[2].match  --!>
 #doctype.patterns[1].begin  "
 #doctype.patterns[1].end  "
-#entities.patterns[1].match  (&)#[0-9]+(;)
+#entities.patterns[1].match  (&)#[0-9]+(;)  fuzz
 #entities.patterns[2].match  groups 3
 #math.patterns[0].patterns[0].begin  (?<!>)\G
 #math.patterns[0].patterns[0].end  >
@@ -1624,6 +1633,15 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 
 ```text
 #graphql-union-mark.match
+```
+
+### `hack`
+
+```text
+#parameter-default-types.patterns[3].match
+#parameter-default-types.patterns[4].match
+#parameter-default-types.patterns[6].begin
+#parameter-default-types.patterns[6].end
 ```
 
 ### `latex`

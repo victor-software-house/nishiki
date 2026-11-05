@@ -1690,6 +1690,20 @@ export const waivers: Waiver[] = [
   ...["#heredoc_interior.patterns[6].patterns[5].end", "#nowdoc_interior.patterns[6].patterns[4].end"].map(
     (path): Waiver => ({ grammar: "php", path, group: 0, reason: "the end is `$`, which holds no text" }),
   ),
+  { grammar: "hack", path: "#comments.patterns[2].begin", group: 1, reason: blanks, probe: "CommentsAt2" },
+  {
+    grammar: "hack",
+    path: "#language.patterns[19].begin",
+    group: 5,
+    reason: "the expression has four groups, so no match holds a fifth",
+    probe: "LanguageAt19",
+  },
+  {
+    grammar: "hack",
+    path: "#support.patterns[101].match",
+    reason: "its words, `is_int` and `is_integer`, are in `patterns[93]`, which comes first and takes them",
+    probe: "SupportAt0",
+  },
   { grammar: "perl", path: "patterns[17].end", reason: "vscode-textmate rewrites `\\z` so that it never matches a line, so the data section runs to the document's end", probe: "RootAt17End" },
   ...["#heredoc.patterns[5].begin", "#heredoc.patterns[5].end", "#heredoc.patterns[5].patterns[0].begin", "#heredoc.patterns[5].patterns[0].end"].map(
     (path): Waiver => ({
@@ -1836,6 +1850,7 @@ export const complete: string[] = [
   "gdscript",
   "go",
   "graphql",
+  "hack",
   "haskell",
   "hcl",
   "ini",

@@ -74,6 +74,14 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  // slackhq/vscode-hack converted the grammar from hhvm/atom-ide-hack, also
+  // MIT (`LICENSE` at 35a7800fc5bc6ecd18913d17375e4d458eeb7c1f).
+  hack: {
+    bundled: "slackhq/vscode-hack@b518393296112ec3189d97a6051e06c4dd5b46d6",
+    origin: "slackhq/vscode-hack",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   haml: {
     bundled: "karuna/haml-vscode@aa45415aefd691af0a501ea4f98e434490623e0d",
     origin: "karuna/haml-vscode",

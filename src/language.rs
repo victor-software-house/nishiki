@@ -1255,6 +1255,20 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// Hack, with the scopes of Shiki's `hack` grammar. HTML and the SQL in
+    /// its strings go to their lexers.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - The root tries HTML first, then Hack where HTML matches nothing, so a top-level tag reads as HTML and the text between tags as Hack.
+    /// - `<?hh` is the operator `<`, a `?` and the constant `hh`.
+    /// - The scopes are PHP's, such as `keyword.control.php`, and XHP's end in `.xhp`.
+    /// - A string that starts with `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE`, `REPLACE` or `ALTER` is SQL, which stops at every `(`, quote, comment, escape and interpolation.
+    /// - XHP starts only after `(`, `,`, `[`, `{`, `:`, `=`, `?`, `&&`, `||`, `=>`, `return` or at a line's start.
+    /// - A name is `[A-Z_a-z\x7F-ÿ]` and the digits: the class stops at U+00FF.
+    /// - `Gender\Gender` in the list of built-in classes holds the anchor `\G`, so it never matches.
+    /// - `\d`, `\w`, `\s`, `\p{L}`, `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
+    Hack { feature: "lang-hack", names: ["hack"], module: hack }
 }
 
 impl Language {

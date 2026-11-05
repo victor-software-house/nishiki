@@ -48,6 +48,7 @@ all = [
   "lang-gdscript",
   "lang-go",
   "lang-graphql",
+  "lang-hack",
   "lang-haskell",
   "lang-hcl",
   "lang-html",
@@ -178,6 +179,16 @@ lang-graphql = [
   "_classes",
   "_utf8",
   "_frame-kinds",
+]
+lang-hack = [
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_halting-embedding",
+  "_identifier-classes",
+  "_php-family",
+  "lang-html",
+  "lang-sql",
 ]
 lang-haml = [
   "_textmate",

@@ -1,0 +1,615 @@
+L /*
+T 2 source.hack comment.block.php punctuation.definition.comment.php
+L  *  Copyright (c) 2004-present, Facebook, Inc.
+T 46 source.hack comment.block.php
+L  *  All rights reserved.
+T 24 source.hack comment.block.php
+L  *
+T 2 source.hack comment.block.php
+L  *  This source code is licensed under the MIT license found in the
+T 67 source.hack comment.block.php
+L  *  LICENSE file in the root directory of this source tree.
+T 59 source.hack comment.block.php
+L  *
+T 2 source.hack comment.block.php
+L  */
+T 1 source.hack comment.block.php
+T 3 source.hack comment.block.php punctuation.definition.comment.php
+L 
+L namespace Facebook\XHP\Core;
+T 9 source.hack meta.namespace.php keyword.other.namespace.php
+T 10 source.hack meta.namespace.php
+T 18 source.hack meta.namespace.php entity.name.type.namespace.php
+T 19 source.hack meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 22 source.hack meta.namespace.php entity.name.type.namespace.php
+T 23 source.hack meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 27 source.hack meta.namespace.php entity.name.type.namespace.php
+T 28 source.hack punctuation.terminator.expression.php
+L 
+L use namespace Facebook\XHP\HTML;
+T 3 source.hack meta.use.php keyword.other.use.php
+T 4 source.hack meta.use.php
+T 13 source.hack meta.use.php support.other.namespace.use.php
+T 14 source.hack meta.use.php support.other.namespace.use.php
+T 22 source.hack meta.use.php support.other.namespace.use.php
+T 23 source.hack meta.use.php support.other.namespace.use.php punctuation.separator.inheritance.php
+T 26 source.hack meta.use.php support.other.namespace.use.php
+T 27 source.hack meta.use.php support.other.namespace.use.php punctuation.separator.inheritance.php
+T 31 source.hack meta.use.php support.other.namespace.use.php
+T 32 source.hack punctuation.terminator.expression.php
+L 
+L /**
+T 3 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L  * element defines an interface that all user-land elements should subclass
+T 75 source.hack comment.block.documentation.phpdoc.php
+L  * from. The main difference between element and primitive is that
+T 66 source.hack comment.block.documentation.phpdoc.php
+L  * subclasses of element should implement `render()` instead of `stringify`.
+T 76 source.hack comment.block.documentation.phpdoc.php
+L  * This is important because most elements should not be dealing with strings
+T 77 source.hack comment.block.documentation.phpdoc.php
+L  * of markup.
+T 13 source.hack comment.block.documentation.phpdoc.php
+L  */
+T 1 source.hack comment.block.documentation.phpdoc.php
+T 3 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L abstract xhp class element extends node {
+T 8 source.hack storage.modifier.php
+T 9 source.hack
+T 12 source.hack constant.other.php
+T 13 source.hack
+T 18 source.hack support.type.php
+T 19 source.hack
+T 26 source.hack constant.other.php
+T 27 source.hack
+T 34 source.hack storage.modifier.php
+T 35 source.hack
+T 39 source.hack constant.other.php
+T 40 source.hack
+T 41 source.hack punctuation.section.scope.begin.php
+L   abstract protected function renderAsync(): Awaitable<node>;
+T 2 source.hack meta.function.php
+T 10 source.hack meta.function.php storage.modifier.php
+T 11 source.hack meta.function.php
+T 20 source.hack meta.function.php storage.modifier.php
+T 21 source.hack meta.function.php
+T 29 source.hack meta.function.php storage.type.function.php
+T 30 source.hack meta.function.php
+T 41 source.hack meta.function.php entity.name.function.php
+T 42 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 43 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 44 source.hack meta.function.php punctuation.definition.type.php
+T 45 source.hack meta.function.php
+T 54 source.hack meta.function.php support.class.php
+T 55 source.hack meta.function.php
+T 59 source.hack meta.function.php support.class.php
+T 60 source.hack meta.function.php
+T 61 source.hack punctuation.terminator.expression.php
+L 
+L   /**
+T 2 source.hack
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L    * @throws UseAfterRenderException
+T 5 source.hack comment.block.documentation.phpdoc.php
+T 12 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 36 source.hack comment.block.documentation.phpdoc.php
+L    */
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L   <<__Override>>
+T 2 source.hack
+T 4 source.hack meta.attributes.php punctuation.definition.attributes.php
+T 14 source.hack meta.attributes.php entity.other.attribute-name.php
+T 16 source.hack meta.attributes.php punctuation.definition.attributes.php
+L   final public async function toStringAsync(): Awaitable<string> {
+T 2 source.hack meta.function.php
+T 7 source.hack meta.function.php storage.modifier.php
+T 8 source.hack meta.function.php
+T 14 source.hack meta.function.php storage.modifier.php
+T 15 source.hack meta.function.php
+T 20 source.hack meta.function.php storage.modifier.php
+T 21 source.hack meta.function.php
+T 29 source.hack meta.function.php storage.type.function.php
+T 30 source.hack meta.function.php
+T 43 source.hack meta.function.php entity.name.function.php
+T 44 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 45 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 46 source.hack meta.function.php punctuation.definition.type.php
+T 47 source.hack meta.function.php
+T 56 source.hack meta.function.php support.class.php
+T 57 source.hack meta.function.php
+T 63 source.hack meta.function.php support.type.php
+T 64 source.hack meta.function.php
+T 65 source.hack meta.function.php
+T 66 source.hack punctuation.section.scope.begin.php
+L     if ($this->__isRendered) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 15 source.hack keyword.operator.class.php
+T 27 source.hack variable.other.property.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L       throw new UseAfterRenderException(
+T 6 source.hack
+T 11 source.hack keyword.control.exception.php
+T 12 source.hack
+T 15 source.hack keyword.other.new.php
+T 16 source.hack
+T 39 source.hack support.class.php
+T 40 source.hack
+L         'Attempted to render XHP element twice',
+T 8 source.hack
+T 9 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 46 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 47 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 48 source.hack
+L       );
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L     try {
+T 4 source.hack
+T 7 source.hack keyword.control.exception.php
+T 8 source.hack
+T 9 source.hack punctuation.section.scope.begin.php
+L       $that = await $this->__flushRenderedRootElement();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 19 source.hack keyword.control.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 27 source.hack keyword.operator.class.php
+T 53 source.hack meta.function-call.object.php
+T 54 source.hack
+T 55 source.hack
+T 56 source.hack punctuation.terminator.expression.php
+L       return await $that->toStringAsync();
+T 6 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 18 source.hack keyword.control.php
+T 19 source.hack
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 26 source.hack keyword.operator.class.php
+T 39 source.hack meta.function-call.object.php
+T 40 source.hack
+T 41 source.hack
+T 42 source.hack punctuation.terminator.expression.php
+L     } catch (UseAfterRenderException $e) {
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+T 6 source.hack
+T 11 source.hack meta.catch.php keyword.control.exception.catch.php
+T 12 source.hack meta.catch.php
+T 13 source.hack meta.catch.php punctuation.definition.parameters.begin.bracket.round.php
+T 36 source.hack meta.catch.php support.class.exception.php
+T 37 source.hack meta.catch.php
+T 38 source.hack meta.catch.php variable.other.php punctuation.definition.variable.php
+T 39 source.hack meta.catch.php variable.other.php
+T 40 source.hack meta.catch.php punctuation.definition.parameters.end.bracket.round.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L       $e->__viaXHPPath(static::class);
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 10 source.hack keyword.operator.class.php
+T 22 source.hack meta.function-call.object.php
+T 23 source.hack
+T 29 source.hack support.type.php
+T 31 source.hack keyword.operator.class.php
+T 36 source.hack constant.other.class.php
+T 37 source.hack
+T 38 source.hack punctuation.terminator.expression.php
+L       throw $e;
+T 6 source.hack
+T 11 source.hack keyword.control.exception.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L   }
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L   /**
+T 2 source.hack
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L    * @throws UseAfterRenderException
+T 5 source.hack comment.block.documentation.phpdoc.php
+T 12 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 36 source.hack comment.block.documentation.phpdoc.php
+L    */
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L   <<__Override>>
+T 2 source.hack
+T 4 source.hack meta.attributes.php punctuation.definition.attributes.php
+T 14 source.hack meta.attributes.php entity.other.attribute-name.php
+T 16 source.hack meta.attributes.php punctuation.definition.attributes.php
+L   final protected async function __flushSubtree(): Awaitable<primitive> {
+T 2 source.hack meta.function.php
+T 7 source.hack meta.function.php storage.modifier.php
+T 8 source.hack meta.function.php
+T 17 source.hack meta.function.php storage.modifier.php
+T 18 source.hack meta.function.php
+T 23 source.hack meta.function.php storage.modifier.php
+T 24 source.hack meta.function.php
+T 32 source.hack meta.function.php storage.type.function.php
+T 33 source.hack meta.function.php
+T 47 source.hack meta.function.php entity.name.function.php
+T 48 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 49 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 50 source.hack meta.function.php punctuation.definition.type.php
+T 51 source.hack meta.function.php
+T 60 source.hack meta.function.php support.class.php
+T 61 source.hack meta.function.php
+T 70 source.hack meta.function.php support.class.php
+T 71 source.hack meta.function.php
+T 72 source.hack meta.function.php
+T 73 source.hack punctuation.section.scope.begin.php
+L     try {
+T 4 source.hack
+T 7 source.hack keyword.control.exception.php
+T 8 source.hack
+T 9 source.hack punctuation.section.scope.begin.php
+L       $that = await $this->__flushRenderedRootElement();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 19 source.hack keyword.control.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 27 source.hack keyword.operator.class.php
+T 53 source.hack meta.function-call.object.php
+T 54 source.hack
+T 55 source.hack
+T 56 source.hack punctuation.terminator.expression.php
+L       return await $that->__flushSubtree();
+T 6 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 18 source.hack keyword.control.php
+T 19 source.hack
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 26 source.hack keyword.operator.class.php
+T 40 source.hack meta.function-call.object.php
+T 41 source.hack
+T 42 source.hack
+T 43 source.hack punctuation.terminator.expression.php
+L     } catch (UseAfterRenderException $e) {
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+T 6 source.hack
+T 11 source.hack meta.catch.php keyword.control.exception.catch.php
+T 12 source.hack meta.catch.php
+T 13 source.hack meta.catch.php punctuation.definition.parameters.begin.bracket.round.php
+T 36 source.hack meta.catch.php support.class.exception.php
+T 37 source.hack meta.catch.php
+T 38 source.hack meta.catch.php variable.other.php punctuation.definition.variable.php
+T 39 source.hack meta.catch.php variable.other.php
+T 40 source.hack meta.catch.php punctuation.definition.parameters.end.bracket.round.php
+T 41 source.hack
+T 42 source.hack punctuation.section.scope.begin.php
+L       $e->__viaXHPPath(static::class);
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 10 source.hack keyword.operator.class.php
+T 22 source.hack meta.function-call.object.php
+T 23 source.hack
+T 29 source.hack support.type.php
+T 31 source.hack keyword.operator.class.php
+T 36 source.hack constant.other.class.php
+T 37 source.hack
+T 38 source.hack punctuation.terminator.expression.php
+L       throw $e;
+T 6 source.hack
+T 11 source.hack keyword.control.exception.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L   }
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L   /**
+T 2 source.hack
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L    * @throws UseAfterRenderException
+T 5 source.hack comment.block.documentation.phpdoc.php
+T 12 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 36 source.hack comment.block.documentation.phpdoc.php
+L    */
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L   protected async function __renderAndProcess(): Awaitable<node> {
+T 2 source.hack meta.function.php
+T 11 source.hack meta.function.php storage.modifier.php
+T 12 source.hack meta.function.php
+T 17 source.hack meta.function.php storage.modifier.php
+T 18 source.hack meta.function.php
+T 26 source.hack meta.function.php storage.type.function.php
+T 27 source.hack meta.function.php
+T 45 source.hack meta.function.php entity.name.function.php
+T 46 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 47 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 48 source.hack meta.function.php punctuation.definition.type.php
+T 49 source.hack meta.function.php
+T 58 source.hack meta.function.php support.class.php
+T 59 source.hack meta.function.php
+T 63 source.hack meta.function.php support.class.php
+T 64 source.hack meta.function.php
+T 65 source.hack meta.function.php
+T 66 source.hack punctuation.section.scope.begin.php
+L     if ($this->__isRendered) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 15 source.hack keyword.operator.class.php
+T 27 source.hack variable.other.property.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L       throw new UseAfterRenderException(
+T 6 source.hack
+T 11 source.hack keyword.control.exception.php
+T 12 source.hack
+T 15 source.hack keyword.other.new.php
+T 16 source.hack
+T 39 source.hack support.class.php
+T 40 source.hack
+L         'Attempted to render XHP element twice',
+T 8 source.hack
+T 9 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 46 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 47 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 48 source.hack
+L       );
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L     if (\Facebook\XHP\ChildValidation\is_enabled()) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 17 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 18 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 21 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 22 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 37 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 38 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 48 source.hack meta.function-call.php entity.name.function.php
+T 52 source.hack
+T 53 source.hack punctuation.section.scope.begin.php
+L       $this->validateChildren();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 13 source.hack keyword.operator.class.php
+T 29 source.hack meta.function-call.object.php
+T 30 source.hack
+T 31 source.hack
+T 32 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L     $composed = await $this->renderAsync();
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 15 source.hack keyword.operator.assignment.php
+T 16 source.hack
+T 21 source.hack keyword.control.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 29 source.hack keyword.operator.class.php
+T 40 source.hack meta.function-call.object.php
+T 41 source.hack
+T 42 source.hack
+T 43 source.hack punctuation.terminator.expression.php
+L 
+L     $composed->__transferContext($this->getAllContexts());
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 15 source.hack keyword.operator.class.php
+T 32 source.hack meta.function-call.object.php
+T 33 source.hack
+T 34 source.hack variable.other.php punctuation.definition.variable.php
+T 38 source.hack variable.other.php
+T 40 source.hack keyword.operator.class.php
+T 54 source.hack meta.function-call.object.php
+T 55 source.hack
+T 57 source.hack
+T 58 source.hack punctuation.terminator.expression.php
+L     $this->__isRendered = true;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 9 source.hack variable.other.php
+T 11 source.hack keyword.operator.class.php
+T 23 source.hack variable.other.property.php
+T 24 source.hack
+T 25 source.hack keyword.operator.assignment.php
+T 26 source.hack
+T 30 source.hack constant.language.php
+T 31 source.hack punctuation.terminator.expression.php
+L 
+L     return $composed;
+T 4 source.hack
+T 10 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 20 source.hack variable.other.php
+T 21 source.hack punctuation.terminator.expression.php
+L   }
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L 
+L   /**
+T 2 source.hack
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L    * @throws UseAfterRenderException
+T 5 source.hack comment.block.documentation.phpdoc.php
+T 12 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 36 source.hack comment.block.documentation.phpdoc.php
+L    */
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 5 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L   final protected async function __flushRenderedRootElement(
+T 2 source.hack meta.function.php
+T 7 source.hack meta.function.php storage.modifier.php
+T 8 source.hack meta.function.php
+T 17 source.hack meta.function.php storage.modifier.php
+T 18 source.hack meta.function.php
+T 23 source.hack meta.function.php storage.modifier.php
+T 24 source.hack meta.function.php
+T 32 source.hack meta.function.php storage.type.function.php
+T 33 source.hack meta.function.php
+T 59 source.hack meta.function.php entity.name.function.php
+T 60 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L   ): Awaitable<primitive> {
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 3 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 4 source.hack meta.function.php punctuation.definition.type.php
+T 5 source.hack meta.function.php
+T 14 source.hack meta.function.php support.class.php
+T 15 source.hack meta.function.php
+T 24 source.hack meta.function.php support.class.php
+T 25 source.hack meta.function.php
+T 26 source.hack meta.function.php
+T 27 source.hack punctuation.section.scope.begin.php
+L     $that = $this;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 9 source.hack variable.other.php
+T 10 source.hack
+T 11 source.hack keyword.operator.assignment.php
+T 12 source.hack
+T 13 source.hack variable.other.php punctuation.definition.variable.php
+T 17 source.hack variable.other.php
+T 18 source.hack punctuation.terminator.expression.php
+L     // Flush root elements returned from render() to an primitive
+T 4 source.hack punctuation.whitespace.comment.leading.php
+T 6 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 65 source.hack comment.line.double-slash.php
+L     while ($that is element) {
+T 4 source.hack
+T 9 source.hack keyword.control.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 17 source.hack
+T 19 source.hack keyword.operator.type.php
+T 20 source.hack
+T 27 source.hack support.class.php
+T 29 source.hack
+T 30 source.hack punctuation.section.scope.begin.php
+L       /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+T 6 source.hack
+T 8 source.hack comment.block.php punctuation.definition.comment.php
+T 46 source.hack comment.block.php
+T 48 source.hack comment.block.php punctuation.definition.comment.php
+L       $that = await $that->__renderAndProcess();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 19 source.hack keyword.control.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 25 source.hack variable.other.php
+T 27 source.hack keyword.operator.class.php
+T 45 source.hack meta.function-call.object.php
+T 46 source.hack
+T 47 source.hack
+T 48 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L     if ($that is primitive) {
+T 4 source.hack
+T 6 source.hack keyword.control.php
+T 8 source.hack
+T 9 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 16 source.hack keyword.operator.type.php
+T 17 source.hack
+T 26 source.hack support.class.php
+T 28 source.hack
+T 29 source.hack punctuation.section.scope.begin.php
+L       return $that;
+T 6 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack punctuation.terminator.expression.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L 
+L     // render() must always (eventually) return primitive
+T 4 source.hack punctuation.whitespace.comment.leading.php
+T 6 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 57 source.hack comment.line.double-slash.php
+L     throw new \Facebook\XHP\CoreRenderException($this, $that);
+T 4 source.hack
+T 9 source.hack keyword.control.exception.php
+T 10 source.hack
+T 13 source.hack keyword.other.new.php
+T 14 source.hack
+T 15 source.hack support.other.namespace.php punctuation.separator.inheritance.php
+T 23 source.hack support.other.namespace.php entity.name.type.namespace.php
+T 24 source.hack support.other.namespace.php punctuation.separator.inheritance.php
+T 27 source.hack support.other.namespace.php entity.name.type.namespace.php
+T 28 source.hack support.other.namespace.php punctuation.separator.inheritance.php
+T 47 source.hack support.class.php
+T 48 source.hack
+T 49 source.hack variable.other.php punctuation.definition.variable.php
+T 53 source.hack variable.other.php
+T 55 source.hack
+T 56 source.hack variable.other.php punctuation.definition.variable.php
+T 60 source.hack variable.other.php
+T 61 source.hack
+T 62 source.hack punctuation.terminator.expression.php
+L   }
+T 2 source.hack
+T 3 source.hack punctuation.section.scope.end.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 

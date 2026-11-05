@@ -23,6 +23,8 @@ mod erb;
 mod gdscript;
 mod go;
 mod graphql;
+#[cfg(feature = "lang-hack")]
+mod hack;
 #[cfg(feature = "lang-haml")]
 mod haml;
 #[cfg(feature = "lang-haskell")]

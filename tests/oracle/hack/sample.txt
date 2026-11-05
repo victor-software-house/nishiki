@@ -1,0 +1,148 @@
+L <<__EntryPoint>>
+T 2 source.hack meta.attributes.php punctuation.definition.attributes.php
+T 14 source.hack meta.attributes.php entity.other.attribute-name.php
+T 16 source.hack meta.attributes.php punctuation.definition.attributes.php
+L async function my_example(): Awaitable<void> {
+T 5 source.hack meta.function.php storage.modifier.php
+T 6 source.hack meta.function.php
+T 14 source.hack meta.function.php storage.type.function.php
+T 15 source.hack meta.function.php
+T 25 source.hack meta.function.php entity.name.function.php
+T 26 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 27 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 28 source.hack meta.function.php punctuation.definition.type.php
+T 29 source.hack meta.function.php
+T 38 source.hack meta.function.php support.class.php
+T 39 source.hack meta.function.php
+T 43 source.hack meta.function.php support.class.php
+T 44 source.hack meta.function.php
+T 45 source.hack meta.function.php
+T 46 source.hack punctuation.section.scope.begin.php
+L   $user_ids = vec[1, 2, 3];
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.assignment.php
+T 14 source.hack
+T 17 source.hack support.type.php
+T 18 source.hack punctuation.section.array.begin.php
+T 19 source.hack constant.numeric.php
+T 21 source.hack
+T 22 source.hack constant.numeric.php
+T 24 source.hack
+T 25 source.hack constant.numeric.php
+T 26 source.hack punctuation.section.array.end.php
+T 27 source.hack punctuation.terminator.expression.php
+L 
+L   // Initiate all the database requests together,
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 49 source.hack comment.line.double-slash.php
+L   // so we spend less time waiting.
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 35 source.hack comment.line.double-slash.php
+L   $user_names = await Vec\map_async(
+T 2 source.hack
+T 3 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+T 15 source.hack keyword.operator.assignment.php
+T 16 source.hack
+T 21 source.hack keyword.control.php
+T 22 source.hack
+T 25 source.hack support.type.php
+T 26 source.hack punctuation.separator.inheritance.php
+T 35 source.hack meta.function-call.php entity.name.function.php
+T 36 source.hack
+L     $user_ids,
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 13 source.hack variable.other.php
+T 14 source.hack
+L     async ($id) ==> await fetch_user_name($id),
+T 4 source.hack
+T 9 source.hack meta.function-call.php entity.name.function.php
+T 11 source.hack
+T 12 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 16 source.hack
+T 19 source.hack keyword.operator.lambda.php
+T 20 source.hack
+T 25 source.hack keyword.control.php
+T 26 source.hack
+T 41 source.hack meta.function-call.php entity.name.function.php
+T 42 source.hack
+T 43 source.hack variable.other.php punctuation.definition.variable.php
+T 45 source.hack variable.other.php
+T 47 source.hack
+L   );
+T 3 source.hack
+T 4 source.hack punctuation.terminator.expression.php
+L   // Execution continues after requests complete.
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 49 source.hack comment.line.double-slash.php
+L 
+L   echo Str\join($user_names, ", ");
+T 2 source.hack
+T 6 source.hack support.function.construct.php
+T 7 source.hack
+T 10 source.hack meta.function-call.php support.other.namespace.php entity.name.type.namespace.php
+T 11 source.hack meta.function-call.php support.other.namespace.php punctuation.separator.inheritance.php
+T 15 source.hack meta.function-call.php entity.name.function.php
+T 16 source.hack
+T 17 source.hack variable.other.php punctuation.definition.variable.php
+T 27 source.hack variable.other.php
+T 29 source.hack
+T 30 source.hack string.quoted.double.php punctuation.definition.string.begin.php
+T 32 source.hack string.quoted.double.php meta.string-contents.quoted.double.php
+T 33 source.hack string.quoted.double.php punctuation.definition.string.end.php
+T 34 source.hack
+T 35 source.hack punctuation.terminator.expression.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 
+L async function fetch_user_name(
+T 5 source.hack meta.function.php storage.modifier.php
+T 6 source.hack meta.function.php
+T 14 source.hack meta.function.php storage.type.function.php
+T 15 source.hack meta.function.php
+T 30 source.hack meta.function.php entity.name.function.php
+T 31 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L   int $_,
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 5 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 6 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 8 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 9 source.hack meta.function.php meta.function.arguments.php
+L ): Awaitable<string> {
+T 1 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 2 source.hack meta.function.php punctuation.definition.type.php
+T 3 source.hack meta.function.php
+T 12 source.hack meta.function.php support.class.php
+T 13 source.hack meta.function.php
+T 19 source.hack meta.function.php support.type.php
+T 20 source.hack meta.function.php
+T 21 source.hack meta.function.php
+T 22 source.hack punctuation.section.scope.begin.php
+L   // This could be a database request.
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 38 source.hack comment.line.double-slash.php
+L   return "";
+T 2 source.hack
+T 8 source.hack keyword.control.php
+T 9 source.hack
+T 10 source.hack string.quoted.double.php punctuation.definition.string.begin.php
+T 11 source.hack string.quoted.double.php punctuation.definition.string.end.php
+T 12 source.hack punctuation.terminator.expression.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 
+L // From hacklang.org
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 20 source.hack comment.line.double-slash.php
+L 

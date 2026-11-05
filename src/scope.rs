@@ -110,6 +110,8 @@ tables! {
     GO = go;
     #[cfg(feature = "lang-graphql")]
     GRAPHQL = graphql;
+    #[cfg(feature = "lang-hack")]
+    HACK = hack;
     #[cfg(feature = "lang-haskell")]
     HASKELL = haskell;
     #[cfg(feature = "lang-hcl")]

@@ -1,0 +1,1848 @@
+L <?hh // strict
+T 1 source.hack keyword.operator.comparison.php
+T 2 source.hack
+T 4 source.hack constant.other.php
+T 5 source.hack
+T 7 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 14 source.hack comment.line.double-slash.php
+L // Written for nishiki's oracle: it reaches the hack grammar's rules that the
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 77 source.hack comment.line.double-slash.php
+L // other Hack inputs miss. Not every line is valid Hack.
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 56 source.hack comment.line.double-slash.php
+L 
+L namespace Cover\Me;
+T 9 source.hack meta.namespace.php keyword.other.namespace.php
+T 10 source.hack meta.namespace.php
+T 15 source.hack meta.namespace.php entity.name.type.namespace.php
+T 16 source.hack meta.namespace.php entity.name.type.namespace.php punctuation.separator.inheritance.php
+T 18 source.hack meta.namespace.php entity.name.type.namespace.php
+T 19 source.hack punctuation.terminator.expression.php
+L 
+L require_once 'a.php';
+T 12 source.hack meta.include.php keyword.control.import.include.php
+T 13 source.hack meta.include.php
+T 14 source.hack meta.include.php string.quoted.single.php punctuation.definition.string.begin.php
+T 19 source.hack meta.include.php string.quoted.single.php meta.string-contents.quoted.single.php
+T 20 source.hack meta.include.php string.quoted.single.php punctuation.definition.string.end.php
+T 21 source.hack punctuation.terminator.expression.php
+L include __DIR__ . '/b.php';
+T 7 source.hack meta.include.php keyword.control.import.include.php
+T 8 source.hack meta.include.php
+T 15 source.hack meta.include.php constant.language.php
+T 16 source.hack
+T 17 source.hack keyword.operator.string.php
+T 18 source.hack
+T 19 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 25 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 26 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 27 source.hack punctuation.terminator.expression.php
+L 
+L module foo.bar;
+T 6 source.hack meta.use.module.php keyword.other.module.php
+T 7 source.hack meta.use.module.php
+T 14 source.hack meta.use.module.php entity.name.type.module.php
+T 15 source.hack punctuation.terminator.expression.php
+L new module foo.baz {}
+T 3 source.hack meta.module.php storage.type.module.php
+T 4 source.hack meta.module.php
+T 10 source.hack meta.module.php storage.type.module.php
+T 11 source.hack meta.module.php
+T 18 source.hack meta.module.php entity.name.type.module.php
+T 19 source.hack meta.module.php
+T 20 source.hack punctuation.section.scope.begin.php
+T 21 source.hack punctuation.section.scope.end.php
+L module type Alias = int;
+T 6 source.hack meta.typedecl.php storage.modifier.php
+T 7 source.hack meta.typedecl.php
+T 11 source.hack meta.typedecl.php storage.type.typedecl.php
+T 12 source.hack meta.typedecl.php
+T 17 source.hack meta.typedecl.php entity.name.type.typedecl.php
+T 18 source.hack meta.typedecl.php
+T 19 source.hack meta.typedecl.php keyword.operator.assignment.php
+T 20 source.hack meta.typedecl.php
+T 23 source.hack meta.typedecl.php support.type.php
+T 24 source.hack meta.typedecl.php punctuation.termination.expression.php
+L newtype Opaque = string;
+T 7 source.hack meta.typedecl.php storage.type.typedecl.php
+T 8 source.hack meta.typedecl.php
+T 14 source.hack meta.typedecl.php entity.name.type.typedecl.php
+T 15 source.hack meta.typedecl.php
+T 16 source.hack meta.typedecl.php keyword.operator.assignment.php
+T 17 source.hack meta.typedecl.php
+T 23 source.hack meta.typedecl.php support.type.php
+T 24 source.hack meta.typedecl.php punctuation.termination.expression.php
+L type Pairs<+Tk as arraykey, -Tv super num> = dict<Tk, Tv>;
+T 4 source.hack meta.typedecl.php storage.type.typedecl.php
+T 5 source.hack meta.typedecl.php
+T 10 source.hack meta.typedecl.php entity.name.type.typedecl.php
+T 11 source.hack meta.typedecl.php meta.generics.php punctuation.definition.generics.php
+T 26 source.hack meta.typedecl.php meta.generics.php support.type.php
+T 28 source.hack meta.typedecl.php meta.generics.php
+T 41 source.hack meta.typedecl.php meta.generics.php support.type.php
+T 42 source.hack meta.typedecl.php meta.generics.php punctuation.definition.generics.php
+T 43 source.hack meta.typedecl.php
+T 44 source.hack meta.typedecl.php keyword.operator.assignment.php
+T 45 source.hack meta.typedecl.php
+T 49 source.hack meta.typedecl.php support.class.php
+T 50 source.hack meta.typedecl.php
+T 52 source.hack meta.typedecl.php support.class.php
+T 54 source.hack meta.typedecl.php
+T 56 source.hack meta.typedecl.php support.class.php
+T 57 source.hack meta.typedecl.php
+T 58 source.hack meta.typedecl.php punctuation.termination.expression.php
+L 
+L public enum class Kinds: IKind extends Base {
+T 6 source.hack meta.class.enum.php storage.modifier.php
+T 7 source.hack meta.class.enum.php
+T 11 source.hack meta.class.enum.php storage.modifier.php
+T 12 source.hack meta.class.enum.php
+T 17 source.hack meta.class.enum.php storage.type.class.enum.php
+T 18 source.hack meta.class.enum.php
+T 23 source.hack meta.class.enum.php entity.name.type.class.enum.php
+T 24 source.hack meta.class.enum.php
+T 25 source.hack meta.class.enum.php
+T 30 source.hack meta.class.enum.php support.class.php
+T 31 source.hack meta.class.enum.php
+T 38 source.hack meta.class.enum.php storage.modifier.extends.php
+T 39 source.hack meta.class.enum.php
+T 43 source.hack meta.class.enum.php support.class.php
+T 44 source.hack meta.class.enum.php
+T 45 source.hack punctuation.section.scope.begin.php
+L   IKind A = new Kind();
+T 2 source.hack
+T 7 source.hack constant.other.php
+T 8 source.hack
+T 9 source.hack constant.other.php
+T 10 source.hack
+T 11 source.hack keyword.operator.assignment.php
+T 12 source.hack
+T 15 source.hack keyword.other.new.php
+T 16 source.hack
+T 20 source.hack support.class.php
+T 22 source.hack
+T 23 source.hack punctuation.terminator.expression.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 
+L enum Colour: string as string {
+T 4 source.hack meta.enum.php storage.type.enum.php
+T 5 source.hack meta.enum.php
+T 11 source.hack meta.enum.php entity.name.type.enum.php
+T 12 source.hack meta.enum.php
+T 13 source.hack meta.enum.php
+T 19 source.hack meta.enum.php support.type.php
+T 20 source.hack meta.enum.php
+T 22 source.hack meta.enum.php support.class.php
+T 23 source.hack meta.enum.php
+T 29 source.hack meta.enum.php support.type.php
+T 30 source.hack meta.enum.php
+T 31 source.hack meta.enum.php
+L   Red = 'red';
+T 2 source.hack
+T 5 source.hack constant.other.php
+T 6 source.hack
+T 7 source.hack keyword.operator.assignment.php
+T 8 source.hack
+T 9 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 12 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 13 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 14 source.hack punctuation.terminator.expression.php
+L }
+T 1 source.hack
+L 
+L public enum Pub: int {}
+T 6 source.hack meta.enum.php storage.modifier.php
+T 7 source.hack meta.enum.php
+T 11 source.hack meta.enum.php storage.type.enum.php
+T 12 source.hack meta.enum.php
+T 15 source.hack meta.enum.php entity.name.type.enum.php
+T 16 source.hack meta.enum.php
+T 17 source.hack meta.enum.php
+T 20 source.hack meta.enum.php support.type.php
+T 21 source.hack meta.enum.php
+T 22 source.hack meta.enum.php
+T 23 source.hack
+L 
+L internal trait Shows {
+T 8 source.hack meta.trait.php storage.modifier.php
+T 9 source.hack meta.trait.php
+T 14 source.hack meta.trait.php storage.type.trait.php
+T 15 source.hack meta.trait.php
+T 20 source.hack meta.trait.php entity.name.type.class.php
+T 21 source.hack meta.trait.php
+T 22 source.hack punctuation.section.scope.begin.php
+L   require extends Base;
+T 2 source.hack
+T 9 source.hack meta.include.php keyword.control.import.include.php
+T 10 source.hack meta.include.php
+T 17 source.hack meta.include.php storage.modifier.php
+T 18 source.hack
+T 22 source.hack constant.other.php
+T 23 source.hack punctuation.terminator.expression.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 
+L public interface Shape extends Drawable, \Cover\Sized {
+T 6 source.hack meta.interface.php storage.modifier.php
+T 7 source.hack meta.interface.php
+T 16 source.hack meta.interface.php storage.type.interface.php
+T 17 source.hack meta.interface.php
+T 22 source.hack meta.interface.php entity.name.type.class.php
+T 23 source.hack meta.interface.php
+T 30 source.hack meta.interface.php storage.modifier.extends.php
+T 31 source.hack meta.interface.php
+T 39 source.hack meta.interface.php entity.name.type.class.php
+T 41 source.hack meta.interface.php
+T 42 source.hack meta.interface.php support.other.namespace.php punctuation.separator.inheritance.php
+T 47 source.hack meta.interface.php support.other.namespace.php entity.name.type.namespace.php
+T 48 source.hack meta.interface.php support.other.namespace.php punctuation.separator.inheritance.php
+T 53 source.hack meta.interface.php entity.name.type.class.php
+T 54 source.hack meta.interface.php
+T 55 source.hack punctuation.section.scope.begin.php
+L   const int SIDES = 4;
+T 2 source.hack
+T 7 source.hack meta.const.php storage.modifier.php
+T 8 source.hack meta.const.php
+T 11 source.hack meta.const.php support.type.php
+T 12 source.hack meta.const.php
+T 17 source.hack meta.const.php constant.other.php
+T 18 source.hack meta.const.php
+T 19 source.hack meta.const.php keyword.operator.assignment.php
+T 20 source.hack meta.const.php
+T 21 source.hack meta.const.php constant.numeric.php
+T 22 source.hack meta.const.php punctuation.terminator.expression.php
+L }
+T 1 source.hack punctuation.section.scope.end.php
+L 
+L abstract class Square implements \Cover\Me\Drawable, Sized, IFoo {
+T 8 source.hack meta.class.php storage.modifier.php
+T 9 source.hack meta.class.php
+T 14 source.hack meta.class.php storage.type.class.php
+T 15 source.hack meta.class.php
+T 21 source.hack meta.class.php entity.name.type.class.php
+T 22 source.hack meta.class.php
+T 32 source.hack meta.class.php storage.modifier.implements.php
+T 33 source.hack meta.class.php
+T 34 source.hack meta.class.php meta.other.inherited-class.php support.other.namespace.php punctuation.separator.inheritance.php
+T 39 source.hack meta.class.php meta.other.inherited-class.php support.other.namespace.php entity.name.type.namespace.php
+T 40 source.hack meta.class.php meta.other.inherited-class.php support.other.namespace.php punctuation.separator.inheritance.php
+T 42 source.hack meta.class.php meta.other.inherited-class.php support.other.namespace.php entity.name.type.namespace.php
+T 43 source.hack meta.class.php meta.other.inherited-class.php support.other.namespace.php punctuation.separator.inheritance.php
+T 51 source.hack meta.class.php meta.other.inherited-class.php entity.other.inherited-class.php
+T 53 source.hack meta.class.php
+T 58 source.hack meta.class.php meta.other.inherited-class.php entity.other.inherited-class.php
+T 60 source.hack meta.class.php
+T 64 source.hack meta.class.php meta.other.inherited-class.php entity.other.inherited-class.php
+T 65 source.hack meta.class.php
+T 66 source.hack punctuation.section.scope.begin.php
+L   const string NAME = 'square', OTHER = "x";
+T 2 source.hack
+T 7 source.hack meta.const.php storage.modifier.php
+T 8 source.hack meta.const.php
+T 14 source.hack meta.const.php support.type.php
+T 15 source.hack meta.const.php
+T 19 source.hack meta.const.php constant.other.php
+T 20 source.hack meta.const.php
+T 21 source.hack meta.const.php keyword.operator.assignment.php
+T 22 source.hack meta.const.php
+T 23 source.hack meta.const.php string.quoted.single.php punctuation.definition.string.begin.php
+T 29 source.hack meta.const.php string.quoted.single.php meta.string-contents.quoted.single.php
+T 30 source.hack meta.const.php string.quoted.single.php punctuation.definition.string.end.php
+T 32 source.hack meta.const.php
+T 37 source.hack meta.const.php constant.other.php
+T 38 source.hack meta.const.php
+T 39 source.hack meta.const.php keyword.operator.assignment.php
+T 40 source.hack meta.const.php
+T 41 source.hack meta.const.php string.quoted.double.php punctuation.definition.string.begin.php
+T 42 source.hack meta.const.php string.quoted.double.php meta.string-contents.quoted.double.php
+T 43 source.hack meta.const.php string.quoted.double.php punctuation.definition.string.end.php
+T 44 source.hack meta.const.php punctuation.terminator.expression.php
+L   public static function __construct(): void {}
+T 2 source.hack meta.function.php
+T 8 source.hack meta.function.php storage.modifier.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.php
+T 16 source.hack meta.function.php
+T 24 source.hack meta.function.php storage.type.function.php
+T 25 source.hack meta.function.php
+T 36 source.hack meta.function.php support.function.magic.php
+T 37 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 38 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 39 source.hack meta.function.php punctuation.definition.type.php
+T 40 source.hack meta.function.php
+T 44 source.hack meta.function.php support.class.php
+T 45 source.hack meta.function.php
+T 46 source.hack punctuation.section.scope.begin.php
+T 47 source.hack punctuation.section.scope.end.php
+L   final protected async function draw<T>(
+T 2 source.hack meta.function.php
+T 7 source.hack meta.function.php storage.modifier.php
+T 8 source.hack meta.function.php
+T 17 source.hack meta.function.php storage.modifier.php
+T 18 source.hack meta.function.php
+T 23 source.hack meta.function.php storage.modifier.php
+T 24 source.hack meta.function.php
+T 32 source.hack meta.function.php storage.type.function.php
+T 33 source.hack meta.function.php
+T 37 source.hack meta.function.php entity.name.function.php
+T 38 source.hack meta.function.php meta.generics.php punctuation.definition.generics.php
+T 39 source.hack meta.function.php meta.generics.php support.type.php
+T 40 source.hack meta.function.php meta.generics.php punctuation.definition.generics.php
+T 41 source.hack meta.function.php punctuation.definition.parameters.begin.php
+L     T $t,
+T 4 source.hack meta.function.php meta.function.arguments.php
+T 5 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 6 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 8 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 9 source.hack meta.function.php meta.function.arguments.php
+L     int $n = (1 + 2),
+T 4 source.hack meta.function.php meta.function.arguments.php
+T 7 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 8 source.hack meta.function.php meta.function.arguments.php
+T 9 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 10 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 11 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php keyword.operator.assignment.php
+T 13 source.hack meta.function.php meta.function.arguments.php
+T 14 source.hack meta.function.php meta.function.arguments.php
+T 15 source.hack meta.function.php meta.function.arguments.php constant.numeric.php
+T 16 source.hack meta.function.php meta.function.arguments.php
+T 17 source.hack meta.function.php meta.function.arguments.php keyword.operator.arithmetic.php
+T 18 source.hack meta.function.php meta.function.arguments.php
+T 19 source.hack meta.function.php meta.function.arguments.php constant.numeric.php
+T 20 source.hack meta.function.php meta.function.arguments.php
+T 21 source.hack meta.function.php meta.function.arguments.php
+L     string $s = Foo::BAR,
+T 4 source.hack meta.function.php meta.function.arguments.php
+T 10 source.hack meta.function.php meta.function.arguments.php support.type.php
+T 11 source.hack meta.function.php meta.function.arguments.php
+T 12 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 13 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 14 source.hack meta.function.php meta.function.arguments.php
+T 15 source.hack meta.function.php meta.function.arguments.php keyword.operator.assignment.php
+T 16 source.hack meta.function.php meta.function.arguments.php
+T 19 source.hack meta.function.php meta.function.arguments.php support.class.php
+T 21 source.hack meta.function.php meta.function.arguments.php keyword.operator.class.php
+T 24 source.hack meta.function.php meta.function.arguments.php constant.other.class.php
+T 25 source.hack meta.function.php meta.function.arguments.php
+L   ): void where T as Shape {
+T 2 source.hack meta.function.php meta.function.arguments.php
+T 3 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 4 source.hack meta.function.php punctuation.definition.type.php
+T 5 source.hack meta.function.php
+T 9 source.hack meta.function.php support.class.php
+T 10 source.hack meta.function.php
+T 15 source.hack meta.function.php storage.modifier.where.php
+T 16 source.hack meta.function.php
+T 17 source.hack meta.function.php support.class.php
+T 18 source.hack meta.function.php
+T 20 source.hack meta.function.php storage.modifier.php
+T 21 source.hack meta.function.php
+T 26 source.hack meta.function.php support.class.php
+T 27 source.hack meta.function.php
+T 28 source.hack punctuation.section.scope.begin.php
+L     $f = function($x) use (&$y, $z) {
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack meta.function.closure.php
+T 17 source.hack meta.function.closure.php storage.type.function.php
+T 18 source.hack meta.function.closure.php punctuation.definition.parameters.begin.php
+T 19 source.hack meta.function.closure.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 20 source.hack meta.function.closure.php meta.function.arguments.php variable.other.php
+T 21 source.hack meta.function.closure.php punctuation.definition.parameters.end.php
+T 22 source.hack meta.function.closure.php
+T 25 source.hack meta.function.closure.php keyword.other.function.use.php
+T 26 source.hack meta.function.closure.php
+T 27 source.hack meta.function.closure.php punctuation.definition.parameters.begin.php
+T 28 source.hack meta.function.closure.php meta.function.closure.use.php storage.modifier.reference.php
+T 29 source.hack meta.function.closure.php meta.function.closure.use.php variable.other.php punctuation.definition.variable.php
+T 30 source.hack meta.function.closure.php meta.function.closure.use.php variable.other.php
+T 31 source.hack meta.function.closure.php
+T 32 source.hack meta.function.closure.php meta.function.closure.use.php
+T 33 source.hack meta.function.closure.php meta.function.closure.use.php variable.other.php punctuation.definition.variable.php
+T 34 source.hack meta.function.closure.php meta.function.closure.use.php variable.other.php
+T 35 source.hack meta.function.closure.php punctuation.definition.parameters.end.php
+T 36 source.hack meta.function.closure.php
+T 37 source.hack meta.function.closure.php
+L       return $x;
+T 6 source.hack
+T 12 source.hack keyword.control.php
+T 13 source.hack
+T 14 source.hack variable.other.php punctuation.definition.variable.php
+T 15 source.hack variable.other.php
+T 16 source.hack punctuation.terminator.expression.php
+L     };
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+T 6 source.hack punctuation.terminator.expression.php
+L     $g = function() use ($w) {};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack meta.function.closure.php
+T 17 source.hack meta.function.closure.php storage.type.function.php
+T 18 source.hack meta.function.closure.php punctuation.definition.parameters.begin.php
+T 19 source.hack meta.function.closure.php punctuation.definition.parameters.end.php
+T 20 source.hack meta.function.closure.php
+T 23 source.hack meta.function.closure.php keyword.other.function.use.php
+T 24 source.hack meta.function.closure.php
+T 25 source.hack meta.function.closure.php punctuation.definition.parameters.begin.php
+T 26 source.hack meta.function.closure.php meta.function.closure.use.php variable.other.php punctuation.definition.variable.php
+T 27 source.hack meta.function.closure.php meta.function.closure.use.php variable.other.php
+T 28 source.hack meta.function.closure.php punctuation.definition.parameters.end.php
+T 29 source.hack meta.function.closure.php
+T 30 source.hack meta.function.closure.php
+T 31 source.hack punctuation.section.scope.end.php
+T 32 source.hack punctuation.terminator.expression.php
+L     $g2 = public function() {};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack meta.function.closure.php
+T 16 source.hack meta.function.closure.php storage.modifier.php
+T 17 source.hack meta.function.closure.php
+T 25 source.hack meta.function.closure.php storage.type.function.php
+T 26 source.hack meta.function.closure.php punctuation.definition.parameters.begin.php
+T 27 source.hack meta.function.closure.php punctuation.definition.parameters.end.php
+T 28 source.hack meta.function.closure.php
+T 29 source.hack meta.function.closure.php
+T 30 source.hack
+T 31 source.hack punctuation.terminator.expression.php
+L     $i1 = $a as $b->c;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 17 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 20 source.hack keyword.operator.class.php
+T 21 source.hack variable.other.property.php
+T 22 source.hack punctuation.terminator.expression.php
+L     $i2 = $a as $b[0];
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 17 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack punctuation.section.array.begin.php
+T 20 source.hack constant.numeric.index.php
+T 21 source.hack punctuation.section.array.end.php
+T 22 source.hack punctuation.terminator.expression.php
+L     $i3 = $a is $b[$c];
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 17 source.hack variable.other.php punctuation.definition.variable.php
+T 18 source.hack variable.other.php
+T 19 source.hack punctuation.section.array.begin.php
+T 20 source.hack variable.other.index.php punctuation.definition.variable.php
+T 21 source.hack variable.other.index.php
+T 22 source.hack punctuation.section.array.end.php
+T 23 source.hack punctuation.terminator.expression.php
+L     $i4 = $a upcast $b[d];
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 19 source.hack keyword.operator.type.php
+T 20 source.hack
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack punctuation.section.array.begin.php
+T 24 source.hack string.unquoted.index.php
+T 25 source.hack punctuation.section.array.end.php
+T 26 source.hack punctuation.terminator.expression.php
+L     $i5 = $a as ${b};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 18 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack variable.other.php punctuation.definition.variable.php
+T 21 source.hack punctuation.terminator.expression.php
+L     $i6 = $a as (int, int);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 17 source.hack
+T 20 source.hack support.type.php
+T 22 source.hack
+T 25 source.hack support.type.php
+T 26 source.hack
+T 27 source.hack punctuation.terminator.expression.php
+L     $i7 = new $b->c();
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 13 source.hack keyword.other.new.php
+T 14 source.hack
+T 15 source.hack variable.other.php punctuation.definition.variable.php
+T 16 source.hack variable.other.php
+T 18 source.hack keyword.operator.class.php
+T 19 source.hack variable.other.property.php
+T 21 source.hack
+T 22 source.hack punctuation.terminator.expression.php
+L     try {
+T 4 source.hack
+T 7 source.hack keyword.control.exception.php
+T 8 source.hack
+T 9 source.hack punctuation.section.scope.begin.php
+L       $o = new parent();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 14 source.hack keyword.other.new.php
+T 15 source.hack
+T 21 source.hack support.type.php
+T 23 source.hack
+T 24 source.hack punctuation.terminator.expression.php
+L       $p = new static();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 14 source.hack keyword.other.new.php
+T 15 source.hack
+T 21 source.hack support.type.php
+T 23 source.hack
+T 24 source.hack punctuation.terminator.expression.php
+L       $q = new self();
+T 6 source.hack
+T 7 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 14 source.hack keyword.other.new.php
+T 15 source.hack
+T 19 source.hack support.type.php
+T 21 source.hack
+T 22 source.hack punctuation.terminator.expression.php
+L     } catch (FooException | BarException $e) {
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+T 6 source.hack
+T 11 source.hack meta.catch.php keyword.control.exception.catch.php
+T 12 source.hack meta.catch.php
+T 13 source.hack meta.catch.php punctuation.definition.parameters.begin.bracket.round.php
+T 25 source.hack meta.catch.php support.class.exception.php
+T 26 source.hack meta.catch.php
+T 27 source.hack meta.catch.php punctuation.separator.delimiter.php
+T 28 source.hack meta.catch.php
+T 40 source.hack meta.catch.php support.class.exception.php
+T 41 source.hack meta.catch.php
+T 42 source.hack meta.catch.php variable.other.php punctuation.definition.variable.php
+T 43 source.hack meta.catch.php variable.other.php
+T 44 source.hack meta.catch.php punctuation.definition.parameters.end.bracket.round.php
+T 45 source.hack
+T 46 source.hack punctuation.section.scope.begin.php
+L     }
+T 4 source.hack
+T 5 source.hack punctuation.section.scope.end.php
+L     $$h('a');
+T 4 source.hack
+T 6 source.hack meta.function-call.invoke.php punctuation.definition.variable.php
+T 7 source.hack meta.function-call.invoke.php variable.other.php
+T 8 source.hack
+T 9 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 10 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 11 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L     $x->{$name};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 8 source.hack keyword.operator.class.php
+T 9 source.hack punctuation.definition.variable.php
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 14 source.hack variable.other.php
+T 15 source.hack punctuation.definition.variable.php
+T 16 source.hack punctuation.terminator.expression.php
+L     $x->${'b'};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 8 source.hack keyword.operator.class.php
+T 10 source.hack punctuation.definition.variable.php
+T 11 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 12 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 13 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 14 source.hack punctuation.definition.variable.php
+T 15 source.hack punctuation.terminator.expression.php
+L     $x->$prop;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 8 source.hack keyword.operator.class.php
+T 9 source.hack variable.other.property.php punctuation.definition.variable.php
+T 13 source.hack variable.other.property.php
+T 14 source.hack punctuation.terminator.expression.php
+L     $x->$$prop;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 8 source.hack keyword.operator.class.php
+T 10 source.hack variable.other.property.php punctuation.definition.variable.php
+T 14 source.hack variable.other.property.php
+T 15 source.hack punctuation.terminator.expression.php
+L     ${'dynamic'} = 1;
+T 4 source.hack
+T 6 source.hack punctuation.definition.variable.php
+T 7 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 14 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 15 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 16 source.hack punctuation.definition.variable.php
+T 17 source.hack
+T 18 source.hack keyword.operator.assignment.php
+T 19 source.hack
+T 20 source.hack constant.numeric.php
+T 21 source.hack punctuation.terminator.expression.php
+L     ${dynamic} = 2;
+T 4 source.hack
+T 6 source.hack punctuation.definition.variable.php
+T 13 source.hack constant.other.php
+T 14 source.hack punctuation.definition.variable.php
+T 15 source.hack
+T 16 source.hack keyword.operator.assignment.php
+T 17 source.hack
+T 18 source.hack constant.numeric.php
+T 19 source.hack punctuation.terminator.expression.php
+L     $a = $x[0] . $x[$i] . $x[key] . $x->y;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack punctuation.section.array.begin.php
+T 13 source.hack constant.numeric.php
+T 14 source.hack punctuation.section.array.end.php
+T 15 source.hack
+T 16 source.hack keyword.operator.string.php
+T 17 source.hack
+T 18 source.hack variable.other.php punctuation.definition.variable.php
+T 19 source.hack variable.other.php
+T 20 source.hack punctuation.section.array.begin.php
+T 21 source.hack variable.other.php punctuation.definition.variable.php
+T 22 source.hack variable.other.php
+T 23 source.hack punctuation.section.array.end.php
+T 24 source.hack
+T 25 source.hack keyword.operator.string.php
+T 26 source.hack
+T 27 source.hack variable.other.php punctuation.definition.variable.php
+T 28 source.hack variable.other.php
+T 29 source.hack punctuation.section.array.begin.php
+T 32 source.hack constant.other.php
+T 33 source.hack punctuation.section.array.end.php
+T 34 source.hack
+T 35 source.hack keyword.operator.string.php
+T 36 source.hack
+T 37 source.hack variable.other.php punctuation.definition.variable.php
+T 38 source.hack variable.other.php
+T 40 source.hack keyword.operator.class.php
+T 41 source.hack variable.other.property.php
+T 42 source.hack punctuation.terminator.expression.php
+L     $b = $_GET . $_POST . $_COOKIE . $_FILES . $_REQUEST . $argv . $argc;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 10 source.hack variable.other.global.php punctuation.definition.variable.php
+T 14 source.hack variable.other.global.php
+T 15 source.hack
+T 16 source.hack keyword.operator.string.php
+T 17 source.hack
+T 18 source.hack variable.other.global.php punctuation.definition.variable.php
+T 23 source.hack variable.other.global.php
+T 24 source.hack
+T 25 source.hack keyword.operator.string.php
+T 26 source.hack
+T 27 source.hack variable.other.global.php punctuation.definition.variable.php
+T 34 source.hack variable.other.global.php
+T 35 source.hack
+T 36 source.hack keyword.operator.string.php
+T 37 source.hack
+T 38 source.hack variable.other.global.php punctuation.definition.variable.php
+T 44 source.hack variable.other.global.php
+T 45 source.hack
+T 46 source.hack keyword.operator.string.php
+T 47 source.hack
+T 48 source.hack variable.other.global.php punctuation.definition.variable.php
+T 56 source.hack variable.other.global.php
+T 57 source.hack
+T 58 source.hack keyword.operator.string.php
+T 59 source.hack
+T 60 source.hack variable.other.global.php punctuation.definition.variable.php
+T 64 source.hack variable.other.global.php
+T 65 source.hack
+T 66 source.hack keyword.operator.string.php
+T 67 source.hack
+T 68 source.hack variable.other.global.php punctuation.definition.variable.php
+T 72 source.hack variable.other.global.php
+T 73 source.hack punctuation.terminator.expression.php
+L     $c = $GLOBALS . $_ENV . $_SERVER . $_SESSION;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 10 source.hack variable.other.global.safer.php punctuation.definition.variable.php
+T 17 source.hack variable.other.global.safer.php
+T 18 source.hack
+T 19 source.hack keyword.operator.string.php
+T 20 source.hack
+T 21 source.hack variable.other.global.safer.php punctuation.definition.variable.php
+T 25 source.hack variable.other.global.safer.php
+T 26 source.hack
+T 27 source.hack keyword.operator.string.php
+T 28 source.hack
+T 29 source.hack variable.other.global.safer.php punctuation.definition.variable.php
+T 36 source.hack variable.other.global.safer.php
+T 37 source.hack
+T 38 source.hack keyword.operator.string.php
+T 39 source.hack
+T 40 source.hack variable.other.global.safer.php punctuation.definition.variable.php
+T 48 source.hack variable.other.global.safer.php
+T 49 source.hack punctuation.terminator.expression.php
+L     $d = array();
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 14 source.hack meta.array.empty.php support.function.construct.php
+T 15 source.hack meta.array.empty.php punctuation.definition.array.begin.php
+T 16 source.hack meta.array.empty.php punctuation.definition.array.end.php
+T 17 source.hack punctuation.terminator.expression.php
+L     $e = array(1, 2);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 14 source.hack meta.array.php support.function.construct.php
+T 15 source.hack meta.array.php punctuation.definition.array.begin.php
+T 16 source.hack meta.array.php constant.numeric.php
+T 18 source.hack meta.array.php
+T 19 source.hack meta.array.php constant.numeric.php
+T 20 source.hack meta.array.php punctuation.definition.array.end.php
+T 21 source.hack punctuation.terminator.expression.php
+L     $v = Vector {1, 2};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 15 source.hack meta.collection.literal.php support.class.php
+T 16 source.hack meta.collection.literal.php
+T 17 source.hack meta.collection.literal.php punctuation.section.array.begin.php
+T 18 source.hack meta.collection.literal.php constant.numeric.php
+T 20 source.hack meta.collection.literal.php
+T 21 source.hack meta.collection.literal.php constant.numeric.php
+T 22 source.hack meta.collection.literal.php punctuation.section.array.end.php
+T 23 source.hack punctuation.terminator.expression.php
+L     $m = ImmMap {'a' => 1};
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 15 source.hack meta.collection.literal.php support.class.php
+T 16 source.hack meta.collection.literal.php
+T 17 source.hack meta.collection.literal.php punctuation.section.array.begin.php
+T 18 source.hack meta.collection.literal.php string.quoted.single.php punctuation.definition.string.begin.php
+T 19 source.hack meta.collection.literal.php string.quoted.single.php meta.string-contents.quoted.single.php
+T 20 source.hack meta.collection.literal.php string.quoted.single.php punctuation.definition.string.end.php
+T 21 source.hack meta.collection.literal.php
+T 23 source.hack meta.collection.literal.php keyword.operator.key.php
+T 24 source.hack meta.collection.literal.php
+T 25 source.hack meta.collection.literal.php constant.numeric.php
+T 26 source.hack meta.collection.literal.php punctuation.section.array.end.php
+T 27 source.hack punctuation.terminator.expression.php
+L     $r = $x |> f($$);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 14 source.hack keyword.operator.pipe.php
+T 15 source.hack
+T 16 source.hack meta.function-call.php entity.name.function.php
+T 20 source.hack
+T 21 source.hack punctuation.terminator.expression.php
+L     $s2 = $x is int ? $x as int : $x upcast num;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 11 source.hack variable.other.php punctuation.definition.variable.php
+T 12 source.hack variable.other.php
+T 13 source.hack
+T 15 source.hack keyword.operator.type.php
+T 16 source.hack
+T 19 source.hack support.class.php
+T 22 source.hack
+T 23 source.hack variable.other.php punctuation.definition.variable.php
+T 24 source.hack variable.other.php
+T 25 source.hack
+T 27 source.hack keyword.operator.type.php
+T 28 source.hack
+T 31 source.hack support.class.php
+T 34 source.hack
+T 35 source.hack variable.other.php punctuation.definition.variable.php
+T 36 source.hack variable.other.php
+T 37 source.hack
+T 43 source.hack keyword.operator.type.php
+T 44 source.hack
+T 47 source.hack support.class.php
+T 48 source.hack punctuation.terminator.expression.php
+L     $t = $a << 1 >> 2 & 3 ^ 4 | 5 ~ 6;
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 10 source.hack variable.other.php punctuation.definition.variable.php
+T 11 source.hack variable.other.php
+T 12 source.hack
+T 13 source.hack keyword.operator.comparison.php
+T 14 source.hack keyword.operator.comparison.php
+T 15 source.hack
+T 16 source.hack constant.numeric.php
+T 17 source.hack
+T 18 source.hack keyword.operator.comparison.php
+T 19 source.hack keyword.operator.comparison.php
+T 20 source.hack
+T 21 source.hack constant.numeric.php
+T 22 source.hack
+T 23 source.hack keyword.operator.bitwise.php
+T 24 source.hack
+T 25 source.hack constant.numeric.php
+T 26 source.hack
+T 27 source.hack keyword.operator.bitwise.php
+T 28 source.hack
+T 29 source.hack constant.numeric.php
+T 30 source.hack
+T 31 source.hack keyword.operator.bitwise.php
+T 32 source.hack
+T 33 source.hack constant.numeric.php
+T 34 source.hack
+T 35 source.hack keyword.operator.bitwise.php
+T 36 source.hack
+T 37 source.hack constant.numeric.php
+T 38 source.hack punctuation.terminator.expression.php
+L     $u = shape('a' => 1);
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 14 source.hack meta.function-call.php entity.name.function.php
+T 15 source.hack
+T 16 source.hack string.quoted.single.php punctuation.definition.string.begin.php
+T 17 source.hack string.quoted.single.php meta.string-contents.quoted.single.php
+T 18 source.hack string.quoted.single.php punctuation.definition.string.end.php
+T 19 source.hack
+T 21 source.hack keyword.operator.key.php
+T 22 source.hack
+T 23 source.hack constant.numeric.php
+T 24 source.hack
+T 25 source.hack punctuation.terminator.expression.php
+L     $w = "\x4 \x4a {$x->y} $a->b $a[0] $a[b]";
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 6 source.hack variable.other.php
+T 7 source.hack
+T 8 source.hack keyword.operator.assignment.php
+T 9 source.hack
+T 10 source.hack string.quoted.double.php punctuation.definition.string.begin.php
+T 13 source.hack string.quoted.double.php meta.string-contents.quoted.double.php constant.numeric.hex.php
+T 14 source.hack string.quoted.double.php meta.string-contents.quoted.double.php
+T 18 source.hack string.quoted.double.php meta.string-contents.quoted.double.php constant.numeric.hex.php
+T 19 source.hack string.quoted.double.php meta.string-contents.quoted.double.php
+T 26 source.hack string.quoted.double.php meta.string-contents.quoted.double.php variable.other.php
+T 27 source.hack string.quoted.double.php meta.string-contents.quoted.double.php
+T 32 source.hack string.quoted.double.php meta.string-contents.quoted.double.php variable.other.php
+T 33 source.hack string.quoted.double.php meta.string-contents.quoted.double.php
+T 38 source.hack string.quoted.double.php meta.string-contents.quoted.double.php variable.other.php
+T 39 source.hack string.quoted.double.php meta.string-contents.quoted.double.php
+T 44 source.hack string.quoted.double.php meta.string-contents.quoted.double.php variable.other.php
+T 45 source.hack string.quoted.double.php punctuation.definition.string.end.php
+T 46 source.hack punctuation.terminator.expression.php
+L     $re = re"/a\$\{1,2}[^a]\][*+^$]/i";
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 12 source.hack constant.other.php
+T 14 source.hack string.regexp.double-quoted.php punctuation.definition.string.begin.php
+T 15 source.hack string.regexp.double-quoted.php
+T 17 source.hack string.regexp.double-quoted.php constant.character.escape.regex.php
+T 19 source.hack string.regexp.double-quoted.php constant.character.escape.regex.php
+T 23 source.hack string.regexp.double-quoted.php
+T 24 source.hack string.regexp.double-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 26 source.hack string.regexp.double-quoted.php string.regexp.character-class.php
+T 27 source.hack string.regexp.double-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 29 source.hack string.regexp.double-quoted.php constant.character.escape.regex.php
+T 30 source.hack string.regexp.double-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 34 source.hack string.regexp.double-quoted.php string.regexp.character-class.php
+T 35 source.hack string.regexp.double-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 38 source.hack string.regexp.double-quoted.php punctuation.definition.string.end.php
+T 39 source.hack punctuation.terminator.expression.php
+L     $re2 = re'/\\{1}\\\'[\]\'][$*+^]/x';
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 13 source.hack constant.other.php
+T 15 source.hack string.regexp.single-quoted.php punctuation.definition.string.begin.php
+T 18 source.hack string.regexp.single-quoted.php constant.character.escape.regex.php
+T 20 source.hack string.regexp.single-quoted.php
+T 23 source.hack string.regexp.single-quoted.php constant.character.escape.php
+T 24 source.hack string.regexp.single-quoted.php
+T 25 source.hack string.regexp.single-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 27 source.hack string.regexp.single-quoted.php string.regexp.character-class.php constant.character.escape.php
+T 29 source.hack string.regexp.single-quoted.php string.regexp.character-class.php constant.character.escape.php
+T 30 source.hack string.regexp.single-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 31 source.hack string.regexp.single-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 35 source.hack string.regexp.single-quoted.php string.regexp.character-class.php
+T 36 source.hack string.regexp.single-quoted.php string.regexp.character-class.php punctuation.definition.character-class.php
+T 39 source.hack string.regexp.single-quoted.php punctuation.definition.string.end.php
+T 40 source.hack punctuation.terminator.expression.php
+L     $re3 = re"/\\.\[x]$/";
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 13 source.hack constant.other.php
+T 15 source.hack string.regexp.double-quoted.php punctuation.definition.string.begin.php
+T 18 source.hack string.regexp.double-quoted.php constant.character.escape.regex.php
+T 20 source.hack string.regexp.double-quoted.php constant.character.escape.regex.php
+T 22 source.hack string.regexp.double-quoted.php
+T 23 source.hack string.regexp.double-quoted.php keyword.operator.regexp.php
+T 25 source.hack string.regexp.double-quoted.php punctuation.definition.string.end.php
+T 26 source.hack punctuation.terminator.expression.php
+L     $re4 = re'/\\.\.$/';
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 13 source.hack constant.other.php
+T 15 source.hack string.regexp.single-quoted.php punctuation.definition.string.begin.php
+T 18 source.hack string.regexp.single-quoted.php constant.character.escape.regex.php
+T 20 source.hack string.regexp.single-quoted.php constant.character.escape.regex.php
+T 21 source.hack string.regexp.single-quoted.php keyword.operator.regexp.php
+T 23 source.hack string.regexp.single-quoted.php punctuation.definition.string.end.php
+T 24 source.hack punctuation.terminator.expression.php
+L     $re5 = re"/a{1,2}b{3}/";
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 13 source.hack constant.other.php
+T 15 source.hack string.regexp.double-quoted.php punctuation.definition.string.begin.php
+T 16 source.hack string.regexp.double-quoted.php
+T 17 source.hack string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 20 source.hack string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php
+T 21 source.hack string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 22 source.hack string.regexp.double-quoted.php
+T 23 source.hack string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 24 source.hack string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php
+T 25 source.hack string.regexp.double-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 27 source.hack string.regexp.double-quoted.php punctuation.definition.string.end.php
+T 28 source.hack punctuation.terminator.expression.php
+L     $re6 = re'/a{1,2}b{3}/';
+T 4 source.hack
+T 5 source.hack variable.other.php punctuation.definition.variable.php
+T 8 source.hack variable.other.php
+T 9 source.hack
+T 10 source.hack keyword.operator.assignment.php
+T 11 source.hack
+T 13 source.hack constant.other.php
+T 15 source.hack string.regexp.single-quoted.php punctuation.definition.string.begin.php
+T 16 source.hack string.regexp.single-quoted.php
+T 17 source.hack string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 20 source.hack string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php
+T 21 source.hack string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 22 source.hack string.regexp.single-quoted.php
+T 23 source.hack string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 24 source.hack string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php
+T 25 source.hack string.regexp.single-quoted.php string.regexp.arbitrary-repetition.php punctuation.definition.arbitrary-repetition.php
+T 27 source.hack string.regexp.single-quoted.php punctuation.definition.string.end.php
+T 28 source.hack punctuation.terminator.expression.php
+L   }
+T 3 source.hack
+L }
+T 1 source.hack
+L 
+L function shapes(shape('a' => int, ...) $s, shape(?'b' => string,) $t): void {}
+T 8 source.hack meta.function.php storage.type.function.php
+T 9 source.hack meta.function.php
+T 15 source.hack meta.function.php entity.name.function.php
+T 16 source.hack meta.function.php punctuation.definition.parameters.begin.php
+T 22 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php
+T 23 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php string.quoted.single.php punctuation.definition.string.begin.php
+T 24 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php string.quoted.single.php meta.string-contents.quoted.single.php
+T 25 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php string.quoted.single.php punctuation.definition.string.end.php
+T 29 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php
+T 32 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php support.type.php
+T 34 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php
+T 38 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php keyword.operator.key.php
+T 39 source.hack meta.function.php meta.function.arguments.php
+T 40 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 41 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 43 source.hack meta.function.php meta.function.arguments.php
+T 49 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php
+T 50 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php
+T 51 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php string.quoted.single.php punctuation.definition.string.begin.php
+T 52 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php string.quoted.single.php meta.string-contents.quoted.single.php
+T 53 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php string.quoted.single.php punctuation.definition.string.end.php
+T 57 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php
+T 63 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php support.type.php
+T 65 source.hack meta.function.php meta.function.arguments.php storage.type.shape.php keyword.operator.key.php
+T 66 source.hack meta.function.php meta.function.arguments.php
+T 67 source.hack meta.function.php meta.function.arguments.php variable.other.php punctuation.definition.variable.php
+T 68 source.hack meta.function.php meta.function.arguments.php variable.other.php
+T 69 source.hack meta.function.php punctuation.definition.parameters.end.php
+T 70 source.hack meta.function.php punctuation.definition.type.php
+T 71 source.hack meta.function.php
+T 75 source.hack meta.function.php support.class.php
+T 76 source.hack meta.function.php
+T 77 source.hack punctuation.section.scope.begin.php
+T 78 source.hack punctuation.section.scope.end.php
+L 
+L   // An indented comment.
+T 2 source.hack punctuation.whitespace.comment.leading.php
+T 4 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 25 source.hack comment.line.double-slash.php
+L 
+L /**
+T 3 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L  * A doc comment.
+T 17 source.hack comment.block.documentation.phpdoc.php
+L  * @access private
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 10 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 11 source.hack comment.block.documentation.phpdoc.php
+T 18 source.hack comment.block.documentation.phpdoc.php storage.modifier.php
+L  * @access something else
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 10 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 11 source.hack comment.block.documentation.phpdoc.php
+T 25 source.hack comment.block.documentation.phpdoc.php invalid.illegal.wrong-access-type.phpdoc.php
+L  * @xlink http://example.com
+T 3 source.hack comment.block.documentation.phpdoc.php
+T 9 source.hack comment.block.documentation.phpdoc.php keyword.other.phpdoc.php
+T 10 source.hack comment.block.documentation.phpdoc.php
+T 28 source.hack comment.block.documentation.phpdoc.php markup.underline.link.php
+L  * See {@link http://example.com} too.
+T 7 source.hack comment.block.documentation.phpdoc.php
+T 8 source.hack comment.block.documentation.phpdoc.php meta.tag.inline.phpdoc.php
+T 13 source.hack comment.block.documentation.phpdoc.php meta.tag.inline.phpdoc.php keyword.other.phpdoc.php
+T 33 source.hack comment.block.documentation.phpdoc.php meta.tag.inline.phpdoc.php
+T 38 source.hack comment.block.documentation.phpdoc.php
+L plain line in a doc comment
+T 27 source.hack comment.block.documentation.phpdoc.php invalid.illegal.missing-asterisk.phpdoc.php
+L  */
+T 1 source.hack comment.block.documentation.phpdoc.php
+T 3 source.hack comment.block.documentation.phpdoc.php punctuation.definition.comment.php
+L 
+L $sql = "SELECT a # comment \" here
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 4 source.hack variable.other.php
+T 5 source.hack
+T 6 source.hack keyword.operator.assignment.php
+T 7 source.hack
+T 8 source.hack string.quoted.double.sql.php punctuation.definition.string.begin.php
+T 14 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 17 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 34 source.hack string.quoted.double.sql.php source.sql.embedded.php comment.line.number-sign.sql
+L FROM t -- dash \" comment
+T 4 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 7 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 25 source.hack string.quoted.double.sql.php source.sql.embedded.php comment.line.double-dash.sql
+L WHERE b = \"c\" AND d = `e` AND f = 'g' AND h = \` AND i = `j \` k`";
+T 5 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 8 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 9 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 10 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 12 source.hack string.quoted.double.sql.php source.sql.embedded.php constant.character.escape.php
+T 13 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 15 source.hack string.quoted.double.sql.php source.sql.embedded.php constant.character.escape.php
+T 16 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 19 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 22 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 23 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 24 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 25 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 26 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 27 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 28 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 31 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 34 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 35 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 36 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 37 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 38 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 39 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.single.sql
+T 40 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 43 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 46 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 47 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 48 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 50 source.hack string.quoted.double.sql.php source.sql.embedded.php constant.character.escape.php
+T 51 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 54 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 57 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 58 source.hack string.quoted.double.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 59 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 60 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 63 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 64 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 66 source.hack string.quoted.double.sql.php source.sql.embedded.php
+T 67 source.hack string.quoted.double.sql.php source.sql.embedded.php string.quoted.other.backtick.unclosed.sql
+T 68 source.hack string.quoted.double.sql.php punctuation.definition.string.end.php
+T 69 source.hack punctuation.terminator.expression.php
+L $sql2 = 'SELECT a # hash \' comment
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 5 source.hack variable.other.php
+T 6 source.hack
+T 7 source.hack keyword.operator.assignment.php
+T 8 source.hack
+T 9 source.hack string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 15 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 18 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 35 source.hack string.quoted.single.sql.php source.sql.embedded.php comment.line.number-sign.sql
+L FROM t -- dash \' comment
+T 4 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 7 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 25 source.hack string.quoted.single.sql.php source.sql.embedded.php comment.line.double-dash.sql
+L WHERE b = \'c\' AND d = `e` AND f = "g" AND h = \"';
+T 5 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 8 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 9 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 10 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 12 source.hack string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 13 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 15 source.hack string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 16 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 19 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 22 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 23 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 24 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 25 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.sql punctuation.definition.string.begin.sql
+T 26 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.sql
+T 27 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.sql punctuation.definition.string.end.sql
+T 28 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 31 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 34 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 35 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 36 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 37 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.sql punctuation.definition.string.begin.sql
+T 38 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.sql
+T 39 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.sql punctuation.definition.string.end.sql
+T 40 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 43 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 46 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 47 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.operator.comparison.sql
+T 48 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 50 source.hack string.quoted.single.sql.php source.sql.embedded.php constant.character.escape.php
+T 51 source.hack string.quoted.single.sql.php punctuation.definition.string.end.php
+T 52 source.hack punctuation.terminator.expression.php
+L 
+L $doc = <<<EOT
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 4 source.hack variable.other.php
+T 5 source.hack
+T 6 source.hack keyword.operator.assignment.php
+T 7 source.hack
+T 10 source.hack string.unquoted.heredoc.php
+T 13 source.hack string.unquoted.heredoc.php keyword.operator.heredoc.php
+L text $x
+T 5 source.hack string.unquoted.heredoc.php
+T 7 source.hack string.unquoted.heredoc.php variable.other.php
+L EOT;
+T 3 source.hack string.unquoted.heredoc.php keyword.operator.heredoc.php
+T 4 source.hack punctuation.terminator.expression.php
+L $quoted = <<<"QUOTED"
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 7 source.hack variable.other.php
+T 8 source.hack
+T 9 source.hack keyword.operator.assignment.php
+T 10 source.hack
+T 14 source.hack string.unquoted.heredoc.php
+T 20 source.hack string.unquoted.heredoc.php keyword.operator.heredoc.php
+T 21 source.hack string.unquoted.heredoc.php
+L text
+T 4 source.hack string.unquoted.heredoc.php
+L QUOTED;
+T 6 source.hack string.unquoted.heredoc.php keyword.operator.heredoc.php
+T 7 source.hack punctuation.terminator.expression.php
+L $now = <<<'NOW'
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 4 source.hack variable.other.php
+T 5 source.hack
+T 6 source.hack keyword.operator.assignment.php
+T 7 source.hack
+T 11 source.hack string.unquoted.heredoc.nowdoc.php
+T 14 source.hack string.unquoted.heredoc.nowdoc.php keyword.operator.heredoc.php
+T 15 source.hack string.unquoted.heredoc.nowdoc.php
+L text
+T 4 source.hack string.unquoted.heredoc.nowdoc.php
+L NOW
+T 3 source.hack string.unquoted.heredoc.nowdoc.php keyword.operator.heredoc.php
+L ;
+T 1 source.hack punctuation.terminator.expression.php
+L 
+L $xhp = <div>&amp; &#123; &#x1F; &bad;stuff; <!-- a -- b --> <a b='c' d="e"></a></div>;
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 4 source.hack variable.other.php
+T 5 source.hack
+T 6 source.hack keyword.operator.assignment.php
+T 7 source.hack
+T 8 source.hack source.xhp punctuation.definition.tag.xhp
+T 11 source.hack source.xhp entity.name.tag.open.xhp
+T 12 source.hack source.xhp punctuation.definition.tag.xhp XHPStartTagEnd
+T 13 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 16 source.hack source.xhp constant.character.entity.xhp entity.name.tag.html.xhp
+T 17 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 18 source.hack source.xhp
+T 19 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 23 source.hack source.xhp constant.character.entity.xhp entity.name.tag.html.xhp
+T 24 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 25 source.hack source.xhp
+T 26 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 30 source.hack source.xhp constant.character.entity.xhp entity.name.tag.html.xhp
+T 31 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 32 source.hack source.xhp
+T 33 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 36 source.hack source.xhp constant.character.entity.xhp entity.name.tag.html.xhp
+T 37 source.hack source.xhp constant.character.entity.xhp punctuation.definition.entity.xhp
+T 44 source.hack source.xhp
+T 48 source.hack source.xhp comment.block.html punctuation.definition.comment.html
+T 51 source.hack source.xhp comment.block.html
+T 53 source.hack source.xhp comment.block.html invalid.illegal.bad-comments-or-CDATA.html
+T 56 source.hack source.xhp comment.block.html
+T 59 source.hack source.xhp comment.block.html punctuation.definition.comment.html
+T 60 source.hack source.xhp
+T 61 source.hack source.xhp punctuation.definition.tag.xhp
+T 62 source.hack source.xhp entity.name.tag.open.xhp
+T 63 source.hack source.xhp
+T 64 source.hack source.xhp entity.other.attribute-name.xhp
+T 65 source.hack source.xhp keyword.operator.assignment.xhp
+T 66 source.hack source.xhp string.quoted.single.php punctuation.definition.string.begin.xhp
+T 67 source.hack source.xhp string.quoted.single.php
+T 68 source.hack source.xhp string.quoted.single.php punctuation.definition.string.end.xhp
+T 69 source.hack source.xhp
+T 70 source.hack source.xhp entity.other.attribute-name.xhp
+T 71 source.hack source.xhp keyword.operator.assignment.xhp
+T 72 source.hack source.xhp string.quoted.double.php punctuation.definition.string.begin.xhp
+T 73 source.hack source.xhp string.quoted.double.php
+T 74 source.hack source.xhp string.quoted.double.php punctuation.definition.string.end.xhp
+T 75 source.hack source.xhp punctuation.definition.tag.xhp XHPStartTagEnd
+T 77 source.hack source.xhp punctuation.definition.tag.xhp XHPEndTagStart
+T 78 source.hack source.xhp entity.name.tag.close.xhp
+T 79 source.hack source.xhp punctuation.definition.tag.xhp
+T 81 source.hack source.xhp punctuation.definition.tag.xhp XHPEndTagStart
+T 84 source.hack source.xhp entity.name.tag.close.xhp
+T 85 source.hack source.xhp punctuation.definition.tag.xhp
+T 86 source.hack punctuation.terminator.expression.php
+L $sql3 = 'SELECT a FROM `t';
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 5 source.hack variable.other.php
+T 6 source.hack
+T 7 source.hack keyword.operator.assignment.php
+T 8 source.hack
+T 9 source.hack string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 15 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 18 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 22 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 23 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 24 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.other.backtick.unclosed.sql
+T 25 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 26 source.hack string.quoted.single.sql.php punctuation.definition.string.end.php
+T 27 source.hack punctuation.terminator.expression.php
+L $sql4 = 'SELECT "a';
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 5 source.hack variable.other.php
+T 6 source.hack
+T 7 source.hack keyword.operator.assignment.php
+T 8 source.hack
+T 9 source.hack string.quoted.single.sql.php punctuation.definition.string.begin.php
+T 15 source.hack string.quoted.single.sql.php source.sql.embedded.php keyword.other.DML.sql
+T 16 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 17 source.hack string.quoted.single.sql.php source.sql.embedded.php string.quoted.double.unclosed.sql
+T 18 source.hack string.quoted.single.sql.php source.sql.embedded.php
+T 19 source.hack string.quoted.single.sql.php punctuation.definition.string.end.php
+T 20 source.hack punctuation.terminator.expression.php
+L 
+L $xhp3 = <p>&b-c; x</p>;
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 5 source.hack variable.other.php
+T 6 source.hack
+T 7 source.hack keyword.operator.assignment.php
+T 8 source.hack
+T 9 source.hack source.xhp punctuation.definition.tag.xhp
+T 10 source.hack source.xhp entity.name.tag.open.xhp
+T 11 source.hack source.xhp punctuation.definition.tag.xhp XHPStartTagEnd
+T 16 source.hack source.xhp invalid.illegal.bad-ampersand.xhp
+T 18 source.hack source.xhp
+T 20 source.hack source.xhp punctuation.definition.tag.xhp XHPEndTagStart
+T 21 source.hack source.xhp entity.name.tag.close.xhp
+T 22 source.hack source.xhp punctuation.definition.tag.xhp
+T 23 source.hack punctuation.terminator.expression.php
+L 
+L // One word of each list of built-in functions.
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 47 source.hack comment.line.double-slash.php
+L shuffle();
+T 7 source.hack support.function.array.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L apc_add();
+T 7 source.hack support.function.apc.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L array();
+T 5 source.hack meta.array.empty.php support.function.construct.php
+T 6 source.hack meta.array.empty.php punctuation.definition.array.begin.php
+T 7 source.hack meta.array.empty.php punctuation.definition.array.end.php
+T 8 source.hack punctuation.terminator.expression.php
+L __halt_compiler();
+T 15 source.hack support.function.basic_functions.php
+T 17 source.hack
+T 18 source.hack punctuation.terminator.expression.php
+L bcadd();
+T 5 source.hack support.function.bcmath.php
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L bzclose();
+T 7 source.hack support.function.bz2.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L cal_days_in_month();
+T 17 source.hack support.function.calendar.php
+T 19 source.hack
+T 20 source.hack punctuation.terminator.expression.php
+L __autoload();
+T 10 source.hack support.function.classobj.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L com_addref();
+T 10 source.hack support.function.com.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L ctype_alnum();
+T 11 source.hack support.function.ctype.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L curl_close();
+T 10 source.hack support.function.curl.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L checkdate();
+T 9 source.hack support.function.datetime.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L dba_close();
+T 9 source.hack support.function.dba.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L dbx_close();
+T 9 source.hack support.function.dbx.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L chdir();
+T 5 source.hack support.function.dir.php
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L dotnet_load();
+T 11 source.hack support.function.dotnet.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L eio_busy();
+T 8 source.hack support.function.eio.php
+T 10 source.hack
+T 11 source.hack punctuation.terminator.expression.php
+L enchant_broker_describe();
+T 23 source.hack support.function.enchant.php
+T 25 source.hack
+T 26 source.hack punctuation.terminator.expression.php
+L ereg();
+T 4 source.hack support.function.ereg.php
+T 6 source.hack
+T 7 source.hack punctuation.terminator.expression.php
+L debug_backtrace();
+T 15 source.hack support.function.errorfunc.php
+T 17 source.hack
+T 18 source.hack punctuation.terminator.expression.php
+L escapeshellarg();
+T 14 source.hack support.function.exec.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L exif_imagetype();
+T 14 source.hack support.function.exif.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L basename();
+T 8 source.hack support.function.file.php
+T 10 source.hack
+T 11 source.hack punctuation.terminator.expression.php
+L finfo_buffer();
+T 12 source.hack support.function.fileinfo.php
+T 14 source.hack
+T 15 source.hack punctuation.terminator.expression.php
+L filter_has_var();
+T 14 source.hack support.function.filter.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L call_user_func();
+T 14 source.hack support.function.funchand.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L bind_textdomain_codeset();
+T 23 source.hack support.function.gettext.php
+T 25 source.hack
+T 26 source.hack punctuation.terminator.expression.php
+L gmp_abs();
+T 7 source.hack support.function.gmp.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L hash();
+T 4 source.hack support.function.hash.php
+T 6 source.hack
+T 7 source.hack punctuation.terminator.expression.php
+L http_build_cookie();
+T 17 source.hack support.function.http.php
+T 19 source.hack
+T 20 source.hack punctuation.terminator.expression.php
+L iconv();
+T 5 source.hack support.function.iconv.php
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L iis_add_server();
+T 14 source.hack support.function.iisfunc.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L gd_info();
+T 7 source.hack support.function.image.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L assert();
+T 6 source.hack support.function.info.php
+T 8 source.hack
+T 9 source.hack punctuation.terminator.expression.php
+L ibase_add_user();
+T 14 source.hack support.function.interbase.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L collator_asort();
+T 14 source.hack support.function.intl.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L json_decode();
+T 11 source.hack support.function.json.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L ldap_8859_to_t61();
+T 16 source.hack support.function.ldap.php
+T 18 source.hack
+T 19 source.hack punctuation.terminator.expression.php
+L libxml_clear_errors();
+T 19 source.hack support.function.libxml.php
+T 21 source.hack
+T 22 source.hack punctuation.terminator.expression.php
+L ezmlm_hash();
+T 10 source.hack support.function.mail.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L abs();
+T 3 source.hack support.function.math.php
+T 5 source.hack
+T 6 source.hack punctuation.terminator.expression.php
+L mb_check_encoding();
+T 17 source.hack support.function.mbstring.php
+T 19 source.hack
+T 20 source.hack punctuation.terminator.expression.php
+L mcrypt_cbc();
+T 10 source.hack support.function.mcrypt.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L memcache_debug();
+T 14 source.hack support.function.memcache.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L mhash();
+T 5 source.hack support.function.mhash.php
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L bson_decode();
+T 11 source.hack support.function.mongo.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L mysql_affected_rows();
+T 19 source.hack support.function.mysql.php
+T 21 source.hack
+T 22 source.hack punctuation.terminator.expression.php
+L mysqli_autocommit();
+T 17 source.hack support.function.mysqli.php
+T 19 source.hack
+T 20 source.hack punctuation.terminator.expression.php
+L mysqlnd_memcache_get_config();
+T 27 source.hack support.function.mysqlnd-memcache.php
+T 29 source.hack
+T 30 source.hack punctuation.terminator.expression.php
+L mysqlnd_ms_get_last_gtid();
+T 24 source.hack support.function.mysqlnd-ms.php
+T 26 source.hack
+T 27 source.hack punctuation.terminator.expression.php
+L mysqlnd_qc_clear_cache();
+T 22 source.hack support.function.mysqlnd-qc.php
+T 24 source.hack
+T 25 source.hack punctuation.terminator.expression.php
+L mysqlnd_uh_convert_to_mysqlnd();
+T 29 source.hack support.function.mysqlnd-uh.php
+T 31 source.hack
+T 32 source.hack punctuation.terminator.expression.php
+L checkdnsrr();
+T 10 source.hack support.function.network.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L nsapi_request_headers();
+T 21 source.hack support.function.nsapi.php
+T 23 source.hack
+T 24 source.hack punctuation.terminator.expression.php
+L aggregate();
+T 9 source.hack support.function.objaggregation.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L oci_bind_array_by_name();
+T 22 source.hack support.function.oci8.php
+T 24 source.hack
+T 25 source.hack punctuation.terminator.expression.php
+L openssl_cipher_iv_length();
+T 24 source.hack support.function.openssl.php
+T 26 source.hack
+T 27 source.hack punctuation.terminator.expression.php
+L flush();
+T 5 source.hack support.function.output.php
+T 7 source.hack
+T 8 source.hack punctuation.terminator.expression.php
+L password_get_info();
+T 17 source.hack support.function.password.php
+T 19 source.hack
+T 20 source.hack punctuation.terminator.expression.php
+L pcntl_alarm();
+T 11 source.hack support.function.pcntl.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L pg_affected_rows();
+T 16 source.hack support.function.pgsql.php
+T 18 source.hack
+T 19 source.hack punctuation.terminator.expression.php
+L apache_child_terminate();
+T 22 source.hack support.function.php_apache.php
+T 24 source.hack
+T 25 source.hack punctuation.terminator.expression.php
+L dom_import_simplexml();
+T 20 source.hack support.function.php_dom.php
+T 22 source.hack
+T 23 source.hack punctuation.terminator.expression.php
+L ftp_alloc();
+T 9 source.hack support.function.php_ftp.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L imap_8bit();
+T 9 source.hack support.function.php_imap.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L mssql_bind();
+T 10 source.hack support.function.php_mssql.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L odbc_autocommit();
+T 15 source.hack support.function.php_odbc.php
+T 17 source.hack
+T 18 source.hack punctuation.terminator.expression.php
+L preg_filter();
+T 11 source.hack support.function.php_pcre.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L class_implements();
+T 16 source.hack support.function.php_spl.php
+T 18 source.hack
+T 19 source.hack punctuation.terminator.expression.php
+L zip_close();
+T 9 source.hack support.function.php_zip.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L posix_access();
+T 12 source.hack support.function.posix.php
+T 14 source.hack
+T 15 source.hack punctuation.terminator.expression.php
+L setproctitle();
+T 12 source.hack support.function.proctitle.php
+T 14 source.hack
+T 15 source.hack punctuation.terminator.expression.php
+L pspell_add_to_personal();
+T 22 source.hack support.function.pspell.php
+T 24 source.hack
+T 25 source.hack punctuation.terminator.expression.php
+L readline();
+T 8 source.hack support.function.readline.php
+T 10 source.hack
+T 11 source.hack punctuation.terminator.expression.php
+L recode();
+T 6 source.hack support.function.recode.php
+T 8 source.hack
+T 9 source.hack punctuation.terminator.expression.php
+L rrd_create();
+T 10 source.hack support.function.rrd.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L ftok();
+T 4 source.hack support.function.sem.php
+T 6 source.hack
+T 7 source.hack punctuation.terminator.expression.php
+L session_cache_expire();
+T 20 source.hack support.function.session.php
+T 22 source.hack
+T 23 source.hack punctuation.terminator.expression.php
+L shmop_close();
+T 11 source.hack support.function.shmop.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L simplexml_import_dom();
+T 20 source.hack support.function.simplexml.php
+T 22 source.hack
+T 23 source.hack punctuation.terminator.expression.php
+L snmp2_get();
+T 9 source.hack support.function.snmp.php
+T 11 source.hack
+T 12 source.hack punctuation.terminator.expression.php
+L is_soap_fault();
+T 13 source.hack support.function.soap.php
+T 15 source.hack
+T 16 source.hack punctuation.terminator.expression.php
+L socket_accept();
+T 13 source.hack support.function.sockets.php
+T 15 source.hack
+T 16 source.hack punctuation.terminator.expression.php
+L sqlite_array_query();
+T 18 source.hack support.function.sqlite.php
+T 20 source.hack
+T 21 source.hack punctuation.terminator.expression.php
+L sqlsrv_begin_transaction();
+T 24 source.hack support.function.sqlsrv.php
+T 26 source.hack
+T 27 source.hack punctuation.terminator.expression.php
+L stats_absolute_deviation();
+T 24 source.hack support.function.stats.php
+T 26 source.hack
+T 27 source.hack punctuation.terminator.expression.php
+L set_socket_blocking();
+T 19 source.hack support.function.streamsfuncs.php
+T 21 source.hack
+T 22 source.hack punctuation.terminator.expression.php
+L addcslashes();
+T 11 source.hack support.function.string.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L sybase_affected_rows();
+T 20 source.hack support.function.sybase.php
+T 22 source.hack
+T 23 source.hack punctuation.terminator.expression.php
+L is_tainted();
+T 10 source.hack support.function.taint.php
+T 12 source.hack
+T 13 source.hack punctuation.terminator.expression.php
+L ob_tidyhandler();
+T 14 source.hack support.function.tidy.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L token_get_all();
+T 13 source.hack support.function.tokenizer.php
+T 15 source.hack
+T 16 source.hack punctuation.terminator.expression.php
+L trader_acos();
+T 11 source.hack support.function.trader.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L base64_decode();
+T 13 source.hack support.function.url.php
+T 15 source.hack
+T 16 source.hack punctuation.terminator.expression.php
+L boolval();
+T 7 source.hack support.function.var.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L wddx_add_vars();
+T 13 source.hack support.function.wddx.php
+T 15 source.hack
+T 16 source.hack punctuation.terminator.expression.php
+L xhprof_disable();
+T 14 source.hack support.function.xhprof.php
+T 16 source.hack
+T 17 source.hack punctuation.terminator.expression.php
+L utf8_decode();
+T 11 source.hack support.function.xml.php
+T 13 source.hack
+T 14 source.hack punctuation.terminator.expression.php
+L xmlrpc_decode();
+T 13 source.hack support.function.xmlrpc.php
+T 15 source.hack
+T 16 source.hack punctuation.terminator.expression.php
+L xmlwriter_end_attribute();
+T 23 source.hack support.function.xmlwriter.php
+T 25 source.hack
+T 26 source.hack punctuation.terminator.expression.php
+L xslt_backend_info();
+T 17 source.hack support.function.xslt.php
+T 19 source.hack
+T 20 source.hack punctuation.terminator.expression.php
+L gzclose();
+T 7 source.hack support.function.zlib.php
+T 9 source.hack
+T 10 source.hack punctuation.terminator.expression.php
+L 
+L // One word of each list of built-in constants, then each with a leading
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 72 source.hack comment.line.double-slash.php
+L // backslash.
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 13 source.hack comment.line.double-slash.php
+L DEFAULT_INCLUDE_PATH;
+T 20 source.hack support.constant.core.php
+T 21 source.hack punctuation.terminator.expression.php
+L ABDAY_1;
+T 7 source.hack support.constant.std.php
+T 8 source.hack punctuation.terminator.expression.php
+L CURLAUTH_ANY;
+T 12 source.hack support.constant.ext.php
+T 13 source.hack punctuation.terminator.expression.php
+L T_ABSTRACT;
+T 10 source.hack support.constant.parser-token.php
+T 11 source.hack punctuation.terminator.expression.php
+L \DEFAULT_INCLUDE_PATH;
+T 1 source.hack support.constant.core.php punctuation.separator.inheritance.php
+T 21 source.hack support.constant.core.php
+T 22 source.hack punctuation.terminator.expression.php
+L \ABDAY_1;
+T 1 source.hack support.constant.std.php punctuation.separator.inheritance.php
+T 8 source.hack support.constant.std.php
+T 9 source.hack punctuation.terminator.expression.php
+L \CURLAUTH_ANY;
+T 1 source.hack support.constant.ext.php punctuation.separator.inheritance.php
+T 13 source.hack support.constant.ext.php
+T 14 source.hack punctuation.terminator.expression.php
+L \T_ABSTRACT;
+T 1 source.hack support.constant.parser-token.php punctuation.separator.inheritance.php
+T 11 source.hack support.constant.parser-token.php
+T 12 source.hack punctuation.terminator.expression.php
+L 
+L // A closing tag with a space after `</` leaves XHP open, so it comes last.
+T 2 source.hack comment.line.double-slash.php punctuation.definition.comment.php
+T 75 source.hack comment.line.double-slash.php
+L $xhp2 = <x:frag></ x:frag>;
+T 1 source.hack variable.other.php punctuation.definition.variable.php
+T 5 source.hack variable.other.php
+T 6 source.hack
+T 7 source.hack keyword.operator.assignment.php
+T 8 source.hack
+T 9 source.hack source.xhp punctuation.definition.tag.xhp
+T 15 source.hack source.xhp entity.name.tag.open.xhp
+T 16 source.hack source.xhp punctuation.definition.tag.xhp XHPStartTagEnd
+T 18 source.hack source.xhp punctuation.definition.tag.xhp XHPEndTagStart
+T 25 source.hack source.xhp invalid.illegal.termination.xhp
+T 26 source.hack source.xhp
+T 27 source.hack punctuation.terminator.expression.php
+L 

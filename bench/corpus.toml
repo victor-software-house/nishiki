@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 20
-digest = "1265c0715b188909e5bf6e4bcb4f09670f7f9e727c382d772d5b79ec2cea6108"
+version = 21
+digest = "cfdce59692e19198e7d4abaad0dd175466e7887d86041451c95f52b5138b9328"
 
 [[file]]
 language = "asm"
@@ -458,6 +458,28 @@ licence = "BSD-3-Clause"
 licence_source = "https://github.com/haskell/containers/blob/c9c0c887ca9ff6934e46ca1415ef9a41d31e2eca/containers/LICENSE"
 bytes = 27619
 sha256 = "062242488362e7bdb61de90693c0dfd3dfc50f544b57922f5d548a253499cd58"
+
+[[file]]
+language = "hack"
+tier = "medium"
+origin = "neutral"
+path = "hack/medium/hack-sql-fake-expression-parser.php"
+source = "https://raw.githubusercontent.com/slackhq/hack-sql-fake/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4/src/Parser/ExpressionParser.php"
+licence = "MIT"
+licence_source = "https://github.com/slackhq/hack-sql-fake/blob/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4/LICENSE"
+bytes = 20587
+sha256 = "2cde5d10d1832cdb33a3c0ee56a36af7131044183f9035e3c53b00fc5a78c3ea"
+
+[[file]]
+language = "hack"
+tier = "small"
+origin = "neutral"
+path = "hack/small/hsl-async-semaphore.php"
+source = "https://raw.githubusercontent.com/hhvm/hsl/16e8aa16d252ed218e357495179766adc09c3659/src/async/Semaphore.php"
+licence = "MIT"
+licence_source = "https://github.com/hhvm/hsl/blob/16e8aa16d252ed218e357495179766adc09c3659/LICENSE"
+bytes = 2817
+sha256 = "d4fdf42023ea657f41198f0baebb2d19d95132f4457651501458078339d385b9"
 
 [[file]]
 language = "hcl"
