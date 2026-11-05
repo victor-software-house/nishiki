@@ -9,9 +9,11 @@
 //! specific one replaces what it set.
 
 use std::cmp::Ordering;
+use std::hash::Hasher;
 
 use super::{Color, FontStyle, RuleScope, Style, ThemeRule};
-use crate::fnv::FnvMap;
+use crate::arena::IdMap;
+use crate::fnv::Fnv;
 
 /// One resolved rule: its specificity and the attributes it sets.
 #[derive(Clone, Debug)]
@@ -87,21 +89,56 @@ impl Rule {
 
 /// Whether `scope` is `selector` or extends it by dot-separated parts.
 fn scope_matches(scope: &str, selector: &str) -> bool {
+    let (scope, selector) = (scope.as_bytes(), selector.as_bytes());
     scope
-        .strip_prefix(selector)
-        .is_some_and(|rest| rest.is_empty() || rest.starts_with('.'))
+        .get(..selector.len())
+        .is_some_and(|head| same_bytes(head, selector))
+        && scope.get(selector.len()).is_none_or(|&byte| byte == b'.')
 }
 
-/// One node: its own rule, the rules that need parent scopes, and its
-/// children by the next dot-separated part.
+/// Whether `a` and `b` hold the same bytes, compared in a loop.
+///
+/// Scope parts are a few bytes long.
+/// libc's `memcmp`, which `==` on strings calls, costs more there.
+/// Its count of instructions also follows where the strings lie, so styling
+/// would move with code layout.
+fn same_bytes(a: &[u8], b: &[u8]) -> bool {
+    if a.len() != b.len() {
+        return false;
+    }
+    for (x, y) in a.iter().zip(b) {
+        if x != y {
+            return false;
+        }
+    }
+    true
+}
+
+/// The key of the child of `parent` for `part`: the part's FNV-1a hash,
+/// mixed with the parent's index.
+/// Two children can share a key, so a lookup checks the parent and the part.
+fn child_key(parent: usize, part: &str) -> u64 {
+    let mut hasher = Fnv::default();
+    hasher.write(part.as_bytes());
+    let parent = u64::try_from(parent).unwrap_or(u64::MAX);
+    hasher.finish() ^ parent.wrapping_mul(0x9e37_79b9_7f4a_7c15)
+}
+
+/// One node: its own rule, the rules that need parent scopes, and where it
+/// sits under its parent.
 #[derive(Clone, Debug)]
 struct Node {
     main: Rule,
     with_parents: Vec<Rule>,
-    children: FnvMap<String, usize>,
     /// `with_parents` and `main` in specificity order, filled once the trie
     /// is built.
     ordered: Vec<Rule>,
+    /// The node this one is a child of; the root's is itself.
+    parent: usize,
+    /// The dot-separated part that leads here from the parent.
+    part: Box<str>,
+    /// The next node whose [`child_key`] is this one's.
+    next: Option<usize>,
 }
 
 /// A rule as a theme file states it, one per selector.
@@ -172,6 +209,9 @@ fn parse(rules: &[ThemeRule]) -> Vec<Parsed> {
 #[derive(Clone, Debug)]
 pub(super) struct Trie {
     nodes: Vec<Node>,
+    /// The first node of each [`child_key`].
+    /// The key is an integer, so a lookup compares no strings in libc.
+    children: IdMap<u64, usize>,
 }
 
 impl Trie {
@@ -210,9 +250,12 @@ impl Trie {
             nodes: vec![Node {
                 main: empty,
                 with_parents: Vec::new(),
-                children: FnvMap::default(),
                 ordered: Vec::new(),
+                parent: 0,
+                part: Box::default(),
+                next: None,
             }],
+            children: IdMap::default(),
         };
         for rule in parsed {
             trie.insert(&rule);
@@ -260,36 +303,67 @@ impl Trie {
     /// The child of `node` for `part`, created from a copy of `node`'s rules
     /// when it does not exist yet.
     fn child(&mut self, node: usize, part: &str) -> usize {
-        if let Some(&child) = self.nodes[node].children.get(part) {
+        if let Some(child) = self.find(node, part) {
             return child;
         }
+        let key = child_key(node, part);
+        let child = self.nodes.len();
+        let next = self.children.insert(key, child);
         let parent = &self.nodes[node];
         let copy = Node {
             main: parent.main.clone(),
             with_parents: parent.with_parents.clone(),
-            children: FnvMap::default(),
             ordered: Vec::new(),
+            parent: node,
+            part: part.into(),
+            next,
         };
-        let child = self.nodes.len();
         self.nodes.push(copy);
-        self.nodes[node].children.insert(part.to_owned(), child);
         child
+    }
+
+    /// The child of `node` for `part`, if the trie has one.
+    /// It follows the nodes that share the key, and checks the parent and
+    /// the part byte by byte.
+    fn find(&self, node: usize, part: &str) -> Option<usize> {
+        let mut at = self.children.get(&child_key(node, part)).copied();
+        while let Some(index) = at {
+            let candidate = self.nodes.get(index)?;
+            if candidate.parent == node && same_bytes(candidate.part.as_bytes(), part.as_bytes()) {
+                return Some(index);
+            }
+            at = candidate.next;
+        }
+        None
     }
 
     /// Applies the rule for the innermost scope of `path`, outermost first,
     /// to `style`: the attributes the rule sets replace those in `style`.
+    ///
+    /// It walks the scope's dot-separated parts with a byte loop.
+    /// `str::split` searches with `memchr`, whose call cost more than the few
+    /// bytes of a part.
     pub(super) fn apply(&self, path: &[&str], style: &mut Style) {
         let Some((scope, outer)) = path.split_last() else {
             return;
         };
-        let mut node = &self.nodes[0];
-        for part in scope.split('.') {
-            match node.children.get(part) {
-                Some(&child) => node = &self.nodes[child],
+        let mut index = 0;
+        let mut rest = *scope;
+        loop {
+            let end = rest
+                .bytes()
+                .position(|byte| byte == b'.')
+                .unwrap_or(rest.len());
+            match rest.get(..end).and_then(|part| self.find(index, part)) {
+                Some(child) => index = child,
+                None => break,
+            }
+            match rest.get(end + 1..) {
+                Some(next) => rest = next,
                 None => break,
             }
         }
-        if let Some(rule) = node
+        if let Some(rule) = self.nodes[index]
             .ordered
             .iter()
             .find(|rule| rule.matches(outer.iter().rev().copied()))

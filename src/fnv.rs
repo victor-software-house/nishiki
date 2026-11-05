@@ -4,15 +4,19 @@
 //! 0.3% from run to run. Keys that come from the text being lexed keep std's
 //! seeded hasher, which resists inputs crafted to collide.
 //!
-//! A theme's trie keys its children by the parts of the theme's own
-//! selectors.
-//! Text only looks keys up there, and a lookup cannot lengthen a probe
-//! sequence, so the fixed hasher is safe for it too.
+//! A theme's trie orders its children by the hash of the parts of the theme's
+//! own selectors.
+//! Text only looks parts up there, so it cannot add children that collide,
+//! and the fixed hasher is safe for it too.
 
+#[cfg(any(feature = "lang-c", feature = "lang-python"))]
 use std::collections::HashMap;
-use std::hash::{BuildHasherDefault, Hasher};
+#[cfg(any(feature = "lang-c", feature = "lang-python"))]
+use std::hash::BuildHasherDefault;
+use std::hash::Hasher;
 
 /// A map keyed through [`Fnv`].
+#[cfg(any(feature = "lang-c", feature = "lang-python"))]
 pub(crate) type FnvMap<K, V> = HashMap<K, V, BuildHasherDefault<Fnv>>;
 
 /// FNV-1a over the bytes written.

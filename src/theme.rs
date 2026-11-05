@@ -239,6 +239,11 @@ pub struct Theme {
     rules: trie::Trie,
 }
 
+/// How many scopes [`Theme::style`] holds on the stack.
+/// A deeper stack moves to the heap, so styling a token allocates nothing
+/// below this depth.
+const INLINE_SCOPES: usize = 64;
+
 /// Shiki's fallback editor colours, VS Code's own, for a theme that names
 /// none.
 const FALLBACK_LIGHT: (&str, &str) = ("#333333", "#fffffe");
@@ -344,7 +349,25 @@ impl Theme {
     /// each [`Stack`](crate::Stack)'s style once computed.
     #[must_use]
     pub fn style<'a>(&self, scopes: impl IntoIterator<Item = &'a str>) -> Style {
-        let mut path: Vec<&str> = scopes.into_iter().collect();
+        let mut inline = [""; INLINE_SCOPES];
+        let mut spilled = Vec::new();
+        let mut len = 0;
+        for scope in scopes {
+            if let Some(slot) = inline.get_mut(len) {
+                *slot = scope;
+            } else {
+                if spilled.is_empty() {
+                    spilled.extend_from_slice(&inline);
+                }
+                spilled.push(scope);
+            }
+            len += 1;
+        }
+        let path = if spilled.is_empty() {
+            inline.get_mut(..len).unwrap_or_default()
+        } else {
+            spilled.as_mut_slice()
+        };
         path.reverse();
         let mut style = self.defaults;
         for depth in 1..=path.len() {
@@ -425,6 +448,19 @@ mod tests {
             style.font.contains(FontStyle::BOLD),
             "bold carries in from the outer scope"
         );
+    }
+
+    #[test]
+    fn a_stack_deeper_than_the_inline_buffer_styles_as_a_shallow_one() {
+        let theme = theme(vec![
+            rule("string", "#111111"),
+            rule("source.rust string", "#222222"),
+        ]);
+        let mut deep = vec!["string.quoted"];
+        deep.extend(std::iter::repeat_n("meta.block", INLINE_SCOPES + 5));
+        deep.push("source.rust");
+        assert_eq!(fg(&theme, &deep), "#222222");
+        assert_eq!(fg(&theme, &deep[..INLINE_SCOPES]), "#111111");
     }
 
     #[test]
