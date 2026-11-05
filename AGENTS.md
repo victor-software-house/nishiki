@@ -98,7 +98,7 @@ The decisions that created nishiki live in a private planning repository:
 5. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
    - The pre-commit hook runs the cheapest checks: `mise run format` (rustfmt) and `mise run check:literals` when a commit touches a Rust file, and `mise run lint:md` when it touches Markdown.
-   - Before a push, run the other cheap checks: `typos` and `mise run format:toml` (taplo).
+   - Before a push, run the other cheap checks: `mise run lint:typos` and `mise run format:toml` (taplo).
    - When CI fails, fix forward.
 6. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
    - `mise run format` checks it, as the pre-commit hook does.

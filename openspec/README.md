@@ -20,6 +20,9 @@ The [OpenSpec](https://github.com/Fission-AI/OpenSpec) CLI manages it.
 
 ## Commands
 
+The `openspec` CLI comes through mise.
+Prefix each `openspec` command with `mise x github:Fission-AI/OpenSpec@1.16.0 --`, the version `mise-tasks/specs.sh` pins.
+
 ```sh
 openspec list                        # changes in flight
 openspec list --specs                # capabilities

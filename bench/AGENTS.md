@@ -138,7 +138,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
 20. A Callgrind A/B on a box runs through `MISE_ENV=dev,bench mise run callgrind`.
     - That loads valgrind 3.27.1, the version `mise.bench.toml` pins, as CI does.
     - Run it as written, with mise's task auto-install on.
-      Auto-install puts every tool the task reads on `PATH`: valgrind from `mise.bench.toml`, and taplo from `mise.toml`.
+      Auto-install puts every tool the task reads on `PATH`: valgrind from `mise.bench.toml`, and taplo from the task's own `tools` line.
       A fresh box has neither when it sets `MISE_TASK_RUN_AUTO_INSTALL=false` or runs `bash mise-tasks/callgrind.sh`.
     - `callgrind.sh` stops when another valgrind is on `PATH`.
     - It builds the head with `--features textmate`, and the base too when the base has that feature.

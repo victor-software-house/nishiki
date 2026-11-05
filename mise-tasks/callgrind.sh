@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Instruction counts of lexing and colouring the oracle fixtures, against another commit"
+#MISE tools = { taplo = "0.10.0" }
 # `mise run callgrind [base] [languages...]`, base `origin/main` by default,
 # languages every one with oracle fixtures by default, built with the
 # `textmate` tier and `json`. Both commits run examples/lex.rs under callgrind, whose

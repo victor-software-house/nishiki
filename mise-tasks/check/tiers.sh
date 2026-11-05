@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="The README's Tier column and the crate docs' tier table match the tier lists in Cargo.toml"
+#MISE tools = { taplo = "0.10.0" }
 # A language that leaves the textmate tier moves from Cargo.toml's textmate
 # list to its all list.
 # Its README row's Tier moves from `textmate` to `all`.

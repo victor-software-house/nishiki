@@ -22,7 +22,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: coverage-${{ github.event.pull_request.number }}
+  # A draft run gets a group of its own, so it never cancels the ready run.
+  group: coverage-${{ github.event.pull_request.number || github.ref_name }}${{ github.event.pull_request.draft && '-draft' || '' }}
   cancel-in-progress: true
 
 env:

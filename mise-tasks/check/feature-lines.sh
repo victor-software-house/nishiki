@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="check:features builds every language of the all list in Cargo.toml alone"
+#MISE tools = { taplo = "0.10.0" }
 # check:features builds each language alone, one line per feature.
 # A new language joins the all list in Cargo.toml.
 # Nothing ties that list to the lines of check:features.

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Each benchmark corpus file matches its row in bench/corpus.toml"
+#MISE tools = { taplo = "0.10.0" }
 # A figure from the corpus means something only if every run reads the same
 # bytes (bench/AGENTS.md; openspec bench-methodology, design decision 2).
 # Those bytes must be under a licence that allows them here.

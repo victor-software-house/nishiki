@@ -9,7 +9,7 @@ The writing rules are in the root guide's Documentation section.
 2. A change in `changes/` states what is being done and why, in a proposal, a design and tasks.
 3. A task is checked off only when its verify clause passed.
    A dated note under it says what ran, the result, and the linked pull request or run.
-4. A finished change is archived with `openspec archive <change> -y`, in the pull request that finishes its last task.
+4. A finished change is archived with `mise x github:Fission-AI/OpenSpec@1.16.0 -- openspec archive <change> -y`, the version `mise-tasks/specs.sh` pins, in the pull request that finishes its last task.
 5. `mise run specs` validates every change and spec, strictly.
 6. Every reference is a clickable, reference-style link.
    A link to code or a file is pinned to a commit.
