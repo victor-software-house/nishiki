@@ -449,12 +449,20 @@ impl Document {
             self.tail.tokens.clear();
             self.mark(first, self.line_count());
         } else {
-            if let Some(lexed) = self.tail.lexed.as_mut() {
-                lexed.start = if grew {
-                    lexed.start + by
-                } else {
-                    lexed.start - by
-                };
+            match self.tail.lexed {
+                Some(lexed) if lexed.start >= range.end => {
+                    let start = if grew {
+                        lexed.start + by
+                    } else {
+                        lexed.start - by
+                    };
+                    self.tail.lexed = Some(Lexed { start, ..lexed });
+                }
+                Some(lexed) if lexed.start >= region_start => {
+                    self.tail.lexed = None;
+                    self.tail.tokens.clear();
+                }
+                Some(_) | None => {}
             }
             self.mark(first, end);
         }
