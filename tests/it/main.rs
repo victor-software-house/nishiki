@@ -6,6 +6,7 @@ mod limits;
 mod notices;
 mod oracle;
 mod sorted;
+mod stream;
 
 /// A highlighter can move between threads, be shared, and survive a caught
 /// panic. A cell in its scratch would take away `Sync` and `RefUnwindSafe`,

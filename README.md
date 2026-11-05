@@ -38,11 +38,13 @@ for token in &tokens {
 }
 ```
 
+A `Document` highlights text as it streams in, such as a model's reply, and lexes each completed line once.
+
 ## Documentation
 
 The API docs are on [docs.rs](https://docs.rs/nishiki):
 
-- the quick start, themes, limits and cargo features, on the crate page;
+- the quick start, themes, streaming, limits and cargo features, on the crate page;
 - each language's quirks, on its `Language` variant.
 
 ## Languages

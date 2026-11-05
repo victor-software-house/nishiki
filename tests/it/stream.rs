@@ -1,0 +1,229 @@
+//! Streams every oracle fixture into a `Document` and compares each line with
+//! Shiki's records (openspec streaming, the `streaming` spec).
+//!
+//! The fixtures are Shiki's output for the whole text, so a document whose
+//! final lines match them matches Shiki however its deltas were cut.
+
+use nishiki::{Document, Language, LineKind, Theme, ThemeSource, Until};
+
+use crate::oracle::{Line, Tokens, compare, every_language, fixtures, parse, report};
+
+/// How a test cuts a fixture's text into deltas.
+#[derive(Clone, Copy, Debug)]
+enum Cut {
+    /// Runs of word characters, runs of blanks and single punctuation
+    /// characters, at most four characters each, as a model's tokens come.
+    Tokens,
+    /// One to seven bytes at a time, from a seeded generator, so many deltas
+    /// end inside a character.
+    Bytes(u64),
+    /// The whole text at once, lexed through the middle line first.
+    Whole,
+}
+
+/// What kind of character `c` is, for cutting token-sized deltas.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Class {
+    Word,
+    Blank,
+    Other,
+}
+
+fn class(c: char) -> Class {
+    match c {
+        c if c.is_alphanumeric() || c == '_' => Class::Word,
+        c if c.is_whitespace() => Class::Blank,
+        _ => Class::Other,
+    }
+}
+
+/// The byte ends of `text`'s token-sized deltas.
+fn token_ends(text: &str) -> Vec<usize> {
+    let mut ends = Vec::new();
+    let mut run = 0;
+    let mut last = None;
+    for (at, c) in text.char_indices() {
+        let now = class(c);
+        if at > 0 && (Some(now) != last || now == Class::Other || run == 4) {
+            ends.push(at);
+            run = 0;
+        }
+        run += 1;
+        last = Some(now);
+    }
+    ends.push(text.len());
+    ends
+}
+
+/// The byte ends of deltas of one to seven bytes, from `seed`.
+fn byte_ends(len: usize, seed: u64) -> Vec<usize> {
+    let mut state = seed | 1;
+    let mut ends = Vec::new();
+    let mut at = 0;
+    while at < len {
+        state ^= state << 13;
+        state ^= state >> 7;
+        state ^= state << 17;
+        let step = usize::try_from(state % 7).unwrap_or(0) + 1;
+        at = (at + step).min(len);
+        ends.push(at);
+    }
+    ends
+}
+
+/// `text` streamed into a document of `language` as `cut` says, finished and
+/// lexed to its end.
+fn streamed(language: Language, text: &str, cut: Cut) -> Document {
+    let mut document = Document::new(language, Theme::new(ThemeSource::default()));
+    let bytes = text.as_bytes();
+    let ends = match cut {
+        Cut::Tokens => token_ends(text),
+        Cut::Bytes(seed) => byte_ends(bytes.len(), seed),
+        Cut::Whole => {
+            document.push_str(text);
+            document.lex(Until::Line(document.line_count() / 2));
+            Vec::new()
+        }
+    };
+    let mut from = 0;
+    for end in ends {
+        document.push(&bytes[from..end]);
+        document.lex(Until::End);
+        from = end;
+    }
+    document.finish();
+    document.lex(Until::End);
+    document
+}
+
+/// The fixtures of `language` whose streamed lines differ from Shiki's, as
+/// reports, under every cut.
+fn stream_failures(language: Language) -> Vec<String> {
+    let mut failures = Vec::new();
+    for (number, path) in fixtures(language.id()).into_iter().enumerate() {
+        let lines: Vec<Line> = parse(&path);
+        let text = lines
+            .iter()
+            .map(|line| line.text.as_str())
+            .collect::<Vec<_>>()
+            .join("\n");
+        let seed = u64::try_from(number).unwrap_or(0) + 0x9e37_79b9;
+        for cut in [Cut::Tokens, Cut::Bytes(seed), Cut::Whole] {
+            let document = streamed(language, &text, cut);
+            assert_eq!(
+                document.text(),
+                text,
+                "{}: {cut:?} lost text",
+                path.display()
+            );
+            assert_eq!(
+                document.line_count(),
+                lines.len(),
+                "{}: {cut:?}",
+                path.display()
+            );
+            let mut index = 0;
+            let (checked, misses) = compare(&lines, |_| {
+                let line = document.line(index);
+                index += 1;
+                tokens_of(&document, line)
+            });
+            if !misses.is_empty() {
+                failures.push(format!("{cut:?}: {}", report(&path, checked, &misses)));
+            }
+            for index in 0..document.line_count() {
+                let line = document.line(index);
+                let kind = line.map(|line| line.kind());
+                assert_eq!(
+                    kind,
+                    Some(LineKind::Exact),
+                    "{}: {cut:?} line {}",
+                    path.display(),
+                    index + 1
+                );
+            }
+        }
+    }
+    failures
+}
+
+/// A line's tokens as the oracle comparison reads them.
+fn tokens_of(document: &Document, line: Option<nishiki::DocumentLine<'_>>) -> Tokens {
+    let Some(line) = line else {
+        return Vec::new();
+    };
+    assert!(
+        line.report().is_complete(),
+        "{:?} reached a limit",
+        line.text()
+    );
+    line.tokens()
+        .iter()
+        .map(|token| {
+            let mut scopes: Vec<&str> = document.highlighter().scopes(token.stack()).collect();
+            scopes.reverse();
+            (token.end(), scopes.join(" "))
+        })
+        .collect()
+}
+
+#[test]
+fn every_language_streams_as_shiki_lexes() {
+    every_language(stream_failures);
+}
+
+/// Bytes that are not UTF-8, cut anywhere, read as `String::from_utf8_lossy`
+/// reads them whole.
+#[test]
+fn bytes_that_are_not_utf8_become_replacement_characters() {
+    let bytes: &[u8] = b"ok \xe2\x82 \xf0\x9f\x98\x80 \xff\xfe x\xc3\xa9\xed\xa0\x80 end\xe2\x82";
+    let whole = String::from_utf8_lossy(bytes);
+    for seed in 1..64 {
+        let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+        let mut from = 0;
+        for end in byte_ends(bytes.len(), seed) {
+            document.push(&bytes[from..end]);
+            from = end;
+        }
+        document.finish();
+        assert_eq!(document.text(), whole, "seed {seed}");
+    }
+}
+
+/// Each delta changes only the lines it touched, and the changes say so.
+#[test]
+fn changes_hold_every_line_a_delta_touched() {
+    let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+    document.push_str("let a = 1;\nlet b");
+    document.lex(Until::End);
+    let first = document.take_changes();
+    assert_eq!(
+        first.map(|changes| (changes.start, changes.old_end, changes.new_end)),
+        Some((0, 1, 2))
+    );
+    assert_eq!(document.take_changes(), None);
+    document.push_str(indoc::indoc! {"
+         = 2;
+        let c = 3;
+    "});
+    document.lex(Until::End);
+    let second = document.take_changes();
+    assert_eq!(
+        second.map(|changes| (changes.start, changes.old_end, changes.new_end)),
+        Some((1, 2, 4))
+    );
+}
+
+/// A `\r` at the end of a delta waits for the next one to show whether it
+/// begins a line ending.
+#[test]
+fn a_carriage_return_before_a_line_feed_ends_the_line() {
+    let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+    document.push_str("let a = 1;\r");
+    document.lex(Until::End);
+    assert_eq!(document.line(0).map(|line| line.text()), Some("let a = 1;"));
+    document.push_str("\nlet b = 2;");
+    document.lex(Until::End);
+    assert_eq!(document.line(0).map(|line| line.text()), Some("let a = 1;"));
+    assert_eq!(document.line(1).map(|line| line.text()), Some("let b = 2;"));
+}

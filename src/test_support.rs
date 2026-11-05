@@ -258,3 +258,40 @@ pub(crate) fn ruby_heredoc_halts(
 
 #[cfg(feature = "_rule-engine")]
 pub(crate) mod probe;
+
+/// The text of every oracle fixture, with its language.
+pub(crate) fn oracle_documents() -> Vec<(crate::Language, String)> {
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
+    let mut dirs: Vec<_> = std::fs::read_dir(&root)
+        .expect("tests/oracle is readable")
+        .filter_map(Result::ok)
+        .map(|entry| entry.path())
+        .collect();
+    dirs.sort();
+    let mut documents = Vec::new();
+    for dir in dirs {
+        let Some(language) = dir
+            .file_name()
+            .and_then(|name| name.to_str())
+            .and_then(crate::Language::from_name)
+        else {
+            continue;
+        };
+        let mut files: Vec<_> = std::fs::read_dir(&dir)
+            .expect("a fixture directory is readable")
+            .filter_map(Result::ok)
+            .map(|entry| entry.path())
+            .filter(|path| path.extension().is_some_and(|ext| ext == "txt"))
+            .collect();
+        files.sort();
+        for file in files {
+            let text = std::fs::read_to_string(&file).expect("a fixture is readable");
+            let lines: Vec<&str> = text
+                .lines()
+                .filter_map(|record| record.strip_prefix("L ").or((record == "L").then_some("")))
+                .collect();
+            documents.push((language, lines.join("\n")));
+        }
+    }
+    documents
+}

@@ -91,6 +91,53 @@
 //! A theme colour that is not hex, such as a CSS variable, sets no colour.
 //! Shiki passes it through.
 //!
+//! # Streaming
+//!
+//! A [`Document`] highlights text as it arrives, such as a model's reply or a
+//! file a tool writes.
+//!
+//! - [`Document::push`] and [`Document::push_str`] append a delta, which may
+//!   end mid-line or inside a UTF-8 character.
+//! - [`Document::lex`] lexes what changed, through a line or to the end.
+//! - [`Document::take_changes`] gives the lines to draw again.
+//! - A completed line is lexed once. Only the last line, still being written,
+//!   is lexed again on each delta.
+//!
+//! A later line never changes an earlier one, so a completed line is final.
+//! The last line is [`LineKind::Provisional`] until [`Document::finish`].
+//! Its last token can still change, as `in` becomes `int`. Showing the bytes
+//! from its `stable` offset in the default colour avoids most flicker.
+//!
+//! ```
+//! use nishiki::{Document, Language, LineKind, Theme, ThemeSource, Until};
+//!
+//! let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+//! let mut redrawn = Vec::new();
+//! for delta in ["let x", " = 4", "2;\nfn m", "ain() {}"] {
+//!     document.push_str(delta);
+//!     document.lex(Until::End);
+//!     if let Some(changes) = document.take_changes() {
+//!         redrawn.extend(changes.start..changes.new_end);
+//!     }
+//! }
+//! assert_eq!(redrawn, [0, 0, 0, 1, 1]);
+//! assert_eq!(
+//!     document.line(0).map(|line| line.kind()),
+//!     Some(LineKind::Exact)
+//! );
+//! assert!(matches!(
+//!     document.line(1).map(|line| line.kind()),
+//!     Some(LineKind::Provisional { .. })
+//! ));
+//!
+//! document.finish();
+//! document.lex(Until::End);
+//! assert_eq!(
+//!     document.line(1).map(|line| line.kind()),
+//!     Some(LineKind::Exact)
+//! );
+//! ```
+//!
 //! # Limits
 //!
 //! [`Limits`] bounds every line:
@@ -256,6 +303,7 @@ mod dart;
 mod diff;
 #[cfg(feature = "lang-dockerfile")]
 mod dockerfile;
+mod document;
 #[cfg(feature = "lang-elixir")]
 mod elixir;
 #[cfg(any(
@@ -398,6 +446,7 @@ mod yaml;
 mod zig;
 
 pub use arena::Scopes;
+pub use document::{Changes, Document, DocumentLine, LineKind, Until};
 pub use highlighter::Highlighter;
 pub use language::Language;
 pub use limits::{Budget, Limit, Limits, LineReport, Work};

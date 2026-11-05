@@ -19,7 +19,7 @@ pub(crate) struct Line {
 }
 
 /// A byte whose scope stack differs from Shiki's.
-struct Miss {
+pub(crate) struct Miss {
     line: usize,
     column: usize,
     text: String,
@@ -79,14 +79,14 @@ pub(crate) fn parse(path: &Path) -> Vec<Line> {
 /// One line's tokens: each token's byte end and its scope stack, joined by
 /// spaces. A lexer under test is a closure that keeps its own state between
 /// calls, so each language plugs in without a shared trait.
-type Tokens = Vec<(usize, String)>;
+pub(crate) type Tokens = Vec<(usize, String)>;
 
 /// What a fixture expects for a byte it does not check: Shiki passes a theme
 /// colour that is not hex through, such as one-light's `inherit`, where
 /// nishiki sets no colour.
 const UNCHECKED: &str = "unchecked";
 
-fn compare(lines: &[Line], mut lex: impl FnMut(&str) -> Tokens) -> (usize, Vec<Miss>) {
+pub(crate) fn compare(lines: &[Line], mut lex: impl FnMut(&str) -> Tokens) -> (usize, Vec<Miss>) {
     let mut checked = 0;
     let mut misses = Vec::new();
     for (number, line) in lines.iter().enumerate() {
@@ -133,7 +133,7 @@ fn scope_failures(language: Language) -> Vec<String> {
 
 /// The failure message: the share that matched, then the first mismatches,
 /// one per line of source.
-fn report(path: &Path, checked: usize, misses: &[Miss]) -> String {
+pub(crate) fn report(path: &Path, checked: usize, misses: &[Miss]) -> String {
     let mut message = format!(
         "{}: {} of {checked} non-whitespace bytes differ from Shiki",
         path.display(),

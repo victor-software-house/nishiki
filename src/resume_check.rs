@@ -43,43 +43,6 @@ fn scopes(language: crate::Language, text: &str, rebuild: bool) -> Vec<Vec<Strin
     lines
 }
 
-/// The text of every oracle fixture, with its language.
-fn fixtures() -> Vec<(crate::Language, String)> {
-    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
-    let mut dirs: Vec<_> = std::fs::read_dir(&root)
-        .expect("tests/oracle is readable")
-        .filter_map(Result::ok)
-        .map(|entry| entry.path())
-        .collect();
-    dirs.sort();
-    let mut documents = Vec::new();
-    for dir in dirs {
-        let Some(language) = dir
-            .file_name()
-            .and_then(|name| name.to_str())
-            .and_then(crate::Language::from_name)
-        else {
-            continue;
-        };
-        let mut files: Vec<_> = std::fs::read_dir(&dir)
-            .expect("a fixture directory is readable")
-            .filter_map(Result::ok)
-            .map(|entry| entry.path())
-            .filter(|path| path.extension().is_some_and(|ext| ext == "txt"))
-            .collect();
-        files.sort();
-        for file in files {
-            let text = std::fs::read_to_string(&file).expect("a fixture is readable");
-            let lines: Vec<&str> = text
-                .lines()
-                .filter_map(|record| record.strip_prefix("L ").or((record == "L").then_some("")))
-                .collect();
-            documents.push((language, lines.join("\n")));
-        }
-    }
-    documents
-}
-
 /// Asserts that `text` gives the same tokens whether a line takes the last
 /// line's rules over or builds them again.
 fn assert_same_tokens(language: crate::Language, text: &str) {
@@ -99,7 +62,7 @@ fn assert_same_tokens(language: crate::Language, text: &str) {
 /// line's rules over or builds them again.
 #[test]
 fn taking_rules_over_gives_the_tokens_rebuilding_gives() {
-    for (language, text) in &fixtures() {
+    for (language, text) in &crate::test_support::oracle_documents() {
         assert_same_tokens(*language, text);
     }
 }
