@@ -23,9 +23,9 @@ mod strings;
 use super::engine::{Lexer, Lowered, Run};
 use super::grammar::{Pat, Rule};
 use super::words;
-use crate::case_fold;
 use crate::classes::{is_ascii_space, is_space};
 use crate::rules::Chars;
+use crate::{bytes, case_fold};
 
 /// Whether `b` is in the grammar's symbol class `[]!#-\&*+\--:<-\[^_a-{}~]`.
 fn symbol_byte(b: u8) -> bool {
@@ -243,7 +243,10 @@ impl Lexer<'_> {
         }
         let word = self.lowered(p, end);
         let letters = word.letters.get(..word.len?)?;
-        words.binary_search(&letters).is_ok().then_some(end)
+        words
+            .binary_search_by(|word| bytes::order(word, letters))
+            .is_ok()
+            .then_some(end)
     }
 
     /// The end of the run of symbol characters from `i`.

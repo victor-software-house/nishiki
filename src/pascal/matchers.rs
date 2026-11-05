@@ -17,8 +17,8 @@
 use super::engine::{LONGEST_WORD, Lexer, Lowered};
 use super::grammar::{Pat, Rule};
 use super::words;
-use crate::case_fold;
 use crate::rules::Chars;
+use crate::{bytes, case_fold};
 
 /// Whether `b` is an ASCII `\w` character.
 fn is_word(b: u8) -> bool {
@@ -90,7 +90,10 @@ impl Lexer<'_> {
         }
         let word = self.lowered(p);
         let letters = word.letters.get(..word.len?)?;
-        (word.end > p && words.binary_search(&letters).is_ok()).then_some(word.end)
+        let listed = words
+            .binary_search_by(|word| bytes::order(word, letters))
+            .is_ok();
+        (word.end > p && listed).then_some(word.end)
     }
 
     /// The word at `p` and its letters, lowered once for every word pattern

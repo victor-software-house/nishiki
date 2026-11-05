@@ -209,6 +209,8 @@ mod arena;
 mod asm;
 #[cfg(feature = "lang-bat")]
 mod bat;
+#[cfg(any(feature = "lang-common-lisp", feature = "lang-pascal"))]
+mod bytes;
 #[cfg(feature = "lang-c")]
 mod c;
 #[cfg(any(
