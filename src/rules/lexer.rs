@@ -184,6 +184,23 @@ impl<G: Grammar> Scratch<G> {
         G::parent_text(&mut self.kept)
     }
 
+    /// Moves the frames kept for `from` to `to`, a state that differs from it
+    /// only in the top frame's payload, which becomes `payload`.
+    /// Where the node limit kept `to` out of the arena, `to` is `from` with
+    /// its old payload, and the frames stay as they are.
+    #[cfg(feature = "_embedding")]
+    pub(crate) fn move_resume(&mut self, from: u32, to: u32, payload: u32) {
+        if from != to
+            && self.resume == Some(from)
+            && let Some(top) = self.resume_frames.last_mut()
+            && top.state == from
+        {
+            top.state = to;
+            top.payload = payload;
+            self.resume = Some(to);
+        }
+    }
+
     /// Drops the frames kept for the next line.
     /// That line then opens its rules from its state.
     #[cfg(feature = "_embedding")]

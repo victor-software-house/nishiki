@@ -1113,13 +1113,30 @@ fn resume_at<G: Grammar>(
         Some(Stopped {
             at,
             kind: StopKind::Halt,
-        }) => ControlFlow::Continue((at, with_inner(cx, embedding, inner))),
+        }) => ControlFlow::Continue((at, resumed_with(cx, scratch, embedding, inner))),
         Some(Stopped {
             at,
             kind: StopKind::PopHost,
         }) => ControlFlow::Break(pop_host(cx, line, scratch, embedding, at)),
-        None => ControlFlow::Break(with_inner(cx, embedding, inner)),
+        None => ControlFlow::Break(resumed_with(cx, scratch, embedding, inner)),
     }
+}
+
+/// The state of the embedding rule `embedding` with the language's state
+/// `inner` as its payload ([`with_inner`]).
+/// The frames the grammar kept for `embedding` move to that state, since
+/// only the top frame's payload differs.
+/// The next lexer then takes them over instead of opening every rule again.
+#[cfg(feature = "_embedding")]
+fn resumed_with<G: Grammar>(
+    cx: &mut Context<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    embedding: u32,
+    inner: u32,
+) -> u32 {
+    let state = with_inner(cx, embedding, inner);
+    scratch(cx.scratch).move_resume(embedding, state, inner);
+    state
 }
 
 /// The state of the embedding rule `embedding` with the language's state
