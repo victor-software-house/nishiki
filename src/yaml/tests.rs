@@ -302,6 +302,111 @@ fn documents_and_directives() {
     );
 }
 
+/// The tokens of the one line `line`: each token's text, and its scopes
+/// after `source`, joined.
+fn tokens_of(line: &str) -> Vec<(String, String)> {
+    lex(line)
+        .remove(0)
+        .into_iter()
+        .map(|(text, scopes)| (text, scopes[1..].join(" ")))
+        .collect()
+}
+
+/// `rows` as `tokens_of` returns them.
+fn rows(rows: &[(&str, &str)]) -> Vec<(String, String)> {
+    rows.iter()
+        .map(|&(text, scopes)| (text.to_owned(), scopes.to_owned()))
+        .collect()
+}
+
+/// Shiki's grammar spells the blank between a directive's words `[\t ]`.
+/// After a no-break space, `1.2` is no version, so `YAML` is a reserved name,
+/// and every later word is a mistake.
+///
+/// Each expected row is Shiki's, without the `.yaml` suffixes.
+#[test]
+fn a_directive_word_after_a_no_break_space_is_a_mistake() {
+    let nbsp = char::from(0xa0_u8);
+    let gap = format!(" {nbsp}");
+    assert_eq!(
+        tokens_of(&format!("%YAML {nbsp}1.2")),
+        rows(&[
+            ("%", "meta.directive punctuation.definition.directive.begin"),
+            ("YAML", "meta.directive support.other.directive.reserved"),
+            (&gap, "meta.directive"),
+            ("1.2", "meta.directive invalid.illegal.unrecognized"),
+        ])
+    );
+    assert_eq!(
+        tokens_of(&format!("%TAG {nbsp}!a! b")),
+        rows(&[
+            ("%", "meta.directive punctuation.definition.directive.begin"),
+            ("TAG", "meta.directive keyword.other.directive.tag"),
+            (&gap, "meta.directive"),
+            ("!a!", "meta.directive invalid.illegal.unrecognized"),
+            (" ", "meta.directive"),
+            ("b", "meta.directive invalid.illegal.unrecognized"),
+        ])
+    );
+}
+
+/// The spaces before a directive's comment or line end lie outside the
+/// directive, as its end `(?=$|[\t ]+($|#))` says.
+/// A no-break space before them stays inside it.
+///
+/// Each expected row is Shiki's, without the `.yaml` suffixes.
+#[test]
+fn the_spaces_that_end_a_directive_lie_outside_it() {
+    let nbsp = char::from(0xa0_u8).to_string();
+    assert_eq!(
+        tokens_of("%YAML 1.2  "),
+        rows(&[
+            ("%", "meta.directive punctuation.definition.directive.begin"),
+            ("YAML", "meta.directive keyword.other.directive"),
+            (" ", "meta.directive"),
+            ("1.2", "meta.directive constant.numeric.yaml-version"),
+            ("  ", ""),
+        ])
+    );
+    assert_eq!(
+        tokens_of(&format!("%FOO x{nbsp} #c")),
+        rows(&[
+            ("%", "meta.directive punctuation.definition.directive.begin"),
+            ("FOO", "meta.directive support.other.directive.reserved"),
+            (" ", "meta.directive"),
+            ("x", "meta.directive string.unquoted.directive-name"),
+            (&nbsp, "meta.directive"),
+            (" ", ""),
+            (
+                "#",
+                "comment.line.number-sign punctuation.definition.comment"
+            ),
+            ("c", "comment.line.number-sign"),
+        ])
+    );
+}
+
+/// A reserved directive takes a name and one parameter.
+/// Its third word is a mistake.
+///
+/// Each expected row is Shiki's, without the `.yaml` suffixes.
+#[test]
+fn a_reserved_directive_third_word_is_a_mistake() {
+    assert_eq!(
+        tokens_of("%FOO x y z"),
+        rows(&[
+            ("%", "meta.directive punctuation.definition.directive.begin"),
+            ("FOO", "meta.directive support.other.directive.reserved"),
+            (" ", "meta.directive"),
+            ("x", "meta.directive string.unquoted.directive-name"),
+            (" ", "meta.directive"),
+            ("y", "meta.directive string.unquoted.directive-parameter"),
+            (" ", "meta.directive"),
+            ("z", "meta.directive invalid.illegal.unrecognized"),
+        ])
+    );
+}
+
 #[test]
 fn properties_and_aliases() {
     assert_eq!(
