@@ -1,0 +1,58 @@
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+index 6afdc039..92d650cc 100644
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -1125,22 +1125,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+         let mut name = std::mem::take(&mut self.scratch.name);
+         name.clear();
+         name.push_str(prefix);
+-        {
+-            let s = self.s;
+-            match source {
+-                NameSource::Line { start, end, case } => {
+-                    let text = String::from_utf8_lossy(s.get(start..end).unwrap_or_default());
+-                    push_spelled(&mut name, &text, case);
+-                }
+-                NameSource::Interned(id) => {
+-                    name.push_str(self.arena.string(id).trim_start_matches('.'));
+-                }
+-                NameSource::Group(group) => {
+-                    let text = String::from_utf8_lossy(self.cap_text(group.into()));
+-                    push_spelled(&mut name, &text, G::dyn_name_case(prefix));
+-                }
+-            }
+-        }
++        self.push_name_text(&mut name, prefix, source);
+         name.push_str(suffix);
+         let mut stack = base;
+         for part in name.split(' ') {
+@@ -1159,6 +1144,29 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+         stack
+     }
+ 
++    /// Pushes the text of `source` onto `name`, without its leading dots,
++    /// spelled as the grammar spells a name with `prefix`.
++    ///
++    /// This is out of line.
++    /// Inlined with `dynamic_path` into `emit_match`, it raised the register
++    /// pressure of `emit_match`'s hot loop.
++    #[inline(never)]
++    fn push_name_text(&self, name: &mut String, prefix: &'static str, source: NameSource) {
++        match source {
++            NameSource::Line { start, end, case } => {
++                let text = String::from_utf8_lossy(self.s.get(start..end).unwrap_or_default());
++                push_spelled(name, &text, case);
++            }
++            NameSource::Interned(id) => {
++                name.push_str(self.arena.string(id).trim_start_matches('.'));
++            }
++            NameSource::Group(group) => {
++                let text = String::from_utf8_lossy(self.cap_text(group.into()));
++                push_spelled(name, &text, G::dyn_name_case(prefix));
++            }
++        }
++    }
++
+     /// The stack `parent` with the name scopes of `rule`, which carries
+     /// `payload`, on top.
+     fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {

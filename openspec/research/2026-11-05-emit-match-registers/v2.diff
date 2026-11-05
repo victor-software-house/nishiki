@@ -1,0 +1,37 @@
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+index 6afdc039..c1ce6679 100644
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -1135,10 +1135,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+                 NameSource::Interned(id) => {
+                     name.push_str(self.arena.string(id).trim_start_matches('.'));
+                 }
+-                NameSource::Group(group) => {
+-                    let text = String::from_utf8_lossy(self.cap_text(group.into()));
+-                    push_spelled(&mut name, &text, G::dyn_name_case(prefix));
+-                }
++                NameSource::Group(group) => self.push_group_text(&mut name, group, prefix),
+             }
+         }
+         name.push_str(suffix);
+@@ -1159,6 +1156,20 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+         stack
+     }
+ 
++    /// Pushes the text of capture group `group` onto `name`, spelled as
++    /// the grammar spells a name with `prefix`.
++    ///
++    /// This is out of line.
++    /// Inlined with `dynamic_path` into `emit_match`, it raised the register
++    /// pressure of `emit_match`'s hot loop, though CSS builds no name from a
++    /// group: CSS's `emit_match` ran 19,062 more instructions at one codegen
++    /// unit.
++    #[inline(never)]
++    fn push_group_text(&self, name: &mut String, group: u8, prefix: &'static str) {
++        let text = String::from_utf8_lossy(self.cap_text(group.into()));
++        push_spelled(name, &text, G::dyn_name_case(prefix));
++    }
++
+     /// The stack `parent` with the name scopes of `rule`, which carries
+     /// `payload`, on top.
+     fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {
