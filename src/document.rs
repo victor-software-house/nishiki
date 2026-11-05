@@ -323,6 +323,7 @@ impl Document {
     /// [`String::from_utf8_lossy`] reads it.
     /// Pushing after [`Document::finish`] opens the document again.
     pub fn push(&mut self, delta: &[u8]) {
+        self.reopen();
         let mut rest = delta;
         while self.carry.len > 0 {
             let Some((&byte, after)) = rest.split_first() else {
@@ -346,6 +347,7 @@ impl Document {
     /// Appends text.
     /// Pushing after [`Document::finish`] opens the document again.
     pub fn push_str(&mut self, delta: &str) {
+        self.reopen();
         if self.carry.len > 0 {
             self.push(delta.as_bytes());
         } else {
@@ -589,6 +591,18 @@ impl Document {
         self.garbage = 0;
     }
 
+    /// Opens a finished document again, for a push.
+    /// The last line stops being exact, so it counts as changed.
+    fn reopen(&mut self) {
+        match self.stream {
+            Stream::Open => {}
+            Stream::Finished => {
+                self.stream = Stream::Open;
+                self.mark(self.lines.len(), self.line_count());
+            }
+        }
+    }
+
     /// Appends text that holds no unfinished character.
     fn append(&mut self, delta: &str) {
         if delta.is_empty() {
@@ -597,7 +611,6 @@ impl Document {
         let first = self.lines.len();
         let from = self.text.len();
         self.text.push_str(delta);
-        self.stream = Stream::Open;
         for at in memchr::memchr_iter(b'\n', delta.as_bytes()) {
             let feed = from + at;
             let start = self.lines.last().map_or(0, |line| line.next);

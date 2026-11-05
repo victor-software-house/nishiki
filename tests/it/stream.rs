@@ -431,3 +431,38 @@ fn a_reset_lexes_again_from_a_fresh_highlighter() {
         assert_eq!(ours, Some(tokens.len()), "line {}", index + 1);
     }
 }
+
+/// A push after `finish` opens the document again, even when it adds no
+/// text yet: an empty delta, or the first byte of a character.
+#[test]
+fn a_push_after_finish_opens_the_document_again() {
+    let theme = || Theme::new(ThemeSource::default());
+    let deltas: [&[u8]; 2] = [b"", b"\xe2"];
+    for delta in deltas {
+        let mut document = Document::new(Language::Rust, theme());
+        document.push_str("let a");
+        document.finish();
+        document.lex(Until::End);
+        assert_eq!(
+            document.line(0).map(|line| line.kind()),
+            Some(LineKind::Exact)
+        );
+        let _ = document.take_changes();
+        document.push(delta);
+        document.lex(Until::End);
+        assert!(
+            matches!(
+                document.line(0).map(|line| line.kind()),
+                Some(LineKind::Provisional { .. })
+            ),
+            "after {delta:?}"
+        );
+        assert_eq!(
+            document
+                .take_changes()
+                .map(|changes| (changes.start, changes.new_end)),
+            Some((0, 1)),
+            "after {delta:?}"
+        );
+    }
+}
