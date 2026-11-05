@@ -14,13 +14,42 @@ use crate::rules::Chars;
 
 /// The bytes the lookbehind before a string's quote accepts, besides `\s`:
 /// `[\&(*-/:->\[\\^{|~\s]`.
-const BEFORE_QUOTE: &[u8] = b"&(*+,-./:;<=>[\\^{|~";
+const BEFORE_QUOTE: [bool; 256] = table(b"&(*+,-./:;<=>[\\^{|~");
 /// The bytes the lookahead after a string's closing quote accepts, besides
 /// `\s`: `[\&(-/:->\[-^{-~\s]`.
-const AFTER_QUOTE: &[u8] = b"&()*+,-./:;<=>[\\]^{|}~";
+const AFTER_QUOTE: [bool; 256] = table(b"&()*+,-./:;<=>[\\]^{|}~");
 /// The bytes the lookbehind before a number accepts, besides `\s`:
 /// `[(*-\-/:=\[\\{\s]`.
-const BEFORE_NUMBER: &[u8] = b"(*+,-/:=[\\{";
+const BEFORE_NUMBER: [bool; 256] = table(b"(*+,-/:=[\\{");
+/// The bytes, besides `\s`, that are no one-character first token of a
+/// command's arguments: the quotes and the operators.
+const NOT_ARGUMENT: [bool; 256] = table(b"\"%&'()*+,-./:;<=>@\\^{|~");
+/// The bytes of `[]\&)*,/:->@\\^|}]`, which may follow an operator's blanks
+/// in the arguments' first shape.
+const CLOSERS: [bool; 256] = table(b"]&)*,/:;<=>@\\^|}");
+
+/// The table of `bytes`: whether each byte is one of them.
+///
+/// A set of bytes is looked up in a table rather than searched with
+/// `<[u8]>::contains`.
+/// On 16 bytes or more, `contains` calls `memchr`, which reads bytes one at
+/// a time up to the first aligned word, so its cost follows where the set
+/// sits in the binary, which another language's tables can move.
+/// A table lookup costs one load wherever the table sits.
+#[expect(
+    clippy::as_conversions,
+    reason = "`usize::from` is not `const`, and a byte always fits"
+)]
+const fn table(bytes: &[u8]) -> [bool; 256] {
+    let mut table = [false; 256];
+    let mut i = 0;
+    while i < bytes.len() {
+        table[bytes[i] as usize] = true;
+        i += 1;
+    }
+    table
+}
+
 /// The operators of `Operators`, in the order its alternation tries them.
 /// Each must have `\s` after it.
 const SPACED_OPERATORS: &[&[u8]] = &[
@@ -544,29 +573,31 @@ impl Lexer<'_> {
 
     // Strings.
 
-    /// Whether the character before `p` is `\s` or one of `bytes`.
-    fn prev_in(&self, p: usize, bytes: &[u8]) -> bool {
+    /// Whether the character before `p` is `\s` or one of the bytes of
+    /// `set`.
+    fn prev_in(&self, p: usize, set: &[bool; 256]) -> bool {
         if p == 0 {
             return false;
         }
         let start = self.char_start_before(p);
-        bytes.contains(&self.at(start)) || self.space_at(start) > 0
+        set[usize::from(self.at(start))] || self.space_at(start) > 0
     }
 
-    /// Whether the character at `i` is `\s` or one of `bytes`.
-    fn next_in(&self, i: usize, bytes: &[u8]) -> bool {
-        (i < self.lim() && bytes.contains(&self.at(i))) || self.space_at(i) > 0
+    /// Whether the character at `i` is `\s` or one of the bytes of `set`.
+    fn next_in(&self, i: usize, set: &[bool; 256]) -> bool {
+        (i < self.lim() && set[usize::from(self.at(i))]) || self.space_at(i) > 0
     }
 
     /// `((?<=[…])|^)quote`, a string's opening quote.
     fn open_quote(&self, p: usize, quote: u8) -> Option<usize> {
-        ((p == 0 || self.prev_in(p, BEFORE_QUOTE)) && self.at(p) == quote && p < self.lim())
+        ((p == 0 || self.prev_in(p, &BEFORE_QUOTE)) && self.at(p) == quote && p < self.lim())
             .then_some(p + 1)
     }
 
     /// `quote(?=[…])`, a string's closing quote.
     fn close_quote(&self, p: usize, quote: u8) -> Option<usize> {
-        (self.at(p) == quote && p < self.lim() && self.next_in(p + 1, AFTER_QUOTE)).then_some(p + 1)
+        (self.at(p) == quote && p < self.lim() && self.next_in(p + 1, &AFTER_QUOTE))
+            .then_some(p + 1)
     }
 
     /// `quote(?=.)`, a quote with a character after it on the line.
@@ -624,7 +655,7 @@ impl Lexer<'_> {
     /// The mantissa ends after the digits that follow a `.`, or else after
     /// the first run of digits, which `\d*` gives back for `\d+`.
     fn number(&self, p: usize) -> Option<usize> {
-        if p != 0 && !self.prev_in(p, BEFORE_NUMBER) {
+        if p != 0 && !self.prev_in(p, &BEFORE_NUMBER) {
             return None;
         }
         let whole = self.digit_end(p);
@@ -853,8 +884,7 @@ impl Lexer<'_> {
         if b == b'\'' || b == b'"' {
             return Some(a);
         }
-        let excluded = b"\"%&'()*+,-./:;<=>@\\^{|~";
-        if self.space_at(a) == 0 && !excluded.contains(&b) {
+        if self.space_at(a) == 0 && !NOT_ARGUMENT[usize::from(b)] {
             return Some(self.char_end(a));
         }
         if let Some(end) = self.operator_argument(a) {
@@ -913,8 +943,7 @@ impl Lexer<'_> {
         if self.at_eol(blanks) {
             return Some(blanks);
         }
-        let closers = b"]&)*,/:;<=>@\\^|}";
-        if blanks < self.lim() && closers.contains(&self.at(blanks)) {
+        if blanks < self.lim() && CLOSERS[usize::from(self.at(blanks))] {
             return Some(blanks + 1);
         }
         if self.at(blanks) == b'.' && blanks < self.lim() {
