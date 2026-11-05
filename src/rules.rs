@@ -1164,11 +1164,15 @@ pub(crate) struct RuleData<G: Grammar> {
     pub(crate) name: Scopes<G::Scope>,
     /// The scopes of what lies between its begin and end text.
     pub(crate) content: Scopes<G::Scope>,
-    /// The pattern that closes it.
+    /// The pattern that closes it, tried before every pattern of the rule.
+    ///
+    /// A rule whose `L:` injections win a tie with its end lists the end
+    /// among its patterns instead, after them, as Svelte's language tags do.
+    /// The engine knows an end pattern by its act, not by this field.
     pub(crate) end: Option<G::Pat>,
     /// The begin capture group that the end pattern repeats, when it does.
     pub(crate) backref: Option<u8>,
-    /// The patterns it tries, in order, after its end pattern.
+    /// The patterns it tries, in order, after `end`.
     pub(crate) patterns: &'static [G::Pat],
 }
 

@@ -33,7 +33,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HCL | `hcl` | 80 of 80 | 100.0% | 53 of 55 | 96.4% | 2 | 0 | yes |
-| HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 3 |  |
+| HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 2 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
@@ -494,7 +494,7 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #svg.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
 #svg.repository.#tags.patterns[9].begin  groups 3, 5
 #svg.repository.#tags.patterns[9].end  groups 1, 2, 3
-#svg.repository.#tags.patterns[9].patterns[0].end  groups 0 (fuzz)
+#svg.repository.#tags.patterns[9].patterns[0].end  groups 0
 #svg.repository.#tags.patterns[10].match  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
 #svg.repository.#tags.patterns[11].begin  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
 #svg.repository.#tags.patterns[11].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)

@@ -669,6 +669,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `svelte/kit-root` | [`packages/kit/src/runtime/components/root.svelte`][svelte-kit-root] in sveltejs/kit | [MIT][svelte-kit-licence] |
 | `svelte/less-pop` | `oracle/inputs/svelte-less-pop.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/sample` | [`samples/svelte.sample`][svelte-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `svelte/script-close` | `oracle/inputs/svelte-script-close.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/site-kit-docs-contents` | [`packages/site-kit/src/lib/docs/DocsContents.svelte`][svelte-site-kit-docs-contents] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
 | `svelte/site-kit-mobile-menu` | [`packages/site-kit/src/lib/nav/MobileMenu.svelte`][svelte-site-kit-mobile-menu] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
 | `svelte/site-kit-nav` | [`packages/site-kit/src/lib/nav/Nav.svelte`][svelte-site-kit-nav] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
@@ -778,6 +779,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `vue/playground-sun` | [`packages-private/sfc-playground/src/icons/Sun.vue`][vue-playground-sun] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-version-select` | [`packages-private/sfc-playground/src/VersionSelect.vue`][vue-playground-version-select] in vuejs/core | [MIT][vue-licence] |
 | `vue/sample` | [`samples/vue.sample`][vue-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `vue/script-close` | `oracle/inputs/vue-script-close.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/vitepress-badge` | [`src/client/theme-default/components/VPBadge.vue`][vitepress-badge] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `vue/vitepress-carbon-ads` | [`src/client/theme-default/components/VPCarbonAds.vue`][vitepress-carbon-ads] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `vue/vitepress-image` | [`src/client/theme-default/components/VPImage.vue`][vitepress-image] in vuejs/vitepress | [MIT][vitepress-licence] |

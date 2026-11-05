@@ -1,0 +1,68 @@
+L <!--
+T 4 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L   A `/>` right after a language tag's `>` is part of the body.
+T 62 text.html.vue comment.block.vue
+L   A tag that closes itself with `/>` has no body.
+T 49 text.html.vue comment.block.vue
+L -->
+T 3 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L <script>/> a
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+T 8 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 9 text.html.vue source.js keyword.operator.arithmetic.js
+T 10 text.html.vue source.js keyword.operator.relational.js
+T 11 text.html.vue source.js
+T 12 text.html.vue source.js variable.other.readwrite.js
+L </script>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.script.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L <script setup lang="ts">/> b
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 23 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 25 text.html.vue source.ts keyword.operator.arithmetic.ts
+T 26 text.html.vue source.ts keyword.operator.relational.ts
+T 27 text.html.vue source.ts
+T 28 text.html.vue source.ts variable.other.readwrite.ts
+L </script>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.script.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L <style>/> c
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 10 text.html.vue source.css
+T 11 text.html.vue source.css meta.selector.css
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <template>/> d
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 14 text.html.vue text.html.derivative
+L </template>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.vue entity.name.tag.template.html.vue
+T 11 text.html.vue punctuation.definition.tag.end.html.vue
+L <script setup />/> e
+T 1 text.html.vue self-closing-tag punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue self-closing-tag entity.name.tag.script.html.vue
+T 8 text.html.vue self-closing-tag meta.tag-stuff
+T 13 text.html.vue self-closing-tag meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.vue self-closing-tag meta.tag-stuff
+T 16 text.html.vue self-closing-tag punctuation.definition.tag.end.html.vue
+T 20 text.html.vue
+L 

@@ -80,12 +80,14 @@ import svelteCoverage from "./inputs/svelte-coverage.svelte" with { type: "text"
 import svelteDollarScript from "./inputs/svelte-dollar-script.svelte" with { type: "text" };
 import svelteInvalidTags from "./inputs/svelte-invalid-tags.svelte" with { type: "text" };
 import svelteLessPop from "./inputs/svelte-less-pop.svelte" with { type: "text" };
+import svelteScriptClose from "./inputs/svelte-script-close.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
 import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
 import vbCoverage from "./inputs/vb-coverage.vb" with { type: "text" };
 import vueLessPop from "./inputs/vue-less-pop.vue" with { type: "text" };
+import vueScriptClose from "./inputs/vue-script-close.vue" with { type: "text" };
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
 import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
@@ -1426,6 +1428,7 @@ export const inputs: Input[] = [
   { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
   { lang: "svelte", name: "less-pop", text: svelteLessPop },
   { lang: "svelte", name: "sample", url: `${samples}/svelte.sample` },
+  { lang: "svelte", name: "script-close", text: svelteScriptClose },
   { lang: "svelte", name: "site-kit-docs-contents", url: `${svelteSiteKit}/src/lib/docs/DocsContents.svelte` },
   { lang: "svelte", name: "site-kit-mobile-menu", url: `${svelteSiteKit}/src/lib/nav/MobileMenu.svelte` },
   { lang: "svelte", name: "site-kit-nav", url: `${svelteSiteKit}/src/lib/nav/Nav.svelte` },
@@ -1591,6 +1594,7 @@ export const inputs: Input[] = [
   { lang: "vue", name: "playground-sun", url: `${vue}/packages-private/sfc-playground/src/icons/Sun.vue` },
   { lang: "vue", name: "playground-version-select", url: `${vue}/packages-private/sfc-playground/src/VersionSelect.vue` },
   { lang: "vue", name: "sample", url: `${samples}/vue.sample` },
+  { lang: "vue", name: "script-close", text: vueScriptClose },
   { lang: "vue", name: "vitepress-badge", url: `${vitepress}/src/client/theme-default/components/VPBadge.vue` },
   { lang: "vue", name: "vitepress-carbon-ads", url: `${vitepress}/src/client/theme-default/components/VPCarbonAds.vue` },
   { lang: "vue", name: "vitepress-image", url: `${vitepress}/src/client/theme-default/components/VPImage.vue` },

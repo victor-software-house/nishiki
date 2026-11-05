@@ -218,6 +218,11 @@ type Rule = {
    * embedded grammar; the rest come after it. */
   patterns: string[];
   before: number;
+  /** How many patterns at the head of `patterns` are `L:` injections.
+   * vscode-textmate takes an `L:` injection over the rule's own match where
+   * both start at one place, the end pattern included.
+   * So the end pattern comes after them. */
+  injected: number;
 };
 
 const pats = new Map<string, Pat>();
@@ -261,6 +266,7 @@ function nestedKind(group: string, patterns: Node[], context: string): string | 
     embed: null,
     patterns: [],
     before: 0,
+    injected: 0,
   };
   rules.set(kind, rule);
   if (deferred !== undefined) return kind;
@@ -346,6 +352,7 @@ function register(node: Node, id: string): string {
     embed: null,
     patterns: [],
     before: 0,
+    injected: 0,
   };
   rules.set(id, rule);
   const items = flatten(node.patterns ?? [], id);
@@ -429,11 +436,13 @@ rules.set("Root", {
   embed: null,
   patterns: rootItems.map((item) => (item as { pat: string }).pat),
   before: 0,
+  injected: 0,
 });
 for (const id of ["TagsLang", "TagsLangAt0"]) {
   const rule = rules.get(id);
   if (rule === undefined) throw new Error(`no rule ${id} for the bodies`);
   rule.patterns = [...bodies.keys(), ...rule.patterns];
+  rule.injected += bodies.size;
 }
 
 // The template body's selector, `L:meta.template.svelte - meta.lang - (meta
@@ -455,6 +464,7 @@ for (const rule of rules.values()) {
   const deferred = Object.values(deferredKinds).includes(rule.id);
   if (rule.id === "Root" || rule.embed !== null || deferred || rule.patterns.includes("BodyTemplate") || hidesTemplate(rule)) continue;
   rule.patterns = ["BodyTemplate", ...rule.patterns];
+  rule.injected += 1;
 }
 
 // Output.
@@ -503,11 +513,20 @@ for (const r of ruleList) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
 g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+/** A rule's end pattern, where it goes first, and its patterns, with the end
+ * after the injections where the rule has some. */
+function endAndPatterns(r: Rule): [string, string[]] {
+  if (r.end === "" || r.injected === 0) return [r.end, r.patterns];
+  return ["", [...r.patterns.slice(0, r.injected), r.end, ...r.patterns.slice(r.injected)]];
+}
 g += arms(
-  ruleList.map((r): [string, string] => [
-    r.id,
-    `RuleData {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.endBackref === null ? "None" : `Some(${r.endBackref})`},\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
-  ]),
+  ruleList.map((r): [string, string] => {
+    const [end, patterns] = endAndPatterns(r);
+    return [
+      r.id,
+      `RuleData {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${end ? `Some(Pat::${end})` : "None"},\n                backref: ${r.endBackref === null ? "None" : `Some(${r.endBackref})`},\n                patterns: &[${patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    ];
+  }),
   "Rule",
 );
 g += `        }\n    }\n\n    /// The \`while\` pattern of a rule that has one.\n    pub(crate) fn while_pat(self) -> Option<Pat> {\n        match self {\n`;

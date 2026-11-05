@@ -250,10 +250,11 @@ impl Rule {
             Rule::BodyTemplate => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::BodyTemplateEnd),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::BodyTemplateEnd,
                     Pat::Comments,
                     Pat::SpecialTagsVoid,
                     Pat::SpecialTagsBlockBegin,
@@ -269,9 +270,14 @@ impl Rule {
             Rule::Comments => RuleData {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
-                end: Some(Pat::CommentsEnd),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate, Pat::CommentsAt0, Pat::CommentsAt1],
+                patterns: &[
+                    Pat::BodyTemplate,
+                    Pat::CommentsEnd,
+                    Pat::CommentsAt0,
+                    Pat::CommentsAt1,
+                ],
             },
             Rule::CommentsAt0 => RuleData {
                 name: S::NO_SCOPES,
@@ -314,10 +320,11 @@ impl Rule {
             Rule::SpecialTagsVoid => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsVoidEnd),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsVoidEnd,
                     Pat::SpecialTagsModesAt0,
                     Pat::SpecialTagsModesAt1,
                     Pat::SpecialTagsModesAt2,
@@ -369,10 +376,11 @@ impl Rule {
             Rule::SpecialTagsModesAt2 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsModesAt2End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsModesAt2End,
                     Pat::DestructuringConstAt0,
                     Pat::DestructuringConstAt1,
                     Pat::SpecialTagsModesAt2At1,
@@ -397,9 +405,9 @@ impl Rule {
             Rule::SpecialTagsModesAt2At1 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsModesAt2At1End),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate],
+                patterns: &[Pat::BodyTemplate, Pat::SpecialTagsModesAt2At1End],
             },
             Rule::SpecialTagsModesAt2At2 => RuleData {
                 name: scopes![S::MetaTypeAnnotation],
@@ -418,10 +426,11 @@ impl Rule {
             Rule::SpecialTagsModesAt3 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsModesAt3End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsModesAt3End,
                     Pat::SpecialTagsModesAt3At0,
                     Pat::SpecialTagsModesAt3At1,
                 ],
@@ -436,10 +445,11 @@ impl Rule {
             Rule::SpecialTagsModesAt3At1 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsModesAt3At1End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsModesAt3At1End,
                     Pat::DestructuringAt0,
                     Pat::DestructuringAt1,
                     Pat::SpecialTagsModesAt3At1At1,
@@ -471,10 +481,11 @@ impl Rule {
             Rule::SpecialTagsModesAt4 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsModesAt4End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsModesAt4End,
                     Pat::SpecialTagsModesAt4At0,
                     Pat::SpecialTagsModesAt4At1,
                 ],
@@ -496,10 +507,11 @@ impl Rule {
             Rule::SpecialTagsModesAt5 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsModesAt5End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsModesAt5End,
                     Pat::SpecialTagsModesAt5At0,
                     Pat::SpecialTagsModesAt5At1,
                 ],
@@ -507,10 +519,11 @@ impl Rule {
             Rule::SpecialTagsBlockBegin => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsBlockBeginEnd),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::SpecialTagsBlockBeginEnd,
                     Pat::SpecialTagsModesAt0,
                     Pat::SpecialTagsModesAt1,
                     Pat::SpecialTagsModesAt2,
@@ -522,9 +535,9 @@ impl Rule {
             Rule::SpecialTagsBlockEnd => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::SpecialTagsBlockEndEnd),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate],
+                patterns: &[Pat::BodyTemplate, Pat::SpecialTagsBlockEndEnd],
             },
             Rule::NestedTagsStartNode => RuleData {
                 name: S::NO_SCOPES,
@@ -568,7 +581,7 @@ impl Rule {
             Rule::TagsLang => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsLangEnd),
+                end: None,
                 backref: Some(1),
                 patterns: &[
                     Pat::BodyJavaScript,
@@ -581,6 +594,7 @@ impl Rule {
                     Pat::BodySass,
                     Pat::BodyScss,
                     Pat::BodyTemplate,
+                    Pat::TagsLangEnd,
                     Pat::TagsLangAt0,
                     Pat::TagsLangStartAttributes,
                 ],
@@ -588,7 +602,7 @@ impl Rule {
             Rule::TagsLangAt0 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsLangAt0End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyJavaScript,
@@ -601,16 +615,18 @@ impl Rule {
                     Pat::BodySass,
                     Pat::BodyScss,
                     Pat::BodyTemplate,
+                    Pat::TagsLangAt0End,
                     Pat::TagsLangStartAttributes,
                 ],
             },
             Rule::TagsLangStartAttributes => RuleData {
                 name: scopes![S::MetaTagStart],
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsLangStartAttributesEnd),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::TagsLangStartAttributesEnd,
                     Pat::GenericsDoubleQuoted,
                     Pat::GenericsSingleQuoted,
                     Pat::AttributesCommentsAt0,
@@ -638,9 +654,9 @@ impl Rule {
             Rule::AttributesCommentsAt1 => RuleData {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
-                end: Some(Pat::AttributesCommentsAt1End),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate],
+                patterns: &[Pat::BodyTemplate, Pat::AttributesCommentsAt1End],
             },
             Rule::NestedAttributesDirectivesKeywords => RuleData {
                 name: S::NO_SCOPES,
@@ -699,17 +715,22 @@ impl Rule {
             Rule::AttributesDirectives => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::AttributesDirectivesEnd),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate, Pat::AttributesDirectivesAt0],
+                patterns: &[
+                    Pat::BodyTemplate,
+                    Pat::AttributesDirectivesEnd,
+                    Pat::AttributesDirectivesAt0,
+                ],
             },
             Rule::AttributesDirectivesAt0 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::AttributesDirectivesAt0End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::AttributesDirectivesAt0End,
                     Pat::InterpolationAt0,
                     Pat::AttributesValueAt1,
                     Pat::AttributesValueAt2,
@@ -733,9 +754,13 @@ impl Rule {
             Rule::AttributesValueAt3 => RuleData {
                 name: scopes![S::StrQuoted],
                 content: S::NO_SCOPES,
-                end: Some(Pat::AttributesValueAt3End),
+                end: None,
                 backref: Some(1),
-                patterns: &[Pat::BodyTemplate, Pat::InterpolationAt0],
+                patterns: &[
+                    Pat::BodyTemplate,
+                    Pat::AttributesValueAt3End,
+                    Pat::InterpolationAt0,
+                ],
             },
             Rule::NestedAttributesKeyvalueGroup0 => RuleData {
                 name: S::NO_SCOPES,
@@ -751,17 +776,22 @@ impl Rule {
             Rule::AttributesKeyvalue => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::AttributesKeyvalueEnd),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate, Pat::AttributesKeyvalueAt0],
+                patterns: &[
+                    Pat::BodyTemplate,
+                    Pat::AttributesKeyvalueEnd,
+                    Pat::AttributesKeyvalueAt0,
+                ],
             },
             Rule::AttributesKeyvalueAt0 => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::AttributesKeyvalueAt0End),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::AttributesKeyvalueAt0End,
                     Pat::InterpolationAt0,
                     Pat::AttributesValueAt1,
                     Pat::AttributesValueAt2,
@@ -785,10 +815,11 @@ impl Rule {
             Rule::TagsVoid => RuleData {
                 name: scopes![S::MetaTagVoid],
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsVoidEnd),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::TagsVoidEnd,
                     Pat::AttributesCommentsAt0,
                     Pat::AttributesCommentsAt1,
                     Pat::AttributesDirectives,
@@ -800,24 +831,29 @@ impl Rule {
             Rule::TagsGeneralEnd => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsGeneralEndEnd),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate],
+                patterns: &[Pat::BodyTemplate, Pat::TagsGeneralEndEnd],
             },
             Rule::TagsGeneralStart => RuleData {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsGeneralStartEnd),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate, Pat::TagsStartAttributes],
+                patterns: &[
+                    Pat::BodyTemplate,
+                    Pat::TagsGeneralStartEnd,
+                    Pat::TagsStartAttributes,
+                ],
             },
             Rule::TagsStartAttributes => RuleData {
                 name: scopes![S::MetaTagStart],
                 content: S::NO_SCOPES,
-                end: Some(Pat::TagsStartAttributesEnd),
+                end: None,
                 backref: None,
                 patterns: &[
                     Pat::BodyTemplate,
+                    Pat::TagsStartAttributesEnd,
                     Pat::AttributesCommentsAt0,
                     Pat::AttributesCommentsAt1,
                     Pat::AttributesDirectives,
@@ -829,9 +865,9 @@ impl Rule {
             Rule::ScopeAt4 => RuleData {
                 name: scopes![S::Text],
                 content: S::NO_SCOPES,
-                end: Some(Pat::ScopeAt4End),
+                end: None,
                 backref: None,
-                patterns: &[Pat::BodyTemplate],
+                patterns: &[Pat::BodyTemplate, Pat::ScopeAt4End],
             },
             Rule::Root => RuleData {
                 name: S::NO_SCOPES,
