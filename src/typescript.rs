@@ -190,19 +190,42 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of TypeScript that Svelte embeds at one entry of
-/// TypeScript's grammar: a context that runs that entry's patterns only.
+/// The state at the start of TypeScript that another grammar embeds at one
+/// entry of TypeScript's grammar, as Svelte does: a context that runs that
+/// entry's patterns only.
 /// Its text sits on `base`, which holds the embedding's own scope.
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
+#[cfg_attr(
+    all(not(test), not(feature = "lang-svelte")),
+    expect(dead_code, reason = "Astro reads it, in the next pull request")
+)]
 fn start_entry(arena: &mut Arena, base: u32, kind: Kind) -> u32 {
     arena.push(ROOT, kind.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// The start of `source.ts#object-literal`, which Svelte's `{ {a: 1} }`
-/// includes.
-#[cfg(feature = "lang-svelte")]
+/// includes, and of `source.tsx#object-literal`.
+#[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
+#[cfg_attr(
+    all(not(test), not(feature = "lang-svelte")),
+    expect(dead_code, reason = "Astro reads it, in the next pull request")
+)]
 pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Kind::EntryObjLit)
+}
+
+/// The start of a template string's body, without its `string.template`
+/// scope: `source.tsx#template-substitution-element` and
+/// `source.tsx#string-character-escape`, the two patterns of the body.
+/// Unlike a template string, it has no end of its own: the end of the rule
+/// that embeds it, such as a closing backtick, ends it.
+#[cfg(feature = "lang-tsx")]
+#[cfg_attr(
+    not(test),
+    expect(dead_code, reason = "Astro reads it, in the next pull request")
+)]
+pub(crate) fn start_template(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Kind::EntryTemplate)
 }
 
 /// The start of `source.ts#object-binding-pattern`, which Svelte's

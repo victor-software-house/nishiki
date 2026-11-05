@@ -45,7 +45,8 @@ impl<const D: u8> Lexer<'_, D> {
             | Kind::EntryObjBindConst
             | Kind::EntryArrBind
             | Kind::EntryArrBindConst
-            | Kind::EntryTypeParams => None,
+            | Kind::EntryTypeParams
+            | Kind::EntryTemplate => None,
             Kind::JsxExprNoAttrs => self.end_zero(self.jsx_expr_no_attrs_ends(p), p),
             Kind::JsxNoAttrs => self.jsx_no_attrs_end(p),
             Kind::JsxExprTag => self.end_zero(self.jsx_expr_tag_ends(p), p),

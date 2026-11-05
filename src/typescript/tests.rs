@@ -617,11 +617,23 @@ fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
     );
 }
 
-/// Lexes `lines` as JavaScript from the state `start` makes over the scopes
+/// Lexes `lines` as JavaScript like [`until_in`].
+fn until(
+    base: &[&str],
+    start: fn(&mut Arena, u32) -> u32,
+    lines: &[&str],
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> Vec<(Option<usize>, Row)> {
+    until_in(super::Dialect::JavaScript, base, start, lines, end, after)
+}
+
+/// Lexes `lines` in `dialect` from the state `start` makes over the scopes
 /// `base`, under [`super::lex_until`] with `end` and `after`, and returns,
 /// per line, where it halted and each token's text and full scope stack. The
 /// lines after a halt are not lexed.
-fn until(
+fn until_in(
+    dialect: super::Dialect,
     base: &[&str],
     start: fn(&mut Arena, u32) -> u32,
     lines: &[&str],
@@ -663,8 +675,7 @@ fn until(
             start: 0,
             embedded: false,
         };
-        let (next, stopped) =
-            super::lex_until(&mut cx, super::Dialect::JavaScript, line, state, end, after);
+        let (next, stopped) = super::lex_until(&mut cx, dialect, line, state, end, after);
         let halt = stopped.map(|stopped| stopped.at);
         state = next.state();
         let mut from = 0;
@@ -718,6 +729,69 @@ fn an_interpolation_ends_at_the_brace_that_no_context_is_waiting_for() {
         let expected = (close != usize::MAX).then_some(close);
         assert_eq!(interpolation(&[line])[0], expected, "{line:?}");
     }
+}
+
+/// The end of a backtick attribute value, as Astro passes it.
+fn backtick(bytes: &[u8], p: usize) -> bool {
+    bytes.get(p) == Some(&b'`')
+}
+
+/// The end of an object literal entry, `(?<=})`.
+fn after_brace(bytes: &[u8], p: usize) -> bool {
+    p > 0 && bytes.get(p - 1) == Some(&b'}')
+}
+
+/// The innermost scope of `token` in `row`.
+fn leaf_of(row: &Row, token: &str) -> String {
+    row.iter()
+        .find(|(text, _)| text == token)
+        .and_then(|(_, scopes)| scopes.last().cloned())
+        .unwrap_or_else(|| panic!("no token {token:?} in {row:?}"))
+}
+
+#[test]
+fn a_template_body_halts_at_a_backtick_outside_its_substitutions() {
+    let rows = until_in(
+        super::Dialect::Tsx,
+        &[],
+        super::start_template,
+        &["a ${`b`} \\` c` d"],
+        &backtick,
+        None,
+    );
+    let (halt, row) = &rows[0];
+    assert_eq!(*halt, Some(13));
+    assert_eq!(
+        leaf_of(row, "${"),
+        "punctuation.definition.template-expression.begin.tsx"
+    );
+    assert_eq!(leaf_of(row, "\\`"), "constant.character.escape.tsx");
+    let after_bracket = |bytes: &[u8], p: usize| p > 0 && bytes.get(p - 1) == Some(&b'>');
+    let rows = until_in(
+        super::Dialect::Tsx,
+        &[],
+        super::start_template,
+        &["ab>c` d"],
+        &after_bracket,
+        None,
+    );
+    assert_eq!(rows[0].0, Some(3), "the body is not skipped past a halt");
+}
+
+#[test]
+fn tsx_runs_the_object_literal_entry() {
+    let rows = until_in(
+        super::Dialect::Tsx,
+        &[],
+        super::start_object_literal,
+        &["{a: <b />} x"],
+        &after_brace,
+        None,
+    );
+    let (halt, row) = &rows[0];
+    assert_eq!(*halt, Some(10));
+    assert_eq!(leaf_of(row, "a"), "meta.object-literal.key.tsx");
+    assert_eq!(leaf_of(row, "b"), "entity.name.tag.tsx");
 }
 
 #[test]

@@ -428,6 +428,7 @@ languages! {
         names: ["tsx"],
         module: typescript,
         dialect: crate::typescript::Dialect::Tsx,
+        halts: true,
     }
     /// Shell, with the scopes of Shiki's `shellscript` grammar.
     ///

@@ -286,6 +286,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
                     | Kind::EntryArrBind
                     | Kind::EntryArrBindConst
                     | Kind::EntryTypeParams
+                    | Kind::EntryTemplate
             )
             || !test.holds(self.bytes, p)
         {

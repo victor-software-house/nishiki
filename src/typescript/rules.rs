@@ -223,7 +223,7 @@ impl<const D: u8> Lexer<'_, D> {
             Kind::RxSet => self.regex_set_rules(p),
             Kind::ReturnType1 | Kind::ReturnType2 => self.return_type_core(p),
             Kind::StrSingle | Kind::StrDouble => self.string_character_escape(p),
-            Kind::Template => self
+            Kind::Template | Kind::EntryTemplate => self
                 .template_substitution(p, Kind::TemplateExpr)
                 .or_else(|| self.string_character_escape(p)),
             Kind::TemplateType => self
@@ -256,14 +256,18 @@ impl<const D: u8> Lexer<'_, D> {
         }
     }
 
-    /// The rules of a Svelte expression that starts at `entry`, an entry of
+    /// The rules of an expression that starts at `entry`, an entry of
     /// TypeScript's grammar, as `typescript::start_entry` opens it.
-    /// Only Svelte's dialect opens an entry kind.
+    /// Only Svelte's dialects and Astro's TSX open an entry kind.
     /// The test of `D` drops these calls from every other dialect's lexer.
     /// There, `object_literal` and the others keep one call site each, and
     /// stay inlined.
+    /// In the dialects that open an entry, `object_literal` has a second call
+    /// site here, and LLVM keeps it out of line.
+    /// No attribute asks for that: an inline attribute would hold for every
+    /// dialect of `Lexer<D>`.
     fn entry(&mut self, entry: Entry, p: usize) -> Option<usize> {
-        if D & super::Dialect::SVELTE == 0 {
+        if D & super::Dialect::SVELTE == 0 && D != super::Dialect::TSX {
             return None;
         }
         match entry {

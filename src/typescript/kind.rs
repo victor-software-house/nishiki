@@ -217,6 +217,9 @@ kinds! {
     JsxEval [] [S::MetaEmbeddedExpression];
     JsxStrDouble [S::StringQuotedDouble] [];
     JsxStrSingle [S::StringQuotedSingle] [];
+    // Last, so that no other kind's code moves: placed among the entry
+    // kinds, it made every dialect run up to 0.15% more instructions.
+    EntryTemplate [] [];
 }
 
 impl Kind {
