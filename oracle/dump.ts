@@ -9,6 +9,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename } from "node:path";
 import { createHighlighter } from "shiki@4.6.0";
 import { fixture } from "./fixture.ts";
+import { grammars } from "./grammars.ts";
 
 const [lang, outdir, ...files] = process.argv.slice(2);
 if (!lang || !outdir || !files.length) {
@@ -16,7 +17,9 @@ if (!lang || !outdir || !files.length) {
   process.exit(2);
 }
 mkdirSync(outdir, { recursive: true });
-const highlighter = await createHighlighter({ langs: [lang], themes: ["github-dark"] });
+// Every input language is loaded, as generate.ts loads them, so an embedded
+// language is lexed as in the fixtures.
+const highlighter = await createHighlighter({ langs: grammars, themes: ["github-dark"] });
 for (const file of files) {
   const text = readFileSync(file, "utf8").replaceAll("\r\n", "\n");
   writeFileSync(`${outdir}/${basename(file)}.${lang}.txt`, fixture(highlighter, text, lang));
