@@ -41,6 +41,7 @@ import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
 import markdownInvalidTags from "./inputs/markdown-invalid-tags.md" with { type: "text" };
+import markdownLessPop from "./inputs/markdown-less-pop.md" with { type: "text" };
 import markdownPerlHeredocTags1 from "./inputs/markdown-perl-heredoc-tags-1.md" with { type: "text" };
 import markdownPerlHeredocTags2 from "./inputs/markdown-perl-heredoc-tags-2.md" with { type: "text" };
 import matlabCoverage from "./inputs/matlab-coverage.m" with { type: "text" };
@@ -1125,6 +1126,7 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
   { lang: "markdown", name: "ky-readme", url: `${ky}/readme.md` },
   { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
+  { lang: "markdown", name: "less-pop", text: markdownLessPop },
   { lang: "markdown", name: "markdownlint-blanks-around-headings-arrays", url: `${markdownlint}/test/blanks-around-headings-arrays.md` },
   { lang: "markdown", name: "markdownlint-link-style-autolink-only", url: `${markdownlint}/test/link-style-autolink-only.md` },
   { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },

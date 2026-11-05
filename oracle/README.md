@@ -23,6 +23,8 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
 - [`onig.ts`](onig.ts): compares a language's hand matchers with Oniguruma, one expression at a time.
 - [`coverage.ts`](coverage.ts): writes [`tests/oracle/COVERAGE.md`](../tests/oracle/COVERAGE.md), how much of each hand-lexed grammar the fixtures exercise.
   [`coverage-waivers.ts`](coverage-waivers.ts) lists the waivers and the complete grammars.
+- [`fence-stops.ts`](fence-stops.ts): checks that `Language::pops_fence` names every Markdown fence grammar whose root can stop without advancing.
+  `mise run check:rule-grammars` runs it.
 
 ## Generated tables
 

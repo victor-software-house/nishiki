@@ -21,7 +21,7 @@ use super::state::{Fence, Kind};
 use super::text::{Cx, LineFacts};
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
-use crate::language::{Context, Line, Parts};
+use crate::language::{Context, Line, Parts, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
@@ -1329,11 +1329,18 @@ impl<'a> Lexer<'a> {
             embedded: anchored,
         };
         #[cfg(feature = "lang-html-derivative")]
-        let (state, back) = match html_give_back(kind) {
+        let ((state, popped), back) = match html_give_back(kind) {
             Some(give_back) => {
-                crate::html::lex_derivative_until(&mut cx, line, payload, span, Some(give_back))
+                let (state, back) = crate::html::lex_derivative_until(
+                    &mut cx,
+                    line,
+                    payload,
+                    span,
+                    Some(give_back),
+                );
+                ((state, None), back)
             }
-            None => (lang.lex_embedded(&mut cx, line, payload), None),
+            None => (lex_fence(&mut cx, lang, line, payload), None),
         };
         #[cfg(feature = "lang-html-derivative")]
         let state = self.facts.steps.take_back(state);
@@ -1343,11 +1350,34 @@ impl<'a> Lexer<'a> {
             return;
         }
         #[cfg(not(feature = "lang-html-derivative"))]
-        let state = lang.lex_embedded(&mut cx, line, payload);
+        let (state, popped) = lex_fence(&mut cx, lang, line, payload);
         #[cfg(not(feature = "lang-html-derivative"))]
         let state = self.facts.steps.take_back(state);
+        if let Some(at) = popped {
+            self.pop_body(at, end);
+            return;
+        }
         self.last = end;
         self.pos = self.limit;
+        self.keep_body_state(kind, content, payload, kept, state);
+    }
+
+    /// Keeps `state`, the state the body of `kind` reached, in the body's
+    /// frame: as the frame's payload, and in a state of its own where the
+    /// frame keeps one (`kept`).
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at one codegen unit: with `#[inline]`, it stayed out of `step` and cost Markdown 0.2% in calls once a fence line"
+    )]
+    #[inline(always)]
+    fn keep_body_state(
+        &mut self,
+        kind: Kind,
+        content: u32,
+        payload: u32,
+        kept: Option<u32>,
+        state: u32,
+    ) {
         if state == payload {
             return;
         }
@@ -1374,6 +1404,80 @@ impl<'a> Lexer<'a> {
             top.payload = state;
             top.state = Some(pushed);
         }
+    }
+
+    /// Pops the fence's body where its language stopped at `at`, at its root,
+    /// without advancing ([`Language::pops_fence`]).
+    /// vscode-textmate pops the innermost rule there, the body.
+    /// The rest of the line, up to `end`, sits on the fence in place of the
+    /// tokens the language gave it.
+    /// The fence's next line opens the body again, as its rule does.
+    #[cold]
+    #[inline(never)]
+    fn pop_body(&mut self, at: usize, end: usize) {
+        crate::language::cut_tokens(self.out, at);
+        self.last = at;
+        if let Some(frame) = self.frames.pop() {
+            self.anchor = frame.saved_anchor;
+        }
+        if let Some(fence) = self.frames.last() {
+            self.emit(end, fence.content);
+        }
+        self.pos = self.limit;
+    }
+}
+
+/// Lexes a fence's line in `lang` from `state`, and returns where the
+/// language popped the fence's body, if it did.
+/// Only a language that [`Language::pops_fence`] names can.
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: out of line, the call it adds on every fence line cost Markdown 0.4%"
+)]
+#[inline(always)]
+fn lex_fence(
+    cx: &mut Context<'_>,
+    lang: Language,
+    line: Line<'_>,
+    state: u32,
+) -> (Finished, Option<usize>) {
+    if lang.pops_fence() {
+        lex_popping(cx, lang, line, state)
+    } else {
+        (lang.lex_embedded(cx, line, state), None)
+    }
+}
+
+/// Lexes a fence's line in a language that can pop the fence's body, through
+/// [`Language::lex_until`] with a halt that never holds.
+/// The halt lets the language report the pop ([`StopKind::PopHost`]).
+/// It costs a call at each byte the language tries at its root.
+#[cold]
+#[inline(never)]
+fn lex_popping(
+    cx: &mut Context<'_>,
+    lang: Language,
+    line: Line<'_>,
+    state: u32,
+) -> (Finished, Option<usize>) {
+    let (never, _) = crate::language::NO_HALTS;
+    match lang.lex_until(cx, line, state, never, None) {
+        Some((
+            finished,
+            Some(Stopped {
+                at,
+                kind: StopKind::PopHost,
+            }),
+        )) => (finished, Some(at)),
+        Some((
+            finished,
+            Some(Stopped {
+                kind: StopKind::Halt,
+                ..
+            })
+            | None,
+        )) => (finished, None),
+        None => (lang.lex_embedded(cx, line, state), None),
     }
 }
 

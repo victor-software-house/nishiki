@@ -442,6 +442,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/knex-schema-builder` | [`docs/src/guide/schema-builder.md`][knex-schema] in knex/knex | [MIT][knex-licence] |
 | `markdown/ky-readme` | [`readme.md`][ky-readme] in sindresorhus/ky | [MIT][ky-licence] |
 | `markdown/latexrun-readme` | [`README.md`][latexrun-readme] in aclements/latexrun | [MIT][latexrun-licence] |
+| `markdown/less-pop` | `oracle/inputs/markdown-less-pop.md`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/markdownlint-blanks-around-headings-arrays` | [`blanks-around-headings-arrays.md`][markdown-markdownlint-blanks-around-headings-arrays] in DavidAnson/markdownlint | [MIT][markdownlint-licence] |
 | `markdown/markdownlint-link-style-autolink-only` | [`link-style-autolink-only.md`][markdown-markdownlint-link-style-autolink-only] in DavidAnson/markdownlint | [MIT][markdownlint-licence] |
 | `markdown/next-with-docker-export-readme` | [`examples/with-docker-export-output/README.md`][next-docker-export-readme] in vercel/next.js | [MIT][next-licence] |

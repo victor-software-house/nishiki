@@ -268,10 +268,10 @@ macro_rules! languages {
             /// matches, and the second value says where and why it stopped
             /// ([`Stopped`]). `None` for a language that cannot halt.
             #[cfg_attr(
-                not(any(feature = "_embedding", feature = "_textmate")),
+                not(any(feature = "_embedding", feature = "_textmate", feature = "lang-markdown")),
                 expect(
                     dead_code,
-                    reason = "only the rule engine's embedding and the engine embed other languages"
+                    reason = "only the rule engine's embedding, the engine and Markdown's fences embed other languages"
                 )
             )]
             #[inline]
@@ -337,6 +337,10 @@ languages! {
     /// - With `lang-html`, a `php` fence is HTML under `meta.embedded.block.php`, since the grammar includes HTML there before PHP, which nishiki does not lex.
     /// - A dot in the fence names `css.erb`, `Berksfile.lock` and `.textmate_init` matches any one character.
     ///   The grammar leaves it unescaped, so `cssXerb` embeds CSS.
+    /// - In a `less` fence, a `)` or `}` at Less's root ends the fence's body.
+    ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, the body.
+    ///   The rest of the line is plain fence text.
+    ///   The next line with text opens the body again and stays plain; Less starts fresh on the line after.
     Markdown {
         feature: "lang-markdown",
         names: ["markdown", "md"],
@@ -1229,6 +1233,32 @@ impl Language {
                 .any(|known| known.eq_ignore_ascii_case(name))
         })
     }
+
+    /// Whether a Markdown fence in the language can end its embedded body
+    /// within a line.
+    /// The language's grammar has a root `match` that can match an empty text
+    /// without advancing.
+    /// vscode-textmate then pops the innermost rule, the fence's body
+    /// ([`StopKind::PopHost`]).
+    /// Less is the one: `(;)|(?=[)}])`.
+    ///
+    /// `oracle/fence-stops.ts`, a step of `mise run check:rule-grammars`,
+    /// recomputes the list from the grammars that Shiki's Markdown fences
+    /// include, and fails when it differs, which keeps it true.
+    /// It is one comparison, not a `match`, so no row's flag reaches the
+    /// lowering of Markdown's `step`.
+    #[cfg(feature = "lang-markdown")]
+    pub(crate) const fn pops_fence(self) -> bool {
+        #[cfg(feature = "lang-less")]
+        {
+            matches!(self, Language::Less)
+        }
+        #[cfg(not(feature = "lang-less"))]
+        {
+            let _ = self;
+            false
+        }
+    }
 }
 
 /// What a lexer needs besides the line: the interned stacks and states, the
@@ -1281,7 +1311,11 @@ pub(crate) enum StopKind {
 /// Cuts the tokens in `out` back to `at`, for a host that pops the rule that
 /// embeds a language ([`StopKind::PopHost`]).
 /// The language lexed the rest of the line from `at` as its own.
-#[cfg(any(feature = "_embedding", feature = "lang-vue"))]
+#[cfg(any(
+    feature = "_embedding",
+    feature = "lang-vue",
+    feature = "lang-markdown"
+))]
 pub(crate) fn cut_tokens(out: &mut Vec<Token>, at: usize) {
     let keep = out.partition_point(|token| token.end <= at);
     let start = keep.checked_sub(1).map_or(0, |last| out[last].end);

@@ -626,6 +626,17 @@ function oneBlankUnit(regex: string, backref: Backref): number {
   return found ? close + 1 : 0;
 }
 
+/** Whether `regex` can match the empty text, so that a `match` with it may
+ * not advance. Syntax the analysis does not read counts as able to. */
+export function canMatchEmpty(regex: string): boolean {
+  const source = regex.startsWith("(?i)") ? regex.slice(4) : regex;
+  try {
+    return new RegexParser(source, "any").parse().empty !== null;
+  } catch {
+    return true;
+  }
+}
+
 /** Whether some alternative of `regex` takes exactly one blank and then
  * requires a character that is not a blank: one unquantified unit that takes
  * one blank (`oneBlankUnit`), then a rest whose first byte cannot be a space

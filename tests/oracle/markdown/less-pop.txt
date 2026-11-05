@@ -1,0 +1,103 @@
+L # Less fences that pop their body
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 33 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L A `)` or `}` at Less's root matches without advancing.
+T 2 text.html.markdown meta.paragraph.markdown
+T 3 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 4 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 5 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 9 text.html.markdown meta.paragraph.markdown
+T 10 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 11 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 54 text.html.markdown meta.paragraph.markdown
+L vscode-textmate then pops the fence's body.
+T 43 text.html.markdown meta.paragraph.markdown
+L The next line with text opens the body again and stays plain.
+T 61 text.html.markdown meta.paragraph.markdown
+L Less starts fresh on the line after.
+T 36 text.html.markdown meta.paragraph.markdown
+L 
+L ```less
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ) a
+T 3 text.html.markdown markup.fenced_code.block.markdown
+L b { c: d; }
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L 
+L e { f: g; }
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.terminator.rule.less
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less punctuation.definition.block.end.less
+L h { i: j; } } k
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.terminator.rule.less
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less punctuation.definition.block.end.less
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less
+T 15 text.html.markdown markup.fenced_code.block.markdown
+L l { m: n; }
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L o { p: q; }
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.terminator.rule.less
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less punctuation.definition.block.end.less
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```less
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L }
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L 
+L r { s: t; }
+T 11 text.html.markdown markup.fenced_code.block.markdown
+L u { v: w; }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less entity.name.tag.less
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.terminator.rule.less
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less punctuation.definition.block.end.less
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```less
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L a { b: (c) }
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less entity.name.tag.less
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.selector.less
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less meta.group.less keyword.other.less
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less meta.selector.less
+T 12 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.less meta.property-list.less
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

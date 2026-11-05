@@ -4,6 +4,7 @@
 # Runs every rule-engine generator, oracle/<language>-grammar.ts.
 # oracle/rule-grammar.ts is the library they share, not a generator.
 # Its tests in oracle/rule-grammar.test.ts run first.
+# oracle/fence-stops.ts then checks Language::pops_fence against the grammars.
 # Each generator regenerates its language's tables under src/ in place.
 # It formats them as `mise run format` does.
 # The check fails when a file under src/ then differs from the committed one.
@@ -13,6 +14,7 @@
 set -euo pipefail
 
 bun test oracle/rule-grammar.test.ts
+bun oracle/fence-stops.ts
 
 for generator in oracle/*-grammar.ts; do
   if [ "$generator" = oracle/rule-grammar.ts ]; then
