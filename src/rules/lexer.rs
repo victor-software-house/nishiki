@@ -17,7 +17,7 @@ use super::Embedding;
 use super::Stop;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
-use crate::language::{Halts, Parts};
+use crate::language::{Halts, Parts, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scope::{PATH_SLOTS, Scopes, path_slot};
 use crate::{Language, Stack, Token};
@@ -295,6 +295,8 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// The halts of a line that another language embeds (see [`Halts`]).
     /// The field is one reference to the caller's pair.
     /// It is as wide as the function pointer it replaced.
+    /// A line that pops the rule that embeds the grammar drops them, since
+    /// that rule's end no longer applies ([`StopKind::PopHost`]).
     halt: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
@@ -519,12 +521,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         reason = "measured at one codegen unit: with `lex_until` a second caller, it stopped being inlined, which cost CSS, C and SQL a call once a line"
     )]
     #[inline(always)]
-    pub(crate) fn run_halting(mut self) -> (Finished, Option<usize>) {
+    pub(crate) fn run_halting(mut self) -> (Finished, Option<Stopped>) {
         self.open();
         self.check_while();
         self.tokenize();
-        let halted = self.halted;
-        (self.finish(), halted)
+        let stopped = self.stopped();
+        (self.finish(), stopped)
     }
 
     /// Lexes the line like [`Lexer::run`], and returns whether it needs the
@@ -608,9 +610,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// its end.
     #[cfg(feature = "_halting-embedding")]
     fn stop(&self, embedding: Option<Embedding>) -> Stop {
-        match (embedding, self.halted) {
+        match (embedding, self.stopped()) {
             (Some(embedding), _) => Stop::Embedding(embedding),
-            (None, Some(at)) => Stop::Halted(at),
+            (None, Some(stopped)) => Stop::Halted(stopped),
             (None, None) => Stop::Line,
         }
     }
@@ -730,6 +732,21 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Records that the scan stopped at the halt at `p`, where the line ends.
     pub(crate) fn halt_here(&mut self, p: usize) {
         self.halted = Some(p);
+    }
+
+    /// Where and why the line stopped for the grammar that embeds this one.
+    /// The kind rests on one invariant: only [`Lexer::match_rule`] takes the
+    /// halts, where an empty match at the root of a halting line pops the
+    /// rule that embeds the grammar.
+    /// A halt, the end of the line and every other path leave them set.
+    /// Less's tests `an_embedded_line_halts_at_the_hosts_end` and
+    /// `an_embedded_line_pops_the_host_at_a_root_close` check both kinds.
+    fn stopped(&self) -> Option<Stopped> {
+        let kind = match self.halt {
+            Some(_) => StopKind::Halt,
+            None => StopKind::PopHost,
+        };
+        self.halted.map(|at| Stopped { at, kind })
     }
 
     /// Whether `\G` matches at `p`.
@@ -1792,6 +1809,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Names the text of a match rule. True when the line stops.
+    /// At the root of a halting line, the rule an empty match drops is the
+    /// one that embeds the grammar.
+    /// The line then drops its halts and stops at the match
+    /// ([`StopKind::PopHost`]).
     fn match_rule(
         &mut self,
         name: Scopes<G::Scope>,
@@ -1810,6 +1831,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             // loop, so the enclosing rule is dropped and the line stops.
             if self.depth() > 0 {
                 self.pop_frame();
+            } else if self.halt.take().is_some() {
+                self.halted = Some(start);
             }
             let node = self.top().content;
             self.emit(line_length, node);
@@ -2264,7 +2287,7 @@ mod tests {
             _: crate::language::Line<'_>,
             _: u32,
             _: (&dyn Halt, Option<&dyn Halt>),
-        ) -> Option<(crate::limits::Finished, Option<usize>)> {
+        ) -> Option<(crate::limits::Finished, Option<crate::language::Stopped>)> {
             ASKED.with(|asked| asked.set(asked.get() + 1));
             None
         }

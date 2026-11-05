@@ -5,7 +5,7 @@ use super::grammar::{Pat, Rule};
 use super::scope::S;
 use crate::Language;
 use crate::arena::Arena;
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 use crate::rules::{
     self, Act, Captures, Deferrals, Embedding, Embeds, FnHalt, Grammar, Payload, ScopeName,
@@ -176,7 +176,7 @@ impl Embeds for Svelte {
         line: Line<'_>,
         state: u32,
         (end, after): (&dyn Halt, Option<&dyn Halt>),
-    ) -> Option<(Finished, Option<usize>)> {
+    ) -> Option<(Finished, Option<Stopped>)> {
         if rule == Rule::SpecialTagsModesAt2At2 {
             return None;
         }

@@ -17,7 +17,7 @@ pub(crate) use grammar::Grammar;
 use tokenizer::{Embedded, Text};
 pub(crate) use tokenizer::{Scratch, start, start_embedded};
 
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::{Finished, Steps};
 
 /// Lexes `line` of a language the engine runs with `grammar`, under the
@@ -77,7 +77,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let (next, halted) = tokenizer::line_until(
         &mut cx.scratch.textmate,
         cx.arena,
@@ -93,7 +93,7 @@ pub(crate) fn lex_until(
         cx.report,
         Embedded { end, after },
     );
-    (counted(cx, line, next), halted)
+    (counted(cx, line, next), halted.map(Stopped::halt))
 }
 
 /// Lexes `line` like [`lex`], for a grammar that hands regions to languages
@@ -136,7 +136,7 @@ pub(crate) fn lex_handing_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let (next, halted) = tokenizer::line_handing(
         cx.scratch,
         cx.arena,
@@ -148,7 +148,7 @@ pub(crate) fn lex_handing_until(
         cx.report,
         Some(Embedded { end, after }),
     );
-    (counted(cx, line, next), halted)
+    (counted(cx, line, next), halted.map(Stopped::halt))
 }
 
 /// `state` with the work the engine spent on `line`.

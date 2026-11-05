@@ -64,7 +64,7 @@ use scope::S;
 pub(crate) use searches::Scratch;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::Halt;
+use crate::language::{Halt, Stopped};
 use crate::limits::Finished;
 
 /// Which of the grammars to follow: TypeScript, or one of the three that
@@ -286,12 +286,12 @@ pub(crate) fn lex_until_svelte(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
     let halts = Some(Halts { end, after });
-    match dialect {
+    let (finished, halt) = match dialect {
         #[cfg(feature = "lang-typescript")]
         Dialect::TypeScript => run::<{ Dialect::TYPESCRIPT | Dialect::SVELTE }>(
             cx, line.text, line.start, state, halts,
@@ -304,7 +304,8 @@ pub(crate) fn lex_until_svelte(
         Dialect::Jsx => self::line(cx, dialect, line.text, line.start, state, halts),
         #[cfg(feature = "lang-tsx")]
         Dialect::Tsx => self::line(cx, dialect, line.text, line.start, state, halts),
-    }
+    };
+    (finished, halt.map(Stopped::halt))
 }
 
 fn run<const D: u8>(
@@ -397,7 +398,8 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let halts = Halts { end, after };
-    self::line(cx, dialect, line.text, line.start, state, Some(halts))
+    let (finished, halt) = self::line(cx, dialect, line.text, line.start, state, Some(halts));
+    (finished, halt.map(Stopped::halt))
 }

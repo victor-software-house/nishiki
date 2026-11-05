@@ -26,7 +26,7 @@ use scope::S;
 use state::Kind;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 
 /// Which of the grammars' scope-name spellings to use.
@@ -100,7 +100,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let mut halted = None;
     let next = cx.lex_from_start(line, |cx, rest| {
         if rest.is_empty() {
@@ -118,7 +118,7 @@ pub(crate) fn lex_until(
         halted = lexer.halted().map(|p| line.start + p);
         lexer.finish_line()
     });
-    (next, halted)
+    (next, halted.map(Stopped::halt))
 }
 
 #[cfg(test)]

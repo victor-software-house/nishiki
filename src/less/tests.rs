@@ -1,4 +1,5 @@
 use crate::Language;
+use crate::language::{StopKind, Stopped};
 use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf, scopes_of};
 
 fn lex(line: &str) -> LeafRow {
@@ -118,4 +119,61 @@ fn a_unit_and_a_colour_keyword_read_a_case_fold_as_its_letters() {
     ] {
         assert_eq!(leaf_in(&lex(line), token), scope, "{line:?}");
     }
+}
+
+/// A `</style` tag, where a host such as Svelte ends Less.
+fn style_end(bytes: &[u8], p: usize) -> bool {
+    bytes
+        .get(p..)
+        .is_some_and(|rest| rest.starts_with(b"</style"))
+}
+
+/// Where and why each line stops, as Svelte embeds Less up to `</style`.
+fn stops(lines: &[&str]) -> Vec<Option<Stopped>> {
+    let embedded = test_support::Embedded {
+        start: super::start,
+        lex: super::lex,
+        lex_until: super::lex_until,
+    };
+    test_support::lex_embedded_stops(
+        embedded,
+        &["source.svelte"],
+        lines,
+        Some((&style_end, None)),
+    )
+    .into_iter()
+    .map(|(stopped, _)| stopped)
+    .collect()
+}
+
+/// Embedded, a line that reaches the host's end halts there.
+/// The host goes on from the halt.
+#[test]
+fn an_embedded_line_halts_at_the_hosts_end() {
+    let line = "a { b: c; }</style>";
+    assert_eq!(
+        stops(&[line]),
+        [Some(Stopped {
+            at: line.find("</style").expect("the end tag"),
+            kind: StopKind::Halt,
+        })]
+    );
+}
+
+/// Embedded, a `)` that starts the body makes Less match an empty text at its
+/// root without advancing.
+/// vscode-textmate then pops the rule that embeds Less.
+/// A line that ends with no stop reports none.
+#[test]
+fn an_embedded_line_pops_the_host_at_a_root_close() {
+    assert_eq!(
+        stops(&[")</style>", "a { b: c; }"]),
+        [
+            Some(Stopped {
+                at: 0,
+                kind: StopKind::PopHost,
+            }),
+            None,
+        ]
+    );
 }

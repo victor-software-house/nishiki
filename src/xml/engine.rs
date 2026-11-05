@@ -15,7 +15,7 @@ use super::rules::{Pat, next_start, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halts, Line};
+use crate::language::{Context, Halts, Line, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
@@ -487,7 +487,19 @@ impl<'a> Lexer<'a> {
     #[cold]
     #[inline(never)]
     fn lex_jsp(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> (Finished, Option<usize>) {
-        java::lex_until(cx, line, state, &jsp_end)
+        let (finished, stopped) = java::lex_until(cx, line, state, &jsp_end);
+        let at = match stopped {
+            Some(Stopped {
+                at,
+                kind: StopKind::Halt,
+            }) => Some(at),
+            Some(Stopped {
+                kind: StopKind::PopHost,
+                ..
+            })
+            | None => None,
+        };
+        (finished, at)
     }
 
     /// Applies an end match.

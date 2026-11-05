@@ -29,7 +29,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 
 /// The state at the start of a SQL document whose scopes sit on the stack
@@ -63,7 +63,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     crate::rules::lex_until::<engine::Sql>(cx, line, state, |scratch| &mut scratch.sql, end, after)
 }
 

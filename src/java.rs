@@ -19,7 +19,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Line, Stopped};
 use crate::limits::Finished;
 use crate::rules;
 
@@ -48,7 +48,7 @@ pub(crate) fn lex_until(
     line: Line<'_>,
     state: u32,
     end: &dyn crate::language::Halt,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     rules::lex_until::<Java>(cx, line, state, |scratch| &mut scratch.java, end, None)
 }
 

@@ -16,7 +16,7 @@ use scope::S;
 use state::Kind;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 
 /// The state at the start of a YAML document whose scopes sit on the stack
@@ -76,7 +76,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let start = if line.start == 0 {
         TextStart::Line
     } else {
@@ -98,7 +98,7 @@ pub(crate) fn lex_until(
         halted = lexer.halted().map(|p| line.start + p);
         lexer.finish_line()
     });
-    (next, halted)
+    (next, halted.map(Stopped::halt))
 }
 
 #[cfg(test)]

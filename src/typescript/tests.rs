@@ -662,8 +662,9 @@ fn until(
             start: 0,
             embedded: false,
         };
-        let (next, halt) =
+        let (next, stopped) =
             super::lex_until(&mut cx, super::Dialect::JavaScript, line, state, end, after);
+        let halt = stopped.map(|stopped| stopped.at);
         state = next.state();
         let mut from = 0;
         let mut row = Row::new();

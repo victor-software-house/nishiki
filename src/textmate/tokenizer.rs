@@ -22,7 +22,7 @@ use super::regex::{self, Context, LineKind, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
 use crate::arena::{Arena, IdMap, ROOT};
-use crate::language::{Context as Lexing, Halt, Line, halt_before};
+use crate::language::{Context as Lexing, Halt, Line, StopKind, Stopped, halt_before};
 use crate::limits::{Limit, Limits, LineReport, Steps, Work};
 use crate::scope::Scope;
 use crate::{Stack, Token};
@@ -1811,6 +1811,17 @@ impl Tokenizer<'_> {
                 )
             };
             halting.unwrap_or_else(|| (language.lex_embedded(&mut cx, part, state), None))
+        };
+        let halted = match halted {
+            Some(Stopped {
+                at,
+                kind: StopKind::Halt,
+            }) => Some(at),
+            Some(Stopped {
+                kind: StopKind::PopHost,
+                ..
+            })
+            | None => None,
         };
         let counter = Steps::new(&lent, text.len());
         frames[top].end = counter.take_back(finished);

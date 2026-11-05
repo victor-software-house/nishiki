@@ -95,6 +95,7 @@ use scope::S;
 use state::Kind;
 
 use crate::arena::{Arena, ROOT};
+use crate::language::Stopped;
 use crate::limits::Finished;
 
 /// The scope that a Markdown document's stack starts with.
@@ -158,7 +159,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn crate::language::Halt,
     _after: Option<&dyn crate::language::Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let text = line.text.as_bytes();
     cx.scratch.markdown.start = lexer::Start::Embedded {
         stop: end.holds(text, line.start),
@@ -171,10 +172,10 @@ pub(crate) fn lex_until(
     let finished = cx.lex_from_start(line, |cx, rest| self::line(cx, rest, state));
     cx.scratch.markdown.start = lexer::Start::Document;
     if std::mem::take(&mut cx.scratch.markdown.stopped) {
-        return (finished, Some(line.start));
+        return (finished, Some(Stopped::halt(line.start)));
     }
     let halt = halt_after_block(cx, line, end, first, finished.state());
-    (finished, halt)
+    (finished, halt.map(Stopped::halt))
 }
 
 /// Where `end` holds in the rest of a line that a block closed inside, now

@@ -18,7 +18,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 use crate::rules;
 
@@ -96,7 +96,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     rules::lex_until::<Lua>(cx, line, state, |scratch| &mut scratch.lua, end, after)
 }
 

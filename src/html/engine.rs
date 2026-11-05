@@ -26,7 +26,7 @@ use super::state::{self, ErbInjection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rul
 use super::vue as vue_rules;
 use super::vue::VuePat;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch as AllScratch;
 use crate::{Stack, Token, case_fold};
@@ -925,7 +925,18 @@ impl<'a> Lexer<'a> {
             start: pos,
             embedded: false,
         };
-        let (next, halted) = vue_lex(&mut cx, lexed, line, inner, end);
+        let (next, stopped) = vue_lex(&mut cx, lexed, line, inner, end);
+        let halted = match stopped {
+            Some(Stopped {
+                at,
+                kind: StopKind::Halt,
+            }) => Some(at),
+            Some(Stopped {
+                kind: StopKind::PopHost,
+                ..
+            })
+            | None => None,
+        };
         let next = self.steps.take_back(next);
         self.advance_to(pos, halted);
         let Some(at) = halted else {
@@ -979,11 +990,12 @@ impl<'a> Lexer<'a> {
         state: u32,
         in_erb: bool,
     ) -> (Finished, Option<usize>) {
-        if in_erb {
+        let (next, stopped) = if in_erb {
             crate::css::lex_until(cx, line, state, &style_end_or_erb, None)
         } else {
             crate::css::lex_until(cx, line, state, &style_end, None)
-        }
+        };
+        (next, resumes_at(stopped))
     }
 
     /// Lexes JavaScript up to `</script>`.
@@ -998,14 +1010,15 @@ impl<'a> Lexer<'a> {
         in_erb: bool,
     ) -> (Finished, Option<usize>) {
         let after: Option<&dyn Halt> = if in_erb { Some(&erb::begins) } else { None };
-        crate::typescript::lex_until(
+        let (next, stopped) = crate::typescript::lex_until(
             cx,
             crate::typescript::Dialect::JavaScript,
             line,
             state,
             &script_end,
             after,
-        )
+        );
+        (next, resumes_at(stopped))
     }
 
     /// Lexes the Ruby of ERB code up to the code's end.
@@ -1013,7 +1026,8 @@ impl<'a> Lexer<'a> {
     #[cold]
     #[inline(never)]
     fn lex_erb_ruby(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> (Finished, Option<usize>) {
-        erb::lex_ruby(cx, line, state, &erb::ruby_halt)
+        let (next, stopped) = erb::lex_ruby(cx, line, state, &erb::ruby_halt);
+        (next, resumes_at(stopped))
     }
 
     /// The Ruby of ERB code: the rest of the line up to the code's end, or up
@@ -1382,7 +1396,7 @@ fn vue_lex(
     line: Line<'_>,
     state: u32,
     end: vue_rules::VueHalt,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     use vue_rules::Lexed;
     match lexed {
         Lexed::Css => crate::css::lex_until(cx, line, state, &end, None),
@@ -1422,10 +1436,28 @@ fn engine_until(
     line: Line<'_>,
     state: u32,
     end: &dyn Halt,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     language
         .lex_until(cx, line, state, end, None)
         .unwrap_or_else(|| (language.lex_embedded(cx, line, state), None))
+}
+
+/// Where the HTML goes on after a language it embeds in a `<style>`,
+/// `<script>` or ERB body stopped as `stopped` says: where a halt held.
+/// A language that popped the body lexed the rest of the line, as one that
+/// did not stop did.
+fn resumes_at(stopped: Option<Stopped>) -> Option<usize> {
+    match stopped {
+        Some(Stopped {
+            at,
+            kind: StopKind::Halt,
+        }) => Some(at),
+        Some(Stopped {
+            kind: StopKind::PopHost,
+            ..
+        })
+        | None => None,
+    }
 }
 
 /// The end of a `<style>` element's CSS: `</style`, in any case.

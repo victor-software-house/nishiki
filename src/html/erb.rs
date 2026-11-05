@@ -175,7 +175,7 @@ pub(super) fn lex_ruby(
     line: crate::language::Line<'_>,
     state: u32,
     halt: &dyn crate::language::Halt,
-) -> (crate::limits::Finished, Option<usize>) {
+) -> (crate::limits::Finished, Option<crate::language::Stopped>) {
     crate::ruby::lex_until(cx, line, state, halt, None)
 }
 
@@ -192,6 +192,6 @@ pub(super) fn lex_ruby(
     _line: crate::language::Line<'_>,
     _state: u32,
     _halt: &dyn crate::language::Halt,
-) -> (crate::limits::Finished, Option<usize>) {
+) -> (crate::limits::Finished, Option<crate::language::Stopped>) {
     unreachable!("ERB code opens only in an ERB document")
 }

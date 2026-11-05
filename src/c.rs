@@ -33,7 +33,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 
 /// The state at the start of a C document whose scopes sit on the stack
@@ -64,7 +64,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     crate::rules::lex_until::<engine::C>(cx, line, state, |scratch| &mut scratch.c, end, after)
 }
 

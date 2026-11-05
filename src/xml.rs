@@ -29,7 +29,7 @@ use scope::S;
 use state::Rule;
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 
 /// The state at the start of an XML document whose scopes sit on the stack
@@ -73,7 +73,7 @@ pub(crate) fn lex_until(
     state: u32,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
@@ -81,7 +81,7 @@ pub(crate) fn lex_until(
     let mut lexer = engine::Lexer::new(cx, line, state);
     lexer.halts = Some(&halts);
     let (finished, halt) = lexer.run_until();
-    (finished, halt)
+    (finished, halt.map(Stopped::halt))
 }
 
 #[cfg(test)]

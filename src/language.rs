@@ -265,8 +265,8 @@ macro_rules! languages {
             /// another one embeds: the line halts at the first place where
             /// `end` holds that the code reaches with only the language's
             /// root open, or where `after` holds and nothing of the language
-            /// matches, and the second value is where. `None` for a
-            /// language that cannot halt.
+            /// matches, and the second value says where and why it stopped
+            /// ([`Stopped`]). `None` for a language that cannot halt.
             #[cfg_attr(
                 not(any(feature = "_embedding", feature = "_textmate")),
                 expect(
@@ -282,7 +282,7 @@ macro_rules! languages {
                 state: u32,
                 end: &dyn Halt,
                 after: Option<&dyn Halt>,
-            ) -> Option<(Finished, Option<usize>)> {
+            ) -> Option<(Finished, Option<Stopped>)> {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state end after),)*
                 }
@@ -1205,6 +1205,39 @@ pub(crate) struct Parts<'a> {
     pub(crate) limits: &'a Limits,
     pub(crate) out: &'a mut Vec<Token>,
     pub(crate) report: &'a mut LineReport,
+}
+
+/// Where a line that another language embeds stopped, and why
+/// ([`Language::lex_until`]).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) struct Stopped {
+    /// The byte the line stopped at.
+    pub(crate) at: usize,
+    pub(crate) kind: StopKind,
+}
+
+/// Why a line that another language embeds stopped ([`Stopped`]).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(crate) enum StopKind {
+    /// A halt of the language that embeds it held.
+    /// That language goes on from the byte.
+    #[default]
+    Halt,
+    /// At its root, the language matched an empty text without advancing.
+    /// vscode-textmate then pops the innermost rule, which there is the rule
+    /// that embeds the language, and ends the line.
+    /// The language has lexed the rest of the line as its own, from the byte.
+    PopHost,
+}
+
+impl Stopped {
+    /// A stop at `at` where a halt held.
+    pub(crate) const fn halt(at: usize) -> Stopped {
+        Stopped {
+            at,
+            kind: StopKind::Halt,
+        }
+    }
 }
 
 /// The end of the rule that embeds a language, as a test of the line's bytes

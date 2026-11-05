@@ -2,7 +2,7 @@
 //! document, and reading back each token's text and scope names.
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, StopKind, Stopped};
 use crate::limits::Finished;
 use crate::scratch::Scratch;
 use crate::{Highlighter, Language, Limits, LineReport, State, Token};
@@ -118,8 +118,13 @@ pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
 /// A language's lexer for lines another language embeds: it lexes a line
 /// from a state up to where `end` or `after` halts it, and returns the state
 /// and where it halted.
-type LexUntil =
-    fn(&mut Context<'_>, Line<'_>, u32, &dyn Halt, Option<&dyn Halt>) -> (Finished, Option<usize>);
+type LexUntil = fn(
+    &mut Context<'_>,
+    Line<'_>,
+    u32,
+    &dyn Halt,
+    Option<&dyn Halt>,
+) -> (Finished, Option<Stopped>);
 
 /// How a language lexes the lines another language embeds: its start over a
 /// base stack, its whole-line lexer, and its `lex_until`.
@@ -155,6 +160,22 @@ pub(crate) fn lex_embedded(
     lines: &[&str],
     halts: Option<(&dyn Halt, Option<&dyn Halt>)>,
 ) -> Vec<(Option<usize>, Row)> {
+    lex_embedded_stops(language, base, lines, halts)
+        .into_iter()
+        .map(|(stopped, row)| (stopped.map(|stopped| stopped.at), row))
+        .collect()
+}
+
+/// Lexes `lines` like [`lex_embedded`], and returns, per line, where and why
+/// it stopped.
+/// A line that halts has tokens up to the halt.
+/// One that pops the rule that embeds the language has tokens to its end.
+pub(crate) fn lex_embedded_stops(
+    language: Embedded,
+    base: &[&str],
+    lines: &[&str],
+    halts: Option<(&dyn Halt, Option<&dyn Halt>)>,
+) -> Vec<(Option<Stopped>, Row)> {
     let mut arena = Arena::new(None);
     let mut stack = ROOT;
     for name in base {
@@ -181,7 +202,7 @@ pub(crate) fn lex_embedded(
             start: 0,
             embedded: false,
         };
-        let (next, halt) = match halts {
+        let (next, stopped) = match halts {
             Some((end, after)) => (language.lex_until)(&mut cx, line, state, end, after),
             None => ((language.lex)(&mut cx, line, state), None),
         };
@@ -195,12 +216,19 @@ pub(crate) fn lex_embedded(
             row.push((text[from..token.end()].to_owned(), scopes));
             from = token.end();
         }
-        assert_eq!(
-            from,
-            halt.unwrap_or(text.len()),
-            "tokens up to the halt: {text:?}"
-        );
-        rows.push((halt, row));
+        let end = match stopped {
+            Some(Stopped {
+                at,
+                kind: StopKind::Halt,
+            }) => at,
+            Some(Stopped {
+                kind: StopKind::PopHost,
+                ..
+            })
+            | None => text.len(),
+        };
+        assert_eq!(from, end, "tokens up to the stop: {text:?}");
+        rows.push((stopped, row));
     }
     rows
 }

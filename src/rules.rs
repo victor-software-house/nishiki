@@ -69,9 +69,9 @@ pub(crate) use tables::table_scan;
 
 use crate::Language;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 #[cfg(feature = "_embedding")]
-use crate::language::{Halts, Parts};
+use crate::language::{Halts, Parts, StopKind};
 use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
@@ -356,7 +356,9 @@ pub(crate) fn lex<G: Grammar>(
 /// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
 /// to its end: the line halts at the first place where `end` holds that the
 /// scan reaches with only the root rule open, or where `after` holds there
-/// and no pattern matches (see [`Halt`]), and the second value is where.
+/// and no pattern matches (see [`Halt`]), and the second value says where.
+/// It also says where a pattern matched an empty text at the root without
+/// advancing ([`StopKind::PopHost`]); the grammar lexes the rest of the line.
 /// Without one, the state resumes on the next line.
 #[inline]
 pub(crate) fn lex_until<G: Grammar>(
@@ -366,7 +368,7 @@ pub(crate) fn lex_until<G: Grammar>(
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
@@ -478,7 +480,7 @@ pub(crate) trait Embeds: Grammar {
         _line: Line<'_>,
         _state: u32,
         _halts: (&dyn Halt, Option<&dyn Halt>),
-    ) -> Option<(Finished, Option<usize>)> {
+    ) -> Option<(Finished, Option<Stopped>)> {
         None
     }
 
@@ -639,7 +641,7 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
     state: u32,
     scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
     outer: Halts<'_>,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
@@ -655,7 +657,7 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
     let first = settle_deferred(cx, line, scratch, first);
     match stop {
         Stop::Line => (first, None),
-        Stop::Halted(at) => (first, Some(at)),
+        Stop::Halted(stopped) => (first, Some(stopped)),
         Stop::Embedding(embedding) => {
             hand_over::<G, true>(cx, line, scratch, Some(&outer), first, embedding)
         }
@@ -764,7 +766,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
     outer: Option<&Halts<'_>>,
     first: Finished,
     mut embedding: Embedding,
-) -> (Finished, Option<usize>) {
+) -> (Finished, Option<Stopped>) {
     let steps = Steps::new(cx.limits, line.text.len());
     let mut next = steps.take_back(first);
     let mut starts: Option<(u16, Vec<usize>)> = None;
@@ -829,7 +831,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             cx.report.record(Limit::Nodes);
             next
         });
-        let Some(at) = stop else {
+        let Some(at) = resumes_at(stop) else {
             break (state, None);
         };
         let text = Text {
@@ -857,7 +859,7 @@ fn hand_over<G: Embeds, const HALTING: bool>(
         }
         match found {
             Stop::Line => break (resumed, None),
-            Stop::Halted(at) => break (resumed, Some(at)),
+            Stop::Halted(stopped) => break (resumed, Some(stopped)),
             Stop::Embedding(found) => (next, embedding) = (resumed, found),
         }
     };
@@ -865,6 +867,25 @@ fn hand_over<G: Embeds, const HALTING: bool>(
         cx.scratch.rule_starts = buffer;
     }
     (steps.finish(state), halted)
+}
+
+/// Where the grammar goes on after the language it embeds stopped as
+/// `stopped` says: where a halt held.
+/// A language that popped the embedding rule lexed the rest of the line,
+/// as one that did not stop did.
+#[cfg(feature = "_embedding")]
+fn resumes_at(stopped: Option<Stopped>) -> Option<usize> {
+    match stopped {
+        Some(Stopped {
+            at,
+            kind: StopKind::Halt,
+        }) => Some(at),
+        Some(Stopped {
+            kind: StopKind::PopHost,
+            ..
+        })
+        | None => None,
+    }
 }
 
 /// Fills `starts` with where the own patterns of the rule on top of
@@ -989,8 +1010,8 @@ const _: () = assert!(size_of::<Payload>() <= 2);
 pub(crate) enum Stop {
     /// At the end of the line.
     Line,
-    /// Where the line halted for the grammar that embeds it.
-    Halted(usize),
+    /// Where and why the line stopped for the grammar that embeds it.
+    Halted(Stopped),
     /// Where the innermost rule hands the text to the language it embeds.
     Embedding(Embedding),
 }

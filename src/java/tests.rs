@@ -222,7 +222,10 @@ fn until(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
             s.get(p..).is_some_and(|rest| rest.starts_with(b"%>"))
         });
         state = next.state();
-        rows.push((halted, out.last().map_or(0, |token| token.end())));
+        rows.push((
+            halted.map(|stopped| stopped.at),
+            out.last().map_or(0, |token| token.end()),
+        ));
     }
     rows
 }
