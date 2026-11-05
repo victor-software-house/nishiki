@@ -27,16 +27,13 @@ use std::process::{Command, ExitCode};
 use std::time::Instant;
 
 use nishiki::{Highlighter, Language, State, Theme};
-use nishiki_bench::{Tier, corpus};
+use nishiki_bench::{GITHUB_DARK, Tier, corpus};
 
 /// Samples per file when `--processes` is not given.
 const PROCESSES: usize = 31;
 
 /// Rounds dropped before any sample counts.
 const DROPPED: usize = 3;
-
-/// Shiki's github-dark, as the oracle pins it.
-const GITHUB_DARK: &str = include_str!("../../../tests/oracle/themes/github-dark.json");
 
 /// One sample: lexes `path` in the language its folder names, and prints
 /// the µs to create the highlighter, to lex the first line, and to lex

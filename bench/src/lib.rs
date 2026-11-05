@@ -10,6 +10,12 @@ use std::{fmt, fs};
 
 use nishiki::Language;
 
+pub mod timing;
+pub mod traces;
+
+/// Shiki's github-dark, as the oracle pins it.
+pub const GITHUB_DARK: &str = include_str!("../../tests/oracle/themes/github-dark.json");
+
 /// What a file of the corpus stands for (`bench/corpus/README.md`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Tier {
