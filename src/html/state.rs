@@ -262,16 +262,16 @@ impl Rule {
         )
     }
 
-    /// Whether ERB's injection applies inside the rule, opened where it
-    /// applies as `parent` says: not under a `comment` scope.
-    pub(crate) fn erb_injection(self, parent: ErbInjection) -> ErbInjection {
+    /// Whether a template's injection applies inside the rule, opened where
+    /// it applies as `parent` says: not under a `comment` scope.
+    pub(crate) fn injection(self, parent: Injection) -> Injection {
         match self {
             Rule::Comment
             | Rule::ErbComment
             | Rule::JsLineComment
             | Rule::JsBlockComment
             | Rule::VueComment
-            | Rule::VueCommentKv => ErbInjection::ShutOut,
+            | Rule::VueCommentKv => Injection::ShutOut,
             Rule::Root
             | Rule::Cdata
             | Rule::Doctype
@@ -333,13 +333,26 @@ impl Rule {
     }
 }
 
-/// Whether ERB's injection applies to a rule's text.
+/// Whether a template language's injection, such as ERB's, applies to a
+/// rule's text, and how its matches rank against the rule's own.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum ErbInjection {
-    /// It applies.
+pub(crate) enum Injection {
+    /// It applies, and loses a tie: a match of the rule that starts at the
+    /// same place comes first.
+    /// A selector without `L:` ranks an injection after the rule's patterns.
     Applies,
     /// It does not: the text sits under a `comment` scope.
     ShutOut,
+}
+
+impl Injection {
+    /// Whether the injection's match at `at` comes before the rule's match
+    /// at `candidate`.
+    pub(crate) fn precedes(self, at: usize, candidate: usize) -> bool {
+        match self {
+            Injection::Applies | Injection::ShutOut => at < candidate,
+        }
+    }
 }
 
 /// The payload of the root frame of a Markdown fence, where the injection

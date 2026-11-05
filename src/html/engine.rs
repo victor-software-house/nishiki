@@ -21,7 +21,7 @@ use memchr::memchr;
 
 use super::erb::{self, Erb};
 use super::scope::S;
-use super::state::{self, ErbInjection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
+use super::state::{self, Injection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
 #[cfg(feature = "lang-vue")]
 use super::vue as vue_rules;
 use super::vue::VuePat;
@@ -251,8 +251,9 @@ pub(super) struct Frame {
     pub(super) payload: u32,
     /// Whether the injection stays out of the rule's text.
     pub(super) no_inject: bool,
-    /// Whether ERB's injection applies to the rule's text.
-    pub(super) erb: ErbInjection,
+    /// Whether a template's injection applies to the rule's text, and how
+    /// its matches rank against the rule's own.
+    pub(super) injection: Injection,
 }
 
 /// What a highlighter keeps from line to line, so that lexing a line
@@ -376,7 +377,7 @@ impl<'a> Lexer<'a> {
                         frame.payload,
                         ROOT_EMBEDDED | ROOT_DERIVATIVE_FIRST | ROOT_SVELTE
                     ),
-                    erb: ErbInjection::Applies,
+                    injection: Injection::Applies,
                 });
                 continue;
             }
@@ -384,7 +385,7 @@ impl<'a> Lexer<'a> {
             let top = *lexer.top();
             let parent = lexer.inner_base(&top);
             let no_inject = lexer.top().no_inject || rule.shuts_out_injection();
-            let erb = rule.erb_injection(lexer.top().erb);
+            let injection = rule.injection(lexer.top().injection);
             let name = lexer.name_stack(parent, rule, frame.payload);
             lexer.frames.push(Frame {
                 rule,
@@ -395,7 +396,7 @@ impl<'a> Lexer<'a> {
                 state: id,
                 payload: frame.payload,
                 no_inject,
-                erb,
+                injection,
             });
         }
         lexer.scratch.html.chain = chain;
@@ -780,12 +781,14 @@ impl<'a> Lexer<'a> {
 
     /// The first match from the position: for each candidate position the
     /// innermost rule's end pattern and then its patterns in order, and the
-    /// injection where it starts before every one of them.
+    /// injection where it comes before every one of them, as
+    /// [`Injection::precedes`] ranks it.
     fn search(&mut self) -> Option<Hit> {
         let rule = self.top().rule;
+        let injection = self.top().injection;
         let end = self.end_pos();
         let inject = match self.document {
-            Document::Erb if self.top().erb == ErbInjection::ShutOut => None,
+            Document::Erb if injection == Injection::ShutOut => None,
             Document::Erb => self.find_erb(self.pos),
             Document::Html | Document::DerivativeFirst | Document::Derivative
                 if self.top().no_inject =>
@@ -808,7 +811,7 @@ impl<'a> Lexer<'a> {
                 break;
             };
             if let Some(at) = inject
-                && at < candidate
+                && injection.precedes(at, candidate)
             {
                 return self.injection(at);
             }
@@ -1293,7 +1296,7 @@ impl<'a> Lexer<'a> {
             state,
             payload,
             no_inject: top.no_inject || rule.shuts_out_injection(),
-            erb: rule.erb_injection(top.erb),
+            injection: rule.injection(top.injection),
         });
     }
 
@@ -1368,7 +1371,7 @@ impl<'a> Lexer<'a> {
             state: top.state,
             payload,
             no_inject: top.no_inject,
-            erb: top.erb,
+            injection: top.injection,
         });
         self.tok(top.content, from);
         self.lim = to;
