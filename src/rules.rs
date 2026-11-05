@@ -16,6 +16,8 @@ mod runs;
 mod tables;
 
 use std::fmt::Debug;
+#[cfg(feature = "_embedding")]
+use std::ops::ControlFlow;
 
 #[cfg(any(
     feature = "lang-cmake",
@@ -71,7 +73,7 @@ use crate::Language;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
 #[cfg(feature = "_embedding")]
-use crate::language::{Halts, Parts, StopKind};
+use crate::language::{Halts, Parts, StopKind, cut_tokens};
 use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
@@ -827,12 +829,9 @@ fn hand_over<G: Embeds, const HALTING: bool>(
             None => (language.lex_embedded(&mut part_cx, part, inner), None),
         };
         let inner = steps.take_back(inner);
-        let state = with_payload(cx.arena, next, inner).unwrap_or_else(|| {
-            cx.report.record(Limit::Nodes);
-            next
-        });
-        let Some(at) = resumes_at(stop) else {
-            break (state, None);
+        let (at, state) = match resume_at(cx, line, scratch, (next, inner), stop) {
+            ControlFlow::Continue(resumed) => resumed,
+            ControlFlow::Break(end) => break (end, None),
         };
         let text = Text {
             bytes: line.text.as_bytes(),
@@ -869,23 +868,68 @@ fn hand_over<G: Embeds, const HALTING: bool>(
     (steps.finish(state), halted)
 }
 
-/// Where the grammar goes on after the language it embeds stopped as
-/// `stopped` says: where a halt held.
-/// A language that popped the embedding rule lexed the rest of the line,
-/// as one that did not stop did.
+/// Where the grammar goes on after the language that the rule `embedding`
+/// embeds stopped as `stopped` says, and the rule's state with the
+/// language's state `inner` as its payload: where a halt held.
+/// Otherwise the state the line ends in: that state where the language lexed
+/// the rest of the line, or the state below the rule where it popped the
+/// rule.
 #[cfg(feature = "_embedding")]
-fn resumes_at(stopped: Option<Stopped>) -> Option<usize> {
+fn resume_at<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    (embedding, inner): (u32, u32),
+    stopped: Option<Stopped>,
+) -> ControlFlow<u32, (usize, u32)> {
     match stopped {
         Some(Stopped {
             at,
             kind: StopKind::Halt,
-        }) => Some(at),
+        }) => ControlFlow::Continue((at, with_inner(cx, embedding, inner))),
         Some(Stopped {
+            at,
             kind: StopKind::PopHost,
-            ..
-        })
-        | None => None,
+        }) => ControlFlow::Break(pop_host(cx, line, scratch, embedding, at)),
+        None => ControlFlow::Break(with_inner(cx, embedding, inner)),
     }
+}
+
+/// The state of the embedding rule `embedding` with the language's state
+/// `inner` as its payload, or `embedding` where the node limit is reached.
+#[cfg(feature = "_embedding")]
+fn with_inner(cx: &mut Context<'_>, embedding: u32, inner: u32) -> u32 {
+    with_payload(cx.arena, embedding, inner).unwrap_or_else(|| {
+        cx.report.record(Limit::Nodes);
+        embedding
+    })
+}
+
+/// Pops the embedding rule on top of `state`, as vscode-textmate does where
+/// the language it embeds matched an empty text at its root without
+/// advancing ([`StopKind::PopHost`]), and returns the state below it.
+/// The rest of the line from `at` sits on that state's content scopes, in
+/// place of the tokens the language gave it.
+/// The line stops there.
+#[cfg(feature = "_embedding")]
+#[cold]
+fn pop_host<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    state: u32,
+    at: usize,
+) -> u32 {
+    cut_tokens(cx.out, at);
+    let parent = cx.arena.frame(state).parent;
+    if line.text.len() > at {
+        cx.out.push(Token {
+            end: line.text.len(),
+            stack: Stack(cx.arena.frame(parent).stack),
+        });
+    }
+    scratch(cx.scratch).forget_resume();
+    parent
 }
 
 /// Fills `starts` with where the own patterns of the rule on top of

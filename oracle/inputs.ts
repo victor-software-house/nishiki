@@ -72,11 +72,13 @@ import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import svelteCaptureEnds from "./inputs/svelte-capture-ends.svelte" with { type: "text" };
 import svelteCoverage from "./inputs/svelte-coverage.svelte" with { type: "text" };
 import svelteInvalidTags from "./inputs/svelte-invalid-tags.svelte" with { type: "text" };
+import svelteLessPop from "./inputs/svelte-less-pop.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
 import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
 import vbCoverage from "./inputs/vb-coverage.vb" with { type: "text" };
+import vueLessPop from "./inputs/vue-less-pop.vue" with { type: "text" };
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
 import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
@@ -1349,6 +1351,7 @@ export const inputs: Input[] = [
   { lang: "svelte", name: "coverage", text: svelteCoverage },
   { lang: "svelte", name: "invalid-tags", text: svelteInvalidTags },
   { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
+  { lang: "svelte", name: "less-pop", text: svelteLessPop },
   { lang: "svelte", name: "sample", url: `${samples}/svelte.sample` },
   { lang: "svelte", name: "site-kit-docs-contents", url: `${svelteSiteKit}/src/lib/docs/DocsContents.svelte` },
   { lang: "svelte", name: "site-kit-mobile-menu", url: `${svelteSiteKit}/src/lib/nav/MobileMenu.svelte` },
@@ -1509,6 +1512,7 @@ export const inputs: Input[] = [
   { lang: "vb", name: "roslyn-with-block-binder", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb` },
   { lang: "vb", name: "sample", url: `${samples}/vb.sample` },
   { lang: "vue", name: "coverage", text: vueCoverage },
+  { lang: "vue", name: "less-pop", text: vueLessPop },
   { lang: "vue", name: "playground-app", url: `${vue}/packages-private/sfc-playground/src/App.vue` },
   { lang: "vue", name: "playground-header", url: `${vue}/packages-private/sfc-playground/src/Header.vue` },
   { lang: "vue", name: "playground-sun", url: `${vue}/packages-private/sfc-playground/src/icons/Sun.vue` },

@@ -628,6 +628,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `svelte/coverage` | `oracle/inputs/svelte-coverage.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/invalid-tags` | `oracle/inputs/svelte-invalid-tags.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/kit-root` | [`packages/kit/src/runtime/components/root.svelte`][svelte-kit-root] in sveltejs/kit | [MIT][svelte-kit-licence] |
+| `svelte/less-pop` | `oracle/inputs/svelte-less-pop.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/sample` | [`samples/svelte.sample`][svelte-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `svelte/site-kit-docs-contents` | [`packages/site-kit/src/lib/docs/DocsContents.svelte`][svelte-site-kit-docs-contents] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
 | `svelte/site-kit-mobile-menu` | [`packages/site-kit/src/lib/nav/MobileMenu.svelte`][svelte-site-kit-mobile-menu] in sveltejs/svelte.dev | [MIT][svelte-site-kit-licence] |
@@ -732,6 +733,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `vb/roslyn-with-block-binder` | [`src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb`][roslyn-with-block-binder] in dotnet/roslyn | [MIT][roslyn-licence] |
 | `vb/sample` | [`samples/vb.sample`][vb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `vue/coverage` | `oracle/inputs/vue-coverage.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `vue/less-pop` | `oracle/inputs/vue-less-pop.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/playground-app` | [`packages-private/sfc-playground/src/App.vue`][vue-playground-app] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-header` | [`packages-private/sfc-playground/src/Header.vue`][vue-playground-header] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-sun` | [`packages-private/sfc-playground/src/icons/Sun.vue`][vue-playground-sun] in vuejs/core | [MIT][vue-licence] |

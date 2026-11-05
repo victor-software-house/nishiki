@@ -1,0 +1,133 @@
+L <!--
+T 4 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L   Less that stops without advancing at its root, where vscode-textmate pops
+T 75 source.svelte comment.block.svelte
+L   the body that embeds it and ends the line: a `)` or `}` before anything
+T 73 source.svelte comment.block.svelte
+L   else in the body. Less pops one of its own rules instead when one is open, as in the
+T 86 source.svelte comment.block.svelte
+L   last body, which stays open to the end.
+T 41 source.svelte comment.block.svelte
+L -->
+T 3 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L <style lang="less">)
+T 1 source.svelte meta.style.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.style.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 7 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte
+T 11 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte entity.other.attribute-name.svelte
+T 12 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte punctuation.separator.key-value.svelte
+T 13 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 17 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte
+T 18 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 19 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 20 source.svelte meta.style.svelte meta.lang.less.svelte
+L */ x
+T 4 source.svelte meta.style.svelte meta.lang.less.svelte
+L </style>
+T 2 source.svelte meta.style.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.style.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 8 source.svelte meta.style.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>after</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 8 source.svelte text.svelte
+T 10 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 11 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 12 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <style lang="less">
+T 1 source.svelte meta.style.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.style.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 7 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte
+T 11 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte entity.other.attribute-name.svelte
+T 12 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte punctuation.separator.key-value.svelte
+T 13 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 17 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte
+T 18 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 19 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L )
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte
+L a { b: c }
+T 10 source.svelte meta.style.svelte meta.lang.less.svelte
+L </style>
+T 2 source.svelte meta.style.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.style.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 8 source.svelte meta.style.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <style lang="less">
+T 1 source.svelte meta.style.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.style.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 7 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte
+T 11 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte entity.other.attribute-name.svelte
+T 12 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte punctuation.separator.key-value.svelte
+T 13 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 17 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte
+T 18 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 19 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L }
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte
+L a { b: c }
+T 10 source.svelte meta.style.svelte meta.lang.less.svelte
+L </style>
+T 2 source.svelte meta.style.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.style.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 8 source.svelte meta.style.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <style lang="less">a { b: (c) }
+T 1 source.svelte meta.style.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 6 source.svelte meta.style.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 7 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte
+T 11 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte entity.other.attribute-name.svelte
+T 12 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte punctuation.separator.key-value.svelte
+T 13 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 17 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte
+T 18 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 19 source.svelte meta.style.svelte meta.lang.less.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 20 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.selector.less entity.name.tag.less
+T 21 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.selector.less
+T 22 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less punctuation.definition.block.begin.less
+T 23 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less
+T 24 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 26 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 27 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 28 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less meta.group.less keyword.other.less
+T 29 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 30 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 31 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less
+L </style>
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less
+T 2 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 7 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 8 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+L <p>end</p>
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 2 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 3 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+T 8 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 9 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 10 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+L <style lang="less">a { b: c }
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 6 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 18 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 19 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+T 20 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 21 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.selector.less
+T 22 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+T 23 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less
+T 24 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 28 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less
+T 29 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less
+L )
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less
+L a { b: c }
+T 2 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less
+T 3 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less
+T 5 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 9 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less
+T 10 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less
+L </style>
+T 1 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less
+T 2 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less
+T 7 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 8 source.svelte meta.style.svelte meta.lang.less.svelte meta.embedded.block.svelte source.css.less meta.property-list.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+L 

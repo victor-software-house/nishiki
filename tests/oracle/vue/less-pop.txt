@@ -1,0 +1,145 @@
+L <!--
+T 4 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L   Less that stops without advancing at its root, where vscode-textmate pops
+T 75 text.html.vue comment.block.vue
+L   the body that embeds it and ends the line: a `)` or `}` before anything
+T 73 text.html.vue comment.block.vue
+L   else in the body. Less pops one of its own rules instead when one is open, as in the
+T 86 text.html.vue comment.block.vue
+L   last body, which stays open to the end.
+T 41 text.html.vue comment.block.vue
+L -->
+T 3 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L <style lang="less">)
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 20 text.html.vue
+L */ x
+T 4 text.html.vue
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <template><p>after</p></template>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 11 text.html.vue text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 12 text.html.vue text.html.derivative meta.tag.structure.p.start.html entity.name.tag.html
+T 13 text.html.vue text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 18 text.html.vue text.html.derivative
+T 20 text.html.vue text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 21 text.html.vue text.html.derivative meta.tag.structure.p.end.html entity.name.tag.html
+T 22 text.html.vue text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+T 24 text.html.vue punctuation.definition.tag.begin.html.vue
+T 32 text.html.vue entity.name.tag.template.html.vue
+T 33 text.html.vue punctuation.definition.tag.end.html.vue
+L <style lang="less">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L )
+T 1 text.html.vue
+L a { b: c }
+T 10 text.html.vue
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <style lang="less">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L }
+T 1 text.html.vue
+L a { b: c }
+T 10 text.html.vue
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <style lang="less">a { b: (c) }
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 20 text.html.vue source.css.less meta.selector.less entity.name.tag.less
+T 21 text.html.vue source.css.less meta.selector.less
+T 22 text.html.vue source.css.less meta.property-list.less punctuation.definition.block.begin.less
+T 23 text.html.vue source.css.less meta.property-list.less
+T 24 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 26 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 27 text.html.vue source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.begin.less
+T 28 text.html.vue source.css.less meta.property-list.less meta.selector.less meta.group.less keyword.other.less
+T 29 text.html.vue source.css.less meta.property-list.less meta.selector.less meta.group.less punctuation.definition.group.end.less
+T 30 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 31 text.html.vue source.css.less meta.property-list.less
+L </style>
+T 1 text.html.vue source.css.less meta.property-list.less
+T 2 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 7 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 8 text.html.vue source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+L <template><p>end</p></template>
+T 1 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 9 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 10 text.html.vue source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+T 11 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 12 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 13 text.html.vue source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+T 18 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 19 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 20 text.html.vue source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+T 22 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 30 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 31 text.html.vue source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+L <style lang="less">a { b: c }
+T 1 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 6 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 18 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 19 text.html.vue source.css.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+T 20 text.html.vue source.css.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 21 text.html.vue source.css.less meta.property-list.less meta.selector.less
+T 22 text.html.vue source.css.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+T 23 text.html.vue source.css.less meta.property-list.less meta.property-list.less
+T 24 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 28 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less
+T 29 text.html.vue source.css.less meta.property-list.less meta.property-list.less
+L )
+T 1 text.html.vue source.css.less meta.property-list.less
+L a { b: c }
+T 2 text.html.vue source.css.less meta.property-list.less
+T 3 text.html.vue source.css.less meta.property-list.less meta.property-list.less punctuation.definition.block.begin.less
+T 4 text.html.vue source.css.less meta.property-list.less meta.property-list.less
+T 5 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 9 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less
+T 10 text.html.vue source.css.less meta.property-list.less meta.property-list.less
+L </style>
+T 1 text.html.vue source.css.less meta.property-list.less meta.property-list.less
+T 2 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less
+T 7 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less entity.name.tag.less
+T 8 text.html.vue source.css.less meta.property-list.less meta.property-list.less meta.selector.less punctuation.separator.combinator.less
+L 

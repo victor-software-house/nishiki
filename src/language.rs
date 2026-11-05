@@ -1015,13 +1015,9 @@ languages! {
     ///   Shiki's injection also opens it in another language's fence or in a raw block.
     /// - A `vue` fence opens only at the start of a line, or after a quote's or list's prefix.
     ///   Shiki's injection also opens one where an inner rule's match ended, at its `\G`, such as after a JSX tag's `>`.
-    ///
-    /// # Differences from Shiki
-    ///
-    /// - In a Less block, a `)` or `}` at Less's root ends the Less in Shiki.
+    /// - In a Less block, a `)` or `}` at Less's root ends the Less.
     ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Vue's style block.
     ///   The rest of the block is plain text up to `</style>`.
-    ///   nishiki goes on lexing the block as Less.
     Vue { feature: "lang-vue", names: ["vue"], module: vue }
     /// x86 and x86-64 assembly, with the scopes of Shiki's `asm` grammar,
     /// which nishiki's `TextMate` engine runs.
@@ -1148,16 +1144,15 @@ languages! {
     /// - TypeScript lexes a `{@debug}` name and an `{#each}` index again, each on its own, so a keyword there, such as `else`, reads as a keyword.
     /// - The text of an `@component` comment's line is Markdown only where it starts the line, since Markdown's block patterns need `^` or `\G`.
     /// - `\w`, `\s` and `[[:alpha:]]` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    /// - In a Less body, a `)` or `}` at Less's root ends the Less.
+    ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Svelte's Less body.
+    ///   The rest of the body is plain text up to `</style>`.
     ///
     /// # Differences from Shiki
     ///
     /// - Svelte's `$` prefixes reach only the TypeScript and JavaScript that Svelte embeds itself.
     ///   Shiki's injection adds them in every `source.ts` and `source.js` of the document.
     ///   One example is a script in the HTML of an `@component` comment's Markdown.
-    /// - In a Less body, a `)` or `}` at Less's root ends the Less in Shiki.
-    ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Svelte's Less body.
-    ///   The rest of the body is plain text up to a later `>`.
-    ///   nishiki goes on lexing the body as Less.
     Svelte { feature: "lang-svelte", names: ["svelte"], module: svelte }
 }
 
@@ -1228,6 +1223,22 @@ pub(crate) enum StopKind {
     /// that embeds the language, and ends the line.
     /// The language has lexed the rest of the line as its own, from the byte.
     PopHost,
+}
+
+/// Cuts the tokens in `out` back to `at`, for a host that pops the rule that
+/// embeds a language ([`StopKind::PopHost`]).
+/// The language lexed the rest of the line from `at` as its own.
+#[cfg(any(feature = "_embedding", feature = "lang-vue"))]
+pub(crate) fn cut_tokens(out: &mut Vec<Token>, at: usize) {
+    let keep = out.partition_point(|token| token.end <= at);
+    let start = keep.checked_sub(1).map_or(0, |last| out[last].end);
+    match out.get_mut(keep) {
+        Some(token) if start < at => {
+            token.end = at;
+            out.truncate(keep + 1);
+        }
+        Some(_) | None => out.truncate(keep),
+    }
 }
 
 impl Stopped {

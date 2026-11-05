@@ -26,6 +26,8 @@ use super::state::{self, ErbInjection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rul
 use super::vue as vue_rules;
 use super::vue::VuePat;
 use crate::arena::{Arena, ROOT};
+#[cfg(feature = "lang-vue")]
+use crate::language::cut_tokens;
 use crate::language::{Context, Halt, Line, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch as AllScratch;
@@ -926,24 +928,45 @@ impl<'a> Lexer<'a> {
             embedded: false,
         };
         let (next, stopped) = vue_lex(&mut cx, lexed, line, inner, end);
-        let halted = match stopped {
+        let next = self.steps.take_back(next);
+        match stopped {
             Some(Stopped {
                 at,
                 kind: StopKind::Halt,
-            }) => Some(at),
+            }) => {
+                self.advance_to(pos, Some(at));
+                Some(Hit::new(Pat::End, at, at))
+            }
             Some(Stopped {
+                at,
                 kind: StopKind::PopHost,
-                ..
-            })
-            | None => None,
-        };
-        let next = self.steps.take_back(next);
-        self.advance_to(pos, halted);
-        let Some(at) = halted else {
-            self.keep_inner(next);
-            return None;
-        };
-        Some(Hit::new(Pat::End, at, at))
+            }) => {
+                self.advance_to(pos, None);
+                self.pop_body(at);
+                None
+            }
+            None => {
+                self.advance_to(pos, None);
+                self.keep_inner(next);
+                None
+            }
+        }
+    }
+
+    /// Pops the Vue body on top, as vscode-textmate does where the language
+    /// it embeds matched an empty text at its root without advancing
+    /// ([`StopKind::PopHost`]).
+    /// The rest of the line from `at` sits on the rule below, in place of the
+    /// tokens the language gave it.
+    /// The line stops there.
+    #[cfg(feature = "lang-vue")]
+    #[cold]
+    fn pop_body(&mut self, at: usize) {
+        cut_tokens(self.out, at);
+        self.last = at;
+        self.frames.pop();
+        self.finish();
+        self.pos = self.lim;
     }
 
     /// Without Vue, no frame is a Vue body.
