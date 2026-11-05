@@ -100,6 +100,8 @@
 //!   end mid-line or inside a UTF-8 character.
 //! - [`Document::lex`] lexes what changed, through a line or to the end.
 //! - [`Document::take_changes`] gives the lines to draw again.
+//! - [`DocumentLine::styled`] gives each token's end and style, under the
+//!   document's theme. [`Document::set_theme`] switches the theme.
 //! - A completed line is lexed once. Only the last line, still being written,
 //!   is lexed again on each delta.
 //!
@@ -136,6 +138,10 @@
 //!     document.line(1).map(|line| line.kind()),
 //!     Some(LineKind::Exact)
 //! );
+//! if let Some(line) = document.line(1) {
+//!     let ends: Vec<usize> = line.styled().map(|(end, _style)| end).collect();
+//!     assert_eq!(ends.last(), Some(&"fn main() {}".len()));
+//! }
 //! ```
 //!
 //! # Limits

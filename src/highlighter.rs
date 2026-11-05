@@ -197,6 +197,22 @@ impl Highlighter {
         }
     }
 
+    /// The style [`Highlighter::style`] keeps for `stack` under `theme`.
+    ///
+    /// It reads whichever slot holds `theme`.
+    /// It is `None` for a stack not styled yet, and for a theme in neither
+    /// slot, so no caller reads a style left from another theme.
+    pub(crate) fn cached_style(&self, theme: &Theme, stack: Stack) -> Option<Style> {
+        let slot = [&self.styles.current, &self.styles.previous]
+            .into_iter()
+            .find(|slot| slot.theme == Some(theme.id()))?;
+        usize::try_from(stack.0)
+            .ok()
+            .and_then(|index| slot.by_stack.get(index))
+            .copied()
+            .flatten()
+    }
+
     /// [`Highlighter::style`] with a theme other than the current slot's:
     /// switches slots, then styles `stack`.
     ///
