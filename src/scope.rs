@@ -179,6 +179,8 @@ tables! {
         feature = "lang-tsx"
     ))]
     TYPESCRIPT = typescript;
+    #[cfg(feature = "lang-vb")]
+    VB = vb;
     #[cfg(feature = "lang-xml")]
     XML = xml;
     #[cfg(feature = "lang-yaml")]

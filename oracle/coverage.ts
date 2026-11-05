@@ -107,6 +107,7 @@ const handLexed = new Map([
   ["toml", "TOML"],
   ["tsx", "TypeScript"],
   ["typescript", "TypeScript"],
+  ["vb", "Visual Basic"],
   ["vue", "Vue"],
   ["xml", "XML"],
   ["yaml", "YAML"],

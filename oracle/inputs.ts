@@ -70,6 +70,7 @@ import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
 import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
+import vbCoverage from "./inputs/vb-coverage.vb" with { type: "text" };
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
 import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
@@ -1488,9 +1489,12 @@ export const inputs: Input[] = [
     name: "zod-classic-schemas",
     url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
   },
-  // Visual Basic runs on the TextMate engine.
+  { lang: "vb", name: "coverage", text: vbCoverage },
   { lang: "vb", name: "roslyn-error-method-symbol", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb` },
   { lang: "vb", name: "roslyn-named-type-binder", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb` },
+  { lang: "vb", name: "roslyn-special-members", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/SpecialMembers.vb` },
+  { lang: "vb", name: "roslyn-typed-constant", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/TypedConstant.vb` },
+  { lang: "vb", name: "roslyn-with-block-binder", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb` },
   { lang: "vb", name: "sample", url: `${samples}/vb.sample` },
   { lang: "vue", name: "coverage", text: vueCoverage },
   { lang: "vue", name: "playground-app", url: `${vue}/packages-private/sfc-playground/src/App.vue` },

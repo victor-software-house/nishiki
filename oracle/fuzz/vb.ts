@@ -1,0 +1,30 @@
+// Visual Basic for the differential fuzzer (fuzz.ts): pieces of Visual Basic
+// to build documents from, texts to insert, and the info strings of Markdown
+// fences.
+
+/** Pieces that random documents are made of. */
+export const pieces: string[] = [
+  "Sub Main(args)", "Sub Main()", "Function Twice(n)", "Private Sub Foo(ByVal a As Integer)", "Public Function Bar() As String",
+  "End Sub", "End Function", "End Class", "End Property", "Class Foo", "Public Property Name As String", "Option Explicit",
+  "On Error Resume Next", "On Error GoTo Handler", "Dim a", "Dim a, b, c", "Dim x As Integer = 0", "ReDim arr(10)", "Const PI = 3.14",
+  "If a Then", "Else If b Then", "ElseIf c Then", "Else", "End If", "Select Case x", "Case 1", "End Select", "For i = 1 To 10",
+  "For Each item In list", "Next", "While x", "Wend", "Do Until x", "Loop", "With obj", "Exit Do", "Exit For", "Exit Sub",
+  "Return a Mod b", "a And Not b Or c Xor d", "x = IIf(a, b, c)", "Set obj = CreateObject(\"Scripting.Dictionary\")",
+  "Response.Write \"hello\"", "Response.Buffer = True", "Session(\"key\") = 1", "Request.QueryString(\"id\")", "Server.MapPath(\"/\")",
+  "Application_OnStart", "Session_OnEnd", "Call Foo()", "x = Len(s) + Mid(s, 1, 2)", "y = vbCrLf & vbTab", "If vbTrue Then",
+  "z = Empty", "z = Nothing", "z = Null", "\"a \"\"quoted\"\" b\"", "\"unterminated", "' comment", "  ' indented comment",
+  "\t' tabbed comment", "\t\tx = 1", "    y = 2", "\tIf a Then", "x = 1.5", "x = .5", "x = 1.", "x = 1e10", "x = 0xFFL", "x = 12UL",
+  "x = -3", "x = 1.5é", "$name", "$a + $b", "a = b <> c", "a = (b + (c * d))", "f(g(h(x)))", "x = a(", "x = )",
+  "Dim Key As Integer", "If a aſ b Then", "Dim x As ſize", "Claß Foo", "ﬁx(1)", "é = 1",
+  "café(1)", "x = a.b.c", "x = a.b(1).c", "obj.Method (1)", "a += 1", "a = b++", "a === b", "x ?: y", "typeof x",
+  "Dim s As String = \"x\" ' trailing", "If x = 1 Then y = 2 Else y = 3",
+];
+
+/** Texts that mutation inserts. */
+export const mutations: string[] = [
+  "\"", "\"\"", "'", "(", ")", "Else If ", "ElseIf", "End ", "Dim ", "Sub ", "As ", "aſ ", "K", "ſ", "ß",
+  "ﬁ", "é", "1.5", ".", "0x", "e", "$", "\t", "  ", " ", "=", "<", ">", "&", "+", "-", ",", "\n",
+];
+
+/** Info strings of Markdown fences. */
+export const fences: string[] = ["vb", "VB", "vb title=\"x\"", "vb,x", "vbnet", "vb.net"];

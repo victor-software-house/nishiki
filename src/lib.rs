@@ -167,7 +167,7 @@
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
-//! | `textmate` | Assembly, Common Lisp, HAML, Visual Basic |
+//! | `textmate` | Assembly, Common Lisp, HAML |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
 //! from Shiki's grammars, compiled in as tables.
@@ -222,7 +222,8 @@ mod c;
     feature = "lang-pascal",
     feature = "lang-php",
     feature = "lang-powershell",
-    feature = "lang-sql"
+    feature = "lang-sql",
+    feature = "lang-vb"
 ))]
 mod case_fold;
 #[cfg(feature = "_classes")]

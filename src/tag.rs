@@ -197,6 +197,9 @@ tags! {
     feature = "lang-tsx"
 ))]
     TYPESCRIPT = 0x0300,
+    /// Visual Basic.
+    #[cfg(feature = "lang-vb")]
+    VB = 0x4700,
     /// XML.
     #[cfg(feature = "lang-xml")]
     XML = 0x2900,

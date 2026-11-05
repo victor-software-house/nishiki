@@ -1015,14 +1015,19 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
-    /// Visual Basic .NET, with the scopes of Shiki's `vb` grammar, which
-    /// nishiki's `TextMate` engine runs.
+    /// Visual Basic .NET, with the scopes of Shiki's `vb` grammar.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Under `(?i)`, a name may hold `ſ` and the Kelvin sign, and a keyword may hold `ß` and the Latin ligatures, for the letters they fold to.
+    /// - A word list takes its first word in order that `\b` follows, so `Else If` is the two keywords `Else` and `If`.
+    /// - A string's end comes before `""`, so `"a""b"` is two strings.
+    /// - A number gives digits back to a bare `.` when a `\w` follows it, so `1.5é` holds the number `1.`.
     Vb {
         feature: "lang-vb",
         names: ["vb"],
-        engine: crate::vb::grammar::GRAMMAR,
+        module: vb,
         reads_line_feed: true,
-        halts: true,
     }
     /// MATLAB, with the scopes of Shiki's `matlab` grammar.
     ///

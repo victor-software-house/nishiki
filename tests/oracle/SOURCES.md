@@ -718,8 +718,12 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `typescript/vue-api-create-app` | [`packages/runtime-core/src/apiCreateApp.ts`][vue-app] in vuejs/core | [MIT][vue-licence] |
 | `typescript/vue-effect` | [`packages/reactivity/src/effect.ts`][vue-effect] in vuejs/core | [MIT][vue-licence] |
 | `typescript/zod-classic-schemas` | [`packages/zod/src/v4/classic/schemas.ts`][zod-schemas] in colinhacks/zod | [MIT][zod-licence] |
+| `vb/coverage` | `oracle/inputs/vb-coverage.vb`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vb/roslyn-error-method-symbol` | [`src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb`][roslyn-error-method-symbol] in dotnet/roslyn | [MIT][roslyn-licence] |
 | `vb/roslyn-named-type-binder` | [`src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb`][roslyn-named-type-binder] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `vb/roslyn-special-members` | [`src/Compilers/VisualBasic/Portable/Symbols/SpecialMembers.vb`][roslyn-special-members] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `vb/roslyn-typed-constant` | [`src/Compilers/VisualBasic/Portable/Symbols/TypedConstant.vb`][roslyn-typed-constant] in dotnet/roslyn | [MIT][roslyn-licence] |
+| `vb/roslyn-with-block-binder` | [`src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb`][roslyn-with-block-binder] in dotnet/roslyn | [MIT][roslyn-licence] |
 | `vb/sample` | [`samples/vb.sample`][vb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `vue/coverage` | `oracle/inputs/vue-coverage.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/playground-app` | [`packages-private/sfc-playground/src/App.vue`][vue-playground-app] in vuejs/core | [MIT][vue-licence] |
@@ -1571,7 +1575,10 @@ The hand lexer was written against all seven.
 [roslyn-error-method-symbol]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb
 [roslyn-licence]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/License.txt
 [roslyn-named-type-binder]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb
+[roslyn-special-members]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Symbols/SpecialMembers.vb
 [roslyn-text-span]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/Core/Portable/Text/TextSpan.cs
+[roslyn-typed-constant]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Symbols/TypedConstant.vb
+[roslyn-with-block-binder]: https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb
 [rspec-core-licence]: https://github.com/rspec/rspec-core/blob/aec5f49485d97908183dbe790a7fefb8baaa8091/LICENSE.md
 [rspec-example]: https://github.com/rspec/rspec-core/blob/aec5f49485d97908183dbe790a7fefb8baaa8091/lib/rspec/core/example.rb
 [rubocop-cop-base]: https://github.com/rubocop/rubocop/blob/09c38e2526622e5c08a73ebff58fd2f4bed35ffe/lib/rubocop/cop/base.rb

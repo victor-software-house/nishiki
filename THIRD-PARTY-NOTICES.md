@@ -2185,7 +2185,7 @@ authorization of the copyright holder.
 
 ## Visual Basic
 
-Its TextMate engine runs the ASP VB.NET TextMate grammar that Shiki bundles through VS Code as `vb` (`extensions/vb` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `35d97bc7e439fce0f50f42074041ab2d8571b20a`), with its rules compiled into tables (`src/vb/grammar.rs`).
+Its Visual Basic lexer emits the scope names of the ASP VB.NET TextMate grammar that Shiki bundles through VS Code as `vb` (`extensions/vb` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `35d97bc7e439fce0f50f42074041ab2d8571b20a`), and tries that grammar's rules in its order, from tables generated from it (`src/vb/grammar.rs`).
 VS Code converted it from `Syntaxes/ASP VB.net.plist` in [textmate/asp.vb.net.tmbundle](https://github.com/textmate/asp.vb.net.tmbundle).
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
 The bundle's `README.mdown`, read at commit `72d44550b3286d0382d7be0624140cf97857ff69`, gives the TextMate bundle licence to every file that carries none of its own.

@@ -1,0 +1,91 @@
+L Sub Main(args, count)
+T 3 source.asp.vb.net meta.function.asp storage.type.function.asp
+T 4 source.asp.vb.net meta.function.asp
+T 8 source.asp.vb.net meta.function.asp entity.name.function.asp
+T 9 source.asp.vb.net meta.function.asp punctuation.definition.parameters.asp
+T 20 source.asp.vb.net meta.function.asp variable.parameter.function.asp
+T 21 source.asp.vb.net meta.function.asp punctuation.definition.parameters.asp
+L 	Dim total, other As Integer
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 4 source.asp.vb.net variable.other.dim.asp storage.type.asp
+T 5 source.asp.vb.net variable.other.dim.asp
+T 10 source.asp.vb.net variable.other.dim.asp variable.other.bfeac.asp
+T 11 source.asp.vb.net variable.other.dim.asp meta.separator.comma.asp
+T 17 source.asp.vb.net variable.other.asp
+T 18 source.asp.vb.net
+T 20 source.asp.vb.net keyword.operator.asp
+T 21 source.asp.vb.net
+T 28 source.asp.vb.net support.type.vb.asp
+L 		If total = 0 Then
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 2 source.asp.vb.net meta.leading-space meta.even-tab.tabs
+T 4 source.asp.vb.net keyword.control.asp
+T 5 source.asp.vb.net
+T 10 source.asp.vb.net variable.other.asp
+T 11 source.asp.vb.net
+T 12 source.asp.vb.net keyword.operator.js
+T 13 source.asp.vb.net
+T 14 source.asp.vb.net constant.numeric.asp
+T 15 source.asp.vb.net
+T 19 source.asp.vb.net keyword.control.asp
+L 		Response.Buffer = True
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 2 source.asp.vb.net meta.leading-space meta.even-tab.tabs
+T 10 source.asp.vb.net support.class.asp
+T 11 source.asp.vb.net
+T 17 source.asp.vb.net support.constant.asp
+T 18 source.asp.vb.net
+T 19 source.asp.vb.net keyword.operator.js
+T 24 source.asp.vb.net constant.language.asp
+L 	End If
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 7 source.asp.vb.net keyword.control.asp
+L 	x = $name
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 2 source.asp.vb.net variable.other.asp
+T 3 source.asp.vb.net
+T 4 source.asp.vb.net keyword.operator.js
+T 5 source.asp.vb.net
+T 6 source.asp.vb.net variable.other.asp punctuation.definition.variable.asp
+T 10 source.asp.vb.net variable.other.asp
+L 	If vbTrue Then Exit Sub
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 3 source.asp.vb.net keyword.control.asp
+T 4 source.asp.vb.net
+T 10 source.asp.vb.net support.type.vb.asp
+T 11 source.asp.vb.net
+T 15 source.asp.vb.net keyword.control.asp
+T 16 source.asp.vb.net
+T 24 source.asp.vb.net keyword.control.asp
+L 	Call Session_OnStart()
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 6 source.asp.vb.net storage.type.asp
+T 21 source.asp.vb.net support.function.event.asp
+T 22 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 23 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L End Sub
+T 7 source.asp.vb.net storage.type.asp
+L Function Twice(n)
+T 8 source.asp.vb.net meta.function.asp storage.type.function.asp
+T 9 source.asp.vb.net meta.function.asp
+T 14 source.asp.vb.net meta.function.asp entity.name.function.asp
+T 15 source.asp.vb.net meta.function.asp punctuation.definition.parameters.asp
+T 16 source.asp.vb.net meta.function.asp variable.parameter.function.asp
+T 17 source.asp.vb.net meta.function.asp punctuation.definition.parameters.asp
+L 	Twice = n * 2
+T 1 source.asp.vb.net meta.leading-space meta.odd-tab.tabs
+T 6 source.asp.vb.net variable.other.asp
+T 7 source.asp.vb.net
+T 8 source.asp.vb.net keyword.operator.js
+T 10 source.asp.vb.net variable.other.asp
+T 11 source.asp.vb.net
+T 12 source.asp.vb.net keyword.operator.js
+T 13 source.asp.vb.net
+T 14 source.asp.vb.net constant.numeric.asp
+L End Function
+T 12 source.asp.vb.net storage.type.asp
+L   ' a comment
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 3 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 13 source.asp.vb.net comment.line.apostrophe.asp
+L 

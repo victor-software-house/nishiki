@@ -1,0 +1,666 @@
+L ' Licensed to the .NET Foundation under one or more agreements.
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 63 source.asp.vb.net comment.line.apostrophe.asp
+L ' The .NET Foundation licenses this file to you under the MIT license.
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 70 source.asp.vb.net comment.line.apostrophe.asp
+L ' See the LICENSE file in the project root for more information.
+T 1 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 64 source.asp.vb.net comment.line.apostrophe.asp
+L 
+L Imports System.Collections.Generic
+T 34 source.asp.vb.net
+L Imports System.Collections.ObjectModel
+T 38 source.asp.vb.net
+L Imports System.Threading
+T 24 source.asp.vb.net
+L Imports Microsoft.CodeAnalysis.RuntimeMembers
+T 45 source.asp.vb.net
+L Imports Microsoft.CodeAnalysis.Text
+T 35 source.asp.vb.net
+L Imports Microsoft.CodeAnalysis.VisualBasic.Symbols
+T 50 source.asp.vb.net
+L Imports Microsoft.CodeAnalysis.VisualBasic.Syntax
+T 49 source.asp.vb.net
+L 
+L Namespace Microsoft.CodeAnalysis.VisualBasic.Symbols
+T 52 source.asp.vb.net
+L 
+L     Partial Friend Class AssemblySymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net
+T 25 source.asp.vb.net storage.type.asp
+T 39 source.asp.vb.net
+L 
+L         ''' <summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 21 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' Lookup member declaration in predefined CorLib type used by this Assembly.
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 86 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' </summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 22 source.asp.vb.net comment.line.apostrophe.asp
+L         Friend Overridable Function GetSpecialTypeMember(member As SpecialMember) As Symbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 26 source.asp.vb.net
+T 36 source.asp.vb.net storage.type.asp
+T 56 source.asp.vb.net support.function.asp entity.name.function.asp
+T 57 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 63 source.asp.vb.net meta.round-brackets variable.other.asp
+T 64 source.asp.vb.net meta.round-brackets
+T 66 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 67 source.asp.vb.net meta.round-brackets
+T 80 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 81 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 82 source.asp.vb.net
+T 84 source.asp.vb.net keyword.operator.asp
+T 85 source.asp.vb.net
+T 91 source.asp.vb.net support.type.vb.asp
+L             Debug.Assert(member >= 0 AndAlso member < SpecialMember.Count)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net
+T 24 source.asp.vb.net support.function.asp entity.name.function.asp
+T 25 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 31 source.asp.vb.net meta.round-brackets variable.other.asp
+T 32 source.asp.vb.net meta.round-brackets
+T 34 source.asp.vb.net meta.round-brackets keyword.operator.js
+T 35 source.asp.vb.net meta.round-brackets
+T 36 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 45 source.asp.vb.net meta.round-brackets
+T 51 source.asp.vb.net meta.round-brackets variable.other.asp
+T 52 source.asp.vb.net meta.round-brackets
+T 53 source.asp.vb.net meta.round-brackets keyword.operator.js
+T 68 source.asp.vb.net meta.round-brackets
+T 73 source.asp.vb.net meta.round-brackets variable.other.asp
+T 74 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L 
+L             Return CorLibrary.GetDeclaredSpecialTypeMember(member)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 30 source.asp.vb.net
+T 58 source.asp.vb.net support.function.asp entity.name.function.asp
+T 59 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 65 source.asp.vb.net meta.round-brackets variable.other.asp
+T 66 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L         ''' <summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 21 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' Lookup member declaration in predefined CorLib type in this Assembly. Only valid if this 
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 101 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' assembly is the Cor Library
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 39 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' </summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 22 source.asp.vb.net comment.line.apostrophe.asp
+L         Friend Overridable Function GetDeclaredSpecialTypeMember(member As SpecialMember) As Symbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 26 source.asp.vb.net
+T 36 source.asp.vb.net storage.type.asp
+T 64 source.asp.vb.net support.function.asp entity.name.function.asp
+T 65 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 71 source.asp.vb.net meta.round-brackets variable.other.asp
+T 72 source.asp.vb.net meta.round-brackets
+T 74 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 75 source.asp.vb.net meta.round-brackets
+T 88 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 89 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 90 source.asp.vb.net
+T 92 source.asp.vb.net keyword.operator.asp
+T 93 source.asp.vb.net
+T 99 source.asp.vb.net support.type.vb.asp
+L             Return Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 26 source.asp.vb.net constant.language.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L     End Class
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 13 source.asp.vb.net storage.type.asp
+L 
+L     Partial Friend Class MetadataOrSourceAssemblySymbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net
+T 25 source.asp.vb.net storage.type.asp
+T 55 source.asp.vb.net
+L 
+L         ''' <summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 21 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' Lazy cache of special members.
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 42 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' Not yet known value is represented by ErrorTypeSymbol.UnknownResultType
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 83 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' </summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 22 source.asp.vb.net comment.line.apostrophe.asp
+L         Private _lazySpecialTypeMembers() As Symbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net storage.modifier.asp
+T 16 source.asp.vb.net
+T 39 source.asp.vb.net support.function.asp entity.name.function.asp
+T 40 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 41 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 42 source.asp.vb.net
+T 44 source.asp.vb.net keyword.operator.asp
+T 45 source.asp.vb.net
+T 51 source.asp.vb.net support.type.vb.asp
+L 
+L         ''' <summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 21 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' Lookup member declaration in predefined CorLib type in this Assembly. Only valid if this 
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 101 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' assembly is the Cor Library
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 39 source.asp.vb.net comment.line.apostrophe.asp
+L         ''' </summary>
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 9 source.asp.vb.net comment.line.apostrophe.asp punctuation.definition.comment.asp
+T 22 source.asp.vb.net comment.line.apostrophe.asp
+L         Friend Overrides Function GetDeclaredSpecialTypeMember(member As SpecialMember) As Symbol
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 24 source.asp.vb.net
+T 34 source.asp.vb.net storage.type.asp
+T 62 source.asp.vb.net support.function.asp entity.name.function.asp
+T 63 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 69 source.asp.vb.net meta.round-brackets variable.other.asp
+T 70 source.asp.vb.net meta.round-brackets
+T 72 source.asp.vb.net meta.round-brackets keyword.operator.asp
+T 73 source.asp.vb.net meta.round-brackets
+T 86 source.asp.vb.net meta.round-brackets support.type.vb.asp
+T 87 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 88 source.asp.vb.net
+T 90 source.asp.vb.net keyword.operator.asp
+T 91 source.asp.vb.net
+T 97 source.asp.vb.net support.type.vb.asp
+L #If DEBUG Then
+T 1 source.asp.vb.net
+T 3 source.asp.vb.net keyword.control.asp
+T 10 source.asp.vb.net
+T 14 source.asp.vb.net keyword.control.asp
+L             For Each [module] In Me.Modules
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 15 source.asp.vb.net keyword.control.asp
+T 16 source.asp.vb.net
+T 20 source.asp.vb.net keyword.control.asp
+T 43 source.asp.vb.net
+L                 Debug.Assert([module].GetReferencedAssemblies().Length = 0)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net
+T 28 source.asp.vb.net support.function.asp entity.name.function.asp
+T 29 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 38 source.asp.vb.net meta.round-brackets
+T 61 source.asp.vb.net meta.round-brackets support.function.asp entity.name.function.asp
+T 62 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 63 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.end.asp
+T 64 source.asp.vb.net meta.round-brackets
+T 70 source.asp.vb.net meta.round-brackets variable.other.asp
+T 71 source.asp.vb.net meta.round-brackets
+T 72 source.asp.vb.net meta.round-brackets keyword.operator.js
+T 73 source.asp.vb.net meta.round-brackets
+T 74 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 75 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             Next
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 16 source.asp.vb.net keyword.control.asp
+L #End If
+T 1 source.asp.vb.net
+T 7 source.asp.vb.net keyword.control.asp
+L 
+L             If _lazySpecialTypeMembers Is Nothing OrElse _lazySpecialTypeMembers(member) Is ErrorTypeSymbol.UnknownResultType Then
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net keyword.control.asp
+T 41 source.asp.vb.net
+T 49 source.asp.vb.net constant.language.asp
+T 57 source.asp.vb.net
+T 80 source.asp.vb.net support.function.asp entity.name.function.asp
+T 81 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 87 source.asp.vb.net meta.round-brackets variable.other.asp
+T 88 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 126 source.asp.vb.net
+T 130 source.asp.vb.net keyword.control.asp
+L                 If (_lazySpecialTypeMembers Is Nothing) Then
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 19 source.asp.vb.net
+T 20 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 43 source.asp.vb.net meta.round-brackets variable.other.asp
+T 46 source.asp.vb.net meta.round-brackets
+T 54 source.asp.vb.net meta.round-brackets constant.language.asp
+T 55 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 56 source.asp.vb.net
+T 60 source.asp.vb.net keyword.control.asp
+L                     Dim specialTypeMembers = New Symbol(SpecialMember.Count - 1) {}
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 20 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 23 source.asp.vb.net variable.other.dim.asp storage.type.asp
+T 24 source.asp.vb.net variable.other.dim.asp
+T 42 source.asp.vb.net variable.other.dim.asp variable.other.bfeac.asp
+T 43 source.asp.vb.net variable.other.dim.asp
+T 44 source.asp.vb.net keyword.operator.js
+T 49 source.asp.vb.net storage.type.asp
+T 55 source.asp.vb.net support.function.asp entity.name.function.asp
+T 56 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 70 source.asp.vb.net meta.round-brackets
+T 75 source.asp.vb.net meta.round-brackets variable.other.asp
+T 76 source.asp.vb.net meta.round-brackets
+T 77 source.asp.vb.net meta.round-brackets keyword.operator.js
+T 78 source.asp.vb.net meta.round-brackets
+T 79 source.asp.vb.net meta.round-brackets constant.numeric.asp
+T 80 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 83 source.asp.vb.net
+L 
+L                     For i As Integer = 0 To specialTypeMembers.Length - 1
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 20 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 23 source.asp.vb.net keyword.control.asp
+T 26 source.asp.vb.net
+T 28 source.asp.vb.net keyword.operator.asp
+T 29 source.asp.vb.net
+T 36 source.asp.vb.net support.type.vb.asp
+T 37 source.asp.vb.net
+T 38 source.asp.vb.net keyword.operator.js
+T 39 source.asp.vb.net
+T 40 source.asp.vb.net constant.numeric.asp
+T 41 source.asp.vb.net
+T 43 source.asp.vb.net keyword.control.asp
+T 63 source.asp.vb.net
+T 69 source.asp.vb.net variable.other.asp
+T 70 source.asp.vb.net
+T 71 source.asp.vb.net keyword.operator.js
+T 72 source.asp.vb.net
+T 73 source.asp.vb.net constant.numeric.asp
+L                         specialTypeMembers(i) = ErrorTypeSymbol.UnknownResultType
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 20 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 24 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 42 source.asp.vb.net support.function.asp entity.name.function.asp
+T 43 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 44 source.asp.vb.net meta.round-brackets variable.other.asp
+T 45 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 46 source.asp.vb.net
+T 47 source.asp.vb.net keyword.operator.js
+T 81 source.asp.vb.net
+L                     Next
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 20 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 24 source.asp.vb.net keyword.control.asp
+L 
+L                     Interlocked.CompareExchange(_lazySpecialTypeMembers, specialTypeMembers, Nothing)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 20 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 32 source.asp.vb.net
+T 47 source.asp.vb.net support.function.asp entity.name.function.asp
+T 48 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 71 source.asp.vb.net meta.round-brackets variable.other.asp
+T 72 source.asp.vb.net meta.round-brackets
+T 91 source.asp.vb.net meta.round-brackets variable.other.asp
+T 92 source.asp.vb.net meta.round-brackets
+T 100 source.asp.vb.net meta.round-brackets constant.language.asp
+T 101 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L                 End If
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+L 
+L                 Dim descriptor = SpecialMembers.GetDescriptor(member)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 19 source.asp.vb.net variable.other.dim.asp storage.type.asp
+T 20 source.asp.vb.net variable.other.dim.asp
+T 30 source.asp.vb.net variable.other.dim.asp variable.other.bfeac.asp
+T 31 source.asp.vb.net variable.other.dim.asp
+T 32 source.asp.vb.net keyword.operator.js
+T 48 source.asp.vb.net
+T 61 source.asp.vb.net support.function.asp entity.name.function.asp
+T 62 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 68 source.asp.vb.net meta.round-brackets variable.other.asp
+T 69 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L                 Dim type = GetDeclaredSpecialType(descriptor.DeclaringSpecialType)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 19 source.asp.vb.net variable.other.dim.asp storage.type.asp
+T 20 source.asp.vb.net variable.other.dim.asp
+T 24 source.asp.vb.net variable.other.dim.asp variable.other.bfeac.asp
+T 25 source.asp.vb.net variable.other.dim.asp
+T 26 source.asp.vb.net keyword.operator.js
+T 27 source.asp.vb.net
+T 49 source.asp.vb.net support.function.asp entity.name.function.asp
+T 50 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 61 source.asp.vb.net meta.round-brackets
+T 81 source.asp.vb.net meta.round-brackets variable.other.asp
+T 82 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L                 Dim result As Symbol = Nothing
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 19 source.asp.vb.net variable.other.dim.asp storage.type.asp
+T 20 source.asp.vb.net variable.other.dim.asp
+T 26 source.asp.vb.net variable.other.dim.asp variable.other.bfeac.asp
+T 27 source.asp.vb.net variable.other.dim.asp
+T 29 source.asp.vb.net keyword.operator.asp
+T 30 source.asp.vb.net
+T 36 source.asp.vb.net support.type.vb.asp
+T 37 source.asp.vb.net
+T 38 source.asp.vb.net keyword.operator.js
+T 46 source.asp.vb.net constant.language.asp
+L 
+L                 If Not type.IsErrorType() Then
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 19 source.asp.vb.net
+T 22 source.asp.vb.net keyword.operator.asp
+T 28 source.asp.vb.net
+T 39 source.asp.vb.net support.function.asp entity.name.function.asp
+T 40 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 41 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+T 42 source.asp.vb.net
+T 46 source.asp.vb.net keyword.control.asp
+L                     result = VisualBasicCompilation.GetRuntimeMember(type, descriptor, VisualBasicCompilation.SpecialMembersSignatureComparer.Instance, accessWithinOpt:=Nothing)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 20 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 26 source.asp.vb.net variable.other.asp
+T 27 source.asp.vb.net
+T 28 source.asp.vb.net keyword.operator.js
+T 52 source.asp.vb.net
+T 68 source.asp.vb.net support.function.asp entity.name.function.asp
+T 69 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 73 source.asp.vb.net meta.round-brackets variable.other.asp
+T 74 source.asp.vb.net meta.round-brackets
+T 85 source.asp.vb.net meta.round-brackets variable.other.asp
+T 151 source.asp.vb.net meta.round-brackets
+T 167 source.asp.vb.net meta.round-brackets variable.other.asp
+T 168 source.asp.vb.net meta.round-brackets
+T 169 source.asp.vb.net meta.round-brackets keyword.operator.js
+T 176 source.asp.vb.net meta.round-brackets constant.language.asp
+T 177 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L                 End If
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 22 source.asp.vb.net keyword.control.asp
+L 
+L                 Interlocked.CompareExchange(_lazySpecialTypeMembers(member), result, DirectCast(ErrorTypeSymbol.UnknownResultType, Symbol))
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 14 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 16 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 28 source.asp.vb.net
+T 43 source.asp.vb.net support.function.asp entity.name.function.asp
+T 44 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 67 source.asp.vb.net meta.round-brackets support.function.asp entity.name.function.asp
+T 68 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 74 source.asp.vb.net meta.round-brackets meta.round-brackets variable.other.asp
+T 75 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.end.asp
+T 76 source.asp.vb.net meta.round-brackets
+T 83 source.asp.vb.net meta.round-brackets variable.other.asp
+T 85 source.asp.vb.net meta.round-brackets
+T 95 source.asp.vb.net meta.round-brackets support.function.asp entity.name.function.asp
+T 96 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 130 source.asp.vb.net meta.round-brackets meta.round-brackets
+T 137 source.asp.vb.net meta.round-brackets meta.round-brackets variable.other.asp
+T 138 source.asp.vb.net meta.round-brackets meta.round-brackets punctuation.section.round-brackets.end.asp
+T 139 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L             End If
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+L 
+L             Return _lazySpecialTypeMembers(member)
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 10 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 12 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 18 source.asp.vb.net keyword.control.asp
+T 19 source.asp.vb.net
+T 42 source.asp.vb.net support.function.asp entity.name.function.asp
+T 43 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.begin.asp
+T 49 source.asp.vb.net meta.round-brackets variable.other.asp
+T 50 source.asp.vb.net meta.round-brackets punctuation.section.round-brackets.end.asp
+L         End Function
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 6 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 8 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 20 source.asp.vb.net storage.type.asp
+L 
+L     End Class
+T 2 source.asp.vb.net meta.leading-space meta.odd-tab.spaces
+T 4 source.asp.vb.net meta.leading-space meta.even-tab.spaces
+T 13 source.asp.vb.net storage.type.asp
+L 
+L End Namespace
+T 3 source.asp.vb.net support.function.asp
+T 13 source.asp.vb.net
+L 

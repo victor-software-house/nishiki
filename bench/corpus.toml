@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 13
-digest = "165daefdb0c4db6ccf50b14d8befa78d31348300d412cec08d19fcdc940dec52"
+version = 14
+digest = "f398524b25faaa28aee9d8806e6b68d7092e4a49fd29418907dcd527dd73a757"
 
 [[file]]
 language = "bat"
@@ -1429,6 +1429,28 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/LICENSE.txt"
 bytes = 539588
 sha256 = "dcddb577aa14f455193ca98c7c069217a0c523466fc777b985a7aefbd8dafc8e"
+
+[[file]]
+language = "vb"
+tier = "small"
+origin = "neutral"
+path = "vb/small/roslyn-using-block-binder.vb"
+source = "https://raw.githubusercontent.com/dotnet/roslyn/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Binding/UsingBlockBinder.vb"
+licence = "MIT"
+licence_source = "https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/License.txt"
+bytes = 3437
+sha256 = "6c9b16d4baa3e27ae104c039b82868379942b9feb54d53dcbdd988ad9baaf63a"
+
+[[file]]
+language = "vb"
+tier = "medium"
+origin = "neutral"
+path = "vb/medium/roslyn-field-symbol.vb"
+source = "https://raw.githubusercontent.com/dotnet/roslyn/868edfafce0460b50e1abe82f1bb0872979dbf0a/src/Compilers/VisualBasic/Portable/Symbols/FieldSymbol.vb"
+licence = "MIT"
+licence_source = "https://github.com/dotnet/roslyn/blob/868edfafce0460b50e1abe82f1bb0872979dbf0a/License.txt"
+bytes = 21830
+sha256 = "d3bfdd80874153a936bf78ec9a5c40ce4ada8245c0c63225d10e2f55a715ab82"
 
 [[file]]
 language = "xml"

@@ -190,6 +190,12 @@ pub(crate) struct Scratch {
         feature = "lang-tsx"
     ))]
     pub(crate) typescript: crate::typescript::Scratch,
+    /// The Visual Basic lexer's, for Visual Basic documents and Markdown
+    /// `vb` fences.
+    /// It is boxed and allocated by the first Visual Basic line, as Haskell's
+    /// is.
+    #[cfg(feature = "lang-vb")]
+    pub(crate) vb: Option<Box<crate::vb::Scratch>>,
     /// The XML lexer's, for XML documents and Markdown XML fences.
     #[cfg(feature = "lang-xml")]
     pub(crate) xml: crate::xml::Scratch,

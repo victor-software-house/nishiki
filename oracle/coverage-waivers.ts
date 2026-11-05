@@ -1412,6 +1412,16 @@ export const waivers: Waiver[] = [
     path: "patterns[15].patterns[0].match",
     reason: "the string's end `'` is tried before its patterns at every quote, so `''` ends the string and the next quote starts another",
   },
+  ...[1, 2].flatMap((group): Waiver[] => [
+    { grammar: "vb", path: "patterns[2].patterns[0].match", group, reason: blanks },
+    { grammar: "vb", path: "patterns[3].patterns[0].match", group, reason: blanks },
+  ]),
+  { grammar: "vb", path: "patterns[5].begin", group: 1, reason: blanks },
+  {
+    grammar: "vb",
+    path: "patterns[12].patterns[0].match",
+    reason: "the string's end `\"` is tried before its patterns at every quote, so `\"\"` ends the string and the next quote starts another",
+  },
   { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
   {
@@ -1705,6 +1715,7 @@ export const complete: string[] = [
   "toml",
   "tsx",
   "typescript",
+  "vb",
   "xml",
   "yaml",
   "zig",

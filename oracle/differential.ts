@@ -154,6 +154,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["(", ")", "((", "))", "[", "]", "[[", "]]", "([", "])", "{", "}", "{{", "}}", ">", "<", "-->", "---", "-.->", "==>", "--o", "--x", "<--", "-- ", " --", "|", "|o", "||", "o{", "}|", "..", "..>", "<|--", "*--", "->>", "-->>", "-x", "-)", "+", "-", "#", "~", ":", ":::", ",", ";", "\"", "\"1\"", "\"*\"", "`", "@{", "%%", "[*]", "1+", "0+", "only one", "zero or more", "one or many"],
     heads: ["", "", " ", "  ", "    ", "%% ", "graph TD", "flowchart LR", "classDiagram", "sequenceDiagram", "stateDiagram-v2", "erDiagram", "gantt", "gitGraph", "mindmap", "pie", "quadrantChart", "requirementDiagram", "journey", "xychart-beta", "architecture-beta", "C4Context", "C4Component", "```", "```mermaid", "::: mermaid", ":::"],
   },
+  vb: {
+    words: ["Sub", "Function", "End", "Class", "Property", "Dim", "ReDim", "Const", "Private", "Public", "Default", "If", "Then", "Else", "ElseIf", "Else If", "End If", "Select", "Case", "For", "Each", "To", "Next", "While", "Wend", "Do", "Until", "Loop", "With", "Exit", "Return", "Call", "Set", "Let", "Get", "New", "As", "Mod", "And", "Not", "Or", "Xor", "Empty", "Nothing", "Null", "True", "False", "Response", "Request", "Session", "Server", "Application", "Buffer", "Write", "CreateObject", "Len", "Mid", "vbCrLf", "vbTab", "Integer", "String", "x", "_x", "foo7", "Foo", "Key", "aſ", "ſize", "Claß", "ﬁx", "é", "1", "1.5", ".5", "1.", "1e10", "0xFF", "12UL", "$name"],
+    marks: ["(", ")", ",", ".", "=", "<>", "<", ">", "<=", ">=", "&", "+", "-", "*", "/", "\\", "^", ":", "\"", "\"\"", "'", "!", "$", "%", "?:", "++", "===", "\t", "  "],
+    heads: ["", "", "\t", "\t\t", "  ", "    ", "' ", "Sub f(", "Dim ", "If ", "\"", "  ' "],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

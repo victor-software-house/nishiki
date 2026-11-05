@@ -70,6 +70,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TOML | `toml` | 54 of 54 | 100.0% | 39 of 53 | 73.6% | 14 | 0 | yes |
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
+| Visual Basic | `vb` | 35 of 36 | 97.2% | 15 of 20 | 75.0% | 6 | 0 | yes |
 | Vue | `vue` | 130 of 197 | 66.0% | 88 of 128 | 68.8% | 0 | 0 |  |
 | XML | `xml` | 32 of 32 | 100.0% | 55 of 66 | 83.3% | 11 | 0 | yes |
 | YAML | `yaml` | 60 of 62 | 96.8% | 51 of 55 | 92.7% | 6 | 0 | yes |
@@ -1176,6 +1177,15 @@ injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end
 #support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
 #template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
 #template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+```
+
+### `vb`
+
+```text
+patterns[2].patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 2 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[3].patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 2 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[5].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[12].patterns[0].match  ""  waived: the string's end `"` is tried before its patterns at every quote, so `""` ends the string and the next quote starts another
 ```
 
 ### `vue`

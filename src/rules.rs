@@ -51,7 +51,8 @@ use std::fmt::Debug;
     feature = "lang-php",
     feature = "lang-perl",
     feature = "lang-elixir",
-    feature = "lang-gdscript"
+    feature = "lang-gdscript",
+    feature = "lang-vb"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]

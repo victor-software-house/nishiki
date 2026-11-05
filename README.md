@@ -111,7 +111,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | TOML | `Language::Toml` | `lang-toml` | `all` | `toml` |
 | TSX | `Language::Tsx` | `lang-tsx` | `all` | `tsx` |
 | TypeScript | `Language::TypeScript` | `lang-typescript` | `all` | `typescript`, `ts`, `cts`, `mts` |
-| Visual Basic | `Language::Vb` | `lang-vb` | `textmate` | `vb` |
+| Visual Basic | `Language::Vb` | `lang-vb` | `all` | `vb` |
 | Vue | `Language::Vue` | `lang-vue` | `all` | `vue` |
 | XML | `Language::Xml` | `lang-xml` | `all` | `xml` |
 | YAML | `Language::Yaml` | `lang-yaml` | `all` | `yaml`, `yml` |

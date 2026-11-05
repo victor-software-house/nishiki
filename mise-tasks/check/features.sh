@@ -71,6 +71,7 @@ cargo check --locked --tests --no-default-features --features lang-swift
 cargo check --locked --tests --no-default-features --features lang-toml
 cargo check --locked --tests --no-default-features --features lang-tsx
 cargo check --locked --tests --no-default-features --features lang-typescript
+cargo check --locked --tests --no-default-features --features lang-vb
 cargo check --locked --tests --no-default-features --features lang-vue
 cargo check --locked --tests --no-default-features --features lang-xml
 cargo check --locked --tests --no-default-features --features lang-yaml

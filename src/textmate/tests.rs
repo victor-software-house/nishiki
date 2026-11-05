@@ -43,6 +43,8 @@ mod shell_tables;
 mod toml_tables;
 #[path = "../../tests/engine/typescript.rs"]
 mod typescript_tables;
+#[path = "../../tests/engine/vb.rs"]
+mod vb_tables;
 #[path = "../../tests/engine/yaml.rs"]
 mod yaml_tables;
 
@@ -311,6 +313,13 @@ fn matlab_grammar_matches_shiki() {
     check(&matlab_tables::GRAMMAR, "matlab", Scanners::On);
 }
 
+/// Visual Basic has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn vb_grammar_matches_shiki() {
+    check(&vb_tables::GRAMMAR, "vb", Scanners::On);
+}
+
 /// Objective-C has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
@@ -498,8 +507,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::common_lisp::grammar::GRAMMAR, "common-lisp"),
     #[cfg(feature = "lang-haml")]
     (&crate::haml::grammar::GRAMMAR, "haml"),
-    #[cfg(feature = "lang-vb")]
-    (&crate::vb::grammar::GRAMMAR, "vb"),
 ];
 
 /// Lines whose text beyond ASCII starts with every UTF-8 lead byte from

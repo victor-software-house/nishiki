@@ -1,9 +1,7 @@
-//! Hostile lines for Visual Basic, under the default limits.
-//! The `TextMate` engine runs the language.
+//! Hostile lines for Visual Basic under the default limits.
 //!
-//! The engine interprets the grammar's own regular expressions.
-//! A line that would cost more than the default work ends at the work limit.
-//! Its tokens still cover the whole line.
+//! A line that would cost more than the default work ends at the work limit,
+//! with tokens that cover it, rather than running on.
 
 use nishiki::{Highlighter, Language, Limit};
 
@@ -26,6 +24,19 @@ fn hostile_vb_lines_finish_within_the_default_limits() {
         format!("{}'", " ".repeat(12_000)),
         format!("{}x", "\u{a0}".repeat(4_000)),
         "x".repeat(12_000),
+        format!("{}\u{e9}", "a".repeat(12_000)),
+        format!("x = {}\u{e9}", "a".repeat(12_000)),
+        "Else If ".repeat(1_500),
+        "Else If\t".repeat(1_500),
+        "\u{212a}".repeat(4_000),
+        "\u{df}".repeat(4_000),
+        format!("x = (({}", " (".repeat(6_000)),
+        format!("Dim {}", "x, ".repeat(4_000)),
+        format!("Sub f({}", "a, ".repeat(4_000)),
+        "1.5\u{e9}".repeat(3_000),
+        format!("{}e", "1".repeat(12_000)),
+        "$a".repeat(6_000),
+        "= a ".repeat(3_000),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);
         let report = rows[0].1;
