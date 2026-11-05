@@ -80,7 +80,7 @@ The decisions that created nishiki live in a private planning repository:
    | Workflow | Runs | Fails when |
    |:--|:--|:--|
    | Identity, `identity.yml` | `mise run identity` | a fixture, or an edited copy of one, lexes differently |
-   | Callgrind, `callgrind.yml` | `mise run callgrind`, on a pull request labelled `bench` | a language's instruction count rises more than 0.5% |
+   | Callgrind, `callgrind.yml` | `mise run callgrind`, on a pull request labelled `bench` | a language's lexing, first-document or colour count rises more than 0.5% |
    | Oracle coverage, `coverage.yml` | `mise run check:oracle-coverage` | the report is stale, or a complete grammar has a gap ([oracle/AGENTS.md](oracle/AGENTS.md) rule 6) |
 
 3. A pull request that means to change output says so in a body line, `identity: changes <languages>`, such as `identity: changes python java`.
@@ -88,7 +88,7 @@ The decisions that created nishiki live in a private planning repository:
      It may name languages the pull request never touched.
      Then main has changed them since that base.
      Rebase, even with no conflict.
-4. Callgrind counts the lexing of every language's oracle fixtures, as a table in the job summary.
+4. Callgrind counts every language's oracle fixtures in three passes, each a table in the job summary: lexing, the first document and colouring (`bench/AGENTS.md` rule 12).
    - Label a pull request that touches a hot path.
    - The gate builds both sides at one codegen unit, so the counts follow the code and not its layout.
    - Columns at the default sixteen units are for information only (`bench/AGENTS.md` rule 12).

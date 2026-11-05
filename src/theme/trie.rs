@@ -9,9 +9,9 @@
 //! specific one replaces what it set.
 
 use std::cmp::Ordering;
-use std::collections::HashMap;
 
 use super::{Color, FontStyle, RuleScope, Style, ThemeRule};
+use crate::fnv::FnvMap;
 
 /// One resolved rule: its specificity and the attributes it sets.
 #[derive(Clone, Debug)]
@@ -98,7 +98,7 @@ fn scope_matches(scope: &str, selector: &str) -> bool {
 struct Node {
     main: Rule,
     with_parents: Vec<Rule>,
-    children: HashMap<String, usize>,
+    children: FnvMap<String, usize>,
     /// `with_parents` and `main` in specificity order, filled once the trie
     /// is built.
     ordered: Vec<Rule>,
@@ -210,7 +210,7 @@ impl Trie {
             nodes: vec![Node {
                 main: empty,
                 with_parents: Vec::new(),
-                children: HashMap::new(),
+                children: FnvMap::default(),
                 ordered: Vec::new(),
             }],
         };
@@ -267,7 +267,7 @@ impl Trie {
         let copy = Node {
             main: parent.main.clone(),
             with_parents: parent.with_parents.clone(),
-            children: HashMap::new(),
+            children: FnvMap::default(),
             ordered: Vec::new(),
         };
         let child = self.nodes.len();

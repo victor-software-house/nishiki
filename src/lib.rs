@@ -315,7 +315,6 @@ mod elixir;
 mod emit;
 #[cfg(feature = "lang-erb")]
 mod erb;
-#[cfg(any(feature = "lang-c", feature = "lang-python"))]
 mod fnv;
 #[cfg(feature = "lang-gdscript")]
 mod gdscript;

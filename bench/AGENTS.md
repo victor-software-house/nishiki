@@ -59,12 +59,16 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
 12. `mise run callgrind` gates on instructions with both sides built at one codegen unit.
     - The Callgrind workflow runs it on a pull request labelled `bench`.
     - The task alone sets `CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1`.
-    - Its table also shows both sides at the default sixteen units, for information only.
+    - Its tables also show both sides at the default sixteen units, for information only.
       Those columns never fail the job.
       They show what a user's default release build gets.
-    - Its harness, `examples/lex.rs`, splits each fixture into lines before both passes.
-      The counted pass is lexing alone.
+    - Its harness, `examples/lex.rs`, splits each fixture into lines before any pass.
       Counts from before 2026-11-03 include that splitting and read higher.
+    - It gates three passes per language, each in its own table:
+      - lexing, the second pass, lexing alone, as before 2026-11-05;
+      - first document, the first pass of a fresh process, lexing and styling, with the work a process does once;
+      - colour, a warm pass that lexes and styles every token with github-dark.
+    - Both sides build with `json`, which loads the theme.
     - Its counts are a review signal for the change itself.
       At the default sixteen units, an edit that only moves engine code between units shifted them by up to a few percent.
       On 2026-11-03, Python moved +0.6% and Go −6% on a change that measured ±0.05% at one unit.

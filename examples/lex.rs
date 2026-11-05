@@ -1,13 +1,21 @@
-//! Lexes every oracle fixture of one language twice, line by line from a
-//! fresh highlighter each time, and prints nothing: the program
-//! `mise run callgrind` counts instructions of, at a pull request's base and
-//! head.
+//! Lexes every oracle fixture of one language in three passes, line by line
+//! from a fresh highlighter for each document, and prints nothing: the
+//! program `mise run callgrind` counts instructions of, at a pull request's
+//! base and head.
 //!
-//! The first pass fills what a process builds once, such as each rule's
-//! pattern tables; callgrind counts only [`measured`], the second pass, so
-//! a change to that one-time work does not read as a change to lexing.
-//! Each fixture is split into its lines before either pass, so the count
-//! holds lexing alone.
+//! Callgrind counts each pass on its own:
+//!
+//! - [`first_pass`] lexes and styles every token in a fresh process.
+//! - [`measured`] lexes again, and styles nothing.
+//! - [`colour_pass`] lexes and styles every token with github-dark, as a
+//!   renderer does.
+//!
+//! The first pass holds the work a process does once, such as building each
+//! rule's pattern tables.
+//! That work is done before [`measured`], which holds lexing alone.
+//!
+//! Each fixture is split into its lines before any pass, so no count holds
+//! the splitting.
 //!
 //! Usage: `lex <fixtures> <language>`, such as `lex tests/oracle python`.
 
@@ -18,7 +26,10 @@ use std::path::Path;
 use std::process::ExitCode;
 use std::{env, fs};
 
-use nishiki::{Highlighter, Language, State, Token};
+use nishiki::{Highlighter, Language, State, Theme, Token};
+
+/// Shiki's github-dark, as the oracle pins it.
+const GITHUB_DARK: &str = include_str!("../tests/oracle/themes/github-dark.json");
 
 fn main() -> ExitCode {
     let args: Vec<String> = env::args().skip(1).collect();
@@ -33,6 +44,13 @@ fn main() -> ExitCode {
     let Ok(files) = fs::read_dir(Path::new(root).join(name)) else {
         eprintln!("no fixtures in {root}/{name}");
         return ExitCode::FAILURE;
+    };
+    let theme = match Theme::from_json(GITHUB_DARK) {
+        Ok(theme) => theme,
+        Err(error) => {
+            eprintln!("github-dark does not load: {error}");
+            return ExitCode::FAILURE;
+        }
     };
     let mut files: Vec<_> = files
         .filter_map(Result::ok)
@@ -53,17 +71,47 @@ fn main() -> ExitCode {
         })
         .collect();
     let mut tokens = Vec::new();
-    lex(language, &documents, &mut tokens);
+    black_box(first_pass(language, &theme, &documents, &mut tokens));
     measured(language, &documents, &mut tokens);
+    colour_pass(language, &theme, &documents, &mut tokens);
     black_box(&tokens);
     ExitCode::SUCCESS
 }
 
-/// The pass callgrind counts (`--toggle-collect`); kept out of line so that
-/// it has a symbol of its own.
+/// The first pass of the process, which callgrind counts as the first
+/// document; kept out of line so that it has a symbol of its own.
+///
+/// It returns the last line's token count.
+/// That keeps its body apart from [`colour_pass`], whose symbol it would
+/// otherwise share.
+#[inline(never)]
+fn first_pass(
+    language: Language,
+    theme: &Theme,
+    documents: &[Vec<&str>],
+    tokens: &mut Vec<Token>,
+) -> usize {
+    colour(language, theme, documents, tokens);
+    tokens.len()
+}
+
+/// The pass callgrind counts as lexing (`--toggle-collect`); kept out of
+/// line so that it has a symbol of its own.
 #[inline(never)]
 fn measured(language: Language, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
     lex(language, documents, tokens);
+}
+
+/// The pass callgrind counts as colouring; kept out of line so that it has a
+/// symbol of its own.
+#[inline(never)]
+fn colour_pass(
+    language: Language,
+    theme: &Theme,
+    documents: &[Vec<&str>],
+    tokens: &mut Vec<Token>,
+) {
+    colour(language, theme, documents, tokens);
 }
 
 /// Lexes each document's lines from a fresh highlighter.
@@ -75,6 +123,23 @@ fn lex(language: Language, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
             tokens.clear();
             let report = highlighter.line(line, &mut state, tokens);
             black_box(&report);
+        }
+    }
+}
+
+/// Lexes each document's lines from a fresh highlighter and styles every
+/// token with `theme`.
+fn colour(language: Language, theme: &Theme, documents: &[Vec<&str>], tokens: &mut Vec<Token>) {
+    for lines in documents {
+        let mut highlighter = Highlighter::new(language);
+        let mut state = State::default();
+        for &line in lines {
+            tokens.clear();
+            let report = highlighter.line(line, &mut state, tokens);
+            black_box(&report);
+            for token in tokens.iter() {
+                black_box(theme.style(highlighter.scopes(token.stack())));
+            }
         }
     }
 }
