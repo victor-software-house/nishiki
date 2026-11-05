@@ -21,7 +21,7 @@ use memchr::memchr;
 
 use super::erb::{self, Erb};
 use super::scope::S;
-use super::state::{self, ErbInjection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rule};
+use super::state::{self, ErbInjection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
 #[cfg(feature = "lang-vue")]
 use super::vue as vue_rules;
 use super::vue::VuePat;
@@ -154,6 +154,18 @@ pub(super) enum Document {
         expect(dead_code, reason = "only the Vue language lexes Vue")
     )]
     Vue,
+}
+
+/// How a `<script>`'s JavaScript is lexed, by the document around it.
+#[derive(Clone, Copy, Debug)]
+enum Script {
+    /// As JavaScript.
+    Plain,
+    /// As JavaScript that also stops where ERB code begins.
+    Erb,
+    /// As JavaScript with Svelte's `$` prefixes, in a Svelte document
+    /// ([`ROOT_SVELTE`]).
+    Svelte,
 }
 
 impl Document {
@@ -349,7 +361,7 @@ impl<'a> Lexer<'a> {
         }
         for (index, &(id, frame)) in chain.iter().rev().enumerate() {
             if index == 0 {
-                if frame.payload == ROOT_DERIVATIVE_FIRST {
+                if matches!(frame.payload, ROOT_DERIVATIVE_FIRST | ROOT_SVELTE) {
                     lexer.document = lexer.document.derivative_first();
                 }
                 lexer.frames.push(Frame {
@@ -360,7 +372,10 @@ impl<'a> Lexer<'a> {
                     content: frame.stack,
                     state: id,
                     payload: frame.payload,
-                    no_inject: matches!(frame.payload, ROOT_EMBEDDED | ROOT_DERIVATIVE_FIRST),
+                    no_inject: matches!(
+                        frame.payload,
+                        ROOT_EMBEDDED | ROOT_DERIVATIVE_FIRST | ROOT_SVELTE
+                    ),
                     erb: ErbInjection::Applies,
                 });
                 continue;
@@ -853,16 +868,24 @@ impl<'a> Lexer<'a> {
             start: pos,
             embedded: false,
         };
-        let in_erb = match self.document {
-            Document::Html | Document::DerivativeFirst | Document::Derivative | Document::Vue => {
-                false
+        let script = match self.document {
+            Document::Erb => Script::Erb,
+            Document::Html | Document::DerivativeFirst | Document::Derivative | Document::Vue
+                if self
+                    .frames
+                    .first()
+                    .is_some_and(|root| root.payload == ROOT_SVELTE) =>
+            {
+                Script::Svelte
             }
-            Document::Erb => true,
+            Document::Html | Document::DerivativeFirst | Document::Derivative | Document::Vue => {
+                Script::Plain
+            }
         };
         let (next, halt) = if css {
-            Self::lex_style(&mut cx, line, inner, in_erb)
+            Self::lex_style(&mut cx, line, inner, matches!(script, Script::Erb))
         } else {
-            Self::lex_script(&mut cx, line, inner, in_erb)
+            Self::lex_script(&mut cx, line, inner, script)
         };
         let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
@@ -1021,8 +1044,7 @@ impl<'a> Lexer<'a> {
         (next, resumes_at(stopped))
     }
 
-    /// Lexes JavaScript up to `</script>`.
-    /// In an ERB document it also stops where ERB code begins.
+    /// Lexes JavaScript up to `</script>`, as `script` says.
     /// It stays out of line, as [`Lexer::lex_style`] does.
     #[cold]
     #[inline(never)]
@@ -1030,17 +1052,30 @@ impl<'a> Lexer<'a> {
         cx: &mut Context<'_>,
         line: Line<'_>,
         state: u32,
-        in_erb: bool,
+        script: Script,
     ) -> (Finished, Option<usize>) {
-        let after: Option<&dyn Halt> = if in_erb { Some(&erb::begins) } else { None };
-        let (next, stopped) = crate::typescript::lex_until(
-            cx,
-            crate::typescript::Dialect::JavaScript,
-            line,
-            state,
-            &script_end,
-            after,
-        );
+        let dialect = crate::typescript::Dialect::JavaScript;
+        let (next, stopped) = match script {
+            Script::Plain => {
+                crate::typescript::lex_until(cx, dialect, line, state, &script_end, None)
+            }
+            Script::Erb => crate::typescript::lex_until(
+                cx,
+                dialect,
+                line,
+                state,
+                &script_end,
+                Some(&erb::begins),
+            ),
+            #[cfg(feature = "lang-svelte")]
+            Script::Svelte => {
+                crate::typescript::lex_until_svelte(cx, dialect, line, state, &script_end, None)
+            }
+            #[cfg(not(feature = "lang-svelte"))]
+            Script::Svelte => {
+                crate::typescript::lex_until(cx, dialect, line, state, &script_end, None)
+            }
+        };
         (next, resumes_at(stopped))
     }
 

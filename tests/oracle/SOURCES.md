@@ -648,6 +648,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `sql/ssms-create-table` | [`samples/features/ssms-templates/Sql/Table/Create Table.sql`][ssms-create] in microsoft/sql-server-samples | [MIT][sqlserver-licence] |
 | `svelte/capture-ends` | `oracle/inputs/svelte-capture-ends.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/coverage` | `oracle/inputs/svelte-coverage.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `svelte/dollar-script` | `oracle/inputs/svelte-dollar-script.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/invalid-tags` | `oracle/inputs/svelte-invalid-tags.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `svelte/kit-root` | [`packages/kit/src/runtime/components/root.svelte`][svelte-kit-root] in sveltejs/kit | [MIT][svelte-kit-licence] |
 | `svelte/less-pop` | `oracle/inputs/svelte-less-pop.svelte`, written for nishiki | MIT or Apache-2.0, as nishiki |

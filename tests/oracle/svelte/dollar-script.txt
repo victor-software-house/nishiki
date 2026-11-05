@@ -1,0 +1,176 @@
+L <!--
+T 4 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L @component
+T 1 source.svelte comment.block.svelte punctuation.definition.keyword.svelte
+T 10 source.svelte comment.block.svelte storage.type.class.component.svelte keyword.declaration.class.component.svelte
+L An HTML block's `<script>` in an `@component` comment's Markdown.
+T 16 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+T 17 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 25 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown
+T 26 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 33 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+T 34 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 44 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown
+T 45 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 65 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+L Svelte's grammar injects its `$` prefixes into that JavaScript, as into its own.
+T 29 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+T 30 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 31 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown
+T 32 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 80 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+L A fence names its code without `source.js`, so it takes none.
+T 31 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+T 32 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 41 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown
+T 42 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 61 source.svelte comment.block.svelte comment.block.documentation.svelte meta.paragraph.markdown
+L 
+L <script>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L   console.log($store, $$props, $$restProps, $$slots);
+T 2 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js
+T 9 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.function-call.js variable.other.object.js
+T 10 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.function-call.js punctuation.accessor.js
+T 13 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 14 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.brace.round.js
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.definition.variable.svelte
+T 20 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js variable.other.readwrite.js
+T 21 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.separator.comma.js
+T 22 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js
+T 24 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.definition.variable.svelte
+T 29 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js variable.other.readwrite.js
+T 30 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.separator.comma.js
+T 31 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js
+T 33 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.definition.variable.svelte
+T 42 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js variable.other.readwrite.js
+T 43 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.separator.comma.js
+T 44 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js
+T 46 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.definition.variable.svelte
+T 51 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js variable.other.readwrite.js
+T 52 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.brace.round.js
+T 53 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.terminator.statement.js
+L   const a = "$b" + c.$d + '$e' + f$g + _$h;
+T 2 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 9 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 10 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 11 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 12 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 13 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js string.quoted.double.js
+T 16 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 17 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 18 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 19 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 20 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.object.js
+T 21 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js punctuation.accessor.js
+T 23 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.property.js
+T 24 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 25 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 26 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 27 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 29 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js string.quoted.single.js
+T 30 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 31 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 32 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 33 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 36 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.readwrite.js
+T 37 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 38 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 39 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 42 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.readwrite.js
+T 43 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.terminator.statement.js
+L   let i = $j.k + $$propsx;
+T 2 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 6 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 9 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 10 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 11 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 12 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.object.js
+T 13 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js punctuation.accessor.js
+T 14 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.property.js
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 16 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.arithmetic.js
+T 17 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 19 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 25 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.readwrite.js
+T 26 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.terminator.statement.js
+L </script>
+T 2 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.script.end.html punctuation.definition.tag.begin.html
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.script.end.html entity.name.tag.html
+T 9 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.script.end.html punctuation.definition.tag.end.html
+L 
+L ```js
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown punctuation.definition.markdown
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L const l = $m;
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js storage.type.js
+T 6 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js meta.var-single-variable.expr.js
+T 9 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js keyword.operator.assignment.js
+T 10 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js
+T 12 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript meta.var.expr.js variable.other.readwrite.js
+T 13 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown meta.embedded.block.javascript punctuation.terminator.statement.js
+L ```
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L <div>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.div.start.html entity.name.tag.html
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L <button onclick="$n()">o</button>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html punctuation.definition.tag.begin.html
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html entity.name.tag.html
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html entity.other.attribute-name.html
+T 16 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html punctuation.separator.key-value.html
+T 17 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html meta.embedded.line.js string.quoted.double.html punctuation.definition.string.begin.html
+T 19 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html meta.embedded.line.js string.quoted.double.html source.js meta.function-call.js entity.name.function.js
+T 20 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html meta.embedded.line.js string.quoted.double.html source.js meta.brace.round.js
+T 21 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html meta.embedded.line.js string.quoted.double.html source.js meta.brace.round.js
+T 22 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html meta.attribute.event-handler.click.html meta.embedded.line.js string.quoted.double.html punctuation.definition.string.end.html source.js
+T 23 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.start.html punctuation.definition.tag.end.html
+T 24 source.svelte comment.block.svelte comment.block.documentation.svelte
+T 26 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.end.html punctuation.definition.tag.begin.html
+T 32 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.end.html entity.name.tag.html
+T 33 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.button.end.html punctuation.definition.tag.end.html
+L <script>let p = $q;</script>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 11 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 12 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 13 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.readwrite.js
+T 14 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 15 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 16 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js
+T 17 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js punctuation.definition.variable.svelte
+T 18 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js meta.var.expr.js variable.other.readwrite.js
+T 19 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html source.js punctuation.terminator.statement.js
+T 20 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 21 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 27 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 28 source.svelte comment.block.svelte comment.block.documentation.svelte meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L </div>
+T 2 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.div.end.html entity.name.tag.html
+T 6 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L -->
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte
+L <p>{name}</p>
+T 1 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.p.start.html entity.name.tag.html
+T 3 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 9 source.svelte comment.block.svelte comment.block.documentation.svelte
+T 11 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 12 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.p.end.html entity.name.tag.html
+T 13 source.svelte comment.block.svelte comment.block.documentation.svelte meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L 

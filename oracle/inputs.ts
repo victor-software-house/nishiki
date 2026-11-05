@@ -74,6 +74,7 @@ import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with
 import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
 import svelteCaptureEnds from "./inputs/svelte-capture-ends.svelte" with { type: "text" };
 import svelteCoverage from "./inputs/svelte-coverage.svelte" with { type: "text" };
+import svelteDollarScript from "./inputs/svelte-dollar-script.svelte" with { type: "text" };
 import svelteInvalidTags from "./inputs/svelte-invalid-tags.svelte" with { type: "text" };
 import svelteLessPop from "./inputs/svelte-less-pop.svelte" with { type: "text" };
 import swiftCoverage from "./inputs/swift-coverage.swift" with { type: "text" };
@@ -1383,6 +1384,7 @@ export const inputs: Input[] = [
   },
   { lang: "svelte", name: "capture-ends", text: svelteCaptureEnds },
   { lang: "svelte", name: "coverage", text: svelteCoverage },
+  { lang: "svelte", name: "dollar-script", text: svelteDollarScript },
   { lang: "svelte", name: "invalid-tags", text: svelteInvalidTags },
   { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
   { lang: "svelte", name: "less-pop", text: svelteLessPop },

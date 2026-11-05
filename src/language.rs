@@ -1153,12 +1153,14 @@ languages! {
     /// - In a Less body, a `)` or `}` at Less's root ends the Less.
     ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Svelte's Less body.
     ///   The rest of the body is plain text up to `</style>`.
+    /// - Svelte's `$` prefixes reach its own TypeScript and JavaScript, as Shiki's injection `L:(source.ts, source.js, source.coffee)` does.
+    ///   That includes a `<script>` in the HTML of an `@component` comment's Markdown.
+    ///   A Markdown fence names its code `meta.embedded.block.javascript` with no `source.js`, so a fence takes none.
+    ///   An event-handler attribute's JavaScript takes none either, as in Shiki.
     ///
     /// # Differences from Shiki
     ///
-    /// - Svelte's `$` prefixes reach only the TypeScript and JavaScript that Svelte embeds itself.
-    ///   Shiki's injection adds them in every `source.ts` and `source.js` of the document.
-    ///   One example is a script in the HTML of an `@component` comment's Markdown.
+    /// - Svelte's `$` prefixes do not reach a CoffeeScript body, which Shiki's injection also selects.
     Svelte { feature: "lang-svelte", names: ["svelte"], module: svelte }
     /// R, with the scopes of Shiki's `r` grammar.
     ///

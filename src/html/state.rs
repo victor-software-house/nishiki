@@ -356,6 +356,13 @@ pub(crate) const ROOT_EMBEDDED: u32 = 1;
 /// [`Document::DerivativeFirst`]: super::engine::Document::DerivativeFirst
 pub(crate) const ROOT_DERIVATIVE_FIRST: u32 = 2;
 
+/// The payload of the root frame of HTML in a Svelte document: the HTML of
+/// an `@component` comment's Markdown.
+/// It is [`ROOT_DERIVATIVE_FIRST`] in every way but one.
+/// Svelte's grammar injects its `$` prefixes into the document's every
+/// `source.js`, so a `<script>`'s JavaScript takes them.
+pub(crate) const ROOT_SVELTE: u32 = 3;
+
 /// The category the grammar sorts a tag into, which names its scope.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
