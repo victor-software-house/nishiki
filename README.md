@@ -49,7 +49,8 @@ The API docs are on [docs.rs](https://docs.rs/nishiki):
 
 Each language is a cargo feature.
 The Tier column names the tier that turns each one on.
-The `all` tier is on by default, and the `textmate` tier is opt-in.
+The `all` tier is on by default.
+The opt-in `textmate` tier holds no language now.
 
 | Language | Variant | Feature | Tier | Names `Language::from_name` takes |
 |:--|:--|:--|:--|:--|
@@ -71,7 +72,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | Go | `Language::Go` | `lang-go` | `all` | `go`, `golang` |
 | GraphQL | `Language::GraphQl` | `lang-graphql` | `all` | `graphql`, `gql` |
 | Hack | `Language::Hack` | `lang-hack` | `all` | `hack` |
-| HAML | `Language::Haml` | `lang-haml` | `textmate` | `haml` |
+| HAML | `Language::Haml` | `lang-haml` | `all` | `haml` |
 | Haskell | `Language::Haskell` | `lang-haskell` | `all` | `haskell`, `hs` |
 | HCL | `Language::Hcl` | `lang-hcl` | `all` | `hcl` |
 | HTML | `Language::Html` | `lang-html` | `all` | `html` |

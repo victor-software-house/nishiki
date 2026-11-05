@@ -55,3 +55,7 @@ fpr = "fpr"
 # The asm grammar's `globa?l`, which the Assembly matchers' doc comments
 # quote.
 globa = "globa"
+# The haml grammar's `(?:requir|includ)e_once`, which the HAML matchers'
+# doc comments quote.
+includ = "includ"
+requir = "requir"

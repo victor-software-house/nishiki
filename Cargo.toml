@@ -49,6 +49,7 @@ all = [
   "lang-go",
   "lang-graphql",
   "lang-hack",
+  "lang-haml",
   "lang-haskell",
   "lang-hcl",
   "lang-html",
@@ -140,7 +141,8 @@ systems = [
   "lang-swift",
 ]
 docs = ["config", "lang-latex", "lang-markdown", "lang-tex"]
-textmate = ["lang-haml"]
+# nishiki's TextMate engine. No language runs on it now.
+textmate = ["_textmate"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-asm = ["_scope-table", "_rule-tables", "_classes"]
@@ -191,7 +193,10 @@ lang-hack = [
   "lang-sql",
 ]
 lang-haml = [
-  "_textmate",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_halting-embedding",
   "lang-coffee",
   "lang-css",
   "lang-javascript",
@@ -327,7 +332,7 @@ _classes = ["_utf8"]
 _embedding = ["_rule-engine"]
 # The hand-over of a grammar that embeds a language and is itself embedded,
 # for GraphQL in Vue, CoffeeScript in Vue and HAML, PHP, and Elixir and LaTeX
-# in Markdown.
+# in Markdown, and HAML in Ruby.
 _halting-embedding = ["_embedding"]
 # The Unicode classes that identifiers read beside the letters and digits:
 # `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}`.

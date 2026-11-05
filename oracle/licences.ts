@@ -234,6 +234,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "extensions/positron-r/syntaxes/LICENSE.md",
   },
+  ruby: {
+    bundled: "microsoft/vscode@0ac234bbd0b6dd67efa40d1b593f9808f9dfdaf4",
+    origin: "Shopify/ruby-lsp",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
   rust: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "dustypomerleau/rust-syntax",

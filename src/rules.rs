@@ -59,7 +59,8 @@ use std::ops::ControlFlow;
     feature = "lang-r",
     feature = "lang-jinja",
     feature = "lang-asm",
-    feature = "lang-tex"
+    feature = "lang-tex",
+    feature = "lang-haml"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]
@@ -404,7 +405,8 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-perl",
     feature = "lang-elixir",
     feature = "lang-tex",
-    feature = "lang-latex"
+    feature = "lang-latex",
+    feature = "lang-haml"
 ))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
@@ -424,7 +426,8 @@ macro_rules! embedded {
     feature = "lang-perl",
     feature = "lang-elixir",
     feature = "lang-tex",
-    feature = "lang-latex"
+    feature = "lang-latex",
+    feature = "lang-haml"
 ))]
 pub(crate) use embedded;
 
@@ -447,10 +450,10 @@ pub(crate) enum EndText {
     /// The engine copies that text once per hand-over, into the grammar's
     /// buffer ([`Embeds::parent_text`]).
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "lang-haml")),
         expect(
             dead_code,
-            reason = "no shipped grammar reads its parent payload yet; the engine's test grammar does"
+            reason = "only HAML reads its parent payload; the engine's test grammar does too"
         )
     )]
     ParentPayload,

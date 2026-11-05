@@ -162,15 +162,15 @@
 //!
 //! | Feature | Languages |
 //! |:--|:--|
-//! | `all` (the default) | Every language but the `textmate` tier |
+//! | `all` (the default) | Every language |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown, LaTeX, TeX and `config` |
-//! | `textmate` | HAML |
 //!
-//! `textmate` holds the languages that nishiki's own `TextMate` engine runs
-//! from Shiki's grammars, compiled in as tables.
+//! The `textmate` feature builds nishiki's own `TextMate` engine, which runs
+//! Shiki's grammars from tables compiled in.
+//! No language uses it now.
 //! It is off by default and not in `all`,
 //! so the default build carries no grammar tables.
 //!

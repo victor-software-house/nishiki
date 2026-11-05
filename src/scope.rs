@@ -112,6 +112,8 @@ tables! {
     GRAPHQL = graphql;
     #[cfg(feature = "lang-hack")]
     HACK = hack;
+    #[cfg(feature = "lang-haml")]
+    HAML = haml;
     #[cfg(feature = "lang-haskell")]
     HASKELL = haskell;
     #[cfg(feature = "lang-hcl")]

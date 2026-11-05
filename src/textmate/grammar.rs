@@ -30,6 +30,13 @@ pub(crate) const DYNAMIC_NAME: u16 = 0x8000;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum RuleKind {
     /// One pattern that scopes its text.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no language runs on the TextMate engine now; its tests do"
+        )
+    )]
     Match,
     /// A `begin` pattern that opens a context and an `end` pattern that closes
     /// it.
@@ -38,6 +45,13 @@ pub(crate) enum RuleKind {
     /// pattern keeps matching at the start of each line.
     BeginWhile,
     /// Only a list of patterns: the root of a grammar, or a capture's rules.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no language runs on the TextMate engine now; its tests do"
+        )
+    )]
     Container,
 }
 
@@ -90,6 +104,13 @@ pub(crate) struct List {
 
 impl List {
     /// A list of `rules`.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no language runs on the TextMate engine now; its tests do"
+        )
+    )]
     pub(crate) const fn new(rules: &'static [usize]) -> List {
         List { rules }
     }
@@ -152,6 +173,13 @@ pub(crate) struct Injection {
 
 /// Whether `source` holds a back-reference `\1`..`\9`, which an `end` or
 /// `while` pattern fills in from the `begin` match.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its tests do"
+    )
+)]
 const fn has_backrefs(source: &str) -> bool {
     let bytes = source.as_bytes();
     let mut i = 0;
@@ -178,6 +206,13 @@ pub(crate) struct Pattern {
 
 impl Pattern {
     /// The pattern `source`.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no language runs on the TextMate engine now; its tests do"
+        )
+    )]
     pub(crate) const fn new(source: &'static str) -> Pattern {
         Pattern {
             source,

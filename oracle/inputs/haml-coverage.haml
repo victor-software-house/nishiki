@@ -1,0 +1,84 @@
+!!! 5
+!!!
+%html{lang: "en", data: {x: 1}}
+  %head
+    %title= @title || "Home"
+    %meta(charset="utf-8" name=@name content="a#{b}c\x41\n")
+    %link(rel='stylesheet' href=#@css)
+    /[if IE]
+    :javascript
+      var a = { b: 1 };
+    %script
+      var c = 2;
+  %body.main#top
+    == Hello #{name}, #{} #@user #@@count #$global
+    %p== Text #{ {a: 1}[:a] } here
+    %p.lead#intro{class: active ? "on" : "off"} Welcome
+    %a{href: url,
+      title: "x"} link
+    %div[@item, :card]
+    %span[record] text
+    .box
+    #main
+    %br/
+    %ul
+      - items.each do |item|
+        %li= item.name
+      - list.map { |x|
+        = x
+      - if a ||
+        b
+    = form_for @x do |f|
+    ~ code
+    != raw
+    &= escaped
+    &amp= amp
+    !== #{unescaped} \t
+    - foo elseif(a) foreach (b) switch(c) declare(d) default(e) use (f)
+    - require_once(a) include_once (b)
+    - x catch y try z throw w exception v finally u die
+    - x function (a)
+    - x use (b)
+    - x # comment
+    - call a, |
+      b
+    -# hidden
+      %p inner
+    / visible
+      %p comment
+    - /* old */
+    .
+:ruby
+  x = 1
+  y = { a: 2 }
+:opal
+  puts "opal"
+:sass
+  .a
+    color: red
+:style
+  .b
+    color: blue
+:styles
+  .c
+    color: green
+:sass .x
+  .d
+    color: black
+:coffee
+  sq = (x) -> x * x
+:coffeescript
+  cube = (x) -> x * x * x
+:plain
+  Just text
+:php
+  <?php echo 1; ?>
+:markdown
+  # Title
+  *em*
+:css
+  body { margin: 0; }
+:scss
+  .e { f: g; }
+%p
+  plain #{text}

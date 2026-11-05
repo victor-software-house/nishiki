@@ -75,6 +75,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Hack line, as PHP's is.
     #[cfg(feature = "lang-hack")]
     pub(crate) hack: Option<Box<crate::hack::Scratch>>,
+    /// The HAML lexer's, for HAML documents and Ruby's HAML heredocs.
+    /// It is boxed and allocated by the first HAML line.
+    #[cfg(feature = "lang-haml")]
+    pub(crate) haml: Option<Box<crate::haml::Scratch>>,
     /// The Haskell lexer's, for Haskell documents.
     /// It is boxed and allocated by the first Haskell line, as Dart's is.
     #[cfg(feature = "lang-haskell")]

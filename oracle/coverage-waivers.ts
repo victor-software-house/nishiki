@@ -1527,6 +1527,50 @@ export const waivers: Waiver[] = [
     path: "patterns[12].patterns[0].match",
     reason: "the string's end `\"` is tried before its patterns at every quote, so `\"\"` ends the string and the next quote starts another",
   },
+  ...["patterns[5]", "patterns[10]", "patterns[14]"].flatMap((rule) =>
+    ["begin", "end"].map(
+      (part): Waiver => ({
+        grammar: "haml",
+        path: `${rule}.${part}`,
+        reason: "the first `:ruby` filter, `^(\\s*):ruby`, needs nothing after the name, so it always matches first",
+      }),
+    ),
+  ),
+  ...["patterns[13]", "patterns[17]", "patterns[20]", "patterns[24]"].flatMap((rule) =>
+    ["begin", "end"].map(
+      (part): Waiver => ({
+        grammar: "haml",
+        path: `${rule}.${part}`,
+        reason: "the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule",
+      }),
+    ),
+  ),
+  ...["begin", "end"].map(
+    (part): Waiver => ({
+      grammar: "haml",
+      path: `patterns[23].${part}`,
+      reason: "the `:sass` filter before it, `^(\\s*):(s(?:tyle|ass))$`, matches the same lines first",
+    }),
+  ),
+  { grammar: "haml", path: "patterns[6].match", group: 1, reason: blanks },
+  ...[1, 2, 3].map((group): Waiver => ({ grammar: "haml", path: "patterns[8].end", group, reason: missing(0) })),
+  { grammar: "haml", path: "patterns[21].end", group: 2, reason: missing(0) },
+  { grammar: "haml", path: "patterns[22].end", group: 2, reason: missing(0) },
+  {
+    grammar: "haml",
+    path: "patterns[18].match",
+    reason: "the tag rule before it, `^\\s*(?:((%)([-:\\w]+))|(?=[#.]))`, opens at the same `.` first",
+  },
+  {
+    grammar: "haml",
+    path: "#continuation.match",
+    reason: "every rule that lists it lists `source.ruby` or the block opener `([,<|]|do|\\{)\\s*(#.*)?$\\n*` first, and those take the `|`",
+  },
+  {
+    grammar: "haml",
+    path: "#rubyline.patterns[4].match",
+    reason: "the keyword pattern before it, `\\s+((elseif|foreach|switch|declare|default|use))(?=[(\\s])`, takes `use` before `(` or a blank first",
+  },
   { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
   {
@@ -1851,6 +1895,7 @@ export const complete: string[] = [
   "go",
   "graphql",
   "hack",
+  "haml",
   "haskell",
   "hcl",
   "ini",

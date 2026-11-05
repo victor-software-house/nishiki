@@ -192,6 +192,13 @@ macro_rules! languages {
 
             /// The state at the start of a document whose scopes sit on
             /// `base`.
+            #[cfg_attr(
+                not(any($(feature = $feature),*)),
+                expect(
+                    unused_variables,
+                    reason = "with no language feature on, the match has no arm that reads the arguments"
+                )
+            )]
             pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => {
@@ -207,6 +214,13 @@ macro_rules! languages {
             /// The state at the start of a Markdown fence's body, whose text
             /// sits on `base` with no root scope of the language's own, as in
             /// Shiki's embedding.
+            #[cfg_attr(
+                not(any($(feature = $feature),*)),
+                expect(
+                    unused_variables,
+                    reason = "with no language feature on, the match has no arm that reads the arguments"
+                )
+            )]
             pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => languages!(@start_embedded [$($module)?] [$($grammar)?] [$($embedded)?] arena base),)*
@@ -220,6 +234,13 @@ macro_rules! languages {
             ///
             /// The rows marked `inlined` lex here.
             /// Every other arm calls a function that holds its lexer.
+            #[cfg_attr(
+                not(any($(feature = $feature),*)),
+                expect(
+                    unused_variables,
+                    reason = "with no language feature on, the match has no arm that reads the arguments"
+                )
+            )]
             #[inline(always)]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
                 match self {
@@ -240,6 +261,13 @@ macro_rules! languages {
                 expect(
                     dead_code,
                     reason = "only Markdown, the rule engine's embedding and the engine embed through the dispatch"
+                )
+            )]
+            #[cfg_attr(
+                not(any($(feature = $feature),*)),
+                expect(
+                    unused_variables,
+                    reason = "with no language feature on, the match has no arm that reads the arguments"
                 )
             )]
             #[cold]
@@ -272,6 +300,13 @@ macro_rules! languages {
                 expect(
                     dead_code,
                     reason = "only the rule engine's embedding, the engine and Markdown's fences embed other languages"
+                )
+            )]
+            #[cfg_attr(
+                not(any($(feature = $feature),*)),
+                expect(
+                    unused_variables,
+                    reason = "with no language feature on, the match has no arm that reads the arguments"
                 )
             )]
             #[inline]
@@ -645,10 +680,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, JavaScript, YAML, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
+    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, HAML, JavaScript, YAML, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
     /// - In one named for YAML, an indented `#{` is a YAML comment, as in Shiki: the grammar's comment rule takes the blanks before it.
-    /// - One named for HAML, such as `<<~HAML`, keeps that language's scopes, but its lines are plain text with Ruby's interpolation.
-    ///   Shiki lexes them as HAML.
     /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
     /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki: the grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby, halts: true }
@@ -904,22 +937,23 @@ languages! {
     /// - Outside a guard, `default()` is the guard function only when a word character follows its `)`; otherwise `default` is a value keyword.
     /// - A Markdown fence names the language `less`.
     Less { feature: "lang-less", names: ["less"], module: less, halts: true }
-    /// HAML, with the scopes of Shiki's `haml` grammar, which nishiki's
-    /// `TextMate` engine runs. Its filters and Ruby lines go to the Ruby,
-    /// JavaScript, CSS, Markdown, Sass and CoffeeScript lexers.
+    /// HAML, with the scopes of Shiki's `haml` grammar.
+    /// Its filters and Ruby go to the Ruby, JavaScript, CSS, Markdown, Sass
+    /// and CoffeeScript lexers.
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A `:scss` filter is plain text. The grammar includes `source.scss`, a scope no Shiki grammar has.
-    /// - A `:sass` filter scopes only its own line. Its body lexes as HAML.
-    Haml {
-        feature: "lang-haml",
-        names: ["haml"],
-        engine: crate::haml::grammar::GRAMMAR,
-        reads_line_feed: true,
-        halts: true,
-        hands_off: true,
-    }
+    /// - A `:scss`, `:php` or `:plain` line opens no filter, and the lines under it lex as HAML.
+    ///   Each such rule includes only a grammar that Shiki's `haml` does not load, so vscode-textmate skips the rule.
+    /// - A `:sass`, `:style` or `:styles` filter that ends its line scopes only that line. Its end, `^(?=\1\s+|$\n*)`, holds at the next indented or empty line, so its body lexes as HAML.
+    /// - Every `:ruby` filter is `source.ruby.embedded.filter.haml`. The first `:ruby` rule needs no `$` after the name, so the later ones never match.
+    /// - A comment block, `-#` or `/`, holds HAML: the grammar includes itself there.
+    /// - In a tag, any `{` on a line with its line feed opens an attribute hash. The hash closes at a `}` that no `,`, `|` or `#{…}` follows.
+    /// - A tag's object, `[…]`, closes at the line's last `]`.
+    /// - A Ruby line keeps PHP's keyword scopes for `elseif`, `foreach`, `function(` and their kin, and a `#` starts a comment to the line's end.
+    /// - `&amp`, as written, stands where the grammar means `&`: before a Ruby line's mark and among a tag's parts.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    Haml { feature: "lang-haml", names: ["haml"], module: haml, reads_line_feed: true, halts: true }
     /// Sass, the indented syntax, with the scopes of Shiki's `sass` grammar.
     ///
     /// # Behaviour kept from Shiki

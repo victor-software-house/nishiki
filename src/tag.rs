@@ -96,6 +96,9 @@ tags! {
     /// Hack.
     #[cfg(feature = "lang-hack")]
     HACK = 0x5100,
+    /// HAML.
+    #[cfg(feature = "lang-haml")]
+    HAML = 0x4800,
     /// Haskell.
     #[cfg(feature = "lang-haskell")]
     HASKELL = 0x3600,

@@ -33,8 +33,6 @@ cargo check --locked --tests --no-default-features --features lang-gdscript
 cargo check --locked --tests --no-default-features --features lang-go
 cargo check --locked --tests --no-default-features --features lang-graphql
 cargo check --locked --tests --no-default-features --features lang-hack
-# HAML alone, with the languages it hands regions to.
-# It is the one language left on the TextMate engine until its own lexer lands.
 cargo check --locked --tests --no-default-features --features lang-haml
 cargo check --locked --tests --no-default-features --features lang-haskell
 cargo check --locked --tests --no-default-features --features lang-hcl

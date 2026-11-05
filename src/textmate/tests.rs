@@ -22,6 +22,9 @@ mod common_lisp_tables;
 mod elixir_tables;
 #[path = "../../tests/engine/gdscript.rs"]
 mod gdscript_tables;
+#[cfg(feature = "lang-haml")]
+#[path = "../../tests/engine/haml.rs"]
+mod haml_tables;
 #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
 #[path = "../../tests/engine/html.rs"]
 mod html_tables;
@@ -410,6 +413,15 @@ fn tex_grammar_matches_shiki() {
     check(&tex_tables::GRAMMAR, "tex", Scanners::On);
 }
 
+/// HAML has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+/// The table hands its filters and its Ruby to the languages they embed.
+#[cfg(feature = "lang-haml")]
+#[test]
+fn haml_grammar_matches_shiki() {
+    check(&haml_tables::GRAMMAR, "haml", Scanners::On);
+}
+
 /// Objective-C has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
@@ -633,10 +645,7 @@ fn kept_frames_lex_as_rebuilt_ones() {
 
 /// The engine grammars the crate ships, with the oracle fixtures of each,
 /// for the features that are on.
-static SHIPPED: &[(&Grammar, &str)] = &[
-    #[cfg(feature = "lang-haml")]
-    (&crate::haml::grammar::GRAMMAR, "haml"),
-];
+static SHIPPED: &[(&Grammar, &str)] = &[];
 
 /// Lines whose text beyond ASCII starts with every UTF-8 lead byte from
 /// `0xC2` to `0xF4`, alone, between ASCII and all together; lines with such
@@ -1054,7 +1063,7 @@ fn no_hand_off_halts_where_the_last_match_ended() {
 #[test]
 fn haml_hands_its_filters_over_whole() {
     use crate::language::Language;
-    let grammar = &crate::haml::grammar::GRAMMAR;
+    let grammar = &haml_tables::GRAMMAR;
     let hand_offs: Vec<(Language, usize, usize)> = grammar
         .hand_offs
         .iter()
@@ -2025,10 +2034,10 @@ mod hand_offs {
 
     use super::super::grammar::Grammar;
     use super::super::tokenizer;
+    use super::haml_tables::GRAMMAR as HAML;
     use super::html_tables;
     use crate::Token;
     use crate::arena::{Arena, ROOT};
-    use crate::haml::grammar::GRAMMAR as HAML;
     use crate::language::{Context, Line};
     use crate::limits::{Limit, Limits, LineReport, Steps, Work};
     use crate::scratch::Scratch;

@@ -595,11 +595,25 @@ pub(crate) struct Scratch {
     /// this scratch while the hand-lexed language runs. The outer line's
     /// buffers and caches stay as they were. Each engine level keeps the next
     /// level's scratch. The depth of the nesting bounds their number.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no language runs on the TextMate engine now; its hand-off tests do"
+        )
+    )]
     spare: Option<Box<Scratch>>,
 }
 
 /// The state at the start of a document in `grammar`, whose text sits on the
 /// stack `base` with the grammar's root scope on top.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its tests do"
+    )
+)]
 pub(crate) fn start(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
     let stack = arena
         .named_scope(grammar.scope)
@@ -617,6 +631,13 @@ fn pack(rule: usize, end: u32) -> u32 {
 /// The state at the start of the body of a fence in `grammar`, whose text sits
 /// on the stack `base` with no root scope of the grammar's own, as in Shiki's
 /// embedding, and where `\A` never matches.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its tests do"
+    )
+)]
 pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
     arena
         .push(ROOT, KIND, pack(grammar.root, 0), base)
@@ -628,7 +649,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) ->
     not(test),
     expect(
         dead_code,
-        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+        reason = "no language runs on the TextMate engine now; its tests do"
     )
 )]
 #[derive(Clone, Copy)]
@@ -651,7 +672,7 @@ pub(crate) struct Text<'a> {
     not(test),
     expect(
         dead_code,
-        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+        reason = "no language runs on the TextMate engine now; its tests do"
     )
 )]
 pub(crate) fn line(
@@ -674,7 +695,7 @@ pub(crate) fn line(
     not(test),
     expect(
         dead_code,
-        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+        reason = "no language runs on the TextMate engine now; its tests do"
     )
 )]
 #[expect(
@@ -756,6 +777,13 @@ pub(crate) fn line_until<H: Halting>(
 /// for its spare, two pointers, and lexes with the engine's scratch apart from
 /// the whole one. The spare then sits in the whole scratch for any engine line
 /// inside a hand-off. The line swaps them back at its end.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its hand-off tests do"
+    )
+)]
 #[expect(
     clippy::too_many_arguments,
     reason = "line_until's arguments with the whole scratch the languages it hands off to need"

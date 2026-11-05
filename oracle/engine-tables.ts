@@ -86,8 +86,14 @@ const ids = args.slice(1);
 if (!outDir || ids.length === 0) throw new Error("usage: engine-tables.ts <out dir> <language id>...");
 
 /** Every grammar a language needs, by scope name. */
-async function load(spec: string, handed: string[]): Promise<{ docs: Map<string, Json>; scope: string }> {
+async function load(
+  spec: string,
+  handed: string[],
+): Promise<{ docs: Map<string, Json>; fragments: Map<string, Json>; scope: string }> {
   const docs = new Map<string, Json>();
+  // A handed grammar's repository still serves an include of one of its
+  // rules, such as HAML's `source.ruby#escaped_char`.
+  const fragments = new Map<string, Json>();
   let scope = "";
   const [included, ...excluded] = spec.split("~");
   const left = new Set([...excluded, ...handed]);
@@ -101,7 +107,14 @@ async function load(spec: string, handed: string[]): Promise<{ docs: Map<string,
     }
     if (scope === "") scope = String(registrations[registrations.length - 1].scopeName);
   }
-  return { docs, scope };
+  for (const id of handed) {
+    const loader = bundledLanguages[id as keyof typeof bundledLanguages];
+    if (!loader) throw new Error(`Shiki has no language ${id}`);
+    for (const grammar of ((await loader()) as { default: Json[] }).default) {
+      if (grammar.name === id) fragments.set(String(grammar.scopeName), grammar);
+    }
+  }
+  return { docs, fragments, scope };
 }
 
 /** The language a spec compiles: its first id. */
@@ -124,6 +137,8 @@ class Builder {
 
   constructor(
     private docs: Map<string, Json>,
+    /** The handed grammars, for an include of one of their rules. */
+    private fragments: Map<string, Json>,
     private base: string,
     /** The `Language` variant of each handed grammar, by root scope. */
     private handed: Map<string, string>,
@@ -212,7 +227,7 @@ class Builder {
     const hash = target.indexOf("#");
     if (hash >= 0) {
       const other = target.slice(0, hash);
-      const doc = this.docs.get(other);
+      const doc = this.docs.get(other) ?? this.fragments.get(other);
       const repository = doc?.repository as Json | undefined;
       const found = repository?.[target.slice(hash + 1)] as Json | undefined;
       if (!found) return undefined;
@@ -426,8 +441,8 @@ for (const id of ids) {
     handed.set(entry.scope, entry.variant);
     features.push(entry.feature);
   }
-  const { docs, scope } = await load(spec, handedIds);
-  const builder = new Builder(docs, scope, handed);
+  const { docs, fragments, scope } = await load(spec, handedIds);
+  const builder = new Builder(docs, fragments, scope, handed);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
   const fenceScopes = fences[spec];

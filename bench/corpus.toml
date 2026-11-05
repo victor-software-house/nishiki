@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 21
-digest = "cfdce59692e19198e7d4abaad0dd175466e7887d86041451c95f52b5138b9328"
+version = 22
+digest = "e4717b6889a03e1f0a58ec9dcf9e04f28ad01230bebf55eae444167ba731f935"
 
 [[file]]
 language = "asm"
@@ -436,6 +436,28 @@ licence = "MIT"
 licence_source = "https://github.com/apollographql/spotify-showcase/blob/5a9afc5c96ef5a60f07d438dab5088bf0f6d661e/LICENSE"
 bytes = 62472
 sha256 = "e5d56924ece68d13c5947b6f6577283b5dcf15d36835e13d8c4e5523d3836a01"
+
+[[file]]
+language = "haml"
+tier = "small"
+origin = "neutral"
+path = "haml/small/gitlab-branches-index.haml"
+source = "https://raw.githubusercontent.com/gitlabhq/gitlabhq/d7b9a6176ab4e279465ba3ee09922cde2b74de47/app/views/projects/branches/index.html.haml"
+licence = "MIT"
+licence_source = "https://github.com/gitlabhq/gitlabhq/blob/d7b9a6176ab4e279465ba3ee09922cde2b74de47/LICENSE"
+bytes = 3999
+sha256 = "5ae5ad27c145d140b7e453b25e5bf3a05d8e9df875114bc06535cfb5e53dd7b9"
+
+[[file]]
+language = "haml"
+tier = "medium"
+origin = "neutral"
+path = "haml/medium/gitlab-ci-cd-settings.haml"
+source = "https://raw.githubusercontent.com/gitlabhq/gitlabhq/d7b9a6176ab4e279465ba3ee09922cde2b74de47/app/views/admin/application_settings/_ci_cd.html.haml"
+licence = "MIT"
+licence_source = "https://github.com/gitlabhq/gitlabhq/blob/d7b9a6176ab4e279465ba3ee09922cde2b74de47/LICENSE"
+bytes = 16634
+sha256 = "7ee933406cf54e82e8e6447c9c0d043f4cf098139039a761096a11ced321abde"
 
 [[file]]
 language = "haskell"

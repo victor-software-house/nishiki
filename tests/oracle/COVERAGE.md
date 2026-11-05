@@ -32,6 +32,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Go | `go` | 317 of 336 | 94.3% | 240 of 250 | 96.0% | 29 | 0 | yes |
 | GraphQL | `graphql` | 84 of 88 | 95.5% | 90 of 113 | 79.6% | 27 | 0 | yes |
 | Hack | `hack` | 354 of 355 | 99.7% | 193 of 195 | 99.0% | 3 | 0 | yes |
+| HAML | `haml` | 64 of 83 | 77.1% | 24 of 40 | 60.0% | 35 | 0 | yes |
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HCL | `hcl` | 80 of 80 | 100.0% | 53 of 55 | 96.4% | 2 | 0 | yes |
 | HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 4 |  |
@@ -424,6 +425,34 @@ injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | c
 #comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
 #language.patterns[19].begin  groups 5 (waived: the expression has four groups, so no match holds a fifth)
 #support.patterns[101].match  (?i)\bis_int(eger)?\b  waived: its words, `is_int` and `is_integer`, are in `patterns[93]`, which comes first and takes them
+```
+
+### `haml`
+
+```text
+patterns[5].begin  ^(\s*):ruby$  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
+patterns[5].end  ^(?!\1\s+|$\n*)  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
+patterns[6].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[8].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
+patterns[10].begin  ^(\s*):ruby$  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
+patterns[10].end  ^(?!\1\s+|$\n*)  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
+patterns[13].begin  ^(\s*):plain$  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[13].end  ^(?=\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[14].begin  ^(\s*)(:ruby)  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
+patterns[14].end  (?m:(?<=\n)(?!\1\s+|$\n*))  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
+patterns[17].begin  ^(\s*):plain$  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[17].end  ^(?=\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[18].match  ^\s*(\.)  waived: the tag rule before it, `^\s*(?:((%)([-:\w]+))|(?=[#.]))`, opens at the same `.` first
+patterns[20].begin  ^(\s*)(:php)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[20].end  ^(?!\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[21].end  groups 2 (waived: the grammar names the group, but the expression has no groups)
+patterns[22].end  groups 2 (waived: the grammar names the group, but the expression has no groups)
+patterns[23].begin  ^(\s*)(:sass)$  waived: the `:sass` filter before it, `^(\s*):(s(?:tyle|ass))$`, matches the same lines first
+patterns[23].end  ^(?!\1\s+|$\n*)  waived: the `:sass` filter before it, `^(\s*):(s(?:tyle|ass))$`, matches the same lines first
+patterns[24].begin  ^(\s*)(:scss)$  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+patterns[24].end  ^(?!\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
+#continuation.match  (\|)\s*\n  waived: every rule that lists it lists `source.ruby` or the block opener `([,<|]|do|\{)\s*(#.*)?$\n*` first, and those take the `|`
+#rubyline.patterns[4].match  \s+(use\s*)((?=\())  waived: the keyword pattern before it, `\s+((elseif|foreach|switch|declare|default|use))(?=[(\s])`, takes `use` before `(` or a blank first
 ```
 
 ### `haskell`

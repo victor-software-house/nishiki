@@ -14,8 +14,8 @@ mod selector;
 mod tokenizer;
 
 pub(crate) use grammar::Grammar;
+pub(crate) use tokenizer::Scratch;
 use tokenizer::{Embedded, Text};
-pub(crate) use tokenizer::{Scratch, start, start_embedded};
 
 use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::{Finished, Steps};
@@ -26,10 +26,7 @@ use crate::limits::{Finished, Steps};
 /// Never inlined, as `lex_handing` is not. With the engine's scratch boxed,
 /// this function was inlined into `Highlighter::line` and `line_until` was
 /// not inlined into it. Batch then rose 0.2% at one codegen unit.
-#[expect(
-    dead_code,
-    reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
-)]
+#[expect(dead_code, reason = "no language runs on the TextMate engine now")]
 #[inline(never)]
 pub(crate) fn lex(
     cx: &mut Context<'_>,
@@ -57,10 +54,7 @@ pub(crate) fn lex(
 /// and returns what the engine spent beside the state, so the embedding
 /// lexer counts it against the line's one budget: the engine starts from
 /// the work its limits lend, and spends it in steps of the work limit.
-#[expect(
-    dead_code,
-    reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
-)]
+#[expect(dead_code, reason = "no language runs on the TextMate engine now")]
 pub(crate) fn lex_embedded(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,
@@ -82,7 +76,7 @@ pub(crate) fn lex_embedded(
     not(test),
     expect(
         dead_code,
-        reason = "no language calls the plain engine path: HAML, the one language left on the engine, hands its regions off"
+        reason = "no language runs on the TextMate engine now; its tests do"
     )
 )]
 pub(crate) fn lex_until(
@@ -117,6 +111,13 @@ pub(crate) fn lex_until(
 /// Never inlined. Inlined into `Language::lex`, the handing loop widened
 /// `Highlighter::line` for every language: its own cost rose about 6% on the
 /// diff, Rust and JSON fixtures at one codegen unit.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its hand-off tests do"
+    )
+)]
 #[inline(never)]
 pub(crate) fn lex_handing(
     cx: &mut Context<'_>,
@@ -132,6 +133,13 @@ pub(crate) fn lex_handing(
 
 /// Lexes `line` like [`lex_embedded`], for a grammar that hands regions to
 /// languages lexed by hand.
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its hand-off tests do"
+    )
+)]
 pub(crate) fn lex_handing_embedded(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,
@@ -144,6 +152,10 @@ pub(crate) fn lex_handing_embedded(
 
 /// Lexes `line` like [`lex_until`], for a grammar that hands regions to
 /// languages lexed by hand.
+#[expect(
+    dead_code,
+    reason = "no language runs on the TextMate engine now, and no test hands off under a halt"
+)]
 pub(crate) fn lex_handing_until(
     cx: &mut Context<'_>,
     grammar: &'static Grammar,

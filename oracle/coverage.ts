@@ -69,6 +69,7 @@ const handLexed = new Map([
   ["go", "Go"],
   ["graphql", "GraphQL"],
   ["hack", "Hack"],
+  ["haml", "HAML"],
   ["haskell", "Haskell"],
   ["hcl", "HCL"],
   ["html", "HTML"],
