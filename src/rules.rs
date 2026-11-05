@@ -287,6 +287,30 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// Read only where [`Grammar::WATCHES_FRAMES`] holds.
     fn frames_settled(_lexer: &mut Lexer<'_, Self>, _low: usize) {}
 
+    /// Whether the halts of the language that embeds the grammar can hold
+    /// below its root, through [`Halt::deep`](crate::language::Halt::deep).
+    /// Blade's injection holds inside the PHP of an echo at every depth, even
+    /// inside a string.
+    /// A grammar that sets it keeps in its [`Grammar::Extra`] whether an open
+    /// rule shuts the deep halt out, and sets [`Grammar::WATCHES_FRAMES`] to
+    /// redo that fact where the open rules come from the line's state.
+    const DEPTH_HALTS: bool = false;
+
+    /// Updates the fact after a rule opened.
+    /// Read only where [`Grammar::DEPTH_HALTS`] holds.
+    fn frame_pushed(_lexer: &mut Lexer<'_, Self>) {}
+
+    /// Updates the fact after rules closed.
+    /// Read only where [`Grammar::DEPTH_HALTS`] holds.
+    fn frames_popped(_lexer: &mut Lexer<'_, Self>) {}
+
+    /// Whether the deep halt holds with the rules open now: no open rule shuts
+    /// it out.
+    /// Read only where [`Grammar::DEPTH_HALTS`] holds.
+    fn deep_halts_open(_lexer: &Lexer<'_, Self>) -> bool {
+        false
+    }
+
     /// Whether another language lexes some capture groups of the grammar
     /// again, as `TextMate` does for a group whose patterns include another
     /// grammar ([`Grammar::defers_nested`]).
