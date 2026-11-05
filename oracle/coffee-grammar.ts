@@ -10,6 +10,12 @@
 // - The regular expression rule includes only `source.js.regexp`, which no grammar Shiki loads provides.
 //   vscode-textmate skips such a rule, so it is left out.
 //
+// Svelte's grammar injects two patterns into the CoffeeScript it embeds:
+// `L:(source.ts, source.js, source.coffee)`, its `$` prefixes.
+// They become `Pat::SvelteVariable` and `Pat::SvelteProps`, listed in
+// `Pat::SVELTE`. No rule lists them. The tables of the dialect that Svelte
+// embeds put them first in every rule (src/coffee/svelte.rs).
+//
 // The script string `` (`)(.*)(`) `` lexes its middle group as JavaScript.
 // That group's nested kind is `Rule::Javascript`, a rule with no patterns.
 // The engine defers the group, and JavaScript lexes it (`Embeds::lex_nested`).
@@ -17,6 +23,7 @@
 // Run with `bun run oracle/coffee-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import coffee from "@shikijs/langs@4.6.0/coffee";
+import svelte from "@shikijs/langs@4.6.0/svelte";
 import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type CaptureNode = { name?: string; patterns?: Node[] };
@@ -383,6 +390,13 @@ function expand(node: Node, id: string): string[] {
 
 const rootPatterns = flatten(root.patterns!, "Root");
 rules.set("Root", { id: "Root", name: [], content: [], end: "", patterns: rootPatterns });
+const svelteGrammar = (svelte as unknown as { scopeName: string; injections: Record<string, { patterns: Node[] }> }[]).find(
+  (lang) => lang.scopeName === "source.svelte",
+)!;
+const injected = svelteGrammar.injections["L:(source.ts, source.js, source.coffee)"]!.patterns;
+const svelteIds = ["SvelteVariable", "SvelteProps"];
+if (injected.length !== svelteIds.length) throw new Error(`Svelte injects ${injected.length} patterns, not ${svelteIds.length}`);
+injected.forEach((node, index) => register({ match: node.match, name: node.name }, svelteIds[index]!));
 const unused = Object.keys(names).filter((id) => !used.has(id));
 if (unused.length) throw new Error(`names for no pattern: ${unused.join(", ")}`);
 const unnamed = [...pats.keys()].filter((id) => /At\d/.test(id));
@@ -441,7 +455,7 @@ const docs = (s: string) => {
 for (const p of patList) {
   g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pat {\n    /// Svelte's \`$\` prefixes, which its grammar injects into the CoffeeScript it\n    /// embeds, in the grammar's order.\n    #[cfg(feature = "lang-svelte")]\n    pub(crate) const SVELTE: [Pat; ${svelteIds.length}] = [${svelteIds.map((id) => `Pat::${id}`).join(", ")}];\n\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =

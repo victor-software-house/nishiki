@@ -1145,6 +1145,18 @@ pub(crate) enum Act<G: Grammar> {
     End,
 }
 
+impl<G: Grammar> Act<G> {
+    /// The same act for `H`, a dialect of `G` with its rules and scopes, such
+    /// as the CoffeeScript that Svelte embeds.
+    pub(crate) fn dialect<H: Grammar<Rule = G::Rule, Scope = G::Scope>>(self) -> Act<H> {
+        match self {
+            Act::Match(name) => Act::Match(name),
+            Act::Begin(rule) => Act::Begin(rule),
+            Act::End => Act::End,
+        }
+    }
+}
+
 /// The data of one pattern.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct PatData<G: Grammar> {

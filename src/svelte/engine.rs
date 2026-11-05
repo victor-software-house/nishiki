@@ -163,8 +163,8 @@ impl Embeds for Svelte {
         )
     }
 
-    /// TypeScript and JavaScript with Svelte's `$` prefixes injected
-    /// (`L:(source.ts, source.js, source.coffee)`).
+    /// TypeScript, JavaScript and CoffeeScript with Svelte's `$` prefixes
+    /// injected (`L:(source.ts, source.js, source.coffee)`).
     /// Every other language lexes itself.
     /// So does the TypeScript of a `{@const}` tag's type annotation.
     /// Its scope, `meta.type.annotation.svelte`, has no `source.ts` for the
@@ -185,6 +185,10 @@ impl Embeds for Svelte {
         } else if language == Language::JavaScript {
             Dialect::JavaScript
         } else {
+            #[cfg(feature = "lang-coffee")]
+            if matches!(language, Language::CoffeeScript) {
+                return Some(coffee_until(cx, line, state, (end, after)));
+            }
             return None;
         };
         Some(crate::typescript::lex_until_svelte(
@@ -226,6 +230,22 @@ impl Embeds for Svelte {
             None,
         )
     }
+}
+
+/// A CoffeeScript body with Svelte's `$` prefixes.
+/// Out of line and cold, so the TypeScript path of
+/// [`Embeds::lex_embedded_until`] keeps the shape it had.
+/// With the call inside it, it left `hand_over` and cost Svelte 0.38%.
+#[cfg(feature = "lang-coffee")]
+#[cold]
+#[inline(never)]
+fn coffee_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    (end, after): (&dyn Halt, Option<&dyn Halt>),
+) -> (Finished, Option<Stopped>) {
+    crate::coffee::lex_until_svelte(cx, line, state, end, after)
 }
 
 /// Where an embedding rule takes its line back from the language it embeds:

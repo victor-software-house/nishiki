@@ -1,9 +1,12 @@
 //! Keywords, constants and the grammar's word lists.
 
-use super::{Lexer, is_ident_start, words};
+use super::{Coffee, Dialect, Lexer, is_ident_start, words};
 use crate::rules::Chars;
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D>
+where
+    Coffee<D>: Dialect,
+{
     /// `\b(?<![$.])(break|…|await|(?<=for)\s+own)(?!\s*:)\b`.
     /// A word branch needs a word at `p`, and the `own` branch a blank, so
     /// at most one of them can match.

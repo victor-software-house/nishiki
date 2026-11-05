@@ -1,6 +1,6 @@
 //! Strings, comments, heregexes and JSX tags.
 
-use super::Lexer;
+use super::{Coffee, Dialect, Lexer};
 use crate::rules::Chars;
 
 /// The string an escape stands in, whose escapes differ in one branch.
@@ -12,12 +12,15 @@ pub(super) enum Quote {
     Single,
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D>
+where
+    Coffee<D>: Dialect,
+{
     /// `(\\)(x\h{2}|[012][0-7]{0,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)`, with
     /// `3[0-6][0-7]?` in a single-quoted string.
     /// A branch that fails leaves the next to try; `.` takes the character
     /// after the backslash.
-    pub(super) fn escape(&mut self, p: usize, quote: Quote) -> Option<usize> {
+    pub(super) fn string_escape(&mut self, p: usize, quote: Quote) -> Option<usize> {
         let from = self.lit(p, b"\\")?;
         let octal = |i: usize| matches!(self.at(i), b'0'..=b'7');
         let end = match self.at(from) {

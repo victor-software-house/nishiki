@@ -1580,12 +1580,21 @@ pub(crate) enum Pat {
     JsxExpression,
     /// The end `}`.
     JsxExpressionEnd,
+    /// The match `(?<!["$'./_[:alnum:]])\$(?=[_[:alpha:]][$_[:alnum:]]*)`.
+    SvelteVariable,
+    /// The match `(?<!["$'./_[:alnum:]])(\$\$)(?=props|restProps|slots)`.
+    SvelteProps,
 }
 
 impl Pat {
+    /// Svelte's `$` prefixes, which its grammar injects into the CoffeeScript
+    /// it embeds, in the grammar's order.
+    #[cfg(feature = "lang-svelte")]
+    pub(crate) const SVELTE: [Pat; 2] = [Pat::SvelteVariable, Pat::SvelteProps];
+
     /// Every pattern, for the tool that compares the matchers with Oniguruma.
     #[cfg(test)]
-    pub(crate) const ALL: [Pat; 146] = [
+    pub(crate) const ALL: [Pat; 148] = [
         Pat::JsxTag,
         Pat::JsxTagEnd,
         Pat::JsxAttribute,
@@ -1732,6 +1741,8 @@ impl Pat {
         Pat::DestructuredObjectName,
         Pat::JsxExpression,
         Pat::JsxExpressionEnd,
+        Pat::SvelteVariable,
+        Pat::SvelteProps,
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
@@ -2471,6 +2482,11 @@ impl Pat {
             Pat::JsxExpression => PatData {
                 act: Act::Begin(Rule::JsxExpression),
                 captures: &[(0, scopes![S::MetaBraceCurly])],
+                nested: &[],
+            },
+            Pat::SvelteVariable | Pat::SvelteProps => PatData {
+                act: Act::Match(scopes![S::PDefinitionVariableSvelte]),
+                captures: &[],
                 nested: &[],
             },
         }
@@ -3327,6 +3343,16 @@ impl Pat {
             Pat::Delimiter => Start {
                 bytes: [
                     0x0000_1000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+            },
+            Pat::SvelteVariable | Pat::SvelteProps => Start {
+                bytes: [
+                    0x0000_0010_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,

@@ -20,9 +20,13 @@ mod engine;
 mod grammar;
 mod matchers;
 mod scope;
+#[cfg(feature = "lang-svelte")]
+mod svelte;
 mod words;
 
 use engine::Coffee;
+#[cfg(feature = "lang-svelte")]
+pub(crate) use engine::SVELTE;
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
@@ -70,6 +74,26 @@ pub(crate) fn lex_until(
     rules::lex_embedding_until::<Coffee>(cx, line, state, buffers, (end, after))
 }
 
+/// Lexes `line` like [`lex_until`], for the CoffeeScript that Svelte embeds.
+/// Svelte's grammar injects its `$` prefixes there, in every rule
+/// ([`SVELTE`]).
+#[cfg(feature = "lang-svelte")]
+pub(crate) fn lex_until_svelte(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<Stopped>) {
+    rules::lex_embedding_until::<Coffee<SVELTE>>(cx, line, state, svelte_buffers, (end, after))
+}
+
+/// The buffers of the CoffeeScript that Svelte embeds.
+#[cfg(feature = "lang-svelte")]
+fn svelte_buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch<SVELTE> {
+    scratch.coffee_svelte.get_or_insert_with(Box::default)
+}
+
 /// No rule of the grammar embeds a language.
 /// Its one embedded language is the JavaScript of a script string's middle
 /// group, which [`rules::Embeds::lex_nested`] lexes.
@@ -92,6 +116,31 @@ impl rules::Embeds for Coffee {
     ) -> Option<Finished> {
         let state = language.start_embedded(cx.arena, base);
         Some(language.lex_embedded(cx, line, state))
+    }
+}
+
+/// The CoffeeScript that Svelte embeds embeds the same language.
+#[cfg(feature = "lang-svelte")]
+impl rules::Embeds for Coffee<SVELTE> {
+    type End = rules::FnHalt;
+
+    fn embed_halts(_: &rules::Embedding, _: &Arena) -> (Self::End, Option<rules::FnHalt>) {
+        (no_end, None)
+    }
+
+    /// The script string's JavaScript takes Svelte's `$` prefixes too, since
+    /// its scope, `source.js.embedded.coffee`, is a `source.js` scope.
+    fn lex_nested(
+        language: crate::Language,
+        cx: &mut Context<'_>,
+        line: Line<'_>,
+        base: u32,
+    ) -> Option<Finished> {
+        let state = language.start_embedded(cx.arena, base);
+        let dialect = crate::typescript::Dialect::JavaScript;
+        let (finished, _) =
+            crate::typescript::lex_until_svelte(cx, dialect, line, state, &no_end, None);
+        Some(finished)
     }
 }
 

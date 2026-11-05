@@ -19,7 +19,7 @@ mod strings;
 
 use expressions::{Ahead, LoneAt};
 
-use super::engine::Lexer;
+use super::engine::{Coffee, Dialect, Lexer};
 use super::grammar::{Pat, Rule};
 use super::words;
 use crate::rules::Chars;
@@ -48,7 +48,10 @@ const ARGUMENT_STOPS: &[&[u8]] = &[
     b"instanceof",
 ];
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D>
+where
+    Coffee<D>: Dialect,
+{
     /// Whether `pat` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
@@ -57,12 +60,12 @@ impl Lexer<'_> {
     /// - functions, calls, objects, properties, numbers and operators;
     /// - brackets and punctuation.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
+    pub(super) fn pat_matches(&mut self, pat: Pat, p: usize) -> Option<usize> {
         match pat {
             Pat::DoubleString | Pat::DoubleStringEnd => self.lit(p, b"\""),
             Pat::SingleString | Pat::SingleStringEnd => self.lit(p, b"'"),
-            Pat::DoubleEscape => self.escape(p, strings::Quote::Double),
-            Pat::SingleEscape => self.escape(p, strings::Quote::Single),
+            Pat::DoubleEscape => self.string_escape(p, strings::Quote::Double),
+            Pat::SingleEscape => self.string_escape(p, strings::Quote::Single),
             Pat::SingleHeredoc | Pat::SingleHeredocEnd => self.lit(p, b"'''"),
             Pat::DoubleHeredoc | Pat::DoubleHeredocEnd => self.lit(p, b"\"\"\""),
             Pat::SingleHeredocEscape | Pat::DoubleHeredocEscape => {
@@ -172,7 +175,7 @@ impl Lexer<'_> {
             Pat::BareFunctionCall => self.bare_function_call(p),
             Pat::Hex => self.prefixed_number(p, b'x', |b| b.is_ascii_hexdigit()),
             Pat::Binary => self.prefixed_number(p, b'b', |b| matches!(b, b'0' | b'1')),
-            Pat::Octal => self.octal(p),
+            Pat::Octal => self.octal_number(p),
             Pat::Decimal => self.decimal(p),
             Pat::ConstantObject => self.constant_object(p),
             Pat::VariableObject => {
@@ -213,6 +216,55 @@ impl Lexer<'_> {
                 let end = self.lit(p, b"@")?;
                 Some(self.short_ident(end).unwrap_or(end))
             }
+            Pat::SvelteVariable => self.svelte_variable(p),
+            Pat::SvelteProps => self.svelte_props(p),
+        }
+    }
+
+    /// Svelte's `$` before a name:
+    /// `(?<!["$'./_[:alnum:]])\$(?=[_[:alpha:]][$_[:alnum:]]*)`.
+    /// The lookahead's tail can be empty, so a letter or `_` after the `$`
+    /// decides.
+    fn svelte_variable(&self, p: usize) -> Option<usize> {
+        if !self.svelte_dollar(p) {
+            return None;
+        }
+        let name = match self.s.get(p + 1) {
+            Some(&b) if b < 0x80 => b == b'_' || b.is_ascii_alphabetic(),
+            Some(_) => self
+                .char_at(p + 1)
+                .is_some_and(|(c, _)| crate::classes::is_alpha(c)),
+            None => false,
+        };
+        name.then_some(p + 1)
+    }
+
+    /// The `$$` of Svelte's `$$props`, `$$restProps` and `$$slots`:
+    /// `(?<!["$'./_[:alnum:]])(\$\$)(?=props|restProps|slots)`.
+    fn svelte_props(&self, p: usize) -> Option<usize> {
+        if !self.svelte_dollar(p) || self.s.get(p + 1) != Some(&b'$') {
+            return None;
+        }
+        let after = self.s.get(p + 2..).unwrap_or_default();
+        [b"props".as_slice(), b"restProps", b"slots"]
+            .iter()
+            .any(|name| after.starts_with(name))
+            .then_some(p + 2)
+    }
+
+    /// A `$` at `p` with no `"`, `$`, `'`, `.`, `/`, `_` or `[:alnum:]`
+    /// character before it.
+    fn svelte_dollar(&self, p: usize) -> bool {
+        if self.s.get(p) != Some(&b'$') {
+            return false;
+        }
+        match p.checked_sub(1).and_then(|k| self.s.get(k)) {
+            None => true,
+            Some(&b) if b < 0x80 => {
+                !(b.is_ascii_alphanumeric()
+                    || matches!(b, b'"' | b'$' | b'\'' | b'.' | b'/' | b'_'))
+            }
+            Some(_) => !self.char_before(p).is_some_and(crate::classes::is_alnum),
         }
     }
 

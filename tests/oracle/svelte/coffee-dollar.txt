@@ -1,0 +1,145 @@
+L <!--
+T 4 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L   Svelte's `$` prefixes in a CoffeeScript body. Svelte's grammar injects them
+T 77 source.svelte comment.block.svelte
+L   into every rule under `source.coffee`: code, comments, interpolations and
+T 75 source.svelte comment.block.svelte
+L   the JavaScript between backticks. Not after a quote, a dot, a `$`, `_` or a
+T 77 source.svelte comment.block.svelte
+L   name character.
+T 17 source.svelte comment.block.svelte
+L -->
+T 3 source.svelte comment.block.svelte punctuation.definition.comment.svelte
+L <script lang="coffee">
+T 1 source.svelte meta.script.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 7 source.svelte meta.script.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte
+T 12 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte meta.attribute.lang.svelte entity.other.attribute-name.svelte
+T 13 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte meta.attribute.lang.svelte punctuation.separator.key-value.svelte
+T 14 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.begin.svelte
+T 20 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte
+T 21 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte meta.attribute.lang.svelte string.quoted.svelte punctuation.definition.string.end.svelte
+T 22 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+L count = $count + a.$b + _$c + x$d
+T 5 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.assignment.coffee
+T 6 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.assignment.coffee
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 9 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.definition.variable.svelte
+T 15 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 16 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.coffee
+T 17 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 18 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.other.object.coffee
+T 19 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.separator.property.period.coffee
+T 21 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.other.property.coffee
+T 22 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 23 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.coffee
+T 28 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 29 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.coffee
+T 33 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+L # $e in a comment
+T 1 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.line.number-sign.coffee punctuation.definition.comment.coffee
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.line.number-sign.coffee
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.line.number-sign.coffee punctuation.definition.variable.svelte
+T 17 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.line.number-sign.coffee
+L ###
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.block.coffee punctuation.definition.comment.coffee
+L   $f in a block comment
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.block.coffee
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.block.coffee punctuation.definition.variable.svelte
+T 23 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.block.coffee
+L ###
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee comment.block.coffee punctuation.definition.comment.coffee
+L y = "$g #{$h}"
+T 1 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.assignment.coffee
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.assignment.coffee
+T 4 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 5 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee punctuation.definition.string.begin.coffee
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee
+T 10 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 11 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.definition.variable.svelte
+T 12 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee source.coffee.embedded.source
+T 13 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 14 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.coffee punctuation.definition.string.end.coffee
+L z = '$i'
+T 1 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.assignment.coffee
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.assignment.coffee
+T 4 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 5 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.single.coffee punctuation.definition.string.begin.coffee
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.single.coffee
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.single.coffee punctuation.definition.string.end.coffee
+L w = `$j + $k`
+T 1 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.assignment.coffee
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.assignment.coffee
+T 4 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 5 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee punctuation.definition.string.begin.coffee
+T 6 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee punctuation.definition.variable.svelte
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee variable.other.readwrite.js
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee
+T 9 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee keyword.operator.arithmetic.js
+T 10 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee
+T 11 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee punctuation.definition.variable.svelte
+T 12 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee source.js.embedded.coffee variable.other.readwrite.js
+T 13 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.script.coffee punctuation.definition.string.end.coffee
+L $$props
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.definition.variable.svelte
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+L $$restProps.a
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.definition.variable.svelte
+T 11 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.other.object.coffee
+T 12 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.separator.property.period.coffee
+T 13 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.other.property.coffee
+L $$slots
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.definition.variable.svelte
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+L $$other
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+L $ alone
+T 1 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function-call.coffee entity.name.function.coffee
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function-call.coffee
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function-call.coffee meta.arguments.coffee
+L ($l) -> $m
+T 1 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function.inline.coffee meta.parameters.coffee punctuation.definition.parameters.begin.bracket.round.coffee
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function.inline.coffee meta.parameters.coffee punctuation.definition.variable.svelte
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function.inline.coffee meta.parameters.coffee variable.parameter.function.coffee
+T 4 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function.inline.coffee meta.parameters.coffee punctuation.definition.parameters.end.bracket.round.coffee
+T 5 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function.inline.coffee
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee meta.function.inline.coffee storage.type.function.coffee
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 9 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee punctuation.definition.variable.svelte
+T 10 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+L heredoc = """
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee variable.assignment.coffee
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 9 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee keyword.operator.assignment.coffee
+T 10 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee
+T 13 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee punctuation.definition.string.begin.coffee
+L   $n #{$o}
+T 2 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee punctuation.definition.variable.svelte
+T 5 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee
+T 7 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+T 8 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source punctuation.definition.variable.svelte
+T 9 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source
+T 10 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee source.coffee.embedded.source punctuation.section.embedded.coffee
+L """
+T 3 source.svelte meta.script.svelte meta.lang.coffee.svelte meta.embedded.block.svelte source.coffee string.quoted.double.heredoc.coffee punctuation.definition.string.end.coffee
+L </script>
+T 2 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 8 source.svelte meta.script.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 9 source.svelte meta.script.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L <p>{$count}</p>
+T 1 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.begin.svelte
+T 2 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte entity.name.tag.svelte
+T 3 source.svelte meta.scope.tag.p.svelte meta.tag.start.svelte punctuation.definition.tag.end.svelte
+T 4 source.svelte punctuation.section.embedded.begin.svelte
+T 5 source.svelte meta.embedded.expression.svelte source.ts punctuation.definition.variable.svelte
+T 10 source.svelte meta.embedded.expression.svelte source.ts variable.other.readwrite.ts
+T 11 source.svelte punctuation.section.embedded.end.svelte
+T 13 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.begin.svelte
+T 14 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte entity.name.tag.svelte
+T 15 source.svelte meta.scope.tag.p.svelte meta.tag.end.svelte punctuation.definition.tag.end.svelte
+L 

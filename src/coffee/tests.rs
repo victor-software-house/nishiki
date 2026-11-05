@@ -171,7 +171,7 @@ mod probe {
     fn matchers_answer_the_probe_cases() {
         answer_cases(&Pat::ALL, |arena, pat, case| {
             lexer::<Coffee, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.pat_matches(pat, p))
             })
         });
     }

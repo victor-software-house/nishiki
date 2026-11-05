@@ -1,6 +1,6 @@
 //! Functions, calls, numbers, objects, properties and operators.
 
-use super::{ARGUMENT_STOPS, Lexer, is_ident_start};
+use super::{ARGUMENT_STOPS, Coffee, Dialect, Lexer, is_ident_start};
 use crate::rules::Chars;
 
 /// Whether a bare argument may start with a lone `@`.
@@ -21,7 +21,10 @@ pub(super) enum Ahead {
     Any,
 }
 
-impl Lexer<'_> {
+impl<const D: u8> Lexer<'_, D>
+where
+    Coffee<D>: Dialect,
+{
     /// `[-=]>`.
     pub(super) fn arrow(&self, p: usize) -> Option<usize> {
         (matches!(self.at(p), b'-' | b'=') && self.at(p + 1) == b'>').then_some(p + 2)
@@ -296,7 +299,7 @@ impl Lexer<'_> {
     }
 
     /// `\b(?<!\$)0([Oo])?[0-7]+\b(?!\$)`.
-    pub(super) fn octal(&self, p: usize) -> Option<usize> {
+    pub(super) fn octal_number(&self, p: usize) -> Option<usize> {
         if self.prev(p) == Some(b'$') || !self.boundary(p) || self.at(p) != b'0' {
             return None;
         }
