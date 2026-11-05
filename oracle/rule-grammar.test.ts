@@ -21,3 +21,17 @@ test("a negative lookbehind whose body can match a blank is not stepped over", (
   expect(takesOneBlank("(?<!\\s\\s).\\n")).toBe(false);
   expect(takesOneBlank("(?<!(a)\\1).\\n")).toBe(false);
 });
+
+test("a leading group's alternatives each run on with the rest of the pattern", () => {
+  expect(takesOneBlank("(;|(^|\\s)#\\s).*$")).toBe(true);
+  expect(takesOneBlank("(;|#)\\s.*$")).toBe(false);
+});
+
+test("a quantified leading group does not distribute", () => {
+  expect(takesOneBlank("(a|\\s)+x")).toBe(false);
+});
+
+test("a leading group with an anchor counts only through its blank branch", () => {
+  expect(takesOneBlank("(^|\\s)#\\s")).toBe(true);
+  expect(takesOneBlank("(^|a)#\\s")).toBe(false);
+});

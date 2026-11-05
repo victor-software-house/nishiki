@@ -526,7 +526,23 @@ function alternatives(regex: string): string[] {
   out.push(regex.slice(start));
   if (out.length > 1) return out.flatMap(alternatives);
   const whole = /^\((?:\?:|\?=)?(.*)\)$/s.exec(regex);
-  return whole !== null && balanced(whole[1]!) ? alternatives(whole[1]!) : out;
+  if (whole !== null && balanced(whole[1]!)) return alternatives(whole[1]!);
+  return leadingGroup(regex) ?? out;
+}
+
+/** The alternatives of `regex` when it starts with a capturing or `(?:`
+ * group of several alternatives that no quantifier follows: each alternative
+ * of the group, followed by the rest of `regex`.
+ * So `(;|(^|\s)#\s).*$` reads as `;.*$`, `^#\s.*$` and `\s#\s.*$`.
+ * `undefined` for any other `regex`. */
+function leadingGroup(regex: string): string[] | undefined {
+  if (regex[0] !== "(" || (regex[1] === "?" && regex[2] !== ":")) return undefined;
+  const close = closingParen(regex);
+  if (close < 0 || /^[*+?{]/.test(regex.slice(close + 1))) return undefined;
+  const inner = alternatives(regex.slice(regex[1] === "?" ? 3 : 1, close));
+  if (inner.length < 2) return undefined;
+  const rest = regex.slice(close + 1);
+  return inner.flatMap((alt) => alternatives(alt + rest));
 }
 
 /** Whether the parentheses of `regex` balance, so that a leading `(` and a
