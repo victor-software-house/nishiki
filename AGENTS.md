@@ -107,6 +107,8 @@ The decisions that created nishiki live in a private planning repository:
    It also runs `check:layout` (every browsable directory has its README and guide) and `check:literals`.
    It runs `check:tiers` too.
    That check fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
+   It runs `check:feature-lines` too.
+   That check fails when a language of the `all` list has no line of its own in `check:features`.
 
 ### Documentation
 
