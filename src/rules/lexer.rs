@@ -1552,6 +1552,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             payload: 0,
             next_while: 0,
         });
+        if G::DEPTH_HALTS {
+            G::frame_pushed(self);
+        }
         if let Some(text) = self.s.get(..end) {
             self.s = text;
             self.nl = false;
@@ -1770,6 +1773,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 content: popped.name,
                 ..popped
             });
+            if G::DEPTH_HALTS {
+                G::frame_pushed(self);
+            }
             self.emit(line_length, popped.name);
             return true;
         }
@@ -3180,6 +3186,9 @@ mod tests {
         /// and `[` `]` groups that shut the deep halt out, on the table scan,
         /// for [`Grammar::DEPTH_HALTS`].
         /// `DEEP` sets the const, so one grammar serves as its own control.
+        ///
+        /// - A group also opens and ends at a `!`, without advancing.
+        /// - A `<` `>` match lexes its inside again as a group.
         #[derive(Clone, Copy, Debug)]
         struct Strings<const DEEP: bool>;
 
@@ -3197,6 +3206,7 @@ mod tests {
             QuoteEnd,
             Open,
             Close,
+            Angle,
             Hash,
             LineFeed,
             Mention,
@@ -3262,12 +3272,22 @@ mod tests {
                     DeepPat::Open => Act::Begin(DeepRule::Shut),
                     DeepPat::Hash => Act::Begin(DeepRule::Comment),
                     DeepPat::QuoteEnd | DeepPat::Close | DeepPat::LineFeed => Act::End,
-                    DeepPat::Mention | DeepPat::Word => Act::Match(scopes![WORD]),
+                    DeepPat::Angle | DeepPat::Mention | DeepPat::Word => Act::Match(scopes![WORD]),
                 }
             }
 
-            fn pat_captures(_: DeepPat) -> Captures<Self> {
-                (&[], &[])
+            fn pat_captures(pat: DeepPat) -> Captures<Self> {
+                match pat {
+                    DeepPat::Angle => (&[], &[(1, Inside::Again)]),
+                    DeepPat::Quote
+                    | DeepPat::QuoteEnd
+                    | DeepPat::Open
+                    | DeepPat::Close
+                    | DeepPat::Hash
+                    | DeepPat::LineFeed
+                    | DeepPat::Mention
+                    | DeepPat::Word => (&[], &[]),
+                }
             }
 
             fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, DeepPat, usize)> {
@@ -3277,8 +3297,24 @@ mod tests {
             fn matcher(lexer: &mut Lexer<'_, Self>, pat: DeepPat, p: usize) -> Option<usize> {
                 match pat {
                     DeepPat::Quote | DeepPat::QuoteEnd => (lexer.at(p) == b'"').then_some(p + 1),
-                    DeepPat::Open => (lexer.at(p) == b'[').then_some(p + 1),
-                    DeepPat::Close => (lexer.at(p) == b']').then_some(p + 1),
+                    DeepPat::Open => match lexer.at(p) {
+                        b'[' => Some(p + 1),
+                        b'!' => Some(p),
+                        _ => None,
+                    },
+                    DeepPat::Close => match lexer.at(p) {
+                        b']' => Some(p + 1),
+                        b'!' => Some(p),
+                        _ => None,
+                    },
+                    DeepPat::Angle => {
+                        let close = lexer.skip(p + 1, |b| b != b'>');
+                        if lexer.at(p) != b'<' || lexer.at(close) != b'>' {
+                            return None;
+                        }
+                        lexer.cap(1, p + 1, close);
+                        Some(close + 1)
+                    }
                     DeepPat::Hash => (lexer.at(p) == b'#').then_some(p + 1),
                     DeepPat::LineFeed => (p == lexer.lim() && lexer.avail(p)).then_some(p + 1),
                     DeepPat::Mention => {
@@ -3300,7 +3336,7 @@ mod tests {
                 base: u32,
             ) {
                 match kind {
-                    Inside::Again => lexer.retokenise(DeepRule::Root, from, to, base),
+                    Inside::Again => lexer.retokenise(DeepRule::Shut, from, to, base),
                 }
             }
 
@@ -3345,7 +3381,13 @@ mod tests {
                 let (end, patterns): (Option<DeepPat>, &'static [DeepPat]) = match rule {
                     DeepRule::Root => (
                         None,
-                        &[DeepPat::Quote, DeepPat::Open, DeepPat::Hash, DeepPat::Word],
+                        &[
+                            DeepPat::Quote,
+                            DeepPat::Open,
+                            DeepPat::Angle,
+                            DeepPat::Hash,
+                            DeepPat::Word,
+                        ],
                     ),
                     DeepRule::Str => (Some(DeepPat::QuoteEnd), &[DeepPat::Mention, DeepPat::Word]),
                     DeepRule::Shut => (Some(DeepPat::Close), &[DeepPat::Quote, DeepPat::Word]),
@@ -3443,6 +3485,39 @@ mod tests {
             (stopped.map(|stop| stop.at), finished.state(), arena)
         }
 
+        /// Lexes `lines` of [`Strings`] in turn under `halt`, on one scratch,
+        /// so a line resumes the frames the last one kept, and gives where each
+        /// halted.
+        fn lex_lines<const DEEP: bool>(lines: &[&[u8]], halt: &dyn Halt) -> Vec<Option<usize>> {
+            let limits = Limits::default();
+            let mut arena = Arena::new(None);
+            let mut scratch = Scratch::<Strings<DEEP>>::default();
+            let mut state = crate::rules::start_embedded::<Strings<DEEP>>(&mut arena, ROOT);
+            let mut stops = Vec::new();
+            for line in lines {
+                let mut tokens = Vec::new();
+                let mut report = LineReport::default();
+                let parts = Parts {
+                    arena: &mut arena,
+                    limits: &limits,
+                    out: &mut tokens,
+                    report: &mut report,
+                };
+                let text = Text {
+                    bytes: line,
+                    start: 0,
+                    anchored: false,
+                };
+                let halts: crate::language::Halts<'_> = (halt, None);
+                let (finished, stopped) = Lexer::new(parts, text, state, &mut scratch)
+                    .halting(&halts)
+                    .run_halting();
+                stops.push(stopped.map(|stop| stop.at));
+                state = finished.state();
+            }
+            stops
+        }
+
         #[test]
         fn a_deep_halt_stops_the_line_inside_a_string() {
             assert_eq!(deep_stop::<true>(b"a \"b @c\" d"), (Some(5), 1));
@@ -3474,6 +3549,19 @@ mod tests {
             let (stop, state, arena) = lex_from::<true>(line, line.len(), state, &BladeLike, arena);
             assert_eq!(stop, None);
             assert_eq!(arena.frame(state).depth, open - 1);
+        }
+
+        #[test]
+        fn a_rule_that_closes_where_it_opened_still_shuts_the_deep_halt_out() {
+            assert_eq!(
+                lex_lines::<true>(&[b"!x", b"\"@y\""], &BladeLike),
+                [None, None]
+            );
+        }
+
+        #[test]
+        fn a_capture_lexed_again_as_a_rule_that_shuts_the_deep_halt_out_keeps_it_out() {
+            assert_eq!(deep_stop::<true>(b"<\"@y\"> z"), (None, 0));
         }
 
         #[test]
