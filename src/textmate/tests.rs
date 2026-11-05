@@ -24,6 +24,8 @@ mod make_tables;
 mod markdown_tables;
 #[path = "../../tests/engine/objective-c.rs"]
 mod objective_c_tables;
+#[path = "../../tests/engine/objective-cpp.rs"]
+mod objective_cpp_tables;
 #[path = "../../tests/engine/python.rs"]
 mod python_tables;
 #[path = "../../tests/engine/rust.rs"]
@@ -262,6 +264,17 @@ fn objective_c_grammar_matches_shiki() {
     check(&objective_c_tables::GRAMMAR, "objective-c", Scanners::On);
 }
 
+/// Objective-C++ has a hand lexer.
+/// The engine runs its grammar from a test table, as a second oracle.
+#[test]
+fn objective_cpp_grammar_matches_shiki() {
+    check(
+        &objective_cpp_tables::GRAMMAR,
+        "objective-cpp",
+        Scanners::On,
+    );
+}
+
 #[test]
 fn shell_grammar_matches_shiki() {
     check(&shell_tables::GRAMMAR, "shellscript", Scanners::On);
@@ -395,9 +408,10 @@ fn scoped_tokens(
 /// them from the arena, on every fixture of every grammar with fixtures.
 #[test]
 fn kept_frames_lex_as_rebuilt_ones() {
-    let tables: [(&'static Grammar, &str); 10] = [
+    let tables: [(&'static Grammar, &str); 11] = [
         (&rust_tables::GRAMMAR, "rust"),
         (&objective_c_tables::GRAMMAR, "objective-c"),
+        (&objective_cpp_tables::GRAMMAR, "objective-cpp"),
         (&shell_tables::GRAMMAR, "shellscript"),
         (&typescript_tables::GRAMMAR, "typescript"),
         (&markdown_tables::GRAMMAR, "markdown"),
@@ -437,8 +451,6 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::haml::grammar::GRAMMAR, "haml"),
     #[cfg(feature = "lang-matlab")]
     (&crate::matlab::grammar::GRAMMAR, "matlab"),
-    #[cfg(feature = "lang-objective-cpp")]
-    (&crate::objective_cpp::grammar::GRAMMAR, "objective-cpp"),
     #[cfg(feature = "lang-pascal")]
     (&crate::pascal::grammar::GRAMMAR, "pascal"),
     #[cfg(feature = "lang-perl")]

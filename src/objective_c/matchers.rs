@@ -213,7 +213,7 @@ where
         clippy::too_many_lines,
         reason = "one arm per expression: the table of what each matches"
     )]
-    pub(super) fn matcher(&mut self, rx: Rx, p: usize) -> Option<usize> {
+    pub(crate) fn matcher(&mut self, rx: Rx, p: usize) -> Option<usize> {
         match rx {
             Rx::AnonymousPattern1 => self.interface_begin(p),
             Rx::AnonymousPattern1End => {

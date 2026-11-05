@@ -22,6 +22,10 @@ mod words;
 
 use engine::ObjectiveC;
 pub(crate) use engine::Scratch;
+#[cfg(feature = "lang-objective-cpp")]
+pub(crate) use engine::{Memory, ObjcMemory};
+#[cfg(feature = "lang-objective-cpp")]
+pub(crate) use grammar::Rx;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;

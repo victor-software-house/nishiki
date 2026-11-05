@@ -46,6 +46,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
 | Objective-C | `objective-c` | 371 of 377 | 98.4% | 346 of 377 | 91.8% | 37 | 0 | yes |
+| Objective-C++ | `objective-cpp` | 395 of 427 | 92.5% | 380 of 433 | 87.8% | 85 | 0 | yes |
 | PHP | `php` | 476 of 476 | 100.0% | 411 of 433 | 94.9% | 22 | 0 | yes |
 | PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
@@ -719,6 +720,61 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
 ```
 
+### `objective-cpp`
+
+```text
+#anonymous_pattern_1.begin  groups 8 (waived: the group matches only blanks, and the oracle compares no blank), 9 (waived: the grammar names the group, but the expression has eight groups)
+#anonymous_pattern_1.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 6 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 7 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 8 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 9 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
+#anonymous_pattern_14.patterns[0].match  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#anonymous_pattern_18.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#anonymous_pattern_19.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#anonymous_pattern_2.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 5 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
+#apple_foundation_functional_macros.begin  \b(API_AVAILABLE|API_DEPRECATED|API_UNAVAILABLE|NS_AVAILABL…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#apple_foundation_functional_macros.end  \)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#bracketed_content.begin  \[  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.end  ]  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].begin  (?=predicateWithFormat:)(?<=NSPredicate )(predicateWithForm…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].end  (?=])  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[0].match  \bargument(Array|s)(:)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[1].match  \b\w+(:)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].begin  @"  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].end  "  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[0].match  \b(AND|OR|NOT|IN)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[1].match  \b(ALL|ANY|SOME|NONE)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[2].match  \b(NULL|NIL|SELF|TRUE|YES|FALSE|NO|FIRST|LAST|SIZE)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[3].match  \b(MATCHES|CONTAINS|BEGINSWITH|ENDSWITH|BETWEEN)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[4].match  \bC(ASEINSENSITIVE|I)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[5].match  \b(ANYKEY|SUBQUERY|CAST|TRUEPREDICATE|FALSEPREDICATE)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[6].match  \\(["'?\\abefnrtv]|[0-3]\d{0,2}|[4-7]\d?|x[0-9A-Za-z]+)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[7].match  \\.  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[1].begin  (?=\w)(?<=[]")\w] )(\w+(?:(:)|(?=])))  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[1].end  (?=])  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[1].patterns[0].match  \b\w+(:)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
+#c_functions.patterns[0].match  (\s*)\b(hypot([fl])?|s(scanf|ystem|nprintf|ca(nf|lb(n([fl])…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#c_functions.patterns[1].match  (?:(?=\s)(?:(?<=else|new|return)|(?<!\w))(\s+))?\b((?!(whil…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#c_lang.patterns[25].match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[26].match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[27].match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.repository.#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#c_lang.repository.#switch_statement.patterns[2].begin  (?<=})[\n\s]*  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
+#c_lang.repository.#switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
+#comment.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#cpp_lang.patterns[17].begin  (?:^|(?<!else|new|=))((?:[A-Z_a-z][0-9A-Z_a-z]*::)*+~[A-Z_a…  waived: it repeats `patterns[16]`, which comes earlier in the same list
+#cpp_lang.patterns[17].end  \)  waived: it repeats `patterns[16]`, which comes earlier in the same list
+#cpp_lang.repository.#constructor.patterns[0].begin  ^\s*((?!while|for|do|if|else|switch|catch|enumerate|r?itera…  waived: vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and `function-innards`, which no repository in its reach defines
+#cpp_lang.repository.#constructor.patterns[0].end  \)  waived: vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and `function-innards`, which no repository in its reach defines
+#cpp_lang.repository.#special_block.patterns[2].patterns[1].end  groups 2 (waived: the group matches only blanks and the line feed that ends the line, and the oracle compares no blank)
+#preprocessor-rule-disabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-disabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-rule-disabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-disabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-rule-enabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-enabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-rule-enabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+```
+
 ### `php`
 
 ```text
@@ -1372,6 +1428,304 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 #c_lang.repository.#static_assert.end
 #c_lang.repository.#static_assert.patterns[0].begin
 #c_lang.repository.#static_assert.patterns[0].end
+```
+
+### `objective-cpp`
+
+```text
+#c_lang.repository.#access-method.begin
+#c_lang.repository.#access-method.end
+#c_lang.repository.#access-method.beginCaptures[4].patterns[0].match
+#c_lang.repository.#access-method.beginCaptures[4].patterns[1].match
+#c_lang.repository.#access-method.beginCaptures[4].patterns[2].match
+#c_lang.repository.#access-method.beginCaptures[4].patterns[3].match
+#c_lang.repository.#static_assert.begin
+#c_lang.repository.#static_assert.end
+#c_lang.repository.#static_assert.patterns[0].begin
+#c_lang.repository.#static_assert.patterns[0].end
+#cpp_lang.repository.#block.begin
+#cpp_lang.repository.#block.end
+#cpp_lang.repository.#block.patterns[0].match
+#cpp_lang_newish.patterns[1].match
+#cpp_lang_newish.patterns[3].match
+#cpp_lang_newish.patterns[4].match
+#cpp_lang_newish.patterns[5].match
+#cpp_lang_newish.patterns[6].match
+#cpp_lang_newish.patterns[7].match
+#cpp_lang_newish.patterns[8].match
+#cpp_lang_newish.patterns[10].match
+#cpp_lang_newish.patterns[13].match
+#cpp_lang_newish.patterns[14].match
+#cpp_lang_newish.patterns[16].match
+#cpp_lang_newish.patterns[17].match
+#cpp_lang_newish.patterns[18].begin
+#cpp_lang_newish.patterns[18].end
+#cpp_lang_newish.patterns[19].begin
+#cpp_lang_newish.patterns[19].end
+#cpp_lang_newish.patterns[24].match
+#cpp_lang_newish.patterns[26].match
+#cpp_lang_newish.patterns[31].begin
+#cpp_lang_newish.patterns[31].end
+#cpp_lang_newish.patterns[32].begin
+#cpp_lang_newish.patterns[32].end
+#cpp_lang_newish.patterns[32].patterns[0].begin
+#cpp_lang_newish.patterns[32].patterns[0].end
+#cpp_lang_newish.patterns[32].patterns[1].begin
+#cpp_lang_newish.patterns[32].patterns[1].end
+#cpp_lang_newish.patterns[32].patterns[2].begin
+#cpp_lang_newish.patterns[32].patterns[2].end
+#cpp_lang_newish.patterns[33].begin
+#cpp_lang_newish.patterns[33].end
+#cpp_lang_newish.patterns[33].patterns[1].begin
+#cpp_lang_newish.patterns[33].patterns[1].end
+#cpp_lang_newish.patterns[33].patterns[2].begin
+#cpp_lang_newish.patterns[33].patterns[2].end
+#cpp_lang_newish.patterns[35].begin
+#cpp_lang_newish.patterns[35].end
+#cpp_lang_newish.patterns[36].begin
+#cpp_lang_newish.patterns[36].end
+#cpp_lang_newish.patterns[36].patterns[0].match
+#cpp_lang_newish.patterns[37].begin
+#cpp_lang_newish.patterns[37].end
+#cpp_lang_newish.patterns[37].patterns[1].match
+#cpp_lang_newish.patterns[38].match
+#cpp_lang_newish.patterns[39].match
+#cpp_lang_newish.patterns[40].match
+#cpp_lang_newish.patterns[41].match
+#cpp_lang_newish.patterns[44].begin
+#cpp_lang_newish.patterns[44].end
+#cpp_lang_newish.patterns[46].begin
+#cpp_lang_newish.patterns[46].end
+#cpp_lang_newish.patterns[47].match
+#cpp_lang_newish.patterns[48].match
+#cpp_lang_newish.patterns[49].match
+#cpp_lang_newish.repository.#access-member.match
+#cpp_lang_newish.repository.#access-member.captures[4].patterns[0].match
+#cpp_lang_newish.repository.#access-member.captures[4].patterns[1].match
+#cpp_lang_newish.repository.#access-member.captures[4].patterns[2].match
+#cpp_lang_newish.repository.#access-member.captures[4].patterns[3].match
+#cpp_lang_newish.repository.#access-method.begin
+#cpp_lang_newish.repository.#access-method.end
+#cpp_lang_newish.repository.#access-method.beginCaptures[4].patterns[0].match
+#cpp_lang_newish.repository.#access-method.beginCaptures[4].patterns[1].match
+#cpp_lang_newish.repository.#access-method.beginCaptures[4].patterns[2].match
+#cpp_lang_newish.repository.#access-method.beginCaptures[4].patterns[3].match
+#cpp_lang_newish.repository.#angle_brackets.begin
+#cpp_lang_newish.repository.#angle_brackets.end
+#cpp_lang_newish.repository.#block.begin
+#cpp_lang_newish.repository.#block.end
+#cpp_lang_newish.repository.#block.patterns[0].match
+#cpp_lang_newish.repository.#block-c.patterns[0].begin
+#cpp_lang_newish.repository.#block-c.patterns[0].end
+#cpp_lang_newish.repository.#block_innards-c.patterns[6].begin
+#cpp_lang_newish.repository.#block_innards-c.patterns[6].end
+#cpp_lang_newish.repository.#block_innards-c.patterns[7].begin
+#cpp_lang_newish.repository.#block_innards-c.patterns[7].end
+#cpp_lang_newish.repository.#c_function_call.begin
+#cpp_lang_newish.repository.#c_function_call.end
+#cpp_lang_newish.repository.#comments-c.patterns[0].match
+#cpp_lang_newish.repository.#comments-c.patterns[1].begin
+#cpp_lang_newish.repository.#comments-c.patterns[1].end
+#cpp_lang_newish.repository.#comments-c.patterns[2].match
+#cpp_lang_newish.repository.#comments-c.patterns[3].begin
+#cpp_lang_newish.repository.#comments-c.patterns[3].end
+#cpp_lang_newish.repository.#comments-c.patterns[3].patterns[0].begin
+#cpp_lang_newish.repository.#comments-c.patterns[3].patterns[0].end
+#cpp_lang_newish.repository.#constants.match
+#cpp_lang_newish.repository.#constructor.patterns[0].begin
+#cpp_lang_newish.repository.#constructor.patterns[0].end
+#cpp_lang_newish.repository.#constructor.patterns[1].begin
+#cpp_lang_newish.repository.#constructor.patterns[1].end
+#cpp_lang_newish.repository.#disabled.begin
+#cpp_lang_newish.repository.#disabled.end
+#cpp_lang_newish.repository.#function-call-innards-c.patterns[5].begin
+#cpp_lang_newish.repository.#function-call-innards-c.patterns[5].end
+#cpp_lang_newish.repository.#function-call-innards-c.patterns[6].begin
+#cpp_lang_newish.repository.#function-call-innards-c.patterns[6].end
+#cpp_lang_newish.repository.#function-call-innards-c.patterns[7].begin
+#cpp_lang_newish.repository.#function-call-innards-c.patterns[7].end
+#cpp_lang_newish.repository.#function-innards-c.patterns[4].begin
+#cpp_lang_newish.repository.#function-innards-c.patterns[4].end
+#cpp_lang_newish.repository.#function-innards-c.patterns[5].begin
+#cpp_lang_newish.repository.#function-innards-c.patterns[5].end
+#cpp_lang_newish.repository.#line_continuation_character.patterns[0].match
+#cpp_lang_newish.repository.#literal_numeric_seperator.match
+#cpp_lang_newish.repository.#memory_operators.match
+#cpp_lang_newish.repository.#number_literal.match
+#cpp_lang_newish.repository.#operator_overload.begin
+#cpp_lang_newish.repository.#operator_overload.end
+#cpp_lang_newish.repository.#operators.patterns[0].match
+#cpp_lang_newish.repository.#operators.patterns[1].match
+#cpp_lang_newish.repository.#operators.patterns[2].match
+#cpp_lang_newish.repository.#operators.patterns[3].match
+#cpp_lang_newish.repository.#operators.patterns[4].match
+#cpp_lang_newish.repository.#operators.patterns[5].match
+#cpp_lang_newish.repository.#operators.patterns[6].match
+#cpp_lang_newish.repository.#operators.patterns[7].match
+#cpp_lang_newish.repository.#operators.patterns[8].match
+#cpp_lang_newish.repository.#operators.patterns[9].match
+#cpp_lang_newish.repository.#operators.patterns[10].match
+#cpp_lang_newish.repository.#operators.patterns[11].begin
+#cpp_lang_newish.repository.#operators.patterns[11].end
+#cpp_lang_newish.repository.#parens-block-c.begin
+#cpp_lang_newish.repository.#parens-block-c.end
+#cpp_lang_newish.repository.#parens-block-c.patterns[1].match
+#cpp_lang_newish.repository.#parens-c.begin
+#cpp_lang_newish.repository.#parens-c.end
+#cpp_lang_newish.repository.#pragma-mark.match
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[0].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[0].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[0].patterns[4].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[0].patterns[4].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional.patterns[1].match
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[0].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[0].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[0].patterns[4].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[0].patterns[4].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-block.patterns[1].match
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[0].match
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[1].match
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[5].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[5].end
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[8].match
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[10].begin
+#cpp_lang_newish.repository.#preprocessor-rule-conditional-line.patterns[10].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-blocks.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-blocks.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[1].match
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[2].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[2].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[3].match
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[4].match
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[5].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[5].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[6].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[6].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[7].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-contents.patterns[7].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-functions.patterns[6].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-functions.patterns[6].end
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-functions.patterns[7].begin
+#cpp_lang_newish.repository.#preprocessor-rule-define-line-functions.patterns[7].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[5].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[5].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[5].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[5].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[6].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled.patterns[0].patterns[6].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[5].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[5].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[5].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[5].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[6].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-block.patterns[0].patterns[6].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-elif.begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-elif.end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-elif.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-elif.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-elif.patterns[2].begin
+#cpp_lang_newish.repository.#preprocessor-rule-disabled-elif.patterns[2].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[2].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[2].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[3].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[3].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[4].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled.patterns[0].patterns[4].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[2].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[2].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[3].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[3].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[4].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-block.patterns[0].patterns[4].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[2].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[2].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[2].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[2].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[2].patterns[1].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif.patterns[2].patterns[1].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[2].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[2].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[2].patterns[0].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[2].patterns[0].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[2].patterns[1].begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-elif-block.patterns[2].patterns[1].end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-else.begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-else.end
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-else-block.begin
+#cpp_lang_newish.repository.#preprocessor-rule-enabled-else-block.end
+#cpp_lang_newish.repository.#probably_a_parameter.match
+#cpp_lang_newish.repository.#scope_resolution.match
+#cpp_lang_newish.repository.#special_block.patterns[0].begin
+#cpp_lang_newish.repository.#special_block.patterns[0].end
+#cpp_lang_newish.repository.#special_block.patterns[1].begin
+#cpp_lang_newish.repository.#special_block.patterns[1].end
+#cpp_lang_newish.repository.#special_block.patterns[1].patterns[0].begin
+#cpp_lang_newish.repository.#special_block.patterns[1].patterns[0].end
+#cpp_lang_newish.repository.#special_block.patterns[1].beginCaptures[2].patterns[0].match
+#cpp_lang_newish.repository.#special_block.patterns[1].beginCaptures[2].patterns[1].match
+#cpp_lang_newish.repository.#special_block.patterns[2].begin
+#cpp_lang_newish.repository.#special_block.patterns[2].end
+#cpp_lang_newish.repository.#special_block.patterns[2].patterns[1].begin
+#cpp_lang_newish.repository.#special_block.patterns[2].patterns[1].end
+#cpp_lang_newish.repository.#special_block.patterns[2].beginCaptures[7].patterns[0].match
+#cpp_lang_newish.repository.#special_block.patterns[2].beginCaptures[7].patterns[1].match
+#cpp_lang_newish.repository.#special_block.patterns[3].begin
+#cpp_lang_newish.repository.#special_block.patterns[3].end
+#cpp_lang_newish.repository.#special_block.patterns[3].patterns[0].begin
+#cpp_lang_newish.repository.#special_block.patterns[3].patterns[0].end
+#cpp_lang_newish.repository.#storage_types_c.patterns[0].match
+#cpp_lang_newish.repository.#storage_types_c.patterns[1].match
+#cpp_lang_newish.repository.#storage_types_c.patterns[2].match
+#cpp_lang_newish.repository.#string_escaped_char-c.patterns[0].match
+#cpp_lang_newish.repository.#string_escaped_char-c.patterns[1].match
+#cpp_lang_newish.repository.#string_placeholder-c.patterns[0].match
+#cpp_lang_newish.repository.#strings.patterns[0].begin
+#cpp_lang_newish.repository.#strings.patterns[0].end
+#cpp_lang_newish.repository.#strings.patterns[0].patterns[0].match
+#cpp_lang_newish.repository.#strings.patterns[0].patterns[1].match
+#cpp_lang_newish.repository.#strings.patterns[0].patterns[2].match
+#cpp_lang_newish.repository.#strings.patterns[0].patterns[3].match
+#cpp_lang_newish.repository.#strings.patterns[1].begin
+#cpp_lang_newish.repository.#strings.patterns[1].end
+#cpp_lang_newish.repository.#strings-c.patterns[0].begin
+#cpp_lang_newish.repository.#strings-c.patterns[0].end
+#cpp_lang_newish.repository.#strings-c.patterns[1].begin
+#cpp_lang_newish.repository.#strings-c.patterns[1].end
+#cpp_lang_newish.repository.#template_call_innards.match
+#cpp_lang_newish.repository.#template_call_innards.captures[0].patterns[3].match
+#cpp_lang_newish.repository.#template_call_innards.captures[0].patterns[7].match
+#cpp_lang_newish.repository.#template_definition.begin
+#cpp_lang_newish.repository.#template_definition.end
+#cpp_lang_newish.repository.#template_definition_argument.match
+#cpp_lang_newish.repository.#vararg_ellipses-c.match
 ```
 
 ### `proto`

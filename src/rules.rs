@@ -43,6 +43,7 @@ use std::fmt::Debug;
     feature = "lang-julia",
     feature = "lang-mermaid",
     feature = "lang-objective-c",
+    feature = "lang-objective-cpp",
     feature = "lang-svelte",
     feature = "lang-php"
 ))]

@@ -113,7 +113,7 @@ where
     }
 
     /// `[A-Z_a-z][0-9A-Z_a-z]*` at `i`: where it ends.
-    pub(super) fn ascii_ident_end(&self, i: usize) -> Option<usize> {
+    pub(crate) fn ascii_ident_end(&self, i: usize) -> Option<usize> {
         let b = self.at(i);
         ((b == b'_' || b.is_ascii_alphabetic()) && i < self.lim()).then(|| {
             self.cached_run(i, &self.x.memory().ascii_run, |lexer, from| {
@@ -441,7 +441,7 @@ where
     }
 
     /// `\b[ksg][A-Z]\w*\b` with the first letter `first`.
-    pub(super) fn prefixed_name(&self, p: usize, first: u8) -> Option<usize> {
+    pub(crate) fn prefixed_name(&self, p: usize, first: u8) -> Option<usize> {
         (self.boundary(p) && self.at(p) == first && self.at(p + 1).is_ascii_uppercase())
             .then(|| self.word_end(p + 2))
     }

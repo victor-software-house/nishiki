@@ -1063,12 +1063,20 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
-    /// Objective-C++, with the scopes of Shiki's `objective-cpp` grammar,
-    /// which nishiki's `TextMate` engine runs.
+    /// Objective-C++, with the scopes of Shiki's `objective-cpp` grammar.
+    /// It runs Objective-C's matchers for the expressions the two grammars
+    /// share, as [`Language::ObjectiveC`] does.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - A `namespace` block that a bracket ends, as in `namespace a)`, names that bracket `keyword.control.namespace.$2.objcpp`: the name's `$2` reads a group the end's expression lacks, and stays as written.
+    /// - The grammar's C++ constructor rule never matches, so `Foo(int x)` inside a `namespace` block reads as a function definition: the rule's only patterns include `function-innards` and `probably_a_parameter`, which no repository in its reach defines, and vscode-textmate drops such a rule.
+    /// - Capture groups lexed again inside one another, as member access chains are, stop after 64 levels, and the text of a deeper one keeps its own scopes.
+    ///   The bound is a constant in `src/objective_cpp/engine.rs` until the next minor release moves it into `Limits`.
     ObjectiveCpp {
         feature: "lang-objective-cpp",
         names: ["objective-cpp"],
-        engine: crate::objective_cpp::grammar::GRAMMAR,
+        module: objective_cpp,
         reads_line_feed: true,
         halts: true,
     }

@@ -1,9 +1,11 @@
-//! Hostile lines for Objective-C++, under the default limits.
-//! The `TextMate` engine runs the language.
+//! Hostile lines for Objective-C++ under the default limits.
 //!
-//! The engine interprets the grammar's own regular expressions.
 //! A line that would cost more than the default work ends at the work limit.
 //! Its tokens still cover the whole line.
+//! Scope resolution, destructors and template arguments have no `\b` before
+//! them.
+//! The long chains here check that no matcher walks a name from each of its
+//! bytes.
 
 use nishiki::{Highlighter, Language, Limit};
 
@@ -31,6 +33,13 @@ fn hostile_objective_cpp_lines_finish_within_the_default_limits() {
         format!("{}x", " ".repeat(12_000)),
         format!("{}x", "\u{a0}".repeat(4_000)),
         "x".repeat(12_000),
+        format!("{}x", "a::".repeat(4_000)),
+        format!("{}~b(", "a::".repeat(4_000)),
+        format!("{}::", "a".repeat(12_000)),
+        format!("template <{}>", "a ".repeat(6_000)),
+        format!("class A : public B{}", ", private C".repeat(1_000)),
+        format!("using namespace {}", "a::".repeat(4_000)),
+        format!("R\"{}(", "a".repeat(12_000)),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);
         let report = rows[0].1;

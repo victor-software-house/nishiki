@@ -28,7 +28,7 @@ where
     G::Extra: ObjcMemory,
 {
     /// The end of `\s*` from `i`, short of the line feed.
-    pub(super) fn blank_end(&self, i: usize) -> usize {
+    pub(crate) fn blank_end(&self, i: usize) -> usize {
         self.space_end(i).min(self.lim())
     }
 

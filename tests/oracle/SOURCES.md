@@ -465,11 +465,16 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/yykit-macro` | [`YYKit/Base/YYKitMacro.h`][yykit-macro] in ibireme/YYKit | [MIT][yykit-licence] |
+| `objective-cpp/coverage` | `oracle/inputs/objective-cpp-coverage.mm`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `objective-cpp/grammar-misc-002` | [`language_examples/misc_002.mm`][objcpp-grammar-misc-002] in jeff-hykin/better-objcpp-syntax | [MIT][objcpp-grammar-licence] |
 | `objective-cpp/grammar-misc-003` | [`language_examples/misc_003.mm`][objcpp-grammar-misc-003] in jeff-hykin/better-objcpp-syntax | [MIT][objcpp-grammar-licence] |
+| `objective-cpp/objective-c-coverage` | `oracle/inputs/objective-c-coverage.m`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `objective-cpp/react-native-component-view-registry` | [`RCTComponentViewRegistry.mm`][react-native-component-view-registry] in facebook/react-native | [MIT][react-native-licence] |
 | `objective-cpp/react-native-dev-loading-view` | [`RCTDevLoadingView.mm`][react-native-dev-loading-view] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/react-native-device-info` | [`RCTDeviceInfo.mm`][react-native-device-info] in facebook/react-native | [MIT][react-native-licence] |
 | `objective-cpp/react-native-legacy-interop-coordinator` | [`RCTLegacyViewManagerInteropCoordinator.mm`][react-native-legacy-interop-coordinator] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/react-native-mounting-manager` | [`RCTMountingManager.mm`][react-native-mounting-manager] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/react-native-surface-presenter` | [`RCTSurfacePresenter.mm`][react-native-surface-presenter] in facebook/react-native | [MIT][react-native-licence] |
 | `objective-cpp/react-native-virtual-view` | [`RCTVirtualViewComponentView.mm`][react-native-virtual-view] in facebook/react-native | [MIT][react-native-licence] |
 | `objective-cpp/sample` | [`samples/objective-cpp.sample`][objective-cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `pascal/horse-commons` | [`src/Horse.Commons.pas`][horse-commons] in HashLoad/horse | [MIT][horse-licence] |
@@ -925,7 +930,10 @@ The other `svelte` inputs are held out.
 `objective-c/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 
 `objective-cpp/sample`, `objective-cpp/grammar-misc-002`, `objective-cpp/react-native-component-view-registry` and `objective-cpp/react-native-dev-loading-view` are the development inputs for Objective-C++.
-`objective-cpp/grammar-misc-003`, `objective-cpp/react-native-legacy-interop-coordinator` and `objective-cpp/react-native-virtual-view` are held out: they were added after the development inputs passed.
+`objective-cpp/grammar-misc-003`, `objective-cpp/react-native-legacy-interop-coordinator` and `objective-cpp/react-native-virtual-view` were held out from the `TextMate` engine's tables.
+The hand lexer was written against all seven.
+`objective-cpp/react-native-device-info`, `objective-cpp/react-native-mounting-manager` and `objective-cpp/react-native-surface-presenter` are held out from the hand lexer: they were added after the other inputs passed.
+`objective-cpp/coverage` and `objective-cpp/objective-c-coverage` were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
@@ -1506,8 +1514,11 @@ The other `svelte` inputs are held out.
 [rapidjson-reader]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/include/rapidjson/reader.h
 [react-native-component-view-registry]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/Fabric/Mounting/RCTComponentViewRegistry.mm
 [react-native-dev-loading-view]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/CoreModules/RCTDevLoadingView.mm
+[react-native-device-info]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/CoreModules/RCTDeviceInfo.mm
 [react-native-legacy-interop-coordinator]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/ReactCommon/react/renderer/components/legacyviewmanagerinterop/platform/ios/react/renderer/components/legacyviewmanagerinterop/RCTLegacyViewManagerInteropCoordinator.mm
 [react-native-licence]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/LICENSE
+[react-native-mounting-manager]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/Fabric/Mounting/RCTMountingManager.mm
+[react-native-surface-presenter]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/Fabric/RCTSurfacePresenter.mm
 [react-native-virtual-view]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm
 [requests-licence]: https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/LICENSE
 [requests-models]: https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/src/requests/models.py

@@ -1412,7 +1412,7 @@ SOFTWARE.
 
 ## Objective-C
 
-Its TextMate engine runs the Objective-C TextMate grammar that Shiki bundles through VS Code as `objective-c` (`extensions/objective-c` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `bd1abe08c38bb5deccf65610f8f3c03d2338d20d`), with its rules compiled into tables (`src/objective_c/grammar.rs`).
+Its Objective-C lexer emits the scope names of the Objective-C TextMate grammar that Shiki bundles through VS Code as `objective-c` (`extensions/objective-c` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `bd1abe08c38bb5deccf65610f8f3c03d2338d20d`), and tries that grammar's rules in its order, from tables generated from it (`src/objective_c/grammar.rs`).
 VS Code converted it from [jeff-hykin/better-objc-syntax](https://github.com/jeff-hykin/better-objc-syntax), which derives from [jeff-hykin/cpp-textmate-grammar](https://github.com/jeff-hykin/cpp-textmate-grammar), under the same licence.
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
 That repository's `LICENSE`, read at commit `119b75fb1f4d3e8726fa62588e3b935e0b719294`, is the MIT License:
@@ -1443,7 +1443,7 @@ SOFTWARE.
 
 ## Objective-C++
 
-Its TextMate engine runs the Objective-C++ TextMate grammar that Shiki bundles through VS Code as `objective-cpp` (`extensions/objective-c` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `bd1abe08c38bb5deccf65610f8f3c03d2338d20d`), with its rules compiled into tables (`src/objective_cpp/grammar.rs`).
+Its Objective-C++ lexer emits the scope names of the Objective-C++ TextMate grammar that Shiki bundles through VS Code as `objective-cpp` (`extensions/objective-c` in [microsoft/vscode](https://github.com/microsoft/vscode) at commit `bd1abe08c38bb5deccf65610f8f3c03d2338d20d`), and tries that grammar's rules in its order, from tables generated from it (`src/objective_cpp/grammar.rs`).
 VS Code converted it from [jeff-hykin/better-objcpp-syntax](https://github.com/jeff-hykin/better-objcpp-syntax), which derives from [jeff-hykin/cpp-textmate-grammar](https://github.com/jeff-hykin/cpp-textmate-grammar), under the same licence.
 VS Code's copy of the grammar is licensed under the MIT License, whose text is under [Diff](#diff), "Copyright (c) 2015 - present Microsoft Corporation".
 That repository's `LICENSE`, read at commit `5a7eb15eee382dd5aa388bc04fdb60a0d2128e14`, is the MIT License:

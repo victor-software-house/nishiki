@@ -35,6 +35,7 @@ import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text"
 import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
 import objectiveCCoverage from "./inputs/objective-c-coverage.m" with { type: "text" };
+import objectiveCppCoverage from "./inputs/objective-cpp-coverage.mm" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpCoverage from "./inputs/php-coverage.php" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
@@ -1141,12 +1142,18 @@ export const inputs: Input[] = [
   { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
   { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
   { lang: "objective-c", name: "yykit-macro", url: `${yykit}/YYKit/Base/YYKitMacro.h` },
-  // Objective-C++ runs on the TextMate engine.
+  // Objective-C++ has a hand lexer.
+  // Its grammar repeats Objective-C's, so it reads Objective-C's coverage input too.
+  { lang: "objective-cpp", name: "coverage", text: objectiveCppCoverage },
   { lang: "objective-cpp", name: "grammar-misc-002", url: `${betterObjcpp}/language_examples/misc_002.mm` },
   { lang: "objective-cpp", name: "grammar-misc-003", url: `${betterObjcpp}/language_examples/misc_003.mm` },
+  { lang: "objective-cpp", name: "objective-c-coverage", text: objectiveCCoverage },
   { lang: "objective-cpp", name: "react-native-component-view-registry", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTComponentViewRegistry.mm` },
   { lang: "objective-cpp", name: "react-native-dev-loading-view", url: `${reactNative}/packages/react-native/React/CoreModules/RCTDevLoadingView.mm` },
+  { lang: "objective-cpp", name: "react-native-device-info", url: `${reactNative}/packages/react-native/React/CoreModules/RCTDeviceInfo.mm` },
   { lang: "objective-cpp", name: "react-native-legacy-interop-coordinator", url: `${reactNative}/packages/react-native/ReactCommon/react/renderer/components/legacyviewmanagerinterop/platform/ios/react/renderer/components/legacyviewmanagerinterop/RCTLegacyViewManagerInteropCoordinator.mm` },
+  { lang: "objective-cpp", name: "react-native-mounting-manager", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTMountingManager.mm` },
+  { lang: "objective-cpp", name: "react-native-surface-presenter", url: `${reactNative}/packages/react-native/React/Fabric/RCTSurfacePresenter.mm` },
   { lang: "objective-cpp", name: "react-native-virtual-view", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm` },
   { lang: "objective-cpp", name: "sample", url: `${samples}/objective-cpp.sample` },
   // Pascal runs on the TextMate engine.

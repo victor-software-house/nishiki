@@ -120,6 +120,9 @@ tags! {
     /// Objective-C.
     #[cfg(feature = "lang-objective-c")]
     OBJECTIVE_C = 0x4000,
+    /// Objective-C++.
+    #[cfg(feature = "lang-objective-cpp")]
+    OBJECTIVE_CPP = 0x4100,
     /// PHP.
     #[cfg(feature = "lang-php")]
     PHP = 0x3F00,
