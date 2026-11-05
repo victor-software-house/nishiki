@@ -67,6 +67,8 @@ crate::scope::scope_table! {
     EmbeddedJsonl "meta.embedded.block.jsonl"
     #[cfg(feature = "lang-julia")]
     EmbeddedJulia "meta.embedded.block.julia"
+    #[cfg(feature = "lang-latex")]
+    EmbeddedLatex "meta.embedded.block.latex"
     #[cfg(feature = "lang-less")]
     EmbeddedLess "meta.embedded.block.less"
     #[cfg(feature = "lang-lua")]

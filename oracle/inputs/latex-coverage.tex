@@ -1,0 +1,360 @@
+% Every rule of the latex grammar, for the oracle's coverage report.
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,
+  hyperref}
+\newcommand{\vect}[1]{\mathbf{#1}}
+\renewcommand*\abs[2][x]{|#2|}
+\DeclareRobustCommand{\foo}{bar}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\begin{document}
+\section{Introduction}\label{sec:intro}
+\subsection*[short]{A long title}
+\chapter{One} \part{Two} \paragraph{Three} \frametitle{Four}
+\label[opt]{lab} \zlabel{z}
+Text with \emph{emphasis}, \textit{italic}, \textbf{bold} and \texttt{mono}.
+See \ref{sec:intro}, \eqref{eq:a}, \cref*{fig:b} and \crefrange{a}{b}.
+\cite{knuth} \citep[p.~5]{a,b} \textcite(pre)(post)[see][p]{key} \autocites{a}{b}
+\autocites(a)[b]{c}(d)[e]{f} rest
+\autocites{a}{b}{c}
+\parencite<a>[p]{x} \footcite{x} % comment after
+\cite{a,
+  % a comment among keys
+  b}
+\bibentry{key} \input{chapter} \include{appendix}
+\footnote[2]{A note} \marginpar{side}
+\href{https://example.com}{a link} \url{https://example.com} \path{a/b}
+\hyperref[label]{text} \hyperimage{img}{text} \href{a}{b}{c}{d}
+\newline \pagebreak \linebreak \pause \clearpage
+\item first \textdollar \textregistered \textbullet
+\l_my_var_tl \c__my_const_int \g_x_y_seq \q_stop \s_mark
+\verb|a{b}| \verb*+x+ \Verb!y! \spverb|z| \verb x x
+\verb\scantokens{a}
+\mintinline{python}|print(1)| \mint{ruby}{puts 1} \pyinline{x = 1}
+\mintinline[opt]{python}|x| \pyinline[opt]|y| \pyc[opt]{1} \jl[opt]{2}
+\py{1 + 2} \pyc|a| \jl{1 + 2} \juliav|a| \directlua{tex.print(1)}
+\cacheMeCode{x} \cacheMeCode[python]{print(1)}
+\sys_get_shell:nnN {ls} \sys_get_shellTF {ls}
+$a + b$ \(x\) \[y\] $$z$$
+$$a \$ b$$
+$a \$ b$
+\begin{equation}
+  a &= b \\ c \& d
+\end{equation}
+\begin{align*}
+  x &= 1
+\end{align*}
+\begin{pmatrix} 1 & 2 \end{pmatrix} \begin{bNiceMatrix} 1 \end{bNiceMatrix}
+\begin{tabular}{|c|c|}
+  a & b
+\end{tabular}
+\begin{itemize}
+  \item one
+\end{itemize}
+\begin{tikzpicture}
+  \draw (0,0) -- (1,1);
+\end{tikzpicture}
+\begin{frame}{Title}
+\end{frame}
+\begin{empheq}[box=\fbox]{align}
+  a &= b \\
+\end{empheq}
+\begin{mpost}
+  draw
+\end{mpost}
+\begin{custom*}
+\end{custom*}
+\begin{markdown}
+# Title
+\end{markdown}
+\end{unopened}
+\begin{verbatim}
+  \raw text
+\end{verbatim}
+\begin{VerbatimOut}{file.tex}
+  out
+\end{VerbatimOut}
+\begin{alltt}
+  \cmd text
+\end{alltt}
+\begin{comment}
+  hidden
+\end{comment}
+\begin{lstlisting}{bash}
+echo hi
+\end{lstlisting}
+\begin{minted}{unknown}
+text
+\end{minted}
+\begin{minted}[linenos]{asy}
+x
+\end{minted}
+\begin{minted}[linenos]{c}
+x
+\end{minted}
+\begin{minted}[linenos]{css}
+x
+\end{minted}
+\begin{minted}[linenos]{gnuplot}
+x
+\end{minted}
+\begin{minted}[linenos]{haskell}
+x
+\end{minted}
+\begin{minted}[linenos]{html}
+x
+\end{minted}
+\begin{minted}[linenos]{java}
+x
+\end{minted}
+\begin{minted}[linenos]{julia}
+x
+\end{minted}
+\begin{minted}[linenos]{javascript}
+x
+\end{minted}
+\begin{minted}[linenos]{lua}
+x
+\end{minted}
+\begin{minted}[linenos]{python}
+x
+\end{minted}
+\begin{minted}[linenos]{ruby}
+x
+\end{minted}
+\begin{minted}[linenos]{rust}
+x
+\end{minted}
+\begin{minted}[linenos]{typescript}
+x
+\end{minted}
+\begin{minted}[linenos]{xml}
+x
+\end{minted}
+\begin{minted}[linenos]{yaml}
+x
+\end{minted}
+\begin{pycode}{opt}
+x = 1
+\end{pycode}
+\begin{pyblock*}{opt}
+x = 1
+\end{pyblock*}
+\begin{juliacode}{opt}
+x = 1
+\end{juliacode}
+\begin{jlcode}{opt}
+x = 1
+\end{jlcode}
+\begin{javacode}{opt}
+x = 1
+\end{javacode}
+\begin{luacode*}{opt}
+x = 1
+\end{luacode*}
+\begin{pylabcode}{opt}
+x = 1
+\end{pylabcode}
+\begin{sageblock}{opt}
+x = 1
+\end{sageblock}
+\begin{scalacode}{opt}
+x = 1
+\end{scalacode}
+\begin{sympycode}{opt}
+x = 1
+\end{sympycode}
+\begin{hscode}{opt}
+x = 1
+\end{hscode}
+\begin{asy}{opt}
+x = 1
+\end{asy}
+\begin{cppcode}{opt}
+x = 1
+\end{cppcode}
+\begin{dotcode}{opt}
+x = 1
+\end{dotcode}
+\begin{gnuplot}{opt}
+x = 1
+\end{gnuplot}
+\begin{rubycode}{opt}
+x = 1
+\end{rubycode}
+\begin{asy}
+y
+\end{asy}
+\begin{cppcode}
+y
+\end{cppcode}
+\begin{dotcode}
+y
+\end{dotcode}
+\begin{gnuplot}
+y
+\end{gnuplot}
+\begin{hscode}
+y
+\end{hscode}
+\begin{javacode}
+y
+\end{javacode}
+\begin{scalacode}
+y
+\end{scalacode}
+\begin{pylabcode}
+y
+\end{pylabcode}
+\begin{CacheMeCode}{asy}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__asy}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{bash}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__bash}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{cpp}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__cpp}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{css}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__css}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{gnuplot}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__gnuplot}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{haskell}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__haskell}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{html}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__html}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{java}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__java}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{julia}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__julia}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{js}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__js}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{lua}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__lua}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{python}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__python}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{ruby}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__ruby}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{rust}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__rust}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{typescript}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__typescript}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{xml}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__xml}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{yaml}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__yaml}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{tikz}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__tikz}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{other}
+z
+\end{CacheMeCode}
+\begin{RobExtCacheMeCode}[a][b]{__other}
+  w
+\end{RobExtCacheMeCode}
+\begin{CacheMeCode}{}
+v
+\end{CacheMeCode}
+\cacheMeCode[asy]{q}
+\cacheMeCode[cpp]{q}
+\cacheMeCode[css]{q}
+\cacheMeCode[gnuplot]{q}
+\cacheMeCode[haskell]{q}
+\cacheMeCode[html]{q}
+\cacheMeCode[java]{q}
+\cacheMeCode[julia]{q}
+\cacheMeCode[js]{q}
+\cacheMeCode[lua]{q}
+\cacheMeCode[python]{q}
+\cacheMeCode[ruby]{q}
+\cacheMeCode[rust]{q}
+\cacheMeCode[typescript]{q}
+\cacheMeCode[xml]{q}
+\cacheMeCode[tikz]{q}
+\cacheMeCode[other]{q}
+\cacheMeCode[bash]{echo
+}
+\addplot+[blue] gnuplot [id=a] {sin(x) % plot
+};
+\begin{terminal}{bash}
+ls
+\end{terminal}
+\begin{songs}{titleidx}
+\beginsong{A Song}[by={Me}]
+\[C]Words ^go here
+\endsong
+\end{songs}
+\begin{tabular}{>{$}c<{$}}
+\end{tabular}
+\cacheMeCode[yaml]{q
+}
+\end{document}

@@ -82,6 +82,7 @@ const handLexed = new Map([
   ["jsx", "TypeScript"],
   ["julia", "Julia"],
   ["kotlin", "Kotlin"],
+  ["latex", "LaTeX"],
   ["less", "Less"],
   ["lua", "Lua"],
   ["make", "Make"],

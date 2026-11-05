@@ -1,0 +1,87 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{java}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L   public class HelloWorld {
+T 2 text.tex.latex source.java meta.class.java
+T 8 text.tex.latex source.java meta.class.java storage.modifier.java
+T 9 text.tex.latex source.java meta.class.java
+T 14 text.tex.latex source.java meta.class.java meta.class.identifier.java storage.modifier.java
+T 15 text.tex.latex source.java meta.class.java meta.class.identifier.java
+T 25 text.tex.latex source.java meta.class.java meta.class.identifier.java entity.name.type.class.java
+T 26 text.tex.latex source.java meta.class.java
+T 27 text.tex.latex source.java meta.class.java punctuation.section.class.begin.bracket.curly.java
+L     public static void main(String[] args) {
+T 4 text.tex.latex source.java meta.class.java meta.class.body.java
+T 10 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java storage.modifier.java
+T 11 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java
+T 17 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java storage.modifier.java
+T 18 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java
+T 22 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.return-type.java storage.type.primitive.java
+T 23 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java
+T 27 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java entity.name.function.java
+T 28 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.begin.bracket.round.java
+T 34 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java storage.type.object.array.java
+T 35 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.bracket.square.java
+T 36 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.bracket.square.java
+T 37 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java
+T 41 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java variable.parameter.java
+T 42 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.identifier.java punctuation.definition.parameters.end.bracket.round.java
+T 43 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java
+T 44 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.begin.bracket.curly.java
+L         System.out.println("Hello world!");
+T 8 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 14 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java variable.other.object.java
+T 15 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.separator.period.java
+T 18 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java variable.other.object.property.java
+T 19 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java punctuation.separator.period.java
+T 26 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java entity.name.function.java
+T 27 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java punctuation.definition.parameters.begin.bracket.round.java
+T 28 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java string.quoted.double.java punctuation.definition.string.begin.java
+T 40 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java string.quoted.double.java
+T 41 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java string.quoted.double.java punctuation.definition.string.end.java
+T 42 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java meta.method-call.java punctuation.definition.parameters.end.bracket.round.java
+T 43 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java punctuation.terminator.java
+L     }
+T 4 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java meta.method.body.java
+T 5 text.tex.latex source.java meta.class.java meta.class.body.java meta.method.java punctuation.section.method.end.bracket.curly.java
+L   }
+T 2 text.tex.latex source.java meta.class.java meta.class.body.java
+T 3 text.tex.latex source.java meta.class.java punctuation.section.class.end.bracket.curly.java
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

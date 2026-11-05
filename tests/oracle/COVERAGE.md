@@ -45,10 +45,11 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TypeScript | `jsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | Julia | `julia` | 105 of 106 | 99.1% | 95 of 95 | 100.0% | 1 | 0 | yes |
 | Kotlin | `kotlin` | 63 of 65 | 96.9% | 35 of 35 | 100.0% | 2 | 0 | yes |
+| LaTeX | `latex` | 419 of 453 | 92.5% | 464 of 495 | 93.7% | 65 | 0 | yes |
 | Less | `less` | 581 of 590 | 98.5% | 417 of 437 | 95.4% | 29 | 0 | yes |
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
-| Markdown | `markdown` | 229 of 311 | 73.6% | 290 of 373 | 77.7% | 165 | 0 | yes |
+| Markdown | `markdown` | 233 of 311 | 74.9% | 294 of 373 | 78.8% | 157 | 0 | yes |
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
 | MATLAB | `matlab` | 127 of 132 | 96.2% | 77 of 91 | 84.6% | 19 | 0 | yes |
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
@@ -590,6 +591,50 @@ patterns[1].begin  groups 1 (waived: the group matches only blanks, and the orac
 #type-parameter.patterns[1].match  \b(in|out)\b  waived: `#type-parameter.patterns[0]`, `\b\w+\b`, before it, matches every word this does
 ```
 
+### `latex`
+
+```text
+#all-balanced-env.patterns[7].begin  (\s*\\begin\{markdown})  waived: the rule's only pattern includes `text.tex.markdown_latex_combined`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#all-balanced-env.patterns[7].end  (\\end\{markdown})  waived: the rule's only pattern includes `text.tex.markdown_latex_combined`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#documentclass-usepackage-macro.end  groups 0 (waived: the end is the lookbehind `(?<=})`, so its match holds no text)
+#embedded-code-env.patterns[0].patterns[1].begin  (?:\G|(?<=]))(\{)(asy(?:|mptote))(})  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[1].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[3].begin  (?:\G|(?<=]))(\{)(c(?:|pp))(})  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[3].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[5].begin  (?:\G|(?<=]))(\{)(gnuplot)(})  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[5].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[1].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.asymptote`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[1].patterns[2].end  ^\s*(?=\\end\{asy(?:|code)\*?})  waived: the rule's only pattern includes `source.asymptote`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[2].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[2].patterns[2].end  ^\s*(?=\\end\{cppcode\*?})  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[3].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.dot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[3].patterns[2].end  ^\s*(?=\\end\{dot(?:2tex|code)\*?})  waived: the rule's only pattern includes `source.dot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[4].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[4].patterns[2].end  ^\s*(?=\\end\{gnuplot\*?})  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[0].patterns[1].begin  ^(\s*)  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[0].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[2].patterns[1].begin  ^(\s*)  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[2].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[3].begin  \G(\{)(?:__|[a-z\s]*)(?i:css)  waived: `c(?:|pp)`, earlier in the same list, matches the `c` that starts every `css`, so this begin never wins
+#embedded-code-env.patterns[16].patterns[3].end  (?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode…  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[0].begin  \G  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[0].end  (})\s*$  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[1].begin  ^(\s*)  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[4].patterns[1].begin  ^(\s*)  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[4].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#hyperref-macro.patterns[0].patterns[2].begin  groups 1 (waived: the pattern before it matches wherever this optional group can, so the group never takes part), 2 (waived: the pattern before it matches wherever this optional group can, so the group never takes part)
+#inline-code-macro.patterns[0].end  groups 2 (waived: the grammar names the group, but the expression has one group), 3 (waived: the grammar names the group, but the expression has one group), 4 (waived: the grammar names the group, but the expression has one group), 5 (waived: the grammar names the group, but the expression has one group), 6 (waived: the grammar names the group, but the expression has one group)
+#inline-code-macro.patterns[6].patterns[1].begin  (?<=])(\{)  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[6].patterns[1].end  }  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[8].patterns[1].begin  (?<=])(\{)  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[8].patterns[1].end  }  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[10].patterns[1].begin  (?<=])(\{)  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[10].patterns[1].end  }  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
+#songs-env.patterns[1].begin  groups 3 (waived: the grammar names the group, but the expression has two groups), 4 (waived: the grammar names the group, but the expression has two groups)
+#songs-env.patterns[1].end  groups 3 (waived: the grammar names the group, but the expression has two groups), 4 (waived: the grammar names the group, but the expression has two groups)
+```
+
 ### `less`
 
 ```text
@@ -688,10 +733,6 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #fenced_code_block_js_regexp.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_js_regexp.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_js_regexp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_latex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:la|)tex)((\s+|[,:?{])[^`…  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_latex.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_latex.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_latex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.tex.latex`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_log.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(log)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_log.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
 #fenced_code_block_log.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
@@ -1583,6 +1624,12 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 
 ```text
 #graphql-union-mark.match
+```
+
+### `latex`
+
+```text
+#optional-arg-parenthesis.patterns[0].match
 ```
 
 ### `less`

@@ -1,0 +1,463 @@
+L \begin{songs}{}
+T 1 text.tex.latex meta.function.environment.songs.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.songs.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.songs.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.end.latex
+T 14 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.end.latex
+L   \beginsong{Doxology}[by={Louis Bourgeois and Thomas Ken},
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex
+T 3 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 12 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex
+T 13 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.latex
+T 22 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.end.latex
+T 23 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 59 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex
+L   sr={Revelation 5:13},
+T 23 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex
+L   cr={Public domain.}]
+T 21 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex
+T 22 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+L   \beginverse
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 3 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex
+L   \[G]Praise God, \[D]from \[Em]Whom \[Bm]all \[Em]bless\[D]ings \[G]flow;
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 4 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 6 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 18 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 20 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 21 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 22 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 27 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 29 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 31 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 32 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 37 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 39 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 41 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 46 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 48 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 50 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 51 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 56 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 58 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 59 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 60 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 65 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 67 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 68 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 69 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 74 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L   \[G]Praise Him, all \[D]crea\[Em]tures \[C]here \[G]be\[D]low;
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 4 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 6 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 22 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 24 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 25 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 26 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 30 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 32 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 34 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 35 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 41 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 43 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 44 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 45 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 50 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 52 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 53 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 56 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 58 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 59 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 60 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 64 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L   \[Em]Praise \[D]Him \[G]a\[D]bove, \[G]ye \[C]heav’n\[D]ly \[Em]host;
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 4 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 6 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 7 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 14 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 16 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 17 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 18 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 22 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 24 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 25 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 26 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 27 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 29 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 30 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 31 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 37 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 39 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 40 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 41 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 44 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 46 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 47 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 48 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 56 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 58 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 59 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 60 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 63 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 65 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 67 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 68 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 73 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L   \[G]Praise Fa\[Em]ther, \[D]Son, \[Am]and \[G/B G/C]Ho\[D]ly \[G]Ghost.
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 4 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 6 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 15 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 17 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 19 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 26 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 28 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 29 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 30 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 35 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 37 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 40 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 44 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 46 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 53 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 56 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 58 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 59 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 60 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 63 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 65 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 66 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 67 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 73 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L   \[C]A\[G]men.
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 4 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 6 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 7 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 9 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 10 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 11 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 15 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L   \endverse
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 3 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex
+L   \endsong
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex
+T 3 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 10 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex
+L \end{songs}
+T 1 text.tex.latex meta.function.environment.songs.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.songs.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.environment.songs.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L \beginsong{Doxology} [
+T 1 text.tex.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 10 text.tex.latex meta.function.environment.song.latex support.function.be.latex
+T 11 text.tex.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex meta.function.environment.song.latex meta.parameter.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.end.latex
+T 22 text.tex.latex meta.function.environment.song.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+L   by={Louis Bourgeois and Thomas Ken},
+T 38 text.tex.latex meta.function.environment.song.latex meta.parameter.optional.latex
+L   sr={Revelation 5:13},
+T 23 text.tex.latex meta.function.environment.song.latex meta.parameter.optional.latex
+L   cr={Public domain.}
+T 21 text.tex.latex meta.function.environment.song.latex meta.parameter.optional.latex
+L ]
+T 1 text.tex.latex meta.function.environment.song.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+L \beginverse
+T 1 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex
+L \[G]Praise God, \[D]from \[Em]Whom \[Bm]all \[Em]bless\[D]ings \[G]flow;
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 16 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 18 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 19 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 25 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 27 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 29 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 30 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 35 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 37 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 40 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 44 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 46 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 48 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 49 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 63 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 65 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 66 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 67 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 72 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[G]Praise Him, all \[D]crea\[Em]tures \[C]here \[G]be\[D]low;
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 22 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 23 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 24 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 28 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 30 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 32 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 33 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 41 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 43 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 48 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 50 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 51 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 52 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 62 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[Em]Praise \[D]Him \[G]a\[D]bove, \[G]ye \[C]heav’n\[D]ly \[Em]host;
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 12 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 14 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 15 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 16 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 22 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 23 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 24 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 25 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 27 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 28 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 29 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 35 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 37 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 38 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 44 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 45 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 46 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 61 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 63 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 65 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 66 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 71 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[G]Praise Fa\[Em]ther, \[D]Son, \[Am]and \[G/B G/C]Ho\[D]ly \[G]Ghost.
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 13 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 15 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 17 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 18 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 24 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 26 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 27 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 28 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 33 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 35 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 37 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 38 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 44 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 51 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 52 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 61 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 63 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 64 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 65 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 71 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[C]A\[G]men.
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 7 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 8 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 9 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 13 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \endverse \endsong
+T 1 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex
+T 10 text.tex.latex meta.function.environment.song.latex
+T 11 text.tex.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 18 text.tex.latex meta.function.environment.song.latex support.function.be.latex
+L 
+L 
+L \beginsong{Doxology}
+T 1 text.tex.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 10 text.tex.latex meta.function.environment.song.latex support.function.be.latex
+T 11 text.tex.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex meta.function.environment.song.latex meta.parameter.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.end.latex
+L \beginverse
+T 1 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex
+L \[G]Praise God, \[D]from \[Em]Whom \[Bm]all \[Em]bless\[D]ings \[G]flow;
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 16 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 18 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 19 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 25 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 27 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 29 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 30 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 35 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 37 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 40 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 44 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 46 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 48 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 49 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 63 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 65 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 66 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 67 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 72 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[G]Praise Him, all \[D]crea\[Em]tures \[C]here \[G]be\[D]low;
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 22 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 23 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 24 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 28 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 30 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 32 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 33 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 41 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 43 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 48 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 50 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 51 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 52 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 62 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[Em]Praise \[D]Him \[G]a\[D]bove, \[G]ye \[C]heav’n\[D]ly \[Em]host;
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 12 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 14 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 15 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 16 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 20 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 22 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 23 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 24 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 25 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 27 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 28 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 29 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 35 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 37 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 38 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 39 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 44 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 45 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 46 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 61 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 63 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 65 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 66 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 71 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[G]Praise Fa\[Em]ther, \[D]Son, \[Am]and \[G/B G/C]Ho\[D]ly \[G]Ghost.
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 13 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 15 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 17 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 18 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 24 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 26 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 27 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 28 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 33 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 35 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 37 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 38 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 42 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 44 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 51 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 52 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 54 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 56 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 57 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 58 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 61 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 63 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 64 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 65 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 71 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \[C]A\[G]men.
+T 2 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 5 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 7 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 8 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 9 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 13 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \endverse \endsong
+T 1 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex.latex meta.function.environment.song.latex meta.data.environment.song.latex support.function.general.tex
+T 10 text.tex.latex meta.function.environment.song.latex
+T 11 text.tex.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 18 text.tex.latex meta.function.environment.song.latex support.function.be.latex

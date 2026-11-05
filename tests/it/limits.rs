@@ -38,6 +38,8 @@ mod jinja;
 mod json;
 mod julia;
 mod kotlin;
+#[cfg(feature = "lang-latex")]
+mod latex;
 mod less;
 mod lua;
 mod make;

@@ -37,6 +37,7 @@ import jsoncCoverage from "./inputs/jsonc-coverage.jsonc" with { type: "text" };
 import jsonlCoverage from "./inputs/jsonl-coverage.jsonl" with { type: "text" };
 import juliaCoverage from "./inputs/julia-coverage.jl" with { type: "text" };
 import kotlinCoverage from "./inputs/kotlin-coverage.kt" with { type: "text" };
+import latexCoverage from "./inputs/latex-coverage.tex" with { type: "text" };
 import lessCoverage from "./inputs/less-coverage.less" with { type: "text" };
 import luaCoverage from "./inputs/lua-coverage.lua" with { type: "text" };
 import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
@@ -1020,6 +1021,34 @@ export const inputs: Input[] = [
     name: "turbine-flow-test",
     url: `${turbine}/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt`,
   },
+  { lang: "latex", name: "coverage", text: latexCoverage },
+  { lang: "latex", name: "latex-basics-33-wordref", url: `${latexBasics}/test/colorize-fixtures/33-wordref.tex` },
+  { lang: "latex", name: "latex-basics-basic-commands", url: `${latexBasics}/test/colorize-fixtures/basic-commands.tex` },
+  { lang: "latex", name: "latex-basics-basic-envs", url: `${latexBasics}/test/colorize-fixtures/basic-envs.tex` },
+  { lang: "latex", name: "latex-basics-basics", url: `${latexBasics}/test/colorize-fixtures/basics.dtx` },
+  { lang: "latex", name: "latex-basics-beamer", url: `${latexBasics}/test/colorize-fixtures/beamer.tex` },
+  { lang: "latex", name: "latex-basics-cite", url: `${latexBasics}/test/colorize-fixtures/cite.tex` },
+  { lang: "latex", name: "latex-basics-code-asy", url: `${latexBasics}/test/colorize-fixtures/code-asy.tex` },
+  { lang: "latex", name: "latex-basics-code-cpp", url: `${latexBasics}/test/colorize-fixtures/code-cpp.tex` },
+  { lang: "latex", name: "latex-basics-code-css", url: `${latexBasics}/test/colorize-fixtures/code-css.tex` },
+  { lang: "latex", name: "latex-basics-code-html", url: `${latexBasics}/test/colorize-fixtures/code-html.tex` },
+  { lang: "latex", name: "latex-basics-code-java", url: `${latexBasics}/test/colorize-fixtures/code-java.tex` },
+  { lang: "latex", name: "latex-basics-code-jl", url: `${latexBasics}/test/colorize-fixtures/code-jl.tex` },
+  { lang: "latex", name: "latex-basics-code-js", url: `${latexBasics}/test/colorize-fixtures/code-js.tex` },
+  { lang: "latex", name: "latex-basics-code-lua", url: `${latexBasics}/test/colorize-fixtures/code-lua.tex` },
+  { lang: "latex", name: "latex-basics-code-py", url: `${latexBasics}/test/colorize-fixtures/code-py.tex` },
+  { lang: "latex", name: "latex-basics-code-rb", url: `${latexBasics}/test/colorize-fixtures/code-rb.tex` },
+  { lang: "latex", name: "latex-basics-code-ts", url: `${latexBasics}/test/colorize-fixtures/code-ts.tex` },
+  { lang: "latex", name: "latex-basics-code-xml", url: `${latexBasics}/test/colorize-fixtures/code-xml.tex` },
+  { lang: "latex", name: "latex-basics-code-yaml", url: `${latexBasics}/test/colorize-fixtures/code-yaml.tex` },
+  { lang: "latex", name: "latex-basics-hyperref-cmds", url: `${latexBasics}/test/colorize-fixtures/hyperref-cmds.tex` },
+  { lang: "latex", name: "latex-basics-minted", url: `${latexBasics}/test/colorize-fixtures/minted.tex` },
+  { lang: "latex", name: "latex-basics-new-commands", url: `${latexBasics}/test/colorize-fixtures/new-commands.tex` },
+  { lang: "latex", name: "latex-basics-robust-externalize", url: `${latexBasics}/test/colorize-fixtures/robust-externalize.tex` },
+  { lang: "latex", name: "latex-basics-songs", url: `${latexBasics}/test/colorize-fixtures/songs.tex` },
+  { lang: "latex", name: "latex-basics-terminal", url: `${latexBasics}/test/colorize-fixtures/terminal.tex` },
+  { lang: "latex", name: "latex-basics-tikz", url: `${latexBasics}/test/colorize-fixtures/tikz.tex` },
+  { lang: "latex", name: "sample", url: `${samples}/latex.sample` },
   { lang: "less", name: "antd-button-mixin", url: `${antd}/components/button/style/mixin.less` },
   { lang: "less", name: "antd-color-palette", url: `${antd}/components/style/color/colorPalette.less` },
   { lang: "less", name: "antd-compact-item", url: `${antd}/components/style/mixins/compact-item.less` },

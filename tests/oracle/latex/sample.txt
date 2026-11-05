@@ -1,0 +1,179 @@
+L % This is a simple sample document.  For more complicated documents take a look in the exercise tab. Note that everything that comes after a % symbol is treated as comment and ignored when the code is compiled.
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 210 text.tex.latex comment.line.percentage.tex
+L 
+L \documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+T 24 text.tex.latex
+T 25 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 206 text.tex.latex comment.line.percentage.tex
+L 
+L \usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 12 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex meta.preamble.latex support.class.latex
+T 20 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+T 21 text.tex.latex
+T 22 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 103 text.tex.latex comment.line.percentage.tex
+L 
+L \title{Simple Sample} % Sets article title
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex.latex support.function.general.tex
+T 22 text.tex.latex
+T 23 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 42 text.tex.latex comment.line.percentage.tex
+L \author{My Name} % Sets authors name
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex support.function.general.tex
+T 17 text.tex.latex
+T 18 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 36 text.tex.latex comment.line.percentage.tex
+L \date{\today} % Sets date for date compiled
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+T 6 text.tex.latex
+T 7 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+T 14 text.tex.latex
+T 15 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 43 text.tex.latex comment.line.percentage.tex
+L 
+L % The preamble ends with the command \begin{document}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 53 text.tex.latex comment.line.percentage.tex
+L \begin{document} % All begin commands must be paired with an end command somewhere
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex
+T 18 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 82 text.tex.latex comment.line.percentage.tex
+L     \maketitle % creates title using information in preamble (title, author, date)
+T 4 text.tex.latex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex.latex support.function.general.tex
+T 15 text.tex.latex
+T 16 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 82 text.tex.latex comment.line.percentage.tex
+L 
+L     \section{Hello World!} % creates a section
+T 4 text.tex.latex
+T 5 text.tex.latex meta.function.section.section.latex support.function.section.latex punctuation.definition.function.latex
+T 12 text.tex.latex meta.function.section.section.latex support.function.section.latex
+T 13 text.tex.latex meta.function.section.section.latex punctuation.definition.arguments.begin.latex
+T 25 text.tex.latex meta.function.section.section.latex entity.name.section.latex
+T 26 text.tex.latex meta.function.section.section.latex punctuation.definition.arguments.end.latex
+T 27 text.tex.latex
+T 28 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 46 text.tex.latex comment.line.percentage.tex
+L 
+L     \textbf{Hello World!} Today I am learning \LaTeX. %notice how the command will end at the first non-alphabet charecter such as the . after \LaTeX
+T 4 text.tex.latex
+T 5 text.tex.latex meta.function.textbf.latex support.function.textbf.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.function.textbf.latex support.function.textbf.latex
+T 12 text.tex.latex meta.function.textbf.latex punctuation.definition.textbf.begin.latex
+T 24 text.tex.latex meta.function.textbf.latex markup.bold.textbf.latex
+T 25 text.tex.latex meta.function.textbf.latex punctuation.definition.textbf.end.latex
+T 46 text.tex.latex
+T 47 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 52 text.tex.latex support.function.general.tex
+T 54 text.tex.latex
+T 55 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 149 text.tex.latex comment.line.percentage.tex
+L      \LaTeX{} is a great program for writing math. I can write in line math such as $a^2+b^2=c^2$ %$ tells LaTexX to compile as math
+T 5 text.tex.latex
+T 6 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex support.function.general.tex
+T 84 text.tex.latex
+T 85 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 86 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 87 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 88 text.tex.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 89 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 90 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 91 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 92 text.tex.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 94 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 95 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 96 text.tex.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 97 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 98 text.tex.latex
+T 99 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 132 text.tex.latex comment.line.percentage.tex
+L      . I can also give equations their own space:
+T 49 text.tex.latex
+L     \begin{equation} % Creates an equation environment and is compiled as math
+T 4 text.tex.latex meta.function.environment.math.latex
+T 5 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 10 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 11 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 20 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+T 21 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 22 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 78 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex comment.line.percentage.tex
+L     \gamma^2+\theta^2=\omega^2
+T 4 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 5 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex punctuation.definition.constant.math.tex
+T 10 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex
+T 11 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 12 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 13 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 14 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex punctuation.definition.constant.math.tex
+T 19 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex
+T 20 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 21 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 22 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 23 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex punctuation.definition.constant.math.tex
+T 28 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex
+T 29 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 30 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+L     \end{equation}
+T 4 text.tex.latex meta.function.environment.math.latex
+T 5 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 8 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 9 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 17 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 18 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L     If I do not leave any blank lines \LaTeX{} will continue  this text without making it into a new paragraph.  Notice how there was no indentation in the text after equation (1).
+T 38 text.tex.latex
+T 39 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 44 text.tex.latex support.function.general.tex
+T 180 text.tex.latex
+L     Also notice how even though I hit enter after that sentence and here $\downarrow$
+T 73 text.tex.latex
+T 74 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 75 text.tex.latex meta.math.block.tex support.class.math.block.tex constant.character.math.tex punctuation.definition.constant.math.tex
+T 84 text.tex.latex meta.math.block.tex support.class.math.block.tex constant.character.math.tex
+T 85 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L      \LaTeX{} formats the sentence without any break.  Also   look  how      it   doesn't     matter          how    many  spaces     I put     between       my    words.
+T 5 text.tex.latex
+T 6 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex support.function.general.tex
+T 170 text.tex.latex
+L 
+L     For a new paragraph I can leave a blank space in my code.
+T 61 text.tex.latex
+L 
+L \end{document} % This is the end of the document
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex
+T 16 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 48 text.tex.latex comment.line.percentage.tex
+L 
+L % From https://guides.nyu.edu/LaTeX/sample-document
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 51 text.tex.latex comment.line.percentage.tex
+L 

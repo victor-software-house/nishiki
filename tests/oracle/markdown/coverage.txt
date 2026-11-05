@@ -448,9 +448,10 @@ T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.
 L 
 L ```latex title="example"
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 24 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 24 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
 L x
-T 1 text.html.markdown markup.fenced_code.block.markdown
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L 

@@ -1,0 +1,135 @@
+L % Some text
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 11 text.tex.latex comment.line.percentage.tex
+L % $a+b+c
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 8 text.tex.latex comment.line.percentage.tex
+L % x+y+z$
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 8 text.tex.latex comment.line.percentage.tex
+L % Some text
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 11 text.tex.latex comment.line.percentage.tex
+L 
+L % In |macrocode|, text with |%| should be considered as comment, while text with |^^A| should not.
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 98 text.tex.latex comment.line.percentage.tex
+L %    \begin{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex.latex comment.line.percentage.tex
+L \def\some@command{
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 17 text.tex.latex support.function.general.tex
+T 18 text.tex.latex
+L %    \end{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex.latex comment.line.percentage.tex
+L % Comments:
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 11 text.tex.latex comment.line.percentage.tex
+L %    \begin{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex.latex comment.line.percentage.tex
+L    some macro code ...}
+T 23 text.tex.latex
+L %    \end{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex.latex comment.line.percentage.tex
+L 
+L %    \begin{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex.latex comment.line.percentage.tex
+L \newcommand\hello@a{xxx}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L %   \newcommand\hello@b{yyy}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 28 text.tex.latex comment.line.percentage.tex
+L ^^A \newcommand\hello@c{zzz}
+T 4 text.tex.latex
+T 5 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 15 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 16 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex meta.parameter.newcommand.latex
+T 28 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L %    \end{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex.latex comment.line.percentage.tex
+L 
+L 
+L %    \begin{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex.latex comment.line.percentage.tex
+L \begin{equation}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L abc
+T 3 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+L % abc
+T 1 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 5 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex comment.line.percentage.tex
+L ^^A abc
+T 7 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+L \end{equation}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L %    \end{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex.latex comment.line.percentage.tex
+L 
+L %    \begin{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex.latex comment.line.percentage.tex
+L {abc
+T 4 text.tex.latex
+L % abc
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 5 text.tex.latex comment.line.percentage.tex
+L ^^A abc
+T 7 text.tex.latex
+L }
+T 1 text.tex.latex
+L abc
+T 3 text.tex.latex
+L % abc
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 5 text.tex.latex comment.line.percentage.tex
+L ^^A abc
+T 7 text.tex.latex
+L %    \end{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex.latex comment.line.percentage.tex
+L 
+L %    \begin{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 22 text.tex.latex comment.line.percentage.tex
+L $
+T 1 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+L abc
+T 3 text.tex.latex meta.math.block.tex support.class.math.block.tex
+L % abc
+T 1 text.tex.latex meta.math.block.tex support.class.math.block.tex comment.line.percentage.tex punctuation.definition.comment.tex
+T 5 text.tex.latex meta.math.block.tex support.class.math.block.tex comment.line.percentage.tex
+L ^^A abc
+T 7 text.tex.latex meta.math.block.tex support.class.math.block.tex
+L $
+T 1 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L %    \end{macrocode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 20 text.tex.latex comment.line.percentage.tex
+L 

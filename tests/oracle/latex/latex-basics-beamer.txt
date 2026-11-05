@@ -1,0 +1,492 @@
+L \documentclass[10pt,color]{beamer}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 25 text.tex.latex meta.preamble.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 26 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 27 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 33 text.tex.latex meta.preamble.latex support.class.latex
+T 34 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \mode
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+L <handout>
+T 9 text.tex.latex
+L \pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 26 text.tex.latex
+T 27 text.tex.latex punctuation.definition.brackets.tex
+T 62 text.tex.latex
+T 63 text.tex.latex punctuation.definition.brackets.tex
+L \hypersetup{colorlinks=false,%
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex support.function.general.tex
+T 29 text.tex.latex
+T 30 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L bookmarks=false}
+T 16 text.tex.latex
+L 
+L \mode
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+L <beamer>
+T 8 text.tex.latex
+L \hypersetup{colorlinks=true,linkcolor=blue,%
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex support.function.general.tex
+T 43 text.tex.latex
+T 44 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L bookmarks=false}
+T 16 text.tex.latex
+L \setbeamercovered{invisible}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 17 text.tex.latex support.function.general.tex
+T 28 text.tex.latex
+L \mode
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+L <all>
+T 5 text.tex.latex
+L 
+L \graphicspath{{.}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex.latex support.function.general.tex
+T 18 text.tex.latex
+L \usetheme{Singapore}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex.latex support.function.general.tex
+T 20 text.tex.latex
+L \usefonttheme{serif}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex.latex support.function.general.tex
+T 20 text.tex.latex
+L 
+L \DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 45 text.tex.latex
+L \SetSymbolFont{lettersA}{bold}{U}{txmia}{bx}{it}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex.latex support.function.general.tex
+T 48 text.tex.latex
+L \DeclareMathSymbol{\lambdaup}{\mathord}{lettersA}{21}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 19 text.tex.latex
+T 20 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex.latex support.function.general.tex
+T 30 text.tex.latex
+T 31 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 38 text.tex.latex support.function.general.tex
+T 53 text.tex.latex
+L 
+L \makeatletter
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex.latex support.function.general.tex
+L 
+L % -------------------------------------------------------------%
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 64 text.tex.latex comment.line.percentage.tex
+L 
+L \def\ee{{\bf e}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex support.function.general.tex
+T 9 text.tex.latex
+T 10 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+T 13 text.tex.latex meta.space-after-command.latex
+T 16 text.tex.latex
+L \def\s{\star}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex.latex support.function.general.tex
+T 7 text.tex.latex
+T 8 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+T 13 text.tex.latex
+L \def\l{\ell}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex.latex support.function.general.tex
+T 7 text.tex.latex
+T 8 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex support.function.general.tex
+T 12 text.tex.latex
+L \def\cv{{\mathcal V}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex support.function.general.tex
+T 9 text.tex.latex
+T 10 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 17 text.tex.latex support.function.general.tex
+T 21 text.tex.latex
+L \def\dt{\, dt}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex support.function.general.tex
+T 8 text.tex.latex
+T 9 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex.latex support.function.general.tex
+T 14 text.tex.latex
+L \def\hh{\widehat{H}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex support.function.general.tex
+T 8 text.tex.latex
+T 9 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex.latex support.function.general.tex
+T 20 text.tex.latex
+L \def\esssup{\mathop{\mathrm{ess sup}}\nolimits}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex support.function.general.tex
+T 12 text.tex.latex
+T 13 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 19 text.tex.latex support.function.general.tex
+T 20 text.tex.latex
+T 21 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 27 text.tex.latex support.function.general.tex
+T 37 text.tex.latex
+T 38 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 46 text.tex.latex support.function.general.tex
+T 47 text.tex.latex
+L \DeclareMathOperator{\Span}{span}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex.latex support.function.general.tex
+T 21 text.tex.latex
+T 22 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 26 text.tex.latex support.function.general.tex
+T 33 text.tex.latex
+L 
+L % -------------------------------------------------------------%
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 64 text.tex.latex comment.line.percentage.tex
+L \def\red#1{{\color{red} #1}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex.latex support.function.general.tex
+T 12 text.tex.latex
+T 13 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 28 text.tex.latex
+L \def\blue#1{{\color{blue} #1}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 9 text.tex.latex support.function.general.tex
+T 13 text.tex.latex
+T 14 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 19 text.tex.latex support.function.general.tex
+T 30 text.tex.latex
+L % -------------------------------------------------------------%
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 64 text.tex.latex comment.line.percentage.tex
+L 
+L 
+L % -------------------------------------------------------------%
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 64 text.tex.latex comment.line.percentage.tex
+L 
+L 
+L % ------------------------------------------------------------------------- %
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 77 text.tex.latex comment.line.percentage.tex
+L % Hypotheses
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 12 text.tex.latex comment.line.percentage.tex
+L 
+L \definecolor{rose}{rgb}{0.92,0.10,0.12}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+T 39 text.tex.latex
+L \definecolor{blue}{rgb}{0,0,1}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+T 30 text.tex.latex
+L 
+L % ------------------------------------------------------------------------- %
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 77 text.tex.latex comment.line.percentage.tex
+L % Beamer template
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 17 text.tex.latex comment.line.percentage.tex
+L 
+L \setbeamertemplate{theorem begin}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 33 text.tex.latex
+L {%\setbeamercolor{block body}{bg=red}
+T 1 text.tex.latex
+T 2 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 37 text.tex.latex comment.line.percentage.tex
+L \begin{\inserttheoremblockenv}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex.latex support.function.general.tex
+T 7 text.tex.latex
+T 8 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 29 text.tex.latex support.function.general.tex
+T 30 text.tex.latex
+L   {%
+T 3 text.tex.latex
+T 4 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \inserttheoremheadfont
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex.latex support.function.general.tex
+L   \inserttheoremname
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex.latex support.function.general.tex
+L   \inserttheoremnumber
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 22 text.tex.latex support.function.general.tex
+L   \ifx\inserttheoremaddition\empty\else\ (\inserttheoremaddition)\fi%
+T 2 text.tex.latex
+T 3 text.tex.latex keyword.control.tex punctuation.definition.keyword.tex
+T 6 text.tex.latex keyword.control.tex
+T 7 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex.latex support.function.general.tex
+T 29 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 34 text.tex.latex support.function.general.tex
+T 35 text.tex.latex keyword.control.tex punctuation.definition.keyword.tex
+T 39 text.tex.latex keyword.control.tex
+T 40 text.tex.latex constant.character.escape.tex punctuation.definition.keyword.tex
+T 41 text.tex.latex constant.character.escape.tex
+T 42 text.tex.latex
+T 43 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 64 text.tex.latex support.function.general.tex
+T 65 text.tex.latex
+T 66 text.tex.latex keyword.control.tex punctuation.definition.keyword.tex
+T 68 text.tex.latex keyword.control.tex
+T 69 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L       % \inserttheorempunctuation
+T 6 text.tex.latex punctuation.whitespace.comment.leading.tex
+T 7 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 33 text.tex.latex comment.line.percentage.tex
+L   }%
+T 3 text.tex.latex
+T 4 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   }
+T 3 text.tex.latex
+L   \setbeamertemplate{theorem end}
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex.latex support.function.general.tex
+T 33 text.tex.latex
+L   {%
+T 3 text.tex.latex
+T 4 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L \end{\inserttheoremblockenv}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 5 text.tex.latex
+T 6 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 27 text.tex.latex support.function.general.tex
+T 29 text.tex.latex
+L 
+L \setbeamertemplate{bibliography item}[triangle]
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.brackets.tex
+T 46 text.tex.latex
+T 47 text.tex.latex punctuation.definition.brackets.tex
+L 
+L \setbeamertemplate{frametitle continuation}{(\insertcontinuationcount)}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 45 text.tex.latex
+T 46 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 69 text.tex.latex support.function.general.tex
+T 71 text.tex.latex
+L \setbeamertemplate{enumerate items}[ball]
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 35 text.tex.latex
+T 36 text.tex.latex punctuation.definition.brackets.tex
+T 40 text.tex.latex
+T 41 text.tex.latex punctuation.definition.brackets.tex
+L \setbeamertemplate{itemize items}[triangle]
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex support.function.general.tex
+T 33 text.tex.latex
+T 34 text.tex.latex punctuation.definition.brackets.tex
+T 42 text.tex.latex
+T 43 text.tex.latex punctuation.definition.brackets.tex
+L 
+L % ------------------------------------------------------------------------- %
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 77 text.tex.latex comment.line.percentage.tex
+L 
+L 
+L \title{Analyse de l'abandon sur l'UTMB}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex.latex support.function.general.tex
+T 39 text.tex.latex
+L 
+L \institute[Université Grenoble Alpes]{Université Grenoble Alpes}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex.latex support.function.general.tex
+T 11 text.tex.latex punctuation.definition.brackets.tex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.brackets.tex
+T 66 text.tex.latex
+L \date{19 juillet 2019}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+T 22 text.tex.latex
+L 
+L \mode
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+L <beamer>
+T 8 text.tex.latex
+L 
+L \mode
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+L <all>
+T 5 text.tex.latex
+L 
+L \AtBeginDocument{\def\figurename{{\scshape Fig.}}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex.latex support.function.general.tex
+T 17 text.tex.latex
+T 18 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 21 text.tex.latex support.function.general.tex
+T 22 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 32 text.tex.latex support.function.general.tex
+T 34 text.tex.latex
+T 35 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 42 text.tex.latex support.function.general.tex
+T 50 text.tex.latex
+L \AtBeginDocument{\def\tablename{{\scshape Tab.}}}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex.latex support.function.general.tex
+T 17 text.tex.latex
+T 18 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 21 text.tex.latex support.function.general.tex
+T 22 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 31 text.tex.latex support.function.general.tex
+T 33 text.tex.latex
+T 34 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 41 text.tex.latex support.function.general.tex
+T 49 text.tex.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L \maketitle
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex.latex support.function.general.tex
+L 
+L \begin{frame}[allowframebreaks,allowdisplaybreaks]
+T 1 text.tex.latex meta.function.environment.frame.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.frame.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.frame.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.end.latex
+T 14 text.tex.latex meta.function.environment.frame.latex punctuation.definition.brackets.tex
+T 49 text.tex.latex meta.function.environment.frame.latex
+T 50 text.tex.latex meta.function.environment.frame.latex punctuation.definition.brackets.tex
+L    \frametitle{The frame title}
+T 3 text.tex.latex meta.function.environment.frame.latex
+T 4 text.tex.latex meta.function.environment.frame.latex meta.function.section.frametitle.latex support.function.section.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.function.environment.frame.latex meta.function.section.frametitle.latex support.function.section.latex
+T 15 text.tex.latex meta.function.environment.frame.latex meta.function.section.frametitle.latex punctuation.definition.arguments.begin.latex
+T 30 text.tex.latex meta.function.environment.frame.latex meta.function.section.frametitle.latex entity.name.section.latex
+T 31 text.tex.latex meta.function.environment.frame.latex meta.function.section.frametitle.latex punctuation.definition.arguments.end.latex
+L   {A Long Equation}
+T 19 text.tex.latex meta.function.environment.frame.latex
+L   \begin{align}
+T 2 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex
+T 3 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 8 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex support.function.be.latex
+T 9 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L   \zeta(2) &= 1 + 1/4 + 1/9 + \cdots \\
+T 2 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 3 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex punctuation.definition.constant.math.tex
+T 7 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex
+T 8 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.begin.bracket.round.tex
+T 9 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 10 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.end.bracket.round.tex
+T 11 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 12 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 14 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 15 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 16 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 17 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 18 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 19 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 20 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 21 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 22 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 23 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 24 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 25 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 26 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 27 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 28 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 29 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 30 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 31 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex punctuation.definition.constant.math.tex
+T 36 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex
+T 37 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex meta.space-after-command.latex
+T 39 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.newline.latex
+L   &= ... \\
+T 2 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 3 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 9 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 11 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.newline.latex
+L   ...
+T 5 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+L   &= \pi^2/6.
+T 2 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 3 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 5 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 6 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex punctuation.definition.constant.math.tex
+T 8 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.math.tex
+T 9 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 10 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 11 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.operator.tex
+T 12 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 13 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+L   \end{align}
+T 2 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex
+T 3 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.frame.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L \end{frame} 
+T 1 text.tex.latex meta.function.environment.frame.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.frame.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.environment.frame.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.end.latex
+T 12 text.tex.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

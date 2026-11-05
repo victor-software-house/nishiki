@@ -659,6 +659,31 @@ fn elixir_fences_embed_elixir() {
     );
 }
 
+/// A `latex` fence and a `tex` fence both embed LaTeX under LaTeX's embedded
+/// scope, as Shiki does.
+#[cfg(feature = "lang-latex")]
+#[test]
+fn latex_and_tex_fences_embed_latex() {
+    for name in ["latex", "tex"] {
+        let text = formatdoc! {r"
+            ```{name}
+            \section{{A}}
+            ```
+        "};
+        let stack = stack_of(&text, "section");
+        assert!(
+            stack
+                .iter()
+                .any(|scope| scope == "meta.embedded.block.latex"),
+            "{name}: {stack:?}"
+        );
+        assert!(
+            stack.last().and_then(|scope| scope.rsplit('.').next()) == Some("latex"),
+            "{name}: {stack:?}"
+        );
+    }
+}
+
 /// A `vb` fence embeds Visual Basic under the grammar's `vs_net` scope, as
 /// Shiki does.
 #[cfg(feature = "lang-vb")]

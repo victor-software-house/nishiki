@@ -60,6 +60,7 @@ all = [
   "lang-jsx",
   "lang-julia",
   "lang-kotlin",
+  "lang-latex",
   "lang-less",
   "lang-lua",
   "lang-make",
@@ -137,7 +138,7 @@ systems = [
   "lang-shell",
   "lang-swift",
 ]
-docs = ["config", "lang-markdown", "lang-tex"]
+docs = ["config", "lang-latex", "lang-markdown", "lang-tex"]
 textmate = ["lang-haml"]
 
 # One feature per lexer module. A language that embeds another needs it.
@@ -211,6 +212,13 @@ lang-julia = [
   "lang-sql",
 ]
 lang-kotlin = ["_scope-table", "_rule-tables", "_classes"]
+lang-latex = [
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_halting-embedding",
+  "lang-tex",
+]
 lang-less = ["_scope-table", "_rule-tables", "_classes"]
 lang-lua = ["_scope-table", "_rule-tables", "_classes", "_embedding"]
 lang-make = [
@@ -306,8 +314,8 @@ _classes = ["_utf8"]
 # expressions and blocks.
 _embedding = ["_rule-engine"]
 # The hand-over of a grammar that embeds a language and is itself embedded,
-# for GraphQL in Vue, CoffeeScript in Vue and HAML, PHP, and Elixir in
-# Markdown.
+# for GraphQL in Vue, CoffeeScript in Vue and HAML, PHP, and Elixir and LaTeX
+# in Markdown.
 _halting-embedding = ["_embedding"]
 # The Unicode classes that identifiers read beside the letters and digits:
 # `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}`.

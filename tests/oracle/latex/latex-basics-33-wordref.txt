@@ -1,0 +1,36 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \wordref{poo}
+T 1 text.tex.latex meta.reference.label.latex keyword.control.ref.latex punctuation.definition.keyword.latex
+T 8 text.tex.latex meta.reference.label.latex keyword.control.ref.latex
+T 9 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.reference.label.latex constant.other.reference.label.latex
+T 13 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.end.latex
+L \wordRef{poo}
+T 1 text.tex.latex meta.reference.label.latex keyword.control.ref.latex punctuation.definition.keyword.latex
+T 8 text.tex.latex meta.reference.label.latex keyword.control.ref.latex
+T 9 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.reference.label.latex constant.other.reference.label.latex
+T 13 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.end.latex
+L \word|ef{poo}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 5 text.tex.latex support.function.general.tex
+T 13 text.tex.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex

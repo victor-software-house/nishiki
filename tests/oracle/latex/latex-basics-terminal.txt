@@ -1,0 +1,75 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{terminal*}[options][comments]{shelltitle}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 25 text.tex.latex meta.parameter.optional.latex
+T 26 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 36 text.tex.latex
+T 37 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 47 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 48 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L   ~> FP=4711
+T 12 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   ~> gpg --expert --edit-key $FP
+T 32 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   gpg (GnuPG) 2.2.27; Copyright (C) 2021 Free Software Foundation, Inc.
+T 71 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   blah
+T 6 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{terminal*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L   
+T 2 text.tex.latex
+L \begin{terminal}{shelltitle}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 28 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L   ~> FP=4711
+T 12 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   ~> gpg --expert --edit-key $FP
+T 32 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   gpg (GnuPG) 2.2.27; Copyright (C) 2021 Free Software Foundation, Inc.
+T 71 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   blah
+T 6 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{terminal}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

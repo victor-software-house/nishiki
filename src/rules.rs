@@ -402,7 +402,8 @@ pub(crate) fn lex_until<G: Grammar>(
     feature = "lang-php",
     feature = "lang-perl",
     feature = "lang-elixir",
-    feature = "lang-tex"
+    feature = "lang-tex",
+    feature = "lang-latex"
 ))]
 macro_rules! embedded {
     ($variant:ident, $feature:literal) => {{
@@ -420,7 +421,8 @@ macro_rules! embedded {
     feature = "lang-php",
     feature = "lang-perl",
     feature = "lang-elixir",
-    feature = "lang-tex"
+    feature = "lang-tex",
+    feature = "lang-latex"
 ))]
 pub(crate) use embedded;
 

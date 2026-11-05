@@ -366,6 +366,34 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `kotlin/sample` | [`samples/kotlin.sample`][kotlin-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `kotlin/serialization-json` | [`Json.kt`][serialization-json] in Kotlin/kotlinx.serialization | [Apache-2.0][kotlinx-serialization-licence] |
 | `kotlin/turbine-flow-test` | [`FlowTest.kt`][turbine-flow-test] in cashapp/turbine | [Apache-2.0][turbine-licence] |
+| `latex/coverage` | `oracle/inputs/latex-coverage.tex`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `latex/latex-basics-33-wordref` | [`test/colorize-fixtures/33-wordref.tex`][latex-basics-33-wordref] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-basic-commands` | [`test/colorize-fixtures/basic-commands.tex`][latex-basics-basic-commands] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-basic-envs` | [`test/colorize-fixtures/basic-envs.tex`][latex-basics-basic-envs] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-basics` | [`test/colorize-fixtures/basics.dtx`][latex-basics-basics] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-beamer` | [`test/colorize-fixtures/beamer.tex`][latex-basics-beamer] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-cite` | [`test/colorize-fixtures/cite.tex`][latex-basics-cite] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-asy` | [`test/colorize-fixtures/code-asy.tex`][latex-basics-code-asy] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-cpp` | [`test/colorize-fixtures/code-cpp.tex`][latex-basics-code-cpp] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-css` | [`test/colorize-fixtures/code-css.tex`][latex-basics-code-css] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-html` | [`test/colorize-fixtures/code-html.tex`][latex-basics-code-html] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-java` | [`test/colorize-fixtures/code-java.tex`][latex-basics-code-java] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-jl` | [`test/colorize-fixtures/code-jl.tex`][latex-basics-code-jl] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-js` | [`test/colorize-fixtures/code-js.tex`][latex-basics-code-js] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-lua` | [`test/colorize-fixtures/code-lua.tex`][latex-basics-code-lua] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-py` | [`test/colorize-fixtures/code-py.tex`][latex-basics-code-py] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-rb` | [`test/colorize-fixtures/code-rb.tex`][latex-basics-code-rb] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-ts` | [`test/colorize-fixtures/code-ts.tex`][latex-basics-code-ts] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-xml` | [`test/colorize-fixtures/code-xml.tex`][latex-basics-code-xml] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-code-yaml` | [`test/colorize-fixtures/code-yaml.tex`][latex-basics-code-yaml] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-hyperref-cmds` | [`test/colorize-fixtures/hyperref-cmds.tex`][latex-basics-hyperref-cmds] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-minted` | [`test/colorize-fixtures/minted.tex`][latex-basics-minted] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-new-commands` | [`test/colorize-fixtures/new-commands.tex`][latex-basics-new-commands] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-robust-externalize` | [`test/colorize-fixtures/robust-externalize.tex`][latex-basics-robust-externalize] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-songs` | [`test/colorize-fixtures/songs.tex`][latex-basics-songs] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-terminal` | [`test/colorize-fixtures/terminal.tex`][latex-basics-terminal] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/latex-basics-tikz` | [`test/colorize-fixtures/tikz.tex`][latex-basics-tikz] in jlelong/vscode-latex-basics | [MIT][latex-basics-licence] |
+| `latex/sample` | [`samples/latex.sample`][latex-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `less/antd-button-mixin` | [`components/button/style/mixin.less`][less-antd-button-mixin] in ant-design/ant-design | [MIT][antd-licence] |
 | `less/antd-color-palette` | [`components/style/color/colorPalette.less`][less-antd-color-palette] in ant-design/ant-design | [MIT][antd-licence] |
 | `less/antd-compact-item` | [`components/style/mixins/compact-item.less`][less-antd-compact-item] in ant-design/ant-design | [MIT][antd-licence] |
@@ -1438,12 +1466,39 @@ The hand lexer was written against all seven.
 [laravel-licence]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/LICENSE.md
 [laravel-postgres-grammar]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php
 [laravel-router]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Routing/Router.php
+[latex-basics-33-wordref]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/33-wordref.tex
+[latex-basics-basic-commands]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/basic-commands.tex
+[latex-basics-basic-envs]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/basic-envs.tex
+[latex-basics-basics]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/basics.dtx
+[latex-basics-beamer]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/beamer.tex
+[latex-basics-cite]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/cite.tex
+[latex-basics-code-asy]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-asy.tex
+[latex-basics-code-cpp]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-cpp.tex
+[latex-basics-code-css]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-css.tex
+[latex-basics-code-html]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-html.tex
+[latex-basics-code-java]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-java.tex
+[latex-basics-code-jl]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-jl.tex
+[latex-basics-code-js]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-js.tex
+[latex-basics-code-lua]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-lua.tex
+[latex-basics-code-py]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-py.tex
+[latex-basics-code-rb]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-rb.tex
+[latex-basics-code-ts]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-ts.tex
+[latex-basics-code-xml]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-xml.tex
+[latex-basics-code-yaml]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/code-yaml.tex
+[latex-basics-hyperref-cmds]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/hyperref-cmds.tex
 [latex-basics-iffalse]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/iffalse.tex
 [latex-basics-licence]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/LICENSE.txt
 [latex-basics-math-envs]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/math-envs.tex
 [latex-basics-maths-inline]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/maths-inline.tex
+[latex-basics-minted]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/minted.tex
+[latex-basics-new-commands]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/new-commands.tex
+[latex-basics-robust-externalize]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/robust-externalize.tex
 [latex-basics-skeleton]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/skeleton.dtx
+[latex-basics-songs]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/songs.tex
 [latex-basics-subeqn]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/subeqn.dtx
+[latex-basics-terminal]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/terminal.tex
+[latex-basics-tikz]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/tikz.tex
+[latex-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/latex.sample
 [latexrun-licence]: https://github.com/aclements/latexrun/blob/38ff6ec2815654513c91f64bdf2a5760c85da26e/LICENSE
 [latexrun-readme]: https://github.com/aclements/latexrun/blob/38ff6ec2815654513c91f64bdf2a5760c85da26e/README.md
 [less-antd-button-mixin]: https://github.com/ant-design/ant-design/blob/7c060247516925f48175d7f29cd43b626632665e/components/button/style/mixin.less

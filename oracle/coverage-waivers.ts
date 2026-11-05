@@ -59,7 +59,6 @@ const unloadedFences = [
   ["handlebars", "text.html.handlebars"],
   ["ignore", "source.ignore"],
   ["js_regexp", "source.js.regexp"],
-  ["latex", "text.tex.latex"],
   ["log", "text.log"],
   ["perl6", "source.perl.6"],
   ["pug", "text.pug"],
@@ -899,6 +898,88 @@ export const waivers: Waiver[] = [
   { grammar: "matlab", path: "#comment_block.begin", group: 1, reason: blanks, probe: "CommentBlock" },
   { grammar: "matlab", path: "#comments.patterns[0].begin", group: 1, reason: blanks, probe: "CommentsAt0" },
   { grammar: "matlab", path: "#comments.patterns[2].begin", group: 1, reason: blanks, probe: "CommentsAt2" },
+  ...(
+    [
+      ["#all-balanced-env.patterns[7]", "`text.tex.markdown_latex_combined`"],
+      ["#embedded-code-env.patterns[0].patterns[1]", "`source.asy`"],
+      ["#embedded-code-env.patterns[0].patterns[3]", "`source.cpp.embedded.latex`"],
+      ["#embedded-code-env.patterns[0].patterns[5]", "`source.gnuplot`"],
+      ["#embedded-code-env.patterns[1].patterns[2]", "`source.asymptote`"],
+      ["#embedded-code-env.patterns[2].patterns[2]", "`source.cpp.embedded.latex`"],
+      ["#embedded-code-env.patterns[3].patterns[2]", "`source.dot`"],
+      ["#embedded-code-env.patterns[4].patterns[2]", "`source.gnuplot`"],
+      ["#embedded-code-env.patterns[16].patterns[0].patterns[1]", "`source.asy`"],
+      ["#embedded-code-env.patterns[16].patterns[2].patterns[1]", "`source.cpp.embedded.latex`"],
+      ["#embedded-code-env.patterns[16].patterns[4].patterns[1]", "`source.gnuplot`"],
+      ["#inline-code-macro.patterns[6].patterns[1]", "`source.asy`"],
+      ["#inline-code-macro.patterns[8].patterns[1]", "`source.cpp.embedded.latex`"],
+      ["#inline-code-macro.patterns[10].patterns[1]", "`source.gnuplot`"],
+    ] as const
+  ).flatMap(([rule, included]) =>
+    ["begin", "end"].map(
+      (part): Waiver => ({
+        grammar: "latex",
+        path: `${rule}.${part}`,
+        reason: `the rule's only pattern includes ${included}, which Shiki does not load with LaTeX, so vscode-textmate drops the rule`,
+        dropped: true,
+      }),
+    ),
+  ),
+  {
+    grammar: "latex",
+    path: "#documentclass-usepackage-macro.end",
+    group: 0,
+    reason: "the end is the lookbehind `(?<=})`, so its match holds no text",
+    probe: "DocumentclassUsepackageMacroEnd",
+  },
+  {
+    grammar: "latex",
+    path: "#embedded-code-env.patterns[16].patterns[3].begin",
+    reason: "`c(?:|pp)`, earlier in the same list, matches the `c` that starts every `css`, so this begin never wins",
+    probe: "EmbeddedCodeEnvAt16At3",
+  },
+  ...(
+    [
+      ["#embedded-code-env.patterns[16].patterns[3].end", "EmbeddedCodeEnvAt16At0End"],
+      ["#embedded-code-env.patterns[16].patterns[3].patterns[0].begin", "EmbeddedCodeEnvAt16At0At0"],
+      ["#embedded-code-env.patterns[16].patterns[3].patterns[0].end", "EmbeddedCodeEnvAt16At0At0End"],
+      ["#embedded-code-env.patterns[16].patterns[3].patterns[1].begin", "EmbeddedCodeEnvAt16At1At1"],
+      ["#embedded-code-env.patterns[16].patterns[3].patterns[1].end", "EmbeddedCodeEnvAt16At1At1End"],
+    ] as const
+  ).map(
+    ([path, probe]): Waiver => ({
+      grammar: "latex",
+      path,
+      reason: "its rule, the `css` one, never opens, so it is never tried",
+      probe,
+    }),
+  ),
+  ...[1, 2].map(
+    (group): Waiver => ({
+      grammar: "latex",
+      path: "#hyperref-macro.patterns[0].patterns[2].begin",
+      group,
+      reason: "the pattern before it matches wherever this optional group can, so the group never takes part",
+      probe: "HyperrefMacroAt0At2",
+    }),
+  ),
+  ...(
+    [
+      ["#songs-env.patterns[1].begin", "SongsEnvAt1"],
+      ["#songs-env.patterns[1].end", "SongsEnvAt1End"],
+    ] as const
+  ).flatMap(([path, probe]) =>
+    [3, 4].map((group): Waiver => ({ grammar: "latex", path, group, reason: missing(2), probe })),
+  ),
+  ...[2, 3, 4, 5, 6].map(
+    (group): Waiver => ({
+      grammar: "latex",
+      path: "#inline-code-macro.patterns[0].end",
+      group,
+      reason: missing(1),
+      probe: "InlineCodeMacroAt0End",
+    }),
+  ),
   { grammar: "tex", path: "#comment.begin", group: 1, reason: blanks, probe: "Comment" },
   {
     grammar: "tex",
@@ -1767,6 +1848,7 @@ export const complete: string[] = [
   "jsx",
   "julia",
   "kotlin",
+  "latex",
   "less",
   "lua",
   "make",

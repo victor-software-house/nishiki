@@ -1,0 +1,46 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{asy}{linenos=false, frame=single}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex variable.parameter.function.latex
+T 11 text.tex.latex punctuation.definition.arguments.end.latex
+T 12 text.tex.latex punctuation.definition.arguments.begin.latex
+T 39 text.tex.latex variable.parameter.function.latex
+T 40 text.tex.latex punctuation.definition.arguments.end.latex
+L   size(250);
+T 12 text.tex.latex
+L 
+L   real a=3;
+T 11 text.tex.latex
+L   real b=4;
+T 11 text.tex.latex
+L   real c=hypot(a,b);
+T 20 text.tex.latex
+L \end{asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 8 text.tex.latex variable.parameter.function.latex
+T 9 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

@@ -1,0 +1,216 @@
+L \newcommand{\Correction}[2]{%
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 25 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.begin.latex
+T 26 text.tex.latex meta.parameter.newcommand.latex
+T 27 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.end.latex
+T 28 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 29 text.tex.latex meta.parameter.newcommand.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \par
+T 2 text.tex.latex meta.parameter.newcommand.latex
+T 3 text.tex.latex meta.parameter.newcommand.latex support.function.general.tex punctuation.definition.function.tex
+T 6 text.tex.latex meta.parameter.newcommand.latex support.function.general.tex
+L   #1%
+T 4 text.tex.latex meta.parameter.newcommand.latex
+T 5 text.tex.latex meta.parameter.newcommand.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   {\unskip\nobreak\hfil\penalty50
+T 2 text.tex.latex meta.parameter.newcommand.latex
+T 3 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex punctuation.group.begin.latex
+T 4 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 11 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 18 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 19 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 23 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 24 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 31 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 33 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+L   \hskip2em\hbox{}\nobreak\hfil（#2）%
+T 2 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 3 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 11 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 16 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 17 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex meta.group.braces.latex punctuation.group.begin.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex meta.group.braces.latex punctuation.group.end.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 26 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 27 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 31 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 39 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 40 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \parfillskip=0pt \finalhyphendemerits=0 \par}%
+T 2 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 3 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 19 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 39 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 42 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 43 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex punctuation.definition.function.tex
+T 46 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex support.function.general.tex
+T 47 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex punctuation.group.end.latex
+T 48 text.tex.latex meta.parameter.newcommand.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L }
+T 1 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L 
+L \newcommand{\test}{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 17 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \newcommand\test{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 16 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 17 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L 
+L \makeatletter
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex.latex support.function.general.tex
+L \newcommand{\@test}{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex
+T 25 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \newcommand\@test{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 17 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \makeatother
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+L 
+L \renewcommand{\test}{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 14 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 15 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 25 text.tex.latex meta.parameter.newcommand.latex
+T 26 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \renewcommand\test{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 14 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L 
+L \makeatletter
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 13 text.tex.latex support.function.general.tex
+L \renewcommand{\@test}{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 14 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 15 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex meta.parameter.newcommand.latex
+T 27 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \renewcommand\@test{Test}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 14 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex
+T 25 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \makeatother
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+L 
+L \newenvironment{subeqnarray}{%
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex.latex support.function.general.tex
+T 29 text.tex.latex
+T 30 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \subequations
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex.latex support.function.general.tex
+L   \@ifnextchar\label{\@lab@subeqnarray}{\eqnarray}
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex.latex support.function.general.tex
+T 15 text.tex.latex meta.definition.label.latex keyword.control.label.latex punctuation.definition.keyword.latex
+T 20 text.tex.latex meta.definition.label.latex keyword.control.label.latex
+T 21 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.definition.label.latex
+T 26 text.tex.latex meta.definition.label.latex variable.parameter.definition.label.latex
+T 27 text.tex.latex meta.definition.label.latex
+T 38 text.tex.latex meta.definition.label.latex variable.parameter.definition.label.latex
+T 39 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.end.latex
+T 40 text.tex.latex
+T 41 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 49 text.tex.latex support.function.general.tex
+T 50 text.tex.latex
+L   }{%
+T 4 text.tex.latex
+T 5 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L   \endeqnarray\endsubequations
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 14 text.tex.latex support.function.general.tex
+T 15 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 30 text.tex.latex support.function.general.tex
+L   }
+T 3 text.tex.latex
+L 
+L \NewDocumentCommand\chapter{s o m} {%
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 19 text.tex.latex support.function.general.tex
+T 20 text.tex.latex meta.function.section.chapter.latex support.function.section.latex punctuation.definition.function.latex
+T 27 text.tex.latex meta.function.section.chapter.latex support.function.section.latex
+T 28 text.tex.latex meta.function.section.chapter.latex punctuation.definition.arguments.begin.latex
+T 33 text.tex.latex meta.function.section.chapter.latex entity.name.section.latex
+T 34 text.tex.latex meta.function.section.chapter.latex punctuation.definition.arguments.end.latex
+T 36 text.tex.latex
+T 37 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L \IfBooleanTF{#1}%
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 12 text.tex.latex support.function.general.tex
+T 16 text.tex.latex
+T 17 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L {\typesetstarchapter{#3}}%
+T 1 text.tex.latex
+T 2 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 20 text.tex.latex support.function.general.tex
+T 25 text.tex.latex
+T 26 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L {\typesetnormalchapter{#2}{#3}}%
+T 1 text.tex.latex
+T 2 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 22 text.tex.latex support.function.general.tex
+T 31 text.tex.latex
+T 32 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+L }
+T 1 text.tex.latex
+L 

@@ -1,0 +1,247 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \usepackage{t1enc}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 12 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 17 text.tex.latex meta.preamble.latex support.class.latex
+T 18 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \usepackage[utf8]{inputenc}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 12 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.preamble.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 17 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 18 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex meta.preamble.latex support.class.latex
+T 27 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{tabular}[lcc]
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex punctuation.definition.brackets.tex
+T 19 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 20 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex punctuation.definition.brackets.tex
+L   a & b & c
+T 4 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 5 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex keyword.control.table.cell.latex
+T 8 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 9 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex keyword.control.table.cell.latex
+T 11 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+L   \hline
+T 2 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 3 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex support.function.general.tex punctuation.definition.function.tex
+T 8 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex support.function.general.tex
+L \end{tabular}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{itemize}
+T 1 text.tex.latex meta.function.environment.list.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.list.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.list.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.end.latex
+L   \item First item
+T 2 text.tex.latex meta.function.environment.list.latex
+T 3 text.tex.latex meta.function.environment.list.latex meta.scope.item.latex keyword.other.item.latex punctuation.definition.keyword.latex
+T 7 text.tex.latex meta.function.environment.list.latex meta.scope.item.latex keyword.other.item.latex
+T 8 text.tex.latex meta.function.environment.list.latex meta.space-after-command.latex
+T 18 text.tex.latex meta.function.environment.list.latex
+L   \item A second item on two 
+T 2 text.tex.latex meta.function.environment.list.latex
+T 3 text.tex.latex meta.function.environment.list.latex meta.scope.item.latex keyword.other.item.latex punctuation.definition.keyword.latex
+T 7 text.tex.latex meta.function.environment.list.latex meta.scope.item.latex keyword.other.item.latex
+T 8 text.tex.latex meta.function.environment.list.latex meta.space-after-command.latex
+T 29 text.tex.latex meta.function.environment.list.latex
+L   lines
+T 7 text.tex.latex meta.function.environment.list.latex
+L \end{itemize}
+T 1 text.tex.latex meta.function.environment.list.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.list.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.list.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{verbatim*}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 7 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 17 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L   Some multi_line
+T 17 text.tex.latex meta.function.verbatim.latex markup.raw.verbatim.latex
+L   verbatim text
+T 15 text.tex.latex meta.function.verbatim.latex markup.raw.verbatim.latex
+L \end{verbatim*}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 5 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{VerbatimOut}{verfile.out}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 7 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 19 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 32 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L   some text to output
+T 21 text.tex.latex meta.function.verbatim.latex markup.raw.verbatim.latex
+L   to a file
+T 11 text.tex.latex meta.function.verbatim.latex markup.raw.verbatim.latex
+L \end{VerbatimOut}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 5 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 17 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{alltt}
+T 1 text.tex.latex meta.function.alltt.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.alltt.latex support.function.be.latex
+T 7 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.alltt.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.end.latex
+L   Some content \\
+T 17 text.tex.latex meta.function.alltt.latex markup.raw.verbatim.latex
+L   And a new line
+T 16 text.tex.latex meta.function.alltt.latex markup.raw.verbatim.latex
+L \end{alltt}
+T 1 text.tex.latex meta.function.alltt.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.alltt.latex support.function.be.latex
+T 5 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.alltt.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{mpost}
+T 1 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex
+T 7 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.latex.mpost variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.end.latex
+L   Some content
+T 14 text.tex.latex meta.function.environment.latex.mpost
+L \end{mpost}
+T 1 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex
+T 5 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.environment.latex.mpost variable.parameter.function.latex
+T 11 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.end.latex
+L 
+L \begin{mpost*}
+T 1 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex
+T 7 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.latex.mpost variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.end.latex
+L   Some content
+T 14 text.tex.latex meta.function.environment.latex.mpost
+L \end{mpost*}
+T 1 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex
+T 5 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex meta.function.environment.latex.mpost variable.parameter.function.latex
+T 12 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.end.latex
+L 
+L \begin{personnalEnv}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 20 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L   some more content
+T 19 text.tex.latex meta.function.environment.general.latex
+L \end{personnalEnv}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 17 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 18 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{markdown}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L   some markdown _code_
+T 22 text.tex.latex meta.function.environment.general.latex
+L   with a \LaTeX equation $1 +2 = 3$.
+T 9 text.tex.latex meta.function.environment.general.latex
+T 10 text.tex.latex meta.function.environment.general.latex support.function.general.tex punctuation.definition.function.tex
+T 15 text.tex.latex meta.function.environment.general.latex support.function.general.tex
+T 16 text.tex.latex meta.function.environment.general.latex meta.space-after-command.latex
+T 25 text.tex.latex meta.function.environment.general.latex
+T 26 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 27 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 28 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex
+T 29 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 30 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 33 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex
+T 34 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 35 text.tex.latex meta.function.environment.general.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 36 text.tex.latex meta.function.environment.general.latex
+L \end{markdown}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L 
+L % Require \usepackage{tabularray}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 33 text.tex.latex comment.line.percentage.tex
+L % \UseTblrLibrary{booktabs}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 27 text.tex.latex comment.line.percentage.tex
+L \begin{booktabs}{ll}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+L   foo & bar\\
+T 6 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex keyword.control.table.cell.latex
+T 11 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 13 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex keyword.control.table.newline.latex
+L   new & line
+T 6 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex keyword.control.table.cell.latex
+T 12 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+L \end{booktabs}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

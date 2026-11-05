@@ -1,0 +1,213 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{py}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex variable.parameter.function.latex
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+L   def f():
+T 2 text.tex.latex source.python meta.function.python
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 10 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return "Hello world"
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 23 text.tex.latex source.python string.quoted.single.python
+T 24 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+L   f()
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python meta.function-call.python meta.function-call.generic.python
+T 4 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 5 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.end.python
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{pycode}{
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex punctuation.definition.arguments.begin.latex
+L   linenos=false, frame=single
+T 29 text.tex.latex variable.parameter.function.latex
+L }
+T 1 text.tex.latex punctuation.definition.arguments.end.latex
+L   def f():
+T 2 text.tex.latex source.python meta.function.python
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 10 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return "Hello world"
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 23 text.tex.latex source.python string.quoted.single.python
+T 24 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+L   f()
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python meta.function-call.python meta.function-call.generic.python
+T 4 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 5 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.end.python
+L \end{pycode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{pyblock*}[session][
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex punctuation.definition.arguments.optional.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.optional.end.latex
+T 26 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+L   linenos=false, frame=single
+T 29 text.tex.latex meta.parameter.optional.latex
+L ]
+T 1 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+L   def f():
+T 2 text.tex.latex source.python meta.function.python
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 10 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return "Hello world"
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 23 text.tex.latex source.python string.quoted.single.python
+T 24 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+L   f()
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python meta.function-call.python meta.function-call.generic.python
+T 4 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 5 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.end.python
+L \end{pyblock*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{sageverbatim*}{
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex variable.parameter.function.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+T 22 text.tex.latex punctuation.definition.arguments.begin.latex
+L   linenos=false, frame=single
+T 29 text.tex.latex variable.parameter.function.latex
+L }
+T 1 text.tex.latex punctuation.definition.arguments.end.latex
+L   def f():
+T 2 text.tex.latex source.python meta.function.python
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 10 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return "Hello world"
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 23 text.tex.latex source.python string.quoted.single.python
+T 24 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+L   f()
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python meta.function-call.python meta.function-call.generic.python
+T 4 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 5 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.end.python
+L \end{sageverbatim*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{sympyconsole*}{linenos=false, frame=single}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex variable.parameter.function.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+T 22 text.tex.latex punctuation.definition.arguments.begin.latex
+T 49 text.tex.latex variable.parameter.function.latex
+T 50 text.tex.latex punctuation.definition.arguments.end.latex
+L   def f():
+T 2 text.tex.latex source.python meta.function.python
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 10 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return "Hello world"
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 23 text.tex.latex source.python string.quoted.single.python
+T 24 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+L   f()
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python meta.function-call.python meta.function-call.generic.python
+T 4 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 5 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.end.python
+L \end{sympyconsole*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

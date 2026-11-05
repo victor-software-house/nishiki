@@ -85,6 +85,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | JSX | `Language::Jsx` | `lang-jsx` | `all` | `jsx` |
 | Julia | `Language::Julia` | `lang-julia` | `all` | `julia`, `jl` |
 | Kotlin | `Language::Kotlin` | `lang-kotlin` | `all` | `kotlin`, `kt`, `kts` |
+| LaTeX | `Language::Latex` | `lang-latex` | `all` | `latex` |
 | Less | `Language::Less` | `lang-less` | `all` | `less` |
 | Lua | `Language::Lua` | `lang-lua` | `all` | `lua` |
 | Makefile | `Language::Make` | `lang-make` | `all` | `make`, `makefile` |

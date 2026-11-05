@@ -20,6 +20,7 @@ extend-exclude = [
   "src/haml/grammar.rs",
   "src/html/words.rs",
   "src/julia/grammar.rs",
+  "src/latex/grammar.rs",
   "src/less/words.rs",
   "src/matlab/grammar.rs",
   "src/mermaid/grammar.rs",
@@ -34,6 +35,8 @@ extend-exclude = [
 # Unicode general-category codes, such as Nd, which are not words.
 [default.extend-words]
 nd = "nd"
+# amsmath's `multline` environment, which the latex grammar names.
+multline = "multline"
 # SQL Server's `iif` function, which the sql grammar names.
 iif = "iif"
 # The shellscript grammar names a rule `normal_statement_seperator`, and

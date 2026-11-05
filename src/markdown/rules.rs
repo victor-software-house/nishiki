@@ -524,6 +524,8 @@ const EMBEDDED: &[(Language, &[S])] = &[
     (Language::Jsx, &[S::EmbeddedJavascript]),
     #[cfg(feature = "lang-julia")]
     (Language::Julia, &[S::EmbeddedJulia]),
+    #[cfg(feature = "lang-latex")]
+    (Language::Latex, &[S::EmbeddedLatex]),
     #[cfg(feature = "lang-less")]
     (Language::Less, &[S::EmbeddedLess]),
     #[cfg(feature = "lang-lua")]

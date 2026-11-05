@@ -1,0 +1,47 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{ruby}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L   puts 'Hello World!'
+T 2 text.tex.latex source.ruby
+T 6 text.tex.latex source.ruby support.function.kernel.ruby
+T 7 text.tex.latex source.ruby
+T 8 text.tex.latex source.ruby string.quoted.single.ruby punctuation.definition.string.begin.ruby
+T 20 text.tex.latex source.ruby string.quoted.single.ruby
+T 21 text.tex.latex source.ruby string.quoted.single.ruby punctuation.definition.string.end.ruby
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

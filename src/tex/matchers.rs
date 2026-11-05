@@ -280,7 +280,7 @@ impl<G: Grammar> Lexer<'_, G> {
     fn tex_listed_command(&mut self, p: usize, list: u32) -> Option<usize> {
         let name = self.lit(p, b"\\")?;
         let end = self.skip(name, Self::tex_command_letter);
-        (listed(self.text(name, end)) & list != 0).then(|| {
+        (listed(self.text(name, end), WORD_BYTES, &WORD_ENDS, &WORD_LISTS) & list != 0).then(|| {
             self.cap(1, p, name);
             end
         })
@@ -291,7 +291,7 @@ impl<G: Grammar> Lexer<'_, G> {
     fn tex_listed_word(&mut self, p: usize, list: u32) -> Option<usize> {
         let name = self.lit(p, b"\\")?;
         let end = self.word_end(name);
-        (listed(self.text(name, end)) & list != 0).then(|| {
+        (listed(self.text(name, end), WORD_BYTES, &WORD_ENDS, &WORD_LISTS) & list != 0).then(|| {
             self.cap(1, p, name);
             end
         })
@@ -370,21 +370,33 @@ impl<G: Grammar> Lexer<'_, G> {
     }
 }
 
-/// The lists `word` belongs to, from the sorted table of the grammar's long
+/// The lists `word` belongs to, from a sorted table of a grammar's long
 /// alternations; 0 for a word in none.
-fn listed(word: &[u8]) -> u32 {
+///
+/// The table is a generated `words` module.
+/// `bytes` holds its words end to end, `ends` where each ends, and `lists`
+/// the lists of each.
+/// LaTeX reads its own table with it.
+/// The arrays' length `N` is a constant: taking the tables as slices cost
+/// TeX 1.2% at one codegen unit.
+pub(crate) fn listed<const N: usize>(
+    word: &[u8],
+    bytes: &[u8],
+    ends: &[u16; N],
+    lists: &[u32; N],
+) -> u32 {
     let mut low = 0;
-    let mut high = WORD_ENDS.len();
+    let mut high = N;
     while low < high {
         let mid = low + (high - low) / 2;
         let start = mid
             .checked_sub(1)
-            .map_or(0, |before| usize::from(WORD_ENDS[before]));
-        let entry = &WORD_BYTES[start..usize::from(WORD_ENDS[mid])];
+            .map_or(0, |before| usize::from(ends[before]));
+        let entry = &bytes[start..usize::from(ends[mid])];
         match crate::bytes::order(entry, word) {
             std::cmp::Ordering::Less => low = mid + 1,
             std::cmp::Ordering::Greater => high = mid,
-            std::cmp::Ordering::Equal => return WORD_LISTS[mid],
+            std::cmp::Ordering::Equal => return lists[mid],
         }
     }
     0

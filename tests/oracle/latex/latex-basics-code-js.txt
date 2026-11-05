@@ -1,0 +1,132 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{js}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex variable.parameter.function.latex
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+L   const fs = require('fake')
+T 2 text.tex.latex source.js
+T 7 text.tex.latex source.js meta.var.expr.js storage.type.js
+T 8 text.tex.latex source.js meta.var.expr.js
+T 10 text.tex.latex source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 11 text.tex.latex source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 12 text.tex.latex source.js meta.var.expr.js keyword.operator.assignment.js
+T 13 text.tex.latex source.js meta.var.expr.js
+T 20 text.tex.latex source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 21 text.tex.latex source.js meta.var.expr.js meta.brace.round.js
+T 22 text.tex.latex source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 26 text.tex.latex source.js meta.var.expr.js string.quoted.single.js
+T 27 text.tex.latex source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 28 text.tex.latex source.js meta.var.expr.js meta.brace.round.js
+L   function main(i) {
+T 2 text.tex.latex source.js
+T 10 text.tex.latex source.js meta.function.js storage.type.function.js
+T 11 text.tex.latex source.js meta.function.js
+T 15 text.tex.latex source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 16 text.tex.latex source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 17 text.tex.latex source.js meta.function.js meta.parameters.js variable.parameter.js
+T 18 text.tex.latex source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 19 text.tex.latex source.js meta.function.js
+T 20 text.tex.latex source.js meta.function.js meta.block.js punctuation.definition.block.js
+L     return i + 1
+T 4 text.tex.latex source.js meta.function.js meta.block.js
+T 10 text.tex.latex source.js meta.function.js meta.block.js keyword.control.flow.js
+T 11 text.tex.latex source.js meta.function.js meta.block.js
+T 12 text.tex.latex source.js meta.function.js meta.block.js variable.other.readwrite.js
+T 13 text.tex.latex source.js meta.function.js meta.block.js
+T 14 text.tex.latex source.js meta.function.js meta.block.js keyword.operator.arithmetic.js
+T 15 text.tex.latex source.js meta.function.js meta.block.js
+T 16 text.tex.latex source.js meta.function.js meta.block.js constant.numeric.decimal.js
+L   }
+T 2 text.tex.latex source.js meta.function.js meta.block.js
+T 3 text.tex.latex source.js meta.function.js meta.block.js punctuation.definition.block.js
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{javascript}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 34 text.tex.latex variable.parameter.function.latex
+T 35 text.tex.latex punctuation.definition.arguments.end.latex
+L   const fs = require('fake')
+T 2 text.tex.latex source.js
+T 7 text.tex.latex source.js meta.var.expr.js storage.type.js
+T 8 text.tex.latex source.js meta.var.expr.js
+T 10 text.tex.latex source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 11 text.tex.latex source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 12 text.tex.latex source.js meta.var.expr.js keyword.operator.assignment.js
+T 13 text.tex.latex source.js meta.var.expr.js
+T 20 text.tex.latex source.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 21 text.tex.latex source.js meta.var.expr.js meta.brace.round.js
+T 22 text.tex.latex source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.begin.js
+T 26 text.tex.latex source.js meta.var.expr.js string.quoted.single.js
+T 27 text.tex.latex source.js meta.var.expr.js string.quoted.single.js punctuation.definition.string.end.js
+T 28 text.tex.latex source.js meta.var.expr.js meta.brace.round.js
+L   function main(i) {
+T 2 text.tex.latex source.js
+T 10 text.tex.latex source.js meta.function.js storage.type.function.js
+T 11 text.tex.latex source.js meta.function.js
+T 15 text.tex.latex source.js meta.function.js meta.definition.function.js entity.name.function.js
+T 16 text.tex.latex source.js meta.function.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 17 text.tex.latex source.js meta.function.js meta.parameters.js variable.parameter.js
+T 18 text.tex.latex source.js meta.function.js meta.parameters.js punctuation.definition.parameters.end.js
+T 19 text.tex.latex source.js meta.function.js
+T 20 text.tex.latex source.js meta.function.js meta.block.js punctuation.definition.block.js
+L     return i + 1
+T 4 text.tex.latex source.js meta.function.js meta.block.js
+T 10 text.tex.latex source.js meta.function.js meta.block.js keyword.control.flow.js
+T 11 text.tex.latex source.js meta.function.js meta.block.js
+T 12 text.tex.latex source.js meta.function.js meta.block.js variable.other.readwrite.js
+T 13 text.tex.latex source.js meta.function.js meta.block.js
+T 14 text.tex.latex source.js meta.function.js meta.block.js keyword.operator.arithmetic.js
+T 15 text.tex.latex source.js meta.function.js meta.block.js
+T 16 text.tex.latex source.js meta.function.js meta.block.js constant.numeric.decimal.js
+L   }
+T 2 text.tex.latex source.js meta.function.js meta.block.js
+T 3 text.tex.latex source.js meta.function.js meta.block.js punctuation.definition.block.js
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

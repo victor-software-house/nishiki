@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 19
-digest = "15893f1a56bb41c1648af1c13195d1f90b231a307bb248eb3c3870ed4c2469e2"
+version = 20
+digest = "1265c0715b188909e5bf6e4bcb4f09670f7f9e727c382d772d5b79ec2cea6108"
 
 [[file]]
 language = "asm"
@@ -788,6 +788,28 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/arrow-kt/arrow/blob/e7732869702053fa103ffcb173a3b35d99b62530/LICENSE"
 bytes = 23842
 sha256 = "891d11ef6f3b5dbcad2fe7df981918feb7e9a6e6763d27d38297e65e6f9d3446"
+
+[[file]]
+language = "latex"
+tier = "small"
+origin = "neutral"
+path = "latex/small/thoma-gaussian-elimination.tex"
+source = "https://raw.githubusercontent.com/MartinThoma/LaTeX-examples/f9236c5fe5d47f19822fcb11097df27355562314/source-code/Pseudocode/Gaussian-elimination/Gaussian-elimination.tex"
+licence = "MIT"
+licence_source = "https://github.com/MartinThoma/LaTeX-examples/blob/f9236c5fe5d47f19822fcb11097df27355562314/LICENSE"
+bytes = 2634
+sha256 = "00edfe892b3bbdd7c9a4b6c092cea4b9806501ef31a8029359df12b73510f6d0"
+
+[[file]]
+language = "latex"
+tier = "medium"
+origin = "neutral"
+path = "latex/medium/thoma-hasy-content.tex"
+source = "https://raw.githubusercontent.com/MartinThoma/LaTeX-examples/f9236c5fe5d47f19822fcb11097df27355562314/publications/hasy/content.tex"
+licence = "MIT"
+licence_source = "https://github.com/MartinThoma/LaTeX-examples/blob/f9236c5fe5d47f19822fcb11097df27355562314/LICENSE"
+bytes = 23461
+sha256 = "23605986f58372adae92ac109c70687d5d21996b2a310d1d7e4eb4d7442e3d06"
 
 [[file]]
 language = "less"

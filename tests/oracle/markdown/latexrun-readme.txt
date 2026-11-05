@@ -285,11 +285,30 @@ L analysis is fragile.  Simple things like
 T 40 text.html.markdown meta.paragraph.markdown
 L ```latex
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language
+T 8 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
 L     \newcommand{\includegraph}[1]{\includegraphics{graph/#1.pdf}}
-T 65 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex support.function.general.latex
+T 30 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 31 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.begin.latex
+T 32 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex
+T 33 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.end.latex
+T 34 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 35 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex support.function.general.tex punctuation.definition.function.tex
+T 50 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex support.function.general.tex
+T 51 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex meta.group.braces.latex punctuation.group.begin.latex
+T 63 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 64 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex meta.group.braces.latex punctuation.group.end.latex
+T 65 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
 L     \includegraph{results}
-T 26 text.html.markdown markup.fenced_code.block.markdown
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex support.function.general.tex punctuation.definition.function.tex
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex support.function.general.tex
+T 26 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.latex
 L ```
 T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
 L break Rubber's dependency analysis.

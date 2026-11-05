@@ -1,0 +1,87 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{xml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex variable.parameter.function.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L   <article xmlns="http://docbook.org/ns/docbook">
+T 2 text.tex.latex text.xml
+T 3 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.tex.latex text.xml meta.tag.xml
+T 16 text.tex.latex text.xml meta.tag.xml entity.other.attribute-name.localname.xml
+T 17 text.tex.latex text.xml meta.tag.xml
+T 18 text.tex.latex text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+T 47 text.tex.latex text.xml meta.tag.xml string.quoted.double.xml
+T 48 text.tex.latex text.xml meta.tag.xml string.quoted.double.xml punctuation.definition.string.end.xml
+T 49 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <title>Extensible Markup Language</title>
+T 4 text.tex.latex text.xml
+T 5 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 37 text.tex.latex text.xml
+T 39 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 44 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 45 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+L     <para>
+T 4 text.tex.latex text.xml
+T 5 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 9 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 10 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+L       <acronym>XML</acronym> (Extensible Markup Language, « langage de balisage extensible »)...
+T 6 text.tex.latex text.xml
+T 7 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 14 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 15 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 18 text.tex.latex text.xml
+T 20 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 27 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 28 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 98 text.tex.latex text.xml
+L     </para>
+T 4 text.tex.latex text.xml
+T 6 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 10 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 11 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+L   </article>
+T 2 text.tex.latex text.xml
+T 4 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+T 11 text.tex.latex text.xml meta.tag.xml entity.name.tag.localname.xml
+T 12 text.tex.latex text.xml meta.tag.xml punctuation.definition.tag.xml
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

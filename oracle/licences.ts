@@ -134,6 +134,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.md",
   },
+  latex: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "jlelong/vscode-latex-basics",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
   make: {
     bundled: "microsoft/vscode@91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5",
     origin: "fadeevab/make.tmbundle",

@@ -47,6 +47,7 @@ cargo check --locked --tests --no-default-features --features lang-json
 cargo check --locked --tests --no-default-features --features lang-jsx
 cargo check --locked --tests --no-default-features --features lang-julia
 cargo check --locked --tests --no-default-features --features lang-kotlin
+cargo check --locked --tests --no-default-features --features lang-latex
 cargo check --locked --tests --no-default-features --features lang-less
 cargo check --locked --tests --no-default-features --features lang-lua
 cargo check --locked --tests --no-default-features --features lang-make

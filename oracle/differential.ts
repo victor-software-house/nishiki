@@ -184,6 +184,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["$","$$","\\$","\\\\","{","}","\\{","\\}","[","]","(",")","\\(","\\)","^","_","^^","__","+","-","*","/","=","`","`\\@","%","% c","%:","&","#","#1","~"],
     heads: ["",""," ","  ","% ","  % ","%!TEX root = ","\\iffalse","\\fi","\\ifx\\a\\b","$","$$","\\catcode`\\@=11 "],
   },
+  latex: {
+    words: ["\\begin{document}","\\end{document}","\\section","\\subsection*","\\label","\\ref","\\eqref","\\crefrange","\\cite","\\citep","\\textcite","\\parencite","\\bibentry","\\input","\\emph","\\textbf","\\texttt","\\footnote","\\marginpar","\\href","\\url","\\hyperref","\\newcommand","\\renewcommand*","\\usepackage","\\documentclass","\\item","\\newline","\\textdollar","\\l_my_tl","\\q_stop","\\verb","\\Verb*","\\mint","\\mintinline","\\pyinline","\\py","\\pyc","\\jl","\\directlua","\\cacheMeCode","\\addplot","gnuplot","\\beginsong","\\endsong","\\begin{minted}","\\end{minted}","\\begin{pycode}","\\end{pycode}","\\begin{juliacode}","\\end{juliacode}","\\begin{luacode}","\\end{luacode}","\\begin{verbatim}","\\end{verbatim}","\\begin{equation}","\\end{equation}","\\begin{align*}","\\end{align*}","\\begin{tabular}","\\end{tabular}","\\begin{itemize}","\\end{itemize}","\\begin{gnuplot}","\\end{gnuplot}","\\begin{CacheMeCode}","\\end{CacheMeCode}","\\begin{terminal}","\\end{terminal}","\\begin{x}","\\end{x}","\\alpha","\\frac","python","bash","js","x","é","1"],
+    marks: ["$","$$","\\(","\\)","\\[","\\]","{","}","[","]","(",")","<",">","|","+","!","&","\\&","\\\\","%","% c","^","_","\\^","~",",",":","*","=","};"],
+    heads: ["",""," ","  ","% ","\\begin{minted}{python}","\\begin{pycode}","\\begin{verbatim}","\\begin{equation}","\\begin{tabular}{cc}","\\item ","$"],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

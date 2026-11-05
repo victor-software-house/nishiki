@@ -92,6 +92,11 @@ pub(crate) struct Scratch {
     /// The Kotlin lexer's, for Kotlin documents.
     #[cfg(feature = "lang-kotlin")]
     pub(crate) kotlin: crate::kotlin::Scratch,
+    /// The LaTeX lexer's, for LaTeX documents and Markdown `latex` and `tex`
+    /// fences.
+    /// It is boxed and allocated by the first LaTeX line, as TeX's is.
+    #[cfg(feature = "lang-latex")]
+    pub(crate) latex: Option<Box<crate::latex::Scratch>>,
     /// The Less lexer's, for Less documents and Markdown Less fences.
     #[cfg(feature = "lang-less")]
     pub(crate) less: crate::less::Scratch,

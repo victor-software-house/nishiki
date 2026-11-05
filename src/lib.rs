@@ -166,7 +166,7 @@
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue, Svelte |
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
-//! | `docs` | Markdown, TeX and `config` |
+//! | `docs` | Markdown, LaTeX, TeX and `config` |
 //! | `textmate` | HAML |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
@@ -224,6 +224,7 @@ mod c;
     feature = "lang-common-lisp",
     feature = "lang-css",
     feature = "lang-haskell",
+    feature = "lang-latex",
     feature = "lang-less",
     feature = "lang-markdown",
     feature = "lang-mermaid",
@@ -297,6 +298,8 @@ mod julia;
 #[cfg(feature = "lang-kotlin")]
 mod kotlin;
 mod language;
+#[cfg(feature = "lang-latex")]
+mod latex;
 #[cfg(feature = "lang-less")]
 mod less;
 mod limits;

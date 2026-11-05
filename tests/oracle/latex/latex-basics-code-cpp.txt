@@ -1,0 +1,164 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{cpp}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 28 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L   int main(int argc, char **argv) {
+T 35 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L     return 0;
+T 13 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   }
+T 3 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+L   linenos
+T 9 text.tex.latex meta.parameter.optional.latex
+L ]{cpp}
+T 1 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 2 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 5 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 6 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L   int main(int argc, char **argv) {
+T 35 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L     return 0;
+T 13 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L   }
+T 3 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{cppcode}{
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex punctuation.definition.arguments.begin.latex
+L   linenos=false, frame=single
+T 29 text.tex.latex variable.parameter.function.latex
+L }
+T 1 text.tex.latex punctuation.definition.arguments.end.latex
+L   int main(int argc, char **argv) {
+T 35 text.tex.latex
+L     return 0;
+T 13 text.tex.latex
+L   }
+T 3 text.tex.latex
+L \end{cppcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{cppcode*}[
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+L   linenos=false, frame=single
+T 29 text.tex.latex meta.parameter.optional.latex
+L ]
+T 1 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+L   int main(int argc, char **argv) {
+T 35 text.tex.latex
+L     return 0;
+T 13 text.tex.latex
+L   }
+T 3 text.tex.latex
+L \end{cppcode*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{cppcode}{linenos=false, frame=single}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex punctuation.definition.arguments.begin.latex
+T 43 text.tex.latex variable.parameter.function.latex
+T 44 text.tex.latex punctuation.definition.arguments.end.latex
+L   int main(int argc, char **argv) {
+T 35 text.tex.latex
+L     return 0;
+T 13 text.tex.latex
+L   }
+T 3 text.tex.latex
+L \end{cppcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{cppcode*}{linenos=false, frame=single}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex punctuation.definition.arguments.begin.latex
+T 44 text.tex.latex variable.parameter.function.latex
+T 45 text.tex.latex punctuation.definition.arguments.end.latex
+L   int main(int argc, char **argv) {
+T 35 text.tex.latex
+L     return 0;
+T 13 text.tex.latex
+L   }
+T 3 text.tex.latex
+L \end{cppcode*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

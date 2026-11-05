@@ -1228,6 +1228,43 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
+## LaTeX
+
+Its LaTeX lexer emits the scope names of the LaTeX TextMate grammar in [jlelong/vscode-latex-basics](https://github.com/jlelong/vscode-latex-basics), which Shiki bundles as `latex`, and tries that grammar's rules in its order, from tables generated from it (`src/latex/grammar.rs` and `src/latex/words.rs`).
+Shiki takes it from [microsoft/vscode](https://github.com/microsoft/vscode) at commit `af600487b1e94374d9f48f57cbf2cad24656b07f`, `extensions/latex/syntaxes/LaTeX.tmLanguage.json`, which vscode converts from that repository.
+That repository is licensed under the MIT License, in its `LICENSE.txt`:
+
+```text
+The MIT License (MIT)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+Its README says the LaTeX grammar is based on [textmate/latex.tmbundle](https://github.com/textmate/latex.tmbundle)'s `Syntaxes/LaTeX.plist`, whose licence it quotes:
+
+```text
+Permission to copy, use, modify, sell and distribute this
+software is granted. This software is provided "as is" without
+express or implied warranty, and with no claim as to its
+suitability for any purpose.
+```
+
 ## Less
 
 Its Less lexer emits the scope names of the Less TextMate grammar that Shiki bundles through VS Code as `less` (`extensions/less` in [microsoft/vscode](https://github.com/microsoft/vscode)), which VS Code converted from [radium-v/Better-Less](https://github.com/radium-v/Better-Less) at commit `63c0cba9792e49e255cce0f6dd03250fb30591e6`, and tries that grammar's rules in its order.

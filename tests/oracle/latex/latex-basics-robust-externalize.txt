@@ -1,0 +1,384 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{CacheMeCode}{c}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L   int main() {
+T 14 text.tex.latex
+L     return 1;
+T 13 text.tex.latex
+L   }
+T 3 text.tex.latex
+L   \end{CacheMeCode}
+T 2 text.tex.latex
+T 3 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L % \begin{CacheMeCode}{ploof}[scale]
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 35 text.tex.latex comment.line.percentage.tex
+L %   plot 'test.dat' using 1:($2-1)
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 34 text.tex.latex comment.line.percentage.tex
+L % \end{CacheMeCode}
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 19 text.tex.latex comment.line.percentage.tex
+L 
+L \begin{CacheMeCode}{bash, tikz terminal}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 39 text.tex.latex
+T 40 text.tex.latex punctuation.definition.arguments.end.latex
+L   echo 'test.dat'
+T 2 text.tex.latex
+T 7 text.tex.latex source.shell
+T 8 text.tex.latex source.shell string.quoted.single.shell punctuation.definition.string.begin.shell
+T 16 text.tex.latex source.shell string.quoted.single.shell
+T 17 text.tex.latex source.shell string.quoted.single.shell punctuation.definition.string.end.shell
+L   exit 0
+T 2 text.tex.latex source.shell meta.statement.shell
+T 6 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 7 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 8 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell constant.numeric.shell constant.numeric.integer.shell
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{figure}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L   \begin{CacheMeCode}{python matplotlib, add to preamble={\def\hello#1{Hello #1!}}}
+T 2 text.tex.latex meta.function.environment.general.latex
+T 3 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 8 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 9 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 21 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+T 22 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex meta.function.environment.general.latex
+T 57 text.tex.latex meta.function.environment.general.latex
+T 58 text.tex.latex meta.function.environment.general.latex meta.group.braces.tex punctuation.group.begin.tex
+T 70 text.tex.latex meta.function.environment.general.latex meta.group.braces.tex
+T 71 text.tex.latex meta.function.environment.general.latex meta.group.braces.tex meta.group.braces.tex punctuation.group.begin.tex
+T 80 text.tex.latex meta.function.environment.general.latex meta.group.braces.tex meta.group.braces.tex
+T 81 text.tex.latex meta.function.environment.general.latex meta.group.braces.tex meta.group.braces.tex punctuation.group.end.tex
+T 82 text.tex.latex meta.function.environment.general.latex meta.group.braces.tex punctuation.group.end.tex
+T 83 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L     def f(p: string):
+T 4 text.tex.latex meta.function.environment.general.latex
+T 7 text.tex.latex meta.function.environment.general.latex source.python meta.function.python storage.type.function.python
+T 8 text.tex.latex meta.function.environment.general.latex source.python meta.function.python
+T 9 text.tex.latex meta.function.environment.general.latex source.python meta.function.python entity.name.function.python
+T 10 text.tex.latex meta.function.environment.general.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 11 text.tex.latex meta.function.environment.general.latex source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 12 text.tex.latex meta.function.environment.general.latex source.python meta.function.python meta.function.parameters.python punctuation.separator.annotation.python
+T 13 text.tex.latex meta.function.environment.general.latex source.python meta.function.python meta.function.parameters.python
+T 19 text.tex.latex meta.function.environment.general.latex source.python meta.function.python meta.function.parameters.python
+T 20 text.tex.latex meta.function.environment.general.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 21 text.tex.latex meta.function.environment.general.latex source.python meta.function.python punctuation.section.function.begin.python
+L       return [x + p for x in ('a', 'b')]
+T 6 text.tex.latex meta.function.environment.general.latex source.python
+T 12 text.tex.latex meta.function.environment.general.latex source.python keyword.control.flow.python
+T 13 text.tex.latex meta.function.environment.general.latex source.python
+T 14 text.tex.latex meta.function.environment.general.latex source.python punctuation.definition.list.begin.python
+T 15 text.tex.latex meta.function.environment.general.latex source.python
+T 16 text.tex.latex meta.function.environment.general.latex source.python
+T 17 text.tex.latex meta.function.environment.general.latex source.python keyword.operator.arithmetic.python
+T 18 text.tex.latex meta.function.environment.general.latex source.python
+T 19 text.tex.latex meta.function.environment.general.latex source.python
+T 20 text.tex.latex meta.function.environment.general.latex source.python
+T 23 text.tex.latex meta.function.environment.general.latex source.python keyword.control.flow.python
+T 24 text.tex.latex meta.function.environment.general.latex source.python
+T 25 text.tex.latex meta.function.environment.general.latex source.python
+T 26 text.tex.latex meta.function.environment.general.latex source.python
+T 28 text.tex.latex meta.function.environment.general.latex source.python keyword.control.flow.python
+T 29 text.tex.latex meta.function.environment.general.latex source.python
+T 30 text.tex.latex meta.function.environment.general.latex source.python punctuation.parenthesis.begin.python
+T 31 text.tex.latex meta.function.environment.general.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 32 text.tex.latex meta.function.environment.general.latex source.python string.quoted.single.python
+T 33 text.tex.latex meta.function.environment.general.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 34 text.tex.latex meta.function.environment.general.latex source.python punctuation.separator.element.python
+T 35 text.tex.latex meta.function.environment.general.latex source.python
+T 36 text.tex.latex meta.function.environment.general.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 37 text.tex.latex meta.function.environment.general.latex source.python string.quoted.single.python
+T 38 text.tex.latex meta.function.environment.general.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 39 text.tex.latex meta.function.environment.general.latex source.python punctuation.parenthesis.end.python
+T 40 text.tex.latex meta.function.environment.general.latex source.python punctuation.definition.list.end.python
+L   \end{CacheMeCode}
+T 2 text.tex.latex meta.function.environment.general.latex
+T 3 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 19 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L \end{figure}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 12 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{RobExtCacheMeCode}{my python matplotlib, 
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 26 text.tex.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex
+T 48 text.tex.latex
+L     add to preamble={\def\hello#1{Hello #1!}}
+T 20 text.tex.latex
+T 21 text.tex.latex meta.group.braces.tex punctuation.group.begin.tex
+T 33 text.tex.latex meta.group.braces.tex
+T 34 text.tex.latex meta.group.braces.tex meta.group.braces.tex punctuation.group.begin.tex
+T 43 text.tex.latex meta.group.braces.tex meta.group.braces.tex
+T 44 text.tex.latex meta.group.braces.tex meta.group.braces.tex punctuation.group.end.tex
+T 45 text.tex.latex meta.group.braces.tex punctuation.group.end.tex
+L   }
+T 2 text.tex.latex
+T 3 text.tex.latex punctuation.definition.arguments.end.latex
+L   def f(p: string):
+T 2 text.tex.latex
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 10 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.separator.annotation.python
+T 11 text.tex.latex source.python meta.function.python meta.function.parameters.python
+T 17 text.tex.latex source.python meta.function.python meta.function.parameters.python
+T 18 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 19 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return [x + p for x in ('a', 'b')]
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python punctuation.definition.list.begin.python
+T 13 text.tex.latex source.python
+T 14 text.tex.latex source.python
+T 15 text.tex.latex source.python keyword.operator.arithmetic.python
+T 16 text.tex.latex source.python
+T 17 text.tex.latex source.python
+T 18 text.tex.latex source.python
+T 21 text.tex.latex source.python keyword.control.flow.python
+T 22 text.tex.latex source.python
+T 23 text.tex.latex source.python
+T 24 text.tex.latex source.python
+T 26 text.tex.latex source.python keyword.control.flow.python
+T 27 text.tex.latex source.python
+T 28 text.tex.latex source.python punctuation.parenthesis.begin.python
+T 29 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 30 text.tex.latex source.python string.quoted.single.python
+T 31 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 32 text.tex.latex source.python punctuation.separator.element.python
+T 33 text.tex.latex source.python
+T 34 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 35 text.tex.latex source.python string.quoted.single.python
+T 36 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 37 text.tex.latex source.python punctuation.parenthesis.end.python
+T 38 text.tex.latex source.python punctuation.definition.list.end.python
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{CacheMe}{tikzpicture}[scale=0.6]
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+T 28 text.tex.latex meta.function.environment.general.latex
+T 29 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 38 text.tex.latex meta.function.environment.general.latex
+T 39 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+L   \draw[gray, thick] (-1,2) -- (2,-4);
+T 2 text.tex.latex meta.function.environment.general.latex
+T 3 text.tex.latex meta.function.environment.general.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex meta.function.environment.general.latex support.function.general.tex
+T 8 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 19 text.tex.latex meta.function.environment.general.latex
+T 20 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 38 text.tex.latex meta.function.environment.general.latex
+L   \draw[gray, thick] (-1,-1) -- (2,2);
+T 2 text.tex.latex meta.function.environment.general.latex
+T 3 text.tex.latex meta.function.environment.general.latex support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex meta.function.environment.general.latex support.function.general.tex
+T 8 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 19 text.tex.latex meta.function.environment.general.latex
+T 20 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 38 text.tex.latex meta.function.environment.general.latex
+L   \filldraw[black] (0,0) circle (2pt) node[anchor=west]{Intersection point};
+T 2 text.tex.latex meta.function.environment.general.latex
+T 3 text.tex.latex meta.function.environment.general.latex support.function.general.tex punctuation.definition.function.tex
+T 11 text.tex.latex meta.function.environment.general.latex support.function.general.tex
+T 12 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 17 text.tex.latex meta.function.environment.general.latex
+T 18 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 42 text.tex.latex meta.function.environment.general.latex
+T 43 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 54 text.tex.latex meta.function.environment.general.latex
+T 55 text.tex.latex meta.function.environment.general.latex punctuation.definition.brackets.tex
+T 76 text.tex.latex meta.function.environment.general.latex
+L \end{CacheMe}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{SetPlaceholderCode*}{__PYTHON_TEMP}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex variable.parameter.function.latex
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+T 28 text.tex.latex punctuation.definition.arguments.begin.latex
+T 32 text.tex.latex
+T 41 text.tex.latex
+T 42 text.tex.latex punctuation.definition.arguments.end.latex
+L def f(p: string):
+T 3 text.tex.latex source.python meta.function.python storage.type.function.python
+T 4 text.tex.latex source.python meta.function.python
+T 5 text.tex.latex source.python meta.function.python entity.name.function.python
+T 6 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 7 text.tex.latex source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.separator.annotation.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python
+T 15 text.tex.latex source.python meta.function.python meta.function.parameters.python
+T 16 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 17 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L   return [x + p for x in ('a', 'b')]
+T 2 text.tex.latex source.python
+T 8 text.tex.latex source.python keyword.control.flow.python
+T 9 text.tex.latex source.python
+T 10 text.tex.latex source.python punctuation.definition.list.begin.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python
+T 13 text.tex.latex source.python keyword.operator.arithmetic.python
+T 14 text.tex.latex source.python
+T 15 text.tex.latex source.python
+T 16 text.tex.latex source.python
+T 19 text.tex.latex source.python keyword.control.flow.python
+T 20 text.tex.latex source.python
+T 21 text.tex.latex source.python
+T 22 text.tex.latex source.python
+T 24 text.tex.latex source.python keyword.control.flow.python
+T 25 text.tex.latex source.python
+T 26 text.tex.latex source.python punctuation.parenthesis.begin.python
+T 27 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 28 text.tex.latex source.python string.quoted.single.python
+T 29 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 30 text.tex.latex source.python punctuation.separator.element.python
+T 31 text.tex.latex source.python
+T 32 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 33 text.tex.latex source.python string.quoted.single.python
+T 34 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 35 text.tex.latex source.python punctuation.parenthesis.end.python
+T 36 text.tex.latex source.python punctuation.definition.list.end.python
+L \end{SetPlaceholderCode*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{PlaceholderPathFromCode}[.py]{__PYTHON_TEMP}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 30 text.tex.latex variable.parameter.function.latex
+T 31 text.tex.latex punctuation.definition.arguments.end.latex
+T 36 text.tex.latex
+T 37 text.tex.latex punctuation.definition.arguments.begin.latex
+T 41 text.tex.latex
+T 50 text.tex.latex
+T 51 text.tex.latex punctuation.definition.arguments.end.latex
+L   def f(p: string):
+T 2 text.tex.latex
+T 5 text.tex.latex source.python meta.function.python storage.type.function.python
+T 6 text.tex.latex source.python meta.function.python
+T 7 text.tex.latex source.python meta.function.python entity.name.function.python
+T 8 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.begin.python
+T 9 text.tex.latex source.python meta.function.python meta.function.parameters.python variable.parameter.function.language.python
+T 10 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.separator.annotation.python
+T 11 text.tex.latex source.python meta.function.python meta.function.parameters.python
+T 17 text.tex.latex source.python meta.function.python meta.function.parameters.python
+T 18 text.tex.latex source.python meta.function.python meta.function.parameters.python punctuation.definition.parameters.end.python
+T 19 text.tex.latex source.python meta.function.python punctuation.section.function.begin.python
+L     return [x + p for x in ('a', 'b')]
+T 4 text.tex.latex source.python
+T 10 text.tex.latex source.python keyword.control.flow.python
+T 11 text.tex.latex source.python
+T 12 text.tex.latex source.python punctuation.definition.list.begin.python
+T 13 text.tex.latex source.python
+T 14 text.tex.latex source.python
+T 15 text.tex.latex source.python keyword.operator.arithmetic.python
+T 16 text.tex.latex source.python
+T 17 text.tex.latex source.python
+T 18 text.tex.latex source.python
+T 21 text.tex.latex source.python keyword.control.flow.python
+T 22 text.tex.latex source.python
+T 23 text.tex.latex source.python
+T 24 text.tex.latex source.python
+T 26 text.tex.latex source.python keyword.control.flow.python
+T 27 text.tex.latex source.python
+T 28 text.tex.latex source.python punctuation.parenthesis.begin.python
+T 29 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 30 text.tex.latex source.python string.quoted.single.python
+T 31 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 32 text.tex.latex source.python punctuation.separator.element.python
+T 33 text.tex.latex source.python
+T 34 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.begin.python
+T 35 text.tex.latex source.python string.quoted.single.python
+T 36 text.tex.latex source.python string.quoted.single.python punctuation.definition.string.end.python
+T 37 text.tex.latex source.python punctuation.parenthesis.end.python
+T 38 text.tex.latex source.python punctuation.definition.list.end.python
+L \end{PlaceholderPathFromCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

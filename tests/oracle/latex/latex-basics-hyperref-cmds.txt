@@ -1,0 +1,116 @@
+L \href[split
+T 5 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 6 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 11 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex
+L   options
+T 9 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex
+L ]{URL}{Some text and an
+T 1 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 2 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 5 text.tex.latex meta.function.hyperlink.latex markup.underline.link.latex
+T 6 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 7 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+L   extra ligne with math $1+2$
+T 24 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 25 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 26 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 27 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 28 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 29 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L } Some more text
+T 1 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex
+L \hyperimage{imageURL}{Some text
+T 11 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 12 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex meta.function.hyperlink.latex markup.underline.link.latex
+T 21 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 22 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+L   with math $1+2$
+T 12 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 13 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 14 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 15 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 16 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 17 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L }
+T 1 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+L \hyperref{URL}{category}{name}{Some text with math $1+2$}
+T 9 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 10 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.hyperlink.latex markup.underline.link.latex
+T 14 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 30 text.tex.latex meta.function.hyperlink.latex
+T 31 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 51 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 52 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 53 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 54 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 55 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 56 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 57 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+L 
+L \hyperref[A label]{Text math $1 + 2^{2}$}
+T 9 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 10 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 29 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 30 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 31 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 32 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex
+T 33 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 34 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex
+T 35 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 36 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 37 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.begin.bracket.curly.tex
+T 38 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 39 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.end.bracket.curly.tex
+T 40 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 41 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+L 
+L \hyperref[some label]{Some text
+T 9 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 10 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 20 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex
+T 21 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 22 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+L   with math $1+2$
+T 12 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 13 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 14 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 15 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 16 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex constant.numeric.math.tex
+T 17 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L }
+T 1 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+L 
+L \path{C:\windows\System32\cmd.exe}
+T 1 text.tex.latex meta.function.link.url.latex support.function.url.latex punctuation.definition.function.latex
+T 5 text.tex.latex meta.function.link.url.latex support.function.url.latex
+T 6 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.begin.latex
+T 33 text.tex.latex meta.function.link.url.latex markup.underline.link.latex
+T 34 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.end.latex
+L 
+L \url{C:\windows\System32\cmd.exe}
+T 1 text.tex.latex meta.function.link.url.latex support.function.url.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.link.url.latex support.function.url.latex
+T 5 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.begin.latex
+T 32 text.tex.latex meta.function.link.url.latex markup.underline.link.latex
+T 33 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.end.latex
+L 
+L \footnote{\path{D:\windows\System32\cmd.exe}}
+T 1 text.tex.latex support.function.footnote.latex punctuation.definition.function.latex
+T 9 text.tex.latex support.function.footnote.latex
+T 10 text.tex.latex punctuation.definition.footnote.begin.latex
+T 11 text.tex.latex entity.name.footnote.latex meta.function.link.url.latex support.function.url.latex punctuation.definition.function.latex
+T 15 text.tex.latex entity.name.footnote.latex meta.function.link.url.latex support.function.url.latex
+T 16 text.tex.latex entity.name.footnote.latex meta.function.link.url.latex punctuation.definition.arguments.begin.latex
+T 43 text.tex.latex entity.name.footnote.latex meta.function.link.url.latex markup.underline.link.latex
+T 44 text.tex.latex entity.name.footnote.latex meta.function.link.url.latex punctuation.definition.arguments.end.latex
+T 45 text.tex.latex punctuation.definition.footnote.end.latex
+L 

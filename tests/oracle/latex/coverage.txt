@@ -1,0 +1,2645 @@
+L % Every rule of the latex grammar, for the oracle's coverage report.
+T 1 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 68 text.tex.latex comment.line.percentage.tex
+L \documentclass[11pt]{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 19 text.tex.latex meta.preamble.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 20 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 21 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex meta.preamble.latex support.class.latex
+T 29 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \usepackage[utf8]{inputenc}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 12 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.preamble.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 17 text.tex.latex meta.preamble.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 18 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex meta.preamble.latex support.class.latex
+T 27 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \usepackage{amsmath,
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 12 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex meta.preamble.latex support.class.latex
+L   hyperref}
+T 10 text.tex.latex meta.preamble.latex support.class.latex
+T 11 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L \newcommand{\vect}[1]{\mathbf{#1}}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 17 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 19 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.begin.latex
+T 20 text.tex.latex meta.parameter.newcommand.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.end.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex support.function.general.tex punctuation.definition.function.tex
+T 29 text.tex.latex meta.parameter.newcommand.latex support.function.general.tex
+T 30 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex punctuation.group.begin.latex
+T 32 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex
+T 33 text.tex.latex meta.parameter.newcommand.latex meta.group.braces.latex punctuation.group.end.latex
+T 34 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \renewcommand*\abs[2][x]{|#2|}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 15 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.begin.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.optional.end.latex
+T 25 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 29 text.tex.latex meta.parameter.newcommand.latex
+T 30 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \DeclareRobustCommand{\foo}{bar}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 26 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 27 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 28 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.parameter.newcommand.latex
+T 32 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \newcommand{\bi}{\begin{itemize}}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 15 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 16 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 17 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 23 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex support.function.be.latex
+T 24 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 32 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+T 33 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \newcommand{\ei}{\end{itemize}}
+T 1 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.parameter.newcommand.latex storage.type.function.latex
+T 12 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.begin.latex
+T 13 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex punctuation.definition.function.latex
+T 15 text.tex.latex meta.parameter.newcommand.latex support.function.general.latex
+T 16 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.end.latex
+T 17 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 21 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex support.function.be.latex
+T 22 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 29 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 30 text.tex.latex meta.parameter.newcommand.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex meta.parameter.newcommand.latex punctuation.definition.arguments.end.latex
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L \section{Introduction}\label{sec:intro}
+T 1 text.tex.latex meta.function.section.section.latex support.function.section.latex punctuation.definition.function.latex
+T 8 text.tex.latex meta.function.section.section.latex support.function.section.latex
+T 9 text.tex.latex meta.function.section.section.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex meta.function.section.section.latex entity.name.section.latex
+T 22 text.tex.latex meta.function.section.section.latex punctuation.definition.arguments.end.latex
+T 23 text.tex.latex meta.definition.label.latex keyword.control.label.latex punctuation.definition.keyword.latex
+T 28 text.tex.latex meta.definition.label.latex keyword.control.label.latex
+T 29 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex meta.definition.label.latex variable.parameter.definition.label.latex
+T 39 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.end.latex
+L \subsection*[short]{A long title}
+T 1 text.tex.latex meta.function.section.subsection.latex support.function.section.latex punctuation.definition.function.latex
+T 12 text.tex.latex meta.function.section.subsection.latex support.function.section.latex
+T 13 text.tex.latex meta.function.section.subsection.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 18 text.tex.latex meta.function.section.subsection.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 19 text.tex.latex meta.function.section.subsection.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 20 text.tex.latex meta.function.section.subsection.latex punctuation.definition.arguments.begin.latex
+T 32 text.tex.latex meta.function.section.subsection.latex entity.name.section.latex
+T 33 text.tex.latex meta.function.section.subsection.latex punctuation.definition.arguments.end.latex
+L \chapter{One} \part{Two} \paragraph{Three} \frametitle{Four}
+T 1 text.tex.latex meta.function.section.chapter.latex support.function.section.latex punctuation.definition.function.latex
+T 8 text.tex.latex meta.function.section.chapter.latex support.function.section.latex
+T 9 text.tex.latex meta.function.section.chapter.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.section.chapter.latex entity.name.section.latex
+T 13 text.tex.latex meta.function.section.chapter.latex punctuation.definition.arguments.end.latex
+T 14 text.tex.latex
+T 15 text.tex.latex meta.function.section.part.latex support.function.section.latex punctuation.definition.function.latex
+T 19 text.tex.latex meta.function.section.part.latex support.function.section.latex
+T 20 text.tex.latex meta.function.section.part.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.function.section.part.latex entity.name.section.latex
+T 24 text.tex.latex meta.function.section.part.latex punctuation.definition.arguments.end.latex
+T 25 text.tex.latex
+T 26 text.tex.latex meta.function.section.paragraph.latex support.function.section.latex punctuation.definition.function.latex
+T 35 text.tex.latex meta.function.section.paragraph.latex support.function.section.latex
+T 36 text.tex.latex meta.function.section.paragraph.latex punctuation.definition.arguments.begin.latex
+T 41 text.tex.latex meta.function.section.paragraph.latex entity.name.section.latex
+T 42 text.tex.latex meta.function.section.paragraph.latex punctuation.definition.arguments.end.latex
+T 43 text.tex.latex
+T 44 text.tex.latex meta.function.section.frametitle.latex support.function.section.latex punctuation.definition.function.latex
+T 54 text.tex.latex meta.function.section.frametitle.latex support.function.section.latex
+T 55 text.tex.latex meta.function.section.frametitle.latex punctuation.definition.arguments.begin.latex
+T 59 text.tex.latex meta.function.section.frametitle.latex entity.name.section.latex
+T 60 text.tex.latex meta.function.section.frametitle.latex punctuation.definition.arguments.end.latex
+L \label[opt]{lab} \zlabel{z}
+T 1 text.tex.latex meta.definition.label.latex keyword.control.label.latex punctuation.definition.keyword.latex
+T 6 text.tex.latex meta.definition.label.latex keyword.control.label.latex
+T 7 text.tex.latex meta.definition.label.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 10 text.tex.latex meta.definition.label.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.definition.label.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 12 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.definition.label.latex variable.parameter.definition.label.latex
+T 16 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex
+T 18 text.tex.latex meta.definition.label.latex keyword.control.label.latex punctuation.definition.keyword.latex
+T 24 text.tex.latex meta.definition.label.latex keyword.control.label.latex
+T 25 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex meta.definition.label.latex variable.parameter.definition.label.latex
+T 27 text.tex.latex meta.definition.label.latex punctuation.definition.arguments.end.latex
+L Text with \emph{emphasis}, \textit{italic}, \textbf{bold} and \texttt{mono}.
+T 10 text.tex.latex
+T 11 text.tex.latex meta.function.emph.latex support.function.emph.latex punctuation.definition.function.latex
+T 15 text.tex.latex meta.function.emph.latex support.function.emph.latex
+T 16 text.tex.latex meta.function.emph.latex punctuation.definition.emph.begin.latex
+T 24 text.tex.latex meta.function.emph.latex markup.italic.emph.latex
+T 25 text.tex.latex meta.function.emph.latex punctuation.definition.emph.end.latex
+T 27 text.tex.latex
+T 28 text.tex.latex meta.function.textit.latex support.function.textit.latex punctuation.definition.function.latex
+T 34 text.tex.latex meta.function.textit.latex support.function.textit.latex
+T 35 text.tex.latex meta.function.textit.latex punctuation.definition.textit.begin.latex
+T 41 text.tex.latex meta.function.textit.latex markup.italic.textit.latex
+T 42 text.tex.latex meta.function.textit.latex punctuation.definition.textit.end.latex
+T 44 text.tex.latex
+T 45 text.tex.latex meta.function.textbf.latex support.function.textbf.latex punctuation.definition.function.latex
+T 51 text.tex.latex meta.function.textbf.latex support.function.textbf.latex
+T 52 text.tex.latex meta.function.textbf.latex punctuation.definition.textbf.begin.latex
+T 56 text.tex.latex meta.function.textbf.latex markup.bold.textbf.latex
+T 57 text.tex.latex meta.function.textbf.latex punctuation.definition.textbf.end.latex
+T 62 text.tex.latex
+T 63 text.tex.latex meta.function.texttt.latex support.function.texttt.latex punctuation.definition.function.latex
+T 69 text.tex.latex meta.function.texttt.latex support.function.texttt.latex
+T 70 text.tex.latex meta.function.texttt.latex punctuation.definition.texttt.begin.latex
+T 74 text.tex.latex meta.function.texttt.latex markup.raw.texttt.latex
+T 75 text.tex.latex meta.function.texttt.latex punctuation.definition.texttt.end.latex
+T 76 text.tex.latex
+L See \ref{sec:intro}, \eqref{eq:a}, \cref*{fig:b} and \crefrange{a}{b}.
+T 4 text.tex.latex
+T 5 text.tex.latex meta.reference.label.latex keyword.control.ref.latex punctuation.definition.keyword.latex
+T 8 text.tex.latex meta.reference.label.latex keyword.control.ref.latex
+T 9 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.reference.label.latex constant.other.reference.label.latex
+T 19 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.end.latex
+T 21 text.tex.latex
+T 22 text.tex.latex meta.reference.label.latex keyword.control.ref.latex punctuation.definition.keyword.latex
+T 27 text.tex.latex meta.reference.label.latex keyword.control.ref.latex
+T 28 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.begin.latex
+T 32 text.tex.latex meta.reference.label.latex constant.other.reference.label.latex
+T 33 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.end.latex
+T 35 text.tex.latex
+T 36 text.tex.latex meta.reference.label.latex keyword.control.ref.latex punctuation.definition.keyword.latex
+T 41 text.tex.latex meta.reference.label.latex keyword.control.ref.latex
+T 42 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.begin.latex
+T 47 text.tex.latex meta.reference.label.latex constant.other.reference.label.latex
+T 48 text.tex.latex meta.reference.label.latex punctuation.definition.arguments.end.latex
+T 53 text.tex.latex
+T 54 text.tex.latex keyword.control.ref.latex punctuation.definition.keyword.latex
+T 63 text.tex.latex keyword.control.ref.latex
+T 64 text.tex.latex punctuation.definition.arguments.begin.latex
+T 65 text.tex.latex constant.other.reference.label.latex
+T 66 text.tex.latex punctuation.definition.arguments.end.latex
+T 67 text.tex.latex punctuation.definition.arguments.begin.latex
+T 68 text.tex.latex constant.other.reference.label.latex
+T 69 text.tex.latex punctuation.definition.arguments.end.latex
+T 70 text.tex.latex
+L \cite{knuth} \citep[p.~5]{a,b} \textcite(pre)(post)[see][p]{key} \autocites{a}{b}
+T 1 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 5 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 6 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 12 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 13 text.tex.latex
+T 14 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 19 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 20 text.tex.latex meta.citation.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 24 text.tex.latex meta.citation.latex meta.parameter.optional.latex
+T 25 text.tex.latex meta.citation.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 26 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 28 text.tex.latex meta.citation.latex
+T 29 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 30 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 40 text.tex.latex support.function.general.tex
+T 51 text.tex.latex
+T 52 text.tex.latex punctuation.definition.brackets.tex
+T 55 text.tex.latex
+T 56 text.tex.latex punctuation.definition.brackets.tex
+T 57 text.tex.latex punctuation.definition.brackets.tex
+T 58 text.tex.latex
+T 59 text.tex.latex punctuation.definition.brackets.tex
+T 65 text.tex.latex
+T 66 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 75 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 76 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 77 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 78 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 79 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 80 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 81 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+L \autocites(a)[b]{c}(d)[e]{f} rest
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 10 text.tex.latex support.function.general.tex
+T 13 text.tex.latex
+T 14 text.tex.latex punctuation.definition.brackets.tex
+T 15 text.tex.latex
+T 16 text.tex.latex punctuation.definition.brackets.tex
+T 22 text.tex.latex
+T 23 text.tex.latex punctuation.definition.brackets.tex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.brackets.tex
+T 33 text.tex.latex
+L \autocites{a}{b}{c}
+T 1 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 10 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 11 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 13 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 14 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 16 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 19 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+L \parencite<a>[p]{x} \footcite{x} % comment after
+T 1 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 10 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 11 text.tex.latex meta.citation.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 12 text.tex.latex meta.citation.latex meta.parameter.optional.latex
+T 13 text.tex.latex meta.citation.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 14 text.tex.latex meta.citation.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 15 text.tex.latex meta.citation.latex meta.parameter.optional.latex
+T 16 text.tex.latex meta.citation.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 17 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 19 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex
+T 21 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 29 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 30 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 32 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 33 text.tex.latex
+T 34 text.tex.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 48 text.tex.latex comment.line.percentage.tex
+L \cite{a,
+T 1 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 5 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 6 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 7 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 8 text.tex.latex meta.citation.latex
+L   % a comment among keys
+T 2 text.tex.latex meta.citation.latex
+T 3 text.tex.latex meta.citation.latex comment.line.percentage.tex punctuation.definition.comment.tex
+T 24 text.tex.latex meta.citation.latex comment.line.percentage.tex
+L   b}
+T 2 text.tex.latex meta.citation.latex
+T 3 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 4 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+L \bibentry{key} \input{chapter} \include{appendix}
+T 1 text.tex.latex meta.citation.latex keyword.control.cite.latex punctuation.definition.keyword.latex
+T 9 text.tex.latex meta.citation.latex keyword.control.cite.latex
+T 10 text.tex.latex meta.citation.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.citation.latex constant.other.reference.citation.latex
+T 14 text.tex.latex meta.citation.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex
+T 16 text.tex.latex meta.include.latex keyword.control.include.latex punctuation.definition.function.latex
+T 21 text.tex.latex meta.include.latex keyword.control.include.latex
+T 22 text.tex.latex meta.include.latex punctuation.definition.arguments.begin.latex
+T 29 text.tex.latex meta.include.latex
+T 30 text.tex.latex meta.include.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex meta.include.latex keyword.control.include.latex punctuation.definition.function.latex
+T 39 text.tex.latex meta.include.latex keyword.control.include.latex
+T 40 text.tex.latex meta.include.latex punctuation.definition.arguments.begin.latex
+T 48 text.tex.latex meta.include.latex
+T 49 text.tex.latex meta.include.latex punctuation.definition.arguments.end.latex
+L \footnote[2]{A note} \marginpar{side}
+T 1 text.tex.latex support.function.footnote.latex punctuation.definition.function.latex
+T 9 text.tex.latex support.function.footnote.latex
+T 10 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 11 text.tex.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 12 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 13 text.tex.latex punctuation.definition.footnote.begin.latex
+T 19 text.tex.latex entity.name.footnote.latex
+T 20 text.tex.latex punctuation.definition.footnote.end.latex
+T 21 text.tex.latex
+T 22 text.tex.latex support.function.marginpar.latex punctuation.definition.function.latex
+T 31 text.tex.latex support.function.marginpar.latex
+T 32 text.tex.latex punctuation.definition.marginpar.begin.latex
+T 36 text.tex.latex meta.paragraph.margin.latex
+T 37 text.tex.latex punctuation.definition.marginpar.end.latex
+L \href{https://example.com}{a link} \url{https://example.com} \path{a/b}
+T 5 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 6 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 25 text.tex.latex meta.function.hyperlink.latex markup.underline.link.latex
+T 26 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 27 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 33 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 34 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 35 text.tex.latex meta.function.link.url.latex
+T 36 text.tex.latex meta.function.link.url.latex support.function.url.latex punctuation.definition.function.latex
+T 39 text.tex.latex meta.function.link.url.latex support.function.url.latex
+T 40 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.begin.latex
+T 59 text.tex.latex meta.function.link.url.latex markup.underline.link.latex
+T 60 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.end.latex
+T 61 text.tex.latex meta.function.link.url.latex
+T 62 text.tex.latex meta.function.link.url.latex support.function.url.latex punctuation.definition.function.latex
+T 66 text.tex.latex meta.function.link.url.latex support.function.url.latex
+T 67 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.begin.latex
+T 70 text.tex.latex meta.function.link.url.latex markup.underline.link.latex
+T 71 text.tex.latex meta.function.link.url.latex punctuation.definition.arguments.end.latex
+L \hyperref[label]{text} \hyperimage{img}{text} \href{a}{b}{c}{d}
+T 9 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 10 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 15 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex
+T 16 text.tex.latex meta.function.hyperlink.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 17 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 22 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 23 text.tex.latex meta.function.hyperlink.latex
+T 34 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 35 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex meta.function.hyperlink.latex markup.underline.link.latex
+T 39 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 40 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 44 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 45 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 46 text.tex.latex meta.function.hyperlink.latex
+T 51 text.tex.latex meta.function.hyperlink.latex support.function.url.latex
+T 52 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 53 text.tex.latex meta.function.hyperlink.latex markup.underline.link.latex
+T 54 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+T 60 text.tex.latex meta.function.hyperlink.latex
+T 61 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.begin.latex
+T 62 text.tex.latex meta.function.hyperlink.latex meta.variable.parameter.function.latex
+T 63 text.tex.latex meta.function.hyperlink.latex punctuation.definition.arguments.end.latex
+L \newline \pagebreak \linebreak \pause \clearpage
+T 8 text.tex.latex keyword.control.layout.latex
+T 9 text.tex.latex
+T 19 text.tex.latex keyword.control.layout.latex
+T 20 text.tex.latex
+T 30 text.tex.latex keyword.control.layout.latex
+T 31 text.tex.latex
+T 37 text.tex.latex keyword.control.layout.latex
+T 38 text.tex.latex meta.space-after-command.latex
+T 48 text.tex.latex keyword.control.layout.latex
+L \item first \textdollar \textregistered \textbullet
+T 1 text.tex.latex meta.scope.item.latex keyword.other.item.latex punctuation.definition.keyword.latex
+T 5 text.tex.latex meta.scope.item.latex keyword.other.item.latex
+T 6 text.tex.latex meta.space-after-command.latex
+T 12 text.tex.latex
+T 13 text.tex.latex constant.character.latex punctuation.definition.constant.latex
+T 23 text.tex.latex constant.character.latex
+T 24 text.tex.latex
+T 25 text.tex.latex constant.character.latex punctuation.definition.constant.latex
+T 39 text.tex.latex constant.character.latex
+T 40 text.tex.latex
+T 41 text.tex.latex constant.character.latex punctuation.definition.constant.latex
+T 51 text.tex.latex constant.character.latex
+L \l_my_var_tl \c__my_const_int \g_x_y_seq \q_stop \s_mark
+T 1 text.tex.latex variable.other.latex3.latex punctuation.definition.variable.latex
+T 12 text.tex.latex variable.other.latex3.latex
+T 13 text.tex.latex
+T 14 text.tex.latex variable.other.latex3.latex punctuation.definition.variable.latex
+T 29 text.tex.latex variable.other.latex3.latex
+T 30 text.tex.latex
+T 31 text.tex.latex variable.other.latex3.latex punctuation.definition.variable.latex
+T 40 text.tex.latex variable.other.latex3.latex
+T 41 text.tex.latex
+T 42 text.tex.latex variable.other.latex3.latex punctuation.definition.variable.latex
+T 48 text.tex.latex variable.other.latex3.latex
+T 49 text.tex.latex meta.space-after-command.latex
+T 50 text.tex.latex variable.other.latex3.latex punctuation.definition.variable.latex
+T 56 text.tex.latex variable.other.latex3.latex
+L \verb|a{b}| \verb*+x+ \Verb!y! \spverb|z| \verb x x
+T 1 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 5 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 6 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 10 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 11 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 12 text.tex.latex
+T 13 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 18 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 19 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 20 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 21 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 22 text.tex.latex
+T 23 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 27 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 28 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 29 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 30 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 31 text.tex.latex
+T 32 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 38 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 39 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 40 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 41 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 42 text.tex.latex
+T 43 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 47 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 48 text.tex.latex meta.function.verb.latex
+T 49 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 50 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 51 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+L \verb\scantokens{a}
+T 1 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 5 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 6 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.verb.latex
+T 16 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 17 text.tex.latex meta.function.verb.latex punctuation.definition.begin.latex
+T 18 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 19 text.tex.latex meta.function.verb.latex punctuation.definition.end.latex
+L \mintinline{python}|print(1)| \mint{ruby}{puts 1} \pyinline{x = 1}
+T 1 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 12 text.tex.latex meta.function.verb.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.function.verb.latex
+T 19 text.tex.latex meta.function.verb.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 28 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 29 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 30 text.tex.latex
+T 31 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 35 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 36 text.tex.latex meta.function.verb.latex punctuation.definition.arguments.begin.latex
+T 40 text.tex.latex meta.function.verb.latex
+T 41 text.tex.latex meta.function.verb.latex punctuation.definition.arguments.end.latex
+T 42 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 48 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 49 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 50 text.tex.latex
+T 51 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 59 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 60 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 65 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 66 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+L \mintinline[opt]{python}|x| \pyinline[opt]|y| \pyc[opt]{1} \jl[opt]{2}
+T 1 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 11 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 12 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 15 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 17 text.tex.latex meta.function.verb.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex meta.function.verb.latex
+T 24 text.tex.latex meta.function.verb.latex punctuation.definition.arguments.end.latex
+T 25 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 26 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 27 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 28 text.tex.latex
+T 29 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 37 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 38 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 41 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 42 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 43 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 44 text.tex.latex meta.function.verb.latex markup.raw.verb.latex
+T 45 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 46 text.tex.latex
+T 47 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 50 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 51 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 54 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 55 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 56 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 57 text.tex.latex meta.function.verb.latex source.python constant.numeric.dec.python
+T 58 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 59 text.tex.latex
+T 60 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 62 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 63 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 66 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 67 text.tex.latex meta.function.verb.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 68 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 69 text.tex.latex meta.function.verb.latex source.julia constant.numeric.julia
+T 70 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+L \py{1 + 2} \pyc|a| \jl{1 + 2} \juliav|a| \directlua{tex.print(1)}
+T 1 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 3 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 4 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 5 text.tex.latex meta.function.verb.latex source.python constant.numeric.dec.python
+T 6 text.tex.latex meta.function.verb.latex source.python
+T 7 text.tex.latex meta.function.verb.latex source.python keyword.operator.arithmetic.python
+T 8 text.tex.latex meta.function.verb.latex source.python
+T 9 text.tex.latex meta.function.verb.latex source.python constant.numeric.dec.python
+T 10 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 11 text.tex.latex
+T 12 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 15 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 16 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 17 text.tex.latex meta.function.verb.latex source.python
+T 18 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 19 text.tex.latex
+T 20 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 22 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 23 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 24 text.tex.latex meta.function.verb.latex source.julia constant.numeric.julia
+T 25 text.tex.latex meta.function.verb.latex source.julia
+T 26 text.tex.latex meta.function.verb.latex source.julia keyword.operator.arithmetic.julia
+T 27 text.tex.latex meta.function.verb.latex source.julia
+T 28 text.tex.latex meta.function.verb.latex source.julia constant.numeric.julia
+T 29 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 30 text.tex.latex
+T 31 text.tex.latex meta.function.verb.latex support.function.verb.latex punctuation.definition.function.latex
+T 37 text.tex.latex meta.function.verb.latex support.function.verb.latex
+T 38 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 39 text.tex.latex meta.function.verb.latex source.julia
+T 40 text.tex.latex meta.function.verb.latex punctuation.definition.verb.latex
+T 41 text.tex.latex
+T 42 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 51 text.tex.latex support.function.verb.latex
+T 52 text.tex.latex punctuation.definition.arguments.begin.latex
+T 55 text.tex.latex source.lua variable.other.lua
+T 56 text.tex.latex source.lua
+T 61 text.tex.latex source.lua support.function.any-method.lua
+T 62 text.tex.latex source.lua
+T 63 text.tex.latex source.lua constant.numeric.float.lua
+T 64 text.tex.latex source.lua
+T 65 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode{x} \cacheMeCode[python]{print(1)}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 15 text.tex.latex
+T 16 text.tex.latex
+T 17 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 28 text.tex.latex support.function.verb.latex
+T 29 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 35 text.tex.latex meta.parameter.optional.latex
+T 36 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 37 text.tex.latex punctuation.definition.arguments.begin.latex
+T 42 text.tex.latex source.python meta.function-call.python support.function.builtin.python
+T 43 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.begin.python
+T 44 text.tex.latex source.python meta.function-call.python meta.function-call.arguments.python constant.numeric.dec.python
+T 45 text.tex.latex source.python meta.function-call.python punctuation.definition.arguments.end.python
+T 46 text.tex.latex punctuation.definition.arguments.end.latex
+L \sys_get_shell:nnN {ls} \sys_get_shellTF {ls}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 19 text.tex.latex support.function.verb.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex markup.raw.verb.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+T 24 text.tex.latex
+T 25 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 28 text.tex.latex support.function.general.tex
+T 45 text.tex.latex
+L $a + b$ \(x\) \[y\] $$z$$
+T 1 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 4 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.math.operator.tex
+T 6 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 7 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+T 8 text.tex.latex
+T 10 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.begin.latex
+T 11 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex
+T 13 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.end.latex
+T 14 text.tex.latex
+T 16 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.begin.latex
+T 17 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex
+T 19 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.end.latex
+T 20 text.tex.latex
+T 22 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.begin.latex
+T 23 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex
+T 25 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.end.latex
+L $$a \$ b$$
+T 2 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.begin.latex
+T 4 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex
+T 6 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.escape.latex
+T 8 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex
+T 10 text.tex.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.definition.string.end.latex
+L $a \$ b$
+T 1 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.begin.tex
+T 3 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 5 text.tex.latex meta.math.block.tex support.class.math.block.tex constant.character.escape.latex
+T 7 text.tex.latex meta.math.block.tex support.class.math.block.tex
+T 8 text.tex.latex meta.math.block.tex support.class.math.block.tex punctuation.definition.string.end.tex
+L \begin{equation}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L   a &= b \\ c \& d
+T 4 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 5 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 9 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 11 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.newline.latex
+T 14 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 15 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.escape.tex punctuation.definition.keyword.tex
+T 16 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.character.escape.tex
+T 18 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+L \end{equation}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L \begin{align*}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L   x &= 1
+T 4 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 5 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 7 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 8 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+L \end{align*}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 12 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L \begin{pmatrix} 1 & 2 \end{pmatrix} \begin{bNiceMatrix} 1 \end{bNiceMatrix}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 17 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 18 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 19 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 20 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 21 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 22 text.tex.latex meta.function.environment.math.latex
+T 23 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 26 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 27 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 34 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 35 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+T 36 text.tex.latex meta.function.environment.math.latex
+T 37 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 42 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 43 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 54 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 55 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+T 56 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 57 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex constant.numeric.math.tex
+T 58 text.tex.latex meta.function.environment.math.latex
+T 59 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 62 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 63 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 74 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 75 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L \begin{tabular}{|c|c|}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+T 22 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+L   a & b
+T 4 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 5 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex keyword.control.table.cell.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+L \end{tabular}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+L \begin{itemize}
+T 1 text.tex.latex meta.function.environment.list.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.list.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.list.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.end.latex
+L   \item one
+T 2 text.tex.latex meta.function.environment.list.latex
+T 3 text.tex.latex meta.function.environment.list.latex meta.scope.item.latex keyword.other.item.latex punctuation.definition.keyword.latex
+T 7 text.tex.latex meta.function.environment.list.latex meta.scope.item.latex keyword.other.item.latex
+T 8 text.tex.latex meta.function.environment.list.latex meta.space-after-command.latex
+T 11 text.tex.latex meta.function.environment.list.latex
+L \end{itemize}
+T 1 text.tex.latex meta.function.environment.list.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.list.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.list.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.list.latex punctuation.definition.arguments.end.latex
+L \begin{tikzpicture}
+T 1 text.tex.latex meta.function.environment.latex.tikz support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.latex.tikz support.function.be.latex
+T 7 text.tex.latex meta.function.environment.latex.tikz punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.function.environment.latex.tikz variable.parameter.function.latex
+T 19 text.tex.latex meta.function.environment.latex.tikz punctuation.definition.arguments.end.latex
+L   \draw (0,0) -- (1,1);
+T 2 text.tex.latex meta.function.environment.latex.tikz
+T 3 text.tex.latex meta.function.environment.latex.tikz support.function.general.tex punctuation.definition.function.tex
+T 7 text.tex.latex meta.function.environment.latex.tikz support.function.general.tex
+T 8 text.tex.latex meta.function.environment.latex.tikz meta.space-after-command.latex
+T 23 text.tex.latex meta.function.environment.latex.tikz
+L \end{tikzpicture}
+T 1 text.tex.latex meta.function.environment.latex.tikz support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.latex.tikz support.function.be.latex
+T 5 text.tex.latex meta.function.environment.latex.tikz punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex meta.function.environment.latex.tikz variable.parameter.function.latex
+T 17 text.tex.latex meta.function.environment.latex.tikz punctuation.definition.arguments.end.latex
+L \begin{frame}{Title}
+T 1 text.tex.latex meta.function.environment.frame.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.frame.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.frame.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex meta.function.environment.frame.latex
+L \end{frame}
+T 1 text.tex.latex meta.function.environment.frame.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.frame.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.environment.frame.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.function.environment.frame.latex punctuation.definition.arguments.end.latex
+L \begin{empheq}[box=\fbox]{align}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.optional.begin.latex
+T 19 text.tex.latex meta.function.environment.math.latex
+T 20 text.tex.latex meta.function.environment.math.latex support.function.general.tex punctuation.definition.function.tex
+T 24 text.tex.latex meta.function.environment.math.latex support.function.general.tex
+T 25 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.optional.end.latex
+T 26 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.begin.bracket.curly.tex
+T 31 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 32 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex punctuation.math.end.bracket.curly.tex
+L   a &= b \\
+T 4 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 5 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.align.latex
+T 9 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex
+T 11 text.tex.latex meta.function.environment.math.latex meta.math.block.latex support.class.math.block.environment.latex keyword.control.equation.newline.latex
+L \end{empheq}
+T 1 text.tex.latex meta.function.environment.math.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.math.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex meta.function.environment.math.latex variable.parameter.function.latex
+T 12 text.tex.latex meta.function.environment.math.latex punctuation.definition.arguments.end.latex
+L \begin{mpost}
+T 1 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex
+T 7 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.latex.mpost variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.end.latex
+L   draw
+T 6 text.tex.latex meta.function.environment.latex.mpost
+L \end{mpost}
+T 1 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.latex.mpost support.function.be.latex
+T 5 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.environment.latex.mpost variable.parameter.function.latex
+T 11 text.tex.latex meta.function.environment.latex.mpost punctuation.definition.arguments.end.latex
+L \begin{custom*}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L \end{custom*}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L \begin{markdown}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L # Title
+T 7 text.tex.latex meta.function.environment.general.latex
+L \end{markdown}
+T 1 text.tex.latex meta.function.environment.general.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.general.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.environment.general.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.environment.general.latex punctuation.definition.arguments.end.latex
+L \end{unopened}
+T 1 text.tex.latex support.function.general.tex punctuation.definition.function.tex
+T 4 text.tex.latex support.function.general.tex
+T 14 text.tex.latex
+L \begin{verbatim}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 7 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L   \raw text
+T 11 text.tex.latex meta.function.verbatim.latex markup.raw.verbatim.latex
+L \end{verbatim}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 5 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L \begin{VerbatimOut}{file.tex}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 7 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 19 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 29 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L   out
+T 5 text.tex.latex meta.function.verbatim.latex markup.raw.verbatim.latex
+L \end{VerbatimOut}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 5 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 17 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L \begin{alltt}
+T 1 text.tex.latex meta.function.alltt.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.alltt.latex support.function.be.latex
+T 7 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.alltt.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.end.latex
+L   \cmd text
+T 2 text.tex.latex meta.function.alltt.latex markup.raw.verbatim.latex
+T 3 text.tex.latex meta.function.alltt.latex markup.raw.verbatim.latex support.function.general.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.alltt.latex markup.raw.verbatim.latex support.function.general.latex
+T 11 text.tex.latex meta.function.alltt.latex markup.raw.verbatim.latex
+L \end{alltt}
+T 1 text.tex.latex meta.function.alltt.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.alltt.latex support.function.be.latex
+T 5 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.alltt.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.function.alltt.latex punctuation.definition.arguments.end.latex
+L \begin{comment}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 7 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L   hidden
+T 8 text.tex.latex meta.function.verbatim.latex comment.line.percentage.latex
+L \end{comment}
+T 1 text.tex.latex meta.function.verbatim.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.verbatim.latex support.function.be.latex
+T 5 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.verbatim.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.verbatim.latex punctuation.definition.arguments.end.latex
+L \begin{lstlisting}{bash}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 17 text.tex.latex variable.parameter.function.latex
+T 18 text.tex.latex punctuation.definition.arguments.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex variable.parameter.function.latex
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L echo hi
+T 4 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+T 5 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell
+T 7 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.argument.shell string.unquoted.argument.shell
+L \end{lstlisting}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}{unknown}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 23 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L text
+T 4 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 28 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{c}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 25 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 26 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{css}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex variable.parameter.function.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.css meta.selector.css
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{gnuplot}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 32 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{haskell}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 31 text.tex.latex variable.parameter.function.latex
+T 32 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.haskell
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{html}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex text.html
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{java}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.java
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{julia}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 29 text.tex.latex variable.parameter.function.latex
+T 30 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.julia
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{javascript}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 34 text.tex.latex variable.parameter.function.latex
+T 35 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.js variable.other.readwrite.js
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{lua}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex variable.parameter.function.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.lua variable.other.lua
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{python}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 30 text.tex.latex variable.parameter.function.latex
+T 31 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.python
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{ruby}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.ruby
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{rust}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.rust variable.other.rust
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{typescript}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 34 text.tex.latex variable.parameter.function.latex
+T 35 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.ts variable.other.readwrite.ts
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{xml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex variable.parameter.function.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex text.xml
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{minted}[linenos]{yaml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L x
+T 1 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{pycode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 1 text.tex.latex source.python
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python keyword.operator.assignment.python
+T 4 text.tex.latex source.python
+T 5 text.tex.latex source.python constant.numeric.dec.python
+L \end{pycode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{pyblock*}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex variable.parameter.function.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 1 text.tex.latex source.python
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python keyword.operator.assignment.python
+T 4 text.tex.latex source.python
+T 5 text.tex.latex source.python constant.numeric.dec.python
+L \end{pyblock*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{juliacode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex variable.parameter.function.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 2 text.tex.latex source.julia
+T 3 text.tex.latex source.julia keyword.operator.update.julia
+T 4 text.tex.latex source.julia
+T 5 text.tex.latex source.julia constant.numeric.julia
+L \end{juliacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{jlcode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 2 text.tex.latex source.julia
+T 3 text.tex.latex source.julia keyword.operator.update.julia
+T 4 text.tex.latex source.julia
+T 5 text.tex.latex source.julia constant.numeric.julia
+L \end{jlcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{javacode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex variable.parameter.function.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 2 text.tex.latex source.java
+T 3 text.tex.latex source.java keyword.operator.assignment.java
+T 4 text.tex.latex source.java
+T 5 text.tex.latex source.java constant.numeric.decimal.java
+L \end{javacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{luacode*}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex variable.parameter.function.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 1 text.tex.latex source.lua variable.other.lua
+T 2 text.tex.latex source.lua
+T 3 text.tex.latex source.lua keyword.operator.lua
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua constant.numeric.float.lua
+L \end{luacode*}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{pylabcode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex variable.parameter.function.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 1 text.tex.latex source.python
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python keyword.operator.assignment.python
+T 4 text.tex.latex source.python
+T 5 text.tex.latex source.python constant.numeric.dec.python
+L \end{pylabcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{sageblock}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex variable.parameter.function.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 1 text.tex.latex source.python
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python keyword.operator.assignment.python
+T 4 text.tex.latex source.python
+T 5 text.tex.latex source.python constant.numeric.dec.python
+L \end{sageblock}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{scalacode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex variable.parameter.function.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 2 text.tex.latex source.scala
+T 3 text.tex.latex source.scala keyword.operator.comparison.scala
+T 4 text.tex.latex source.scala
+T 5 text.tex.latex source.scala constant.numeric.scala
+L \end{scalacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{sympycode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex variable.parameter.function.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 1 text.tex.latex source.python
+T 2 text.tex.latex source.python
+T 3 text.tex.latex source.python keyword.operator.assignment.python
+T 4 text.tex.latex source.python
+T 5 text.tex.latex source.python constant.numeric.dec.python
+L \end{sympycode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{hscode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 2 text.tex.latex source.haskell
+T 3 text.tex.latex source.haskell keyword.operator.eq.haskell
+T 4 text.tex.latex source.haskell
+T 5 text.tex.latex source.haskell constant.numeric.integral.decimal.haskell
+L \end{hscode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{asy}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex variable.parameter.function.latex
+T 11 text.tex.latex punctuation.definition.arguments.end.latex
+T 12 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 5 text.tex.latex
+L \end{asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 8 text.tex.latex variable.parameter.function.latex
+T 9 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{cppcode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex variable.parameter.function.latex
+T 20 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 5 text.tex.latex
+L \end{cppcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{dotcode}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex variable.parameter.function.latex
+T 20 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 5 text.tex.latex
+L \end{dotcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{gnuplot}{opt}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex variable.parameter.function.latex
+T 20 text.tex.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 5 text.tex.latex
+L \end{gnuplot}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{rubycode}{opt}
+T 1 text.tex.latex meta.embedded.block.generic.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.embedded.block.generic.latex support.function.be.latex
+T 7 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 21 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L x = 1
+T 5 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{rubycode}
+T 1 text.tex.latex meta.embedded.block.generic.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.embedded.block.generic.latex support.function.be.latex
+T 5 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L \begin{asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex variable.parameter.function.latex
+T 11 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex
+L \end{asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 8 text.tex.latex variable.parameter.function.latex
+T 9 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{cppcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex
+L \end{cppcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{dotcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex
+L \end{dotcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{gnuplot}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex
+L \end{gnuplot}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{hscode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex source.haskell
+L \end{hscode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{javacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex source.java
+L \end{javacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{scalacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex source.scala
+L \end{scalacode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{pylabcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L y
+T 1 text.tex.latex source.python
+L \end{pylabcode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__asy}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 3 text.tex.latex
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{bash}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__bash}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.shell
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{cpp}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex
+T 23 text.tex.latex
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__cpp}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 35 text.tex.latex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 3 text.tex.latex
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{css}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex
+T 23 text.tex.latex
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__css}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 35 text.tex.latex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 3 text.tex.latex
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{gnuplot}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__gnuplot}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 41 text.tex.latex
+T 42 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 3 text.tex.latex
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{haskell}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.haskell
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__haskell}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 41 text.tex.latex
+T 42 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.haskell
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{html}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex text.html
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__html}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex text.html
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{java}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.java
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__java}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.java
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{julia}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 25 text.tex.latex
+T 26 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.julia
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__julia}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 39 text.tex.latex
+T 40 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.julia
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{js}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.js variable.other.readwrite.js
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__js}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 36 text.tex.latex
+T 37 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.js variable.other.readwrite.js
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{lua}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.lua variable.other.lua
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__lua}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.lua variable.other.lua
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{python}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex
+T 26 text.tex.latex
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.python
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__python}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 36 text.tex.latex
+T 40 text.tex.latex
+T 41 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.python
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{ruby}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.ruby
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__ruby}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.ruby
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{rust}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.rust variable.other.rust
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__rust}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.rust variable.other.rust
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{typescript}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex
+T 30 text.tex.latex
+T 31 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__typescript}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 44 text.tex.latex
+T 45 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.ts variable.other.readwrite.ts
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{xml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex text.xml
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__xml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 37 text.tex.latex
+T 38 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex text.xml
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{yaml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__yaml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{tikz}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex text.tex.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__tikz}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 38 text.tex.latex
+T 39 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex
+T 3 text.tex.latex text.tex.latex
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{other}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 25 text.tex.latex
+T 26 text.tex.latex punctuation.definition.arguments.end.latex
+L z
+T 1 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{RobExtCacheMeCode}[a][b]{__other}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 24 text.tex.latex variable.parameter.function.latex
+T 25 text.tex.latex punctuation.definition.arguments.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 39 text.tex.latex
+T 40 text.tex.latex punctuation.definition.arguments.end.latex
+L   w
+T 2 text.tex.latex meta.embedded.block.generic.latex
+T 3 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{RobExtCacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex variable.parameter.function.latex
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{CacheMeCode}{}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex variable.parameter.function.latex
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L v
+T 1 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{CacheMeCode}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 16 text.tex.latex variable.parameter.function.latex
+T 17 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[asy]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.parameter.optional.latex
+T 17 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 20 text.tex.latex
+L \cacheMeCode[cpp]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.parameter.optional.latex
+T 17 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 20 text.tex.latex
+L \cacheMeCode[css]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.parameter.optional.latex
+T 17 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex source.css
+T 20 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[gnuplot]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 20 text.tex.latex meta.parameter.optional.latex
+T 21 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex
+L \cacheMeCode[haskell]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 20 text.tex.latex meta.parameter.optional.latex
+T 21 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 22 text.tex.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex source.haskell
+T 24 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[html]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex text.html
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[java]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex source.java
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[julia]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 18 text.tex.latex meta.parameter.optional.latex
+T 19 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex source.julia
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[js]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 15 text.tex.latex meta.parameter.optional.latex
+T 16 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 17 text.tex.latex punctuation.definition.arguments.begin.latex
+T 18 text.tex.latex source.js variable.other.readwrite.js
+T 19 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[lua]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.parameter.optional.latex
+T 17 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex source.lua variable.other.lua
+T 20 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[python]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 19 text.tex.latex meta.parameter.optional.latex
+T 20 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 21 text.tex.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex source.python
+T 23 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[ruby]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex source.ruby
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[rust]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex source.rust variable.other.rust
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[typescript]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 23 text.tex.latex meta.parameter.optional.latex
+T 24 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 25 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex source.ts variable.other.readwrite.ts
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[xml]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 16 text.tex.latex meta.parameter.optional.latex
+T 17 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 18 text.tex.latex punctuation.definition.arguments.begin.latex
+T 19 text.tex.latex text.xml
+T 20 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[tikz]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex text.tex.latex
+T 21 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[other]{q}
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 18 text.tex.latex meta.parameter.optional.latex
+T 19 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 20 text.tex.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex meta.embedded.block.generic.latex
+T 22 text.tex.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[bash]{echo
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 23 text.tex.latex source.shell meta.statement.shell meta.statement.command.shell meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell support.function.builtin.shell
+L }
+T 1 text.tex.latex punctuation.definition.arguments.end.latex
+L \addplot+[blue] gnuplot [id=a] {sin(x) % plot
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 8 text.tex.latex support.function.be.latex
+T 9 text.tex.latex
+T 10 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 14 text.tex.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 16 text.tex.latex
+T 23 text.tex.latex variable.parameter.function.latex
+T 24 text.tex.latex
+T 25 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 29 text.tex.latex meta.parameter.optional.latex variable.parameter.function.latex
+T 30 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 31 text.tex.latex
+T 32 text.tex.latex punctuation.definition.arguments.begin.latex
+T 39 text.tex.latex
+T 40 text.tex.latex comment.line.percentage.latex punctuation.definition.comment.latex
+T 45 text.tex.latex comment.line.percentage.latex
+L };
+T 2 text.tex.latex support.function.be.latex
+L \begin{terminal}{bash}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex variable.parameter.function.latex
+T 16 text.tex.latex punctuation.definition.arguments.end.latex
+T 17 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.begin.latex
+T 21 text.tex.latex meta.embedded.block.generic.latex variable.parameter.function.latex
+T 22 text.tex.latex meta.embedded.block.generic.latex punctuation.definition.arguments.end.latex
+L ls
+T 2 text.tex.latex meta.embedded.block.generic.latex meta.function.embedded.latex
+L \end{terminal}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+L \begin{songs}{titleidx}
+T 1 text.tex.latex meta.function.environment.songs.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.songs.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.songs.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.end.latex
+T 14 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.function.environment.songs.latex variable.parameter.function.latex
+T 23 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.end.latex
+L \beginsong{A Song}[by={Me}]
+T 1 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 10 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex
+T 11 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.begin.latex
+T 17 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.latex
+T 18 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.latex punctuation.definition.arguments.end.latex
+T 19 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 26 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex
+T 27 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+L \[C]Words ^go here
+T 2 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 3 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 4 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 10 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+T 11 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex meta.chord.block.latex support.class.chord.block.environment.latex
+T 18 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex meta.data.environment.song.latex
+L \endsong
+T 1 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex punctuation.definition.function.latex
+T 8 text.tex.latex meta.function.environment.songs.latex meta.data.environment.songs.latex meta.function.environment.song.latex support.function.be.latex
+L \end{songs}
+T 1 text.tex.latex meta.function.environment.songs.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.songs.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.begin.latex
+T 10 text.tex.latex meta.function.environment.songs.latex variable.parameter.function.latex
+T 11 text.tex.latex meta.function.environment.songs.latex punctuation.definition.arguments.end.latex
+L \begin{tabular}{>{$}c<{$}}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 7 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 15 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 17 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex
+T 18 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex punctuation.definition.column-specials.begin.latex
+T 19 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex
+T 20 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex punctuation.definition.column-specials.end.latex
+T 21 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+T 22 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex
+T 23 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex punctuation.definition.column-specials.begin.latex
+T 24 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex
+T 25 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex meta.column-specials.latex punctuation.definition.column-specials.end.latex
+T 26 text.tex.latex meta.function.environment.tabular.latex meta.data.environment.tabular.latex
+L \end{tabular}
+T 1 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.environment.tabular.latex support.function.be.latex
+T 5 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex meta.function.environment.tabular.latex variable.parameter.function.latex
+T 13 text.tex.latex meta.function.environment.tabular.latex punctuation.definition.arguments.end.latex
+L \cacheMeCode[yaml]{q
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 12 text.tex.latex support.function.verb.latex
+T 13 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 17 text.tex.latex meta.parameter.optional.latex
+T 18 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 19 text.tex.latex punctuation.definition.arguments.begin.latex
+T 20 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L }
+T 1 text.tex.latex punctuation.definition.arguments.end.latex
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

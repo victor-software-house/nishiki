@@ -1,0 +1,136 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{yaml}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 28 text.tex.latex variable.parameter.function.latex
+T 29 text.tex.latex punctuation.definition.arguments.end.latex
+L YAML Resources:
+T 1 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+L   YAML Specifications:
+T 2 text.tex.latex source.yaml
+T 3 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 22 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+L   - YAML 1.2:
+T 2 text.tex.latex source.yaml
+T 3 text.tex.latex source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 12 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 13 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+L     - Revision 1.2.2      # Oct 1, 2021 *New*
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 text.tex.latex source.yaml
+T 7 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 20 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 26 text.tex.latex source.yaml
+T 27 text.tex.latex source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 45 text.tex.latex source.yaml comment.line.number-sign.yaml
+L     - Revision 1.2.1      # Oct 1, 2009
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 text.tex.latex source.yaml
+T 7 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 20 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 26 text.tex.latex source.yaml
+T 27 text.tex.latex source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 39 text.tex.latex source.yaml comment.line.number-sign.yaml
+L     - Revision 1.2.0      # Jul 21, 2009
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml punctuation.definition.block.sequence.item.yaml
+T 6 text.tex.latex source.yaml
+T 7 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 20 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 26 text.tex.latex source.yaml
+T 27 text.tex.latex source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 40 text.tex.latex source.yaml comment.line.number-sign.yaml
+L   - YAML 1.1
+T 2 text.tex.latex source.yaml
+T 3 text.tex.latex source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 12 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L   - YAML 1.0
+T 2 text.tex.latex source.yaml
+T 3 text.tex.latex source.yaml punctuation.definition.block.sequence.item.yaml
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 12 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L   YAML on GitHub:                        # github.com/yaml/
+T 2 text.tex.latex source.yaml
+T 3 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 17 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+T 41 text.tex.latex source.yaml
+T 42 text.tex.latex source.yaml comment.line.number-sign.yaml punctuation.definition.comment.yaml
+T 59 text.tex.latex source.yaml comment.line.number-sign.yaml
+L     YAML Specs:        yaml-spec/
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 14 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+T 23 text.tex.latex source.yaml
+T 24 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 33 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L     YAML 1.2 Grammar:  yaml-grammar/
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 21 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+T 23 text.tex.latex source.yaml
+T 24 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 36 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L     YAML Test Suite:   yaml-test-suite/
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 19 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 20 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+T 23 text.tex.latex source.yaml
+T 24 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 39 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L     YAML Issues:       issues/
+T 4 text.tex.latex source.yaml
+T 5 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 15 text.tex.latex source.yaml string.unquoted.plain.out.yaml entity.name.tag.yaml
+T 16 text.tex.latex source.yaml punctuation.separator.key-value.mapping.yaml
+T 23 text.tex.latex source.yaml
+T 24 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+T 30 text.tex.latex source.yaml string.unquoted.plain.out.yaml
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

@@ -1,0 +1,83 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{css}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 27 text.tex.latex variable.parameter.function.latex
+T 28 text.tex.latex punctuation.definition.arguments.end.latex
+L   h1 {
+T 2 text.tex.latex source.css
+T 4 text.tex.latex source.css meta.selector.css entity.name.tag.css
+T 5 text.tex.latex source.css
+T 6 text.tex.latex source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     font-size: 60px;
+T 4 text.tex.latex source.css meta.property-list.css
+T 13 text.tex.latex source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 14 text.tex.latex source.css meta.property-list.css punctuation.separator.key-value.css
+T 15 text.tex.latex source.css meta.property-list.css
+T 17 text.tex.latex source.css meta.property-list.css meta.property-value.css constant.numeric.css
+T 19 text.tex.latex source.css meta.property-list.css meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 20 text.tex.latex source.css meta.property-list.css punctuation.terminator.rule.css
+L     text-align: center;
+T 4 text.tex.latex source.css meta.property-list.css
+T 14 text.tex.latex source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 15 text.tex.latex source.css meta.property-list.css punctuation.separator.key-value.css
+T 16 text.tex.latex source.css meta.property-list.css
+T 22 text.tex.latex source.css meta.property-list.css meta.property-value.css support.constant.property-value.css
+T 23 text.tex.latex source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.tex.latex source.css meta.property-list.css
+T 3 text.tex.latex source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L   p,li,h1 {
+T 2 text.tex.latex source.css
+T 3 text.tex.latex source.css meta.selector.css entity.name.tag.css
+T 4 text.tex.latex source.css meta.selector.css punctuation.separator.list.comma.css
+T 6 text.tex.latex source.css meta.selector.css entity.name.tag.css
+T 7 text.tex.latex source.css meta.selector.css punctuation.separator.list.comma.css
+T 9 text.tex.latex source.css meta.selector.css entity.name.tag.css
+T 10 text.tex.latex source.css
+T 11 text.tex.latex source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+L     color: red;
+T 4 text.tex.latex source.css meta.property-list.css
+T 9 text.tex.latex source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 10 text.tex.latex source.css meta.property-list.css punctuation.separator.key-value.css
+T 11 text.tex.latex source.css meta.property-list.css
+T 14 text.tex.latex source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 15 text.tex.latex source.css meta.property-list.css punctuation.terminator.rule.css
+L   }
+T 2 text.tex.latex source.css meta.property-list.css
+T 3 text.tex.latex source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

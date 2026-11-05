@@ -120,6 +120,9 @@ tags! {
     /// Kotlin.
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = 0x2a00,
+    /// LaTeX.
+    #[cfg(feature = "lang-latex")]
+    LATEX = 0x4b00,
     /// Less.
     #[cfg(feature = "lang-less")]
     LESS = 0x2f00,

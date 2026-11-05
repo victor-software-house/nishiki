@@ -128,6 +128,8 @@ tables! {
     JULIA = julia;
     #[cfg(feature = "lang-kotlin")]
     KOTLIN = kotlin;
+    #[cfg(feature = "lang-latex")]
+    LATEX = latex;
     #[cfg(feature = "lang-less")]
     LESS = less;
     #[cfg(feature = "lang-lua")]

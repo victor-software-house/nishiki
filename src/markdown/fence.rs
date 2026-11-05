@@ -401,6 +401,14 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::Vue),
     },
+    // The grammar's `(?:la|)tex`, matched without case.
+    // A `tex` fence is LaTeX, as the grammar embeds `text.tex.latex` for both.
+    #[cfg(feature = "lang-latex")]
+    Name {
+        words: &["latex", "tex"],
+        brace: None,
+        embed: Embed::Lang(Language::Latex),
+    },
 ];
 
 /// A language found in an info string.

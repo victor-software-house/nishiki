@@ -1,0 +1,143 @@
+L \documentclass{article}
+T 1 text.tex.latex meta.preamble.latex keyword.control.preamble.latex punctuation.definition.function.latex
+T 14 text.tex.latex meta.preamble.latex keyword.control.preamble.latex
+T 15 text.tex.latex meta.preamble.latex punctuation.definition.arguments.begin.latex
+T 22 text.tex.latex meta.preamble.latex support.class.latex
+T 23 text.tex.latex meta.preamble.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{document}
+T 1 text.tex.latex meta.function.begin-document.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex meta.function.begin-document.latex support.function.be.latex
+T 7 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.begin.latex
+T 15 text.tex.latex meta.function.begin-document.latex variable.parameter.function.latex
+T 16 text.tex.latex meta.function.begin-document.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{ts}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex variable.parameter.function.latex
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+L   const fs = require('fake')
+T 2 text.tex.latex source.ts
+T 7 text.tex.latex source.ts meta.var.expr.ts storage.type.ts
+T 8 text.tex.latex source.ts meta.var.expr.ts
+T 10 text.tex.latex source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 11 text.tex.latex source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 12 text.tex.latex source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 13 text.tex.latex source.ts meta.var.expr.ts
+T 20 text.tex.latex source.ts meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 21 text.tex.latex source.ts meta.var.expr.ts meta.brace.round.ts
+T 22 text.tex.latex source.ts meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 26 text.tex.latex source.ts meta.var.expr.ts string.quoted.single.ts
+T 27 text.tex.latex source.ts meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 28 text.tex.latex source.ts meta.var.expr.ts meta.brace.round.ts
+L   function main(i: number): number {
+T 2 text.tex.latex source.ts
+T 10 text.tex.latex source.ts meta.function.ts storage.type.function.ts
+T 11 text.tex.latex source.ts meta.function.ts
+T 15 text.tex.latex source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 16 text.tex.latex source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 17 text.tex.latex source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 18 text.tex.latex source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 19 text.tex.latex source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts
+T 25 text.tex.latex source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 26 text.tex.latex source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 27 text.tex.latex source.ts meta.function.ts meta.return.type.ts keyword.operator.type.annotation.ts
+T 28 text.tex.latex source.ts meta.function.ts meta.return.type.ts
+T 34 text.tex.latex source.ts meta.function.ts meta.return.type.ts support.type.primitive.ts
+T 35 text.tex.latex source.ts meta.function.ts meta.return.type.ts
+T 36 text.tex.latex source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     return i + 1
+T 4 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 10 text.tex.latex source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 11 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 12 text.tex.latex source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 14 text.tex.latex source.ts meta.function.ts meta.block.ts keyword.operator.arithmetic.ts
+T 15 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 16 text.tex.latex source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+L   }
+T 2 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 3 text.tex.latex source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \begin{minted}[linenos]{typescript}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex variable.parameter.function.latex
+T 14 text.tex.latex punctuation.definition.arguments.end.latex
+T 15 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.begin.latex
+T 22 text.tex.latex meta.parameter.optional.latex
+T 23 text.tex.latex meta.parameter.optional.latex punctuation.definition.arguments.optional.end.latex
+T 24 text.tex.latex punctuation.definition.arguments.begin.latex
+T 34 text.tex.latex variable.parameter.function.latex
+T 35 text.tex.latex punctuation.definition.arguments.end.latex
+L   const fs = require('fake')
+T 2 text.tex.latex source.ts
+T 7 text.tex.latex source.ts meta.var.expr.ts storage.type.ts
+T 8 text.tex.latex source.ts meta.var.expr.ts
+T 10 text.tex.latex source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 11 text.tex.latex source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 12 text.tex.latex source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 13 text.tex.latex source.ts meta.var.expr.ts
+T 20 text.tex.latex source.ts meta.var.expr.ts meta.function-call.ts entity.name.function.ts
+T 21 text.tex.latex source.ts meta.var.expr.ts meta.brace.round.ts
+T 22 text.tex.latex source.ts meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 26 text.tex.latex source.ts meta.var.expr.ts string.quoted.single.ts
+T 27 text.tex.latex source.ts meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 28 text.tex.latex source.ts meta.var.expr.ts meta.brace.round.ts
+L   function main(i: number): number {
+T 2 text.tex.latex source.ts
+T 10 text.tex.latex source.ts meta.function.ts storage.type.function.ts
+T 11 text.tex.latex source.ts meta.function.ts
+T 15 text.tex.latex source.ts meta.function.ts meta.definition.function.ts entity.name.function.ts
+T 16 text.tex.latex source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.begin.ts
+T 17 text.tex.latex source.ts meta.function.ts meta.parameters.ts variable.parameter.ts
+T 18 text.tex.latex source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 19 text.tex.latex source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts
+T 25 text.tex.latex source.ts meta.function.ts meta.parameters.ts meta.type.annotation.ts support.type.primitive.ts
+T 26 text.tex.latex source.ts meta.function.ts meta.parameters.ts punctuation.definition.parameters.end.ts
+T 27 text.tex.latex source.ts meta.function.ts meta.return.type.ts keyword.operator.type.annotation.ts
+T 28 text.tex.latex source.ts meta.function.ts meta.return.type.ts
+T 34 text.tex.latex source.ts meta.function.ts meta.return.type.ts support.type.primitive.ts
+T 35 text.tex.latex source.ts meta.function.ts meta.return.type.ts
+T 36 text.tex.latex source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L     return i + 1
+T 4 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 10 text.tex.latex source.ts meta.function.ts meta.block.ts keyword.control.flow.ts
+T 11 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 12 text.tex.latex source.ts meta.function.ts meta.block.ts variable.other.readwrite.ts
+T 13 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 14 text.tex.latex source.ts meta.function.ts meta.block.ts keyword.operator.arithmetic.ts
+T 15 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 16 text.tex.latex source.ts meta.function.ts meta.block.ts constant.numeric.decimal.ts
+L   }
+T 2 text.tex.latex source.ts meta.function.ts meta.block.ts
+T 3 text.tex.latex source.ts meta.function.ts meta.block.ts punctuation.definition.block.ts
+L \end{minted}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 11 text.tex.latex variable.parameter.function.latex
+T 12 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \end{document}
+T 1 text.tex.latex meta.function.end-document.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex meta.function.end-document.latex support.function.be.latex
+T 5 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.begin.latex
+T 13 text.tex.latex meta.function.end-document.latex variable.parameter.function.latex
+T 14 text.tex.latex meta.function.end-document.latex punctuation.definition.arguments.end.latex
+L 

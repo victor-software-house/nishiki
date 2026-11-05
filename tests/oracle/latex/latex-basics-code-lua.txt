@@ -1,0 +1,453 @@
+L 
+L \begin{luadraw}{name=champ}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 6 text.tex.latex support.function.be.latex
+T 7 text.tex.latex punctuation.definition.arguments.begin.latex
+T 14 text.tex.latex variable.parameter.function.latex
+T 15 text.tex.latex punctuation.definition.arguments.end.latex
+T 16 text.tex.latex punctuation.definition.arguments.begin.latex
+T 26 text.tex.latex variable.parameter.function.latex
+T 27 text.tex.latex punctuation.definition.arguments.end.latex
+L     local g = graph:new{window={-5,5,-5,5},bg="Cyan!30",size={10,10}} 
+T 4 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.local.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua variable.other.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua keyword.operator.lua
+T 14 text.tex.latex source.lua
+T 19 text.tex.latex source.lua entity.name.class.lua
+T 20 text.tex.latex source.lua
+T 23 text.tex.latex source.lua support.function.any-method.lua
+T 24 text.tex.latex source.lua
+T 30 text.tex.latex source.lua variable.other.lua
+T 31 text.tex.latex source.lua keyword.operator.lua
+T 32 text.tex.latex source.lua
+T 33 text.tex.latex source.lua keyword.operator.lua
+T 34 text.tex.latex source.lua constant.numeric.float.lua
+T 35 text.tex.latex source.lua
+T 36 text.tex.latex source.lua constant.numeric.float.lua
+T 37 text.tex.latex source.lua
+T 38 text.tex.latex source.lua keyword.operator.lua
+T 39 text.tex.latex source.lua constant.numeric.float.lua
+T 40 text.tex.latex source.lua
+T 41 text.tex.latex source.lua constant.numeric.float.lua
+T 43 text.tex.latex source.lua
+T 45 text.tex.latex source.lua variable.other.lua
+T 46 text.tex.latex source.lua keyword.operator.lua
+T 47 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 54 text.tex.latex source.lua string.quoted.double.lua
+T 55 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 56 text.tex.latex source.lua
+T 60 text.tex.latex source.lua variable.other.lua
+T 61 text.tex.latex source.lua keyword.operator.lua
+T 62 text.tex.latex source.lua
+T 64 text.tex.latex source.lua constant.numeric.float.lua
+T 65 text.tex.latex source.lua
+T 67 text.tex.latex source.lua constant.numeric.float.lua
+T 70 text.tex.latex source.lua
+L     local f = function(x,y) -- éq. diff. y'= 1-x*y^2=f(x,y)
+T 4 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.local.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua entity.name.function.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua keyword.operator.lua
+T 14 text.tex.latex source.lua
+T 22 text.tex.latex source.lua meta.function.lua keyword.control.lua
+T 23 text.tex.latex source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 24 text.tex.latex source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 25 text.tex.latex source.lua meta.function.lua meta.parameter.lua punctuation.separator.arguments.lua
+T 26 text.tex.latex source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 27 text.tex.latex source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+T 28 text.tex.latex source.lua
+T 30 text.tex.latex source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 60 text.tex.latex source.lua comment.line.double-dash.lua
+L     return 1-x*y^2
+T 4 text.tex.latex source.lua
+T 10 text.tex.latex source.lua keyword.control.lua
+T 11 text.tex.latex source.lua
+T 12 text.tex.latex source.lua constant.numeric.float.lua
+T 13 text.tex.latex source.lua keyword.operator.lua
+T 14 text.tex.latex source.lua variable.other.lua
+T 15 text.tex.latex source.lua keyword.operator.lua
+T 16 text.tex.latex source.lua variable.other.lua
+T 17 text.tex.latex source.lua keyword.operator.lua
+T 18 text.tex.latex source.lua constant.numeric.float.lua
+L     end
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+L     local A = Z(-1,1) -- A = -1+i
+T 4 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.local.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua variable.other.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua keyword.operator.lua
+T 14 text.tex.latex source.lua
+T 15 text.tex.latex source.lua support.function.any-method.lua
+T 16 text.tex.latex source.lua
+T 17 text.tex.latex source.lua keyword.operator.lua
+T 18 text.tex.latex source.lua constant.numeric.float.lua
+T 19 text.tex.latex source.lua
+T 20 text.tex.latex source.lua constant.numeric.float.lua
+T 22 text.tex.latex source.lua
+T 24 text.tex.latex source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 33 text.tex.latex source.lua comment.line.double-dash.lua
+L     local deltaX, deltaY, long = 0.5, 0.5, 0.4 
+T 4 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.local.lua
+T 10 text.tex.latex source.lua
+T 16 text.tex.latex source.lua variable.other.lua
+T 18 text.tex.latex source.lua
+T 24 text.tex.latex source.lua variable.other.lua
+T 26 text.tex.latex source.lua
+T 30 text.tex.latex source.lua variable.other.lua
+T 31 text.tex.latex source.lua
+T 32 text.tex.latex source.lua keyword.operator.lua
+T 33 text.tex.latex source.lua
+T 36 text.tex.latex source.lua constant.numeric.float.lua
+T 38 text.tex.latex source.lua
+T 41 text.tex.latex source.lua constant.numeric.float.lua
+T 43 text.tex.latex source.lua
+T 46 text.tex.latex source.lua constant.numeric.float.lua
+T 47 text.tex.latex source.lua
+L     local champ = function(f)
+T 4 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.local.lua
+T 10 text.tex.latex source.lua
+T 15 text.tex.latex source.lua entity.name.function.lua
+T 16 text.tex.latex source.lua
+T 17 text.tex.latex source.lua keyword.operator.lua
+T 18 text.tex.latex source.lua
+T 26 text.tex.latex source.lua meta.function.lua keyword.control.lua
+T 27 text.tex.latex source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.begin.lua
+T 28 text.tex.latex source.lua meta.function.lua meta.parameter.lua variable.parameter.function.lua
+T 29 text.tex.latex source.lua meta.function.lua meta.parameter.lua punctuation.definition.parameters.finish.lua
+L     local vecteurs, v = {}
+T 4 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.local.lua
+T 10 text.tex.latex source.lua
+T 18 text.tex.latex source.lua variable.other.lua
+T 20 text.tex.latex source.lua
+T 21 text.tex.latex source.lua variable.other.lua
+T 22 text.tex.latex source.lua
+T 23 text.tex.latex source.lua keyword.operator.lua
+T 26 text.tex.latex source.lua
+L     for y = g:Yinf(), g:Ysup(), deltaY do
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua variable.other.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua keyword.operator.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua entity.name.class.lua
+T 14 text.tex.latex source.lua
+T 18 text.tex.latex source.lua support.function.any-method.lua
+T 22 text.tex.latex source.lua
+T 23 text.tex.latex source.lua entity.name.class.lua
+T 24 text.tex.latex source.lua
+T 28 text.tex.latex source.lua support.function.any-method.lua
+T 32 text.tex.latex source.lua
+T 38 text.tex.latex source.lua variable.other.lua
+T 39 text.tex.latex source.lua
+T 41 text.tex.latex source.lua keyword.control.lua
+L     for x = g:Xinf(), g:Xsup(), deltaX do
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua variable.other.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua keyword.operator.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua entity.name.class.lua
+T 14 text.tex.latex source.lua
+T 18 text.tex.latex source.lua support.function.any-method.lua
+T 22 text.tex.latex source.lua
+T 23 text.tex.latex source.lua entity.name.class.lua
+T 24 text.tex.latex source.lua
+T 28 text.tex.latex source.lua support.function.any-method.lua
+T 32 text.tex.latex source.lua
+T 38 text.tex.latex source.lua variable.other.lua
+T 39 text.tex.latex source.lua
+T 41 text.tex.latex source.lua keyword.control.lua
+L     v = Z(1,f(x,y)) -- coordonnées 1 et f(x,y)
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua variable.other.lua
+T 6 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.operator.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua support.function.any-method.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua constant.numeric.float.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua support.function.any-method.lua
+T 14 text.tex.latex source.lua
+T 15 text.tex.latex source.lua variable.other.lua
+T 16 text.tex.latex source.lua
+T 17 text.tex.latex source.lua variable.other.lua
+T 20 text.tex.latex source.lua
+T 22 text.tex.latex source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 47 text.tex.latex source.lua comment.line.double-dash.lua
+L     v = v/cpx.abs(v)*long -- normalisation de v 
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua variable.other.lua
+T 6 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.operator.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua variable.other.lua
+T 10 text.tex.latex source.lua keyword.operator.lua
+T 13 text.tex.latex source.lua variable.other.lua
+T 14 text.tex.latex source.lua
+T 17 text.tex.latex source.lua support.function.any-method.lua
+T 18 text.tex.latex source.lua
+T 19 text.tex.latex source.lua variable.other.lua
+T 20 text.tex.latex source.lua
+T 21 text.tex.latex source.lua keyword.operator.lua
+T 25 text.tex.latex source.lua variable.other.lua
+T 26 text.tex.latex source.lua
+T 28 text.tex.latex source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 48 text.tex.latex source.lua comment.line.double-dash.lua
+L     table.insert(vecteurs, {Z(x,y), Z(x,y)+v} ) 
+T 4 text.tex.latex source.lua
+T 16 text.tex.latex source.lua support.function.library.lua
+T 17 text.tex.latex source.lua
+T 25 text.tex.latex source.lua variable.other.lua
+T 28 text.tex.latex source.lua
+T 29 text.tex.latex source.lua support.function.any-method.lua
+T 30 text.tex.latex source.lua
+T 31 text.tex.latex source.lua variable.other.lua
+T 32 text.tex.latex source.lua
+T 33 text.tex.latex source.lua variable.other.lua
+T 36 text.tex.latex source.lua
+T 37 text.tex.latex source.lua support.function.any-method.lua
+T 38 text.tex.latex source.lua
+T 39 text.tex.latex source.lua variable.other.lua
+T 40 text.tex.latex source.lua
+T 41 text.tex.latex source.lua variable.other.lua
+T 42 text.tex.latex source.lua
+T 43 text.tex.latex source.lua keyword.operator.lua
+T 44 text.tex.latex source.lua variable.other.lua
+T 48 text.tex.latex source.lua
+L     end
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+L     end
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+L     return vecteurs -- vecteurs est une ligne polygonale
+T 4 text.tex.latex source.lua
+T 10 text.tex.latex source.lua keyword.control.lua
+T 11 text.tex.latex source.lua
+T 19 text.tex.latex source.lua variable.other.lua
+T 20 text.tex.latex source.lua
+T 22 text.tex.latex source.lua comment.line.double-dash.lua punctuation.definition.comment.lua
+T 56 text.tex.latex source.lua comment.line.double-dash.lua
+L     end
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+L     g:Daxes( {0,1,1}, {labelpos={"none","none"}, arrows="->"} )
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua entity.name.class.lua
+T 6 text.tex.latex source.lua
+T 11 text.tex.latex source.lua support.function.any-method.lua
+T 14 text.tex.latex source.lua
+T 15 text.tex.latex source.lua constant.numeric.float.lua
+T 16 text.tex.latex source.lua
+T 17 text.tex.latex source.lua constant.numeric.float.lua
+T 18 text.tex.latex source.lua
+T 19 text.tex.latex source.lua constant.numeric.float.lua
+T 23 text.tex.latex source.lua
+T 31 text.tex.latex source.lua variable.other.lua
+T 32 text.tex.latex source.lua keyword.operator.lua
+T 33 text.tex.latex source.lua
+T 34 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 38 text.tex.latex source.lua string.quoted.double.lua
+T 39 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 40 text.tex.latex source.lua
+T 41 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 45 text.tex.latex source.lua string.quoted.double.lua
+T 46 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 49 text.tex.latex source.lua
+T 55 text.tex.latex source.lua variable.other.lua
+T 56 text.tex.latex source.lua keyword.operator.lua
+T 57 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 59 text.tex.latex source.lua string.quoted.double.lua
+T 60 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 63 text.tex.latex source.lua
+L     g:Dpolyline( champ(f), "->,blue")
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua entity.name.class.lua
+T 6 text.tex.latex source.lua
+T 15 text.tex.latex source.lua support.function.any-method.lua
+T 17 text.tex.latex source.lua
+T 22 text.tex.latex source.lua support.function.any-method.lua
+T 23 text.tex.latex source.lua
+T 24 text.tex.latex source.lua variable.other.lua
+T 27 text.tex.latex source.lua
+T 28 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 35 text.tex.latex source.lua string.quoted.double.lua
+T 36 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 37 text.tex.latex source.lua
+L     g:Dodesolve(f, A.re, A.im, {t={-2.75,5},draw_options="red,line width=0.8pt"}) 
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua entity.name.class.lua
+T 6 text.tex.latex source.lua
+T 15 text.tex.latex source.lua support.function.any-method.lua
+T 16 text.tex.latex source.lua
+T 17 text.tex.latex source.lua variable.other.lua
+T 19 text.tex.latex source.lua
+T 20 text.tex.latex source.lua variable.other.lua
+T 21 text.tex.latex source.lua
+T 23 text.tex.latex source.lua entity.other.attribute.lua
+T 25 text.tex.latex source.lua
+T 26 text.tex.latex source.lua variable.other.lua
+T 27 text.tex.latex source.lua
+T 29 text.tex.latex source.lua entity.other.attribute.lua
+T 32 text.tex.latex source.lua
+T 33 text.tex.latex source.lua variable.other.lua
+T 34 text.tex.latex source.lua keyword.operator.lua
+T 35 text.tex.latex source.lua
+T 36 text.tex.latex source.lua keyword.operator.lua
+T 40 text.tex.latex source.lua constant.numeric.float.lua
+T 41 text.tex.latex source.lua
+T 42 text.tex.latex source.lua constant.numeric.float.lua
+T 44 text.tex.latex source.lua
+T 56 text.tex.latex source.lua variable.other.lua
+T 57 text.tex.latex source.lua keyword.operator.lua
+T 58 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 78 text.tex.latex source.lua string.quoted.double.lua
+T 79 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 82 text.tex.latex source.lua
+L     g:Dlabeldot("$A$", A, {pos="S"})
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua entity.name.class.lua
+T 6 text.tex.latex source.lua
+T 15 text.tex.latex source.lua support.function.any-method.lua
+T 16 text.tex.latex source.lua
+T 17 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 20 text.tex.latex source.lua string.quoted.double.lua
+T 21 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 23 text.tex.latex source.lua
+T 24 text.tex.latex source.lua variable.other.lua
+T 27 text.tex.latex source.lua
+T 30 text.tex.latex source.lua variable.other.lua
+T 31 text.tex.latex source.lua keyword.operator.lua
+T 32 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 33 text.tex.latex source.lua string.quoted.double.lua
+T 34 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 36 text.tex.latex source.lua
+L     g:Show()
+T 4 text.tex.latex source.lua
+T 5 text.tex.latex source.lua entity.name.class.lua
+T 6 text.tex.latex source.lua
+T 10 text.tex.latex source.lua support.function.any-method.lua
+T 12 text.tex.latex source.lua
+L \end{luadraw}
+T 1 text.tex.latex support.function.be.latex punctuation.definition.function.latex
+T 4 text.tex.latex support.function.be.latex
+T 5 text.tex.latex punctuation.definition.arguments.begin.latex
+T 12 text.tex.latex variable.parameter.function.latex
+T 13 text.tex.latex punctuation.definition.arguments.end.latex
+L 
+L \directlua{
+T 1 text.tex.latex support.function.verb.latex punctuation.definition.function.latex
+T 10 text.tex.latex support.function.verb.latex
+T 11 text.tex.latex punctuation.definition.arguments.begin.latex
+L   local i
+T 2 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.local.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua variable.other.lua
+L   local t = { }
+T 2 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.local.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua variable.other.lua
+T 10 text.tex.latex source.lua
+T 11 text.tex.latex source.lua keyword.operator.lua
+T 12 text.tex.latex source.lua
+T 13 text.tex.latex source.lua meta.group.braces.tex punctuation.group.begin.tex
+T 14 text.tex.latex source.lua meta.group.braces.tex
+T 15 text.tex.latex source.lua meta.group.braces.tex punctuation.group.end.tex
+L   for _,i in pairs(tex.extraprimitives("luatex")) do
+T 2 text.tex.latex source.lua
+T 5 text.tex.latex source.lua keyword.control.lua
+T 6 text.tex.latex source.lua
+T 7 text.tex.latex source.lua variable.other.lua
+T 8 text.tex.latex source.lua
+T 9 text.tex.latex source.lua variable.other.lua
+T 10 text.tex.latex source.lua
+T 12 text.tex.latex source.lua keyword.control.lua
+T 13 text.tex.latex source.lua
+T 18 text.tex.latex source.lua support.function.lua
+T 19 text.tex.latex source.lua
+T 22 text.tex.latex source.lua variable.other.lua
+T 23 text.tex.latex source.lua
+T 38 text.tex.latex source.lua support.function.any-method.lua
+T 39 text.tex.latex source.lua
+T 40 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 46 text.tex.latex source.lua string.quoted.double.lua
+T 47 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 50 text.tex.latex source.lua
+T 52 text.tex.latex source.lua keyword.control.lua
+L     if string.match(i,"^U") then
+T 4 text.tex.latex source.lua
+T 6 text.tex.latex source.lua keyword.control.lua
+T 7 text.tex.latex source.lua
+T 19 text.tex.latex source.lua support.function.library.lua
+T 20 text.tex.latex source.lua
+T 21 text.tex.latex source.lua variable.other.lua
+T 22 text.tex.latex source.lua
+T 23 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 25 text.tex.latex source.lua string.quoted.double.lua
+T 26 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 28 text.tex.latex source.lua
+T 32 text.tex.latex source.lua keyword.control.lua
+L       if not string.match(i,"^Uchar$") then
+T 6 text.tex.latex source.lua
+T 8 text.tex.latex source.lua keyword.control.lua
+T 9 text.tex.latex source.lua
+T 12 text.tex.latex source.lua keyword.operator.logical.lua
+T 13 text.tex.latex source.lua
+T 25 text.tex.latex source.lua support.function.library.lua
+T 26 text.tex.latex source.lua
+T 27 text.tex.latex source.lua variable.other.lua
+T 28 text.tex.latex source.lua
+T 29 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 36 text.tex.latex source.lua string.quoted.double.lua
+T 37 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 39 text.tex.latex source.lua
+T 43 text.tex.latex source.lua keyword.control.lua
+L         table.insert(t,i)
+T 8 text.tex.latex source.lua
+T 20 text.tex.latex source.lua support.function.library.lua
+T 21 text.tex.latex source.lua
+T 22 text.tex.latex source.lua variable.other.lua
+T 23 text.tex.latex source.lua
+T 24 text.tex.latex source.lua variable.other.lua
+T 25 text.tex.latex source.lua
+L       end
+T 6 text.tex.latex source.lua
+T 9 text.tex.latex source.lua keyword.control.lua
+L     end
+T 4 text.tex.latex source.lua
+T 7 text.tex.latex source.lua keyword.control.lua
+L   end
+T 2 text.tex.latex source.lua
+T 5 text.tex.latex source.lua keyword.control.lua
+L   tex.enableprimitives("", t)
+T 2 text.tex.latex source.lua
+T 5 text.tex.latex source.lua variable.other.lua
+T 6 text.tex.latex source.lua
+T 22 text.tex.latex source.lua support.function.any-method.lua
+T 23 text.tex.latex source.lua
+T 24 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.begin.lua
+T 25 text.tex.latex source.lua string.quoted.double.lua punctuation.definition.string.end.lua
+T 27 text.tex.latex source.lua
+T 28 text.tex.latex source.lua variable.other.lua
+T 29 text.tex.latex source.lua
+L }
+T 1 text.tex.latex punctuation.definition.arguments.end.latex
+L 

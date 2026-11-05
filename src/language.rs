@@ -1229,6 +1229,32 @@ languages! {
     /// - `\bogoplus`, a typo for `\bigoplus` in the grammar's list of big operators, is a math constant.
     ///   Every other big operator is also in the symbol list, which comes first, so only that word reaches the operator rule.
     Tex { feature: "lang-tex", names: ["tex"], module: tex }
+    /// LaTeX, with the scopes of Shiki's `latex` grammar.
+    /// The grammar includes TeX's rules, which [`Language::Tex`]'s matchers
+    /// answer.
+    /// A code environment, such as `minted` or `pycode`, hands its text to the
+    /// language it names.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Asymptote, C++, Graphviz and gnuplot code is plain text under its environment's scopes.
+    ///   Shiki loads none of those grammars with LaTeX.
+    ///   A `minted` or `lstlisting` argument that names one of them reads as an unknown language.
+    /// - `\begin{markdown}` is an ordinary environment.
+    ///   Its rule includes a grammar Shiki does not load, so the rule drops.
+    /// - A Markdown `tex` fence is LaTeX, not TeX: the grammar embeds LaTeX for both names.
+    ///
+    /// # Differences from Shiki
+    ///
+    /// - Haskell, Java, Julia, Rust and Scala code in a braced argument, such as `\cacheMeCode[java]{…}`, ends at its first `}`.
+    ///   That holds even for a `}` inside a string, as those lexers have no halts of their own.
+    Latex {
+        feature: "lang-latex",
+        names: ["latex"],
+        module: latex,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {
