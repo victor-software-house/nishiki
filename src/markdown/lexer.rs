@@ -306,6 +306,11 @@ impl<'a> Lexer<'a> {
     /// line rebuilds them. The line's count goes back to the lender.
     /// The frames this line opened lose their saved anchors, which belong
     /// to this line.
+    #[expect(
+        clippy::inline_always,
+        reason = "measured at sixteen codegen units: left out of line, it took the lexer by a libc copy of 815k instructions on the Markdown fixtures; inlined, Markdown ran 1.6% fewer, and one unit was unchanged"
+    )]
+    #[inline(always)]
     pub(crate) fn finish(mut self) -> Finished {
         let state = self
             .frames
