@@ -339,6 +339,47 @@ async function check() {
   }
 }
 
+/** One step of a trace: text to append, or a byte range to replace. */
+export type Step = { push: string } | { replace: { start: number; end: number; text: string } };
+
+/** A trace as a replayer drives it: its first text (empty for an append
+ * trace), its steps, and the text they end with. */
+export type Trace = { name: string; kind: string; language: string; initial: string; steps: Step[]; final: string };
+
+/** Every trace of bench/traces/, sorted by kind and name. */
+export function loadTraces(): Trace[] {
+  const out: Trace[] = [];
+  for (const kind of ["reply", "tool-write", "edits"]) {
+    for (const file of readdirSync(join(traces, kind)).sort()) {
+      const name = `${kind}/${file}`;
+      const trace = readFileSync(join(traces, name), "utf8");
+      if (kind === "edits") {
+        const { fields, rest } = split(trace, /^base \d+$/);
+        const edits = parseEdits(rest);
+        out.push({
+          name,
+          kind,
+          language: fields.get("language") ?? "",
+          initial: decoder.decode(edits.base),
+          steps: edits.replacements.map((r) => ({ replace: { start: r.start, end: r.end, text: decoder.decode(r.text) } })),
+          final: replay(edits).text,
+        });
+        continue;
+      }
+      const { fields, rest } = split(trace, /^deltas$/);
+      const bytes = readFileSync(join(root, fields.get("source") ?? ""));
+      const steps: Step[] = [];
+      let at = 0;
+      for (const length of rest.split(/\s+/).slice(1).filter((field) => field !== "").map(Number)) {
+        steps.push({ push: decoder.decode(bytes.subarray(at, at + length)) });
+        at += length;
+      }
+      out.push({ name, kind, language: fields.get("language") ?? "", initial: "", steps, final: decoder.decode(bytes) });
+    }
+  }
+  return out;
+}
+
 if (import.meta.main) {
   const mode = Bun.argv[2];
   if (mode === "write") await write();

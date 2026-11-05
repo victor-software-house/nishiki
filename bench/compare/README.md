@@ -71,6 +71,7 @@ None ships: `publish = false` and the crate's `include` both leave `bench/` out.
 | serde_json | 1.0.154 | MIT OR Apache-2.0 | crates.io manifest |
 | giallo, behind the `giallo` feature | 0.5.2 | EUPL-1.2, copyleft | [Cargo.toml][giallo-cargo] |
 | shiki, in Bun | 4.6.0 | MIT | already pinned by `oracle/generate.ts` |
+| @shikijs/stream, in Bun, for the stream comparison only | 4.6.0 | MIT | [LICENSE][shiki-stream-licence] |
 | @pierre/highlights, in Bun | 0.4.0 | Apache-2.0; its `NOTICE.md` names no licence for its grammars | [LICENSE.md][pierre-licence] |
 
 Each grammar's licence was read in its repository at the commit its release tag names.
@@ -111,6 +112,8 @@ mise run bench:compare                      # medium tier, every language
 mise run bench:compare -- --tier large rust # one language and tier
 COMPARE_FEATURES=giallo mise run bench:compare
 bun bench/compare/shiki.ts time             # Shiki's and Pierre's own figures
+bun bench/compare/shiki.ts stream-reference # Shiki's colours for each trace's final text
+bun bench/compare/shiki.ts stream           # Shiki and Pierre on the stream traces
 ```
 
 `bench:compare` first writes Shiki's reference colours to `target/compare/shiki/`.
@@ -125,6 +128,7 @@ The Bench job runs `bench:check` on a pull request labelled `bench`.
 That keeps it building.
 A recorded comparison runs on the reference host, under the rules in [`../AGENTS.md`](../AGENTS.md).
 
+[shiki-stream-licence]: https://unpkg.com/@shikijs/stream@4.6.0/LICENSE
 [pierre-licence]: https://unpkg.com/@pierre/highlights@0.4.0/LICENSE.md
 [two-face-ack]: https://github.com/CosmicHorrorDev/two-face/blob/33f7e243b6174e8f0c63fd7698ec5736d715e355/generated/acknowledgements_full.md
 [giallo-cargo]: https://github.com/getzola/giallo/blob/9136c2d78cd43321d2fbd845942ed07ff2e3f435/Cargo.toml
