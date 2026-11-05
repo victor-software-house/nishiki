@@ -188,7 +188,7 @@
         "spread_pct": 12.568770581978006
       },
       "tokens": 8488,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "bat/medium/solr-solr.cmd",
@@ -245,7 +245,7 @@
         "spread_pct": 3.939877886540762
       },
       "tokens": 9838,
-      "agreement": 89.63954299200772
+      "fidelity": 89.63954299200772
     },
     {
       "file": "bat/medium/solr-solr.cmd",
@@ -302,7 +302,7 @@
         "spread_pct": 3.5289909452383985
       },
       "tokens": 4776,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -359,7 +359,7 @@
         "spread_pct": 10.555984410790796
       },
       "tokens": 5797,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -416,7 +416,7 @@
         "spread_pct": 3.535218670185621
       },
       "tokens": 6460,
-      "agreement": 82.05220134805678
+      "fidelity": 82.05220134805678
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -473,7 +473,7 @@
         "spread_pct": 3.869841686881044
       },
       "tokens": 4880,
-      "agreement": 56.20966585400832
+      "fidelity": 56.20966585400832
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -530,7 +530,7 @@
         "spread_pct": 5.930495528646086
       },
       "tokens": 2542,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cmake/medium/flatbuffers-cmake-lists.cmake",
@@ -587,7 +587,7 @@
         "spread_pct": 4.11022753368056
       },
       "tokens": 1530,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cmake/medium/flatbuffers-cmake-lists.cmake",
@@ -644,7 +644,7 @@
         "spread_pct": 2.6464605008068314
       },
       "tokens": 4265,
-      "agreement": 67.99385236059747
+      "fidelity": 67.99385236059747
     },
     {
       "file": "cmake/medium/flatbuffers-cmake-lists.cmake",
@@ -701,7 +701,7 @@
         "spread_pct": 2.4966858494246
       },
       "tokens": 1391,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -758,7 +758,7 @@
         "spread_pct": 14.365584554640767
       },
       "tokens": 9995,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -815,7 +815,7 @@
         "spread_pct": 10.77180611974981
       },
       "tokens": 9950,
-      "agreement": 79.66571953869297
+      "fidelity": 79.66571953869297
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -872,7 +872,7 @@
         "spread_pct": 11.454959657742563
       },
       "tokens": 7141,
-      "agreement": 79.79943172321578
+      "fidelity": 79.79943172321578
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -929,7 +929,7 @@
         "spread_pct": 16.950828816340064
       },
       "tokens": 4450,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -986,7 +986,7 @@
         "spread_pct": 8.994984652305039
       },
       "tokens": 5094,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -1043,7 +1043,7 @@
         "spread_pct": 18.191426273606094
       },
       "tokens": 5946,
-      "agreement": 90.68729142238658
+      "fidelity": 90.68729142238658
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -1100,7 +1100,7 @@
         "spread_pct": 6.520072717175548
       },
       "tokens": 2615,
-      "agreement": 68.07973302065481
+      "fidelity": 68.07973302065481
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -1157,7 +1157,7 @@
         "spread_pct": 12.339617195451611
       },
       "tokens": 2397,
-      "agreement": 99.89176513033283
+      "fidelity": 99.89176513033283
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -1214,7 +1214,7 @@
         "spread_pct": 17.447255408992994
       },
       "tokens": 10758,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -1271,7 +1271,7 @@
         "spread_pct": 6.846046630302917
       },
       "tokens": 14459,
-      "agreement": 60.673354263981416
+      "fidelity": 60.673354263981416
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -1328,7 +1328,7 @@
         "spread_pct": 4.975143910814225
       },
       "tokens": 10441,
-      "agreement": 45.17701712739618
+      "fidelity": 45.17701712739618
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -1385,7 +1385,7 @@
         "spread_pct": 3.3409297012786547
       },
       "tokens": 6127,
-      "agreement": 93.55744441891926
+      "fidelity": 93.55744441891926
     },
     {
       "file": "dart/medium/dio-options.dart",
@@ -1442,7 +1442,7 @@
         "spread_pct": 9.274163126794344
       },
       "tokens": 3943,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "dart/medium/dio-options.dart",
@@ -1499,7 +1499,7 @@
         "spread_pct": 4.262655993492811
       },
       "tokens": 4699,
-      "agreement": 92.68270703793819
+      "fidelity": 92.68270703793819
     },
     {
       "file": "dart/medium/dio-options.dart",
@@ -1556,7 +1556,7 @@
         "spread_pct": 5.85056630736605
       },
       "tokens": 2583,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "diff/medium/conan-center-index-ogre-cmake-fixes.patch",
@@ -1613,7 +1613,7 @@
         "spread_pct": 3.5593777639217237
       },
       "tokens": 952,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "diff/medium/conan-center-index-ogre-cmake-fixes.patch",
@@ -1670,7 +1670,7 @@
         "spread_pct": 13.385763413931453
       },
       "tokens": 1016,
-      "agreement": 91.02484149256834
+      "fidelity": 91.02484149256834
     },
     {
       "file": "diff/medium/conan-center-index-ogre-cmake-fixes.patch",
@@ -1727,7 +1727,7 @@
         "spread_pct": 8.848345528131354
       },
       "tokens": 556,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "docker/medium/gdal-ubuntu-full-dockerfile.dockerfile",
@@ -1784,7 +1784,7 @@
         "spread_pct": 7.21205869070222
       },
       "tokens": 1263,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "docker/medium/gdal-ubuntu-full-dockerfile.dockerfile",
@@ -1841,7 +1841,7 @@
         "spread_pct": 18.676945732337906
       },
       "tokens": 1392,
-      "agreement": 99.56861373440597
+      "fidelity": 99.56861373440597
     },
     {
       "file": "docker/medium/gdal-ubuntu-full-dockerfile.dockerfile",
@@ -1898,7 +1898,7 @@
         "spread_pct": 8.068163675905835
       },
       "tokens": 945,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "erb/medium/rubygems-org-application.html.erb",
@@ -1955,7 +1955,7 @@
         "spread_pct": 22.826843719390176
       },
       "tokens": 3059,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "erb/medium/rubygems-org-application.html.erb",
@@ -2012,7 +2012,7 @@
         "spread_pct": 12.348744825533608
       },
       "tokens": 3687,
-      "agreement": 97.71928566305674
+      "fidelity": 97.71928566305674
     },
     {
       "file": "erb/medium/rubygems-org-application.html.erb",
@@ -2069,7 +2069,7 @@
         "spread_pct": 5.31844845926518
       },
       "tokens": 1423,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -2126,7 +2126,7 @@
         "spread_pct": 8.827915251514721
       },
       "tokens": 6603,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -2183,7 +2183,7 @@
         "spread_pct": 8.446865104586271
       },
       "tokens": 7344,
-      "agreement": 85.18343093351704
+      "fidelity": 85.18343093351704
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -2240,7 +2240,7 @@
         "spread_pct": 5.68399982929623
       },
       "tokens": 4832,
-      "agreement": 70.47881501894592
+      "fidelity": 70.47881501894592
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -2297,7 +2297,7 @@
         "spread_pct": 9.150364339217315
       },
       "tokens": 2877,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "graphql/medium/spotify-showcase-schema.graphql",
@@ -2354,7 +2354,7 @@
         "spread_pct": 15.68378079472272
       },
       "tokens": 6673,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "graphql/medium/spotify-showcase-schema.graphql",
@@ -2411,7 +2411,7 @@
         "spread_pct": 14.819894996956876
       },
       "tokens": 8948,
-      "agreement": 11.177680948922779
+      "fidelity": 11.177680948922779
     },
     {
       "file": "graphql/medium/spotify-showcase-schema.graphql",
@@ -2468,7 +2468,7 @@
         "spread_pct": 8.042477068473259
       },
       "tokens": 4080,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "haskell/medium/containers-graph.hs",
@@ -2525,7 +2525,7 @@
         "spread_pct": 21.895390896321654
       },
       "tokens": 3555,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "haskell/medium/containers-graph.hs",
@@ -2582,7 +2582,7 @@
         "spread_pct": 20.80083288178673
       },
       "tokens": 3517,
-      "agreement": 93.3141726347531
+      "fidelity": 93.3141726347531
     },
     {
       "file": "haskell/medium/containers-graph.hs",
@@ -2639,7 +2639,7 @@
         "spread_pct": 10.05174990571503
       },
       "tokens": 1807,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -2696,7 +2696,7 @@
         "spread_pct": 16.299303388852103
       },
       "tokens": 4294,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -2753,7 +2753,7 @@
         "spread_pct": 4.880726137582434
       },
       "tokens": 5390,
-      "agreement": 88.980007183048
+      "fidelity": 88.980007183048
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -2810,7 +2810,7 @@
         "spread_pct": 11.928347460931576
       },
       "tokens": 3356,
-      "agreement": 90.79971267807973
+      "fidelity": 90.79971267807973
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -2867,7 +2867,7 @@
         "spread_pct": 45.54594194181426
       },
       "tokens": 2513,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html-derivative/medium/angular-components-input-demo.html",
@@ -2924,7 +2924,7 @@
         "spread_pct": 5.898030595409229
       },
       "tokens": 6625,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html-derivative/medium/angular-components-input-demo.html",
@@ -2981,7 +2981,7 @@
         "spread_pct": 11.706066445853319
       },
       "tokens": 7669,
-      "agreement": 99.03985799580443
+      "fidelity": 99.03985799580443
     },
     {
       "file": "html-derivative/medium/angular-components-input-demo.html",
@@ -3038,7 +3038,7 @@
         "spread_pct": 6.077751846722582
       },
       "tokens": 4099,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ini/medium/jmeter-jmeter.properties",
@@ -3095,7 +3095,7 @@
         "spread_pct": 17.362206736813178
       },
       "tokens": 2348,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ini/medium/jmeter-jmeter.properties",
@@ -3152,7 +3152,7 @@
         "spread_pct": 33.66529490185622
       },
       "tokens": 3807,
-      "agreement": 95.32140714071407
+      "fidelity": 95.32140714071407
     },
     {
       "file": "ini/medium/jmeter-jmeter.properties",
@@ -3209,7 +3209,7 @@
         "spread_pct": 32.063355368914145
       },
       "tokens": 1219,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -3266,7 +3266,7 @@
         "spread_pct": 11.739282842699605
       },
       "tokens": 7156,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -3323,7 +3323,7 @@
         "spread_pct": 1.83854031576638
       },
       "tokens": 7910,
-      "agreement": 64.99660037395887
+      "fidelity": 64.99660037395887
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -3380,7 +3380,7 @@
         "spread_pct": 2.872441920161437
       },
       "tokens": 4782,
-      "agreement": 64.51215366309705
+      "fidelity": 64.51215366309705
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -3437,7 +3437,7 @@
         "spread_pct": 8.443196623899944
       },
       "tokens": 3001,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -3494,7 +3494,7 @@
         "spread_pct": 2.3456887876926653
       },
       "tokens": 12496,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -3551,7 +3551,7 @@
         "spread_pct": 25.267471579708438
       },
       "tokens": 12054,
-      "agreement": 66.16910608443207
+      "fidelity": 66.16910608443207
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -3608,7 +3608,7 @@
         "spread_pct": 8.672374746299019
       },
       "tokens": 9146,
-      "agreement": 66.50538284746582
+      "fidelity": 66.50538284746582
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -3665,7 +3665,7 @@
         "spread_pct": 3.022729244000457
       },
       "tokens": 5306,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -3722,7 +3722,7 @@
         "spread_pct": 6.291234264192205
       },
       "tokens": 9010,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -3779,7 +3779,7 @@
         "spread_pct": 14.018669728071115
       },
       "tokens": 10392,
-      "agreement": 72.1273925321619
+      "fidelity": 72.1273925321619
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -3836,7 +3836,7 @@
         "spread_pct": 4.417212602380238
       },
       "tokens": 3123,
-      "agreement": 72.1273925321619
+      "fidelity": 72.1273925321619
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -3893,7 +3893,7 @@
         "spread_pct": 2.9047270568321353
       },
       "tokens": 3306,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonc/medium/terminal-defaults.json",
@@ -3950,7 +3950,7 @@
         "spread_pct": 4.932823657671488
       },
       "tokens": 11186,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonc/medium/terminal-defaults.json",
@@ -4007,7 +4007,7 @@
         "spread_pct": 4.703173892060095
       },
       "tokens": 11960,
-      "agreement": 64.13430420711974
+      "fidelity": 64.13430420711974
     },
     {
       "file": "jsonc/medium/terminal-defaults.json",
@@ -4064,7 +4064,7 @@
         "spread_pct": 5.9321721237900045
       },
       "tokens": 4247,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonl/medium/openai-cookbook-toy-chat-fine-tuning.jsonl",
@@ -4121,7 +4121,7 @@
         "spread_pct": 6.036339521484113
       },
       "tokens": 453,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonl/medium/openai-cookbook-toy-chat-fine-tuning.jsonl",
@@ -4178,7 +4178,7 @@
         "spread_pct": 1.2558305869766737
       },
       "tokens": 167,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsx/medium/react-dates-day-picker.jsx",
@@ -4235,7 +4235,7 @@
         "spread_pct": 35.263939983646594
       },
       "tokens": 9494,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsx/medium/react-dates-day-picker.jsx",
@@ -4292,7 +4292,7 @@
         "spread_pct": 1.7010830915233648
       },
       "tokens": 10714,
-      "agreement": 68.04270462633453
+      "fidelity": 68.04270462633453
     },
     {
       "file": "jsx/medium/react-dates-day-picker.jsx",
@@ -4349,7 +4349,7 @@
         "spread_pct": 4.67987258987074
       },
       "tokens": 4205,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "julia/medium/http-http-sse.jl",
@@ -4406,7 +4406,7 @@
         "spread_pct": 4.152039031651939
       },
       "tokens": 4436,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "julia/medium/http-http-sse.jl",
@@ -4463,7 +4463,7 @@
         "spread_pct": 3.1654774421300353
       },
       "tokens": 5849,
-      "agreement": 75.18737043533727
+      "fidelity": 75.18737043533727
     },
     {
       "file": "julia/medium/http-http-sse.jl",
@@ -4520,7 +4520,7 @@
         "spread_pct": 7.940742779674932
       },
       "tokens": 2742,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "kotlin/medium/arrow-raise.kt",
@@ -4577,7 +4577,7 @@
         "spread_pct": 9.837419263205058
       },
       "tokens": 1823,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "kotlin/medium/arrow-raise.kt",
@@ -4634,7 +4634,7 @@
         "spread_pct": 6.95951665199823
       },
       "tokens": 1584,
-      "agreement": 86.31122395006877
+      "fidelity": 86.31122395006877
     },
     {
       "file": "kotlin/medium/arrow-raise.kt",
@@ -4691,7 +4691,7 @@
         "spread_pct": 6.6811603127876
       },
       "tokens": 1387,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "less/medium/semantic-ui-dropdown.less",
@@ -4748,7 +4748,7 @@
         "spread_pct": 9.019780278791153
       },
       "tokens": 8923,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "less/medium/semantic-ui-dropdown.less",
@@ -4805,7 +4805,7 @@
         "spread_pct": 6.346323543129413
       },
       "tokens": 10187,
-      "agreement": 78.40630342674497
+      "fidelity": 78.40630342674497
     },
     {
       "file": "less/medium/semantic-ui-dropdown.less",
@@ -4862,7 +4862,7 @@
         "spread_pct": 4.234110747151309
       },
       "tokens": 3998,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "lua/medium/telescope-nvim-utils.lua",
@@ -4919,7 +4919,7 @@
         "spread_pct": 2.54504145822464
       },
       "tokens": 5500,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "lua/medium/telescope-nvim-utils.lua",
@@ -4976,7 +4976,7 @@
         "spread_pct": 2.5885399633403843
       },
       "tokens": 6609,
-      "agreement": 83.49101229895932
+      "fidelity": 83.49101229895932
     },
     {
       "file": "lua/medium/telescope-nvim-utils.lua",
@@ -5033,7 +5033,7 @@
         "spread_pct": 5.20824025488851
       },
       "tokens": 2742,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "make/medium/jemalloc-makefile-in.mk",
@@ -5090,7 +5090,7 @@
         "spread_pct": 3.4697334543948424
       },
       "tokens": 6661,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "make/medium/jemalloc-makefile-in.mk",
@@ -5147,7 +5147,7 @@
         "spread_pct": 5.492171324101844
       },
       "tokens": 8698,
-      "agreement": 18.195544222252046
+      "fidelity": 18.195544222252046
     },
     {
       "file": "make/medium/jemalloc-makefile-in.mk",
@@ -5204,7 +5204,7 @@
         "spread_pct": 3.361887425244075
       },
       "tokens": 5078,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/medium/fzf-readme.md",
@@ -5261,7 +5261,7 @@
         "spread_pct": 21.54138531872845
       },
       "tokens": 1402,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/medium/fzf-readme.md",
@@ -5318,7 +5318,7 @@
         "spread_pct": 10.388411063927913
       },
       "tokens": 5295,
-      "agreement": 72.95782012549384
+      "fidelity": 72.95782012549384
     },
     {
       "file": "markdown/medium/fzf-readme.md",
@@ -5375,7 +5375,7 @@
         "spread_pct": 21.23763434311895
       },
       "tokens": 2509,
-      "agreement": 59.188356960260286
+      "fidelity": 59.188356960260286
     },
     {
       "file": "mermaid/medium/centreon-plugins-sequence-diagram.mmd",
@@ -5432,7 +5432,7 @@
         "spread_pct": 28.93213981536949
       },
       "tokens": 1453,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "mermaid/medium/centreon-plugins-sequence-diagram.mmd",
@@ -5489,7 +5489,7 @@
         "spread_pct": 22.61393841989984
       },
       "tokens": 857,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "nix/medium/nix-darwin-launchd.nix",
@@ -5546,7 +5546,7 @@
         "spread_pct": 21.712260642446925
       },
       "tokens": 4122,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "nix/medium/nix-darwin-launchd.nix",
@@ -5603,7 +5603,7 @@
         "spread_pct": 13.16868245946568
       },
       "tokens": 4779,
-      "agreement": 99.98292787025181
+      "fidelity": 99.98292787025181
     },
     {
       "file": "nix/medium/nix-darwin-launchd.nix",
@@ -5660,7 +5660,7 @@
         "spread_pct": 16.837482097742527
       },
       "tokens": 2336,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "powershell/medium/choco-get-chocolatey-web-file.ps1",
@@ -5717,7 +5717,7 @@
         "spread_pct": 21.624590571982978
       },
       "tokens": 2822,
-      "agreement": 99.97767441860465
+      "fidelity": 99.97767441860465
     },
     {
       "file": "powershell/medium/choco-get-chocolatey-web-file.ps1",
@@ -5774,7 +5774,7 @@
         "spread_pct": 16.08454796434223
       },
       "tokens": 3110,
-      "agreement": 99.97767441860465
+      "fidelity": 99.97767441860465
     },
     {
       "file": "powershell/medium/choco-get-chocolatey-web-file.ps1",
@@ -5831,7 +5831,7 @@
         "spread_pct": 9.701670963000856
       },
       "tokens": 1298,
-      "agreement": 99.97767441860465
+      "fidelity": 99.97767441860465
     },
     {
       "file": "proto/medium/protobuf-descriptor.proto",
@@ -5888,7 +5888,7 @@
         "spread_pct": 7.425969863073806
       },
       "tokens": 5227,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "proto/medium/protobuf-descriptor.proto",
@@ -5945,7 +5945,7 @@
         "spread_pct": 5.582606410945674
       },
       "tokens": 7754,
-      "agreement": 88.51959420764133
+      "fidelity": 88.51959420764133
     },
     {
       "file": "proto/medium/protobuf-descriptor.proto",
@@ -6002,7 +6002,7 @@
         "spread_pct": 2.977709455764411
       },
       "tokens": 2908,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -6059,7 +6059,7 @@
         "spread_pct": 16.610361817686503
       },
       "tokens": 9645,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -6116,7 +6116,7 @@
         "spread_pct": 18.98899091326983
       },
       "tokens": 10734,
-      "agreement": 73.5885421858904
+      "fidelity": 73.5885421858904
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -6173,7 +6173,7 @@
         "spread_pct": 12.68021821898763
       },
       "tokens": 7584,
-      "agreement": 64.71604692121092
+      "fidelity": 64.71604692121092
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -6230,7 +6230,7 @@
         "spread_pct": 18.1339052577416
       },
       "tokens": 3892,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -6287,7 +6287,7 @@
         "spread_pct": 28.214004504345922
       },
       "tokens": 6264,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -6344,7 +6344,7 @@
         "spread_pct": 8.108001040654631
       },
       "tokens": 5542,
-      "agreement": 91.58090947924353
+      "fidelity": 91.58090947924353
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -6401,7 +6401,7 @@
         "spread_pct": 30.82467666654062
       },
       "tokens": 4404,
-      "agreement": 87.20826375674731
+      "fidelity": 87.20826375674731
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -6458,7 +6458,7 @@
         "spread_pct": 27.019787411450906
       },
       "tokens": 2097,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -6515,7 +6515,7 @@
         "spread_pct": 16.281345764190444
       },
       "tokens": 3680,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -6572,7 +6572,7 @@
         "spread_pct": 22.61354225087521
       },
       "tokens": 3802,
-      "agreement": 80.95004095004094
+      "fidelity": 80.95004095004094
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -6629,7 +6629,7 @@
         "spread_pct": 18.880710899141953
       },
       "tokens": 3160,
-      "agreement": 94.25607425607426
+      "fidelity": 94.25607425607426
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -6686,7 +6686,7 @@
         "spread_pct": 9.96793978612651
       },
       "tokens": 1918,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scala/medium/cats-eval.scala",
@@ -6743,7 +6743,7 @@
         "spread_pct": 12.31245324238309
       },
       "tokens": 3528,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scala/medium/cats-eval.scala",
@@ -6800,7 +6800,7 @@
         "spread_pct": 5.770698430471839
       },
       "tokens": 4593,
-      "agreement": 84.81690979458172
+      "fidelity": 84.81690979458172
     },
     {
       "file": "scala/medium/cats-eval.scala",
@@ -6857,7 +6857,7 @@
         "spread_pct": 3.6445667879086368
       },
       "tokens": 2264,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scss/medium/angular-components-chip.scss",
@@ -6914,7 +6914,7 @@
         "spread_pct": 10.628430387657527
       },
       "tokens": 4301,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scss/medium/angular-components-chip.scss",
@@ -6971,7 +6971,7 @@
         "spread_pct": 15.837381015158506
       },
       "tokens": 5312,
-      "agreement": 70.29862029862029
+      "fidelity": 70.29862029862029
     },
     {
       "file": "scss/medium/angular-components-chip.scss",
@@ -7028,7 +7028,7 @@
         "spread_pct": 9.329697178617987
       },
       "tokens": 2493,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -7085,7 +7085,7 @@
         "spread_pct": 15.435907420570702
       },
       "tokens": 4940,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -7142,7 +7142,7 @@
         "spread_pct": 11.804066624522212
       },
       "tokens": 5222,
-      "agreement": 88.70330365140418
+      "fidelity": 88.70330365140418
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -7199,7 +7199,7 @@
         "spread_pct": 5.287844224079281
       },
       "tokens": 3114,
-      "agreement": 88.63480689182781
+      "fidelity": 88.63480689182781
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -7256,7 +7256,7 @@
         "spread_pct": 4.869646061306576
       },
       "tokens": 2187,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/medium/dolphinscheduler-dolphinscheduler-postgresql.sql",
@@ -7313,7 +7313,7 @@
         "spread_pct": 6.909284361024966
       },
       "tokens": 7694,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/medium/dolphinscheduler-dolphinscheduler-postgresql.sql",
@@ -7370,7 +7370,7 @@
         "spread_pct": 12.578562990329736
       },
       "tokens": 7740,
-      "agreement": 83.56527821326065
+      "fidelity": 83.56527821326065
     },
     {
       "file": "sql/medium/dolphinscheduler-dolphinscheduler-postgresql.sql",
@@ -7427,7 +7427,7 @@
         "spread_pct": 6.9748760600050685
       },
       "tokens": 4067,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "swift/medium/vapor-url-encoded-form-decoder.swift",
@@ -7484,7 +7484,7 @@
         "spread_pct": 21.414391464247107
       },
       "tokens": 3710,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "swift/medium/vapor-url-encoded-form-decoder.swift",
@@ -7541,7 +7541,7 @@
         "spread_pct": 17.48201312688615
       },
       "tokens": 2916,
-      "agreement": 74.71643365866527
+      "fidelity": 74.71643365866527
     },
     {
       "file": "swift/medium/vapor-url-encoded-form-decoder.swift",
@@ -7598,7 +7598,7 @@
         "spread_pct": 12.394541196950042
       },
       "tokens": 1944,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "toml/medium/deno-cargo.toml",
@@ -7655,7 +7655,7 @@
         "spread_pct": 5.677543852894275
       },
       "tokens": 6769,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "toml/medium/deno-cargo.toml",
@@ -7712,7 +7712,7 @@
         "spread_pct": 8.358577147384793
       },
       "tokens": 7407,
-      "agreement": 66.01893373193822
+      "fidelity": 66.01893373193822
     },
     {
       "file": "toml/medium/deno-cargo.toml",
@@ -7769,7 +7769,7 @@
         "spread_pct": 14.075799777479926
       },
       "tokens": 2212,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "tsx/medium/mantine-number-input.tsx",
@@ -7826,7 +7826,7 @@
         "spread_pct": 12.660393144821253
       },
       "tokens": 7851,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "tsx/medium/mantine-number-input.tsx",
@@ -7883,7 +7883,7 @@
         "spread_pct": 6.399221217973048
       },
       "tokens": 8789,
-      "agreement": 95.46693088927421
+      "fidelity": 95.46693088927421
     },
     {
       "file": "tsx/medium/mantine-number-input.tsx",
@@ -7940,7 +7940,7 @@
         "spread_pct": 8.232543885544809
       },
       "tokens": 3574,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -7997,7 +7997,7 @@
         "spread_pct": 8.567415647852231
       },
       "tokens": 11437,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -8054,7 +8054,7 @@
         "spread_pct": 14.165336556696628
       },
       "tokens": 13118,
-      "agreement": 98.7364097608118
+      "fidelity": 98.7364097608118
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -8111,7 +8111,7 @@
         "spread_pct": 2.501890718994746
       },
       "tokens": 10756,
-      "agreement": 69.04807924619473
+      "fidelity": 69.04807924619473
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -8168,7 +8168,7 @@
         "spread_pct": 17.41898497679761
       },
       "tokens": 5317,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "xml/medium/maven-pom.xml",
@@ -8225,7 +8225,7 @@
         "spread_pct": 15.39307768737492
       },
       "tokens": 8478,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "xml/medium/maven-pom.xml",
@@ -8282,7 +8282,7 @@
         "spread_pct": 27.736613038049317
       },
       "tokens": 9933,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "xml/medium/maven-pom.xml",
@@ -8339,7 +8339,7 @@
         "spread_pct": 13.26270682913406
       },
       "tokens": 5623,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -8396,7 +8396,7 @@
         "spread_pct": 9.749296477698865
       },
       "tokens": 3793,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -8453,7 +8453,7 @@
         "spread_pct": 12.354943262084147
       },
       "tokens": 4105,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -8510,7 +8510,7 @@
         "spread_pct": 19.432646646753877
       },
       "tokens": 3173,
-      "agreement": 91.08331941096446
+      "fidelity": 91.08331941096446
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -8567,7 +8567,7 @@
         "spread_pct": 30.73599335717875
       },
       "tokens": 1664,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "zig/medium/tigerbeetle-ring-buffer.zig",
@@ -8624,7 +8624,7 @@
         "spread_pct": 11.266361427731365
       },
       "tokens": 5355,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "zig/medium/tigerbeetle-ring-buffer.zig",
@@ -8681,7 +8681,7 @@
         "spread_pct": 11.64838962891866
       },
       "tokens": 6215,
-      "agreement": 73.46563481725538
+      "fidelity": 73.46563481725538
     },
     {
       "file": "zig/medium/tigerbeetle-ring-buffer.zig",
@@ -8738,7 +8738,7 @@
         "spread_pct": 10.344418475500117
       },
       "tokens": 3623,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -8795,7 +8795,7 @@
         "spread_pct": 31.192161709874977
       },
       "tokens": 118055,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -8852,7 +8852,7 @@
         "spread_pct": 9.428080256771533
       },
       "tokens": 125857,
-      "agreement": 82.8658315177923
+      "fidelity": 82.8658315177923
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -8909,7 +8909,7 @@
         "spread_pct": 35.14888404381543
       },
       "tokens": 78585,
-      "agreement": 64.54929193899783
+      "fidelity": 64.54929193899783
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -8966,7 +8966,7 @@
         "spread_pct": 13.902611051105678
       },
       "tokens": 62248,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -9023,7 +9023,7 @@
         "spread_pct": 6.733948910551812
       },
       "tokens": 104738,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -9080,7 +9080,7 @@
         "spread_pct": 8.557767670765301
       },
       "tokens": 101092,
-      "agreement": 71.03317431670223
+      "fidelity": 71.03317431670223
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -9137,7 +9137,7 @@
         "spread_pct": 5.142658023782624
       },
       "tokens": 72763,
-      "agreement": 57.98844532419187
+      "fidelity": 57.98844532419187
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -9194,7 +9194,7 @@
         "spread_pct": 9.704457169561334
       },
       "tokens": 46614,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -9251,7 +9251,7 @@
         "spread_pct": 5.339082438026801
       },
       "tokens": 44046,
-      "agreement": 99.99648068246606
+      "fidelity": 99.99648068246606
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -9308,7 +9308,7 @@
         "spread_pct": 6.596965991179513
       },
       "tokens": 47858,
-      "agreement": 76.7415342816721
+      "fidelity": 76.7415342816721
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -9365,7 +9365,7 @@
         "spread_pct": 4.286389655450804
       },
       "tokens": 36857,
-      "agreement": 57.290970135071404
+      "fidelity": 57.290970135071404
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -9422,7 +9422,7 @@
         "spread_pct": 1.5155584481195188
       },
       "tokens": 19497,
-      "agreement": 99.89512433748847
+      "fidelity": 99.89512433748847
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -9479,7 +9479,7 @@
         "spread_pct": 3.9204717683661157
       },
       "tokens": 161061,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -9536,7 +9536,7 @@
         "spread_pct": 1.647732032193125
       },
       "tokens": 177069,
-      "agreement": 81.67546393623618
+      "fidelity": 81.67546393623618
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -9593,7 +9593,7 @@
         "spread_pct": 29.522661147837304
       },
       "tokens": 122597,
-      "agreement": 68.0305585383929
+      "fidelity": 68.0305585383929
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -9650,7 +9650,7 @@
         "spread_pct": 3.6087347046432363
       },
       "tokens": 58772,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/large/backbone-index.html",
@@ -9707,7 +9707,7 @@
         "spread_pct": 7.895720272346805
       },
       "tokens": 38813,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/large/backbone-index.html",
@@ -9764,7 +9764,7 @@
         "spread_pct": 2.644978283779746
       },
       "tokens": 42259,
-      "agreement": 97.692655708038
+      "fidelity": 97.692655708038
     },
     {
       "file": "html/large/backbone-index.html",
@@ -9821,7 +9821,7 @@
         "spread_pct": 2.418847686990207
       },
       "tokens": 31017,
-      "agreement": 93.25614258505225
+      "fidelity": 93.25614258505225
     },
     {
       "file": "html/large/backbone-index.html",
@@ -9878,7 +9878,7 @@
         "spread_pct": 2.6825542289625792
       },
       "tokens": 23136,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -9935,7 +9935,7 @@
         "spread_pct": 6.2149547657956745
       },
       "tokens": 25730,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -9992,7 +9992,7 @@
         "spread_pct": 1.7614074692547592
       },
       "tokens": 80071,
-      "agreement": 64.00409084497109
+      "fidelity": 64.00409084497109
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -10049,7 +10049,7 @@
         "spread_pct": 26.020513172640776
       },
       "tokens": 13551,
-      "agreement": 78.97755325151644
+      "fidelity": 78.97755325151644
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -10106,7 +10106,7 @@
         "spread_pct": 12.641175874731985
       },
       "tokens": 13932,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -10163,7 +10163,7 @@
         "spread_pct": 7.98548336636225
       },
       "tokens": 75665,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -10220,7 +10220,7 @@
         "spread_pct": 1.5047213912265505
       },
       "tokens": 83252,
-      "agreement": 89.43219510120768
+      "fidelity": 89.43219510120768
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -10277,7 +10277,7 @@
         "spread_pct": 12.011664165480154
       },
       "tokens": 70395,
-      "agreement": 74.74113369620684
+      "fidelity": 74.74113369620684
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -10334,7 +10334,7 @@
         "spread_pct": 11.638956306667342
       },
       "tokens": 28092,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -10391,7 +10391,7 @@
         "spread_pct": 13.40433989060467
       },
       "tokens": 64693,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -10448,7 +10448,7 @@
         "spread_pct": 4.59888274900942
       },
       "tokens": 74418,
-      "agreement": 52.82379284477459
+      "fidelity": 52.82379284477459
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -10505,7 +10505,7 @@
         "spread_pct": 17.374913032477796
       },
       "tokens": 22593,
-      "agreement": 52.82379284477459
+      "fidelity": 52.82379284477459
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -10562,7 +10562,7 @@
         "spread_pct": 8.494558086085286
       },
       "tokens": 23645,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/large/react-changelog.md",
@@ -10619,7 +10619,7 @@
         "spread_pct": 15.487156036685034
       },
       "tokens": 31954,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/large/react-changelog.md",
@@ -10676,7 +10676,7 @@
         "spread_pct": 4.246434629927978
       },
       "tokens": 33319,
-      "agreement": 81.67424402622119
+      "fidelity": 81.67424402622119
     },
     {
       "file": "markdown/large/react-changelog.md",
@@ -10733,7 +10733,7 @@
         "spread_pct": 3.0496099166135706
       },
       "tokens": 17716,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -10790,7 +10790,7 @@
         "spread_pct": 19.718761849541007
       },
       "tokens": 50059,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -10847,7 +10847,7 @@
         "spread_pct": 3.4707079581944766
       },
       "tokens": 53670,
-      "agreement": 32.87129880854076
+      "fidelity": 32.87129880854076
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -10904,7 +10904,7 @@
         "spread_pct": 13.52757813450779
       },
       "tokens": 31986,
-      "agreement": 83.43614902608442
+      "fidelity": 83.43614902608442
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -10961,7 +10961,7 @@
         "spread_pct": 12.587938483338379
       },
       "tokens": 24407,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -11018,7 +11018,7 @@
         "spread_pct": 3.3670335946707963
       },
       "tokens": 56827,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -11075,7 +11075,7 @@
         "spread_pct": 2.5914449620194104
       },
       "tokens": 65333,
-      "agreement": 83.13947395997066
+      "fidelity": 83.13947395997066
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -11132,7 +11132,7 @@
         "spread_pct": 1.792692534087353
       },
       "tokens": 54650,
-      "agreement": 63.9107198994027
+      "fidelity": 63.9107198994027
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -11189,7 +11189,7 @@
         "spread_pct": 3.804688728402926
       },
       "tokens": 29552,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -11246,7 +11246,7 @@
         "spread_pct": 3.204488399129917
       },
       "tokens": 46440,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -11303,7 +11303,7 @@
         "spread_pct": 3.385744087699343
       },
       "tokens": 45424,
-      "agreement": 79.86217357760255
+      "fidelity": 79.86217357760255
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -11360,7 +11360,7 @@
         "spread_pct": 7.757807509879388
       },
       "tokens": 40249,
-      "agreement": 90.94974696951866
+      "fidelity": 90.94974696951866
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -11417,7 +11417,7 @@
         "spread_pct": 2.275497568781535
       },
       "tokens": 23899,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -11474,7 +11474,7 @@
         "spread_pct": 3.5555812516983614
       },
       "tokens": 53245,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -11531,7 +11531,7 @@
         "spread_pct": 7.907290213249567
       },
       "tokens": 52917,
-      "agreement": 89.23082618926168
+      "fidelity": 89.23082618926168
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -11588,7 +11588,7 @@
         "spread_pct": 3.959072269305424
       },
       "tokens": 24553,
-      "agreement": 85.40017771049644
+      "fidelity": 85.40017771049644
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -11645,7 +11645,7 @@
         "spread_pct": 6.861761439316845
       },
       "tokens": 24635,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/large/vocabulary-v5-build-rx-e.sql",
@@ -11702,7 +11702,7 @@
         "spread_pct": 1.733886625782768
       },
       "tokens": 44735,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/large/vocabulary-v5-build-rx-e.sql",
@@ -11759,7 +11759,7 @@
         "spread_pct": 3.0941616962323595
       },
       "tokens": 43928,
-      "agreement": 95.11214230471771
+      "fidelity": 95.11214230471771
     },
     {
       "file": "sql/large/vocabulary-v5-build-rx-e.sql",
@@ -11816,7 +11816,7 @@
         "spread_pct": 1.9504750214105069
       },
       "tokens": 29986,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -11873,7 +11873,7 @@
         "spread_pct": 4.398169063215003
       },
       "tokens": 96397,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -11930,7 +11930,7 @@
         "spread_pct": 4.753425430147511
       },
       "tokens": 107251,
-      "agreement": 99.56451121179946
+      "fidelity": 99.56451121179946
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -11987,7 +11987,7 @@
         "spread_pct": 4.3339250275213885
       },
       "tokens": 90210,
-      "agreement": 75.74692766207963
+      "fidelity": 75.74692766207963
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -12044,7 +12044,7 @@
         "spread_pct": 2.4702237860997327
       },
       "tokens": 40315,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -12101,7 +12101,7 @@
         "spread_pct": 10.170745584169023
       },
       "tokens": 19776,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -12158,7 +12158,7 @@
         "spread_pct": 4.195822580600322
       },
       "tokens": 22554,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -12215,7 +12215,7 @@
         "spread_pct": 8.82729472083822
       },
       "tokens": 15396,
-      "agreement": 86.98904007134021
+      "fidelity": 86.98904007134021
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -12272,7 +12272,7 @@
         "spread_pct": 2.166774064369114
       },
       "tokens": 8171,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "bat/medium/solr-solr.cmd",
@@ -12329,7 +12329,7 @@
         "spread_pct": 4.5916429077808445
       },
       "tokens": 6040,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "bat/medium/solr-solr.cmd",
@@ -12386,7 +12386,7 @@
         "spread_pct": 7.659608991739146
       },
       "tokens": 6040,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "bat/medium/solr-solr.cmd",
@@ -12443,7 +12443,7 @@
         "spread_pct": 28.604409879707692
       },
       "tokens": 6030,
-      "agreement": 37.051440218848896
+      "fidelity": 37.051440218848896
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -12500,7 +12500,7 @@
         "spread_pct": 10.628194949293697
       },
       "tokens": 72896,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -12557,7 +12557,7 @@
         "spread_pct": 6.134790175817647
       },
       "tokens": 72896,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/large/yyjson-yyjson.c",
@@ -12614,7 +12614,7 @@
         "spread_pct": 13.617959471321905
       },
       "tokens": 81903,
-      "agreement": 63.09718331777155
+      "fidelity": 63.09718331777155
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -12671,7 +12671,7 @@
         "spread_pct": 6.738066867962994
       },
       "tokens": 3226,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -12728,7 +12728,7 @@
         "spread_pct": 6.373998362363249
       },
       "tokens": 3226,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "c/medium/nginx-ngx-hash.c",
@@ -12785,7 +12785,7 @@
         "spread_pct": 23.2969863385032
       },
       "tokens": 5065,
-      "agreement": 46.056216836368854
+      "fidelity": 46.056216836368854
     },
     {
       "file": "cmake/medium/flatbuffers-cmake-lists.cmake",
@@ -12842,7 +12842,7 @@
         "spread_pct": 10.958337299060556
       },
       "tokens": 1530,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cmake/medium/flatbuffers-cmake-lists.cmake",
@@ -12899,7 +12899,7 @@
         "spread_pct": 13.977821991719422
       },
       "tokens": 1530,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cmake/medium/flatbuffers-cmake-lists.cmake",
@@ -12956,7 +12956,7 @@
         "spread_pct": 10.492852783936696
       },
       "tokens": 2088,
-      "agreement": 55.977138465971855
+      "fidelity": 55.977138465971855
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -13013,7 +13013,7 @@
         "spread_pct": 5.4480678415578545
       },
       "tokens": 59960,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -13070,7 +13070,7 @@
         "spread_pct": 13.232630984545734
       },
       "tokens": 59960,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/large/pugixml-pugixml.cpp",
@@ -13127,7 +13127,7 @@
         "spread_pct": 25.764586480784637
       },
       "tokens": 73390,
-      "agreement": 58.37234548960114
+      "fidelity": 58.37234548960114
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -13184,7 +13184,7 @@
         "spread_pct": 13.462586070661558
       },
       "tokens": 5619,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -13241,7 +13241,7 @@
         "spread_pct": 8.050219956153443
       },
       "tokens": 5619,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "cpp/medium/re2-compile.cc",
@@ -13298,7 +13298,7 @@
         "spread_pct": 6.3110159066020675
       },
       "tokens": 7221,
-      "agreement": 81.4106635467157
+      "fidelity": 81.4106635467157
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -13355,7 +13355,7 @@
         "spread_pct": 8.658787899480565
       },
       "tokens": 25361,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -13412,7 +13412,7 @@
         "spread_pct": 7.9949611321703635
       },
       "tokens": 25361,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/large/dapper-sql-mapper.cs",
@@ -13469,7 +13469,7 @@
         "spread_pct": 16.564461078029804
       },
       "tokens": 27182,
-      "agreement": 62.26930386429225
+      "fidelity": 62.26930386429225
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -13526,7 +13526,7 @@
         "spread_pct": 9.74362326833202
       },
       "tokens": 3036,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -13583,7 +13583,7 @@
         "spread_pct": 27.755710647730453
       },
       "tokens": 3036,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "csharp/medium/nodatime-offset.cs",
@@ -13640,7 +13640,7 @@
         "spread_pct": 20.158930375123166
       },
       "tokens": 1720,
-      "agreement": 71.97167854243709
+      "fidelity": 71.97167854243709
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -13697,7 +13697,7 @@
         "spread_pct": 7.442685060126333
       },
       "tokens": 7873,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -13754,7 +13754,7 @@
         "spread_pct": 5.981102795635372
       },
       "tokens": 7873,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "css/medium/pdf-js-viewer.css",
@@ -13811,7 +13811,7 @@
         "spread_pct": 25.859457045148027
       },
       "tokens": 7955,
-      "agreement": 68.43045664548076
+      "fidelity": 68.43045664548076
     },
     {
       "file": "dart/medium/dio-options.dart",
@@ -13868,7 +13868,7 @@
         "spread_pct": 7.374072316533788
       },
       "tokens": 3242,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "dart/medium/dio-options.dart",
@@ -13925,7 +13925,7 @@
         "spread_pct": 13.805433269294475
       },
       "tokens": 3242,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "dart/medium/dio-options.dart",
@@ -13982,7 +13982,7 @@
         "spread_pct": 9.793212406924406
       },
       "tokens": 3805,
-      "agreement": 55.9835991709471
+      "fidelity": 55.9835991709471
     },
     {
       "file": "diff/medium/conan-center-index-ogre-cmake-fixes.patch",
@@ -14039,7 +14039,7 @@
         "spread_pct": 17.047896993421414
       },
       "tokens": 556,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "diff/medium/conan-center-index-ogre-cmake-fixes.patch",
@@ -14096,7 +14096,7 @@
         "spread_pct": 7.561575017385774
       },
       "tokens": 556,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "diff/medium/conan-center-index-ogre-cmake-fixes.patch",
@@ -14153,7 +14153,7 @@
         "spread_pct": 14.96870031892892
       },
       "tokens": 881,
-      "agreement": 87.6104355056647
+      "fidelity": 87.6104355056647
     },
     {
       "file": "docker/medium/gdal-ubuntu-full-dockerfile.dockerfile",
@@ -14210,7 +14210,7 @@
         "spread_pct": 14.368601697560107
       },
       "tokens": 980,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "docker/medium/gdal-ubuntu-full-dockerfile.dockerfile",
@@ -14267,7 +14267,7 @@
         "spread_pct": 11.135453454182198
       },
       "tokens": 980,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "docker/medium/gdal-ubuntu-full-dockerfile.dockerfile",
@@ -14324,7 +14324,7 @@
         "spread_pct": 4.510294732119646
       },
       "tokens": 3315,
-      "agreement": 74.80859663440985
+      "fidelity": 74.80859663440985
     },
     {
       "file": "erb/medium/rubygems-org-application.html.erb",
@@ -14381,7 +14381,7 @@
         "spread_pct": 7.644527506408474
       },
       "tokens": 1690,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "erb/medium/rubygems-org-application.html.erb",
@@ -14438,7 +14438,7 @@
         "spread_pct": 5.153453864749115
       },
       "tokens": 1690,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "erb/medium/rubygems-org-application.html.erb",
@@ -14495,7 +14495,7 @@
         "spread_pct": 11.91847480532142
       },
       "tokens": 1857,
-      "agreement": 94.78591407874919
+      "fidelity": 94.78591407874919
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -14552,7 +14552,7 @@
         "spread_pct": 11.522242400435902
       },
       "tokens": 71613,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -14609,7 +14609,7 @@
         "spread_pct": 15.204273672758406
       },
       "tokens": 71613,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/large/esbuild-js-parser.go",
@@ -14666,7 +14666,7 @@
         "spread_pct": 6.344968485464121
       },
       "tokens": 121698,
-      "agreement": 71.17734690482312
+      "fidelity": 71.17734690482312
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -14723,7 +14723,7 @@
         "spread_pct": 3.7073548040566227
       },
       "tokens": 3568,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -14780,7 +14780,7 @@
         "spread_pct": 16.350816761194448
       },
       "tokens": 3568,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "go/medium/caddy-parse.go",
@@ -14837,7 +14837,7 @@
         "spread_pct": 25.17820621436531
       },
       "tokens": 4543,
-      "agreement": 77.95384085428867
+      "fidelity": 77.95384085428867
     },
     {
       "file": "graphql/medium/spotify-showcase-schema.graphql",
@@ -14894,7 +14894,7 @@
         "spread_pct": 24.228161396618084
       },
       "tokens": 5195,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "graphql/medium/spotify-showcase-schema.graphql",
@@ -14951,7 +14951,7 @@
         "spread_pct": 41.24007807726984
       },
       "tokens": 5195,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "graphql/medium/spotify-showcase-schema.graphql",
@@ -15008,7 +15008,7 @@
         "spread_pct": 8.677342646616932
       },
       "tokens": 5241,
-      "agreement": 11.294682482046316
+      "fidelity": 11.294682482046316
     },
     {
       "file": "haskell/medium/containers-graph.hs",
@@ -15065,7 +15065,7 @@
         "spread_pct": 8.778424174848782
       },
       "tokens": 2443,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "haskell/medium/containers-graph.hs",
@@ -15122,7 +15122,7 @@
         "spread_pct": 43.076829973807854
       },
       "tokens": 2443,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "haskell/medium/containers-graph.hs",
@@ -15179,7 +15179,7 @@
         "spread_pct": 36.595490097937684
       },
       "tokens": 2841,
-      "agreement": 72.48869204673954
+      "fidelity": 72.48869204673954
     },
     {
       "file": "html/large/backbone-index.html",
@@ -15236,7 +15236,7 @@
         "spread_pct": 11.407340297483342
       },
       "tokens": 25447,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/large/backbone-index.html",
@@ -15293,7 +15293,7 @@
         "spread_pct": 6.307614944663466
       },
       "tokens": 25447,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/large/backbone-index.html",
@@ -15350,7 +15350,7 @@
         "spread_pct": 9.755795749793105
       },
       "tokens": 31614,
-      "agreement": 96.16503851159257
+      "fidelity": 96.16503851159257
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -15407,7 +15407,7 @@
         "spread_pct": 15.084536658940898
       },
       "tokens": 2784,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -15464,7 +15464,7 @@
         "spread_pct": 15.164774863795866
       },
       "tokens": 2784,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html/medium/reveal-js-demo.html",
@@ -15521,7 +15521,7 @@
         "spread_pct": 13.431404394108398
       },
       "tokens": 3368,
-      "agreement": 92.52364419968873
+      "fidelity": 92.52364419968873
     },
     {
       "file": "html-derivative/medium/angular-components-input-demo.html",
@@ -15578,7 +15578,7 @@
         "spread_pct": 7.193526773472891
       },
       "tokens": 4672,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html-derivative/medium/angular-components-input-demo.html",
@@ -15635,7 +15635,7 @@
         "spread_pct": 4.980615744536743
       },
       "tokens": 4672,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "html-derivative/medium/angular-components-input-demo.html",
@@ -15692,7 +15692,7 @@
         "spread_pct": 14.672850421137356
       },
       "tokens": 5347,
-      "agreement": 99.48362110698726
+      "fidelity": 99.48362110698726
     },
     {
       "file": "ini/medium/jmeter-jmeter.properties",
@@ -15749,7 +15749,7 @@
         "spread_pct": 5.764049458337888
       },
       "tokens": 1219,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ini/medium/jmeter-jmeter.properties",
@@ -15806,7 +15806,7 @@
         "spread_pct": 10.265261884121886
       },
       "tokens": 1219,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ini/medium/jmeter-jmeter.properties",
@@ -15863,7 +15863,7 @@
         "spread_pct": 14.578856446816147
       },
       "tokens": 1253,
-      "agreement": 98.6986198619862
+      "fidelity": 98.6986198619862
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -15920,7 +15920,7 @@
         "spread_pct": 9.883871387275667
       },
       "tokens": 16841,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -15977,7 +15977,7 @@
         "spread_pct": 9.397848350606562
       },
       "tokens": 16841,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/large/rxjava-maybe.java",
@@ -16034,7 +16034,7 @@
         "spread_pct": 16.554112872886247
       },
       "tokens": 16476,
-      "agreement": 78.86117576527013
+      "fidelity": 78.86117576527013
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -16091,7 +16091,7 @@
         "spread_pct": 4.769377194805171
       },
       "tokens": 3930,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -16148,7 +16148,7 @@
         "spread_pct": 10.417369418915719
       },
       "tokens": 3930,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "java/medium/jsoup-query-parser.java",
@@ -16205,7 +16205,7 @@
         "spread_pct": 10.462143953993177
       },
       "tokens": 5210,
-      "agreement": 67.63980962094169
+      "fidelity": 67.63980962094169
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -16262,7 +16262,7 @@
         "spread_pct": 4.2850876185771
       },
       "tokens": 34481,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -16319,7 +16319,7 @@
         "spread_pct": 4.731420417045857
       },
       "tokens": 34481,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/large/jquery-jquery.js",
@@ -16376,7 +16376,7 @@
         "spread_pct": 8.527655198102925
       },
       "tokens": 47683,
-      "agreement": 73.96294012587175
+      "fidelity": 73.96294012587175
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -16433,7 +16433,7 @@
         "spread_pct": 5.560169856512508
       },
       "tokens": 6969,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -16490,7 +16490,7 @@
         "spread_pct": 15.15259743537037
       },
       "tokens": 6969,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "javascript/medium/webpack-compiler.js",
@@ -16547,7 +16547,7 @@
         "spread_pct": 29.106167283243156
       },
       "tokens": 9267,
-      "agreement": 80.04596588847224
+      "fidelity": 80.04596588847224
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -16604,7 +16604,7 @@
         "spread_pct": 8.160777532803456
       },
       "tokens": 30434,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -16661,7 +16661,7 @@
         "spread_pct": 7.20114361440412
       },
       "tokens": 30434,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/large/browser-compat-data-document.json",
@@ -16718,7 +16718,7 @@
         "spread_pct": 3.740294359917128
       },
       "tokens": 36504,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -16775,7 +16775,7 @@
         "spread_pct": 3.979699533637245
       },
       "tokens": 4236,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -16832,7 +16832,7 @@
         "spread_pct": 6.069504610070695
       },
       "tokens": 4236,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "json/medium/schemastore-package.json",
@@ -16889,7 +16889,7 @@
         "spread_pct": 9.077282630873881
       },
       "tokens": 5151,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonc/medium/terminal-defaults.json",
@@ -16946,7 +16946,7 @@
         "spread_pct": 4.362691010297493
       },
       "tokens": 4734,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonc/medium/terminal-defaults.json",
@@ -17003,7 +17003,7 @@
         "spread_pct": 6.159678899886182
       },
       "tokens": 4734,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonc/medium/terminal-defaults.json",
@@ -17060,7 +17060,7 @@
         "spread_pct": 15.367421554211147
       },
       "tokens": 5421,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonl/medium/openai-cookbook-toy-chat-fine-tuning.jsonl",
@@ -17117,7 +17117,7 @@
         "spread_pct": 3.38115302525811
       },
       "tokens": 167,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonl/medium/openai-cookbook-toy-chat-fine-tuning.jsonl",
@@ -17174,7 +17174,7 @@
         "spread_pct": 7.0205095214461775
       },
       "tokens": 167,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsonl/medium/openai-cookbook-toy-chat-fine-tuning.jsonl",
@@ -17231,7 +17231,7 @@
         "spread_pct": 11.745578244116626
       },
       "tokens": 200,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsx/medium/react-dates-day-picker.jsx",
@@ -17288,7 +17288,7 @@
         "spread_pct": 7.9805848748108925
       },
       "tokens": 5313,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsx/medium/react-dates-day-picker.jsx",
@@ -17345,7 +17345,7 @@
         "spread_pct": 2.9357043324666954
       },
       "tokens": 5313,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "jsx/medium/react-dates-day-picker.jsx",
@@ -17402,7 +17402,7 @@
         "spread_pct": 6.258117563781056
       },
       "tokens": 7080,
-      "agreement": 65.47153024911032
+      "fidelity": 65.47153024911032
     },
     {
       "file": "julia/medium/http-http-sse.jl",
@@ -17459,7 +17459,7 @@
         "spread_pct": 2.2506594068790684
       },
       "tokens": 3411,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "julia/medium/http-http-sse.jl",
@@ -17516,7 +17516,7 @@
         "spread_pct": 11.730971127643457
       },
       "tokens": 3411,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "julia/medium/http-http-sse.jl",
@@ -17573,7 +17573,7 @@
         "spread_pct": 8.421943849304618
       },
       "tokens": 4067,
-      "agreement": 49.26380694200819
+      "fidelity": 49.26380694200819
     },
     {
       "file": "kotlin/medium/arrow-raise.kt",
@@ -17630,7 +17630,7 @@
         "spread_pct": 14.837078580569754
       },
       "tokens": 1650,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "kotlin/medium/arrow-raise.kt",
@@ -17687,7 +17687,7 @@
         "spread_pct": 12.07609699333717
       },
       "tokens": 1650,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "kotlin/medium/arrow-raise.kt",
@@ -17744,7 +17744,7 @@
         "spread_pct": 3.965775137312147
       },
       "tokens": 1860,
-      "agreement": 90.39458373003279
+      "fidelity": 90.39458373003279
     },
     {
       "file": "less/medium/semantic-ui-dropdown.less",
@@ -17801,7 +17801,7 @@
         "spread_pct": 14.37132421573651
       },
       "tokens": 5102,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "less/medium/semantic-ui-dropdown.less",
@@ -17858,7 +17858,7 @@
         "spread_pct": 9.137886661940286
       },
       "tokens": 5102,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "less/medium/semantic-ui-dropdown.less",
@@ -17915,7 +17915,7 @@
         "spread_pct": 10.79025294308392
       },
       "tokens": 4561,
-      "agreement": 58.786144354419086
+      "fidelity": 58.786144354419086
     },
     {
       "file": "lua/medium/telescope-nvim-utils.lua",
@@ -17972,7 +17972,7 @@
         "spread_pct": 4.800485812049366
       },
       "tokens": 3679,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "lua/medium/telescope-nvim-utils.lua",
@@ -18029,7 +18029,7 @@
         "spread_pct": 9.08965347137554
       },
       "tokens": 3679,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "lua/medium/telescope-nvim-utils.lua",
@@ -18086,7 +18086,7 @@
         "spread_pct": 15.67771644057716
       },
       "tokens": 4069,
-      "agreement": 51.507805108798486
+      "fidelity": 51.507805108798486
     },
     {
       "file": "make/medium/jemalloc-makefile-in.mk",
@@ -18143,7 +18143,7 @@
         "spread_pct": 6.161080586292629
       },
       "tokens": 5795,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "make/medium/jemalloc-makefile-in.mk",
@@ -18200,7 +18200,7 @@
         "spread_pct": 9.585096806940218
       },
       "tokens": 5795,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "make/medium/jemalloc-makefile-in.mk",
@@ -18257,7 +18257,7 @@
         "spread_pct": 19.932953948324776
       },
       "tokens": 5875,
-      "agreement": 43.64850355656959
+      "fidelity": 43.64850355656959
     },
     {
       "file": "markdown/large/react-changelog.md",
@@ -18314,7 +18314,7 @@
         "spread_pct": 9.160951920477029
       },
       "tokens": 18017,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/large/react-changelog.md",
@@ -18371,7 +18371,7 @@
         "spread_pct": 4.547773931470562
       },
       "tokens": 18017,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/large/react-changelog.md",
@@ -18428,7 +18428,7 @@
         "spread_pct": 10.989516619318623
       },
       "tokens": 23093,
-      "agreement": 99.61748179923269
+      "fidelity": 99.61748179923269
     },
     {
       "file": "markdown/medium/fzf-readme.md",
@@ -18485,7 +18485,7 @@
         "spread_pct": 6.088139132068196
       },
       "tokens": 1234,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/medium/fzf-readme.md",
@@ -18542,7 +18542,7 @@
         "spread_pct": 18.85772293034982
       },
       "tokens": 1234,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "markdown/medium/fzf-readme.md",
@@ -18599,7 +18599,7 @@
         "spread_pct": 24.484090065674806
       },
       "tokens": 3099,
-      "agreement": 56.11491982337904
+      "fidelity": 56.11491982337904
     },
     {
       "file": "mermaid/medium/centreon-plugins-sequence-diagram.mmd",
@@ -18656,7 +18656,7 @@
         "spread_pct": 5.310169936385497
       },
       "tokens": 1453,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "mermaid/medium/centreon-plugins-sequence-diagram.mmd",
@@ -18713,7 +18713,7 @@
         "spread_pct": 10.834906632115976
       },
       "tokens": 1453,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "mermaid/medium/centreon-plugins-sequence-diagram.mmd",
@@ -18770,7 +18770,7 @@
         "spread_pct": 12.282808322947263
       },
       "tokens": 1949,
-      "agreement": 65.05364729603227
+      "fidelity": 65.05364729603227
     },
     {
       "file": "nix/medium/nix-darwin-launchd.nix",
@@ -18827,7 +18827,7 @@
         "spread_pct": 10.325947248457759
       },
       "tokens": 3580,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "nix/medium/nix-darwin-launchd.nix",
@@ -18884,7 +18884,7 @@
         "spread_pct": 11.188705981296101
       },
       "tokens": 3580,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "nix/medium/nix-darwin-launchd.nix",
@@ -18941,7 +18941,7 @@
         "spread_pct": 11.06165773633832
       },
       "tokens": 3014,
-      "agreement": 78.93299189073836
+      "fidelity": 78.93299189073836
     },
     {
       "file": "powershell/medium/choco-get-chocolatey-web-file.ps1",
@@ -18998,7 +18998,7 @@
         "spread_pct": 4.546398513385497
       },
       "tokens": 1593,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "powershell/medium/choco-get-chocolatey-web-file.ps1",
@@ -19055,7 +19055,7 @@
         "spread_pct": 3.8834615894429283
       },
       "tokens": 1593,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "powershell/medium/choco-get-chocolatey-web-file.ps1",
@@ -19112,7 +19112,7 @@
         "spread_pct": 11.116546492117351
       },
       "tokens": 1614,
-      "agreement": 83.87540934802024
+      "fidelity": 83.87540934802024
     },
     {
       "file": "proto/medium/protobuf-descriptor.proto",
@@ -19169,7 +19169,7 @@
         "spread_pct": 3.1186503824475142
       },
       "tokens": 4575,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "proto/medium/protobuf-descriptor.proto",
@@ -19226,7 +19226,7 @@
         "spread_pct": 5.71818616005385
       },
       "tokens": 4575,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "proto/medium/protobuf-descriptor.proto",
@@ -19283,7 +19283,7 @@
         "spread_pct": 11.277106573988872
       },
       "tokens": 4225,
-      "agreement": 86.68902887998037
+      "fidelity": 86.68902887998037
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -19340,7 +19340,7 @@
         "spread_pct": 7.09592666143422
       },
       "tokens": 31290,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -19397,7 +19397,7 @@
         "spread_pct": 4.2509207469057095
       },
       "tokens": 31290,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/large/pandas-generic.py",
@@ -19454,7 +19454,7 @@
         "spread_pct": 9.294666545078941
       },
       "tokens": 36374,
-      "agreement": 82.11666169357916
+      "fidelity": 82.11666169357916
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -19511,7 +19511,7 @@
         "spread_pct": 3.598674126474346
       },
       "tokens": 5251,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -19568,7 +19568,7 @@
         "spread_pct": 5.3200735081747945
       },
       "tokens": 5251,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "python/medium/httpx-models.py",
@@ -19625,7 +19625,7 @@
         "spread_pct": 10.212899474801853
       },
       "tokens": 7002,
-      "agreement": 64.93869006081148
+      "fidelity": 64.93869006081148
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -19682,7 +19682,7 @@
         "spread_pct": 3.2192765595649773
       },
       "tokens": 41119,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -19739,7 +19739,7 @@
         "spread_pct": 15.970468053707343
       },
       "tokens": 41119,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/large/syntax-tree-node.rb",
@@ -19796,7 +19796,7 @@
         "spread_pct": 24.681421176377565
       },
       "tokens": 44910,
-      "agreement": 73.1501025433751
+      "fidelity": 73.1501025433751
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -19853,7 +19853,7 @@
         "spread_pct": 3.7481605461760443
       },
       "tokens": 2778,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -19910,7 +19910,7 @@
         "spread_pct": 3.9263600499325326
       },
       "tokens": 2778,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "ruby/medium/hanami-router-router.rb",
@@ -19967,7 +19967,7 @@
         "spread_pct": 3.6027467849162482
       },
       "tokens": 3177,
-      "agreement": 87.56941478000854
+      "fidelity": 87.56941478000854
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -20024,7 +20024,7 @@
         "spread_pct": 10.170082255823939
       },
       "tokens": 31290,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -20081,7 +20081,7 @@
         "spread_pct": 11.284543828371545
       },
       "tokens": 31290,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/large/hashbrown-map.rs",
@@ -20138,7 +20138,7 @@
         "spread_pct": 15.995701388649245
       },
       "tokens": 32357,
-      "agreement": 89.37664273665216
+      "fidelity": 89.37664273665216
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -20195,7 +20195,7 @@
         "spread_pct": 9.927273401755716
       },
       "tokens": 2540,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -20252,7 +20252,7 @@
         "spread_pct": 6.045831200249462
       },
       "tokens": 2540,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "rust/medium/regex-determinize.rs",
@@ -20309,7 +20309,7 @@
         "spread_pct": 5.304906619222069
       },
       "tokens": 2696,
-      "agreement": 88.83428883428883
+      "fidelity": 88.83428883428883
     },
     {
       "file": "scala/medium/cats-eval.scala",
@@ -20366,7 +20366,7 @@
         "spread_pct": 6.332861467153428
       },
       "tokens": 2935,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scala/medium/cats-eval.scala",
@@ -20423,7 +20423,7 @@
         "spread_pct": 4.388465055847654
       },
       "tokens": 2935,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scala/medium/cats-eval.scala",
@@ -20480,7 +20480,7 @@
         "spread_pct": 16.40922197548537
       },
       "tokens": 2856,
-      "agreement": 95.0133968442989
+      "fidelity": 95.0133968442989
     },
     {
       "file": "scss/medium/angular-components-chip.scss",
@@ -20537,7 +20537,7 @@
         "spread_pct": 3.8752891937330296
       },
       "tokens": 3063,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scss/medium/angular-components-chip.scss",
@@ -20594,7 +20594,7 @@
         "spread_pct": 5.144321009959773
       },
       "tokens": 3063,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "scss/medium/angular-components-chip.scss",
@@ -20651,7 +20651,7 @@
         "spread_pct": 15.572798306190691
       },
       "tokens": 3157,
-      "agreement": 70.24192024192024
+      "fidelity": 70.24192024192024
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -20708,7 +20708,7 @@
         "spread_pct": 6.367096118128063
       },
       "tokens": 33980,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -20765,7 +20765,7 @@
         "spread_pct": 4.7248635919376865
       },
       "tokens": 33980,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/large/neofetch-neofetch.sh",
@@ -20822,7 +20822,7 @@
         "spread_pct": 14.889998428365288
       },
       "tokens": 27529,
-      "agreement": 72.40016125582085
+      "fidelity": 72.40016125582085
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -20879,7 +20879,7 @@
         "spread_pct": 3.6773956161872965
       },
       "tokens": 2992,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -20936,7 +20936,7 @@
         "spread_pct": 7.244657662419527
       },
       "tokens": 2992,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "shellscript/medium/docker-install-install.sh",
@@ -20993,7 +20993,7 @@
         "spread_pct": 22.37286691111443
       },
       "tokens": 2719,
-      "agreement": 72.54333737288582
+      "fidelity": 72.54333737288582
     },
     {
       "file": "sql/large/vocabulary-v5-build-rx-e.sql",
@@ -21050,7 +21050,7 @@
         "spread_pct": 5.369651479458748
       },
       "tokens": 42161,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/large/vocabulary-v5-build-rx-e.sql",
@@ -21107,7 +21107,7 @@
         "spread_pct": 5.310932699257269
       },
       "tokens": 42161,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/large/vocabulary-v5-build-rx-e.sql",
@@ -21164,7 +21164,7 @@
         "spread_pct": 10.231776511209297
       },
       "tokens": 6574,
-      "agreement": 5.825098106613961
+      "fidelity": 5.825098106613961
     },
     {
       "file": "sql/medium/dolphinscheduler-dolphinscheduler-postgresql.sql",
@@ -21221,7 +21221,7 @@
         "spread_pct": 1.0483477902592933
       },
       "tokens": 7164,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/medium/dolphinscheduler-dolphinscheduler-postgresql.sql",
@@ -21278,7 +21278,7 @@
         "spread_pct": 13.21723405345215
       },
       "tokens": 7164,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "sql/medium/dolphinscheduler-dolphinscheduler-postgresql.sql",
@@ -21335,7 +21335,7 @@
         "spread_pct": 4.788932656821335
       },
       "tokens": 6546,
-      "agreement": 34.23940570656762
+      "fidelity": 34.23940570656762
     },
     {
       "file": "swift/medium/vapor-url-encoded-form-decoder.swift",
@@ -21392,7 +21392,7 @@
         "spread_pct": 3.6943118872613887
       },
       "tokens": 2599,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "swift/medium/vapor-url-encoded-form-decoder.swift",
@@ -21449,7 +21449,7 @@
         "spread_pct": 2.5679771766136668
       },
       "tokens": 2599,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "swift/medium/vapor-url-encoded-form-decoder.swift",
@@ -21506,7 +21506,7 @@
         "spread_pct": 9.564649606151269
       },
       "tokens": 3054,
-      "agreement": 64.10577683988393
+      "fidelity": 64.10577683988393
     },
     {
       "file": "toml/medium/deno-cargo.toml",
@@ -21563,7 +21563,7 @@
         "spread_pct": 6.202615360277685
       },
       "tokens": 2292,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "toml/medium/deno-cargo.toml",
@@ -21620,7 +21620,7 @@
         "spread_pct": 6.480327626116448
       },
       "tokens": 2292,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "toml/medium/deno-cargo.toml",
@@ -21677,7 +21677,7 @@
         "spread_pct": 20.243701375359812
       },
       "tokens": 3481,
-      "agreement": 85.51181974201407
+      "fidelity": 85.51181974201407
     },
     {
       "file": "tsx/medium/mantine-number-input.tsx",
@@ -21734,7 +21734,7 @@
         "spread_pct": 9.068566501031237
       },
       "tokens": 4887,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "tsx/medium/mantine-number-input.tsx",
@@ -21791,7 +21791,7 @@
         "spread_pct": 19.022507276383845
       },
       "tokens": 4887,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "tsx/medium/mantine-number-input.tsx",
@@ -21848,7 +21848,7 @@
         "spread_pct": 7.455831181977129
       },
       "tokens": 5298,
-      "agreement": 61.64643712327636
+      "fidelity": 61.64643712327636
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -21905,7 +21905,7 @@
         "spread_pct": 4.5409570483880595
       },
       "tokens": 56313,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -21962,7 +21962,7 @@
         "spread_pct": 5.317338480914398
       },
       "tokens": 56313,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/large/typescript-parser.ts",
@@ -22019,7 +22019,7 @@
         "spread_pct": 13.70438568778127
       },
       "tokens": 69061,
-      "agreement": 75.35243842183279
+      "fidelity": 75.35243842183279
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -22076,7 +22076,7 @@
         "spread_pct": 2.668230127189043
       },
       "tokens": 7249,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -22133,7 +22133,7 @@
         "spread_pct": 2.9364849286214065
       },
       "tokens": 7249,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "typescript/medium/nest-injector.ts",
@@ -22190,7 +22190,7 @@
         "spread_pct": 11.198013085755228
       },
       "tokens": 8759,
-      "agreement": 68.15655955544817
+      "fidelity": 68.15655955544817
     },
     {
       "file": "xml/medium/maven-pom.xml",
@@ -22247,7 +22247,7 @@
         "spread_pct": 2.14704694244327
       },
       "tokens": 5664,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "xml/medium/maven-pom.xml",
@@ -22304,7 +22304,7 @@
         "spread_pct": 4.017738648470229
       },
       "tokens": 5664,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "xml/medium/maven-pom.xml",
@@ -22361,7 +22361,7 @@
         "spread_pct": 5.284406602784874
       },
       "tokens": 8372,
-      "agreement": 99.90623290704035
+      "fidelity": 99.90623290704035
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -22418,7 +22418,7 @@
         "spread_pct": 3.5801836829121783
       },
       "tokens": 13346,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -22475,7 +22475,7 @@
         "spread_pct": 10.254572907565157
       },
       "tokens": 13346,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/large/helm-charts-kube-prometheus-stack-values.yaml",
@@ -22532,7 +22532,7 @@
         "spread_pct": 12.08021164841197
       },
       "tokens": 11329,
-      "agreement": 87.69899030578489
+      "fidelity": 87.69899030578489
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -22589,7 +22589,7 @@
         "spread_pct": 3.3046677628136267
       },
       "tokens": 2431,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -22646,7 +22646,7 @@
         "spread_pct": 3.0110149730077254
       },
       "tokens": 2431,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "yaml/medium/bitnami-charts-nginx-values.yaml",
@@ -22703,7 +22703,7 @@
         "spread_pct": 6.396523287352903
       },
       "tokens": 2104,
-      "agreement": 91.54633762142295
+      "fidelity": 91.54633762142295
     },
     {
       "file": "zig/medium/tigerbeetle-ring-buffer.zig",
@@ -22760,7 +22760,7 @@
         "spread_pct": 2.9717826632513633
       },
       "tokens": 4697,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "zig/medium/tigerbeetle-ring-buffer.zig",
@@ -22817,7 +22817,7 @@
         "spread_pct": 4.868601939723987
       },
       "tokens": 4697,
-      "agreement": 100
+      "fidelity": 100
     },
     {
       "file": "zig/medium/tigerbeetle-ring-buffer.zig",
@@ -22874,7 +22874,7 @@
         "spread_pct": 4.62219757919001
       },
       "tokens": 4378,
-      "agreement": 79.05141368477511
+      "fidelity": 79.05141368477511
     }
   ]
 }

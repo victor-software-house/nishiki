@@ -8,7 +8,7 @@
 //! - warm throughput: the median over rounds of colouring the file again and
 //!   again, the engine order rotating every round;
 //! - tokens: what the engine made, since fewer tokens is less work;
-//! - agreement: the share of non-whitespace bytes whose colour matches Shiki's,
+//! - fidelity: the share of non-whitespace bytes whose colour matches Shiki's,
 //!   from `bun bench/compare/shiki.ts reference`.
 //!
 //! Usage: `compare [--rounds N] [--cold N] [--tier T] [--tsv] [language...]`,
@@ -178,7 +178,7 @@ fn per_byte(spans: &[(usize, String)], len: usize) -> Vec<&str> {
 
 /// The share of `text`'s non-whitespace bytes that `colours` gives Shiki's
 /// colour, in percent.
-fn agreement(text: &str, colours: &Colours, shiki: &Colours) -> f64 {
+fn fidelity(text: &str, colours: &Colours, shiki: &Colours) -> f64 {
     let (mut same, mut total) = (0_u64, 0_u64);
     for (index, line) in lines(text).into_iter().enumerate() {
         let theirs = per_byte(shiki.get(index).map_or(&[], Vec::as_slice), line.len());
@@ -221,7 +221,7 @@ struct Row {
     first_ms: Vec<f64>,
     mib_per_s: Vec<f64>,
     tokens: usize,
-    agreement: Option<f64>,
+    fidelity: Option<f64>,
 }
 
 impl Row {
@@ -234,7 +234,7 @@ impl Row {
             median(&mut self.first_ms.clone()),
             median(&mut self.mib_per_s.clone()),
             self.tokens,
-            self.agreement
+            self.fidelity
                 .map_or_else(|| "n/a".to_owned(), |share| format!("{share:.2}")),
         )
     }
@@ -255,7 +255,7 @@ impl Row {
             list(&self.first_ms),
             list(&self.mib_per_s),
             self.tokens,
-            self.agreement
+            self.fidelity
                 .map_or_else(|| "n/a".to_owned(), |share| share.to_string()),
         )
     }
@@ -280,11 +280,11 @@ fn runner(options: &Options) -> Result<(), String> {
             );
             println!();
             println!(
-                "| file | engine | setup ms | first document ms | warm MiB/s | tokens | agreement % |"
+                "| file | engine | setup ms | first document ms | warm MiB/s | tokens | fidelity % |"
             );
             println!("|:--|:--|--:|--:|--:|--:|--:|");
         }
-        Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tagreement"),
+        Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity"),
     }
     for document in selected {
         if !nishiki_complete(document) {
@@ -335,16 +335,16 @@ fn runner(options: &Options) -> Result<(), String> {
                 firsts.push(first_ms);
             }
             let tokens = ready.run(&text);
-            let agreement = shiki
+            let fidelity = shiki
                 .as_ref()
-                .map(|shiki| agreement(&text, &ready.colours(&text), shiki));
+                .map(|shiki| fidelity(&text, &ready.colours(&text), shiki));
             rows.push(Row {
                 engine,
                 setup_ms: setups,
                 first_ms: firsts,
                 mib_per_s: speed,
                 tokens,
-                agreement,
+                fidelity,
             });
         }
         for row in rows {

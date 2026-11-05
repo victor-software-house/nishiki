@@ -36,7 +36,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
    - Second, when wall time matters, Criterion on the reference host.
      Save the base with `--save-baseline`, and compare the head with `--baseline`.
      Run them in the order base, head, head, base.
-     The claim holds when both pairs agree in direction and Criterion's interval for the change excludes zero.
+     The claim holds when both pairs move the same way and Criterion's interval for the change excludes zero.
    - Build each side in its own clean target directory.
      A tree from `git archive` keeps the commit's file times, so cargo can reuse an older build.
      On 2026-11-02 a stale before-build turned a 1.05 gain into a reported 1.3.

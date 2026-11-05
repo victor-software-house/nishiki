@@ -1,6 +1,6 @@
 //! The engines the comparison runs, each behind one interface: set up for
 //! one language, colour a document as fast as it can, and report the same
-//! document's colours per byte for the agreement score.
+//! document's colours per byte for the fidelity score.
 //!
 //! Every engine colours with Shiki's github-dark, from the file the oracle
 //! pins (bench/compare/README.md, fairness rule 2).
@@ -29,7 +29,7 @@ pub trait Engine {
     /// is the timed call: it does the engine's own work and nothing else.
     fn run(&mut self, text: &str) -> usize;
 
-    /// The colours of `text`, for the agreement score; never timed.
+    /// The colours of `text`, for the fidelity score; never timed.
     fn colours(&mut self, text: &str) -> Colours;
 }
 
@@ -298,7 +298,7 @@ const PIERRE: &[(&str, &str)] = &[
 
 /// Shiki's github-dark as a Zed theme for `@pierre/highlights`, which takes
 /// no `TextMate` theme. Each token name of [`CAPTURES`] and [`PIERRE`] gets
-/// the colour nishiki's theme gives its scope. Pierre's agreement with Shiki
+/// the colour nishiki's theme gives its scope. Pierre's fidelity to Shiki
 /// depends on this map, so a low figure can come from the map, not the
 /// engine.
 pub fn pierre_theme() -> Option<String> {

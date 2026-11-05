@@ -202,9 +202,9 @@ A comparison SHALL turn off every engine's time and line-length limits, SHALL bu
 
 ### Requirement: Fidelity is reported beside speed
 
-Every engine's comparison row SHALL carry its token count and its agreement with Shiki's colours per non-whitespace byte.
+Every engine's comparison row SHALL carry its token count and its fidelity to Shiki: the share of non-whitespace bytes whose colour matches Shiki's.
 
 #### Scenario: An engine colours fewer tokens
 
-- **WHEN** an engine is faster and agrees with Shiki on fewer bytes
+- **WHEN** an engine is faster and has a lower fidelity
 - **THEN** its row shows both figures side by side

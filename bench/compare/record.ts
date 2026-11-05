@@ -40,7 +40,7 @@ export type CompareRow = {
   first_ms: Summary;
   mib_per_s: Summary;
   tokens: number;
-  agreement: number | null;
+  fidelity: number | null;
 };
 
 export type CompareRecord = {
@@ -111,7 +111,7 @@ function compareRow(row: Record<string, string>): CompareRow {
     first_ms: summary(list(row.first_ms)),
     mib_per_s: summary(list(row.mib_per_s)),
     tokens: Number(row.tokens),
-    agreement: row.agreement === "n/a" ? null : Number(row.agreement),
+    fidelity: row.fidelity === "n/a" ? null : Number(row.fidelity),
   };
 }
 

@@ -29,14 +29,14 @@ nishiki never reads it as a grammar source (invariant 1).
    - tree-sitter's capture names map to the TextMate scope whose colour stands for them (`CAPTURES` in `src/engines.rs`).
    - Pierre takes Zed themes keyed by its token names.
      `compare --pierre-theme` writes one from `CAPTURES` and `PIERRE` in `src/engines.rs`.
-     Pierre's agreement depends on that map.
+     Pierre's fidelity depends on that map.
      A low figure can come from the map, not the engine.
 3. Setup, the first document in a fresh process, and warm throughput are three figures, never one.
 4. Every engine does the full work: Shiki's and Pierre's line limits are off, and the run stops if nishiki reports a limit reached.
 5. Every Rust engine builds with the default release profile and the same rustc.
 6. TypeScript's tree-sitter query is joined to JavaScript's, and C++'s to C's, because each extends its base.
-7. Each row carries the engine's token count and its agreement with Shiki.
-   Agreement is the share of non-whitespace bytes whose colour matches Shiki's.
+7. Each row carries the engine's token count and its fidelity to Shiki.
+   Fidelity is the share of non-whitespace bytes whose colour matches Shiki's.
 8. The engine order rotates every round, five rounds at least, and the median counts.
 9. Shiki and Pierre run in Bun.
    Their rows show what a user of each library gets.
@@ -92,7 +92,7 @@ These figures are indicative only.
 No host class keeps two runs of one build within 2%, and this one moves by up to 11% ([probe](../../openspec/research/2026-11-04-bench-host-probe-criterion.md)).
 Speed decisions rest on Callgrind instruction counts.
 
-| Engine | Files | Warm MiB/s, median | First document ms, median | Agreement, median |
+| Engine | Files | Warm MiB/s, median | First document ms, median | Fidelity, median |
 |:--|--:|--:|--:|--:|
 | nishiki | 62 | 22.9 | 4.78 | 100.00% |
 | syntect | 60 | 2.4 | 18.76 | 83.32% |
@@ -116,8 +116,8 @@ bun bench/compare/shiki.ts time             # Shiki's and Pierre's own figures
 `bench:compare` first writes Shiki's reference colours to `target/compare/shiki/`.
 It also writes Pierre's theme to `target/compare/pierre-theme.json`.
 `shiki.ts time` needs both.
-Its rows carry tokens and agreement as the harness's rows do.
-The Oniguruma engine reads 100% agreement, because it wrote the reference.
+Its rows carry tokens and fidelity as the harness's rows do.
+The Oniguruma engine reads 100% fidelity, because it wrote the reference.
 It builds C for Oniguruma and the tree-sitter grammars.
 It is not part of `verify`.
 The Bench job runs `bench:check` on a pull request labelled `bench`.

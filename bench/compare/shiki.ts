@@ -5,7 +5,7 @@
 // They go to target/compare/shiki/<language>/<tier>/<file>.colors.
 // Each row is one line, and each token is `<byte end>:<colour>`.
 // Shiki's per-line limits are off.
-// The Rust harness reads them to score every engine's agreement with Shiki.
+// The Rust harness reads them to score every engine's fidelity to Shiki.
 //
 // `bun bench/compare/shiki.ts time [--rounds N] [--cold N] [--tier T]... [--tsv]`
 // times Shiki and Pierre themselves on the same files.
@@ -15,11 +15,11 @@
 // Setup and warm throughput are separate figures.
 // Fresh Bun processes give the setup and first-document times.
 // Rows are tab-separated: engine, file, setup ms, first document ms, warm
-// MiB/s, tokens, agreement, each time a median.
+// MiB/s, tokens, fidelity, each time a median.
 // With `--tsv`, rows follow the Rust harness's `--tsv` columns instead.
 // They hold every cold sample and every round, for bench/compare/record.ts.
 // Tokens are the tokens one call returns.
-// Agreement is the share of non-whitespace bytes whose colour matches the
+// Fidelity is the share of non-whitespace bytes whose colour matches the
 // reference, in percent.
 // It follows the Rust harness's rule, so the Oniguruma engine reads 100.
 import { bundledLanguages, createHighlighter, type RegexEngine } from "shiki@4.6.0";
@@ -114,8 +114,8 @@ function perByte(spans: Colours[number], length: number): string[] {
 
 /** The share of `code`'s non-whitespace bytes that `ours` colours as
  * `theirs` does, in percent. A blank is a space or a tab, as in the Rust
- * harness's `agreement`. */
-function agreement(code: string, ours: Colours, theirs: Colours): number {
+ * harness's `fidelity`. */
+function fidelity(code: string, ours: Colours, theirs: Colours): number {
   let same = 0;
   let total = 0;
   code.split("\n").forEach((line, index) => {
@@ -234,7 +234,7 @@ function timeOptions(args: string[]): TimeOptions {
 async function time(options: TimeOptions): Promise<void> {
   const all = files().filter((file) => options.tiers.length === 0 || options.tiers.includes(file.name.split("/")[1] ?? ""));
   const names = Object.keys(engines) as EngineName[];
-  if (options.output === "tsv") console.log("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tagreement");
+  if (options.output === "tsv") console.log("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity");
   for (const file of all) {
     const code = await text(file);
     const bytes = encoder.encode(code).length;
@@ -264,7 +264,7 @@ async function time(options: TimeOptions): Promise<void> {
       }
       const tokens = run();
       const count = tokens.reduce((sum, line) => sum + line.length, 0);
-      const score = agreement(code, coloursOf(tokens), shiki);
+      const score = fidelity(code, coloursOf(tokens), shiki);
       const row =
         options.output === "tsv"
           ? [file.name, engine, setups.join(","), firsts.join(","), speeds.join(","), count, score]

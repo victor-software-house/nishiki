@@ -290,15 +290,15 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     "",
     "Setup and first document are medians over the fresh processes.",
     "Warm throughput is the median over the rounds, and its spread is the largest round minus the smallest, over the median.",
-    "Agreement is the share of non-whitespace bytes whose colour matches Shiki's, in percent.",
+    "Fidelity is the share of non-whitespace bytes whose colour matches Shiki's, in percent.",
     "",
-    "| file | engine | setup ms | first document ms | warm MiB/s | spread | tokens | agreement |",
+    "| file | engine | setup ms | first document ms | warm MiB/s | spread | tokens | fidelity |",
     "|:--|:--|--:|--:|--:|--:|--:|--:|",
   ];
   for (const row of record.rows.toSorted((a, b) => ordinal(a.file, b.file) || ordinal(a.engine, b.engine))) {
-    const agreement = row.agreement === null ? "n/a" : `${fixed(row.agreement, 2)}%`;
+    const fidelity = row.fidelity === null ? "n/a" : `${fixed(row.fidelity, 2)}%`;
     out.push(
-      `| ${row.file} | ${row.engine} | ${fixed(row.setup_ms.median, 2)} | ${fixed(row.first_ms.median, 2)} | ${fixed(row.mib_per_s.median, 1)} | ${fixed(row.mib_per_s.spread_pct, 1)}% | ${row.tokens} | ${agreement} |`,
+      `| ${row.file} | ${row.engine} | ${fixed(row.setup_ms.median, 2)} | ${fixed(row.first_ms.median, 2)} | ${fixed(row.mib_per_s.median, 1)} | ${fixed(row.mib_per_s.spread_pct, 1)}% | ${row.tokens} | ${fidelity} |`,
     );
   }
   return `${out.join("\n")}\n`;
@@ -316,16 +316,16 @@ export function renderCompareSummary(newest: { path: string; record: CompareReco
     `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`, tiers ${record.tiers.join(" and ")}; [the full record](results/${page}).`,
     standing(record, `../../${PROBE}`),
     "",
-    "| Engine | Files | Warm MiB/s, median | First document ms, median | Agreement, median |",
+    "| Engine | Files | Warm MiB/s, median | First document ms, median | Fidelity, median |",
     "|:--|--:|--:|--:|--:|",
   ];
   for (const engine of record.engines) {
     const rows = record.rows.filter((row) => row.engine === engine.name);
     if (rows.length === 0) continue;
-    const agreements = rows.flatMap((row) => (row.agreement === null ? [] : [row.agreement]));
-    const agreement = agreements.length === 0 ? "n/a" : `${fixed(median(agreements), 2)}%`;
+    const fidelities = rows.flatMap((row) => (row.fidelity === null ? [] : [row.fidelity]));
+    const fidelity = fidelities.length === 0 ? "n/a" : `${fixed(median(fidelities), 2)}%`;
     out.push(
-      `| ${engine.name} | ${rows.length} | ${fixed(median(rows.map((row) => row.mib_per_s.median)), 1)} | ${fixed(median(rows.map((row) => row.first_ms.median)), 2)} | ${agreement} |`,
+      `| ${engine.name} | ${rows.length} | ${fixed(median(rows.map((row) => row.mib_per_s.median)), 1)} | ${fixed(median(rows.map((row) => row.first_ms.median)), 2)} | ${fidelity} |`,
     );
   }
   out.push("", END);
