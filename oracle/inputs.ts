@@ -99,6 +99,8 @@ const batsCore =
   "https://raw.githubusercontent.com/bats-core/bats-core/48d8d75a836fb322cf98bd305e2db5a84c1be419";
 const benchmark =
   "https://raw.githubusercontent.com/google/benchmark/1813ad9c3a828cee126f399739443c329e75bc79";
+const betterObjcpp =
+  "https://raw.githubusercontent.com/jeff-hykin/better-objcpp-syntax/5a7eb15eee382dd5aa388bc04fdb60a0d2128e14";
 const black =
   "https://raw.githubusercontent.com/psf/black/945d902bef347d2e7e1d26897aa89a9c177fb535";
 const blake3 =
@@ -362,6 +364,8 @@ const rake =
   "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
 const rapidjson =
   "https://raw.githubusercontent.com/Tencent/rapidjson/24b5e7a8b27f42fa16b96fc70aade9106cf7102f";
+const reactNative =
+  "https://raw.githubusercontent.com/facebook/react-native/25d63d471a91cf9c2141bbe8dab6802eb73c2567";
 const requests =
   "https://raw.githubusercontent.com/psf/requests/3c7baaa05ab4aa49cc819ce3a819d260de19c157";
 const rewrite =
@@ -1115,6 +1119,14 @@ export const inputs: Input[] = [
   { lang: "objective-c", name: "sample", url: `${samples}/objective-c.sample` },
   { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
   { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
+  // Objective-C++ runs on the TextMate engine.
+  { lang: "objective-cpp", name: "grammar-misc-002", url: `${betterObjcpp}/language_examples/misc_002.mm` },
+  { lang: "objective-cpp", name: "grammar-misc-003", url: `${betterObjcpp}/language_examples/misc_003.mm` },
+  { lang: "objective-cpp", name: "react-native-component-view-registry", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTComponentViewRegistry.mm` },
+  { lang: "objective-cpp", name: "react-native-dev-loading-view", url: `${reactNative}/packages/react-native/React/CoreModules/RCTDevLoadingView.mm` },
+  { lang: "objective-cpp", name: "react-native-legacy-interop-coordinator", url: `${reactNative}/packages/react-native/ReactCommon/react/renderer/components/legacyviewmanagerinterop/platform/ios/react/renderer/components/legacyviewmanagerinterop/RCTLegacyViewManagerInteropCoordinator.mm` },
+  { lang: "objective-cpp", name: "react-native-virtual-view", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm` },
+  { lang: "objective-cpp", name: "sample", url: `${samples}/objective-cpp.sample` },
   // Pascal runs on the TextMate engine.
   { lang: "pascal", name: "horse-commons", url: `${horse}/src/Horse.Commons.pas` },
   { lang: "pascal", name: "horse-http2-framing", url: `${horse}/src/Horse.Core.Http2.Framing.pas` },

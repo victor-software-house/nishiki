@@ -431,6 +431,8 @@ static SHIPPED: &[(&Grammar, &str)] = &[
     (&crate::matlab::grammar::GRAMMAR, "matlab"),
     #[cfg(feature = "lang-objective-c")]
     (&crate::objective_c::grammar::GRAMMAR, "objective-c"),
+    #[cfg(feature = "lang-objective-cpp")]
+    (&crate::objective_cpp::grammar::GRAMMAR, "objective-cpp"),
     #[cfg(feature = "lang-pascal")]
     (&crate::pascal::grammar::GRAMMAR, "pascal"),
     #[cfg(feature = "lang-perl")]

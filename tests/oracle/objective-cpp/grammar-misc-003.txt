@@ -1,0 +1,318 @@
+L //
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+L //  AppDelegate.m
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 17 source.objcpp comment.line.double-slash.objcpp
+L //  SKNavigationControllerProject
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 33 source.objcpp comment.line.double-slash.objcpp
+L //
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+L //  Created by Selçuk Kızılkaya on 4/4/13.
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 45 source.objcpp comment.line.double-slash.objcpp
+L //  Copyright (c) 2013 Selçuk Kızılkaya. All rights reserved.
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 64 source.objcpp comment.line.double-slash.objcpp
+L //
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+L 
+L #import "AppDelegate.h"
+T 1 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.import.objcpp punctuation.definition.directive.objcpp
+T 7 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.import.objcpp
+T 8 source.objcpp meta.preprocessor.include.objcpp
+T 9 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp punctuation.definition.string.begin.objcpp
+T 22 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp
+T 23 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp punctuation.definition.string.end.objcpp
+L 
+L #import "ViewController.h"
+T 1 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.import.objcpp punctuation.definition.directive.objcpp
+T 7 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.import.objcpp
+T 8 source.objcpp meta.preprocessor.include.objcpp
+T 9 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp punctuation.definition.string.begin.objcpp
+T 25 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp
+T 26 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp punctuation.definition.string.end.objcpp
+L #import "SKNavigationController.h"
+T 1 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.import.objcpp punctuation.definition.directive.objcpp
+T 7 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.import.objcpp
+T 8 source.objcpp meta.preprocessor.include.objcpp
+T 9 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp punctuation.definition.string.begin.objcpp
+T 33 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp
+T 34 source.objcpp meta.preprocessor.include.objcpp string.quoted.double.include.objcpp punctuation.definition.string.end.objcpp
+L @implementation AppDelegate
+T 1 source.objcpp meta.implementation.objcpp storage.type.objcpp punctuation.definition.storage.type.objcpp
+T 15 source.objcpp meta.implementation.objcpp storage.type.objcpp
+T 16 source.objcpp meta.implementation.objcpp
+T 27 source.objcpp meta.implementation.objcpp entity.name.type.objcpp
+L 
+L - (void)dealloc
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.built-in.primitive.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 15 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     [_window release];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 5 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 20 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 21 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 22 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     [_viewController release];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 5 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 28 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 29 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 30 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     [super dealloc];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 5 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 10 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp variable.language.objcpp
+T 18 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 19 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 20 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 19 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+T 20 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 21 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 37 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 48 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+T 49 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 78 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp entity.name.function.name-of-parameter.objcpp
+T 79 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 80 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 92 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp support.class.cocoa.objcpp
+T 93 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 94 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 95 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 108 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.language.objcpp
+T 9 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.separator.dot-access.objcpp
+T 15 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.other.member.objcpp
+T 16 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 17 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp keyword.operator.assignment.objcpp
+T 18 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 19 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 20 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 21 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 51 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 52 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 53 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 72 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 73 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 80 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 81 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 82 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 94 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 95 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 96 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     // Override point for customization after application launch.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 65 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L     self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.language.objcpp
+T 9 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.separator.dot-access.objcpp
+T 23 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.other.member.objcpp
+T 24 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 25 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp keyword.operator.assignment.objcpp
+T 26 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 27 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 28 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 29 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 49 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 50 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 67 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 69 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp string.quoted.double.objcpp punctuation.definition.string.begin.objcpp
+T 83 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp string.quoted.double.objcpp
+T 84 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp string.quoted.double.objcpp punctuation.definition.string.end.objcpp
+T 92 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 95 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp constant.language.objcpp
+T 96 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 108 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 109 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 110 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     SKNavigationController * nav = [[SKNavigationController alloc] initWithRootViewController:self.viewController];
+T 27 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 28 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp keyword.operator.objcpp
+T 33 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 34 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp keyword.operator.assignment.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 37 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 65 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp
+T 66 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 94 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 98 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp variable.language.objcpp
+T 99 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.separator.dot-access.objcpp
+T 113 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp variable.other.member.objcpp
+T 114 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 115 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     self.window.rootViewController = nav;
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.language.objcpp
+T 9 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.separator.dot-access.objcpp
+T 15 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.other.object.access.objcpp
+T 16 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.separator.dot-access.objcpp
+T 34 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp variable.other.member.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp keyword.operator.assignment.objcpp
+T 40 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 41 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     [nav release];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 5 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 16 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 17 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 18 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     [self.window makeKeyAndVisible];
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 5 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.begin.bracket.square.objcpp
+T 9 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp variable.language.objcpp
+T 10 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.separator.dot-access.objcpp
+T 16 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp variable.other.member.objcpp
+T 34 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp meta.bracket.square.access.objcpp punctuation.definition.end.bracket.square.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L     return YES;
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 10 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp keyword.control.objcpp
+T 11 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp
+T 14 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp constant.language.objcpp
+T 15 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L - (void)applicationWillResignActive:(UIApplication *)application
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.built-in.primitive.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 37 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 51 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 52 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 53 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 64 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 281 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 151 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L - (void)applicationDidEnterBackground:(UIApplication *)application
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.built-in.primitive.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 37 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+T 38 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 39 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 53 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 54 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 55 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 66 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 214 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 137 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L - (void)applicationWillEnterForeground:(UIApplication *)application
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.built-in.primitive.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 38 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+T 39 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 40 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 54 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 55 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 56 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 67 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 153 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L - (void)applicationDidBecomeActive:(UIApplication *)application
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.built-in.primitive.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 34 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+T 35 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 36 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 50 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 51 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 52 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 63 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 190 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L - (void)applicationWillTerminate:(UIApplication *)application
+T 2 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp
+T 3 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.begin.objcpp
+T 7 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp storage.type.built-in.primitive.objcpp
+T 8 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp punctuation.definition.type.end.objcpp
+T 32 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.return-type.objcpp entity.name.function.objcpp
+T 33 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp entity.name.function.name-of-parameter.objcpp punctuation.separator.arguments.objcpp
+T 34 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.begin.objcpp
+T 48 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp
+T 49 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp keyword.operator.objcpp
+T 50 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp punctuation.definition.type.end.objcpp
+T 61 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.function.objcpp meta.argument-type.objcpp variable.parameter.function.objcpp
+L {
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+T 4 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.whitespace.comment.leading.objcpp
+T 6 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 124 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp comment.line.double-slash.objcpp
+L }
+T 1 source.objcpp meta.implementation.objcpp meta.scope.implementation.objcpp meta.function-with-body.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L @end
+T 1 source.objcpp meta.implementation.objcpp storage.type.objcpp punctuation.definition.storage.type.objcpp
+T 4 source.objcpp meta.implementation.objcpp storage.type.objcpp

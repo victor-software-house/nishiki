@@ -459,6 +459,13 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `objective-c/sample` | [`samples/objective-c.sample`][objective-c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `objective-cpp/grammar-misc-002` | [`language_examples/misc_002.mm`][objcpp-grammar-misc-002] in jeff-hykin/better-objcpp-syntax | [MIT][objcpp-grammar-licence] |
+| `objective-cpp/grammar-misc-003` | [`language_examples/misc_003.mm`][objcpp-grammar-misc-003] in jeff-hykin/better-objcpp-syntax | [MIT][objcpp-grammar-licence] |
+| `objective-cpp/react-native-component-view-registry` | [`RCTComponentViewRegistry.mm`][react-native-component-view-registry] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/react-native-dev-loading-view` | [`RCTDevLoadingView.mm`][react-native-dev-loading-view] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/react-native-legacy-interop-coordinator` | [`RCTLegacyViewManagerInteropCoordinator.mm`][react-native-legacy-interop-coordinator] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/react-native-virtual-view` | [`RCTVirtualViewComponentView.mm`][react-native-virtual-view] in facebook/react-native | [MIT][react-native-licence] |
+| `objective-cpp/sample` | [`samples/objective-cpp.sample`][objective-cpp-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `pascal/horse-commons` | [`src/Horse.Commons.pas`][horse-commons] in HashLoad/horse | [MIT][horse-licence] |
 | `pascal/horse-http2-framing` | [`src/Horse.Core.Http2.Framing.pas`][horse-http2-framing] in HashLoad/horse | [MIT][horse-licence] |
 | `pascal/horse-websocket-console` | [`samples/lazarus/console_websocket/console_websocket.lpr`][horse-websocket-console] in HashLoad/horse | [MIT][horse-licence] |
@@ -888,6 +895,9 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 
 `common-lisp/sample`, `common-lisp/grammar-demo`, `common-lisp/grammar-format-strings`, `common-lisp/split-sequence-list` and `common-lisp/cl-ppcre-scanner` are the development inputs for Common Lisp.
 `common-lisp/cl-ppcre-optimize`, `common-lisp/quicklisp-http` and `common-lisp/woo-response` are held out: they were added after the development inputs passed.
+
+`objective-cpp/sample`, `objective-cpp/grammar-misc-002`, `objective-cpp/react-native-component-view-registry` and `objective-cpp/react-native-dev-loading-view` are the development inputs for Objective-C++.
+`objective-cpp/grammar-misc-003`, `objective-cpp/react-native-legacy-interop-coordinator` and `objective-cpp/react-native-virtual-view` are held out: they were added after the development inputs passed.
 
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
@@ -1362,7 +1372,11 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [nvm-make]: https://github.com/nvm-sh/nvm/blob/16df5aa69aeda3814703e14f9d35a4f60220dd37/Makefile
 [nvm-make-licence]: https://github.com/nvm-sh/nvm/blob/16df5aa69aeda3814703e14f9d35a4f60220dd37/LICENSE.md
 [nvm-readme]: https://github.com/nvm-sh/nvm/blob/5e38bc0caed342356ffd26eb21e0e9b995ac228b/README.md
+[objcpp-grammar-licence]: https://github.com/jeff-hykin/better-objcpp-syntax/blob/5a7eb15eee382dd5aa388bc04fdb60a0d2128e14/LICENSE
+[objcpp-grammar-misc-002]: https://github.com/jeff-hykin/better-objcpp-syntax/blob/5a7eb15eee382dd5aa388bc04fdb60a0d2128e14/language_examples/misc_002.mm
+[objcpp-grammar-misc-003]: https://github.com/jeff-hykin/better-objcpp-syntax/blob/5a7eb15eee382dd5aa388bc04fdb60a0d2128e14/language_examples/misc_003.mm
 [objective-c-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/objective-c.sample
+[objective-cpp-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/objective-cpp.sample
 [ohmyzsh-alias-finder-test]: https://github.com/ohmyzsh/ohmyzsh/blob/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a/plugins/alias-finder/tests/test_run.sh
 [ohmyzsh-licence]: https://github.com/ohmyzsh/ohmyzsh/blob/b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a/LICENSE.txt
 [okhttp-build]: https://github.com/square/okhttp/blob/16fb6aef3aee1c4645fc8d24af01f8a4dc128ebf/okhttp/build.gradle.kts
@@ -1458,6 +1472,11 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [rake-task]: https://github.com/ruby/rake/blob/3f29d39daa688eb51cd975c06b1501320f10b911/lib/rake/task.rb
 [rapidjson-licence]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/license.txt
 [rapidjson-reader]: https://github.com/Tencent/rapidjson/blob/24b5e7a8b27f42fa16b96fc70aade9106cf7102f/include/rapidjson/reader.h
+[react-native-component-view-registry]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/Fabric/Mounting/RCTComponentViewRegistry.mm
+[react-native-dev-loading-view]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/CoreModules/RCTDevLoadingView.mm
+[react-native-legacy-interop-coordinator]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/ReactCommon/react/renderer/components/legacyviewmanagerinterop/platform/ios/react/renderer/components/legacyviewmanagerinterop/RCTLegacyViewManagerInteropCoordinator.mm
+[react-native-licence]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/LICENSE
+[react-native-virtual-view]: https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm
 [requests-licence]: https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/LICENSE
 [requests-models]: https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/src/requests/models.py
 [rewrite-licence]: https://github.com/openrewrite/rewrite/blob/03d32965a3cdbf06f2717eb3ca706a162039703c/LICENSE

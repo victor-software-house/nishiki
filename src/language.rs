@@ -1059,6 +1059,15 @@ languages! {
         reads_line_feed: true,
         halts: true,
     }
+    /// Objective-C++, with the scopes of Shiki's `objective-cpp` grammar,
+    /// which nishiki's `TextMate` engine runs.
+    ObjectiveCpp {
+        feature: "lang-objective-cpp",
+        names: ["objective-cpp"],
+        engine: crate::objective_cpp::grammar::GRAMMAR,
+        reads_line_feed: true,
+        halts: true,
+    }
 }
 
 impl Language {

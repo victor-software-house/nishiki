@@ -12,7 +12,7 @@
 #
 # Changing a file, or adding or removing one, raises version: figures from
 # two versions are never compared.
-version = 4
+version = 5
 
 [[file]]
 language = "bat"
@@ -830,6 +830,28 @@ licence = "MIT"
 licence_source = "https://github.com/nix-darwin/nix-darwin/blob/ff0e21a414d4547183396da1b44a66f2577b65e9/LICENSE"
 bytes = 35013
 sha256 = "cdbf0d900eef1bfc828aa0399a77528a13f6041af7e55cf2761229838573bd49"
+
+[[file]]
+language = "objective-cpp"
+tier = "small"
+origin = "neutral"
+path = "objective-cpp/small/react-native-log-box.mm"
+source = "https://raw.githubusercontent.com/facebook/react-native/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/React/CoreModules/RCTLogBox.mm"
+licence = "MIT"
+licence_source = "https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/LICENSE"
+bytes = 2595
+sha256 = "e4f4c9ecf1df33177657eed710502f0ef91a60a225f19ccbf11712c82c860124"
+
+[[file]]
+language = "objective-cpp"
+tier = "medium"
+origin = "neutral"
+path = "objective-cpp/medium/react-native-turbo-module-manager.mm"
+source = "https://raw.githubusercontent.com/facebook/react-native/25d63d471a91cf9c2141bbe8dab6802eb73c2567/packages/react-native/ReactCommon/react/nativemodule/core/platform/ios/ReactCommon/RCTTurboModuleManager.mm"
+licence = "MIT"
+licence_source = "https://github.com/facebook/react-native/blob/25d63d471a91cf9c2141bbe8dab6802eb73c2567/LICENSE"
+bytes = 34356
+sha256 = "3521948583b9abb08df2e0fc91c190ed54f462fc21f573dbd655eda45050e6fa"
 
 [[file]]
 language = "postcss"

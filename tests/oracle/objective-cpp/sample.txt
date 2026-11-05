@@ -1,0 +1,195 @@
+L #include <stdio.h>
+T 1 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.include.objcpp punctuation.definition.directive.objcpp
+T 8 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.include.objcpp
+T 9 source.objcpp meta.preprocessor.include.objcpp
+T 10 source.objcpp meta.preprocessor.include.objcpp string.quoted.other.lt-gt.include.objcpp punctuation.definition.string.begin.objcpp
+T 17 source.objcpp meta.preprocessor.include.objcpp string.quoted.other.lt-gt.include.objcpp
+T 18 source.objcpp meta.preprocessor.include.objcpp string.quoted.other.lt-gt.include.objcpp punctuation.definition.string.end.objcpp
+L #include <Block.h>
+T 1 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.include.objcpp punctuation.definition.directive.objcpp
+T 8 source.objcpp meta.preprocessor.include.objcpp keyword.control.directive.include.objcpp
+T 9 source.objcpp meta.preprocessor.include.objcpp
+T 10 source.objcpp meta.preprocessor.include.objcpp string.quoted.other.lt-gt.include.objcpp punctuation.definition.string.begin.objcpp
+T 17 source.objcpp meta.preprocessor.include.objcpp string.quoted.other.lt-gt.include.objcpp
+T 18 source.objcpp meta.preprocessor.include.objcpp string.quoted.other.lt-gt.include.objcpp punctuation.definition.string.end.objcpp
+L typedef int (^IntBlock)();
+T 7 source.objcpp keyword.other.typedef.objcpp
+T 8 source.objcpp
+T 11 source.objcpp storage.type.built-in.primitive.objcpp
+T 12 source.objcpp
+T 13 source.objcpp meta.parens.objcpp punctuation.section.parens.begin.bracket.round.objcpp
+T 14 source.objcpp meta.parens.objcpp keyword.operator.objcpp
+T 22 source.objcpp meta.parens.objcpp
+T 23 source.objcpp meta.parens.objcpp punctuation.section.parens.end.bracket.round.objcpp
+T 24 source.objcpp meta.parens.objcpp punctuation.section.parens.begin.bracket.round.objcpp
+T 25 source.objcpp meta.parens.objcpp punctuation.section.parens.end.bracket.round.objcpp
+T 26 source.objcpp punctuation.terminator.statement.objcpp
+L 
+L IntBlock MakeCounter(int start, int increment) {
+T 9 source.objcpp
+T 20 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp entity.name.function.objcpp
+T 21 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp punctuation.section.parameters.begin.bracket.round.objcpp
+T 24 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp storage.type.built-in.primitive.objcpp
+T 25 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp
+T 30 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp variable.parameter.probably.objcpp
+T 31 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp punctuation.separator.delimiter.objcpp
+T 32 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp
+T 35 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp storage.type.built-in.primitive.objcpp
+T 36 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp
+T 45 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp variable.parameter.probably.objcpp
+T 46 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp punctuation.section.parameters.end.bracket.round.objcpp
+T 47 source.objcpp
+T 48 source.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L   __block int i = start;
+T 2 source.objcpp meta.block.objcpp
+T 9 source.objcpp meta.block.objcpp storage.modifier.objcpp
+T 10 source.objcpp meta.block.objcpp
+T 13 source.objcpp meta.block.objcpp storage.type.built-in.primitive.objcpp
+T 16 source.objcpp meta.block.objcpp
+T 17 source.objcpp meta.block.objcpp keyword.operator.assignment.objcpp
+T 23 source.objcpp meta.block.objcpp
+T 24 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L 
+L   return Block_copy( ^ {
+T 2 source.objcpp meta.block.objcpp
+T 8 source.objcpp meta.block.objcpp keyword.control.objcpp
+T 9 source.objcpp meta.block.objcpp
+T 19 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 20 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 21 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 22 source.objcpp meta.block.objcpp meta.function-call.objcpp keyword.operator.objcpp
+T 23 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 24 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L     int ret = i;
+T 4 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 7 source.objcpp meta.block.objcpp meta.function-call.objcpp storage.type.built-in.primitive.objcpp
+T 12 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 13 source.objcpp meta.block.objcpp meta.function-call.objcpp keyword.operator.assignment.objcpp
+T 15 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 16 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.terminator.statement.objcpp
+L     i += increment;
+T 6 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 8 source.objcpp meta.block.objcpp meta.function-call.objcpp keyword.operator.assignment.compound.objcpp
+T 18 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 19 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.terminator.statement.objcpp
+L     return ret;
+T 4 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 10 source.objcpp meta.block.objcpp meta.function-call.objcpp keyword.control.objcpp
+T 14 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 15 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.terminator.statement.objcpp
+L   });
+T 2 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 3 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.block.end.bracket.curly.objcpp
+T 4 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 5 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L 
+L }
+T 1 source.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L 
+L int main(void) {
+T 3 source.objcpp storage.type.built-in.primitive.objcpp
+T 4 source.objcpp
+T 8 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp entity.name.function.objcpp
+T 9 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp punctuation.section.parameters.begin.bracket.round.objcpp
+T 13 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp storage.type.built-in.primitive.objcpp
+T 14 source.objcpp meta.function.objcpp meta.function.definition.parameters.objcpp punctuation.section.parameters.end.bracket.round.objcpp
+T 15 source.objcpp
+T 16 source.objcpp meta.block.objcpp punctuation.section.block.begin.bracket.curly.objcpp
+L   IntBlock mycounter = MakeCounter(5, 2);
+T 21 source.objcpp meta.block.objcpp
+T 22 source.objcpp meta.block.objcpp keyword.operator.assignment.objcpp
+T 23 source.objcpp meta.block.objcpp
+T 34 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 35 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 36 source.objcpp meta.block.objcpp meta.function-call.objcpp constant.numeric.decimal.objcpp
+T 37 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.separator.delimiter.objcpp
+T 38 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 39 source.objcpp meta.block.objcpp meta.function-call.objcpp constant.numeric.decimal.objcpp
+T 40 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 41 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L   printf("First call: %d\n", mycounter());
+T 2 source.objcpp meta.block.objcpp
+T 8 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 9 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 10 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp punctuation.definition.string.begin.objcpp
+T 22 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp
+T 24 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp constant.other.placeholder.objcpp
+T 26 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp constant.character.escape.objcpp
+T 27 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp punctuation.definition.string.end.objcpp
+T 28 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.separator.delimiter.objcpp
+T 29 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 38 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 39 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 40 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 41 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 42 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L   printf("Second call: %d\n", mycounter());
+T 2 source.objcpp meta.block.objcpp
+T 8 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 9 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 10 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp punctuation.definition.string.begin.objcpp
+T 23 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp
+T 25 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp constant.other.placeholder.objcpp
+T 27 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp constant.character.escape.objcpp
+T 28 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp punctuation.definition.string.end.objcpp
+T 29 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.separator.delimiter.objcpp
+T 30 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 39 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 40 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 41 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 42 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 43 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L   printf("Third call: %d\n", mycounter());
+T 2 source.objcpp meta.block.objcpp
+T 8 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 9 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 10 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp punctuation.definition.string.begin.objcpp
+T 22 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp
+T 24 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp constant.other.placeholder.objcpp
+T 26 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp constant.character.escape.objcpp
+T 27 source.objcpp meta.block.objcpp meta.function-call.objcpp string.quoted.double.objcpp punctuation.definition.string.end.objcpp
+T 28 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.separator.delimiter.objcpp
+T 29 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 38 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 39 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 40 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 41 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 42 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L 
+L   /* because it was copied, it must also be released */
+T 2 source.objcpp meta.block.objcpp
+T 4 source.objcpp meta.block.objcpp comment.block.objcpp punctuation.definition.comment.begin.objcpp
+T 53 source.objcpp meta.block.objcpp comment.block.objcpp
+T 55 source.objcpp meta.block.objcpp comment.block.objcpp punctuation.definition.comment.end.objcpp
+L   Block_release(mycounter);
+T 2 source.objcpp meta.block.objcpp
+T 15 source.objcpp meta.block.objcpp meta.function-call.objcpp entity.name.function.objcpp
+T 16 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.begin.bracket.round.objcpp
+T 25 source.objcpp meta.block.objcpp meta.function-call.objcpp
+T 26 source.objcpp meta.block.objcpp meta.function-call.objcpp punctuation.section.arguments.end.bracket.round.objcpp
+T 27 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L 
+L   return 0;
+T 2 source.objcpp meta.block.objcpp
+T 8 source.objcpp meta.block.objcpp keyword.control.objcpp
+T 9 source.objcpp meta.block.objcpp
+T 10 source.objcpp meta.block.objcpp constant.numeric.decimal.objcpp
+T 11 source.objcpp meta.block.objcpp punctuation.terminator.statement.objcpp
+L }
+T 1 source.objcpp meta.block.objcpp punctuation.section.block.end.bracket.curly.objcpp
+L /* Output:
+T 2 source.objcpp comment.block.objcpp punctuation.definition.comment.begin.objcpp
+T 10 source.objcpp comment.block.objcpp
+L   First call: 5
+T 15 source.objcpp comment.block.objcpp
+L   Second call: 7
+T 16 source.objcpp comment.block.objcpp
+L   Third call: 9
+T 15 source.objcpp comment.block.objcpp
+L */
+T 2 source.objcpp comment.block.objcpp punctuation.definition.comment.end.objcpp
+L 
+L // From https://en.wikipedia.org/wiki/Objective-C
+T 2 source.objcpp comment.line.double-slash.objcpp punctuation.definition.comment.objcpp
+T 49 source.objcpp comment.line.double-slash.objcpp
+L 

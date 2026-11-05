@@ -164,6 +164,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  "objective-cpp": {
+    bundled: "microsoft/vscode@bd1abe08c38bb5deccf65610f8f3c03d2338d20d",
+    origin: "jeff-hykin/better-objcpp-syntax",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   pascal: {
     bundled: "alefragnani/vscode-language-pascal@f2d6345bd9fe83932f4d04fcacf98ce7d74b8034",
     origin: "textmate/pascal.tmbundle",
