@@ -11,7 +11,7 @@
 // expressions there for oracle/onig.ts.
 import langs from "@shikijs/langs@4.6.0/cpp";
 
-import { arms, groupCount, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import { arms, groupsCheck, requireGroup, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -98,15 +98,14 @@ function scope(name: string): string {
 type Sc = { fixed: string } | { prefix: string; group: number; suffix: string };
 
 /** The scopes of `name`, which a match of `regex` fills in.
- * A `$N` whose group `regex` lacks fails the generator.
- * vscode-textmate keeps such a form as written, and the engine would write nothing. */
+ * A `$N` whose group `regex` lacks fails the generator ([`requireGroup`]). */
 function scopeList(name: string | undefined, regex: string): Sc[] {
   if (name === undefined) return [];
   return name.split(" ").map((part): Sc => {
     const m = /^(.*?)\$(\d+)(.*)$/.exec(part);
     if (!m) return { fixed: scope(part) };
     const group = Number(m[2]);
-    if (group > groupCount(regex)) throw new Error(`${name} names group ${group}, which ${regex} lacks`);
+    requireGroup(name, group, regex);
     return { prefix: m[1]!, group, suffix: m[3]! };
   });
 }

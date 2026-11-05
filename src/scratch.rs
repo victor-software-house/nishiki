@@ -81,6 +81,11 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Nix line, as Dart's is.
     #[cfg(feature = "lang-nix")]
     pub(crate) nix: Option<Box<crate::nix::Scratch>>,
+    /// The Objective-C lexer's, for Objective-C documents and Markdown
+    /// Objective-C fences.
+    /// It is boxed and allocated by the first Objective-C line, as Nix's is.
+    #[cfg(feature = "lang-objective-c")]
+    pub(crate) objective_c: Option<Box<crate::objective_c::Scratch>>,
     /// The PowerShell lexer's, for PowerShell documents and Markdown
     /// PowerShell fences.
     /// It is boxed and allocated by the first PowerShell line, as GraphQL's is.

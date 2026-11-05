@@ -158,7 +158,7 @@ const output = join(work, "answers.jsonl");
 writeFileSync(input, `${cases.map((c) => JSON.stringify({ ...c, p: bytes(c.text, c.p) })).join("\n")}\n`);
 const run = spawnSync(
   "cargo",
-  ["test", "--locked", "--all-features", "--lib", `${lang}::tests::probe::matchers_answer_the_probe_cases`, "--", "--ignored"],
+  ["test", "--locked", "--all-features", "--lib", `${lang.replaceAll("-", "_")}::tests::probe::matchers_answer_the_probe_cases`, "--", "--ignored"],
   { cwd: root, env: { ...process.env, PROBE_IN: input, PROBE_OUT: output }, encoding: "utf8" },
 );
 if (run.status !== 0) {

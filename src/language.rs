@@ -932,16 +932,19 @@ languages! {
         halts: true,
         hands_off: true,
     }
-    /// Objective-C, with the scopes of Shiki's `objective-c` grammar, which
-    /// nishiki's `TextMate` engine runs.
+    /// Objective-C, with the scopes of Shiki's `objective-c` grammar.
     ///
     /// # Behaviour kept from Shiki
     ///
     /// - A Markdown fence named `h` embeds C, not Objective-C: the grammar's C fence comes first.
+    /// - A member name after `.` or `->` that starts with a C type, such as `integer` or `int8_t`, is no member: the grammar excludes the type as a prefix.
+    /// - `#define` names its parameters only when `...`, if any, follows the last name: `(a, ...)` leaves the parameters plain.
+    /// - Capture groups lexed again inside one another, as member access chains are, stop after 64 levels, and the text of a deeper one keeps its own scopes.
+    ///   The bound is a constant in `src/objective_c/engine.rs` until the next minor release moves it into `Limits`.
     ObjectiveC {
         feature: "lang-objective-c",
         names: ["objective-c", "objc"],
-        engine: crate::objective_c::grammar::GRAMMAR,
+        module: objective_c,
         reads_line_feed: true,
         halts: true,
     }

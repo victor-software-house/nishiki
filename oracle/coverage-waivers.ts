@@ -1336,6 +1336,96 @@ export const waivers: Waiver[] = [
     path: "#type_signature.patterns[4].match",
     reason: "it repeats `patterns[2]`, which comes earlier in the same list",
   },
+  { grammar: "objective-c", path: "#anonymous_pattern_1.begin", group: 8, reason: blanks, probe: "AnonymousPattern1" },
+  {
+    grammar: "objective-c",
+    path: "#anonymous_pattern_1.begin",
+    group: 9,
+    reason: "the grammar names the group, but the expression has eight groups",
+    probe: "AnonymousPattern1",
+  },
+  ...[
+    ["#anonymous_pattern_1.end", 4],
+    ["#anonymous_pattern_1.end", 6],
+    ["#anonymous_pattern_1.end", 7],
+    ["#anonymous_pattern_1.end", 8],
+    ["#anonymous_pattern_1.end", 9],
+    ["#anonymous_pattern_2.end", 4],
+    ["#anonymous_pattern_2.end", 5],
+  ].map(
+    ([path, group]): Waiver => ({
+      grammar: "objective-c",
+      path: path as string,
+      group: group as number,
+      reason: "the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups",
+      probe: "AnonymousPattern1End",
+    }),
+  ),
+  { grammar: "objective-c", path: "#anonymous_pattern_14.patterns[0].match", group: 1, reason: missing(0), probe: "AnonymousPattern14At0" },
+  { grammar: "objective-c", path: "#anonymous_pattern_18.match", group: 1, reason: blanks, probe: "AnonymousPattern18" },
+  { grammar: "objective-c", path: "#anonymous_pattern_19.match", group: 1, reason: blanks, probe: "AnonymousPattern19" },
+  { grammar: "objective-c", path: "#bracketed_content.patterns[0].begin", group: 2, reason: missing(1), probe: "BracketedContentAt0" },
+  { grammar: "objective-c", path: "#c_functions.patterns[0].match", group: 1, reason: blanks, probe: "CFunctionsAt0" },
+  { grammar: "objective-c", path: "#c_functions.patterns[1].match", group: 1, reason: blanks, probe: "CFunctionsAt1" },
+  {
+    grammar: "objective-c",
+    path: "#c_functions.patterns[1].match",
+    group: 3,
+    reason: "the group sits inside a negative lookahead, so it never holds text",
+    probe: "CFunctionsAt1",
+  },
+  ...[25, 26, 27].map(
+    (index): Waiver => ({
+      grammar: "objective-c",
+      path: `#c_lang.patterns[${index}].match`,
+      reason: "`#storage_types`, earlier in the same list, takes every word of this alternation first",
+      probe: `CLangAt${index}`,
+    }),
+  ),
+  {
+    grammar: "objective-c",
+    path: "#c_lang.patterns[36].match",
+    reason: "the root tries `#bracketed_content`, whose begin is `\\[`, before `#c_lang`, so it takes every `[` first",
+    probe: "CLangAt36",
+  },
+  { grammar: "objective-c", path: "#c_lang.repository.#comments.patterns[3].begin", group: 1, reason: blanks, probe: "CCommentsAt3" },
+  { grammar: "objective-c", path: "#comment.patterns[1].begin", group: 1, reason: blanks, probe: "CCommentsAt3" },
+  {
+    grammar: "objective-c",
+    path: "#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin",
+    group: 3,
+    reason: missing(2),
+    probe: "CPreprocessorRuleEnabledAt0",
+  },
+  ...[
+    ["begin", "CSwitchStatementAt2"],
+    ["end", "CSwitchStatementAt2End"],
+  ].map(
+    ([part, probe]): Waiver => ({
+      grammar: "objective-c",
+      path: `#c_lang.repository.#switch_statement.patterns[2].${part}`,
+      reason: "the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns",
+      probe,
+    }),
+  ),
+  ...["enabled-interface", "disabled-interface", "enabled-implementation", "disabled-implementation"].flatMap((rule): Waiver[] => [
+    {
+      grammar: "objective-c",
+      path: `#preprocessor-rule-${rule}.end`,
+      group: 3,
+      reason: missing(2),
+      probe: "PreprocessorRuleEnabledInterfaceEnd",
+    },
+    ...[1, 2].map(
+      (group): Waiver => ({
+        grammar: "objective-c",
+        path: `#preprocessor-rule-${rule}.patterns[0].end`,
+        group,
+        reason: missing(0),
+        probe: "PreprocessorRuleEnabledInterfaceAt0End",
+      }),
+    ),
+  ]),
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -1370,6 +1460,7 @@ export const complete: string[] = [
   "markdown",
   "mermaid",
   "nix",
+  "objective-c",
   "postcss",
   "powershell",
   "proto",

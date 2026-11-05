@@ -34,6 +34,7 @@ import makeCoverage from "./inputs/make-coverage.mk" with { type: "text" };
 import markdownCoverage from "./inputs/markdown-coverage.md" with { type: "text" };
 import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
+import objectiveCCoverage from "./inputs/objective-c-coverage.m" with { type: "text" };
 import perlEmbedded from "./inputs/perl-embedded.pl" with { type: "text" };
 import phpEmbedded from "./inputs/php-embedded.php" with { type: "text" };
 import postcssCoverage from "./inputs/postcss-coverage.pcss" with { type: "text" };
@@ -289,10 +290,14 @@ const lume =
   "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
 const markdownlint =
   "https://raw.githubusercontent.com/DavidAnson/markdownlint/b67636d47f335cf124990faae4a72c5e9fadd613";
+const masonry =
+  "https://raw.githubusercontent.com/SnapKit/Masonry/8bd77ea92bbe995e14c454f821200b222e5a8804";
 const mathjaxDemos =
   "https://raw.githubusercontent.com/mathjax/MathJax-demos-web/82c49422ee92dc58fbeed278532495d52c00aed0";
 const matlabGrammar =
   "https://raw.githubusercontent.com/mathworks/MATLAB-Language-grammar/69dbf20c1eb19efd629c0438a2a493e60617e8de";
+const mbProgressHud =
+  "https://raw.githubusercontent.com/jdg/MBProgressHUD/4a7c5f3e53cdea77c5dcb8578c2ee5acacdf6781";
 const mermaid =
   "https://raw.githubusercontent.com/mermaid-js/mermaid/ea53556f130b397fb6f781818ee0f1e924b429eb";
 const milligram =
@@ -467,6 +472,8 @@ const xv6 =
   "https://raw.githubusercontent.com/mit-pdos/xv6-public/eeb7b415dbcb12cc362d0783e41c3d1f44066b17";
 const yamlTestSuite =
   "https://raw.githubusercontent.com/yaml/yaml-test-suite/6ad3d2c62885d82fc349026c136ef560838fdf3d";
+const yykit =
+  "https://raw.githubusercontent.com/ibireme/YYKit/4e1bd1cfcdb3331244b219cbd37cc9b1ccb62b7a";
 const zap =
   "https://raw.githubusercontent.com/uber-go/zap/4892335e05f14bce8a98a69a577fcf3844a42623";
 const zig =
@@ -1115,12 +1122,17 @@ export const inputs: Input[] = [
   { lang: "nix", name: "nixpkgs-lists", url: `${nixpkgs}/lib/lists.nix` },
   { lang: "nix", name: "nixpkgs-ripgrep", url: `${nixpkgs}/pkgs/by-name/ri/ripgrep/package.nix` },
   { lang: "nix", name: "sample", url: `${samples}/nix.sample` },
-  // Objective-C runs on the TextMate engine.
+  // Objective-C has a hand lexer.
   { lang: "objective-c", name: "afnetworking-http-session-manager", url: `${afnetworking}/AFNetworking/AFHTTPSessionManager.h` },
   { lang: "objective-c", name: "afnetworking-url-session-manager", url: `${afnetworking}/AFNetworking/AFURLSessionManager.m` },
+  { lang: "objective-c", name: "coverage", text: objectiveCCoverage },
+  { lang: "objective-c", name: "masonry-constraint-maker", url: `${masonry}/Masonry/MASConstraintMaker.m` },
+  { lang: "objective-c", name: "mbprogresshud", url: `${mbProgressHud}/MBProgressHUD.m` },
   { lang: "objective-c", name: "sample", url: `${samples}/objective-c.sample` },
+  { lang: "objective-c", name: "sdwebimage-graphics-image-renderer", url: `${sdwebimage}/SDWebImage/Core/SDGraphicsImageRenderer.m` },
   { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
   { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
+  { lang: "objective-c", name: "yykit-macro", url: `${yykit}/YYKit/Base/YYKitMacro.h` },
   // Objective-C++ runs on the TextMate engine.
   { lang: "objective-cpp", name: "grammar-misc-002", url: `${betterObjcpp}/language_examples/misc_002.mm` },
   { lang: "objective-cpp", name: "grammar-misc-003", url: `${betterObjcpp}/language_examples/misc_003.mm` },

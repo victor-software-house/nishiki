@@ -59,6 +59,7 @@ all = [
   "lang-markdown",
   "lang-mermaid",
   "lang-nix",
+  "lang-objective-c",
   "lang-postcss",
   "lang-powershell",
   "lang-proto",
@@ -113,6 +114,7 @@ systems = [
   "lang-go",
   "lang-java",
   "lang-kotlin",
+  "lang-objective-c",
   "lang-rust",
   "lang-shell",
   "lang-swift",
@@ -126,7 +128,6 @@ textmate = [
   "lang-gdscript",
   "lang-haml",
   "lang-matlab",
-  "lang-objective-c",
   "lang-objective-cpp",
   "lang-pascal",
   "lang-perl",
@@ -203,7 +204,7 @@ lang-markdown = ["_scope-table", "_classes", "_utf8"]
 lang-matlab = ["_textmate"]
 lang-mermaid = ["_scope-table", "_rule-tables", "_classes"]
 lang-nix = ["_scope-table", "_rule-tables", "_classes"]
-lang-objective-c = ["_textmate"]
+lang-objective-c = ["_scope-table", "_rule-tables", "_classes"]
 lang-objective-cpp = ["_textmate"]
 lang-pascal = ["_textmate"]
 lang-perl = [

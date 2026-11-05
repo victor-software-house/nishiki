@@ -126,6 +126,8 @@ tables! {
     MERMAID = mermaid;
     #[cfg(feature = "lang-nix")]
     NIX = nix;
+    #[cfg(feature = "lang-objective-c")]
+    OBJECTIVE_C = objective_c;
     #[cfg(feature = "lang-postcss")]
     POSTCSS = postcss;
     #[cfg(feature = "lang-powershell")]

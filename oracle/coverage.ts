@@ -82,6 +82,7 @@ const handLexed = new Map([
   ["mermaid", "Mermaid"],
   ["markdown-vue", "Markdown"],
   ["nix", "Nix"],
+  ["objective-c", "Objective-C"],
   ["postcss", "PostCSS"],
   ["powershell", "PowerShell"],
   ["proto", "Protobuf"],

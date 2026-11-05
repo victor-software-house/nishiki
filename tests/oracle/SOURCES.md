@@ -457,9 +457,14 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `nix/sample` | [`samples/nix.sample`][nix-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `objective-c/afnetworking-http-session-manager` | [`AFNetworking/AFHTTPSessionManager.h`][afnetworking-http-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
 | `objective-c/afnetworking-url-session-manager` | [`AFNetworking/AFURLSessionManager.m`][afnetworking-url-session-manager] in AFNetworking/AFNetworking | [MIT][afnetworking-licence] |
+| `objective-c/coverage` | `oracle/inputs/objective-c-coverage.m`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `objective-c/masonry-constraint-maker` | [`Masonry/MASConstraintMaker.m`][masonry-constraint-maker] in SnapKit/Masonry | [MIT][masonry-licence] |
+| `objective-c/mbprogresshud` | [`MBProgressHUD.m`][mbprogresshud] in jdg/MBProgressHUD | [MIT][mbprogresshud-licence] |
 | `objective-c/sample` | [`samples/objective-c.sample`][objective-c-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
+| `objective-c/sdwebimage-graphics-image-renderer` | [`SDWebImage/Core/SDGraphicsImageRenderer.m`][sdwebimage-graphics-image-renderer] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/sdwebimage-image-cache` | [`SDWebImage/Core/SDImageCache.h`][sdwebimage-image-cache] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
 | `objective-c/sdwebimage-manager` | [`SDWebImage/Core/SDWebImageManager.m`][sdwebimage-manager] in SDWebImage/SDWebImage | [MIT][sdwebimage-licence] |
+| `objective-c/yykit-macro` | [`YYKit/Base/YYKitMacro.h`][yykit-macro] in ibireme/YYKit | [MIT][yykit-licence] |
 | `objective-cpp/grammar-misc-002` | [`language_examples/misc_002.mm`][objcpp-grammar-misc-002] in jeff-hykin/better-objcpp-syntax | [MIT][objcpp-grammar-licence] |
 | `objective-cpp/grammar-misc-003` | [`language_examples/misc_003.mm`][objcpp-grammar-misc-003] in jeff-hykin/better-objcpp-syntax | [MIT][objcpp-grammar-licence] |
 | `objective-cpp/react-native-component-view-registry` | [`RCTComponentViewRegistry.mm`][react-native-component-view-registry] in facebook/react-native | [MIT][react-native-licence] |
@@ -897,6 +902,10 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 `common-lisp/sample`, `common-lisp/grammar-demo`, `common-lisp/grammar-format-strings`, `common-lisp/split-sequence-list` and `common-lisp/cl-ppcre-scanner` are the development inputs for Common Lisp.
 `common-lisp/cl-ppcre-optimize`, `common-lisp/quicklisp-http` and `common-lisp/woo-response` are held out: they were added after the development inputs passed.
 
+`objective-c/sample`, `objective-c/afnetworking-http-session-manager`, `objective-c/afnetworking-url-session-manager`, `objective-c/sdwebimage-image-cache`, `objective-c/sdwebimage-manager` and `objective-c/yykit-macro` are the development inputs for Objective-C.
+`objective-c/masonry-constraint-maker`, `objective-c/mbprogresshud` and `objective-c/sdwebimage-graphics-image-renderer` are held out: they were added after the development inputs passed.
+`objective-c/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+
 `objective-cpp/sample`, `objective-cpp/grammar-misc-002`, `objective-cpp/react-native-component-view-registry` and `objective-cpp/react-native-dev-loading-view` are the development inputs for Objective-C++.
 `objective-cpp/grammar-misc-003`, `objective-cpp/react-native-legacy-interop-coordinator` and `objective-cpp/react-native-virtual-view` are held out: they were added after the development inputs passed.
 
@@ -1328,6 +1337,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [markdown-markdownlint-link-style-autolink-only]: https://github.com/DavidAnson/markdownlint/blob/b67636d47f335cf124990faae4a72c5e9fadd613/test/link-style-autolink-only.md
 [markdown-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/markdown.sample
 [markdownlint-licence]: https://github.com/DavidAnson/markdownlint/blob/b67636d47f335cf124990faae4a72c5e9fadd613/LICENSE
+[masonry-constraint-maker]: https://github.com/SnapKit/Masonry/blob/8bd77ea92bbe995e14c454f821200b222e5a8804/Masonry/MASConstraintMaker.m
+[masonry-licence]: https://github.com/SnapKit/Masonry/blob/8bd77ea92bbe995e14c454f821200b222e5a8804/LICENSE
 [mathjax-demos-licence]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/LICENSE
 [mathjax-mml-chtml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/mml-chtml.html
 [mathjax-tex-mml]: https://github.com/mathjax/MathJax-demos-web/blob/82c49422ee92dc58fbeed278532495d52c00aed0/page/tex-mml.html
@@ -1335,6 +1346,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [matlab-grammar-licence]: https://github.com/mathworks/MATLAB-Language-grammar/blob/69dbf20c1eb19efd629c0438a2a493e60617e8de/license.txt
 [matlab-grammar-property-validation]: https://github.com/mathworks/MATLAB-Language-grammar/blob/69dbf20c1eb19efd629c0438a2a493e60617e8de/test/t08PropertyValidation.m
 [matlab-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/matlab.sample
+[mbprogresshud]: https://github.com/jdg/MBProgressHUD/blob/4a7c5f3e53cdea77c5dcb8578c2ee5acacdf6781/MBProgressHUD.m
+[mbprogresshud-licence]: https://github.com/jdg/MBProgressHUD/blob/4a7c5f3e53cdea77c5dcb8578c2ee5acacdf6781/LICENSE
 [mermaid-api-sequence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/mermaid-api-sequence.mmd
 [mermaid-flowchart-code-flow]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/docs/diagrams/flowchart-code-flow.mmd
 [mermaid-licence]: https://github.com/mermaid-js/mermaid/blob/ea53556f130b397fb6f781818ee0f1e924b429eb/LICENSE
@@ -1542,6 +1555,7 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [scss-bulma-functions]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/utilities/functions.scss
 [scss-bulma-mixins]: https://github.com/jgthms/bulma/blob/c5cd04baf0258cfcc77b4e8610488a0d439effa2/sass/utilities/mixins.scss
 [scss-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/scss.sample
+[sdwebimage-graphics-image-renderer]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/SDWebImage/Core/SDGraphicsImageRenderer.m
 [sdwebimage-image-cache]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/SDWebImage/Core/SDImageCache.h
 [sdwebimage-licence]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/LICENSE
 [sdwebimage-manager]: https://github.com/SDWebImage/SDWebImage/blob/c3ad5e1a9bf55c9b76d4c362430b5fcded96c502/SDWebImage/Core/SDWebImageManager.m
@@ -1721,6 +1735,8 @@ The other `vue` inputs are held out, and `vue/coverage` was added to exercise th
 [yaml-test-suite-kk5p]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/KK5P/in.yaml
 [yaml-test-suite-licence]: https://github.com/yaml/yaml-test-suite/blob/da267a5c4782e7361e82889e76c0dc7df0e1e870/License
 [yaml-test-suite-w4tn]: https://github.com/yaml/yaml-test-suite/blob/6ad3d2c62885d82fc349026c136ef560838fdf3d/W4TN/in.yaml
+[yykit-licence]: https://github.com/ibireme/YYKit/blob/4e1bd1cfcdb3331244b219cbd37cc9b1ccb62b7a/LICENSE
+[yykit-macro]: https://github.com/ibireme/YYKit/blob/4e1bd1cfcdb3331244b219cbd37cc9b1ccb62b7a/YYKit/Base/YYKitMacro.h
 [zap-licence]: https://github.com/uber-go/zap/blob/4892335e05f14bce8a98a69a577fcf3844a42623/LICENSE
 [zap-logger]: https://github.com/uber-go/zap/blob/4892335e05f14bce8a98a69a577fcf3844a42623/logger.go
 [zig-licence]: https://github.com/ziglang/zig/blob/738d2be9d6b6ef3ff3559130c05159ef53336224/LICENSE

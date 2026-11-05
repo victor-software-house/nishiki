@@ -90,7 +90,7 @@ The `all` tier is on by default, and the `textmate` tier is opt-in.
 | MATLAB | `Language::Matlab` | `lang-matlab` | `textmate` | `matlab` |
 | Mermaid | `Language::Mermaid` | `lang-mermaid` | `all` | `mermaid`, `mmd` |
 | Nix | `Language::Nix` | `lang-nix` | `all` | `nix` |
-| Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `textmate` | `objective-c`, `objc` |
+| Objective-C | `Language::ObjectiveC` | `lang-objective-c` | `all` | `objective-c`, `objc` |
 | Objective-C++ | `Language::ObjectiveCpp` | `lang-objective-cpp` | `textmate` | `objective-cpp` |
 | Pascal | `Language::Pascal` | `lang-pascal` | `textmate` | `pascal` |
 | Perl | `Language::Perl` | `lang-perl` | `textmate` | `perl` |

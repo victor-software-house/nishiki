@@ -45,6 +45,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
+| Objective-C | `objective-c` | 371 of 377 | 98.4% | 346 of 377 | 91.8% | 37 | 0 | yes |
 | PostCSS | `postcss` | 53 of 53 | 100.0% | 2 of 4 | 50.0% | 2 | 0 | yes |
 | PowerShell | `powershell` | 96 of 96 | 100.0% | 130 of 136 | 95.6% | 6 | 0 | yes |
 | Protobuf | `proto` | 40 of 40 | 100.0% | 58 of 58 | 100.0% | 0 | 0 | yes |
@@ -685,6 +686,37 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 #if.patterns[2].end  groups 0 (waived: the group is a lookahead, so it never holds text)
 ```
 
+### `objective-c`
+
+```text
+#anonymous_pattern_1.begin  groups 8 (waived: the group matches only blanks, and the oracle compares no blank), 9 (waived: the grammar names the group, but the expression has eight groups)
+#anonymous_pattern_1.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 6 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 7 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 8 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 9 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
+#anonymous_pattern_14.patterns[0].match  groups 1 (waived: the grammar names the group, but the expression has no groups)
+#anonymous_pattern_18.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#anonymous_pattern_19.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#anonymous_pattern_2.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 5 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
+#bracketed_content.patterns[0].begin  groups 2 (waived: the grammar names the group, but the expression has one group)
+#c_functions.patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#c_functions.patterns[1].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 3 (waived: the group sits inside a negative lookahead, so it never holds text)
+#c_lang.patterns[25].match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[26].match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[27].match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[36].match  \[\s*]  waived: the root tries `#bracketed_content`, whose begin is `\[`, before `#c_lang`, so it takes every `[` first
+#c_lang.repository.#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#c_lang.repository.#switch_statement.patterns[2].begin  (?<=})[\n\s]*  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
+#c_lang.repository.#switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
+#comment.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#preprocessor-rule-disabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-disabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-rule-disabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-disabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-rule-enabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-enabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#preprocessor-rule-enabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
+#preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+```
+
 ### `postcss`
 
 ```text
@@ -1287,6 +1319,21 @@ Neither an input language's grammar nor an injection reaches these, so they are 
 ```text
 #function-body.begin
 #function-body.end
+```
+
+### `objective-c`
+
+```text
+#c_lang.repository.#access-method.begin
+#c_lang.repository.#access-method.end
+#c_lang.repository.#access-method.beginCaptures[4].patterns[0].match
+#c_lang.repository.#access-method.beginCaptures[4].patterns[1].match
+#c_lang.repository.#access-method.beginCaptures[4].patterns[2].match
+#c_lang.repository.#access-method.beginCaptures[4].patterns[3].match
+#c_lang.repository.#static_assert.begin
+#c_lang.repository.#static_assert.end
+#c_lang.repository.#static_assert.patterns[0].begin
+#c_lang.repository.#static_assert.patterns[0].end
 ```
 
 ### `proto`

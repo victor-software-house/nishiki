@@ -442,10 +442,18 @@ function propertySet(negated: boolean, name: string): Set {
 
 
 /** The number of capture groups in `regex`. */
-export function groupCount(regex: string): number {
+function groupCount(regex: string): number {
   const parser = new RegexParser(regex, "any");
   parser.parse();
   return parser.groups;
+}
+
+/** Fails when the scope name `name` takes group `group` of a match of
+ * `regex`, and `regex` lacks that group.
+ * vscode-textmate keeps such a `$N` as written.
+ * The rule engine would write nothing. */
+export function requireGroup(name: string, group: number, regex: string): void {
+  if (group > groupCount(regex)) throw new Error(`${name} names group ${group}, which ${regex} lacks`);
 }
 
 /** The bytes a match of `regex` can start at, and its anchors. */

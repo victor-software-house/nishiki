@@ -41,7 +41,8 @@ use std::fmt::Debug;
     feature = "lang-postcss",
     feature = "lang-powershell",
     feature = "lang-julia",
-    feature = "lang-mermaid"
+    feature = "lang-mermaid",
+    feature = "lang-objective-c"
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]

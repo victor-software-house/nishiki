@@ -165,9 +165,9 @@
 //! | `all` (the default) | Every language but the `textmate` tier |
 //! | `config` | JSON, TOML, YAML, INI, Diff, Dockerfile, Makefile, XML |
 //! | `web` | TypeScript, JavaScript, JSX, TSX, CSS, JSON, GraphQL, HTML, ERB, HTML (Derivative), SCSS, Less, PostCSS, Vue |
-//! | `systems` | Rust, C, C++, Shell, Java, Kotlin, Go, Swift |
+//! | `systems` | Rust, C, C++, Objective-C, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown and `config` |
-//! | `textmate` | Assembly, CoffeeScript, Common Lisp, Elixir, GDScript, HAML, MATLAB, Objective-C, Pascal, Perl, PHP, Visual Basic |
+//! | `textmate` | Assembly, CoffeeScript, Common Lisp, Elixir, GDScript, HAML, MATLAB, Objective-C++, Pascal, Perl, PHP, Visual Basic |
 //!
 //! `textmate` holds the languages that nishiki's own `TextMate` engine runs
 //! from Shiki's grammars, compiled in as tables.

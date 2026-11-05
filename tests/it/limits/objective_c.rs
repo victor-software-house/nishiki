@@ -1,9 +1,10 @@
-//! Hostile lines for Objective-C, which the `TextMate` engine runs, under the
-//! default limits.
+//! Hostile lines for Objective-C under the default limits.
 //!
-//! The engine interprets the grammar's own regular expressions, so a line
-//! that would cost it more than the default work ends at the work limit, with
-//! tokens that cover it, rather than running on.
+//! A line that would cost more than the default work ends at the work limit,
+//! with tokens that cover it, rather than running on.
+//! Member access, calls and names before `[` have no `\b` before them.
+//! The long names and chains here check that no matcher walks a name from
+//! each of its bytes.
 
 use nishiki::{Highlighter, Language, Limit};
 
@@ -29,6 +30,17 @@ fn hostile_objective_c_lines_finish_within_the_default_limits() {
         format!("{}x", " ".repeat(12_000)),
         format!("{}x", "\u{a0}".repeat(4_000)),
         "x".repeat(12_000),
+        format!("{}(", "a".repeat(12_000)),
+        format!("{}b", "a.".repeat(6_000)),
+        format!("x = {};", "a->".repeat(4_000)),
+        format!("{}f(", "a::".repeat(4_000)),
+        format!("{}[1]", "a".repeat(12_000)),
+        format!("[x {}]", "y:".repeat(6_000)),
+        format!("#if {}", "defined ".repeat(1_500)),
+        format!("#if defined{}", "(".repeat(6_000)),
+        format!("\"{}\"", "%".repeat(12_000)),
+        "1'".repeat(6_000),
+        "NS".repeat(6_000),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);
         let report = rows[0].1;

@@ -117,6 +117,9 @@ tags! {
     /// Nix.
     #[cfg(feature = "lang-nix")]
     NIX = 0x3700,
+    /// Objective-C.
+    #[cfg(feature = "lang-objective-c")]
+    OBJECTIVE_C = 0x4000,
     /// PostCSS.
     #[cfg(feature = "lang-postcss")]
     POSTCSS = 0x3B00,
