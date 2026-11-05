@@ -1,10 +1,11 @@
 // Writes src/objective_cpp/scope.rs, src/objective_cpp/grammar.rs and src/objective_cpp/words.rs from the `objective-cpp`
 // grammar that Shiki 4.6.0 bundles (microsoft/vscode `extensions/objective-c`, MIT, from jeff-hykin/better-objcpp-syntax).
-// It runs the generator of `oracle/objective-c-grammar.ts`.
+// It runs the generator in `oracle/rule-generator.ts`.
 //
 // The grammar repeats every expression of the `objective-c` grammar.
 // The Objective-C matchers answer those, so `Pat::expr` sends them to `crate::objective_c::Rx`.
-// The rest, mostly from the grammar's `cpp_lang` and `cpp_lang_newish` entries, are this module's own `Rx`.
+// The rest come from the grammar's `cpp_lang` entry and are this module's own `Rx`.
+// The root never reaches `cpp_lang_newish`.
 //
 // The `c_lang`, `cpp_lang` and `cpp_lang_newish` entries carry repositories of their own.
 // An include inside one looks in its repository first, as vscode-textmate's does.
@@ -13,7 +14,8 @@
 // The output is generated; do not edit it.
 import langs from "@shikijs/langs@4.6.0/objective-cpp";
 
-import { type Config, type GrammarJson, generate, objectiveC } from "./objective-c-grammar.ts";
+import { objectiveC } from "./objective-c-grammar.ts";
+import { type Config, type GrammarJson, generate } from "./rule-generator.ts";
 
 export const objectiveCpp: Config = {
   grammar: (langs as unknown as GrammarJson[]).find((lang) => lang.scopeName === "source.objcpp")!,
