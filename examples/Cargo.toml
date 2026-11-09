@@ -38,7 +38,7 @@ json = ["nishiki/json"]
 textmate = ["nishiki/textmate"]
 
 [dev-dependencies]
-nishiki = { path = ".." }
+nishiki = { workspace = true }
 nishiki-alloc-count = { workspace = true }
 
 [lints]
