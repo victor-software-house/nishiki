@@ -1,12 +1,14 @@
 ## Purpose
 
-Let a grammar that nishiki's TextMate engine runs hand an embedded region to the hand lexer of the embedded language, and take the line back where the grammar says the region ends.
+Let a grammar that nishiki's TextMate engine runs hand an embedded region to the hand lexer of the embedded language.
+Let the engine take the line back where the grammar ends the region.
 
 ## ADDED Requirements
 
-### Requirement: An embedded hand-lexed language runs its hand lexer
+### Requirement: An embedded hand-lexed language runs on the hand lexer
 
-When a rule the engine opens includes a whole grammar that nishiki lexes by hand, the engine SHALL lex the rule's contents with that language's hand lexer, starting it on the rule's content stack.
+A rule the engine opens can include a whole grammar that nishiki lexes by hand.
+The engine SHALL then lex the rule's contents with that language's hand lexer, starting it on the rule's content stack.
 
 #### Scenario: Julia embeds Python
 
@@ -15,7 +17,10 @@ When a rule the engine opens includes a whole grammar that nishiki lexes by hand
 
 ### Requirement: The engine takes the line back at the region's end
 
-The engine SHALL resume its own rules at the first place where the embedding rule's end, or a pattern listed before the include, matches while only the embedded language's root context is open.
+The engine SHALL resume its own rules at the first of these matches made while only the embedded language's root context is open:
+
+- the embedding rule's end;
+- a pattern listed before the include.
 
 #### Scenario: The closing quotes end the region
 
@@ -24,7 +29,8 @@ The engine SHALL resume its own rules at the first place where the embedding rul
 
 ### Requirement: The embedded state survives the line
 
-The engine's state at the end of a line inside an embedded region SHALL hold the embedded language's state, so the next line resumes the embedded lexer where it stopped.
+The engine's state at the end of a line inside an embedded region SHALL hold the embedded language's state.
+The next line then resumes the embedded lexer where it stopped.
 
 #### Scenario: A region spans lines
 
@@ -33,7 +39,9 @@ The engine's state at the end of a line inside an embedded region SHALL hold the
 
 ### Requirement: An injection halts at any depth
 
-A language embedded with an `any` halt SHALL stop where the halt holds and none of its current context's patterns match, at any depth outside its comments, and SHALL return a state from which it resumes inside the same contexts.
+A language embedded with an `any` halt SHALL stop where the halt holds and none of its current context's patterns match.
+This SHALL hold at any depth outside its comments.
+The language SHALL return a state from which it resumes inside the same contexts.
 
 #### Scenario: ERB inside a JavaScript string
 

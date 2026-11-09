@@ -2,13 +2,15 @@
 
 ## Purpose
 
-Bound the work and memory one line of input can make a highlighter spend, with every bound set by the caller and every truncated line reported.
+Bound the work and memory one line of input can make a highlighter spend.
+The caller sets every bound, and every truncated line is reported.
 
 ## Requirements
 
 ### Requirement: Every limit is configurable
 
-A caller SHALL be able to set, raise, lower or turn off each limit (line length, work per line, nesting depth, interned stacks) for each highlighter it creates.
+A caller SHALL be able to set, raise, lower or turn off each limit for each highlighter it creates.
+The limits are line length, work per line, nesting depth and interned stacks.
 
 #### Scenario: A caller turns a limit off
 
@@ -54,4 +56,6 @@ Each lexed line SHALL report every limit it reached, and a line lexed in full SH
 #### Scenario: A line reaches the work limit
 
 - **WHEN** a line runs out of work part way
-- **THEN** the rest of the line is one token under the current stack, the report names the work limit, and the next line starts from the state at that point
+- **THEN** the rest of the line is one token under the current stack
+- **AND** the report names the work limit
+- **AND** the next line starts from the state at that point

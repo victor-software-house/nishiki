@@ -1,6 +1,6 @@
 # Proposal
 
-## Why
+## Motivation
 
 The operator's goal is the fastest highlighting for LLM streaming, with output that equals Shiki's.
 The use cases are model replies streamed delta by delta, tool calls, and file edits and writes.
@@ -17,13 +17,13 @@ Every caller now rebuilds it:
 - splitting deltas into lines, including a delta that ends inside a UTF-8 character;
 - caching each line's tokens and end state;
 - re-lexing only the line still being written;
-- re-lexing after an edit until the states agree again;
+- re-lexing after an edit until the states match again;
 - telling the renderer which lines changed.
 
 Shiki ships this as [`@shikijs/stream`][shiki-stream], and Pierre as `StreamTokenizer` and `LiveTokenizer`.
 nishiki's per-line steady cost is 0.1 to 3 µs at p50 ([box run][latency]), so the document layer decides the per-delta cost.
 
-## What Changes
+## Changes
 
 - A new public type, `Document`, owns one `Highlighter`, the text, and each line's tokens and end state.
   - `push` and `push_str` append a delta.

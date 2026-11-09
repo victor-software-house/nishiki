@@ -63,7 +63,9 @@ The cause, read from [`theme.rs`][theme] and [`trie.rs`][trie]:
 3. Each walk splits the scope at dots and looks up each part in a `HashMap<String, usize>` with SipHash.
 
 A token's style depends only on its stack.
-A stack's style is its parent stack's style with one `apply` for its top scope, because `apply` at depth d reads only the first d scopes.
+A stack's style is its parent stack's style with one `apply` for its top scope.
+That holds because `apply` at depth d reads only the first d scopes.
+
 Highlighters intern stacks, so a cache indexed by stack id computes each stack's style once.
 vscode-textmate does the same: it computes a scope's style when it pushes the scope.
 
@@ -137,6 +139,7 @@ A second counter run counted tries and hits per pattern.
 Failures spread over many patterns: Go's most failing pattern holds 4.9% of its failures, C++'s 3.3%.
 Python's `DocstringPrompt` is the exception, with 27.4% of Python's failures.
 Only 7% to 15% of failures in Go, C++ and Python happen at a word start.
+
 Lexing costs 110 to 250 instructions per try in these languages, so a failing matcher does work before it fails.
 In C++ that work is the shared character steps: `word_in` 8.0%, `gaps` 7.4%, `skip_space` 5.3%, `gap_word` 3.6% and `ident_ends` 2.5% of its instructions.
 Every pattern tried at one position repeats them.
@@ -147,12 +150,17 @@ The projections are arithmetic on the profile in sections 2 to 5.
 
 | # | Lever | Where | Projected gain | Proof |
 |:--|:--|:--|:--|:--|
-| 1 | A per-stack style cache, `Highlighter::style` | `highlighter.rs`, `theme.rs` | warm colour 8,512 M to about 3,050 M; per language, the geometric mean falls from 697 to about 221 instructions per byte, 3.15 times | the colour row of Callgrind (lever 0); a test that the cached style equals `Theme::style` on every oracle fixture and theme |
+| 1 | A per-stack style cache, `Highlighter::style` | `highlighter.rs`, `theme.rs` | warm colour 8,512 M to about 3,050 M; the per-language gain is below | the colour row of Callgrind (lever 0); the style test below |
 | 2 | Linear candidate tables | `rules/tables.rs` | first document falls by 541 M over the corpus, up to 98 M for C++ | the first-document row of Callgrind; a one-off check that the new tables equal the old for every rule of every grammar |
 | 3 | A memo of the shared character steps at one position | `rules/chars.rs`, `rules/lexer.rs` | not yet projected: C++ spends 27% in those steps, and task 5.1 counts how often a position repeats them | the lexing rows of Callgrind |
 | 4 | `Theme::style` without allocation or SipHash | `theme.rs`, `theme/trie.rs` | about half of warm style for callers of `Theme::style`: the allocation is 9% and SipHash 40% | the style-only row; the colour test |
 | 5 | Per-language matchers, by use and by instructions per byte | each language | per language | the lexing rows of Callgrind, the Shiki differential |
 | 6 | Per-language one-time work: shell's `rule_info` 56 M, C's list tables 34 M | `shell/`, `c/` | first document of those languages | the first-document row |
+
+Lever 1 in detail:
+
+- Gain per language: the geometric mean falls from 697 to about 221 instructions per byte, 3.15 times.
+- Proof: a test checks that the cached style equals `Theme::style` on every oracle fixture and theme.
 
 Lever 0 is measurement, not speed.
 `mise run callgrind` counts only the second lexing pass today.
@@ -194,6 +202,7 @@ Pierre's lexers reach about 63 instructions per byte on the comparison host.
 That figure is an estimate from its throughput, not a count.
 After lever 1, the geometric mean of colour is about 221, of which lexing is 216.
 So the rest of the road is lexing.
+
 Lever 3 is the one engine lever the profile supports now.
 Lever 5 takes languages in this order, by use and then by instructions per byte:
 JavaScript and TypeScript, Python (`DocstringPrompt`), C++, C#, C, Go, Ruby, SQL.
@@ -216,6 +225,7 @@ This plan and slices 1 to 3 form one stack, the plan at the bottom.
 The style cache needs a public method.
 `Theme::style` takes scope names, not a stack id, so no cache can sit behind it.
 The operator approves public API.
+
 A document-level streaming API is being designed in `openspec/changes/streaming/`, and styled output per change belongs to it.
 So the cache's surface is agreed with that design before its slice is sent.
 The lead brings both APIs to the operator together.

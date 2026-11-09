@@ -1,6 +1,6 @@
 ## ADDED Requirements
 
-### Requirement: A highlighter styles a token from its stack
+### Requirement: A highlighter styles a token from the token's stack
 
 A highlighter SHALL give a token's stack the style `Theme::style` gives that stack's scopes.
 It SHALL keep the styles it computed for the two themes it used last, and reuse them.

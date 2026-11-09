@@ -2,7 +2,13 @@
 
 ### Requirement: Instruction counts gate every language
 
-On a pull request labelled `bench`, CI SHALL count instructions of three passes over the oracle fixtures, base against head, for every language with oracle fixtures: lexing, the first document of a fresh process, and colouring with a theme.
+On a pull request labelled `bench`, CI SHALL count instructions of three passes over the oracle fixtures, base against head:
+
+- lexing;
+- the first document of a fresh process;
+- colouring with a theme.
+
+It SHALL count every language with oracle fixtures.
 It SHALL fail when any pass of a language rises more than 0.5% at one codegen unit.
 
 #### Scenario: A language with fixtures is not in a hand-kept list
@@ -22,7 +28,8 @@ It SHALL fail when any pass of a language rises more than 0.5% at one codegen un
 
 ### Requirement: The instruction gate compares like with like
 
-The gate SHALL build base and head each from their own tree and lockfile, SHALL count only the fixtures both sides have, and SHALL run the same harness on both sides.
+The gate SHALL build base and head each from their own tree and lockfile.
+It SHALL count only the fixtures both sides have, and SHALL run the same harness on both sides.
 Its lexing pass SHALL count lexing alone, after the work a process does once.
 
 #### Scenario: A pull request adds a fixture

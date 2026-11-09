@@ -1,14 +1,16 @@
 # Proposal
 
-## Why
+## Motivation
 
 The [oracle test][oracle-test] checks every hand-written lexer against Shiki.
 It checks only the lines its fixtures hold.
+
 Nobody knows how much of each Shiki grammar those lines reach.
 A pattern no fixture matches can be wrong without any test failing.
-A first measurement on the fixtures alone found Swift's at 264 of 448 grammar expressions and C#'s at 224 of 547 (design, section 1).
+A first measurement on the fixtures alone found Swift's at 264 of 448 grammar expressions (design, section 1).
+It found C#'s at 224 of 547.
 
-## What Changes
+## Changes
 
 - A Bun script, `oracle/coverage.ts`, measures which parts of each hand-lexed grammar Shiki matches.
   It measures them while Shiki tokenizes the oracle fixtures and a fixed fuzz corpus.
@@ -26,7 +28,8 @@ A first measurement on the fixtures alone found Swift's at 264 of 448 grammar ex
 
 ### New Capabilities
 
-- `oracle-coverage`: for each grammar that a hand-written lexer follows, the share of its patterns and captures that the Shiki oracle exercises is measured, reported, and kept from falling.
+- `oracle-coverage`: the share of each grammar's patterns and captures that the Shiki oracle exercises, for each grammar a hand-written lexer follows.
+  The share is measured, reported, and kept from falling.
 
 ### Modified Capabilities
 

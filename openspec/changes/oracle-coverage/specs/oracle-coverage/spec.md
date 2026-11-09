@@ -27,7 +27,8 @@ A capture SHALL count as exercised when its group takes part in such a match and
 
 ### Requirement: The measure leaves Shiki's output unchanged
 
-The coverage measure SHALL use Shiki's own tokenizer and regex engine, and SHALL fail when the scope stacks it observes differ from any committed fixture.
+The coverage measure SHALL use Shiki's own tokenizer and regex engine.
+It SHALL fail when the scope stacks it observes differ from any committed fixture.
 
 #### Scenario: The instrumented run matches the fixtures
 
@@ -36,7 +37,8 @@ The coverage measure SHALL use Shiki's own tokenizer and regex engine, and SHALL
 
 ### Requirement: The report lists every gap
 
-The repository SHALL hold a coverage report, written by the coverage task, that lists for each grammar every reachable unit no fixture exercises, by its path in the grammar.
+The repository SHALL hold a coverage report, written by the coverage task.
+For each grammar, the report SHALL list every reachable unit no fixture exercises, by its path in the grammar.
 Writing the report twice from the same inputs SHALL give the same bytes.
 
 #### Scenario: A unit no fixture reaches
@@ -51,7 +53,8 @@ Writing the report twice from the same inputs SHALL give the same bytes.
 
 ### Requirement: Pull requests keep the report current
 
-A pull request that changes the oracle's inputs, fixtures or scripts SHALL fail its checks when the committed coverage report differs from the one the coverage task writes.
+A pull request SHALL fail its checks when the committed coverage report differs from the one the coverage task writes.
+This holds for a pull request that changes the oracle's inputs, fixtures or scripts.
 
 #### Scenario: A stale report
 
@@ -85,7 +88,8 @@ A waiver for a unit that a fixture exercises SHALL fail the coverage task.
 
 ### Requirement: Gaps close with licensed, pinned inputs
 
-An input added to close a coverage gap SHALL be pinned to a commit with a licence found at its source, or written for nishiki under nishiki's licence.
+An input added to close a coverage gap SHALL be pinned to a commit with a licence found at its source.
+Otherwise it SHALL be written for nishiki under nishiki's licence.
 It SHALL be recorded with its source and licence before its fixture is committed.
 
 #### Scenario: A written input closes gaps

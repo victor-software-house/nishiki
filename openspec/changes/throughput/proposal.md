@@ -1,6 +1,6 @@
 # Proposal
 
-## Why
+## Motivation
 
 nishiki matches Shiki on every byte, but it colours a document about ten times slower than Pierre's lexers.
 The comparison of 2026-11-04 ([record][compare]) reads these geometric means over 62 corpus files:
@@ -19,7 +19,7 @@ A Callgrind profile of the whole corpus finds where the instructions go ([design
 - Building each rule's candidate tables is 69% of the work a fresh process does once.
 - In lexing, the rule engine's matchers take half the instructions, and its scan a quarter.
 
-## What Changes
+## Changes
 
 - The Callgrind gate counts the first pass and the colour pass, besides warm lexing.
 - `Theme::style` allocates nothing and hashes no strings.

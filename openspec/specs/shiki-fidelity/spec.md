@@ -1,14 +1,16 @@
-# shiki-fidelity Specification
+# `shiki-fidelity` Specification
 
 ## Purpose
 
-Each language nishiki supports gives every byte of its input the TextMate scope stack Shiki gives it, so a theme in Shiki's format colours nishiki's output as Shiki would.
+Each language nishiki supports gives every byte of its input the TextMate scope stack Shiki gives it.
+So a theme in Shiki's format colours nishiki's output as Shiki would.
 
 ## Requirements
 
 ### Requirement: Scope stacks match Shiki on every fixture
 
-For every fixture of a supported language, nishiki SHALL give each non-whitespace byte the same scope stack, outermost first, as Shiki gave it when the fixture was written.
+For every fixture of a supported language, nishiki SHALL give each non-whitespace byte the scope stack Shiki gave it.
+The stack is the one Shiki gave when the fixture was written, outermost first.
 
 #### Scenario: A lexer agrees with Shiki
 
@@ -22,7 +24,9 @@ For every fixture of a supported language, nishiki SHALL give each non-whitespac
 
 ### Requirement: Fixtures come from pinned inputs
 
-Each fixture SHALL be written by Shiki, at a pinned version and with its per-line limits off, from an input fetched at a pinned commit, so that writing the fixtures again gives the same bytes.
+Each fixture SHALL be written by Shiki, at a pinned version and with its per-line limits off.
+Its input SHALL be fetched at a pinned commit.
+Writing the fixtures again then gives the same bytes.
 
 #### Scenario: Fixtures are written again
 
@@ -31,7 +35,8 @@ Each fixture SHALL be written by Shiki, at a pinned version and with its per-lin
 
 ### Requirement: Every input has a recorded licence
 
-Every oracle input SHALL be listed with its source and licence before its fixture is committed, and the fixtures SHALL stay out of the published crate.
+Every oracle input SHALL be listed with its source and licence before its fixture is committed.
+The fixtures SHALL stay out of the published crate.
 
 #### Scenario: A language adds an input
 

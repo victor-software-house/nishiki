@@ -1,8 +1,9 @@
 ## ADDED Requirements
 
-### Requirement: A document's final tokens equal lexing its whole text
+### Requirement: A document's final tokens equal lexing the whole text
 
-Once a `Document` is finished and lexed to its end, each line's tokens SHALL equal the tokens `Highlighter::line` gives that line when the whole text is lexed line by line from `State::default`.
+Once a `Document` is finished and lexed to its end, each line's tokens SHALL equal those `Highlighter::line` gives that line.
+Here `Highlighter::line` lexes the whole text line by line from `State::default`.
 This SHALL hold whatever deltas and edits built the text.
 
 #### Scenario: A fixture streamed in token-sized deltas
@@ -35,7 +36,7 @@ An invalid byte sequence SHALL become U+FFFD.
 Each line SHALL be lexed once when its line ending arrives, and SHALL NOT be lexed again unless an edit reaches it.
 A line whose text did not change since it was last lexed as the provisional line SHALL keep those tokens without being lexed again.
 
-#### Scenario: A streamed fixture counts its lexing
+#### Scenario: Lexing is counted on a streamed fixture
 
 - **WHEN** a fixture is streamed in token-sized deltas
 - **THEN** every line other than the provisional one is lexed at most once
@@ -49,10 +50,11 @@ A delta that adds no line ending SHALL lex no line but the provisional one.
 - **WHEN** a delta adds characters and no line ending
 - **THEN** only the provisional line is lexed
 
-### Requirement: The provisional line marks its last token
+### Requirement: The provisional line marks the last token
 
 While a document is not finished, its last line SHALL be provisional.
-Its tokens SHALL be those of the line lexed as if it ended there, and its kind SHALL give the byte where its last token starts.
+Its tokens SHALL be those of the line lexed as if it ended there.
+Its `LineKind` SHALL give the byte where its last token starts.
 
 #### Scenario: A keyword still being written
 
@@ -66,7 +68,8 @@ Its tokens SHALL be those of the line lexed as if it ended there, and its kind S
 
 ### Requirement: A long provisional line is lexed again in bounded steps
 
-Past a length the caller can set, the provisional line SHALL be lexed again only once it has grown by a share the caller can set.
+The caller can set a length and a share.
+Past that length, the provisional line SHALL be lexed again only once it has grown by that share.
 The caller MAY turn this off, so the line is lexed again on every delta.
 
 #### Scenario: A long line written in small deltas
@@ -74,7 +77,7 @@ The caller MAY turn this off, so the line is lexed again on every delta.
 - **WHEN** one line of 100 KiB arrives in deltas of four bytes, with the default setting
 - **THEN** the bytes lexed for that line stay within a fixed multiple of its length past its first KiB
 
-### Requirement: An edit lexes until the states agree
+### Requirement: An edit lexes until the states match
 
 After a `replace`, lexing SHALL run from the first changed line through the new lines.
 Past them, it SHALL stop at the first line whose end state equals the end state cached for the same text before the edit.
@@ -87,13 +90,13 @@ Past them, it SHALL stop at the first line whose end state equals the end state 
 #### Scenario: An edit that opens a comment
 
 - **WHEN** an edit opens a block comment that later text closes
-- **THEN** lexing runs until the end states agree again, and every line after keeps its tokens
+- **THEN** lexing runs until the end states match again, and every line after keeps its tokens
 
 ### Requirement: Lexing goes as far as the caller asks
 
 Mutations SHALL mark lines stale without lexing them.
 `lex` SHALL lex stale lines in order up to the line the caller names, or to the end.
-A stale line SHALL keep the tokens it had, and its kind SHALL say it is stale.
+A stale line SHALL keep the tokens it had, and its `LineKind` SHALL mark it stale.
 
 #### Scenario: A viewport lexed first
 

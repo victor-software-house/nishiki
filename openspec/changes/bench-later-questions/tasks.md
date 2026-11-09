@@ -1,6 +1,6 @@
 # Tasks
 
-Each group is one pull request unless it says otherwise.
+Each group is one pull request unless the group states otherwise.
 
 ## 1. Hostile lines
 
@@ -11,4 +11,6 @@ Each group is one pull request unless it says otherwise.
 
 ## 2. Binary size
 
-- [ ] 2.1 The stripped binary size each language feature adds, in recorded runs → verify: a record lists the size of a build with no language, and the growth for each language alone
+- [ ] 2.1 The stripped binary size each language feature adds, in recorded runs.
+  → verify: a record lists the size of a build with no language.
+  It also lists the growth for each language alone.

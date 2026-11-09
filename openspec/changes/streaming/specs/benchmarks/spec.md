@@ -29,7 +29,7 @@ Fidelity is the share of non-whitespace bytes whose colour matches Shiki's.
 - **WHEN** the harness runs nishiki on any trace
 - **THEN** its fidelity reads 100%
 
-### Requirement: Each engine streams as its users drive it
+### Requirement: Each engine streams through the API that engine's users call
 
 The harness SHALL drive Shiki through `@shikijs/stream`, and Pierre through `StreamTokenizer` for appends and `LiveTokenizer` for edits.
 An engine with no streaming API for a trace kind SHALL be left out of that trace's rows.

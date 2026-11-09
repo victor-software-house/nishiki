@@ -2,7 +2,8 @@
 
 ## Purpose
 
-A TextMate theme in Shiki's format gives each token the colour and font style Shiki gives it, so nishiki's output looks as it does in Shiki and VS Code.
+A TextMate theme in Shiki's format gives each token the colour and font style Shiki gives it.
+So nishiki's output looks as it does in Shiki and VS Code.
 
 ## Requirements
 

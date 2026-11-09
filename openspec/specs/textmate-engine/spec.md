@@ -10,14 +10,15 @@ Run Shiki's TextMate grammars with nishiki's own engine, with the contract of ev
 
 The engine SHALL give every non-whitespace byte of every oracle fixture of a language it runs the scope stack Shiki gives it.
 
-#### Scenario: A grammar runs its oracle
+#### Scenario: A grammar runs the oracle fixtures
 
 - **WHEN** the engine lexes each oracle fixture of a language it runs
 - **THEN** no non-whitespace byte differs from Shiki's scopes
 
 ### Requirement: Nothing is read or downloaded at run time
 
-A grammar SHALL be compiled into the crate before it is built, and the engine SHALL read no file and make no request when it lexes.
+A grammar SHALL be compiled into the crate before it is built.
+The engine SHALL read no file and make no request when it lexes.
 
 #### Scenario: A language is used for the first time
 
@@ -26,16 +27,20 @@ A grammar SHALL be compiled into the crate before it is built, and the engine SH
 
 ### Requirement: The contract of every language
 
-A TextMate language SHALL start from the arena's states, resume from any line's state, honour the configured limits, report each limit it reaches, and append tokens that cover the line.
+A TextMate language SHALL start from the arena's states and resume from any line's state.
+It SHALL honour the configured limits, report each limit it reaches, and append tokens that cover the line.
 
-#### Scenario: A line spends its work
+#### Scenario: A line spends the work limit
 
 - **WHEN** a line's matcher steps pass the work limit
-- **THEN** the rest of the line is one token under the current stack, the report names the limit, and the next line resumes from that state
+- **THEN** the rest of the line is one token under the current stack
+- **AND** the report names the limit
+- **AND** the next line resumes from that state
 
 ### Requirement: The engine is a second oracle
 
-The engine SHALL be able to lex any language that has both a hand lexer and a grammar, so that a test can compare the two on the same lines.
+The engine SHALL be able to lex any language that has both a hand lexer and a grammar.
+A test can then compare the two on the same lines.
 
 #### Scenario: A hand lexer is compared
 

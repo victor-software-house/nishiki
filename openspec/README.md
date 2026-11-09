@@ -13,10 +13,10 @@ The [OpenSpec](https://github.com/Fission-AI/OpenSpec) CLI manages it.
 
 | Capability | Spec |
 |:--|:--|
-| Scopes match Shiki | [shiki-fidelity](specs/shiki-fidelity/spec.md) |
-| Colours match Shiki | [theme-colouring](specs/theme-colouring/spec.md) |
-| Bounded work per line | [line-limits](specs/line-limits/spec.md) |
-| nishiki's TextMate engine | [textmate-engine](specs/textmate-engine/spec.md) |
+| Scopes match Shiki | [`shiki-fidelity`](specs/shiki-fidelity/spec.md) |
+| Colours match Shiki | [`theme-colouring`](specs/theme-colouring/spec.md) |
+| Bounded work per line | [`line-limits`](specs/line-limits/spec.md) |
+| nishiki's TextMate engine | [`textmate-engine`](specs/textmate-engine/spec.md) |
 
 ## Commands
 
