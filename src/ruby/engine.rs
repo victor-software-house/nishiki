@@ -22,9 +22,9 @@ pub(crate) struct Ruby;
 pub(crate) struct Extra {
     /// The run of `\w` characters found last.
     runs: Runs,
-    /// The last scan for a regular expression's closing `/`: the end of the
-    /// text it ran in, with its line feed, where it started, and the `/` it
-    /// stopped at, if any.
+    /// The last scan for a regular expression's closing `/`.
+    /// It holds the end of the text it ran in, with its line feed, where it
+    /// started, and the `/` it stopped at, if any.
     pub(crate) regexp_close: Cell<(usize, usize, Option<usize>)>,
 }
 

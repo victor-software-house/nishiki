@@ -140,8 +140,9 @@ impl Lexer<'_> {
     }
 
     /// The end `(\)|(?="))|((?=(?<!\\)\n))` of a nested rule that closes with
-    /// `close`: the character is group 1, and the string's end or a line
-    /// feed ends it before them.
+    /// `close`.
+    /// The character is group 1.
+    /// The string's end or a line feed ends it before them.
     fn regexp_close(&mut self, p: usize, flavour: Flavour, close: u8) -> Option<usize> {
         if self.at(p) == close && p < self.lim() {
             self.cap(1, p, p + 1);

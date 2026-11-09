@@ -47,6 +47,7 @@ pub(crate) struct Lexer<'a, const D: u8> {
     /// Set when the grammar loops: a context was opened and closed without the
     /// line advancing. `TextMate` then gives the rest of the line to the
     /// context that is open.
+    ///
     /// Also set where the node limit keeps a context out of the arena.
     /// A context whose begin takes nothing would otherwise be tried again
     /// without end, and every later push fails as well.
@@ -84,10 +85,12 @@ pub(crate) struct Halts<'a> {
 /// A context opened on the current line, which `TextMate` remembers to
 /// catch a grammar that loops.
 ///
-/// Only the contexts opened on the line need this, and they are always the
-/// top of the stack: a frame from an earlier line is popped only when nothing
-/// opened on the line sits above it. The highlighter keeps the stack across
-/// lines, so a line clears it rather than filling a table per depth.
+/// Only the contexts opened on the line need this.
+/// They are always the top of the stack.
+/// A frame from an earlier line is popped only when nothing opened on the
+/// line sits above it.
+/// The highlighter keeps the stack across lines.
+/// So a line clears it rather than filling a table per depth.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Opened {
     /// The context's kind code.
@@ -103,15 +106,17 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// the type, so the TypeScript lexer compiles with no JSX branches.
     pub(crate) const DIALECT: Dialect = Dialect::of(D);
 
-    /// Whether the text is a capture group that another grammar lexes again,
-    /// which `TextMate` cuts from the line without the line feed it appends
-    /// to every line. A const, so the lexers of whole lines pay nothing for
+    /// Whether the text is a capture group that another grammar lexes again.
+    /// `TextMate` cuts such a group from the line without the line feed it
+    /// appends to every line.
+    /// A const, so the lexers of whole lines pay nothing for
     /// it.
     const BARE: bool = D & Dialect::BARE != 0;
 
     /// The lexer of the line `src` from byte `from` and `state`, which `halts`
-    /// may stop. The bytes before `from` belong to the language that embeds
-    /// this one: the scan never starts there, but lookbehinds read them, and
+    /// may stop.
+    /// The bytes before `from` belong to the language that embeds this one.
+    /// The scan never starts there, but lookbehinds read them.
     /// `^` matches only at byte 0, as in `TextMate`, where an embedded grammar
     /// sees the whole line.
     ///
@@ -219,11 +224,16 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// Lexes the line.
     ///
-    /// A step that matches without advancing either opens a context, which
-    /// cannot open twice at one position (see [`Lexer::push_with`]), or closes
-    /// one opened before that position (see [`Lexer::close_here`]). So a run of
-    /// steps at one position is at most the depth when the run began plus the
-    /// number of kinds; debug builds assert that bound.
+    /// A step that matches without advancing either opens a context or closes
+    /// one.
+    /// The context it opens cannot open twice at one position (see
+    /// [`Lexer::push_with`]).
+    /// The context it closes was opened before that position (see
+    /// [`Lexer::close_here`]).
+    ///
+    /// So a run of steps at one position is at most the depth when the run
+    /// began plus the number of kinds.
+    /// Debug builds assert that bound.
     ///
     /// `TextMate` keeps matching after a rule has consumed the newline, at the
     /// end of the line, where a rule that tests for `$` can still end.
@@ -269,9 +279,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.flush(self.halt.unwrap_or(self.len));
     }
 
-    /// Stops the line at `p` when `test`, one of the embedding language's,
-    /// holds there while no context of the code is open beyond the one the
-    /// embedding started.
+    /// Stops the line at `p` when `test` holds there while no context of the
+    /// code is open beyond the one the embedding started.
+    /// `test` is one of the embedding language's halts.
     pub(crate) fn halt_if(&mut self, p: usize, test: Option<&dyn Halt>) -> bool {
         let Some(test) = test else {
             return false;
@@ -312,6 +322,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// Inside such a run, the next positions all have the same kind of
     /// character before them as `p`.
     /// So the same lookbehinds give the same answers.
+    ///
     /// A rule without a lookbehind would have matched at the run's or the
     /// name's start.
     ///
@@ -424,7 +435,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// rule can match at; a rule that cannot start there is not called.
     ///
     /// A debug build calls the rule anyway and fails when it matches at a byte
-    /// outside its set, so a set that is too small is found by the tests.
+    /// outside its set.
+    /// So a set that is too small is found by the tests.
     pub(crate) fn only(
         &mut self,
         name: &'static str,
@@ -503,7 +515,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
     }
 
     /// Emits what is left of the match up to `to` with `leaf` inside the rule
-    /// `kind`: the uncaptured part of a match that the rule scopes as a whole.
+    /// `kind`.
+    /// This is the uncaptured part of a match that the rule scopes as a whole.
     pub(crate) fn fill(&mut self, kind: Kind, to: usize, leaf: &[S]) {
         self.capture(kind, self.pos, to, leaf);
     }
@@ -529,12 +542,16 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// Opens `kind` carrying `payload`.
     ///
     /// `TextMate` refuses to open a context a second time at a position the
-    /// line has not advanced past, and gives the rest of the line to the open
-    /// one.
+    /// line has not advanced past.
+    /// It gives the rest of the line to the open one.
     /// The line stops the same way where the node limit keeps the context out
     /// of the arena.
-    /// An embedder's end later on that line still takes the line back there,
-    /// so a `</script>` after the limit is not lexed as code (Kody, #618).
+    ///
+    /// An embedder's end later on that line still takes the line back there.
+    /// So a `</script>` after the limit is not lexed as code (Kody,
+    /// [pull request 618]).
+    ///
+    /// [pull request 618]: https://github.com/victor-software-house/nishiki-archive/pull/618
     pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
         if self.pos <= self.line_pos {
             let here = self.opened.iter().rev();

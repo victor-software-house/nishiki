@@ -5,8 +5,9 @@
 const TAG: u16 = crate::tag::SHELL;
 
 crate::tag::frame_kinds! {
-    /// A rule of the grammar that is open at the end of a line, or a pseudo rule
-    /// that only lists the patterns a capture is retokenised with.
+    /// A rule of the grammar.
+    /// It is a rule that is open at the end of a line, or a pseudo rule.
+    /// A pseudo rule only lists the patterns a capture is retokenised with.
     pub(crate) enum Rule: TAG {
         /// Outside any rule.
         Root,

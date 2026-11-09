@@ -30,8 +30,8 @@ pub(crate) struct ObjectiveC;
 pub(crate) struct Memory {
     /// The last scoped name walked: where it starts and ends, and the length
     /// of the text it was walked in.
-    /// The call patterns have no `\b` before the name, so they ask at every
-    /// byte of a name.
+    /// The call patterns have no `\b` before the name, so they try every byte
+    /// of a name.
     /// A walk entered at a later letter of this one ends where it does.
     pub(super) scoped: Cell<(usize, usize, usize)>,
     /// The last run of `\w` characters measured, in the same shape.

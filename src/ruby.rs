@@ -55,8 +55,9 @@ impl rules::Embeds for Ruby {
 }
 
 /// Where Ruby's interpolation or a heredoc at the start of a line begins:
-/// `#{`, `#@name`, `#@@name`, `#$name` or `^<<[-~]?name`, the patterns a
-/// language-named heredoc lists before the embedded grammar.
+/// `#{`, `#@name`, `#@@name`, `#$name` or `^<<[-~]?name`.
+/// These are the patterns a language-named heredoc lists before the embedded
+/// grammar.
 fn interpolation(s: &[u8], p: usize) -> bool {
     let name = |at: usize| {
         s.get(at)

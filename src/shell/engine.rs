@@ -65,8 +65,9 @@ struct Frame {
     payload: u32,
 }
 
-/// The answer to a search that scanned ahead for a position, kept so that the
-/// next search of the same text, from a later position, does not scan again.
+/// The answer to a search that scanned ahead for a position.
+/// It is kept so that the next search of the same text, from a later
+/// position, does not scan again.
 #[derive(Clone, Copy, Debug)]
 struct Find {
     /// Where the search started.
@@ -79,7 +80,7 @@ struct Find {
 }
 
 /// The searches with a lazy `.+?` that scan ahead.
-/// Each is answered from the last search of its kind; see
+/// Each is answered from the last search with the same test; see
 /// [`Lexer::find_from`].
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Lazy {
@@ -296,7 +297,7 @@ pub(crate) struct Lexer<'a> {
     /// The frames below it are ones the line started with.
     /// The line that left them already cleared their `enter` and `anchor`.
     low: usize,
-    /// The searches that scan ahead, one per kind of search.
+    /// The searches that scan ahead, one per `Lazy` test.
     finds: Finds,
     /// The last run of function-name characters found: where it starts and
     /// ends, and the end of the text.
@@ -441,7 +442,7 @@ impl<'a> Lexer<'a> {
 
     /// The halts a scan tests at each place: the line's, while only the root
     /// is open, and `None` otherwise.
-    /// A scan does not open or close rules, so it asks once.
+    /// A scan does not open or close rules, so it reads the halts once.
     fn root_halts(&self) -> Option<&'a Halts<'a>> {
         self.halts.filter(|_| self.frames.len() == 1)
     }
@@ -569,7 +570,7 @@ impl<'a> Lexer<'a> {
     /// A pattern with a lazy `.+?` scans ahead like this.
     /// A line made of such tokens would scan to its end for each.
     /// `lazy` names the test.
-    /// The answer of the last search of that kind answers a later one that
+    /// The answer of the last search with that test answers a later one that
     /// starts no earlier and no later than the answer.
     pub(crate) fn find_from(
         &self,
@@ -925,6 +926,7 @@ impl<'a> Lexer<'a> {
     /// A rule that repeats ends the line.
     /// A run of such steps is therefore at most one open and one close per
     /// rule of the grammar, about 120 steps.
+    ///
     /// The debug assertion's 4096 is far above that.
     /// Reaching it means a rule matches empty without being guarded.
     fn tokenize(&mut self) {
@@ -1101,6 +1103,7 @@ impl<'a> Lexer<'a> {
     /// Each position tries only the patterns that can start there, or all
     /// of them where the text ends without a line feed.
     /// A begin the depth limit keeps closed leaves its text plain.
+    ///
     /// A pattern that fails at a blank fails at the blanks after it, because
     /// the blanks are consumed first and what follows decides.
     /// The position after the first blank is the exception, because

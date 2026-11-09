@@ -11,7 +11,8 @@ const INSTANCE: S = S::EntityNameTypeInstanceJsdoc;
 const VARIABLE: S = S::VariableOtherJsdoc;
 
 /// The tags the grammar scopes as a bare tag word, as the final catch-all of
-/// its list spells them, with the optional suffixes written out.
+/// its list spells them.
+/// The optional suffixes are written out.
 const KNOWN_TAGS: &[&str] = &[
     "abstract",
     "access",

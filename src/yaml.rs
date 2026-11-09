@@ -1,9 +1,9 @@
 //! YAML, with the scopes of the `yaml` grammar that Shiki bundles.
 //!
 //! The lexer is built from the YAML 1.2 specification and from Shiki's output.
-//! It is a hand-written state machine over bytes whose contexts (block scalars,
-//! quoted strings and flow collections) are frames of the highlighter's
-//! interned state.
+//! It is a hand-written state machine over bytes.
+//! Its contexts are frames of the highlighter's interned state: block scalars,
+//! quoted strings and flow collections.
 
 mod lexer;
 mod scalar;
@@ -26,9 +26,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of the YAML lines of a fenced code block, whose
-/// text sits on the stack `base` with no `source.yaml` of its own, as in
-/// Shiki's embedding.
+/// The state at the start of the YAML lines of a fenced code block.
+/// The block's text sits on the stack `base` with no `source.yaml` of its
+/// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
@@ -63,7 +63,9 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 /// The halts are tested only where the lexer begins a step while its top
 /// context alone is open.
 /// `end` is tested there, and `after` where that step is no YAML token.
+///
 /// HTML and XML test them at every place up to their next match.
+///
 /// A YAML step takes its blanks with it, as the grammar does.
 /// The comment rule begins at the blanks before `#`.
 /// An indented `#{` in a Ruby here document is therefore a YAML comment.

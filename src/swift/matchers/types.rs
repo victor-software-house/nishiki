@@ -85,9 +85,10 @@ impl Lexer<'_> {
         (p..end).contains(&self.lim()) || self.at_in(end, set)
     }
 
-    /// Records the groups of an identifier that starts at `p`: `whole` each
-    /// get its text, and `ticks` is the pair of groups that hold the opening
-    /// and the closing backtick, empty when there are none.
+    /// Records the groups of an identifier that starts at `p`.
+    /// The groups in `whole` each get its text.
+    /// `ticks` is the pair of groups that hold the opening and the closing
+    /// backtick, empty when there are none.
     pub(in crate::swift) fn cap_ident(
         &mut self,
         p: usize,

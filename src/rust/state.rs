@@ -44,7 +44,7 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
-    /// The kind as a frame stores it: the Rust tag in the high byte, the
+    /// The `Kind` as a frame stores it: the Rust tag in the high byte, the
     /// discriminant in the low one.
     #[expect(
         clippy::as_conversions,
@@ -54,7 +54,7 @@ impl Kind {
         TAG | self as u16
     }
 
-    /// The kind a frame's code names.
+    /// The `Kind` a frame's code names.
     /// It is [`Kind::Top`] for a code that is not Rust's, such as the empty
     /// state's.
     pub(crate) fn from_code(code: u16) -> Kind {

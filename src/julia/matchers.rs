@@ -267,8 +267,8 @@ impl Lexer<'_> {
     }
 
     /// `(X)(\.?'*)` at `p`, for the closing bracket `X` of an array, a
-    /// parenthesis or a brace: group 1 is the bracket, group 2 a dot and the
-    /// transposes after it.
+    /// parenthesis or a brace.
+    /// Group 1 is the bracket, and group 2 a dot and the transposes after it.
     fn closer(&mut self, p: usize, bracket: u8) -> Option<usize> {
         if self.at(p) != bracket {
             return None;

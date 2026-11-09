@@ -209,6 +209,7 @@ impl Grammar for Make {
 /// The first match from the position.
 /// At each position the end pattern of the innermost rule comes first, then
 /// the rule's patterns in order.
+///
 /// A rule the depth limit keeps closed leaves its text plain.
 /// That rule matched nothing.
 /// It would match again at the same place.

@@ -1,6 +1,6 @@
-//! The matchers of the expressions only Objective-C++ has: for each one, the
-//! code that decides whether it matches at a position, where it ends, and the
-//! capture groups the grammar names.
+//! The matchers of the expressions only Objective-C++ has.
+//! Each is the code that decides whether its expression matches at a
+//! position, where it ends, and the capture groups the grammar names.
 //!
 //! The grammar's other expressions are Objective-C's, and its matchers answer
 //! them (see [`crate::objective_c`]).

@@ -245,8 +245,11 @@ impl Lexer<'_> {
 
     /// `(?!new)(?=[<\w].*\s+)(?=([^/=]|/(?!/))+\()` for a method and
     /// `(?!new)(?=[<\w].*\s+)(?=([^(/=]|/(?!/))+(?=\{))` for a record's
-    /// constructor: the run from `p` that has no `=` or `//` (and, for a
-    /// constructor, no `(`) holds a `(` (or a `{`) after its first character.
+    /// constructor.
+    /// The run from `p` that has no `=` or `//` holds a `(` after its first
+    /// character.
+    /// For a constructor, that run has no `(` either, and it holds a `{`
+    /// instead.
     pub(super) fn method_ahead(&self, p: usize, callable: Callable) -> Option<usize> {
         if self.starts(p, b"new") || p >= self.lim() {
             return None;

@@ -1,4 +1,4 @@
-//! The here documents whose name says which language their lines are in,
+//! The here documents whose name gives the language their lines are in,
 //! such as `<<~SQL`.
 //! The module holds their openers, the `while` line test that keeps them
 //! open, and the line that closes them.

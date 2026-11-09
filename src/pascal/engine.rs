@@ -44,8 +44,8 @@ impl Default for Lowered {
 }
 
 /// What the Pascal matchers remember about a line.
-/// Nine of the word patterns ask about the same word, so the last word
-/// lowered is kept.
+/// Nine of the word patterns test the same word, so the last word lowered is
+/// kept.
 #[derive(Debug, Default)]
 pub(crate) struct Extra {
     /// The last word lowered.

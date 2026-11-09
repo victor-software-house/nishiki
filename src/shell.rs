@@ -2,9 +2,10 @@
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
-//! The rules left open at the end of a line (strings, here-documents, `if`
-//! blocks, statements continued by a backslash) are frames of the highlighter's
+//! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.
+//! Strings, here-documents, `if` blocks and statements continued by a
+//! backslash are such rules.
 //! A here-document's delimiter is the frame's payload, an interned string.
 //!
 //! It reproduces Shiki's output, quirks included:
@@ -79,9 +80,10 @@ pub(crate) struct Text<'a> {
 /// Lexes one line from `state`, appending its tokens, and returns the state
 /// after it.
 ///
-/// An empty line leaves the state as it is: Shiki does not tokenize empty
-/// lines, and the grammar would otherwise close a statement it left open at
-/// the end of the line before.
+/// An empty line leaves the state as it is.
+/// Shiki does not tokenize empty lines.
+/// The grammar would otherwise close a statement it left open at the end of
+/// the line before.
 pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: Text<'_>, state: u32) -> Finished {
     if line.bytes.is_empty() {
         return Finished::unspent(state);
@@ -122,9 +124,11 @@ pub(crate) fn lex_until(
     (finished, halt.map(Stopped::halt))
 }
 
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// Lexes `line` from `state` and returns the state after it.
+///
+/// It follows the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)).
+/// Token ends count from the start of the whole line.
 #[inline]
 pub(crate) fn lex(
     cx: &mut crate::language::Context<'_>,

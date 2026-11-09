@@ -42,7 +42,9 @@ pub(crate) struct Lexer<'a> {
     /// this byte, because one that started earlier failed where this ends.
     pub(super) no_key_before: usize,
     /// A key made of names with a quoted one among them failed to end in an
-    /// `=`: the start of the next of its names and the byte where it failed.
+    /// `=`.
+    /// This holds the start of the next of its names and the byte where it
+    /// failed.
     /// A key that starts at that name fails the same way.
     pub(super) failed_chain: Cell<(usize, usize)>,
 }

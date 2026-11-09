@@ -11,8 +11,9 @@ use crate::{Highlighter, Language, Limits, LineReport, State, Token};
 pub(crate) type Row = Vec<(String, Vec<String>)>;
 
 /// Lexes `text` line by line with `highlighter` as one document from its
-/// start, asserting that no line reaches a limit and that each line's tokens
-/// cover it.
+/// start.
+/// It asserts that no line reaches a limit and that each line's tokens cover
+/// it.
 pub(crate) fn lex_with(highlighter: &mut Highlighter, text: &str) -> Vec<Row> {
     let mut state = State::default();
     let mut rows = Vec::new();
@@ -115,9 +116,9 @@ pub(crate) fn leaf_in(row: &LeafRow, token: &str) -> String {
         .clone()
 }
 
-/// A language's lexer for lines another language embeds: it lexes a line
-/// from a state up to where `end` or `after` halts it, and returns the state
-/// and where it halted.
+/// A language's lexer for lines another language embeds.
+/// It lexes a line from a state up to where `end` or `after` halts it.
+/// It returns the state and where it halted.
 type LexUntil = fn(
     &mut Context<'_>,
     Line<'_>,
@@ -238,8 +239,9 @@ pub(crate) fn lex_embedded_stops(
 
 /// Where each line of `lines` halts under a Ruby here document's halts.
 /// It checks that the line's tokens are those it gets with no halts.
-/// That is all of them on a line that does not halt, and all but the last on
-/// one that does, since the halt cuts the last token short.
+/// That is all of them on a line that does not halt.
+/// On a line that halts, it is all but the last, since the halt cuts the last
+/// token short.
 pub(crate) fn ruby_heredoc_halts(
     language: Embedded,
     base: &[&str],

@@ -260,6 +260,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// TypeScript's grammar, as `typescript::start_entry` opens it.
     /// Only Svelte's dialects and Astro's TSX open an entry kind.
     /// The test of `D` drops these calls from every other dialect's lexer.
+    ///
     /// There, `object_literal` and the others keep one call site each, and
     /// stay inlined.
     /// In the dialects that open an entry, `object_literal` has a second call

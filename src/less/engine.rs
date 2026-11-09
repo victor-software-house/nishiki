@@ -14,8 +14,9 @@ pub(crate) type Lexer<'a> = rules::Lexer<'a, Less>;
 /// What a highlighter keeps from line to line.
 pub(crate) type Scratch = rules::Scratch<Less>;
 
-/// What the Less matchers remember about a line, so that a matcher tried at
-/// each place of a long run does not read the run again each time.
+/// What the Less matchers remember about a line.
+/// A matcher tried at each place of a long run then does not read the run
+/// again each time.
 #[derive(Debug)]
 pub(crate) struct Extra {
     /// The last run of a name's characters read without an escape: its
@@ -30,9 +31,10 @@ pub(crate) struct Extra {
     pub(in crate::less) ascii_digits: Cell<(usize, usize)>,
     /// The last run of `[-\w]` read: where it was read from and where it ends.
     pub(in crate::less) dash_words: Cell<(usize, usize)>,
-    /// The last custom element's run read: where it was read from, where it
-    /// ends, the last end in it where `\b` holds, and the last `-` before
-    /// that end.
+    /// The last custom element's run read: where it was read from and where
+    /// it ends.
+    /// It also holds the last end in the run where `\b` holds, and the last
+    /// `-` before that end.
     pub(in crate::less) custom: Cell<(usize, usize, Option<usize>, Option<usize>)>,
     /// The last `{` of the line, once looked for.
     pub(in crate::less) brace: OnceCell<Option<usize>>,

@@ -18,7 +18,7 @@ macro_rules! kinds {
         pub(crate) enum Kind { $($id),* }
 
         impl Kind {
-            /// Every kind, indexed by discriminant.
+            /// Every `Kind`, indexed by discriminant.
             const ALL: &[Kind] = &[$(Kind::$id),*];
 
             /// How many kinds there are.
@@ -223,7 +223,7 @@ kinds! {
 }
 
 impl Kind {
-    /// The kind as a frame stores it: the TypeScript tag in the high byte,
+    /// The `Kind` as a frame stores it: the TypeScript tag in the high byte,
     /// the discriminant in the low one.
     #[expect(
         clippy::as_conversions,
@@ -233,7 +233,7 @@ impl Kind {
         TAG | self as u16
     }
 
-    /// The kind a frame's code names.
+    /// The `Kind` a frame's code names.
     /// It is [`Kind::Top`] for a code that is not TypeScript's, such as the
     /// empty state's.
     pub(crate) fn from_code(code: u16) -> Kind {

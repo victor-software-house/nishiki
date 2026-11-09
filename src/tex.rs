@@ -8,6 +8,7 @@
 //! The `matchers` decide where each regular expression matches.
 //! LaTeX's lexer reaches the same matchers for the TeX rules its grammar
 //! includes.
+//!
 //! `\Sexpr{…}` in math hands its text to R.
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.

@@ -245,8 +245,8 @@ fn a_lookahead_is_bounded_by_the_work_limit() {
 #[test]
 fn long_blanks_are_linear() {
     // Four steps a byte cover one pass over the blanks and the lexer's own
-    // count of the line; a scan that read them again at each blank would not
-    // fit.
+    // count of the line.
+    // A scan that read them again at each blank would not fit.
     let limits = Limits {
         work: Some(crate::Work {
             per_byte: 4,
@@ -325,8 +325,8 @@ fn doc_comment_optional_parameter_needs_its_closing_bracket() {
 }
 
 /// Lines over every printable ASCII byte and the grammar's keywords, so that
-/// each gated rule meets every byte in many contexts. A debug build fails when
-/// a rule matches at a byte outside the set it is gated on.
+/// each gated rule meets every byte in many contexts.
+/// A debug build fails when a rule matches at a byte outside its start set.
 #[test]
 fn gated_rules_match_only_inside_their_start_sets() {
     const WORDS: &[&str] = &[
@@ -562,9 +562,9 @@ fn jsx_state_continues_across_lines() {
 
 #[test]
 fn a_type_annotation_takes_the_blanks_before_a_brace() {
-    // The end of a type annotation before `{` takes the blanks, so the brace is
-    // an object literal and not the start of a destructured parameter, in the
-    // parentheses that the first line leaves open.
+    // The end of a type annotation before `{` takes the blanks.
+    // So the brace is an object literal and not the start of a destructured
+    // parameter, in the parentheses that the first line leaves open.
     let text = indoc! {"
         c() {
           return (
@@ -629,9 +629,10 @@ fn until(
 }
 
 /// Lexes `lines` in `dialect` from the state `start` makes over the scopes
-/// `base`, under [`super::lex_until`] with `end` and `after`, and returns,
-/// per line, where it halted and each token's text and full scope stack. The
-/// lines after a halt are not lexed.
+/// `base`, under [`super::lex_until`] with `end` and `after`.
+/// It returns, per line, where it halted and each token's text and full scope
+/// stack.
+/// The lines after a halt are not lexed.
 fn until_in(
     dialect: super::Dialect,
     base: &[&str],

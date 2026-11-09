@@ -639,8 +639,8 @@ impl<'a> Lexer<'a> {
     ///
     /// The grammar tags a key only when the colons that end it pair up,
     /// counting the one that follows it directly.
-    /// When they do not, the grammar's lookahead goes on past that `:` and
-    /// tags the key when a later `:` before a blank ends a key on the line,
+    /// When they do not, the grammar's lookahead goes on past that `:`.
+    /// It tags the key when a later `:` before a blank ends a key on the line,
     /// as in `a:: b: c`.
     /// A pair's value holds no key of its own.
     fn plain(&mut self, p: usize) -> usize {
@@ -664,8 +664,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// Whether the plain scalar `p..end`, which ends in a `:` and has a
-    /// `:` after it, is a key: its trailing colons pair up with that `:`,
-    /// or a later key follows ([`Lexer::key_ahead`]).
+    /// `:` after it, is a key.
+    /// It is one when its trailing colons pair up with that `:`, or a later
+    /// key follows ([`Lexer::key_ahead`]).
     ///
     /// Cold and out of line: a scalar that ends in a `:` is rare.
     #[cold]
@@ -679,8 +680,8 @@ impl<'a> Lexer<'a> {
         trailing % 2 == 0 || self.key_ahead(end + 1, flow)
     }
 
-    /// Whether a `:` before a blank or the line end ends a key from `i` on,
-    /// as the grammar's key lookahead reads the rest of the line.
+    /// Whether a `:` before a blank or the line end ends a key from `i` on.
+    /// It reads the rest of the line as the grammar's key lookahead does.
     ///
     /// The lookahead steps over one character, a `:` and the character after
     /// it, or a run of blanks that no `#` or line end follows.

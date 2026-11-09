@@ -13,6 +13,7 @@
 //! TypeScript's grammar, such as an object literal.
 //! `<script>` bodies go to the JavaScript or TypeScript lexer, and `<style>`
 //! bodies to the CSS lexer.
+//!
 //! The embedded language's state is the payload of its rule's frame.
 //! Each embedding rule says where it takes the line back
 //! (`engine::End`).

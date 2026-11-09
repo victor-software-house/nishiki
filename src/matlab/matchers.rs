@@ -1,6 +1,6 @@
-//! The matchers: for each regular expression of the grammar, the code that
-//! decides whether it matches at a position, where it ends, and the capture
-//! groups the grammar names.
+//! The matchers, one for each regular expression of the grammar.
+//! Each is the code that decides whether its expression matches at a
+//! position, where it ends, and the capture groups the grammar names.
 //!
 //! Each follows its expression as Oniguruma's backtracking would.
 //! `\w`, `\s` and `\d` take non-ASCII characters, as in Oniguruma, through
@@ -32,9 +32,11 @@ const CLOSERS: [bool; 256] = table(b"]&)*,/:;<=>@\\^|}");
 ///
 /// A set of bytes is looked up in a table rather than searched with
 /// `<[u8]>::contains`.
-/// On 16 bytes or more, `contains` calls `memchr`, which reads bytes one at
-/// a time up to the first aligned word, so its cost follows where the set
-/// sits in the binary, which another language's tables can move.
+///
+/// On 16 bytes or more, `contains` calls `memchr`.
+/// `memchr` reads bytes one at a time up to the first aligned word.
+/// So its cost follows where the set sits in the binary, and another
+/// language's tables can move that place.
 /// A table lookup costs one load wherever the table sits.
 #[expect(
     clippy::as_conversions,
@@ -415,8 +417,9 @@ impl Lexer<'_> {
     }
 
     /// The end of the run from `i` of characters that are not one of `stop`,
-    /// as `[^…]*` takes it: through the line feed when the run reaches it and
-    /// `stop` holds no line feed.
+    /// as `[^…]*` takes it.
+    /// The run takes the line feed when it reaches it and `stop` holds no line
+    /// feed.
     fn not_run(&self, i: usize, stop: &[u8]) -> usize {
         let end = self.skip(i, |b| !stop.contains(&b));
         if self.line_feed_at(end) && !stop.contains(&b'\n') {
@@ -542,8 +545,8 @@ impl Lexer<'_> {
     }
 
     /// A name of `class` at `i`: where it ends.
-    /// The last run measured is kept, so a name asked about at each of its
-    /// bytes is walked once.
+    /// The last run measured is kept, so a name tried at each of its bytes is
+    /// walked once.
     fn name_run(&self, i: usize, class: NameClass) -> Option<usize> {
         if !self.at(i).is_ascii_alphabetic() || i >= self.lim() {
             return None;
@@ -750,8 +753,9 @@ impl Lexer<'_> {
         }
     }
 
-    /// The groups of a class head: group 1 for the attributes, and groups 2
-    /// and 3 for the name with its superclasses and the name alone.
+    /// The groups of a class head.
+    /// Group 1 is the attributes.
+    /// Groups 2 and 3 are the name with its superclasses and the name alone.
     fn class_groups(
         &mut self,
         p: usize,
@@ -875,9 +879,11 @@ impl Lexer<'_> {
         (at < self.lim()).then_some(at)
     }
 
-    /// The first token of the arguments' first shape, at `a`: a character
-    /// that is no operator, a quote, an operator with what may follow it, or
-    /// a `.` with a character that keeps it from a field or an operator.
+    /// The first token of the arguments' first shape, at `a`.
+    /// The token is a character that is no operator, a quote, or an operator
+    /// with what may follow it.
+    /// It can also be a `.` with a character that keeps it from a field or an
+    /// operator.
     /// Where the token ends; the rest of the line up to a `%` follows it.
     fn first_argument(&self, a: usize) -> Option<usize> {
         let b = self.at(a);

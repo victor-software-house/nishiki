@@ -18,6 +18,7 @@
 //! character past ASCII.
 //! So a name is read by byte: every byte of such a character is at least
 //! `0x80`.
+//!
 //! A space past ASCII, such as U+00A0, is both a name character and `\s`.
 //! Where a `\s` follows a name, the name gives such spaces back
 //! ([`Lexer::q_ends`]). A `\s*` before a name does not give them back for the
@@ -559,8 +560,9 @@ impl Lexer<'_> {
     // Shared pieces.
 
     /// The ends a run of name characters `from..end` can give a `\s` that
-    /// follows it: its whole length, then the start of the spaces past ASCII
-    /// it ends with, if any.
+    /// follows it.
+    /// The first is its whole length.
+    /// The second is the start of the spaces past ASCII it ends with, if any.
     fn q_ends(&self, from: usize, end: usize) -> [Option<usize>; 2] {
         let mut trimmed = end;
         while trimmed > from

@@ -218,7 +218,7 @@ impl Lexer<'_> {
     }
 
     /// `(?i:([$@])(global|…|workflow):([_\p{L}\d]+))`, with `\$` alone when
-    /// `sigils` says so, then `((?:\.[_\p{L}\d]+)*\b)?` when `members` keeps
+    /// `sigils` allows it, then `((?:\.[_\p{L}\d]+)*\b)?` when `members` keeps
     /// them: a variable with a scope.
     /// Group 1 is around the sigil, group 2 around the scope, group 3 around
     /// the name and group 4 around the members.
@@ -273,9 +273,10 @@ impl Lexer<'_> {
     }
 
     /// `(?i:([$@])([_\p{L}\d]+:)?([_\p{L}\d]+))`, with `\$` alone when
-    /// `sigils` says so, then `((?:\.[_\p{L}\d]+)*\b)?` when `members` keeps
-    /// them: a variable, group 1 around the sigil, group 2 around its drive
-    /// and group 3 around its name, group 4 around the members.
+    /// `sigils` allows it, then `((?:\.[_\p{L}\d]+)*\b)?` when `members` keeps
+    /// them: a variable.
+    /// Group 1 is around the sigil, group 2 around its drive, group 3 around
+    /// its name and group 4 around the members.
     ///
     /// A drive needs a name after it.
     /// Without one, the drive's letters are the name.

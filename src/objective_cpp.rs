@@ -10,6 +10,7 @@
 //! matchers answer those.
 //! The `matchers` here answer the rest, which come from the grammar's C++
 //! rules.
+//!
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Shiki's Markdown grammar has no Objective-C++ fence.

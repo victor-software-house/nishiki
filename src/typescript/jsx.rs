@@ -2,9 +2,9 @@
 //!
 //! The `javascript`, `jsx` and `tsx` grammars read `<` after an operator or
 //! a keyword that takes a value as the start of a tag.
-//! A tag is lexed as the grammar's contexts: an expression that holds tags, a
-//! tag with or without attributes, its attributes, its children and the `{…}`
-//! code inside them.
+//! A tag is lexed as the grammar's contexts.
+//! They are an expression that holds tags, a tag with or without attributes,
+//! its attributes, its children and the `{…}` code inside them.
 
 use super::bytes::Bytes;
 use super::chars::{Before, is_alnum_char};

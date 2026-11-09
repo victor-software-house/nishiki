@@ -472,7 +472,8 @@ impl Lexer<'_> {
     }
 
     /// The language of the body of the language tag the innermost rule
-    /// sits in, from the injections' selectors: the tag (`meta.$1`) and its
+    /// sits in.
+    /// It comes from the injections' selectors: the tag (`meta.$1`) and its
     /// `lang` value (`meta.lang.$3`), when it has one.
     fn body(&self) -> Body {
         let top = self.top_rule();

@@ -244,6 +244,7 @@ impl Lexer<'_> {
     /// Only the number's second branch, `\d*\.\d+`, needs no `\b` before it.
     /// It can start at the run's trailing digits when a `.` or a character
     /// above ASCII follows the run.
+    ///
     /// Every digit of those digits reads the same rest, so the first one
     /// decides for all.
     /// The other rules hold only their ends, and `''` in a string, which

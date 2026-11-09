@@ -5,9 +5,11 @@
 //! bytes, in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
 //! The `matchers` decide where each pattern matches.
-//! The rules left open at the end of a line (triple-quoted strings, brackets, a
-//! statement continued by a backslash) are frames of the highlighter's interned
-//! state.
+//!
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
+//! Triple-quoted strings, brackets and a statement continued by a backslash are
+//! such rules.
 
 mod engine;
 mod grammar;

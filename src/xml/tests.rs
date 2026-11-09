@@ -349,8 +349,9 @@ const EMBEDDED: test_support::Embedded = test_support::Embedded {
 };
 
 /// The scopes a Ruby here document named for XML puts under its lines, as
-/// Shiki gives them: the grammar's `text.xml` comes from the rule's
-/// `contentName`, and the include adds none of its own.
+/// Shiki gives them.
+/// The grammar's `text.xml` comes from the rule's `contentName`, and the
+/// include adds none of its own.
 const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.xml", "text.xml"];
 
 /// Where each line halts under a Ruby here document's halts.
@@ -373,8 +374,9 @@ fn at_lt(bytes: &[u8], p: usize) -> bool {
 
 /// The places Shiki hands a line of a Ruby here document named for XML back
 /// to Ruby.
-/// It does so at an interpolation or an escape while no XML rule is open,
-/// including after a comment or a CDATA section that closes on the line.
+/// It does so at an interpolation or an escape while no XML rule is open.
+/// That includes after a comment or a CDATA section that closes on the line.
+///
 /// It does not do so inside a tag, a comment or a CDATA section, even one
 /// that spans lines.
 #[test]

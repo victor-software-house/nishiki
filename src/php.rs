@@ -48,7 +48,8 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of PHP that another language embeds, such as the
-/// lines of a Markdown fence: the root rule, with the `Fence` rule above it.
+/// lines of a Markdown fence.
+/// It is the root rule, with the `Fence` rule above it.
 /// HTML is not started until the first line hands it the text.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     let root = rules::start_embedded::<Php>(arena, base);

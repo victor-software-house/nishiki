@@ -1,6 +1,7 @@
-//! Characters and words at a position: the character classes the grammar's
-//! regular expressions spell, blanks, names, keywords and the lookbehinds
-//! that test the text before a position.
+//! Characters and words at a position.
+//! The module covers the character classes the grammar's regular expressions
+//! spell, blanks, names and keywords.
+//! It also covers the lookbehinds that test the text before a position.
 
 use super::bytes::{ASCII_NAME_CHAR, ASCII_NAME_START, Bytes};
 use super::lexer::Lexer;
@@ -73,8 +74,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// Skips `\s*`.
     ///
-    /// Rules ask for the end of a run of blanks at every position inside it,
-    /// so the last run found is remembered and a long run costs one scan.
+    /// Rules need the end of a run of blanks at every position inside it.
+    /// So the last run found is remembered, and a long run costs one scan.
     pub(crate) fn ws(&self, i: usize) -> usize {
         let (start, end) = self.blanks.get();
         if i >= start && i < end {
@@ -226,9 +227,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         Self::bol(p) && self.eol(self.ws(0))
     }
 
-    /// Whether the text before `p` ends in what `before` accepts: one of its
-    /// bytes or operators, or one of its words as a whole word, and none of
-    /// what it refuses.
+    /// Whether the text before `p` ends in what `before` accepts.
+    /// That is one of its bytes or operators, or one of its words as a whole
+    /// word, and none of what it refuses.
     /// The grammar spells this lookbehind, with its own sets, before an object
     /// literal, a cast, a JSX tag and a regular expression.
     pub(crate) fn operator_before(&self, p: usize, before: &Before) -> bool {

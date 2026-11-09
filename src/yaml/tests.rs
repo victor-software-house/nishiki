@@ -564,7 +564,8 @@ fn a_ruby_escape_at_a_yaml_plain_scalar_stays_yaml() {
 }
 
 /// The colons of `a::` do not pair up with the `:` after them, so the key
-/// lookahead reads on, and a later `b:` makes `a:` a key, as in Shiki.
+/// lookahead reads on.
+/// A later `b:` makes `a:` a key, as in Shiki.
 /// Without a later key, `a:` stays plain.
 #[test]
 fn a_later_key_tags_a_key_whose_colons_do_not_pair_up() {

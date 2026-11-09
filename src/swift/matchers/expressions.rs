@@ -27,7 +27,7 @@ pub(in crate::swift) struct Memo {
     version: Cell<Option<(usize, usize, Option<usize>)>>,
 }
 
-/// Which operator the six operator patterns want, by the spacing around it.
+/// Which operator the six operator patterns match, by the spacing around it.
 #[derive(Clone, Copy, Debug)]
 enum Spacing {
     /// After an opening character or a space, and before something else.

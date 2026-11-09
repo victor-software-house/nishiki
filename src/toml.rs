@@ -37,8 +37,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of a TOML body whose text sits on the stack `base`
-/// with no `source.toml` of its own, as an embedding language would start it.
+/// The state at the start of a TOML body whose text sits on the stack `base`.
+/// The body has no `source.toml` of its own, as an embedding language would
+/// start it.
 /// No Markdown fence embeds TOML, because Shiki's Markdown grammar has no
 /// rule for it.
 /// This completes the contract every language keeps.
@@ -46,9 +47,11 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// Lexes `line` from `state` and returns the state after it.
+///
+/// It follows the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)).
+/// Token ends count from the start of the whole line.
 ///
 /// An empty line appends nothing and leaves the state as it is.
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {

@@ -1,6 +1,7 @@
-//! LaTeX on the shared rule engine ([`crate::rules`]): the grammar's types,
-//! what its matchers remember about a line, and where an embedded language
-//! hands the line back.
+//! LaTeX on the shared rule engine ([`crate::rules`]).
+//!
+//! It holds the grammar's types, what its matchers remember about a line, and
+//! where an embedded language hands the line back.
 
 use super::grammar::{Expr, Nested, Pat, Rule, Sc};
 use super::scope::S;
@@ -203,11 +204,14 @@ impl rules::Embeds for Latex {
     }
 
     /// A language without halts of its own, such as Java, lexes the text up
-    /// to the first place where the rule's end holds, as if the line ended
-    /// there.
+    /// to the first place where the rule's end holds.
+    /// It lexes that text as if the line ended there.
+    ///
     /// The end holds only while the language has no rule open at the start
-    /// of the line, as vscode-textmate tries it only then: a string that
-    /// Julia leaves open keeps the next line's `\end{jlcode}` inside it.
+    /// of the line.
+    /// vscode-textmate tries the end only then.
+    /// So a string that Julia leaves open keeps the next line's `\end{jlcode}`
+    /// inside it.
     /// A `}` inside one of its tokens there ends the code early, where Shiki
     /// would read on.
     /// A language with halts stops by itself.
@@ -242,8 +246,9 @@ impl rules::Embeds for Latex {
     }
 
     /// Python or Julia lexes the code group of `\py{…}` or `\jl{…}` from
-    /// its root, under its own scope, as the grammar's include of
-    /// `source.python` or `source.julia` puts it there.
+    /// its root, under its own scope.
+    /// The grammar's include of `source.python` or `source.julia` puts it
+    /// there.
     fn lex_nested(
         language: Language,
         cx: &mut Context<'_>,

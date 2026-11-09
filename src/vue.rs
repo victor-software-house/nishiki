@@ -1,6 +1,7 @@
 //! Vue, with the scopes of the `vue` grammar that Shiki bundles, which
-//! comes from vuejs/language-tools: single-file components whose blocks hold
-//! a template, scripts and styles.
+//! comes from vuejs/language-tools.
+//! It covers single-file components whose blocks hold a template, scripts and
+//! styles.
 //!
 //! The HTML lexer runs it, with Vue's rules at the root.
 //! A template is html-derivative with Vue's own tag rules.

@@ -232,7 +232,8 @@ impl Lexer<'_> {
     /// groups from `group`: the end of a method and its return type.
     /// Every part is greedy.
     /// Giving any of them back leaves the matcher at a character that is no
-    /// end of the line, so `$` holds after the greedy parts or nowhere.
+    /// end of the line.
+    /// So `$` holds after the greedy parts or nowhere.
     fn method_tail(&mut self, group: usize, p: usize) -> Option<usize> {
         let close = self.lit(p, b")")?;
         let mut marks = close;
@@ -485,8 +486,12 @@ impl Lexer<'_> {
     /// The first plain name takes `-` and `.`, which start arrows.
     /// So it gives back one character at a time until the rest matches, as
     /// in `A-->B`, where the name gives back `--`.
-    /// Groups 1 to 4 are the first name, 5 to 7 the cardinalities and the
-    /// arrow, 8 to 11 the second name, 12 the colon and 13 the label.
+    /// The groups:
+    /// - 1 to 4, the first name;
+    /// - 5 to 7, the cardinalities and the arrow;
+    /// - 8 to 11, the second name;
+    /// - 12, the colon;
+    /// - 13, the label.
     pub(super) fn relation(&mut self, p: usize) -> Option<usize> {
         let (longest, quoted) = self.quoted_name(p)?;
         let (name_end, rest) = if quoted {

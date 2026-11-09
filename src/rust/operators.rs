@@ -54,9 +54,9 @@ impl Lexer<'_> {
         Some(p + len)
     }
 
-    /// The length and scope of the operator at `p`, in the grammar's order:
-    /// logical (`^`, `|`, `&&`, `<<`, `>>` and `!`, none followed by `=`) and
-    /// borrow, assignment, comparison, math, then the rest.
+    /// The length and scope of the operator at `p`, in the grammar's order.
+    /// The order is logical (`^`, `|`, `&&`, `<<`, `>>` and `!`, none followed
+    /// by `=`) and borrow, assignment, comparison, math, then the rest.
     /// A closing bracket is the caller's.
     /// The caller emits several tokens for it.
     fn operator(&self, p: usize, b: u8) -> Option<(usize, S)> {

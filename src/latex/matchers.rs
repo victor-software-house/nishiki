@@ -1301,6 +1301,7 @@ impl Lexer<'_> {
     /// The arguments repeat: up to two `(…)`, up to two `[…]` and a `{key}`.
     /// Each round is the only way its text can match, so the rounds run
     /// forward.
+    ///
     /// When the tail after them, an optional `<…>`, any `[…]` and a `{`,
     /// fails, the regex gives back rounds.
     /// The first round it gives back to that can take the tail is the last

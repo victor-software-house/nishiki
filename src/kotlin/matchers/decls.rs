@@ -127,9 +127,11 @@ impl Lexer<'_> {
 
     /// `\??\.?(name)\s*(?<GROUP>…)?\s*(?=[({])`.
     ///
-    /// The prefix and the blanks have one way to match: a different split
-    /// would start the name at a character that cannot start one, or end the
-    /// blanks before a character that is neither `(` nor `{`.
+    /// The prefix and the blanks have one way to match.
+    /// A different split would start the name at a character that cannot
+    /// start one.
+    /// Another would end the blanks before a character that is neither `(` nor
+    /// `{`.
     pub(super) fn function_call(&mut self, p: usize) -> Option<usize> {
         let mut name = p;
         if self.at(name) == b'?' {

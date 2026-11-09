@@ -4,6 +4,7 @@
 //! The line's next token is the match that starts first.
 //! When two matches start together, the rule that comes first in the grammar
 //! wins.
+//!
 //! A search below answers where its rule first matches at or after a
 //! position, with the regular expression's backtracking taken into account.
 //! The lexer can then keep each rule's next match until the cursor passes it.
@@ -179,6 +180,7 @@ impl<'a> Line<'a> {
     /// Backtracking cannot shorten it.
     /// The byte after a shorter key is a class byte, which is neither a blank
     /// nor `=`.
+    ///
     /// `\b` before the blanks needs a word byte last.
     /// A `-` or `.` is followed by a blank or `=`, and neither is a word
     /// character.

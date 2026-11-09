@@ -229,9 +229,11 @@ const _: () = {
     }
 };
 
-/// The scope table of a language whose names are one list: the enum of
-/// scopes, the table of their names in Shiki's spelling, and the conversion
-/// to a [`Scope`] numbered from the language's base.
+/// The scope table of a language whose names are one list.
+/// It holds the enum of scopes and the table of their names in Shiki's
+/// spelling.
+/// It also holds the conversion to a [`Scope`] numbered from the language's
+/// base.
 ///
 /// The marker `keyed` before the base adds the scope codes and the empty
 /// list.
@@ -397,6 +399,7 @@ pub(crate) type Scopes<S> = &'static Keyed<[S]>;
 /// The path caches' multiplicative hash spreads consecutive keys evenly.
 /// A random key collides more.
 /// An FNV key missed a third more often in CSS: 3,110 misses against 2,330.
+///
 /// The plus one keeps a list apart from the same list after a code 0.
 #[cfg(feature = "_language")]
 const KEY_STEP: u16 = 0x9e37;
@@ -459,8 +462,9 @@ pub(crate) use scopes;
 
 #[cfg(test)]
 impl Scope {
-    /// The low half of the scope's number, which keys the scope lists of the
-    /// engine's test grammars, whose scopes are made at run time.
+    /// The low half of the scope's number.
+    /// It keys the scope lists of the engine's test grammars, whose scopes are
+    /// made at run time.
     #[cfg(feature = "_language")]
     #[expect(
         clippy::as_conversions,
