@@ -5,8 +5,8 @@
 //! each pass into a fresh `Document`, with every delta timed on its own.
 //!
 //! - A delta's time is what a renderer pays: the push or the replacement, `lex`
-//!   to the end, and styling every token of the lines `take_changes` names,
-//!   with Shiki's github-dark.
+//!   to the end, which styles what it lexes with Shiki's github-dark, and
+//!   reading every styled token of the lines `take_changes` names.
 //! - Setup is `Document::new`, its median over the passes.
 //! - Pass 1's first delta is first contact, while lazy tables are still built.
 //! - For the other passes, each delta's median is its steady cost. p50, p99 and
@@ -151,16 +151,16 @@ fn fidelity(document: &Document, theme: &Theme, shiki: &Colours) -> f64 {
     }
 }
 
-/// Styles every token of the lines that changed since the last call, as a
-/// renderer would.
-fn style_changes(document: &mut Document, theme: &Theme) {
+/// Reads every styled token of the lines that changed since the last call,
+/// as a renderer would.
+fn style_changes(document: &mut Document) {
     let Some(changes) = document.take_changes() else {
         return;
     };
     for index in changes.start..changes.new_end {
         if let Some(line) = document.line(index) {
-            for token in line.tokens() {
-                black_box(theme.style(document.highlighter().scopes(token.stack())));
+            for styled in line.styled() {
+                black_box(styled);
             }
         }
     }
@@ -226,7 +226,7 @@ fn replay(trace: &Trace, theme: &Theme, overhead: Duration, shiki: Option<&Colou
             }
         }
         document.lex(Until::End);
-        style_changes(&mut document, theme);
+        style_changes(&mut document);
         deltas.push(start.elapsed().saturating_sub(overhead));
     }
     document.finish();
@@ -245,7 +245,7 @@ fn whole(trace: &Trace, theme: &Theme, overhead: Duration) -> Duration {
     let start = Instant::now();
     document.push_str(&trace.text);
     document.lex(Until::End);
-    style_changes(&mut document, theme);
+    style_changes(&mut document);
     start.elapsed().saturating_sub(overhead)
 }
 

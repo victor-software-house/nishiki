@@ -71,9 +71,10 @@ fn a_delta_inside_a_line_lexes_only_the_last_line() {
 }
 
 /// A document built around a highlighter that already met every state of
-/// `text`, with room for all of it.
+/// `text` and styled its stacks under `theme`, with room for all of it.
 fn warm(
     highlighter: Highlighter,
+    theme: Theme,
     text: usize,
     lines: usize,
     tokens: usize,
@@ -81,7 +82,7 @@ fn warm(
 ) -> Document {
     Document {
         highlighter,
-        theme: theme(),
+        theme,
         text: String::with_capacity(text),
         carry: Carry::default(),
         lines: Vec::with_capacity(lines),
@@ -101,8 +102,8 @@ fn warm(
 }
 
 /// Streaming an oracle fixture a second time, through a highlighter that
-/// already met its states and into buffers with room, allocates nothing
-/// (`CODING_STANDARDS.md` 2.1).
+/// already met its states and styled its stacks under the same theme, and
+/// into buffers with room, allocates nothing (`CODING_STANDARDS.md` 2.1).
 #[test]
 fn streaming_allocates_nothing_per_line() {
     for (language, text) in oracle_documents() {
@@ -116,7 +117,14 @@ fn streaming_allocates_nothing_per_line() {
             first.tokens.capacity(),
             first.tail.tokens.capacity(),
         );
-        let mut second = warm(first.highlighter, sizes.0, sizes.1, sizes.2, sizes.3);
+        let mut second = warm(
+            first.highlighter,
+            first.theme,
+            sizes.0,
+            sizes.1,
+            sizes.2,
+            sizes.3,
+        );
         let allocations = count(|| {
             stream(&mut second, &text, 3);
             second.finish();
@@ -259,4 +267,29 @@ fn an_edit_stops_where_the_states_agree() {
         worst.1,
         worst.0
     );
+}
+
+/// After a lex, every token's style is in the highlighter's cache, the last
+/// line's included, so `DocumentLine::styled` never styles from scopes.
+#[test]
+fn a_lex_keeps_every_token_style() {
+    let mut document = Document::new(Language::Python, theme());
+    let text = indoc::indoc! {"
+        def f(x):
+            return x + 1
+        print(f"};
+    stream(&mut document, text, 3);
+    for index in 0..document.line_count() {
+        let line = document.line(index).expect("a line");
+        for token in line.tokens() {
+            assert!(
+                document
+                    .highlighter
+                    .cached_style(&document.theme, token.stack())
+                    .is_some(),
+                "line {} has a token with no kept style",
+                index + 1
+            );
+        }
+    }
 }

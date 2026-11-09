@@ -528,3 +528,105 @@ fn a_deferred_lex_reports_the_last_line_changed() {
         Some((0, 1))
     );
 }
+
+#[expect(
+    clippy::expect_used,
+    reason = "a test helper; a missing theme fails the test"
+)]
+/// Every theme of the oracle, sorted by file name.
+#[cfg(feature = "json")]
+fn oracle_themes() -> Vec<Theme> {
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("oracle/themes");
+    let mut paths: Vec<_> = std::fs::read_dir(dir)
+        .expect("the themes directory exists")
+        .map(|entry| entry.expect("a readable directory entry").path())
+        .collect();
+    paths.sort();
+    paths
+        .iter()
+        .map(|path| {
+            let json = std::fs::read_to_string(path).expect("a readable theme");
+            Theme::from_json(&json).expect("a theme Shiki loads")
+        })
+        .collect()
+}
+
+/// The lines of `document` whose styles differ from what `theme` gives each
+/// token's scopes, as reports.
+#[cfg(feature = "json")]
+fn style_misses(document: &Document, theme: &Theme, label: &str) -> Vec<String> {
+    let mut misses = Vec::new();
+    for index in 0..document.line_count() {
+        let Some(line) = document.line(index) else {
+            continue;
+        };
+        let want: Vec<(usize, nishiki::Style)> = line
+            .tokens()
+            .iter()
+            .map(|token| {
+                let scopes = document.highlighter().scopes(token.stack());
+                (token.end(), theme.style(scopes))
+            })
+            .collect();
+        let have: Vec<(usize, nishiki::Style)> = line.styled().collect();
+        if have != want {
+            misses.push(format!("{label}: line {}", index + 1));
+        }
+    }
+    misses
+}
+
+/// The fixtures of `language` whose styled tokens differ from `Theme::style`.
+/// Each streams in token-sized deltas under the first oracle theme.
+/// The theme switches to the second at the middle delta.
+/// After the stream ends, `set_theme` switches to the third.
+#[cfg(feature = "json")]
+fn styled_failures(language: Language) -> Vec<String> {
+    let themes = oracle_themes();
+    let [first, second, third, ..] = themes.as_slice() else {
+        return vec!["the oracle has fewer than three themes".to_owned()];
+    };
+    let mut failures = Vec::new();
+    for path in fixtures(language.id()) {
+        let lines: Vec<Line> = parse(&path);
+        let text = lines
+            .iter()
+            .map(|line| line.text.as_str())
+            .collect::<Vec<_>>()
+            .join("\n");
+        let mut document = Document::new(language, first.clone());
+        let bytes = text.as_bytes();
+        let ends = token_ends(&text);
+        let middle = ends.len() / 2;
+        let mut from = 0;
+        for (step, end) in ends.into_iter().enumerate() {
+            document.push(&bytes[from..end]);
+            document.lex(Until::End);
+            if step == middle {
+                document.set_theme(second.clone());
+            }
+            from = end;
+        }
+        document.finish();
+        document.lex(Until::End);
+        let label = path.display().to_string();
+        failures.extend(style_misses(
+            &document,
+            second,
+            &format!("{label}, switched mid-stream"),
+        ));
+        document.set_theme(third.clone());
+        failures.extend(style_misses(
+            &document,
+            third,
+            &format!("{label}, after set_theme"),
+        ));
+    }
+    failures
+}
+
+#[cfg(feature = "json")]
+#[test]
+fn every_language_streams_styled_as_the_theme_styles() {
+    every_language(styled_failures);
+}

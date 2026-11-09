@@ -10,7 +10,7 @@
 use std::fmt;
 use std::ops::Range;
 
-use crate::{Highlighter, Language, Limits, LineReport, State, Theme, Token};
+use crate::{Highlighter, Language, Limits, LineReport, State, Style, Theme, Token};
 
 /// The tests name several languages, so they need them all.
 /// The two conditions sit apart, because clippy lets tests use `expect` only
@@ -258,6 +258,8 @@ pub struct DocumentLine<'a> {
     tokens: &'a [Token],
     kind: LineKind,
     report: LineReport,
+    highlighter: &'a Highlighter,
+    theme: &'a Theme,
 }
 
 impl<'a> DocumentLine<'a> {
@@ -283,6 +285,25 @@ impl<'a> DocumentLine<'a> {
     /// The limits lexing the line reached.
     pub fn report(&self) -> LineReport {
         self.report
+    }
+
+    /// Each token's end, a byte offset in [`DocumentLine::text`], and the
+    /// style the document's theme gives it.
+    ///
+    /// [`Document::lex`] keeps the style of each stack it lexes, so a token
+    /// costs one lookup.
+    /// A token it has not styled, such as one a stale line kept, is styled from
+    /// its scopes.
+    /// Either way the style equals [`Theme::style`]'s.
+    pub fn styled(&self) -> impl Iterator<Item = (usize, Style)> + '_ {
+        let highlighter = self.highlighter;
+        let theme = self.theme;
+        self.tokens.iter().map(move |token| {
+            let style = highlighter
+                .cached_style(theme, token.stack())
+                .unwrap_or_else(|| theme.style(highlighter.scopes(token.stack())));
+            (token.end(), style)
+        })
     }
 }
 
@@ -490,8 +511,8 @@ impl Document {
         self.mark(0, self.line_count());
     }
 
-    /// The lines whose text, tokens or kind changed since the last call, or
-    /// `None` when no line changed.
+    /// The lines whose text, tokens, kind or styles changed since the last
+    /// call, or `None` when no line changed.
     ///
     /// A lex can change only a line's kind.
     /// A last line whose lexing [`Tail`] defers turns from stale to
@@ -548,6 +569,26 @@ impl Document {
     #[must_use]
     pub fn theme(&self) -> &Theme {
         &self.theme
+    }
+
+    /// Styles the document with `theme` from now on.
+    ///
+    /// Every token of every line is styled once, so [`DocumentLine::styled`]
+    /// reads the new styles.
+    /// Each distinct stack costs one theme lookup, and each token one cache
+    /// lookup.
+    /// Every line counts as changed.
+    pub fn set_theme(&mut self, theme: Theme) {
+        self.theme = theme;
+        for line in &self.lines {
+            let run = self
+                .tokens
+                .get(line.first_token..line.first_token + line.token_count)
+                .unwrap_or_default();
+            keep_styles(&mut self.highlighter, &self.theme, run);
+        }
+        keep_styles(&mut self.highlighter, &self.theme, &self.tail.tokens);
+        self.mark(0, self.line_count());
     }
 
     /// The index of the line that holds byte `offset`; the last line for the
@@ -731,6 +772,11 @@ impl Document {
                 (state, report)
             }
         };
+        keep_styles(
+            &mut self.highlighter,
+            &self.theme,
+            self.tokens.get(first_token..).unwrap_or_default(),
+        );
         if self.tail.lexed.is_some_and(|lexed| lexed.start == start) {
             self.tail.lexed = None;
             self.tail.tokens.clear();
@@ -771,6 +817,7 @@ impl Document {
         let report = self
             .highlighter
             .line(text, &mut state, &mut self.tail.tokens);
+        keep_styles(&mut self.highlighter, &self.theme, &self.tail.tokens);
         #[cfg(test)]
         {
             self.counts.tail += 1;
@@ -813,6 +860,8 @@ impl Document {
                 tokens,
                 kind: LineKind::Exact,
                 report: entry.report,
+                highlighter: &self.highlighter,
+                theme: &self.theme,
             });
         }
         Some(DocumentLine {
@@ -820,6 +869,8 @@ impl Document {
             tokens,
             kind: LineKind::Stale,
             report: LineReport::default(),
+            highlighter: &self.highlighter,
+            theme: &self.theme,
         })
     }
 
@@ -836,6 +887,8 @@ impl Document {
                 tokens: &[],
                 kind: LineKind::Stale,
                 report: LineReport::default(),
+                highlighter: &self.highlighter,
+                theme: &self.theme,
             };
         };
         let current = lexed.seen == len && lexed.from == from && self.lexed == index;
@@ -859,6 +912,8 @@ impl Document {
             tokens,
             kind,
             report: lexed.report,
+            highlighter: &self.highlighter,
+            theme: &self.theme,
         }
     }
 
@@ -872,5 +927,13 @@ impl Document {
             },
             None => Dirty { start: first, keep },
         });
+    }
+}
+
+/// Keeps each token's style in `highlighter`, so [`DocumentLine::styled`]
+/// finds it with one lookup.
+fn keep_styles(highlighter: &mut Highlighter, theme: &Theme, tokens: &[Token]) {
+    for token in tokens {
+        let _ = highlighter.style(theme, token.stack());
     }
 }
