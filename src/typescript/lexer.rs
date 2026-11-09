@@ -47,6 +47,9 @@ pub(crate) struct Lexer<'a, const D: u8> {
     /// Set when the grammar loops: a context was opened and closed without the
     /// line advancing. `TextMate` then gives the rest of the line to the
     /// context that is open.
+    /// Also set where the node limit keeps a context out of the arena.
+    /// A context whose begin takes nothing would otherwise be tried again
+    /// without end, and every later push fails as well.
     stuck: bool,
     /// Where the language that embeds this one takes the line back, if it
     /// does.
@@ -519,6 +522,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// `TextMate` refuses to open a context a second time at a position the
     /// line has not advanced past, and gives the rest of the line to the open
     /// one.
+    /// The line stops the same way where the node limit keeps the context out
+    /// of the arena.
     pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
         if self.pos <= self.line_pos {
             let here = self.opened.iter().rev();
@@ -535,6 +540,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let stack = self.node(outer, kind.content());
         let Some(state) = self.arena.push(self.state, kind.code(), payload, stack) else {
             self.report.record(Limit::Nodes);
+            self.stuck = true;
             return false;
         };
         self.opened.push(Opened {
