@@ -4455,10 +4455,12 @@ impl Pat {
             | Pat::DeclarationsOperatorSwift2At3
             | Pat::DeclarationsPrecedencegroupAt0At2
             | Pat::DeclarationsPrecedencegroupAt0At3
+            | Pat::DeclarationsTypeAt0Actor
             | Pat::BuiltinGlobalFunctionsAt1
             | Pat::KeywordsAt4
             | Pat::KeywordsAt7
-            | Pat::KeywordsAt13Actor => Start {
+            | Pat::KeywordsAt13Actor
+            | Pat::DeclarationsProtocolAssociatedType => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
@@ -4470,6 +4472,7 @@ impl Pat {
             },
             Pat::CompilerControlAt1At4
             | Pat::DeclarationsInheritanceClauseAt0
+            | Pat::DeclarationsTypeAt0Class
             | Pat::DeclarationsTypeEnumEnumCaseClause
             | Pat::KeywordsAt13Class
             | Pat::KeywordsAt24
@@ -4479,7 +4482,8 @@ impl Pat {
                 matches_at_end: false,
             },
             Pat::CompilerControlAt1At5
-            | Pat::BuiltinGlobalFunctionsAt0 => Start {
+            | Pat::BuiltinGlobalFunctionsAt0
+            | Pat::DeclarationsTypealias => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
@@ -4550,8 +4554,10 @@ impl Pat {
             Pat::LiteralsStringAt0
             | Pat::LiteralsStringAt0End
             | Pat::LiteralsStringAt1End
+            | Pat::LiteralsStringAt2End
             | Pat::LiteralsStringAt3
             | Pat::LiteralsStringAt3End
+            | Pat::LiteralsStringAt4End
             | Pat::LiteralsStringAt5End => Start {
                 bytes: [0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
@@ -4609,7 +4615,7 @@ impl Pat {
             | Pat::DeclarationsProtocolProtocolMethod => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::CommentsAt0 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
@@ -4623,6 +4629,7 @@ impl Pat {
             | Pat::CommentsAt5At0
             | Pat::CommentsAt5At1
             | Pat::CommentsAt5At2
+            | Pat::LiteralsRegularExpressionLiteralAt0End
             | Pat::LiteralsRegularExpressionLiteralAt1 => Start {
                 bytes: [0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
@@ -4729,7 +4736,8 @@ impl Pat {
                 matches_at_end: false,
             },
             Pat::AttributesAt0
-            | Pat::AttributesAt1 => Start {
+            | Pat::AttributesAt1
+            | Pat::AttributesAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
@@ -4750,6 +4758,7 @@ impl Pat {
                 matches_at_end: false,
             },
             Pat::LiteralsStringAt1
+            | Pat::LiteralsStringAt2
             | Pat::LiteralsStringAt4
             | Pat::LiteralsStringAt5
             | Pat::LiteralsAt4
@@ -4758,7 +4767,9 @@ impl Pat {
             | Pat::LiteralsAt7
             | Pat::LiteralsRegularExpressionLiteralAt0
             | Pat::LiteralsRegularExpressionLiteralLineComment
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => Start {
+            | Pat::LiteralsRegularExpressionLiteralAt2
+            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition
+            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
@@ -4799,6 +4810,7 @@ impl Pat {
             Pat::DeclarationsParameterListAt0
             | Pat::DeclarationsParameterListAt1
             | Pat::DeclarationsImportAt0At0
+            | Pat::DeclarationsInheritanceClauseInheritedType
             | Pat::DeclarationsTypeIdentifier
             | Pat::DeclarationsTypeEnumEnumCase
             | Pat::DeclarationsTypeEnumAssociatedValuesAt1
@@ -4809,7 +4821,7 @@ impl Pat {
             | Pat::ExpressionsTrailingClosureAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt2
             | Pat::DeclarationsAvailableTypesCollectionTypeAt4
@@ -4834,15 +4846,11 @@ impl Pat {
             | Pat::DeclarationsFunctionSubscript
             | Pat::DeclarationsFunctionResultAt0
             | Pat::DeclarationsAvailableTypesAt5
+            | Pat::DeclarationsTypeAt0Struct
             | Pat::KeywordsAt13Struct => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
-            },
-            Pat::AttributesAt2 => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::CodeBlock
             | Pat::DeclarationsFunctionSubscriptAt6
@@ -4938,6 +4946,8 @@ impl Pat {
             },
             Pat::DeclarationsAvailableTypesAt15
             | Pat::DeclarationsOperatorSwift2At2
+            | Pat::DeclarationsPrecedencegroup
+            | Pat::DeclarationsProtocolProtocol
             | Pat::KeywordsAt13Precedencegroup
             | Pat::KeywordsAt13Protocol => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
@@ -4980,10 +4990,11 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::DeclarationsTypedVariableDeclaration => Start {
+            Pat::DeclarationsTypedVariableDeclaration
+            | Pat::KeywordsAt11 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0040_1002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsImportAt0At1
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => Start {
@@ -5007,16 +5018,10 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::DeclarationsPrecedencegroup
-            | Pat::DeclarationsProtocolProtocol => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0001_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
-            },
             Pat::DeclarationsPrecedencegroupAt0At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsProtocolProtocolEnd
             | Pat::DeclarationsTypeAt0ClassEnd
@@ -5041,37 +5046,20 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::DeclarationsInheritanceClauseInheritedType => Start {
-                bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
             Pat::DeclarationsTypeOperatorsAt1
             | Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x4000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::DeclarationsTypeAt0Class => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
-            },
-            Pat::DeclarationsTypeAt0Struct => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
-            },
-            Pat::DeclarationsTypeAt0Actor
-            | Pat::DeclarationsProtocolAssociatedType => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
-            },
-            Pat::DeclarationsTypeEnumEnum => Start {
+            Pat::DeclarationsTypeEnumEnum
+            | Pat::KeywordsAt13Enum
+            | Pat::KeywordsAt13Extension
+            | Pat::DeclarationsExtensionExtension
+            | Pat::DeclarationsGenericParameterClauseAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsTypeEnumEnumCaseClauseEnd
             | Pat::DeclarationsTypeEnumMoreCasesEnd => Start {
@@ -5096,30 +5084,12 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::LiteralsStringAt2
-            | Pat::LiteralsRegularExpressionLiteralAt2
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => Start {
-                bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
-            Pat::LiteralsStringAt2End
-            | Pat::LiteralsStringAt4End => Start {
-                bytes: [0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
             Pat::LiteralsStringAt3At0
             | Pat::LiteralsStringAt4At0
             | Pat::LiteralsStringAt5At0 => Start {
                 bytes: [0x0000_0000_0000_2400, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::LiteralsRegularExpressionLiteralAt0End => Start {
-                bytes: [0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::LiteralsRegularExpressionLiteralQuoteEnd => Start {
                 bytes: [0x0000_0000_0000_0400, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
@@ -5249,21 +5219,8 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::KeywordsAt11 => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0040_1002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: false,
-            },
             Pat::KeywordsAt12 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_8002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: false,
-            },
-            Pat::KeywordsAt13Enum
-            | Pat::KeywordsAt13Extension
-            | Pat::DeclarationsExtensionExtension
-            | Pat::DeclarationsGenericParameterClauseAt3 => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
@@ -5326,7 +5283,7 @@ impl Pat {
             | Pat::ExpressionsTrailingClosureAt0 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => Start {
                 bytes: [0x0000_0101_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
@@ -5341,22 +5298,17 @@ impl Pat {
             Pat::MemberReferenceAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 places: PlaceSet::of(&[Place::Away]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsExtensionExtensionAt0End => Start {
                 bytes: [0x0400_0001_0000_3e00, 0x0880_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::DeclarationsTypealias => Start {
-                bytes: [0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
-            },
             Pat::DeclarationsMacro => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::AttributesAt0At3 => Start {
                 bytes: [0x0000_0400_0000_0000, 0x0020_4010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
@@ -5393,6 +5345,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -5420,6 +5376,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Swift {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

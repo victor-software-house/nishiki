@@ -1892,7 +1892,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::RootAt1 | Pat::RootAt2 | Pat::RootAt3 => Start {
                 bytes: [
@@ -2009,7 +2009,10 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::StringAt3End | Pat::StringAt3At0End | Pat::StringAt4End => Start {
+            Pat::StringAt3End
+            | Pat::StringAt3At0End
+            | Pat::StringAt4End
+            | Pat::EmmydocAt8At0At2 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0000_2000_0000,
@@ -2017,7 +2020,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::StringAt4 => Start {
                 bytes: [
@@ -2328,16 +2331,6 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::EmmydocAt8At0At2 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_2000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
             Pat::EmmydocAt9At0End => Start {
                 bytes: [
                     0x0000_1000_0000_0400,
@@ -2560,6 +2553,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 const _: () = assert!(
@@ -2592,6 +2589,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Lua {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

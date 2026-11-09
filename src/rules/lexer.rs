@@ -3369,6 +3369,8 @@ mod tests {
         }
 
         impl<const DEEP: bool> crate::rules::Tabled for Strings<DEEP> {
+            const WORDS_AT_START: bool = false;
+
             fn pat_start(_: DeepPat) -> crate::rules::Start {
                 crate::rules::Start {
                     bytes: [u64::MAX; 4],

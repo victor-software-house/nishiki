@@ -5401,7 +5401,6 @@ impl Pat {
                 matches_at_end: false,
             },
             Pat::CommentsAt2End
-            | Pat::XhpTagElementNameEnd
             | Pat::LanguageAt9End
             | Pat::LanguageAt10End
             | Pat::LanguageAt11End
@@ -5448,18 +5447,21 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: true,
             },
-            Pat::Attributes | Pat::XhpTagTerminationEnd | Pat::Generics | Pat::XhpHtmlComments => {
-                Start {
-                    bytes: [
-                        0x1000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                    ],
-                    places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                    matches_at_end: false,
-                }
-            }
+            Pat::Attributes
+            | Pat::XhpTagTerminationEnd
+            | Pat::Generics
+            | Pat::HeredocAt0
+            | Pat::HeredocAt1
+            | Pat::XhpHtmlComments => Start {
+                bytes: [
+                    0x1000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
             Pat::AttributesEnd
             | Pat::XhpTagTermination
             | Pat::GenericsEnd
@@ -5519,6 +5521,16 @@ impl Pat {
             Pat::XhpEnd => Start {
                 bytes: [
                     0xffff_ffff_ffff_fbff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pat::XhpTagElementNameEnd => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -6319,16 +6331,6 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::HeredocAt0 | Pat::HeredocAt1 => Start {
-                bytes: [
-                    0x1000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
             Pat::LanguageAt32 => Start {
                 bytes: [
                     0x0000_4000_0000_0000,
@@ -7116,6 +7118,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Pat {
@@ -7272,6 +7278,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Hack {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

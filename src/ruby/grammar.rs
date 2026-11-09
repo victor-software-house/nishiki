@@ -6978,7 +6978,40 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::NestLtgtR | Pat::NestLtgtI | Pat::NestLtgt => Start {
+            Pat::NestLtgtR
+            | Pat::NestLtgtI
+            | Pat::NestLtgt
+            | Pat::RootAt89
+            | Pat::RootAt89At0
+            | Pat::RootAt90
+            | Pat::RootAt90At0
+            | Pat::RootAt91
+            | Pat::RootAt91At0
+            | Pat::RootAt92
+            | Pat::RootAt92At0
+            | Pat::RootAt93
+            | Pat::RootAt93At0
+            | Pat::RootAt94
+            | Pat::RootAt94At0
+            | Pat::RootAt95
+            | Pat::RootAt95At0
+            | Pat::RootAt96
+            | Pat::RootAt96At0
+            | Pat::RootAt97
+            | Pat::RootAt97At0
+            | Pat::RootAt98
+            | Pat::RootAt98At0
+            | Pat::RootAt99
+            | Pat::RootAt99At0
+            | Pat::RootAt100
+            | Pat::RootAt100At0
+            | Pat::RootAt101
+            | Pat::RootAt101At0
+            | Pat::RootAt102
+            | Pat::RootAt102At0
+            | Pat::RootAt103
+            | Pat::RootAt103At0
+            | Pat::RootAt105 => Start {
                 bytes: [
                     0x1000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -7109,46 +7142,6 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::RootAt89
-            | Pat::RootAt89At0
-            | Pat::RootAt90
-            | Pat::RootAt90At0
-            | Pat::RootAt91
-            | Pat::RootAt91At0
-            | Pat::RootAt92
-            | Pat::RootAt92At0
-            | Pat::RootAt93
-            | Pat::RootAt93At0
-            | Pat::RootAt94
-            | Pat::RootAt94At0
-            | Pat::RootAt95
-            | Pat::RootAt95At0
-            | Pat::RootAt96
-            | Pat::RootAt96At0
-            | Pat::RootAt97
-            | Pat::RootAt97At0
-            | Pat::RootAt98
-            | Pat::RootAt98At0
-            | Pat::RootAt99
-            | Pat::RootAt99At0
-            | Pat::RootAt100
-            | Pat::RootAt100At0
-            | Pat::RootAt101
-            | Pat::RootAt101At0
-            | Pat::RootAt102
-            | Pat::RootAt102At0
-            | Pat::RootAt103
-            | Pat::RootAt103At0
-            | Pat::RootAt105 => Start {
-                bytes: [
-                    0x1000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
-            },
             Pat::RootAt89End
             | Pat::RootAt90End
             | Pat::RootAt91End
@@ -7183,7 +7176,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
-            Pat::RootAt104 => Start {
+            Pat::RootAt104 | Pat::RootAt107 | Pat::RootAt115 => Start {
                 bytes: [
                     0x2000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -7191,7 +7184,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::RootAt106 => Start {
                 bytes: [
@@ -7226,16 +7219,6 @@ impl Pat {
             Pat::RootAt106At1 | Pat::RootAt118 => Start {
                 bytes: [
                     0x0000_1000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: false,
-            },
-            Pat::RootAt107 | Pat::RootAt115 => Start {
-                bytes: [
-                    0x2000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -7375,6 +7358,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -7402,6 +7389,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Ruby {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

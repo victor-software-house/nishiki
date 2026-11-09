@@ -13,6 +13,8 @@ use super::grammar::{Pat, Rule};
 use crate::rules;
 
 impl rules::Tabled for Coffee<SVELTE> {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

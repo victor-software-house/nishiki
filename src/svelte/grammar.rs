@@ -3001,7 +3001,7 @@ impl Pat {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pat::TagsEndNode | Pat::TagsLangAt0End => Start {
+            Pat::TagsEndNode | Pat::TagsLangEnd | Pat::TagsLangAt0End => Start {
                 bytes: [
                     0x1000_8000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -3010,16 +3010,6 @@ impl Pat {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pat::TagsLangEnd => Start {
-                bytes: [
-                    0x1000_8000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
             },
             Pat::TagsLangStartAttributesEnd
             | Pat::TagsVoidEnd
@@ -3172,7 +3162,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::AttributesValueAt2 => Start {
                 bytes: [
@@ -3236,6 +3226,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 const _: () = assert!(
@@ -3268,6 +3262,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Svelte {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

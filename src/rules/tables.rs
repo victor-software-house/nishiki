@@ -9,13 +9,23 @@ use crate::language::Halt;
 
 /// Where a position lies, for the patterns that need a word boundary or the
 /// start of the line.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Place {
     /// Anywhere else.
     Away,
     /// The start of the line.
     LineStart,
-    /// Between two ASCII word characters.
+    /// Between two ASCII word characters (`is_word_byte`), past the first
+    /// position the scan tries.
+    /// A pattern is left out here when it cannot match inside a word, or when
+    /// a match inside a word could also start at the word's start, which the
+    /// scan reached first.
+    /// The first position has no such start behind it.
+    /// So it counts as [`Place::Away`] in a grammar with a pattern that is
+    /// left out here only past that position ([`Tabled::WORDS_AT_START`]).
+    /// That holds every pattern this place holds: only a `^` leaves a pattern
+    /// out of Away, and `oracle/rule-grammar.ts` fails on a start that lists
+    /// this place without Away.
     InWord,
 }
 
@@ -235,6 +245,28 @@ pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, 
 /// A line that no other language embeds pays nothing for them.
 /// `end` is tested before the patterns at each place.
 /// `after` is tested where none of them matched.
+///
+/// A grammar with [`Tabled::WORDS_AT_START`] takes the first position
+/// apart, before the loop, and counts it as away from words when it lies
+/// inside one.
+/// So the loop has no test for its first position.
+///
+/// # Why the step is a macro
+///
+/// The local macro `step!` holds the loop's body.
+/// The scan expands it once before the loop, only in such a grammar, and
+/// once in the loop.
+/// Every other grammar compiles the first copy out, and its loop is the code
+/// it had before the first position was told apart.
+/// Each other shape cost every grammar's loop or PowerShell's, measured at
+/// one codegen unit on 2026-11-05:
+/// - a test for the first position in the loop, against a position known only
+///   at run time: about 30 grammars ran 0.5% to 1.9% more instructions;
+/// - a flag on [`Tables`]: the struct grew from 32 to 40 bytes, and every
+///   grammar ran 0.1% to 0.2% more;
+/// - the first step as a function out of line, with a test before the loop: Go
+///   ran 1.1% more, and PowerShell 0.7% more under a per-grammar constant,
+///   about seven instructions per scan.
 fn scan<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     end: &dyn Halt,
@@ -247,83 +279,95 @@ fn scan<G: Tabled, const HALTING: bool>(
     let nl = usize::from(lexer.nl);
     let mut p = lexer.pos;
     let mut visited = 0;
-    let found = loop {
-        if p > lim + nl {
-            break None;
-        }
-        if HALTING && end.holds(s, p) {
-            lexer.halt_here(p);
-            break None;
-        }
-        visited += 1;
-        if visited % 64 == 0 && lexer.over_budget() {
-            break None;
-        }
-        let list = match s.get(p) {
-            Some(&byte) => {
-                let place = if p == 0 {
-                    Place::LineStart
-                } else if is_word_byte(byte) && is_word_byte(s[p - 1]) {
-                    Place::InWord
-                } else {
-                    Place::Away
-                };
-                tables.candidates(place, byte)
+    macro_rules! step {
+        ($scan:lifetime, $in_word:expr) => {
+            if p > lim + nl {
+                break $scan None;
             }
-            None if p == lim && nl == 1 => {
-                let place = if p == 0 {
-                    Place::LineStart
-                } else {
-                    Place::Away
-                };
-                tables.candidates(place, b'\n')
+            if HALTING && end.holds(s, p) {
+                lexer.halt_here(p);
+                break $scan None;
             }
-            None => tables.all(),
-        };
-        let mut hit = None;
-        for &pat in list {
-            if full && matches!(G::pat_act(pat), Act::Begin(_)) {
-                if lexer.try_pat(pat, p).is_some() {
-                    lexer.record_depth();
+            visited += 1;
+            if visited % 64 == 0 && lexer.over_budget() {
+                break $scan None;
+            }
+            let list = match s.get(p) {
+                Some(&byte) => {
+                    let place = match place_of(s, p, byte) {
+                        Place::InWord => $in_word,
+                        place @ (Place::Away | Place::LineStart) => place,
+                    };
+                    tables.candidates(place, byte)
                 }
-                continue;
-            }
-            if let Some(end) = lexer.try_pat(pat, p) {
-                hit = Some((p, pat, end));
-                break;
-            }
-        }
-        if hit.is_some() {
-            break hit;
-        }
-        if HALTING && after.is_some_and(|after| after.holds(s, p)) {
-            lexer.halt_here(p);
-            break None;
-        }
-        p = match s.get(p) {
-            Some(b' ' | b'\t') => match G::BLANK_RUNS {
-                BlankRuns::Skip => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),
-                BlankRuns::ToLast => {
-                    if matches!(s.get(p + 1), Some(b' ' | b'\t')) {
-                        let run_end = lexer.skip(p, |b| matches!(b, b' ' | b'\t'));
-                        if tables.tries_final_blank()
-                            && let ControlFlow::Break(found) =
-                                at_final_blank::<G, HALTING>(lexer, tables, end, run_end - 1, full)
-                        {
-                            break found;
-                        }
-                        run_end
+                None if p == lim && nl == 1 => {
+                    let place = if p == 0 {
+                        Place::LineStart
                     } else {
-                        p + 1
-                    }
+                        Place::Away
+                    };
+                    tables.candidates(place, b'\n')
                 }
-                BlankRuns::Visit if G::SKIPS_PLACES => G::next_place(lexer, p),
-                BlankRuns::Visit => lexer.char_end(p),
-            },
-            Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
-            Some(_) => lexer.char_end(p),
-            None => p + 1,
+                None => tables.all(),
+            };
+            let mut hit = None;
+            for &pat in list {
+                if full && matches!(G::pat_act(pat), Act::Begin(_)) {
+                    if lexer.try_pat(pat, p).is_some() {
+                        lexer.record_depth();
+                    }
+                    continue;
+                }
+                if let Some(end) = lexer.try_pat(pat, p) {
+                    hit = Some((p, pat, end));
+                    break;
+                }
+            }
+            if hit.is_some() {
+                break $scan hit;
+            }
+            if HALTING && after.is_some_and(|after| after.holds(s, p)) {
+                lexer.halt_here(p);
+                break $scan None;
+            }
+            p = match s.get(p) {
+                Some(b' ' | b'\t') => match G::BLANK_RUNS {
+                    BlankRuns::Skip => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),
+                    BlankRuns::ToLast => {
+                        if matches!(s.get(p + 1), Some(b' ' | b'\t')) {
+                            let run_end = lexer.skip(p, |b| matches!(b, b' ' | b'\t'));
+                            if tables.tries_final_blank()
+                                && let ControlFlow::Break(found) = at_final_blank::<G, HALTING>(
+                                    lexer,
+                                    tables,
+                                    end,
+                                    run_end - 1,
+                                    full,
+                                )
+                            {
+                                break $scan found;
+                            }
+                            run_end
+                        } else {
+                            p + 1
+                        }
+                    }
+                    BlankRuns::Visit if G::SKIPS_PLACES => G::next_place(lexer, p),
+                    BlankRuns::Visit => lexer.char_end(p),
+                },
+                Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
+                Some(_) => lexer.char_end(p),
+                None => p + 1,
+            };
         };
+    }
+    let found = 'scan: {
+        if G::WORDS_AT_START {
+            step!('scan, Place::Away);
+        }
+        loop {
+            step!('scan, Place::InWord);
+        }
     };
     lexer.spend(visited);
     found
@@ -365,6 +409,18 @@ fn at_final_blank<G: Tabled, const HALTING: bool>(
         }
     }
     ControlFlow::Continue(())
+}
+
+/// The place of position `p` of `s`, where byte `byte` stands.
+#[inline]
+fn place_of(s: &[u8], p: usize, byte: u8) -> Place {
+    if p == 0 {
+        Place::LineStart
+    } else if is_word_byte(byte) && is_word_byte(s[p - 1]) {
+        Place::InWord
+    } else {
+        Place::Away
+    }
 }
 
 /// Whether `byte` is an ASCII word character.
@@ -414,6 +470,15 @@ mod tests {
         assert_eq!(list(&tables, Place::InWord, b'b'), [2]);
         assert_eq!(list(&tables, Place::InWord, b'c'), [2]);
         assert_eq!(list(&tables, Place::Away, b'z'), [0_usize; 0]);
+    }
+
+    #[test]
+    fn a_position_between_two_word_bytes_is_inside_a_word() {
+        let s = b"ab cd";
+        assert_eq!(place_of(s, 0, b'a'), Place::LineStart);
+        assert_eq!(place_of(s, 1, b'b'), Place::InWord);
+        assert_eq!(place_of(s, 3, b'c'), Place::Away);
+        assert_eq!(place_of(s, 4, b'd'), Place::InWord);
     }
 
     #[test]

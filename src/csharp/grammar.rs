@@ -8409,6 +8409,7 @@ impl Pat {
             | Pat::PreprocessorAppDirectiveEnd
             | Pat::CommentAt1At0
             | Pat::CommentAt1At0While
+            | Pat::TupleElement
             | Pat::SwitchStatementOrExpressionEnd
             | Pat::SwitchStatementOrExpressionAt1End
             | Pat::NestedBeginAt0End
@@ -8416,6 +8417,7 @@ impl Pat {
             | Pat::NestedBeginAt0At1
             | Pat::NestedBeginAt0At2
             | Pat::NestedBeginAt0At3
+            | Pat::ExplicitAnonymousFunctionParameter
             | Pat::WhileStatementEnd
             | Pat::AnonymousMethodExpressionAt1End
             | Pat::ForStatementEnd
@@ -8424,6 +8426,7 @@ impl Pat {
             | Pat::ElsePartEnd
             | Pat::AwaitStatementEnd
             | Pat::UsingStatementEnd
+            | Pat::CatchClauseAt0At0
             | Pat::FixedStatementEnd
             | Pat::LockStatementEnd
             | Pat::LocalFunctionDeclarationEnd
@@ -8861,13 +8864,10 @@ impl Pat {
                 matches_at_end: false,
             },
             Pat::XmlAttributeAt0
-            | Pat::TupleElement
-            | Pat::ExplicitAnonymousFunctionParameter
             | Pat::DeclarationExpressionLocal
             | Pat::DeclarationExpressionTuple
             | Pat::LocalVariableDeclaration
             | Pat::ForeachStatementAt1At1
-            | Pat::CatchClauseAt0At0
             | Pat::Parameter
             | Pat::PropertyDeclaration
             | Pat::FieldDeclaration
@@ -10035,6 +10035,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Rule {
@@ -10062,6 +10066,8 @@ impl Rule {
 }
 
 impl rules::Tabled for CSharp {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }

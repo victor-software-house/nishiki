@@ -72,3 +72,40 @@ test("a lookbehind of one character with no word character cannot match inside a
     expect(startOf(regex).wb).toBe(false);
   }
 });
+
+test("a lookbehind or \\b after an item that can consume the next byte does not constrain the start", () => {
+  expect(startOf("x?(?<=x)y").behind).toBe(false);
+  expect(startOf("\\s*(?<=\\.)x").wb).toBe(true);
+  expect(startOf("\\s*(?<=\\.)x").behind).toBe(false);
+  expect(startOf("\\s*\\bx").wb).toBe(true);
+  expect(startOf("a?\\bx").wb).toBe(false);
+  expect(startOf("(?<=\\.)\\s*x").behind).toBe(true);
+});
+
+test("a back reference or a call that can match empty can match where no byte follows", () => {
+  expect(startOf("(\\w*)\\1", "any").atEnd).toBe(true);
+  expect(startOf("(?<n>a*)\\k<n>", "any").atEnd).toBe(true);
+  expect(startOf("(?<n>a*)\\g<n>", "any").atEnd).toBe(true);
+  expect(startOf("(a*)(?=\\1)", "any").atEnd).toBe(true);
+});
+
+test("a back reference inside a lookahead that needs a byte cannot match where no byte follows", () => {
+  expect(startOf("(?=(?><<[-~](\"?)(SQL)\\b\\1))", "any").atEnd).toBe(false);
+});
+
+test("an item before a \\b counts as safe inside a word only when a match there cannot start or can start earlier", () => {
+  expect(startOf("a?\\b-").wb).toBe(false);
+  expect(startOf("(?:a\\b)?-").wb).toBe(false);
+  expect(startOf("(?:([-:\\\\_\\p{L}\\d])*\\\\)?\\b(?i:Add|Get)").wb).toBe(true);
+  expect(startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])").wb).toBe(true);
+  expect(startOf("[\\w-]*\\bx").wb).toBe(true);
+  expect(startOf("(\\w*)\\1\\bx", "any").wb).toBe(false);
+  expect(startOf("\\G[\\w-]*\\bx").wb).toBe(false);
+});
+
+test("a pattern kept out of words only because a match there can start earlier is still tried where the scan starts", () => {
+  expect(startOf("(?:([-:\\\\_\\p{L}\\d])*\\\\)?\\b(?i:Add|Get)").inWordFirst).toBe(true);
+  expect(startOf("\\s*\\bx").inWordFirst).toBe(false);
+  expect(startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])").inWordFirst).toBe(false);
+  expect(startOf("a?\\b-").inWordFirst).toBe(false);
+});

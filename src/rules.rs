@@ -1275,6 +1275,15 @@ pub(crate) type Captures<G> = (
 /// A grammar whose rules are generated tables: the patterns of each rule and
 /// the bytes each can start at.
 pub(crate) trait Tabled: Grammar {
+    /// Whether a pattern is left out inside words only past the scan's first
+    /// position.
+    /// A match inside a word could also start at the word's start, which the
+    /// scan has not reached when it begins inside the word.
+    /// Then the scan counts its first position inside a word as away from
+    /// words ([`Place::InWord`](tables::Place::InWord)).
+    /// It compiles that step out where no pattern needs it.
+    const WORDS_AT_START: bool;
+
     /// The bytes `pat` can start at.
     fn pat_start(pat: Self::Pat) -> Start;
     /// The tables of `rule`, built on first use.

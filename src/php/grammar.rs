@@ -9954,7 +9954,19 @@ impl Pat {
             | Pat::HeredocInteriorAt5
             | Pat::HeredocInteriorAt6
             | Pat::HeredocInteriorAt7
-            | Pat::HeredocInteriorAt8 => Start {
+            | Pat::HeredocInteriorAt8
+            | Pat::HeredocAt1
+            | Pat::NowdocInteriorAt0
+            | Pat::NowdocInteriorAt1
+            | Pat::NowdocInteriorAt2Dql
+            | Pat::NowdocInteriorAt2Sql
+            | Pat::NowdocInteriorAt3Javascript
+            | Pat::NowdocInteriorAt3Js
+            | Pat::NowdocInteriorAt4
+            | Pat::NowdocInteriorAt5
+            | Pat::NowdocInteriorAt6
+            | Pat::NowdocInteriorAt7
+            | Pat::NowdocInteriorAt8 => Start {
                 bytes: [
                     0x1000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -9962,7 +9974,7 @@ impl Pat {
                     0x0000_0000_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                matches_at_end: true,
+                matches_at_end: false,
             },
             Pat::HeredocInteriorAt0End | Pat::NowdocInteriorAt0End => Start {
                 bytes: [
@@ -10027,27 +10039,6 @@ impl Pat {
                     0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::LineStart]),
-                matches_at_end: false,
-            },
-            Pat::HeredocAt1
-            | Pat::NowdocInteriorAt0
-            | Pat::NowdocInteriorAt1
-            | Pat::NowdocInteriorAt2Dql
-            | Pat::NowdocInteriorAt2Sql
-            | Pat::NowdocInteriorAt3Javascript
-            | Pat::NowdocInteriorAt3Js
-            | Pat::NowdocInteriorAt4
-            | Pat::NowdocInteriorAt5
-            | Pat::NowdocInteriorAt6
-            | Pat::NowdocInteriorAt7
-            | Pat::NowdocInteriorAt8 => Start {
-                bytes: [
-                    0x1000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
             Pat::RootAt38 | Pat::RootAt39 => Start {
@@ -10887,6 +10878,10 @@ impl Pat {
             },
         }
     }
+
+    /// Whether a pattern is tried inside a word at a scan's first position
+    /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
+    pub(crate) const WORDS_AT_START: bool = false;
 }
 
 impl Pat {
@@ -11046,6 +11041,8 @@ impl Rule {
 }
 
 impl rules::Tabled for Php {
+    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+
     fn pat_start(pat: Pat) -> rules::Start {
         pat.start()
     }
