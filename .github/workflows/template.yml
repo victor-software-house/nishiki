@@ -55,6 +55,8 @@ jobs:
         .rumdl.toml
         .taplo.toml
         .typos.toml
+        .vale.ini
+        .vale/.gitignore
         Cargo.toml
         bunfig.toml
         clippy.toml
