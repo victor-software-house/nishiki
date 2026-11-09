@@ -444,6 +444,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             let mut chain = std::mem::take(&mut self.scratch.chain);
             self.open_frames(self.state, &mut chain);
             self.scratch.chain = chain;
+            if G::WATCHES_FRAMES {
+                G::frames_opened(self);
+            }
             #[cfg(feature = "_embedding")]
             if G::EMBEDS_ON_DEMAND
                 && !self.embedding
@@ -692,6 +695,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             }
             if G::WHILES && (!self.linked || low < self.frames.len()) {
                 self.link_whiles(low);
+            }
+            if G::WATCHES_FRAMES {
+                G::frames_settled(&mut self, low);
             }
             std::mem::swap(&mut self.frames, &mut self.scratch.resume_frames);
         }
@@ -1198,7 +1204,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     ) {
         self.low = self.low.min(self.frames.len());
         let parent_state = self.top().state;
-        let parent_scopes = self.top().content;
+        let parent_scopes = if G::BEGIN_STACKS {
+            G::begin_stack(self, rule).unwrap_or(self.top().content)
+        } else {
+            self.top().content
+        };
         let code = G::rule_code(rule);
         let slot = (usize::try_from(parent_state)
             .unwrap_or(0)
@@ -1228,8 +1238,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             return;
         }
         self.flags.failed = false;
-        let parent = self.top().content;
-        let name = self.rule_name_path(parent, rule, payload);
+        let name = self.rule_name_path(parent_scopes, rule, payload);
         let content = match G::rule_content_delimiter(rule) {
             Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
             None => self.path(name, G::rule_content(rule)),

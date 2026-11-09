@@ -257,6 +257,36 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
         to: usize,
         base: u32,
     );
+    /// Whether some rules open on another stack than the innermost rule's
+    /// text ([`Grammar::begin_stack`]).
+    const BEGIN_STACKS: bool = false;
+
+    /// The stack `rule` opens on, when it is not the innermost rule's text:
+    /// Svelte's template body, injected into the Markdown of an `@component`
+    /// comment, opens on the stack Markdown reached.
+    /// Read only where [`Grammar::BEGIN_STACKS`] holds.
+    fn begin_stack(_lexer: &Lexer<'_, Self>, _rule: Self::Rule) -> Option<u32> {
+        None
+    }
+
+    /// Whether the grammar keeps a fact about its open rules in its
+    /// [`Grammar::Extra`], for the next line to read before it lexes.
+    /// The fact is redone only where the open rules changed, as the links of
+    /// the `while` rules are.
+    const WATCHES_FRAMES: bool = false;
+
+    /// Redoes the fact after the open rules came from the line's state, not
+    /// from the frames the last line kept.
+    /// Read only where [`Grammar::WATCHES_FRAMES`] holds.
+    fn frames_opened(_lexer: &mut Lexer<'_, Self>) {}
+
+    /// Updates the fact at the end of a line whose frames the next line
+    /// keeps.
+    /// The frames from `low` up opened on this line; any above those still
+    /// open closed.
+    /// Read only where [`Grammar::WATCHES_FRAMES`] holds.
+    fn frames_settled(_lexer: &mut Lexer<'_, Self>, _low: usize) {}
+
     /// Whether another language lexes some capture groups of the grammar
     /// again, as `TextMate` does for a group whose patterns include another
     /// grammar ([`Grammar::defers_nested`]).
