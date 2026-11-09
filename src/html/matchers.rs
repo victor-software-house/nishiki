@@ -1,6 +1,7 @@
-//! Where the grammar's patterns match: byte-level matchers for each rule's
-//! end and patterns, in the grammar's order, and the candidate positions
-//! the search visits.
+//! Where the grammar's patterns match.
+//! The module holds byte-level matchers for each rule's end and patterns, in
+//! the grammar's order.
+//! It also finds the candidate positions the search visits.
 
 use memchr::{memchr, memchr2, memchr3};
 
@@ -110,8 +111,9 @@ impl Lexer<'_> {
     }
 
     /// The end of the ASCII white space that starts at `i`: the blanks no
-    /// attribute pattern starts at, since an unrecognized attribute's name may
-    /// begin with any other character, U+00A0 included.
+    /// attribute pattern starts at.
+    /// An unrecognized attribute's name may begin with any other character,
+    /// U+00A0 included.
     pub(super) fn skip_ascii_ws(&self, mut i: usize) -> usize {
         let from = i;
         while i < self.lim && crate::classes::is_ascii_space(self.s[i]) {
@@ -208,12 +210,15 @@ impl Lexer<'_> {
     // Candidates.
 
     /// The first position at or after `p` where a pattern or the end of
-    /// `rule` can match, or `None` when there is none before `cut`, which is
-    /// as far as the search needs to look: the injection comes there.
-    /// In a tag, ` />` ends it, so a blank before `/>` is a place, and one
-    /// match decides there: the end, the `=`, or no match this line. Inside a
-    /// run of blanks nothing can match, because the end needs a character
-    /// before it that is not blank.
+    /// `rule` can match.
+    /// It is `None` when there is none before `cut`.
+    /// The search needs to look no further than `cut`, because the injection
+    /// comes there.
+    ///
+    /// In a tag, ` />` ends it, so a blank before `/>` is a place.
+    /// One match decides there: the end, the `=`, or no match this line.
+    /// Inside a run of blanks nothing can match, because the end needs a
+    /// character before it that is not blank.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per rule, in the order of the grammar"
@@ -536,7 +541,8 @@ impl Lexer<'_> {
     }
 
     /// `(?!\G)(\s*$\n)?`: the end of the rule that wraps an ERB comment or
-    /// code, or Blade's PHP, with the blanks and line feed that end its line.
+    /// code, or Blade's PHP.
+    /// The end takes the blanks and line feed that end its line.
     pub(super) fn erb_wrap_end(&self, p: usize) -> Option<Hit> {
         if self.g(p) {
             return None;
@@ -596,10 +602,11 @@ impl Lexer<'_> {
 
     /// The patterns of `rule` at `p`, in the grammar's order.
     /// The rule of the tags the grammar does not know is compiled first from
-    /// inside the `math` rules, so its `#attribute` is the `math` list wherever
-    /// the rule is used. In an html-derivative document the grammar's own tag
-    /// rule compiles `#attribute` first, with HTML's list, which every use
-    /// then shares.
+    /// inside the `math` rules.
+    /// Its `#attribute` is therefore the `math` list wherever the rule is
+    /// used.
+    /// In an html-derivative document the grammar's own tag rule compiles
+    /// `#attribute` first, with HTML's list, which every use then shares.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm per rule, in the order of the grammar"
@@ -1269,8 +1276,9 @@ impl Lexer<'_> {
     }
 
     /// `(</?)(\w[^<>\s]*)(?<!/)`: html-derivative's rule for a tag that no
-    /// rule before it takes, tried at the root of a derivative document only,
-    /// where it comes before the HTML grammar's rule for invalid tags.
+    /// rule before it takes.
+    /// It is tried at the root of a derivative document only.
+    /// There it comes before the HTML grammar's rule for invalid tags.
     fn derivative_tag(&self, p: usize) -> Option<Hit> {
         let applies = match self.document {
             Document::Derivative => self.top().rule == Rule::Root,
@@ -1496,8 +1504,8 @@ impl Lexer<'_> {
 
     /// The patterns of the attribute list `which` at `p`.
     /// A name of a list is the whole of the longest run of `[-:\w]` that starts
-    /// at `p`, as the lookahead after the name requires; any other name is
-    /// `[^>\s]+`.
+    /// at `p`, as the lookahead after the name requires.
+    /// Any other name is `[^>\s]+`.
     fn attribute_patterns(&self, p: usize, which: Attributes) -> Option<Hit> {
         if p >= self.lim || crate::classes::is_ascii_space(self.s[p]) || self.s[p] == b'>' {
             return None;

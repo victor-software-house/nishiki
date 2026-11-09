@@ -116,7 +116,7 @@ impl Lexer<'_> {
     }
 
     /// `\b(?<!')(?:(decimal)|(hexadecimal))\b(?!')` for floats, with a group
-    /// around each kind.
+    /// around each form.
     ///
     /// An exponent given back leaves its letter after the number, where `\b`
     /// fails, and so does a digit given back.

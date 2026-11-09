@@ -121,8 +121,9 @@ where
 
     /// `(?<=\s|^)(\{)(?=[^"#']+?}[]}\s]*=)`, or the same with `[` and `]`.
     /// The lazy body grows one character at a time and may take a `close`.
-    /// Every close inside one run of `[]}\s]` is followed by the same run, so
-    /// after a run that `=` does not end, the next close to try is past it.
+    /// Every close inside one run of `[]}\s]` is followed by the same run.
+    /// After a run that `=` does not end, the next close to try is therefore
+    /// past it.
     pub(super) fn destructured(&mut self, p: usize, open: u8, close: u8) -> Option<usize> {
         if !self.after_space(p) || self.at(p) != open {
             return None;

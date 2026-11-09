@@ -60,7 +60,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 /// The line halts where `end` holds before HAML's patterns are tried.
 /// It also halts where `after` holds and the patterns fail.
 /// Both apply only while no HAML rule is open.
-/// The second value says where and why the line stopped (see
+/// The second value holds where and why the line stopped (see
 /// [`rules::lex_until`]).
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,

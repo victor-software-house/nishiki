@@ -28,8 +28,9 @@ struct PointerTail {
 
 impl Lexer<'_> {
     /// `(?:(WORD)GAP)+` at `p`, every way, in the order the expression tries
-    /// them: the first for which `rest` matches what follows, given where the
-    /// loop ends and its last iteration.
+    /// them.
+    /// It returns the first for which `rest` matches what follows.
+    /// `rest` is given where the loop ends and its last iteration.
     ///
     /// Each iteration tries a later one first, then itself alone.
     fn find_storage_loop<R>(

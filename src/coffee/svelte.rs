@@ -3,8 +3,9 @@
 //! Svelte's grammar injects its `$` prefixes there:
 //! `L:(source.ts, source.js, source.coffee)`.
 //! vscode-textmate tries an `L:` injection in every rule whose scopes its
-//! selector matches, and takes it over the rule's own match where both start
-//! at one place, the end pattern included.
+//! selector matches.
+//! Where both start at one place, it takes the injection over the rule's own
+//! match, the end pattern included.
 //! So each rule here tries [`Pat::SVELTE`] first, then its end pattern, then
 //! its own patterns.
 

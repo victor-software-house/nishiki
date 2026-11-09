@@ -10,9 +10,12 @@ pub(crate) type LastComment = Option<[(usize, usize); 3]>;
 impl Lexer<'_> {
     /// The template arguments `<…>` at `p`: where the closing `>` ends, and
     /// the last comment inside.
-    /// They are `(?<!<)<(?!<)`, then any run of a comment, a quoted string, a
-    /// nested arguments group that calls itself, or other characters but
-    /// quotes, `/` and angle brackets, then `>`.
+    /// They are `(?<!<)<(?!<)`, then any run of these, then `>`:
+    /// - a comment;
+    /// - a quoted string;
+    /// - a nested arguments group that calls itself;
+    /// - other characters but quotes, `/` and angle brackets.
+    ///
     /// A `<` that another `<` precedes or follows does not open arguments.
     /// That holds in the group that calls itself too.
     pub(crate) fn template_args(&self, p: usize) -> Option<(usize, LastComment)> {

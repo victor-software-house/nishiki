@@ -253,8 +253,12 @@ impl Lexer<'_> {
     /// Every word of `digits` ends in a letter or `_`, so the word's trailing
     /// digits are all the `[0-9]*`.
     /// Giving back one of them would leave a digit before the `\b`.
+    ///
     /// The stem is folded without its digits, so a digit run of any length
-    /// still matches, as `[0-9]*` does (Kody, #612).
+    /// still matches, as `[0-9]*` does.
+    /// A Kody review of
+    /// [pull request 612](https://github.com/victor-software-house/nishiki-archive/pull/612)
+    /// found this.
     fn semantic(&self, p: usize, alone: &[&[u8]], digits: &[&[u8]]) -> Option<usize> {
         if !self.after_colon(p) {
             return None;
@@ -301,6 +305,7 @@ impl Lexer<'_> {
     /// pattern can start there.
     /// A fraction starts at a `.`, a semantic after a `:` or a blank, and a
     /// directive at the start of the line.
+    ///
     /// The rules hold only their ends and the string's escape, which start
     /// with no `\w`, and the line comment's `$`, which a run cannot pass.
     pub(super) fn after_missed_word(&self, p: usize) -> usize {

@@ -22,9 +22,9 @@ pub(crate) struct Go;
 /// What the Go matchers remember about a line.
 #[derive(Debug)]
 pub(crate) struct Extra {
-    /// The end of the text the runs below were found in, with its line feed:
-    /// lexing a capture group's text again moves it, and a run found up to
-    /// another end is not the run up to this one.
+    /// The end of the text the runs below were found in, with its line feed.
+    /// Lexing a capture group's text again moves it.
+    /// A run found up to another end is not the run up to this one.
     pub(crate) runs_end: Cell<usize>,
     /// The run of `\w` characters found last.
     pub(crate) word: Runs,

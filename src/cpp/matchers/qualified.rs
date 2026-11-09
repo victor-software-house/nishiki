@@ -40,9 +40,9 @@ pub(crate) type Step = (usize, Option<Template>);
 /// template, and the scope's end with the gap.
 type ScopeGap = (usize, Option<Template>, Option<(usize, Gap)>);
 
-/// One way a qualified type matches: where it ends and its groups, at most
-/// the attribute, the scope, the scope's template twice and the template,
-/// and three gaps.
+/// One way a qualified type matches: where it ends and its groups.
+/// The groups are at most the attribute, the scope, the scope's template
+/// twice and the template, and three gaps.
 #[derive(Clone, Copy)]
 pub(crate) struct TypeMatch {
     pub(crate) end: usize,

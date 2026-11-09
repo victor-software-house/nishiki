@@ -1,10 +1,13 @@
 //! C, with the scopes of the `c` grammar that Shiki bundles.
 //!
 //! The lexer runs the grammar's begin/end rules on the shared rule engine
-//! ([`crate::rules`]), with C's hand-written pattern lists and matchers (see
-//! the `engine` module).
-//! The rules left open at the end of a line (comments, strings, blocks, macros
-//! with a backslash at the end) are frames of the highlighter's interned state.
+//! ([`crate::rules`]).
+//! It uses C's hand-written pattern lists and matchers, in the `engine`
+//! module.
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
+//! Comments, strings, blocks and macros with a backslash at the end are such
+//! rules.
 //!
 //! It reproduces Shiki's output, quirks included:
 //! - a `#define` is found anywhere in a line;
@@ -42,9 +45,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     crate::rules::start::<engine::C>(arena, base)
 }
 
-/// The state at the start of the C lines of a fenced code block, whose text
-/// sits on the stack `base` with no `source.c` of its own, as in Shiki's
-/// embedding.
+/// The state at the start of the C lines of a fenced code block.
+/// Their text sits on the stack `base` with no `source.c` of its own, as in
+/// Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     crate::rules::start_embedded::<engine::C>(arena, base)
 }

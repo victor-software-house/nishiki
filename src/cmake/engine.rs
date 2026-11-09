@@ -44,8 +44,8 @@ impl Default for Lowered {
 }
 
 /// What the CMake matchers remember about a line.
-/// Each of the word patterns asks about the same word, so the last word
-/// lowered is kept.
+/// All the word patterns test the same word, so the last word lowered is
+/// kept.
 #[derive(Debug, Default)]
 pub(crate) struct Extra {
     /// The last word lowered.

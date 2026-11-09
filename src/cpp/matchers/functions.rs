@@ -163,8 +163,10 @@ impl Lexer<'_> {
     }
 
     /// The ways the name after `operator` and its chain matches at `p`, in
-    /// order: the first for which `rest` matches what follows, given the name
-    /// and where it ends, with what `rest` found.
+    /// order.
+    /// It returns the first for which `rest` matches what follows, with what
+    /// `rest` found.
+    /// `rest` is given the name and where it ends.
     fn find_operator_name<R>(
         &self,
         p: usize,

@@ -1,9 +1,11 @@
 //! Declarations: namespaces, types, members, accessors and the lookaheads
 //! that choose among them.
 //!
-//! A member's expression begins with the type of the member and then asks
-//! what follows the name, so each matcher offers the ways the type can end
-//! to the rest of the expression, which backtracks as Oniguruma does.
+//! A member's expression begins with the type of the member, then tests what
+//! follows the name.
+//! Each matcher therefore offers the ways the type can end to the rest of the
+//! expression.
+//! The rest backtracks as Oniguruma does.
 
 use super::super::engine::Lexer;
 use super::types::{Shape, Ty};

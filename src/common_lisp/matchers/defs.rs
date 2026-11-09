@@ -41,8 +41,11 @@ impl Lexer<'_> {
     /// `DefNameAt0`: a function definition, `(def…)\s+` and either
     /// `\(\s*(sym)\s*((,…)?)(sym+?)` or `((,…)?)(sym+?)`, before a
     /// delimiter.
-    /// Group 1 is the word, 3 the head of a list name such as `setf`, 4 and 7
-    /// a comma prefix, and 6 and 9 the name, which is lexed again.
+    /// The groups are:
+    /// - 1, the word;
+    /// - 3, the head of a list name such as `setf`;
+    /// - 4 and 7, a comma prefix;
+    /// - 6 and 9, the name, which is lexed again.
     ///
     /// In the list form, group 3 is greedy.
     /// When no name follows it, it gives back its last character, which

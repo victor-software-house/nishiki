@@ -25,7 +25,7 @@ fn is_generic(b: u8) -> bool {
 
 impl Lexer<'_> {
     /// `(?<!\$)\b(a|b|…)\b(?!\$)` for the type words `words`, with group 1
-    /// around the word, and `\s*(factory\b)?` after it when `factory` says so.
+    /// around the word, and `\s*(factory\b)?` after it when `factory` is set.
     pub(super) fn type_word(
         &mut self,
         p: usize,
@@ -38,7 +38,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<![$0-9A-Z_a-z])([$_]*[A-Z][$0-9A-Z_a-z]*)\b`, with group 1 around
-    /// the name, and `\s*(factory\b)?` after it when `factory` says so.
+    /// the name, and `\s*(factory\b)?` after it when `factory` is set.
     ///
     /// The name gives characters back until `\b` holds.
     /// Only a `$` can make it give any.
@@ -133,6 +133,7 @@ impl Lexer<'_> {
     /// A position is a choice only where blanks run into `extends`.
     /// The greedy token leads into `extends` as a word, and a shorter one
     /// leaves a blank that only `\s+extends\s+` takes.
+    ///
     /// The greedy path is explored first, by a nested call.
     /// The other path goes on in this loop.
     /// `first` says that `from` follows the `<`, where one token is needed.

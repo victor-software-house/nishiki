@@ -1,5 +1,6 @@
-//! What each rule is called, and the scopes of its captures: the data of the
-//! grammar's begin, end and match rules, apart from where they match.
+//! What each rule is called, and the scopes of its captures.
+//! This is the data of the grammar's begin, end and match rules, apart from
+//! where they match.
 
 use super::engine::{Hit, Lexer, Part, Pat, packed};
 use super::erb::Erb;
@@ -333,8 +334,8 @@ impl Lexer<'_> {
         })
     }
 
-    /// The tag rule a `Pat::Tag` match opens, carrying its kind and, unless
-    /// it is a custom element, its interned name.
+    /// The tag rule a `Pat::Tag` match opens, carrying its `TagKind` and,
+    /// unless it is a custom element, its interned name.
     fn tag_opens(&mut self, hit: &Hit, from: usize, to: usize) -> (Rule, u32) {
         let tag = TagInfo::from_bits(hit.info & 0x3f);
         let word = match tag.kind {
@@ -348,8 +349,9 @@ impl Lexer<'_> {
         (Rule::Tag, packed(hit.info & 0x3f, word))
     }
 
-    /// The attribute rule a `Pat::Attribute` match opens, carrying its kind
-    /// and, unless it is `style`, its interned name without leading dots.
+    /// The attribute rule a `Pat::Attribute` match opens, carrying its
+    /// `AttributeKind` and, unless it is `style`, its interned name without
+    /// leading dots.
     fn attribute_opens(&mut self, hit: &Hit, from: usize, to: usize) -> (Rule, u32) {
         let from = from + self.s[from..to].iter().take_while(|&&b| b == b'.').count();
         let word = if hit.info == AttributeKind::Style.bits() {
@@ -1030,7 +1032,8 @@ impl Lexer<'_> {
     /// The end of an element: its end tag, the `/>` of an unfinished start
     /// tag, or the lookahead for any end tag.
     /// For `(</)(\2)\s*(>)` the name in the scope is the end tag's own, as `$2`
-    /// of the end pattern; for `(/>)` group 2 did not match, so `$2` is empty.
+    /// of the end pattern.
+    /// For `(/>)` group 2 did not match, so `$2` is empty.
     fn element_end_captures(&mut self, top: &super::engine::Frame, hit: &Hit) {
         let base = top.name;
         let element = ElementInfo::from_bits(info(top.payload));

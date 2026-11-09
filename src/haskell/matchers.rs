@@ -337,9 +337,10 @@ impl Lexer<'_> {
 
     /// The end of a declaration that runs while its lines are indented:
     /// `(?=\b(?<!x)word\b(?!'))|(?=[;}])|^(?!\1\s+\S|\s*(?:$|\{-[^@]|--+(?!
-    /// [OP]).*$))`, with the first alternative only for a `word`, `x` the
-    /// quotes `before` it must not follow, and `\1` the declaration's own
-    /// indentation.
+    /// [OP]).*$))`.
+    /// The first alternative applies only for a `word`.
+    /// In it, `x` stands for the quotes `before` the word must not follow.
+    /// `\1` is the declaration's own indentation.
     ///
     /// The last alternative holds at the start of a line that is neither
     /// indented past the declaration, nor blank, nor only a comment.

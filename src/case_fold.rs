@@ -11,9 +11,13 @@
 
 use crate::utf8::char_at;
 
-/// The ASCII letters that `c`, a character above ASCII, matches under `(?i)`:
-/// `s` for `ſ`, `k` for the Kelvin sign, `ss` for `ß` and `ẞ`, and the letters
-/// of each Latin ligature from `ﬀ` to `ﬆ`.
+/// The ASCII letters that `c`, a character above ASCII, matches under `(?i)`.
+/// They are:
+/// - `s` for `ſ`;
+/// - `k` for the Kelvin sign;
+/// - `ss` for `ß` and `ẞ`;
+/// - the letters of each Latin ligature from `ﬀ` to `ﬆ`.
+///
 /// It is `None` for any other character.
 pub(crate) fn letters(c: char) -> Option<&'static [u8]> {
     match c {
@@ -144,9 +148,9 @@ fn folded_reference_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> {
     have.pending.is_empty().then_some(at + have.at)
 }
 
-/// The bytes a text compares by under `(?i)`, character by character: an
-/// ASCII letter lowered, the letters a character above ASCII folds to, and
-/// the bytes of any other character.
+/// The bytes a text compares by under `(?i)`, character by character.
+/// They are an ASCII letter lowered, the letters a character above ASCII
+/// folds to, and the bytes of any other character.
 struct Folded<'t> {
     text: &'t [u8],
     /// Where the next character starts.

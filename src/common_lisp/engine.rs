@@ -15,7 +15,8 @@ pub(crate) type Lexer<'a> = rules::Lexer<'a, CommonLisp>;
 pub(crate) type Scratch = rules::Scratch<CommonLisp>;
 
 /// The run of characters before the next delimiter, `(`, `)` or `\s`, last
-/// measured: where it starts and ends, and the length of the text it was
+/// measured.
+/// It holds where the run starts and ends, and the length of the text it was
 /// measured in.
 /// A capture group lexed again has a shorter text, so the length tells the
 /// two apart.

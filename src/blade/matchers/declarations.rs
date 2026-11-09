@@ -334,9 +334,13 @@ impl Lexer<'_> {
     }
 
     /// `(?i)(array|callable)\s+(VARIABLE)(?:\s*(=)\s*(?:(null)|(\[)(…)(])|(\S*?
-    /// \(\)|\S*?)))?\s*(?=[),]|/[*/]|#|$)`. The default tries `null`, then a
-    /// bracketed array, then the shortest run of non-spaces ending in `()`,
-    /// then the shortest run of non-spaces, each until what follows holds.
+    /// \(\)|\S*?)))?\s*(?=[),]|/[*/]|#|$)`.
+    ///
+    /// The default tries these in order, each until what follows holds:
+    /// - `null`;
+    /// - a bracketed array;
+    /// - the shortest run of non-spaces ending in `()`;
+    /// - the shortest run of non-spaces.
     pub(super) fn array_parameter(&mut self, p: usize) -> Option<usize> {
         let word = self
             .ilit(p, b"array")
@@ -413,9 +417,10 @@ impl Lexer<'_> {
         }
     }
 
-    /// `(?>[^]\[]+|\[\g<N>])*` from `p` up to its `]`: the inside of brackets,
-    /// where an inner pair nests when `nests`, as `\g<N>` calls the inside
-    /// again, and otherwise is `[[]` only, as `\g<N>` calls the `(\[)` group.
+    /// `(?>[^]\[]+|\[\g<N>])*` from `p` up to its `]`: the inside of brackets.
+    /// When `nests`, an inner pair nests, as `\g<N>` calls the inside again.
+    /// Otherwise an inner pair is `[[]` only, as `\g<N>` calls the `(\[)`
+    /// group.
     ///
     /// - It counts the open pairs instead of recursing, so a long run of `[`
     ///   cannot overflow the stack. Only brackets are special inside, so a

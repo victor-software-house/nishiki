@@ -18,9 +18,9 @@ impl<G: CssLike> Lexer<'_, G> {
         self.emit(to, base);
     }
 
-    /// The escapes of the grammar's `escapes` rule in `from..to`: a backslash
-    /// and up to six hex digits, a backslash that ends the text, and a
-    /// backslash and one character.
+    /// The escapes of the grammar's `escapes` rule in `from..to`.
+    /// They are a backslash and up to six hex digits, a backslash that ends
+    /// the text, and a backslash and one character.
     fn escapes(&mut self, from: usize, to: usize, base: u32) {
         let mut i = from;
         while i < to {

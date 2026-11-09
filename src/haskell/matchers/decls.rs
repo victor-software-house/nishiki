@@ -867,9 +867,13 @@ impl Lexer<'_> {
     /// `(?<!')\b([\p{Lu}\p{Lt}]…)` anywhere, or `(\()\s*(:[OP]*)\s*(\))`.
     ///
     /// The groups are numbered as in the grammar:
-    /// 1 the word, 2 the parentheses, 4 the brackets, 6 the operator,
-    /// 7 to 9 the backticked constructor, 10 the constructor,
-    /// 11 to 13 the parenthesised operator.
+    /// - 1, the word;
+    /// - 2, the parentheses;
+    /// - 4, the brackets;
+    /// - 6, the operator;
+    /// - 7 to 9, the backticked constructor;
+    /// - 10, the constructor;
+    /// - 11 to 13, the parenthesised operator.
     ///
     /// The word gives back no character that helps: the operator or backtick
     /// after it is not a word character.

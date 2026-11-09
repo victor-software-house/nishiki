@@ -19,9 +19,10 @@ pub(crate) const MAX_LOOPS: u32 = 64;
 pub(crate) const MAX_CALL_DEPTH: usize = 20;
 
 /// How many ends of an attribute (`[[…]]`, `__attribute__((…))`,
-/// `__declspec(…)`, `alignas(…)`) a matcher tries: the lazy `.*?` of the
-/// expression gives the next one each time the rest fails, and a line with
-/// more than this many closings is read as having no later ones.
+/// `__declspec(…)`, `alignas(…)`) a matcher tries.
+/// The lazy `.*?` of the expression gives the next one each time the rest
+/// fails.
+/// A line with more than this many closings is read as having no later ones.
 pub(crate) const MAX_ENDS: usize = 16;
 
 /// How many ways a run of comments between two tokens is tried, the longest

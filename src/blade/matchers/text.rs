@@ -41,9 +41,10 @@ impl Lexer<'_> {
     }
 
     /// `(@(?:global|param|property(-(read|write))?|return|throws|var))\s+(?
-    /// =[(A-Z\\_a-z\x7F-ÿ])`. U+0085 and U+00A0 are spaces in the class, so the
-    /// spaces give back to the last of them when the character after the spaces
-    /// is not in it.
+    /// =[(A-Z\\_a-z\x7F-ÿ])`.
+    /// U+0085 and U+00A0 are spaces in the class.
+    /// The spaces give back to the last of them when the character after the
+    /// spaces is not in the class.
     pub(super) fn doc_typed_tag(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'@' {
             return None;

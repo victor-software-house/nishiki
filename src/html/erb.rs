@@ -33,9 +33,9 @@ pub(super) enum Erb {
     Line,
 }
 
-/// The first of the injection's patterns that matches at `p` of `s`, which
-/// ends where the text a pattern may read ends, and where its begin match
-/// ends.
+/// The first of the injection's patterns that matches at `p` of `s`, and
+/// where its begin match ends.
+/// `s` ends where the text a pattern may read ends.
 pub(super) fn at(s: &[u8], p: usize) -> Option<(Erb, usize)> {
     if p == 0 {
         let q = blanks_end(s, 0);
@@ -66,8 +66,9 @@ pub(super) fn comment_begin(s: &[u8], p: usize) -> Option<usize> {
 }
 
 /// The begin of code at `p`, `<%+(?!>)[-=]?`, tried as Oniguruma tries it:
-/// the most `%` first, the `-` or `=` before none, and the block form, whose
-/// lookahead must find no `%>`, before the line form.
+/// - the most `%` first;
+/// - the `-` or `=` before none;
+/// - the block form, whose lookahead must find no `%>`, before the line form.
 pub(super) fn code_begin(s: &[u8], p: usize) -> Option<(Erb, usize)> {
     let run = percents(s, p)?;
     let ends = |k: usize| {

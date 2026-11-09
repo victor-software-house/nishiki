@@ -1,7 +1,8 @@
 //! C on the shared rule engine ([`crate::rules`]).
-//! The module holds the grammar's rules and patterns as C's hand-written
-//! tables, the search that finds the next match, and what the matchers
-//! remember about a line.
+//! The module holds:
+//! - the grammar's rules and patterns, as C's hand-written tables;
+//! - the search that finds the next match;
+//! - what the matchers remember about a line.
 //!
 //! The search is C's own, not the engine's table scan.
 //! At each position it tries the end of the innermost rule first.
@@ -247,8 +248,7 @@ impl Lexer<'_> {
     /// the limit.
     /// Its text stays plain.
     ///
-    /// Each position tries only the patterns its kind of position allows
-    /// (`lists::kind`).
+    /// Each position tries only the patterns that its `lists::kind` allows.
     /// Inside an ASCII word that the search tried at its start, the patterns
     /// that read only the word's chain are left out.
     ///

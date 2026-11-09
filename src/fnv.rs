@@ -2,6 +2,7 @@
 //! lists.
 //! Its probes are the same in every process, so instruction counts of lexing
 //! are too.
+//!
 //! std's randomly seeded hasher moved them by about 0.3% from run to run.
 //! Keys that come from the text being lexed keep std's seeded hasher, which
 //! resists inputs crafted to collide.

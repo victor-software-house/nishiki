@@ -169,8 +169,9 @@ impl Lexer<'_> {
     /// `(@?ident)\s*(\.)`, then the last name and its type arguments.
     ///
     /// The ends of the iterations of `(?:(@?ident)\s*(\.))*` are kept, longest
-    /// last, so that a shorter run can be tried when the rest fails; groups 1
-    /// and 2 hold the last iteration kept, as in Oniguruma.
+    /// last.
+    /// A shorter run can then be tried when the rest fails.
+    /// Groups 1 and 2 hold the last iteration kept, as in Oniguruma.
     pub(in crate::csharp) fn call_head(&mut self, p: usize) -> Option<usize> {
         let mut ends = [p; MAX_CALL_NAMES + 1];
         let mut count = 0;

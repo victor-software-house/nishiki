@@ -1,6 +1,6 @@
 //! Hand-written matchers for the expressions that would run most often
-//! through the backtracking matcher: they start at every word or every
-//! position of a line.
+//! through the backtracking matcher.
+//! They start at every word or every position of a line.
 
 use super::super::engine::Lexer;
 use crate::rules::{CachedRuns, Chars};

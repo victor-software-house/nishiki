@@ -162,9 +162,9 @@ impl Lexer<'_> {
         Some(start)
     }
 
-    /// The ends of `(?:B[*.\w]+)?` at `p`, longest first, ending with `p`:
-    /// the marks are given back a character at a time, and a `*` given back
-    /// can start the run.
+    /// The ends of `(?:B[*.\w]+)?` at `p`, longest first, ending with `p`.
+    /// The marks are given back a character at a time.
+    /// A `*` given back can start the run.
     fn marked_name_ends(
         &self,
         p: usize,

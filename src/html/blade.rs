@@ -1089,9 +1089,9 @@ impl Lexer<'_> {
     }
 }
 
-/// The first of Blade's own rules that matches at `p` of `s`: the
-/// injection's patterns without the PHP tags, as a Blade heredoc includes
-/// them (see [`super::state::ROOT_BLADE_HEREDOC`]).
+/// The first of Blade's own rules that matches at `p` of `s`.
+/// The rules are the injection's patterns without the PHP tags, as a Blade
+/// heredoc includes them (see [`super::state::ROOT_BLADE_HEREDOC`]).
 pub(super) fn rules_at(s: &[u8], p: usize) -> Option<(Blade, usize)> {
     at(s, p).filter(|&(kind, _)| !matches!(kind, Blade::PhpWrap | Blade::PhpBlock | Blade::PhpLine))
 }

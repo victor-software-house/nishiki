@@ -344,7 +344,8 @@ impl Lexer<'_> {
     ///
     /// A word can end only where a `\w` stands before and none after.
     /// The generator checks that no word of a list is another followed by
-    /// such a place, so the first that the list holds is the match.
+    /// such a place.
+    /// The first word that the list holds is therefore the match.
     /// The search stops past the list's longest word, so a long run of
     /// `__?` costs no more than that at each place.
     fn literal(&self, p: usize, words: &[&[u8]]) -> Option<usize> {
@@ -403,9 +404,9 @@ impl Lexer<'_> {
 
 #[cfg(test)]
 impl Lexer<'_> {
-    /// Whether the merged pattern at `index` alone matches at `p`: the end of
-    /// the run of `\w` there when that pattern lists it, as the first owner or
-    /// as a later one.
+    /// Whether the merged pattern at `index` alone matches at `p`.
+    /// The answer is the end of the run of `\w` there when that pattern lists
+    /// it, as the first owner or as a later one.
     pub(super) fn listed_in(&self, p: usize, index: u8) -> Option<usize> {
         let (end, owner) = self.word_owner(p)?;
         if owner == index {

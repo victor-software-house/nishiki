@@ -197,6 +197,7 @@ impl Embeds for Astro {
 /// its end pattern, or a pattern it lists before the embedded grammar.
 /// `g` is where `\G` holds: where the embedded text starts, when a match
 /// ended there on this line.
+///
 /// At the start of a line that goes on inside the rule, `\G` holds nowhere.
 /// `body` says whether an injection's selector holds on the rule's text, so
 /// that a body opens after a `>`.
@@ -276,9 +277,10 @@ impl End {
 }
 
 /// Whether a body's injection holds on text whose scopes are the stack
-/// `base`: a `meta.script.astro` or `meta.style.astro` scope, and the
-/// `meta.lang.<lang>.astro` inside it, when there is one, name a body, and no
-/// `source` scope inside the tag's hides it (`- (meta source)`).
+/// `base`.
+/// A `meta.script.astro` or `meta.style.astro` scope names a body, with the
+/// `meta.lang.<lang>.astro` inside it when there is one.
+/// No `source` scope inside the tag's may hide it (`- (meta source)`).
 fn opens_body(arena: &Arena, base: u32) -> bool {
     let mut lang = None;
     for scope in arena.scopes(base) {

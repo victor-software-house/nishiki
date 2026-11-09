@@ -205,9 +205,9 @@ impl Lexer<'_> {
         })
     }
 
-    /// The rest of a qualifier chain after a qualifier that ends at `pos`:
-    /// more gaps and qualifiers, the longest first, or the end of the chain
-    /// here.
+    /// The rest of a qualifier chain after a qualifier that ends at `pos`.
+    /// It is more gaps and qualifiers, the longest first, or the end of the
+    /// chain here.
     fn qualifier_chain_after(&self, pos: usize) -> Option<usize> {
         let _depth = self.deeper()?;
         self.gaps(pos)

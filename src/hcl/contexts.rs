@@ -3,9 +3,11 @@
 //! Each `in_*` step tries the context's end first, then its rules in the
 //! grammar's order, at one byte.
 //! When none matches, the byte is plain text of the context.
+//!
 //! A run of word characters that no rule matched at its first byte is skipped
-//! whole: no rule can start inside it, apart from an inline `for` or `if` at
-//! its end, which [`Tail::ForIf`] looks for.
+//! whole.
+//! No rule can start inside it, apart from an inline `for` or `if` at its end.
+//! [`Tail::ForIf`] looks for those.
 
 use super::lexer::{Feed, Lexer, Tail};
 use super::scope::S;

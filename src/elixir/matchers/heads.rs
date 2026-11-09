@@ -199,8 +199,8 @@ impl Lexer<'_> {
     /// `^\s*(def(?:kinds)p?)\s+(name)((\()|\s*)`: the head of a function,
     /// macro, delegate or guard, private when `private`.
     ///
-    /// The kinds come in the grammar's order, the empty one first.
-    /// A kind whose `\s+` or name fails gives way to the next.
+    /// The `kinds` come in the grammar's order, the empty one first.
+    /// A word of `kinds` whose `\s+` or name fails gives way to the next.
     /// The name is the grammar's `(?>prefix)?(?>…)`: the prefix is atomic,
     /// and dropped when no name follows it.
     pub(super) fn def_head(&mut self, p: usize, kinds: &[&[u8]], private: bool) -> Option<usize> {

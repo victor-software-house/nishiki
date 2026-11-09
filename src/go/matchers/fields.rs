@@ -175,8 +175,10 @@ impl Lexer<'_> {
     /// `` \b(\w+(?:\s*,\s*\b\w+)*)\s*([^"/`]+) ``
     ///
     /// When nothing the last group can take follows the names and blanks,
-    /// the matcher gives back the last blank, or else the last character of
-    /// the last name, or else the last name and its comma.
+    /// the matcher gives back the first of these that it can:
+    /// - the last blank;
+    /// - the last character of the last name;
+    /// - the last name and its comma.
     pub(in crate::go) fn struct_variables_types_fields_at5(&mut self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;

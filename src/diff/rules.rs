@@ -4,6 +4,7 @@
 //! All but one start with `^`.
 //! A line therefore takes the first rule, in the grammar's order, that matches
 //! its start.
+//!
 //! Only the one unanchored rule can then match the rest of the line.
 //! Each matcher below answers what its regular expression would.
 //! That includes where its backtracking lands and the scopes of its capture
