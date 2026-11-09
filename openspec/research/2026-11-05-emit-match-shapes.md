@@ -84,7 +84,9 @@ It informs the decision; it does not make it.
   Their rows move only in libc's `memcmp`, by 604 to 4,973 instructions, at equal calls.
 - Most other rows fall, by up to 0.78% (graphql), and C#'s `emit_match` saves 152,757.
 - tex, matlab and java grow in `emit_match`: +14,202, +18,844 and +30,209.
-  php and haskell move `dynamic_path` into an out-of-line `path_one`: php +40,323 net, haskell +15,650.
+  php and haskell move `dynamic_path` into an out-of-line `path_one`.
+  The four rows splits.md lists for that move sum to +36,393 for php and +16,216 for haskell.
+  Their nets, +40,323 and +15,650, also hold rows splits.md leaves out: +3,930 for php and -566 for haskell.
 
 ## 4. Reading
 
