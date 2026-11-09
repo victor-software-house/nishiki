@@ -55,6 +55,7 @@ mod rust;
 mod sass;
 mod scala;
 mod scss;
+mod shaderlab;
 mod shell;
 mod sql;
 mod svelte;

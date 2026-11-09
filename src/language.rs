@@ -1343,7 +1343,24 @@ languages! {
     ///   A fraction needs no `\b` before its `.`, so `a.5` holds the number `.5`.
     /// - `true` and `false` are case-sensitive, and `TRUE`, `FALSE` and `NULL` are FX constants.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Hlsl { feature: "lang-hlsl", names: ["hlsl"], module: hlsl }
+    Hlsl { feature: "lang-hlsl", names: ["hlsl"], module: hlsl, halts: true }
+    /// ShaderLab, Unity's shader language, with the scopes of Shiki's
+    /// `shaderlab` grammar.
+    /// A `CGPROGRAM` or `HLSLPROGRAM` block is lexed by the HLSL lexer, with
+    /// Unity's own names after HLSL's patterns.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Inside a block, a name that HLSL scopes keeps HLSL's scope: `fixed4(` is a function, and only `fixed4` alone is Unity's type.
+    /// - A block ends at the first `ENDCG` or `ENDHLSL` outside an HLSL comment or string, mid-line too.
+    /// - Outside a block, any name before a `(`, with blanks between, is a declaration, and the `(` is part of its token.
+    /// - Words outside a block match in any case, so `on`, `off`, `back` or `always` anywhere gets a property-value scope.
+    ///   So does any word of one to three of the letters `A`, `B`, `G` and `R`, such as `a`, `b` or `bgr`, from the grammar's `[ABGR]{1,3}`.
+    /// - `[name]` is a reference unless a name, a `(` and a `"` follow it; then the brackets open an attribute.
+    /// - A number may end at its `.`, so `1.5x` starts with the number `1.`.
+    /// - A string has no escapes: a `\"` ends it.
+    /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
+    ShaderLab { feature: "lang-shaderlab", names: ["shaderlab", "shader"], module: shaderlab }
 }
 
 impl Language {

@@ -264,6 +264,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.md",
   },
+  shaderlab: {
+    bundled: "microsoft/vscode@8fdf170a0850c1cc027382f31650aaf300d3ae2a",
+    origin: "tgjones/shaders-tmLanguage",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   shellscript: {
     bundled: "microsoft/vscode@9473445f7d3dcb5c579f42ece8b6c18c43c63ed3",
     origin: "jeff-hykin/better-shell-syntax",

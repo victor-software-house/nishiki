@@ -201,6 +201,10 @@ pub(crate) struct Scratch {
     /// The SCSS lexer's, for SCSS documents and Markdown SCSS fences.
     #[cfg(feature = "lang-scss")]
     pub(crate) scss: crate::scss::Scratch,
+    /// The ShaderLab lexer's, for ShaderLab documents.
+    /// It is boxed and allocated by the first ShaderLab line, as HLSL's is.
+    #[cfg(feature = "lang-shaderlab")]
+    pub(crate) shaderlab: Option<Box<crate::shaderlab::Scratch>>,
     /// The shell lexer's, for shell documents and Markdown shell fences.
     #[cfg(feature = "lang-shell")]
     pub(crate) shell: crate::shell::Scratch,

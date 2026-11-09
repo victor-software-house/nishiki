@@ -1,0 +1,552 @@
+L //
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+L // Kino/Bloom v2 - Bloom filter for Unity
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 41 source.shaderlab comment.line.double-slash.shaderlab
+L //
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+L // Copyright (C) 2015, 2016 Keijiro Takahashi
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 45 source.shaderlab comment.line.double-slash.shaderlab
+L //
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+L // Permission is hereby granted, free of charge, to any person obtaining a copy
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 79 source.shaderlab comment.line.double-slash.shaderlab
+L // of this software and associated documentation files (the "Software"), to deal
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 80 source.shaderlab comment.line.double-slash.shaderlab
+L // in the Software without restriction, including without limitation the rights
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 79 source.shaderlab comment.line.double-slash.shaderlab
+L // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 76 source.shaderlab comment.line.double-slash.shaderlab
+L // copies of the Software, and to permit persons to whom the Software is
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 72 source.shaderlab comment.line.double-slash.shaderlab
+L // furnished to do so, subject to the following conditions:
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 59 source.shaderlab comment.line.double-slash.shaderlab
+L //
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+L // The above copyright notice and this permission notice shall be included in
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 77 source.shaderlab comment.line.double-slash.shaderlab
+L // all copies or substantial portions of the Software.
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 54 source.shaderlab comment.line.double-slash.shaderlab
+L //
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+L // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 77 source.shaderlab comment.line.double-slash.shaderlab
+L // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 75 source.shaderlab comment.line.double-slash.shaderlab
+L // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 78 source.shaderlab comment.line.double-slash.shaderlab
+L // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 73 source.shaderlab comment.line.double-slash.shaderlab
+L // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 80 source.shaderlab comment.line.double-slash.shaderlab
+L // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 76 source.shaderlab comment.line.double-slash.shaderlab
+L // THE SOFTWARE.
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 16 source.shaderlab comment.line.double-slash.shaderlab
+L //
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+L Shader "Hidden/Kino/Bloom"
+T 6 source.shaderlab storage.type.structure.shaderlab
+T 7 source.shaderlab
+T 8 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 26 source.shaderlab string.quoted.double.shaderlab
+L {
+T 1 source.shaderlab
+L     Properties
+T 4 source.shaderlab
+T 14 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         _MainTex("", 2D) = "" {}
+T 8 source.shaderlab
+T 17 source.shaderlab support.variable.declaration.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 19 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab
+T 23 source.shaderlab support.type.basic.shaderlab
+T 27 source.shaderlab
+T 28 source.shaderlab string.quoted.double.shaderlab
+T 29 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab
+L         _BaseTex("", 2D) = "" {}
+T 8 source.shaderlab
+T 17 source.shaderlab support.variable.declaration.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 19 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab
+T 23 source.shaderlab support.type.basic.shaderlab
+T 27 source.shaderlab
+T 28 source.shaderlab string.quoted.double.shaderlab
+T 29 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab
+L     }
+T 5 source.shaderlab
+L     SubShader
+T 4 source.shaderlab
+T 13 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         // 0: Prefilter
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 23 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 58 source.shaderlab meta.cgblock
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag_prefilter
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 43 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 1: Prefilter with anti-flicker
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 41 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #define ANTI_FLICKER 1
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 58 source.shaderlab meta.cgblock
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag_prefilter
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 43 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 2: First level downsampler
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 37 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag_downsample1
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 45 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 3: First level downsampler with anti-flicker
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 55 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #define ANTI_FLICKER 1
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag_downsample1
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 45 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 4: Second level downsampler
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 38 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag_downsample2
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 45 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 5: Upsampler
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 23 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert_multitex
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 40 source.shaderlab meta.cgblock
+L             #pragma fragment frag_upsample
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 42 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 6: High quality upsampler
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 36 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #define HIGH_QUALITY 1
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert_multitex
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 40 source.shaderlab meta.cgblock
+L             #pragma fragment frag_upsample
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 42 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 7: Combiner
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 22 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 58 source.shaderlab meta.cgblock
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert_multitex
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 40 source.shaderlab meta.cgblock
+L             #pragma fragment frag_upsample_final
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 48 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L         // 8: High quality combiner
+T 8 source.shaderlab
+T 10 source.shaderlab comment.line.double-slash.shaderlab
+T 35 source.shaderlab comment.line.double-slash.shaderlab
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             ZTest Always Cull Off ZWrite Off
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 25 source.shaderlab
+T 29 source.shaderlab support.type.propertyname.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.shaderlab
+T 34 source.shaderlab
+T 40 source.shaderlab support.type.propertyname.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #define HIGH_QUALITY 1
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 58 source.shaderlab meta.cgblock
+L             #include "Bloom.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 33 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 34 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L             #pragma vertex vert_multitex
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 40 source.shaderlab meta.cgblock
+L             #pragma fragment frag_upsample_final
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 48 source.shaderlab meta.cgblock
+L             #pragma target 3.0
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+T 30 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L     }
+T 5 source.shaderlab
+L }
+T 1 source.shaderlab
+L 

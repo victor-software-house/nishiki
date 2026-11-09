@@ -22,7 +22,7 @@ pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 use crate::rules;
 
@@ -47,6 +47,20 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     rules::lex::<Hlsl>(cx, line, state, buffers)
+}
+
+/// Lexes `line` like [`lex`], for HLSL that another language embeds, up to
+/// where `end` or `after` halts it (see [`rules::lex_until`]).
+/// ShaderLab embeds it in a `CGPROGRAM` or `HLSLPROGRAM` block.
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<Stopped>) {
+    rules::lex_until::<Hlsl>(cx, line, state, buffers, end, after)
 }
 
 #[cfg(test)]

@@ -72,6 +72,7 @@ cargo check --locked --tests --no-default-features --features lang-rust
 cargo check --locked --tests --no-default-features --features lang-sass
 cargo check --locked --tests --no-default-features --features lang-scala
 cargo check --locked --tests --no-default-features --features lang-scss
+cargo check --locked --tests --no-default-features --features lang-shaderlab
 cargo check --locked --tests --no-default-features --features lang-shell
 cargo check --locked --tests --no-default-features --features lang-sql
 cargo check --locked --tests --no-default-features --features lang-svelte

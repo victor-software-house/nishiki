@@ -1947,6 +1947,7 @@ export const complete: string[] = [
   "sass",
   "scala",
   "scss",
+  "shaderlab",
   "shellscript",
   "sql",
   "svelte",

@@ -77,6 +77,7 @@ import rustCoverage from "./inputs/rust-coverage.rs" with { type: "text" };
 import scalaCoverage from "./inputs/scala-coverage.scala" with { type: "text" };
 import sassCoverage from "./inputs/sass-coverage.sass" with { type: "text" };
 import scssCoverage from "./inputs/scss-coverage.scss" with { type: "text" };
+import shaderlabCoverage from "./inputs/shaderlab-coverage.shader" with { type: "text" };
 import shellscriptCoverage from "./inputs/shellscript-coverage.sh" with { type: "text" };
 import shellscriptUnicodeWords from "./inputs/shellscript-unicode-words.sh" with { type: "text" };
 import sqlCoverage from "./inputs/sql-coverage.sql" with { type: "text" };
@@ -313,6 +314,8 @@ const kafka =
   "https://raw.githubusercontent.com/apache/kafka/da5316228ee604724dbcede405ebbf7f18f1dbf3";
 const kingfisher =
   "https://raw.githubusercontent.com/onevcat/Kingfisher/770465258c652c73fdef447c10004765c440e993";
+const kinoBloom =
+  "https://raw.githubusercontent.com/keijiro/KinoBloom/0a04c43fa47de12bb52edb325c8d3c0125d0b4ca";
 const knex =
   "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
 const kotlinxSerialization =
@@ -525,6 +528,8 @@ const typescriptTests =
   "https://raw.githubusercontent.com/microsoft/TypeScript/c63de15a992d37f0d6cec03ac7631872838602cb/tests/cases";
 const unity =
   "https://raw.githubusercontent.com/ThrowTheSwitch/Unity/54f864cf6027a50f4cc5424616e9e01e1bb729da";
+const unityBuiltinShaders =
+  "https://raw.githubusercontent.com/TwoTailsGames/Unity-Built-in-Shaders/6a63f93bc1f20ce6cd47f981c7494e8328915621";
 const viewsWidgets =
   "https://raw.githubusercontent.com/android/views-widgets-samples/2238cc873501f9cda63605051de11832bb736a8a";
 const viper =
@@ -1473,6 +1478,17 @@ export const inputs: Input[] = [
   { lang: "scss", name: "bulma-mixins", url: `${bulma}/sass/utilities/mixins.scss` },
   { lang: "scss", name: "coverage", text: scssCoverage },
   { lang: "scss", name: "sample", url: `${samples}/scss.sample` },
+  { lang: "shaderlab", name: "coverage", text: shaderlabCoverage },
+  { lang: "shaderlab", name: "kinobloom-bloom", url: `${kinoBloom}/Assets/Kino/Bloom/Shader/Bloom.shader` },
+  { lang: "shaderlab", name: "kinobloom-cubemap", url: `${kinoBloom}/Assets/SkyboxPlus/Cubemap.shader` },
+  { lang: "shaderlab", name: "kinobloom-gradients", url: `${kinoBloom}/Assets/SkyboxPlus/Gradients.shader` },
+  { lang: "shaderlab", name: "sample", url: `${samples}/shaderlab.sample` },
+  { lang: "shaderlab", name: "unity-mobile-vertexlit", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Mobile/Mobile-VertexLit.shader` },
+  { lang: "shaderlab", name: "unity-particle-add", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Particle%20Add.shader` },
+  { lang: "shaderlab", name: "unity-skybox", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Skybox.shader` },
+  { lang: "shaderlab", name: "unity-sprites-diffuse", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Sprites-Diffuse.shader` },
+  { lang: "shaderlab", name: "unity-ui-default", url: `${unityBuiltinShaders}/DefaultResourcesExtra/UI/UI-Default.shader` },
+  { lang: "shaderlab", name: "unity-unlit-alpha", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Unlit/Unlit-Alpha.shader` },
   { lang: "shellscript", name: "bats-core-bats", url: `${batsCore}/libexec/bats-core/bats` },
   { lang: "shellscript", name: "bats-core-gather-tests", url: `${batsCore}/libexec/bats-core/bats-gather-tests` },
   { lang: "shellscript", name: "coverage", text: shellscriptCoverage },

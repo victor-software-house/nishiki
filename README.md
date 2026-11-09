@@ -114,6 +114,7 @@ The opt-in `textmate` tier holds no language now.
 | Sass | `Language::Sass` | `lang-sass` | `all` | `sass` |
 | Scala | `Language::Scala` | `lang-scala` | `all` | `scala` |
 | SCSS | `Language::Scss` | `lang-scss` | `all` | `scss` |
+| ShaderLab | `Language::ShaderLab` | `lang-shaderlab` | `all` | `shaderlab`, `shader` |
 | Shell | `Language::Shell` | `lang-shell` | `all` | `shellscript`, `bash`, `sh`, `shell`, `zsh` |
 | SQL | `Language::Sql` | `lang-sql` | `all` | `sql` |
 | Svelte | `Language::Svelte` | `lang-svelte` | `all` | `svelte` |

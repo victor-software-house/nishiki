@@ -1,0 +1,987 @@
+L // Every pattern of the shaderlab grammar, written for nishiki.
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 63 source.shaderlab comment.line.double-slash.shaderlab
+L Shader "Custom/Coverage"
+T 6 source.shaderlab storage.type.structure.shaderlab
+T 7 source.shaderlab
+T 8 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+L {
+T 1 source.shaderlab
+L     Properties
+T 4 source.shaderlab
+T 14 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         _MainTex ("Albedo", 2D) = "white" {}
+T 8 source.shaderlab
+T 18 source.shaderlab support.variable.declaration.shaderlab
+T 19 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 26 source.shaderlab string.quoted.double.shaderlab
+T 28 source.shaderlab
+T 30 source.shaderlab support.type.basic.shaderlab
+T 34 source.shaderlab
+T 35 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 41 source.shaderlab string.quoted.double.shaderlab
+T 44 source.shaderlab
+L         _Color ("Color", Color) = (1, 1, 1, 1)
+T 8 source.shaderlab
+T 16 source.shaderlab support.variable.declaration.shaderlab
+T 17 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab
+T 30 source.shaderlab support.type.basic.shaderlab
+T 35 source.shaderlab
+T 36 source.shaderlab constant.numeric.shaderlab
+T 38 source.shaderlab
+T 39 source.shaderlab constant.numeric.shaderlab
+T 41 source.shaderlab
+T 42 source.shaderlab constant.numeric.shaderlab
+T 44 source.shaderlab
+T 45 source.shaderlab constant.numeric.shaderlab
+T 46 source.shaderlab
+L         _Glossiness ("Smoothness", Range(0.0, 1)) = 0.5
+T 8 source.shaderlab
+T 21 source.shaderlab support.variable.declaration.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab
+T 40 source.shaderlab support.type.basic.shaderlab
+T 41 source.shaderlab
+T 44 source.shaderlab constant.numeric.shaderlab
+T 46 source.shaderlab
+T 47 source.shaderlab constant.numeric.shaderlab
+T 52 source.shaderlab
+T 55 source.shaderlab constant.numeric.shaderlab
+L         _Count ("Count", Int) = 3
+T 8 source.shaderlab
+T 16 source.shaderlab support.variable.declaration.shaderlab
+T 17 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab
+T 28 source.shaderlab support.type.basic.shaderlab
+T 32 source.shaderlab
+T 33 source.shaderlab constant.numeric.shaderlab
+L         _Scale ("Scale", Float) = 1.5
+T 8 source.shaderlab
+T 16 source.shaderlab support.variable.declaration.shaderlab
+T 17 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab
+T 30 source.shaderlab support.type.basic.shaderlab
+T 34 source.shaderlab
+T 37 source.shaderlab constant.numeric.shaderlab
+L         _Offset ("Offset", Vector) = (0, 0, 0, 0)
+T 8 source.shaderlab
+T 17 source.shaderlab support.variable.declaration.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab
+T 33 source.shaderlab support.type.basic.shaderlab
+T 38 source.shaderlab
+T 39 source.shaderlab constant.numeric.shaderlab
+T 41 source.shaderlab
+T 42 source.shaderlab constant.numeric.shaderlab
+T 44 source.shaderlab
+T 45 source.shaderlab constant.numeric.shaderlab
+T 47 source.shaderlab
+T 48 source.shaderlab constant.numeric.shaderlab
+T 49 source.shaderlab
+L         _Volume ("Volume", 3D) = "" {}
+T 8 source.shaderlab
+T 17 source.shaderlab support.variable.declaration.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab
+T 29 source.shaderlab support.type.basic.shaderlab
+T 33 source.shaderlab
+T 34 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab
+L         _Sky ("Sky", Cube) = "" {}
+T 8 source.shaderlab
+T 14 source.shaderlab support.variable.declaration.shaderlab
+T 15 source.shaderlab string.quoted.double.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 19 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab
+T 25 source.shaderlab support.type.basic.shaderlab
+T 29 source.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 34 source.shaderlab
+L         _Any ("Any", Any) = "" {}
+T 8 source.shaderlab
+T 14 source.shaderlab support.variable.declaration.shaderlab
+T 15 source.shaderlab string.quoted.double.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 19 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab
+T 24 source.shaderlab support.type.basic.shaderlab
+T 28 source.shaderlab
+T 29 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab
+L         [NoScaleOffset] _BumpMap ("Normal", 2D) = "bump" {}
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 22 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 23 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab
+T 34 source.shaderlab support.variable.declaration.shaderlab
+T 35 source.shaderlab string.quoted.double.shaderlab
+T 41 source.shaderlab string.quoted.double.shaderlab
+T 42 source.shaderlab string.quoted.double.shaderlab
+T 44 source.shaderlab
+T 46 source.shaderlab support.type.basic.shaderlab
+T 50 source.shaderlab
+T 51 source.shaderlab string.quoted.double.shaderlab
+T 55 source.shaderlab string.quoted.double.shaderlab
+T 56 source.shaderlab string.quoted.double.shaderlab
+T 59 source.shaderlab
+L         [Toggle(_EMISSION)] _Emission ("Emission", Float) = 0
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 15 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 26 source.shaderlab meta.attribute.shaderlab
+T 27 source.shaderlab meta.attribute.shaderlab
+T 28 source.shaderlab
+T 39 source.shaderlab support.variable.declaration.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab
+T 56 source.shaderlab support.type.basic.shaderlab
+T 60 source.shaderlab
+T 61 source.shaderlab constant.numeric.shaderlab
+L         [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 2
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 13 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 45 source.shaderlab meta.attribute.shaderlab
+T 46 source.shaderlab meta.attribute.shaderlab
+T 47 source.shaderlab
+T 54 source.shaderlab support.variable.declaration.shaderlab
+T 55 source.shaderlab string.quoted.double.shaderlab
+T 59 source.shaderlab string.quoted.double.shaderlab
+T 60 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab
+T 67 source.shaderlab support.type.basic.shaderlab
+T 71 source.shaderlab
+T 72 source.shaderlab constant.numeric.shaderlab
+L         [PowerSlider(3.0)] _Shininess ("Shininess", Range(0.01, 1)) = 0.08
+T 8 source.shaderlab
+T 9 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 21 source.shaderlab meta.attribute.shaderlab
+T 24 source.shaderlab meta.attribute.shaderlab constant.numeric.shaderlab
+T 25 source.shaderlab meta.attribute.shaderlab
+T 26 source.shaderlab meta.attribute.shaderlab
+T 27 source.shaderlab
+T 39 source.shaderlab support.variable.declaration.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+T 52 source.shaderlab
+T 57 source.shaderlab support.type.basic.shaderlab
+T 58 source.shaderlab
+T 62 source.shaderlab constant.numeric.shaderlab
+T 64 source.shaderlab
+T 65 source.shaderlab constant.numeric.shaderlab
+T 70 source.shaderlab
+T 74 source.shaderlab constant.numeric.shaderlab
+L     }
+T 5 source.shaderlab
+L     Category
+T 4 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L     {
+T 5 source.shaderlab
+L         SubShader
+T 8 source.shaderlab
+T 17 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             Tags { "Queue"="Transparent" "RenderType"="Opaque" }
+T 12 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 19 source.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 26 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab
+T 28 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 41 source.shaderlab
+T 42 source.shaderlab string.quoted.double.shaderlab
+T 52 source.shaderlab string.quoted.double.shaderlab
+T 53 source.shaderlab string.quoted.double.shaderlab
+T 54 source.shaderlab
+T 55 source.shaderlab string.quoted.double.shaderlab
+T 61 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab string.quoted.double.shaderlab
+T 64 source.shaderlab
+L             LOD 200
+T 12 source.shaderlab
+T 15 source.shaderlab support.type.propertyname.shaderlab
+T 16 source.shaderlab
+T 19 source.shaderlab constant.numeric.shaderlab
+L             Name "MAIN"
+T 12 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+L             Cull [_Cull]
+T 12 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 24 source.shaderlab support.variable.reference.shaderlab
+L             ZWrite On
+T 12 source.shaderlab
+T 18 source.shaderlab support.type.propertyname.shaderlab
+T 19 source.shaderlab
+T 21 source.shaderlab support.constant.property-value.shaderlab
+L             ZTest LEqual
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+L             Offset -1, -1
+T 12 source.shaderlab
+T 18 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 21 source.shaderlab constant.numeric.shaderlab
+T 24 source.shaderlab
+T 25 source.shaderlab constant.numeric.shaderlab
+L             Blend SrcAlpha OneMinusSrcAlpha
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 26 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+T 27 source.shaderlab
+T 43 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+L             BlendOp Add
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 23 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+L             ColorMask RGB
+T 12 source.shaderlab
+T 21 source.shaderlab support.type.propertyname.shaderlab
+T 22 source.shaderlab
+T 25 source.shaderlab support.constant.property-value.shaderlab
+L             AlphaToMask Off
+T 12 source.shaderlab
+T 23 source.shaderlab support.type.propertyname.shaderlab
+T 24 source.shaderlab
+T 27 source.shaderlab support.constant.property-value.shaderlab
+L             Lighting Off
+T 12 source.shaderlab
+T 20 source.shaderlab support.type.propertyname.shaderlab
+T 21 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.shaderlab
+L             Fog { Mode Exp2 Density 0.5 Color (1, 1, 1, 1) }
+T 12 source.shaderlab
+T 15 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 22 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 27 source.shaderlab support.constant.property-value.fog.shaderlab
+T 28 source.shaderlab
+T 35 source.shaderlab support.type.propertyname.shaderlab
+T 36 source.shaderlab
+T 39 source.shaderlab constant.numeric.shaderlab
+T 40 source.shaderlab
+T 45 source.shaderlab support.type.basic.shaderlab
+T 47 source.shaderlab
+T 48 source.shaderlab constant.numeric.shaderlab
+T 50 source.shaderlab
+T 51 source.shaderlab constant.numeric.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab constant.numeric.shaderlab
+T 56 source.shaderlab
+T 57 source.shaderlab constant.numeric.shaderlab
+T 60 source.shaderlab
+L             Stencil
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+L             {
+T 13 source.shaderlab
+L                 Ref 2 ReadMask 255 WriteMask 255
+T 16 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 21 source.shaderlab constant.numeric.shaderlab
+T 22 source.shaderlab
+T 30 source.shaderlab support.type.propertyname.shaderlab
+T 31 source.shaderlab
+T 34 source.shaderlab constant.numeric.shaderlab
+T 35 source.shaderlab
+T 44 source.shaderlab support.type.propertyname.shaderlab
+T 45 source.shaderlab
+T 48 source.shaderlab constant.numeric.shaderlab
+L                 Comp Always CompBack Less CompFront Greater
+T 16 source.shaderlab
+T 20 source.shaderlab support.type.propertyname.shaderlab
+T 21 source.shaderlab
+T 27 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 28 source.shaderlab
+T 36 source.shaderlab support.type.propertyname.shaderlab
+T 37 source.shaderlab
+T 41 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 42 source.shaderlab
+T 51 source.shaderlab support.type.propertyname.shaderlab
+T 52 source.shaderlab
+T 59 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+L                 Pass Replace Fail Keep ZFail IncrSat
+T 16 source.shaderlab
+T 20 source.shaderlab storage.type.structure.shaderlab
+T 21 source.shaderlab
+T 28 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 29 source.shaderlab
+T 33 source.shaderlab support.type.propertyname.shaderlab
+T 34 source.shaderlab
+T 38 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 39 source.shaderlab
+T 44 source.shaderlab support.type.propertyname.shaderlab
+T 45 source.shaderlab
+T 52 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+L             }
+T 13 source.shaderlab
+L             Material { Diffuse [_Color] Ambient (1, 1, 1, 1) Shininess 0.7 Specular (1, 1, 1, 1) Emission (0, 0, 0, 0) }
+T 12 source.shaderlab
+T 20 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 30 source.shaderlab support.type.propertyname.shaderlab
+T 31 source.shaderlab
+T 39 source.shaderlab support.variable.reference.shaderlab
+T 40 source.shaderlab
+T 47 source.shaderlab support.type.propertyname.shaderlab
+T 49 source.shaderlab
+T 50 source.shaderlab constant.numeric.shaderlab
+T 52 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+T 55 source.shaderlab
+T 56 source.shaderlab constant.numeric.shaderlab
+T 58 source.shaderlab
+T 59 source.shaderlab constant.numeric.shaderlab
+T 61 source.shaderlab
+T 70 source.shaderlab support.type.propertyname.shaderlab
+T 71 source.shaderlab
+T 74 source.shaderlab constant.numeric.shaderlab
+T 75 source.shaderlab
+T 83 source.shaderlab support.type.propertyname.shaderlab
+T 85 source.shaderlab
+T 86 source.shaderlab constant.numeric.shaderlab
+T 88 source.shaderlab
+T 89 source.shaderlab constant.numeric.shaderlab
+T 91 source.shaderlab
+T 92 source.shaderlab constant.numeric.shaderlab
+T 94 source.shaderlab
+T 95 source.shaderlab constant.numeric.shaderlab
+T 97 source.shaderlab
+T 105 source.shaderlab support.type.propertyname.shaderlab
+T 107 source.shaderlab
+T 108 source.shaderlab constant.numeric.shaderlab
+T 110 source.shaderlab
+T 111 source.shaderlab constant.numeric.shaderlab
+T 113 source.shaderlab
+T 114 source.shaderlab constant.numeric.shaderlab
+T 116 source.shaderlab
+T 117 source.shaderlab constant.numeric.shaderlab
+T 120 source.shaderlab
+L             SeparateSpecular On
+T 12 source.shaderlab
+T 28 source.shaderlab support.type.propertyname.shaderlab
+T 29 source.shaderlab
+T 31 source.shaderlab support.constant.property-value.shaderlab
+L             SetTexture [_MainTex] { ConstantColor (1, 1, 1, 1) Combine texture * primary double, texture Quad }
+T 12 source.shaderlab
+T 22 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 33 source.shaderlab support.variable.reference.shaderlab
+T 36 source.shaderlab
+T 49 source.shaderlab support.type.propertyname.shaderlab
+T 51 source.shaderlab
+T 52 source.shaderlab constant.numeric.shaderlab
+T 54 source.shaderlab
+T 55 source.shaderlab constant.numeric.shaderlab
+T 57 source.shaderlab
+T 58 source.shaderlab constant.numeric.shaderlab
+T 60 source.shaderlab
+T 61 source.shaderlab constant.numeric.shaderlab
+T 63 source.shaderlab
+T 70 source.shaderlab support.type.propertyname.shaderlab
+T 71 source.shaderlab
+T 78 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 81 source.shaderlab
+T 88 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 89 source.shaderlab
+T 95 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 97 source.shaderlab
+T 104 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 105 source.shaderlab
+T 109 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 111 source.shaderlab
+L             SetTexture [_BumpMap] { Combine previous * constant, previous Alpha }
+T 12 source.shaderlab
+T 22 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 33 source.shaderlab support.variable.reference.shaderlab
+T 36 source.shaderlab
+T 43 source.shaderlab support.type.propertyname.shaderlab
+T 44 source.shaderlab
+T 52 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 55 source.shaderlab
+T 63 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 65 source.shaderlab
+T 73 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 74 source.shaderlab
+T 79 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 81 source.shaderlab
+L             AlphaTest Greater 0.5
+T 12 source.shaderlab
+T 21 source.shaderlab support.type.propertyname.shaderlab
+T 22 source.shaderlab
+T 29 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 30 source.shaderlab
+T 33 source.shaderlab constant.numeric.shaderlab
+L             ColorMaterial AmbientAndDiffuse
+T 12 source.shaderlab
+T 25 source.shaderlab support.type.propertyname.shaderlab
+T 26 source.shaderlab
+T 43 source.shaderlab support.constant.property-value.shaderlab
+L             BindChannels { Bind "Vertex", vertex Bind "Normal", normal Bind "TexCoord0", texcoord0 Bind "TexCoord1", texcoord1 Bind "Tangent", tangent }
+T 12 source.shaderlab
+T 24 source.shaderlab support.type.propertyname.shaderlab
+T 27 source.shaderlab
+T 31 source.shaderlab support.type.propertyname.shaderlab
+T 32 source.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab string.quoted.double.shaderlab
+T 40 source.shaderlab string.quoted.double.shaderlab
+T 42 source.shaderlab
+T 48 source.shaderlab support.constant.property-value.bindchannels.shaderlab
+T 49 source.shaderlab
+T 53 source.shaderlab support.type.propertyname.shaderlab
+T 54 source.shaderlab
+T 55 source.shaderlab string.quoted.double.shaderlab
+T 61 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab string.quoted.double.shaderlab
+T 64 source.shaderlab
+T 70 source.shaderlab support.constant.property-value.bindchannels.shaderlab
+T 71 source.shaderlab
+T 75 source.shaderlab support.type.propertyname.shaderlab
+T 76 source.shaderlab
+T 77 source.shaderlab string.quoted.double.shaderlab
+T 86 source.shaderlab string.quoted.double.shaderlab
+T 87 source.shaderlab string.quoted.double.shaderlab
+T 89 source.shaderlab
+T 98 source.shaderlab support.constant.property-value.bindchannels.shaderlab
+T 99 source.shaderlab
+T 103 source.shaderlab support.type.propertyname.shaderlab
+T 104 source.shaderlab
+T 105 source.shaderlab string.quoted.double.shaderlab
+T 114 source.shaderlab string.quoted.double.shaderlab
+T 115 source.shaderlab string.quoted.double.shaderlab
+T 117 source.shaderlab
+T 126 source.shaderlab support.constant.property-value.bindchannels.shaderlab
+T 127 source.shaderlab
+T 131 source.shaderlab support.type.propertyname.shaderlab
+T 132 source.shaderlab
+T 133 source.shaderlab string.quoted.double.shaderlab
+T 140 source.shaderlab string.quoted.double.shaderlab
+T 141 source.shaderlab string.quoted.double.shaderlab
+T 143 source.shaderlab
+T 150 source.shaderlab support.constant.property-value.bindchannels.shaderlab
+T 152 source.shaderlab
+L             Fog { Mode Global } Fog { Mode Linear } Fog { Mode Exp }
+T 12 source.shaderlab
+T 15 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 22 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 29 source.shaderlab support.constant.property-value.fog.shaderlab
+T 32 source.shaderlab
+T 35 source.shaderlab support.type.propertyname.shaderlab
+T 38 source.shaderlab
+T 42 source.shaderlab support.type.propertyname.shaderlab
+T 43 source.shaderlab
+T 49 source.shaderlab support.constant.property-value.fog.shaderlab
+T 52 source.shaderlab
+T 55 source.shaderlab support.type.propertyname.shaderlab
+T 58 source.shaderlab
+T 62 source.shaderlab support.type.propertyname.shaderlab
+T 63 source.shaderlab
+T 66 source.shaderlab support.constant.property-value.fog.shaderlab
+T 68 source.shaderlab
+L             Blend One Zero, DstColor DstAlpha
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 21 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+T 22 source.shaderlab
+T 26 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 28 source.shaderlab
+T 36 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+T 37 source.shaderlab
+T 45 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+L             Blend OneMinusSrcColor SrcColor, OneMinusDstColor OneMinusDstAlpha
+T 12 source.shaderlab
+T 17 source.shaderlab support.type.propertyname.shaderlab
+T 18 source.shaderlab
+T 34 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+T 35 source.shaderlab
+T 43 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+T 45 source.shaderlab
+T 61 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+T 62 source.shaderlab
+T 78 source.shaderlab support.constant.property-value.blendfactors.shaderlab
+L             BlendOp Sub, RevSub BlendOp Min BlendOp Max BlendOp LogicalClear
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 23 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 25 source.shaderlab
+T 31 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 32 source.shaderlab
+T 39 source.shaderlab support.type.propertyname.shaderlab
+T 40 source.shaderlab
+T 43 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 44 source.shaderlab
+T 51 source.shaderlab support.type.propertyname.shaderlab
+T 52 source.shaderlab
+T 55 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 56 source.shaderlab
+T 63 source.shaderlab support.type.propertyname.shaderlab
+T 64 source.shaderlab
+T 76 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+L             BlendOp LogicalSet BlendOp LogicalCopyInverted BlendOp LogicalCopy BlendOp LogicalNoop
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 30 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 31 source.shaderlab
+T 38 source.shaderlab support.type.propertyname.shaderlab
+T 39 source.shaderlab
+T 58 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 59 source.shaderlab
+T 66 source.shaderlab support.type.propertyname.shaderlab
+T 67 source.shaderlab
+T 78 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 79 source.shaderlab
+T 86 source.shaderlab support.type.propertyname.shaderlab
+T 87 source.shaderlab
+T 98 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+L             BlendOp LogicalInvert BlendOp LogicalAnd BlendOp LogicalNand BlendOp LogicalOr BlendOp LogicalNor
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 33 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 34 source.shaderlab
+T 41 source.shaderlab support.type.propertyname.shaderlab
+T 42 source.shaderlab
+T 52 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 53 source.shaderlab
+T 60 source.shaderlab support.type.propertyname.shaderlab
+T 61 source.shaderlab
+T 72 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 73 source.shaderlab
+T 80 source.shaderlab support.type.propertyname.shaderlab
+T 81 source.shaderlab
+T 90 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 91 source.shaderlab
+T 98 source.shaderlab support.type.propertyname.shaderlab
+T 99 source.shaderlab
+T 109 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+L             BlendOp LogicalXor BlendOp LogicalEquiv BlendOp LogicalAndReverse BlendOp LogicalAndInverted
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 30 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 31 source.shaderlab
+T 38 source.shaderlab support.type.propertyname.shaderlab
+T 39 source.shaderlab
+T 51 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 52 source.shaderlab
+T 59 source.shaderlab support.type.propertyname.shaderlab
+T 60 source.shaderlab
+T 77 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 78 source.shaderlab
+T 85 source.shaderlab support.type.propertyname.shaderlab
+T 86 source.shaderlab
+T 104 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+L             BlendOp LogicalOrReverse BlendOp LogicalOrInverted
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 36 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+T 37 source.shaderlab
+T 44 source.shaderlab support.type.propertyname.shaderlab
+T 45 source.shaderlab
+T 62 source.shaderlab support.constant.property-value.blendoperations.shaderlab
+L             Comp GEqual Comp Equal Comp NotEqual Comp Never Pass Zero Pass DecrSat Pass Invert Pass IncrWrap Pass DecrWrap
+T 12 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 23 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 24 source.shaderlab
+T 28 source.shaderlab support.type.propertyname.shaderlab
+T 29 source.shaderlab
+T 34 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 35 source.shaderlab
+T 39 source.shaderlab support.type.propertyname.shaderlab
+T 40 source.shaderlab
+T 48 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 49 source.shaderlab
+T 53 source.shaderlab support.type.propertyname.shaderlab
+T 54 source.shaderlab
+T 59 source.shaderlab support.constant.property-value.comparisonfunction.shaderlab
+T 60 source.shaderlab
+T 64 source.shaderlab storage.type.structure.shaderlab
+T 65 source.shaderlab
+T 69 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 70 source.shaderlab
+T 74 source.shaderlab storage.type.structure.shaderlab
+T 75 source.shaderlab
+T 82 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 83 source.shaderlab
+T 87 source.shaderlab storage.type.structure.shaderlab
+T 88 source.shaderlab
+T 94 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 95 source.shaderlab
+T 99 source.shaderlab storage.type.structure.shaderlab
+T 100 source.shaderlab
+T 108 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+T 109 source.shaderlab
+T 113 source.shaderlab storage.type.structure.shaderlab
+T 114 source.shaderlab
+T 122 source.shaderlab support.constant.property-value.stenciloperation.shaderlab
+L             Combine Lerp(texture) previous
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 24 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 25 source.shaderlab
+T 32 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+T 34 source.shaderlab
+T 42 source.shaderlab support.constant.property-value.texturecombiners.shaderlab
+L             Cull Back Cull Front ColorMask A ColorMask BGR
+T 12 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 21 source.shaderlab support.constant.property-value.shaderlab
+T 22 source.shaderlab
+T 26 source.shaderlab support.type.propertyname.shaderlab
+T 27 source.shaderlab
+T 32 source.shaderlab support.constant.property-value.shaderlab
+T 33 source.shaderlab
+T 42 source.shaderlab support.type.propertyname.shaderlab
+T 43 source.shaderlab
+T 44 source.shaderlab support.constant.property-value.shaderlab
+T 45 source.shaderlab
+T 54 source.shaderlab support.type.propertyname.shaderlab
+T 55 source.shaderlab
+T 58 source.shaderlab support.constant.property-value.shaderlab
+L             UsePass "Specular/FORWARD"
+T 12 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+L             GrabPass { "_GrabTexture" }
+T 12 source.shaderlab
+T 20 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 36 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 39 source.shaderlab
+L             Dependency "BaseMapShader" = "Diffuse"
+T 12 source.shaderlab
+T 22 source.shaderlab support.type.propertyname.shaderlab
+T 23 source.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 37 source.shaderlab string.quoted.double.shaderlab
+T 38 source.shaderlab string.quoted.double.shaderlab
+T 41 source.shaderlab
+T 42 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+L             Matrix [_Matrix]
+T 12 source.shaderlab
+T 18 source.shaderlab support.type.propertyname.shaderlab
+T 19 source.shaderlab
+T 28 source.shaderlab support.variable.reference.shaderlab
+L 
+L             CGPROGRAM
+T 12 source.shaderlab
+T 21 source.shaderlab meta.cgblock keyword.other
+L             #pragma vertex vert
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 31 source.shaderlab meta.cgblock
+L             #pragma fragment frag
+T 19 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 33 source.shaderlab meta.cgblock
+L             #include "UnityCG.cginc"
+T 20 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 21 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 35 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 36 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L 
+L             struct v2f { float4 pos : SV_POSITION; fixed4 color : COLOR; fixed2x2 m; };
+T 12 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 25 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 38 source.shaderlab meta.cgblock
+T 49 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 51 source.shaderlab meta.cgblock
+T 57 source.shaderlab meta.cgblock storage.type.basic.shaderlab
+T 66 source.shaderlab meta.cgblock
+T 71 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 73 source.shaderlab meta.cgblock
+T 81 source.shaderlab meta.cgblock storage.type.basic.shaderlab
+T 87 source.shaderlab meta.cgblock
+L 
+L             v2f vert (appdata_base v)
+T 16 source.shaderlab meta.cgblock
+T 20 source.shaderlab meta.cgblock support.function.hlsl
+T 22 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock support.class.structures.shaderlab
+T 37 source.shaderlab meta.cgblock
+L             {
+T 13 source.shaderlab meta.cgblock
+L                 v2f o;
+T 22 source.shaderlab meta.cgblock
+L                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+T 24 source.shaderlab meta.cgblock
+T 27 source.shaderlab meta.cgblock support.function.hlsl
+T 28 source.shaderlab meta.cgblock
+T 44 source.shaderlab meta.cgblock support.variable.transformations.shaderlab
+T 56 source.shaderlab meta.cgblock
+L                 float3 world = mul(unity_ObjectToWorld, v.vertex).xyz;
+T 16 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 31 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock support.function.hlsl
+T 35 source.shaderlab meta.cgblock
+T 54 source.shaderlab meta.cgblock support.variable.transformations.shaderlab
+T 70 source.shaderlab meta.cgblock
+L                 float3 cam = _WorldSpaceCameraPos + _ProjectionParams.xyz;
+T 16 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 29 source.shaderlab meta.cgblock
+T 49 source.shaderlab meta.cgblock support.variable.camera.shaderlab
+T 52 source.shaderlab meta.cgblock
+T 69 source.shaderlab meta.cgblock support.variable.camera.shaderlab
+T 74 source.shaderlab meta.cgblock
+L                 float t = _Time.y + _SinTime.x + unity_DeltaTime.z;
+T 16 source.shaderlab meta.cgblock
+T 21 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 26 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock support.variable.time.shaderlab
+T 36 source.shaderlab meta.cgblock
+T 44 source.shaderlab meta.cgblock support.variable.time.shaderlab
+T 49 source.shaderlab meta.cgblock
+T 64 source.shaderlab meta.cgblock support.variable.time.shaderlab
+T 67 source.shaderlab meta.cgblock
+L                 float3 l = _WorldSpaceLightPos0.xyz * _LightColor0.rgb;
+T 16 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 27 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock support.variable.lighting.shaderlab
+T 54 source.shaderlab meta.cgblock
+T 66 source.shaderlab meta.cgblock support.variable.lighting.shaderlab
+T 71 source.shaderlab meta.cgblock
+L                 float3 a = unity_AmbientSky.rgb + unity_FogColor.rgb;
+T 16 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 27 source.shaderlab meta.cgblock
+T 43 source.shaderlab meta.cgblock support.variable.fog.shaderlab
+T 50 source.shaderlab meta.cgblock
+T 64 source.shaderlab meta.cgblock support.variable.fog.shaderlab
+T 69 source.shaderlab meta.cgblock
+L                 float f = unity_LODFade.x;
+T 16 source.shaderlab meta.cgblock
+T 21 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 26 source.shaderlab meta.cgblock
+T 39 source.shaderlab meta.cgblock support.variable.various.shaderlab
+T 42 source.shaderlab meta.cgblock
+L                 o.color = fixed4(1, 1, 1, 1); fixed3 c = 0; fixed f1;
+T 26 source.shaderlab meta.cgblock
+T 32 source.shaderlab meta.cgblock support.function.hlsl
+T 33 source.shaderlab meta.cgblock
+T 34 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 36 source.shaderlab meta.cgblock
+T 37 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 39 source.shaderlab meta.cgblock
+T 40 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 42 source.shaderlab meta.cgblock
+T 43 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 46 source.shaderlab meta.cgblock
+T 52 source.shaderlab meta.cgblock storage.type.basic.shaderlab
+T 57 source.shaderlab meta.cgblock
+T 58 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 60 source.shaderlab meta.cgblock
+T 65 source.shaderlab meta.cgblock storage.type.basic.shaderlab
+T 69 source.shaderlab meta.cgblock
+L                 return o;
+T 16 source.shaderlab meta.cgblock
+T 22 source.shaderlab meta.cgblock keyword.control.hlsl
+T 25 source.shaderlab meta.cgblock
+L             }
+T 13 source.shaderlab meta.cgblock
+L 
+L             #if defined(SHADER_API_D3D11) || defined(SHADER_API_GLES3)
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 16 source.shaderlab meta.cgblock
+T 23 source.shaderlab meta.cgblock support.function.hlsl
+T 24 source.shaderlab meta.cgblock
+T 40 source.shaderlab meta.cgblock support.variable.preprocessor.targetplatform.shaderlab
+T 45 source.shaderlab meta.cgblock
+T 52 source.shaderlab meta.cgblock support.function.hlsl
+T 53 source.shaderlab meta.cgblock
+T 69 source.shaderlab meta.cgblock support.variable.preprocessor.targetplatform.shaderlab
+T 70 source.shaderlab meta.cgblock
+L             #if SHADER_TARGET >= 30 && UNITY_VERSION >= 560
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 16 source.shaderlab meta.cgblock
+T 29 source.shaderlab meta.cgblock support.variable.preprocessor.targetmodel.shaderlab
+T 33 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 39 source.shaderlab meta.cgblock
+T 52 source.shaderlab meta.cgblock support.variable.preprocessor.unityversion.shaderlab
+T 56 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L             #ifdef UNITY_UV_STARTS_AT_TOP
+T 18 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 19 source.shaderlab meta.cgblock
+T 41 source.shaderlab meta.cgblock support.variable.preprocessor.platformdifference.shaderlab
+L             #ifdef UNITY_PASS_FORWARDBASE
+T 18 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 19 source.shaderlab meta.cgblock
+T 41 source.shaderlab meta.cgblock support.variable.preprocessor.texture2D.shaderlab
+L             #endif
+T 18 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+L             /* a comment with ENDCG inside */
+T 12 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock comment.line.block.hlsl
+T 43 source.shaderlab meta.cgblock comment.line.block.hlsl
+T 45 source.shaderlab meta.cgblock comment.line.block.hlsl
+L             appdata_full full; appdata_tan tan; appdata_img img;
+T 12 source.shaderlab meta.cgblock
+T 24 source.shaderlab meta.cgblock support.class.structures.shaderlab
+T 31 source.shaderlab meta.cgblock
+T 42 source.shaderlab meta.cgblock support.class.structures.shaderlab
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.class.structures.shaderlab
+T 64 source.shaderlab meta.cgblock
+L             ENDCG
+T 12 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock keyword.other
+L         }
+T 9 source.shaderlab
+L 
+L         Pass
+T 8 source.shaderlab
+T 12 source.shaderlab storage.type.structure.shaderlab
+L         {
+T 9 source.shaderlab
+L             HLSLPROGRAM
+T 12 source.shaderlab
+T 23 source.shaderlab meta.hlslblock keyword.other
+L             struct Input { float2 uv_MainTex; };
+T 12 source.shaderlab meta.hlslblock
+T 18 source.shaderlab meta.hlslblock storage.type.structured.hlsl
+T 19 source.shaderlab meta.hlslblock
+T 24 source.shaderlab meta.hlslblock support.class.surface.shaderlab
+T 27 source.shaderlab meta.hlslblock
+T 33 source.shaderlab meta.hlslblock storage.type.basic.hlsl
+T 48 source.shaderlab meta.hlslblock
+L             void surf (Input IN, inout SurfaceOutputStandard o) { SurfaceOutput s; SurfaceOutputStandardSpecular ss; }
+T 12 source.shaderlab meta.hlslblock
+T 16 source.shaderlab meta.hlslblock storage.type.basic.hlsl
+T 17 source.shaderlab meta.hlslblock
+T 21 source.shaderlab meta.hlslblock support.function.hlsl
+T 23 source.shaderlab meta.hlslblock
+T 28 source.shaderlab meta.hlslblock support.class.surface.shaderlab
+T 33 source.shaderlab meta.hlslblock
+T 38 source.shaderlab meta.hlslblock storage.modifier.hlsl
+T 39 source.shaderlab meta.hlslblock
+T 60 source.shaderlab meta.hlslblock support.class.surface.shaderlab
+T 66 source.shaderlab meta.hlslblock
+T 79 source.shaderlab meta.hlslblock support.class.surface.shaderlab
+T 83 source.shaderlab meta.hlslblock
+T 112 source.shaderlab meta.hlslblock support.class.surface.shaderlab
+T 118 source.shaderlab meta.hlslblock
+L             float4 frag () : SV_Target { return 0; } ENDHLSL
+T 12 source.shaderlab meta.hlslblock
+T 18 source.shaderlab meta.hlslblock storage.type.basic.hlsl
+T 19 source.shaderlab meta.hlslblock
+T 23 source.shaderlab meta.hlslblock support.function.hlsl
+T 29 source.shaderlab meta.hlslblock
+T 38 source.shaderlab meta.hlslblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.hlslblock
+T 47 source.shaderlab meta.hlslblock keyword.control.hlsl
+T 48 source.shaderlab meta.hlslblock
+T 49 source.shaderlab meta.hlslblock constant.numeric.decimal.hlsl
+T 53 source.shaderlab meta.hlslblock
+T 60 source.shaderlab meta.hlslblock keyword.other
+L         }
+T 9 source.shaderlab
+L         CGINCLUDE
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         float shared;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 20 source.shaderlab meta.cgblock storage.modifier.hlsl
+T 21 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L         HLSLINCLUDE
+T 8 source.shaderlab
+T 19 source.shaderlab meta.hlslblock keyword.other
+L         float other;
+T 8 source.shaderlab meta.hlslblock
+T 13 source.shaderlab meta.hlslblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.hlslblock
+L         ENDHLSL
+T 8 source.shaderlab meta.hlslblock
+T 15 source.shaderlab meta.hlslblock keyword.other
+L     }
+T 5 source.shaderlab
+L     Fallback "Diffuse"
+T 4 source.shaderlab
+T 12 source.shaderlab support.type.propertyname.shaderlab
+T 13 source.shaderlab
+T 14 source.shaderlab string.quoted.double.shaderlab
+T 21 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+L     CustomEditor "MyEditor"
+T 4 source.shaderlab
+T 16 source.shaderlab support.type.propertyname.shaderlab
+T 17 source.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 26 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab string.quoted.double.shaderlab
+L }
+T 1 source.shaderlab
+L 

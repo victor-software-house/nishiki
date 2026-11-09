@@ -8,6 +8,7 @@
 # such as `EXITT`, and src/php/scope.rs its scope names, which spell `repitition`.
 # src/asm/scope.rs and src/asm/words.rs are generated from the asm grammar,
 # whose scope names spell `supplimental`.
+# src/shaderlab/words.rs spells out ColorMask's `[ABGR]{1,3}`, such as `ba`.
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
 extend-exclude = [
@@ -32,6 +33,7 @@ extend-exclude = [
   "src/php/grammar.rs",
   "src/php/scope.rs",
   "src/php/words.rs",
+  "src/shaderlab/words.rs",
   "src/svelte/grammar.rs",
 ]
 

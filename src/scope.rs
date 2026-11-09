@@ -184,6 +184,8 @@ tables! {
     SCALA = scala;
     #[cfg(feature = "lang-scss")]
     SCSS = scss;
+    #[cfg(feature = "lang-shaderlab")]
+    SHADERLAB = shaderlab;
     #[cfg(feature = "lang-shell")]
     SHELL = shell;
     #[cfg(feature = "lang-sql")]

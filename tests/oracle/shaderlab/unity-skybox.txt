@@ -1,0 +1,648 @@
+L // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
+T 2 source.shaderlab comment.line.double-slash.shaderlab
+T 101 source.shaderlab comment.line.double-slash.shaderlab
+L 
+L Shader "Skybox/6 Sided" {
+T 6 source.shaderlab storage.type.structure.shaderlab
+T 7 source.shaderlab
+T 8 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab
+L Properties {
+T 10 source.shaderlab storage.type.structure.shaderlab
+T 12 source.shaderlab
+L     _Tint ("Tint Color", Color) = (.5, .5, .5, .5)
+T 4 source.shaderlab
+T 11 source.shaderlab support.variable.declaration.shaderlab
+T 12 source.shaderlab string.quoted.double.shaderlab
+T 22 source.shaderlab string.quoted.double.shaderlab
+T 23 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab
+T 30 source.shaderlab support.type.basic.shaderlab
+T 36 source.shaderlab
+T 37 source.shaderlab constant.numeric.shaderlab
+T 40 source.shaderlab
+T 41 source.shaderlab constant.numeric.shaderlab
+T 44 source.shaderlab
+T 45 source.shaderlab constant.numeric.shaderlab
+T 48 source.shaderlab
+T 49 source.shaderlab constant.numeric.shaderlab
+T 50 source.shaderlab
+L     [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 10 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 11 source.shaderlab meta.attribute.shaderlab
+T 12 source.shaderlab
+T 23 source.shaderlab support.variable.declaration.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 35 source.shaderlab
+T 40 source.shaderlab support.type.basic.shaderlab
+T 41 source.shaderlab
+T 42 source.shaderlab constant.numeric.shaderlab
+T 44 source.shaderlab
+T 45 source.shaderlab constant.numeric.shaderlab
+T 50 source.shaderlab
+T 53 source.shaderlab constant.numeric.shaderlab
+L     _Rotation ("Rotation", Range(0, 360)) = 0
+T 4 source.shaderlab
+T 15 source.shaderlab support.variable.declaration.shaderlab
+T 16 source.shaderlab string.quoted.double.shaderlab
+T 24 source.shaderlab string.quoted.double.shaderlab
+T 25 source.shaderlab string.quoted.double.shaderlab
+T 27 source.shaderlab
+T 32 source.shaderlab support.type.basic.shaderlab
+T 33 source.shaderlab
+T 34 source.shaderlab constant.numeric.shaderlab
+T 36 source.shaderlab
+T 39 source.shaderlab constant.numeric.shaderlab
+T 44 source.shaderlab
+T 45 source.shaderlab constant.numeric.shaderlab
+L     [NoScaleOffset] _FrontTex ("Front [+Z]   (HDR)", 2D) = "grey" {}
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 18 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 19 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab
+T 31 source.shaderlab support.variable.declaration.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab string.quoted.double.shaderlab
+T 53 source.shaderlab
+T 55 source.shaderlab support.type.basic.shaderlab
+T 59 source.shaderlab
+T 60 source.shaderlab string.quoted.double.shaderlab
+T 64 source.shaderlab string.quoted.double.shaderlab
+T 65 source.shaderlab string.quoted.double.shaderlab
+T 68 source.shaderlab
+L     [NoScaleOffset] _BackTex ("Back [-Z]   (HDR)", 2D) = "grey" {}
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 18 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 19 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab
+T 30 source.shaderlab support.variable.declaration.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab
+T 53 source.shaderlab support.type.basic.shaderlab
+T 57 source.shaderlab
+T 58 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab string.quoted.double.shaderlab
+T 63 source.shaderlab string.quoted.double.shaderlab
+T 66 source.shaderlab
+L     [NoScaleOffset] _LeftTex ("Left [+X]   (HDR)", 2D) = "grey" {}
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 18 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 19 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab
+T 30 source.shaderlab support.variable.declaration.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab
+T 53 source.shaderlab support.type.basic.shaderlab
+T 57 source.shaderlab
+T 58 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab string.quoted.double.shaderlab
+T 63 source.shaderlab string.quoted.double.shaderlab
+T 66 source.shaderlab
+L     [NoScaleOffset] _RightTex ("Right [-X]   (HDR)", 2D) = "grey" {}
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 18 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 19 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab
+T 31 source.shaderlab support.variable.declaration.shaderlab
+T 32 source.shaderlab string.quoted.double.shaderlab
+T 50 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab string.quoted.double.shaderlab
+T 53 source.shaderlab
+T 55 source.shaderlab support.type.basic.shaderlab
+T 59 source.shaderlab
+T 60 source.shaderlab string.quoted.double.shaderlab
+T 64 source.shaderlab string.quoted.double.shaderlab
+T 65 source.shaderlab string.quoted.double.shaderlab
+T 68 source.shaderlab
+L     [NoScaleOffset] _UpTex ("Up [+Y]   (HDR)", 2D) = "grey" {}
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 18 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 19 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab
+T 28 source.shaderlab support.variable.declaration.shaderlab
+T 29 source.shaderlab string.quoted.double.shaderlab
+T 44 source.shaderlab string.quoted.double.shaderlab
+T 45 source.shaderlab string.quoted.double.shaderlab
+T 47 source.shaderlab
+T 49 source.shaderlab support.type.basic.shaderlab
+T 53 source.shaderlab
+T 54 source.shaderlab string.quoted.double.shaderlab
+T 58 source.shaderlab string.quoted.double.shaderlab
+T 59 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab
+L     [NoScaleOffset] _DownTex ("Down [-Y]   (HDR)", 2D) = "grey" {}
+T 4 source.shaderlab
+T 5 source.shaderlab meta.attribute.shaderlab
+T 18 source.shaderlab meta.attribute.shaderlab support.type.attributename.shaderlab
+T 19 source.shaderlab meta.attribute.shaderlab
+T 20 source.shaderlab
+T 30 source.shaderlab support.variable.declaration.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 48 source.shaderlab string.quoted.double.shaderlab
+T 49 source.shaderlab string.quoted.double.shaderlab
+T 51 source.shaderlab
+T 53 source.shaderlab support.type.basic.shaderlab
+T 57 source.shaderlab
+T 58 source.shaderlab string.quoted.double.shaderlab
+T 62 source.shaderlab string.quoted.double.shaderlab
+T 63 source.shaderlab string.quoted.double.shaderlab
+T 66 source.shaderlab
+L }
+T 1 source.shaderlab
+L 
+L SubShader {
+T 9 source.shaderlab storage.type.structure.shaderlab
+T 11 source.shaderlab
+L     Tags { "Queue"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
+T 4 source.shaderlab
+T 8 source.shaderlab support.type.propertyname.shaderlab
+T 11 source.shaderlab
+T 12 source.shaderlab string.quoted.double.shaderlab
+T 17 source.shaderlab string.quoted.double.shaderlab
+T 18 source.shaderlab string.quoted.double.shaderlab
+T 19 source.shaderlab
+T 20 source.shaderlab string.quoted.double.shaderlab
+T 30 source.shaderlab string.quoted.double.shaderlab
+T 31 source.shaderlab string.quoted.double.shaderlab
+T 32 source.shaderlab
+T 33 source.shaderlab string.quoted.double.shaderlab
+T 43 source.shaderlab string.quoted.double.shaderlab
+T 44 source.shaderlab string.quoted.double.shaderlab
+T 45 source.shaderlab
+T 46 source.shaderlab string.quoted.double.shaderlab
+T 56 source.shaderlab string.quoted.double.shaderlab
+T 57 source.shaderlab string.quoted.double.shaderlab
+T 58 source.shaderlab
+T 59 source.shaderlab string.quoted.double.shaderlab
+T 70 source.shaderlab string.quoted.double.shaderlab
+T 71 source.shaderlab string.quoted.double.shaderlab
+T 72 source.shaderlab
+T 73 source.shaderlab string.quoted.double.shaderlab
+T 79 source.shaderlab string.quoted.double.shaderlab
+T 80 source.shaderlab string.quoted.double.shaderlab
+T 82 source.shaderlab
+L     Cull Off ZWrite Off
+T 4 source.shaderlab
+T 8 source.shaderlab support.type.propertyname.shaderlab
+T 9 source.shaderlab
+T 12 source.shaderlab support.constant.property-value.shaderlab
+T 13 source.shaderlab
+T 19 source.shaderlab support.type.propertyname.shaderlab
+T 20 source.shaderlab
+T 23 source.shaderlab support.constant.property-value.shaderlab
+L 
+L     CGINCLUDE
+T 4 source.shaderlab
+T 13 source.shaderlab meta.cgblock keyword.other
+L     #include "UnityCG.cginc"
+T 12 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 13 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 27 source.shaderlab meta.cgblock string.quoted.double.hlsl
+T 28 source.shaderlab meta.cgblock string.quoted.double.hlsl
+L 
+L     half4 _Tint;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 16 source.shaderlab meta.cgblock
+L     half _Exposure;
+T 4 source.shaderlab meta.cgblock
+T 8 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 19 source.shaderlab meta.cgblock
+L     float _Rotation;
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+L 
+L     float3 RotateAroundYInDegrees (float3 vertex, float degrees)
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 11 source.shaderlab meta.cgblock
+T 33 source.shaderlab meta.cgblock support.function.hlsl
+T 35 source.shaderlab meta.cgblock
+T 41 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 50 source.shaderlab meta.cgblock
+T 55 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 64 source.shaderlab meta.cgblock
+L     {
+T 5 source.shaderlab meta.cgblock
+L         float alpha = degrees * UNITY_PI / 180.0;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 43 source.shaderlab meta.cgblock
+T 48 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 49 source.shaderlab meta.cgblock
+L         float sina, cosa;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 25 source.shaderlab meta.cgblock
+L         sincos(alpha, sina, cosa);
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock support.function.hlsl
+T 34 source.shaderlab meta.cgblock
+L         float2x2 m = float2x2(cosa, -sina, sina, cosa);
+T 8 source.shaderlab meta.cgblock
+T 16 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 21 source.shaderlab meta.cgblock
+T 29 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 55 source.shaderlab meta.cgblock
+L         return float3(mul(m, vertex.xz), vertex.y).xzy;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 15 source.shaderlab meta.cgblock
+T 21 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 22 source.shaderlab meta.cgblock
+T 25 source.shaderlab meta.cgblock support.function.hlsl
+T 55 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L 
+L     struct appdata_t {
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 22 source.shaderlab meta.cgblock
+L         float4 vertex : POSITION;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 32 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 33 source.shaderlab meta.cgblock
+L         float2 texcoord : TEXCOORD0;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 26 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 36 source.shaderlab meta.cgblock
+L         UNITY_VERTEX_INPUT_INSTANCE_ID
+T 38 source.shaderlab meta.cgblock
+L     };
+T 6 source.shaderlab meta.cgblock
+L     struct v2f {
+T 4 source.shaderlab meta.cgblock
+T 10 source.shaderlab meta.cgblock storage.type.structured.hlsl
+T 16 source.shaderlab meta.cgblock
+L         float4 vertex : SV_POSITION;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 36 source.shaderlab meta.cgblock
+L         float2 texcoord : TEXCOORD0;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 26 source.shaderlab meta.cgblock
+T 35 source.shaderlab meta.cgblock support.variable.semantic.hlsl
+T 36 source.shaderlab meta.cgblock
+L         UNITY_VERTEX_OUTPUT_STEREO
+T 34 source.shaderlab meta.cgblock
+L     };
+T 6 source.shaderlab meta.cgblock
+L     v2f vert (appdata_t v)
+T 8 source.shaderlab meta.cgblock
+T 12 source.shaderlab meta.cgblock support.function.hlsl
+T 26 source.shaderlab meta.cgblock
+L     {
+T 5 source.shaderlab meta.cgblock
+L         v2f o;
+T 14 source.shaderlab meta.cgblock
+L         UNITY_SETUP_INSTANCE_ID(v);
+T 8 source.shaderlab meta.cgblock
+T 31 source.shaderlab meta.cgblock support.function.hlsl
+T 35 source.shaderlab meta.cgblock
+L         UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+T 8 source.shaderlab meta.cgblock
+T 45 source.shaderlab meta.cgblock support.function.hlsl
+T 49 source.shaderlab meta.cgblock
+L         float3 rotated = RotateAroundYInDegrees(v.vertex, _Rotation);
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 25 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock support.function.hlsl
+T 69 source.shaderlab meta.cgblock
+L         o.vertex = UnityObjectToClipPos(rotated);
+T 19 source.shaderlab meta.cgblock
+T 39 source.shaderlab meta.cgblock support.function.hlsl
+T 49 source.shaderlab meta.cgblock
+L         o.texcoord = v.texcoord;
+T 32 source.shaderlab meta.cgblock
+L         return o;
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 17 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L     half4 skybox_frag (v2f i, sampler2D smp, half4 smpDecode)
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 10 source.shaderlab meta.cgblock
+T 21 source.shaderlab meta.cgblock support.function.hlsl
+T 30 source.shaderlab meta.cgblock
+T 39 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 45 source.shaderlab meta.cgblock
+T 50 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 61 source.shaderlab meta.cgblock
+L     {
+T 5 source.shaderlab meta.cgblock
+L         half4 tex = tex2D (smp, i.texcoord);
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 20 source.shaderlab meta.cgblock
+T 25 source.shaderlab meta.cgblock support.function.hlsl
+T 44 source.shaderlab meta.cgblock
+L         half3 c = DecodeHDR (tex, smpDecode);
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 18 source.shaderlab meta.cgblock
+T 27 source.shaderlab meta.cgblock support.function.hlsl
+T 45 source.shaderlab meta.cgblock
+L         c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
+T 55 source.shaderlab meta.cgblock
+L         c *= _Exposure;
+T 23 source.shaderlab meta.cgblock
+L         return half4(c, 1);
+T 8 source.shaderlab meta.cgblock
+T 14 source.shaderlab meta.cgblock keyword.control.hlsl
+T 15 source.shaderlab meta.cgblock
+T 20 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 24 source.shaderlab meta.cgblock
+T 25 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+T 27 source.shaderlab meta.cgblock
+L     }
+T 5 source.shaderlab meta.cgblock
+L     ENDCG
+T 4 source.shaderlab meta.cgblock
+T 9 source.shaderlab meta.cgblock keyword.other
+L 
+L     Pass {
+T 4 source.shaderlab
+T 8 source.shaderlab storage.type.structure.shaderlab
+T 10 source.shaderlab
+L         CGPROGRAM
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         #pragma vertex vert
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+L         #pragma fragment frag
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 29 source.shaderlab meta.cgblock
+L         #pragma target 2.0
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L         sampler2D _FrontTex;
+T 8 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 28 source.shaderlab meta.cgblock
+L         half4 _FrontTex_HDR;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 28 source.shaderlab meta.cgblock
+L         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_FrontTex, _FrontTex_HDR); }
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock support.function.hlsl
+T 29 source.shaderlab meta.cgblock
+T 38 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock keyword.control.hlsl
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.function.hlsl
+T 90 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L     }
+T 5 source.shaderlab
+L     Pass{
+T 4 source.shaderlab
+T 8 source.shaderlab storage.type.structure.shaderlab
+T 9 source.shaderlab
+L         CGPROGRAM
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         #pragma vertex vert
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+L         #pragma fragment frag
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 29 source.shaderlab meta.cgblock
+L         #pragma target 2.0
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L         sampler2D _BackTex;
+T 8 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 27 source.shaderlab meta.cgblock
+L         half4 _BackTex_HDR;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 27 source.shaderlab meta.cgblock
+L         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_BackTex, _BackTex_HDR); }
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock support.function.hlsl
+T 29 source.shaderlab meta.cgblock
+T 38 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock keyword.control.hlsl
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.function.hlsl
+T 88 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L     }
+T 5 source.shaderlab
+L     Pass{
+T 4 source.shaderlab
+T 8 source.shaderlab storage.type.structure.shaderlab
+T 9 source.shaderlab
+L         CGPROGRAM
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         #pragma vertex vert
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+L         #pragma fragment frag
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 29 source.shaderlab meta.cgblock
+L         #pragma target 2.0
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L         sampler2D _LeftTex;
+T 8 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 27 source.shaderlab meta.cgblock
+L         half4 _LeftTex_HDR;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 27 source.shaderlab meta.cgblock
+L         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_LeftTex, _LeftTex_HDR); }
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock support.function.hlsl
+T 29 source.shaderlab meta.cgblock
+T 38 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock keyword.control.hlsl
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.function.hlsl
+T 88 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L     }
+T 5 source.shaderlab
+L     Pass{
+T 4 source.shaderlab
+T 8 source.shaderlab storage.type.structure.shaderlab
+T 9 source.shaderlab
+L         CGPROGRAM
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         #pragma vertex vert
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+L         #pragma fragment frag
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 29 source.shaderlab meta.cgblock
+L         #pragma target 2.0
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L         sampler2D _RightTex;
+T 8 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 28 source.shaderlab meta.cgblock
+L         half4 _RightTex_HDR;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 28 source.shaderlab meta.cgblock
+L         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_RightTex, _RightTex_HDR); }
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock support.function.hlsl
+T 29 source.shaderlab meta.cgblock
+T 38 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock keyword.control.hlsl
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.function.hlsl
+T 90 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L     }
+T 5 source.shaderlab
+L     Pass{
+T 4 source.shaderlab
+T 8 source.shaderlab storage.type.structure.shaderlab
+T 9 source.shaderlab
+L         CGPROGRAM
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         #pragma vertex vert
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+L         #pragma fragment frag
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 29 source.shaderlab meta.cgblock
+L         #pragma target 2.0
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L         sampler2D _UpTex;
+T 8 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 25 source.shaderlab meta.cgblock
+L         half4 _UpTex_HDR;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 25 source.shaderlab meta.cgblock
+L         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_UpTex, _UpTex_HDR); }
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock support.function.hlsl
+T 29 source.shaderlab meta.cgblock
+T 38 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock keyword.control.hlsl
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.function.hlsl
+T 84 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L     }
+T 5 source.shaderlab
+L     Pass{
+T 4 source.shaderlab
+T 8 source.shaderlab storage.type.structure.shaderlab
+T 9 source.shaderlab
+L         CGPROGRAM
+T 8 source.shaderlab
+T 17 source.shaderlab meta.cgblock keyword.other
+L         #pragma vertex vert
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 27 source.shaderlab meta.cgblock
+L         #pragma fragment frag
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 29 source.shaderlab meta.cgblock
+L         #pragma target 2.0
+T 15 source.shaderlab meta.cgblock keyword.preprocessor.hlsl
+T 23 source.shaderlab meta.cgblock
+T 26 source.shaderlab meta.cgblock constant.numeric.decimal.hlsl
+L         sampler2D _DownTex;
+T 8 source.shaderlab meta.cgblock
+T 17 source.shaderlab meta.cgblock support.type.sampler.legacy.hlsl
+T 27 source.shaderlab meta.cgblock
+L         half4 _DownTex_HDR;
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 27 source.shaderlab meta.cgblock
+L         half4 frag (v2f i) : SV_Target { return skybox_frag(i,_DownTex, _DownTex_HDR); }
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock storage.type.basic.hlsl
+T 14 source.shaderlab meta.cgblock
+T 18 source.shaderlab meta.cgblock support.function.hlsl
+T 29 source.shaderlab meta.cgblock
+T 38 source.shaderlab meta.cgblock support.variable.semantic.sm4.hlsl
+T 41 source.shaderlab meta.cgblock
+T 47 source.shaderlab meta.cgblock keyword.control.hlsl
+T 48 source.shaderlab meta.cgblock
+T 59 source.shaderlab meta.cgblock support.function.hlsl
+T 88 source.shaderlab meta.cgblock
+L         ENDCG
+T 8 source.shaderlab meta.cgblock
+T 13 source.shaderlab meta.cgblock keyword.other
+L     }
+T 5 source.shaderlab
+L }
+T 1 source.shaderlab
+L }
+T 1 source.shaderlab
+L 

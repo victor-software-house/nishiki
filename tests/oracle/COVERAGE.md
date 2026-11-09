@@ -73,6 +73,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Sass | `sass` | 78 of 78 | 100.0% | 11 of 20 | 55.0% | 9 | 0 | yes |
 | Scala | `scala` | 153 of 155 | 98.7% | 140 of 147 | 95.2% | 9 | 0 | yes |
 | SCSS | `scss` | 161 of 168 | 95.8% | 136 of 179 | 76.0% | 50 | 0 | yes |
+| ShaderLab | `shaderlab` | 39 of 39 | 100.0% | 4 of 4 | 100.0% | 0 | 0 | yes |
 | shell | `shellscript` | 172 of 174 | 98.9% | 188 of 199 | 94.5% | 13 | 0 | yes |
 | SQL | `sql` | 72 of 75 | 96.0% | 75 of 79 | 94.9% | 7 | 0 | yes |
 | Svelte | `svelte` | 162 of 166 | 97.6% | 70 of 70 | 100.0% | 4 | 0 | yes |

@@ -90,6 +90,7 @@ all = [
   "lang-sass",
   "lang-scala",
   "lang-scss",
+  "lang-shaderlab",
   "lang-shell",
   "lang-sql",
   "lang-svelte",
@@ -346,6 +347,14 @@ lang-rust = ["_language", "_scope-table", "_classes", "_space", "_utf8"]
 lang-sass = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-scala = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-scss = ["_language", "lang-css"]
+lang-shaderlab = [
+  "_language",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_embedding",
+  "lang-hlsl",
+]
 lang-shell = ["_language", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
 lang-sql = [
   "_language",
