@@ -1,0 +1,410 @@
+L //*********************************************************
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft. All rights reserved.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L // This code is licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L // ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L //*********************************************************
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L #include "VisualizerCommon.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 32 source.hlsl string.quoted.double.hlsl
+T 33 source.hlsl string.quoted.double.hlsl
+L 
+L // Constant Definitions
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 23 source.hlsl comment.line.double-slash.hlsl
+L #define PLANE_LEFT 0
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 19 source.hlsl
+T 20 source.hlsl constant.numeric.decimal.hlsl
+L #define PLANE_RIGHT 1
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 20 source.hlsl
+T 21 source.hlsl constant.numeric.decimal.hlsl
+L #define PLANE_BOTTOM 2
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 21 source.hlsl
+T 22 source.hlsl constant.numeric.decimal.hlsl
+L #define PLANE_TOP 3
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 18 source.hlsl
+T 19 source.hlsl constant.numeric.decimal.hlsl
+L #define PLANE_NEAR 4
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 19 source.hlsl
+T 20 source.hlsl constant.numeric.decimal.hlsl
+L #define PLANE_FAR 5
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 18 source.hlsl
+T 19 source.hlsl constant.numeric.decimal.hlsl
+L 
+L // Plane index triplets whose intersection defines a vertex of an arbitrary frustum.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 84 source.hlsl comment.line.double-slash.hlsl
+L static const uint3 IntersectionIndices[8] =
+T 6 source.hlsl storage.modifier.hlsl
+T 7 source.hlsl
+T 12 source.hlsl storage.modifier.hlsl
+T 13 source.hlsl
+T 18 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+L {
+T 1 source.hlsl
+L     uint3(PLANE_LEFT, PLANE_FAR, PLANE_BOTTOM),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 47 source.hlsl
+L     uint3(PLANE_RIGHT, PLANE_FAR, PLANE_BOTTOM),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L     uint3(PLANE_RIGHT, PLANE_NEAR, PLANE_BOTTOM),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 49 source.hlsl
+L     uint3(PLANE_LEFT, PLANE_NEAR, PLANE_BOTTOM),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L     uint3(PLANE_LEFT, PLANE_FAR, PLANE_TOP),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 44 source.hlsl
+L     uint3(PLANE_RIGHT, PLANE_FAR, PLANE_TOP),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 45 source.hlsl
+L     uint3(PLANE_RIGHT, PLANE_NEAR, PLANE_TOP),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 46 source.hlsl
+L     uint3(PLANE_LEFT, PLANE_NEAR, PLANE_TOP),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 45 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L // Vertex indices for the line primitives composing a frustum.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 62 source.hlsl comment.line.double-slash.hlsl
+L static const uint2 PrimitiveIndices[12] =
+T 6 source.hlsl storage.modifier.hlsl
+T 7 source.hlsl
+T 12 source.hlsl storage.modifier.hlsl
+T 13 source.hlsl
+T 18 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 41 source.hlsl
+L {
+T 1 source.hlsl
+L     uint2(0, 1), uint2(1, 2), uint2(2, 3), uint2(3, 0),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 10 source.hlsl
+T 11 source.hlsl constant.numeric.decimal.hlsl
+T 13 source.hlsl
+T 14 source.hlsl constant.numeric.decimal.hlsl
+T 17 source.hlsl
+T 22 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 26 source.hlsl
+T 27 source.hlsl constant.numeric.decimal.hlsl
+T 30 source.hlsl
+T 35 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 37 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+T 48 source.hlsl storage.type.basic.hlsl
+T 49 source.hlsl
+T 50 source.hlsl constant.numeric.decimal.hlsl
+T 52 source.hlsl
+T 53 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+L     uint2(4, 5), uint2(5, 6), uint2(6, 7), uint2(7, 4),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 10 source.hlsl
+T 11 source.hlsl constant.numeric.decimal.hlsl
+T 13 source.hlsl
+T 14 source.hlsl constant.numeric.decimal.hlsl
+T 17 source.hlsl
+T 22 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 26 source.hlsl
+T 27 source.hlsl constant.numeric.decimal.hlsl
+T 30 source.hlsl
+T 35 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 37 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+T 48 source.hlsl storage.type.basic.hlsl
+T 49 source.hlsl
+T 50 source.hlsl constant.numeric.decimal.hlsl
+T 52 source.hlsl
+T 53 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+L     uint2(0, 4), uint2(1, 5), uint2(2, 6), uint2(3, 7),
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 10 source.hlsl
+T 11 source.hlsl constant.numeric.decimal.hlsl
+T 13 source.hlsl
+T 14 source.hlsl constant.numeric.decimal.hlsl
+T 17 source.hlsl
+T 22 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 26 source.hlsl
+T 27 source.hlsl constant.numeric.decimal.hlsl
+T 30 source.hlsl
+T 35 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 37 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+T 48 source.hlsl storage.type.basic.hlsl
+T 49 source.hlsl
+T 50 source.hlsl constant.numeric.decimal.hlsl
+T 52 source.hlsl
+T 53 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L // Calculates the intersection of three planes which is known to be a single point.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 83 source.hlsl comment.line.double-slash.hlsl
+L float3 IntersectPlanes(float4 p0, float4 p1, float4 p2)
+T 6 source.hlsl storage.type.basic.hlsl
+T 7 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 23 source.hlsl
+T 29 source.hlsl storage.type.basic.hlsl
+T 34 source.hlsl
+T 40 source.hlsl storage.type.basic.hlsl
+T 45 source.hlsl
+T 51 source.hlsl storage.type.basic.hlsl
+T 55 source.hlsl
+L {
+T 1 source.hlsl
+L     float3 n12 = cross(p1.xyz, p2.xyz);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 39 source.hlsl
+L     float3 n20 = cross(p2.xyz, p0.xyz);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 39 source.hlsl
+L     float3 n01 = cross(p0.xyz, p1.xyz);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 39 source.hlsl
+L 
+L     float3 r = -p0.w * n12 - p1.w * n20 - p2.w * n01;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 53 source.hlsl
+L     return r * (1 / dot(p0.xyz, n12));
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 20 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 38 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L // Resource bindings
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 20 source.hlsl comment.line.double-slash.hlsl
+L cbuffer Globals : register(b0)
+T 7 source.hlsl storage.type.structured.hlsl
+T 18 source.hlsl
+T 26 source.hlsl support.function.hlsl
+T 30 source.hlsl
+L {
+T 1 source.hlsl
+L     float4x4 ViewProj;
+T 4 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+L     float4   Planes[6];
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+T 21 source.hlsl constant.numeric.decimal.hlsl
+T 23 source.hlsl
+L     float4   LineColor;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L 
+L //---------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 47 source.hlsl comment.line.double-slash.hlsl
+L // Main
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 7 source.hlsl comment.line.double-slash.hlsl
+L 
+L [RootSignature("CBV(b0)")]
+T 1 source.hlsl
+T 14 source.hlsl support.function.hlsl
+T 15 source.hlsl
+T 16 source.hlsl string.quoted.double.hlsl
+T 23 source.hlsl string.quoted.double.hlsl
+T 24 source.hlsl string.quoted.double.hlsl
+T 26 source.hlsl
+L [NumThreads(32, 1, 1)]
+T 1 source.hlsl
+T 11 source.hlsl support.function.hlsl
+T 12 source.hlsl
+T 14 source.hlsl constant.numeric.decimal.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 19 source.hlsl
+T 20 source.hlsl constant.numeric.decimal.hlsl
+T 22 source.hlsl
+L [OutputTopology("line")]
+T 1 source.hlsl
+T 15 source.hlsl support.function.hlsl
+T 16 source.hlsl
+T 17 source.hlsl string.quoted.double.hlsl
+T 21 source.hlsl string.quoted.double.hlsl
+T 22 source.hlsl string.quoted.double.hlsl
+T 24 source.hlsl
+L void main(
+T 4 source.hlsl storage.type.basic.hlsl
+T 5 source.hlsl
+T 9 source.hlsl support.function.hlsl
+T 10 source.hlsl
+L     uint gtid : SV_GroupThreadID,
+T 4 source.hlsl
+T 8 source.hlsl storage.type.basic.hlsl
+T 16 source.hlsl
+T 32 source.hlsl support.variable.semantic.sm5.hlsl
+T 33 source.hlsl
+L     out vertices DebugVertex verts[8],
+T 4 source.hlsl
+T 7 source.hlsl storage.modifier.hlsl
+T 35 source.hlsl
+T 36 source.hlsl constant.numeric.decimal.hlsl
+T 38 source.hlsl
+L     out indices uint2 prims[12]
+T 4 source.hlsl
+T 7 source.hlsl storage.modifier.hlsl
+T 16 source.hlsl
+T 21 source.hlsl storage.type.basic.hlsl
+T 28 source.hlsl
+T 30 source.hlsl constant.numeric.decimal.hlsl
+T 31 source.hlsl
+L )
+T 1 source.hlsl
+L {
+T 1 source.hlsl
+L     SetMeshOutputCounts(8, 12);
+T 4 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 25 source.hlsl constant.numeric.decimal.hlsl
+T 27 source.hlsl
+T 29 source.hlsl constant.numeric.decimal.hlsl
+T 31 source.hlsl
+L 
+L     if (gtid < 8)
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 15 source.hlsl
+T 16 source.hlsl constant.numeric.decimal.hlsl
+T 17 source.hlsl
+L     {
+T 5 source.hlsl
+L         uint3 p = IntersectionIndices[gtid];
+T 8 source.hlsl
+T 13 source.hlsl storage.type.basic.hlsl
+T 44 source.hlsl
+L         float3 position = IntersectPlanes(Planes[p.x], Planes[p.y], Planes[p.z]);
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 41 source.hlsl support.function.hlsl
+T 81 source.hlsl
+L 
+L         DebugVertex v = (DebugVertex)0;
+T 37 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+L         v.Position = mul(float4(position, 1), ViewProj);
+T 21 source.hlsl
+T 24 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 42 source.hlsl
+T 43 source.hlsl constant.numeric.decimal.hlsl
+T 56 source.hlsl
+L         v.Color = LineColor;
+T 28 source.hlsl
+L 
+L         verts[gtid] = v;
+T 24 source.hlsl
+L     }
+T 5 source.hlsl
+L 
+L     if (gtid < 12)
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 15 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 18 source.hlsl
+L     {
+T 5 source.hlsl
+L         prims[gtid] = PrimitiveIndices[gtid];
+T 45 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl
+L 

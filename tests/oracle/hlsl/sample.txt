@@ -1,0 +1,81 @@
+L struct VS_OUTPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 16 source.hlsl
+L {
+T 1 source.hlsl
+L     float4 Position   : SV_POSITION;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 35 source.hlsl support.variable.semantic.sm4.hlsl
+T 36 source.hlsl
+L     float4 Diffuse    : COLOR0;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 30 source.hlsl support.variable.semantic.hlsl
+T 31 source.hlsl
+L     float2 TextureUV  : TEXCOORD0;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 33 source.hlsl support.variable.semantic.hlsl
+T 34 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L VS_OUTPUT RenderSceneVS( float4 vPos : POSITION,
+T 10 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+T 47 source.hlsl support.variable.semantic.hlsl
+T 48 source.hlsl
+L                          float3 vNormal : NORMAL,
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 42 source.hlsl
+T 48 source.hlsl support.variable.semantic.hlsl
+T 49 source.hlsl
+L                          float2 vTexCoord0 : TEXCOORD,
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 45 source.hlsl
+T 53 source.hlsl support.variable.semantic.hlsl
+T 54 source.hlsl
+L                          uniform int nNumLights,
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 36 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L                          uniform bool bTexture,
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 37 source.hlsl storage.type.basic.hlsl
+T 47 source.hlsl
+L                          uniform bool bAnimate )
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 37 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L {
+T 1 source.hlsl
+L     VS_OUTPUT Output;
+T 21 source.hlsl
+L     ...
+T 7 source.hlsl
+L     return Output;
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L // From https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-function-syntax
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 101 source.hlsl comment.line.double-slash.hlsl
+L 

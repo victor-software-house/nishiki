@@ -23,6 +23,7 @@ mod hack;
 mod haml;
 mod haskell;
 mod hcl;
+mod hlsl;
 mod html;
 mod html_derivative;
 mod ini;

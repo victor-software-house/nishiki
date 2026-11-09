@@ -262,6 +262,7 @@ mod bat;
     feature = "lang-astro",
     feature = "lang-cmake",
     feature = "lang-common-lisp",
+    feature = "lang-hlsl",
     feature = "lang-html",
     feature = "lang-pascal",
     feature = "lang-postcss",
@@ -277,6 +278,7 @@ mod c;
     feature = "lang-common-lisp",
     feature = "lang-css",
     feature = "lang-haskell",
+    feature = "lang-hlsl",
     feature = "lang-latex",
     feature = "lang-less",
     feature = "lang-markdown",
@@ -337,6 +339,8 @@ mod haskell;
 #[cfg(feature = "lang-hcl")]
 mod hcl;
 mod highlighter;
+#[cfg(feature = "lang-hlsl")]
+mod hlsl;
 #[cfg(feature = "lang-html")]
 mod html;
 #[cfg(feature = "lang-html-derivative")]

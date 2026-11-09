@@ -1,0 +1,249 @@
+L //*********************************************************
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft. All rights reserved.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L // This code is licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L // ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L //*********************************************************
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 59 source.hlsl comment.line.double-slash.hlsl
+L #include "Shared.h"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 18 source.hlsl string.quoted.double.hlsl
+T 19 source.hlsl string.quoted.double.hlsl
+L #include "Common.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 22 source.hlsl string.quoted.double.hlsl
+T 23 source.hlsl string.quoted.double.hlsl
+L 
+L [RootSignature(ROOT_SIG)]
+T 1 source.hlsl
+T 14 source.hlsl support.function.hlsl
+T 25 source.hlsl
+L float4 main(VertexOut pin) : SV_TARGET
+T 6 source.hlsl storage.type.basic.hlsl
+T 7 source.hlsl
+T 11 source.hlsl support.function.hlsl
+T 29 source.hlsl
+T 38 source.hlsl support.variable.semantic.sm4.hlsl
+L {
+T 1 source.hlsl
+L     const float ambientIntensity = 0.1;
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 35 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+L     const float3 lightColor = float3(1, 1, 1);
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+T 36 source.hlsl storage.type.basic.hlsl
+T 37 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 40 source.hlsl
+T 41 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 46 source.hlsl
+L     const float3 lightDir = -normalize(float3(1, -1, 1));
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 39 source.hlsl
+T 45 source.hlsl storage.type.basic.hlsl
+T 46 source.hlsl
+T 47 source.hlsl constant.numeric.decimal.hlsl
+T 50 source.hlsl
+T 51 source.hlsl constant.numeric.decimal.hlsl
+T 53 source.hlsl
+T 54 source.hlsl constant.numeric.decimal.hlsl
+T 57 source.hlsl
+L 
+L     float3 diffuseColor;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+L     float shininess;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+L 
+L     if (Constants.RenderMode == 0)
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 32 source.hlsl
+T 33 source.hlsl constant.numeric.decimal.hlsl
+T 34 source.hlsl
+L     {
+T 5 source.hlsl
+L         diffuseColor = 0.5;
+T 23 source.hlsl
+T 26 source.hlsl constant.numeric.decimal.hlsl
+T 27 source.hlsl
+L         shininess = 4.0;
+T 20 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 24 source.hlsl
+L     }
+T 5 source.hlsl
+L     else if (Constants.RenderMode == 1)
+T 4 source.hlsl
+T 8 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 11 source.hlsl keyword.control.hlsl
+T 37 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+L     {
+T 5 source.hlsl
+L         uint meshletIndex = pin.MeshletIndex;
+T 8 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 45 source.hlsl
+L         diffuseColor = float3(
+T 23 source.hlsl
+T 29 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+L             float(meshletIndex & 1),
+T 12 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 34 source.hlsl constant.numeric.decimal.hlsl
+T 36 source.hlsl
+L             float(meshletIndex & 3) / 4,
+T 12 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 34 source.hlsl constant.numeric.decimal.hlsl
+T 38 source.hlsl
+T 39 source.hlsl constant.numeric.decimal.hlsl
+T 40 source.hlsl
+L             float(meshletIndex & 7) / 8);
+T 12 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 34 source.hlsl constant.numeric.decimal.hlsl
+T 38 source.hlsl
+T 39 source.hlsl constant.numeric.decimal.hlsl
+T 41 source.hlsl
+L         shininess = 16.0;
+T 20 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 25 source.hlsl
+L     }
+T 5 source.hlsl
+L     else // Dynamic LOD spectrum (LOD 0 - red, LOD n - green)
+T 4 source.hlsl
+T 8 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 11 source.hlsl comment.line.double-slash.hlsl
+T 61 source.hlsl comment.line.double-slash.hlsl
+L     {
+T 5 source.hlsl
+L         diffuseColor = pin.Color.rgb;
+T 37 source.hlsl
+L         shininess = 8.0;
+T 20 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 24 source.hlsl
+L     }
+T 5 source.hlsl
+L 
+L     float3 normal = normalize(pin.Normal);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+T 29 source.hlsl support.function.hlsl
+T 42 source.hlsl
+L 
+L     // Do some fancy Blinn-Phong shading!
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 41 source.hlsl comment.line.double-slash.hlsl
+L     float cosAngle = saturate(dot(normal, lightDir));
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 21 source.hlsl
+T 29 source.hlsl support.function.hlsl
+T 30 source.hlsl
+T 33 source.hlsl support.function.hlsl
+T 53 source.hlsl
+L     float3 viewDir = -normalize(pin.PositionVS);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 31 source.hlsl support.function.hlsl
+T 48 source.hlsl
+L     float3 halfAngle = normalize(lightDir + viewDir);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 32 source.hlsl support.function.hlsl
+T 53 source.hlsl
+L 
+L     float blinnTerm = saturate(dot(normal, halfAngle));
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 30 source.hlsl support.function.hlsl
+T 31 source.hlsl
+T 34 source.hlsl support.function.hlsl
+T 55 source.hlsl
+L     blinnTerm = cosAngle != 0.0 ? blinnTerm : 0.0;
+T 28 source.hlsl
+T 31 source.hlsl constant.numeric.decimal.hlsl
+T 46 source.hlsl
+T 49 source.hlsl constant.numeric.decimal.hlsl
+T 50 source.hlsl
+L     blinnTerm = pow(blinnTerm, shininess);
+T 16 source.hlsl
+T 19 source.hlsl support.function.hlsl
+T 42 source.hlsl
+L 
+L     float3 finalColor = (cosAngle + blinnTerm + ambientIntensity) * diffuseColor;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 81 source.hlsl
+L 
+L     return float4(finalColor, 1);
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 11 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+T 31 source.hlsl constant.numeric.decimal.hlsl
+T 33 source.hlsl
+L }
+T 1 source.hlsl
+L 

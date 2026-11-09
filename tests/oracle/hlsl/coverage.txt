@@ -1,0 +1,841 @@
+L // Every pattern of the hlsl grammar, written for nishiki.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 58 source.hlsl comment.line.double-slash.hlsl
+L /* A block comment
+T 2 source.hlsl comment.line.block.hlsl
+T 18 source.hlsl comment.line.block.hlsl
+L    over two lines */
+T 18 source.hlsl comment.line.block.hlsl
+T 20 source.hlsl comment.line.block.hlsl
+L #define WIDTH 1.5f
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 14 source.hlsl
+T 18 source.hlsl constant.numeric.decimal.hlsl
+L   #  ifdef DEBUG
+T 10 source.hlsl keyword.preprocessor.hlsl
+T 16 source.hlsl
+L #ifx elif
+T 3 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+L #pragma pack_matrix(row_major)
+T 7 source.hlsl keyword.preprocessor.hlsl
+T 8 source.hlsl
+T 19 source.hlsl support.function.hlsl
+T 20 source.hlsl
+T 29 source.hlsl storage.modifier.hlsl
+T 30 source.hlsl
+L #include "common.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 22 source.hlsl string.quoted.double.hlsl
+T 23 source.hlsl string.quoted.double.hlsl
+L 
+L typedef float4 Color;
+T 7 source.hlsl keyword.typealias.hlsl
+T 8 source.hlsl
+T 14 source.hlsl storage.type.basic.hlsl
+T 21 source.hlsl
+L cbuffer Constants : register(b0)
+T 7 source.hlsl storage.type.structured.hlsl
+T 20 source.hlsl
+T 28 source.hlsl support.function.hlsl
+T 32 source.hlsl
+L {
+T 1 source.hlsl
+L     float4x4 world : packoffset(c0);
+T 4 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 21 source.hlsl
+T 31 source.hlsl support.function.hlsl
+T 36 source.hlsl
+L     float4 reg : register; float4 off : packoffset;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 25 source.hlsl storage.modifier.postfix.hlsl
+T 27 source.hlsl
+T 33 source.hlsl storage.type.basic.hlsl
+T 40 source.hlsl
+T 50 source.hlsl storage.modifier.postfix.hlsl
+T 51 source.hlsl
+L     min16float2 scale;
+T 4 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+L     uint3 size;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 15 source.hlsl
+L     double2x3 grid;
+T 4 source.hlsl
+T 13 source.hlsl storage.type.basic.hlsl
+T 19 source.hlsl
+L     unsigned int count;
+T 4 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 13 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+L     vector v; matrix m; dword d; void nothing;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 14 source.hlsl
+T 20 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 29 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 37 source.hlsl storage.type.basic.hlsl
+T 46 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L struct VSOut
+T 6 source.hlsl storage.type.structured.hlsl
+T 12 source.hlsl
+L {
+T 1 source.hlsl
+L     float4 position : SV_Position;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 33 source.hlsl support.variable.semantic.sm4.hlsl
+T 34 source.hlsl
+L     centroid float2 uv : TEXCOORD0;
+T 4 source.hlsl
+T 12 source.hlsl storage.modifier.interpolation.hlsl
+T 13 source.hlsl
+T 19 source.hlsl storage.type.basic.hlsl
+T 25 source.hlsl
+T 34 source.hlsl support.variable.semantic.hlsl
+T 35 source.hlsl
+L     nointerpolation float3 normal : NORMAL1;
+T 4 source.hlsl
+T 19 source.hlsl storage.modifier.interpolation.hlsl
+T 20 source.hlsl
+T 26 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 43 source.hlsl support.variable.semantic.hlsl
+T 44 source.hlsl
+L     linear float4 color :COLOR;
+T 4 source.hlsl
+T 10 source.hlsl storage.modifier.interpolation.hlsl
+T 11 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 25 source.hlsl
+T 30 source.hlsl support.variable.semantic.hlsl
+T 31 source.hlsl
+L     noperspective float depth : SV_Depth;
+T 4 source.hlsl
+T 17 source.hlsl storage.modifier.interpolation.hlsl
+T 18 source.hlsl
+T 23 source.hlsl storage.type.basic.hlsl
+T 32 source.hlsl
+T 40 source.hlsl support.variable.semantic.sm4.hlsl
+T 41 source.hlsl
+L     sample float fog : FOG;
+T 4 source.hlsl
+T 10 source.hlsl storage.modifier.interpolation.hlsl
+T 11 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 26 source.hlsl support.variable.semantic.hlsl
+T 27 source.hlsl
+L     float4 target : SV_Target7;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+T 30 source.hlsl support.variable.semantic.sm4.hlsl
+T 31 source.hlsl
+L     uint id : SV_DispatchThreadID;
+T 4 source.hlsl
+T 8 source.hlsl storage.type.basic.hlsl
+T 14 source.hlsl
+T 33 source.hlsl support.variable.semantic.sm5.hlsl
+T 34 source.hlsl
+L     float cover : SV_InnerCoverage;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+T 34 source.hlsl support.variable.semantic.sm5_1.hlsl
+T 35 source.hlsl
+L     float binormal : binormal2;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 21 source.hlsl
+T 30 source.hlsl support.variable.semantic.hlsl
+T 31 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L Texture2D<float4> albedo : register(t0);
+T 9 source.hlsl support.type.texture.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 27 source.hlsl
+T 35 source.hlsl support.function.hlsl
+T 40 source.hlsl
+L Texture2DMSArray<float4> msaa;
+T 16 source.hlsl support.type.texture.hlsl
+T 17 source.hlsl
+T 23 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+L RWTexture2D<float4> output;
+T 11 source.hlsl support.type.object.rw.hlsl
+T 12 source.hlsl
+T 18 source.hlsl storage.type.basic.hlsl
+T 27 source.hlsl
+L RWStructuredBuffer<uint> counters;
+T 18 source.hlsl support.type.object.rw.hlsl
+T 19 source.hlsl
+T 23 source.hlsl storage.type.basic.hlsl
+T 34 source.hlsl
+L RasterizerOrderedTexture2D<float4> rov;
+T 26 source.hlsl support.type.object.rasterizerordered.hlsl
+T 27 source.hlsl
+T 33 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+L AppendStructuredBuffer<uint> queue;
+T 22 source.hlsl support.type.object.hlsl
+T 23 source.hlsl
+T 27 source.hlsl storage.type.basic.hlsl
+T 35 source.hlsl
+L ByteAddressBuffer raw;
+T 17 source.hlsl support.type.object.hlsl
+T 22 source.hlsl
+L SamplerState linearClamp;
+T 12 source.hlsl support.type.sampler.hlsl
+T 25 source.hlsl
+L SamplerComparisonState shadowCmp;
+T 22 source.hlsl support.type.sampler.hlsl
+T 33 source.hlsl
+L sampler2D legacy; samplerCUBE cube; texture2D oldTex; textureCUBE oldCube;
+T 9 source.hlsl support.type.sampler.legacy.hlsl
+T 18 source.hlsl
+T 29 source.hlsl support.type.sampler.legacy.hlsl
+T 36 source.hlsl
+T 45 source.hlsl support.type.texture.legacy.hlsl
+T 54 source.hlsl
+T 65 source.hlsl support.type.texture.legacy.hlsl
+T 74 source.hlsl
+L string label = "a \"quoted\" name\\";
+T 6 source.hlsl support.type.other.hlsl
+T 15 source.hlsl
+T 16 source.hlsl string.quoted.double.hlsl
+T 18 source.hlsl string.quoted.double.hlsl
+T 20 source.hlsl string.quoted.double.hlsl constant.character.escape.hlsl
+T 26 source.hlsl string.quoted.double.hlsl
+T 28 source.hlsl string.quoted.double.hlsl constant.character.escape.hlsl
+T 33 source.hlsl string.quoted.double.hlsl
+T 35 source.hlsl string.quoted.double.hlsl constant.character.escape.hlsl
+T 36 source.hlsl string.quoted.double.hlsl
+T 37 source.hlsl
+L groupshared float cache[64];
+T 11 source.hlsl storage.modifier.hlsl
+T 12 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 26 source.hlsl constant.numeric.decimal.hlsl
+T 28 source.hlsl
+L static const snorm float half_ = 0.5;
+T 6 source.hlsl storage.modifier.hlsl
+T 7 source.hlsl
+T 12 source.hlsl storage.modifier.hlsl
+T 13 source.hlsl
+T 18 source.hlsl storage.modifier.float.hlsl
+T 19 source.hlsl
+T 24 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 36 source.hlsl constant.numeric.decimal.hlsl
+T 37 source.hlsl
+L unorm float other = .25f;
+T 5 source.hlsl storage.modifier.float.hlsl
+T 6 source.hlsl
+T 11 source.hlsl storage.type.basic.hlsl
+T 20 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 25 source.hlsl
+L globallycoherent RWBuffer<uint> flags;
+T 16 source.hlsl storage.modifier.hlsl
+T 17 source.hlsl
+T 25 source.hlsl support.type.object.rw.hlsl
+T 26 source.hlsl
+T 30 source.hlsl storage.type.basic.hlsl
+T 38 source.hlsl
+L interface ILight { float3 Shade(); };
+T 9 source.hlsl storage.type.structured.hlsl
+T 19 source.hlsl
+T 25 source.hlsl storage.type.basic.hlsl
+T 26 source.hlsl
+T 31 source.hlsl support.function.hlsl
+T 37 source.hlsl
+L class Point : ILight { float3 Shade() { return 0; } };
+T 5 source.hlsl storage.type.structured.hlsl
+T 23 source.hlsl
+T 29 source.hlsl storage.type.basic.hlsl
+T 30 source.hlsl
+T 35 source.hlsl support.function.hlsl
+T 40 source.hlsl
+T 46 source.hlsl keyword.control.hlsl
+T 47 source.hlsl
+T 48 source.hlsl constant.numeric.decimal.hlsl
+T 54 source.hlsl
+L namespace Lights { tbuffer Extra { float e; }; }
+T 9 source.hlsl storage.type.structured.hlsl
+T 19 source.hlsl
+T 26 source.hlsl storage.type.structured.hlsl
+T 35 source.hlsl
+T 40 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L 
+L [numthreads(8, 8, 1)]
+T 1 source.hlsl
+T 11 source.hlsl support.function.hlsl
+T 12 source.hlsl
+T 13 source.hlsl constant.numeric.decimal.hlsl
+T 15 source.hlsl
+T 16 source.hlsl constant.numeric.decimal.hlsl
+T 18 source.hlsl
+T 19 source.hlsl constant.numeric.decimal.hlsl
+T 21 source.hlsl
+L void main(uint3 tid : SV_DispatchThreadID, in float a, out float b, inout float c)
+T 4 source.hlsl storage.type.basic.hlsl
+T 5 source.hlsl
+T 9 source.hlsl support.function.hlsl
+T 10 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 41 source.hlsl support.variable.semantic.sm5.hlsl
+T 43 source.hlsl
+T 45 source.hlsl storage.modifier.hlsl
+T 46 source.hlsl
+T 51 source.hlsl storage.type.basic.hlsl
+T 55 source.hlsl
+T 58 source.hlsl storage.modifier.hlsl
+T 59 source.hlsl
+T 64 source.hlsl storage.type.basic.hlsl
+T 68 source.hlsl
+T 73 source.hlsl storage.modifier.hlsl
+T 74 source.hlsl
+T 79 source.hlsl storage.type.basic.hlsl
+T 82 source.hlsl
+L {
+T 1 source.hlsl
+L     float x = 1.0 + 2. + 3.5F + 4 + 5f + 0x1F + 0XAB + a.5 + 1.5x;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 14 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 20 source.hlsl
+T 21 source.hlsl constant.numeric.decimal.hlsl
+T 25 source.hlsl
+T 29 source.hlsl constant.numeric.decimal.hlsl
+T 32 source.hlsl
+T 33 source.hlsl constant.numeric.decimal.hlsl
+T 36 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 41 source.hlsl
+T 45 source.hlsl constant.numeric.hex.hlsl
+T 48 source.hlsl
+T 52 source.hlsl constant.numeric.hex.hlsl
+T 56 source.hlsl
+T 58 source.hlsl constant.numeric.decimal.hlsl
+T 61 source.hlsl
+T 63 source.hlsl constant.numeric.decimal.hlsl
+T 66 source.hlsl
+L     bool ok = true && !false;
+T 4 source.hlsl
+T 8 source.hlsl storage.type.basic.hlsl
+T 14 source.hlsl
+T 18 source.hlsl constant.language.hlsl
+T 23 source.hlsl
+T 28 source.hlsl constant.language.hlsl
+T 29 source.hlsl
+L     if (x > 0) { return; } else { discard; }
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 12 source.hlsl
+T 13 source.hlsl constant.numeric.decimal.hlsl
+T 17 source.hlsl
+T 23 source.hlsl keyword.control.hlsl
+T 27 source.hlsl
+T 31 source.hlsl keyword.control.hlsl
+T 34 source.hlsl
+T 41 source.hlsl keyword.control.hlsl
+T 44 source.hlsl
+L     for (int i = 0; i < 4; i++) { continue; }
+T 4 source.hlsl
+T 7 source.hlsl keyword.control.hlsl
+T 9 source.hlsl
+T 12 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 18 source.hlsl constant.numeric.decimal.hlsl
+T 24 source.hlsl
+T 25 source.hlsl constant.numeric.decimal.hlsl
+T 34 source.hlsl
+T 42 source.hlsl keyword.control.hlsl
+T 45 source.hlsl
+L     while (ok) { break; }
+T 4 source.hlsl
+T 9 source.hlsl keyword.control.hlsl
+T 17 source.hlsl
+T 22 source.hlsl keyword.control.hlsl
+T 25 source.hlsl
+L     do { x = max(x, 1); } while (false);
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 13 source.hlsl
+T 16 source.hlsl support.function.hlsl
+T 20 source.hlsl
+T 21 source.hlsl constant.numeric.decimal.hlsl
+T 26 source.hlsl
+T 31 source.hlsl keyword.control.hlsl
+T 33 source.hlsl
+T 38 source.hlsl constant.language.hlsl
+T 40 source.hlsl
+L     switch (i) { case 0: break; default: break; }
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 17 source.hlsl
+T 21 source.hlsl keyword.control.hlsl
+T 22 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 25 source.hlsl
+T 30 source.hlsl keyword.control.hlsl
+T 32 source.hlsl
+T 39 source.hlsl keyword.control.hlsl
+T 41 source.hlsl
+T 46 source.hlsl keyword.control.hlsl
+T 49 source.hlsl
+L     float y = ok ? x : color;
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 28 source.hlsl support.variable.semantic.hlsl
+T 29 source.hlsl
+L     output[tid.xy] = albedo.Sample(linearClamp, float2(0, 0));
+T 28 source.hlsl
+T 34 source.hlsl support.function.hlsl
+T 48 source.hlsl
+T 54 source.hlsl storage.type.basic.hlsl
+T 55 source.hlsl
+T 56 source.hlsl constant.numeric.decimal.hlsl
+T 58 source.hlsl
+T 59 source.hlsl constant.numeric.decimal.hlsl
+T 62 source.hlsl
+L     precise float p = mul(world, x);
+T 4 source.hlsl
+T 11 source.hlsl storage.modifier.hlsl
+T 12 source.hlsl
+T 17 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 36 source.hlsl
+L     export extern volatile uniform shared row_major column_major inline float q;
+T 4 source.hlsl
+T 10 source.hlsl storage.modifier.hlsl
+T 11 source.hlsl
+T 17 source.hlsl storage.modifier.hlsl
+T 18 source.hlsl
+T 26 source.hlsl storage.modifier.hlsl
+T 27 source.hlsl
+T 34 source.hlsl storage.modifier.hlsl
+T 35 source.hlsl
+T 41 source.hlsl storage.modifier.hlsl
+T 42 source.hlsl
+T 51 source.hlsl storage.modifier.hlsl
+T 52 source.hlsl
+T 64 source.hlsl storage.modifier.hlsl
+T 65 source.hlsl
+T 71 source.hlsl storage.modifier.hlsl
+T 72 source.hlsl
+T 77 source.hlsl storage.type.basic.hlsl
+T 80 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L [maxvertexcount(3)]
+T 1 source.hlsl
+T 15 source.hlsl support.function.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 19 source.hlsl
+L void gs(triangle VSOut input[3], inout TriangleStream<VSOut> stream, point float a, line float b, lineadj float c, triangleadj float d)
+T 4 source.hlsl storage.type.basic.hlsl
+T 5 source.hlsl
+T 7 source.hlsl support.function.hlsl
+T 8 source.hlsl
+T 16 source.hlsl storage.modifier.geometryshader.hlsl
+T 29 source.hlsl
+T 30 source.hlsl constant.numeric.decimal.hlsl
+T 33 source.hlsl
+T 38 source.hlsl storage.modifier.hlsl
+T 39 source.hlsl
+T 53 source.hlsl support.type.object.geometryshader.hlsl
+T 69 source.hlsl
+T 74 source.hlsl storage.modifier.geometryshader.hlsl
+T 75 source.hlsl
+T 80 source.hlsl storage.type.basic.hlsl
+T 84 source.hlsl
+T 88 source.hlsl storage.modifier.geometryshader.hlsl
+T 89 source.hlsl
+T 94 source.hlsl storage.type.basic.hlsl
+T 98 source.hlsl
+T 105 source.hlsl storage.modifier.geometryshader.hlsl
+T 106 source.hlsl
+T 111 source.hlsl storage.type.basic.hlsl
+T 115 source.hlsl
+T 126 source.hlsl storage.modifier.geometryshader.hlsl
+T 127 source.hlsl
+T 132 source.hlsl storage.type.basic.hlsl
+T 135 source.hlsl
+L {
+T 1 source.hlsl
+L     LineStream<VSOut> lines; PointStream<VSOut> points;
+T 4 source.hlsl
+T 14 source.hlsl support.type.object.geometryshader.hlsl
+T 29 source.hlsl
+T 40 source.hlsl support.type.object.geometryshader.hlsl
+T 55 source.hlsl
+L     InputPatch<VSOut, 3> ip; OutputPatch<VSOut, 3> op; ConstantBuffer<VSOut> cb; ConsumeStructuredBuffer<uint> cs;
+T 4 source.hlsl
+T 14 source.hlsl support.type.object.hlsl
+T 22 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 29 source.hlsl
+T 40 source.hlsl support.type.object.hlsl
+T 48 source.hlsl
+T 49 source.hlsl constant.numeric.decimal.hlsl
+T 55 source.hlsl
+T 69 source.hlsl support.type.object.hlsl
+T 81 source.hlsl
+T 104 source.hlsl support.type.object.hlsl
+T 105 source.hlsl
+T 109 source.hlsl storage.type.basic.hlsl
+T 114 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L BlendState AlphaBlend
+T 10 source.hlsl support.type.fx.hlsl
+T 21 source.hlsl
+L {
+T 1 source.hlsl
+L     AlphaToCoverageEnable = FALSE;
+T 4 source.hlsl
+T 25 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 28 source.hlsl
+T 33 source.hlsl support.constant.property-value.fx.hlsl
+T 34 source.hlsl
+L     BlendEnable[0] = TRUE;
+T 4 source.hlsl
+T 15 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 21 source.hlsl
+T 25 source.hlsl support.constant.property-value.fx.hlsl
+T 26 source.hlsl
+L     SrcBlend = SRC_ALPHA;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 15 source.hlsl
+T 24 source.hlsl support.constant.property-value.fx.blend.hlsl
+T 25 source.hlsl
+L     DestBlend = inv_src_alpha;
+T 4 source.hlsl
+T 13 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 16 source.hlsl
+T 29 source.hlsl support.constant.property-value.fx.blend.hlsl
+T 30 source.hlsl
+L     BlendOp = ADD;
+T 4 source.hlsl
+T 11 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 14 source.hlsl
+T 17 source.hlsl support.constant.property-value.fx.blendop.hlsl
+T 18 source.hlsl
+L     SrcBlendAlpha = ONE; DestBlendAlpha = Zero; BlendOpAlpha = max;
+T 4 source.hlsl
+T 17 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 20 source.hlsl
+T 23 source.hlsl support.constant.property-value.fx.blend.hlsl
+T 25 source.hlsl
+T 39 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 42 source.hlsl
+T 46 source.hlsl support.constant.property-value.fx.blend.hlsl
+T 48 source.hlsl
+T 60 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 63 source.hlsl
+T 66 source.hlsl support.constant.property-value.fx.blendop.hlsl
+T 67 source.hlsl
+L     RenderTargetWriteMask[0] = 0x0F;
+T 4 source.hlsl
+T 25 source.hlsl meta.object-literal.key.fx.blendstate.hlsl
+T 26 source.hlsl
+T 27 source.hlsl constant.numeric.decimal.hlsl
+T 31 source.hlsl
+T 35 source.hlsl constant.numeric.hex.hlsl
+T 36 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L DepthStencilState DepthOn
+T 17 source.hlsl support.type.fx.hlsl
+T 25 source.hlsl
+L {
+T 1 source.hlsl
+L     DepthEnable = TRUE;
+T 4 source.hlsl
+T 15 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 18 source.hlsl
+T 22 source.hlsl support.constant.property-value.fx.hlsl
+T 23 source.hlsl
+L     DepthWriteMask = ALL;
+T 4 source.hlsl
+T 18 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 21 source.hlsl
+T 24 source.hlsl support.constant.property-value.fx.depthwritemask.hlsl
+T 25 source.hlsl
+L     DepthFunc = LESS_EQUAL;
+T 4 source.hlsl
+T 13 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 16 source.hlsl
+T 26 source.hlsl support.constant.property-value.fx.comparisonfunc.hlsl
+T 27 source.hlsl
+L     StencilEnable = FALSE; StencilReadMask = 0xFF; StencilWriteMask = 0xFF;
+T 4 source.hlsl
+T 17 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 20 source.hlsl
+T 25 source.hlsl support.constant.property-value.fx.hlsl
+T 27 source.hlsl
+T 42 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 45 source.hlsl
+T 49 source.hlsl constant.numeric.hex.hlsl
+T 51 source.hlsl
+T 67 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 70 source.hlsl
+T 74 source.hlsl constant.numeric.hex.hlsl
+T 75 source.hlsl
+L     FrontFaceStencilFail = KEEP; FrontFaceStencilZFail = INCR_SAT; FrontFaceStencilPass = REPLACE; FrontFaceStencilFunc = ALWAYS;
+T 4 source.hlsl
+T 24 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 27 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.stencilop.hlsl
+T 33 source.hlsl
+T 54 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 57 source.hlsl
+T 65 source.hlsl support.constant.property-value.fx.stencilop.hlsl
+T 67 source.hlsl
+T 87 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 90 source.hlsl
+T 97 source.hlsl support.constant.property-value.fx.stencilop.hlsl
+T 99 source.hlsl
+T 119 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 122 source.hlsl
+T 128 source.hlsl support.constant.property-value.fx.comparisonfunc.hlsl
+T 129 source.hlsl
+L     BackFaceStencilFail = DECR; BackFaceStencilZFail = INVERT; BackFaceStencilPass = KEEP; BackFaceStencilFunc = NEVER;
+T 4 source.hlsl
+T 23 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 26 source.hlsl
+T 30 source.hlsl support.constant.property-value.fx.stencilop.hlsl
+T 32 source.hlsl
+T 52 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 55 source.hlsl
+T 61 source.hlsl support.constant.property-value.fx.stencilop.hlsl
+T 63 source.hlsl
+T 82 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 85 source.hlsl
+T 89 source.hlsl support.constant.property-value.fx.stencilop.hlsl
+T 91 source.hlsl
+T 110 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 113 source.hlsl
+T 118 source.hlsl support.constant.property-value.fx.comparisonfunc.hlsl
+T 119 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L RasterizerState Wire
+T 15 source.hlsl support.type.fx.hlsl
+T 20 source.hlsl
+L {
+T 1 source.hlsl
+L     FillMode = WIREFRAME; CullMode = NONE; FrontCounterClockwise = FALSE;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 15 source.hlsl
+T 24 source.hlsl support.constant.property-value.fx.fillmode.hlsl
+T 26 source.hlsl
+T 34 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 37 source.hlsl
+T 41 source.hlsl support.constant.property-value.fx.cullmode.hlsl
+T 43 source.hlsl
+T 64 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 67 source.hlsl
+T 72 source.hlsl support.constant.property-value.fx.hlsl
+T 73 source.hlsl
+L     DepthBias = 0; DepthBiasClamp = 0; SlopeScaleDepthBias = 0;
+T 4 source.hlsl
+T 13 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 16 source.hlsl
+T 17 source.hlsl constant.numeric.decimal.hlsl
+T 19 source.hlsl
+T 33 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 36 source.hlsl
+T 37 source.hlsl constant.numeric.decimal.hlsl
+T 39 source.hlsl
+T 58 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 61 source.hlsl
+T 62 source.hlsl constant.numeric.decimal.hlsl
+T 63 source.hlsl
+L     ZClipEnable = TRUE; ScissorEnable = FALSE; MultiSampleEnable = FALSE; AntiAliasedLineEnable = FALSE;
+T 4 source.hlsl
+T 15 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 18 source.hlsl
+T 22 source.hlsl support.constant.property-value.fx.hlsl
+T 24 source.hlsl
+T 37 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 40 source.hlsl
+T 45 source.hlsl support.constant.property-value.fx.hlsl
+T 47 source.hlsl
+T 64 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 67 source.hlsl
+T 72 source.hlsl support.constant.property-value.fx.hlsl
+T 74 source.hlsl
+T 95 source.hlsl meta.object-literal.key.fx.rasterizerstate.hlsl
+T 98 source.hlsl
+T 103 source.hlsl support.constant.property-value.fx.hlsl
+T 104 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L SamplerState Aniso
+T 12 source.hlsl support.type.sampler.hlsl
+T 18 source.hlsl
+L {
+T 1 source.hlsl
+L     Filter = ANISOTROPIC; AddressU = WRAP; AddressV = MIRROR_ONCE; AddressW = BORDER;
+T 4 source.hlsl
+T 10 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 13 source.hlsl
+T 24 source.hlsl support.constant.property-value.fx.filter.hlsl
+T 26 source.hlsl
+T 34 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 37 source.hlsl
+T 41 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 43 source.hlsl
+T 51 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 54 source.hlsl
+T 65 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 67 source.hlsl
+T 75 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 78 source.hlsl
+T 84 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 85 source.hlsl
+L     MipLODBias = 0; MaxAnisotropy = 16; ComparisonFunc = GREATER; BorderColor = float4(0, 0, 0, 0);
+T 4 source.hlsl
+T 14 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 17 source.hlsl
+T 18 source.hlsl constant.numeric.decimal.hlsl
+T 20 source.hlsl
+T 33 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 36 source.hlsl
+T 38 source.hlsl constant.numeric.decimal.hlsl
+T 40 source.hlsl
+T 54 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 57 source.hlsl
+T 64 source.hlsl support.constant.property-value.fx.comparisonfunc.hlsl
+T 66 source.hlsl
+T 77 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 80 source.hlsl
+T 86 source.hlsl storage.type.basic.hlsl
+T 87 source.hlsl
+T 88 source.hlsl constant.numeric.decimal.hlsl
+T 90 source.hlsl
+T 91 source.hlsl constant.numeric.decimal.hlsl
+T 93 source.hlsl
+T 94 source.hlsl constant.numeric.decimal.hlsl
+T 96 source.hlsl
+T 97 source.hlsl constant.numeric.decimal.hlsl
+T 99 source.hlsl
+L     MinLOD = 0; MaxLOD = 0;
+T 4 source.hlsl
+T 10 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 13 source.hlsl
+T 14 source.hlsl constant.numeric.decimal.hlsl
+T 16 source.hlsl
+T 22 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 25 source.hlsl
+T 26 source.hlsl constant.numeric.decimal.hlsl
+T 27 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L technique11 Render
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 18 source.hlsl
+L {
+T 1 source.hlsl
+L     pass P0
+T 4 source.hlsl
+T 8 source.hlsl storage.type.fx.technique.hlsl
+T 11 source.hlsl
+L     {
+T 5 source.hlsl
+L         SetVertexShader(CompileShader(vs_5_0, main()));
+T 8 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 46 source.hlsl
+T 50 source.hlsl support.function.hlsl
+T 55 source.hlsl
+L         SetPixelShader(compile ps_5_0 main());
+T 8 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 23 source.hlsl
+T 30 source.hlsl keyword.control.fx.hlsl
+T 38 source.hlsl
+T 42 source.hlsl support.function.hlsl
+T 46 source.hlsl
+L         SetBlendState(AlphaBlend, float4(0, 0, 0, 0), 0xFFFFFFFF);
+T 8 source.hlsl
+T 21 source.hlsl support.function.hlsl
+T 34 source.hlsl
+T 40 source.hlsl storage.type.basic.hlsl
+T 41 source.hlsl
+T 42 source.hlsl constant.numeric.decimal.hlsl
+T 44 source.hlsl
+T 45 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+T 48 source.hlsl constant.numeric.decimal.hlsl
+T 50 source.hlsl
+T 51 source.hlsl constant.numeric.decimal.hlsl
+T 54 source.hlsl
+T 64 source.hlsl constant.numeric.hex.hlsl
+T 66 source.hlsl
+L         SetRasterizerState(NULL);
+T 8 source.hlsl
+T 26 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.hlsl
+T 33 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl
+L technique10 Old { pass {} }
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 18 source.hlsl
+T 22 source.hlsl storage.type.fx.technique.hlsl
+T 27 source.hlsl
+L Technique Upper { pass {} }
+T 9 source.hlsl storage.type.fx.technique.hlsl
+T 18 source.hlsl
+T 22 source.hlsl storage.type.fx.technique.hlsl
+T 27 source.hlsl
+L technique Plain { pass {} }
+T 9 source.hlsl storage.type.fx.technique.hlsl
+T 18 source.hlsl
+T 22 source.hlsl storage.type.fx.technique.hlsl
+T 27 source.hlsl
+L 

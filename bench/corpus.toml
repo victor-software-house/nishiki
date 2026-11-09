@@ -16,8 +16,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 23
-digest = "0a9cfa7aa345ac1ce38ff5a0f40d011b83b7f6d15b0ff84f361ee5b183b68a95"
+version = 24
+digest = "b7eac8d7f572dae66e12c30d0d53ded1e1e34c2769be1af5f07af30901f80fe9"
 
 [[file]]
 language = "asm"
@@ -546,6 +546,28 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/b3abd6df2ecf052451a361ed55b8f06f8742a795/LICENSE"
 bytes = 39445
 sha256 = "5c385e0e3a338e95bbd03ac49683e6be989cfaf9c40618f359d6266d2d456b7d"
+
+[[file]]
+language = "hlsl"
+tier = "small"
+origin = "neutral"
+path = "hlsl/small/miniengine-sharpen-taa.hlsl"
+source = "https://raw.githubusercontent.com/microsoft/DirectX-Graphics-Samples/68a2b1e97f71642924e74c7757ca21756ad221b5/MiniEngine/Core/Shaders/SharpenTAACS.hlsl"
+licence = "MIT"
+licence_source = "https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/LICENSE"
+bytes = 2672
+sha256 = "76afd1be560639fd0bbf9b2155156522fd9eb7e3fb52ca562ea352369423ad95"
+
+[[file]]
+language = "hlsl"
+tier = "medium"
+origin = "neutral"
+path = "hlsl/medium/partitioned-tlas-raytracing.hlsl"
+source = "https://raw.githubusercontent.com/microsoft/DirectX-Graphics-Samples/68a2b1e97f71642924e74c7757ca21756ad221b5/Samples/Desktop/D3D12Raytracing/src/D3D12RaytracingPartitionedTLAS/shaders/raytracing.hlsl"
+licence = "MIT"
+licence_source = "https://github.com/microsoft/DirectX-Graphics-Samples/blob/68a2b1e97f71642924e74c7757ca21756ad221b5/LICENSE"
+bytes = 16978
+sha256 = "77a02ac7b2fd645a7b715646bd33b2338b5b0ee3b9c107896a756d6fb337c91c"
 
 [[file]]
 language = "html"

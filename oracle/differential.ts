@@ -204,6 +204,11 @@ const pools: Record<string, { words: string[]; marks: string[]; heads: string[] 
     marks: ["$","$$","\\(","\\)","\\[","\\]","{","}","[","]","(",")","<",">","|","+","!","&","\\&","\\\\","%","% c","^","_","\\^","~",",",":","*","=","};"],
     heads: ["",""," ","  ","% ","\\begin{minted}{python}","\\begin{pycode}","\\begin{verbatim}","\\begin{equation}","\\begin{tabular}{cc}","\\item ","$"],
   },
+  hlsl: {
+    words: ["float", "float4", "float4x4", "half3", "int2", "uint", "bool", "min16float", "double2x3", "matrix", "vector", "void", "true", "false", "TRUE", "NULL", "if", "else", "for", "while", "return", "discard", "switch", "case", "break", "struct", "cbuffer", "tbuffer", "class", "interface", "namespace", "typedef", "compile", "static", "const", "in", "out", "inout", "uniform", "groupshared", "precise", "register", "packoffset", "centroid", "linear", "sample", "snorm", "unorm", "point", "line", "triangle", "string", "Texture2D", "Texture2DArray", "RWTexture2D", "RWStructuredBuffer", "Buffer", "SamplerState", "sampler2D", "texture2D", "TriangleStream", "BlendState", "technique11", "pass", "BlendEnable", "SrcBlend", "DepthFunc", "FillMode", "Filter", "AddressU", "SRC_ALPHA", "add", "max", "min", "ALL", "LESS_EQUAL", "KEEP", "WIREFRAME", "NONE", "ANISOTROPIC", "WRAP", "mul", "saturate", "lerp", "Sample", "SV_Position", "SV_Target0", "SV_Target8", "sv_dispatchthreadid", "TEXCOORD0", "texcoord12", "COLOR", "POSITIONT", "FOG", "x", "uv", "main", "1", "1.", "1.5", "1.5f", "2F", ".5", "0x1F", "0XAB", "1e3", "\u017fv_depth", "\u212aEEP", "é"],
+    marks: ["(", ")", "[", "]", "{", "}", "<", ">", ",", ".", ":", ": ", ":  ", ";", "=", "==", "+", "-", "*", "/", "%", "?", "!", "&&", "||", "\"", "\\\"", "\\", "/*", "*/", "//", "#", "\u00a0"],
+    heads: ["", "", " ", "    ", "\t", "#define ", "  #  ifdef ", "#ifx", "#include ", "// ", "/* ", "[numthreads(8, 8, 1)]"],
+  },
 };
 const pool = pools[lang!];
 if (!pool) throw new Error(`no fragment pool for ${lang}`);

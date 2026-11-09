@@ -49,6 +49,7 @@ use std::ops::ControlFlow;
     feature = "lang-objective-c",
     feature = "lang-objective-cpp",
     feature = "lang-pascal",
+    feature = "lang-hlsl",
     feature = "lang-svelte",
     feature = "lang-php",
     feature = "lang-perl",

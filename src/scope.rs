@@ -122,6 +122,8 @@ tables! {
     HASKELL = haskell;
     #[cfg(feature = "lang-hcl")]
     HCL = hcl;
+    #[cfg(feature = "lang-hlsl")]
+    HLSL = hlsl;
     #[cfg(feature = "lang-html")]
     HTML = html;
     #[cfg(feature = "lang-ini")]

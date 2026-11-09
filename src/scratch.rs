@@ -87,6 +87,10 @@ pub(crate) struct Scratch {
     /// It is boxed and allocated by the first Haskell line, as Dart's is.
     #[cfg(feature = "lang-haskell")]
     pub(crate) haskell: Option<Box<crate::haskell::Scratch>>,
+    /// The HLSL lexer's, for HLSL documents.
+    /// It is boxed and allocated by the first HLSL line, as Pascal's is.
+    #[cfg(feature = "lang-hlsl")]
+    pub(crate) hlsl: Option<Box<crate::hlsl::Scratch>>,
     /// The HTML lexer's, for HTML documents and Markdown HTML fences.
     #[cfg(feature = "lang-html")]
     pub(crate) html: crate::html::Scratch,

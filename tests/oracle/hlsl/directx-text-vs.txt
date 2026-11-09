@@ -1,0 +1,215 @@
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft. All rights reserved.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L // This code is licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L // ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 53 source.hlsl comment.line.double-slash.hlsl
+L // IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 49 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Developed by Minigraph
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 25 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // Author:  James Stanard 
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 26 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L 
+L #include "TextRS.hlsli"
+T 8 source.hlsl keyword.preprocessor.hlsl
+T 9 source.hlsl
+T 10 source.hlsl string.quoted.double.hlsl
+T 22 source.hlsl string.quoted.double.hlsl
+T 23 source.hlsl string.quoted.double.hlsl
+L 
+L cbuffer cbFontParams : register(b0)
+T 7 source.hlsl storage.type.structured.hlsl
+T 23 source.hlsl
+T 31 source.hlsl support.function.hlsl
+T 35 source.hlsl
+L {
+T 1 source.hlsl
+L     float2 Scale;            // Scale and offset for transforming coordinates
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 31 source.hlsl comment.line.double-slash.hlsl
+T 77 source.hlsl comment.line.double-slash.hlsl
+L     float2 Offset;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+L     float2 InvTexDim;        // Normalizes texture coordinates
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+T 31 source.hlsl comment.line.double-slash.hlsl
+T 62 source.hlsl comment.line.double-slash.hlsl
+L     float TextSize;            // Height of text in destination pixels
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 31 source.hlsl
+T 33 source.hlsl comment.line.double-slash.hlsl
+T 70 source.hlsl comment.line.double-slash.hlsl
+L     float TextScale;        // TextSize / FontHeight
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 28 source.hlsl
+T 30 source.hlsl comment.line.double-slash.hlsl
+T 52 source.hlsl comment.line.double-slash.hlsl
+L     float DstBorder;        // Extra space around a glyph measured in screen space coordinates
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 28 source.hlsl
+T 30 source.hlsl comment.line.double-slash.hlsl
+T 94 source.hlsl comment.line.double-slash.hlsl
+L     uint SrcBorder;            // Extra spacing around glyphs to avoid sampling neighboring glyphs
+T 4 source.hlsl
+T 8 source.hlsl storage.type.basic.hlsl
+T 31 source.hlsl
+T 33 source.hlsl comment.line.double-slash.hlsl
+T 98 source.hlsl comment.line.double-slash.hlsl
+L }
+T 1 source.hlsl
+L 
+L struct VS_INPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 15 source.hlsl
+L {
+T 1 source.hlsl
+L     float2 ScreenPos : POSITION;    // Upper-left position in screen pixel coordinates
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 31 source.hlsl support.variable.semantic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 86 source.hlsl comment.line.double-slash.hlsl
+L     uint4  Glyph : TEXCOORD;        // X, Y, Width, Height in texel space
+T 4 source.hlsl
+T 9 source.hlsl storage.type.basic.hlsl
+T 19 source.hlsl
+T 27 source.hlsl support.variable.semantic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 73 source.hlsl comment.line.double-slash.hlsl
+L };
+T 2 source.hlsl
+L 
+L struct VS_OUTPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 16 source.hlsl
+L {
+T 1 source.hlsl
+L     float4 Pos : SV_POSITION;    // Upper-left and lower-right coordinates in clip space
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 28 source.hlsl support.variable.semantic.sm4.hlsl
+T 33 source.hlsl
+T 35 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L     float2 Tex : TEXCOORD0;        // Upper-left and lower-right normalized UVs
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+T 26 source.hlsl support.variable.semantic.hlsl
+T 35 source.hlsl
+T 37 source.hlsl comment.line.double-slash.hlsl
+T 79 source.hlsl comment.line.double-slash.hlsl
+L };
+T 2 source.hlsl
+L 
+L [RootSignature(Text_RootSig)]
+T 1 source.hlsl
+T 14 source.hlsl support.function.hlsl
+T 29 source.hlsl
+L VS_OUTPUT main( VS_INPUT input, uint VertID : SV_VertexID )
+T 10 source.hlsl
+T 14 source.hlsl support.function.hlsl
+T 32 source.hlsl
+T 36 source.hlsl storage.type.basic.hlsl
+T 46 source.hlsl
+T 57 source.hlsl support.variable.semantic.sm4.hlsl
+T 59 source.hlsl
+L {
+T 1 source.hlsl
+L     const float2 xy0 = input.ScreenPos - DstBorder;
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 51 source.hlsl
+L     const float2 xy1 = input.ScreenPos + DstBorder + float2(TextScale * input.Glyph.z, TextSize);
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 16 source.hlsl storage.type.basic.hlsl
+T 53 source.hlsl
+T 59 source.hlsl storage.type.basic.hlsl
+T 97 source.hlsl
+L     const uint2 uv0 = input.Glyph.xy - SrcBorder;
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 49 source.hlsl
+L     const uint2 uv1 = input.Glyph.xy + SrcBorder + input.Glyph.zw;
+T 4 source.hlsl
+T 9 source.hlsl storage.modifier.hlsl
+T 10 source.hlsl
+T 15 source.hlsl storage.type.basic.hlsl
+T 66 source.hlsl
+L 
+L     float2 uv = float2( VertID & 1, (VertID >> 1) & 1 );
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 16 source.hlsl
+T 22 source.hlsl storage.type.basic.hlsl
+T 33 source.hlsl
+T 34 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+T 48 source.hlsl constant.numeric.decimal.hlsl
+T 52 source.hlsl
+T 53 source.hlsl constant.numeric.decimal.hlsl
+T 56 source.hlsl
+L 
+L     VS_OUTPUT output;
+T 21 source.hlsl
+L     output.Pos = float4( lerp(xy0, xy1, uv) * Scale + Offset, 0, 1 );
+T 17 source.hlsl
+T 23 source.hlsl storage.type.basic.hlsl
+T 25 source.hlsl
+T 29 source.hlsl support.function.hlsl
+T 62 source.hlsl
+T 63 source.hlsl constant.numeric.decimal.hlsl
+T 65 source.hlsl
+T 66 source.hlsl constant.numeric.decimal.hlsl
+T 69 source.hlsl
+L     output.Tex = lerp(uv0, uv1, uv) * InvTexDim;
+T 17 source.hlsl
+T 21 source.hlsl support.function.hlsl
+T 48 source.hlsl
+L     return output;
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L }
+T 1 source.hlsl
+L 

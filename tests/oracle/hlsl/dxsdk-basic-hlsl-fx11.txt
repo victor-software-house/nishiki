@@ -1,0 +1,685 @@
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // File: BasicHLSL11.fx
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 23 source.hlsl comment.line.double-slash.hlsl
+L //
+T 2 source.hlsl comment.line.double-slash.hlsl
+L // The effect file for the BasicHLSL sample.  
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 46 source.hlsl comment.line.double-slash.hlsl
+L // 
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 3 source.hlsl comment.line.double-slash.hlsl
+L // Copyright (c) Microsoft Corporation.
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 39 source.hlsl comment.line.double-slash.hlsl
+L // Licensed under the MIT License (MIT).
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 40 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Global variables
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 19 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L float4 g_MaterialAmbientColor;      // Material's ambient color
+T 6 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 63 source.hlsl comment.line.double-slash.hlsl
+L float4 g_MaterialDiffuseColor;      // Material's diffuse color
+T 6 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 63 source.hlsl comment.line.double-slash.hlsl
+L int g_nNumLights;
+T 3 source.hlsl storage.type.basic.hlsl
+T 17 source.hlsl
+L 
+L float3 g_LightDir[3];               // Light's direction in world space
+T 6 source.hlsl storage.type.basic.hlsl
+T 18 source.hlsl
+T 19 source.hlsl constant.numeric.decimal.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 71 source.hlsl comment.line.double-slash.hlsl
+L float4 g_LightDiffuse[3];           // Light's diffuse color
+T 6 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 23 source.hlsl constant.numeric.decimal.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 60 source.hlsl comment.line.double-slash.hlsl
+L float4 g_LightAmbient;              // Light's ambient color
+T 6 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 60 source.hlsl comment.line.double-slash.hlsl
+L 
+L Texture2D g_MeshTexture;            // Color texture for mesh
+T 9 source.hlsl support.type.texture.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 61 source.hlsl comment.line.double-slash.hlsl
+L 
+L float    g_fTime;                   // App's time in seconds
+T 5 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 60 source.hlsl comment.line.double-slash.hlsl
+L float4x4 g_mWorld;                  // World matrix for object
+T 8 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 62 source.hlsl comment.line.double-slash.hlsl
+L float4x4 g_mWorldViewProjection;    // World * View * Projection matrix
+T 8 source.hlsl storage.type.basic.hlsl
+T 36 source.hlsl
+T 38 source.hlsl comment.line.double-slash.hlsl
+T 71 source.hlsl comment.line.double-slash.hlsl
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // DepthStates
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 14 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L DepthStencilState EnableDepth
+T 17 source.hlsl support.type.fx.hlsl
+T 29 source.hlsl
+L {
+T 1 source.hlsl
+L     DepthEnable = TRUE;
+T 4 source.hlsl
+T 15 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 18 source.hlsl
+T 22 source.hlsl support.constant.property-value.fx.hlsl
+T 23 source.hlsl
+L     DepthWriteMask = ALL;
+T 4 source.hlsl
+T 18 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 21 source.hlsl
+T 24 source.hlsl support.constant.property-value.fx.depthwritemask.hlsl
+T 25 source.hlsl
+L     DepthFunc = LESS_EQUAL;
+T 4 source.hlsl
+T 13 source.hlsl meta.object-literal.key.fx.depthstencilstate.hlsl
+T 16 source.hlsl
+T 26 source.hlsl support.constant.property-value.fx.comparisonfunc.hlsl
+T 27 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Texture samplers
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 19 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L SamplerState MeshTextureSampler
+T 12 source.hlsl support.type.sampler.hlsl
+T 31 source.hlsl
+L {
+T 1 source.hlsl
+L     Filter = MIN_MAG_MIP_LINEAR;
+T 4 source.hlsl
+T 10 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 13 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.filter.hlsl
+T 32 source.hlsl
+L     AddressU = Wrap;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 15 source.hlsl
+T 19 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 20 source.hlsl
+L     AddressV = Wrap;
+T 4 source.hlsl
+T 12 source.hlsl meta.object-literal.key.fx.samplerstate.hlsl
+T 15 source.hlsl
+T 19 source.hlsl support.constant.property-value.fx.textureaddressmode.hlsl
+T 20 source.hlsl
+L };
+T 2 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Vertex shader output structure
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 33 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L struct VS_OUTPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 16 source.hlsl
+L {
+T 1 source.hlsl
+L     float4 Position   : SV_POSITION; // vertex position 
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 35 source.hlsl support.variable.semantic.sm4.hlsl
+T 37 source.hlsl
+T 39 source.hlsl comment.line.double-slash.hlsl
+T 56 source.hlsl comment.line.double-slash.hlsl
+L     float4 Diffuse    : COLOR0;      // vertex diffuse color (note that COLOR0 is clamped from 0..1)
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 30 source.hlsl support.variable.semantic.hlsl
+T 37 source.hlsl
+T 39 source.hlsl comment.line.double-slash.hlsl
+T 100 source.hlsl comment.line.double-slash.hlsl
+L     float2 TextureUV  : TEXCOORD0;   // vertex texture coords 
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 24 source.hlsl
+T 33 source.hlsl support.variable.semantic.hlsl
+T 37 source.hlsl
+T 39 source.hlsl comment.line.double-slash.hlsl
+T 62 source.hlsl comment.line.double-slash.hlsl
+L };
+T 2 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // This shader computes standard transform and lighting
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 55 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L VS_OUTPUT RenderSceneVS( float4 vPos : POSITION,
+T 10 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+T 47 source.hlsl support.variable.semantic.hlsl
+T 48 source.hlsl
+L                          float3 vNormal : NORMAL,
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 42 source.hlsl
+T 48 source.hlsl support.variable.semantic.hlsl
+T 49 source.hlsl
+L                          float2 vTexCoord0 : TEXCOORD,
+T 25 source.hlsl
+T 31 source.hlsl storage.type.basic.hlsl
+T 45 source.hlsl
+T 53 source.hlsl support.variable.semantic.hlsl
+T 54 source.hlsl
+L                          uniform int nNumLights,
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 36 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L                          uniform bool bTexture,
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 37 source.hlsl storage.type.basic.hlsl
+T 47 source.hlsl
+L                          uniform bool bAnimate )
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 37 source.hlsl storage.type.basic.hlsl
+T 48 source.hlsl
+L {
+T 1 source.hlsl
+L     VS_OUTPUT Output;
+T 21 source.hlsl
+L     float3 vNormalWorldSpace;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 29 source.hlsl
+L   
+T 2 source.hlsl
+L     float4 vAnimatedPos = vPos;
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 31 source.hlsl
+L     
+T 4 source.hlsl
+L     // Animation the vertex based on time and the vertex's object space position
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 80 source.hlsl comment.line.double-slash.hlsl
+L     if( bAnimate )
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L 		vAnimatedPos += float4(vNormal, 0) * (sin(g_fTime+5.5)+0.5)*5;
+T 18 source.hlsl
+T 24 source.hlsl storage.type.basic.hlsl
+T 34 source.hlsl
+T 35 source.hlsl constant.numeric.decimal.hlsl
+T 40 source.hlsl
+T 43 source.hlsl support.function.hlsl
+T 52 source.hlsl
+T 55 source.hlsl constant.numeric.decimal.hlsl
+T 57 source.hlsl
+T 60 source.hlsl constant.numeric.decimal.hlsl
+T 62 source.hlsl
+T 63 source.hlsl constant.numeric.decimal.hlsl
+T 64 source.hlsl
+L     
+T 4 source.hlsl
+L     // Transform the position from object space to homogeneous projection space
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 79 source.hlsl comment.line.double-slash.hlsl
+L     Output.Position = mul(vAnimatedPos, g_mWorldViewProjection);
+T 22 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 64 source.hlsl
+L     
+T 4 source.hlsl
+L     // Transform the normal from object space to world space    
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 64 source.hlsl comment.line.double-slash.hlsl
+L     vNormalWorldSpace = normalize(mul(vNormal, (float3x3)g_mWorld)); // normal (world space)
+T 24 source.hlsl
+T 33 source.hlsl support.function.hlsl
+T 34 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 48 source.hlsl
+T 56 source.hlsl storage.type.basic.hlsl
+T 69 source.hlsl
+T 71 source.hlsl comment.line.double-slash.hlsl
+T 92 source.hlsl comment.line.double-slash.hlsl
+L     
+T 4 source.hlsl
+L     // Compute simple directional lighting equation
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 51 source.hlsl comment.line.double-slash.hlsl
+L     float3 vTotalLightDiffuse = float3(0,0,0);
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 32 source.hlsl
+T 38 source.hlsl storage.type.basic.hlsl
+T 39 source.hlsl
+T 40 source.hlsl constant.numeric.decimal.hlsl
+T 41 source.hlsl
+T 42 source.hlsl constant.numeric.decimal.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 46 source.hlsl
+L     [unroll] for(int i=0; i<nNumLights; i++ )
+T 13 source.hlsl
+T 16 source.hlsl keyword.control.hlsl
+T 17 source.hlsl
+T 20 source.hlsl storage.type.basic.hlsl
+T 23 source.hlsl
+T 24 source.hlsl constant.numeric.decimal.hlsl
+T 45 source.hlsl
+L         vTotalLightDiffuse += g_LightDiffuse[i].rgb * max(0,dot(vNormalWorldSpace, g_LightDir[i]));
+T 54 source.hlsl
+T 57 source.hlsl support.function.hlsl
+T 58 source.hlsl
+T 59 source.hlsl constant.numeric.decimal.hlsl
+T 60 source.hlsl
+T 63 source.hlsl support.function.hlsl
+T 99 source.hlsl
+L         
+T 8 source.hlsl
+L     Output.Diffuse.rgb = g_MaterialDiffuseColor.rgb * vTotalLightDiffuse + 
+T 75 source.hlsl
+L                          g_MaterialAmbientColor.rgb * g_LightAmbient.rgb;   
+T 76 source.hlsl
+L     Output.Diffuse.a = g_MaterialDiffuseColor.a;
+T 48 source.hlsl
+L     
+T 4 source.hlsl
+L     // Just copy the texture coordinate through
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 47 source.hlsl comment.line.double-slash.hlsl
+L     if( bTexture ) 
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 19 source.hlsl
+L         Output.TextureUV = vTexCoord0; 
+T 39 source.hlsl
+L     else
+T 4 source.hlsl
+T 8 source.hlsl keyword.control.hlsl
+L         Output.TextureUV = 0; 
+T 27 source.hlsl
+T 28 source.hlsl constant.numeric.decimal.hlsl
+T 30 source.hlsl
+L     
+T 4 source.hlsl
+L     return Output;    
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 22 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Pixel shader output structure
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 32 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L struct PS_OUTPUT
+T 6 source.hlsl storage.type.structured.hlsl
+T 16 source.hlsl
+L {
+T 1 source.hlsl
+L     float4 RGBColor : SV_Target;  // Pixel color
+T 4 source.hlsl
+T 10 source.hlsl storage.type.basic.hlsl
+T 22 source.hlsl
+T 31 source.hlsl support.variable.semantic.sm4.hlsl
+T 34 source.hlsl
+T 36 source.hlsl comment.line.double-slash.hlsl
+T 48 source.hlsl comment.line.double-slash.hlsl
+L };
+T 2 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // This shader outputs the pixel's color by modulating the texture's
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 68 source.hlsl comment.line.double-slash.hlsl
+L //       color with diffuse material color
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 42 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L PS_OUTPUT RenderScenePS( VS_OUTPUT In,
+T 10 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 38 source.hlsl
+L                          uniform bool bTexture ) 
+T 25 source.hlsl
+T 32 source.hlsl storage.modifier.hlsl
+T 33 source.hlsl
+T 37 source.hlsl storage.type.basic.hlsl
+T 49 source.hlsl
+L { 
+T 2 source.hlsl
+L     PS_OUTPUT Output;
+T 21 source.hlsl
+L 
+L     // Lookup mesh texture and modulate it with diffuse
+T 4 source.hlsl
+T 6 source.hlsl comment.line.double-slash.hlsl
+T 55 source.hlsl comment.line.double-slash.hlsl
+L     if( bTexture )
+T 4 source.hlsl
+T 6 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L         Output.RGBColor = g_MeshTexture.Sample(MeshTextureSampler, In.TextureUV) * In.Diffuse;
+T 40 source.hlsl
+T 46 source.hlsl support.function.hlsl
+T 94 source.hlsl
+L     else
+T 4 source.hlsl
+T 8 source.hlsl keyword.control.hlsl
+L         Output.RGBColor = In.Diffuse;
+T 37 source.hlsl
+L 
+L     return Output;
+T 4 source.hlsl
+T 10 source.hlsl keyword.control.hlsl
+T 18 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L 
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L // Renders scene to render target using D3D11 Techniques
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 56 source.hlsl comment.line.double-slash.hlsl
+L //--------------------------------------------------------------------------------------
+T 2 source.hlsl comment.line.double-slash.hlsl
+T 88 source.hlsl comment.line.double-slash.hlsl
+L technique11 RenderSceneWithTexture1Light
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 40 source.hlsl
+L {
+T 1 source.hlsl
+L     pass P0
+T 4 source.hlsl
+T 8 source.hlsl storage.type.fx.technique.hlsl
+T 11 source.hlsl
+L     {
+T 5 source.hlsl
+L         SetVertexShader( CompileShader( vs_4_0_level_9_1, RenderSceneVS( 1, true, true ) ) );
+T 8 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 58 source.hlsl
+T 71 source.hlsl support.function.hlsl
+T 73 source.hlsl
+T 74 source.hlsl constant.numeric.decimal.hlsl
+T 76 source.hlsl
+T 80 source.hlsl constant.language.hlsl
+T 82 source.hlsl
+T 86 source.hlsl constant.language.hlsl
+T 93 source.hlsl
+L         SetGeometryShader( NULL );
+T 8 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.hlsl
+T 34 source.hlsl
+L         SetPixelShader( CompileShader( ps_4_0_level_9_1, RenderScenePS( true ) ) );
+T 8 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 57 source.hlsl
+T 70 source.hlsl support.function.hlsl
+T 72 source.hlsl
+T 76 source.hlsl constant.language.hlsl
+T 83 source.hlsl
+L 
+L         SetDepthStencilState( EnableDepth, 0 );
+T 8 source.hlsl
+T 28 source.hlsl support.function.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L technique11 RenderSceneWithTexture2Light
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 40 source.hlsl
+L {
+T 1 source.hlsl
+L     pass P0
+T 4 source.hlsl
+T 8 source.hlsl storage.type.fx.technique.hlsl
+T 11 source.hlsl
+L     {          
+T 15 source.hlsl
+L         SetVertexShader( CompileShader( vs_4_0_level_9_1, RenderSceneVS( 2, true, true ) ) );
+T 8 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 58 source.hlsl
+T 71 source.hlsl support.function.hlsl
+T 73 source.hlsl
+T 74 source.hlsl constant.numeric.decimal.hlsl
+T 76 source.hlsl
+T 80 source.hlsl constant.language.hlsl
+T 82 source.hlsl
+T 86 source.hlsl constant.language.hlsl
+T 93 source.hlsl
+L         SetGeometryShader( NULL );
+T 8 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.hlsl
+T 34 source.hlsl
+L         SetPixelShader( CompileShader( ps_4_0_level_9_1, RenderScenePS( true ) ) ); 
+T 8 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 57 source.hlsl
+T 70 source.hlsl support.function.hlsl
+T 72 source.hlsl
+T 76 source.hlsl constant.language.hlsl
+T 84 source.hlsl
+L         
+T 8 source.hlsl
+L         SetDepthStencilState( EnableDepth, 0 );
+T 8 source.hlsl
+T 28 source.hlsl support.function.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L technique11 RenderSceneWithTexture3Light
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 40 source.hlsl
+L {
+T 1 source.hlsl
+L     pass P0
+T 4 source.hlsl
+T 8 source.hlsl storage.type.fx.technique.hlsl
+T 11 source.hlsl
+L     {          
+T 15 source.hlsl
+L         SetVertexShader( CompileShader( vs_4_0_level_9_1, RenderSceneVS( 3, true, true ) ) );
+T 8 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 58 source.hlsl
+T 71 source.hlsl support.function.hlsl
+T 73 source.hlsl
+T 74 source.hlsl constant.numeric.decimal.hlsl
+T 76 source.hlsl
+T 80 source.hlsl constant.language.hlsl
+T 82 source.hlsl
+T 86 source.hlsl constant.language.hlsl
+T 93 source.hlsl
+L         SetGeometryShader( NULL );
+T 8 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.hlsl
+T 34 source.hlsl
+L         SetPixelShader( CompileShader( ps_4_0_level_9_1, RenderScenePS( true ) ) );
+T 8 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 57 source.hlsl
+T 70 source.hlsl support.function.hlsl
+T 72 source.hlsl
+T 76 source.hlsl constant.language.hlsl
+T 83 source.hlsl
+L 
+L         SetDepthStencilState( EnableDepth, 0 );
+T 8 source.hlsl
+T 28 source.hlsl support.function.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl
+L 
+L technique11 RenderSceneNoTexture
+T 11 source.hlsl storage.type.fx.technique.hlsl
+T 32 source.hlsl
+L {
+T 1 source.hlsl
+L     pass P0
+T 4 source.hlsl
+T 8 source.hlsl storage.type.fx.technique.hlsl
+T 11 source.hlsl
+L     {          
+T 15 source.hlsl
+L         SetVertexShader( CompileShader( vs_4_0_level_9_1, RenderSceneVS( 1, true, true ) ) );
+T 8 source.hlsl
+T 23 source.hlsl support.function.hlsl
+T 25 source.hlsl
+T 38 source.hlsl support.function.hlsl
+T 58 source.hlsl
+T 71 source.hlsl support.function.hlsl
+T 73 source.hlsl
+T 74 source.hlsl constant.numeric.decimal.hlsl
+T 76 source.hlsl
+T 80 source.hlsl constant.language.hlsl
+T 82 source.hlsl
+T 86 source.hlsl constant.language.hlsl
+T 93 source.hlsl
+L         SetGeometryShader( NULL );
+T 8 source.hlsl
+T 25 source.hlsl support.function.hlsl
+T 27 source.hlsl
+T 31 source.hlsl support.constant.property-value.fx.hlsl
+T 34 source.hlsl
+L         SetPixelShader( CompileShader( ps_4_0_level_9_1, RenderScenePS( false ) ) );
+T 8 source.hlsl
+T 22 source.hlsl support.function.hlsl
+T 24 source.hlsl
+T 37 source.hlsl support.function.hlsl
+T 57 source.hlsl
+T 70 source.hlsl support.function.hlsl
+T 72 source.hlsl
+T 77 source.hlsl constant.language.hlsl
+T 84 source.hlsl
+L 
+L         SetDepthStencilState( EnableDepth, 0 );
+T 8 source.hlsl
+T 28 source.hlsl support.function.hlsl
+T 43 source.hlsl
+T 44 source.hlsl constant.numeric.decimal.hlsl
+T 47 source.hlsl
+L     }
+T 5 source.hlsl
+L }
+T 1 source.hlsl

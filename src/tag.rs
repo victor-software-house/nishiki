@@ -108,6 +108,9 @@ tags! {
     /// HCL.
     #[cfg(feature = "lang-hcl")]
     HCL = 0x4F00,
+    /// HLSL.
+    #[cfg(feature = "lang-hlsl")]
+    HLSL = 0x5300,
     /// HTML.
     #[cfg(feature = "lang-html")]
     HTML = 0x2800,
