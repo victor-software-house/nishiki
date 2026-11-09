@@ -497,3 +497,34 @@ fn an_edit_to_a_line_just_completed_lexes_it_again() {
         }
     }
 }
+
+/// A lex that defers the last line still reports it changed, since the line
+/// turns from stale to provisional.
+#[test]
+fn a_deferred_lex_reports_the_last_line_changed() {
+    let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+    document.set_tail(Tail::Amortized {
+        short: 4,
+        growth: 2,
+    });
+    document.push_str("let value");
+    document.lex(Until::End);
+    let _ = document.take_changes();
+    document.push_str("s");
+    assert!(document.take_changes().is_some());
+    assert_eq!(
+        document.line(0).map(|line| line.kind()),
+        Some(LineKind::Stale)
+    );
+    document.lex(Until::End);
+    assert!(matches!(
+        document.line(0).map(|line| line.kind()),
+        Some(LineKind::Provisional { .. })
+    ));
+    assert_eq!(
+        document
+            .take_changes()
+            .map(|changes| (changes.start, changes.new_end)),
+        Some((0, 1))
+    );
+}

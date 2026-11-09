@@ -490,8 +490,12 @@ impl Document {
         self.mark(0, self.line_count());
     }
 
-    /// The lines whose text or tokens changed since the last call, or `None`
-    /// when no line changed.
+    /// The lines whose text, tokens or kind changed since the last call, or
+    /// `None` when no line changed.
+    ///
+    /// A lex can change only a line's kind.
+    /// A last line whose lexing [`Tail`] defers turns from stale to
+    /// provisional, with the tokens it had.
     pub fn take_changes(&mut self) -> Option<Changes> {
         let dirty = self.dirty.take()?;
         let count = self.line_count();
@@ -755,7 +759,10 @@ impl Document {
             .filter(|lexed| lexed.start == start && lexed.from == from)
             && (lexed.len == len || self.defers(lexed.len, len))
         {
-            self.tail.lexed = Some(Lexed { seen: len, ..lexed });
+            if lexed.seen != len {
+                self.tail.lexed = Some(Lexed { seen: len, ..lexed });
+                self.mark(index, index + 1);
+            }
             return;
         }
         self.tail.tokens.clear();
