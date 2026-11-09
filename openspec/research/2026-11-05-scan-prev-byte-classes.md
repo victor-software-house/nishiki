@@ -58,7 +58,7 @@ The Shiki corpus test on 3,600 documents from `oracle/fuzz.ts` gave the same 21 
   | swift | 0.9690 | 0.9879 |
   | ruby | 0.9959 | 0.9874 |
 
-- Falls: astro 0.9230, perl 0.9799, ruby 0.9874, swift 0.9879, sass 0.9950, scala 0.9961, python 0.9974, go 0.9976.
+- Falls below 0.9980: astro 0.9230, perl 0.9799, ruby 0.9874, swift 0.9879, sass 0.9950, erb 0.9950, svelte 0.9953, scala 0.9961, tex 0.9963, haml 0.9964, mermaid 0.9965, matlab 0.9966, postcss 0.9972, python 0.9974, go 0.9976.
 - Rises in 24 grammars: bat 1.0048, kotlin 1.0040, julia 1.0031, dart 1.0027, java 1.0023, zig 1.0018, nix 1.0014, objective-c 1.0013, and 16 below 1.0010.
 - Split by function, bat's +14,251 and Kotlin's +112,313 instructions are all in their `scan`: the class lookup at each position, where few tries are skipped.
 
@@ -77,7 +77,7 @@ The Shiki corpus test on 3,600 documents from `oracle/fuzz.ts` gave the same 21 
   | swift | 390.7 | 404.5 | 1.0353 |
   | ruby | 2,652.7 | 2,670.6 | 1.0068 |
 
-- Split by function, latex's +40.2 M is +35.0 M in `rules::tables::candidate_lists` (40.8 M to 75.8 M), the rest in `memcmp` and `memset`.
+- Split by function, latex's +40.2 M is +35.0 M in `rules::tables::candidate_lists` (40.8 M to 75.8 M), the rest in `memcmp`, `memset` and the `OnceLock<Tables>` initializers (+2.16 M, +1.18 M and about +1.69 M).
   The extra rows double the work of building a rule's tables.
 - `mise run bench:cold`, medians in µs, on the same box, so timings carry its noise:
 
