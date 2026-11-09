@@ -501,8 +501,24 @@ indoc = "2.0.8"
 # nishiki itself, for the test and example members, declared once
 # (Kody, #609). Both entries are paths only, so cargo drops them from the
 # published manifest.
-nishiki = { path = "." }
+# Each member asks for nishiki's default features itself.
+# `check:size` can then build the examples with one tier alone.
+nishiki = { path = ".", default-features = false }
 nishiki-alloc-count = { path = "nishiki-alloc-count" }
+
+# The budgets `mise run check:size` holds the `size` example to, per tier.
+# `text` is `.text`; `data` is `.rodata`, `.data.rel.ro` and `.data`, where
+# the lexers' tables sit.
+# Each budget is what CI measured on linux-x64 at the commit that set it.
+# A budget is lowered, never raised without a measured reason.
+[workspace.metadata.size]
+tolerance-percent = 2
+
+[workspace.metadata.size.tiers]
+# One small language: the shared engine with the least on top.
+json = { features = "nishiki/lang-json", text = 0, data = 0 }
+# Every language of the default tier.
+all = { features = "nishiki/all", text = 0, data = 0 }
 
 # Line tables keep backtraces readable at a fraction of full debug info.
 [profile.dev]
