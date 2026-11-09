@@ -1495,10 +1495,6 @@ pub(crate) trait Halt {
     /// So it does not hold under an embedded source, a `source` scope inside a
     /// `meta` scope, which the selector shuts out.
     /// Most halts have none, and a language that does not read it ignores it.
-    #[expect(
-        dead_code,
-        reason = "Markdown, the HTML engine and the rule engine read it in the pull requests above"
-    )]
     fn deep(&self) -> Option<&dyn Halt> {
         None
     }

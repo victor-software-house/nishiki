@@ -17,7 +17,7 @@ use super::Embedding;
 use super::Stop;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
-use crate::language::{Halts, Parts, StopKind, Stopped};
+use crate::language::{Halt, Halts, Parts, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scope::{PATH_SLOTS, Scopes, path_slot};
 use crate::{Language, Stack, Token};
@@ -745,6 +745,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.halt.filter(|_| self.frames.len() == 1)
     }
 
+    /// The deep halt of the line's halts below the root, where the grammar
+    /// takes one ([`Grammar::DEPTH_HALTS`]) and no open rule shuts it out.
+    pub(crate) fn deep_halt(&self) -> Option<&'a dyn Halt> {
+        let &(end, _) = self.halt?;
+        end.deep().filter(|_| G::deep_halts_open(self))
+    }
+
     /// Records that the scan stopped at the halt at `p`, where the line ends.
     pub(crate) fn halt_here(&mut self, p: usize) {
         self.halted = Some(p);
@@ -1235,6 +1242,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 payload,
                 next_while: 0,
             });
+            if G::DEPTH_HALTS {
+                G::frame_pushed(self);
+            }
             return;
         }
         self.flags.failed = false;
@@ -1273,11 +1283,17 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             payload,
             next_while: 0,
         });
+        if G::DEPTH_HALTS {
+            G::frame_pushed(self);
+        }
     }
 
     fn pop_frame(&mut self) -> Frame<G> {
         let frame = self.frames[self.frames.len() - 1];
         self.frames.pop();
+        if G::DEPTH_HALTS {
+            G::frames_popped(self);
+        }
         frame
     }
 
@@ -1521,6 +1537,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let depth;
         (self.s, self.nl, self.pos, self.anchor, depth) = saved;
         self.frames.truncate(depth);
+        if G::DEPTH_HALTS {
+            G::frames_popped(self);
+        }
         if G::EMBEDS {
             self.embeds = saved_embeds;
         }
@@ -1622,6 +1641,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 self.g = self.anchor == Some(self.pos);
                 let Some(end) = self.try_pat(pat, self.pos) else {
                     self.frames.truncate(i);
+                    if G::DEPTH_HALTS {
+                        G::frames_popped(self);
+                    }
                     return;
                 };
                 self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
@@ -1640,6 +1662,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             self.g = self.anchor == Some(self.pos);
             let Some(end) = self.try_pat(pat, self.pos) else {
                 self.frames.truncate(i);
+                if G::DEPTH_HALTS {
+                    G::frames_popped(self);
+                }
                 break;
             };
             self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
@@ -3096,5 +3121,248 @@ mod tests {
         let names: Vec<&str> = arena.scopes(bang.stack().0).collect();
         assert!(names.contains(&"mark.!"), "{names:?}");
         assert_eq!(scratch.rule_starts, [4]);
+    }
+
+    /// The depth halts of [`Grammar::DEPTH_HALTS`].
+    #[cfg(feature = "_embedding")]
+    #[cfg(feature = "_rule-tables")]
+    mod depth_halts {
+        use super::{
+            Act, Arena, Captures, Grammar, Halt, Inside, Lexer, Limits, LineReport, Parts, ROOT,
+            Scope, ScopeName, Scopes, Scratch, Text, WORD, scopes,
+        };
+
+        /// A grammar of words, `"` strings and `[` `]` groups that shut the
+        /// deep halt out, on the table scan, for [`Grammar::DEPTH_HALTS`].
+        /// `DEEP` sets the const, so one grammar serves as its own control.
+        #[derive(Clone, Copy, Debug)]
+        struct Strings<const DEEP: bool>;
+
+        #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+        enum DeepRule {
+            Root,
+            Str,
+            Shut,
+        }
+
+        #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+        enum DeepPat {
+            Quote,
+            QuoteEnd,
+            Open,
+            Close,
+            Word,
+        }
+
+        impl<const DEEP: bool> Grammar for Strings<DEEP> {
+            type Scope = Scope;
+            const NO_SCOPES: Scopes<Scope> = Scope::NO_SCOPES;
+            type Rule = DeepRule;
+            type Pat = DeepPat;
+            type Nested = Inside;
+            type Extra = Option<usize>;
+            type Kept = Option<usize>;
+
+            const NAME: &'static str = "strings";
+            const ROOT: DeepRule = DeepRule::Root;
+            const SOURCE: Scope = WORD;
+            const DEPTH_HALTS: bool = DEEP;
+            const WATCHES_FRAMES: bool = DEEP;
+
+            fn scope(scope: Scope) -> ScopeName {
+                ScopeName::Fixed(scope)
+            }
+
+            fn extra(kept: Option<usize>) -> Option<usize> {
+                kept
+            }
+
+            fn keep(extra: Option<usize>) -> Option<usize> {
+                extra
+            }
+
+            fn rule_code(rule: DeepRule) -> u16 {
+                match rule {
+                    DeepRule::Root => 0,
+                    DeepRule::Str => 1,
+                    DeepRule::Shut => 2,
+                }
+            }
+
+            fn rule_from_code(code: u16) -> DeepRule {
+                match code {
+                    1 => DeepRule::Str,
+                    2 => DeepRule::Shut,
+                    _ => DeepRule::Root,
+                }
+            }
+
+            fn rule_name(_: DeepRule) -> Scopes<Scope> {
+                Scope::NO_SCOPES
+            }
+
+            fn rule_content(_: DeepRule) -> Scopes<Scope> {
+                Scope::NO_SCOPES
+            }
+
+            fn pat_act(pat: DeepPat) -> Act<Self> {
+                match pat {
+                    DeepPat::Quote => Act::Begin(DeepRule::Str),
+                    DeepPat::Open => Act::Begin(DeepRule::Shut),
+                    DeepPat::QuoteEnd | DeepPat::Close => Act::End,
+                    DeepPat::Word => Act::Match(scopes![WORD]),
+                }
+            }
+
+            fn pat_captures(_: DeepPat) -> Captures<Self> {
+                (&[], &[])
+            }
+
+            fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, DeepPat, usize)> {
+                crate::rules::table_scan(lexer)
+            }
+
+            fn matcher(lexer: &mut Lexer<'_, Self>, pat: DeepPat, p: usize) -> Option<usize> {
+                match pat {
+                    DeepPat::Quote | DeepPat::QuoteEnd => (lexer.at(p) == b'"').then_some(p + 1),
+                    DeepPat::Open => (lexer.at(p) == b'[').then_some(p + 1),
+                    DeepPat::Close => (lexer.at(p) == b']').then_some(p + 1),
+                    DeepPat::Word => {
+                        let end = lexer.skip(p, |b| b.is_ascii_alphabetic());
+                        (end > p).then_some(end)
+                    }
+                }
+            }
+
+            fn tokenize_nested(
+                lexer: &mut Lexer<'_, Self>,
+                kind: Inside,
+                from: usize,
+                to: usize,
+                base: u32,
+            ) {
+                match kind {
+                    Inside::Again => lexer.retokenise(DeepRule::Root, from, to, base),
+                }
+            }
+
+            fn frames_opened(lexer: &mut Lexer<'_, Self>) {
+                lexer.x = lexer
+                    .frames
+                    .iter()
+                    .position(|frame| frame.rule == DeepRule::Shut);
+            }
+
+            fn frame_pushed(lexer: &mut Lexer<'_, Self>) {
+                if lexer.x.is_none() && lexer.top_rule() == DeepRule::Shut {
+                    lexer.x = Some(lexer.frames.len() - 1);
+                }
+            }
+
+            fn frames_popped(lexer: &mut Lexer<'_, Self>) {
+                if lexer.x.is_some_and(|at| at >= lexer.frames.len()) {
+                    lexer.x = None;
+                }
+            }
+
+            fn deep_halts_open(lexer: &Lexer<'_, Self>) -> bool {
+                lexer.x.is_none()
+            }
+        }
+
+        impl<const DEEP: bool> crate::rules::Tabled for Strings<DEEP> {
+            fn pat_start(_: DeepPat) -> crate::rules::Start {
+                crate::rules::Start {
+                    bytes: [u64::MAX; 4],
+                    bol: false,
+                    wb: false,
+                    matches_at_end: true,
+                }
+            }
+
+            fn tables(rule: DeepRule) -> &'static crate::rules::Tables<Self> {
+                let (end, patterns): (Option<DeepPat>, &'static [DeepPat]) = match rule {
+                    DeepRule::Root => (None, &[DeepPat::Quote, DeepPat::Open, DeepPat::Word]),
+                    DeepRule::Str => (Some(DeepPat::QuoteEnd), &[DeepPat::Word]),
+                    DeepRule::Shut => (Some(DeepPat::Close), &[DeepPat::Quote, DeepPat::Word]),
+                };
+                Box::leak(Box::new(crate::rules::Tables::build(
+                    crate::rules::RuleData {
+                        name: Scope::NO_SCOPES,
+                        content: Scope::NO_SCOPES,
+                        end,
+                        backref: None,
+                        patterns,
+                    },
+                )))
+            }
+        }
+
+        /// The end of the rule that embeds [`Strings`]: a `}` or an `@` at its
+        /// root, and an `@` at any depth.
+        struct BladeLike;
+
+        /// The deep half of [`BladeLike`]: an `@`.
+        struct AtSign;
+
+        impl Halt for AtSign {
+            fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
+                (from..=to).find(|&p| s.get(p) == Some(&b'@'))
+            }
+        }
+
+        impl Halt for BladeLike {
+            fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
+                (from..=to).find(|&p| matches!(s.get(p), Some(b'}' | b'@')))
+            }
+
+            fn deep(&self) -> Option<&dyn Halt> {
+                Some(&AtSign)
+            }
+        }
+
+        /// Where a line of [`Strings`] halts under [`BladeLike`], and how many
+        /// rules are open there.
+        fn deep_stop<const DEEP: bool>(line: &[u8]) -> (Option<usize>, u32) {
+            let mut arena = Arena::new(None);
+            let limits = Limits::default();
+            let mut tokens = Vec::new();
+            let mut report = LineReport::default();
+            let mut scratch = Scratch::<Strings<DEEP>>::default();
+            let parts = Parts {
+                arena: &mut arena,
+                limits: &limits,
+                out: &mut tokens,
+                report: &mut report,
+            };
+            let text = Text {
+                bytes: line,
+                start: 0,
+                anchored: false,
+            };
+            let halts: crate::language::Halts<'_> = (&BladeLike, None);
+            let (finished, stopped) = Lexer::new(parts, text, ROOT, &mut scratch)
+                .halting(&halts)
+                .run_halting();
+            let depth = arena.frame(finished.state()).depth;
+            (stopped.map(|stop| stop.at), depth)
+        }
+
+        #[test]
+        fn a_deep_halt_stops_the_line_inside_a_string() {
+            assert_eq!(deep_stop::<true>(b"a \"b @c\" d"), (Some(5), 1));
+            assert_eq!(deep_stop::<false>(b"a \"b @c\" d"), (None, 0));
+        }
+
+        #[test]
+        fn a_rule_that_shuts_the_deep_halt_out_keeps_it_out_of_its_strings() {
+            assert_eq!(deep_stop::<true>(b"[x \"@y\"] \"@z\""), (Some(10), 1));
+        }
+
+        #[test]
+        fn the_halts_at_the_root_hold_with_or_without_depth_halts() {
+            assert_eq!(deep_stop::<true>(b"a @b"), (Some(2), 0));
+            assert_eq!(deep_stop::<false>(b"a @b"), (Some(2), 0));
+        }
     }
 }

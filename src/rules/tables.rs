@@ -197,6 +197,11 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
     match lexer.root_halts() {
         Some(&(end, after)) => scan::<G, true>(lexer, end, after),
+        None if G::DEPTH_HALTS
+            && let Some(deep) = lexer.deep_halt() =>
+        {
+            scan::<G, true>(lexer, deep, None)
+        }
         None => scan::<G, false>(lexer, &|_: &[u8], _: usize| false, None),
     }
 }
