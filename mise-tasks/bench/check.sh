@@ -17,6 +17,8 @@ cargo clippy --locked --manifest-path bench/Cargo.toml --all-targets -- -D warni
 # (bench/compare/README.md).
 cargo ${RUSTFMT_TOOLCHAIN:-} fmt --manifest-path bench/compare/Cargo.toml -- --check
 CARGO_TARGET_DIR=target/compare cargo clippy --locked --manifest-path bench/compare/Cargo.toml --all-targets -- -D warnings
+# The library's tests check the trace reader.
+cargo test --locked --manifest-path bench/Cargo.toml --lib
 cargo bench --locked --manifest-path bench/Cargo.toml -- --test
 # The latency program runs once on the small tier with three passes.
 # Its table shows in the log.

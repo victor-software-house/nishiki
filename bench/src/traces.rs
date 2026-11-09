@@ -124,21 +124,7 @@ fn read(root: &Path, path: &Path, kind: Kind) -> Result<Trace> {
     if appends {
         let source = source.ok_or_else(|| invalid(path, "no source"))?;
         let text = fs::read_to_string(root.join("..").join(&source))?;
-        let mut steps = Vec::new();
-        let mut from = 0;
-        for length in std::str::from_utf8(rest)
-            .map_err(|error| Error::new(ErrorKind::InvalidData, error))?
-            .split_ascii_whitespace()
-        {
-            let length: usize = length
-                .parse()
-                .map_err(|_| invalid(path, "a delta is not a number"))?;
-            steps.push(Step::Push(from..from + length));
-            from += length;
-        }
-        if from != text.len() {
-            return Err(invalid(path, "the deltas do not add up to the source"));
-        }
+        let steps = pushes(path, rest, &text)?;
         return Ok(Trace {
             name,
             kind,
@@ -183,6 +169,31 @@ fn read(root: &Path, path: &Path, kind: Kind) -> Result<Trace> {
     })
 }
 
+/// The pushes an append trace's delta lengths, `rest`, make of `text`.
+/// Each delta ends on a character boundary, and together they cover `text`.
+fn pushes(path: &Path, rest: &[u8], text: &str) -> Result<Vec<Step>> {
+    let mut steps = Vec::new();
+    let mut from: usize = 0;
+    for length in std::str::from_utf8(rest)
+        .map_err(|error| Error::new(ErrorKind::InvalidData, error))?
+        .split_ascii_whitespace()
+    {
+        let length: usize = length
+            .parse()
+            .map_err(|_| invalid(path, "a delta is not a number"))?;
+        let end = from
+            .checked_add(length)
+            .filter(|&end| text.is_char_boundary(end))
+            .ok_or_else(|| invalid(path, "a delta splits a character or runs past the source"))?;
+        steps.push(Step::Push(from..end));
+        from = end;
+    }
+    if from != text.len() {
+        return Err(invalid(path, "the deltas do not add up to the source"));
+    }
+    Ok(steps)
+}
+
 /// The `length` bytes at `at` as text, and the line feed after them.
 fn blob(path: &Path, bytes: &[u8], at: &mut usize, length: usize) -> Result<String> {
     let text = bytes
@@ -193,4 +204,48 @@ fn blob(path: &Path, bytes: &[u8], at: &mut usize, length: usize) -> Result<Stri
     }
     *at += length + 1;
     String::from_utf8(text.to_vec()).map_err(|error| Error::new(ErrorKind::InvalidData, error))
+}
+
+#[cfg(test)]
+mod tests {
+    use std::fs;
+    use std::io::Result;
+    use std::path::PathBuf;
+
+    use super::{Kind, Step, read};
+
+    /// A directory of its own for one test, with `src.md` holding `aé`, whose
+    /// `é` takes bytes 1 and 2, and a trace `trace.deltas` with `deltas`.
+    /// Returns the root `read` resolves the source from, and the trace.
+    fn setup(name: &str, deltas: &str) -> Result<(PathBuf, PathBuf)> {
+        let dir = std::env::temp_dir().join(format!("nishiki-bench-{name}-{}", std::process::id()));
+        let root = dir.join("bench");
+        fs::create_dir_all(&root)?;
+        fs::write(dir.join("src.md"), "aé")?;
+        let trace = root.join("trace.deltas");
+        fs::write(
+            &trace,
+            format!("kind reply\nlanguage markdown\nsource src.md\ndeltas\n{deltas}\n"),
+        )?;
+        Ok((root, trace))
+    }
+
+    #[test]
+    fn a_delta_that_splits_a_character_is_an_error() -> Result<()> {
+        let (root, trace) = setup("split", "2 1")?;
+        let error = read(&root, &trace, Kind::Reply).err();
+        assert!(
+            error.is_some_and(|error| error.to_string().contains("splits a character")),
+            "a split character must fail the read"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn deltas_on_character_boundaries_read() -> Result<()> {
+        let (root, trace) = setup("whole", "1 2")?;
+        let steps = read(&root, &trace, Kind::Reply)?.steps;
+        assert_eq!(steps, [Step::Push(0..1), Step::Push(1..3)]);
+        Ok(())
+    }
 }

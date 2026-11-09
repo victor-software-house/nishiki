@@ -18,6 +18,9 @@
 //! - After each pass the document is finished and lexed. Its lines must equal
 //!   lexing the text line by line, which the oracle holds to Shiki. The `exact`
 //!   column says so, and the program fails otherwise.
+//! - `fidelity` is the share of the final text's non-blank bytes coloured as
+//!   Shiki colours them, from the references `bun bench/compare/shiki.ts
+//!   stream-reference` writes. It reads `n/a` when they are missing.
 //!
 //! Usage: `stream [--passes N] [filter...]`; a filter keeps the traces whose
 //! name holds it. `mise run bench:stream` runs it in release mode.
@@ -61,12 +64,91 @@ fn options() -> Result<Options, String> {
     Ok(options)
 }
 
-/// One pass over a trace: setup, each delta's time, and whether the final
-/// lines equal lexing the text line by line.
+/// One pass over a trace: setup, each delta's time, whether the final lines
+/// equal lexing the text line by line, and their fidelity to Shiki.
 struct Pass {
     setup: Duration,
     deltas: Vec<Duration>,
     exact: bool,
+    fidelity: Option<f64>,
+}
+
+/// Shiki's colours for a trace's final text: per line, each span's byte end
+/// and colour.
+type Colours = Vec<Vec<(usize, String)>>;
+
+/// The references `shiki.ts stream-reference` wrote for `name`, if any.
+fn reference(name: &str) -> Option<Colours> {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../target/compare/shiki/traces")
+        .join(format!("{name}.colors"));
+    let text = std::fs::read_to_string(path).ok()?;
+    Some(
+        text.lines()
+            .map(|row| {
+                row.split(' ')
+                    .filter_map(|span| {
+                        let (end, colour) = span.split_once(':')?;
+                        Some((end.parse().ok()?, colour.to_ascii_lowercase()))
+                    })
+                    .collect()
+            })
+            .collect(),
+    )
+}
+
+/// The colour of each byte of a line of `length` bytes, from its spans.
+fn per_byte(spans: &[(usize, String)], length: usize) -> Vec<&str> {
+    let mut colours = vec![""; length];
+    let mut start = 0;
+    for (end, colour) in spans {
+        let end = (*end).min(length);
+        for slot in colours.iter_mut().take(end).skip(start) {
+            *slot = colour;
+        }
+        start = start.max(end);
+    }
+    colours
+}
+
+/// The share of `document`'s non-blank bytes that `theme` colours as Shiki
+/// does, in percent.
+fn fidelity(document: &Document, theme: &Theme, shiki: &Colours) -> f64 {
+    let mut same = 0_u32;
+    let mut total = 0_u32;
+    for index in 0..document.line_count() {
+        let Some(line) = document.line(index) else {
+            continue;
+        };
+        let ours: Vec<(usize, String)> = line
+            .tokens()
+            .iter()
+            .map(|token| {
+                let style = theme.style(document.highlighter().scopes(token.stack()));
+                (
+                    token.end(),
+                    style.foreground.to_string().to_ascii_lowercase(),
+                )
+            })
+            .collect();
+        let text = line.text().as_bytes();
+        let want = per_byte(shiki.get(index).map_or(&[][..], Vec::as_slice), text.len());
+        let have = per_byte(&ours, text.len());
+        for (at, byte) in text.iter().enumerate() {
+            if *byte == b' ' || *byte == b'\t' {
+                continue;
+            }
+            total += 1;
+            if want[at] == have[at] {
+                same += 1;
+            }
+        }
+    }
+    if total == 0 {
+        100.0
+    } else {
+        f64::from(same) * 100.0 / f64::from(total)
+    }
 }
 
 /// Styles every token of the lines that changed since the last call, as a
@@ -114,7 +196,7 @@ fn exact(document: &Document) -> bool {
 }
 
 /// Replays `trace` once into a fresh document.
-fn replay(trace: &Trace, theme: &Theme, overhead: Duration) -> Pass {
+fn replay(trace: &Trace, theme: &Theme, overhead: Duration, shiki: Option<&Colours>) -> Pass {
     let owned = theme.clone();
     let start = Instant::now();
     let mut document = Document::new(trace.language, owned);
@@ -138,6 +220,7 @@ fn replay(trace: &Trace, theme: &Theme, overhead: Duration) -> Pass {
                         setup,
                         deltas,
                         exact: false,
+                        fidelity: None,
                     };
                 }
             }
@@ -152,6 +235,7 @@ fn replay(trace: &Trace, theme: &Theme, overhead: Duration) -> Pass {
         setup,
         deltas,
         exact: exact(&document),
+        fidelity: shiki.map(|shiki| fidelity(&document, theme, shiki)),
     }
 }
 
@@ -202,9 +286,9 @@ fn main() -> ExitCode {
     );
     println!();
     println!(
-        "| trace | deltas | setup µs | first delta µs | steady p50 µs | steady p99 µs | steady max µs | whole file µs | exact |"
+        "| trace | deltas | setup µs | first delta µs | steady p50 µs | steady p99 µs | steady max µs | whole file µs | exact | fidelity |"
     );
-    println!("|:--|--:|--:|--:|--:|--:|--:|--:|:--|");
+    println!("|:--|--:|--:|--:|--:|--:|--:|--:|:--|--:|");
     let mut all_exact = true;
     for trace in traces.iter().filter(|trace| {
         options.filters.is_empty()
@@ -213,9 +297,14 @@ fn main() -> ExitCode {
                 .iter()
                 .any(|filter| trace.name.contains(filter.as_str()))
     }) {
+        let shiki = reference(&trace.name);
         let passes: Vec<Pass> = (0..options.passes)
-            .map(|_| replay(trace, &theme, overhead))
+            .map(|_| replay(trace, &theme, overhead, shiki.as_ref()))
             .collect();
+        let score = passes
+            .first()
+            .and_then(|pass| pass.fidelity)
+            .map_or_else(|| "n/a".to_owned(), |score| format!("{score:.2}"));
         let exact = passes.iter().all(|pass| pass.exact);
         all_exact &= exact;
         let first = passes
@@ -247,7 +336,7 @@ fn main() -> ExitCode {
             Kind::Reply | Kind::Edits => String::new(),
         };
         println!(
-            "| {} | {count} | {} | {} | {} | {} | {} | {whole_file} | {} |",
+            "| {} | {count} | {} | {} | {} | {} | {} | {whole_file} | {} | {score} |",
             trace.name,
             micros(setup, resolution),
             micros(first, resolution),
