@@ -1485,6 +1485,36 @@ pub(crate) trait Halt {
     fn holds(&self, s: &[u8], p: usize) -> bool {
         self.first(s, p, p) == Some(p)
     }
+
+    /// The halt that holds at any depth of the embedded language, and not
+    /// only while none of its rules is open.
+    ///
+    /// It stands for an `L:` injection of the embedding grammar, such as
+    /// Svelte's template body: vscode-textmate tries one in every rule whose
+    /// scopes its selector matches.
+    /// So it does not hold under an embedded source, a `source` scope inside a
+    /// `meta` scope, which the selector shuts out.
+    /// Most halts have none, and a language that does not read it ignores it.
+    #[expect(
+        dead_code,
+        reason = "Markdown, the HTML engine and the rule engine read it in the pull requests above"
+    )]
+    fn deep(&self) -> Option<&dyn Halt> {
+        None
+    }
+}
+
+/// Places in order, as a halt that holds at each of them, such as the starts
+/// of an embedding rule's own patterns (`Embeds::embeds_after_own`).
+#[cfg(feature = "_embedding")]
+pub(crate) struct Places<'a>(pub(crate) &'a [usize]);
+
+#[cfg(feature = "_embedding")]
+impl Halt for Places<'_> {
+    fn first(&self, _: &[u8], from: usize, to: usize) -> Option<usize> {
+        let at = self.0.partition_point(|&start| start < from);
+        self.0.get(at).copied().filter(|&start| start <= to)
+    }
 }
 
 /// The halts of a line that another language embeds.
