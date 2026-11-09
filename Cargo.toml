@@ -37,6 +37,7 @@ all = [
   "lang-asm",
   "lang-astro",
   "lang-bat",
+  "lang-blade",
   "lang-c",
   "lang-cmake",
   "lang-coffee",
@@ -119,6 +120,7 @@ config = [
 ]
 web = [
   "lang-astro",
+  "lang-blade",
   "lang-css",
   "lang-erb",
   "lang-graphql",
@@ -172,6 +174,20 @@ lang-astro = [
   "_utf8",
 ]
 lang-bat = ["_language", "_scope-table", "_rule-tables", "_classes"]
+lang-blade = [
+  "_language",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_halting-embedding",
+  "_php-family",
+  "lang-html-derivative",
+  "lang-xml",
+  "lang-sql",
+  "lang-javascript",
+  "lang-json",
+  "lang-css",
+]
 lang-c = ["_language", "_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cmake = ["_language", "_scope-table", "_rule-tables", "_classes"]
 lang-coffee = [

@@ -1361,6 +1361,18 @@ languages! {
     /// - A string has no escapes: a `\"` ends it.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     ShaderLab { feature: "lang-shaderlab", names: ["shaderlab", "shader"], module: shaderlab }
+    /// Blade, Laravel's templates, with the scopes of Shiki's `blade` grammar.
+    /// The HTML lexer runs its tags, and Blade's own copy of PHP's rules lexes
+    /// the PHP of its echoes, directives and `@php` sections.
+    ///
+    /// # Behaviour kept from Shiki
+    ///
+    /// - Blade's echoes and directives open inside the PHP of another echo or directive, at any depth, even inside a PHP string, as in `{{ "a {{ b }} c" }}`.
+    /// - Between tags, a PHP rule that starts at the same place wins: `@if(@isset($x))` holds PHP's `@` operator, not the directive `@isset`.
+    /// - Inside a tag, Blade wins that tie, so `<div @click="x">` holds the directive `@click`.
+    /// - A `<script>` or `<style>` body holds no Blade.
+    /// - A PHP name is `[_a-z\x7F-ÿ]` and the digits, ignoring case: the class stops at U+00FF.
+    Blade { feature: "lang-blade", names: ["blade"], module: blade }
 }
 
 impl Language {

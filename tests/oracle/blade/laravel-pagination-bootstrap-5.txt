@@ -1,0 +1,1000 @@
+L @if ($paginator->hasPages())
+T 4 text.html.php.blade meta.directive.blade keyword.blade
+T 5 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 6 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 15 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 17 text.html.php.blade meta.directive.blade source.php meta.method-call.php keyword.operator.class.php
+T 25 text.html.php.blade meta.directive.blade source.php meta.method-call.php entity.name.function.php
+T 26 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 27 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 28 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L     <nav class="d-flex justify-items-center justify-content-between">
+T 4 text.html.php.blade
+T 5 text.html.php.blade meta.tag.structure.nav.start.html punctuation.definition.tag.begin.html
+T 8 text.html.php.blade meta.tag.structure.nav.start.html entity.name.tag.html
+T 9 text.html.php.blade meta.tag.structure.nav.start.html
+T 14 text.html.php.blade meta.tag.structure.nav.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 15 text.html.php.blade meta.tag.structure.nav.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 16 text.html.php.blade meta.tag.structure.nav.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 67 text.html.php.blade meta.tag.structure.nav.start.html meta.attribute.class.html string.quoted.double.html
+T 68 text.html.php.blade meta.tag.structure.nav.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 69 text.html.php.blade meta.tag.structure.nav.start.html punctuation.definition.tag.end.html
+L         <div class="d-flex justify-content-between flex-fill d-sm-none">
+T 8 text.html.php.blade
+T 9 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 12 text.html.php.blade meta.tag.structure.div.start.html entity.name.tag.html
+T 13 text.html.php.blade meta.tag.structure.div.start.html
+T 18 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 19 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 20 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 70 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 71 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 72 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L             <ul class="pagination">
+T 12 text.html.php.blade
+T 13 text.html.php.blade meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 15 text.html.php.blade meta.tag.structure.ul.start.html entity.name.tag.html
+T 16 text.html.php.blade meta.tag.structure.ul.start.html
+T 21 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 22 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 23 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 33 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html
+T 34 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 35 text.html.php.blade meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L                 {{-- Previous Page Link --}}
+T 16 text.html.php.blade
+T 20 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 40 text.html.php.blade comment.block.blade
+T 44 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                 @if ($paginator->onFirstPage())
+T 16 text.html.php.blade
+T 20 text.html.php.blade meta.directive.blade keyword.blade
+T 21 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 22 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 31 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 33 text.html.php.blade meta.directive.blade source.php meta.method-call.php keyword.operator.class.php
+T 44 text.html.php.blade meta.directive.blade source.php meta.method-call.php entity.name.function.php
+T 45 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 46 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 47 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                     <li class="page-item disabled" aria-disabled="true">
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 23 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 24 text.html.php.blade meta.tag.structure.li.start.html
+T 29 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 49 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 50 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 51 text.html.php.blade meta.tag.structure.li.start.html
+T 64 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html entity.other.attribute-name.html
+T 65 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html punctuation.separator.key-value.html
+T 66 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.begin.html
+T 70 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html
+T 71 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.end.html
+T 72 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                         <span class="page-link">@lang('pagination.previous')</span>
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 29 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 30 text.html.php.blade meta.tag.inline.span.start.html
+T 35 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 36 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 37 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 46 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 47 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 48 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 53 text.html.php.blade meta.directive.blade keyword.blade
+T 54 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 55 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 74 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 75 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 76 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+T 78 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 82 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 83 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                     </li>
+T 20 text.html.php.blade
+T 22 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 24 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 25 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                 @else
+T 16 text.html.php.blade
+T 21 text.html.php.blade keyword.blade
+L                     <li class="page-item">
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 23 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 24 text.html.php.blade meta.tag.structure.li.start.html
+T 29 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 40 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 41 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 42 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                         <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a>
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 26 text.html.php.blade meta.tag.inline.a.start.html entity.name.tag.html
+T 27 text.html.php.blade meta.tag.inline.a.start.html
+T 32 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 33 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 34 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 43 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html
+T 44 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 45 text.html.php.blade meta.tag.inline.a.start.html
+T 49 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 50 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 51 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.begin.blade
+T 54 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 55 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 64 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php
+T 66 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 81 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 82 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 83 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 84 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 86 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.end.blade
+T 87 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 88 text.html.php.blade meta.tag.inline.a.start.html
+T 91 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html entity.other.attribute-name.html
+T 92 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 93 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 97 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html
+T 98 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 99 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 104 text.html.php.blade meta.directive.blade keyword.blade
+T 105 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 106 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 125 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 126 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 127 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+T 129 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 130 text.html.php.blade meta.tag.inline.a.end.html entity.name.tag.html
+T 131 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                     </li>
+T 20 text.html.php.blade
+T 22 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 24 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 25 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                 @endif
+T 16 text.html.php.blade
+T 22 text.html.php.blade keyword.blade
+L 
+L                 {{-- Next Page Link --}}
+T 16 text.html.php.blade
+T 20 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 36 text.html.php.blade comment.block.blade
+T 40 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                 @if ($paginator->hasMorePages())
+T 16 text.html.php.blade
+T 20 text.html.php.blade meta.directive.blade keyword.blade
+T 21 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 22 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 31 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 33 text.html.php.blade meta.directive.blade source.php meta.method-call.php keyword.operator.class.php
+T 45 text.html.php.blade meta.directive.blade source.php meta.method-call.php entity.name.function.php
+T 46 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 47 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 48 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                     <li class="page-item">
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 23 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 24 text.html.php.blade meta.tag.structure.li.start.html
+T 29 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 40 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 41 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 42 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                         <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('pagination.next')</a>
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 26 text.html.php.blade meta.tag.inline.a.start.html entity.name.tag.html
+T 27 text.html.php.blade meta.tag.inline.a.start.html
+T 32 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 33 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 34 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 43 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html
+T 44 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 45 text.html.php.blade meta.tag.inline.a.start.html
+T 49 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 50 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 51 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.begin.blade
+T 54 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 55 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 64 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php
+T 66 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 77 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 78 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 79 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 80 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 82 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.end.blade
+T 83 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 84 text.html.php.blade meta.tag.inline.a.start.html
+T 87 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html entity.other.attribute-name.html
+T 88 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 89 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 93 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html
+T 94 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 95 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 100 text.html.php.blade meta.directive.blade keyword.blade
+T 101 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 102 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 117 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 118 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 119 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+T 121 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 122 text.html.php.blade meta.tag.inline.a.end.html entity.name.tag.html
+T 123 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                     </li>
+T 20 text.html.php.blade
+T 22 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 24 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 25 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                 @else
+T 16 text.html.php.blade
+T 21 text.html.php.blade keyword.blade
+L                     <li class="page-item disabled" aria-disabled="true">
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 23 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 24 text.html.php.blade meta.tag.structure.li.start.html
+T 29 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 30 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 31 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 49 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 50 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 51 text.html.php.blade meta.tag.structure.li.start.html
+T 64 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html entity.other.attribute-name.html
+T 65 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html punctuation.separator.key-value.html
+T 66 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.begin.html
+T 70 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html
+T 71 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.end.html
+T 72 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                         <span class="page-link">@lang('pagination.next')</span>
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 29 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 30 text.html.php.blade meta.tag.inline.span.start.html
+T 35 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 36 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 37 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 46 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 47 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 48 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 53 text.html.php.blade meta.directive.blade keyword.blade
+T 54 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 55 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 70 text.html.php.blade meta.directive.blade source.php string.quoted.single.php
+T 71 text.html.php.blade meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 72 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+T 74 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 78 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 79 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                     </li>
+T 20 text.html.php.blade
+T 22 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 24 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 25 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                 @endif
+T 16 text.html.php.blade
+T 22 text.html.php.blade keyword.blade
+L             </ul>
+T 12 text.html.php.blade
+T 14 text.html.php.blade meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 16 text.html.php.blade meta.tag.structure.ul.end.html entity.name.tag.html
+T 17 text.html.php.blade meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L         </div>
+T 8 text.html.php.blade
+T 10 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 13 text.html.php.blade meta.tag.structure.div.end.html entity.name.tag.html
+T 14 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L         <div class="d-none flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-between">
+T 8 text.html.php.blade
+T 9 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 12 text.html.php.blade meta.tag.structure.div.start.html entity.name.tag.html
+T 13 text.html.php.blade meta.tag.structure.div.start.html
+T 18 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 19 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 20 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 98 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html
+T 99 text.html.php.blade meta.tag.structure.div.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 100 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L             <div>
+T 12 text.html.php.blade
+T 13 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 text.html.php.blade meta.tag.structure.div.start.html entity.name.tag.html
+T 17 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L                 <p class="small text-muted">
+T 16 text.html.php.blade
+T 17 text.html.php.blade meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 18 text.html.php.blade meta.tag.structure.p.start.html entity.name.tag.html
+T 19 text.html.php.blade meta.tag.structure.p.start.html
+T 24 text.html.php.blade meta.tag.structure.p.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 25 text.html.php.blade meta.tag.structure.p.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 26 text.html.php.blade meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 42 text.html.php.blade meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html
+T 43 text.html.php.blade meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 44 text.html.php.blade meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+L                     {!! __('Showing') !!}
+T 20 text.html.php.blade
+T 23 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 24 text.html.php.blade meta.function.echo.blade source.php
+T 26 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php entity.name.function.php
+T 27 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 28 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 35 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php
+T 36 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 37 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 38 text.html.php.blade meta.function.echo.blade source.php
+T 41 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L                     <span class="fw-semibold">{{ $paginator->firstItem() }}</span>
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 25 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 26 text.html.php.blade meta.tag.inline.span.start.html
+T 31 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 32 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 33 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 45 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 48 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 49 text.html.php.blade meta.function.echo.blade source.php
+T 50 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 59 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 61 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 70 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 71 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 72 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 73 text.html.php.blade meta.function.echo.blade source.php
+T 75 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 77 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 81 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 82 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                     {!! __('to') !!}
+T 20 text.html.php.blade
+T 23 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 24 text.html.php.blade meta.function.echo.blade source.php
+T 26 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php entity.name.function.php
+T 27 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 28 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 30 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php
+T 31 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 32 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 33 text.html.php.blade meta.function.echo.blade source.php
+T 36 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L                     <span class="fw-semibold">{{ $paginator->lastItem() }}</span>
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 25 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 26 text.html.php.blade meta.tag.inline.span.start.html
+T 31 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 32 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 33 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 45 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 48 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 49 text.html.php.blade meta.function.echo.blade source.php
+T 50 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 59 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 61 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 69 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 70 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 71 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 72 text.html.php.blade meta.function.echo.blade source.php
+T 74 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 76 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 80 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 81 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                     {!! __('of') !!}
+T 20 text.html.php.blade
+T 23 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 24 text.html.php.blade meta.function.echo.blade source.php
+T 26 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php entity.name.function.php
+T 27 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 28 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 30 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php
+T 31 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 32 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 33 text.html.php.blade meta.function.echo.blade source.php
+T 36 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L                     <span class="fw-semibold">{{ $paginator->total() }}</span>
+T 20 text.html.php.blade
+T 21 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 25 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 26 text.html.php.blade meta.tag.inline.span.start.html
+T 31 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 32 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 33 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 45 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 48 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 49 text.html.php.blade meta.function.echo.blade source.php
+T 50 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 59 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 61 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 66 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 67 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 68 text.html.php.blade meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 69 text.html.php.blade meta.function.echo.blade source.php
+T 71 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 73 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 77 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 78 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                     {!! __('results') !!}
+T 20 text.html.php.blade
+T 23 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 24 text.html.php.blade meta.function.echo.blade source.php
+T 26 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php entity.name.function.php
+T 27 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 28 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.begin.php
+T 35 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php
+T 36 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php string.quoted.single.php punctuation.definition.string.end.php
+T 37 text.html.php.blade meta.function.echo.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 38 text.html.php.blade meta.function.echo.blade source.php
+T 41 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+L                 </p>
+T 16 text.html.php.blade
+T 18 text.html.php.blade meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 19 text.html.php.blade meta.tag.structure.p.end.html entity.name.tag.html
+T 20 text.html.php.blade meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L             </div>
+T 12 text.html.php.blade
+T 14 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 text.html.php.blade meta.tag.structure.div.end.html entity.name.tag.html
+T 18 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L             <div>
+T 12 text.html.php.blade
+T 13 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 16 text.html.php.blade meta.tag.structure.div.start.html entity.name.tag.html
+T 17 text.html.php.blade meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L                 <ul class="pagination">
+T 16 text.html.php.blade
+T 17 text.html.php.blade meta.tag.structure.ul.start.html punctuation.definition.tag.begin.html
+T 19 text.html.php.blade meta.tag.structure.ul.start.html entity.name.tag.html
+T 20 text.html.php.blade meta.tag.structure.ul.start.html
+T 25 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 26 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 27 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 37 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html
+T 38 text.html.php.blade meta.tag.structure.ul.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 39 text.html.php.blade meta.tag.structure.ul.start.html punctuation.definition.tag.end.html
+L                     {{-- Previous Page Link --}}
+T 20 text.html.php.blade
+T 24 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 44 text.html.php.blade comment.block.blade
+T 48 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                     @if ($paginator->onFirstPage())
+T 20 text.html.php.blade
+T 24 text.html.php.blade meta.directive.blade keyword.blade
+T 25 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 26 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 35 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 37 text.html.php.blade meta.directive.blade source.php meta.method-call.php keyword.operator.class.php
+T 48 text.html.php.blade meta.directive.blade source.php meta.method-call.php entity.name.function.php
+T 49 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 50 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 51 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 27 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 28 text.html.php.blade meta.tag.structure.li.start.html
+T 33 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 34 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 35 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 54 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 55 text.html.php.blade meta.tag.structure.li.start.html
+T 68 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html entity.other.attribute-name.html
+T 69 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html punctuation.separator.key-value.html
+T 70 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.begin.html
+T 74 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html
+T 75 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.end.html
+T 76 text.html.php.blade meta.tag.structure.li.start.html
+T 86 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html entity.other.attribute-name.html
+T 87 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html punctuation.separator.key-value.html
+T 88 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.begin.html
+T 93 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade keyword.blade
+T 94 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade begin.bracket.round.blade.php
+T 95 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 114 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php
+T 115 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 116 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade end.bracket.round.blade.php
+T 117 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.end.html
+T 118 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                             <span class="page-link" aria-hidden="true">&lsaquo;</span>
+T 28 text.html.php.blade
+T 29 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 33 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 34 text.html.php.blade meta.tag.inline.span.start.html
+T 39 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 40 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 41 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 50 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 51 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 52 text.html.php.blade meta.tag.inline.span.start.html
+T 63 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html entity.other.attribute-name.html
+T 64 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html punctuation.separator.key-value.html
+T 65 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html string.quoted.double.html punctuation.definition.string.begin.html
+T 69 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html string.quoted.double.html
+T 70 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html string.quoted.double.html punctuation.definition.string.end.html
+T 71 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 72 text.html.php.blade constant.character.entity.named.lsaquo.html punctuation.definition.entity.html
+T 78 text.html.php.blade constant.character.entity.named.lsaquo.html
+T 79 text.html.php.blade constant.character.entity.named.lsaquo.html punctuation.definition.entity.html
+T 81 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 85 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 86 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                         </li>
+T 24 text.html.php.blade
+T 26 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 28 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 29 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                     @else
+T 20 text.html.php.blade
+T 25 text.html.php.blade keyword.blade
+L                         <li class="page-item">
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 27 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 28 text.html.php.blade meta.tag.structure.li.start.html
+T 33 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 34 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 35 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 45 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                             <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+T 28 text.html.php.blade
+T 29 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 30 text.html.php.blade meta.tag.inline.a.start.html entity.name.tag.html
+T 31 text.html.php.blade meta.tag.inline.a.start.html
+T 36 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 37 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 38 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 47 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html
+T 48 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 49 text.html.php.blade meta.tag.inline.a.start.html
+T 53 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 54 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 55 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.begin.blade
+T 58 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 59 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 68 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php
+T 70 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 85 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 86 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 87 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 88 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 90 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.end.blade
+T 91 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 92 text.html.php.blade meta.tag.inline.a.start.html
+T 95 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html entity.other.attribute-name.html
+T 96 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 97 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 101 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html
+T 102 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 103 text.html.php.blade meta.tag.inline.a.start.html
+T 113 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html entity.other.attribute-name.html
+T 114 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html punctuation.separator.key-value.html
+T 115 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.begin.html
+T 120 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade keyword.blade
+T 121 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade begin.bracket.round.blade.php
+T 122 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 141 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php
+T 142 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 143 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade end.bracket.round.blade.php
+T 144 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.end.html
+T 145 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 146 text.html.php.blade constant.character.entity.named.lsaquo.html punctuation.definition.entity.html
+T 152 text.html.php.blade constant.character.entity.named.lsaquo.html
+T 153 text.html.php.blade constant.character.entity.named.lsaquo.html punctuation.definition.entity.html
+T 155 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 156 text.html.php.blade meta.tag.inline.a.end.html entity.name.tag.html
+T 157 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                         </li>
+T 24 text.html.php.blade
+T 26 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 28 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 29 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                     @endif
+T 20 text.html.php.blade
+T 26 text.html.php.blade keyword.blade
+L 
+L                     {{-- Pagination Elements --}}
+T 20 text.html.php.blade
+T 24 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 45 text.html.php.blade comment.block.blade
+T 49 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                     @foreach ($elements as $element)
+T 20 text.html.php.blade
+T 29 text.html.php.blade meta.directive.blade keyword.blade
+T 30 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 31 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 39 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 40 text.html.php.blade meta.directive.blade source.php
+T 42 text.html.php.blade meta.directive.blade source.php keyword.operator.logical.php
+T 43 text.html.php.blade meta.directive.blade source.php
+T 44 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 51 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 52 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                         {{-- "Three Dots" Separator --}}
+T 24 text.html.php.blade
+T 28 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 52 text.html.php.blade comment.block.blade
+T 56 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                         @if (is_string($element))
+T 24 text.html.php.blade
+T 28 text.html.php.blade meta.directive.blade keyword.blade
+T 29 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 38 text.html.php.blade meta.directive.blade source.php meta.function-call.php support.function.var.php
+T 39 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 40 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 47 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php
+T 48 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 49 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                             <li class="page-item disabled" aria-disabled="true"><span class="page-link">{{ $element }}</span></li>
+T 28 text.html.php.blade
+T 29 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 31 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 32 text.html.php.blade meta.tag.structure.li.start.html
+T 37 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 38 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 39 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 58 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 59 text.html.php.blade meta.tag.structure.li.start.html
+T 72 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html entity.other.attribute-name.html
+T 73 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html punctuation.separator.key-value.html
+T 74 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.begin.html
+T 78 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html
+T 79 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.end.html
+T 80 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 81 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 85 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 86 text.html.php.blade meta.tag.inline.span.start.html
+T 91 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 92 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 93 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 102 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 103 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 104 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 106 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 107 text.html.php.blade meta.function.echo.blade source.php
+T 108 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 115 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 116 text.html.php.blade meta.function.echo.blade source.php
+T 118 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 120 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 124 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 125 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+T 127 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 129 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 130 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                         @endif
+T 24 text.html.php.blade
+T 30 text.html.php.blade keyword.blade
+L 
+L                         {{-- Array Of Links --}}
+T 24 text.html.php.blade
+T 28 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 44 text.html.php.blade comment.block.blade
+T 48 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                         @if (is_array($element))
+T 24 text.html.php.blade
+T 28 text.html.php.blade meta.directive.blade keyword.blade
+T 29 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 37 text.html.php.blade meta.directive.blade source.php meta.function-call.php support.function.var.php
+T 38 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 39 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php punctuation.definition.variable.php
+T 46 text.html.php.blade meta.directive.blade source.php meta.function-call.php variable.other.php
+T 47 text.html.php.blade meta.directive.blade source.php meta.function-call.php punctuation.definition.arguments.end.bracket.round.php
+T 48 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                             @foreach ($element as $page => $url)
+T 28 text.html.php.blade
+T 37 text.html.php.blade meta.directive.blade keyword.blade
+T 38 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 39 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 46 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 47 text.html.php.blade meta.directive.blade source.php
+T 49 text.html.php.blade meta.directive.blade source.php keyword.operator.logical.php
+T 50 text.html.php.blade meta.directive.blade source.php
+T 51 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 55 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 56 text.html.php.blade meta.directive.blade source.php
+T 58 text.html.php.blade meta.directive.blade source.php keyword.operator.key.php
+T 59 text.html.php.blade meta.directive.blade source.php
+T 60 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 63 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 64 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                                 @if ($page == $paginator->currentPage())
+T 32 text.html.php.blade
+T 36 text.html.php.blade meta.directive.blade keyword.blade
+T 37 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 38 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 42 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 43 text.html.php.blade meta.directive.blade source.php
+T 45 text.html.php.blade meta.directive.blade source.php keyword.operator.comparison.php
+T 46 text.html.php.blade meta.directive.blade source.php
+T 47 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 56 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 58 text.html.php.blade meta.directive.blade source.php meta.method-call.php keyword.operator.class.php
+T 69 text.html.php.blade meta.directive.blade source.php meta.method-call.php entity.name.function.php
+T 70 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 71 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 72 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                                     <li class="page-item active" aria-current="page"><span class="page-link">{{ $page }}</span></li>
+T 36 text.html.php.blade
+T 37 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 39 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 40 text.html.php.blade meta.tag.structure.li.start.html
+T 45 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 46 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 47 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 63 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 64 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 65 text.html.php.blade meta.tag.structure.li.start.html
+T 77 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-current.html entity.other.attribute-name.html
+T 78 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-current.html punctuation.separator.key-value.html
+T 79 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-current.html string.quoted.double.html punctuation.definition.string.begin.html
+T 83 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-current.html string.quoted.double.html
+T 84 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-current.html string.quoted.double.html punctuation.definition.string.end.html
+T 85 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 86 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 90 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 91 text.html.php.blade meta.tag.inline.span.start.html
+T 96 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 97 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 98 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 107 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 108 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 109 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 111 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 112 text.html.php.blade meta.function.echo.blade source.php
+T 113 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 117 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 118 text.html.php.blade meta.function.echo.blade source.php
+T 120 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 122 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 126 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 127 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+T 129 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 131 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 132 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                                 @else
+T 32 text.html.php.blade
+T 37 text.html.php.blade keyword.blade
+L                                     <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+T 36 text.html.php.blade
+T 37 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 39 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 40 text.html.php.blade meta.tag.structure.li.start.html
+T 45 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 46 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 47 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 56 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 57 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 58 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+T 59 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 60 text.html.php.blade meta.tag.inline.a.start.html entity.name.tag.html
+T 61 text.html.php.blade meta.tag.inline.a.start.html
+T 66 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 67 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 68 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 77 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html
+T 78 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 79 text.html.php.blade meta.tag.inline.a.start.html
+T 83 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 84 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 85 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 87 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.begin.blade
+T 88 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 89 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 92 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php
+T 93 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 95 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.end.blade
+T 96 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 97 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 99 text.html.php.blade meta.function.echo.blade support.function.construct.begin.blade
+T 100 text.html.php.blade meta.function.echo.blade source.php
+T 101 text.html.php.blade meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 105 text.html.php.blade meta.function.echo.blade source.php variable.other.php
+T 106 text.html.php.blade meta.function.echo.blade source.php
+T 108 text.html.php.blade meta.function.echo.blade support.function.construct.end.blade
+T 110 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 111 text.html.php.blade meta.tag.inline.a.end.html entity.name.tag.html
+T 112 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+T 114 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 116 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 117 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                                 @endif
+T 32 text.html.php.blade
+T 38 text.html.php.blade keyword.blade
+L                             @endforeach
+T 28 text.html.php.blade
+T 39 text.html.php.blade keyword.blade
+L                         @endif
+T 24 text.html.php.blade
+T 30 text.html.php.blade keyword.blade
+L                     @endforeach
+T 20 text.html.php.blade
+T 31 text.html.php.blade keyword.blade
+L 
+L                     {{-- Next Page Link --}}
+T 20 text.html.php.blade
+T 24 text.html.php.blade comment.block.blade punctuation.definition.comment.begin.blade
+T 40 text.html.php.blade comment.block.blade
+T 44 text.html.php.blade comment.block.blade punctuation.definition.comment.end.blade
+L                     @if ($paginator->hasMorePages())
+T 20 text.html.php.blade
+T 24 text.html.php.blade meta.directive.blade keyword.blade
+T 25 text.html.php.blade meta.directive.blade begin.bracket.round.blade.php
+T 26 text.html.php.blade meta.directive.blade source.php variable.other.php punctuation.definition.variable.php
+T 35 text.html.php.blade meta.directive.blade source.php variable.other.php
+T 37 text.html.php.blade meta.directive.blade source.php meta.method-call.php keyword.operator.class.php
+T 49 text.html.php.blade meta.directive.blade source.php meta.method-call.php entity.name.function.php
+T 50 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 51 text.html.php.blade meta.directive.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 52 text.html.php.blade meta.directive.blade end.bracket.round.blade.php
+L                         <li class="page-item">
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 27 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 28 text.html.php.blade meta.tag.structure.li.start.html
+T 33 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 34 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 35 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 45 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                             <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+T 28 text.html.php.blade
+T 29 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.begin.html
+T 30 text.html.php.blade meta.tag.inline.a.start.html entity.name.tag.html
+T 31 text.html.php.blade meta.tag.inline.a.start.html
+T 36 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 37 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 38 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 47 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html
+T 48 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 49 text.html.php.blade meta.tag.inline.a.start.html
+T 53 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html entity.other.attribute-name.html
+T 54 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html punctuation.separator.key-value.html
+T 55 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.begin.blade
+T 58 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 59 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php punctuation.definition.variable.php
+T 68 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php variable.other.php
+T 70 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php keyword.operator.class.php
+T 81 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php entity.name.function.php
+T 82 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.begin.bracket.round.php
+T 83 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php meta.method-call.php punctuation.definition.arguments.end.bracket.round.php
+T 84 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade source.php
+T 86 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html meta.function.echo.blade support.function.construct.end.blade
+T 87 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 88 text.html.php.blade meta.tag.inline.a.start.html
+T 91 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html entity.other.attribute-name.html
+T 92 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 93 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 97 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html
+T 98 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 99 text.html.php.blade meta.tag.inline.a.start.html
+T 109 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html entity.other.attribute-name.html
+T 110 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html punctuation.separator.key-value.html
+T 111 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.begin.html
+T 116 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade keyword.blade
+T 117 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade begin.bracket.round.blade.php
+T 118 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 133 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php
+T 134 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 135 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade end.bracket.round.blade.php
+T 136 text.html.php.blade meta.tag.inline.a.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.end.html
+T 137 text.html.php.blade meta.tag.inline.a.start.html punctuation.definition.tag.end.html
+T 138 text.html.php.blade constant.character.entity.named.rsaquo.html punctuation.definition.entity.html
+T 144 text.html.php.blade constant.character.entity.named.rsaquo.html
+T 145 text.html.php.blade constant.character.entity.named.rsaquo.html punctuation.definition.entity.html
+T 147 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.begin.html
+T 148 text.html.php.blade meta.tag.inline.a.end.html entity.name.tag.html
+T 149 text.html.php.blade meta.tag.inline.a.end.html punctuation.definition.tag.end.html
+L                         </li>
+T 24 text.html.php.blade
+T 26 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 28 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 29 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                     @else
+T 20 text.html.php.blade
+T 25 text.html.php.blade keyword.blade
+L                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
+T 24 text.html.php.blade
+T 25 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.begin.html
+T 27 text.html.php.blade meta.tag.structure.li.start.html entity.name.tag.html
+T 28 text.html.php.blade meta.tag.structure.li.start.html
+T 33 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 34 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 35 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 53 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html
+T 54 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 55 text.html.php.blade meta.tag.structure.li.start.html
+T 68 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html entity.other.attribute-name.html
+T 69 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html punctuation.separator.key-value.html
+T 70 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.begin.html
+T 74 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html
+T 75 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-disabled.html string.quoted.double.html punctuation.definition.string.end.html
+T 76 text.html.php.blade meta.tag.structure.li.start.html
+T 86 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html entity.other.attribute-name.html
+T 87 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html punctuation.separator.key-value.html
+T 88 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.begin.html
+T 93 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade keyword.blade
+T 94 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade begin.bracket.round.blade.php
+T 95 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.begin.php
+T 110 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php
+T 111 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade source.php string.quoted.single.php punctuation.definition.string.end.php
+T 112 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html meta.directive.blade end.bracket.round.blade.php
+T 113 text.html.php.blade meta.tag.structure.li.start.html meta.attribute.unrecognized.aria-label.html string.quoted.double.html punctuation.definition.string.end.html
+T 114 text.html.php.blade meta.tag.structure.li.start.html punctuation.definition.tag.end.html
+L                             <span class="page-link" aria-hidden="true">&rsaquo;</span>
+T 28 text.html.php.blade
+T 29 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 33 text.html.php.blade meta.tag.inline.span.start.html entity.name.tag.html
+T 34 text.html.php.blade meta.tag.inline.span.start.html
+T 39 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 40 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 41 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 50 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html
+T 51 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 52 text.html.php.blade meta.tag.inline.span.start.html
+T 63 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html entity.other.attribute-name.html
+T 64 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html punctuation.separator.key-value.html
+T 65 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html string.quoted.double.html punctuation.definition.string.begin.html
+T 69 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html string.quoted.double.html
+T 70 text.html.php.blade meta.tag.inline.span.start.html meta.attribute.unrecognized.aria-hidden.html string.quoted.double.html punctuation.definition.string.end.html
+T 71 text.html.php.blade meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 72 text.html.php.blade constant.character.entity.named.rsaquo.html punctuation.definition.entity.html
+T 78 text.html.php.blade constant.character.entity.named.rsaquo.html
+T 79 text.html.php.blade constant.character.entity.named.rsaquo.html punctuation.definition.entity.html
+T 81 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 85 text.html.php.blade meta.tag.inline.span.end.html entity.name.tag.html
+T 86 text.html.php.blade meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+L                         </li>
+T 24 text.html.php.blade
+T 26 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.begin.html
+T 28 text.html.php.blade meta.tag.structure.li.end.html entity.name.tag.html
+T 29 text.html.php.blade meta.tag.structure.li.end.html punctuation.definition.tag.end.html
+L                     @endif
+T 20 text.html.php.blade
+T 26 text.html.php.blade keyword.blade
+L                 </ul>
+T 16 text.html.php.blade
+T 18 text.html.php.blade meta.tag.structure.ul.end.html punctuation.definition.tag.begin.html
+T 20 text.html.php.blade meta.tag.structure.ul.end.html entity.name.tag.html
+T 21 text.html.php.blade meta.tag.structure.ul.end.html punctuation.definition.tag.end.html
+L             </div>
+T 12 text.html.php.blade
+T 14 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 17 text.html.php.blade meta.tag.structure.div.end.html entity.name.tag.html
+T 18 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L         </div>
+T 8 text.html.php.blade
+T 10 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 13 text.html.php.blade meta.tag.structure.div.end.html entity.name.tag.html
+T 14 text.html.php.blade meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L     </nav>
+T 4 text.html.php.blade
+T 6 text.html.php.blade meta.tag.structure.nav.end.html punctuation.definition.tag.begin.html
+T 9 text.html.php.blade meta.tag.structure.nav.end.html entity.name.tag.html
+T 10 text.html.php.blade meta.tag.structure.nav.end.html punctuation.definition.tag.end.html
+L @endif
+T 6 text.html.php.blade keyword.blade
+L 

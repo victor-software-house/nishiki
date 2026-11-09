@@ -16,6 +16,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Assembly | `asm` | 298 of 305 | 97.7% | 25 of 36 | 69.4% | 18 | 0 | yes |
 | Astro | `astro` | 94 of 96 | 97.9% | 49 of 51 | 96.1% | 4 | 0 | yes |
 | Batch | `bat` | 79 of 79 | 100.0% | 53 of 54 | 98.1% | 1 | 0 | yes |
+| Blade | `blade` | 444 of 458 | 96.9% | 368 of 421 | 87.4% | 0 | 22 |  |
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
 | CoffeeScript | `coffee` | 136 of 143 | 95.1% | 132 of 134 | 98.5% | 9 | 0 | yes |
@@ -37,7 +38,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HCL | `hcl` | 80 of 80 | 100.0% | 53 of 55 | 96.4% | 2 | 0 | yes |
 | HLSL | `hlsl` | 53 of 53 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
-| HTML | `html` | 144 of 227 | 63.4% | 183 of 368 | 49.7% | 0 | 4 |  |
+| HTML | `html` | 146 of 227 | 64.3% | 183 of 368 | 49.7% | 0 | 4 |  |
 | HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
@@ -124,6 +125,61 @@ injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end 
 
 ```text
 #strings.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+```
+
+### `blade`
+
+```text
+#blade.patterns[0].patterns[0].begin  ^(\s*)(?=<\?(?![^?]*\?>))  fuzz
+#blade.patterns[0].patterns[0].end  (?!\G)(\s*$\n)?  fuzz
+#blade.patterns[0].patterns[0].patterns[0].begin  <\?(?i:php|=)?  fuzz
+#blade.patterns[0].patterns[0].patterns[0].end  (\?)>  fuzz
+#blade.patterns[0].patterns[2].patterns[0].match  groups 1
+#blade.patterns[1].end  groups 1
+#blade.patterns[2].end  groups 1
+#blade.patterns[3].end  groups 1
+#blade.patterns[4].end  groups 1
+#blade.patterns[6].begin  (?<![0-9@-Z_a-z])(@(?i:append|default|else|endauth|endcan|e…  fuzz
+#blade.patterns[6].end  \)  fuzz
+#blade.patterns[9].end  groups 0
+#blade.patterns[14].begin  (:[-a-z]+)(=)(")  fuzz
+#comments.patterns[2].begin  groups 1
+#comments.patterns[3].begin  groups 1
+#function-call.patterns[1].begin  groups 1
+#function-parameters.patterns[2].begin  groups 3
+#function-parameters.patterns[6].begin  groups 3
+#heredoc_interior.patterns[0].begin  groups 5
+#heredoc_interior.patterns[1].begin  groups 5
+#heredoc_interior.patterns[2].begin  groups 5
+#heredoc_interior.patterns[3].begin  groups 5
+#heredoc_interior.patterns[4].begin  groups 5
+#heredoc_interior.patterns[5].begin  groups 5
+#heredoc_interior.patterns[6].begin  groups 5
+#heredoc_interior.patterns[7].begin  groups 5
+#heredoc_interior.patterns[7].patterns[4].match  [$*+^]
+#heredoc_interior.patterns[7].patterns[5].end  groups 0
+#heredoc_interior.patterns[8].begin  groups 5
+#language.patterns[6].patterns[1].patterns[2].captures[2].patterns[0].match  ^(?:final|abstract|public|private|protected|static)$
+#language.patterns[7].begin  groups 1
+#namespace.begin  groups 1
+#nowdoc_interior.patterns[0].begin  groups 3
+#nowdoc_interior.patterns[1].begin  groups 3
+#nowdoc_interior.patterns[2].begin  groups 3
+#nowdoc_interior.patterns[3].begin  groups 3
+#nowdoc_interior.patterns[4].begin  groups 3
+#nowdoc_interior.patterns[5].begin  groups 3
+#nowdoc_interior.patterns[6].begin  groups 3
+#nowdoc_interior.patterns[7].begin  groups 3
+#nowdoc_interior.patterns[7].patterns[4].end  groups 0
+#nowdoc_interior.patterns[8].begin  groups 3
+#single_quote_regex_escape.match  \\(?:\\(?:\\['\\]?|[^'])|.)
+#support.patterns[105].match  (?i)\bis_int(eger)?\b
+#var_language.match  (\$)this\b
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].begin  groups 0
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].end  groups 0
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].begin  <\?(?i:php|=)?(?![^?]*\?>)  fuzz
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].end  (\?)>  fuzz
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[3].patterns[0].match  groups 1
 ```
 
 ### `c`
@@ -507,8 +563,6 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #comment.patterns[0].match  \G-?>
 #comment.patterns[1].match  <!-(?:-(?!>)|(?=-->))
 #comment.patterns[2].match  --!>
-#doctype.patterns[1].begin  "
-#doctype.patterns[1].end  "
 #entities.patterns[1].match  (&)#[0-9]+(;)  fuzz
 #entities.patterns[2].match  groups 3
 #math.patterns[0].patterns[0].begin  (?<!>)\G

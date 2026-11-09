@@ -86,6 +86,8 @@ tables! {
     ASTRO = astro;
     #[cfg(feature = "lang-bat")]
     BAT = bat;
+    #[cfg(feature = "lang-blade")]
+    BLADE = blade;
     #[cfg(feature = "lang-c")]
     C = c;
     #[cfg(feature = "lang-cmake")]

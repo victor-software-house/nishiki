@@ -37,6 +37,24 @@ impl Lexer<'_> {
             Rule::ErbComment => self.path(base, &[S::ErbComment]),
             Rule::ErbBlock => self.path(base, &[S::ErbBlock]),
             Rule::ErbLine => self.path(base, &[S::ErbLine]),
+            Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => self.blade_name_stack(base, rule),
             Rule::Comment => self.path(base, &[S::CommentBlock]),
             Rule::Cdata => self.path(base, &[S::TagCdata]),
             Rule::Doctype => self.path(base, &[S::TagDoctype]),
@@ -207,6 +225,24 @@ impl Lexer<'_> {
             Rule::StringCss => self.path(name, &[S::SourceCss]),
             Rule::StringJs => self.path(name, &[S::SourceJs]),
             Rule::ErbBlock | Rule::ErbLine => self.path(name, &[S::SourceRuby]),
+            Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => self.blade_content_stack(name, rule),
             Rule::Root
             | Rule::Comment
             | Rule::Doctype
@@ -274,6 +310,7 @@ impl Lexer<'_> {
             Pat::JsLine => (Rule::JsLineComment, top.payload),
             Pat::JsBlock => (Rule::JsBlockComment, top.payload),
             Pat::Erb(kind) => (erb_rule(kind), 0),
+            Pat::Blade(kind) => (Self::blade_opens(kind)?, 0),
             Pat::Vue(pat) => return self.vue_opens(pat, hit),
             Pat::End
             | Pat::Inject
@@ -291,7 +328,8 @@ impl Lexer<'_> {
             | Pat::UnquotedCss
             | Pat::UnquotedJs
             | Pat::JsText
-            | Pat::ErbHash => return None,
+            | Pat::ErbHash
+            | Pat::BladeMatch(_) => return None,
         })
     }
 
@@ -381,6 +419,7 @@ impl Lexer<'_> {
                 };
                 self.cap(base, start, end, &[scope]);
             }
+            Pat::Blade(kind) => self.blade_begin_captures(base, kind, start, end),
             Pat::Vue(pat) => self.vue_begin_captures(hit, pat, frame),
             Pat::End
             | Pat::Inject
@@ -400,7 +439,8 @@ impl Lexer<'_> {
             | Pat::UnquotedCss
             | Pat::UnquotedJs
             | Pat::JsText
-            | Pat::ErbHash => {}
+            | Pat::ErbHash
+            | Pat::BladeMatch(_) => {}
         }
     }
 
@@ -704,6 +744,10 @@ impl Lexer<'_> {
                 self.cap_stack(base, start, start + 1, punctuation);
                 self.cap_stack(base, start + 1, end, stack);
             }
+            Pat::BladeMatch(kind) => {
+                let base = self.blade_base(top.rule, top.state, top.content);
+                self.blade_match_captures(base, kind, start, end);
+            }
             Pat::Vue(VuePat::Modifier) => {
                 self.cap(base, start, start + 1, &[S::VueKeyValue]);
                 self.cap(base, start + 1, end, &[S::VueAttributeName]);
@@ -730,6 +774,7 @@ impl Lexer<'_> {
             | Pat::JsLine
             | Pat::JsBlock
             | Pat::Erb(_)
+            | Pat::Blade(_)
             | Pat::Vue(
                 VuePat::CommentKv
                 | VuePat::Comment
@@ -823,6 +868,24 @@ impl Lexer<'_> {
                 self.cap(base, start, gt, &[S::ErbEnd, S::SourceRuby]);
                 self.cap(base, gt, end, &[S::ErbEnd]);
             }
+            Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => self.blade_end_captures(base, top.rule, start, end),
             Rule::VueComment
             | Rule::VueCommentKv
             | Rule::VueSelfClosing
@@ -1050,6 +1113,24 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::ErbComment
         | Rule::ErbBlock
         | Rule::ErbLine
+        | Rule::BladeComment
+        | Rule::BladeCommentPhpWrap
+        | Rule::BladeCommentPhpBlock
+        | Rule::BladeCommentPhpLine
+        | Rule::BladePhpWrap
+        | Rule::BladePhpBlock
+        | Rule::BladePhpLine
+        | Rule::BladePhpLineCode
+        | Rule::BladeEchoTriple
+        | Rule::BladeEcho
+        | Rule::BladeEchoRaw
+        | Rule::BladeEchoEscaped
+        | Rule::BladeDirective
+        | Rule::BladeDirectiveCustom
+        | Rule::BladeArgsComment
+        | Rule::BladeBalance
+        | Rule::BladePhpSection
+        | Rule::BladeAttribute
         | Rule::VueComment
         | Rule::VueCommentKv
         | Rule::VueSelfClosing

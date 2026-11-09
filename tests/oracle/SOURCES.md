@@ -34,6 +34,15 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `bat/sample` | [`samples/bat.sample`][bat-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `bat/tomcat-setclasspath` | [`bin/setclasspath.bat`][tomcat-setclasspath] in apache/tomcat | [Apache-2.0][tomcat-licence] |
+| `blade/coverage` | `oracle/inputs/blade-coverage.blade.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `blade/laravel-exception-query` | [`src/Illuminate/Foundation/resources/exceptions/renderer/components/query.blade.php`][laravel-exception-query] in laravel/framework | [MIT][laravel-licence] |
+| `blade/laravel-exception-show` | [`src/Illuminate/Foundation/resources/exceptions/renderer/show.blade.php`][laravel-exception-show] in laravel/framework | [MIT][laravel-licence] |
+| `blade/laravel-exceptions-minimal` | [`src/Illuminate/Foundation/Exceptions/views/minimal.blade.php`][laravel-exceptions-minimal] in laravel/framework | [MIT][laravel-licence] |
+| `blade/laravel-mail-layout` | [`src/Illuminate/Mail/resources/views/html/layout.blade.php`][laravel-mail-layout] in laravel/framework | [MIT][laravel-licence] |
+| `blade/laravel-notification-email` | [`src/Illuminate/Notifications/resources/views/email.blade.php`][laravel-notification-email] in laravel/framework | [MIT][laravel-licence] |
+| `blade/laravel-pagination-bootstrap-5` | [`src/Illuminate/Pagination/resources/views/bootstrap-5.blade.php`][laravel-pagination-bootstrap-5] in laravel/framework | [MIT][laravel-licence] |
+| `blade/laravel-pagination-tailwind` | [`src/Illuminate/Pagination/resources/views/tailwind.blade.php`][laravel-pagination-tailwind] in laravel/framework | [MIT][laravel-licence] |
+| `blade/sample` | [`samples/blade.sample`][blade-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `c/cjson` | [`cJSON.c`][cjson] in DaveGamble/cJSON | [MIT][cjson-licence] |
 | `c/coverage` | `oracle/inputs/c-coverage.c`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `c/jq-print` | [`src/jv_print.c`][jq-print] in jqlang/jq | [MIT][jq-licence] |
@@ -1173,6 +1182,7 @@ The hand lexer was written against all seven.
 [black-other-tools]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/docs/guides/using_black_with_other_tools.md
 [black-strings]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/src/black/strings.py
 [black-tox]: https://github.com/psf/black/blob/945d902bef347d2e7e1d26897aa89a9c177fb535/tox.ini
+[blade-sample]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/samples/blade.sample
 [blake3-licence]: https://github.com/BLAKE3-team/BLAKE3/blob/f55849f89cd85083c1c9daa2c5de20766f309c00/LICENSE_A2
 [blake3-sse41-msvc]: https://github.com/BLAKE3-team/BLAKE3/blob/f55849f89cd85083c1c9daa2c5de20766f309c00/c/blake3_sse41_x86-64_windows_msvc.asm
 [book-licence]: https://github.com/rust-lang/book/blob/2771df165f092a4fbb9f46b5b2e7450f19010adb/LICENSE-MIT
@@ -1536,7 +1546,14 @@ The hand lexer was written against all seven.
 [ky-core]: https://github.com/sindresorhus/ky/blob/3541888878c4d303a8bc2ad61815f4e048f55a5d/source/core/Ky.ts
 [ky-licence]: https://github.com/sindresorhus/ky/blob/3541888878c4d303a8bc2ad61815f4e048f55a5d/license
 [ky-readme]: https://github.com/sindresorhus/ky/blob/3541888878c4d303a8bc2ad61815f4e048f55a5d/readme.md
+[laravel-exception-query]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Foundation/resources/exceptions/renderer/components/query.blade.php
+[laravel-exception-show]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Foundation/resources/exceptions/renderer/show.blade.php
+[laravel-exceptions-minimal]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php
 [laravel-licence]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/LICENSE.md
+[laravel-mail-layout]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Mail/resources/views/html/layout.blade.php
+[laravel-notification-email]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Notifications/resources/views/email.blade.php
+[laravel-pagination-bootstrap-5]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Pagination/resources/views/bootstrap-5.blade.php
+[laravel-pagination-tailwind]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Pagination/resources/views/tailwind.blade.php
 [laravel-postgres-grammar]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php
 [laravel-router]: https://github.com/laravel/framework/blob/64dc24f5d965add4d402b4b8b64f59b561112af5/src/Illuminate/Routing/Router.php
 [latex-basics-33-wordref]: https://github.com/jlelong/vscode-latex-basics/blob/5b0f2805fca2e3e27eb089010af5b6164bd8a8fe/test/colorize-fixtures/33-wordref.tex

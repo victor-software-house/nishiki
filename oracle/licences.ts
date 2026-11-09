@@ -32,6 +32,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.md",
   },
+  blade: {
+    bundled: "laravel/vs-code-extension@80726f64975dc935d6b925d8230cdc1ea075802a",
+    origin: "laravel/vs-code-extension",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   cmake: {
     bundled: "twxs/vs.language.cmake@19b1b8fe2d68d72cf294d0c3c22f0a3fc54f8f6f",
     origin: "twxs/vs.language.cmake",

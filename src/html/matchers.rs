@@ -322,6 +322,24 @@ impl Lexer<'_> {
             Rule::ErbCommentWrap | Rule::ErbTagWrap => (p <= self.end_pos()).then_some(p),
             Rule::ErbComment => find(memchr(b'%', rest)),
             Rule::ErbBlock | Rule::ErbLine | Rule::VueBodyWhile | Rule::VueExpr => None,
+            Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => self.blade_candidate(rule, p, cut),
             Rule::VueComment | Rule::VueCommentKv => {
                 if cfg!(feature = "lang-vue") {
                     find(memchr(b'-', rest))
@@ -474,6 +492,24 @@ impl Lexer<'_> {
             }
             Rule::ErbCommentWrap | Rule::ErbTagWrap => self.erb_wrap_end(p),
             Rule::ErbComment => self.starts(p, b"%>").then(|| one(2)),
+            Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => self.blade_end_at(rule, p),
             Rule::VueComment
             | Rule::VueCommentKv
             | Rule::VueSelfClosing
@@ -500,8 +536,8 @@ impl Lexer<'_> {
     }
 
     /// `(?!\G)(\s*$\n)?`: the end of the rule that wraps an ERB comment or
-    /// code, with the blanks and line feed that end its line.
-    fn erb_wrap_end(&self, p: usize) -> Option<Hit> {
+    /// code, or Blade's PHP, with the blanks and line feed that end its line.
+    pub(super) fn erb_wrap_end(&self, p: usize) -> Option<Hit> {
         if self.g(p) {
             return None;
         }
@@ -613,7 +649,10 @@ impl Lexer<'_> {
                     (TagKind::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
                     (
                         TagKind::Unrecognized,
-                        Document::DerivativeFirst | Document::Derivative | Document::Vue,
+                        Document::DerivativeFirst
+                        | Document::Derivative
+                        | Document::Blade
+                        | Document::Vue,
                     )
                     | (
                         TagKind::Start
@@ -626,6 +665,7 @@ impl Lexer<'_> {
                         | Document::DerivativeFirst
                         | Document::Derivative
                         | Document::Erb
+                        | Document::Blade
                         | Document::Vue,
                     ) => Attributes::Html,
                 };
@@ -752,6 +792,24 @@ impl Lexer<'_> {
                 .map(|end| Hit::new(Pat::Erb(super::erb::Erb::Comment), p, end)),
             Rule::ErbTagWrap => super::erb::code_begin(&self.s[..self.lim], p)
                 .map(|(kind, end)| Hit::new(Pat::Erb(kind), p, end)),
+            Rule::BladeComment
+            | Rule::BladeCommentPhpWrap
+            | Rule::BladeCommentPhpBlock
+            | Rule::BladeCommentPhpLine
+            | Rule::BladePhpWrap
+            | Rule::BladePhpBlock
+            | Rule::BladePhpLine
+            | Rule::BladePhpLineCode
+            | Rule::BladeEchoTriple
+            | Rule::BladeEcho
+            | Rule::BladeEchoRaw
+            | Rule::BladeEchoEscaped
+            | Rule::BladeDirective
+            | Rule::BladeDirectiveCustom
+            | Rule::BladeArgsComment
+            | Rule::BladeBalance
+            | Rule::BladePhpSection
+            | Rule::BladeAttribute => self.blade_patterns_at(rule, p),
             Rule::VueComment
             | Rule::VueCommentKv
             | Rule::VueSelfClosing
@@ -1216,6 +1274,7 @@ impl Lexer<'_> {
     fn derivative_tag(&self, p: usize) -> Option<Hit> {
         let applies = match self.document {
             Document::Derivative => self.top().rule == Rule::Root,
+            Document::Blade => self.top().rule == Rule::Root && !self.blade_heredoc_root(),
             Document::Vue => matches!(
                 self.top().rule,
                 Rule::VueTemplateBody | Rule::VueElement | Rule::VueTemplateTagEnd

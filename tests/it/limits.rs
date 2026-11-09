@@ -4,6 +4,7 @@
 mod asm;
 mod astro;
 mod bat;
+mod blade;
 mod c;
 mod cmake;
 mod coffee;

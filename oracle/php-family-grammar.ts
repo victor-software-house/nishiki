@@ -632,7 +632,7 @@ export async function generate(cfg: Family): Promise<void> {
     if (r.id === cfg.htmlFirst || r.id === "Root") return "End::Never";
     if (r.id === "SqlStringDoubleQuoted") return "End::DoubleSql";
     if (r.id === "SqlStringSingleQuoted") return "End::SingleSql";
-    const label = /^\^\\s\*\(([A-Z]+)\)\(\?!/.exec(pats.get(r.end)?.regex ?? "")?.[1];
+    const label = /^\^\\s\*\(([A-Z]+)\)(?:\(\?!|\\b)/.exec(pats.get(r.end)?.regex ?? "")?.[1];
     if (label === undefined) throw new Error(`${r.id}: an embedding rule whose end is not a label`);
     if (r.id.startsWith("HeredocInterior")) return `End::Heredoc(b"${label}")`;
     if (r.id.startsWith("NowdocInterior")) return `End::Nowdoc(b"${label}")`;
@@ -640,7 +640,12 @@ export async function generate(cfg: Family): Promise<void> {
   };
   g += `        }\n    }\n\n    /// Where the rule takes the line back from the language it embeds.\n${tooLong}    pub(crate) fn end_halt(self) -> End {\n        match self {\n`;
   g += arms(ruleList.map((r): [string, string] => [r.id, endHalt(r)]), "Rule");
-  g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${ruleList.filter((r) => r.ownAfter).map((r) => `Rule::${r.id}`).join(" | ")})\n    }\n}\n\n`;
+  const ownAfter = ruleList.filter((r) => r.ownAfter).map((r) => `Rule::${r.id}`);
+  g += "        }\n    }\n";
+  if (ownAfter.length > 0) {
+    g += `\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${ownAfter.join(" | ")})\n    }\n`;
+  }
+  g += "}\n\n";
 
   g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
   const docs = (s: string) => {
