@@ -42,9 +42,10 @@ test("a delta past the source is an error", () => {
   expect(() => pushes("t", bytes, "deltas\n2 2\n")).toThrow("t: a delta is not a length or runs past the source");
 });
 
-test("a delta that is not digits only is an error, as in the Rust reader", () => {
+test("a delta that usize::parse refuses is an error, as in the Rust reader", () => {
   const bytes = new TextEncoder().encode("abc");
-  for (const delta of ["0x3", "0b11", "3e0", "3.0", "+3"]) {
+  expect(pushes("t", bytes, "deltas\n+3\n")).toEqual([{ push: "abc" }]);
+  for (const delta of ["0x3", "0b11", "3e0", "3.0", "-3", "++3"]) {
     expect(() => pushes("t", bytes, `deltas\n${delta}\n`)).toThrow("t: a delta is not a length or runs past the source");
   }
 });

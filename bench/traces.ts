@@ -350,13 +350,13 @@ export type Trace = { name: string; kind: string; language: string; initial: str
  * `bytes`.
  * The deltas must add up to the source, as `bench/src/traces.rs` requires.
  * Otherwise a replay would stream a prefix and score it against the whole file.
- * A delta is digits only, as `usize::parse` in the Rust reader takes it.
+ * A delta is digits, with an optional `+`, as `usize::parse` in the Rust reader takes it.
  * A delta that splits a character fails in the fatal decoder. */
 export function pushes(name: string, bytes: Uint8Array, rest: string): Step[] {
   const steps: Step[] = [];
   let at = 0;
   for (const field of rest.split(/\s+/).slice(1).filter((field) => field !== "")) {
-    const length = /^\d+$/.test(field) ? Number(field) : Number.NaN;
+    const length = /^\+?\d+$/.test(field) ? Number(field) : Number.NaN;
     if (!Number.isSafeInteger(length) || at + length > bytes.length) {
       throw new Error(`${name}: a delta is not a length or runs past the source`);
     }
