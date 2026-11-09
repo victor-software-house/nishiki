@@ -1417,6 +1417,12 @@ pub(crate) struct Context<'a> {
     /// Where the line's tokens start in `out`.
     /// A caller of `Highlighter::line` may keep earlier lines' tokens before
     /// them, so a lexer that cuts tokens back reads only the line's own.
+    ///
+    /// An embedded language gets its host's index, not the end of `out`.
+    /// A cut then reads the host's tokens of the same line.
+    /// The last of them bounds the token that `cut_tokens` shortens.
+    /// XML passes Java the end of `out`.
+    /// Java embeds no language, so no cut runs inside it.
     pub(crate) first_token: usize,
 }
 
@@ -1748,5 +1754,27 @@ mod tests {
         assert_eq!(first_of(&Close { level: 0 }, s), Some(5));
         assert!(Close { level: 1 }.holds(s, 10));
         assert!(!at_lt.holds(s, 0));
+    }
+
+    /// A cut at the end of the host's last token drops the embedded tokens.
+    /// `out` holds an earlier line's token, then the host's token to byte 3,
+    /// then an embedded token to byte 8.
+    /// Read from the line's first token, the host's token bounds the cut,
+    /// and no empty token stays.
+    #[cfg(any(
+        feature = "_embedding",
+        feature = "lang-vue",
+        feature = "lang-markdown"
+    ))]
+    #[test]
+    fn a_cut_reads_the_host_tokens_of_its_line() {
+        let token = |end| crate::Token {
+            end,
+            stack: crate::Stack(0),
+        };
+        let mut out = vec![token(9), token(3), token(8)];
+        super::cut_tokens(&mut out, 1, 3);
+        let ends: Vec<usize> = out.iter().map(|token| token.end).collect();
+        assert_eq!(ends, [9, 3]);
     }
 }

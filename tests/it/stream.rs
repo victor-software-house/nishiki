@@ -431,3 +431,69 @@ fn a_reset_lexes_again_from_a_fresh_highlighter() {
         assert_eq!(ours, Some(tokens.len()), "line {}", index + 1);
     }
 }
+
+/// A push after `finish` opens the document again, even when it adds no
+/// text yet: an empty delta, or the first byte of a character.
+#[test]
+fn a_push_after_finish_opens_the_document_again() {
+    let theme = || Theme::new(ThemeSource::default());
+    let deltas: [&[u8]; 2] = [b"", b"\xe2"];
+    for delta in deltas {
+        let mut document = Document::new(Language::Rust, theme());
+        document.push_str("let a");
+        document.finish();
+        document.lex(Until::End);
+        assert_eq!(
+            document.line(0).map(|line| line.kind()),
+            Some(LineKind::Exact)
+        );
+        let _ = document.take_changes();
+        document.push(delta);
+        document.lex(Until::End);
+        assert!(
+            matches!(
+                document.line(0).map(|line| line.kind()),
+                Some(LineKind::Provisional { .. })
+            ),
+            "after {delta:?}"
+        );
+        assert_eq!(
+            document
+                .take_changes()
+                .map(|changes| (changes.start, changes.new_end)),
+            Some((0, 1)),
+            "after {delta:?}"
+        );
+    }
+}
+
+/// An edit to a line that a delta completed, before any lex, lexes that
+/// line again from its new text.
+/// The last line's tokens from before the delta name that line, and the
+/// edit must not let them stand in for it.
+#[test]
+fn an_edit_to_a_line_just_completed_lexes_it_again() {
+    let cases = [
+        ("x\nabcdefghij", 3..10, ""),
+        ("x\nab", 2..4, "\"\""),
+        ("x\nab", 3..3, "cd"),
+    ];
+    for (text, range, replacement) in cases {
+        let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
+        document.push_str(text);
+        document.lex(Until::End);
+        document.push_str("\n");
+        assert_eq!(document.replace(range.clone(), replacement), Ok(()));
+        document.finish();
+        document.lex(Until::End);
+        let expected = one_shot(Language::Rust, document.text());
+        for (index, want) in expected.iter().enumerate() {
+            assert_eq!(
+                &tokens_of(&document, document.line(index)),
+                want,
+                "{text:?} with {range:?} replaced by {replacement:?}, line {}",
+                index + 1
+            );
+        }
+    }
+}

@@ -126,7 +126,16 @@ pub(crate) fn lex_handing(
     state: u32,
 ) -> u32 {
     tokenizer::line_handing(
-        cx.scratch, cx.arena, cx.limits, grammar, line, state, cx.out, cx.report, None,
+        cx.scratch,
+        cx.arena,
+        cx.limits,
+        grammar,
+        line,
+        state,
+        cx.out,
+        cx.report,
+        cx.first_token,
+        None,
     )
     .0
 }
@@ -173,6 +182,7 @@ pub(crate) fn lex_handing_until(
         state,
         cx.out,
         cx.report,
+        cx.first_token,
         Some(Embedded { end, after }),
     );
     (counted(cx, line, next), halted.map(Stopped::halt))

@@ -287,6 +287,7 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
                 state,
                 &mut out,
                 &mut report,
+                0,
                 None,
             )
             .0

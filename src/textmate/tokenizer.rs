@@ -777,6 +777,9 @@ pub(crate) fn line_until<H: Halting>(
 /// for its spare, two pointers, and lexes with the engine's scratch apart from
 /// the whole one. The spare then sits in the whole scratch for any engine line
 /// inside a hand-off. The line swaps them back at its end.
+///
+/// `first_token` is the caller's [`Lexing::first_token`].
+/// A hand-off passes it on to its language.
 #[cfg_attr(
     not(test),
     expect(
@@ -797,6 +800,7 @@ pub(crate) fn line_handing(
     state: u32,
     out: &mut Vec<Token>,
     report: &mut LineReport,
+    first_token: usize,
     halts: Option<Embedded<'_>>,
 ) -> (u32, Option<usize>) {
     let bytes = line.text.as_bytes();
@@ -829,6 +833,7 @@ pub(crate) fn line_handing(
         hand: Some(Hand {
             whole: &mut *whole,
             line,
+            first_token,
         }),
         nested: 0,
     };
@@ -862,10 +867,18 @@ pub(crate) fn line_handing(
 }
 
 /// What a line of a grammar that hands off lends a language lexed by hand:
-/// the whole scratch, whose engine part is the spare, and the line.
+/// the whole scratch, whose engine part is the spare, the line, and where
+/// the line's tokens start in `out`.
+///
+/// `first_token` is the caller's [`Lexing::first_token`].
+/// This line's own tokens may start later, after the tokens of a host that
+/// embeds the grammar.
+/// A language that cuts tokens back reads from `first_token`, so it sees
+/// the host's tokens of the same line.
 struct Hand<'a> {
     whole: &'a mut crate::scratch::Scratch,
     line: Line<'a>,
+    first_token: usize,
 }
 
 /// Loads the frames of `state`, outermost first; true when it is the start of
@@ -1823,6 +1836,7 @@ impl Tokenizer<'_> {
         let embedding = frames.get(depth.checked_sub(2)?)?.rule;
         let language = self.hand_off_of(embedding)?.language;
         let hand = self.hand.as_mut()?;
+        let first_token = hand.first_token;
         let cut = end.min(hand.line.text.len());
         let text = hand.line.text.get(..cut)?;
         let before = std::mem::take(&mut self.s.starts_before);
@@ -1847,7 +1861,7 @@ impl Tokenizer<'_> {
                 limits: &lent,
                 out: &mut *self.out,
                 report: &mut *self.report,
-                first_token: self.out_start,
+                first_token,
             };
             let halting = if before.is_empty() && after.is_empty() {
                 None

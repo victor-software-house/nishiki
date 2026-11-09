@@ -21,8 +21,8 @@ mod numbers;
 use super::engine::{Lexer, Lowered, Spelling};
 use super::grammar::Pat;
 use super::words;
-use crate::case_fold;
 use crate::rules::Chars;
+use crate::{bytes, case_fold};
 
 /// How a support list's words are compared.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -296,14 +296,17 @@ impl Lexer<'_> {
         }
         let found = match (case, word.spelling) {
             (Case::Folded(_), Spelling::Letters) => {
-                words.binary_search(&word.letters.get(..word.len?)?)
+                let letters = word.letters.get(..word.len?)?;
+                words.binary_search_by(|listed| bytes::order(listed, letters))
             }
             (Case::Folded(spellings), Spelling::Ligature) => {
                 let mut buf = [0; 2 * words::LONGEST];
-                spellings.binary_search(&self.kept(p, word.end, &mut buf)?)
+                let kept = self.kept(p, word.end, &mut buf)?;
+                spellings.binary_search_by(|listed| bytes::order(listed, kept))
             }
             (Case::Exact, Spelling::Letters | Spelling::Ligature) => {
-                words.binary_search(&self.text(p, word.end))
+                let text = self.text(p, word.end);
+                words.binary_search_by(|listed| bytes::order(listed, text))
             }
         };
         found.is_ok().then_some(word.end)

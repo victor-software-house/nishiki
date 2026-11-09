@@ -3024,6 +3024,25 @@ mod tests {
         assert_eq!(out.last().map(|token| token.end()), Some(4));
     }
 
+    /// An end that reads its parent's text is asked at character starts only.
+    /// In `aé`, the end holds at byte 2, inside `é`, and is never found there.
+    /// It is found at byte 1, where `é` starts.
+    #[cfg(feature = "_embedding")]
+    #[test]
+    fn an_end_that_reads_parent_text_holds_at_character_starts_only() {
+        let s = "aé".as_bytes();
+        let inside = crate::rules::ParentTextEnd::<Named> {
+            end: &AtOnce { at: 2 },
+            parent_text: b"",
+        };
+        assert_eq!(inside.first(s, 0, s.len()), None);
+        let start = crate::rules::ParentTextEnd::<Named> {
+            end: &AtOnce { at: 1 },
+            parent_text: b"",
+        };
+        assert_eq!(start.first(s, 0, s.len()), Some(1));
+    }
+
     /// `>>` ends the first line and takes its line feed, so no text is left
     /// for Rust there.
     /// The line ends inside the rule, and Rust lexes the second line.

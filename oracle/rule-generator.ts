@@ -545,7 +545,7 @@ pub(crate) struct Nested {
       deferred.set(r.id, embed);
     } else {
       if (r.backref !== null) throw new Error(`${r.id}: embeds a language and repeats a group`);
-      embeds.set(r.id, { embed, afterOwn: index < r.patterns.length - 1 });
+      embeds.set(r.id, { embed, afterOwn: r.patterns.slice(index + 1).some((p) => markEmbed(p) === null) });
     }
     r.patterns = r.patterns.filter((p) => markEmbed(p) === null);
   }
