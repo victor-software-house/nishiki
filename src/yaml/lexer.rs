@@ -855,6 +855,13 @@ impl<'a> Lexer<'a> {
     /// When only the start of a word is valid, the rest of the word is a
     /// mistake.
     /// A `#` that is no comment is read as the start of the next node.
+    ///
+    /// The grammar spells the blank between words `[\t ]`.
+    /// - A word after any other blank, such as a no-break space, is a mistake.
+    /// - A reserved directive takes a name and one parameter; a third word is a
+    ///   mistake.
+    /// - The spaces and tabs before a comment or the line's end lie outside the
+    ///   directive. A no-break space before them stays inside it.
     fn directive(&mut self) -> usize {
         let len = self.s.len();
         let meta = |leaf: S| [S::MetaDirective, leaf];
@@ -887,6 +894,9 @@ impl<'a> Lexer<'a> {
             if start >= len || (self.s[start] == b'#' && self.comment_at(start)) {
                 break;
             }
+            if self.skip_ascii_blanks_unspent(at) != start {
+                bad = true;
+            }
             let word = self.word_end(start);
             self.token(at, start, &[S::MetaDirective]);
             let mut end = word;
@@ -907,10 +917,12 @@ impl<'a> Lexer<'a> {
                         }
                     }
                     (Directive::Reserved, 0) => (self.run_end(start, word_chars), S::DirectiveName),
-                    (Directive::Reserved, _) => {
+                    (Directive::Reserved, 1) => {
                         (self.run_end(start, word_chars), S::DirectiveParam)
                     }
-                    (Directive::Yaml | Directive::Tag, _) => (word, S::InvalidUnrecognized),
+                    (Directive::Yaml | Directive::Tag | Directive::Reserved, _) => {
+                        (word, S::InvalidUnrecognized)
+                    }
                 };
                 if end == start {
                     (end, leaf) = (word, S::InvalidUnrecognized);
@@ -926,7 +938,8 @@ impl<'a> Lexer<'a> {
             index += 1;
         }
         let start = self.skip_blanks(at);
-        self.token(at, start, &[S::MetaDirective]);
+        let end = self.ascii_blanks_start(at, start);
+        self.token(at, end, &[S::MetaDirective]);
         if start < len {
             return if self.comment_at(start) {
                 self.comment(start)
@@ -935,6 +948,16 @@ impl<'a> Lexer<'a> {
             };
         }
         len
+    }
+
+    /// Where the run of spaces and tabs that ends at `to` starts, no earlier
+    /// than `from`.
+    fn ascii_blanks_start(&self, from: usize, to: usize) -> usize {
+        let mut i = to;
+        while i > from && is_blank(self.s[i - 1]) {
+            i -= 1;
+        }
+        i
     }
 
     /// The end of the run of bytes from `from` that `class` accepts.
