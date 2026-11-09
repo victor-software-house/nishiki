@@ -298,8 +298,8 @@ fn shell_text_after_a_containers_indent_is_not_at_the_start_of_the_line() {
 #[test]
 fn a_shell_function_body_survives_a_line_of_only_container_indent() {
     // The line holding only the list item's indent is read whole by the
-    // containers; Shiki's shell rules still see its line feed there, and
-    // the function's `{ ... }` stays open across it.
+    // containers. Shiki's shell rules still see its line feed there. The
+    // function's `{ ... }` stays open across it.
     let text = indoc! {"
         - a
 
@@ -705,9 +705,9 @@ fn vb_fences_embed_visual_basic() {
     );
 }
 
-/// A Batch fence's `for` line reads `%%` as an escape: Shiki applies the
-/// Batch grammar's injection, which reads loop parameters, only where Batch
-/// is the document's grammar.
+/// A Batch fence's `for` line reads `%%` as an escape.
+/// Shiki applies the Batch grammar's injection, which reads loop parameters,
+/// only where Batch is the document's grammar.
 #[cfg(feature = "lang-bat")]
 #[test]
 fn a_batch_fence_takes_no_loop_parameters() {
@@ -817,8 +817,8 @@ fn css_state_continues_across_the_lines_of_a_fence() {
 
 #[test]
 fn a_css_fence_line_is_anchored_at_its_start() {
-    // The fence's `while` rule matches the line's start, so `\G` is there and
-    // the header of a generic at-rule can begin on a line of its own.
+    // The fence's `while` rule matches the line's start, so `\G` is there.
+    // The header of a generic at-rule can then begin on a line of its own.
     let text = indoc! {"
         ```css
         @x a;
@@ -958,9 +958,10 @@ fn go_state_continues_across_the_lines_of_a_fence() {
     assert_eq!(stack_of(text, "b ")[3], "comment.block.go");
 }
 
-/// `\G` holds where the list's indent ends, so `\G()$` keeps the continuation
-/// open there on a line of nothing but the indent; it closes at the end of that
-/// line, and the quote after it opens a string, as in Shiki.
+/// `\G` holds where the list's indent ends.
+/// So `\G()$` keeps the continuation open there on a line of nothing but the
+/// indent. It closes at the end of that line, and the quote after it opens a
+/// string, as in Shiki.
 #[test]
 fn a_python_continuation_in_a_list_fence_closes_after_a_line_of_indent() {
     let text = formatdoc! {"
@@ -980,7 +981,8 @@ fn a_python_continuation_in_a_list_fence_closes_after_a_line_of_indent() {
 }
 
 /// The comment's outer rule ends at `(?!\G)` at the end of the comment's line,
-/// before the anchor of the next line could keep it open, as in Shiki.
+/// as in Shiki.
+/// It ends before the anchor of the next line could keep it open.
 #[test]
 fn a_java_fence_line_after_a_line_comment_starts_a_definition() {
     let text = indoc! {"
@@ -1010,9 +1012,10 @@ fn swift_fences_embed_the_swift_lexer_without_its_root() {
     );
 }
 
-/// The fence's `while` rule matches the line's start, so `\G` is there: the
-/// line after an opening `"""` is content after the delimiter, and a `}` that
-/// starts a line leaves an enum's case list open until a name.
+/// The fence's `while` rule matches the line's start, so `\G` is there.
+///
+/// - The line after an opening `"""` is content after the delimiter.
+/// - A `}` that starts a line leaves an enum's case list open until a name.
 #[test]
 fn a_swift_fence_line_is_anchored_at_its_start() {
     let rows = lex(indoc! {r#"
@@ -1435,8 +1438,9 @@ fn second_line_is_embedded(text: &str) -> bool {
     })
 }
 
-/// Shiki matches the names without regard to case under Oniguruma's folding:
-/// the Kelvin sign is `k`, the long s is `s`, `ß` is `ss`, and a ligature is
+/// Shiki matches the names without regard to case under Oniguruma's folding.
+///
+/// The Kelvin sign is `k`, the long s is `s`, `ß` is `ss`, and a ligature is
 /// the letters it stands for. A fold stands for all its letters, so `rußt`,
 /// which reads as `russt`, is no name.
 #[test]
@@ -1504,9 +1508,9 @@ fn a_dot_in_a_fence_name_matches_any_one_character() {
 
 #[test]
 fn a_caret_does_not_match_where_a_list_took_the_start_of_the_line() {
-    // The list consumed the indentation, so `^` matches nowhere in the fence:
-    // a type annotation, which ends at `^` or `$`, goes on to the next line,
-    // and a triple-slash directive, which starts with `^`, is a plain comment.
+    // The list consumed the indentation, so `^` matches nowhere in the fence.
+    // A type annotation, which ends at `^` or `$`, goes on to the next line.
+    // A triple-slash directive, which starts with `^`, is a plain comment.
     let text = indoc! {"
         - a:
           ```ts
@@ -1574,9 +1578,10 @@ fn word_characters_are_the_ones_shiki_measures() {
     }
 }
 
-/// Each line gets the same tokens from the frames kept after the line before
-/// it and from frames rebuilt from the arena, after another line moved the
-/// highlighter on.
+/// Each line gets the same tokens from two sources.
+///
+/// One is the frames kept after the line before it. The other is frames
+/// rebuilt from the arena, after another line moved the highlighter on.
 #[test]
 fn a_line_lexes_the_same_from_kept_and_rebuilt_frames() {
     let lines = [
@@ -2014,9 +2019,9 @@ fn reached_and_bold_before_end(line: &str, base: u32) -> (bool, bool) {
 }
 
 /// Markdown lends its count to HTML, and HTML to an event handler's
-/// JavaScript. A handler long enough to spend the line's budget, which HTML
-/// and its JavaScript count together, stops Markdown too, before the bold
-/// text after the tag.
+/// JavaScript. HTML and its JavaScript count the line's budget together.
+/// A handler long enough to spend it stops Markdown too, before the bold text
+/// after the tag.
 #[test]
 fn an_event_handler_that_spends_the_budget_stops_the_markdown_line() {
     let short = r#"x <a onclick="f(1);">y</a> **b**"#;

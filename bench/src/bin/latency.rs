@@ -28,7 +28,7 @@ use nishiki_bench::{Document, Tier, corpus};
 /// Passes when `--passes` is not given.
 const PASSES: usize = 11;
 
-/// What the command line asks for.
+/// The options the command line sets.
 struct Options {
     passes: usize,
     tier: Option<Tier>,

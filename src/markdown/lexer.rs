@@ -2,13 +2,14 @@
 //! Markdown grammar, with the regular expressions replaced by the matchers in
 //! [`block`] and [`inline`].
 //!
-//! A line starts by checking the `while` rule of each open container, which
-//! says whether the container continues; the first one that fails closes
-//! itself and every container inside it. Then the rules of the innermost
-//! container, and its closing rule, are tried at each position from the
-//! cursor on. The match that starts first wins, and among matches that start
-//! together the rule listed first. A match opens a container, closes one, or
-//! only scopes text.
+//! A line starts by checking the `while` rule of each open container.
+//! That rule decides whether the container continues. The first one that
+//! fails closes itself and every container inside it.
+//!
+//! Then the rules of the innermost container, and its closing rule, are tried
+//! at each position from the cursor on. The match that starts first wins, and
+//! among matches that start together the rule listed first. A match opens a
+//! container, closes one, or only scopes text.
 
 use super::caps::{Caps, NESTING};
 #[cfg(feature = "lang-html-derivative")]
@@ -25,8 +26,8 @@ use crate::language::{Context, Line, Parts, StopKind, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
-/// The window on the line that the rules see, built from the fields it needs
-/// so that a rule can borrow other fields, such as the runs, while it is held.
+/// The window on the line that the rules see, built from the fields it needs.
+/// A rule can then borrow other fields, such as the runs, while it is held.
 macro_rules! cx {
     ($lexer:expr) => {
         Cx {
@@ -193,28 +194,30 @@ pub(crate) struct Lexer<'a> {
     pos: usize,
     /// Where `\G` matches.
     anchor: Option<usize>,
-    /// The end of the text the rules see: one past the line while lexing the
-    /// line, which stands for its newline, and the end of a capture group while
-    /// lexing that.
+    /// The end of the text the rules see.
+    /// While lexing the line, it is one past the line, which stands for its
+    /// newline. While lexing a capture group, it is the end of the group.
     limit: usize,
     /// The end of the last token emitted.
     last: usize,
-    /// Steps spent on this line, counted in the matchers' scans too, and
-    /// lent to the languages of its fences, with the character before the
-    /// line's start.
+    /// Steps spent on this line, with the character before the line's start.
+    /// The steps count the matchers' scans too, and are lent to the languages
+    /// of its fences.
     facts: LineFacts,
     /// The fence the last match of the fence rule opened.
     opened: Option<block::FenceOpen>,
     /// What the highlighter keeps from line to line.
     scratch: &'a mut crate::scratch::Scratch,
     /// Whether this is the first line of the document, where `\A` matches.
-    /// The document's own state is its root with a payload of 1; after the
-    /// first line the root has none, so `\A` matches on one line only.
+    /// The document's own state is its root with a payload of 1.
+    /// After the first line the root has none, so `\A` matches on one line
+    /// only.
     first_line: bool,
 }
 
-/// What the Markdown lexer keeps from one line to the next, so that a line
-/// allocates nothing and does not look up what the last line interned.
+/// What the Markdown lexer keeps from one line to the next.
+/// A line then allocates nothing and does not look up what the last line
+/// interned.
 #[derive(Debug, Default)]
 pub(crate) struct Scratch {
     /// The open containers: after a line, those of `resume`, with no saved
@@ -318,8 +321,8 @@ impl<'a> Lexer<'a> {
     /// The state after the line, with its containers kept for the next one.
     ///
     /// After the first line the containers rest on the document's start
-    /// state, so they move onto a root that is not the start, and the next
-    /// line rebuilds them. The line's count goes back to the lender.
+    /// state. They therefore move onto a root that is not the start, and the
+    /// next line rebuilds them. The line's count goes back to the lender.
     /// The frames this line opened lose their saved anchors, which belong
     /// to this line.
     #[expect(
@@ -352,13 +355,14 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the line. A line whose scans spent its work reports the work
-    /// limit, though the scan that ran out gave up without a match and the
-    /// loop then found nothing more.
+    /// limit. It does so though the scan that ran out gave up without a match
+    /// and the loop then found nothing more.
     ///
-    /// A line that another language embeds stops at its start when its
-    /// [`Start`] says so and the open containers' `while` rules closed them
-    /// all.
+    /// A line that another language embeds can stop at its start. It stops
+    /// there when its [`Start`] marks a stop and the open containers' `while`
+    /// rules closed them all.
     /// That is the one place the embedding rule's end can hold.
+    ///
     /// At the document's level every line opens a block at its start, and
     /// inside a block the embedding rule's end is not tried.
     ///
@@ -555,8 +559,8 @@ impl<'a> Lexer<'a> {
     /// The first match at or after the cursor: the closing rule first at each
     /// position, then the container's rules in order.
     ///
-    /// In inline text it skips to the next byte that opens an inline rule;
-    /// the first byte of the line may also start a setext underline.
+    /// In inline text it skips to the next byte that opens an inline rule.
+    /// The first byte of the line may also start a setext underline.
     fn find(&mut self, caps: &mut Caps) -> Option<Hit> {
         let (end, list, starts) = match self.frames.last() {
             None => (None, rules::patterns(Kind::Base), Starts::Block),
@@ -863,11 +867,12 @@ impl<'a> Lexer<'a> {
             .depth_reached(self.frames.len().saturating_sub(1))
     }
 
-    /// Keeps a container that cannot open out of the tree: its opening text,
-    /// and the rest of the line when it opens with no text, stay in the
-    /// container that is open. A refusal with no text ends the window, which
-    /// moves the cursor past it: the rule would match again at its end and
-    /// be refused again without progress.
+    /// Keeps a container that cannot open out of the tree.
+    ///
+    /// Its opening text stays in the container that is open. So does the rest
+    /// of the line when it opens with no text. A refusal with no text ends
+    /// the window, which moves the cursor past it. Otherwise the rule would
+    /// match again at its end and be refused again without progress.
     fn refuse(&mut self, hit: &Hit, parent: u32) {
         if hit.end > hit.start {
             self.emit(hit.end, parent);
@@ -1167,9 +1172,11 @@ impl<'a> Lexer<'a> {
         self.pos = at;
     }
 
-    /// The closing match of a raw HTML block: the text before the closing
-    /// tag goes to html-derivative from its start, as a capture group, and
-    /// the tag is named after its own spelling, as `$4` names it.
+    /// The closing match of a raw HTML block.
+    ///
+    /// The text before the closing tag goes to html-derivative from its
+    /// start, as a capture group. The tag is named after its own spelling, as
+    /// `$4` names it.
     #[cfg(feature = "lang-html-derivative")]
     fn html_raw_end(&mut self, base: u32, caps: &Caps) {
         let mut groups = [(0, 0); 6];
@@ -1265,9 +1272,11 @@ impl<'a> Lexer<'a> {
     }
 
     /// Takes the rest of the line, or of the capture group, for the language
-    /// of the open container, from the cursor or, when the containers took
-    /// the line feed too, from the line's end. The next line resumes from
-    /// this container with the embedded lexer's new state.
+    /// of the open container.
+    ///
+    /// It takes it from the cursor, or from the line's end when the
+    /// containers took the line feed too. The next line resumes from this
+    /// container with the embedded lexer's new state.
     ///
     /// html-derivative in a paragraph, a heading or emphasis gives the line
     /// back after its construct, which closes the container.
@@ -1366,7 +1375,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// Keeps `state`, the state the body of `kind` reached, in the body's
-    /// frame: as the frame's payload, and in a state of its own where the
+    /// frame.
+    /// It goes in the frame's payload, and in a state of its own where the
     /// frame keeps one (`kept`).
     #[expect(
         clippy::inline_always,
@@ -1485,7 +1495,7 @@ fn lex_popping(
 }
 
 /// Whether a language's lexer takes the rest of each line inside `rule`.
-/// It agrees with [`embedded_language`].
+/// Its answer matches [`embedded_language`].
 ///
 /// It reads only the rule's kind and builds no `Language`.
 /// `step` tests it before every match.
@@ -1617,7 +1627,7 @@ fn vue_body_line(
 
 /// `(^|\G)(\s*)(.*)`, the rule that starts the lines of an embedded
 /// language. It matches at the end of the fence's opening line, where `\G`
-/// is, and takes no text; on a line it only matches for itself, it takes the
+/// is, and takes no text. On a line it only matches for itself, it takes the
 /// whole line.
 fn embed_begin(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if !cx.at_start(p) {
@@ -1631,7 +1641,8 @@ fn embed_begin(cx: &Cx<'_>, p: usize) -> Option<usize> {
 }
 
 /// The state `state`, whose root is the document's start state, rebuilt on a
-/// root that is not, so that the lines after the first are told apart from it.
+/// root that is not.
+/// The lines after the first are then told apart from it.
 /// It walks the frames into `chain`, the highlighter's buffer, so a document
 /// lexed again allocates nothing on its first line.
 fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) -> Option<u32> {
@@ -1654,9 +1665,11 @@ fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) 
 mod tests {
     use super::{Kind, Language, List, Rule, embedded_language, embeds};
 
-    /// `step`'s guard and `embedded` agree on every rule a frame can hold:
-    /// each kind, a fence and a body for every language in the build, and a
-    /// capture group.
+    /// `step`'s guard and `embedded` give the same answer on every rule a
+    /// frame can hold.
+    ///
+    /// The rules are each fixed `Kind`, a fence and a body for every language
+    /// in the build, and a capture group.
     #[test]
     fn embeds_agrees_with_embedded_language() {
         let languages = Language::ALL

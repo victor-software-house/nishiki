@@ -1,6 +1,7 @@
-//! The block rules: each function matches one rule of the grammar at `p` and
-//! returns where the match ends, filling in the capture groups the grammar
-//! gives scopes to.
+//! The block rules: each function matches one rule of the grammar at `p`.
+//!
+//! It returns where the match ends, and fills in the capture groups the
+//! grammar gives scopes to.
 
 use super::caps::Caps;
 use super::fence::{self, Embed};
@@ -576,8 +577,8 @@ fn trailing_space_start(cx: &Cx<'_>) -> usize {
 ///
 /// `blank_end` is where the text's trailing whitespace starts, found once
 /// per definition. A title's closer must have only whitespace after it, so
-/// it is the byte just before `blank_end`, and checking a title costs the
-/// same wherever it opens: a line of many openers stays linear.
+/// it is the byte just before `blank_end`. Checking a title therefore costs
+/// the same wherever it opens, and a line of many openers stays linear.
 fn link_def_tail(cx: &Cx<'_>, p: usize, blank_end: usize, caps: &mut Caps, first: usize) -> bool {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
     if at >= blank_end {

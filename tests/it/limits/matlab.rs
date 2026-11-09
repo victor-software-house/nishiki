@@ -2,6 +2,7 @@
 //!
 //! A line that would cost more than the default work ends at the work limit.
 //! Its tokens still cover the whole line.
+//!
 //! Command syntax is tried at the start of every line, and indexing braces
 //! and validators have no `\b` before their name.
 //! The long names, argument lists and blank lines here check that no matcher

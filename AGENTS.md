@@ -35,8 +35,11 @@ The decisions that created nishiki live in a private planning repository:
      A language whose only grammar is copyleft gets a hand-written lexer.
    - A third-party grammar is bundled or followed only after its licence is found at its source and permits it.
    - Every grammar is read as the reference for its language, whatever its licence (operator, 2026-11-03).
-     A language whose grammar has no licence found at its source, such as GLSL's, gets a hand-written lexer, and that grammar is never bundled.
-   - A licence can sit outside a `LICENSE` file: TOML's bundle carries the TextMate bundle licence in its README, and YAML's grammar carries its own MIT licence in a file beside it.
+     A language whose grammar has no licence found at its source, such as GLSL's, gets a hand-written lexer.
+     That grammar is never bundled.
+   - A licence can sit outside a `LICENSE` file.
+     TOML's bundle carries the TextMate bundle licence in its README.
+     YAML's grammar carries its own MIT licence in a file beside it.
      Read the README and the files beside the grammar before calling one unlicensed.
    - A grammar's licence text goes in `THIRD-PARTY-NOTICES.md`, which the crate ships, and nowhere else.
    - The README gets a section for open-source sources only once there are several of them.
@@ -45,7 +48,8 @@ The decisions that created nishiki live in a private planning repository:
    - Themes are TextMate themes in Shiki's format.
 4. **Nothing is downloaded at run time.**
    Every supported language is built in when its feature is on.
-   Languages on nishiki's TextMate engine sit in the opt-in `textmate` tier, off by default and outside `all`, because the engine adds about 1.7 MB once (operator, 2026-11-03).
+   Languages on nishiki's TextMate engine sit in the opt-in `textmate` tier, off by default and outside `all`.
+   The engine adds about 1.7 MB once (operator, 2026-11-03).
 5. **Nothing private ships.**
    The repository is private, but the crate's published source is public on crates.io,
    so nothing private goes into a packaged file.
@@ -84,7 +88,7 @@ The decisions that created nishiki live in a private planning repository:
    | Callgrind, `callgrind.yml` | `mise run callgrind`, on a pull request labelled `bench` | a language's lexing, first-document or colour count rises more than 0.5% |
    | Oracle coverage, `coverage.yml` | `mise run check:oracle-coverage` | the report is stale, or a complete grammar has a gap ([oracle/AGENTS.md](oracle/AGENTS.md) rule 6) |
 
-3. A pull request that means to change output says so in a body line, `identity: changes <languages>`, such as `identity: changes python java`.
+3. A pull request that means to change output states it in a body line, `identity: changes <languages>`, such as `identity: changes python java`.
    - Identity lexes the merged tree's fixtures with the pull request's base.
      It may name languages the pull request never touched.
      Then main has changed them since that base.
@@ -105,14 +109,16 @@ The decisions that created nishiki live in a private planning repository:
    - `mise run format` checks it, as the pre-commit hook does.
    - `mise x -- cargo $RUSTFMT_TOOLCHAIN fmt --all` applies it.
 7. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
-   It also runs `check:layout` (every browsable directory has its README and guide) and `check:literals`.
-   It runs `check:tiers` too.
-   That check fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
-   It also fails when a row of the crate docs' tier table in `src/lib.rs` names other languages than its tier's list in `Cargo.toml`.
-   It runs `check:feature-lines` too.
-   That check fails when a language of the `all` list has no line of its own in `check:features`.
-   It runs `check:traces` too.
-   That check fails when a stream-benchmark trace in `bench/traces/` differs from its source.
+   It also runs these checks:
+   - `check:layout`: every browsable directory has its README and guide.
+   - `check:literals`.
+   - `check:tiers`.
+     It fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
+     It also fails when a row of the crate docs' tier table in `src/lib.rs` names other languages than its tier's list in `Cargo.toml`.
+   - `check:feature-lines`.
+     It fails when a language of the `all` list has no line of its own in `check:features`.
+   - `check:traces`.
+     It fails when a stream-benchmark trace in `bench/traces/` differs from its source.
 
 ### Documentation
 
@@ -188,7 +194,8 @@ The rules are in [oracle/AGENTS.md](oracle/AGENTS.md) and [tests/AGENTS.md](test
 1. Every per-line limit is configurable and overridable by the caller (operator, 2026-11-02).
 2. Defaults may follow the resources the caller has, such as memory or a time budget.
    A caller that pins the limits gets the same output on every machine.
-3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants listed in the docs of its `Language` variant, under "Behaviour kept from Shiki" (operator, 2026-11-03).
+3. Until the next minor release, a language's own bounds, such as C++'s `MAX_LOOPS`, are named constants.
+   The docs of its `Language` variant list them, under "Behaviour kept from Shiki" (operator, 2026-11-03).
    Adding them to `Limits` and `Limit` breaks the public API, so the next minor does it once, with the `feat/non-exhaustive-next-minor` branch:
    - it marks both `#[non_exhaustive]`;
    - it adds a builder;

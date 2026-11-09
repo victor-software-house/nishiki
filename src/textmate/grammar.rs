@@ -4,13 +4,15 @@
 //! Nothing is parsed at run time. A pattern's text is compiled to a regular
 //! expression the first time a search needs it.
 //!
-//! The tables keep what never changes apart from what a search fills in: a
-//! pattern's text and a list's rules are read-only data, while the compiled
-//! patterns and the lists' scanners sit in cells. Each grammar allocates its
-//! cells once per process, on first use.
+//! The tables keep what never changes apart from what a search fills in:
+//!
+//! - a pattern's text and a list's rules are read-only data;
+//! - the compiled patterns and the lists' scanners sit in cells.
+//!
+//! Each grammar allocates its cells once per process, on first use.
 //!
 //! The blocks are on the heap, not in static arrays, because an empty
-//! `OnceLock` is not all-zero bytes: `std`'s `Once` starts at a non-zero
+//! `OnceLock` is not all-zero bytes. `std`'s `Once` starts at a non-zero
 //! state, so a static array of cells would sit in the shipped file's data.
 
 use std::sync::OnceLock;
@@ -145,6 +147,7 @@ pub(crate) struct HandOff {
 /// `Tokenizer::scan`, `search` and `probe` index the cells on every pattern
 /// they try.
 /// The cell's size sets the code for that index.
+///
 /// At 152 bytes LLVM emits one `imul`.
 /// At 144 bytes it emits `lea` and `shl`, and at 128 bytes `mov` and `shl`.
 /// Callgrind counts the two-instruction forms as one instruction more per
@@ -245,8 +248,9 @@ pub(crate) struct Grammar {
     /// open rule's list up here, so the lookup is one load. Empty in a grammar
     /// that hands nothing off.
     pub(crate) list_hand_offs: &'static [Option<u8>],
-    /// The rules of the capture groups whose text can reach a hand-off, in
-    /// the rule's own list or through a rule nested in it, sorted. Only such
+    /// The rules of the capture groups whose text can reach a hand-off,
+    /// sorted. The text reaches it in the rule's own list or through a rule
+    /// nested in it. Only such
     /// a capture runs the handing loop. Empty in a grammar that hands nothing
     /// off.
     pub(crate) handing_captures: &'static [usize],
@@ -280,9 +284,10 @@ pub(crate) enum Folding {
 }
 
 /// The root scopes of the grammars where some pattern's lean program differs
-/// from its full one: kept by hand, because only the Rust parser can tell,
-/// and checked against every pattern by
-/// `the_folding_table_matches_the_patterns`.
+/// from its full one.
+///
+/// The list is kept by hand, because only the Rust parser can tell.
+/// `the_folding_table_matches_the_patterns` checks it against every pattern.
 static FOLDING: &[&str] = &[
     "markdown.mermaid.codeblock",
     "source.asm.x86_64",
@@ -351,8 +356,8 @@ impl Grammar {
 
 impl Cells {
     /// The compiled pattern at `index`, compiled on first use for the kind of
-    /// line the cells serve, or `None` for text the engine cannot compile,
-    /// which never matches.
+    /// line the cells serve.
+    /// `None` for text the engine cannot compile, which never matches.
     #[inline]
     pub(crate) fn regex(&self, index: usize) -> Option<&Regex> {
         self.regexes

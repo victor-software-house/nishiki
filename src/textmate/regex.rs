@@ -83,8 +83,9 @@ pub(crate) enum LineKind {
 impl LineKind {
     /// The kind of `line`, found without decoding.
     /// One pass checks that the line is ASCII.
-    /// Only for a line that is not, a second pass looks up each byte in a
-    /// table of the first bytes of those characters' UTF-8 forms.
+    /// A second pass runs only for a line that is not.
+    /// It looks up each byte in a table of the first bytes of those
+    /// characters' UTF-8 forms.
     /// It then checks the bytes after that first byte.
     ///
     /// The check runs in blocks of 64 bytes, one test per block.
@@ -106,11 +107,13 @@ impl LineKind {
     /// Only a lead byte, one with its top two bits set, can start such a
     /// character.
     /// [`next_lead`] passes over the other bytes eight at a time.
+    ///
     /// A lead byte's second byte is checked against [`folds::WIDE_SECOND`]
     /// before the rest.
     /// A two-byte character is decided there.
     /// A three-byte one whose second byte no such character has, such as `∈`,
     /// is passed over.
+    ///
     /// Each turn of the loop takes the rest of the line after the byte it
     /// looks up.
     /// The rest therefore shrinks by at least a byte every turn.
@@ -332,8 +335,9 @@ impl Regex {
         })
     }
 
-    /// Whether a match depends only on the text and where the search starts,
-    /// so that a match found from one position is the match found from any
+    /// Whether a match depends only on the text and where the search starts.
+    ///
+    /// Then a match found from one position is the match found from any
     /// position up to its start.
     pub(crate) fn context_free(&self) -> bool {
         self.context_free
@@ -472,9 +476,10 @@ impl Regex {
 
 /// Tries a match that starts at `at`, leaving the groups in the scratch.
 ///
-/// The scratch is clear without a reset: the search reset it before its
-/// first attempt, and a failed attempt undoes every change it made on the
-/// way out of [`Machine::run`].
+/// The scratch is clear without a reset.
+/// The search reset it before its first attempt.
+/// A failed attempt undoes every change it made on the way out of
+/// [`Machine::run`].
 fn try_at(machine: &mut Machine<'_>, at: usize) -> bool {
     debug_assert!(machine.scratch.is_clear(), "a failed attempt left state");
     let Some(end) = machine.run(0, at, None) else {

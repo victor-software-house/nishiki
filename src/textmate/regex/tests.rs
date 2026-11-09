@@ -333,6 +333,7 @@ fn case_insensitive_matching_answers_as_oniguruma() {
 }
 
 /// The guards on a fold's branches never turn a fold string away.
+///
 /// The test takes every fold of more than one character, such as `ß` and
 /// `ss` or `ﬁ` and `fi`.
 /// The character that folds to it matches the string as a literal and as a
@@ -493,7 +494,8 @@ fn a_failed_attempt_leaves_no_group_behind() {
 }
 
 /// The characters beyond ASCII in the orbit of a character that folds to a
-/// string, or of a character of such a string, as `MULTI` lists them.
+/// string, or of a character of such a string.
+/// `MULTI` lists them.
 fn wide_characters() -> BTreeSet<char> {
     let mut wide = BTreeSet::new();
     for &(code, fold) in MULTI {

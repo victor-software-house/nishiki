@@ -1,6 +1,8 @@
 //! The rules of the grammar's `#html` blocks other than the comment, and of
-//! the wrapper that emphasis opens at a tag: each function matches one rule
-//! at `p`. html-derivative takes the text they hold.
+//! the wrapper that emphasis opens at a tag.
+//!
+//! Each function matches one rule at `p`. html-derivative takes the text they
+//! hold.
 
 use super::caps::Caps;
 use super::text::Cx;

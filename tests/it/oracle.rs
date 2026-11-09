@@ -81,9 +81,10 @@ pub(crate) fn parse(path: &Path) -> Vec<Line> {
 /// calls, so each language plugs in without a shared trait.
 pub(crate) type Tokens = Vec<(usize, String)>;
 
-/// What a fixture expects for a byte it does not check: Shiki passes a theme
-/// colour that is not hex through, such as one-light's `inherit`, where
-/// nishiki sets no colour.
+/// What a fixture expects for a byte it does not check.
+///
+/// Shiki passes a theme colour that is not hex through, such as one-light's
+/// `inherit`. nishiki sets no colour there.
 const UNCHECKED: &str = "unchecked";
 
 pub(crate) fn compare(lines: &[Line], mut lex: impl FnMut(&str) -> Tokens) -> (usize, Vec<Miss>) {

@@ -1,6 +1,7 @@
 //! A theme's rules, resolved into a trie on the dot-separated parts of each
-//! rule's last scope, with the specificity order VS Code's `TextMate` engine
-//! uses.
+//! rule's last scope.
+//!
+//! The trie keeps the specificity order VS Code's `TextMate` engine uses.
 //!
 //! Rules are inserted in sorted order: scope, then parent scopes, then file
 //! order.
@@ -124,9 +125,10 @@ struct Parsed {
     background: Option<Color>,
 }
 
-/// The selectors a rule's scope names, after VS Code: a string is split at
-/// commas once leading and trailing commas are dropped; a missing scope is
-/// the empty selector.
+/// The selectors a rule's scope names, after VS Code.
+///
+/// A string is split at commas once leading and trailing commas are dropped.
+/// A missing scope is the empty selector.
 fn selectors(scope: &RuleScope) -> Vec<String> {
     match scope {
         RuleScope::Defaults => vec![String::new()],

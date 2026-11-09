@@ -1,6 +1,7 @@
-//! Counts the allocations a thread makes, and their bytes, so a test can
-//! prove that code allocates nothing and a benchmark can report what it
-//! allocates.
+//! Counts the allocations a thread makes, and their bytes.
+//!
+//! A test can then prove that code allocates nothing, and a benchmark can
+//! report what it allocates.
 //!
 //! Install [`CountingAllocator`] as a binary's global allocator, then
 //! measure a closure with [`count`] or [`measure`]:
@@ -19,17 +20,19 @@
 //! assert_eq!((usage.allocations, usage.bytes, usage.peak), (1, 16, 16));
 //! ```
 //!
-//! # Why this crate holds unsafe code
+//! # The reason for unsafe code
 //!
 //! nishiki forbids unsafe code. Counting allocations needs a global allocator,
-//! and [`GlobalAlloc`] is an unsafe trait: no safe implementation exists. The
-//! reason is not performance; the allocator forwards every call to
-//! [`System`] unchanged and only counts. An external crate could do the
-//! same, but nishiki depends on `memchr` alone and the operator chose no new
-//! dependency (2026-11-03). Google's Rust style guide asks for unsafe code to
-//! sit behind a safe abstraction in a separate crate with few dependencies;
-//! this is that crate. It is never published, it depends on nothing but
-//! `std`, and its tests run under Miri.
+//! and [`GlobalAlloc`] is an unsafe trait: no safe implementation exists.
+//!
+//! - The reason is not performance. The allocator forwards every call to
+//!   [`System`] unchanged and only counts.
+//! - An external crate could do the same. But nishiki depends on `memchr`
+//!   alone, and the operator chose no new dependency (2026-11-03).
+//! - Google's Rust style guide asks for unsafe code to sit behind a safe
+//!   abstraction in a separate crate with few dependencies. This is that crate.
+//! - It is never published, it depends on nothing but `std`, and its tests run
+//!   under Miri.
 //!
 //! Counts are per thread, so tests that run in parallel do not disturb one
 //! another. An allocation made while a thread is being torn down, after its

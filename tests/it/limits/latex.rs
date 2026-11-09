@@ -3,8 +3,9 @@
 //! A line that would cost more than the default work ends at the work limit,
 //! with tokens that cover it, rather than running on.
 //! Several matchers give back a run from its end, such as the groups of a
-//! citation or of `\addplot`, so long runs of their pieces check that none
-//! walks the rest of the line from each piece.
+//! citation or of `\addplot`.
+//! Long runs of their pieces check that none walks the rest of the line from
+//! each piece.
 
 use nishiki::{Highlighter, Language, Limit};
 

@@ -63,9 +63,9 @@ fn a_markdown_fence_runs_its_makefile_lines_under_the_same_limits() {
     assert!(rows[2].1.is_complete());
 }
 
-/// Each reference opens two contexts, the `$(` and the name inside it, so
-/// three open contexts above the document hold one reference and the name
-/// of a second.
+/// Each reference opens two contexts, the `$(` and the name inside it.
+/// Three open contexts above the document therefore hold one reference and
+/// the name of a second.
 #[test]
 fn make_references_past_the_depth_limit_are_not_opened() {
     let limits = Limits {

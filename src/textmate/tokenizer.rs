@@ -2,6 +2,7 @@
 //!
 //! A line starts by checking the `while` pattern of each open rule.
 //! The first that fails closes itself and every rule inside it.
+//!
 //! Then the patterns of the innermost rule, and its `end` pattern, are
 //! searched from the cursor.
 //! The match that starts first wins, and the earliest listed on a tie.
@@ -57,9 +58,11 @@ const FIRST: u32 = 1;
 const NEW: u32 = u32::MAX;
 /// The start a pattern has when it matches nowhere in the rest of the line.
 const NO_MATCH: u32 = u32::MAX;
-/// Machine steps per step of the work limit: the limit counts decisions of a
-/// lexer, and one decision of the engine is some dozens of the machine's
-/// instructions. Chosen so that no oracle line spends half its default budget.
+/// Machine steps per step of the work limit.
+///
+/// The limit counts decisions of a lexer. One decision of the engine is some
+/// dozens of the machine's instructions. Chosen so that no oracle line spends
+/// half its default budget.
 const STEP: u64 = 32;
 /// How many capture groups may hand their text to rules inside one another
 /// on a line.
@@ -67,6 +70,7 @@ const STEP: u64 = 32;
 /// Each such group runs its rules in a nested call.
 /// A debug build spends kilobytes of stack per level, so the depth limit's
 /// default of 4,096 contexts overflows a 2 MiB thread.
+///
 /// Past this bound, a group gets its own scopes only, as past the depth
 /// limit, and the line reports [`Limit::Depth`].
 /// Shiki has no such bound.
@@ -89,9 +93,9 @@ enum DocStart {
 /// How a run of the loop is entered.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Entry {
-    /// At the start of a line, where the open `while` rules are checked;
-    /// `anchored` when `\G` matches at the line's start, as a fence's
-    /// `while` rule leaves it.
+    /// At the start of a line, where the open `while` rules are checked.
+    /// `anchored` when `\G` matches at the line's start, as a fence's `while`
+    /// rule leaves it.
     Line { anchored: bool },
     /// Inside a capture group whose text rules lex again.
     Capture,
@@ -162,8 +166,9 @@ pub(crate) trait Halting: Copy {
     const HANDS_OFF: bool;
 
     /// The place in `text`, the line's `len` bytes, from `from` where the line
-    /// halts before the root rule's next match, which starts at `to`, and how
-    /// many bytes the test passed.
+    /// halts before the root rule's next match.
+    /// That match starts at `to`. The second value is how many bytes the test
+    /// passed.
     fn halt(self, text: &[u8], from: usize, to: usize, len: usize) -> (Option<usize>, usize);
 }
 
@@ -344,8 +349,9 @@ impl Scratch {
     }
 
     /// Hands the automata's caches of the current grammar and of every parked
-    /// one back to their scanners, so that the next highlighter of a grammar
-    /// does not build their states again.
+    /// one back to their scanners.
+    /// The next highlighter of a grammar then does not build their states
+    /// again.
     fn release_caches(&mut self) {
         self.current.give_back();
         for set in &mut self.parked {
@@ -357,6 +363,7 @@ impl Scratch {
     /// They are those it left when another grammar's line came, or new ones
     /// on its first line.
     /// The current grammar's caches are parked in their place.
+    ///
     /// A document may switch between grammars, as a Markdown document with
     /// fences in two of the engine's languages does.
     /// It builds each grammar's caches once, and lexing it again allocates
@@ -483,10 +490,11 @@ impl GrammarCaches {
         give_back(&mut self.idle_caches, idle);
     }
 
-    /// The kind of `line`, and the grammar's cells for it, making the
-    /// automata caches those of that kind: the other kind's are kept, so
-    /// that lines of the two kinds in turn keep the states their automata
-    /// built.
+    /// The `LineKind` of `line`, and the grammar's cells for it.
+    ///
+    /// It makes the automata caches those of that `LineKind`. The caches of
+    /// the other `LineKind` are kept. Lines of the two kinds in turn then keep
+    /// the states their automata built.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a line"
@@ -568,8 +576,8 @@ pub(crate) struct Scratch {
     /// The machine's buffers, which every search reuses.
     cur: regex::Scratch,
     /// The groups of the best match so far, copied out of `cur`. A copy,
-    /// rather than swapping two machine buffers, keeps each buffer in one role,
-    /// so both reach the size the document needs on its first pass and a
+    /// rather than swapping two machine buffers, keeps each buffer in one role.
+    /// Both then reach the size the document needs on its first pass, and a
     /// second pass allocates nothing.
     best: Vec<Option<(usize, usize)>>,
     /// The caches of the grammar whose line is being lexed.
@@ -638,9 +646,10 @@ fn pack(rule: usize, end: u32) -> u32 {
     u32::try_from(rule).unwrap_or(0) | (end << END_SHIFT)
 }
 
-/// The state at the start of the body of a fence in `grammar`, whose text sits
-/// on the stack `base` with no root scope of the grammar's own, as in Shiki's
-/// embedding, and where `\A` never matches.
+/// The state at the start of the body of a fence in `grammar`.
+///
+/// The body's text sits on the stack `base` with no root scope of the
+/// grammar's own, as in Shiki's embedding. `\A` never matches there.
 #[cfg_attr(
     not(test),
     expect(
@@ -675,9 +684,11 @@ pub(crate) struct Text<'a> {
     pub(crate) anchored: bool,
 }
 
-/// Lexes one line of a grammar from `state`, appending its tokens, which
-/// cover the line from `text.start` with ends counted from the line's start,
-/// and returns the state after it. An empty line leaves the state as it is.
+/// Lexes one line of a grammar from `state`, appending its tokens, and
+/// returns the state after it.
+///
+/// The tokens cover the line from `text.start`, with ends counted from the
+/// line's start. An empty line leaves the state as it is.
 #[cfg_attr(
     not(test),
     expect(
@@ -697,10 +708,11 @@ pub(crate) fn line(
     line_until(scratch, arena, limits, text, state, out, report, Whole).0
 }
 
-/// Lexes one line like [`line`], halting where `halt` says the language that
-/// embeds the grammar takes the line back: the tokens then end at the halt,
-/// and the second value is where. The state at a halt is the root's, since a
-/// halt holds only with the root rule open.
+/// Lexes one line like [`line`], halting where `halt` finds that the language
+/// that embeds the grammar takes the line back.
+///
+/// The tokens then end at the halt, and the second value is where. The state
+/// at a halt is the root's, since a halt holds only with the root rule open.
 #[cfg_attr(
     not(test),
     expect(
@@ -876,9 +888,11 @@ pub(crate) fn line_handing(
     (next, halted)
 }
 
-/// What a line of a grammar that hands off lends a language lexed by hand:
-/// the whole scratch, whose engine part is the spare, the line, and where
-/// the line's tokens start in `out`.
+/// What a line of a grammar that hands off lends a language lexed by hand.
+///
+/// - The whole scratch, whose engine part is the spare.
+/// - The line.
+/// - Where the line's tokens start in `out`.
 ///
 /// `first_token` is the caller's [`Lexing::first_token`].
 /// This line's own tokens may start later, after the tokens of a host that
@@ -1144,7 +1158,7 @@ impl Tokenizer<'_> {
     }
 
     /// `base` with the scopes `names` name on top, built from `caps` where a
-    /// name asks for it.
+    /// name refers to a capture.
     ///
     /// A filled name splits into scopes at spaces only, as vscode-textmate's
     /// `split(/ /g)` does.
@@ -1178,8 +1192,9 @@ impl Tokenizer<'_> {
     /// ran now, leaving its groups in `cur`.
     ///
     /// A pattern that reads nothing but the text gives the same match from
-    /// every position up to its start, and none from any later position when
-    /// it found none, so the answer is kept for the rest of the line.
+    /// every position up to its start. When it found none, it finds none from
+    /// any later position either. The answer is therefore kept for the rest
+    /// of the line.
     fn probe(
         &mut self,
         pat: Pat,
@@ -1325,8 +1340,8 @@ impl Tokenizer<'_> {
 
     /// Compiles the `end` or `while` pattern built from a match, keeps it,
     /// and gives its index. Out of line, because a line compiles one rarely
-    /// and looks one up often, and the compile's registers would otherwise
-    /// widen every lookup's call.
+    /// and looks one up often. The compile's registers would otherwise widen
+    /// every lookup's call.
     #[cold]
     #[inline(never)]
     fn build_end(&mut self, end: u32) -> usize {
@@ -1339,8 +1354,8 @@ impl Tokenizer<'_> {
 
     /// Offers the rules of the injections that apply to the scopes of `stack`
     /// to `best`. One that starts earlier than the rules of the open rule
-    /// wins, and so does one with `L:` that starts where they do; the others
-    /// lose a tie.
+    /// wins. So does one with `L:` that starts where they do. The others lose
+    /// a tie.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
@@ -1436,9 +1451,11 @@ impl Tokenizer<'_> {
     }
 
     /// The first rule of a list the scanner covers that matches at or after
-    /// `from`: where it starts and its place in the list, and whether the
-    /// search ran now, leaving its groups in `cur`. Kept for the rest of the
-    /// line like a pattern's match.
+    /// `from`.
+    ///
+    /// It gives where the rule starts and its place in the list, and whether
+    /// the search ran now, leaving its groups in `cur`. Kept for the rest of
+    /// the line like a pattern's match.
     fn winner(
         &mut self,
         list_id: usize,
@@ -1480,11 +1497,11 @@ impl Tokenizer<'_> {
     /// finds, until a pattern really matches.
     ///
     /// The automaton reads every byte it passes, and the work limit counts
-    /// them: a line of candidates that each read to its end would otherwise
+    /// them. A line of candidates that each read to its end would otherwise
     /// cost the square of its length.
     ///
-    /// The list's automaton cache stays in its slot, borrowed for each search:
-    /// moving it out and back would copy the whole cache on every call.
+    /// The list's automaton cache stays in its slot, borrowed for each search.
+    /// Moving it out and back would copy the whole cache on every call.
     fn scan(
         &mut self,
         list_id: usize,

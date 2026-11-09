@@ -84,7 +84,8 @@ pub(crate) enum Kind {
 }
 
 impl Kind {
-    /// The kinds whose code is their own, not a language's, in code order.
+    /// The `Kind` values whose code is their own, not a language's, in code
+    /// order.
     /// A test checks that [`Kind::code`] agrees.
     pub(super) const FIXED: &[Kind] = &[
         Kind::Base,
@@ -113,8 +114,8 @@ impl Kind {
         Kind::BodyPhp,
     ];
 
-    /// The kind as a frame stores it: the Markdown tag in the high byte and an
-    /// index in the low one.
+    /// The `Kind` as a frame stores it: the Markdown tag in the high byte and
+    /// an index in the low one.
     /// The index is the position in [`Kind::FIXED`].
     /// After those come two codes per language, its fence then its body, in
     /// [`Language::ALL`] order.
@@ -151,7 +152,7 @@ impl Kind {
         TAG | low_byte(low)
     }
 
-    /// The kind a frame's code names.
+    /// The `Kind` a frame's code stands for.
     /// It is [`Kind::Base`] for a code that is not Markdown's.
     pub(crate) fn from_code(code: u16) -> Kind {
         if code & 0xff00 != TAG {
@@ -179,7 +180,7 @@ const _: () = assert!(
     "the Markdown kind codes no longer fit one byte"
 );
 
-/// The low byte of a kind code.
+/// The low byte of a `Kind` code.
 /// The assertion above keeps it below 0x100.
 #[expect(
     clippy::as_conversions,

@@ -7,6 +7,7 @@
 //!
 //! The table starts with fixed hash keys, so a theme's lookups run the same
 //! instructions in every process.
+//!
 //! A theme can come from an untrusted source, and with known keys it could
 //! pick parts whose slots crowd together.
 //! When an entry would sit past the bound, the table is built again with
@@ -54,9 +55,10 @@ impl Keys {
     ///
     /// It folds the part in eight bytes at a time: each step multiplies by a
     /// key into 128 bits and XORs the halves.
-    /// A whole word loads as one integer, and the last few bytes go in
-    /// through a loop: a copy into a buffer called libc's `memcpy` for every
-    /// part.
+    ///
+    /// A whole word loads as one integer.
+    /// The last few bytes go in through a loop, because a copy into a buffer
+    /// called libc's `memcpy` for every part.
     /// The length goes in last, so a part and the same part with zero bytes
     /// after it differ.
     fn hash(self, parent: usize, part: &str) -> u64 {

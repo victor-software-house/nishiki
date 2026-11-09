@@ -1,11 +1,12 @@
-//! nishiki's own `TextMate` engine, which runs the grammars that Shiki bundles
-//! for the languages that have no hand-written lexer, and checks the ones that
-//! have.
+//! nishiki's own `TextMate` engine, which runs the grammars that Shiki bundles.
 //!
-//! A grammar is a set of static tables that `oracle/engine-tables.ts` writes
-//! from Shiki's grammar; the tokenizer walks them a line at a time over the
-//! arena's states, and the regular-expression machine in [`regex`] runs the
-//! patterns.
+//! It runs them for the languages that have no hand-written lexer, and checks
+//! the ones that have.
+//!
+//! - A grammar is a set of static tables that `oracle/engine-tables.ts` writes
+//!   from Shiki's grammar.
+//! - The tokenizer walks them a line at a time over the arena's states.
+//! - The regular-expression machine in [`regex`] runs the patterns.
 
 pub(crate) mod grammar;
 mod regex;
@@ -115,7 +116,7 @@ pub(crate) fn lex_until(
 /// lexed by hand (`Grammar::hand_offs`).
 ///
 /// Never inlined. Inlined into `Language::lex`, the handing loop widened
-/// `Highlighter::line` for every language: its own cost rose about 6% on the
+/// `Highlighter::line` for every language. Its own cost rose about 6% on the
 /// diff, Rust and JSON fixtures at one codegen unit.
 #[cfg_attr(
     not(test),

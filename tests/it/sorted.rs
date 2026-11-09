@@ -1,5 +1,6 @@
-//! Every list that a new language adds a row to is sorted by language, so two
-//! pull requests that add different languages edit different lines of it.
+//! Every list that a new language adds a row to is sorted by language.
+//! Two pull requests that add different languages then edit different lines
+//! of it.
 //! Each test reads one file and names the first pair out of order.
 
 use std::fmt::Debug;

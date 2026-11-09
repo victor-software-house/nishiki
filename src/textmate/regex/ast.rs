@@ -10,7 +10,7 @@ pub(super) enum Anchor {
     Caret,
     /// `$`: the end of the text, or before a newline.
     Dollar,
-    /// `\A`: the start of the document, where the caller says so.
+    /// `\A`: the start of the document, where the caller marks it.
     StartText,
     /// `\z`: the end of the text.
     EndText,
@@ -413,8 +413,10 @@ pub(super) fn prune_repeated_folds(node: &mut Node) {
     }
 }
 
-/// The body of a repetition with no upper bound: its class's fold strings
-/// pruned when the body is that class, alone or after negative lookaheads.
+/// The body of a repetition with no upper bound, with its class's fold
+/// strings pruned.
+/// They are pruned when the body is that class, alone or after negative
+/// lookaheads.
 fn prune_loop_body(body: &mut Node) {
     match body {
         Node::Group { index: None, node } => prune_loop_body(node),
@@ -676,8 +678,9 @@ impl Class {
     }
 
     /// The class's members below 128, one bit per code point, as
-    /// [`Class::matches`] decides them, from its ranges and sets rather than
-    /// a test of each character.
+    /// [`Class::matches`] decides them.
+    /// They come from its ranges and sets rather than a test of each
+    /// character.
     pub(super) fn ascii(&self) -> u128 {
         let found = self.parts.iter().fold(u128::MAX, |all, union| {
             all & union.iter().fold(0, |any, item| any | item.ascii())

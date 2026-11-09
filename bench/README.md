@@ -4,7 +4,7 @@ How nishiki measures its speed and memory.
 The rules for measuring are in [AGENTS.md](AGENTS.md).
 The reasons are in the `bench-methodology` change under `openspec/changes/`.
 
-## What each figure answers
+## Figures and their questions
 
 | Question | Figure | Run with |
 |:--|:--|:--|
@@ -20,7 +20,7 @@ The reasons are in the `bench-methodology` change under `openspec/changes/`.
 
 The worst line under the default limits and the comparison with other highlighters come in later steps of the change.
 
-## Where things are
+## Layout
 
 - [corpus/](corpus/README.md): the files the wall-clock benchmarks read, and [corpus.toml](corpus.toml), which lists them.
 - [traces/](traces/README.md): the delta traces the stream benchmarks replay, written by [traces.ts](traces.ts).

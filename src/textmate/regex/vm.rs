@@ -569,8 +569,9 @@ impl Machine<'_> {
         Some(pos + at)
     }
 
-    /// `^` matches at the start of the text and after a newline, but, as in
-    /// Oniguruma, not at the end of the text after a final newline.
+    /// `^` matches at the start of the text and after a newline.
+    /// As in Oniguruma, it does not match at the end of the text after a
+    /// final newline.
     fn assert_at(&self, anchor: Anchor, pos: usize) -> bool {
         let len = self.text.len();
         match anchor {

@@ -3,10 +3,12 @@
 //!
 //! A theme is a list of rules, each a scope selector with a colour or font
 //! style. A token's style folds over its scope stack from the outermost scope
-//! in: at each scope, the most specific rule that matches the stack so far
-//! sets the attributes it names and leaves the rest as they were. This is the
-//! resolution VS Code's `TextMate` engine applies and Shiki inherits, so a
-//! theme colours nishiki's scopes as it colours Shiki's.
+//! in. At each scope, the most specific rule that matches the stack so far
+//! sets the attributes it names. It leaves the rest as they were.
+//!
+//! This is the resolution VS Code's `TextMate` engine applies and Shiki
+//! inherits. A theme therefore colours nishiki's scopes as it colours
+//! Shiki's.
 
 use std::fmt;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -271,9 +273,11 @@ impl RuleScope {
 impl Theme {
     /// Resolves `source`'s rules into a theme.
     ///
-    /// The theme's own colours come, as in Shiki, from its first rule with
-    /// no name and no scope, then from the editor colours, then from VS
-    /// Code's fallbacks for its kind.
+    /// The theme's own colours come from three places, in order, as in Shiki:
+    ///
+    /// - its first rule with no name and no scope;
+    /// - the editor colours;
+    /// - VS Code's fallbacks for its [`ThemeKind`].
     #[must_use]
     pub fn new(source: ThemeSource) -> Theme {
         let kind = source.kind.unwrap_or_default();

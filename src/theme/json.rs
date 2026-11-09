@@ -2,8 +2,8 @@
 //!
 //! `settings` wins over `tokenColors` when a file has both, as in Shiki.
 //! Fields are read leniently, as VS Code reads them: a field of the wrong
-//! type is ignored rather than rejected, so any theme VS Code or Shiki loads
-//! loads here.
+//! type is ignored rather than rejected.
+//! Any theme VS Code or Shiki loads therefore loads here.
 
 use std::{error, fmt};
 
