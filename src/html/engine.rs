@@ -335,9 +335,19 @@ pub(super) struct Lexer<'a> {
     pub(super) anchor: Option<usize>,
     /// The open rules, the root first.
     frames: Vec<Frame>,
-    /// The last `<` found, as the position searched from and the answer,
-    /// which holds only for the text it was found in: a region, which ends
-    /// the text early, forgets it on the way in and out.
+    /// A search's last answer, as the position searched from and the place
+    /// found. It holds only for the text it was found in: a region, which
+    /// ends the text early, forgets it on the way in and out.
+    /// It caches one of two searches, by document:
+    /// - in an HTML or html-derivative document, the next `<` where the
+    ///   grammar's injection applies ([`Lexer::find_lt`]);
+    /// - in a Blade document, the next place where Blade's own rules match at a
+    ///   heredoc's root ([`Lexer::find_blade_heredoc`]).
+    ///
+    /// The two never meet: `find_lt` runs only in the HTML and html-derivative
+    /// arms of [`Lexer::search`], and `find_blade_heredoc` only in its Blade
+    /// arm. A Blade document stays Blade for the whole line
+    /// ([`Document::derivative_first`] keeps it).
     next_lt: Cell<(usize, Option<usize>)>,
     /// The grammar the document is lexed with.
     pub(super) document: Document,
@@ -615,14 +625,23 @@ impl<'a> Lexer<'a> {
 
     /// Where Blade's own rules match next at a heredoc's root, where the
     /// injection does not apply. No other rule of a heredoc tries them.
+    /// The place is found once for the searches of a run, as
+    /// [`Lexer::find_blade`] does, and kept in `next_lt`.
+    /// A heredoc line with many tags then reads the line once, not once a tag.
     #[cold]
     #[inline(never)]
     fn find_blade_heredoc(&self) -> Option<usize> {
         if !self.blade_heredoc_root() {
             return None;
         }
-        let found = blade::find_rules(&self.s[..self.lim], self.pos);
-        self.spend(found.unwrap_or(self.lim).saturating_sub(self.pos) / 16);
+        let from = self.pos;
+        let (searched, found) = self.next_lt.get();
+        if searched <= from && found.is_none_or(|at| at >= from) && searched != usize::MAX {
+            return found;
+        }
+        let found = blade::find_rules(&self.s[..self.lim], from);
+        self.spend(found.unwrap_or(self.lim).saturating_sub(from) / 16);
+        self.next_lt.set((from, found));
         found
     }
 

@@ -26,6 +26,7 @@ fn hostile_blade_lines_finish_within_the_default_limits() {
         format!("@if({}", "'@if(".repeat(4_000)),
         format!("<div {}", ":a=\"{{ ".repeat(3_000)),
         format!("@section({}", "(".repeat(8_000)),
+        format!("@php function f(array $a = {}", "[".repeat(200_000)),
         format!("{}x", "\u{a0}".repeat(4_000)),
         "x".repeat(12_000),
     ] {
@@ -40,4 +41,22 @@ fn hostile_blade_lines_finish_within_the_default_limits() {
             report.limits().collect::<Vec<_>>()
         );
     }
+}
+
+/// A heredoc line of tags and no Blade looks for Blade's own rules once, not
+/// once a tag, so it stays within the default work.
+#[test]
+fn a_heredoc_line_of_tags_finishes_within_the_default_work() {
+    let mut highlighter = Highlighter::new(Language::Blade);
+    let tags = "<b>x</b>".repeat(3_000);
+    let (rows, _) = lex(
+        &mut highlighter,
+        &["@php", "$h = <<<BLADE", &tags, "BLADE;", "@endphp"],
+    );
+    let report = rows[2].1;
+    assert_eq!(
+        report.limits().collect::<Vec<_>>(),
+        [],
+        "the heredoc line reached a limit"
+    );
 }
