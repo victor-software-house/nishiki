@@ -13,10 +13,7 @@ use std::time::Duration;
 
 use criterion::{Criterion, Throughput, criterion_group, criterion_main};
 use nishiki::{Highlighter, Language, State, Theme};
-use nishiki_bench::{Document, Tier, corpus};
-
-/// Shiki's github-dark, as the oracle pins it.
-const GITHUB_DARK: &str = include_str!("../../tests/oracle/themes/github-dark.json");
+use nishiki_bench::{Document, GITHUB_DARK, Tier, corpus};
 
 /// A language's medium files, split into lines before timing.
 struct Files<'a> {

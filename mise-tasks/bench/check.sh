@@ -31,3 +31,7 @@ cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin cold
 # A change to either program's output shows here.
 cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin latency -- --passes 2 --tier small --tsv python
 cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin cold -- --processes 4 --tsv python
+# The stream program replays one trace of each kind twice.
+# It fails when a document's final lines differ from lexing its text.
+# No figure in it can fail the job.
+cargo run --quiet --locked --release --manifest-path bench/Cargo.toml --bin stream -- --passes 2 uv-docker regex-determinize src-limits

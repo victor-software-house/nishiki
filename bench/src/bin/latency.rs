@@ -22,13 +22,11 @@ use std::process::ExitCode;
 use std::time::{Duration, Instant};
 
 use nishiki::{Highlighter, Language, State};
+use nishiki_bench::timing::{micros, rank, timer_overhead};
 use nishiki_bench::{Document, Tier, corpus};
 
 /// Passes when `--passes` is not given.
 const PASSES: usize = 11;
-
-/// Empty timings measured for the timer's overhead.
-const OVERHEAD_SAMPLES: usize = 10_000;
 
 /// What the command line asks for.
 struct Options {
@@ -75,18 +73,6 @@ fn options() -> Result<Options, String> {
     Ok(options)
 }
 
-/// The median of many empty timings: what reading the clock costs.
-fn timer_overhead() -> Duration {
-    let mut samples: Vec<Duration> = (0..OVERHEAD_SAMPLES)
-        .map(|_| {
-            let start = Instant::now();
-            black_box(start.elapsed())
-        })
-        .collect();
-    samples.sort_unstable();
-    samples[samples.len() / 2]
-}
-
 /// Each line's time in each pass, overhead subtracted: `times[pass][line]`.
 fn passes(document: &Document, passes: usize, overhead: Duration) -> Vec<Vec<Duration>> {
     let lines = document.lines();
@@ -108,21 +94,6 @@ fn passes(document: &Document, passes: usize, overhead: Duration) -> Vec<Vec<Dur
                 .collect()
         })
         .collect()
-}
-
-/// The value at nearest rank `per_mille` / 1000 of sorted `values`.
-fn rank(sorted: &[Duration], per_mille: usize) -> Duration {
-    let index = (sorted.len() * per_mille).div_ceil(1000).saturating_sub(1);
-    sorted.get(index).copied().unwrap_or_default()
-}
-
-/// A time in µs, or `<bound` when it is below resolution.
-fn micros(time: Duration, resolution: Duration) -> String {
-    if time < resolution {
-        format!("<{:.3}", resolution.as_secs_f64() * 1e6)
-    } else {
-        format!("{:.3}", time.as_secs_f64() * 1e6)
-    }
 }
 
 fn main() -> ExitCode {
