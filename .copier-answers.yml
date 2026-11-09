@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; edit with `copier update --data`.
-_commit: v0.0.82
+_commit: v0.0.83
 _src_path: https://github.com/victor-software-house/templates.git
 ci_cache_size: 50
 ci_runner: namespace-4x8
@@ -12,6 +12,9 @@ deny_licenses: []
 deny_skip: []
 extra_runner_labels: []
 feature_sets: []
+generated_paths:
+- tests/engine/*.rs
+- src/{csharp/grammar,blade/words,hack/words,php/words,textmate/regex/folds,textmate/regex/unicode}.rs
 github_owner: victor-software-house
 layout: crate
 library: true
