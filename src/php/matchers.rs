@@ -31,14 +31,8 @@ mod strings;
 use super::engine::Lexer;
 use super::grammar::{Pat, table_pats};
 use crate::classes::is_space;
-use crate::php_family::matchers::{is_name, is_name_start};
+use crate::php_family::matchers::{is_name, is_name_start, is_qualified};
 use crate::rules::Chars;
-
-/// `[0-9\\_a-z\x7F-\x{10FFFF}]` under `(?i)`: a character of a qualified
-/// name.
-fn is_qualified(b: u8) -> bool {
-    is_name(b) || b == b'\\'
-}
 
 impl Lexer<'_> {
     /// Whether `pat` matches at `p`, and where its match ends.
@@ -100,7 +94,7 @@ impl Lexer<'_> {
             Pat::PhpDocAt2 => self.doc_xlink(p),
             Pat::PhpDocAt3 => self.doc_typed_tag(p),
             Pat::PhpDocAt3End => (self.space_at(p) > 0 || self.starts(p, b"*/")).then_some(p),
-            Pat::PhpDocAt4 => self.doc_tag(p),
+            Pat::PhpDocAt4 => self.php_doc_tag(p),
             Pat::PhpDocAt5 => self.doc_inline_tag(p),
             Pat::PhpDocTypesArrayMultiple
             | Pat::PhpTypesAt4
@@ -303,7 +297,7 @@ impl Lexer<'_> {
             Pat::ParameterDefaultTypesAt6 => {
                 (self.at(p) == b'&' && self.at(self.space_end(p + 1)) == b'$').then_some(p + 1)
             }
-            Pat::ParameterDefaultTypesAt7 | Pat::RootAt27 => self.array_open(p),
+            Pat::ParameterDefaultTypesAt7 | Pat::RootAt27 => self.array_paren(p),
             Pat::ParameterDefaultTypesAt10 => {
                 let end = self.qualified(p)?;
                 self.starts(end, b"::").then_some(p)
@@ -381,7 +375,7 @@ impl Lexer<'_> {
             Pat::RootAt39 => self.lit(p, b".=").or_else(|| self.lit(p, b".")),
             Pat::RootAt41 => self.reference(p),
             Pat::RootAt42 => self.lit(p, b"@"),
-            Pat::RootAt43 => self.comparison(p),
+            Pat::RootAt43 => self.equals_or_differs(p),
             Pat::RootAt44 => self.assignment(p),
             Pat::RootAt45 => self.relation(p),
             Pat::RootAt46 => self.lit(p, b"--").or_else(|| self.lit(p, b"++")),
@@ -447,8 +441,8 @@ impl Lexer<'_> {
             Pat::NumbersAt4 => self.decimal(p),
             Pat::NumbersAt5 => self.integer(p),
 
-            Pat::RegexDoubleQuoted => self.regex_open(p, b'"'),
-            Pat::RegexSingleQuoted => self.regex_open(p, b'\''),
+            Pat::RegexDoubleQuoted => self.quoted_regex_open(p, b'"'),
+            Pat::RegexSingleQuoted => self.quoted_regex_open(p, b'\''),
             Pat::RegexDoubleQuotedEnd => self.regex_close(p, b'"'),
             Pat::RegexSingleQuotedEnd => self.regex_close(p, b'\''),
             Pat::RegexDoubleQuotedAt0 => self.regex_escape(p),
@@ -474,10 +468,10 @@ impl Lexer<'_> {
             Pat::InterpolationAt4 => self.brace_interpolation(p),
             Pat::SqlStringDoubleQuoted => self.sql_open(p, b'"'),
             Pat::SqlStringSingleQuoted => self.sql_open(p, b'\''),
-            Pat::SqlStringDoubleQuotedAt0 => self.sql_comment(p, b"#", b'"'),
-            Pat::SqlStringDoubleQuotedAt1 => self.sql_comment(p, b"--", b'"'),
-            Pat::SqlStringSingleQuotedAt0 => self.sql_comment(p, b"#", b'\''),
-            Pat::SqlStringSingleQuotedAt1 => self.sql_comment(p, b"--", b'\''),
+            Pat::SqlStringDoubleQuotedAt0 => self.sql_string_comment(p, b"#", b'"'),
+            Pat::SqlStringDoubleQuotedAt1 => self.sql_string_comment(p, b"--", b'"'),
+            Pat::SqlStringSingleQuotedAt0 => self.sql_string_comment(p, b"#", b'\''),
+            Pat::SqlStringSingleQuotedAt1 => self.sql_string_comment(p, b"--", b'\''),
             Pat::SqlStringDoubleQuotedAt2 => self.sql_escape(p),
             Pat::SqlStringDoubleQuotedAt3 => self.sql_quote(p, b'\'', b'"'),
             Pat::SqlStringDoubleQuotedAt4 => self.sql_quote(p, b'`', b'"'),
@@ -502,16 +496,16 @@ impl Lexer<'_> {
             Pat::StringBacktickAt0 => self.lit(p, b"\\`"),
             Pat::HeredocAt0 => self.heredoc_ahead(p, b'"'),
             Pat::HeredocAt1 => self.heredoc_ahead(p, b'\''),
-            Pat::HeredocInteriorAt0 => self.heredoc_open(p, &[b"HTML"]),
-            Pat::HeredocInteriorAt1 => self.heredoc_open(p, &[b"XML"]),
-            Pat::HeredocInteriorAt2Dql => self.heredoc_open(p, &[b"DQL"]),
-            Pat::HeredocInteriorAt2Sql => self.heredoc_open(p, &[b"SQL"]),
-            Pat::HeredocInteriorAt3Javascript => self.heredoc_open(p, &[b"JAVASCRIPT"]),
-            Pat::HeredocInteriorAt3Js => self.heredoc_open(p, &[b"JS"]),
-            Pat::HeredocInteriorAt4 => self.heredoc_open(p, &[b"JSON"]),
-            Pat::HeredocInteriorAt5 => self.heredoc_open(p, &[b"CSS"]),
-            Pat::HeredocInteriorAt6 => self.heredoc_open(p, &[b"REGEXP", b"REGEX"]),
-            Pat::HeredocInteriorAt7 => self.heredoc_open(p, &[b"BLADE"]),
+            Pat::HeredocInteriorAt0 => self.labelled_heredoc_open(p, &[b"HTML"]),
+            Pat::HeredocInteriorAt1 => self.labelled_heredoc_open(p, &[b"XML"]),
+            Pat::HeredocInteriorAt2Dql => self.labelled_heredoc_open(p, &[b"DQL"]),
+            Pat::HeredocInteriorAt2Sql => self.labelled_heredoc_open(p, &[b"SQL"]),
+            Pat::HeredocInteriorAt3Javascript => self.labelled_heredoc_open(p, &[b"JAVASCRIPT"]),
+            Pat::HeredocInteriorAt3Js => self.labelled_heredoc_open(p, &[b"JS"]),
+            Pat::HeredocInteriorAt4 => self.labelled_heredoc_open(p, &[b"JSON"]),
+            Pat::HeredocInteriorAt5 => self.labelled_heredoc_open(p, &[b"CSS"]),
+            Pat::HeredocInteriorAt6 => self.labelled_heredoc_open(p, &[b"REGEXP", b"REGEX"]),
+            Pat::HeredocInteriorAt7 => self.labelled_heredoc_open(p, &[b"BLADE"]),
             Pat::HeredocInteriorAt8 => self.heredoc_open_any(p),
             Pat::NowdocInteriorAt0 => self.nowdoc_open(p, &[b"HTML"]),
             Pat::NowdocInteriorAt1 => self.nowdoc_open(p, &[b"XML"]),
@@ -564,13 +558,6 @@ impl Lexer<'_> {
 
     // Shared pieces.
 
-    /// `[0-9\\_a-z\x7F-\x{10FFFF}]+` under `(?i)`: a qualified name, which may
-    /// start with a digit.
-    fn qualified(&self, p: usize) -> Option<usize> {
-        let end = self.skip(p, is_qualified);
-        (end > p).then_some(end)
-    }
-
     /// The ends a run of name characters `from..end` can give a `\s` that
     /// follows it: its whole length, then the start of the spaces past ASCII
     /// it ends with, if any.
@@ -586,36 +573,6 @@ impl Lexer<'_> {
             Some(end),
             (trimmed > from && trimmed < end).then_some(trimmed),
         ]
-    }
-
-    /// `X|(?=\?>)` for the byte `close`.
-    fn close_or_php(&self, p: usize, close: u8) -> Option<usize> {
-        if self.at(p) == close && p < self.lim() {
-            Some(p + 1)
-        } else {
-            self.php_close(p).then_some(p)
-        }
-    }
-
-    /// `\s+(?=word\b)`: the spaces before a keyword.
-    /// A shorter run would leave a space before the word, so the whole run is
-    /// the only match.
-    fn spaces_before(&self, p: usize, word: &[u8]) -> Option<usize> {
-        let end = self.space_end(p);
-        (end > p
-            && self
-                .lit(end, word)
-                .is_some_and(|after| self.word_at(after).is_none()))
-        .then_some(end)
-    }
-
-    /// `\S+`.
-    fn non_spaces(&self, p: usize) -> Option<usize> {
-        let mut at = p;
-        while at < self.lim() && self.space_at(at) == 0 {
-            at = self.char_end(at);
-        }
-        (at > p).then_some(at)
     }
 
     /// `(?i)\b(word)\s+(NAME)`, with the word and the name as groups 1 and 2.

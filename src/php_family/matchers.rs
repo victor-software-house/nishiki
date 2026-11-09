@@ -1,11 +1,20 @@
-//! The matchers PHP's and Hack's grammars share: each answers for an
-//! expression that both grammars spell the same way.
+//! The matchers the PHP family's grammars share: each answers for an
+//! expression that two of them spell the same way.
 //! Scopes come from each grammar's tables, so a matcher is shared even where
-//! the two grammars name its match differently.
+//! the grammars name its match differently.
+//!
+//! This file holds what PHP and Hack share.
+//! The submodules hold PHP's matchers for the expressions that Blade's copy
+//! of PHP spells the same way.
 
 use super::PhpFamily;
 use crate::case_fold;
 use crate::rules::{Chars, Lexer};
+
+mod comments;
+mod declarations;
+mod expressions;
+mod strings;
 
 /// `[_a-z\x7F-\x{10FFFF}]` under `(?i)`, by byte: every byte of a character
 /// past ASCII is at least `0x80`.
@@ -24,6 +33,12 @@ pub(crate) fn is_flag(b: u8) -> bool {
         b,
         b'A' | b'D' | b'S' | b'U' | b'X' | b'e' | b'i' | b'm' | b's' | b'u' | b'x'
     )
+}
+
+/// `[0-9\\_a-z\x7F-\x{10FFFF}]` under `(?i)`: a character of a qualified
+/// name.
+pub(crate) fn is_qualified(b: u8) -> bool {
+    is_name(b) || b == b'\\'
 }
 
 /// The shared matchers, on the rule engine's lexer of either grammar.
@@ -315,5 +330,41 @@ impl<G: PhpFamily> Lexer<'_, G> {
     /// `\\['\\]`: an escape in a single-quoted string.
     pub(crate) fn single_quote_escape(&self, p: usize) -> Option<usize> {
         (self.at(p) == b'\\' && matches!(self.at(p + 1), b'\'' | b'\\')).then_some(p + 2)
+    }
+    /// `X|(?=\?>)` for the byte `close`.
+    pub(crate) fn close_or_php(&self, p: usize, close: u8) -> Option<usize> {
+        if self.at(p) == close && p < self.lim() {
+            Some(p + 1)
+        } else {
+            self.php_close(p).then_some(p)
+        }
+    }
+
+    /// `\S+`.
+    pub(crate) fn non_spaces(&self, p: usize) -> Option<usize> {
+        let mut at = p;
+        while at < self.lim() && self.space_at(at) == 0 {
+            at = self.char_end(at);
+        }
+        (at > p).then_some(at)
+    }
+
+    /// `\s+(?=word\b)`: the spaces before a keyword.
+    /// A shorter run would leave a space before the word, so the whole run is
+    /// the only match.
+    pub(crate) fn spaces_before(&self, p: usize, word: &[u8]) -> Option<usize> {
+        let end = self.space_end(p);
+        (end > p
+            && self
+                .lit(end, word)
+                .is_some_and(|after| self.word_at(after).is_none()))
+        .then_some(end)
+    }
+
+    /// `[0-9\\_a-z\x7F-\x{10FFFF}]+` under `(?i)`: a qualified name, which may
+    /// start with a digit.
+    pub(crate) fn qualified(&self, p: usize) -> Option<usize> {
+        let end = self.skip(p, is_qualified);
+        (end > p).then_some(end)
     }
 }
