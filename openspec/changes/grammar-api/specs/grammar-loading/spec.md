@@ -14,8 +14,13 @@ It SHALL highlight text with that grammar under the caller's limits.
 
 #### Scenario: A grammar loads from a build script
 
-- **WHEN** a build script writes a compiled grammar's bytes and the crate loads them with `Grammar::from_bytes` and the same `Grammars` set
+- **WHEN** a build script writes a compiled grammar's bytes and the crate loads them with `Grammar::from_bytes`
 - **THEN** the output equals the output of the same grammar loaded from JSON
+
+#### Scenario: Grammars include each other
+
+- **WHEN** two grammars include each other, and a caller loads them in either order into one `Grammars` set
+- **THEN** each grammar's regions of the other get the other grammar's scopes
 
 ### Requirement: Output matches Shiki for every Shiki grammar
 
@@ -25,7 +30,7 @@ Each non-whitespace byte of its sample SHALL get the scope stack Shiki gives it.
 #### Scenario: CI runs the Shiki grammars
 
 - **WHEN** the fidelity job highlights each Shiki grammar's sample
-- **THEN** no byte's scopes differ from Shiki's
+- **THEN** no non-whitespace byte's scopes differ from Shiki's
 
 ### Requirement: The crate bundles no grammar
 

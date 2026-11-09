@@ -34,8 +34,13 @@ It follows includes inside the grammar and interns scope names.
 It is written from scratch, with vscode-textmate's behaviour as the reference (invariant 1).
 
 An include of another grammar stays a scope name in the compiled tables.
-Loading links those names against a `Grammars` set, the same step for JSON and for bytes.
-Linking drops a rule whose included grammar the set lacks, as `oracle/engine-tables.ts` does.
+A compiled grammar therefore depends on no other grammar.
+
+The `Grammars` set a highlighter holds resolves that name when the tokenizer first reaches the include, as vscode-textmate's registry does.
+
+- Grammars that include each other load in any order, and each one's regions of the other get the other's scopes.
+- An include whose grammar the set lacks matches nothing, as `oracle/engine-tables.ts` drops it.
+- The highlighter's scratch caches each resolved include, so the set is read once per include.
 
 The run-time path and the build-script path both call it.
 The TypeScript generator stays as its oracle.
@@ -45,15 +50,10 @@ A test compares the two compilers' tables for every Shiki grammar, and the TypeS
 
 A compiled grammar is moved to the heap and leaked, so the engine keeps its `&'static Grammar`.
 
-A process-wide set interns linked grammars.
-Its key has two parts:
-
-- the grammar's source, compared in full after a hash match;
-- the handle each include linked to.
-
-Loading the same grammar twice with the same includes returns the first one.
-The same source loaded with other includes is a different grammar.
-So a load with fewer grammars never shadows a later, fuller one.
+A process-wide set interns compiled grammars.
+Its key is the grammar's source, compared in full after a hash match.
+Loading the same source twice returns the first handle.
+A handle holds no link to another grammar, so one handle serves every `Grammars` set.
 
 Memory grows with each distinct grammar and stays until the process ends.
 The crate docs state it, and warn a service not to load grammars from untrusted input without its own bound.
@@ -74,7 +74,7 @@ No caller does today.
 `Grammar::compile(json)` returns the compiled tables, with includes of other grammars kept as scope names.
 `to_bytes` writes them in nishiki's own format.
 A build script writes them to `OUT_DIR`.
-The crate loads them with `Grammar::from_bytes(include_bytes!(…), &grammars)`, which links the includes as `from_json` does.
+The crate loads them with `Grammar::from_bytes(include_bytes!(…))`.
 
 - The bytes open with a header that names the format version.
   `from_bytes` refuses bytes from another version with an error.
@@ -88,11 +88,12 @@ The crate loads them with `Grammar::from_bytes(include_bytes!(…), &grammars)`,
 ### 4. Public API
 
 - `Grammar`: a `Copy` handle to a compiled grammar.
-  `Grammar::from_json(&str, &Grammars)` and `Grammar::from_bytes(&[u8], &Grammars)` return `Result<Grammar, GrammarError>`.
+  `Grammar::from_json(&str)` and `Grammar::from_bytes(&[u8])` return `Result<Grammar, GrammarError>`.
 - `Grammars`: the grammars an include can name, by scope.
   An include may name a scope that a hand lexer covers, such as `source.css`.
   Its region then goes to that lexer, as the engine's hand-offs do today.
-- `Highlighter::for_grammar(grammar)` and `Highlighter::for_grammar_with_limits(grammar, limits)`.
+  A highlighter holds the set behind an `Arc`, since the tokenizer reads it only when an include is first reached.
+- `Highlighter::for_grammar(grammar, grammars)` and `Highlighter::for_grammar_with_limits(grammar, grammars, limits)`.
 - `GrammarError` names what failed: the JSON, a missing root scope, an unknown format version, malformed bytes.
   A pattern the engine cannot compile is not an error: it never matches, as in vscode-textmate.
 
