@@ -14,7 +14,14 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 ## 1. Agreement
 
 - [x] 1.1 Halt semantics agreed with xml-html (ERB's halt at any depth, Vue's entries) → verify: their reply recorded in design section 9
-  - xml-html, 2026-11-03: `any` has injection priority and skips comments; the full stack at an `any` halt; halts tried at place 0; TypeScript's `expression` as the one entry; html-derivative a language of its own; a covered second hand-off dropped; mixed repository rules compiled into the engine's table; ERB moves onto `Halts` in its second PR.
+  - xml-html, 2026-11-03:
+    - `any` has injection priority and skips comments;
+    - the full stack at an `any` halt, and halts tried at place 0;
+    - TypeScript's `expression` as the one entry;
+    - html-derivative a language of its own;
+    - a covered second hand-off dropped;
+    - mixed repository rules compiled into the engine's table;
+    - ERB moves onto `Halts` in its second PR.
 - [x] 1.2 Engine profile agreed with engine-spans (cost of a `&dyn` halt per place) → verify: their reply recorded in design section 9
   - engine-spans, 2026-11-03: `&dyn Fn` is fine; keep the `halt: None` branch; `#[inline]` dispatch; halts stay pure; label the PR `bench`.
 - [x] 1.3 GraphQL port's embedding agreed with primitives → verify: their reply recorded in design section 10
@@ -41,7 +48,9 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 
 - [x] 4.0 core-fix's shared line budget, `Context { steps }`, with depth per language (design section 9), has landed → verify: its PR cited here
   - nishiki-archive#228, merged on 2026-11-04 as 2102df71: `Steps::lend` and `Finished`, with depth per language.
-- [x] 4.1 The generator's list of hand-lexed grammars, a spec's `>` languages, and each list's hand-off (design section 14.3) → verify: regenerating every other engine table adds only `hand_offs: &[]`, and HAML's test table splits each list at its hand-off (`a_hand_off_splits_its_list_in_two`)
+- [x] 4.1 The generator's list of hand-lexed grammars, a spec's `>` languages, and each list's hand-off (design section 14.3).
+  → verify: regenerating every other engine table adds only `hand_offs: &[]`.
+  HAML's test table splits each list at its hand-off (`a_hand_off_splits_its_list_in_two`).
   - [#365][pr365], merged on 2026-11-04 as f4ac6d41.
     Regenerating the 11 shipped tables and the 9 other test tables added one line to each, `hand_offs: &[]`.
     `a_hand_off_splits_its_list_in_two` runs on every table and passed in [CI][ci365].
@@ -83,10 +92,19 @@ Sections 1.5, 2 and 3 are deferred: `Halts`, `Grammar::rule_halts` and entries r
 
 ## 6. The engine as an embedded language
 
-- [x] 6.1 `textmate::lex_until` and `Language::lex_until` for every engine row: the line halts where `end` holds with only the root rule open, before the root's patterns, or where `after` holds and none of them match, plain lexing keeps no halt test (a type parameter compiles it out), and an embedded engine line, through `lex_until` or `lex_embedded`, starts from the work its limits lend and returns what it spent in `Finished` → verify: the halt and budget tests in `src/textmate/tests.rs`, and Callgrind at one codegen unit with every engine language at or under 1.000
-  - [#325][pr325], merged on 2026-11-04 as 45d62854: the halt and budget tests pass in [CI][ci325], and [Callgrind][cg325] at one codegen unit reads every engine language at or under 1.000, with Nix at 0.9912.
+- [x] 6.1 `textmate::lex_until` and `Language::lex_until` for every engine row.
+  - The line halts where `end` holds with only the root rule open, before the root's patterns.
+    It also halts where `after` holds and none of them match.
+  - Plain lexing keeps no halt test: a type parameter compiles it out.
+  - An embedded engine line, through `lex_until` or `lex_embedded`, starts from the work its limits lend.
+    It returns what it spent in `Finished`.
+
+  → verify: the halt and budget tests in `src/textmate/tests.rs`, and Callgrind at one codegen unit with every engine language at or under 1.000.
+  - [#325][pr325], merged on 2026-11-04 as 45d62854: the halt and budget tests pass in [CI][ci325].
+    [Callgrind][cg325] at one codegen unit reads every engine language at or under 1.000, with Nix at 0.9912.
     ERB, which does not run the engine, read 1.0011 on that run.
-    It was judged noise by reruns of the same binaries on one machine: base 14,695,552 to 14,701,102 instructions, head 14,694,314 to 14,707,830, with no nishiki function's self cost or call count changed beyond the arena's hash maps.
+    Reruns of the same binaries on one machine showed it as noise: base 14,695,552 to 14,701,102 instructions, head 14,694,314 to 14,707,830.
+    No nishiki function's self cost or call count changed beyond the arena's hash maps.
 - [x] 6.2 Ruby's `<<~HAML` heredoc embeds HAML through it → verify: a Ruby fixture with a HAML heredoc matches Shiki
   - [#376][pr376], merged on 2026-11-04 as 3cdfc138.
     In `ruby/coverage.txt`, three lines of the `<<~HAML` heredoc take HAML's scopes, and the oracle check passed in [CI][ci376].

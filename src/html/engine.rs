@@ -4,12 +4,16 @@
 //! At each position the engine tries the end pattern of the innermost rule and
 //! then the rule's patterns in order, and takes the first that matches at the
 //! earliest position. A begin match opens a rule and an end match closes it;
-//! a match's capture groups name parts of it. The corner cases of `TextMate`
-//! engines are kept because Shiki's output depends on them: `\G` matches only
-//! where the enclosing begin ended, a rule that opens and closes without
-//! advancing stays open for the rest of the line, a match rule that does not
-//! advance closes the rule it sits in, and a capture group that the grammar
-//! tokenizes with patterns of its own is lexed on its text alone.
+//! a match's capture groups name parts of it.
+//! The corner cases of `TextMate` engines are kept because Shiki's output
+//! depends on them:
+//!
+//! - `\G` matches only where the enclosing begin ended.
+//! - A rule that opens and closes without advancing stays open for the rest of
+//!   the line.
+//! - A match rule that does not advance closes the rule it sits in.
+//! - A capture group that the grammar tokenizes with patterns of its own is
+//!   lexed on its text alone.
 //!
 //! The grammar's injection, which flags a bare `<`, joins the search: it
 //! wins only where it starts before every match of the current rule. In an
@@ -206,9 +210,10 @@ pub(crate) enum GiveBack<'a> {
     /// Markdown's emphasis opens at a tag.
     AfterTag,
     /// At the root, where `end` holds before the root's patterns at a place,
-    /// or `after` holds where none of them matches: the embedding rule's
-    /// patterns listed before and after the grammar (see [`Halt`]), such as
-    /// the interpolation and escapes of a Ruby here document.
+    /// or `after` holds where none of them matches.
+    /// These are the embedding rule's patterns listed before and after the
+    /// grammar (see [`Halt`]), such as the interpolation and escapes of a
+    /// Ruby here document.
     Halts(&'a crate::language::Halts<'a>),
 }
 
@@ -302,9 +307,11 @@ impl Scratch {
     }
 }
 
-/// The most steps in a row that do not advance: each opens or closes a rule
-/// at one byte, and a rule that repeats stops the line, so a run is at most
-/// an open and a close per rule of the grammar, far below this.
+/// The most steps in a row that do not advance.
+/// Each opens or closes a rule at one byte, and a rule that repeats stops the
+/// line.
+/// A run is thus at most an open and a close per rule of the grammar, far
+/// below this.
 const MAX_STALLED: u32 = 4096;
 
 /// Lexes one line.

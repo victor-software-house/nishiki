@@ -307,17 +307,26 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// Where the scan resumes after no rule matched at `p`: the next position
     /// a rule can match at.
     ///
-    /// Inside a run of blanks, or of the name characters after a name's first
-    /// letter and the character after it, the next positions all have the
-    /// same kind of character before them as `p`, so the same lookbehinds
-    /// give the same answers, and a rule without a lookbehind would have
-    /// matched at the run's or the name's start. The first position of a run
-    /// and the second of a name are not skipped, because a lookbehind that
-    /// failed at the first (`(?<![$_[:alnum:]])` after a name) can pass at the
-    /// next. The scan still reaches `${`, which starts with a name character,
-    /// and the last character of the line, which the end rules that test
-    /// `[^\\\n]$` match. The oracle fixtures and the differential tests hold
-    /// that nothing else matches in what is skipped.
+    /// The skip covers a run of blanks, or the name characters after a
+    /// name's first letter and the character after it.
+    /// Inside such a run, the next positions all have the same kind of
+    /// character before them as `p`.
+    /// So the same lookbehinds give the same answers.
+    /// A rule without a lookbehind would have matched at the run's or the
+    /// name's start.
+    ///
+    /// The first position of a run and the second of a name are not skipped.
+    /// A lookbehind that failed at the first can pass at the next, such as
+    /// `(?<![$_[:alnum:]])` after a name.
+    ///
+    /// The scan still reaches two places:
+    ///
+    /// - `${`, which starts with a name character;
+    /// - the last character of the line, which the end rules that test
+    ///   `[^\\\n]$` match.
+    ///
+    /// The oracle fixtures and the differential tests hold that nothing else
+    /// matches in what is skipped.
     fn skip_unmatched(&mut self, p: usize) -> usize {
         let step = p + self.char_len(p);
         if p < self.len

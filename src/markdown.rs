@@ -66,10 +66,10 @@
 //! Where it differs from the grammar's regular expressions otherwise:
 //!
 //! 1. The regular expressions backtrack in ways that rarely matter, and the
-//!    lexer follows the alternatives that do: a code span gives back backticks,
-//!    a heading's closing `#` run, a table cell's trailing blanks and a
-//!    reference definition's destination and title. It does not follow every
-//!    one, such as an escaped `>` that ends an angle-bracket destination.
+//!    lexer follows the alternatives that do. Those are a code span's backticks
+//!    given back, a heading's closing `#` run, a table cell's trailing blanks
+//!    and a reference definition's destination and title. It does not follow
+//!    every one, such as an escaped `>` that ends an angle-bracket destination.
 //! 2. A fence of more than 255 characters, or indented with a tab by more than
 //!    three characters, is never closed by a fence of the same kind.
 

@@ -291,11 +291,13 @@ macro_rules! languages {
             }
 
             /// Lexes `line` like [`Language::lex`], for a language that
-            /// another one embeds: the line halts at the first place where
-            /// `end` holds that the code reaches with only the language's
-            /// root open, or where `after` holds and nothing of the language
-            /// matches, and the second value says where and why it stopped
-            /// ([`Stopped`]). `None` for a language that cannot halt.
+            /// another one embeds.
+            /// The line halts at the first place where `end` holds that the
+            /// code reaches with only the language's root open.
+            /// It also halts where `after` holds and nothing of the language
+            /// matches.
+            /// The second value says where and why it stopped ([`Stopped`]).
+            /// `None` for a language that cannot halt.
             #[cfg_attr(
                 not(any(feature = "_embedding", feature = "_textmate", feature = "lang-markdown")),
                 expect(
@@ -682,7 +684,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, HAML, JavaScript, YAML, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
+    /// - A here document named for one of these languages, such as `<<~SQL`, lexes its lines in that language, as Shiki does: SQL, GraphQL, CSS, C, C++, HTML, XML, HAML, JavaScript, YAML, shell, Lua or Ruby.
+    ///   Ruby's interpolation and escapes apply where the language has nothing open.
     /// - In one named for YAML, an indented `#{` is a YAML comment, as in Shiki: the grammar's comment rule takes the blanks before it.
     /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
     /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki: the grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
@@ -814,7 +817,8 @@ languages! {
     /// - Code that its line does not close is `meta.embedded.block.erb`, and the blanks before it at the start of a line and after its end get scopes of their own.
     /// - In a `<style>` element ERB opens between CSS rules, and in a `<script>` element where no JavaScript rule matches, so JavaScript's `<` operator takes `<%=` in code.
     /// - A heredoc of another language inside the Ruby, such as `<<~SQL`, stays Ruby text.
-    /// - ERB that Shiki opens inside a CSS rule or string, or inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script, stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
+    /// - Shiki opens ERB inside a CSS rule or string, and inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script.
+    ///   There it stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
     Erb { feature: "lang-erb", names: ["erb"], module: erb }
     /// Lua, with the scopes of Shiki's `lua` grammar.
     ///
@@ -1529,9 +1533,11 @@ impl Stopped {
 }
 
 /// The end of the rule that embeds a language, as a test of the line's bytes
-/// at a place: a `TextMate` engine tries that end at each position while no
-/// rule of the embedded grammar is open, before the embedded patterns, so a
-/// match that starts before it still wins and one that starts at it loses.
+/// at a place.
+/// A `TextMate` engine tries that end at each position while no rule of the
+/// embedded grammar is open, before the embedded patterns.
+/// A match that starts before it thus still wins, and one that starts at it
+/// loses.
 /// It never holds at a space or tab, because the rule engine's scan skips
 /// runs of them.
 ///
@@ -1635,11 +1641,16 @@ impl<F: Fn(&[u8], usize) -> bool> Halt for F {
 
 /// The first character start of `s` from `from` where a language that
 /// embeds another takes the line back before the embedded language's next
-/// match, which starts at `to`: `end` up to and at `to`, since `end` is tried
-/// before the patterns, and `after` only before it, since a match at a place
-/// beats `after` there. With no match ahead, `to` is `lim`, the end of the
-/// text, which is tested too. Returns the place, and how many bytes the scan
-/// passed, for the caller's work budget.
+/// match, which starts at `to`.
+///
+/// - `end` holds up to and at `to`, since `end` is tried before the patterns.
+/// - `after` holds only before it, since a match at a place beats `after`
+///   there.
+///
+/// With no match ahead, `to` is `lim`, the end of the text, which is tested
+/// too.
+/// Returns the place, and how many bytes the scan passed, for the caller's
+/// work budget.
 ///
 /// `#[inline]` because the HTML and XML lexers, in other modules, call it
 /// (`bench/AGENTS.md` rule 13).

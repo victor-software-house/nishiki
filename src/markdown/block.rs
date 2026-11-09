@@ -199,10 +199,11 @@ pub(crate) struct FenceOpen {
     pub(crate) embed: Option<Embed>,
 }
 
-/// The opening of a fence: leading whitespace, a run of three or more backticks
-/// or tildes, and then either a language the grammar knows followed by its
-/// attributes, or the rest of the line as the info string, which may not hold
-/// a backtick (`(^|\G)(\s*)(``{3,}|~{3,})\s*` in the grammar).
+/// The opening of a fence: leading whitespace, then a run of three or more
+/// backticks or tildes (`(^|\G)(\s*)(``{3,}|~{3,})\s*` in the grammar).
+/// Then comes either a language the grammar knows followed by its
+/// attributes, or the rest of the line as the info string.
+/// The info string may not hold a backtick.
 ///
 /// Group 3 is the fence, 4 the language, 5 its attributes.
 pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<FenceOpen> {

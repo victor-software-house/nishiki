@@ -151,9 +151,11 @@ fn ruby_escape(bytes: &[u8], p: usize) -> bool {
 }
 
 /// Lexes `lines` in order with `language` from its start over the scopes
-/// `base`, each from the start of the line, under its `lex_until` with
-/// `halts`, or its whole-line lexer when there are none, and returns, per
-/// line, where it halted and each token's text and full scope stack.
+/// `base`, each from the start of the line.
+/// It runs the language's `lex_until` with `halts`, or its whole-line lexer
+/// when there are none.
+/// Returns, per line, where it halted and each token's text and full scope
+/// stack.
 pub(crate) fn lex_embedded(
     language: Embedded,
     base: &[&str],
@@ -234,10 +236,10 @@ pub(crate) fn lex_embedded_stops(
     rows
 }
 
-/// Where each line of `lines` halts under a Ruby here document's halts,
-/// checking that its tokens are those it gets with no halts: all of them on
-/// a line that does not halt, and all but the last on one that does, since
-/// the halt cuts the last token short.
+/// Where each line of `lines` halts under a Ruby here document's halts.
+/// It checks that the line's tokens are those it gets with no halts.
+/// That is all of them on a line that does not halt, and all but the last on
+/// one that does, since the halt cuts the last token short.
 pub(crate) fn ruby_heredoc_halts(
     language: Embedded,
     base: &[&str],

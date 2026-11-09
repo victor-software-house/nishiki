@@ -104,7 +104,8 @@ let (state, halt) = language.lex_until(cx, line, state, &halts).expect("a hand-o
 1. Tokens are appended to `cx.out` with ends counted from the line's start, on the base stack the entry started on, with no root scope of the language's own, as Shiki embeds a grammar.
 2. At a `before` or `after` halt only the entry's own context is open, so the state is the entry's.
 3. At an `any` halt the lexer may be deep inside its own contexts, as ERB code inside a CSS string.
-   It returns its full context stack, interning the contexts opened on the line as it does at a line's end, and resumes from that state later on the same line, after the injection's end, or on a later line.
+   It returns its full context stack, interning the contexts opened on the line as it does at a line's end.
+   It resumes from that state later on the same line, after the injection's end, or on a later line.
    Same-line anchor state, `\G` and the place of the last match, resets on that resume.
    In TextMate an injection's match does not move the outer rule's `\G`, so the reset can differ from Shiki where an embedded pattern anchors on `\G` right after the injection; each user checks its fixtures for it.
 
@@ -118,7 +119,9 @@ The outer `any` passes through every level unchanged: ERB's `<%=` inside a JavaS
 
 [#159][pr159] adds `Language::lex_until`, one arm per row of `languages!`, `None` for a row without `halts: true`.
 This change keeps that dispatch, marks it `#[inline]` ([`bench/AGENTS.md`][bench] rule 13; go-lexer adds it when next touching the dispatch), and changes its halts to `&Halts`.
-Each language's own `lex_until` follows: the rule engine's, TypeScript's, CSS's, Java's, Ruby's and those nishiki-archive#159 adds take `&Halts`, and the engine's own languages gain one, so an engine language can be embedded as well as embed.
+Each language's own `lex_until` follows.
+The rule engine's, TypeScript's, CSS's, Java's, Ruby's and those nishiki-archive#159 adds take `&Halts`.
+The engine's own languages gain one, so an engine language can be embedded as well as embed.
 Ruby's `lex_until` keeps embedding its heredocs, so a Ruby region inside ERB or the engine keeps `<<~SQL`; that needs primitives' `lex_embedding_until`, which halts its own grammar and embeds (go-lexer).
 The engine's turn at a halt in section 8 is nishiki-archive#159's `host` flag.
 The generator hands off only to a language whose row has `halts: true`.
@@ -136,7 +139,9 @@ Above it, a hand-off frame:
 | `stack` | the embedding rule's content stack |
 
 Each line whose embedded state changes interns one new hand-off frame on the same parent, as Markdown's fence body frame carries its language's state in its payload today.
-When the embedded lexer halts at `before` or `after`, the engine tries its own patterns at the halt, as vscode-textmate does after the embedded patterns fail; when the end matches, it pops the hand-off frame with the rule, and otherwise it hands the rest of the line back after its own match.
+When the embedded lexer halts at `before` or `after`, the engine tries its own patterns at the halt, as vscode-textmate does after the embedded patterns fail.
+When the end matches, it pops the hand-off frame with the rule.
+Otherwise it hands the rest of the line back after its own match.
 A state is still one integer, and two lines that reach the same embedded state reach the same engine state.
 
 ## 9. Limits
@@ -150,11 +155,29 @@ A state is still one integer, and two lines that reach the same embedded state r
 
 ## 10. Agreed with
 
-1. engine-spans (2026-11-03): the engine profile is a callgrind measurement only and changes nothing about how a lexer is entered or how work and depth are counted; nothing of theirs is open in the rule engine; `&dyn Fn` halts under rules 1, 2, 3 and 5 of section 4.
-2. xml-html (2026-11-03): `any` with injection priority and the comment skip, the full stack at an `any` halt, the test at place 0, TypeScript's `expression` as the one planned entry, html-derivative as a language reached at its root, Vue's second include redundant, and the third kind of include compiled into the engine's table; ERB moves onto `Halts` in its second PR.
+1. engine-spans (2026-11-03):
+   - The engine profile is a callgrind measurement only.
+     It changes nothing about how a lexer is entered or how work and depth are counted.
+   - Nothing of theirs is open in the rule engine.
+   - `&dyn Fn` halts under rules 1, 2, 3 and 5 of section 4.
+2. xml-html (2026-11-03):
+   - `any` with injection priority and the comment skip;
+   - the full stack at an `any` halt, and the test at place 0;
+   - TypeScript's `expression` as the one planned entry;
+   - html-derivative as a language reached at its root;
+   - Vue's second include redundant;
+   - the third kind of include compiled into the engine's table;
+   - ERB moves onto `Halts` in its second PR.
+
    xml-html read the design at 5ff6726a and confirmed sections 4 and 5 for ERB.
 3. primitives (2026-11-03): the GraphQL port's `lex_embedding_until` maps onto `Halts` and its internal `Stop` stays the rule engine's; nested hand-offs pass only the embedding rule's own `before` and `after` and forward the outer `any`; halts per rule from the grammar.
-4. go-lexer (2026-11-03): nishiki-archive#159's dispatch, `None` arm and `scan::<G, HALTING>` carry over; halts on the `Lexer`; `any` only in the halting instance; the same split for SQL, C, shell and GraphQL; Ruby's heredocs through `lex_embedding_until`; `#[inline]` on the dispatch; the shared work budget waits on core-fix.
+4. go-lexer (2026-11-03):
+   - nishiki-archive#159's dispatch, `None` arm and `scan::<G, HALTING>` carry over;
+   - halts on the `Lexer`, with `any` only in the halting instance;
+   - the same split for SQL, C, shell and GraphQL;
+   - Ruby's heredocs through `lex_embedding_until`;
+   - `#[inline]` on the dispatch;
+   - the shared work budget waits on core-fix.
 5. The operator's lead (2026-11-03): depth stays per language, and only the work budget is shared.
 
 ## 11. Order of work

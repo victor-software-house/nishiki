@@ -397,12 +397,18 @@ pub(crate) fn lex_capture_svelte(
 /// language that embeds this one takes the line back, which it returns.
 ///
 /// Both tests apply only while no context of the code is open beyond the
-/// one the embedding started: `end`, the embedding rule's patterns listed
-/// before this grammar's, is tried at each place before this grammar's
-/// rules, and `after`, those listed after it, where none of them matches. A
-/// match that starts before a place and covers it wins. The tokens stop at
-/// the halt; the embedding lexer resumes there, or on the next line with the
-/// returned state when the line ran to its end.
+/// one the embedding started:
+///
+/// - `end` holds the embedding rule's patterns listed before this grammar's. It
+///   is tried at each place before this grammar's rules.
+/// - `after` holds those listed after it. It is tried where none of this
+///   grammar's rules matches.
+///
+/// A match that starts before a place and covers it wins.
+/// The tokens stop at the halt.
+/// The embedding lexer resumes there.
+/// When the line ran to its end, it resumes on the next line with the
+/// returned state.
 pub(crate) fn lex_until(
     cx: &mut crate::language::Context<'_>,
     dialect: Dialect,

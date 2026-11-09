@@ -448,10 +448,14 @@ impl<const D: u8> Lexer<'_, D> {
         self.regex_character_class(p)
     }
 
-    /// The ways the grammar's range rule reads an item at `i`, in the order its
-    /// alternatives are written: a plain character (any, for the first item;
-    /// not `]` or a backslash, for the second), a numeric escape, a control
-    /// escape and any other escape.
+    /// The ways the grammar's range rule reads an item at `i`.
+    /// They come in the order its alternatives are written:
+    ///
+    /// 1. a plain character: any, for the first item; not `]` or a backslash,
+    ///    for the second;
+    /// 2. a numeric escape;
+    /// 3. a control escape;
+    /// 4. any other escape.
     fn range_items(&self, i: usize, item: RangeItem) -> [Option<(usize, Option<S>)>; 4] {
         let any = item == RangeItem::Low;
         let plain = (i < self.len && (any || !matches!(self.byte(i), b']' | b'\\')))

@@ -159,7 +159,7 @@ The record SHALL carry that bound.
 
 A recorded run SHALL be stored as machine-readable data naming the commit, corpus version, host, toolchain, anchor drift, compute and every figure with its rounds and spread, and its human-readable summary SHALL be rendered from that data.
 
-#### Scenario: A summary disagrees with its data
+#### Scenario: A summary differs from its data
 
 - **WHEN** a record's summary or the bench README's results differ from what the newest record's data renders
 - **THEN** the check fails

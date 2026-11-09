@@ -81,14 +81,15 @@ pub(crate) enum LineKind {
 }
 
 impl LineKind {
-    /// The kind of `line`: one pass that checks it is ASCII, and only for a
-    /// line that is not, one that looks up each byte in a table of the first
-    /// bytes of those characters' UTF-8 forms and checks the bytes after
-    /// it, without decoding.
+    /// The kind of `line`, found without decoding.
+    /// One pass checks that the line is ASCII.
+    /// Only for a line that is not, a second pass looks up each byte in a
+    /// table of the first bytes of those characters' UTF-8 forms.
+    /// It then checks the bytes after that first byte.
     ///
-    /// The check runs in blocks of 64 bytes, one test per block, and the
-    /// lookup starts at the first block with a byte beyond ASCII: no
-    /// character crosses into it from the ASCII blocks before it.
+    /// The check runs in blocks of 64 bytes, one test per block.
+    /// The lookup starts at the first block with a byte beyond ASCII.
+    /// No character crosses into it from the ASCII blocks before it.
     #[inline]
     pub(crate) fn of(line: &[u8]) -> LineKind {
         let (blocks, tail) = line.as_chunks::<64>();

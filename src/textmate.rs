@@ -50,10 +50,11 @@ pub(crate) fn lex(
     )
 }
 
-/// Lexes `line` like [`lex`], for a grammar that another language embeds,
-/// and returns what the engine spent beside the state, so the embedding
-/// lexer counts it against the line's one budget: the engine starts from
-/// the work its limits lend, and spends it in steps of the work limit.
+/// Lexes `line` like [`lex`], for a grammar that another language embeds.
+/// It returns what the engine spent beside the state, so the embedding lexer
+/// counts it against the line's one budget.
+/// The engine starts from the work its limits lend, and spends it in steps
+/// of the work limit.
 #[expect(dead_code, reason = "no language runs on the TextMate engine now")]
 pub(crate) fn lex_embedded(
     cx: &mut Context<'_>,
@@ -66,12 +67,17 @@ pub(crate) fn lex_embedded(
 }
 
 /// Lexes `line` like [`lex_embedded`], halting where the embedding language
-/// takes the line back: at the first place where `end` holds with only the
-/// root rule open, tried before the root's patterns, so a match that starts
-/// earlier wins and one that starts there loses, or where `after` holds and
-/// none of the root's patterns match there; the second value is where. The
-/// state at a halt is the root's, and without one the state resumes on the
-/// next line.
+/// takes the line back.
+///
+/// - It halts at the first place where `end` holds with only the root rule
+///   open. `end` is tried before the root's patterns, so a match that starts
+///   earlier wins and one that starts there loses.
+/// - It also halts where `after` holds and none of the root's patterns match
+///   there.
+///
+/// The second value is where.
+/// The state at a halt is the root's, and without one the state resumes on
+/// the next line.
 #[cfg_attr(
     not(test),
     expect(

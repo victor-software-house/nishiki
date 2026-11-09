@@ -2,7 +2,10 @@
 
 ## 1. Measure
 
-- [x] 1.1 Write `oracle/coverage.ts`: units and reachability per hand-lexed grammar, the comment tags, the wrapped engine, and the run over every fixture's text (design, sections 2 and 3) → verify: on `swift` it finds the 264 matched expressions of the 2026-11-04 measurement, and the instrumented scope stacks equal every fixture's
+- [x] 1.1 Write `oracle/coverage.ts` (design, sections 2 and 3).
+  It holds units and reachability per hand-lexed grammar, the comment tags, the wrapped engine, and the run over every fixture's text.
+  → verify: on `swift` it finds the 264 matched expressions of the 2026-11-04 measurement.
+  The instrumented scope stacks equal every fixture's.
   - 2026-11-04 UTC, [PR 238][pr238]: over all fixtures, every scope stack came out equal with the tags in place, and with one scope of `tests/oracle/ini/black-tox.txt` edited the run failed and named it. Swift: 267 of 448 expressions, the 264 of its own fixtures and 3 from Swift fences in other fixtures.
 - [x] 1.2 Settle injection scans as vscode-textmate does, for HTML, html-derivative and ERB → verify: a test document where the rule list wins and one where the injection wins credits only the winner
   - 2026-11-04 UTC: on the fixtures, whose `<` always opens a tag, the rule list wins every tie and HTML's injection `<` is not counted (131 of 227 expressions, 132 before settling). With a probe fixture `<p>a < b</p>` added, the injection wins at the lone `<` and HTML reads 132 of 227; the probe was then removed.

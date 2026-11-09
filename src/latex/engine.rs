@@ -433,7 +433,7 @@ pub(super) fn is_named(name: &[u8], names: &[&[u8]], star: bool) -> bool {
 }
 
 /// `(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\*?|PlaceholderFromCode\*?
-/// |SetPlaceholderCode\*?)`: the environments of the robust-externalize
+/// |SetPlaceholderCode\*?)`: the environments of the `robust-externalize`
 /// package.
 pub(super) fn cache_name(name: &[u8]) -> bool {
     let rest = name.strip_prefix(b"RobExt").unwrap_or(name);

@@ -29,7 +29,7 @@ const RUST: &[&[u8]] = &[b"rust"];
 const TYPESCRIPT: &[&[u8]] = &[b"ts", b"typescript"];
 const XML: &[&[u8]] = &[b"xml"];
 const YAML: &[&[u8]] = &[b"yaml"];
-/// The languages only robust-externalize names.
+/// The languages only `robust-externalize` names.
 const ASYMPTOTE: &[&[u8]] = &[b"asy", b"asymptote"];
 const CPP: &[&[u8]] = &[b"c", b"cpp"];
 const GNUPLOT: &[&[u8]] = &[b"gnuplot"];

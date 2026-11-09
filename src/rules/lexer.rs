@@ -3,13 +3,17 @@
 //!
 //! At each position the engine tries the end pattern of the innermost rule and
 //! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position. A begin match opens a rule and an end match closes it;
-//! a match's capture groups name parts of it, through the pattern's table or
-//! through spans that the matcher records, and a span may be lexed again with
-//! the patterns of another rule. The corner cases of `TextMate` engines are
-//! kept because Shiki's output depends on them: `\G` matches only where the
-//! enclosing begin ended, and a rule that opens or closes without advancing
-//! stops the line.
+//! earliest position.
+//! A begin match opens a rule and an end match closes it.
+//! A match's capture groups name parts of it, through the pattern's table or
+//! through spans that the matcher records.
+//! A span may be lexed again with the patterns of another rule.
+//!
+//! The corner cases of `TextMate` engines are kept because Shiki's output
+//! depends on them:
+//!
+//! - `\G` matches only where the enclosing begin ended.
+//! - A rule that opens or closes without advancing stops the line.
 
 #[cfg(feature = "_embedding")]
 use super::Embedding;
@@ -807,12 +811,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         i == self.s.len() || (self.nl && i == self.s.len() + 1)
     }
 
-    /// Whether the text at `i` starts with `text`, which must not be empty:
-    /// the first byte decides almost always, so it is tested before the call
-    /// that compares the rest, and an empty `text` would never match. A
-    /// needle that can be empty goes through `Chars::lit`,
-    /// where it matches as an empty literal does in a regular expression;
-    /// matchers call this one with words from lists in their hot loops, where
+    /// Whether the text at `i` starts with `text`, which must not be empty.
+    /// The first byte decides almost always, so it is tested before the call
+    /// that compares the rest, and an empty `text` would never match.
+    /// A needle that can be empty goes through `Chars::lit`, where it matches
+    /// as an empty literal does in a regular expression.
+    /// Matchers call this one with words from lists in their hot loops, where
     /// one more test costs (Make +1.9% instructions, 2026-11-03).
     #[expect(
         clippy::inline_always,
@@ -1065,9 +1069,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Leaves the text from the cursor up to `next` plain, as the innermost
-    /// rule's content, with a token boundary at `start`, and moves the cursor
-    /// there: what a language does for a rule that the depth limit keeps
-    /// closed when it has not skipped the pattern.
+    /// rule's content, with a token boundary at `start`.
+    /// It moves the cursor to `next`.
+    /// A language calls it for a rule that the depth limit keeps closed when
+    /// it has not skipped the pattern.
     pub(crate) fn skip_plain(&mut self, start: usize, next: usize) {
         let next = next.min(self.s.len());
         let node = self.top().content;
@@ -1421,9 +1426,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Lexes the capture group text `from..to` with the grammar's hook, which
-    /// matches patterns of its own: the groups of the match being emitted
-    /// are saved meanwhile, on a stack, so the hook's matches, and the
-    /// nested groups those emit in turn, do not overwrite them.
+    /// matches patterns of its own.
+    /// The groups of the match being emitted are saved meanwhile, on a stack.
+    /// The hook's matches, and the nested groups those emit in turn, then do
+    /// not overwrite them.
     fn nested(&mut self, kind: G::Nested, from: usize, to: usize, base: u32) {
         #[cfg(feature = "_embedding")]
         if G::DEFERS_NESTED
@@ -2239,9 +2245,10 @@ mod tests {
         let _ = lexer.starts(0, b"");
     }
 
-    /// A grammar whose names repeat text of the line: a word is named
-    /// `word.<the word>.test` (`$0`), `!` and `?` are named after themselves
-    /// as group 1, with a group 2 past the match and a group 3 after it, and
+    /// A grammar whose names repeat text of the line.
+    /// A word is named `word.<the word>.test` (`$0`).
+    /// `!` and `?` are named after themselves as group 1, with a group 2 past
+    /// the match and a group 3 after it.
     /// `<<ab` opens a quote named `quote.ab.q after.test` that the next `ab`
     /// closes.
     /// `>>` opens a rule that embeds Rust from an entry

@@ -19,7 +19,9 @@ Each side must repeat across its three builds.
 
 ## 2. The relaxed `Hir` in one walk
 
-- [x] 2.1 One walk of the parsed tree builds the relaxed `Hir` and cuts at the first positive lookahead → verify: a one-off check finds the old and new `Hir`s equal on every shipped grammar's patterns, unit tests cover the cut, and the oracle passes
+- [x] 2.1 One walk of the parsed tree builds the relaxed `Hir` and cuts at the first positive lookahead.
+  → verify: a one-off check finds the old and new `Hir`s equal on every shipped grammar's patterns.
+  Unit tests cover the cut, and the oracle passes.
   - 2026-11-04, locally on a Linux box.
     The one-off check compared 3,152 pattern and line-kind pairs, and all were equal.
     `the_relaxed_form_ends_with_the_first_positive_lookahead` and `a_relaxed_form_needs_a_character` pass.

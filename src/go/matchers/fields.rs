@@ -135,9 +135,10 @@ impl Lexer<'_> {
     /// N field names.
     ///
     /// The repeats match any run of blanks and of the type's characters that
-    /// holds one of the latter, and a backtracking matcher reaches the
-    /// rightmost end before a `}` first: the last `}` before a character
-    /// the type cannot take, less the blanks before it.
+    /// holds one of the latter.
+    /// A backtracking matcher reaches the rightmost end before a `}` first.
+    /// That is the last `}` before a character the type cannot take, less
+    /// the blanks before it.
     pub(in crate::go) fn struct_variables_types_fields_at3(&mut self, p: usize) -> Option<usize> {
         if !self.after_open_curly(p) {
             return None;

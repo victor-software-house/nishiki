@@ -2,10 +2,11 @@
 //! rule's last scope, with the specificity order VS Code's `TextMate` engine
 //! uses.
 //!
-//! Rules are inserted in sorted order (scope, then parent scopes, then file
-//! order), so a rule for `string` is in place before `string.quoted` gets
-//! its node, and a new node starts from a copy of its parent's rules: a
-//! rule for `string` keeps applying under `string.quoted` until a more
+//! Rules are inserted in sorted order: scope, then parent scopes, then file
+//! order.
+//! So a rule for `string` is in place before `string.quoted` gets its node.
+//! A new node starts from a copy of its parent's rules.
+//! A rule for `string` keeps applying under `string.quoted` until a more
 //! specific one replaces what it set.
 
 use std::cmp::Ordering;

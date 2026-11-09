@@ -85,7 +85,8 @@ A waiver for a unit that a fixture exercises SHALL fail the coverage task.
 
 ### Requirement: Gaps close with licensed, pinned inputs
 
-An input added to close a coverage gap SHALL be pinned to a commit with a licence found at its source, or written for nishiki under nishiki's licence, and SHALL be recorded with its source and licence before its fixture is committed.
+An input added to close a coverage gap SHALL be pinned to a commit with a licence found at its source, or written for nishiki under nishiki's licence.
+It SHALL be recorded with its source and licence before its fixture is committed.
 
 #### Scenario: A written input closes gaps
 

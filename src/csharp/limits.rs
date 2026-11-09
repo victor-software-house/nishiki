@@ -9,9 +9,10 @@
 pub(super) const MAX_NESTING: u32 = 64;
 
 /// How many dotted names, pointer marks and array suffixes one type may have
-/// for the type matchers to read past them: the matchers recurse once for
-/// each, so the bound keeps the stack and the work of a hostile line in
-/// check. A longer type reads as its first parts, which no real type exceeds.
+/// for the type matchers to read past them.
+/// The matchers recurse once for each.
+/// The bound keeps the stack and the work of a hostile line in check.
+/// A longer type reads as its first parts, which no real type exceeds.
 pub(super) const MAX_TYPE_PARTS: u32 = 64;
 
 /// How many dotted names before the last one a base-class constructor call

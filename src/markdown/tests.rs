@@ -1402,9 +1402,10 @@ fn the_start_state_is_not_the_state_after_a_first_line_that_opens_nothing() {
 #[test]
 fn a_yaml_fence_in_a_list_has_no_line_starts_for_yaml() {
     // The fence's text begins after the list's indent, where `^` does not
-    // match, so a block scalar has no lines and the first character of the
-    // line after its header has no scope, and a comment needs a blank before
-    // it.
+    // match.
+    // A block scalar then has no lines, and the first character of the line
+    // after its header has no scope.
+    // A comment needs a blank before it.
     let text = indoc! {"
         - ```yaml
           run: |
@@ -1705,8 +1706,9 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
 ];
 
 /// A C++ fence's lines, lexed in order and again from each saved state after
-/// another line moved the highlighter on, so that the frames are rebuilt from
-/// the arena: the scopes Shiki gives, with `meta.embedded.block.cpp
+/// another line moved the highlighter on.
+/// The frames are then rebuilt from the arena.
+/// They give the scopes Shiki gives, with `meta.embedded.block.cpp
 /// source.cpp`, both from the fence's `contentName`, under one frame.
 #[cfg(feature = "lang-cpp")]
 #[test]

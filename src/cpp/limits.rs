@@ -25,8 +25,10 @@ pub(crate) const MAX_CALL_DEPTH: usize = 20;
 pub(crate) const MAX_ENDS: usize = 16;
 
 /// How many ways a run of comments between two tokens is tried, the longest
-/// first: the expression takes every comment and gives them back one at a
-/// time when the rest fails, and after this many it gives back no more.
+/// first.
+/// The expression takes every comment and gives them back one at a time
+/// when the rest fails.
+/// After this many it gives back no more.
 pub(crate) const MAX_COMMENT_RUNS: usize = 8;
 
 /// How many capture groups are lexed again with a rule's patterns inside one

@@ -3,11 +3,15 @@
 //! A frame of the shared arena (`src/arena.rs`) carries a kind code, and the
 //! tag in its high bits says which lexer's enum the low bits belong to.
 //! Lexers are written in parallel, so the tags are allocated here and nowhere
-//! else; a lexer module takes its constant and never a "next free byte".
-//! A lexer that needs more than the low byte for its own bits (a flag next to
-//! the kind, or more kinds than a byte numbers, as C++'s 686 rules) claims a
-//! wider range by giving its row a `mask` that covers fewer bits of the high
-//! byte, and the check below counts the whole range.
+//! else.
+//! A lexer module takes its constant and never a "next free byte".
+//!
+//! A lexer may need more than the low byte for its own bits.
+//! It may keep a flag next to the kind, or have more kinds than a byte
+//! numbers, as C++'s 686 rules do.
+//! Such a lexer claims a wider range by giving its row a `mask` that covers
+//! fewer bits of the high byte.
+//! The check below counts the whole range.
 //! Byte `0x10` belongs to the `TextMate` engine, for every language it runs.
 
 /// A claimed range of the code space: the codes `c` with `c & mask == value`.

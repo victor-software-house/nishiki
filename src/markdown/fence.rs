@@ -572,7 +572,8 @@ const AFTER_ANY: [Entry; COUNTS.1] = {
 ///
 /// An ASCII first byte other than `{` can only start a word of its own
 /// letter, as the folds that match more than ASCII case all start with a
-/// non-ASCII byte, so it tries only the words of its group in [`BY_FIRST`].
+/// non-ASCII byte.
+/// It therefore tries only the words of its group in [`BY_FIRST`].
 /// Then it tries the words that start with a dot, in [`AFTER_ANY`], when
 /// the second byte can match theirs.
 /// No word of a group spells a dotted word's letters, and a name's

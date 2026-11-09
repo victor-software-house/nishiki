@@ -1,17 +1,23 @@
 //! The line tokenizer: the engine's loop over a compiled grammar.
 //!
-//! A line starts by checking the `while` pattern of each open rule; the first
-//! that fails closes itself and every rule inside it. Then the patterns of the
-//! innermost rule, and its `end` pattern, are searched from the cursor, and
-//! the match that starts first wins (the earliest listed on a tie). A match
-//! opens a rule, closes one, or only scopes text, and its capture groups add
-//! scopes and may hand their text to other rules.
+//! A line starts by checking the `while` pattern of each open rule.
+//! The first that fails closes itself and every rule inside it.
+//! Then the patterns of the innermost rule, and its `end` pattern, are
+//! searched from the cursor.
+//! The match that starts first wins, and the earliest listed on a tie.
+//! A match opens a rule, closes one, or only scopes text.
+//! Its capture groups add scopes and may hand their text to other rules.
 //!
-//! The open rules of a line are the frames of the arena's state, so a state
-//! is one integer and equal states are equal ids. A frame packs its rule, the
-//! interned text of an `end` or `while` pattern that holds back-references,
-//! and whether the rule opened at the end of its line into the frame's
-//! payload; its scope stack is the stack of text inside the rule.
+//! The open rules of a line are the frames of the arena's state.
+//! So a state is one integer and equal states are equal ids.
+//! A frame packs three things into its payload:
+//!
+//! - its rule;
+//! - the interned text of an `end` or `while` pattern that holds
+//!   back-references;
+//! - whether the rule opened at the end of its line.
+//!
+//! Its scope stack is the stack of text inside the rule.
 
 use std::sync::OnceLock;
 
@@ -175,10 +181,12 @@ impl Halting for Whole {
     }
 }
 
-/// A line of a grammar that another language embeds, which halts where that
-/// language takes it back: at the first place where `end` holds with only the
-/// root rule open, tried before the root's patterns, or where `after` holds
-/// and none of them match (see [`Halt`]).
+/// A line of a grammar that another language embeds.
+/// It halts where that language takes it back, at the first place where
+/// either test holds with only the root rule open (see [`Halt`]):
+///
+/// - `end`, tried before the root's patterns;
+/// - `after`, where none of the root's patterns match.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Embedded<'a> {
     pub(crate) end: &'a dyn Halt,
@@ -345,12 +353,14 @@ impl Scratch {
         }
     }
 
-    /// Makes `grammar`'s caches the current ones: those it left when another
-    /// grammar's line came, or new ones on its first line. The current
-    /// grammar's caches are parked in their place, so a document that
-    /// switches between grammars, as a Markdown document with fences in two
-    /// of the engine's languages does, builds each grammar's caches once, and
-    /// lexing it again allocates nothing.
+    /// Makes `grammar`'s caches the current ones.
+    /// They are those it left when another grammar's line came, or new ones
+    /// on its first line.
+    /// The current grammar's caches are parked in their place.
+    /// A document may switch between grammars, as a Markdown document with
+    /// fences in two of the engine's languages does.
+    /// It builds each grammar's caches once, and lexing it again allocates
+    /// nothing.
     fn switch(&mut self, grammar: &'static Grammar) {
         if self.current.grammar.is_none() {
             self.current.fill(grammar);

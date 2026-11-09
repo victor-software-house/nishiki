@@ -120,7 +120,7 @@ Alternatives considered:
   Shiki's bundle does not expose them, and its debug output is not a stable interface.
 - **Walk the grammar with a tokenizer of our own.**
   That copies an engine, which the [repository's first invariant][agents] rules out.
-  Our tokenizer could also disagree with Shiki.
+  Our tokenizer could also differ from Shiki.
 
 ## 4. The report
 

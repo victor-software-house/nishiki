@@ -372,9 +372,11 @@ fn at_lt(bytes: &[u8], p: usize) -> bool {
 }
 
 /// The places Shiki hands a line of a Ruby here document named for XML back
-/// to Ruby: an interpolation or an escape while no XML rule is open, after a
-/// comment or a CDATA section that closes on the line too, and neither
-/// inside a tag, across lines too, a comment or a CDATA section.
+/// to Ruby.
+/// It does so at an interpolation or an escape while no XML rule is open,
+/// including after a comment or a CDATA section that closes on the line.
+/// It does not do so inside a tag, a comment or a CDATA section, even one
+/// that spans lines.
 #[test]
 fn ruby_takes_an_xml_heredoc_line_back_only_where_no_xml_rule_is_open() {
     let rows = test_support::lex_embedded(

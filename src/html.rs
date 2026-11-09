@@ -2,19 +2,23 @@
 //! comes from VS Code.
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module). The rules left open at the end of a
-//! line (a tag with its attributes, a comment, a quoted value, an `svg`
-//! element, the CSS of a `<style>` element) are frames of the highlighter's
-//! interned state; the tag and attribute names that the grammar copies into
-//! scope names are made at run time.
+//! over bytes (see the `engine` module).
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state: a tag with its attributes, a comment, a quoted value, an
+//! `svg` element, the CSS of a `<style>` element.
+//! The tag and attribute names that the grammar copies into scope names are
+//! made at run time.
 //!
-//! It reproduces Shiki's output, quirks included: the grammar's injection
-//! flags a `<` that no rule claims, even inside a quoted value; an attribute
-//! name is a word of the grammar's lists or any other run of characters; the
-//! `svg` and `math` elements have rules of their own, and read the
-//! attributes of a start tag that the line holds whole on that text alone;
-//! and the CSS and JavaScript of `<style>` and `<script>` elements run on the
-//! CSS and TypeScript lexers, which halt at the end tag.
+//! It reproduces Shiki's output, quirks included:
+//!
+//! - The grammar's injection flags a `<` that no rule claims, even inside a
+//!   quoted value.
+//! - An attribute name is a word of the grammar's lists or any other run of
+//!   characters.
+//! - The `svg` and `math` elements have rules of their own. They read the
+//!   attributes of a start tag that the line holds whole on that text alone.
+//! - The CSS and JavaScript of `<style>` and `<script>` elements run on the CSS
+//!   and TypeScript lexers, which halt at the end tag.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
@@ -100,9 +104,11 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 }
 
 /// Lexes `line` like [`lex`], for HTML that another language embeds from
-/// [`start_embedded`]: the line halts at the first place where `end` holds
-/// before the root's patterns, or `after` holds where none of them matches,
-/// while no rule of HTML is open, and the second value is where.
+/// [`start_embedded`].
+/// While no rule of HTML is open, the line halts at the first place where
+/// `end` holds before the root's patterns, or `after` holds where none of
+/// them matches.
+/// The second value is where.
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,

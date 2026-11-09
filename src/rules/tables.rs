@@ -210,15 +210,19 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 /// byte there.
 ///
 /// The text a pattern sees ends after the line feed, where `$` and
-/// lookaheads can still match, and the search stops at a halt
-/// ([`Lexer::root_halts`]), to which a match starting there would lose, or
-/// where no pattern matches and the halt after them holds. A
-/// begin pattern of a rule the depth limit keeps closed is tried only to
+/// lookaheads can still match.
+/// The search stops at a halt ([`Lexer::root_halts`]) in two cases:
+///
+/// - a match starting there would lose to the halt;
+/// - no pattern matches there and the halt after them holds.
+///
+/// A begin pattern of a rule the depth limit keeps closed is tried only to
 /// record the limit, and its text stays plain.
-/// A pattern that fails at a blank fails at the blanks after it, since the
-/// blanks are consumed first, what follows decides, and no lookbehind or
-/// boundary holds between two of them; so the search skips a run of blanks
-/// at once.
+///
+/// A pattern that fails at a blank fails at the blanks after it.
+/// The blanks are consumed first and what follows decides.
+/// No lookbehind or boundary holds between two of them.
+/// So the search skips a run of blanks at once.
 /// A pattern that takes one blank and then a character that is not a blank
 /// is the exception.
 /// A [`BlankRuns::ToLast`] grammar tries those patterns at the run's last

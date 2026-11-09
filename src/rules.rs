@@ -1,13 +1,13 @@
-//! The rule engine that the languages written from a `TextMate` grammar share:
-//! Python, Java, CSS, Make, Kotlin, Go, Ruby, Swift and C run on it, and each
-//! language supplies a [`Grammar`], the generated tables of its rules and
+//! The rule engine that the languages written from a `TextMate` grammar share.
+//! Python, Java, CSS, Make, Kotlin, Go, Ruby, Swift and C run on it.
+//! Each language supplies a [`Grammar`]: the generated tables of its rules and
 //! patterns, and the hand-written matchers that decide where each pattern
 //! matches.
 //!
 //! The engine runs the grammar's rules the way a `TextMate` engine does, with
-//! those matchers instead of regular expressions: the per-line loop, `\G`,
-//! capture groups, `while` rules, the limits and the frames that carry a rule
-//! from line to line are here, once.
+//! those matchers instead of regular expressions.
+//! The per-line loop, `\G`, capture groups, `while` rules, the limits and the
+//! frames that carry a rule from line to line are here, once.
 
 mod chars;
 mod lexer;
@@ -414,9 +414,12 @@ pub(crate) fn lex<G: Grammar>(
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
-/// to its end: the line halts at the first place where `end` holds that the
-/// scan reaches with only the root rule open, or where `after` holds there
-/// and no pattern matches (see [`Halt`]), and the second value says where.
+/// to its end.
+/// The line halts at the first place where `end` holds that the scan reaches
+/// with only the root rule open.
+/// It also halts where `after` holds there and no pattern matches (see
+/// [`Halt`]).
+/// The second value says where.
 /// It also says where a pattern matched an empty text at the root without
 /// advancing ([`StopKind::PopHost`]); the grammar lexes the rest of the line.
 /// Without one, the state resumes on the next line.

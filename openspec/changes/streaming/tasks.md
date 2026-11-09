@@ -26,7 +26,7 @@ Crate slices run the oracle, Identity and Callgrind workflows; none may change o
 
   2026-11-05 UTC: in [#588].
   Locally, `bun bench/traces.ts write` run twice left `bench/traces/` unchanged, 22 traces.
-- [x] 2.2 A trace check fails when a trace and its source disagree, and runs in `check:local` → verify: it fails on an edited trace and passes on the written ones
+- [x] 2.2 A trace check fails when a trace and its source differ, and runs in `check:local` → verify: it fails on an edited trace and passes on the written ones
 
   2026-11-05 UTC: in [#588], and held to the source at the `to` commit in [#615].
   It runs in `check:local`.
@@ -46,7 +46,9 @@ Crate slices run the oracle, Identity and Callgrind workflows; none may change o
 
   2026-11-05 UTC: in [#592].
   `a_long_line_is_lexed_in_bounded_steps` streams a 100 KiB JSON line in four-byte deltas and bounds the bytes lexed.
-- [x] 3.4 `Document` owns its theme, `lex` fills the per-stack style cache, and `DocumentLine::styled` reads it (design decision 12, after the cache lands) → verify: a test streams every oracle fixture with every oracle theme, switches the theme mid-stream, and finds every style equal to `Theme::style`
+- [x] 3.4 `Document` owns its theme, `lex` fills the per-stack style cache, and `DocumentLine::styled` reads it (design decision 12, after the cache lands).
+  → verify: a test streams every oracle fixture with every oracle theme and switches the theme mid-stream.
+  It finds every style equal to `Theme::style`.
 
   2026-11-05 UTC: in the pull request of `feat/document-styled`.
   `every_language_streams_styled_as_the_theme_styles` streams every fixture under the three oracle themes.
@@ -80,7 +82,8 @@ Crate slices run the oracle, Identity and Callgrind workflows; none may change o
 
   2026-11-05 UTC: in [#619].
   On a box, the `bench:check` line replays one trace of each kind twice, and all 22 traces replay exact with 100.00% fidelity.
-- [ ] 5.2 The harness counts how often a tail lexed again rebuilds its frames instead of taking the last line's over (design decision 11, need 5) → verify: the count is recorded here, and sent to perf-34 if it shows in the per-delta time
+- [ ] 5.2 The stream bench counts how often a tail lexed again rebuilds its frames instead of taking the last line's over (design decision 11, need 5).
+  → verify: the count is recorded here, and sent to perf-34 if it shows in the per-delta time.
 - [x] 5.3 `bench/compare/shiki.ts stream` times Shiki and Pierre on the same traces → verify: a local run prints every engine's rows, with Shiki's fidelity at 100%
 
   2026-11-05 UTC: in [#620].

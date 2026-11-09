@@ -15,7 +15,7 @@ For every fixture of a supported language, nishiki SHALL give each non-whitespac
 - **WHEN** the oracle test lexes a fixture's lines in order from the default state
 - **THEN** every non-whitespace byte carries the scope stack the fixture records for it
 
-#### Scenario: A lexer disagrees with Shiki
+#### Scenario: A lexer differs from Shiki
 
 - **WHEN** one non-whitespace byte carries a different scope stack
 - **THEN** the test fails and names the fixture, line, column, Shiki's stack and nishiki's stack

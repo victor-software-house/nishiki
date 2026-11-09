@@ -648,10 +648,12 @@ fn kept_frames_lex_as_rebuilt_ones() {
 /// for the features that are on.
 static SHIPPED: &[(&Grammar, &str)] = &[];
 
-/// Lines whose text beyond ASCII starts with every UTF-8 lead byte from
-/// `0xC2` to `0xF4`, alone, between ASCII and all together; lines with such
-/// text across and after the 64-byte blocks of the ASCII check; and samples
-/// of CJK, Cyrillic, Greek, Arabic, emoji and a combining mark alone.
+/// Lines with text beyond ASCII:
+///
+/// - text that starts with every UTF-8 lead byte from `0xC2` to `0xF4`, alone,
+///   between ASCII and all together;
+/// - such text across and after the 64-byte blocks of the ASCII check;
+/// - samples of CJK, Cyrillic, Greek, Arabic, emoji and a combining mark alone.
 pub(super) fn lines_beyond_ascii() -> Vec<String> {
     let mut buffer = [0; 4];
     let firsts: Vec<char> = (0xc2..=0xf4_u8)
@@ -851,9 +853,10 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
 }
 
 /// The folding table names exactly the grammars where some pattern's lean
-/// program differs from its full one, so a grammar whose line kinds run the
-/// same programs never looks at a line's kind, and one whose kinds differ
-/// always does.
+/// program differs from its full one.
+/// So a grammar whose line kinds run the same programs never looks at a
+/// line's kind.
+/// A grammar whose kinds differ always does.
 #[test]
 fn the_folding_table_matches_the_patterns() {
     let tested: [&Grammar; 9] = [
@@ -1097,11 +1100,16 @@ fn haml_hands_its_filters_over_whole() {
     );
 }
 
-/// Times the engine on the fixtures of one language, in MiB/s: the best of
-/// five passes, each with a fresh scratch (a document of its own, whose lazy
-/// automata start empty) and the best of five passes that reuse one scratch,
-/// and the slowest line's best time in the fresh passes. The first pass is
-/// not timed: it builds the scanners, which a program builds once.
+/// Times the engine on the fixtures of one language, in MiB/s.
+/// It reports three figures:
+///
+/// - the best of five passes, each with a fresh scratch: a document of its own,
+///   whose lazy automata start empty;
+/// - the best of five passes that reuse one scratch;
+/// - the slowest line's best time in the fresh passes.
+///
+/// The first pass is not timed.
+/// It builds the scanners, which a program builds once.
 /// Run with `cargo test --release --lib engine_speed -- --ignored --nocapture`.
 #[expect(
     clippy::cast_precision_loss,
@@ -1926,9 +1934,12 @@ mod halts {
     }
 
     /// `line`, lexed by the Rust test grammar as a language that a host
-    /// line under `host` embeds and lends its work to: what the host has
-    /// spent once it takes the engine's count back, what the engine spent in
-    /// steps of the work limit, and whether the line ran out of work.
+    /// line under `host` embeds and lends its work to.
+    /// It returns three values:
+    ///
+    /// 1. what the host has spent once it takes the engine's count back;
+    /// 2. what the engine spent, in steps of the work limit;
+    /// 3. whether the line ran out of work.
     fn counted(line: &str, host: &Limits) -> (u64, u64, bool) {
         let grammar = &rust_tables::GRAMMAR;
         let mut arena = Arena::new(None);

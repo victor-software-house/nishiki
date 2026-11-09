@@ -7,7 +7,7 @@ Each trace SHALL name its source file, its commit and its licence, read at the s
 
 #### Scenario: A trace whose source changed
 
-- **WHEN** a trace and its source file disagree
+- **WHEN** a trace and its source file differ
 - **THEN** the trace check fails and names the trace
 
 ### Requirement: The stream harness reports per-delta figures

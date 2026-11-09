@@ -8,7 +8,7 @@ This design records where the instructions go, ranks the levers, and orders the 
 ## 1. How the profile was taken
 
 - Commit: [b22d35b4][base], main on 2026-11-05, before R landed on the rule engine.
-- Harness: a scratch example outside the repository.
+- Driver: a scratch example outside the repository.
   It reads the bench corpus's medium, large and reply tiers: 7,364,626 bytes in 59 languages, 1,358,690 tokens.
   It splits every file into lines before any phase.
 - Phases, each its own function that Callgrind toggles on:

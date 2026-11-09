@@ -131,7 +131,7 @@ The decisions that created nishiki live in a private planning repository:
    - concrete names: "the base commit's build", not a coined phrase such as "beside this tree" or "the change";
    - a list for a set of items, a table for a comparison, a heading per topic;
    - a blank line between blocks;
-   - plain words: no filler, no flourish, no mannered phrasing;
+   - plain words: no filler, no flourish, no affected phrasing;
    - no walls of prose: a paragraph past four lines becomes a list or splits;
    - headers that name their content, never vague ones like "Piece" or "What it holds".
 4. A directory a reader browses on GitHub has a `README.md` that says what it holds.
