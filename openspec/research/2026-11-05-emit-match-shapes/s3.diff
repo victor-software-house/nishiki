@@ -1,0 +1,45 @@
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -1487,16 +1487,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+                 named = self.path_one(named, scope);
+             }
+             let node = match span.dynamic {
+-                Some(dynamic) => self.dynamic_path(
+-                    named,
+-                    dynamic.prefix,
+-                    NameSource::Line {
+-                        start: dynamic.start,
+-                        end: dynamic.end,
+-                        case: G::dyn_name_case(dynamic.prefix),
+-                    },
+-                    dynamic.suffix,
+-                ),
++                Some(dynamic) => self.dynamic_span_path(named, dynamic),
+                 None => named,
+             };
+             match span.retok {
+@@ -1523,6 +1514,23 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+         }
+     }
+ 
++    /// The stack `named` with the scopes of a span's dynamic name on top.
++    /// It stays out of line, so the scope building of `dynamic_path` shares no
++    /// registers with the loops of `emit_match`.
++    #[inline(never)]
++    fn dynamic_span_path(&mut self, named: u32, dynamic: DynName) -> u32 {
++        self.dynamic_path(
++            named,
++            dynamic.prefix,
++            NameSource::Line {
++                start: dynamic.start,
++                end: dynamic.end,
++                case: G::dyn_name_case(dynamic.prefix),
++            },
++            dynamic.suffix,
++        )
++    }
++
+     /// Lexes `start..end` again with the patterns of `rule`, in a stack whose
+     /// innermost scopes are `node`. Whatever it opens is dropped at `end`.
+     /// Afterwards the groups are the inner matches', and the spans of the

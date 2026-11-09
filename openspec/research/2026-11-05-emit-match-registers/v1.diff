@@ -1,0 +1,11 @@
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -1115,6 +1115,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+     /// `suffix` spell out on top. A name with spaces is several scopes, and
+     /// leading dots of the text are dropped, as a `TextMate` engine does for
+     /// the text of a capture.
++    #[inline(never)]
+     fn dynamic_path(
+         &mut self,
+         base: u32,

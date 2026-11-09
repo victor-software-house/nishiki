@@ -1,0 +1,93 @@
+diff --git a/src/c/engine.rs b/src/c/engine.rs
+--- a/src/c/engine.rs
++++ b/src/c/engine.rs
+@@ -160,6 +160,7 @@ impl Grammar for C {
+ 
+     const NAME: &'static str = "C";
+     const SOURCE: crate::scope::Scope = S::Source.scope();
++    const DYNAMIC_SPANS: bool = true;
+     const ROOT: R = R::Top;
+     const GROUPS: usize = 1;
+     const CAPTURED_EOL: bool = true;
+diff --git a/src/css/engine.rs b/src/css/engine.rs
+--- a/src/css/engine.rs
++++ b/src/css/engine.rs
+@@ -114,6 +114,7 @@ impl Grammar for Css {
+     const ROOT: Rule = Rule::Root;
+     const MARKS_FIRST_LINE: bool = true;
+     const SOURCE: crate::scope::Scope = S::Source.scope();
++    const DYNAMIC_SPANS: bool = true;
+     const GROUPS: usize = 8;
+     const CAPTURED_EOL: bool = true;
+ 
+diff --git a/src/make/engine.rs b/src/make/engine.rs
+--- a/src/make/engine.rs
++++ b/src/make/engine.rs
+@@ -156,6 +156,7 @@ impl Grammar for Make {
+     const NAME: &'static str = "Makefile";
+     const ROOT: Rule = Rule::Root;
+     const SOURCE: crate::scope::Scope = S::Source.scope();
++    const DYNAMIC_SPANS: bool = true;
+ 
+     fn scope(scope: S) -> ScopeName {
+         ScopeName::Fixed(scope.scope())
+diff --git a/src/rules.rs b/src/rules.rs
+--- a/src/rules.rs
++++ b/src/rules.rs
+@@ -130,6 +130,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
+     /// the same match, and so takes that span's scopes too, as nested
+     /// capture groups do. Off, every span sits directly under the match.
+     const NESTED_SPANS: bool = false;
++    /// Whether a matcher records spans whose scope ends in text of the line
++    /// ([`Lexer::span_dyn`]).
++    /// Off, the span loop holds no code for such names, which leaves the
++    /// loops of `emit_match` their registers.
++    const DYNAMIC_SPANS: bool = false;
+     /// The longest payload that the name of a rule with a delimiter repeats.
+     /// A longer one, which the begin pattern takes in another group than the
+     /// one the name reads, as C++'s raw strings do with a delimiter of more
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -937,7 +937,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+     }
+ 
+     /// Names `start..end` with one scope that ends in `dynamic`.
++    /// Only a grammar with [`Grammar::DYNAMIC_SPANS`] may call it, which the
++    /// build checks.
+     pub(crate) fn span_dyn(&mut self, start: usize, end: usize, dynamic: DynName) {
++        const {
++            assert!(G::DYNAMIC_SPANS, "the grammar records dynamic spans");
++        }
+         self.spans.push(Span {
+             start,
+             end,
+@@ -1487,7 +1492,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+                 named = self.path_one(named, scope);
+             }
+             let node = match span.dynamic {
+-                Some(dynamic) => self.dynamic_path(
++                Some(dynamic) if G::DYNAMIC_SPANS => self.dynamic_path(
+                     named,
+                     dynamic.prefix,
+                     NameSource::Line {
+@@ -1497,7 +1502,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+                     },
+                     dynamic.suffix,
+                 ),
+-                None => named,
++                Some(_) | None => named,
+             };
+             match span.retok {
+                 Some(rule) if G::skip_retok(rule, &self.s[span.start..span.end]) => {
+diff --git a/src/scss/engine.rs b/src/scss/engine.rs
+--- a/src/scss/engine.rs
++++ b/src/scss/engine.rs
+@@ -64,6 +64,7 @@ impl Grammar for Scss {
+     const NAME: &'static str = "SCSS";
+     const ROOT: Rule = Rule::Root;
+     const SOURCE: crate::scope::Scope = S::Source.scope();
++    const DYNAMIC_SPANS: bool = true;
+     const GROUPS: usize = 14;
+     const CAPTURED_EOL: bool = true;
+ 

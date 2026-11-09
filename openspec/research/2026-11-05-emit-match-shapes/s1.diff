@@ -1,0 +1,14 @@
+diff --git a/src/rules/lexer.rs b/src/rules/lexer.rs
+--- a/src/rules/lexer.rs
++++ b/src/rules/lexer.rs
+@@ -1347,6 +1347,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
+     /// `base` plus that group's name, not under the groups around it, as
+     /// vscode-textmate's `handleCaptures` does. A group that starts past the
+     /// match, in a lookahead, ends the groups, as in vscode-textmate.
++    ///
++    /// It stays out of line, so the loop over the groups gets registers of
++    /// its own, apart from the spans and their dynamic names.
++    #[inline(never)]
+     fn emit_captures(&mut self, (table, nested): Captures<G>, base: u32, start: usize, end: usize) {
+         self.caps[0] = Some((start, end));
+         self.dirty = true;
