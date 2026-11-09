@@ -516,9 +516,9 @@ tolerance-percent = 2
 
 [workspace.metadata.size.tiers]
 # One small language: the shared engine with the least on top.
-json = { features = "nishiki/lang-json", text = 334227, data = 52060 }
+json = { features = "nishiki/lang-json", text = 334243, data = 52060 }
 # Every language of the default tier.
-all = { features = "nishiki/all", text = 0, data = 0 }
+all = { features = "nishiki/all", text = 7375139, data = 2328348 }
 
 # Line tables keep backtraces readable at a fraction of full debug info.
 [profile.dev]
