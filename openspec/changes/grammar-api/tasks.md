@@ -9,17 +9,18 @@
 
 ## 2. Public API
 
-- [ ] 2.1 `Grammar`, `Grammars`, `GrammarError` and `Grammar::from_json`, with process-wide interning → verify: a unit test loads one grammar twice and gets one handle
+- [ ] 2.1 `Grammar`, `Grammars`, `GrammarError` and `Grammar::from_json`, with process-wide interning keyed on the full source and the linked includes.
+  → verify: a unit test loads one grammar twice and gets one handle, and the same source with other includes gets another
 - [ ] 2.2 `Highlighter::for_grammar` and its limits variant → verify: a doctest highlights a grammar loaded from JSON
 - [ ] 2.3 Includes across grammars and hand-offs to hand lexers.
   → verify: an HTML grammar loaded from JSON hands its `<style>` to the CSS lexer, and the fixture matches Shiki
 - [ ] 2.4 `to_bytes` and `from_bytes`, with a versioned header.
-  → verify: a round trip gives the same output, and bytes of another version fail with `GrammarError`
+  → verify: a round trip gives the same output; bytes of another version, truncated bytes and an out-of-range index each fail with `GrammarError`
 
 ## 3. Fidelity
 
 - [ ] 3.1 A CI job loads every Shiki 4.6.0 grammar through the public API and compares Shiki's sample.
-  → verify: the job passes with no differing byte
+  → verify: the job passes with no differing non-whitespace byte
 - [ ] 3.2 One task per grammar that fails 3.1, added as each is found → verify: that grammar's sample matches
 
 ## 4. Speed and docs

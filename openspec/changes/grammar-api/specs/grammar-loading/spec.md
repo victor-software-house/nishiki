@@ -14,7 +14,7 @@ It SHALL highlight text with that grammar under the caller's limits.
 
 #### Scenario: A grammar loads from a build script
 
-- **WHEN** a build script writes a compiled grammar's bytes and the crate loads them with `Grammar::from_bytes`
+- **WHEN** a build script writes a compiled grammar's bytes and the crate loads them with `Grammar::from_bytes` and the same `Grammars` set
 - **THEN** the output equals the output of the same grammar loaded from JSON
 
 ### Requirement: Output matches Shiki for every Shiki grammar

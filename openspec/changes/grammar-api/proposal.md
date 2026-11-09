@@ -24,7 +24,7 @@ The engine exists today, but no caller can reach it:
 - The crate bundles no grammar.
   Callers bring their own, such as the ones in Shiki's `tm-grammars` package.
 - CI loads every grammar Shiki 4.6.0 bundles through the public API.
-  It fails when any byte of a grammar's sample gets other scopes than Shiki gives it.
+  It fails when any non-whitespace byte of a grammar's sample gets other scopes than Shiki gives it, the measure the `shiki-fidelity` spec uses.
 - The engine's own limits stay configurable, as every lexer's are.
 
 ## Capabilities
