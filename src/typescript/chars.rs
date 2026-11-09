@@ -63,7 +63,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     pub(crate) fn starts(&self, i: usize, lit: &str) -> bool {
         self.bytes
             .get(i..)
-            .is_some_and(|rest| rest.starts_with(lit.as_bytes()))
+            .is_some_and(|rest| crate::bytes::starts_with(rest, lit.as_bytes()))
     }
 
     /// Whether the line, with its newline, ends at or before `i`.
@@ -198,7 +198,13 @@ impl<'a, const D: u8> Lexer<'a, D> {
     pub(crate) fn kw(&self, p: usize, word: &str) -> Option<usize> {
         let word = word.as_bytes();
         let e = p + word.len();
-        if self.bytes.get(p) != word.first() || e > self.len || self.bytes[p..e] != *word {
+        if self.bytes.get(p) != word.first()
+            || e > self.len
+            || self
+                .bytes
+                .get(p..e)
+                .is_none_or(|text| !crate::bytes::same(text, word))
+        {
             return None;
         }
         (self.kw_before(p) && self.kw_after(e)).then_some(e)
@@ -232,7 +238,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         if before
             .never
             .iter()
-            .any(|text| head.ends_with(text.as_bytes()))
+            .any(|text| crate::bytes::ends_with(head, text.as_bytes()))
         {
             return false;
         }
@@ -240,7 +246,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             || before
                 .operators
                 .iter()
-                .any(|text| head.ends_with(text.as_bytes()))
+                .any(|text| crate::bytes::ends_with(head, text.as_bytes()))
             || before
                 .words
                 .iter()
@@ -251,7 +257,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let Some(head) = self.bytes.get(..p) else {
             return false;
         };
-        if !head.ends_with(word.as_bytes()) {
+        if !crate::bytes::ends_with(head, word.as_bytes()) {
             return false;
         }
         let start = p - word.len();

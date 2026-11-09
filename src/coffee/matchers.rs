@@ -277,8 +277,9 @@ where
             return None;
         }
         let end = self.name_word_end(p);
+        let text = self.text(p, end);
         words
-            .binary_search(&self.text(p, end))
+            .binary_search_by(|word| crate::bytes::order(word, text))
             .is_ok()
             .then_some(end)
     }

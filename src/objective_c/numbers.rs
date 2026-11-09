@@ -257,7 +257,7 @@ where
         let rest = self.text(i, b);
         let listed = match suffix {
             Suffix::Float => matches!(rest, [b'F' | b'L' | b'f' | b'l']),
-            Suffix::Int => INT_SUFFIXES.contains(&rest),
+            Suffix::Int => crate::bytes::contains(INT_SUFFIXES, rest),
         };
         i == b || (listed && self.word_at(b).is_none())
     }
