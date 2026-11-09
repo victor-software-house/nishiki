@@ -2,10 +2,12 @@
 //! the `cpp` grammar Shiki 4.6.0 bundles and the grammars it embeds; do not
 //! edit.
 //!
-//! A [`Pat`] is one regular expression of the grammar; its doc comment says
-//! which. Each rule lists the patterns it tries, in the grammar's order with
-//! its `include`s flattened, so the first that matches at the earliest
-//! position wins as in a `TextMate` engine.
+//! A [`Pat`] is one regular expression of the grammar; its doc comment shows
+//! which.
+//! Each rule lists the patterns it tries, in the grammar's order with its
+//! `include`s flattened.
+//! So the first that matches at the earliest position wins, as in a
+//! `TextMate` engine.
 
 use super::engine::Cpp;
 use super::scope::S;
@@ -28,9 +30,10 @@ pub(crate) enum Sc {
 }
 
 impl Sc {
-    /// The code that keys a list of scopes made with scopes!: a fixed scope's,
-    /// and none for a scope a capture group spells, whose lists are never
-    /// cached.
+    /// The code that keys a list of scopes made with scopes!.
+    /// A fixed scope's list has one.
+    /// A scope a capture group spells has none.
+    /// Its lists are never cached.
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u16)` enum has no `From` impl for its discriminant"
@@ -56,8 +59,9 @@ pub(crate) struct Nested {
     pub(crate) scopes: crate::scope::Scopes<Sc>,
 }
 
-/// A rule of the grammar: one that can be open at the end of a line, or a
-/// list of patterns that tokenizes a capture group.
+/// A rule of the grammar.
+/// It is one that can be open at the end of a line, or a list of patterns
+/// that tokenizes a capture group.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(u16)]
 pub(crate) enum Rule {
@@ -35131,9 +35135,9 @@ impl Rx {
         Rx::MacroCurlyInitializerAt0End,
     ];
 
-    /// For the end pattern of a rule of the macro grammar, which is another
-    /// expression or a line feed that no backslash precedes, the other
-    /// expression.
+    /// The other expression of the end pattern of a rule of the macro grammar.
+    /// Such an end is another expression or a line feed that no backslash
+    /// precedes.
     #[expect(
         clippy::wildcard_enum_match_arm,
         reason = "the 37 macro end patterns are the exception"
