@@ -32,8 +32,15 @@ path = "lex.rs"
 name = "memory"
 path = "memory.rs"
 
+# The program `mise run check:size` measures at each size tier.
+[[example]]
+name = "size"
+path = "size.rs"
+
 # `mise run callgrind` builds with nishiki's TextMate tier and theme files.
+# `check:size` turns the default off and names one tier's features.
 [features]
+default = ["nishiki/default"]
 json = ["nishiki/json"]
 textmate = ["nishiki/textmate"]
 

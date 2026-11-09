@@ -30,7 +30,7 @@ json = ["nishiki/json"]
 
 [dev-dependencies]
 indoc = { workspace = true }
-nishiki = { workspace = true }
+nishiki = { workspace = true, features = ["default"] }
 nishiki-alloc-count = { workspace = true }
 
 [lints]

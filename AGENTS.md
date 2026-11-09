@@ -79,6 +79,7 @@ The decisions that created nishiki live in a private planning repository:
    - tests and doctests;
    - docs, as docs.rs builds them;
    - `cargo deny`;
+   - the size budgets: `check:size` builds the `size` example per tier in `[workspace.metadata.size]` and fails a tier past its budgets;
    - the repository checks.
 2. Three more workflows check a pull request against its base:
 
