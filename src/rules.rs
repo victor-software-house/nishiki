@@ -785,6 +785,46 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
     if line.text.len() <= line.start {
         return (Finished::unspent(state), None);
     }
+    lex_embedding_through(cx, line, state, scratch, outer)
+}
+
+/// Lexes `line` like [`lex_embedding_until`], also from the end of a text
+/// that is not empty.
+/// There only the line feed is left, where an open rule's end, such as a line
+/// comment's `\n`, can still match.
+/// Blade's PHP resumes there after a Blade rule that ends the line.
+#[cfg(feature = "_halting-embedding")]
+#[expect(
+    dead_code,
+    reason = "Blade's PHP calls it, in the pull request above this one"
+)]
+pub(crate) fn lex_embedding_until_resuming<G: Embeds>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    outer: Halts<'_>,
+) -> (Finished, Option<Stopped>) {
+    if line.text.is_empty() || line.text.len() < line.start {
+        return (Finished::unspent(state), None);
+    }
+    lex_embedding_through(cx, line, state, scratch, outer)
+}
+
+/// The body of [`lex_embedding_until`], for a line it does not skip.
+#[cfg(feature = "_halting-embedding")]
+#[expect(
+    clippy::inline_always,
+    reason = "measured at one codegen unit: with `#[inline]`, LLVM split it from `lex_embedding_until` and took `settle_deferred` out of line in CoffeeScript and LaTeX"
+)]
+#[inline(always)]
+fn lex_embedding_through<G: Embeds>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: fn(&mut crate::scratch::Scratch) -> &mut Scratch<G>,
+    outer: Halts<'_>,
+) -> (Finished, Option<Stopped>) {
     let text = Text {
         bytes: line.text.as_bytes(),
         start: line.start,
