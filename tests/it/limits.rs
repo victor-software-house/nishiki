@@ -1,16 +1,12 @@
 //! Each limit, reached and not reached, through the public API.
 //! Each language's hostile lines are in `limits/<language>.rs`.
 
-#[cfg(feature = "lang-asm")]
 mod asm;
-#[cfg(feature = "lang-astro")]
 mod astro;
-#[cfg(feature = "lang-bat")]
 mod bat;
 mod c;
 mod cmake;
 mod coffee;
-#[cfg(feature = "lang-common-lisp")]
 mod common_lisp;
 mod cpp;
 mod csharp;
@@ -18,71 +14,53 @@ mod css;
 mod dart;
 mod diff;
 mod dockerfile;
-#[cfg(feature = "lang-elixir")]
 mod elixir;
 mod erb;
-#[cfg(feature = "lang-gdscript")]
 mod gdscript;
 mod go;
 mod graphql;
-#[cfg(feature = "lang-hack")]
 mod hack;
-#[cfg(feature = "lang-haml")]
 mod haml;
-#[cfg(feature = "lang-haskell")]
 mod haskell;
-#[cfg(feature = "lang-hcl")]
 mod hcl;
 mod html;
 mod html_derivative;
 mod ini;
 mod java;
-#[cfg(feature = "lang-jinja")]
 mod jinja;
 mod json;
 mod julia;
 mod kotlin;
-#[cfg(feature = "lang-latex")]
 mod latex;
 mod less;
 mod lua;
 mod make;
 mod markdown;
-#[cfg(feature = "lang-matlab")]
 mod matlab;
 mod mermaid;
 mod nix;
-#[cfg(feature = "lang-objective-c")]
 mod objective_c;
-#[cfg(feature = "lang-objective-cpp")]
 mod objective_cpp;
-#[cfg(feature = "lang-pascal")]
 mod pascal;
-#[cfg(feature = "lang-perl")]
 mod perl;
-#[cfg(feature = "lang-php")]
 mod php;
 mod postcss;
 mod powershell;
 mod proto;
 mod python;
-#[cfg(feature = "lang-r")]
 mod r;
 mod ruby;
 mod rust;
 mod sass;
-#[cfg(feature = "lang-scala")]
 mod scala;
 mod scss;
 mod shell;
 mod sql;
 mod svelte;
 mod swift;
-#[cfg(feature = "lang-tex")]
 mod tex;
 mod toml;
 mod typescript;
-#[cfg(feature = "lang-vb")]
 mod vb;
 mod vue;
 mod xml;

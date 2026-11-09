@@ -1,0 +1,37 @@
+[package]
+name = "nishiki-tests"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99.1"
+description = "nishiki's integration test"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/victor-software-house/nishiki"
+# Never published (CODING_STANDARDS 5.3). The test builds here, not in
+# nishiki, so the published nishiki declares no target it leaves out.
+publish = false
+autotests = false
+autoexamples = false
+autobenches = false
+autobins = false
+# The fixtures stay out of this package's archive; the test reads them in place.
+exclude = ["oracle", "engine"]
+
+[lib]
+path = "lib.rs"
+
+# One integration test binary, it/main.rs, rather than one per file.
+[[test]]
+name = "it"
+path = "it/main.rs"
+
+# The colour tests read themes through nishiki's `json` feature.
+[features]
+json = ["nishiki/json"]
+
+[dev-dependencies]
+indoc = { workspace = true }
+nishiki = { path = ".." }
+nishiki-alloc-count = { workspace = true }
+
+[lints]
+workspace = true

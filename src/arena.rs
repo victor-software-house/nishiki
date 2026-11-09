@@ -10,9 +10,11 @@
 //! number of lines.
 
 use std::collections::HashMap;
+#[cfg(feature = "_language")]
 use std::collections::hash_map::Entry;
 use std::hash::{BuildHasherDefault, Hasher};
 
+#[cfg(feature = "_language")]
 use crate::limits::{Limit, LineReport};
 use crate::scope::Scope;
 
@@ -158,6 +160,7 @@ impl Arena {
     /// One hash of the key serves the lookup and the insert.
     /// A hit costs more than `child`'s, so a caller that usually hits calls
     /// `child`.
+    #[cfg(feature = "_language")]
     #[inline(never)]
     pub(crate) fn child_or_insert(&mut self, parent: u32, scope: Scope) -> Option<u32> {
         match self.scope_ids.entry((parent, scope.id())) {
@@ -173,6 +176,7 @@ impl Arena {
     /// The node limit can keep a new stack from being made.
     /// The scope it stops is then left off with every scope after it.
     /// `report` records the limit.
+    #[cfg(feature = "_language")]
     pub(crate) fn path(
         &mut self,
         base: u32,
@@ -293,6 +297,7 @@ impl Arena {
     /// A [`push`](Self::push) for a caller that expects to make the state,
     /// such as a lexer after its push cache misses.
     /// One hash of the key serves the lookup and the insert.
+    #[cfg(feature = "_language")]
     #[inline(never)]
     pub(crate) fn push_or_insert(
         &mut self,

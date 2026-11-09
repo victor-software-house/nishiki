@@ -186,6 +186,7 @@ impl Highlighter {
 
     /// The open context of `state`, for the lexers' tests.
     #[cfg(test)]
+    #[cfg(feature = "_language")]
     pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
         self.arena
             .frame(if state.0 == ROOT { self.start } else { state.0 })

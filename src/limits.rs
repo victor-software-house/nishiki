@@ -1,6 +1,7 @@
 //! Bounds on the work and memory one line may cost, and the report of which
 //! bounds a line reached.
 
+#[cfg(feature = "_language")]
 use std::cell::Cell;
 use std::time::Duration;
 
@@ -87,6 +88,7 @@ impl Work {
 /// `Steps` has no `Drop` impl (`CODING_STANDARDS.md` 2.6).
 ///
 /// The count is a `Cell`, so a scan that only reads the line can still spend.
+#[cfg(feature = "_language")]
 #[derive(Debug)]
 #[must_use = "a lexer returns its count through `Steps::finish`"]
 pub(crate) struct Steps {
@@ -96,6 +98,7 @@ pub(crate) struct Steps {
     limit: u64,
 }
 
+#[cfg(feature = "_language")]
 impl Steps {
     /// Nothing spent yet on a text of `len` bytes under `limits`.
     #[inline]
@@ -190,11 +193,19 @@ impl Steps {
 /// nothing.
 #[derive(Clone, Copy, Debug)]
 #[must_use]
+#[cfg_attr(
+    not(feature = "_language"),
+    expect(
+        dead_code,
+        reason = "with no language, no lexer returns one, but the dispatch's signatures name it"
+    )
+)]
 pub(crate) struct Finished {
     state: u32,
     spent: u64,
 }
 
+#[cfg(feature = "_language")]
 impl Finished {
     /// A line on which the lexer spent nothing.
     /// It is an empty line, or one whose count nobody takes back.

@@ -175,7 +175,7 @@ fn main() {
     let mut args: Vec<String> = std::env::args().skip(1).collect();
     let root = match args.first() {
         Some(first) if first != "--dump" => PathBuf::from(args.remove(0)),
-        _ => Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle"),
+        _ => Path::new(env!("CARGO_MANIFEST_DIR")).join("../tests/oracle"),
     };
     let fixtures = fixtures(&root);
     if let [flag, language, name, edit] = args.as_slice()

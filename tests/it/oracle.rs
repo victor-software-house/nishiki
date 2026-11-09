@@ -36,7 +36,7 @@ const SHOWN: usize = 20;
 )]
 pub(crate) fn fixtures(language: &str) -> Vec<PathBuf> {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/oracle")
+        .join("oracle")
         .join(language);
     let mut paths: Vec<PathBuf> = fs::read_dir(&dir)
         .expect("the fixture directory exists")
@@ -237,7 +237,7 @@ fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
 /// [`Highlighter::style`] drops its cache at each theme.
 /// Each style it gives must equal [`nishiki::Theme::style`]'s.
 fn colour_failures(language: Language) -> Vec<String> {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("oracle");
     let mut failures = Vec::new();
     for fixture in fixtures(language.id()) {
         let stem = fixture

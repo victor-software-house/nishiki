@@ -1,0 +1,45 @@
+[package]
+name = "nishiki-examples"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99.1"
+description = "The programs nishiki's identity and callgrind tasks run"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/victor-software-house/nishiki"
+# Never published (CODING_STANDARDS 5.3). The examples build here, not in
+# nishiki, so the published nishiki declares no target it leaves out.
+publish = false
+autotests = false
+autoexamples = false
+autobenches = false
+autobins = false
+
+[lib]
+path = "lib.rs"
+
+# The program `mise run identity` runs at a pull request's base and head.
+[[example]]
+name = "identity"
+path = "identity.rs"
+
+# The program `mise run callgrind` counts instructions of.
+[[example]]
+name = "lex"
+path = "lex.rs"
+
+# What one pass over a language's fixtures allocates, for `mise run callgrind`.
+[[example]]
+name = "memory"
+path = "memory.rs"
+
+# `mise run callgrind` builds with nishiki's TextMate tier and theme files.
+[features]
+json = ["nishiki/json"]
+textmate = ["nishiki/textmate"]
+
+[dev-dependencies]
+nishiki = { path = ".." }
+nishiki-alloc-count = { workspace = true }
+
+[lints]
+workspace = true
