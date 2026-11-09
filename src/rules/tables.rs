@@ -1,5 +1,7 @@
 //! For each rule, the patterns that can match at a byte, in the order the
-//! grammar tries them, so the engine tries only those where a byte stands.
+//! grammar tries them.
+//!
+//! The engine tries only those where a byte stands.
 
 use std::ops::ControlFlow;
 
@@ -17,15 +19,21 @@ pub(crate) enum Place {
     LineStart,
     /// Between two ASCII word characters (`is_word_byte`), past the first
     /// position the scan tries.
-    /// A pattern is left out here when it cannot match inside a word, or when
-    /// a match inside a word could also start at the word's start, which the
-    /// scan reached first.
+    ///
+    /// A pattern is left out here in two cases:
+    ///
+    /// - it cannot match inside a word;
+    /// - a match inside a word could also start at the word's start, which the
+    ///   scan reached first.
+    ///
     /// The first position has no such start behind it.
     /// So it counts as [`Place::Away`] in a grammar with a pattern that is
     /// left out here only past that position ([`Tabled::WORDS_AT_START`]).
-    /// That holds every pattern this place holds: only a `^` leaves a pattern
-    /// out of Away, and `oracle/rule-grammar.ts` fails on a start that lists
-    /// this place without Away.
+    ///
+    /// Away holds every pattern this place holds.
+    /// Only a `^` leaves a pattern out of Away.
+    /// `oracle/rule-grammar.ts` fails on a start that lists this place without
+    /// Away.
     InWord,
 }
 
@@ -62,21 +70,27 @@ impl PlaceSet {
 
 /// The candidate patterns of one rule.
 pub(crate) struct Tables<G: Tabled> {
-    /// The patterns that can match where no byte stands, after the line
-    /// feed or at the end of a last line without one
-    /// ([`Start::matches_at_end`]), the end pattern first.
+    /// The patterns that can match where no byte stands, the end pattern
+    /// first.
+    /// No byte stands after the line feed, or at the end of a last line
+    /// without one ([`Start::matches_at_end`]).
     all: Box<[G::Pat]>,
-    /// The candidates for each byte, away from the start of the line (the
-    /// first 256), at it (the next 256) and inside a word (the next 256).
+    /// The candidates for each byte, in three sets of 256:
+    ///
+    /// - away from the start of the line, the first 256;
+    /// - at the start of the line, the next 256;
+    /// - inside a word, the next 256.
+    ///
     /// Bytes with the same candidates share one list.
     ///
     /// A rule of a [`BlankRuns::ToLast`] grammar can have one more list,
     /// after those three sets.
     /// It holds the patterns that take exactly one blank
-    /// ([`Grammar::takes_one_blank`](super::Grammar::takes_one_blank)), tried
-    /// at the last blank of a run.
+    /// ([`Grammar::takes_one_blank`](super::Grammar::takes_one_blank)).
+    /// The scan tries them at the last blank of a run.
+    ///
     /// The list is there only when it is not empty.
-    /// So the slice's length says whether the scan tries the last blank.
+    /// So the slice's length marks whether the scan tries the last blank.
     /// It sits in this slice so that every grammar's tables keep one size.
     by_byte: Box<[&'static [G::Pat]]>,
 }
@@ -155,13 +169,16 @@ impl<G: Tabled> Tables<G> {
 }
 
 /// For patterns with the starts `starts`, the positions of the candidates
-/// of every place and byte, each distinct list once, and where each place
-/// and byte's list lies among them. It works on positions, so it is built
-/// once for every grammar.
+/// of every place and byte.
+///
+/// It returns each distinct list once, and where each place and byte's list
+/// lies among them.
+/// It works on positions, so it is built once for every grammar.
 ///
 /// Each place and byte gets a bit set of patterns, one bit per position.
-/// A pattern sets its bit only at the bytes its start allows, so the work
-/// follows the starts, not 768 times the patterns.
+/// A pattern sets its bit only at the bytes its start allows.
+/// So the work follows the starts, not 768 times the patterns.
+///
 /// Equal sets share one list, which lists the positions in increasing order.
 /// So the lists come out in the order a filter over the patterns gives.
 fn candidate_lists(starts: &[Start]) -> (Vec<usize>, Vec<(usize, usize)>) {
@@ -206,8 +223,10 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 }
 
 /// The first pattern of the innermost rule that matches at or after the
-/// cursor, trying at each position only the patterns whose start allows the
-/// byte there.
+/// cursor.
+///
+/// At each position it tries only the patterns whose start allows the byte
+/// there.
 ///
 /// The text a pattern sees ends after the line feed, where `$` and
 /// lookaheads can still match.
@@ -223,6 +242,7 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 /// The blanks are consumed first and what follows decides.
 /// No lookbehind or boundary holds between two of them.
 /// So the search skips a run of blanks at once.
+///
 /// A pattern that takes one blank and then a character that is not a blank
 /// is the exception.
 /// A [`BlankRuns::ToLast`] grammar tries those patterns at the run's last
@@ -255,22 +275,22 @@ pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, 
 /// inside one.
 /// So the loop has no test for its first position.
 ///
-/// # Why the step is a macro
+/// # The step as a macro
 ///
 /// The local macro `step!` holds the loop's body.
 /// The scan expands it once before the loop, only in such a grammar, and
 /// once in the loop.
-/// Every other grammar compiles the first copy out, and its loop is the code
-/// it had before the first position was told apart.
+/// Every other grammar compiles the first copy out.
+/// Its loop is the code it had before the first position was told apart.
+///
 /// Each other shape cost every grammar's loop or PowerShell's, measured at
 /// one codegen unit on 2026-11-05:
-/// - a test for the first position in the loop, against a position known only
-///   at run time: about 30 grammars ran 0.5% to 1.9% more instructions;
-/// - a flag on [`Tables`]: the struct grew from 32 to 40 bytes, and every
-///   grammar ran 0.1% to 0.2% more;
-/// - the first step as a function out of line, with a test before the loop: Go
-///   ran 1.1% more, and PowerShell 0.7% more under a per-grammar constant,
-///   about seven instructions per scan.
+///
+/// | Shape | Cost |
+/// |:--|:--|
+/// | A test for the first position in the loop, against a position known only at run time | About 30 grammars ran 0.5% to 1.9% more instructions. |
+/// | A flag on [`Tables`] | The struct grew from 32 to 40 bytes, and every grammar ran 0.1% to 0.2% more. |
+/// | The first step as a function out of line, with a test before the loop | Go ran 1.1% more, and PowerShell 0.7% more under a per-grammar constant, about seven instructions per scan. |
 fn scan<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     end: &dyn Halt,

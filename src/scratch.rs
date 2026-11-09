@@ -1,9 +1,10 @@
 //! What the `Highlighter` keeps from one line to the next, one field per
 //! language.
 //!
-//! A language's `line` takes the whole of it and uses its own field and those
-//! of the languages it embeds, so a Markdown line can lex a shell fence
-//! without a parameter per embedded language.
+//! A language's `line` takes the whole of it.
+//! It uses its own field and those of the languages it embeds.
+//! A Markdown line can therefore lex a shell fence without a parameter per
+//! embedded language.
 
 /// Buffers and caches of every lexer that keeps any.
 #[derive(Debug, Default)]

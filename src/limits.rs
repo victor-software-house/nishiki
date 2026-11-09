@@ -40,6 +40,7 @@ pub struct Limits {
     /// The root context is not counted, and with `Some(0)` nothing opens.
     /// Deeper contexts are not opened, and the constructs inside them add no
     /// scope.
+    ///
     /// Shiki has no such limit.
     /// Some of its grammars leave a rule open for good, such as Ruby's rule
     /// for a call whose `)` a here document takes.
@@ -53,9 +54,9 @@ pub struct Limits {
 /// The step budget of one line: `per_byte` steps for each of its bytes, plus
 /// `base`.
 ///
-/// A step is one turn of a lexer's main loop or one byte a lookahead reads,
-/// so a linear lexer spends a few steps per byte and a superlinear path runs
-/// into the limit.
+/// A step is one turn of a lexer's main loop or one byte a lookahead reads.
+/// A linear lexer spends a few steps per byte.
+/// A superlinear path runs into the limit.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Work {
     /// Steps allowed per byte of the line.
@@ -313,8 +314,10 @@ impl Limits {
 }
 
 impl Default for Limits {
-    /// Limits no line of nishiki's oracle fixtures comes near: 1 MiB lines,
-    /// 64 steps per byte plus 4,096, 4,096 open contexts and a million nodes.
+    /// Limits no line of nishiki's oracle fixtures comes near.
+    ///
+    /// They allow 1 MiB lines, 64 steps per byte plus 4,096, 4,096 open
+    /// contexts and a million nodes.
     fn default() -> Self {
         Limits {
             line_bytes: Some(1 << 20),

@@ -1,17 +1,19 @@
 //! The high byte of every frame kind, one constant per lexer module.
 //!
-//! A frame of the shared arena (`src/arena.rs`) carries a kind code, and the
-//! tag in its high bits says which lexer's enum the low bits belong to.
+//! A frame of the shared arena (`src/arena.rs`) carries a `kind` code.
+//! The tag in its high bits marks which lexer's enum the low bits belong to.
 //! Lexers are written in parallel, so the tags are allocated here and nowhere
 //! else.
 //! A lexer module takes its constant and never a "next free byte".
 //!
 //! A lexer may need more than the low byte for its own bits.
-//! It may keep a flag next to the kind, or have more kinds than a byte
-//! numbers, as C++'s 686 rules do.
+//! It may keep a flag next to its enum's variant, or have more variants than a
+//! byte numbers, as C++'s 686 rules do.
+//!
 //! Such a lexer claims a wider range by giving its row a `mask` that covers
 //! fewer bits of the high byte.
 //! The check below counts the whole range.
+//!
 //! Byte `0x10` belongs to the `TextMate` engine, for every language it runs.
 
 /// A claimed range of the code space: the codes `c` with `c & mask == value`.
@@ -20,10 +22,13 @@ struct Tag {
     mask: u16,
 }
 
-/// Claims each lexer's range, one row per language: the constant, its value
-/// and, for a lexer that claims a wider range for flag bits, the mask that
-/// covers it. A language's row is on only when its feature is, so the overlap
-/// check below counts the languages that are built.
+/// Claims each lexer's range, one row per language.
+///
+/// A row holds the constant and its value.
+/// A lexer that claims a wider range for flag bits adds the mask that covers
+/// it.
+/// A language's row is on only when its feature is.
+/// So the overlap check below counts the languages that are built.
 macro_rules! tags {
     (@mask) => { 0xff00 };
     (@mask $mask:literal) => { $mask };
@@ -254,7 +259,7 @@ tags! {
     ZIG = 0x3800,
 }
 
-/// Two ranges overlap when some code lies in both: when their values agree on
+/// Two ranges overlap when some code lies in both: when their values match on
 /// every bit that both masks look at.
 const fn all_distinct() -> bool {
     let mut i = 0;
@@ -274,19 +279,22 @@ const fn all_distinct() -> bool {
 
 const _: () = assert!(all_distinct(), "two lexers claim the same frame tag");
 
-/// The bits of a frame code that name the kind within a lexer; the bits above
-/// them hold the lexer's tag.
+/// The bits of a frame code that name the variant within a lexer's enum; the
+/// bits above them hold the lexer's tag.
 #[cfg(feature = "_frame-kinds")]
 pub(crate) const KIND_MASK: u16 = 0x00ff;
 
-/// Declares a lexer's frame kinds: a fieldless enum tagged with `$tag`, with
-/// `ALL`, `code` and `from_code`, and a test that every kind survives the
-/// round trip through its code.
+/// Declares a lexer's frame kinds: a fieldless enum tagged with `$tag`.
 ///
-/// The first variant is the kind outside every context: `from_code` returns
-/// it for a code another lexer wrote, such as the empty state's, so a lexer
-/// started on a foreign state reads it as its top level. A kind's code is its
-/// position in the declaration, so variants are only ever added at the end.
+/// The enum gets `ALL`, `code` and `from_code`.
+/// A test checks that every variant survives the round trip through its code.
+///
+/// The first variant stands for the level outside every context.
+/// `from_code` returns it for a code another lexer wrote, such as the empty
+/// state's.
+/// A lexer started on a foreign state therefore reads it as its top level.
+/// A variant's code is its position in the declaration, so variants are only
+/// ever added at the end.
 #[cfg(feature = "_frame-kinds")]
 macro_rules! frame_kinds {
     (
@@ -309,11 +317,11 @@ macro_rules! frame_kinds {
         }
 
         impl $name {
-            /// Every kind, in code order.
+            /// Every variant, in code order.
             $vis const ALL: &'static [$name] = &[$($name::$variant),+];
 
-            /// The kind as a frame stores it: the lexer's tag in the high
-            /// byte, the kind's position in the low one.
+            /// The variant as a frame stores it: the lexer's tag in the high
+            /// byte, the variant's position in the low one.
             #[expect(
                 clippy::as_conversions,
                 reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
@@ -322,8 +330,8 @@ macro_rules! frame_kinds {
                 $tag | self as u16
             }
 
-            /// The kind a frame's code names; the first kind for a code that
-            /// is not this lexer's.
+            /// The variant a frame's code names, or the first variant for a
+            /// code that is not this lexer's.
             $vis fn from_code(code: u16) -> $name {
                 const TOP: $name = $name::ALL[0];
                 if code & !$crate::tag::KIND_MASK != $tag {
