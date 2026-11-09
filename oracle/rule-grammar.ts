@@ -73,6 +73,15 @@ type Info = {
 const safeInWord = (item: Info): boolean =>
   item.safe ?? (item.wb || intersect(item.set, ASCII_WORD()).every((w) => w === 0n));
 
+/** Whether `item` can match empty only where a condition holds, beside paths
+ * that consume: a lookaround, an anchor or `\b` on its empty path, as in
+ * `(?:(?=b)|-)` or `-?(?=b)` (Kody, #632).
+ * The flags may come from a consuming path too, which only makes the answer
+ * stricter. */
+const conditionedEmpty = (item: Info): boolean =>
+  item.empty !== null &&
+  (!item.empty.every((w) => w === 0xffffffffffffffffn) || item.bol || item.wb || item.behind);
+
 /** One character: a literal, an escape, a class or `.`, perhaps in a group. */
 const ONE_CHAR = /^(?:\((?:\?:)?)?(?:\\p\{[^}]*\}|\\.|\[(?:\\.|\[:[a-z]+:\]|[^\]\\])*\]|[^\\()[\]|*+?{])\)?$/;
 const info = (set: Set, empty: Set | null = null, bol = false, any = false, wb = false, behind = false): Info => ({
@@ -197,7 +206,7 @@ class RegexParser {
         const safeHere = safeInWord(item) && !(item.moves === true && conditioned);
         if (!guarded && !safeHere) safe = false;
         if (!guarded && item.moves === true && safeHere) moves = true;
-        if (item.set.every((w) => w === 0n)) conditioned = true;
+        if (item.set.every((w) => w === 0n) || conditionedEmpty(item)) conditioned = true;
         if (item.behind && first) behind = true;
         if (item.empty === null) empty = null;
         else empty = intersect(empty, item.empty);
