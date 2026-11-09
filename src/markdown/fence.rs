@@ -1,12 +1,14 @@
 //! Which fenced code blocks embed a language, and which language.
 //!
-//! The grammar has a rule for each of some sixty languages, but Shiki drops a
+//! The grammar has a rule for each of some sixty languages. Shiki drops a
 //! rule whose language grammar is not loaded, and then the fence is an
 //! ordinary one with no embedded scope. So a language is listed here only when
-//! nishiki lexes it. To add one, add its names to [`NAMES`] and its embedded
-//! scope to `rules::content_name`. A rule that embeds a language under another
-//! language's name, as `php` embeds HTML, is an [`Embed`] of its own, with
-//! fence and body kinds of its own.
+//! nishiki lexes it.
+//!
+//! To add one, add its names to [`NAMES`] and its embedded scope to
+//! `rules::content_name`. A rule that embeds a language under another
+//! language's name, as `php` embeds HTML, is an [`Embed`] of its own. It has
+//! a fence `Kind` and a body `Kind` of its own.
 
 use super::state::Kind;
 use super::text::Cx;
@@ -35,8 +37,8 @@ pub(crate) enum Embed {
 
 impl Embed {
     /// The container the fence opens. The rule is resolved here, once per
-    /// fence, so the kinds the lexer meets on every line stay keyed by a
-    /// [`Language`].
+    /// fence, so the `Kind` values the lexer meets on every line stay keyed
+    /// by a [`Language`].
     pub(crate) fn fence(self) -> Kind {
         match self {
             Embed::Lang(lang) => Kind::Fence(lang),
@@ -525,8 +527,8 @@ const STARTS: [usize; 129] = {
 };
 
 /// Every word of [`NAMES`] that starts with a letter, grouped by that
-/// letter, lowercased, and in table order within a group, so the first match
-/// in a group is the first in the table.
+/// letter, lowercased, and in table order within a group.
+/// The first match in a group is then the first in the table.
 const BY_FIRST: [Entry; COUNTS.0] = {
     let mut by_first = [Entry::EMPTY; COUNTS.0];
     let mut next = STARTS;
@@ -571,14 +573,17 @@ const AFTER_ANY: [Entry; COUNTS.1] = {
 /// are allowed: nothing, or a space or one of `,:?{` and then no backtick.
 ///
 /// An ASCII first byte other than `{` can only start a word of its own
-/// letter, as the folds that match more than ASCII case all start with a
-/// non-ASCII byte, so it tries only the words of its group in [`BY_FIRST`].
+/// letter. The folds that match more than ASCII case all start with a
+/// non-ASCII byte.
+/// It therefore tries only the words of its group in [`BY_FIRST`].
 /// Then it tries the words that start with a dot, in [`AFTER_ANY`], when
 /// the second byte can match theirs.
-/// No word of a group spells a dotted word's letters, and a name's
-/// attributes start with a space or one of `,:?{`, which no word holds.
+///
+/// No word of a group spells a dotted word's letters. A name's attributes
+/// start with a space or one of `,:?{`, which no word holds.
 /// So a word that starts with a dot never matches where a group's word does,
 /// and trying it last keeps the table's order.
+///
 /// Any other first byte tries the whole table.
 pub(crate) fn language(cx: &Cx<'_>, i: usize) -> Option<Found> {
     let backtick = last_backtick(cx, i);
@@ -688,13 +693,15 @@ fn word_end(cx: &Cx<'_>, i: usize, word: &[u8]) -> Option<usize> {
 }
 
 /// The end of `word` matched at `i` the way a case-insensitive Oniguruma
-/// pattern matches it, which folds more than ASCII case: the long s reads as
-/// `s`, `ß` as `ss` and the ligature `ﬁ` as `fi`.
+/// pattern matches it.
+///
+/// Such a pattern folds more than ASCII case: the long s reads as `s`, `ß` as
+/// `ss` and the ligature `ﬁ` as `fi`.
 ///
 /// The word is compared as ASCII in one pass that stops at the first byte
 /// that differs. Up to there the text has spelled the word one ASCII byte a
-/// letter, so a fold can start only at that byte, and only when it is above
-/// ASCII; only then is the rest read through [`folded_end`].
+/// letter. A fold can therefore start only at that byte, and only when it is
+/// above ASCII. Only then is the rest read through [`folded_end`].
 fn fold_end(cx: &Cx<'_>, i: usize, word: &[u8]) -> Option<usize> {
     let rest = cx.line.get(i..cx.end.min(cx.line.len()))?;
     match rest
@@ -717,8 +724,9 @@ fn folded_end(cx: &Cx<'_>, i: usize, rest: &[u8]) -> Option<usize> {
     case_fold::literal_end(cx.line.get(..cx.end.min(cx.line.len()))?, i, rest)
 }
 
-/// The attributes that may follow a language name at `i`: nothing, or a space
-/// or one of `,:?{` and then anything but a backtick, to the end of the line.
+/// The attributes that may follow a language name at `i`.
+/// They are nothing, or a space or one of `,:?{` and then anything but a
+/// backtick, to the end of the line.
 /// `backtick` is the line's last backtick at or after the info string.
 fn attributes_ok(cx: &Cx<'_>, i: usize, backtick: Option<usize>) -> bool {
     match cx.get(i) {

@@ -13,7 +13,7 @@ thread_local! {
     static REBUILDS: Cell<bool> = const { Cell::new(false) };
 }
 
-/// Whether every line builds its frames from the arena, as the test asks.
+/// Whether every line builds its frames from the arena, as the test requires.
 pub(crate) fn rebuilds() -> bool {
     REBUILDS.with(Cell::get)
 }
@@ -69,10 +69,13 @@ fn assert_same_tokens_under(language: crate::Language, text: &str, limits: crate
     );
 }
 
-/// A script that closes on the line where the node limit keeps one of its
-/// contexts out of the arena still hands the line back to Svelte.
+/// A script can close on the line where the node limit keeps one of its
+/// contexts out of the arena.
+/// It still hands the line back to Svelte.
 /// The line after it then holds no script scope, at every limit from 1 to
-/// 400 (Kody, #618).
+/// 400 (Kody, [pull request 618]).
+///
+/// [pull request 618]: https://github.com/victor-software-house/nishiki-archive/pull/618
 #[cfg(feature = "lang-svelte")]
 #[test]
 fn a_script_closed_on_a_full_line_ends_there() {
@@ -127,7 +130,8 @@ fn ruby_heredoc_calls_take_their_rules_over() {
 }
 
 /// Svelte lines that end inside a style or a script hand their rules on
-/// unchanged, even where the node limit keeps the embedding rule's new state
+/// unchanged.
+/// That holds even where the node limit keeps the embedding rule's new state
 /// out of the arena.
 /// Each limit from 1 to 400 stops the arena at another place in each
 /// document.

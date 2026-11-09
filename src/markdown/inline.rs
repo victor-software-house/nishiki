@@ -627,6 +627,7 @@ fn destination_tail(
 /// byte.
 /// It stops at a newline, at the end of the text, or at a `shut` byte that
 /// `\s*\)` follows.
+///
 /// It spends two steps plus the positions the memo did not skip.
 /// Without a skip, that is the distance from `at` to the stop.
 fn image_title_end(cx: &Cx<'_>, runs: &mut Runs, at: usize, title: Shut, shut: u8) -> usize {

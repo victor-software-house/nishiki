@@ -36,8 +36,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of an HCL body whose text sits on the stack `base`
-/// with no `source.hcl` of its own, as an embedding language would start it.
+/// The state at the start of an HCL body whose text sits on the stack `base`.
+/// The body has no `source.hcl` of its own, as an embedding language would
+/// start it.
 /// No Markdown fence embeds HCL, because Shiki's Markdown grammar has no
 /// rule for it.
 /// This completes the contract every language keeps.
@@ -46,8 +47,8 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// ([`Language::lex`](crate::Language)), and returns the state after it.
+/// Token ends count from the start of the whole line.
 ///
 /// An empty line appends nothing.
 /// It still ends an `if` that its line feed closes.

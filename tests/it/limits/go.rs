@@ -61,7 +61,7 @@ fn hostile_go_lines_finish_within_the_default_limits() {
         line("", "x", 300_000, ""),
     ];
     // A struct or interface that opens many times on one line is scanned from
-    // each opener, as Oniguruma scans it, and may run into the work limit.
+    // each opener, as Oniguruma scans it. It may run into the work limit.
     let repeated = [
         line("", "type T struct {", 20_000, ""),
         line("", "struct {", 40_000, ""),

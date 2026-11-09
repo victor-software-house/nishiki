@@ -1,13 +1,15 @@
 //! The rules of the `vue` grammar that Shiki bundles, from
-//! vuejs/language-tools: a single-file component's blocks, the tags of its
-//! template that Vue names itself, and their directives.
+//! vuejs/language-tools.
+//! They cover a single-file component's blocks, the tags of its template
+//! that Vue names itself, and their directives.
 //!
 //! The grammar's injection grammars (`vue-directives`, `vue-interpolations`
 //! and the style variable injection) do not apply in Shiki's output.
 //! So `{{ x }}` in a template is text, and a directive on an HTML tag is an
 //! HTML attribute.
-//! Directives apply only in the tags of Vue's own rules: a block's start
-//! tag, a nested `<template>`, and a tag whose name starts with a capital.
+//! Directives apply only in the tags of Vue's own rules.
+//! Those are a block's start tag, a nested `<template>`, and a tag whose name
+//! starts with a capital.
 
 use memchr::memchr;
 
@@ -375,8 +377,9 @@ enum BlockTag {
 }
 
 /// The first of `langs`, in their order, that the lookahead
-/// `[^>]*\blang\s*=\s*(["']?)LANG\b\2` finds from `from` of `s`, which a
-/// language's words follow with the same quote after them, or none.
+/// `[^>]*\blang\s*=\s*(["']?)LANG\b\2` finds from `from` of `s`, or none.
+/// In the lookahead, a language's words follow the quote, and the same quote
+/// follows them.
 /// `[^>]*` stops at the first `>`, so the attribute lies before it.
 fn lang_ahead(s: &[u8], from: usize, tag: BlockTag) -> Option<Lang> {
     let stop = memchr(b'>', s.get(from..).unwrap_or_default()).map_or(s.len(), |at| at + from);
@@ -649,9 +652,11 @@ impl Lexer<'_> {
     }
 
     /// The patterns of a multi-line `<script>` or `<style>` block, after its
-    /// tag name: the start tag's attributes up to a `lang` that names one of
-    /// the block's own languages, the rule that such a `lang` opens, or the
-    /// default body.
+    /// tag name:
+    /// - the start tag's attributes up to a `lang` that names one of the
+    ///   block's own languages;
+    /// - the rule that such a `lang` opens;
+    /// - the default body.
     #[inline(never)]
     pub(super) fn vue_stuff_patterns(&self, p: usize, element: Element) -> Option<Hit> {
         let text = &self.s[..self.lim];
@@ -874,11 +879,13 @@ impl Lexer<'_> {
             .then(|| Hit::new(Pat::End, p, end))
     }
 
-    /// The patterns of a nested template's inside: its attributes after the
-    /// tag name when the start tag may hold them, then the template's HTML.
+    /// The patterns of a nested template's inside.
+    /// They are its attributes after the tag name when the start tag may hold
+    /// them, then the template's HTML.
     /// The patterns at `p`, in a Vue component, of a rule that shares the
-    /// root's arm: Vue's root, a template's body, a nested template's inside,
-    /// or a block's element.
+    /// root's arm.
+    /// Such a rule is Vue's root, a template's body, a nested template's
+    /// inside, or a block's element.
     #[cold]
     #[inline(never)]
     pub(super) fn vue_template_patterns(&self, rule: Rule, p: usize) -> Template {
@@ -1118,8 +1125,9 @@ pub(super) fn body_lang(parent: Rule, payload: u32) -> Option<Lang> {
 }
 
 /// What reads the text of `rule`, a Vue body or directive value inside
-/// `parent`, and where the text ends: the lexer, if any, and the halt, or
-/// none for a body that runs to the end of each line.
+/// `parent`, and where the text ends.
+/// The answer is the lexer, if any, and the halt.
+/// The halt is none for a body that runs to the end of each line.
 #[cfg(feature = "lang-vue")]
 pub(super) fn target(rule: Rule, parent: Rule, payload: u32) -> (Option<Lexed>, Option<VueHalt>) {
     if rule == Rule::VueExpr {

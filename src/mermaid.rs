@@ -6,6 +6,7 @@
 //! bytes, in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
 //! The `matchers` decide where each pattern matches.
+//!
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Each diagram is such a rule, and so are a class's body and a flowchart

@@ -6,6 +6,7 @@
 //! bytes, in the `engine` module.
 //! The tables in `grammar` and `words` are generated from the grammar.
 //! The `matchers` decide where each pattern matches.
+//!
 //! Where an expression is PHP's word for word, the matcher is the one PHP
 //! uses, in [`crate::php_family`].
 //! The rules left open at the end of a line are frames of the highlighter's

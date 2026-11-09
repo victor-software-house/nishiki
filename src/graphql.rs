@@ -3,6 +3,7 @@
 //! The lexer runs the grammar's begin and end rules on the shared rule
 //! engine ([`crate::rules`]).
 //! Hand-written matchers over bytes decide where each pattern matches.
+//!
 //! A rule left open at the end of a line is a frame of the highlighter's
 //! interned state.
 //! Such a rule is a selection set, a type body or a multi-line string.
@@ -64,6 +65,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// An empty line leaves the state as it is.
 /// Shiki does not tokenize empty lines.
 /// Otherwise the grammar would close a rule the line before left open.
+///
 /// An interpolation's text goes to the JavaScript lexer, up to its `}`
 /// ([`crate::rules::lex_embedding`]).
 #[expect(

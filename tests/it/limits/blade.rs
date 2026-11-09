@@ -44,7 +44,7 @@ fn hostile_blade_lines_finish_within_the_default_limits() {
 }
 
 /// A heredoc line of tags and no Blade looks for Blade's own rules once, not
-/// once a tag, so it stays within the default work.
+/// once a tag. It therefore stays within the default work.
 #[test]
 fn a_heredoc_line_of_tags_finishes_within_the_default_work() {
     let mut highlighter = Highlighter::new(Language::Blade);

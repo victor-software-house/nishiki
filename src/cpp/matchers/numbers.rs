@@ -1,7 +1,11 @@
 //! Number literals.
-//! Each expression matches a whole run of number characters: digits with
-//! separators, a point, an exponent, a suffix and, in the variants that mark
-//! mistakes, a word that no pattern takes.
+//! Each expression matches a whole run of number characters:
+//! - digits with separators;
+//! - a point;
+//! - an exponent;
+//! - a suffix;
+//! - in the variants that mark mistakes, a word that no pattern takes.
+//!
 //! A group the expression repeats keeps its last match.
 
 use super::super::engine::Lexer;

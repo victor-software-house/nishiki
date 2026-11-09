@@ -121,7 +121,8 @@ It also writes Pierre's theme to `target/compare/pierre-theme.json`.
 `shiki.ts time` needs both.
 Its rows carry tokens and fidelity as the harness's rows do.
 The Oniguruma engine reads 100% fidelity, because it wrote the reference.
-It builds C for Oniguruma and the tree-sitter grammars.
+
+The comparison workspace builds C for Oniguruma and the tree-sitter grammars.
 It is not part of `verify`.
 The Bench job runs `bench:check` on a pull request labelled `bench`.
 `bench:check` checks this workspace's formatting and runs clippy on it without giallo.

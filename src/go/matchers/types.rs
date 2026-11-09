@@ -129,6 +129,7 @@ impl Lexer<'_> {
     /// lead `rest` to the places the longer ends did.
     /// The exception is the end before the arrow.
     /// It is tried after the units that follow it.
+    ///
     /// White space given back leaves `rest` before white space.
     /// There `rest` fails, or skips to where it was.
     pub(in crate::go) fn after_chans<T>(

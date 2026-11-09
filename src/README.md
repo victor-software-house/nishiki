@@ -39,4 +39,4 @@ Three kinds exist:
 2. Hand-written matchers on the rule engine, such as `python/` or `cpp/`, with a generated `grammar.rs`.
 3. Generated tables for the TextMate engine, such as `zig/` or `scala/`: a `grammar.rs` that `oracle/engine-tables.ts` writes, and nothing else.
 
-A generated file says so in its first line.
+A generated file marks itself as generated in its first line.

@@ -1,15 +1,21 @@
 //! The per-line engine: it runs the grammar's rules the way a `TextMate`
 //! engine does, with hand-written matchers instead of regular expressions.
 //!
-//! At each position the engine tries the end pattern of the innermost rule and
-//! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position. A begin match opens a rule and an end match closes it;
-//! a match's capture groups name parts of it. The corner cases of `TextMate`
-//! engines are kept because Shiki's output depends on them: `\G` matches only
-//! where the enclosing begin ended, a rule that opens and closes without
-//! advancing stays open for the rest of the line, a match rule that does not
-//! advance closes the rule it sits in, and a capture group that the grammar
-//! tokenizes with patterns of its own is lexed on its text alone.
+//! At each position the engine tries the end pattern of the innermost rule.
+//! Then it tries the rule's patterns in order.
+//! It takes the first that matches at the earliest position.
+//! A begin match opens a rule and an end match closes it.
+//! A match's capture groups name parts of it.
+//!
+//! The corner cases of `TextMate` engines are kept because Shiki's output
+//! depends on them:
+//!
+//! - `\G` matches only where the enclosing begin ended.
+//! - A rule that opens and closes without advancing stays open for the rest of
+//!   the line.
+//! - A match rule that does not advance closes the rule it sits in.
+//! - A capture group that the grammar tokenizes with patterns of its own is
+//!   lexed on its text alone.
 //!
 //! The grammar's injection, which flags a bare `<`, joins the search: it
 //! wins only where it starts before every match of the current rule. In an
@@ -202,13 +208,15 @@ pub(crate) enum GiveBack<'a> {
     /// or heading.
     AtRoot,
     /// At the root, at the first position after a `>` where no root rule
-    /// matches: the end `(?<=>)`, tried after the patterns, of the rule that
-    /// Markdown's emphasis opens at a tag.
+    /// matches.
+    /// There the end `(?<=>)` of the rule that Markdown's emphasis opens at a
+    /// tag is tried, after the patterns.
     AfterTag,
     /// At the root, where `end` holds before the root's patterns at a place,
-    /// or `after` holds where none of them matches: the embedding rule's
-    /// patterns listed before and after the grammar (see [`Halt`]), such as
-    /// the interpolation and escapes of a Ruby here document.
+    /// or `after` holds where none of them matches.
+    /// These are the embedding rule's patterns listed before and after the
+    /// grammar (see [`Halt`]), such as the interpolation and escapes of a
+    /// Ruby here document.
     Halts(&'a crate::language::Halts<'a>),
 }
 
@@ -274,8 +282,8 @@ pub(super) struct Frame {
 pub(crate) struct Scratch {
     frames: Vec<Frame>,
     /// Buffers of frames for HTML lexers that run while another holds
-    /// `frames`, such as a heredoc's HTML inside a Blade document's PHP: one
-    /// for each level of nesting.
+    /// `frames`, one for each level of nesting.
+    /// One such lexer runs a heredoc's HTML inside a Blade document's PHP.
     #[cfg(feature = "lang-blade")]
     spare: Vec<Vec<Frame>>,
     chain: Vec<(u32, crate::arena::Frame)>,
@@ -302,9 +310,11 @@ impl Scratch {
     }
 }
 
-/// The most steps in a row that do not advance: each opens or closes a rule
-/// at one byte, and a rule that repeats stops the line, so a run is at most
-/// an open and a close per rule of the grammar, far below this.
+/// The most steps in a row that do not advance.
+/// Each opens or closes a rule at one byte, and a rule that repeats stops the
+/// line.
+/// A run is thus at most an open and a close per rule of the grammar, far
+/// below this.
 const MAX_STALLED: u32 = 4096;
 
 /// Lexes one line.
@@ -937,9 +947,10 @@ impl<'a> Lexer<'a> {
         halted
     }
 
-    /// The first match from the position: for each candidate position the
-    /// innermost rule's end pattern and then its patterns in order, and the
-    /// injection where it comes before every one of them, as
+    /// The first match from the position.
+    /// At each candidate position it tries the innermost rule's end pattern
+    /// and then its patterns in order.
+    /// The injection is tried where it comes before every one of them, as
     /// [`Injection::precedes`] ranks it.
     fn search(&mut self) -> Option<Hit> {
         let rule = self.top().rule;
@@ -999,9 +1010,10 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// The CSS or JavaScript of the innermost rule: the rest of the line up
-    /// to the end tag that the embedded lexer halts at, which is then the
-    /// rule's end.
+    /// The CSS or JavaScript of the innermost rule.
+    /// It is the rest of the line up to the end tag that the embedded lexer
+    /// halts at.
+    /// That end tag is then the rule's end.
     fn embedded(&mut self) -> Option<Hit> {
         let top = *self.top();
         let pos = self.pos;
@@ -1072,7 +1084,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// The text of a Vue body or directive value: the rest of the line up to
-    /// where its rule ends, which its language's lexer reads.
+    /// where its rule ends.
+    /// Its language's lexer reads it.
     /// A body in a language that nishiki does not lex is plain text.
     #[cfg(feature = "lang-vue")]
     #[cold]
@@ -1260,8 +1273,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// The Ruby of ERB code: the rest of the line up to the code's end, or up
-    /// to the comment pattern that the code tries before Ruby's patterns,
-    /// both of which halt the Ruby lexer.
+    /// to the comment pattern.
+    /// The code tries that pattern before Ruby's patterns.
+    /// Both halt the Ruby lexer.
     fn ruby(&mut self) -> Option<Hit> {
         let top = *self.top();
         let pos = self.pos;
@@ -1322,8 +1336,8 @@ impl<'a> Lexer<'a> {
         (next, resumes_at(stopped))
     }
 
-    /// The PHP of a Blade rule: the rest of the line up to the rule's end, or
-    /// up to a place where Blade's injection opens, at any depth of the PHP.
+    /// The PHP of a Blade rule: the rest of the line up to the rule's end.
+    /// It stops sooner where Blade's injection opens, at any depth of the PHP.
     /// The PHP's state stays the rule's payload while a rule of the injection
     /// is open inside it.
     #[cold]
@@ -1374,7 +1388,8 @@ impl<'a> Lexer<'a> {
 
     /// The stack a rule opened inside `top` sits on in a Blade document.
     /// Inside a Blade rule's PHP, it is the stack of the PHP's innermost open
-    /// rule, since Blade's injection opens at any depth of the PHP.
+    /// rule.
+    /// That is because Blade's injection opens at any depth of the PHP.
     #[cold]
     #[inline(never)]
     pub(super) fn blade_base(&self, rule: Rule, state: u32, content: u32) -> u32 {
@@ -1481,13 +1496,16 @@ impl<'a> Lexer<'a> {
         false
     }
 
-    /// Applies the begin of a rule; true when the line stops. A rule the depth
-    /// limit keeps from opening leaves its text plain, and since a rule that
-    /// matched nothing would match again where it did, the search goes on
-    /// after one character.
+    /// Applies the begin of a rule; true when the line stops.
+    ///
+    /// A rule the depth limit keeps from opening leaves its text plain.
+    /// A rule that matched nothing would match again where it did.
+    /// The search therefore goes on after one character.
     /// At the end of the line no character is left, so the line stops.
-    /// A pattern that names no rule leaves its text plain, and a rule that
-    /// opens again where it opened without advancing stops the line.
+    ///
+    /// A pattern that names no rule leaves its text plain.
+    /// A rule that opens again where it opened without advancing stops the
+    /// line.
     fn open(&mut self, hit: &Hit) -> bool {
         let top = *self.top();
         self.tok(top.content, hit.start);
@@ -1556,9 +1574,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// What a rule opened inside `top` takes from it.
-    /// - The stack it sits on: `top`'s content, and inside a `<script>`
-    ///   element's code also the `source.js` that the JavaScript lexer adds to
-    ///   its own stack, which ERB opened there keeps.
+    /// - The stack it sits on: `top`'s content. Inside a `<script>` element's
+    ///   code, it also has the `source.js` that the JavaScript lexer adds to
+    ///   its own stack. ERB opened there keeps it.
     /// - How a template's injection applies inside it: by ERB's selectors, or
     ///   by Blade's in a Blade document ([`Lexer::blade_links`]).
     #[expect(
@@ -1651,9 +1669,10 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the text `from..to` of the line with the attribute rules of
-    /// `namespace`, as the grammar does for a capture group of an element's
-    /// start tag: on that text alone, under `base`, and the rules it leaves
-    /// open end with it.
+    /// `namespace`.
+    /// The grammar does so for a capture group of an element's start tag.
+    /// It lexes on that text alone, under `base`, and the rules it leaves open
+    /// end with it.
     pub(super) fn region(&mut self, from: usize, to: usize, base: u32, payload: u32) {
         if from >= to {
             return;
@@ -1692,8 +1711,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// Lexes the text `from..to` with the JavaScript lexer, from a fresh
-    /// state, under `base`, as `TextMate` lexes a capture group again: the
-    /// text before `from` stays visible to lookbehinds, and no line feed
+    /// state, under `base`.
+    /// It does so as `TextMate` lexes a capture group again.
+    /// The text before `from` stays visible to lookbehinds, and no line feed
     /// follows `to`.
     pub(super) fn javascript(&mut self, from: usize, to: usize, base: u32) {
         if from >= to {

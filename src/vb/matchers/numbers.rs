@@ -30,7 +30,8 @@ impl Lexer<'_> {
     ///
     /// The final `\b` decides which end wins.
     /// An end inside a run of digits has a digit on each side, where `\b`
-    /// fails, so a run gives back either nothing or all its digits.
+    /// fails.
+    /// So a run gives back either nothing or all its digits.
     /// So `1.5é` reads as `1.`: after `5` the `é` breaks `\b`, and after the
     /// bare `.` it holds.
     fn unsigned(&self, s: usize) -> Option<usize> {

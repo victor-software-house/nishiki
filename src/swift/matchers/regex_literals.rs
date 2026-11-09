@@ -14,7 +14,7 @@ use crate::rules::Chars;
 
 /// A scan for the first position at or after `from` that satisfies a test:
 /// `(key, from, found)`.
-/// It says that no position in `from..found` satisfies the test.
+/// It records that no position in `from..found` satisfies the test.
 /// The key tells apart queries whose test differs, such as the `#` count.
 type Found = Cell<Option<(usize, usize, usize)>>;
 
@@ -1463,6 +1463,7 @@ impl Lexer<'_> {
     /// The grammar takes them possessively.
     /// A position and the parenthesis depth therefore decide everything after
     /// them.
+    ///
     /// A scan that passes through many items leaves its path in the memo.
     /// A later start of the same literal kind that lands on that path ends
     /// the same way.
@@ -1599,8 +1600,8 @@ impl Lexer<'_> {
         }
     }
 
-    /// The end of the code block `(?{…}[tag]X)` at `i` in a literal: the
-    /// body is `{` and as many `{` as the longest form below, up to the
+    /// The end of the code block `(?{…}[tag]X)` at `i` in a literal.
+    /// The body is `{` and as many `{` as the longest form below, up to the
     /// matching run of `}`.
     ///
     /// `\{(?:[^{].*?|\{[^{].*?}|…|\{\{\{\{\{.+?}}}}})}`: with `extra` more

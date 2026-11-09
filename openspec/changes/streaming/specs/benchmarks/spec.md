@@ -7,7 +7,7 @@ Each trace SHALL name its source file, its commit and its licence, read at the s
 
 #### Scenario: A trace whose source changed
 
-- **WHEN** a trace and its source file disagree
+- **WHEN** a trace and its source file differ
 - **THEN** the trace check fails and names the trace
 
 ### Requirement: The stream harness reports per-delta figures
@@ -29,7 +29,7 @@ Fidelity is the share of non-whitespace bytes whose colour matches Shiki's.
 - **WHEN** the harness runs nishiki on any trace
 - **THEN** its fidelity reads 100%
 
-### Requirement: Each engine streams as its users drive it
+### Requirement: Each engine streams through the API that engine's users call
 
 The harness SHALL drive Shiki through `@shikijs/stream`, and Pierre through `StreamTokenizer` for appends and `LiveTokenizer` for edits.
 An engine with no streaming API for a trace kind SHALL be left out of that trace's rows.

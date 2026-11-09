@@ -121,8 +121,9 @@ impl<'a> Line<'a> {
     }
 
     /// The end of the keyword `word`, upper case, matched at `i` without
-    /// regard to case, as `(?i:...)` does: the long s reads as `S`, the
-    /// Kelvin sign as `K`, and the ligatures of `s` and `t` as `ST`.
+    /// regard to case, as `(?i:...)` does.
+    /// The long s reads as `S`, the Kelvin sign as `K`, and the ligatures of
+    /// `s` and `t` as `ST`.
     fn keyword(&self, mut i: usize, word: &[u8]) -> Option<usize> {
         let mut k = 0;
         while let Some(&want) = word.get(k) {

@@ -1,5 +1,6 @@
-//! The grammar's rules as tables: for each rule the scopes it adds, how it
-//! ends and which patterns it tries, in the grammar's order.
+//! The grammar's rules as tables.
+//! For each rule they hold the scopes it adds, how it ends and which patterns
+//! it tries, in the grammar's order.
 //!
 //! A [`Pat`] is one regular expression of the grammar, written as a matcher in
 //! the sibling modules.
@@ -1283,6 +1284,7 @@ fn build(rule: Rule) -> RuleInfo {
 /// order.
 /// Each byte before a position activates a set of them, a bit each.
 /// There are at most eight such patterns and at most 256 distinct sets.
+///
 /// `every_rule_fits_its_tables` checks both, so the fallbacks never apply.
 /// What each pattern needs is computed once, so the lists only look it up.
 fn with_tables(mut info: RuleInfo) -> RuleInfo {

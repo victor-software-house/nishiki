@@ -165,7 +165,7 @@ impl Lexer<'_> {
 
     /// `\s*(?:\([$*;@]*\))?[^{\w]` from `p`.
     /// The blanks give characters back one at a time, and the last of them
-    /// then serves as `[^{\w]`.
+    /// then matches `[^{\w]`.
     fn sub_tail(&self, p: usize) -> Option<usize> {
         let blanks = self.space_end(p);
         let prototype = (self.at(blanks) == b'(' && blanks < self.lim())

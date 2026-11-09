@@ -9,7 +9,8 @@ What holds today, at main [68620d9e][main]:
 
 - [`Highlighter::line`][line] lexes one line, without its ending, from a `State`, and leaves the next `State`.
 - A `State` is a `u32` handle into the highlighter's arena, so two states compare in one step.
-- The rule and shell engines keep the frames of the last line for the next one when the next line starts from the state the last one left.
+- The rule and shell engines keep the frames of the last line for the next one.
+  They do so when the next line starts from the state the last one left.
   Otherwise they rebuild the frames from the arena.
   [`resume_check`][resume] proves both paths give the same tokens on every oracle fixture.
 - So lines can be lexed out of order, again, or from any cached state.
@@ -49,7 +50,7 @@ Two things can change tokens already shown:
   So the line still being written is provisional (decision 5).
 - An edit, the one exception across lines.
   Replacing text in line K changes the state after K, so lines after K may change, never lines before it.
-  Decision 7 lexes forward from K until the states agree.
+  Decision 7 lexes forward from K until the states match.
 
 ## Goals / Non-Goals
 
@@ -75,7 +76,7 @@ Two things can change tokens already shown:
 
 - It serves appends and edits alike, as Pierre's `LiveTokenizer` does.
   A stream is a document whose edits all land at the end.
-- The name says what it holds.
+- The name matches what it holds.
   `Stream` would mislead for edits.
 - Storage is flat: the text in one `String`, the tokens of every line in one `Vec<Token>`, and one `Vec` of line entries.
   - Each entry names its line's run of tokens: where it starts and how long it is.
@@ -191,14 +192,14 @@ The provisional line is lexed from its start on every delta, into a reused tail 
 - On the traces, one delta is about 3.1 characters ([note][note], deltas), so a line of 40 characters is lexed about 13 times.
   At the steady per-line cost of 0.1 to 3 µs at p50, that is the per-delta cost.
 - A line that grows long, such as minified JSON written in one line, would make that quadratic.
-  Above 1 KiB, the tail is lexed again only once it has grown by an eighth since its last lexing.
+- Above 1 KiB, the tail is lexed again only once it has grown by an eighth since its last lexing.
   Past its first KiB, the work on one line stays within nine times its length.
   The bytes past the last lexing show as held back.
 - The default is `Tail::Amortized { short: 1024, growth: 8 }`.
   `Document::set_tail` changes it, and `Tail::EveryDelta` turns the rule off (root guide, Limits rule 1).
   They count bytes, never time, so the same input gives the same renders on every machine.
 
-### 5. The provisional line shows its last token held back
+### 5. The last token of the provisional line is held back
 
 The flicker measurement decides it ([note][note], section 1):
 
@@ -226,13 +227,14 @@ When a tool writes a whole file in one delta, the caller lexes to its viewport, 
   It coloured under half the screen right in 6% of them, inside docstrings, heredocs and comment blocks ([note][note], section 2).
 - It cannot tell when it is right.
   Its state agreed with the exact one within a screen in only half the viewports, so the exact sweep must redo the work anyway.
-- The exact sweep lexes 124 KiB in one 60 Hz frame in C++, the slowest language, and 409 KiB to 2.9 MiB in the others measured.
+- In one 60 Hz frame, the exact sweep lexes 124 KiB in C++, the slowest language.
+  It lexes 409 KiB to 2.9 MiB in the other languages measured.
   Speculation could only pay for text above those sizes before the viewport.
 - So nishiki does not speculate.
   A viewport past those sizes shows its lines stale or uncoloured for a few frames.
 - Revisit when a recorded trace has one delta whose sweep to the viewport exceeds a frame on the reference host.
 
-### 7. Edits stop where the states agree
+### 7. Edits stop where the states match
 
 Each line records the state it was last lexed from.
 `replace` gives the lines it touches new entries, which have none, and moves the lexed frontier back to the first of them.
@@ -241,10 +243,12 @@ Each line records the state it was last lexed from.
 - it lexes each line that has no recorded state, or whose recorded state differs from the state before it now;
 - it skips each line whose recorded state equals the state before it, and keeps its tokens.
 
-So past the edit, the first line whose state agrees stops the lexing, and every unchanged line after it is only compared.
+So past the edit, the first line whose state matches stops the lexing, and every unchanged line after it is only compared.
 The check is exact however edits and partial `lex` calls interleave.
+
 A first version compared with the end state cached above the line instead.
-After a partial `lex` and a second edit, that state could belong to a newer pass than the line below, and the stream test caught it on 18 fixtures.
+After a partial `lex` and a second edit, that state could belong to a newer pass than the line below.
+The stream test caught it on 18 fixtures.
 
 Replaying 239 hunks of nishiki's own history, 238 stopped at their own last line, and one lexed two lines more ([note][note], section 3).
 
@@ -253,7 +257,7 @@ Replaying 239 hunks of nishiki's own history, 238 stopped at their own last line
 Each distinct state and stack is interned once in the highlighter's arena.
 A long-lived document under many edits can fill it to `Limits::nodes`.
 
-- A line that reaches the node limit says so in its `LineReport`, as today.
+- A line that reaches the node limit is marked in its `LineReport`, as today.
 - `Document::reset` starts a fresh highlighter and marks every line stale.
   A caller may call it when a report names the node limit.
 
@@ -291,7 +295,8 @@ Traces live in `bench/traces/`, written by `bench/traces.ts` from files with lic
 - `bench/src/bin/stream.rs` times nishiki per delta: the mutation, `lex(Until::End)` with its styling, and reading the changed lines through `styled`.
 - `bench/compare/shiki.ts stream` times Shiki with `ShikiStreamTokenizer`, and Pierre with `StreamTokenizer` for appends and `LiveTokenizer` for edits.
   Each runs as its users drive it.
-- Every engine reports setup, first-delta latency, steady per-delta p50, p99 and maximum, and the final output's fidelity to Shiki on the whole text.
+- Every engine reports setup, first-delta latency, and steady per-delta p50, p99 and maximum.
+  It also reports the final output's fidelity to Shiki on the whole text.
 - Recorded runs follow [bench/AGENTS.md][bench-agents]: the reference host class, data first, never a CI gate.
 
 ### 11. Hand-offs to the throughput change
@@ -335,11 +340,15 @@ The operator asked that `Document` return styled tokens through the throughput c
 
 ## Risks / Trade-offs
 
-- [The generated deltas are smaller than a real model's] → The flicker figures are an upper bound; the trace generator can take recorded transcripts later without changing the harness.
-- [Shiki's states stand in for nishiki's in the speculation and edit measurements] → The stream tests compare nishiki's own tokens against one-shot lexing on every fixture.
+- [The generated deltas are smaller than a real model's] → The flicker figures are an upper bound.
+  The trace generator can take recorded transcripts later without changing the harness.
+- [Shiki's states stand in for nishiki's in the speculation and edit measurements] → The stream tests check nishiki's own tokens.
+  They compare them with one-shot lexing on every fixture.
 - [A splice on a large document costs a memory move per edit] → The edit trace times it; a gap buffer comes only if it shows.
 - [`hold-last` keeps the last token uncoloured, which reads as lag on long tokens] → `stable` is advice; every token is still given.
-- [A bench dependency on `@shikijs/stream`] → It is MIT, pinned at 4.6.0 with Shiki, in `bench/compare` only and never shipped, as the operator allowed (2026-11-05); its licence goes in that workspace's README.
+- [A bench dependency on `@shikijs/stream`] → It is MIT, pinned at 4.6.0 with Shiki.
+  It sits in `bench/compare` only and is never shipped, as the operator allowed (2026-11-05).
+  Its licence goes in that workspace's README.
 
 ## Open Questions
 

@@ -170,9 +170,11 @@ impl Lexer<'_> {
     /// `GAP(?:(?:(?:(ID)|((?:ID\s+)+)(ID))|(ID)\s*(\.\.\.)\s*(ID))|(?<!\
     /// w)(template)…)\s*(?:(=)\s*ID)?(?:(,)|(?=>|$))`.
     ///
-    /// The first part matches, in this order, as a single name, as words and
-    /// then a name (`ID\s+` repeated, then `ID`), as a pack (`ID\s*...\s*ID`)
-    /// or as a template template parameter.
+    /// The first part matches in this order:
+    /// - as a single name;
+    /// - as words and then a name (`ID\s+` repeated, then `ID`);
+    /// - as a pack (`ID\s*...\s*ID`);
+    /// - as a template template parameter.
     pub(super) fn template_parameter(&mut self, p: usize) -> Option<usize> {
         for gap in self.gaps(p) {
             let Some(((_, caps), tail)) = self.template_parameter_head(gap.end) else {
@@ -649,7 +651,8 @@ impl Lexer<'_> {
     /// n)|(?=}[^']))|(?=/[*/]))`.
     ///
     /// `\s?` takes all the white space it can and gives it back one character
-    /// at a time, and the form with `=` and a lazy value is tried first.
+    /// at a time.
+    /// The form with `=` and a lazy value is tried first.
     pub(super) fn enumerator(&mut self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;

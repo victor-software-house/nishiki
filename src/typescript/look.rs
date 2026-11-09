@@ -373,8 +373,9 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// Whether a function-valued initialiser starts at `i`, as the grammar
-    /// tests after `=` or `:`: a function expression, or an arrow function
-    /// whose parameters are seen, or whose line ends inside them.
+    /// tests after `=` or `:`.
+    /// It is a function expression, or an arrow function whose parameters are
+    /// seen, or whose line ends inside them.
     ///
     /// The forms are `(async\s+)?` then `function` or `name =>`, and
     /// `(async\s*)?` then an opening, a typed arrow or an arrow.
@@ -489,8 +490,9 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The type-annotation forms of a function-valued name, at the `:` at
-    /// `i`: a function type, `Function`, and with [`Annotation::OrValue`] a
-    /// type followed by `=` and a function-valued initialiser.
+    /// `i`.
+    /// They are a function type, `Function`, and with [`Annotation::OrValue`]
+    /// a type followed by `=` and a function-valued initialiser.
     ///
     /// A function type: `<` or `(` and a parameter.
     #[expect(

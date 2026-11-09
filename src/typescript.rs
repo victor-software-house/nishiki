@@ -4,24 +4,26 @@
 //! calls, types, templates, comments and so on) are frames of the
 //! highlighter's interned state.
 //!
-//! Each context is one begin/end rule of the grammar, and each rule is tried
-//! in the grammar's order at every position, as `TextMate` does. The grammar
-//! decides many rules by looking ahead on the line (an arrow function, a call
-//! with type arguments, a name assigned a function), and the lexer reproduces
-//! those lookaheads, quirks included:
+//! Each context is one begin/end rule of the grammar.
+//! Each rule is tried in the grammar's order at every position, as `TextMate`
+//! does.
+//! The grammar decides many rules by looking ahead on the line: an arrow
+//! function, a call with type arguments, a name assigned a function.
+//! The lexer reproduces those lookaheads, quirks included:
 //!
 //! - `Number.MAX_VALUE` and the other `Number` constants get no scope, because
 //!   the grammar numbers the capture that would scope them inside a lookahead.
 //! - A bracket group in a lookahead nests three levels and no more, as the
 //!   grammar's regular expressions do.
-//! - An empty line is skipped and leaves the state as it is, as Shiki does, so
+//! - An empty line is skipped and leaves the state as it is, as Shiki does. So
 //!   the end rules that test for a blank line see only lines of blanks.
 //! - A context that opens and closes without the line advancing keeps the rest
 //!   of the line, as `TextMate` does for a grammar that loops.
 //!
-//! Work is counted against [`Limits::work`](crate::Limits): every scan ahead
-//! spends a step per byte it reads, so a line of any length is lexed in time
-//! proportional to its length times the work limit's per-byte allowance.
+//! Work is counted against [`Limits::work`](crate::Limits).
+//! Every scan ahead spends a step per byte it reads.
+//! So a line of any length is lexed in time proportional to its length times
+//! the work limit's per-byte allowance.
 
 mod bytes;
 mod calls;
@@ -103,15 +105,15 @@ impl Dialect {
     /// lexes again, added to the dialect's index.
     pub(crate) const BARE: u8 = 4;
     /// The bit that marks a lexer of the TypeScript or JavaScript that
-    /// Svelte embeds, added to the dialect's index: Svelte's grammar injects
-    /// its `$` prefixes there.
+    /// Svelte embeds, added to the dialect's index.
+    /// Svelte's grammar injects its `$` prefixes there.
     pub(crate) const SVELTE: u8 = 8;
 
     /// The dialect at position `index` among the four, whatever
     /// [`Dialect::BARE`] and [`Dialect::SVELTE`] say.
     ///
-    /// Evaluated at compile time for each `D` that [`line`] instantiates, so
-    /// the arm of a dialect whose feature is off is never reached, and
+    /// Evaluated at compile time for each `D` that [`line`] instantiates.
+    /// So the arm of a dialect whose feature is off is never reached, and
     /// reaching it fails the build.
     pub(crate) const fn of(index: u8) -> Dialect {
         match index & !(Self::BARE | Self::SVELTE) {
@@ -155,9 +157,10 @@ pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of the TypeScript lines of a fenced code block,
-/// whose text sits on the stack `base` with no `source.ts` of its own, as in
-/// Shiki's embedding. The marker kind keeps `\A`, which only the first line of
+/// The state at the start of the TypeScript lines of a fenced code block.
+/// The block's text sits on the stack `base` with no `source.ts` of its own,
+/// as in Shiki's embedding.
+/// The marker kind keeps `\A`, which only the first line of
 /// the document matches, from matching in a fence.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena
@@ -166,9 +169,11 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of the JavaScript of an HTML `<script>` element,
-/// whose text sits on `base`: one context with `source.js` on top of it, as
-/// HTML's grammar names it, and the two comment rules HTML puts before
-/// JavaScript's. HTML lexes it with [`lex_until`] and an end at `</script`.
+/// whose text sits on `base`.
+/// It is one context with `source.js` on top of it, as HTML's grammar names
+/// it.
+/// The state also holds the two comment rules HTML puts before JavaScript's.
+/// HTML lexes it with [`lex_until`] and an end at `</script`.
 #[cfg(feature = "lang-javascript")]
 pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena
@@ -191,8 +196,8 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of TypeScript that another grammar embeds at one
-/// entry of TypeScript's grammar, as Svelte does: a context that runs that
-/// entry's patterns only.
+/// entry of TypeScript's grammar, as Svelte does.
+/// It is a context that runs that entry's patterns only.
 /// Its text sits on `base`, which holds the embedding's own scope.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
 fn start_entry(arena: &mut Arena, base: u32, kind: Kind) -> u32 {
@@ -254,14 +259,15 @@ pub(crate) fn start_type_parameters(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes the text of `line` from byte `from` and `state`, appending its
-/// tokens with ends counted from the start of `line`, and returns the state
-/// after it and where `halts` stopped it. The bytes before `from` belong to
-/// the language that embeds this one, which lookbehinds read as `TextMate`
-/// does.
+/// tokens with ends counted from the start of `line`.
+/// It returns the state after it and where `halts` stopped it.
+/// The bytes before `from` belong to the language that embeds this one.
+/// Lookbehinds read them as `TextMate` does.
 ///
 /// An empty text appends nothing and leaves the state as it is, which is how
-/// Shiki treats it: the end rules that test for a blank line (`^\s*$`) never
-/// run on an empty one.
+/// Shiki treats it.
+/// The end rules that test for a blank line (`^\s*$`) never run on an empty
+/// one.
 fn line(
     cx: &mut crate::language::Context<'_>,
     dialect: Dialect,
@@ -342,9 +348,11 @@ fn run<const D: u8>(
 ))]
 mod tests;
 
-/// Lexes `line` in `dialect` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// Lexes `line` in `dialect` from `state` and returns the state after it.
+///
+/// It follows the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)).
+/// Token ends count from the start of the whole line.
 #[inline]
 pub(crate) fn lex(
     cx: &mut crate::language::Context<'_>,
@@ -356,9 +364,10 @@ pub(crate) fn lex(
 }
 
 /// Lexes as JavaScript a capture group of another grammar that `TextMate`
-/// lexes again with this one: `line.text` is the line up to the group's end,
-/// with no line feed after it, and the group starts at `line.start`. Returns
-/// the state after it.
+/// lexes again with this one.
+/// `line.text` is the line up to the group's end, with no line feed after it.
+/// The group starts at `line.start`.
+/// Returns the state after it.
 ///
 /// Only the event handlers of HTML and Astro need it, so only `JavaScript`
 /// has the lexer that reads no line feed.
@@ -397,12 +406,18 @@ pub(crate) fn lex_capture_svelte(
 /// language that embeds this one takes the line back, which it returns.
 ///
 /// Both tests apply only while no context of the code is open beyond the
-/// one the embedding started: `end`, the embedding rule's patterns listed
-/// before this grammar's, is tried at each place before this grammar's
-/// rules, and `after`, those listed after it, where none of them matches. A
-/// match that starts before a place and covers it wins. The tokens stop at
-/// the halt; the embedding lexer resumes there, or on the next line with the
-/// returned state when the line ran to its end.
+/// one the embedding started:
+///
+/// - `end` holds the embedding rule's patterns listed before this grammar's. It
+///   is tried at each place before this grammar's rules.
+/// - `after` holds those listed after it. It is tried where none of this
+///   grammar's rules matches.
+///
+/// A match that starts before a place and covers it wins.
+/// The tokens stop at the halt.
+/// The embedding lexer resumes there.
+/// When the line ran to its end, it resumes on the next line with the
+/// returned state.
 pub(crate) fn lex_until(
     cx: &mut crate::language::Context<'_>,
     dialect: Dialect,

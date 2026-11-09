@@ -1,10 +1,16 @@
 //! Every lexer finishes arbitrary lines within the default limits.
 //!
 //! Lines are drawn from a seeded generator over the characters lexers
-//! branch on: brackets, quotes, comment and string openers, operators,
-//! uppercase and lowercase letters, digits, blanks and non-ASCII text. A
-//! lexer that stops advancing runs into the work limit, which the test
-//! reports, so a hang shows up as a failure rather than a stuck run.
+//! branch on:
+//!
+//! - brackets and quotes;
+//! - comment and string openers;
+//! - operators;
+//! - uppercase and lowercase letters and digits;
+//! - blanks and non-ASCII text.
+//!
+//! A lexer that stops advancing runs into the work limit, which the test
+//! reports. A hang therefore shows up as a failure rather than a stuck run.
 
 use nishiki::{Highlighter, Language, State};
 

@@ -241,8 +241,10 @@ impl Lexer<'_> {
         ends.then_some(0)
     }
 
-    /// `\1\s+|$\n*` at the line's start: the line starts with the filter's
-    /// indent and a `\s`, which may be the line feed, or the line is empty.
+    /// `\1\s+|$\n*` at the line's start.
+    /// It holds when the line starts with the filter's indent and a `\s`,
+    /// which may be the line feed.
+    /// It also holds when the line is empty.
     fn stays_in_filter(&self, indent: &[u8]) -> bool {
         if self.at_eol(0) {
             return true;

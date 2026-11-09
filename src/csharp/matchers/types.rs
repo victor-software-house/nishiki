@@ -2,13 +2,17 @@
 //! begins with, and the continuations that follow it.
 //!
 //! Oniguruma backtracks through the optional and repeated parts of the type
-//! (a leading `ref`, an alias, type arguments, further dotted names, a
-//! nullable mark, array suffixes) when what follows it fails. The matcher
-//! offers each way the type can end to a continuation, in the order
-//! Oniguruma tries them, and returns the first the continuation accepts.
+//! when what follows it fails.
+//! Those parts are a leading `ref`, an alias, type arguments, further dotted
+//! names, a nullable mark and array suffixes.
+//! The matcher offers each way the type can end to a continuation, in the
+//! order Oniguruma tries them.
+//! It returns the first the continuation accepts.
+//!
 //! Giving back the blanks that the last part took is not a separate way: it
-//! ends at the same text, so a continuation sees the end of the last
-//! character and the end of the blanks after it ([`Ty`]) and decides.
+//! ends at the same text.
+//! A continuation therefore sees the end of the last character and the end of
+//! the blanks after it ([`Ty`]), and decides.
 
 use super::super::engine::Lexer;
 use super::super::limits::MAX_TYPE_PARTS;
@@ -240,9 +244,9 @@ impl<'a> Lexer<'a> {
 
     /// `(?:\s*\*\s*)*`, greedily.
     ///
-    /// Each suffix matcher reads its leading `\s*` from `end`: after a name
-    /// `end` already follows its blanks, while a tuple, which the grammar
-    /// does not end with `\s*`, ends at its `)`.
+    /// Each suffix matcher reads its leading `\s*` from `end`.
+    /// After a name, `end` already follows its blanks.
+    /// A tuple ends at its `)`, since the grammar does not end it with `\s*`.
     fn pointers(
         &mut self,
         start: usize,
@@ -356,9 +360,10 @@ impl<'a> Lexer<'a> {
     }
 
     /// `\s+` after a type that ended as `ty`: the end of the blanks, and
-    /// where the type's capture group ends. The blanks that the type's last
-    /// part took stand for the `\s+`, as Oniguruma gives one of them back,
-    /// so the group ends one blank early.
+    /// where the type's capture group ends.
+    /// The blanks that the type's last part took stand for the `\s+`, as
+    /// Oniguruma gives one of them back.
+    /// The group therefore ends one blank early.
     pub(in crate::csharp) fn plus_blanks(&self, ty: Ty) -> Option<(usize, usize)> {
         if ty.end > ty.core {
             let width = self.char_before(ty.end).map_or(1, char::len_utf8);

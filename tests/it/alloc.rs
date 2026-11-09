@@ -1,11 +1,15 @@
 //! Checks that lexing a line allocates nothing once the arena holds the
 //! states and stacks a document uses (`CODING_STANDARDS.md` 2.1).
 //!
-//! Each oracle fixture is lexed twice by one highlighter. The first pass fills
-//! the arena, the scratch buffers and the token buffer; the second meets only
-//! states the first interned, so any allocation it makes is per line.
+//! Each oracle fixture is lexed twice by one highlighter.
+//!
+//! - The first pass fills the arena, the scratch buffers and the token buffer.
+//! - The second meets only states the first interned, so any allocation it
+//!   makes is per line.
+//!
 //! `nishiki-alloc-count` counts per thread, and each language runs on a
-//! thread of its own, so tests running in parallel do not disturb the count.
+//! thread of its own. Tests running in parallel therefore do not disturb the
+//! count.
 
 use nishiki::{Highlighter, Language, State, Token};
 use nishiki_alloc_count::{CountingAllocator, count, measure};

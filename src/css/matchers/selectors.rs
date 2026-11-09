@@ -216,10 +216,12 @@ impl<G: CssLike> Lexer<'_, G> {
         self.lit(p, b"*")
     }
 
-    /// The bad identifier: `(?<![-@\w])([#.])` and a digit, a lone `-`, or a
-    /// run of identifier characters and escapes that holds one of
-    /// `]!"%'(*;<?@^|}`, a backtick, `/` not before `*`, or `&` before an
-    /// identifier character.
+    /// The bad identifier: `(?<![-@\w])([#.])`, then one of:
+    /// - a digit;
+    /// - a lone `-`;
+    /// - a run of identifier characters and escapes that holds a bad character.
+    ///   A bad character is one of `]!"%'(*;<?@^|}`, a backtick, `/` not before
+    ///   `*`, or `&` before an identifier character.
     ///
     /// After `#` or `.`, the arms match `-?[0-9]`, then
     /// `(?:identchar|escape)*(?:bad)+`.

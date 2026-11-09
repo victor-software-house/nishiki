@@ -41,7 +41,7 @@ const OTHER: &[(&[u8], Option<&[u8]>)] = &[
     (b"where", None),
 ];
 
-/// The kinds a type declaration names, in the grammar's order.
+/// The keywords of a type declaration, in the grammar's order.
 const DECLARED: &[(&[u8], Option<&[u8]>)] = &[
     (b"struct", None),
     (b"mutable", Some(b"struct")),
@@ -49,9 +49,10 @@ const DECLARED: &[(&[u8], Option<&[u8]>)] = &[
     (b"primitive", Some(b"type")),
 ];
 
-/// A function's name after `function` or `macro`: the dot after its module,
-/// the name, and the end of the type parameters in braces after it, which is
-/// the name's end when it has none.
+/// A function's name after `function` or `macro`.
+/// It holds the dot after its module, the name, and the end of the type
+/// parameters in braces after it.
+/// That end is the name's end when the name has no type parameters.
 struct Name {
     module_dot: Option<usize>,
     ident: (usize, usize),
@@ -194,9 +195,10 @@ impl Lexer<'_> {
     }
 
     /// `\s*\bwhere\b\s+.+?\s*?=(?![=>])` at `p`.
-    /// `.+?` can take any characters of the line, so the clause holds when an
-    /// `=` that `=` and `>` do not follow stands after the first space and at
+    /// `.+?` can take any characters of the line.
+    /// So the clause holds when an `=` stands after the first space and at
     /// least one more character.
+    /// Neither `=` nor `>` may follow that `=`.
     fn where_clause(&self, p: usize) -> bool {
         let word = self.space_end(p);
         let Some(end) = self.keyword(word, b"where") else {

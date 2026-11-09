@@ -2,12 +2,15 @@
 //! comes from VS Code.
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module): the tables in `grammar` are
-//! generated from the grammar, and the `matchers` decide where each pattern
-//! matches. The grammar includes rules of CSS's (`source.css#…`), which run
-//! on the CSS lexer's matchers. The rules left open at the end of a line
-//! (property lists, at-rules, comments, strings, maps) are frames of the
-//! highlighter's interned state.
+//! over bytes (see the `engine` module).
+//! The tables in `grammar` are generated from the grammar.
+//! The `matchers` decide where each pattern matches.
+//! The grammar includes rules of CSS's (`source.css#…`), which run on the CSS
+//! lexer's matchers.
+//!
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
+//! Property lists, at-rules, comments, strings and maps are such rules.
 
 mod engine;
 mod grammar;

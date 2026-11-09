@@ -1,6 +1,8 @@
-//! The engine against Shiki: each grammar of the four hand-written languages,
-//! run over the fixtures `oracle/generate.ts` wrote, must give every
-//! non-whitespace byte the scope stack Shiki gives it.
+//! The engine against Shiki.
+//!
+//! Each grammar of the four hand-written languages runs over the fixtures
+//! `oracle/generate.ts` wrote. It must give every non-whitespace byte the
+//! scope stack Shiki gives it.
 
 use std::collections::{BTreeSet, HashMap};
 use std::fmt::Write as _;
@@ -123,16 +125,18 @@ fn parse_text(content: &str, source: &str) -> Vec<Line> {
 /// A block of a language added since cannot match.
 /// It is left out rather than failing every new language's pull request.
 ///
-/// A block is of such a language when Shiki gives it a scope the tables never
-/// name, or when the rule that embeds the language was dropped from every list
-/// with the language.
-/// Either of two signs shows the dropped rule:
+/// A block is of such a language in either of two cases:
+/// - Shiki gives it a scope the tables never name;
+/// - no list holds the rule that embeds the language, because the tables left
+///   the rule out with the language.
+///
+/// Either of two signs shows the missing rule:
 /// - a `meta.embedded.block.*` scope in the block that no rule reachable from
 ///   the root gives its contents;
 /// - a fence line that Shiki names `fenced_code.block.language.markdown`, a
-///   language's own fence rule, where no reachable rule that names its language
-///   so has a begin that matches the line. A body that ends at once, as a Less
-///   body popped by its first character does, holds no embedded scope, so only
+///   language's own fence rule. No reachable rule that names its language so
+///   has a begin that matches the line. A body that ends at once holds no
+///   embedded scope, as a Less body popped by its first character does. Only
 ///   this sign shows it.
 fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
     let inside = |line: &Line| {
@@ -614,7 +618,8 @@ fn scoped_tokens(
 }
 
 /// A line that reuses the frames the last line left lexes as one that loads
-/// them from the arena, on every fixture of every grammar with fixtures.
+/// them from the arena.
+/// The test covers every fixture of every grammar with fixtures.
 #[test]
 fn kept_frames_lex_as_rebuilt_ones() {
     let tables: [(&'static Grammar, &str); 12] = [
@@ -648,10 +653,12 @@ fn kept_frames_lex_as_rebuilt_ones() {
 /// for the features that are on.
 static SHIPPED: &[(&Grammar, &str)] = &[];
 
-/// Lines whose text beyond ASCII starts with every UTF-8 lead byte from
-/// `0xC2` to `0xF4`, alone, between ASCII and all together; lines with such
-/// text across and after the 64-byte blocks of the ASCII check; and samples
-/// of CJK, Cyrillic, Greek, Arabic, emoji and a combining mark alone.
+/// Lines with text beyond ASCII:
+///
+/// - text that starts with every UTF-8 lead byte from `0xC2` to `0xF4`, alone,
+///   between ASCII and all together;
+/// - such text across and after the 64-byte blocks of the ASCII check;
+/// - samples of CJK, Cyrillic, Greek, Arabic, emoji and a combining mark alone.
 pub(super) fn lines_beyond_ascii() -> Vec<String> {
     let mut buffer = [0; 4];
     let firsts: Vec<char> = (0xc2..=0xf4_u8)
@@ -691,8 +698,8 @@ pub(super) fn lines_beyond_ascii() -> Vec<String> {
 }
 
 /// Every shipped engine grammar lexes the lines of [`lines_beyond_ascii`]
-/// within the default work limit: the line kind's check, and each step
-/// after it, makes progress on any text.
+/// within the default work limit.
+/// The line kind's check, and each step after it, makes progress on any text.
 #[test]
 fn lines_beyond_ascii_lex_within_the_work_limit() {
     let limits = Limits::default();
@@ -741,8 +748,10 @@ fn next(seed: &mut u64) -> u64 {
 }
 
 /// Two copies of `line` mutated in ASCII, as `oracle/fuzz.ts` mutates a
-/// corpus: one with a third of its letters turned into the letters of the
-/// folds, one with a pair of them put in at a random place.
+/// corpus.
+///
+/// - One has a third of its letters turned into the letters of the folds.
+/// - One has a pair of them put in at a random place.
 fn fold_mutations(line: &str, seed: &mut u64) -> [String; 2] {
     let letters: String = line
         .chars()
@@ -795,13 +804,15 @@ fn every_match(regex: &Regex, text: &[u8]) -> Vec<Vec<Option<(usize, usize)>>> {
     found
 }
 
-/// On a line that holds no wide fold character, every pattern of every
-/// shipped engine grammar whose lean program differs finds the same matches
-/// and groups with it as with its full program.
+/// Lean and full programs find the same matches and groups on a line that
+/// holds no wide fold character.
 ///
-/// The lines are the grammar's fixtures that are lean, up to [`LEAN_LINES`],
-/// and two copies of each mutated in ASCII toward the folds' letters and
-/// pairs, which the lean program must still match as the full one does.
+/// The test covers every pattern of every shipped engine grammar whose lean
+/// program differs.
+///
+/// The lines are the grammar's fixtures that are lean, up to [`LEAN_LINES`].
+/// Two copies of each are mutated in ASCII toward the folds' letters and
+/// pairs. The lean program must still match them as the full one does.
 #[test]
 fn lean_programs_match_as_full_ones_on_lean_lines() {
     let mut failures = Vec::new();
@@ -851,9 +862,10 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
 }
 
 /// The folding table names exactly the grammars where some pattern's lean
-/// program differs from its full one, so a grammar whose line kinds run the
-/// same programs never looks at a line's kind, and one whose kinds differ
-/// always does.
+/// program differs from its full one.
+/// So a grammar whose line kinds run the same programs never looks at a
+/// line's kind.
+/// A grammar whose kinds differ always does.
 #[test]
 fn the_folding_table_matches_the_patterns() {
     let tested: [&Grammar; 9] = [
@@ -1097,11 +1109,16 @@ fn haml_hands_its_filters_over_whole() {
     );
 }
 
-/// Times the engine on the fixtures of one language, in MiB/s: the best of
-/// five passes, each with a fresh scratch (a document of its own, whose lazy
-/// automata start empty) and the best of five passes that reuse one scratch,
-/// and the slowest line's best time in the fresh passes. The first pass is
-/// not timed: it builds the scanners, which a program builds once.
+/// Times the engine on the fixtures of one language, in MiB/s.
+/// It reports three figures:
+///
+/// - the best of five passes, each with a fresh scratch: a document of its own,
+///   whose lazy automata start empty;
+/// - the best of five passes that reuse one scratch;
+/// - the slowest line's best time in the fresh passes.
+///
+/// The first pass is not timed.
+/// It builds the scanners, which a program builds once.
 /// Run with `cargo test --release --lib engine_speed -- --ignored --nocapture`.
 #[expect(
     clippy::cast_precision_loss,
@@ -1224,7 +1241,8 @@ fn an_embedded_line_is_lexed_from_its_start_with_absolute_ends() {
 }
 
 /// The most work any oracle line costs the machine, as a share of the
-/// default budget of 64 steps a byte plus 4,096, at 32 machine steps each.
+/// default budget.
+/// That budget is 64 steps a byte plus 4,096, at 32 machine steps each.
 #[test]
 #[ignore = "a measurement"]
 #[expect(
@@ -1637,8 +1655,10 @@ mod nested_captures {
 }
 
 /// Nested capture groups stop at the engine's bound, below the depth limit.
-/// Each level is a nested call, and a debug build on a test thread's 2 MiB
-/// stack overflowed on this line of 1,000 levels.
+/// Each level is a nested call.
+/// A debug build on a test thread's 2 MiB stack overflowed on this line of
+/// 1,000 levels.
+///
 /// A much longer line runs out of work before it nests that deep.
 /// The line still ends with a token, and reports the depth limit.
 #[test]
@@ -1676,7 +1696,7 @@ mod injected {
 
     use super::super::grammar::{Grammar, Injection, List, NONE, Pattern, Rule, RuleKind};
 
-    /// A rule of one kind, with no captures.
+    /// A rule of the given `RuleKind`, with no captures.
     const fn rule(
         kind: RuleKind,
         name: &'static [u16],
@@ -1824,8 +1844,10 @@ mod halts {
     }
 
     /// Each line of `lines`, lexed in turn by the Rust test grammar as an
-    /// embedded language that halts where `end` or `after` say: where it
-    /// halted, and the ends of its tokens.
+    /// embedded language.
+    ///
+    /// The language halts where `end` or `after` returns true.
+    /// The result holds where it halted, and the ends of its tokens.
     fn halting(
         lines: &[&str],
         end: &dyn Halt,
@@ -1880,9 +1902,9 @@ mod halts {
         assert_eq!(ends.last(), Some(&10), "{ends:?}");
     }
 
-    /// The end is tried before the root's patterns: Rust's `%` operator,
-    /// which matches at the same place, loses to it, while the name that
-    /// starts earlier keeps its token.
+    /// The end is tried before the root's patterns.
+    /// Rust's `%` operator, which matches at the same place, loses to it.
+    /// The name that starts earlier keeps its token.
     #[test]
     fn an_end_halt_beats_a_match_at_its_place_but_not_an_earlier_one() {
         let (halted, ends) = halting_one("x%>", &at_erb_close, None);
@@ -1913,8 +1935,8 @@ mod halts {
         assert_eq!(halted, None);
     }
 
-    /// A comment left open on one line keeps the root closed on the next, and
-    /// the state after a halt is the root's, so the next line starts there.
+    /// A comment left open on one line keeps the root closed on the next.
+    /// The state after a halt is the root's, so the next line starts there.
     #[test]
     fn the_state_carries_across_lines() {
         let lines = ["/* open %>", "still %> */ x %>", "let y = 2;"];
@@ -1926,9 +1948,12 @@ mod halts {
     }
 
     /// `line`, lexed by the Rust test grammar as a language that a host
-    /// line under `host` embeds and lends its work to: what the host has
-    /// spent once it takes the engine's count back, what the engine spent in
-    /// steps of the work limit, and whether the line ran out of work.
+    /// line under `host` embeds and lends its work to.
+    /// It returns three values:
+    ///
+    /// 1. what the host has spent once it takes the engine's count back;
+    /// 2. what the engine spent, in steps of the work limit;
+    /// 3. whether the line ran out of work.
     fn counted(line: &str, host: &Limits) -> (u64, u64, bool) {
         let grammar = &rust_tables::GRAMMAR;
         let mut arena = Arena::new(None);
@@ -1995,6 +2020,7 @@ mod halts {
 /// A scanner sketches a list's begin patterns from their parse alone.
 /// A pattern that parsed but failed to compile would sit in the automaton.
 /// Its candidates would then change the work a line spends.
+///
 /// An `end` or `while` pattern can refer to its begin's groups.
 /// It compiles only once the tokenizer fills those in, and no list holds it.
 #[test]
@@ -2378,9 +2404,13 @@ mod hand_offs {
     }
 
     /// With two steps left on the host line, a HAML line stops within them.
-    /// The rule holds whichever language lexes the costly part: Ruby on a
-    /// line of code, JavaScript in a filter, or Objective-C in a Markdown
-    /// fence in a filter. Under the default limits each line spends more.
+    /// The rule holds whichever language lexes the costly part:
+    ///
+    /// - Ruby on a line of code;
+    /// - JavaScript in a filter;
+    /// - Objective-C in a Markdown fence in a filter.
+    ///
+    /// Under the default limits each line spends more.
     #[test]
     fn a_hand_off_spends_only_what_the_host_line_has_left() {
         let tight = Limits {

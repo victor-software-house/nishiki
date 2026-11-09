@@ -29,7 +29,7 @@ const RUST: &[&[u8]] = &[b"rust"];
 const TYPESCRIPT: &[&[u8]] = &[b"ts", b"typescript"];
 const XML: &[&[u8]] = &[b"xml"];
 const YAML: &[&[u8]] = &[b"yaml"];
-/// The languages only robust-externalize names.
+/// The languages only `robust-externalize` names.
 const ASYMPTOTE: &[&[u8]] = &[b"asy", b"asymptote"];
 const CPP: &[&[u8]] = &[b"c", b"cpp"];
 const GNUPLOT: &[&[u8]] = &[b"gnuplot"];
@@ -1301,6 +1301,7 @@ impl Lexer<'_> {
     /// The arguments repeat: up to two `(…)`, up to two `[…]` and a `{key}`.
     /// Each round is the only way its text can match, so the rounds run
     /// forward.
+    ///
     /// When the tail after them, an optional `<…>`, any `[…]` and a `{`,
     /// fails, the regex gives back rounds.
     /// The first round it gives back to that can take the tail is the last

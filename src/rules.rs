@@ -1,13 +1,13 @@
-//! The rule engine that the languages written from a `TextMate` grammar share:
-//! Python, Java, CSS, Make, Kotlin, Go, Ruby, Swift and C run on it, and each
-//! language supplies a [`Grammar`], the generated tables of its rules and
+//! The rule engine that the languages written from a `TextMate` grammar share.
+//! Python, Java, CSS, Make, Kotlin, Go, Ruby, Swift and C run on it.
+//! Each language supplies a [`Grammar`]: the generated tables of its rules and
 //! patterns, and the hand-written matchers that decide where each pattern
 //! matches.
 //!
 //! The engine runs the grammar's rules the way a `TextMate` engine does, with
-//! those matchers instead of regular expressions: the per-line loop, `\G`,
-//! capture groups, `while` rules, the limits and the frames that carry a rule
-//! from line to line are here, once.
+//! those matchers instead of regular expressions.
+//! The per-line loop, `\G`, capture groups, `while` rules, the limits and the
+//! frames that carry a rule from line to line are here, once.
 
 mod chars;
 mod lexer;
@@ -128,13 +128,15 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// The scope that names a whole document, such as `source.python`.
     const SOURCE: Scope;
     /// Whether a matcher's span can lie inside one it recorded before for
-    /// the same match, and so takes that span's scopes too, as nested
-    /// capture groups do. Off, every span sits directly under the match.
+    /// the same match.
+    /// Such a span takes that span's scopes too, as nested capture groups do.
+    /// Off, every span sits directly under the match.
     const NESTED_SPANS: bool = false;
     /// The longest payload that the name of a rule with a delimiter repeats.
-    /// A longer one, which the begin pattern takes in another group than the
-    /// one the name reads, as C++'s raw strings do with a delimiter of more
-    /// than 16 bytes, leaves the delimiter out of the name.
+    /// A longer one leaves the delimiter out of the name.
+    /// The begin pattern takes it in another group than the one the name
+    /// reads.
+    /// C++'s raw strings do this with a delimiter of more than 16 bytes.
     const NAMED_PAYLOAD: usize = usize::MAX;
 
     /// The scope in the crate's shared numbering, or the name it makes
@@ -204,10 +206,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_content_delimiter(_rule: Self::Rule) -> Option<&'static str> {
         None
     }
-    /// The prefix of a name scope that ends in the rule's payload text, for
-    /// a rule whose name repeats the begin capture group it carries; its
-    /// [`Grammar::rule_name`] then leaves that scope out. The next line
-    /// rebuilds the name from the payload, as it has no groups.
+    /// The prefix of a name scope that ends in the rule's payload text.
+    ///
+    /// It is for a rule whose name repeats the begin capture group it carries.
+    /// Its [`Grammar::rule_name`] then leaves that scope out.
+    /// The next line rebuilds the name from the payload, as it has no groups.
     fn rule_name_delimiter(_rule: Self::Rule) -> Option<&'static str> {
         None
     }
@@ -223,10 +226,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_name_after(_rule: Self::Rule) -> Scopes<Self::Scope> {
         Self::NO_SCOPES
     }
-    /// Where a rule that embeds a language ([`Payload::Embed`]) starts it:
-    /// the function that gives the language's state at one of its grammar's
-    /// rules other than the root, as an `include` of `source.ts#object-literal`
-    /// does.
+    /// Where a rule that embeds a language ([`Payload::Embed`]) starts it.
+    ///
+    /// It is the function that gives the language's state at one of its
+    /// grammar's rules other than the root.
+    /// An `include` of `source.ts#object-literal` does this.
     /// None, the default, starts the language at its root.
     #[cfg(feature = "_embedding")]
     fn embed_start(_rule: Self::Rule) -> Option<fn(&mut Arena, u32) -> u32> {
@@ -263,11 +267,13 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// text ([`Grammar::begin_stack`]).
     const BEGIN_STACKS: bool = false;
 
-    /// The stack `rule` opens on, when it is not the innermost rule's text:
+    /// The stack `rule` opens on, when it is not the innermost rule's text.
+    ///
     /// Svelte's template body, injected into the Markdown of an `@component`
     /// comment, opens on the stack Markdown reached.
     /// Read where a rule opens and where the frames are rebuilt from a state,
-    /// so both name it alike, and only where [`Grammar::BEGIN_STACKS`] holds.
+    /// so both name it alike.
+    /// Read only where [`Grammar::BEGIN_STACKS`] holds.
     fn begin_stack(_lexer: &Lexer<'_, Self>, _rule: Self::Rule) -> Option<u32> {
         None
     }
@@ -294,9 +300,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// below its root, through [`Halt::deep`](crate::language::Halt::deep).
     /// Blade's injection holds inside the PHP of an echo at every depth, even
     /// inside a string.
+    ///
     /// A grammar that sets it keeps in its [`Grammar::Extra`] whether an open
-    /// rule shuts the deep halt out, and sets [`Grammar::WATCHES_FRAMES`] to
-    /// redo that fact where the open rules come from the line's state.
+    /// rule shuts the deep halt out.
+    /// It also sets [`Grammar::WATCHES_FRAMES`] to redo that fact where the
+    /// open rules come from the line's state.
     const DEPTH_HALTS: bool = false;
 
     /// Updates the fact after a rule opened.
@@ -351,7 +359,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     const SKIPS_PLACES: bool = false;
     /// Where the scan goes on after no pattern matched at `p`, which holds a
     /// byte of the text, when [`Grammar::SKIPS_PLACES`] is on.
-    /// The grammar skips only places where it knows no pattern matches.
+    /// The grammar skips only places where it is certain no pattern matches.
     fn next_place(lexer: &Lexer<'_, Self>, p: usize) -> usize {
         lexer.char_end(p)
     }
@@ -379,18 +387,21 @@ pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of the lines of grammar `G` in a fenced code block,
-/// whose text sits on the stack `base` with no source scope of its own, as in
-/// Shiki's embedding.
+/// The state at the start of the lines of grammar `G` in a fenced code block.
+///
+/// The block's text sits on the stack `base` with no source scope of its own,
+/// as in Shiki's embedding.
 pub(crate) fn start_embedded<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
     arena
         .push(ROOT, G::rule_code(G::ROOT), 0, base)
         .unwrap_or(ROOT)
 }
 
-/// Lexes `line` from `state` with grammar `G` under the crate's one lexer
-/// contract ([`Language::lex`](crate::Language)), with the buffers `scratch`
-/// picks out of the highlighter's, and returns the state after it.
+/// Lexes `line` from `state` with grammar `G` and returns the state after it.
+///
+/// It follows the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)). It uses the buffers `scratch` picks
+/// out of the highlighter's.
 ///
 /// An empty line leaves the state as it is, because Shiki does not tokenize
 /// empty lines.
@@ -414,10 +425,14 @@ pub(crate) fn lex<G: Grammar>(
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
-/// to its end: the line halts at the first place where `end` holds that the
-/// scan reaches with only the root rule open, or where `after` holds there
-/// and no pattern matches (see [`Halt`]), and the second value says where.
-/// It also says where a pattern matched an empty text at the root without
+/// to its end.
+/// The line halts at the first place where `end` holds that the scan reaches
+/// with only the root rule open.
+/// It also halts where `after` holds there and no pattern matches (see
+/// [`Halt`]).
+///
+/// The second value holds where the line halted.
+/// It also holds where a pattern matched an empty text at the root without
 /// advancing ([`StopKind::PopHost`]); the grammar lexes the rest of the line.
 /// Without one, the state resumes on the next line.
 #[inline]
@@ -518,7 +533,7 @@ pub(crate) enum EndText {
 }
 
 /// A grammar whose rules embed other languages ([`Payload::Embed`]).
-/// It says where the embedding rule takes the line back.
+/// It marks where the embedding rule takes the line back.
 #[cfg(feature = "_embedding")]
 pub(crate) trait Embeds: Grammar {
     /// The halt of the embedding rule's end and of the patterns it lists before
@@ -618,8 +633,11 @@ pub(crate) trait Embeds: Grammar {
     }
 
     /// Lexes a deferred capture group with `language`
-    /// ([`Grammar::defers_nested`]): the text from `line.start` to the end of
-    /// `line.text`, which is the group's end, with no line feed after it.
+    /// ([`Grammar::defers_nested`]).
+    ///
+    /// The group is the text from `line.start` to the end of `line.text`, with
+    /// no line feed after it.
+    /// The end of `line.text` is the group's end.
     /// The group's text sits on the stack `base`.
     /// Its tokens must end inside the group.
     /// None leaves the group as its one placeholder token, as the default
@@ -635,8 +653,10 @@ pub(crate) trait Embeds: Grammar {
 }
 
 /// Lexes the capture groups that the last run of the grammar deferred
-/// ([`Grammar::defers_nested`]), from what is left of the line's budget,
-/// `steps`, and returns that budget's state.
+/// ([`Grammar::defers_nested`]).
+///
+/// It spends what is left of the line's budget, `steps`, and returns that
+/// budget's state.
 /// The count starts from `finished`, what the run spent.
 #[cfg(feature = "_embedding")]
 fn settle_deferred<G: Embeds>(
@@ -656,11 +676,13 @@ fn settle_deferred<G: Embeds>(
 
 /// Lexes each deferred capture group with [`Embeds::lex_nested`], and puts
 /// its tokens in place of its placeholder in the output.
+///
 /// The groups go from the last to the first.
 /// Each splice moves only the tokens after it, so the placeholders before it
 /// stay where they were.
 /// Tokens are never merged or counted as they go out.
 /// The spliced ones need no other rule.
+///
 /// Each group spends from `steps`, the line's one budget.
 /// A group whose language left its end uncovered keeps the rest on its
 /// placeholder's stack.
@@ -882,9 +904,11 @@ pub(crate) fn lex_on_demand<G: Embeds>(
 /// Lexes `line` again with [`lex_embedding`].
 /// The first pass of [`lex_on_demand`] found that it needs its embedded
 /// languages.
+///
 /// A line that ends inside a rule that embeds drops the frames kept for the
-/// next line. That line then opens its rules from the state, which notes the
-/// rule.
+/// next line.
+/// That line then opens its rules from the state, which notes the rule.
+///
 /// Its tokens start at `first` in the output.
 /// The second pass gets the work the first pass left.
 /// The line spends one budget.
@@ -920,16 +944,22 @@ fn lex_again<G: Embeds>(
 }
 
 /// The rest of [`lex_embedding`]'s line from where the grammar's `first`
-/// lexer stopped for `embedding`: the embedded language lexes up to its
-/// halt, and the grammar goes on from there, as often as the line asks.
-/// One count for the line starts from what `first` spent; each part is lent
-/// what it has left and adds what it spends, so the whole line spends one
-/// work budget. Out of line, since most lines embed nothing.
+/// lexer stopped for `embedding`.
+///
+/// The embedded language lexes up to its halt, and the grammar goes on from
+/// there.
+/// This repeats as often as the line needs.
+///
+/// One count for the line starts from what `first` spent.
+/// Each part is lent what it has left and adds what it spends.
+/// So the whole line spends one work budget.
+/// Out of line, since most lines embed nothing.
 ///
 /// Where the language halts before it lexed anything, the grammar goes on
 /// with `\G` still holding there, if it held where the language started.
 /// No match has ended anywhere else since the one the embedding started
 /// after, so `\G` holds as it would in a `TextMate` engine.
+///
 /// At the start of a later line inside the rule, no match has ended on the
 /// line, so `\G` does not hold there.
 ///
@@ -1077,8 +1107,9 @@ fn hand_over<G: Embeds>(
 
 /// Whether the hand-over of `embedding` leaves no text on `line`, and the
 /// rule's end halt holds at the line's end.
-/// The language then lexes nothing, and the rule's end is tried there, as
-/// vscode-textmate tries it after a match that reaches the line's end.
+/// The language then lexes nothing, and the rule's end is tried there.
+/// vscode-textmate tries it there too, after a match that reaches the line's
+/// end.
 /// A Ruby line in HAML that ends with `# comment` or a bare `-` ends so.
 #[cfg(feature = "_embedding")]
 fn ends_at_line_end<G: Embeds>(
@@ -1140,11 +1171,14 @@ fn lex_reading_parent_text<G: Embeds>(
 }
 
 /// Where the grammar goes on after the language that the rule `embedding`
-/// embeds stopped as `stopped` says, and the rule's state with the
-/// language's state `inner` as its payload: where a halt held.
-/// Otherwise the state the line ends in: that state where the language lexed
-/// the rest of the line, or the state below the rule where it popped the
-/// rule.
+/// embeds stopped, as `stopped` records.
+///
+/// Where a halt held, it gives that place and the rule's state, with the
+/// language's state `inner` as its payload.
+/// Otherwise it gives the state the line ends in:
+///
+/// - that state, where the language lexed the rest of the line;
+/// - the state below the rule, where it popped the rule.
 #[cfg(feature = "_embedding")]
 fn resume_at<G: Grammar>(
     cx: &mut Context<'_>,
@@ -1193,9 +1227,10 @@ fn with_inner(cx: &mut Context<'_>, embedding: u32, inner: u32) -> u32 {
     })
 }
 
-/// Pops the embedding rule on top of `state`, as vscode-textmate does where
-/// the language it embeds matched an empty text at its root without
-/// advancing ([`StopKind::PopHost`]), and returns the state below it.
+/// Pops the embedding rule on top of `state`, and returns the state below it.
+///
+/// vscode-textmate pops it where the language it embeds matched an empty text
+/// at its root without advancing ([`StopKind::PopHost`]).
 /// The rest of the line from `at` sits on that state's content scopes, in
 /// place of the tokens the language gave it.
 /// The line stops there.
@@ -1221,8 +1256,10 @@ fn pop_host<G: Grammar>(
 }
 
 /// Fills `starts` with where the own patterns of the rule on top of
-/// `state` start on `line` from `at`, for a rule that lists them after
-/// the language it embeds ([`Embeds::embeds_after_own`]).
+/// `state` start on `line` from `at`.
+///
+/// It is for a rule that lists them after the language it embeds
+/// ([`Embeds::embeds_after_own`]).
 /// The search spends from the line's one budget.
 #[cfg(feature = "_embedding")]
 fn own_starts<G: Embeds>(
@@ -1277,6 +1314,7 @@ pub(crate) type Captures<G> = (
 pub(crate) trait Tabled: Grammar {
     /// Whether a pattern is left out inside words only past the scan's first
     /// position.
+    ///
     /// A match inside a word could also start at the word's start, which the
     /// scan has not reached when it begins inside the word.
     /// Then the scan counts its first position inside a word as away from
@@ -1305,13 +1343,19 @@ pub(crate) enum BlankRuns {
     /// Such a pattern, as Sass's `\s-\s`, requires a character that is not a
     /// blank after its blank.
     /// It can match only at the last blank of a run.
+    ///
     /// `ToLast` is sound when every pattern that can match at a later blank
-    /// either matches at the first blank too or is such a pattern.
+    /// does one of two things:
+    ///
+    /// - it matches at the first blank too;
+    /// - it is such a pattern.
+    ///
     /// Then no other pattern can match at the last blank where it failed at
     /// the first.
-    /// A lookbehind on the blank before a pattern can break that: it can let
-    /// the pattern fail at the first blank and at the last, and match between
-    /// them.
+    ///
+    /// A lookbehind on the blank before a pattern can break that.
+    /// It can let the pattern fail at the first blank and at the last, and
+    /// match between them.
     /// A grammar with such a pattern takes [`BlankRuns::Visit`].
     ToLast,
     /// It tries every blank of the run, one byte at a time.
@@ -1329,9 +1373,10 @@ pub(crate) enum Payload {
     None,
     /// The text of a begin capture group, which the end pattern repeats.
     Backref(u8),
-    /// The state of `Language`, whose grammar the rule's patterns include: a
-    /// rule that embeds another language keeps that language's state, and
-    /// the lexer hands the text to it (see [`Lexer::run_embedding`]).
+    /// The state of `Language`, whose grammar the rule's patterns include.
+    ///
+    /// A rule that embeds another language keeps that language's state.
+    /// The lexer hands the text to it (see [`Lexer::run_embedding`]).
     Embed(crate::Language),
 }
 
@@ -1488,6 +1533,7 @@ pub(crate) struct Start {
     pub(crate) places: PlaceSet,
     /// The pattern can match where no byte follows: past the line feed, or
     /// at the end of a last line without one.
+    ///
     /// Such a match is empty, as an anchor such as `$` or `\z`, an optional
     /// atom or a negative lookahead can be.
     /// A lookahead that needs a byte, such as `(?=<<)`, cannot match there.
@@ -1495,11 +1541,13 @@ pub(crate) struct Start {
     pub(crate) matches_at_end: bool,
 }
 
-/// A line and where lexing it starts: byte `start`, where a Markdown fence's
-/// text begins after the indentation of the containers around it. The bytes
-/// before it stay in the line, because the grammar looks at them: `^` matches
-/// only at 0, so a decorator that follows indentation is not at the start of
-/// the line.
+/// A line and where lexing it starts.
+///
+/// Lexing starts at byte `start`, where a Markdown fence's text begins after
+/// the indentation of the containers around it.
+/// The bytes before it stay in the line, because the grammar looks at them.
+/// `^` matches only at 0, so a decorator that follows indentation is not at
+/// the start of the line.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Text<'a> {
     pub(crate) bytes: &'a [u8],

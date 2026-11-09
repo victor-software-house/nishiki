@@ -97,8 +97,10 @@ impl Lexer<'_> {
     /// `^(\s*)(#)(\s*)(@)` or `(@!)` at `p`: where the tag's name starts.
     ///
     /// Group 3 holds the `#` with the blanks after it, though the grammar's
-    /// group holds only the blanks: the end repeats it as `#\3`, and a
-    /// payload that is never empty can say whether the line repeats it.
+    /// group holds only the blanks.
+    /// The end repeats it as `#\3`.
+    /// A payload that is never empty can then show whether the line repeats
+    /// it.
     fn yard_head(&mut self, p: usize, mark: Mark) -> Option<usize> {
         if p != 0 {
             return None;

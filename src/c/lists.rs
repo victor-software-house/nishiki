@@ -809,12 +809,18 @@ fn run_start_only(p: P) -> bool {
 }
 
 /// Whether a pattern of [`run_start_only`] may match in a run of white space
-/// that `b` follows. `b` must start what the pattern reads after the run:
-/// `/` a comment, `#` a `#define`, `(` the parentheses of a `switch` or an
-/// `asm`, `s`, `c` and `d` the words `switch`, `case` and `default`, and `a`,
-/// `b`, `c`, `n`, `o`, `t` and `x` the operator words of an initialization
-/// (`and`, `bitor`, `compl`, `not`, `or`, `typeid`, `xor`, `alignof` and the
-/// rest). A pattern added to [`run_start_only`] adds its bytes here.
+/// that `b` follows.
+///
+/// `b` must start what the pattern reads after the run:
+/// - `/`, a comment;
+/// - `#`, a `#define`;
+/// - `(`, the parentheses of a `switch` or an `asm`;
+/// - `s`, `c` and `d`, the words `switch`, `case` and `default`;
+/// - `a`, `b`, `c`, `n`, `o`, `t` and `x`, the operator words of an
+///   initialization. They are `and`, `bitor`, `compl`, `not`, `or`, `typeid`,
+///   `xor`, `alignof` and the rest.
+///
+/// A pattern added to [`run_start_only`] adds its bytes here.
 pub(super) fn blank_run_live(b: u8) -> bool {
     matches!(
         b,
@@ -823,8 +829,9 @@ pub(super) fn blank_run_live(b: u8) -> bool {
 }
 
 /// Whether `p` reads only the chain that follows the word it starts in.
-/// Inside a word that starts with a letter, such a pattern fails wherever it
-/// failed at the start of the word, when the search tried it there.
+/// Take a word that starts with a letter, where the search tried such a
+/// pattern at the word's start.
+/// Inside that word, the pattern fails wherever it failed at the start.
 fn word_tail_only(p: P) -> bool {
     matches!(
         p,
@@ -872,7 +879,8 @@ pub(super) mod kind {
 }
 use kind::COUNT as KINDS;
 
-/// Whether the pattern `p` can match at a position of the kinds `flags`.
+/// Whether the pattern `p` can match at a position whose `kind` flags are
+/// `flags`.
 fn allowed(flags: usize, p: P) -> bool {
     if flags & kind::START == 0 && start_only(p) {
         return false;
@@ -892,14 +900,14 @@ fn allowed(flags: usize, p: P) -> bool {
     flags & kind::NO_OBJECT == 0 || !object_only(p)
 }
 
-/// One context's patterns by kind of position and first byte, in the order
-/// the context tries them.
+/// One context's patterns by the position's `kind` and first byte, in the
+/// order the context tries them.
 pub(super) struct Table {
     /// The class of each byte, and of the end of text.
     class_of: [u8; EOT + 1],
     /// How many classes the context has.
     classes: usize,
-    /// For each kind and class, the list that applies.
+    /// For each `kind` and class, the list that applies.
     ids: Vec<u16>,
     lists: Vec<Vec<P>>,
 }
@@ -907,8 +915,9 @@ pub(super) struct Table {
 impl Table {
     /// The table of context `r`, built the first time a line reaches `r`.
     /// A line pays only for the contexts it opens.
+    ///
     /// Bytes that start the same patterns share a class.
-    /// Each kind has a column per class.
+    /// Each `kind` has a column per class.
     /// A class index fits a `u8`, and a list index fits a `u16`.
     /// `tables_fit_their_indices` checks both.
     /// The fallbacks therefore never apply.
@@ -924,7 +933,7 @@ impl Table {
     /// Builds the table over sets of the context's patterns.
     /// A set has one bit per pattern, in the order the context tries them.
     /// A class is the set of patterns a byte can start.
-    /// A kind is the set of patterns it allows.
+    /// A `kind` is the set of patterns it allows.
     /// A list is made only for a set not seen before.
     fn build(r: R) -> Table {
         let mut flat = Vec::new();

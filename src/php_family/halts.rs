@@ -12,8 +12,9 @@ pub(crate) fn sql_common(s: &[u8], p: usize) -> bool {
 }
 
 /// `(?=((\\q)|[^oq])*(o|$))` from `at`, after a quote `q` in a SQL string
-/// whose own quote is `o`: the rest of the string holds no unescaped `q`
-/// before its end or the line's.
+/// whose own quote is `o`.
+/// It holds when the rest of the string has no unescaped `q` before its end
+/// or the line's.
 pub(crate) fn quoted_to(s: &[u8], mut at: usize, quote: u8, own: u8) -> bool {
     loop {
         match s.get(at) {

@@ -545,7 +545,8 @@ impl Rule {
 }
 
 /// Whether a template language's injection, such as ERB's, applies to a
-/// rule's text, and how its matches rank against the rule's own.
+/// rule's text.
+/// It also marks how its matches rank against the rule's own.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Injection {
     /// It applies, and loses a tie: a match of the rule that starts at the
@@ -571,14 +572,15 @@ impl Injection {
     }
 }
 
-/// The payload of the root frame of a Markdown fence, where the injection
-/// of the grammar does not apply, as it does not when another grammar
-/// embeds this one.
+/// The payload of the root frame of a Markdown fence.
+/// The injection of the grammar does not apply there, as it does not when
+/// another grammar embeds this one.
 pub(crate) const ROOT_EMBEDDED: u32 = 1;
 
 /// The payload of the root frame of HTML embedded in a document whose
-/// grammar compiles html-derivative's rules first: a Markdown fence, or PHP
-/// or Perl inside one, also in a Svelte `@component` comment.
+/// grammar compiles html-derivative's rules first.
+/// Such HTML sits in a Markdown fence, or in PHP or Perl inside one, also in
+/// a Svelte `@component` comment.
 /// The injection does not apply, as with [`ROOT_EMBEDDED`].
 /// The document is lexed as [`Document::DerivativeFirst`].
 ///
@@ -604,8 +606,8 @@ pub(crate) const ROOT_SVELTE: u32 = 3;
 pub(crate) const ROOT_BLADE_HEREDOC: u32 = 4;
 
 /// The payload of the root frame of a Blade heredoc's HTML under an `@php`
-/// section or a Blade comment, whose scopes shut Blade's injection out of
-/// the tags too.
+/// section or a Blade comment.
+/// Their scopes shut Blade's injection out of the tags too.
 /// It is [`ROOT_BLADE_HEREDOC`] in every other way.
 pub(crate) const ROOT_BLADE_HEREDOC_SEALED: u32 = 5;
 

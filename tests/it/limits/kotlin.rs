@@ -117,7 +117,7 @@ fn hostile_kotlin_lines_finish_within_the_default_limits() {
         line("", "is ", 50_000, ""),
     ];
     // A group that opens a hundred thousand times and closes once is scanned
-    // from each opener, as Oniguruma scans it, and runs into the work limit.
+    // from each opener, as Oniguruma scans it. It runs into the work limit.
     let nested = [line("", "A<", 100_000, ">"), line("", ": (", 50_000, ")")];
     let mut failures = Vec::new();
     for line in nested {

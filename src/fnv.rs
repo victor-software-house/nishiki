@@ -1,8 +1,11 @@
 //! A hash map with a fixed hasher, for word tables built from the crate's own
-//! lists: its probes are the same in every process, so instruction counts of
-//! lexing are too, where std's randomly seeded hasher moved them by about
-//! 0.3% from run to run. Keys that come from the text being lexed keep std's
-//! seeded hasher, which resists inputs crafted to collide.
+//! lists.
+//! Its probes are the same in every process, so instruction counts of lexing
+//! are too.
+//!
+//! std's randomly seeded hasher moved them by about 0.3% from run to run.
+//! Keys that come from the text being lexed keep std's seeded hasher, which
+//! resists inputs crafted to collide.
 
 use std::collections::HashMap;
 use std::hash::{BuildHasherDefault, Hasher};

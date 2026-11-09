@@ -63,9 +63,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of the Dockerfile lines of a Markdown fence, whose
-/// text sits on the stack `base` with no `source.dockerfile` of its own, as in
-/// Shiki's embedding.
+/// The state at the start of the Dockerfile lines of a Markdown fence.
+/// Their text sits on the stack `base` with no `source.dockerfile` of its
+/// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }

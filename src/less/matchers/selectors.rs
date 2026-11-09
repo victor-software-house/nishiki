@@ -21,10 +21,12 @@ impl Lexer<'_> {
         }
     }
 
-    /// `\b([a-z](?:CHAR)*-(?:CHAR)*)\b`: a custom element's name. Of the ends
-    /// after its first `-` where `\b` holds, the backtracking matcher takes
-    /// the last: the last end of the run where `\b` holds, when a `-` comes
-    /// before it. A read from inside the last run shares its ends.
+    /// `\b([a-z](?:CHAR)*-(?:CHAR)*)\b`: a custom element's name.
+    /// Of the ends after its first `-` where `\b` holds, the backtracking
+    /// matcher takes the last.
+    /// That is the last end of the run where `\b` holds, when a `-` comes
+    /// before it.
+    /// A read from inside the last run shares its ends.
     pub(super) fn custom_element(&self, p: usize) -> Option<usize> {
         if !self.at(p).is_ascii_lowercase() || p >= self.lim() || !self.boundary(p) {
             return None;

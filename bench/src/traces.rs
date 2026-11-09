@@ -20,7 +20,7 @@ pub enum Kind {
 }
 
 impl Kind {
-    /// The kind's folder name.
+    /// The folder name of this `Kind`.
     #[must_use]
     pub fn name(self) -> &'static str {
         match self {
@@ -64,7 +64,7 @@ fn invalid(path: &Path, message: &str) -> Error {
     )
 }
 
-/// Every trace of `bench/traces/`, sorted by kind folder and file name.
+/// Every trace of `bench/traces/`, sorted by `Kind` folder and file name.
 ///
 /// # Errors
 ///

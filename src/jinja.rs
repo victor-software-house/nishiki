@@ -5,6 +5,7 @@
 //! bytes, in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
 //! The `matchers` decide where each pattern matches.
+//!
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Tags, comments, strings and brackets are such rules.

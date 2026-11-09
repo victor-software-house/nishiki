@@ -2,9 +2,9 @@
 //!
 //! A line that would cost more than the default work ends at the work limit,
 //! with tokens that cover it, rather than running on.
-//! Command names are measured as a run of letters, so long names and long
-//! runs of backslashes check that no matcher walks a run from each of its
-//! bytes.
+//! Command names are measured as a run of letters.
+//! Long names and long runs of backslashes check that no matcher walks a run
+//! from each of its bytes.
 
 use nishiki::{Highlighter, Language, Limit};
 

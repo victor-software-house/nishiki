@@ -10,9 +10,9 @@
 //!   rest. It prints the three times, counted from just before the highlighter
 //!   is created. Reading the file comes before that.
 //! - A theme sample times `Theme::from_json` on Shiki's github-dark.
-//! - The runner starts `--processes` samples per file (31 by default),
-//!   interleaving files and languages round by round, drops the first three
-//!   rounds, and prints the median and p90 of each time.
+//! - The runner starts `--processes` samples per file (31 by default). It
+//!   interleaves files and languages round by round and drops the first three
+//!   rounds. Then it prints the median and p90 of each time.
 //!
 //! Usage: `cold [--processes N] [--tier small|medium|large|reply] [--tsv]
 //! [language...]`, by default the small tier of every language;
@@ -35,9 +35,10 @@ const PROCESSES: usize = 31;
 /// Rounds dropped before any sample counts.
 const DROPPED: usize = 3;
 
-/// One sample: lexes `path` in the language its folder names, and prints
-/// the µs to create the highlighter, to lex the first line, and to lex
-/// the whole document.
+/// One sample: lexes `path` in the language its folder names.
+///
+/// It prints the µs to create the highlighter, to lex the first line, and to
+/// lex the whole document.
 fn sample(path: &Path) -> Result<(), String> {
     let language = path
         .parent()

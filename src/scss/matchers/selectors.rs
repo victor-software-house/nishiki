@@ -275,9 +275,10 @@ impl Lexer<'_> {
         self.word_in(p, &[b"n", b"even", b"odd"])
     }
 
-    /// The value after an attribute selector's operator at `p`: the name
-    /// group, or a quoted string up to a quote that `\s*]` follows, as the
-    /// lazy `(.*?)` takes the first such quote.
+    /// The value after an attribute selector's operator at `p`.
+    /// It is the name group, or a quoted string up to a quote that `\s*]`
+    /// follows.
+    /// The lazy `(.*?)` takes the first such quote.
     fn attribute_value(&self, p: usize) -> Option<Value> {
         let quote = self.at(p);
         if quote == b'"' || quote == b'\'' {

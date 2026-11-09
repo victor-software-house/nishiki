@@ -6,6 +6,7 @@
 //! The lexer keeps each rule's next match, in `rules`, until the cursor passes
 //! it.
 //! A line is therefore scanned once.
+//!
 //! A string runs across lines.
 //! An open string is the one frame the lexer pushes.
 //! A comment runs to the end of its line.
@@ -55,9 +56,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of the INI lines of a Markdown fence, whose text
-/// sits on the stack `base` with no `source.ini` of its own, as in Shiki's
-/// embedding.
+/// The state at the start of the INI lines of a Markdown fence.
+/// The fence's text sits on the stack `base` with no `source.ini` of its own,
+/// as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }

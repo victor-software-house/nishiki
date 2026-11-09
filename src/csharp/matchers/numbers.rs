@@ -1,10 +1,12 @@
-//! Numeric literals: the grammar finds the text of a number with one
-//! expression, then lexes that text again with five, tried in order, each of
-//! which must match all of it (`$`).
+//! Numeric literals.
+//! The grammar finds the text of a number with one expression.
+//! It then lexes that text again with five, tried in order.
+//! Each must match all of it (`$`).
 //!
 //! The integer, fraction and exponent parts of the first expression repeat
-//! and are optional, so Oniguruma backtracks through them; the matchers
-//! try the same ways in the same order.
+//! and are optional.
+//! Oniguruma therefore backtracks through them.
+//! The matchers try the same ways in the same order.
 
 use super::super::engine::Lexer;
 use crate::classes::is_digit;
@@ -31,9 +33,10 @@ impl Lexer<'_> {
     }
 
     /// `[0-9](?:[0-9]|(?<=\h)_(?=\h))*` from `p`: the end of the run, or `p`
-    /// when no digit stands there. Every position after the first digit is a
-    /// place where the run can end, so a caller that must give characters
-    /// back does it one byte at a time.
+    /// when no digit stands there.
+    /// Every position after the first digit is a place where the run can end.
+    /// A caller that must give characters back therefore does it one byte at a
+    /// time.
     fn decimal_run(&self, p: usize) -> usize {
         if !self.at(p).is_ascii_digit() || p >= self.lim() {
             return p;
@@ -115,9 +118,11 @@ impl Lexer<'_> {
     /// and a `d`, `f` or `m` suffix.
     ///
     /// Oniguruma gives the integer and fraction runs back one byte at a time
-    /// when the rest fails. A byte given back is a digit or a separator,
-    /// where neither the point, the exponent, the suffix nor `$` matches, so
-    /// only the longest runs can succeed and the matcher tries those alone.
+    /// when the rest fails.
+    /// A byte given back is a digit or a separator.
+    /// Neither the point, the exponent, the suffix nor `$` matches there.
+    /// Only the longest runs can therefore succeed, and the matcher tries
+    /// those alone.
     ///
     /// The point is `((?<=[0-9])|\.(?=[0-9]))`: an empty match after a digit,
     /// or a dot before one.

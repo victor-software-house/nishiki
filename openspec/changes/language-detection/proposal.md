@@ -1,6 +1,6 @@
 # Proposal
 
-## Why
+## Motivation
 
 A caller must name the language today.
 `Language::from_name` takes a Shiki id or alias and nothing else.
@@ -18,7 +18,7 @@ This change is on the horizon.
 It records the goal.
 Work starts after the TextMate engine covers the long tail of languages.
 
-## What Changes
+## Changes
 
 - A detector names the language of a text from the evidence it carries.
   It weighs the evidence strongest first:

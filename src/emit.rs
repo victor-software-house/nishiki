@@ -1,9 +1,11 @@
 //! The token and frame bookkeeping the hand-written state machines share.
 //!
 //! A lexer keeps its open contexts as frames of the arena and appends tokens
-//! as it goes. [`Emitter`] holds the arena, the token buffer and the report
-//! with the current state and the end of the last token, so each lexer only
-//! maps its own scope enum onto [`Scope`] and its context enum onto a code.
+//! as it goes.
+//! [`Emitter`] holds the arena, the token buffer, the report, the current
+//! state and the end of the last token.
+//! Each lexer therefore only maps its own scope enum onto [`Scope`] and its
+//! context enum onto a code.
 
 use crate::arena::{Arena, Frame};
 use crate::language::Context;
@@ -56,8 +58,9 @@ impl<'a> Emitter<'a> {
     }
 
     /// Opens a context of kind `code` with `payload`, whose text carries
-    /// `scopes` on top of the current stack; false when the depth or node
-    /// limit keeps it closed, which the report records.
+    /// `scopes` on top of the current stack.
+    /// It returns false when the depth or node limit keeps it closed, which
+    /// the report records.
     ///
     /// [`Limits::depth_reached`] counts the contexts open above the
     /// language's root, and a frame's depth counts the root too.

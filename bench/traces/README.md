@@ -40,5 +40,7 @@ mise run check:traces       # fail when a trace and its source disagree
 `check:traces` writes the append traces again and compares the bytes.
 It replays each edit trace and compares the result with the trace's `sha256`.
 It also compares the result with the source file at the trace's `to` commit, where the clone holds that commit.
-CI's shallow clone does not, so there the check says so and relies on the `sha256`.
+CI's shallow clone does not.
+There the check prints the traces whose `to` commit the clone lacks, and relies on the `sha256`.
+
 Writing the edit traces needs nishiki's history up to the commit `traces.ts` names, so the check never writes them.

@@ -2,19 +2,25 @@
 //! comes from VS Code.
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers
-//! over bytes (see the `engine` module). The rules left open at the end of a
-//! line (a tag with its attributes, a comment, a quoted value, an `svg`
-//! element, the CSS of a `<style>` element) are frames of the highlighter's
-//! interned state; the tag and attribute names that the grammar copies into
-//! scope names are made at run time.
+//! over bytes (see the `engine` module).
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
+//! Such a rule is a tag with its attributes, a comment, a quoted value, an
+//! `svg` element or the CSS of a `<style>` element.
 //!
-//! It reproduces Shiki's output, quirks included: the grammar's injection
-//! flags a `<` that no rule claims, even inside a quoted value; an attribute
-//! name is a word of the grammar's lists or any other run of characters; the
-//! `svg` and `math` elements have rules of their own, and read the
-//! attributes of a start tag that the line holds whole on that text alone;
-//! and the CSS and JavaScript of `<style>` and `<script>` elements run on the
-//! CSS and TypeScript lexers, which halt at the end tag.
+//! The tag and attribute names that the grammar copies into scope names are
+//! made at run time.
+//!
+//! It reproduces Shiki's output, quirks included:
+//!
+//! - The grammar's injection flags a `<` that no rule claims, even inside a
+//!   quoted value.
+//! - An attribute name is a word of the grammar's lists or any other run of
+//!   characters.
+//! - The `svg` and `math` elements have rules of their own. They read the
+//!   attributes of a start tag that the line holds whole on that text alone.
+//! - The CSS and JavaScript of `<style>` and `<script>` elements run on the CSS
+//!   and TypeScript lexers, which halt at the end tag.
 //!
 //! An empty line leaves the state as it is, because Shiki does not tokenize
 //! empty lines.
@@ -52,10 +58,11 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of the HTML lines of a fenced code block, whose
-/// text sits on the stack `base` with no `text.html.basic` of its own, as in
-/// Shiki's embedding. The grammar's injection does not apply there, as it
-/// does not when another grammar embeds this one.
+/// The state at the start of the HTML lines of a fenced code block.
+/// Their text sits on the stack `base` with no `text.html.basic` of its own,
+/// as in Shiki's embedding.
+/// The grammar's injection does not apply there, as it does not when another
+/// grammar embeds this one.
 ///
 /// The outermost scope of `base` names the document's grammar.
 /// When it is one of [`DERIVATIVE_FIRST`], the root frame records it with
@@ -86,8 +93,8 @@ const DERIVATIVE_FIRST: &[Scope] = &[
 ];
 
 /// Lexes `line` from `state`, under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// ([`Language::lex`](crate::Language)), and returns the state after it.
+/// Token ends count from the start of the whole line.
 ///
 /// An empty line leaves the state as it is: Shiki does not tokenize empty
 /// lines.
@@ -100,9 +107,13 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 }
 
 /// Lexes `line` like [`lex`], for HTML that another language embeds from
-/// [`start_embedded`]: the line halts at the first place where `end` holds
-/// before the root's patterns, or `after` holds where none of them matches,
-/// while no rule of HTML is open, and the second value is where.
+/// [`start_embedded`].
+/// While no rule of HTML is open, the line halts at the first of these
+/// places:
+/// - where `end` holds before the root's patterns;
+/// - where `after` holds and none of them matches.
+///
+/// The second value is where.
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,
@@ -155,9 +166,10 @@ pub(crate) enum Span {
 }
 
 /// Lexes html-derivative in a rule of another grammar that includes the
-/// grammar's root patterns or hands it a capture group: from `line.start`
-/// and `state` up to where `give_back` returns the line, or to the end of the
-/// text. Returns the state there and, when the line went back to the including
+/// grammar's root patterns or hands it a capture group.
+/// It lexes from `line.start` and `state` up to where `give_back` returns
+/// the line, or to the end of the text.
+/// It returns the state there and, when the line went back to the including
 /// grammar, where.
 #[cfg(feature = "lang-html-derivative")]
 pub(crate) fn lex_derivative_until(

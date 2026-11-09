@@ -167,8 +167,9 @@ impl<G: PhpFamily> Lexer<'_, G> {
     }
 
     /// `'(?=((\\')|[^"'])*("|$))` and its kin: a quote `quote` inside a SQL
-    /// string whose own quote is `own`, when the rest of the string holds no
-    /// unescaped `quote` before its end or the line's.
+    /// string whose own quote is `own`.
+    /// It matches when the rest of the string holds no unescaped `quote`
+    /// before its end or the line's.
     pub(crate) fn sql_quote(&self, p: usize, quote: u8, own: u8) -> Option<usize> {
         if self.at(p) != quote || p >= self.lim() {
             return None;

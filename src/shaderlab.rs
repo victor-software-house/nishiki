@@ -7,11 +7,15 @@
 //! in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
 //! The `matchers` decide where each pattern matches.
-//! A `CGPROGRAM` or `HLSLPROGRAM` block hands its text to the HLSL lexer,
-//! which halts at the block's end and where one of Unity's own patterns
-//! starts and none of HLSL's matches.
+//!
+//! A `CGPROGRAM` or `HLSLPROGRAM` block hands its text to the HLSL lexer.
+//! That lexer halts at the block's end.
+//! It also halts where one of Unity's own patterns starts and none of HLSL's
+//! matches.
+//!
 //! The rules left open at the end of a line are frames of the highlighter's
-//! interned state; a block's frame keeps HLSL's state.
+//! interned state.
+//! A block's frame keeps HLSL's state.
 
 mod engine;
 mod grammar;

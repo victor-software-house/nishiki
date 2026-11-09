@@ -17,7 +17,7 @@ pub(in crate::swift) struct Memo {
     blank: Cell<(usize, usize)>,
 }
 
-/// The kinds an import may name: `import struct A.B`.
+/// The declaration keywords an import may name: `import struct A.B`.
 const IMPORT_KINDS: [&[u8]; 8] = [
     b"typealias",
     b"struct",

@@ -358,10 +358,11 @@ impl Lexer<'_> {
     /// Where the scan goes on after no pattern matched at `p`.
     ///
     /// Outside the root, every byte may start a pattern.
-    /// In the root, a pattern starts at `"`, `;`, `#` or `(`, at the start of
-    /// the line, or after a byte that one of the lookbehinds reads: `(`, a
-    /// blank, `,`, `@`, `.`, `'`, `:`, or a byte above ASCII, which may end a
-    /// `\s`.
+    /// In the root, a pattern starts at `"`, `;`, `#` or `(`, or at the start
+    /// of the line.
+    /// It also starts after a byte that one of the lookbehinds reads.
+    /// Those bytes are `(`, a blank, `,`, `@`, `.`, `'`, `:`, or a byte above
+    /// ASCII, which may end a `\s`.
     /// Every other place is skipped.
     pub(super) fn after_miss(&self, p: usize) -> usize {
         let mut i = self.char_end(p);

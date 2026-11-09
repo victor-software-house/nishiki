@@ -1,5 +1,7 @@
 //! The character classes the matchers of the grammars on the rule engine
-//! share: `\w`, `\s`, `\d` and `\b` as Oniguruma reads them in UTF-8, and the
+//! share.
+//!
+//! They are `\w`, `\s`, `\d` and `\b` as Oniguruma reads them in UTF-8, and the
 //! literal and keyword tests built on them.
 
 use super::{Grammar, Lexer};
@@ -9,7 +11,8 @@ use crate::classes::{is_ascii_word, is_digit, is_space, is_word};
 /// on the rule engine.
 ///
 /// A method of the same name that a language defines on its own lexer takes
-/// precedence, so a language moves to these one at a time.
+/// precedence.
+/// A language therefore moves to these one at a time.
 pub(crate) trait Chars {
     /// The width of the `\w` character at `i`, when there is one.
     fn word_at(&self, i: usize) -> Option<usize>;
@@ -53,14 +56,18 @@ pub(crate) trait Chars {
     fn keyword_out_of_line(&self, i: usize, text: &[u8]) -> Option<usize>;
 
     /// The end of the word at `i` when `\b` holds before it and the whole word
-    /// is one of `words`, which is what `\b(a|b|c)\b` accepts when no word of
-    /// the list is a prefix of a word that follows it.
+    /// is one of `words`.
+    ///
+    /// This is what `\b(a|b|c)\b` accepts when no word of the list is a prefix
+    /// of a word that follows it.
     fn word_in(&self, i: usize, words: &[&[u8]]) -> Option<usize>;
 }
 
-/// Every method is `#[inline]`: a language's matchers call them in their own
-/// codegen unit, and without it Python lexed about 3% slower than with the
-/// inherent copies these replace.
+/// Every method is `#[inline]`.
+///
+/// A language's matchers call them in their own codegen unit.
+/// Without it, Python lexed about 3% slower than with the inherent copies these
+/// replace.
 impl<G: Grammar> Chars for Lexer<'_, G> {
     /// The width of the `\w` character at `i`, when there is one.
     #[inline]
@@ -202,8 +209,10 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     }
 
     /// The end of the word at `i` when `\b` holds before it and the whole word
-    /// is one of `words`, which is what `\b(a|b|c)\b` accepts when no word of
-    /// the list is a prefix of a word that follows it.
+    /// is one of `words`.
+    ///
+    /// This is what `\b(a|b|c)\b` accepts when no word of the list is a prefix
+    /// of a word that follows it.
     #[inline]
     fn word_in(&self, i: usize, words: &[&[u8]]) -> Option<usize> {
         if !self.boundary(i) {

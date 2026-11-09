@@ -225,9 +225,11 @@ impl Lexer<'_> {
         None
     }
 
-    /// `\s*` from `p`. Most patterns start with it, so a read from inside
-    /// the last run of white space ends where that run does, and a long run
-    /// is read once, not once at each of its places.
+    /// `\s*` from `p`.
+    /// Most patterns start with it.
+    /// So a read from inside the last run of white space ends where that run
+    /// does.
+    /// A long run is therefore read once, not once at each of its places.
     pub(super) fn spaces(&self, p: usize) -> usize {
         let (from, to) = self.x.spaces.get();
         if from < p && p < to && self.at(p) & 0xc0 != 0x80 {

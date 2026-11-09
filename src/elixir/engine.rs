@@ -1,6 +1,6 @@
-//! Elixir on the shared rule engine ([`crate::rules`]): the grammar's types,
-//! what its matchers remember about a line, and where HTML in a sigil hands
-//! the line back.
+//! Elixir on the shared rule engine ([`crate::rules`]).
+//! The module holds the grammar's types, what its matchers remember about a
+//! line, and where HTML in a sigil hands the line back.
 
 use std::cell::Cell;
 use std::convert::Infallible;

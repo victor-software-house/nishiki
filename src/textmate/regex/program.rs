@@ -201,9 +201,11 @@ fn leading_class(node: &Node) -> Option<(Class, &[Node])> {
     }
 }
 
-/// Alternatives a case fold adds that wait to be compiled after the program:
-/// they start at the `secondary` of the instruction at `at`, carry the lead
-/// of each of their suffixes, and go back to `back` when one matches.
+/// Alternatives a case fold adds that wait to be compiled after the program.
+///
+/// - They start at the `secondary` of the instruction at `at`.
+/// - They carry the lead of each of their suffixes.
+/// - They go back to `back` when one matches.
 struct Deferred {
     at: u32,
     alts: Vec<Node>,

@@ -2,9 +2,10 @@
 //! the `asm` grammar Shiki 4.6.0 bundles; do not edit.
 //!
 //! A [`Pat`] is one regular expression of the grammar, or [`Pat::Word`], the
-//! registers and mnemonics merged; its doc comment says which. Each rule lists
-//! the patterns it tries, in the grammar's order with its `include`s
-//! flattened, so the first that matches at the earliest position wins as in a
+//! registers and mnemonics merged; its doc comment shows which.
+//! Each rule lists the patterns it tries, in the grammar's order with its
+//! `include`s flattened.
+//! So the first that matches at the earliest position wins, as in a
 //! `TextMate` engine.
 
 use super::engine::Asm;

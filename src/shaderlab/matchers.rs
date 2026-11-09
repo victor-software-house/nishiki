@@ -130,6 +130,7 @@ impl Lexer<'_> {
     /// a digit before a digit, where no `\b` stands, until none is left.
     /// Then the `\b` holds between the `.` and the first digit, so `1.5x`
     /// matches `1.`.
+    ///
     /// With no fraction digits, giving back the `.` leaves a `\b` between the
     /// last digit and the `.`, so `1. ` matches `1`.
     /// Giving back an integer digit leaves a digit before a digit.

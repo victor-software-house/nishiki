@@ -1,12 +1,12 @@
 # Proposal
 
-## Why
+## Motivation
 
 The `bench-methodology` change set two questions aside in its group 8.
 They did not start before its other groups finished.
 The lead moved them to this change on 2026-11-04, so `bench-methodology` can be archived.
 
-## What Changes
+## Changes
 
 - Each language's hostile lines move from `tests/it/limits/` into data.
   The limit tests and a new `hostile` bench both read that data.

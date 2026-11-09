@@ -23,6 +23,7 @@ impl Lexer<'_> {
     /// The possessive body takes `\/` whole and any other character alone.
     /// It therefore stops at the first `/` that no backslash right before it
     /// escapes, counting a backslash that a backslash escapes.
+    ///
     /// Of the flags, each end from the longest is tried.
     /// The blanks after them cannot end early.
     /// No alternative after them starts with a blank, and `$` holds at the end

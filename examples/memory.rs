@@ -1,7 +1,9 @@
-//! Lexes every oracle fixture of one language, line by line from a fresh
-//! highlighter each, and prints what that pass allocated: allocations, bytes,
-//! and the most bytes held at once by any one document, as
-//! `<allocations> <bytes> <peak>`.
+//! Lexes every oracle fixture of one language, and prints what that pass
+//! allocated.
+//!
+//! Each document is lexed line by line from a fresh highlighter. The output
+//! is `<allocations> <bytes> <peak>`: allocations, bytes, and the most bytes
+//! held at once by any one document.
 //!
 //! `mise run callgrind` runs it at a pull request's base and head. It shows
 //! the counts beside the instruction table, for information. The counts are

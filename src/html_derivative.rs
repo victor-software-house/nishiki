@@ -1,8 +1,9 @@
 //! html-derivative, with the scopes of the `html-derivative` grammar that
-//! Shiki bundles, which comes from VS Code: HTML with a rule of its own for
-//! the tags that no other rule takes, such as `<Foo/>` or `<x:y>`, which it
-//! names `meta.tag.other.unrecognized.html.derivative`. Vue's templates
-//! embed it.
+//! Shiki bundles, which comes from VS Code.
+//! It is HTML with a rule of its own for the tags that no other rule takes,
+//! such as `<Foo/>` or `<x:y>`.
+//! The rule names them `meta.tag.other.unrecognized.html.derivative`.
+//! Vue's templates embed it.
 //!
 //! The HTML lexer runs it, in the grammar's derivative mode.
 
@@ -16,9 +17,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     crate::html::start_derivative(arena, base)
 }
 
-/// The state at the start of html-derivative embedded in another language,
-/// whose text sits on `base` with no `text.html.derivative` of its own, and
-/// where the grammar's injection does not apply, as in Shiki.
+/// The state at the start of html-derivative embedded in another language.
+/// Its text sits on `base` with no `text.html.derivative` of its own.
+/// The grammar's injection does not apply there, as in Shiki.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     crate::html::start_embedded(arena, base)
 }

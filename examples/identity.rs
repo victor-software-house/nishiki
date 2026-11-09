@@ -1,16 +1,21 @@
 //! Prints a hash of nishiki's tokens for each oracle fixture and for edited
-//! copies of it, one line per document, so that two commits can be compared
-//! for identical output: `mise run identity <base>` runs it on both and
-//! diffs the lines.
+//! copies of it, one line per document.
 //!
-//! The edits put the lexers into states the fixtures alone do not reach: a
-//! byte that opens or closes something is inserted, a run of bytes is cut,
-//! and lines are swapped. Each fixture's edits are drawn from a seed of its
-//! language and name, so every run makes the same documents, and a tree with
-//! more fixtures makes the same edits of the ones both trees share.
+//! Two commits can then be compared for identical output.
+//! `mise run identity <base>` runs it on both and diffs the lines.
+//!
+//! The edits put the lexers into states the fixtures alone do not reach:
+//!
+//! - a byte that opens or closes something is inserted;
+//! - a run of bytes is cut;
+//! - lines are swapped.
+//!
+//! Each fixture's edits are drawn from a seed of its language and name.
+//! Every run therefore makes the same documents. A tree with more fixtures
+//! makes the same edits of the ones both trees share.
 //!
 //! Usage: `identity [fixtures] [--dump <language> <fixture> <edit>]`. The
-//! fixtures default to this tree's `tests/oracle`; `--dump` prints the tokens
+//! fixtures default to this tree's `tests/oracle`. `--dump` prints the tokens
 //! of one document, to see where two commits differ.
 
 #![expect(clippy::print_stdout, reason = "the tool prints its results")]

@@ -200,7 +200,8 @@ fn bytes_that_are_not_utf8_become_replacement_characters() {
     }
 }
 
-/// Each delta changes only the lines it touched, and the changes say so.
+/// Each delta changes only the lines it touched, and the changes list those
+/// lines.
 #[test]
 fn changes_hold_every_line_a_delta_touched() {
     let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));

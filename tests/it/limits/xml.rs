@@ -60,8 +60,10 @@ fn hostile_xml_lines_finish_within_the_default_limits() {
 }
 
 /// A pinned depth counts the rules open above the document's root, as in every
-/// language: a depth of one opens a tag and keeps its quoted value plain, and a
-/// depth of two opens both.
+/// language.
+///
+/// A depth of one opens a tag and keeps its quoted value plain. A depth of two
+/// opens both.
 #[test]
 fn xml_rules_past_the_depth_limit_are_not_opened() {
     for (depth, string_opens) in [(1, false), (2, true)] {

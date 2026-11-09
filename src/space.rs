@@ -1,10 +1,15 @@
 //! The Unicode spaces that `\s` reads in the grammars Shiki runs.
 
 /// The length in bytes of the Unicode space that starts `bytes`, or 0 when
-/// none does. Shiki's regex engine reads `\s` as the Unicode `White_Space`
-/// characters, which are the ASCII blanks and these: U+0085, U+00A0, U+1680,
-/// U+2000 to U+200A, U+2028, U+2029, U+202F, U+205F and U+3000. U+FEFF and
-/// U+200B are not among them.
+/// none does.
+///
+/// Shiki's regex engine reads `\s` as the Unicode `White_Space` characters.
+/// They are the ASCII blanks and these:
+/// - U+0085, U+00A0 and U+1680;
+/// - U+2000 to U+200A;
+/// - U+2028, U+2029, U+202F, U+205F and U+3000.
+///
+/// U+FEFF and U+200B are not among them.
 pub(crate) fn len(bytes: &[u8]) -> usize {
     match bytes {
         [0xc2, 0x85 | 0xa0, ..] => 2,

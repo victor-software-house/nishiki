@@ -1,5 +1,6 @@
 //! Where the languages HAML embeds hand the line back: the ends of HAML's
 //! embedding rules, and the patterns those rules list before the language.
+//!
 //! Each test reads the line's bytes `s` alone, without the line feed.
 //! The line's end, `s.len()`, stands for the line feed, which the grammar's
 //! `\s` and `\R` take.
@@ -140,7 +141,8 @@ pub(in crate::haml) fn php_call(s: &[u8], p: usize, word: &[u8]) -> Option<(usiz
 /// end after blanks and a comment.
 /// It ends at the line's end, before the line feed.
 /// vscode-textmate then tries the Ruby line's end, `$`, which closes the line
-/// there; the engine does the same where a hand-over leaves no text.
+/// there.
+/// The engine does the same where a hand-over leaves no text.
 ///
 /// Giving back a blank of `\s*` leaves a blank where `#` or the line's end
 /// must stand.

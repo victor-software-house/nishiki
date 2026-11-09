@@ -108,6 +108,7 @@ impl Lexer<'_> {
     /// A cheap test that a type and a name can follow at `at`.
     /// The expressions for declarations, definitions and constructor calls
     /// pass it before their enumeration of ways.
+    ///
     /// It holds when the first word is followed by another word, or by what
     /// continues a type, a pointer mark as `pointers` says.
     /// An attribute or a comment may come first, and any of them passes.
@@ -169,6 +170,7 @@ impl Lexer<'_> {
     /// It finds the first way for which `rest` matches what follows.
     /// `rest` gets where the run ends, the first gap, and the gap after the
     /// last `*` or `&` that the loop took, with where that gap starts.
+    ///
     /// The loop takes as much as it can and gives back one step at a time.
     /// The run itself is optional.
     /// Without one, `rest` is given `None` last.

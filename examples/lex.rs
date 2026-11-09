@@ -1,7 +1,9 @@
-//! Lexes every oracle fixture of one language in three passes, line by line
-//! from a fresh highlighter for each document, and prints nothing: the
-//! program `mise run callgrind` counts instructions of, at a pull request's
-//! base and head.
+//! Lexes every oracle fixture of one language in three passes, and prints
+//! nothing.
+//!
+//! Each document is lexed line by line from a fresh highlighter.
+//! `mise run callgrind` counts this program's instructions at a pull
+//! request's base and head.
 //!
 //! Callgrind counts each pass on its own:
 //!
@@ -79,7 +81,9 @@ fn main() -> ExitCode {
 }
 
 /// The first pass of the process, which callgrind counts as the first
-/// document; kept out of line so that it has a symbol of its own.
+/// document.
+///
+/// It is kept out of line so that it has a symbol of its own.
 ///
 /// It returns the last line's token count.
 /// That keeps its body apart from [`colour_pass`], whose symbol it would

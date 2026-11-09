@@ -6,10 +6,12 @@
 //! The HTML lexer runs it, with Blade's injection in place of the HTML
 //! grammar's.
 //! Blade's own rules, such as `{{ … }}` and `@if (…)`, are rules of that lexer.
+//!
 //! The PHP inside them is Blade's own copy of PHP's rules, which the modules
 //! here lex on the shared rule engine ([`crate::rules`]).
-//! That PHP hands the line back where the Blade rule ends, and also where
-//! Blade's injection starts, at any depth of the PHP, as in Shiki.
+//! That PHP hands the line back where the Blade rule ends.
+//! It also hands the line back where Blade's injection starts, at any depth
+//! of the PHP, as in Shiki.
 
 mod engine;
 mod grammar;

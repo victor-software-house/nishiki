@@ -20,6 +20,7 @@ use super::ast::{Anchor, Class, Item, Kind, Node};
 ///
 /// A sequence is cut at its first positive lookahead.
 /// The lookahead's pattern replaces the lookahead and everything after it.
+///
 /// A match that starts at `s` has the text before the lookahead.
 /// The lookahead's pattern then matches at the end of that text.
 /// The two in a row therefore match wherever a match can start.
@@ -118,8 +119,10 @@ fn reaches_beyond_ascii(class: &Class) -> bool {
         })
 }
 
-/// A class with its exact ASCII members, and beyond ASCII its ranges when it
-/// is a union of ranges, or every other character when it can have any.
+/// A class with its exact ASCII members, and its members beyond ASCII.
+///
+/// Beyond ASCII it takes its ranges when it is a union of ranges, or every
+/// other character when it can have any.
 ///
 /// A class with no member matches nothing.
 fn class_hir(class: &Class) -> Hir {

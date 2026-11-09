@@ -68,9 +68,11 @@ pub(crate) const DIGIT: Bytes = Bytes::range(b'0', b'9');
 /// Such a character may be a letter.
 pub(crate) const HIGH: Bytes = Bytes::range(0x80, 0xff);
 
-/// What `\s` reads, with the line's newline, and the first bytes of the
-/// Unicode spaces it also reads: U+0085 and U+00A0, U+1680, U+2000 to U+200A,
-/// U+2028, U+2029, U+202F and U+205F, and U+3000.
+/// What `\s` reads, with the line's newline.
+/// It also holds the first bytes of the Unicode spaces `\s` reads:
+/// - U+0085, U+00A0 and U+1680;
+/// - U+2000 to U+200A;
+/// - U+2028, U+2029, U+202F, U+205F and U+3000.
 pub(crate) const BLANK: Bytes = Bytes::of(b" \t\n\r\x0b\x0c\xc2\xe1\xe2\xe3");
 
 /// Where a name can start: a letter, `$`, `_` or a non-ASCII character.
@@ -88,8 +90,9 @@ pub(crate) const ANY: Bytes = Bytes::range(0, 255);
 /// `a`-`z` and `A`-`Z`.
 pub(crate) const LETTER: Bytes = LOWER.or(UPPER);
 
-/// Where a string or a template literal can start: a quote, a tag's name or
-/// member chain, or the blanks and `<` of a tag that has type arguments.
+/// Where a string or a template literal can start.
+/// That is a quote, a tag's name or member chain, or the blanks and `<` of a
+/// tag that has type arguments.
 pub(crate) const STRING_START: Bytes = NAME_START.or(BLANK).or(Bytes::of(b"'\"`.?<"));
 
 /// Where a comment can start: `/`, or the blanks before a `//` at the line's
@@ -113,8 +116,9 @@ pub(crate) const OPERATOR_START: Bytes = Bytes::of(b"aydionstv")
     .or(BLANK)
     .or(Bytes::of(b".*-/%+&^|<>!=?~"));
 
-/// Where a class member can start: a modifier or a name, a `*`, a computed or
-/// quoted key, a `#` private name, a number, or the blanks before them.
+/// Where a class member can start.
+/// That is a modifier or a name, a `*`, a computed or quoted key, a `#`
+/// private name, a number, or the blanks before them.
 pub(crate) const MEMBER_START: Bytes = NAME_START
     .or(BLANK)
     .or(DIGIT)

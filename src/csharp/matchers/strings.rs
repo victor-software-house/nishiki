@@ -116,9 +116,10 @@ impl Lexer<'_> {
         (self.avail(end) && self.at(end) != b'"').then_some(end)
     }
 
-    /// `(")|([^\n\\{])$` and its kin: the closing quote as group 1, or the last
-    /// character of the line unless it is one of `excluded` or the line
-    /// feed, as group 2.
+    /// `(")|([^\n\\{])$` and its kin.
+    /// The closing quote is group 1.
+    /// Otherwise the last character of the line is group 2, unless it is one
+    /// of `excluded` or the line feed.
     pub(in crate::csharp) fn string_end(
         &mut self,
         p: usize,

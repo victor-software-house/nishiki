@@ -8,9 +8,10 @@ use crate::scope::{Scopes, scopes};
 const TAG: u16 = crate::tag::MAKE;
 
 crate::tag::frame_kinds! {
-    /// A rule of the grammar: a begin/end rule that can stay open at the end of a
-    /// line, or a pseudo rule that only lists the patterns a capture is lexed
-    /// again with.
+    /// A rule of the grammar.
+    /// It is a begin/end rule that can stay open at the end of a line, or a
+    /// pseudo rule.
+    /// A pseudo rule only lists the patterns a capture is lexed again with.
     pub(crate) enum Rule: TAG {
         /// Outside every rule.
         Root,

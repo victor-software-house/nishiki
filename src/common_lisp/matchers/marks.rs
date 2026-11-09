@@ -259,9 +259,12 @@ impl Lexer<'_> {
         Some(p + 2)
     }
 
-    /// `PunctuationAt11`, after `(?<=^|[(\s])` and before a `\S`: a
-    /// backquote with `#` as group 2, a backquote as group 3 with its comma
-    /// as group 4, or a comma alone as group 5.
+    /// `PunctuationAt11`, after `(?<=^|[(\s])` and before a `\S`.
+    /// It is one of:
+    /// - a backquote with `#` as group 2;
+    /// - a backquote as group 3 with its comma as group 4;
+    /// - a comma alone as group 5.
+    ///
     /// Each comma is `,(?:@|\.?)`.
     ///
     /// The comma's `(?:@|\.?)` gives back its `@` or `.` when no `\S`
@@ -349,7 +352,8 @@ impl Lexer<'_> {
     /// The lazy `\S+?` tries each end in turn, the nearest first, and at
     /// each `::?` tries `::` before `:`.
     /// The first end that works does not depend on where the run of `\S`
-    /// started, so a place later in the run of the last search reuses it.
+    /// started.
+    /// A place later in the run of the last search therefore reuses it.
     pub(super) fn quoted_earmuffs(&mut self, p: usize) -> Option<usize> {
         if self.prev(p) != Some(b'\'') || !self.after_form(p - 1) || !self.non_space(p) {
             return None;

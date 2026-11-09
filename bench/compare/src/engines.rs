@@ -1,6 +1,8 @@
-//! The engines the comparison runs, each behind one interface: set up for
-//! one language, colour a document as fast as it can, and report the same
-//! document's colours per byte for the fidelity score.
+//! The engines the comparison runs, each behind one interface.
+//!
+//! An engine sets up for one language and colours a document as fast as it
+//! can. It also reports the same document's colours per byte for the fidelity
+//! score.
 //!
 //! Every engine colours with Shiki's github-dark, from the file the oracle
 //! pins (bench/compare/README.md, fairness rule 2).

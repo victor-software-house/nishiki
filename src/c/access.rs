@@ -60,7 +60,7 @@ impl Lexer<'_> {
         matches!(self.prev(p), Some(b']' | b')')).then(|| self.skip_space(p))
     }
 
-    /// The chain at `p` that ends in a name of the kind `last`.
+    /// The chain at `p` that ends in a name that `last` selects.
     ///
     /// The repeated objects `((?:[A-Za-z_]\w*\s*(?:\.\*?|->\*?)\s*)*)` after
     /// the first operator are greedy.
@@ -197,11 +197,13 @@ impl Lexer<'_> {
 
     /// `(?:[A-Za-z_][0-9A-Za-z_]*+|::)++` at `i`: where the run ends.
     ///
-    /// The call patterns ask at every byte of a run.
+    /// The call patterns try every byte of a run.
     /// A walk past a plain name is therefore cached.
+    ///
     /// A run of colons takes its pairs from wherever it is entered.
     /// It passes when an even number of colons is left.
     /// Otherwise it stops before the last colon.
+    ///
     /// Every position a step lands on after the first starts a name or a run
     /// of colons.
     /// The cached walk, when it covers that position, lands on it too.

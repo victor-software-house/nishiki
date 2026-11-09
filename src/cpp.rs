@@ -33,9 +33,10 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of the C++ lines of a fenced code block or a here
-/// document, whose text sits on the stack `base` with no `source.cpp` of its
-/// own: the language that embeds C++ names it, as Markdown's and Ruby's
-/// grammars do in their `contentName`.
+/// document.
+/// Their text sits on the stack `base` with no `source.cpp` of its own.
+/// The language that embeds C++ names it, as Markdown's and Ruby's grammars
+/// do in their `contentName`.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     rules::start_embedded::<Cpp>(arena, base)
 }

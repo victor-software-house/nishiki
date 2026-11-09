@@ -1,6 +1,6 @@
 # Proposal
 
-## Why
+## Motivation
 
 nishiki's TextMate engine runs a grammar's rules.
 A grammar that embeds another language includes that language's grammar.
@@ -28,7 +28,7 @@ Each does it through the embedded language's `lex_until` and a `Halt` ([`src/lan
 This change lets the engine be the embedding side of that same contract.
 It also gives every language one entry point for it.
 
-## What Changes
+## Changes
 
 - One halt contract, `Halts`, holds three tests:
   - `before`: the embedding rule's end and the patterns listed before the include;
@@ -38,7 +38,7 @@ It also gives every language one entry point for it.
   Each test is a closure.
   An engine end with back-references can then halt a hand lexer.
 - `Language::lex_until`, which [#159][pr159] adds, takes `&Halts`.
-  Every language whose row says `halts: true` honours all three tests.
+  Every language whose row sets `halts: true` honours all three tests.
 - An embedded language can be entered at its root or at an entry it offers.
   An example is TypeScript's `expression`, for Vue.
 - The table generator marks an include of a hand-lexed grammar as a hand-off to that language and entry.
@@ -54,7 +54,8 @@ It also gives every language one entry point for it.
 
 ### New Capabilities
 
-- `engine-handoff`: a grammar the engine runs hands an embedded region to the hand lexer of the embedded language and takes the line back where the grammar's end matches.
+- `engine-handoff`: a grammar the engine runs hands an embedded region to the hand lexer of the embedded language.
+  It takes the line back where the grammar's end matches.
 
 ### Modified Capabilities
 
@@ -64,7 +65,7 @@ It also gives every language one entry point for it.
 
 - `src/language.rs`: `Halts`, `Entry`, `Language::lex_until` and `Language::start_embedded`.
 - The rule engine and TypeScript: all three tests, the comment skip for `any`, the full state at an `any` halt.
-- Each language module whose row says `halts: true`: its `lex_until` on `&Halts`.
+- Each language module whose row sets `halts: true`: its `lex_until` on `&Halts`.
 - `src/textmate/`: the hand-off frame, the halt built from the end pattern, the resume.
 - `oracle/engine-tables.ts`: the hand-off entry in the tables.
 - Julia's table loses its engine copies of Python, JavaScript and SQL.

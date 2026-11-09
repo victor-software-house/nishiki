@@ -11,11 +11,12 @@ For every begin pattern, `Scanner::build` calls [`Cells::regex`][grammar].
 `Regex::for_scanner` parses the pattern.
 It applies the lean rewrite for lean lines.
 It compiles the exact program.
-It works out the pattern's first bytes.
+
+`Regex::for_scanner` also works out the pattern's first bytes.
 It clones the tree in `relax::widen` and builds the relaxed `Hir` from the clone.
 `Scanner::build` then compiles the list's relaxed `Hir`s into one `regex-automata` meta automaton.
 
-### Where CMake's first token goes
+### CMake's first-token cost
 
 Callgrind measured it at one codegen unit, at [38ab4d76][head].
 The harness is a scratch example outside the repository.
@@ -109,6 +110,7 @@ That pattern then runs both stages from one parse, as `Regex::for_scanner` does 
 
 The sketch uses the full tree, not the lean tree.
 A lean list's scanner then no longer waits on the lean rewrite.
+
 The lean rewrite only drops alternatives.
 So the full tree's relaxed `Hir` matches a superset of the lean tree's.
 The full tree's first bytes are a superset too.
@@ -183,7 +185,7 @@ Its steady state must stay at or under main for every language.
 - [Rejected] Cutting the relaxed pattern short would shrink the automaton further.
   The work budget charges up to the candidate's end, in [`Tokenizer::scan_list`][tokenizer].
   A shorter relaxed pattern would change those charges.
-- [Risk] In nishiki-archive#347, a type change inside `Regex` moved the register allocation of `Tokenizer::scan`.
+- [Risk] In [#347][pr347], a type change inside `Regex` moved the register allocation of `Tokenizer::scan`.
   → The program stage keeps `Regex`'s fields as they are.
   Every step is read per function before it lands.
 

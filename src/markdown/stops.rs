@@ -4,18 +4,20 @@
 //! The look-ahead steps over units: tags, code spans, escapes, links and
 //! single characters.
 //! It stops where a closing delimiter could follow, or at the end of the text.
+//!
 //! Look-aheads from different openers reach the same positions.
 //! From a shared position they stop at the same place.
 //! The memo keeps, for each position a long look-ahead passed, where it
 //! stopped.
 //! A later look-ahead that reaches such a position jumps to the stop.
-//! Each position is then walked once per kind of emphasis on the line.
+//! Each position is then walked once per emphasis `Kind` on the line.
 
 /// The steps a look-ahead takes before it uses the memo.
 /// Most look-aheads stop sooner and never touch it.
 /// Past this many steps, every position is walked at most once.
 /// Look-aheads near the line's end take fewer steps than this.
 /// That shortfall is a fixed term per line, below this number squared.
+///
 /// Each opener can take this many plain steps.
 /// The default work budget gives the three bytes of an opener `*a ` 192 steps.
 /// 128 fits under that and measured faster on the Markdown fixtures than 64.
@@ -65,7 +67,7 @@ pub(crate) struct Stops {
     /// Bumped whenever `text` changes.
     /// Old entries therefore need no clearing.
     generation: u32,
-    /// For each kind, for each position, the generation and the stop.
+    /// For each `Kind`, for each position, the generation and the stop.
     memo: [Vec<(u32, usize)>; 4],
     /// The positions the current look-ahead passed.
     path: Vec<usize>,

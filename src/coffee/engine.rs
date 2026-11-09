@@ -44,8 +44,9 @@ pub(crate) struct Extra {
     deferrals: Option<Box<rules::Deferrals>>,
 }
 
-/// A run found in a line's text: the text's end, which lexing a capture
-/// group's text again moves, and where the run starts and ends.
+/// A run found in a line's text.
+/// It holds the text's end, and where the run starts and ends.
+/// Lexing a capture group's text again moves the text's end.
 #[derive(Debug, Default)]
 pub(crate) struct Run(Cell<(usize, usize, usize)>);
 
@@ -80,9 +81,11 @@ impl<G: Grammar<Scope = S, Rule = Rule, Pat = Pat, Nested = Nested, Extra = Extr
 /// The grammar's impl for one dialect.
 /// Each dialect has an impl of its own, and the dialects share the grammar's
 /// data: an act converts to the dialect's type unchanged.
-/// A generic impl would let rustc export every function its body reaches,
-/// and every caller of `Arena::child` and `Language::lex_embedded` would then
-/// call them through the GOT: JSON 0.4% at one codegen unit.
+///
+/// A generic impl would let rustc export every function its body reaches.
+/// Every caller of `Arena::child` and `Language::lex_embedded` would then
+/// call them through the GOT.
+/// That costs JSON 0.4% at one codegen unit.
 macro_rules! dialect {
     ($dialect:ident) => {
         impl Grammar for Coffee<$dialect> {

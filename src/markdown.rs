@@ -7,12 +7,15 @@
 //!
 //! A fenced code block in a language nishiki lexes is handed to that lexer
 //! line by line, and a `markdown` fence to Markdown's own rules. Its scopes
-//! sit inside the fence's embedded scope, such as `meta.embedded.block.rust`,
-//! without the language's own root scope, as in Shiki. Any other fence is
-//! plain text with `fenced_code.block.language` on its info string: Shiki
-//! drops the grammar's rule for a language whose grammar is not loaded, and
-//! that is what its output shows. Adding a fence language adds an entry to
-//! the table in `fence.rs` and its embedded scope in `rules::content_name`.
+//! sit inside the fence's embedded scope, such as `meta.embedded.block.rust`.
+//! They have no root scope of the language's own, as in Shiki.
+//!
+//! Any other fence is plain text with `fenced_code.block.language` on its
+//! info string. Shiki drops the grammar's rule for a language whose grammar
+//! is not loaded, and that is what its output shows.
+//!
+//! Adding a fence language adds an entry to the table in `fence.rs` and its
+//! embedded scope in `rules::content_name`.
 //!
 //! ```
 //! use nishiki::{Highlighter, Language, State};
@@ -43,12 +46,12 @@
 //!
 //! 1. A line holding only whitespace is lexed but an empty line is not, so the
 //!    state passes over it unchanged.
-//! 2. A fence indented by four spaces or more is still a fence, and a bare
-//!    fence line inside an embedded fence that is not its closing fence ends
-//!    the embedded lines and starts them again on the next line.
+//! 2. A fence indented by four spaces or more is still a fence. A bare fence
+//!    line inside an embedded fence, other than its closing fence, ends the
+//!    embedded lines. They start again on the next line.
 //! 3. HTML blocks other than comments, front matter, and the tags inside
-//!    emphasis are plain text, since the grammar hands them to grammars that
-//!    Shiki does not load.
+//!    emphasis are plain text. The grammar hands them to grammars that Shiki
+//!    does not load.
 //! 4. The `>` of an email autolink has no scope of its own.
 //!
 //! The highlighter's [`Limits`](crate::Limits) bound it.
@@ -57,8 +60,10 @@
 //! Each step of the lexer's loop, and each byte a look-ahead reads, counts
 //! against `Limits::work`.
 //! A line that runs out of work ends in one token from that point.
+//!
 //! Lines such as `**`, `[` or `![a](` repeated cost work linear in their
 //! length, so they stay within the default limit.
+//!
 //! A label or link destination nested deeper than 32 brackets or parentheses
 //! ends there.
 //! That bound only limits the matcher's recursion.
@@ -66,12 +71,17 @@
 //! Where it differs from the grammar's regular expressions otherwise:
 //!
 //! 1. The regular expressions backtrack in ways that rarely matter, and the
-//!    lexer follows the alternatives that do: a code span gives back backticks,
-//!    a heading's closing `#` run, a table cell's trailing blanks and a
-//!    reference definition's destination and title. It does not follow every
-//!    one, such as an escaped `>` that ends an angle-bracket destination.
-//! 2. A fence of more than 255 characters, or indented with a tab by more than
-//!    three characters, is never closed by a fence of the same kind.
+//!    lexer follows the alternatives that do:
+//!    - a code span's backticks given back;
+//!    - a heading's closing `#` run;
+//!    - a table cell's trailing blanks;
+//!    - a reference definition's destination and title.
+//!
+//!    It does not follow every one, such as an escaped `>` that ends an
+//!    angle-bracket destination.
+//! 2. A fence of more than 255 characters is never closed by a fence of the
+//!    same kind. Neither is a fence indented with a tab by more than three
+//!    characters.
 
 mod block;
 mod caps;
@@ -144,7 +154,7 @@ pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: &str, state: u32
 /// The end can hold in two places:
 /// - At the line's start, once the open containers that end there have closed.
 ///   The halt is tested here, once, and [`line`] reads the answer from the
-///   scratch: a second copy of the line's lexer would keep its parts from being
+///   scratch. A second copy of the line's lexer would keep its parts from being
 ///   inlined into [`line`] (2% more instructions on Markdown documents).
 /// - After a block that closed inside the line, such as a raw HTML block at
 ///   `</style>`. The rest of the line is then at Markdown's root, where `\G` no
@@ -178,8 +188,9 @@ pub(crate) fn lex_until(
     (finished, halt.map(Stopped::halt))
 }
 
-/// Where `end` holds in the rest of a line that a block closed inside, now
-/// at Markdown's root in the state `state`, and the rest's token cut there.
+/// Where `end` holds in the rest of a line that a block closed inside, and
+/// the rest's token cut there.
+/// The rest is now at Markdown's root in the state `state`.
 /// The line's tokens start at `first` in the output.
 /// The rest is the line's last token, on the root's stack, after another
 /// token of the line.

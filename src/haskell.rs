@@ -5,9 +5,11 @@
 //! bytes, in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
 //! The `matchers` decide where each pattern matches.
-//! The rules left open at the end of a line, such as a declaration that runs
-//! while the lines after it are indented further, are frames of the
-//! highlighter's interned state.
+//!
+//! The rules left open at the end of a line are frames of the highlighter's
+//! interned state.
+//! A declaration that runs while the lines after it are indented further is
+//! such a rule.
 //! Shiki's Markdown grammar has no Haskell fence, so no language embeds
 //! Haskell.
 

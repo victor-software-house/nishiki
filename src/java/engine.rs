@@ -36,7 +36,8 @@ pub(crate) struct Memo {
     /// they may be made of, and the last `$` in it.
     pub(crate) names: RunMemo,
     /// For a variable's generic arguments: the run of characters they may be
-    /// made of, and the last `>` in it that the rest of the definition
+    /// made of.
+    /// It also holds the last `>` in that run that the rest of the definition
     /// follows.
     pub(crate) generics: RunMemo,
     /// For an annotation: the last run of characters that are not `(` or

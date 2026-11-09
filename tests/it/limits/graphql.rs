@@ -68,8 +68,8 @@ fn a_pinned_graphql_depth_opens_that_many_selections() {
     assert_eq!(selections, 1, "one selection open, the second kept closed");
 }
 
-/// Each interpolation's JavaScript spends the line's one work budget, so a
-/// line of many runs out of work and its tokens still cover it.
+/// Each interpolation's JavaScript spends the line's one work budget.
+/// A line of many runs out of work, and its tokens still cover it.
 #[test]
 fn a_graphql_line_of_many_interpolations_runs_out_of_work() {
     let limits = Limits {

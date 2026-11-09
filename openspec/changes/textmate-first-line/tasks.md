@@ -19,7 +19,9 @@ Each side must repeat across its three builds.
 
 ## 2. The relaxed `Hir` in one walk
 
-- [x] 2.1 One walk of the parsed tree builds the relaxed `Hir` and cuts at the first positive lookahead → verify: a one-off check finds the old and new `Hir`s equal on every shipped grammar's patterns, unit tests cover the cut, and the oracle passes
+- [x] 2.1 One walk of the parsed tree builds the relaxed `Hir` and cuts at the first positive lookahead.
+  → verify: a one-off check finds the old and new `Hir`s equal on every shipped grammar's patterns.
+  Unit tests cover the cut, and the oracle passes.
   - 2026-11-04, locally on a Linux box.
     The one-off check compared 3,152 pattern and line-kind pairs, and all were equal.
     `the_relaxed_form_ends_with_the_first_positive_lookahead` and `a_relaxed_form_needs_a_character` pass.
@@ -32,6 +34,7 @@ Each side must repeat across its three builds.
   - 2026-11-04, a throwaway patch on the base commit of step 2.
     It logs each scanner's rule count and each distinct pattern a search tries, up to the first token.
     The input is each language's first bench-corpus file of each tier.
+
     The first line tries 1 to 6 patterns of the 21 to 131 its scanners list.
     That is under 10% everywhere, so decision 1 goes ahead.
 
@@ -52,14 +55,17 @@ Each side must repeat across its three builds.
     | Scala | small | 2 | 79 | 3 |
     | Scala | medium | 2 | 76 | 2 |
 
-- [ ] 3.2 The sketch stage and the program stage run from one parse, with the parsed tree kept until the program stage takes it → verify: the oracle and the Identity workflow pass
+- [ ] 3.2 The sketch stage and the program stage run from one parse, with the parsed tree kept until the program stage takes it.
+  → verify: the oracle and the Identity workflow pass
   - 2026-11-04, locally on a Linux box: the oracle passes.
     `every_listed_pattern_that_parses_compiles` passes.
     The Identity workflow runs on the pull request.
-- [ ] 3.3 Measured, with the held trees' memory → verify: first token falls, and steady state and memory are at or under main for every TextMate language
+- [ ] 3.3 Measured, with the held trees' memory.
+  → verify: first token falls, and steady state and memory are at or under main for every TextMate language
   - 2026-11-04: first token falls by 3% to 23%.
     Memory is equal or lower for every TextMate language.
     Steady state is 1.0000 to 1.0015 by instruction count.
+
     `Regex` lost its first bytes, so a regex cell went from 152 to 144 bytes.
     LLVM indexes 144 bytes with `lea` and `shl`, where 152 bytes took one `imul`.
     Layouts of 128, 136 and 160 bytes did no better.
@@ -68,7 +74,8 @@ Each side must repeat across its three builds.
 
 ## 4. The automaton's engines
 
-- [x] 4.1 Options 2 to 4 of the design, each measured against option 1 → verify: a table of first token and steady state per language and option is recorded here
+- [x] 4.1 Options 2 to 4 of the design, each measured against option 1.
+  → verify: a table of first token and steady state per language and option is recorded here
   - 2026-11-04, locally on a Linux box, one build per side, against step 2 of this change.
     Each cell gives the range over the 11 TextMate languages.
     First token covers both tiers.
@@ -88,15 +95,19 @@ Each side must repeat across its three builds.
     Option 2 changes nothing; its engines' builds were below the profile's threshold.
     Option 4's byte-set prefilter skips less than the literal one, and is worse than none.
     Option 5 misses steady state at every literal length.
+
     A caller's prefilter skips `regex-automata`'s pure literal and Aho-Corasick strategies.
     Option 6 keeps those strategies for a list of literals.
     Option 6b also keeps them for a list whose prefixes are exact under 64 literals.
 - [ ] 4.2 The option that meets the bar lands → verify: first token falls, and steady state is at or under main for every TextMate language
-  - 2026-11-04: option 6b, three builds per side on main after nishiki-archive#356.
+  - 2026-11-04: option 6b, three builds per side on main after [#356][pr356].
     First token falls by 0.3% to 60%.
     Steady state is 0.9986 to 1.0013.
+
     Every nishiki function is equal on both sides.
     The rows above 1.0000 are glibc's `memcmp`, which moves with the heap layout.
     Dart adds 1,100 instructions of its own.
     `regex-automata` skips its `ReverseInner` strategy when a list's prefilter is fast.
   - Lead, 2026-11-04: land it, with that split in the pull request.
+
+[pr356]: https://github.com/victor-software-house/nishiki-archive/pull/356

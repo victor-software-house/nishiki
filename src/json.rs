@@ -3,9 +3,9 @@
 //!
 //! The three grammars are one grammar with three spellings of its scope names.
 //! One lexer therefore serves them, told apart by [`Dialect`].
-//! It is a hand-written state machine over bytes whose contexts (arrays,
-//! objects, the value after a colon, strings and comments) are frames of the
-//! highlighter's interned state.
+//! It is a hand-written state machine over bytes.
+//! Its contexts are frames of the highlighter's interned state: arrays,
+//! objects, the value after a colon, strings and comments.
 //!
 //! It reproduces Shiki's output, quirks included:
 //! - every dialect takes `//` and `/* */` comments;
@@ -59,16 +59,18 @@ pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of the JSON lines of a fenced code block, whose
-/// text sits on the stack `base` with no `source.json` of its own, as in
-/// Shiki's embedding.
+/// The state at the start of the JSON lines of a fenced code block.
+/// The block's text sits on the stack `base` with no `source.json` of its
+/// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
-/// Lexes `line` in `dialect` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// Lexes `line` in `dialect` from `state` and returns the state after it.
+///
+/// It follows the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)).
+/// Token ends count from the start of the whole line.
 ///
 /// An empty line appends nothing and leaves the state as it is.
 pub(crate) fn lex(cx: &mut Context<'_>, dialect: Dialect, line: Line<'_>, state: u32) -> Finished {

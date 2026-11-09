@@ -14,8 +14,9 @@ pub(crate) type Lexer<'a> = rules::Lexer<'a, Asm>;
 /// What a highlighter keeps from line to line.
 pub(crate) type Scratch = rules::Scratch<Asm>;
 
-/// The run of `\w` characters last lowered: where it starts and ends, the
-/// length of the text it was read in, and its letters as `(?i)` reads them.
+/// The run of `\w` characters last lowered.
+/// It holds where the run starts and ends, the length of the text it was
+/// read in, and its letters as `(?i)` reads them.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Lowered {
     /// Where the run starts.
@@ -42,15 +43,17 @@ pub(super) enum Spelling {
     Letters,
     /// With one of them.
     /// Oniguruma folds such a character to its letters only inside one
-    /// literal string of an expression, so the spellings that the generator
-    /// asked Oniguruma about decide.
+    /// literal string of an expression.
+    /// The spellings that the generator checked against Oniguruma therefore
+    /// decide.
     Ligature,
 }
 
 /// The run of label characters, `[#$.?@_~[:alnum:]]`, last measured: where
 /// it starts and ends, and the length of the text it was measured in.
-/// A label needs no word boundary before it, so the label patterns ask at
-/// every character of a run, and every place in the run shares its end.
+/// A label needs no word boundary before it.
+/// The label patterns therefore try every character of a run.
+/// Every place in the run shares its end.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct LabelRun {
     /// Where the run starts.
@@ -65,7 +68,7 @@ pub(super) struct LabelRun {
 #[derive(Debug)]
 pub(crate) struct Extra {
     /// The last run of `\w` lowered.
-    /// The merged word pattern and six support patterns ask about the same
+    /// The merged word pattern and six support patterns all test the same
     /// run.
     pub(super) lowered: Cell<Lowered>,
     /// The last run of label characters measured.

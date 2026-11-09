@@ -101,9 +101,11 @@ fn warm(
     }
 }
 
-/// Streaming an oracle fixture a second time, through a highlighter that
-/// already met its states and styled its stacks under the same theme, and
-/// into buffers with room, allocates nothing (`CODING_STANDARDS.md` 2.1).
+/// Streaming an oracle fixture a second time allocates nothing
+/// (`CODING_STANDARDS.md` 2.1).
+///
+/// The highlighter already met its states and styled its stacks under the
+/// same theme, and the buffers have room.
 #[test]
 fn streaming_allocates_nothing_per_line() {
     for (language, text) in oracle_documents() {
@@ -134,9 +136,10 @@ fn streaming_allocates_nothing_per_line() {
     }
 }
 
-/// A line of 100 KiB written four bytes at a time is lexed in bounded steps:
-/// past its first KiB, at most nine times its length, and once more whole
-/// when the stream ends.
+/// A line of 100 KiB written four bytes at a time is lexed in bounded steps.
+///
+/// Past its first KiB, it costs at most nine times its length.
+/// It is lexed once more whole when the stream ends.
 #[test]
 fn a_long_line_is_lexed_in_bounded_steps() {
     let mut line = String::from("[");
@@ -228,9 +231,11 @@ fn trace(path: &std::path::Path) -> Trace {
     }
 }
 
-/// Replaying nishiki's own history, each edit lexes its own lines and lexes
-/// at most two lines past them, as the research note's probe found with
-/// Shiki's states (`openspec/research/2026-11-05-streaming.md`, section 3).
+/// Replaying nishiki's own history, each edit lexes its own lines and at most
+/// two lines past them.
+///
+/// The research note's probe found the same with Shiki's states
+/// (`openspec/research/2026-11-05-streaming.md`, section 3).
 #[test]
 fn an_edit_stops_where_the_states_agree() {
     let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("bench/traces/edits");

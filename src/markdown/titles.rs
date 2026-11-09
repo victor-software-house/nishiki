@@ -3,10 +3,12 @@
 //! An image's title runs from its opening byte to the first closing byte
 //! that the final parenthesis follows.
 //! The scan for that byte also stops at a newline or at the end of the text.
+//!
 //! Scans from different titles that share a closing byte reach the same
 //! stops.
 //! The first stop at or after a position is also the first stop at or after
 //! every later position up to it.
+//!
 //! The memo keeps, for each closing byte, the span the last scan crossed.
 //! A later scan that reaches that span jumps to its stop.
 //! A line of `![a](` repeated then reads each byte once, not once per image.

@@ -135,9 +135,10 @@ impl Lexer<'_> {
     /// N field names.
     ///
     /// The repeats match any run of blanks and of the type's characters that
-    /// holds one of the latter, and a backtracking matcher reaches the
-    /// rightmost end before a `}` first: the last `}` before a character
-    /// the type cannot take, less the blanks before it.
+    /// holds one of the latter.
+    /// A backtracking matcher reaches the rightmost end before a `}` first.
+    /// That is the last `}` before a character the type cannot take, less
+    /// the blanks before it.
     pub(in crate::go) fn struct_variables_types_fields_at3(&mut self, p: usize) -> Option<usize> {
         if !self.after_open_curly(p) {
             return None;
@@ -174,8 +175,10 @@ impl Lexer<'_> {
     /// `` \b(\w+(?:\s*,\s*\b\w+)*)\s*([^"/`]+) ``
     ///
     /// When nothing the last group can take follows the names and blanks,
-    /// the matcher gives back the last blank, or else the last character of
-    /// the last name, or else the last name and its comma.
+    /// the matcher gives back the first of these that it can:
+    /// - the last blank;
+    /// - the last character of the last name;
+    /// - the last name and its comma.
     pub(in crate::go) fn struct_variables_types_fields_at5(&mut self, p: usize) -> Option<usize> {
         if self.word_before(p) {
             return None;

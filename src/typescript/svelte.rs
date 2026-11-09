@@ -1,6 +1,7 @@
 //! Svelte's injection into the TypeScript and JavaScript it embeds:
-//! `L:(source.ts, source.js, source.coffee)`, which the grammar tries before
-//! the embedded language's own rules, in every one of its contexts.
+//! `L:(source.ts, source.js, source.coffee)`.
+//! The grammar tries it before the embedded language's own rules, in every
+//! one of its contexts.
 
 use super::lexer::Lexer;
 use super::scope::S;
@@ -31,9 +32,9 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// Where the plain text of a comment or string ends, from `step`, for
-    /// the TypeScript that Svelte embeds: at the next `$` before `target`,
-    /// where Svelte's injection can match, since it applies in every
-    /// context.
+    /// the TypeScript that Svelte embeds.
+    /// It ends at the next `$` before `target`, where Svelte's injection can
+    /// match, since it applies in every context.
     pub(crate) fn svelte_body_end(&self, step: usize, target: usize) -> usize {
         if D & super::Dialect::SVELTE == 0 {
             return target;

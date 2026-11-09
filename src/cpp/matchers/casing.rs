@@ -64,8 +64,8 @@ impl Lexer<'_> {
     }
 
     /// The ways the naming styles and the identifier of the unknown-variable
-    /// expression match at `p`, in order: the group's number from 1, and
-    /// where the name ends.
+    /// expression match at `p`, in order.
+    /// Each way is the group's number from 1, and where the name ends.
     pub(super) fn variable_names(&self, p: usize) -> Few<(usize, usize), 5> {
         let mut out = Few::new();
         if self.boundary(p) {

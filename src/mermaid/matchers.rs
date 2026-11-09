@@ -343,8 +343,9 @@ impl Lexer<'_> {
     /// the span of the group.
     /// The spaces are greedy, so the group starts after them.
     /// Where no character of `C` follows them, the spaces give back the last
-    /// one that `C` holds, and the group is that character, as long as the
-    /// spaces keep `least` of theirs.
+    /// one that `C` holds.
+    /// The group is then that character, as long as the spaces keep `least`
+    /// of theirs.
     fn spaced_run(
         &self,
         p: usize,

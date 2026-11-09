@@ -148,10 +148,13 @@ impl Lexer<'_> {
         self.id(i).or_else(|| self.quoted_name(i))
     }
 
-    /// The first end of a plain name at `i` that `accept` takes, in the order
-    /// a backtracking matcher tries them: the whole name, then one operator
-    /// character less at a time, then one name character less at a time down
-    /// to the first.
+    /// The first end of a plain name at `i` that `accept` takes.
+    /// The ends are tried in the order a backtracking matcher tries them:
+    ///
+    /// 1. the whole name;
+    /// 2. one operator character less at a time;
+    /// 3. one name character less at a time, down to the first.
+    ///
     /// `start` is the class of the first character.
     pub(super) fn plain_end_where(
         &self,

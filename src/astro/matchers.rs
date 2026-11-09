@@ -343,9 +343,11 @@ impl Lexer<'_> {
     }
 
     /// The language of the body that a language tag around the open rules
-    /// holds, from the injections' selectors: the tag (`meta.script.astro`
-    /// or `meta.style.astro`) and the mode between it and the innermost
-    /// rule (`meta.lang.<lang>.astro`), when one is open.
+    /// holds.
+    /// It comes from the injections' selectors.
+    /// They read the tag, `meta.script.astro` or `meta.style.astro`, and the
+    /// mode between it and the innermost rule, `meta.lang.<lang>.astro`,
+    /// when one is open.
     /// A rule between them with a `source` scope of its own hides the tag
     /// ([`Rule::hides_bodies`]).
     fn body(&self) -> Body {
@@ -647,9 +649,10 @@ impl Lexer<'_> {
     ///
     /// The lookahead's class escapes its backslash, so it holds `-`, `:`,
     /// `\` and `w`.
-    /// The alternation tries longer names first, its optional tails being
-    /// greedy, and gives a name back when the lookahead fails after it:
-    /// `onplayingw` is `onplay`, since `i` may follow a name.
+    /// Its optional tails are greedy, so the alternation tries longer names
+    /// first.
+    /// It gives a name back when the lookahead fails after it.
+    /// So `onplayingw` is `onplay`, since `i` may follow a name.
     fn event_name(&mut self, p: usize) -> Option<usize> {
         let name = self.lit(p, b"on")?;
         let rest = self.text(name, self.lim());

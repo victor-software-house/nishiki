@@ -91,7 +91,7 @@ impl Lexer<'_> {
             || (p == self.lim() && !self.prev_is(p, b'\\'))
     }
 
-    /// The width of the quote at `p`, when `quotes` says which kind the rule
+    /// The width of the quote at `p`, when `quotes` names the quotes the rule
     /// takes.
     /// It is three for a triple quote and one for a single one.
     fn quote_width(&self, p: usize, quotes: Quotes) -> Option<usize> {

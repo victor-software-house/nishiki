@@ -121,9 +121,10 @@ impl Lexer<'_> {
     }
 
     /// `@?[_[:alpha:]][_[:alnum:]]*` at `p`, the grammar's `identifier`: the
-    /// end of it. Giving back the end of a longer name would leave a name
-    /// character next, which no expression that follows a name accepts, so
-    /// the longest name is the only one tried.
+    /// end of it.
+    /// Giving back the end of a longer name would leave a name character next.
+    /// No expression that follows a name accepts one, so the longest name is
+    /// the only one tried.
     pub(in crate::csharp) fn ident(&self, p: usize) -> Option<usize> {
         let start = if self.at(p) == b'@' { p + 1 } else { p };
         self.plain_ident(start)
@@ -155,10 +156,11 @@ impl Lexer<'_> {
         self.avail(p) && set.contains(&b)
     }
 
-    /// The end of the group that opens at `open_at`, the grammar's
-    /// `(?:[^<>]|\g<group>)+` closed by `close`, or its `*` kin as `body`
-    /// says: a body of anything but the two brackets and nested groups. A
-    /// body may hold the line feed after the line, which no group closes.
+    /// The end of the group that opens at `open_at`.
+    /// The group is the grammar's `(?:[^<>]|\g<group>)+` closed by `close`, or
+    /// its `*` kin as `body` selects.
+    /// Its body holds anything but the two brackets, and nested groups.
+    /// A body may hold the line feed after the line, which no group closes.
     ///
     /// Bit `d` of a word records whether the group open at depth `d` has an
     /// item yet.

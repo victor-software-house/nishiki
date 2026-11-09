@@ -4,9 +4,10 @@
 //! Each trace of `bench/traces/` is replayed `--passes` times (11 by default),
 //! each pass into a fresh `Document`, with every delta timed on its own.
 //!
-//! - A delta's time is what a renderer pays: the push or the replacement, `lex`
-//!   to the end, which styles what it lexes with Shiki's github-dark, and
-//!   reading every styled token of the lines `take_changes` names.
+//! - A delta's time is what a renderer pays:
+//!   - the push or the replacement;
+//!   - `lex` to the end, which styles what it lexes with Shiki's github-dark;
+//!   - reading every styled token of the lines `take_changes` names.
 //! - Setup is `Document::new`, its median over the passes.
 //! - Pass 1's first delta is first contact, while lazy tables are still built.
 //! - For the other passes, each delta's median is its steady cost. p50, p99 and
@@ -17,7 +18,7 @@
 //!   delta.
 //! - After each pass the document is finished and lexed. Its lines must equal
 //!   lexing the text line by line, which the oracle holds to Shiki. The `exact`
-//!   column says so, and the program fails otherwise.
+//!   column shows whether they do, and the program fails when they do not.
 //! - `fidelity` is the share of the final text's non-blank bytes coloured as
 //!   Shiki colours them, from the references `bun bench/compare/shiki.ts
 //!   stream-reference` writes. It reads `n/a` when they are missing.
@@ -37,7 +38,7 @@ use nishiki_bench::traces::{Kind, Step, Trace, traces};
 /// Passes when `--passes` is not given.
 const PASSES: usize = 11;
 
-/// What the command line asks for.
+/// The options the command line sets.
 struct Options {
     passes: usize,
     filters: Vec<String>,
@@ -64,8 +65,10 @@ fn options() -> Result<Options, String> {
     Ok(options)
 }
 
-/// One pass over a trace: setup, each delta's time, whether the final lines
-/// equal lexing the text line by line, and their fidelity to Shiki.
+/// One pass over a trace.
+///
+/// It holds the setup, each delta's time, whether the final lines equal
+/// lexing the text line by line, and their fidelity to Shiki.
 struct Pass {
     setup: Duration,
     deltas: Vec<Duration>,

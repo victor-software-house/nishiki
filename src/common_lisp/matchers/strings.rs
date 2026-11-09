@@ -56,16 +56,19 @@ impl Lexer<'_> {
     /// The lazy loops try the modifiers and the directive at each place
     /// first, and take one more parameter only when that fails.
     /// A parameter is a number, `'` and any character, `#`, `V` or `,`.
-    /// At each place one kind at most can start, so the search follows one
-    /// path.
-    /// A number's digits are greedy, and giving one back leaves a digit,
-    /// which neither the modifiers nor a directive take; the path then
-    /// rejoins at the number's end.
+    /// At each place at most one form of parameter can start, so the search
+    /// follows one path.
+    ///
+    /// A number's digits are greedy.
+    /// Giving one back leaves a digit, which neither the modifiers nor a
+    /// directive take.
+    /// The path then rejoins at the number's end.
     /// A `'.` takes any character, a quote or a tilde too, as Shiki does.
     ///
     /// A search that fails is kept.
-    /// A tilde inside its path is the character of a `'.`, so a search from
-    /// that tilde starts on the path, and fails where the first did.
+    /// A tilde inside its path is the character of a `'.`.
+    /// A search from that tilde therefore starts on the path, and fails where
+    /// the first did.
     /// A line of many such tildes is then lexed in linear time.
     pub(super) fn directive(&mut self, p: usize, kind: Directive) -> Option<usize> {
         if self.at(p) != b'~' {

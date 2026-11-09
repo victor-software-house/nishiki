@@ -445,9 +445,12 @@ impl Lexer<'_> {
     }
 
     /// Records the groups of a scope resolution that starts at group
-    /// `chain_group`: the chain with its `::` and template (three more
-    /// groups), the name, the template with its comment parts, and the last
-    /// `::`.
+    /// `chain_group`.
+    /// The groups are:
+    /// - the chain with its `::` and template (three more groups);
+    /// - the name;
+    /// - the template with its comment parts;
+    /// - the last `::`.
     fn put_resolution(&mut self, found: &ScopeResolution, chain_group: usize) {
         self.cap(chain_group, found.first, found.chain.end);
         self.put_chain(

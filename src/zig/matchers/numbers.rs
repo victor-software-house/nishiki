@@ -150,8 +150,9 @@ impl Lexer<'_> {
     /// Going back, a run that ended with a sign pair next tries that pair's
     /// letter alone, then stops before the pair.
     /// A run that ended with one character next stops before it.
-    /// A sign enters a run only as the second byte of a pair, so the byte
-    /// before an end says which kind of unit ended there.
+    ///
+    /// A sign enters a run only as the second byte of a pair.
+    /// So the byte before an end shows which kind of unit ended there.
     fn units_back(&self, from: usize, then: impl Fn(usize) -> Option<usize>) -> Option<usize> {
         let mut end = from;
         loop {
@@ -189,6 +190,7 @@ impl Lexer<'_> {
     /// The run before `\b` gives back to where it started.
     /// Inside the run a word character stands on both sides, so only the
     /// run's end and its start can hold the `\b`.
+    ///
     /// `run` keeps the last run measured, as its start and end.
     /// The ends tried go back a byte or two at a time, so a run is measured
     /// once, not once per end.

@@ -38,9 +38,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     crate::rules::start::<engine::Sql>(arena, base)
 }
 
-/// The state at the start of the SQL lines of a fenced code block, whose text
-/// sits on the stack `base` with no `source.sql` of its own, as in Shiki's
-/// embedding.
+/// The state at the start of the SQL lines of a fenced code block.
+/// The block's text sits on the stack `base` with no `source.sql` of its own,
+/// as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     crate::rules::start_embedded::<engine::Sql>(arena, base)
 }

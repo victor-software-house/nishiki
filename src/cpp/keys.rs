@@ -6,6 +6,7 @@
 //! with zeros.
 //! Packed that way, keys sort as their words do, because no word holds a zero
 //! byte.
+//!
 //! The tables are built from the generated lists at compile time.
 //! The build fails when a word is longer than a key or a list is out of
 //! order.

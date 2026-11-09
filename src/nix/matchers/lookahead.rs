@@ -69,8 +69,9 @@ impl Lexer<'_> {
     /// =[^=])))`.
     ///
     /// Inside a brace, what an attribute set holds and a function head does
-    /// not: a closing brace, a string, `inherit`, an interpolation, or a name
-    /// before a `.` or a `=` that is not `==`.
+    /// not.
+    /// That is a closing brace, a string, `inherit`, an interpolation, or a
+    /// name before a `.` or a `=` that is not `==`.
     pub(super) fn attrset_ahead(&self, p: usize) -> Option<usize> {
         if self.at(self.space_end(p)) == b'}'
             || self.at(p) == b'"'

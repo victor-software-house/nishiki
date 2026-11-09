@@ -513,8 +513,10 @@ impl Lexer<'_> {
     }
 
     /// The ends of an escape `\\` and what follows it, as the rune and string
-    /// escapes list them: `\\([0-7]{3}|["'\\abfnrtv]|x\h{2}|u\h{4}|U\h{8})`,
-    /// in the order of the alternatives, `None` where one does not match.
+    /// escapes list them.
+    /// The escapes are `\\([0-7]{3}|["'\\abfnrtv]|x\h{2}|u\h{4}|U\h{8})`.
+    /// The ends come in the order of the alternatives, `None` where one does
+    /// not match.
     /// `after` is the position they are tried from.
     fn escape_alternatives(&self, after: usize) -> [Option<usize>; 5] {
         let octal =

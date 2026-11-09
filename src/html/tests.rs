@@ -201,8 +201,9 @@ fn at_lt(bytes: &[u8], p: usize) -> bool {
 }
 
 /// The places Shiki hands a line of a Ruby here document named for HTML
-/// back to Ruby: an interpolation or an escape while no HTML rule is open,
-/// and neither inside a tag, across lines too, or a script.
+/// back to Ruby.
+/// They are an interpolation or an escape while no HTML rule is open.
+/// Neither counts inside a tag, across lines too, or inside a script.
 #[test]
 fn ruby_takes_an_html_heredoc_line_back_only_where_no_html_rule_is_open() {
     let rows = test_support::lex_embedded(

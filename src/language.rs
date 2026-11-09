@@ -6,6 +6,7 @@
 //! site, with an inline threshold of 45.
 //! A language's entry wrapper costs more than that, so it would become a
 //! call once its arm turned cold.
+//!
 //! Each arm of [`Language::start`] and [`Language::lex_embedded`] therefore
 //! calls a nested function of its own, whose one caller is that arm.
 //! Inside the nested function, the wrapper sits on a warm path.
@@ -22,30 +23,46 @@ use crate::scratch::Scratch;
 /// language: [`Language`], [`Language::ALL`], [`Language::id`], the names
 /// [`Language::from_name`] reads, and the three lexer entry points.
 ///
-/// A row is one language: its variant, its Shiki names (the first is its id),
-/// what lexes it, and whether its rules end at the line feed of a line that
-/// the containers around a Markdown fence took whole. A hand-written lexer is
-/// a `module`, optionally with the dialect the module is told; a language that
-/// nishiki's `TextMate` engine runs names its grammar table as `engine`, and
-/// the three entry points call the engine with it. An engine grammar that
-/// hands regions to languages lexed by hand says `hands_off: true`, and its
-/// entry points call the engine's handing loop.
+/// A row is one language:
+///
+/// - its variant;
+/// - its Shiki names, the first of which is its id;
+/// - what lexes it;
+/// - whether its rules end at the line feed of a line that the containers
+///   around a Markdown fence took whole.
+///
+/// A hand-written lexer is a `module`, optionally with the dialect the module
+/// is told.
+/// A language that nishiki's `TextMate` engine runs names its grammar table as
+/// `engine`, and the three entry points call the engine with it.
+/// An engine grammar that hands regions to languages lexed by hand marks
+/// `hands_off: true`, and its entry points call the engine's handing loop.
+///
 /// An engine row may name an `embedded` table root.
 /// A language that embeds it starts it at that root.
 /// PHP's names the root of a Markdown `php` fence, which tries HTML and PHP.
-/// A module that lexes the text from the line's start says `from_start: true`.
+///
+/// A module that lexes the text from the line's start marks
+/// `from_start: true`.
 /// Each entry point then calls its `line` through
 /// [`Context::lex_from_start`], with a closure of its own.
 /// Each closure gets its own copy of `lex_from_start`, with one caller.
-/// A small hand-written lexer says `inlined: true`.
+///
+/// A small hand-written lexer marks `inlined: true`.
 /// Its arm of [`Language::lex`] holds the lexer inline.
 /// Every other arm calls a `lex_arm` of its own, which has that one caller.
-/// A new hand-written language is one row here, its scope table in
-/// `src/scope.rs`, its frame tag in `src/tag.rs`, its fence names in
-/// `src/markdown/fence.rs`, its field in `src/scratch.rs` when it keeps
-/// buffers, and its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of
-/// these. A new engine language needs no scope table, frame tag or field: its
-/// module holds only the generated `grammar.rs`.
+///
+/// A new hand-written language is wired in with:
+///
+/// - one row here;
+/// - its scope table in `src/scope.rs`;
+/// - its frame tag in `src/tag.rs`;
+/// - its fence names in `src/markdown/fence.rs`;
+/// - its field in `src/scratch.rs` when it keeps buffers;
+/// - its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of these.
+///
+/// A new engine language needs no scope table, frame tag or field.
+/// Its module holds only the generated `grammar.rs`.
 macro_rules! languages {
     (@flag) => { false };
     (@flag $flag:literal) => { $flag };
@@ -173,9 +190,11 @@ macro_rules! languages {
             }
 
             /// Whether the language's rules end at the line feed of a line
-            /// that the containers around a Markdown fence took whole, as
-            /// Shiki's grammar sees it after them. The other lexers leave
-            /// their state alone for such a line.
+            /// that the containers around a Markdown fence took whole.
+            ///
+            /// This is how Shiki's grammar sees such a line after the
+            /// containers.
+            /// The other lexers leave their state alone for such a line.
             ///
             /// It reads a table, not a `match`.
             /// LLVM lowers a `match` on the language as a switch, and weighs
@@ -211,9 +230,10 @@ macro_rules! languages {
                 }
             }
 
-            /// The state at the start of a Markdown fence's body, whose text
-            /// sits on `base` with no root scope of the language's own, as in
-            /// Shiki's embedding.
+            /// The state at the start of a Markdown fence's body.
+            ///
+            /// The body's text sits on `base` with no root scope of the
+            /// language's own, as in Shiki's embedding.
             #[cfg(feature = "_language")]
             #[cfg_attr(
                 not(any($(feature = $feature),*)),
@@ -250,13 +270,15 @@ macro_rules! languages {
             }
 
             /// Lexes `line` like [`Language::lex`], for a language that
-            /// another one embeds, and returns the steps it spent beside the
-            /// state, which the embedding lexer adds to its own count.
+            /// another one embeds.
+            ///
+            /// It returns the steps it spent beside the state.
+            /// The embedding lexer adds them to its own count.
             ///
             /// Embedded lines are the rare path, so this dispatch is cold
-            /// and out of line: the lexers inline into [`Language::lex`]
-            /// and its out-of-line arms alone, and the count stays off the
-            /// highlighter's path.
+            /// and out of line.
+            /// The lexers inline into [`Language::lex`] and its out-of-line
+            /// arms alone, and the count stays off the highlighter's path.
             #[cfg_attr(
                 not(any(feature = "lang-markdown", feature = "_embedding", feature = "_textmate")),
                 expect(
@@ -291,11 +313,13 @@ macro_rules! languages {
             }
 
             /// Lexes `line` like [`Language::lex`], for a language that
-            /// another one embeds: the line halts at the first place where
-            /// `end` holds that the code reaches with only the language's
-            /// root open, or where `after` holds and nothing of the language
-            /// matches, and the second value says where and why it stopped
-            /// ([`Stopped`]). `None` for a language that cannot halt.
+            /// another one embeds.
+            /// The line halts at the first place where `end` holds that the
+            /// code reaches with only the language's root open.
+            /// It also halts where `after` holds and nothing of the language
+            /// matches.
+            /// The second value holds where and why it stopped ([`Stopped`]).
+            /// `None` for a language that cannot halt.
             #[cfg_attr(
                 not(any(feature = "_embedding", feature = "_textmate", feature = "lang-markdown")),
                 expect(
@@ -359,12 +383,17 @@ languages! {
     ///   A line of spaces does not.
     /// - With `lang-html-derivative`, html-derivative lexes the HTML in the five places below, where Shiki's grammar includes it.
     ///   Without it, that HTML is plain text, as in Shiki without the grammar.
-    /// - An HTML block, a line that starts with a tag, runs to a line of blanks, not to an empty line, which Shiki does not tokenize.
-    /// - A `<script>`, `<style>` or `<pre>` block that its first line does not close runs to the line with the closing tag, whose text before the tag html-derivative lexes from a fresh state.
-    /// - In a paragraph, html-derivative's root rules come after the inline rules at each position, and a tag or entity hands the line back once it ends.
+    /// - An HTML block, a line that starts with a tag, runs to a line of blanks.
+    ///   It does not run to an empty line, which Shiki does not tokenize.
+    /// - A `<script>`, `<style>` or `<pre>` block that its first line does not close runs to the line with the closing tag.
+    ///   html-derivative lexes that line's text before the tag from a fresh state.
+    /// - In a paragraph, html-derivative's root rules come after the inline rules at each position.
+    ///   A tag or entity hands the line back once it ends.
     /// - In a heading, html-derivative reads the heading's text the same way, cut at the end of that text.
-    /// - In bold, italic and strikethrough, a `<` with a `>` later on the line hands the tags there to html-derivative, up to the first place after a `>` where no tag starts.
-    /// - An HTML block inside a quote or a list starts again on each line, from a fresh HTML state, because the grammar's `while` rules match only at the start of a line.
+    /// - In bold, italic and strikethrough, a `<` with a `>` later on the line hands the tags there to html-derivative.
+    ///   It hands them up to the first place after a `>` where no tag starts.
+    /// - An HTML block inside a quote or a list starts again on each line, from a fresh HTML state.
+    ///   This follows from the grammar's `while` rules, which match only at the start of a line.
     /// - A label or link destination nested deeper than 32 brackets ends there.
     /// - The grammar's backtracking is followed where it matters in practice, not everywhere.
     ///   A code span gives back backticks,
@@ -440,7 +469,7 @@ languages! {
     /// - An argument such as `ab>c` is split as `a` and `b>c`.
     /// - An empty line leaves the state as it is, because Shiki does not tokenize empty lines.
     /// - A non-ASCII character is a word character when it is alphanumeric, so combining marks are not.
-    /// - A non-ASCII character is white space when Unicode says so.
+    /// - A non-ASCII character is white space when Unicode marks it so.
     Shell {
         feature: "lang-shell",
         names: ["shellscript", "bash", "sh", "shell", "zsh"],
@@ -595,7 +624,8 @@ languages! {
     ///   - a repetition that a matcher follows by recursion, such as a run of type specifiers, stops after 64 iterations;
     ///   - an attribute tries its first 16 closings, so a line with more reads as having no later ones;
     ///   - comments between two tokens give back at most 8 of themselves when what follows fails;
-    ///   - capture groups lexed again inside one another, as a long `a::b::c::` chain's are, stop after 64 levels, and the text of a deeper one keeps its own scopes.
+    ///   - capture groups lexed again inside one another, as a long `a::b::c::` chain's are, stop after 64 levels.
+    ///     The text of a deeper one keeps its own scopes.
     Cpp { feature: "lang-cpp", names: ["cpp", "c++"], module: cpp, reads_line_feed: true, halts: true }
     /// SQL, with the scopes of Shiki's `sql` grammar.
     ///
@@ -674,7 +704,8 @@ languages! {
     /// - Three cases differ from Shiki, all found by mutating the inputs, never in the inputs themselves:
     ///   - after a struct or interface field that ends in text such as `interface{&=`, Shiki leaves a different state for the next line;
     ///   - a non-ASCII character earlier in a line can change which expression Shiki's engine matches;
-    ///   - on a long line of many words Shiki's engine stops an expression at its retry limit and leaves the rest of the line plain, where nishiki lexes it.
+    ///   - on a long line of many words, Shiki's engine stops an expression at its retry limit and leaves the rest of the line plain.
+    ///     nishiki lexes that rest of the line.
     /// - A Markdown fence names the language `go` or `golang`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     Go { feature: "lang-go", names: ["go", "golang"], module: go }
@@ -682,10 +713,13 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A here document named for SQL, GraphQL, CSS, C, C++, HTML, XML, HAML, JavaScript, YAML, shell, Lua or Ruby, such as `<<~SQL`, lexes its lines in that language, with Ruby's interpolation and escapes where the language has nothing open, as Shiki does.
+    /// - A here document named for a language below, such as `<<~SQL`, lexes its lines in that language, as Shiki does.
+    ///   The languages are SQL, GraphQL, CSS, C, C++, HTML, XML, HAML, JavaScript, YAML, shell, Lua and Ruby.
+    ///   Ruby's interpolation and escapes apply where the language has nothing open.
     /// - In one named for YAML, an indented `#{` is a YAML comment, as in Shiki: the grammar's comment rule takes the blanks before it.
     /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
-    /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki: the grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
+    /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki.
+    ///   The grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
     Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby, halts: true }
     /// C#, with the scopes of Shiki's `csharp` grammar.
     ///
@@ -696,10 +730,10 @@ languages! {
     /// - A `/**` comment's lines are checked with `^`, which matches only at column 0.
     ///   In a Markdown fence indented by a list item or a quote, the comment loses its line prefixes.
     /// - Numeric literals follow the grammar's five nested patterns, so `5.` and `1_a` are invalid numbers.
-    /// - A type nested more than 64 deep in angle brackets or parentheses reads as no type.
-    ///   A type with more than 64 dotted names, pointer marks and array suffixes reads as its first 64.
-    ///   A base-class constructor call with more than 32 dotted names reads as its first 32.
-    ///   These bounds are constants in `src/csharp/limits.rs`; Oniguruma has larger ones of its own.
+    /// - Three bounds are constants in `src/csharp/limits.rs`; Oniguruma has larger ones of its own:
+    ///   - a type nested more than 64 deep in angle brackets or parentheses reads as no type;
+    ///   - a type with more than 64 dotted names, pointer marks and array suffixes reads as its first 64;
+    ///   - a base-class constructor call with more than 32 dotted names reads as its first 32.
     /// - A Markdown fence names the language `cs`, `csharp` or `c#`.
     ///   The `csx` and `c-sharp` fences are plain text, as in Shiki.
     CSharp { feature: "lang-csharp", names: ["csharp", "c#", "cs"], module: csharp }
@@ -725,7 +759,8 @@ languages! {
     ///
     /// - An operator in an expression is a custom operator, the known ones included:
     ///   `=`, `==`, `??` and `+` get `keyword.operator.custom.infix`.
-    ///   The grammar's patterns for the known operators start with `\G`, and `\G` does not hold at the start of a capture group's own patterns in Shiki's engine.
+    ///   The grammar's patterns for the known operators start with `\G`.
+    ///   In Shiki's engine, `\G` does not hold at the start of a capture group's own patterns.
     ///   A pattern that matches the operator directly names it, as with the `=` of a default argument in a parameter clause.
     /// - `\p{L}`, `\p{N}` and `\p{M}` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
     /// - A Markdown fence names the language `swift`.
@@ -761,32 +796,37 @@ languages! {
     /// # Behaviour kept from Shiki
     ///
     /// - A `<` that no rule claims is an illegal angle bracket, even inside a quoted attribute value, as the grammar's injection makes it.
-    /// - An attribute's name is a word of the grammar's lists, or any other run of name characters, which gets a scope built from its text, such as `meta.attribute.unrecognized.fooBar.html`.
+    /// - An attribute's name is a word of the grammar's lists, or any other run of name characters.
+    ///   Such a run gets a scope built from its text, such as `meta.attribute.unrecognized.fooBar.html`.
     /// - `svg` and `math` elements have rules of their own, and read the attributes of a start tag that the line holds whole on that text alone.
     /// - An invalid tag, such as `<foo>`, reads one of two attribute lists.
     ///   With MathML's, `close` is a known attribute and `for` is not; with HTML's, the reverse.
-    ///   The list depends on the document's grammar, the outermost scope of the stack.
-    ///   Shiki compiles the rule once per document grammar, and its attributes resolve through the first rule that reaches it.
-    ///   Where html-derivative is loaded and the grammar reaches it first, the list is HTML's.
-    ///   With Shiki 4.6.0 and every bundled grammar loaded:
+    ///   - The list depends on the document's grammar, the outermost scope of the stack.
+    ///     Shiki compiles the rule once per document grammar, and its attributes resolve through the first rule that reaches it.
+    ///     Where html-derivative is loaded and the grammar reaches it first, the list is HTML's.
+    ///   - With Shiki 4.6.0 and every bundled grammar loaded, the lists are:
     ///
-    ///   | Document | Where HTML sits | List |
-    ///   |:--|:--|:--|
-    ///   | HTML | the document | MathML's |
-    ///   | ERB | the document | MathML's |
-    ///   | Perl, PHP, Ruby | a heredoc | MathML's |
-    ///   | Elixir | a `~H` sigil | MathML's |
-    ///   | HAML | a Markdown fence in `:markdown` | MathML's |
-    ///   | Markdown | a fence, or PHP or Perl inside one | HTML's |
-    ///   | Svelte | a Markdown fence in an `@component` comment | HTML's |
-    ///   | html-derivative, Vue | the document | HTML's |
-    /// - The CSS of a `<style>` element is lexed by the CSS lexer, and the JavaScript of a `<script>` element and of an event handler by the JavaScript lexer.
-    ///   The code ends at its end tag, in any case, only where it has no rule open, so a `</style>` inside an open CSS block is CSS.
-    ///   The grammar's own `//` and `/* */` rules in a script end at a lower-case `</script` only.
+    ///     | Document | Where HTML sits | List |
+    ///     |:--|:--|:--|
+    ///     | HTML | the document | MathML's |
+    ///     | ERB | the document | MathML's |
+    ///     | Perl, PHP, Ruby | a heredoc | MathML's |
+    ///     | Elixir | a `~H` sigil | MathML's |
+    ///     | HAML | a Markdown fence in `:markdown` | MathML's |
+    ///     | Markdown | a fence, or PHP or Perl inside one | HTML's |
+    ///     | Svelte | a Markdown fence in an `@component` comment | HTML's |
+    ///     | html-derivative, Vue | the document | HTML's |
+    /// - The CSS lexer lexes the CSS of a `<style>` element.
+    ///   The JavaScript lexer lexes the JavaScript of a `<script>` element and of an event handler.
+    ///   - In any case, the code ends at its end tag only where it has no rule open.
+    ///     So a `</style>` inside an open CSS block is CSS.
+    ///   - The grammar's own `//` and `/* */` rules in a script end at a lower-case `</script` only.
     /// - A `<script>` whose `type` is an HTML template holds HTML, and one of any other type that is not JavaScript is `source.unknown`.
     /// - A line stops after `MAX_STALLED` (4,096) steps in a row that do not advance, and the rest of it keeps the innermost rule's scope.
-    ///   At one byte a run of such steps opens and closes each rule of the grammar at most once, because a rule that repeats stops the line, so no line comes near it.
-    ///   The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
+    ///   - A rule that repeats stops the line.
+    ///     So at one byte, a run of such steps opens and closes each rule of the grammar at most once.
+    ///     No line comes near the bound.
+    ///   - The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
     /// - A Markdown fence names the languages `html`, `htm`, `shtml`, `xhtml`, `inc`, `tmpl` and `tpl`.
     Html { feature: "lang-html", names: ["html"], module: html, halts: true }
     /// Zig, with the scopes of Shiki's `zig` grammar.
@@ -806,15 +846,18 @@ languages! {
     /// # Behaviour kept from Shiki
     ///
     /// - The HTML lexer runs ERB, with ERB's injection in place of the HTML grammar's, so a bare `<` is text.
-    /// - A `<%` opens ERB where no HTML rule matches at it, outside comments: in text and in a quoted attribute value, but not inside a start tag, where an attribute rule takes the `<`.
+    /// - A `<%` opens ERB where no HTML rule matches at it, outside comments.
+    ///   That is in text and in a quoted attribute value, but not inside a start tag, where an attribute rule takes the `<`.
     /// - `<%#` is a comment up to `%>`, and `<%%` is no escape but code whose Ruby starts with `%`.
     /// - The code is Ruby, lexed by the Ruby lexer, up to `-%>` or `%>`.
     ///   The end counts only where Ruby has no context open, so a `%>` inside a Ruby string belongs to Ruby.
     ///   A `#` before the end on its line starts ERB's comment, and Ruby's own comment otherwise.
-    /// - Code that its line does not close is `meta.embedded.block.erb`, and the blanks before it at the start of a line and after its end get scopes of their own.
+    /// - Code that its line does not close is `meta.embedded.block.erb`.
+    ///   The blanks before it at the start of a line and after its end get scopes of their own.
     /// - In a `<style>` element ERB opens between CSS rules, and in a `<script>` element where no JavaScript rule matches, so JavaScript's `<` operator takes `<%=` in code.
     /// - A heredoc of another language inside the Ruby, such as `<<~SQL`, stays Ruby text.
-    /// - ERB that Shiki opens inside a CSS rule or string, or inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script, stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
+    /// - Shiki opens ERB inside a CSS rule or string, and inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script.
+    ///   There it stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
     Erb { feature: "lang-erb", names: ["erb"], module: erb }
     /// Lua, with the scopes of Shiki's `lua` grammar.
     ///
@@ -847,9 +890,11 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - The HTML lexer runs html-derivative, the HTML grammar with a rule of its own for a tag that no rule before it takes, such as `<Foo/>` or `<x:y>`: `meta.tag.other.unrecognized.html.derivative`, where HTML reads an invalid tag.
+    /// - The HTML lexer runs html-derivative, the HTML grammar with a rule of its own for a tag that no rule before it takes.
+    ///   Such a tag, as `<Foo/>` or `<x:y>`, is `meta.tag.other.unrecognized.html.derivative`, where HTML reads an invalid tag.
     /// - That rule applies at the document's top level only; inside a template `<script>`, which the grammar reads as `text.html.basic`, unknown tags are HTML's invalid tags.
-    /// - A bare `<` is an illegal angle bracket, as in HTML, but not where another grammar embeds html-derivative, as Vue's templates do, since Shiki applies an embedded grammar's injection nowhere.
+    /// - A bare `<` is an illegal angle bracket, as in HTML.
+    ///   It is not one where another grammar embeds html-derivative, as Vue's templates do, since Shiki applies an embedded grammar's injection nowhere.
     HtmlDerivative {
         feature: "lang-html-derivative",
         names: ["html-derivative"],
@@ -860,9 +905,11 @@ languages! {
     /// # Behaviour kept from Shiki
     ///
     /// - Commands, keywords and operators match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
-    /// - A `for` line's `in` clause ends at the end of its line only after `)`, `^` or a blank, so the clause and the `for` rule can stay open on the lines after it.
+    /// - A `for` line's `in` clause ends at the end of its line only after `)`, `^` or a blank.
+    ///   So the clause and the `for` rule can stay open on the lines after it.
     ///   The grammar's inline `(?i)` takes its `\n` alternative into the lookbehind before `do`.
-    /// - Inside a `for` line, the grammar's injection reads a loop parameter such as `%%i` first, before any other rule and before the end of the rule open there.
+    /// - Inside a `for` line, the grammar's injection reads a loop parameter such as `%%i` first.
+    ///   It reads it before any other rule and before the end of the rule open there.
     ///   In a Markdown fence it does not, since Shiki applies an embedded grammar's injection nowhere.
     /// - `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
     Bat { feature: "lang-bat", names: ["bat", "batch", "cmd"], module: bat }
@@ -893,7 +940,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - The Python, JavaScript, SQL and R inside `py"""`, `js"""`, `sql"""` and `R"""` string macros are lexed as those languages, up to the macro's closing quotes or a `$` interpolation that the embedded language does not match.
+    /// - The Python, JavaScript, SQL and R inside `py"""`, `js"""`, `sql"""` and `R"""` string macros are lexed as those languages.
+    ///   Each is lexed up to the macro's closing quotes or a `$` interpolation that the embedded language does not match.
     /// - The end of `py"""` takes the spaces and word characters before its quotes, so a name before `"""` loses its Python scopes.
     /// - The C++ inside a `cxx"""` or `icxx"""` string macro is plain.
     ///   The grammar includes `source.cpp#root_context`, a rule the C++ grammar does not have.
@@ -992,7 +1040,8 @@ languages! {
     /// - A Markdown fence named `h` embeds C, not Objective-C: the grammar's C fence comes first.
     /// - A member name after `.` or `->` that starts with a C type, such as `integer` or `int8_t`, is no member: the grammar excludes the type as a prefix.
     /// - `#define` names its parameters only when `...`, if any, follows the last name: `(a, ...)` leaves the parameters plain.
-    /// - Capture groups lexed again inside one another, as member access chains are, stop after 64 levels, and the text of a deeper one keeps its own scopes.
+    /// - Capture groups lexed again inside one another, as member access chains are, stop after 64 levels.
+    ///   The text of a deeper one keeps its own scopes.
     ///   The bound is a constant in `src/objective_c/engine.rs` until the next minor release moves it into `Limits`.
     ObjectiveC {
         feature: "lang-objective-c",
@@ -1062,7 +1111,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A register or a mnemonic is a whole word that one of the grammar's lists holds, without regard to case; the registers' lists come first, then the mnemonics' in the grammar's order.
+    /// - A register or a mnemonic is a whole word that one of the grammar's lists holds, without regard to case.
+    ///   The registers' lists come first, then the mnemonics' in the grammar's order.
     /// - `ſ` and the Kelvin sign match the letters they fold to.
     ///   `ß` and the Latin ligatures do only where the grammar's pattern spells those letters in one piece: `ﬁld` is no mnemonic, since `f(i?(ld|…))` splits `fi`, but `fiﬆp` is.
     /// - A label needs no word boundary before it, so `x.y:` makes `.y` a label inside a word.
@@ -1096,7 +1146,9 @@ languages! {
     /// # Behaviour kept from Shiki
     ///
     /// - A quote right after a name, `)`, `]` or `}` is a transpose; after a blank or an operator it opens a string, so `[a ' b']` holds a string.
-    /// - A line that starts with a name and a blank, such as `hold on`, is a command, whose arguments read as one interpolated string; `ans`, `eps`, `i`, `j`, `inf`, `NaN`, `nargin`, `nargout` and `pi` never start one.
+    /// - A line that starts with a name and a blank, such as `hold on`, is a command.
+    ///   Its arguments read as one interpolated string.
+    ///   `ans`, `eps`, `i`, `j`, `inf`, `NaN`, `nargin`, `nargout` and `pi` never start one.
     /// - A file-level `function` with no `end` stays open to the end of the document.
     /// - Capture groups lexed again inside one another stop after 64 levels, and the text of a deeper one keeps its own scopes.
     ///   The bound is a constant in `src/matlab/engine.rs` until the next minor release moves it into `Limits`.
@@ -1126,7 +1178,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A bare node path such as `$Node` does not start right after a `/` and any blanks, as the grammar's `(?<!/\s*)` says, although Oniguruma rarely accepts a lookbehind of varying length.
+    /// - A bare node path such as `$Node` does not start right after a `/` and any blanks, as the grammar's `(?<!/\s*)` requires.
+    ///   This holds although Oniguruma rarely accepts a lookbehind of varying length.
     /// - A line continuation, `\` at the end of a line, goes on only while the next line opens a string.
     GdScript {
         feature: "lang-gdscript",
@@ -1155,7 +1208,8 @@ languages! {
     /// # Behaviour kept from Shiki
     ///
     /// - Words match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
-    /// - A word is scoped only when a `(`, a `)` or a blank follows it, and most only after a `(`, a blank or the start of the line.
+    /// - A word is scoped only when a `(`, a `)` or a blank follows it.
+    ///   Most are scoped only after a `(`, a blank or the start of the line.
     /// - `(defun (foo) …)` names `o`: the list form's head gives back its last character when no name follows it.
     /// - A `'` parameter of a `format` directive takes the next character, a `"` too, so `"~'"a"` holds the directive `~'"a` and the string goes on.
     /// - `#|…|#` comments nest.
@@ -1172,9 +1226,13 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A `namespace` block that a bracket ends, as in `namespace a)`, names that bracket `keyword.control.namespace.$2.objcpp`: the name's `$2` reads a group the end's expression lacks, and stays as written.
-    /// - The grammar's C++ constructor rule never matches, so `Foo(int x)` inside a `namespace` block reads as a function definition: the rule's only patterns include `function-innards` and `probably_a_parameter`, which no repository in its reach defines, and vscode-textmate drops such a rule.
-    /// - Capture groups lexed again inside one another, as member access chains are, stop after 64 levels, and the text of a deeper one keeps its own scopes.
+    /// - A `namespace` block that a bracket ends, as in `namespace a)`, names that bracket `keyword.control.namespace.$2.objcpp`.
+    ///   The name's `$2` reads a group the end's expression lacks, and stays as written.
+    /// - The grammar's C++ constructor rule never matches, so `Foo(int x)` inside a `namespace` block reads as a function definition.
+    ///   The rule's only patterns include `function-innards` and `probably_a_parameter`, which no repository in its reach defines.
+    ///   vscode-textmate drops such a rule.
+    /// - Capture groups lexed again inside one another, as member access chains are, stop after 64 levels.
+    ///   The text of a deeper one keeps its own scopes.
     ///   The bound is a constant in `src/objective_cpp/engine.rs` until the next minor release moves it into `Limits`.
     ObjectiveCpp {
         feature: "lang-objective-cpp",
@@ -1296,7 +1354,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - The root tries HTML first, then Hack where HTML matches nothing, so a top-level tag reads as HTML and the text between tags as Hack.
+    /// - The root tries HTML first, then Hack where HTML matches nothing.
+    ///   So a top-level tag reads as HTML and the text between tags as Hack.
     /// - `<?hh` is the operator `<`, a `?` and the constant `hh`.
     /// - The scopes are PHP's, such as `keyword.control.php`, and XHP's end in `.xhp`.
     /// - A string that starts with `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE`, `REPLACE` or `ALTER` is SQL, which stops at every `(`, quote, comment, escape and interpolation.
@@ -1306,9 +1365,9 @@ languages! {
     /// - `\d`, `\w`, `\s`, `\p{L}`, `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
     Hack { feature: "lang-hack", names: ["hack"], module: hack }
     /// Astro, with the scopes of Shiki's `astro` grammar.
-    /// Its frontmatter is lexed by the TypeScript lexer, its expressions and
-    /// backtick attribute values by the TSX lexer, and its event handler
-    /// values by the JavaScript lexer.
+    /// The TypeScript lexer lexes its frontmatter.
+    /// The TSX lexer lexes its expressions and backtick attribute values.
+    /// The JavaScript lexer lexes its event handler values.
     /// A `<script>` body goes to the JavaScript, TypeScript or JSON lexer,
     /// and a `<style>` body to the CSS, PostCSS, SCSS, Less or Sass lexer.
     ///
@@ -1317,7 +1376,9 @@ languages! {
     /// - A `lang="stylus"` body is plain text under `meta.lang.stylus.astro`, as nishiki lexes no Stylus.
     ///   So is a body whose `lang` or `type` no injection names, such as `tsx` or `text/babel`.
     /// - A `<script>` or `<style>` body opens after any `>` in the tag's start, even one inside a quoted attribute value, such as `<script x="a>b">`.
-    /// - A `<script` or `<style` right after a `>`, as in `</p><script>`, is lexed as the start of its own body, because the injection holds while Shiki lexes the tag's capture again: JavaScript's `<` and a name, or plain CSS.
+    /// - A `<script` or `<style` right after a `>`, as in `</p><script>`, is lexed as the start of its own body.
+    ///   That is because the injection holds while Shiki lexes the tag's capture again.
+    ///   The result is JavaScript's `<` and a name, or plain CSS.
     /// - Any `</` where the embedded language's root is open ends a body, not only the tag's own closing tag.
     /// - A `lang` or `type` value counts only on the line that opens the tag.
     /// - An event attribute's name may be followed by any character but `-`, `:`, `\` and `w`, so `onclickx=` is the event `onclick` and an `x`.
@@ -1427,8 +1488,9 @@ impl Language {
 /// limits, the reusable buffers, and where its tokens and limits go.
 ///
 /// A lexer that embeds another passes it limits whose work is what the line
-/// has left, and adds what it spent, which comes back from its `lex`, so the
-/// embedded language spends the line's one work budget
+/// has left.
+/// It adds what the embedded language spent, which comes back from its `lex`.
+/// So the embedded language spends the line's one work budget
 /// (`CODING_STANDARDS.md` 1.6).
 #[cfg_attr(
     not(feature = "_language"),
@@ -1529,9 +1591,12 @@ impl Stopped {
 }
 
 /// The end of the rule that embeds a language, as a test of the line's bytes
-/// at a place: a `TextMate` engine tries that end at each position while no
-/// rule of the embedded grammar is open, before the embedded patterns, so a
-/// match that starts before it still wins and one that starts at it loses.
+/// at a place.
+///
+/// A `TextMate` engine tries that end at each position while no rule of the
+/// embedded grammar is open, before the embedded patterns.
+/// A match that starts before it thus still wins, and one that starts at it
+/// loses.
 /// It never holds at a space or tab, because the rule engine's scan skips
 /// runs of them.
 ///
@@ -1554,8 +1619,9 @@ pub(crate) trait Halt {
     /// only while none of its rules is open.
     ///
     /// It stands for an `L:` injection of the embedding grammar, such as
-    /// Svelte's template body: vscode-textmate tries one in every rule whose
-    /// scopes its selector matches.
+    /// Svelte's template body.
+    /// vscode-textmate tries one in every rule whose scopes its selector
+    /// matches.
     /// So it does not hold under an embedded source, a `source` scope inside a
     /// `meta` scope, which the selector shuts out.
     /// Most halts have none, and a language that does not read it ignores it.
@@ -1587,6 +1653,7 @@ impl Halt for Places<'_> {
 }
 
 /// The halts of a line that another language embeds.
+///
 /// The first is the embedding rule's end.
 /// A lexer tries it before the embedded patterns at each place.
 /// The second stands for the patterns the embedding rule lists after the
@@ -1634,12 +1701,19 @@ impl<F: Fn(&[u8], usize) -> bool> Halt for F {
 }
 
 /// The first character start of `s` from `from` where a language that
-/// embeds another takes the line back before the embedded language's next
-/// match, which starts at `to`: `end` up to and at `to`, since `end` is tried
-/// before the patterns, and `after` only before it, since a match at a place
-/// beats `after` there. With no match ahead, `to` is `lim`, the end of the
-/// text, which is tested too. Returns the place, and how many bytes the scan
-/// passed, for the caller's work budget.
+/// embeds another takes the line back.
+///
+/// The place lies before the embedded language's next match, which starts at
+/// `to`.
+///
+/// - `end` holds up to and at `to`, since `end` is tried before the patterns.
+/// - `after` holds only before it, since a match at a place beats `after`
+///   there.
+///
+/// With no match ahead, `to` is `lim`, the end of the text, which is tested
+/// too.
+/// Returns the place, and how many bytes the scan passed, for the caller's
+/// work budget.
 ///
 /// `#[inline]` because the HTML and XML lexers, in other modules, call it
 /// (`bench/AGENTS.md` rule 13).
@@ -1672,8 +1746,10 @@ pub(crate) fn halt_before(
     (halted, passed - from)
 }
 
-/// The line a lexer reads: all of it, and the byte where its own text starts,
-/// which is past the containers when a Markdown fence embeds it.
+/// The line a lexer reads: all of it, and the byte where its own text starts.
+///
+/// That byte is past the containers when a Markdown fence embeds the lexer's
+/// language.
 #[derive(Clone, Copy)]
 #[cfg_attr(
     not(feature = "_language"),
@@ -1705,13 +1781,17 @@ impl Context<'_> {
     }
 
     /// Runs `lex` on the line's text from its start, for a lexer that counts
-    /// token ends from there, then moves the new tokens' ends to count from
-    /// the start of the whole line, as [`Language::lex`] promises.
+    /// token ends from there.
+    ///
+    /// It then moves the new tokens' ends to count from the start of the
+    /// whole line, as [`Language::lex`] promises.
+    ///
     /// A start past the text lexes an empty rest, so no caller can make it
     /// panic.
-    /// That rest comes from [`past_end`], out of line, so the common path
-    /// keeps the shape a slice had: with the rest inline, Rust's lexer ran
-    /// 0.29% more instructions at one codegen unit.
+    /// That rest comes from [`past_end`], out of line.
+    /// So the common path keeps the shape a slice had.
+    /// With the rest inline, Rust's lexer ran 0.29% more instructions at one
+    /// codegen unit.
     ///
     /// Each caller passes a closure of its own type.
     /// Each instance then has one caller, so forcing it inline copies nothing.

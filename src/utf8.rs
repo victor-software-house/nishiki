@@ -38,6 +38,7 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
 /// It returns `None` when a continuation byte is missing or out of place.
 /// [`char::from_u32`] rejects a surrogate and a value past U+10FFFF.
 /// The width check rejects an overlong form.
+///
 /// The tests check every character against [`str::from_utf8`].
 ///
 /// The ASCII test is inline in the caller.

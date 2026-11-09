@@ -23,7 +23,7 @@ macro_rules! rules {
         pub(crate) enum R { $($id),* }
 
         impl R {
-            /// Every kind, in discriminant order.
+            /// Every rule, in discriminant order.
             pub(super) const ALL: &[R] = &[$(R::$id),*];
 
             /// The scopes of the rule's `name`: on its begin, its text and
@@ -137,7 +137,7 @@ rules! {
 }
 
 impl R {
-    /// The kind's position in [`R::ALL`].
+    /// The rule's position in [`R::ALL`].
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
@@ -146,7 +146,7 @@ impl R {
         self as usize
     }
 
-    /// The kind as a frame stores it: the C tag in the high byte, the
+    /// The rule as a frame stores it: the C tag in the high byte, the
     /// discriminant in the low one.
     #[expect(
         clippy::as_conversions,
@@ -156,7 +156,7 @@ impl R {
         TAG | self as u16
     }
 
-    /// The kind a frame's code names.
+    /// The rule a frame's code names.
     /// It is [`R::Top`] for a code that is not C's, such as the empty state's.
     pub(super) fn from_code(code: u16) -> R {
         if code & 0xfe00 != TAG {

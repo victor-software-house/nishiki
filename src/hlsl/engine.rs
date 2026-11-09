@@ -12,7 +12,7 @@ pub(crate) type Lexer<'a> = rules::Lexer<'a, Hlsl>;
 /// What a highlighter keeps from line to line.
 pub(crate) type Scratch = rules::Scratch<Hlsl>;
 
-/// The word at a place, as the word patterns ask about it.
+/// The word at a place, as the word patterns look it up.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Word {
     /// Where the word starts.
@@ -34,8 +34,8 @@ impl Default for Word {
 }
 
 /// What the HLSL matchers remember about a line.
-/// Up to 36 word patterns ask about the same word, so the last word looked up
-/// is kept.
+/// Up to 36 word patterns test the same word, so the last word looked up is
+/// kept.
 #[derive(Debug, Default)]
 pub(crate) struct Extra {
     /// The last word looked up.

@@ -410,8 +410,9 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// The part of a click handler after its name, from `p`: the end of the
-    /// name's spaces, the callback's span and where the tooltip starts.
+    /// The part of a click handler after its name, from `p`.
+    /// It holds the end of the name's spaces, the callback's span and where the
+    /// tooltip starts.
     fn click_rest(&self, p: usize) -> Option<ClickRest> {
         let mut spaces = self.ws(p);
         loop {

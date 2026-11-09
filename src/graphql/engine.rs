@@ -7,6 +7,7 @@
 //! It takes the first that matches at the earliest position.
 //! A rule marked `applyEndPatternLast` tries its end pattern after its
 //! patterns.
+//!
 //! An interpolation hands its text to the JavaScript lexer.
 //! The engine runs it up to the `}` that no JavaScript context waits for.
 
@@ -147,9 +148,11 @@ impl Lexer<'_> {
 
 impl Lexer<'_> {
     /// The first match from the position.
+    ///
     /// The halts apply only while the root rule alone is open.
     /// Where the line's first halt holds, the line ends before the patterns.
     /// Where its second holds and nothing matched, the line ends after them.
+    ///
     /// A rule the depth limit keeps closed leaves its text plain.
     /// An empty match would match again at the same place, so the search
     /// then goes on one character later.

@@ -4,6 +4,7 @@
 //! They close at the first later run of the same length.
 //! Without one, the opening run gives back one delimiter at a time.
 //! The span then closes at the first later run of the longest length that fits.
+//!
 //! One sweep from the line's end finds that run for every delimiter.
 //! The sweep keeps the first run of each length after the run it is at.
 //!
@@ -93,6 +94,7 @@ impl Run {
 /// A span first scans ahead for a counting run as long as its widest opening.
 /// That scan is exact, and it costs only the bytes up to the closing run.
 /// A delimiter's table is built the first time such a scan misses on a line.
+///
 /// The box also holds emphasis's memo of stops and the image rule's memo of
 /// title scans.
 ///

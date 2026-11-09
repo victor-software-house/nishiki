@@ -27,6 +27,7 @@ pieces:
 - lint_markdown
 - lint_toml
 - lint_typos
+- lint_prose
 - openspec
 - ci
 - drift_check
@@ -41,6 +42,7 @@ pieces_extra:
 - doc_tests
 - rustdoc
 project: rust-crate
+prose_fail_level: warning
 published: true
 repository: victor-software-house/nishiki
 repository_visibility: private

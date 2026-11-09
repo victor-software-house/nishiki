@@ -6,6 +6,7 @@
 //! A push is one hash lookup, and a pop follows the parent link.
 //! Two equal stacks or states have the same id.
 //! Comparing them is therefore one integer comparison.
+//!
 //! Memory grows with the number of distinct nodes, not with depth times the
 //! number of lines.
 

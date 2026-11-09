@@ -84,9 +84,11 @@ pub(crate) enum P {
 }
 
 impl P {
-    /// Whether a block rule can match at a position, given the byte there
-    /// (`at`), the first byte after the blanks that follow (`first`), and
-    /// whether `^` or `\G` matches there (`anchored`).
+    /// Whether a block rule can match at a position.
+    ///
+    /// It takes the byte there (`at`) and the first byte after the blanks that
+    /// follow (`first`). It also takes whether `^` or `\G` matches there
+    /// (`anchored`).
     /// Every block rule but the definition starts at such a position.
     /// Each begins by testing one of the two bytes.
     /// The lexer asserts in debug builds that a rule this skips would have

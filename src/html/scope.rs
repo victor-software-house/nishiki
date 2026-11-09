@@ -1,6 +1,8 @@
-//! The scope names the lexer emits, in Shiki's naming. Names that the
-//! grammar builds from the text it matched (a tag's, an attribute's, an
-//! entity's) are made at run time; these are the fixed ones.
+//! The scope names the lexer emits, in Shiki's naming.
+//! The grammar builds a tag's, an attribute's and an entity's names from the
+//! text it matched.
+//! Those names are made at run time.
+//! The names here are the fixed ones.
 
 crate::scope::scope_table! {
     HTML;

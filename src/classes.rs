@@ -209,8 +209,9 @@ pub(crate) fn is_ascii_space(b: u8) -> bool {
     matches!(b, b' ' | b'\t' | b'\n' | 0x0b | 0x0c | b'\r')
 }
 
-/// The width of the character at byte `i` of `s` when `class` holds for it
-/// and `ascii` for its byte if it is ASCII; 0 otherwise, past the end too.
+/// The width of the character at byte `i` of `s` when `class` holds for it.
+/// For an ASCII character, `ascii` must hold for its byte instead.
+/// The width is 0 otherwise, past the end too.
 #[inline]
 fn width_if(s: &[u8], i: usize, ascii: fn(u8) -> bool, class: fn(char) -> bool) -> usize {
     match s.get(i) {

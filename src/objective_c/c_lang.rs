@@ -247,8 +247,9 @@ where
 
     /// `(?:[A-Z_a-z][0-9A-Z_a-z]*+|::)++` at `i`: where the run ends.
     ///
-    /// A walk entered at a letter or `_` inside the last walk, in the same
-    /// text, takes the rest of that name and then the same steps.
+    /// A walk can enter at a letter or `_` inside the last walk, in the same
+    /// text.
+    /// It takes the rest of that name and then the same steps.
     /// It ends where the last walk did.
     fn scoped_name(&self, i: usize) -> Option<usize> {
         let (start, end, len) = self.x.memory().scoped.get();

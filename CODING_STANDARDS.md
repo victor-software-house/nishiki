@@ -51,10 +51,20 @@ A new language is wired in with:
 4. its fence names in `src/markdown/fence.rs`;
 5. its `lang-*` feature in `Cargo.toml`, which turns on `_language`, with a `cfg` on each of the above (5.2).
 
-The scope tables, the frame tags and the `lang-*` features are sorted by language, and so are the other lists a language adds to: the README's language table, `src/scratch.rs`, `mise-tasks/check/features.sh`, `oracle/inputs.ts`, `tests/oracle/SOURCES.md`, Markdown's fence languages and fence scopes in `src/markdown/rules.rs` and `src/markdown/scope.rs`, and the sections of `THIRD-PARTY-NOTICES.md`.
+The scope tables, the frame tags and the `lang-*` features are sorted by language.
+So are the other lists a language adds to:
+
+- the README's language table;
+- `src/scratch.rs`, `mise-tasks/check/features.sh`, `oracle/inputs.ts` and `tests/oracle/SOURCES.md`;
+- Markdown's fence languages and fence scopes, in `src/markdown/rules.rs` and `src/markdown/scope.rs`;
+- the sections of `THIRD-PARTY-NOTICES.md`.
+
 A new row goes in its sorted place, never at the end, so two languages added in parallel edit different lines.
 `tests/it/sorted.rs` fails when a list is out of order.
-The rows of `src/language.rs` stay in the order they were added, with a new row at the end, until the next minor release sorts them: their order sets the discriminants of the public `Language` enum and the order of `Language::ALL`, so moving one is an API break.
+
+The rows of `src/language.rs` stay in the order they were added, with a new row at the end, until the next minor release sorts them.
+Their order sets the discriminants of the public `Language` enum and the order of `Language::ALL`.
+Moving one is therefore an API break.
 
 A language has no highlighter, interner or state type of its own.
 One contract keeps every language reachable through one public API,
@@ -81,7 +91,8 @@ That is what lets an editor stop re-lexing as soon as a line's state matches the
 - Each language lists its scope names once, in Shiki's spelling,
   as an enum whose discriminant indexes a `NAMES` table.
 - `src/scope.rs` numbers every table in one space.
-  A table's slot is the high byte of its language's frame tag, and a scope number is the slot in the high 16 bits and the name's index in the low 16.
+  A table's slot is the high byte of its language's frame tag.
+  A scope number is the slot in the high 16 bits and the name's index in the low 16.
   One table's length therefore never moves another table's numbers, and no language needs a number of its own.
 - A compile-time check fails the build when a table outgrows its slot.
 - A language whose names are one list declares them with `scope_table!`, which generates the enum, `NAMES` and the conversion to a scope.
@@ -122,7 +133,8 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   - The embedding lexer adds that to its own count (`Steps::take_back`).
 - It counts only its own contexts against the depth limit.
   A pinned depth then gives it the same output wherever it is embedded.
-- A fence's kind holds the embedded `Language`, and Markdown numbers its kinds from `Language::ALL`.
+- A fence's `Kind` holds the embedded `Language`.
+  Markdown numbers the `Kind` codes of fences from `Language::ALL`.
   Adding a fence language is one entry in the fence table and its embedded scope in `rules::content_name`.
 
 ## 2. Speed
@@ -147,15 +159,18 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 ### 2.4 A forced trade-off means the shape is wrong
 
-- When fidelity and speed cannot both hold, treat it as a sign that the design is wrong, not as a price to pay (operator, 2026-11-04).
+- When fidelity and speed cannot both hold, the design is wrong (operator, 2026-11-04).
+  Do not treat the loss as a price to pay.
   Rework the data layout or the point where the work happens until both hold.
-- A cost accepted to land a change, such as a language over the Callgrind gate, is temporary.
+- A cost accepted to merge a change, such as a language over the Callgrind gate, is temporary.
   The same pull request names the follow-up that removes it, and that follow-up is planned work.
 
 ### 2.5 A lazy cell's closure captures by value
 
-- On a hot path, the closure given to `get_or_init` is `move` and captures only `Copy` values, such as an index or a shared reference.
-  A closure that borrows its captures builds their environment on the stack before the cell's initialized test, on every call, though it runs only once.
+- On a hot path, the closure given to `get_or_init` is `move`.
+  It captures only `Copy` values, such as an index or a shared reference.
+- A closure that borrows its captures builds their environment on the stack before the cell's initialized test.
+  It does so on every call, though it runs only once.
 
 ### 2.6 State on the hot path has no `Drop` impl
 
@@ -187,9 +202,13 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   `#[allow]` is denied.
 - `as` is denied, except on a site whose `#[expect]` says why the conversion cannot lose data.
 - nishiki forbids unsafe code.
-  Test support that cannot be written safely lives in its own unpublished workspace crate, as [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html) asks for unsafe code: behind a safe API, in a separate crate with few dependencies.
-  Its crate docs justify the unsafe code, every unsafe block carries a `SAFETY:` comment, and its tests run under Miri.
-  The one such crate is `nishiki-alloc-count`, a counting global allocator for the test that proves 2.1 and for the memory counts of `examples/memory.rs` (operator, 2026-11-03).
+- Test support that cannot be written safely lives in its own unpublished workspace crate.
+  [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html) asks the same for unsafe code: behind a safe API, in a separate crate with few dependencies.
+  - Its crate docs justify the unsafe code.
+  - Every unsafe block carries a `SAFETY:` comment.
+  - Its tests run under Miri.
+- The one such crate is `nishiki-alloc-count`, a counting global allocator (operator, 2026-11-03).
+  It serves the test that proves 2.1 and the memory counts of `examples/memory.rs`.
 
 ### 3.4 Comments carry the why
 
@@ -198,14 +217,15 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   A comment that needs a second read is rewritten in review.
 - Inline prose inside a body is removed in review.
 - Multiline text in code and tests uses `indoc!` or `formatdoc!`.
-  `check:literals`, which the pre-commit hook and `check:local` run, fails on a string literal in `src/` or `tests/` that holds two or more escaped line feeds, outside comments and generated files.
+  The pre-commit hook and `check:local` run `check:literals`.
+  It fails on a string literal in `src/` or `tests/` that holds two or more escaped line feeds, outside comments and generated files.
   A literal of line feeds alone, such as a `"\n\n"` separator, passes.
 
 ### 3.5 Dependencies
 
 - The crate depends on `memchr` alone.
 - A feature may add one dependency when it removes more work or risk than it adds,
-  and the change says why.
+  and the change states why.
   `json` adds `serde_json`.
   The engine's hidden `_textmate` feature adds `regex-automata` and `regex-syntax`.
   `regex-automata` already depends on `regex-syntax`.
@@ -234,11 +254,15 @@ The release rules in `AGENTS.md` decide its version.
   - Its module's `start`, `start_embedded` and `lex` call `rules::start`, `rules::start_embedded` and `rules::lex`, which hold the contract of 1.1 once.
   - It also supplies an `Extra`, for what its matchers remember about a line.
   - It sets `Grammar::GROUPS` to one more than the highest capture group its patterns record, and its `lang-*` feature enables `_rule-tables` when it scans with `table_scan`.
-  - Its generator, `oracle/<language>-grammar.ts`, takes the first-byte analysis, the start table, the rule codes with the `Tabled` implementation, the scope file and the `GROUPS` check from `oracle/rule-grammar.ts`; the generated grammar fails to compile when `GROUPS` is short of a group its tables name.
+  - Its generator, `oracle/<language>-grammar.ts`, takes five parts from `oracle/rule-grammar.ts`:
+    the first-byte analysis, the start table, the rule codes with the `Tabled` implementation, the scope file and the `GROUPS` check.
+    The generated grammar fails to compile when `GROUPS` is short of a group its tables name.
   - It writes every Rust file through `writeRust` there.
     `writeRust` formats the file as `mise run format` does, so a run leaves the committed tables unchanged.
     `mise run check:rule-grammars` checks that round trip in CI for every such language.
-  - A match's groups come from the pattern's table, or from spans the matcher records (`span_one`, `span_dyn` for a scope named by text of the line); `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
+  - A match's groups come from the pattern's table, or from spans the matcher records.
+    The matcher records them with `span_one`, or with `span_dyn` for a scope named by text of the line.
+    `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
   - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.
 - A language with no lexer of its own runs on nishiki's `TextMate` engine (`src/textmate.rs`), which interprets Shiki's grammar as Shiki does.
@@ -260,8 +284,8 @@ The release rules in `AGENTS.md` decide its version.
 
 ### 4.1 Shiki is the test
 
-- A language is done when every oracle fixture matches Shiki on every non-whitespace byte,
-  in scopes and in colours under every oracle theme, held-out inputs included.
+- A language is done when every oracle fixture matches Shiki on every non-whitespace byte.
+  It matches in scopes and in colours under every oracle theme, held-out inputs included.
 - Unit tests cover what the oracle cannot reach:
   states across lines, limits, embedding, and edge cases a fixture lacks.
 
@@ -286,8 +310,8 @@ A new file is a module there, not a new binary.
 ### 5.1 One published crate until a real boundary
 
 - nishiki is one published crate.
-- A part becomes its own crate only at a real boundary,
-  shown by how often it changes and who depends on it, or by a build-time measurement.
+- A part becomes its own crate only at a real boundary.
+  How often it changes and who depends on it show that boundary, or a build-time measurement does.
   The likely first is the TextMate engine's bundled grammar data, whose size would rebuild everything else.
 - Crates are named `nishiki-<noun>`, never with `-rs`.
 
@@ -297,13 +321,21 @@ A new file is a module there, not a new binary.
   One module that lexes several languages (TypeScript's four dialects) gets a feature for each.
 - A language that embeds another lists it as a feature dependency.
 - Code that only some languages use sits behind a hidden feature they turn on (`_classes`, `_utf8`, `_space`, `_rule-engine`).
-- Wiring a language for features means a `cfg` on each of: its `mod` in `src/lib.rs`, its row in `src/language.rs`, its constant in `src/tag.rs`, its line in `src/scope.rs`, its fence names, and its `Scratch` field.
+- Wiring a language for features means a `cfg` on each of these:
+  - its `mod` in `src/lib.rs`;
+  - its row in `src/language.rs`;
+  - its constant in `src/tag.rs`;
+  - its line in `src/scope.rs`;
+  - its fence names;
+  - its `Scratch` field.
 - A fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
 - `check:features` builds each language, each tier and the empty set alone.
-  It denies every warning except dead code: a language built without the ones that embed it leaves some embedding code unused, which no set avoids.
-  The empty set and `json` alone deny every warning, dead code included.
-  The code every lexer shares sits behind the private `_language` feature, which every `lang-*` feature and the TextMate engine turn on.
-- Unit tests that name another language are gated on its feature.
+  - It denies every warning except dead code.
+    A language built without the ones that embed it leaves some embedding code unused, which no set avoids.
+  - The empty set and `json` alone deny every warning, dead code included.
+- The code every lexer shares sits behind the private `_language` feature.
+  Every `lang-*` feature and the TextMate engine turn it on.
+- Unit tests that name another language require its feature.
 
 ### 5.3 What ships
 

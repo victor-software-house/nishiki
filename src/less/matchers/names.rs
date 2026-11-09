@@ -251,10 +251,11 @@ impl Lexer<'_> {
     }
 
     /// `(?=[-\w]*?@\{.*}[-\w]*?\s*:[^(;{]*(?=[);}]))`: a property name with an
-    /// interpolation, whose value runs to a `;`, `)` or `}`. `.*}` tries the
-    /// last `}` first, and any `}` after the `@{` that the colon and the value
-    /// after it accept will do, so the last accepted `}` of the line decides;
-    /// it is looked for once.
+    /// interpolation, whose value runs to a `;`, `)` or `}`.
+    /// `.*}` tries the last `}` first.
+    /// Any `}` after the `@{` that the colon and the value after it accept
+    /// will do.
+    /// So the last accepted `}` of the line decides, and it is looked for once.
     pub(super) fn interpolated_property_ahead(&self, p: usize) -> Option<usize> {
         let open = self.dash_word_end(p);
         if !self.starts(open, b"@{") {

@@ -5,6 +5,7 @@
 //! the `engine` module.
 //! The tables in `grammar` are generated from the grammar, and `words` holds
 //! its long word list.
+//!
 //! The grammar includes the TeX grammar, whose expressions TeX's matchers
 //! answer; the `matchers` here decide where the rest match.
 //! Code environments hand their text to the language they name.
@@ -55,7 +56,7 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 /// The line halts where `end` holds before LaTeX's patterns are tried.
 /// It also halts where `after` holds and the patterns fail.
 /// Both apply only while no LaTeX rule is open.
-/// The second value says where the line stopped, and why.
+/// The second value holds where the line stopped, and why.
 #[inline]
 pub(crate) fn lex_until(
     cx: &mut Context<'_>,

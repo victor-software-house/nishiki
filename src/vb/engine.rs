@@ -30,9 +30,9 @@ impl Grammar for Vb {
     const ROOT: Rule = Rule::Root;
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 6;
-    /// `\n` is a match of its own, and a function head's `.*\n?`, a
-    /// comment's `\n` and the trailing `\s*` of a `Dim` name or a storage word
-    /// take the line feed.
+    /// `\n` is a match of its own.
+    /// A function head's `.*\n?`, a comment's `\n` and the trailing `\s*` of a
+    /// `Dim` name or a storage word take the line feed.
     const CAPTURED_EOL: bool = true;
 
     fn scope(scope: S) -> ScopeName {

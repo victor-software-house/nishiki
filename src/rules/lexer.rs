@@ -2,14 +2,19 @@
 //! does, with hand-written matchers instead of regular expressions.
 //!
 //! At each position the engine tries the end pattern of the innermost rule and
-//! then the rule's patterns in order, and takes the first that matches at the
-//! earliest position. A begin match opens a rule and an end match closes it;
-//! a match's capture groups name parts of it, through the pattern's table or
-//! through spans that the matcher records, and a span may be lexed again with
-//! the patterns of another rule. The corner cases of `TextMate` engines are
-//! kept because Shiki's output depends on them: `\G` matches only where the
-//! enclosing begin ended, and a rule that opens or closes without advancing
-//! stops the line.
+//! then the rule's patterns in order.
+//! It takes the first that matches at the earliest position.
+//! A begin match opens a rule and an end match closes it.
+//!
+//! A match's capture groups name parts of it, through the pattern's table or
+//! through spans that the matcher records.
+//! A span may be lexed again with the patterns of another rule.
+//!
+//! The corner cases of `TextMate` engines are kept because Shiki's output
+//! depends on them:
+//!
+//! - `\G` matches only where the enclosing begin ended.
+//! - A rule that opens or closes without advancing stops the line.
 
 #[cfg(feature = "_embedding")]
 use super::Embedding;
@@ -81,11 +86,16 @@ struct PushEntry {
 const NEST: usize = 12;
 
 /// The steps at one byte that open a rule, past which the tokenizer asserts
-/// it is looping. A rule that repeats ends the line, so such a run is at most
-/// one open and one close per rule of the grammar; 4096 is far above that,
-/// and reaching it means a rule matches empty without being guarded. Closes
-/// are bounded by the rules open instead, up to the depth limit, as where a
-/// line's end closes every rule whose end is `$`, so the bound adds it.
+/// it is looping.
+///
+/// A rule that repeats ends the line.
+/// So such a run is at most one open and one close per rule of the grammar.
+/// 4096 is far above that, and reaching it means a rule matches empty without
+/// being guarded.
+///
+/// Closes are bounded by the rules open instead, up to the depth limit.
+/// A line's end closes every rule whose end is `$`, for one.
+/// So the bound adds the depth limit.
 const STALLED_OPENS: usize = 4096;
 
 const _: () = assert!(size_of::<Option<PathEntry>>() == 16);
@@ -107,10 +117,12 @@ struct Flags {
     shared: bool,
 }
 
-/// What a highlighter keeps from line to line, so that lexing a line
-/// allocates nothing once it has grown, and the hot lookups of the arena are
-/// not repeated. It belongs to one arena: every id it holds names a node
-/// that arena made and never removes.
+/// What a highlighter keeps from line to line.
+///
+/// Lexing a line then allocates nothing once it has grown, and the hot
+/// lookups of the arena are not repeated.
+/// It belongs to one arena: every id it holds names a node that arena made
+/// and never removes.
 #[derive(Debug)]
 pub(crate) struct Scratch<G: Grammar> {
     frames: Vec<Frame<G>>,
@@ -126,10 +138,12 @@ pub(crate) struct Scratch<G: Grammar> {
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The text of a scope name made from source text.
     name: String,
-    /// The state the last line ended in and the open rules of it, which the
-    /// next line starts from when it continues that state. The two frame
-    /// buffers trade places at such a line, so a line that starts afresh
-    /// takes the larger one, and lexing a document again allocates nothing.
+    /// The state the last line ended in and the open rules of it.
+    /// The next line starts from them when it continues that state.
+    ///
+    /// The two frame buffers trade places at such a line.
+    /// So a line that starts afresh takes the larger one, and lexing a
+    /// document again allocates nothing.
     resume: Option<u32>,
     resume_frames: Vec<Frame<G>>,
     paths: Vec<Option<PathEntry>>,
@@ -235,9 +249,10 @@ impl<G: Grammar> Default for Scratch<G> {
     }
 }
 
-/// The payload of a frame whose begin match took the line feed, so that `\G`
-/// holds at the start of the next line, as in vscode-textmate. Only a grammar
-/// with [`Grammar::CAPTURED_EOL`] keeps it.
+/// The payload of a frame whose begin match took the line feed.
+///
+/// `\G` then holds at the start of the next line, as in vscode-textmate.
+/// Only a grammar with [`Grammar::CAPTURED_EOL`] keeps it.
 const CAPTURED_EOL: u32 = 1;
 
 /// Where the text of a scope name made at run time comes from.
@@ -259,9 +274,10 @@ enum NameSource {
 #[cfg(test)]
 pub(crate) type Probe = (usize, Vec<Option<(usize, usize)>>);
 
-/// The payload of a root frame that is the start of a document: its first
-/// line is the one where `\A` matches, and the root of every state after it
-/// has no payload.
+/// The payload of a root frame that is the start of a document.
+///
+/// Its first line is the one where `\A` matches.
+/// The root of every state after it has no payload.
 pub(crate) const FIRST_LINE: u32 = 1;
 
 /// Lexes one line.
@@ -273,8 +289,9 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// The text: the line, or the part of it up to where a capture that is
     /// lexed again ends.
     pub(crate) s: &'a [u8],
-    /// Whether a line feed follows the text, which the regular expressions of
-    /// the grammar see at the end of a line but not at the end of a capture.
+    /// Whether a line feed follows the text.
+    /// The regular expressions of the grammar see one at the end of a line but
+    /// not at the end of a capture.
     pub(crate) nl: bool,
     out: &'a mut Vec<Token>,
     arena: &'a mut Arena,
@@ -327,9 +344,10 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     halt: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
-    /// Whether the line runs through [`Lexer::run_embedding`], which hands
-    /// an embedding rule's text to the language it embeds; a line run any
-    /// other way lexes such a rule's text as the rule's own.
+    /// Whether the line runs through [`Lexer::run_embedding`].
+    ///
+    /// That function hands an embedding rule's text to the language it embeds.
+    /// A line run any other way lexes such a rule's text as the rule's own.
     embedding: bool,
     /// The language the innermost rule embeds, which the loop hands the
     /// text to at the cursor; only an embedding line sets it.
@@ -578,11 +596,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Lexes the line like [`Lexer::run`], but stops where the innermost
-    /// rule embeds another language and returns where. Its count is given
-    /// back by then, so the caller lends what the line has left to the
-    /// embedded language and, where it halts, to
-    /// [`Lexer::resume_embedding`], and every part of the line spends one
-    /// budget.
+    /// rule embeds another language and returns where.
+    ///
+    /// Its count is given back by then.
+    /// So the caller lends what the line has left to the embedded language.
+    /// Where that language halts, the caller lends the rest to
+    /// [`Lexer::resume_embedding`].
+    /// Every part of the line spends one budget.
     #[cfg(feature = "_embedding")]
     pub(crate) fn run_embedding(mut self) -> (Finished, Option<Embedding>) {
         let embedding = self.embed(Entry::Start);
@@ -590,9 +610,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Goes on with the line where an embedded language halted, like
-    /// [`Lexer::run_embedding`]: the rule's own patterns are tried at the
-    /// cursor first, and the `while` rules, which only the start of a line
-    /// tries, are not.
+    /// [`Lexer::run_embedding`].
+    ///
+    /// The rule's own patterns are tried at the cursor first.
+    /// The `while` rules, which only the start of a line tries, are not.
     #[cfg(feature = "_embedding")]
     pub(crate) fn resume_embedding(mut self) -> (Finished, Option<Embedding>) {
         let embedding = self.embed(Entry::Resume);
@@ -603,8 +624,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// innermost rule's patterns matches, in order.
     /// They are an embedding rule's own patterns
     /// ([`crate::rules::Embeds::embeds_after_own`]).
-    /// Each place is the one the loop's search finds from the place before,
-    /// so the patterns are tried as the loop would try them there.
+    /// Each place is the one the loop's search finds from the place before.
+    /// So the patterns are tried as the loop would try them there.
     /// Nothing is emitted.
     #[cfg(feature = "_embedding")]
     pub(crate) fn pattern_starts(mut self, starts: &mut Vec<usize>) -> Finished {
@@ -689,10 +710,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         })
     }
 
-    /// The state after the line, with the buffers given back to the scratch
-    /// and, where the open rules are the state's chain, kept for the next
-    /// line (see [`Lexer::run`]), and the line's count given back to the
-    /// lender (see [`Steps::finish`]).
+    /// The state after the line.
+    ///
+    /// The buffers go back to the scratch.
+    /// Where the open rules are the state's chain, they are kept for the next
+    /// line (see [`Lexer::run`]).
+    /// The line's count goes back to the lender (see [`Steps::finish`]).
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: a call here, with the lexer moved into it, costs CSS 0.7% of its instructions"
@@ -761,15 +784,16 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The line's halts while only the root rule is open, and `None` otherwise.
     /// A scan opens and closes no rules.
-    /// It asks once.
+    /// A scan calls it once.
     pub(crate) fn root_halts(&self) -> Option<&'a Halts<'a>> {
         self.halt.filter(|_| self.frames.len() == 1)
     }
 
-    /// The deep halt of the line's halts below the root, where the grammar
-    /// takes one ([`Grammar::DEPTH_HALTS`]) and no open rule shuts it out,
-    /// with whether it loses a tie with the patterns
-    /// ([`Halt::deep_loses_ties`]).
+    /// The deep halt of the line's halts below the root, with whether it
+    /// loses a tie with the patterns ([`Halt::deep_loses_ties`]).
+    ///
+    /// There is one where the grammar takes one ([`Grammar::DEPTH_HALTS`])
+    /// and no open rule shuts it out.
     pub(crate) fn deep_halt(&self) -> Option<(&'a dyn Halt, bool)> {
         let &(end, _) = self.halt?;
         end.deep()
@@ -783,9 +807,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Where and why the line stopped for the grammar that embeds this one.
-    /// The kind rests on one invariant: only [`Lexer::match_rule`] takes the
-    /// halts, where an empty match at the root of a halting line pops the
-    /// rule that embeds the grammar.
+    ///
+    /// The `kind` rests on one invariant: only [`Lexer::match_rule`] takes the
+    /// halts.
+    /// It takes them where an empty match at the root of a halting line pops
+    /// the rule that embeds the grammar.
     /// A halt, the end of the line and every other path leave them set.
     /// Less's tests `an_embedded_line_halts_at_the_hosts_end` and
     /// `an_embedded_line_pops_the_host_at_a_root_close` check both kinds.
@@ -807,12 +833,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         i == self.s.len() || (self.nl && i == self.s.len() + 1)
     }
 
-    /// Whether the text at `i` starts with `text`, which must not be empty:
-    /// the first byte decides almost always, so it is tested before the call
-    /// that compares the rest, and an empty `text` would never match. A
-    /// needle that can be empty goes through `Chars::lit`,
-    /// where it matches as an empty literal does in a regular expression;
-    /// matchers call this one with words from lists in their hot loops, where
+    /// Whether the text at `i` starts with `text`, which must not be empty.
+    ///
+    /// The first byte decides almost always.
+    /// So it is tested before the call that compares the rest, and an empty
+    /// `text` would never match.
+    ///
+    /// A needle that can be empty goes through `Chars::lit`, where it matches
+    /// as an empty literal does in a regular expression.
+    /// Matchers call this one with words from lists in their hot loops, where
     /// one more test costs (Make +1.9% instructions, 2026-11-03).
     #[expect(
         clippy::inline_always,
@@ -1065,9 +1094,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Leaves the text from the cursor up to `next` plain, as the innermost
-    /// rule's content, with a token boundary at `start`, and moves the cursor
-    /// there: what a language does for a rule that the depth limit keeps
-    /// closed when it has not skipped the pattern.
+    /// rule's content, with a token boundary at `start`.
+    /// It moves the cursor to `next`.
+    /// A language calls it for a rule that the depth limit keeps closed when
+    /// it has not skipped the pattern.
     pub(crate) fn skip_plain(&mut self, start: usize, next: usize) {
         let next = next.min(self.s.len());
         let node = self.top().content;
@@ -1100,8 +1130,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// A [`path`](Self::path) the cache does not hold: makes the stack, and
-    /// caches it in `slot` unless a scope is named from a capture group, which
-    /// depends on the match.
+    /// caches it in `slot`.
+    ///
+    /// It does not cache a stack with a scope named from a capture group,
+    /// which depends on the match.
     ///
     /// Out of line, so a hit saves no registers for the walk.
     #[inline(never)]
@@ -1146,8 +1178,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         })
     }
 
-    /// The stack `base` with one scope on top, which is not cached: it is the
-    /// scope of a run-time choice, with no slice of its own to key a cache.
+    /// The stack `base` with one scope on top, which is not cached.
+    /// It is the scope of a run-time choice, with no slice of its own to key a
+    /// cache.
     pub(crate) fn path_one(&mut self, base: u32, scope: G::Scope) -> u32 {
         match G::scope(scope) {
             ScopeName::Fixed(fixed) => self.arena.child(base, fixed).unwrap_or_else(|| {
@@ -1350,11 +1383,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.emit(end, base);
     }
 
-    /// Emits a pattern's table of capture groups. A group that the grammar
-    /// tokenizes with patterns of its own runs them under the match's stack
-    /// `base` plus that group's name, not under the groups around it, as
-    /// vscode-textmate's `handleCaptures` does. A group that starts past the
-    /// match, in a lookahead, ends the groups, as in vscode-textmate.
+    /// Emits a pattern's table of capture groups.
+    ///
+    /// Some groups are tokenized with patterns of their own.
+    /// Such a group runs them under the match's stack `base` plus its name, as
+    /// vscode-textmate's `handleCaptures` does.
+    /// It does not run them under the groups around it.
+    /// A group that starts past the match, in a lookahead, ends the groups, as
+    /// in vscode-textmate.
     fn emit_captures(&mut self, (table, nested): Captures<G>, base: u32, start: usize, end: usize) {
         self.caps[0] = Some((start, end));
         self.dirty = true;
@@ -1421,9 +1457,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Lexes the capture group text `from..to` with the grammar's hook, which
-    /// matches patterns of its own: the groups of the match being emitted
-    /// are saved meanwhile, on a stack, so the hook's matches, and the
-    /// nested groups those emit in turn, do not overwrite them.
+    /// matches patterns of its own.
+    /// The groups of the match being emitted are saved meanwhile, on a stack.
+    /// The hook's matches, and the nested groups those emit in turn, then do
+    /// not overwrite them.
     fn nested(&mut self, kind: G::Nested, from: usize, to: usize, base: u32) {
         #[cfg(feature = "_embedding")]
         if G::DEFERS_NESTED
@@ -1582,10 +1619,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     // The loop.
 
-    /// Runs from `pos` until the text ends or the line stops. Group 0 of
-    /// each match is set before its scopes are made, for a name that repeats
-    /// the whole match (`$0`). It does not mark the groups for clearing: each
-    /// match sets it before anything reads it, so the next try need not
+    /// Runs from `pos` until the text ends or the line stops.
+    ///
+    /// Group 0 of each match is set before its scopes are made, for a name
+    /// that repeats the whole match (`$0`).
+    /// It does not mark the groups for clearing.
+    /// Each match sets it before anything reads it, so the next try need not
     /// clear the groups for it.
     fn tokenize(&mut self) {
         let line_length = self.s.len() + usize::from(self.nl);
@@ -1950,7 +1989,8 @@ fn push_spelled(name: &mut String, text: &str, case: NameCase) {
 ///
 /// This is out of line.
 /// Inlined into `emit_match`, the loop raised CSS's count by 0.22% and
-/// SCSS's by 0.17% at one codegen unit, all in `emit_match`'s own cost.
+/// SCSS's by 0.17% at one codegen unit.
+/// All of it was in `emit_match`'s own cost.
 #[inline(never)]
 fn push_lowered(name: &mut String, text: &str) {
     if text.contains('Σ') {
@@ -1980,8 +2020,12 @@ fn lower_with_final_sigma(name: &mut String, text: &str) {
 }
 
 /// The state `state` with its innermost rule's payload replaced by
-/// `payload`, such as the state of the language the rule embeds after a
-/// line, or `None` when the node limit keeps the new state from being made.
+/// `payload`.
+///
+/// The payload can be the state of the language the rule embeds after a
+/// line.
+/// The result is `None` when the node limit keeps the new state from being
+/// made.
 #[cfg(feature = "_embedding")]
 pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Option<u32> {
     let frame = arena.frame(state);
@@ -2010,8 +2054,10 @@ mod tests {
     struct Root;
 
     /// A grammar of bracket pairs whose inside is lexed again with the same
-    /// rule, and words: `[[ab]]` nests one capture group's hook inside
-    /// another's, which must leave the outer match's later groups intact.
+    /// rule, and words.
+    ///
+    /// `[[ab]]` nests one capture group's hook inside another's.
+    /// That must leave the outer match's later groups intact.
     #[derive(Clone, Copy, Debug)]
     struct Brackets;
 
@@ -2239,23 +2285,25 @@ mod tests {
         let _ = lexer.starts(0, b"");
     }
 
-    /// A grammar whose names repeat text of the line: a word is named
-    /// `word.<the word>.test` (`$0`), `!` and `?` are named after themselves
-    /// as group 1, with a group 2 past the match and a group 3 after it, and
-    /// `<<ab` opens a quote named `quote.ab.q after.test` that the next `ab`
-    /// closes.
-    /// `>>` opens a rule that embeds Rust from an entry
-    /// ([`Grammar::embed_start`]), and takes the line feed when it ends the
-    /// line.
-    /// `%%` opens a rule that embeds JavaScript, which halts before it lexes
-    /// anything, and then names a `!` only where `\G` holds.
-    /// `##` opens a rule that embeds HTML and lists the mark of `!` and `?`
-    /// after it ([`Embeds::embeds_after_own`]).
-    /// A quote takes `##` too.
+    /// A grammar whose names repeat text of the line.
+    ///
+    /// - A word is named `word.<the word>.test` (`$0`).
+    /// - `!` and `?` are named after themselves as group 1, with a group 2 past
+    ///   the match and a group 3 after it.
+    /// - `<<ab` opens a quote named `quote.ab.q after.test` that the next `ab`
+    ///   closes.
+    /// - `>>` opens a rule that embeds Rust from an entry
+    ///   ([`Grammar::embed_start`]), and takes the line feed when it ends the
+    ///   line.
+    /// - `%%` opens a rule that embeds JavaScript, which halts before it lexes
+    ///   anything, and then names a `!` only where `\G` holds.
+    /// - `##` opens a rule that embeds HTML and lists the mark of `!` and `?`
+    ///   after it ([`Embeds::embeds_after_own`]). A quote takes `##` too.
+    /// - `@@` starts a capture group that runs to the next blank, which
+    ///   JavaScript lexes again ([`Grammar::defers_nested`]).
+    ///
     /// The end halt of the rules that embed records the text of the embedding
     /// rule's parent payload ([`EndText::ParentPayload`]).
-    /// `@@` starts a capture group that runs to the next blank, which
-    /// JavaScript lexes again ([`Grammar::defers_nested`]).
     #[derive(Clone, Copy, Debug)]
     struct Named;
 
@@ -2699,9 +2747,11 @@ mod tests {
     }
 
     /// Lexes `lines` with [`Named`] from its start state, as a language's
-    /// `start` makes it, and gives each token's end and scopes, joined by
-    /// spaces, line by line. Each line starts from a new scratch, so it
-    /// opens the rules of its state afresh.
+    /// `start` makes it.
+    ///
+    /// It gives each token's end and scopes, joined by spaces, line by line.
+    /// Each line starts from a new scratch, so it opens the rules of its state
+    /// afresh.
     fn named_tokens(arena: &mut Arena, lines: &[&[u8]]) -> Vec<Vec<(usize, String)>> {
         let limits = Limits::default();
         let mut state = arena
@@ -2950,9 +3000,9 @@ mod tests {
         assert_eq!((later.at, later.anchored), (0, false));
     }
 
-    /// JavaScript halts before it lexes anything after `%%`, so no match has
-    /// ended since the one that opened the rule, and `\G` still holds where
-    /// the grammar goes on: the `!` is named.
+    /// JavaScript halts before it lexes anything after `%%`.
+    /// So no match has ended since the one that opened the rule, and `\G`
+    /// still holds where the grammar goes on: the `!` is named.
     /// The engine asks [`Named`] first ([`Embeds::lex_embedded_until`]).
     /// It declines, and JavaScript's own `lex_until` halts.
     #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
@@ -2997,9 +3047,10 @@ mod tests {
     }
 
     /// `%%` ends the line, so the hand-over leaves no text for JavaScript.
-    /// [`Rule::Held`]'s end halt holds at the line's end, so the engine
-    /// stops there without asking a language, and tries the grammar's own
-    /// patterns at that place, as vscode-textmate tries a rule's end there.
+    /// [`Rule::Held`]'s end halt holds at the line's end.
+    /// So the engine stops there without asking a language.
+    /// It tries the grammar's own patterns at that place, as vscode-textmate
+    /// tries a rule's end there.
     /// No pattern of the rule matches, and the line ends inside it.
     #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
     #[test]
@@ -3189,7 +3240,7 @@ mod tests {
         /// A grammar of words, `"` strings with `@` mentions, `#` line comments
         /// and `[` `]` groups that shut the deep halt out, on the table scan,
         /// for [`Grammar::DEPTH_HALTS`].
-        /// `DEEP` sets the const, so one grammar serves as its own control.
+        /// `DEEP` sets the const, so one grammar is its own control.
         ///
         /// - A group also opens and ends at a `!`, without advancing.
         /// - A `<` `>` match lexes its inside again as a group.

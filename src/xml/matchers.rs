@@ -152,8 +152,8 @@ impl Lexer<'_> {
     // Names.
 
     /// The colon that splits the name `i..r` into a namespace and a local
-    /// name: `(?:(name):)?local` with both parts at least one character,
-    /// which is the first colon unless it starts or ends the name.
+    /// name: `(?:(name):)?local` with both parts at least one character.
+    /// It is the first colon unless it starts or ends the name.
     fn colon(&self, i: usize, r: usize) -> Option<usize> {
         let at = i + memchr(b':', &self.s[i..r])?;
         (at > i && at + 1 < r).then_some(at)

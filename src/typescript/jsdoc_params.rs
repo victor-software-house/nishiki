@@ -41,8 +41,9 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `[name=default]`, an optional parameter in a doc comment, checked in
-    /// full before anything is emitted: the grammar's pattern has to match to
-    /// the closing bracket or to the end of the comment.
+    /// full before anything is emitted.
+    /// The grammar's pattern has to match to the closing bracket or to the end
+    /// of the comment.
     ///
     /// `(?:(?:\[])?\.[$\w]+)*`
     ///

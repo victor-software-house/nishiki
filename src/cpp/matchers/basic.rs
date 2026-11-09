@@ -267,9 +267,11 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `\)(\2)(\3)"` and a user-defined suffix: the end of a raw string
-    /// whose start had group 2 as its delimiter, then the optional suffix
-    /// in its two forms, `[A-Za-z]…` and `_…`, as groups 4 and 5.
+    /// `\)(\2)(\3)"` and a user-defined suffix.
+    /// It is the end of a raw string whose start had group 2 as its
+    /// delimiter.
+    /// The optional suffix follows in its two forms, `[A-Za-z]…` and `_…`, as
+    /// groups 4 and 5.
     ///
     /// The delimiter is the rule's payload.
     /// One longer than 16 bytes is group 3 of the start and of the end.

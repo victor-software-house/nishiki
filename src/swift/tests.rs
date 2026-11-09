@@ -259,8 +259,9 @@ fn answer(arena: &mut Arena, pat: Pat, case: &Case<'_>) -> Option<(usize, Groups
 }
 
 /// Where the text ends, the matchers answer as Oniguruma does, which
-/// `oracle/onig.ts` gave for each case: a capture lexed again has no line
-/// feed after it, and a line's scan goes on past its line feed.
+/// `oracle/onig.ts` gave for each case.
+/// A capture lexed again has no line feed after it, and a line's scan goes on
+/// past its line feed.
 #[test]
 fn the_matchers_answer_as_oniguruma_where_the_text_ends() {
     use After::{LineFeed, Nothing};

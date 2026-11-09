@@ -87,8 +87,8 @@ const MARKED_LISTS: u32 = 14;
 const LONGEST_MARKED_WORD: u32 = 22;
 
 /// The steps a line's last places miss in those lists.
-/// Each list reads at most its longest word past a place, so a place within
-/// that many bytes of the line's end reads less than the rest.
+/// Each list reads at most its longest word past a place.
+/// A place within that many bytes of the line's end reads less than the rest.
 /// That shortfall is a fixed term per line.
 const NEAR_END_SHORTFALL: u32 = MARKED_LISTS * LONGEST_MARKED_WORD * LONGEST_MARKED_WORD;
 

@@ -20,8 +20,9 @@ use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
 
-/// The most capture groups a match carries: the end of a tag with nothing in
-/// it has a name of three parts between three punctuation marks.
+/// The most capture groups a match carries.
+/// The end of a tag with nothing in it has a name of three parts between
+/// three punctuation marks.
 const CAPS: usize = 7;
 
 /// The end of a `<% ... %>`.
@@ -464,8 +465,9 @@ impl<'a> Lexer<'a> {
     /// that ends it, and returns the state after it and where that `%>` is.
     ///
     /// Java's tokens start at the end of `out`.
-    /// A pop of the host cuts only tokens Java gave, so that end serves as
-    /// [`Context::first_token`], and the lexer keeps no copy of it per line.
+    /// A pop of the host cuts only tokens Java gave.
+    /// So the lexer uses that end as [`Context::first_token`] and keeps no
+    /// copy of it per line.
     fn java(&mut self, from: usize, state: u32) -> (u32, Option<usize>) {
         let lent = self.steps.lend(self.limits);
         let first_token = self.out.len();

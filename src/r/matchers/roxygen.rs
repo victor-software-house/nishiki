@@ -211,9 +211,10 @@ impl Lexer<'_> {
         None
     }
 
-    /// One unit of `(?:\\.|[^\\X])`, where `stop` is X: a backslash and a
-    /// character other than the line feed, or any character but a backslash
-    /// and `stop`, the line feed included.
+    /// One unit of `(?:\\.|[^\\X])`, where `stop` is X.
+    /// It is a backslash and a character other than the line feed.
+    /// Or it is any character but a backslash and `stop`, the line feed
+    /// included.
     fn emphasis_unit(&self, at: usize, stop: u8) -> Option<usize> {
         let b = self.at(at);
         if b == b'\\' {

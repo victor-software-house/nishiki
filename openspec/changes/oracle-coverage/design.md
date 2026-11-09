@@ -85,7 +85,7 @@ A unit is **exercised** when, while Shiki tokenizes the corpus:
 Each unit is named by its path in the grammar, such as `#attributes.patterns[1].begin` or `#import.beginCaptures[2]`.
 A path is stable while Shiki's version stays pinned.
 
-## 3. How it is measured
+## 3. Measurement
 
 The measure runs on Shiki's side, in Bun, with no Rust build:
 
@@ -120,7 +120,7 @@ Alternatives considered:
   Shiki's bundle does not expose them, and its debug output is not a stable interface.
 - **Walk the grammar with a tokenizer of our own.**
   That copies an engine, which the [repository's first invariant][agents] rules out.
-  Our tokenizer could also disagree with Shiki.
+  Our tokenizer could also differ from Shiki.
 
 ## 4. The report
 
@@ -157,6 +157,7 @@ The goal is every hand-lexed grammar complete.
 **Waivers.**
 `oracle/coverage-waivers.ts` lists each waived unit by grammar and path, with a reason.
 A waiver is for a unit no document can reach, such as a branch that a previous rule always takes first.
+
 Where the lexer has `onig.ts` support, the waiver names the probe case that checks the matcher instead.
 A waiver for a unit that the fixtures do exercise fails the run.
 Waivers therefore do not outlive their reason.
@@ -197,7 +198,7 @@ Each language is one pull request, or a short stack when its gaps are many.
 ## Risks / Trade-offs
 
 - [A tag could change how Shiki matches] → Step 4 of section 3 compares every fixture's scopes with the tags in place, on every run.
-- [Shiki's scanner returns a match that vscode-textmate then drops] → Only injections compete for one position on the hand-lexed grammars, and the wrapper settles them as vscode-textmate does. The script's own test covers a document where each side wins.
+- [Shiki's scanner returns a match that vscode-textmate then drops] → Only injections compete for one position on the hand-lexed grammars. The wrapper settles them as vscode-textmate does. The script's own test covers a document where each side wins.
 - [A Shiki upgrade renames every path] → Paths are regenerated with the fixtures in the upgrade's pull request. Waivers are keyed by path. The check names any waiver that no longer resolves.
 - [Exercised does not mean every branch of an alternation is checked] → Units stop at whole expressions and named groups. Branches inside one regex are what `onig.ts` probes cover.
 - [Written inputs drift from real code] → Third-party inputs come first, and written inputs stay short and grouped by gap.

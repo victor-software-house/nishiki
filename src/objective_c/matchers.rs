@@ -1,6 +1,6 @@
-//! The matchers: for each regular expression of the grammar, the code that
-//! decides whether it matches at a position, where it ends, and the capture
-//! groups the grammar names.
+//! The matchers, one for each regular expression of the grammar.
+//! Each is the code that decides whether its expression matches at a
+//! position, where it ends, and the capture groups the grammar names.
 //!
 //! Each follows its expression as Oniguruma's backtracking would.
 //! A word followed by `\b` in an alternation of words is the whole run of word

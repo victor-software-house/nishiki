@@ -30,9 +30,12 @@ pub(crate) struct Extra {
     pub(super) loops: Cell<u32>,
     /// How many capture groups are being lexed again around this point.
     nested: u32,
-    /// For each text of [`NEEDS`], the last search for it: where it started,
-    /// how long the text it searched was, and the first place at or after
-    /// the start where the text lies.
+    /// For each text of [`NEEDS`], the last search for it.
+    /// It holds:
+    /// - where the search started;
+    /// - how long the text it searched was;
+    /// - the first place at or after the start where the text lies.
+    ///
     /// It answers every later search in a text of that length from a place up
     /// to that one.
     /// A capture group lexed again sees a shorter text.

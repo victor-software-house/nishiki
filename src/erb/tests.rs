@@ -111,8 +111,8 @@ fn a_hash_after_the_percent_makes_a_comment() {
     );
 }
 
-/// A `#` in code that its line closes is ERB's comment up to the end; in
-/// code that runs on, it is Ruby's own comment.
+/// A `#` in code that its line closes is ERB's comment up to the end.
+/// In code that runs on, it is Ruby's own comment.
 #[test]
 fn a_hash_in_code_is_erb_comment_only_before_its_end() {
     assert_eq!(
@@ -145,8 +145,9 @@ fn the_end_takes_a_dash_and_skips_strings() {
     );
 }
 
-/// Code that its line does not close runs on to the next line, and the blanks
-/// before and after it at the ends of its lines get scopes of their own.
+/// Code that its line does not close runs on to the next line.
+/// The blanks before and after it at the ends of its lines get scopes of
+/// their own.
 #[test]
 fn code_across_lines_has_its_blanks_named() {
     let text = ["<html>", "  <%# a", "  b %>", "  <% if x", "  y %>  "].join("\n");
@@ -176,8 +177,9 @@ fn code_across_lines_has_its_blanks_named() {
 }
 
 /// Code that its line does not close starts at the line's blanks, before
-/// any JavaScript rule, so it opens in a `<script>` element's code, under the
-/// `source.js` that the code's lexer adds.
+/// any JavaScript rule.
+/// It therefore opens in a `<script>` element's code, under the `source.js`
+/// that the code's lexer adds.
 #[test]
 fn code_that_runs_on_opens_in_script_code_under_source_js() {
     let text = indoc! {"

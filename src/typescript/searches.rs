@@ -4,7 +4,8 @@
 //! An embedding language can lex many texts of one line with this lexer,
 //! such as HTML's event handlers, one per attribute.
 //! A search of the line per text would read the line once per text.
-//! Instead, the second text of a line and those after it ask a list of the
+//!
+//! Instead, the second text of a line and those after it read a list of the
 //! line's matches.
 //! The list grows forward and is read once per line.
 
@@ -62,7 +63,7 @@ impl Searches {
     ///
     /// The first text of a line searches its own bytes, as a document of one
     /// text per line does on every line.
-    /// The texts after it ask the line's lists of matches.
+    /// The texts after it read the line's lists of matches.
     #[inline]
     pub(crate) fn last(
         &mut self,
@@ -114,9 +115,10 @@ impl Matches {
         self.until = 0;
     }
 
-    /// The last match of `find` in `bytes[from..]`, after reading on to the
-    /// end of `bytes` where no text of the line has read yet, and the number
-    /// of bytes read.
+    /// The last match of `find` in `bytes[from..]`, and the number of bytes
+    /// read.
+    /// It first reads on to the end of `bytes` where no text of the line has
+    /// read yet.
     fn last(&mut self, find: Find, bytes: &[u8], from: usize) -> (Option<usize>, usize) {
         let start = self.until;
         let mut read = 0;

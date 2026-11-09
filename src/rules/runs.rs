@@ -1,6 +1,7 @@
-//! The run of `\w` characters a line's matchers found last, so that a pattern
-//! tried at every position of a long word does not scan the rest of it again
-//! from each one.
+//! The run of `\w` characters a line's matchers found last.
+//!
+//! A pattern tried at every position of a long word then does not scan the
+//! rest of it again from each one.
 
 use std::cell::Cell;
 
@@ -10,9 +11,9 @@ use super::{Chars, Grammar, Lexer};
 /// from inside it ends where it does.
 #[derive(Debug)]
 pub(crate) struct Runs {
-    /// The end of the text the run was found in, with its line feed: lexing a
-    /// capture group's text again moves it, and a run found up to another end
-    /// is not the run up to this one.
+    /// The end of the text the run was found in, with its line feed.
+    /// Lexing a capture group's text again moves it.
+    /// A run found up to another end is not the run up to this one.
     end: Cell<usize>,
     word: Cell<(usize, usize)>,
 }

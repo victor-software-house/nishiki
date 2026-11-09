@@ -59,8 +59,10 @@ fn a_name_stops_at_a_less_than() {
 }
 
 /// In html-derivative the grammar's own tag rule compiles HTML's attribute
-/// rule first, so a tag HTML does not know reads HTML's attribute list, even
-/// inside a template, where HTML's grammar reads the `math` list.
+/// rule first.
+/// A tag HTML does not know therefore reads HTML's attribute list.
+/// That holds even inside a template, where HTML's grammar reads the `math`
+/// list.
 #[test]
 fn an_unknown_tag_reads_html_attributes_everywhere() {
     let text = "<script type=\"text/x-template\"><Foo class=\"x\"></script>";

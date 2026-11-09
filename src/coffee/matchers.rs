@@ -289,9 +289,9 @@ where
     /// At an ASCII letter or `_`, it goes on after the run of ASCII word
     /// characters there.
     /// No pattern can match inside that run:
-    /// - a pattern that starts with a name reads the whole run of `[$\w]`, so
-    ///   it needs the same text after the name at every place in the run, and
-    ///   it missed at `p`;
+    /// - a pattern that starts with a name reads the whole run of `[$\w]`. It
+    ///   needs the same text after the name at every place in the run, and it
+    ///   missed at `p`;
     /// - `[A-Z][$0-9A-Z_]*` before a member reaches the run's end only where a
     ///   name before the same member matched at `p`;
     /// - every other pattern that can start with a word character needs `\b`,

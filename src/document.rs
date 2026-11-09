@@ -1,6 +1,7 @@
 //! A document highlighted as it arrives, delta by delta.
 //!
 //! The design is the `streaming` change under `openspec/changes/`.
+//!
 //! A completed line's tokens depend only on the state before it and its own
 //! text, so a completed line is lexed once.
 //! Only the last line, still being written, is lexed again on each delta.
@@ -36,8 +37,8 @@ const COMPACT_FLOOR: usize = 4096;
 /// [`Document::take_changes`] tells a renderer which lines to draw again.
 ///
 /// Once the document is finished and lexed to its end, every line's tokens
-/// equal those [`Highlighter::line`] gives it when the whole text is lexed
-/// line by line.
+/// equal those [`Highlighter::line`] gives it.
+/// There the whole text is lexed line by line.
 ///
 /// Lines end at `\n`, and a `\r` before it belongs to the line ending, as in
 /// Shiki.
@@ -82,9 +83,15 @@ struct Counts {
     tail_bytes: usize,
 }
 
-/// A completed line: where its text ends, where the next line starts, where
-/// its run of tokens starts in [`Document::tokens`] and how long it is, the
-/// state it was last lexed from, its end state and its report.
+/// A completed line.
+///
+/// It holds:
+///
+/// - where its text ends and where the next line starts;
+/// - where its run of tokens starts in [`Document::tokens`], and how long it
+///   is;
+/// - the state it was last lexed from, its end state and its report.
+///
 /// `from` is `None` until the line is lexed, and again after its text
 /// changes.
 /// `state` and `report` hold only while `from` is set.
@@ -106,9 +113,13 @@ struct LastLine {
     lexed: Option<Lexed>,
 }
 
-/// What the last line was lexed from: the byte where the line starts, the
-/// bytes lexed, the bytes it held when lexing last ran or chose not to, the
-/// state before it, and what lexing gave.
+/// What the last line was lexed from.
+///
+/// It holds:
+///
+/// - the byte where the line starts and the bytes lexed;
+/// - the bytes it held when lexing last ran or chose not to;
+/// - the state before it, and what lexing gave.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct Lexed {
     start: usize,
@@ -149,6 +160,7 @@ struct Dirty {
 /// Lexing the last line on every delta costs the square of its length.
 /// For a line of 100 KiB written four bytes at a time, that is over a
 /// gigabyte of lexing.
+///
 /// Past `short` bytes, [`Tail::Amortized`] lexes it again only once it has
 /// grown by `1 / growth` since its last lexing.
 /// Past its first `short` bytes, a line then costs at most `growth + 1`
@@ -390,9 +402,10 @@ impl Document {
 
     /// Lexes every stale line, in order, through the line `until` names.
     ///
-    /// A line that the stream completed without changing its text since it
-    /// was last lexed as the last line keeps those tokens, without being
-    /// lexed again.
+    /// A line last lexed as the last line may then be completed by the
+    /// stream.
+    /// If its text did not change, it keeps those tokens and is not lexed
+    /// again.
     pub fn lex(&mut self, until: Until) {
         let last = match until {
             Until::Line(index) => index,

@@ -1,13 +1,18 @@
 //! The matchers: for each regular expression of the grammar, the function that
-//! decides whether it matches at a position and where. A matcher records the
-//! capture groups the grammar names with [`Lexer::cap`]; the engine names them.
+//! decides whether it matches at a position and where.
+//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
+//! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
-//! why it cannot matter, or the matcher offers each way to the rest of the
-//! expression. Patterns that are a literal, a keyword or an alternation of
-//! lookarounds at one byte are generated with the grammar and matched here
-//! without a function of their own.
+//! would.
+//! Where a quantifier could give characters back, the doc comment says why it
+//! cannot matter.
+//! Otherwise the matcher offers each way to the rest of the expression.
+//!
+//! Some patterns are a literal, a keyword or an alternation of lookarounds at
+//! one byte.
+//! They are generated with the grammar and matched here without a function of
+//! their own.
 
 mod chars;
 mod comments;

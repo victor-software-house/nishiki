@@ -34,9 +34,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
-/// The state at the start of the Rust lines of a fenced code block, whose
-/// text sits on the stack `base` with no `source.rust` of its own, as in
-/// Shiki's embedding.
+/// The state at the start of the Rust lines of a fenced code block.
+/// The block's text sits on the stack `base` with no `source.rust` of its
+/// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
 }
@@ -59,9 +59,11 @@ pub(crate) fn line(
 #[cfg(test)]
 mod tests;
 
-/// Lexes `line` from `state` under the crate's one lexer contract
-/// ([`Language::lex`](crate::Language)), with token ends counted from the
-/// start of the whole line, and returns the state after it.
+/// Lexes `line` from `state` and returns the state after it.
+///
+/// It follows the crate's one lexer contract
+/// ([`Language::lex`](crate::Language)).
+/// Token ends count from the start of the whole line.
 #[inline]
 pub(crate) fn lex(
     cx: &mut crate::language::Context<'_>,

@@ -2,7 +2,8 @@
 
 ## Purpose
 
-Say what nishiki measures about its own speed and memory, how each figure is produced, where it gates a change, and how it is compared with other highlighters.
+Say what nishiki measures about its own speed and memory, and how each figure is produced.
+Say where a figure gates a change, and how nishiki is compared with other highlighters.
 
 ## Requirements
 
@@ -17,7 +18,9 @@ Every published benchmark figure SHALL belong to a named question and state its 
 
 ### Requirement: The corpus is pinned and licensed
 
-Every file the wall-clock benchmarks and the comparison read SHALL be listed in the corpus manifest with its language, size tier, origin, source at a pinned commit, licence and SHA-256, and only permissively licensed files SHALL be used.
+Every file the wall-clock benchmarks and the comparison read SHALL be listed in the corpus manifest.
+Its row SHALL give its language, size tier, origin, source at a pinned commit, licence and SHA-256.
+Only permissively licensed files SHALL be used.
 
 #### Scenario: A corpus file changes
 
@@ -49,7 +52,8 @@ A language's throughput in a tier SHALL be its files' total bytes over their tot
 
 ### Requirement: Per-line latency is measured over repeated passes
 
-Per-line latency SHALL be each line's median time over repeated steady passes, with the timer's own overhead subtracted, and lines faster than the timer can resolve SHALL be reported as below resolution rather than given a number.
+Per-line latency SHALL be each line's median time over repeated steady passes, with the timer's own overhead subtracted.
+A line faster than the timer can resolve SHALL be reported as below resolution rather than given a number.
 
 #### Scenario: A line lexes faster than the timer resolves
 
@@ -67,7 +71,8 @@ The first pass over a document from a fresh highlighter SHALL be reported apart 
 
 ### Requirement: Cold start is measured in fresh processes
 
-Cold-start figures SHALL come from a fresh process per sample, timed from the start of the program, so that no lazy state built by an earlier sample is reused.
+Cold-start figures SHALL come from a fresh process per sample, timed from the start of the program.
+That way, no lazy state built by an earlier sample is reused.
 
 #### Scenario: The cold-start program runs
 
@@ -76,7 +81,9 @@ Cold-start figures SHALL come from a fresh process per sample, timed from the st
 
 ### Requirement: Instruction counts gate every language
 
-On a pull request labelled `bench`, CI SHALL count instructions of lexing the oracle fixtures, base against head, for every language with oracle fixtures, and SHALL fail when a language rises more than 0.5% at one codegen unit.
+On a pull request labelled `bench`, CI SHALL count instructions of lexing the oracle fixtures, base against head.
+It SHALL count every language with oracle fixtures.
+It SHALL fail when a language rises more than 0.5% at one codegen unit.
 
 #### Scenario: A language with fixtures is not in a hand-kept list
 
@@ -90,7 +97,8 @@ On a pull request labelled `bench`, CI SHALL count instructions of lexing the or
 
 ### Requirement: The instruction gate compares like with like
 
-The gate SHALL build base and head each from their own tree and lockfile, SHALL count only the fixtures both sides have, and SHALL count only the measured lexing pass.
+The gate SHALL build base and head each from their own tree and lockfile.
+It SHALL count only the fixtures both sides have, and only the measured lexing pass.
 
 #### Scenario: A pull request adds a fixture
 
@@ -104,7 +112,8 @@ The gate SHALL build base and head each from their own tree and lockfile, SHALL 
 
 ### Requirement: The gate's noise floor is measured and recorded
 
-The bench rules SHALL state, per measured language, how far repeated counts of one build spread, and that spread SHALL stay below the gate's tolerance for every language.
+The bench rules SHALL state, per measured language, how far repeated counts of one build spread.
+That spread SHALL stay below the gate's tolerance for every language.
 
 #### Scenario: A reviewer reads a small move
 
@@ -122,7 +131,8 @@ Counts at the default codegen units SHALL be shown for information only and SHAL
 
 ### Requirement: Memory counts are reported in CI
 
-The bench CI job SHALL report, for head and base, each language's allocations, bytes allocated and peak live bytes over one pass of its oracle fixtures from a fresh highlighter.
+The bench CI job SHALL report each language's allocations, bytes allocated and peak live bytes, for head and base.
+Each count SHALL cover one pass over the language's oracle fixtures from a fresh highlighter.
 
 #### Scenario: A change grows the arena
 
@@ -157,9 +167,11 @@ The record SHALL carry that bound.
 
 ### Requirement: A record is data with a rendered summary
 
-A recorded run SHALL be stored as machine-readable data naming the commit, corpus version, host, toolchain, anchor drift, compute and every figure with its rounds and spread, and its human-readable summary SHALL be rendered from that data.
+A recorded run SHALL be stored as machine-readable data.
+The data SHALL name the commit, corpus version, host, toolchain, anchor drift and compute, and every figure with its rounds and spread.
+The run's human-readable summary SHALL be rendered from that data.
 
-#### Scenario: A summary disagrees with its data
+#### Scenario: A summary differs from the record's data
 
 - **WHEN** a record's summary or the bench README's results differ from what the newest record's data renders
 - **THEN** the check fails
@@ -175,7 +187,8 @@ Other highlighters SHALL be built only in a workspace of their own, outside the 
 
 ### Requirement: A comparison uses the same inputs and theme
 
-A head-to-head comparison SHALL give every engine the same files and the same theme, and SHALL report per file, over the languages every compared engine supports.
+A head-to-head comparison SHALL give every engine the same files and the same theme.
+It SHALL report per file, over the languages every compared engine supports.
 
 #### Scenario: An engine lacks a language
 
@@ -186,14 +199,16 @@ A head-to-head comparison SHALL give every engine the same files and the same th
 
 A comparison SHALL report setup, the first document in a fresh process, and warm throughput as three separate figures for every engine.
 
-#### Scenario: An engine loads its grammars
+#### Scenario: An engine loads grammars
 
 - **WHEN** an engine spends time loading grammars and a theme before its first line
 - **THEN** that time is in its setup figure and in no throughput figure
 
 ### Requirement: A comparison makes every engine do the full work
 
-A comparison SHALL turn off every engine's time and line-length limits, SHALL build every Rust engine with the default release profile, and SHALL fail a run in which nishiki reports a limit reached.
+A comparison SHALL turn off every engine's time and line-length limits.
+It SHALL build every Rust engine with the default release profile.
+It SHALL fail a run in which nishiki reports a limit reached.
 
 #### Scenario: A line reaches a limit
 
@@ -202,7 +217,8 @@ A comparison SHALL turn off every engine's time and line-length limits, SHALL bu
 
 ### Requirement: Fidelity is reported beside speed
 
-Every engine's comparison row SHALL carry its token count and its fidelity to Shiki: the share of non-whitespace bytes whose colour matches Shiki's.
+Every engine's comparison row SHALL carry its token count and its fidelity to Shiki.
+Fidelity is the share of non-whitespace bytes whose colour matches Shiki's.
 
 #### Scenario: An engine colours fewer tokens
 

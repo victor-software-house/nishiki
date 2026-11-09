@@ -50,7 +50,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
    It is a workspace of its own and is never published.
    No comparator becomes a dependency of the crate or of `bench/`.
 9. A speed change never changes output.
-   The oracle, colour, fuzz and limit tests stay green, and the run's report says so.
+   The oracle, colour, fuzz and limit tests stay green, and the run's report records it.
 10. Termination on hostile input is a test, not a benchmark (`tests/it/limits/<language>.rs`).
     Each language's generated hostile lines must finish within the default limits.
 11. `mise run bench` builds with Cargo's default release profile on purpose.
@@ -70,7 +70,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
       - colour, a warm pass that lexes and styles every token with github-dark.
     - Both sides build with `json`, which loads the theme.
     - Its counts are a review signal for the change itself.
-      At the default sixteen units, an edit that only moves engine code between units shifted them by up to a few percent.
+    - At the default sixteen units, an edit that only moves engine code between units shifted the counts by up to a few percent.
       On 2026-11-03, Python moved +0.6% and Go −6% on a change that measured ±0.05% at one unit.
       A gate that trips on layout alone gets ignored.
     - The wall-clock figures of rule 11 keep the default profile, because that layout is what users get.
@@ -83,8 +83,9 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
       Marking C's `match_pat` and SQL's `hit` and `pat_at` took both below their counts before the port.
     - The engine's own accessors were not the cause.
       Marking nine of them changed nothing.
-    - The Callgrind job prints a note, never a failure, when a language's head runs more than 3% more instructions at sixteen units than at one.
-      The note is the sign this rule was missed.
+    - The Callgrind job prints a note when a language's head runs more than 3% more instructions at sixteen units than at one.
+      The note never fails the job.
+      It is the sign this rule was missed.
 14. A port onto `crate::rules` passes on three conditions.
     - Identity is clean.
     - Its own instructions at one codegen unit (rule 12) are at parity with the lexer it replaces, or better.
@@ -100,6 +101,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
     The arena's map of interned strings keeps std's seeded hasher (lead, 2026-11-04).
     Its keys come from the text being lexed.
     The seeded hasher resists keys crafted to collide.
+
     Six runs of one build at one codegen unit on one box spread by these amounts (2026-11-04).
     The spread is the largest count minus the smallest, over the mean.
     - haskell and erb: 0.09%;
@@ -119,9 +121,10 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
     The counts are exact and never fail the job.
     Zero allocations on a second pass stays a test (`tests/it/alloc.rs`).
 18. The wall-clock benchmarks and the comparison read `bench/corpus/`, never the oracle fixtures.
-    Its README says what each tier stands for.
+    Its README states what each tier stands for.
     A file enters only with its row in `bench/corpus.toml` and a permissive licence read at its source.
     `mise run check:corpus` holds the files and the rows together.
+
     Changing the corpus raises its `version`, and a record names the version it ran on.
     It also updates the `digest` line below `version`, which `check:corpus` prints when it differs.
     Two pull requests that raise `version` to the same number then conflict on `digest`.
@@ -131,6 +134,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
     `verify` does not build it.
     The Callgrind workflow's Bench job runs `mise run bench:check` on a pull request labelled `bench`.
     `bench:check` checks formatting, runs clippy with warnings denied, and runs each benchmark once, untimed.
+
     The comparison workspace, `compare/`, is its own workspace as well.
     `bench:check` checks its formatting and runs clippy on it without giallo.
     It never runs the comparison.

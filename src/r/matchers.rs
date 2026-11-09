@@ -24,9 +24,9 @@ use crate::rules::Chars;
 /// The brackets that `[]()\[{}]` names in an `@examples` block.
 const BRACKETS: [u8; 6] = *b"]()[{}";
 
-/// The operators of the six raw-string forms, in the grammar's order: the
-/// quote, the bracket after the dashes and the bracket before them at the
-/// end.
+/// The operators of the six raw-string forms, in the grammar's order.
+/// Each holds the quote, the bracket after the dashes and the bracket before
+/// them at the end.
 const RAW: [(u8, u8, u8); 6] = [
     (b'"', b'{', b'}'),
     (b'\'', b'{', b'}'),

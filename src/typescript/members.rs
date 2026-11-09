@@ -6,9 +6,9 @@ use super::lexer::Lexer;
 use super::scope::S;
 use crate::classes;
 
-/// The captures of a method's modifiers, kept inline: a prefix holds at most
-/// the four modifiers the grammar lists, and the lookahead builds one at every
-/// word of a class body.
+/// The captures of a method's modifiers, kept inline.
+/// A prefix holds at most the four modifiers the grammar lists.
+/// The lookahead builds one at every word of a class body.
 struct CapList {
     len: usize,
     items: [(usize, usize, S); Self::MAX],
