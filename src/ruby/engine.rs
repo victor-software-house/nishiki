@@ -86,10 +86,6 @@ impl Grammar for Ruby {
         rule.payload()
     }
 
-    fn pat_next(pat: Pat) -> Option<u8> {
-        pat.next_byte()
-    }
-
     fn pat_act(pat: Pat) -> Act<Self> {
         pat.data().act
     }

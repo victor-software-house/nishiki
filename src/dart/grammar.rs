@@ -965,6 +965,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Directive => Start {
                 bytes: [
@@ -975,6 +976,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DirectiveEnd | Pat::PunctuationAt1 => Start {
                 bytes: [
@@ -985,6 +987,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringsAt0
             | Pat::StringsAt0End
@@ -1000,6 +1003,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringInterpAt0 | Pat::StringInterpAt1 => Start {
                 bytes: [
@@ -1010,6 +1014,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringInterpAt1End | Pat::ExpressionAt5End => Start {
                 bytes: [
@@ -1020,6 +1025,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConstantsAndSpecialVarsAt0 => Start {
                 bytes: [
@@ -1030,6 +1036,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ConstantsAndSpecialVarsAt1 => Start {
                 bytes: [
@@ -1040,6 +1047,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ConstantsAndSpecialVarsAt2 => Start {
                 bytes: [
@@ -1050,6 +1058,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ClassIdentifierWithOptionalFactoryMethodAt0 | Pat::ClassIdentifierAt0 => Start {
                 bytes: [
@@ -1060,6 +1069,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ClassIdentifierWithOptionalFactoryMethodAt1
             | Pat::ClassIdentifierAt1
@@ -1072,6 +1082,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ClassIdentifierWithOptionalFactoryMethodAt2 | Pat::ClassIdentifierAt2 => Start {
                 bytes: [
@@ -1082,6 +1093,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassIdentifierWithOptionalFactoryMethodAt2End
             | Pat::ClassIdentifierAt2End
@@ -1095,6 +1107,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::TypeArgs => Start {
                 bytes: [
@@ -1105,6 +1118,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypeArgsEnd => Start {
                 bytes: [
@@ -1115,6 +1129,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypeArgsAt1 | Pat::PunctuationAt0 => Start {
                 bytes: [
@@ -1125,6 +1140,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypeArgsAt2 => Start {
                 bytes: [
@@ -1135,6 +1151,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsAt0
             | Pat::CommentsDocOldschool
@@ -1149,6 +1166,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsDocOldschoolEnd | Pat::CommentsBlockEnd => Start {
                 bytes: [
@@ -1159,6 +1177,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DartdocAt0 => Start {
                 bytes: [
@@ -1169,6 +1188,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DartdocAt1 | Pat::DartdocCodeblockTriple => Start {
                 bytes: [
@@ -1179,6 +1199,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DartdocAt1End | Pat::CommentsDocEnd => Start {
                 bytes: [
@@ -1189,6 +1210,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::DartdocAt2 | Pat::DartdocAt2End | Pat::DartdocCodeblockBlock => Start {
                 bytes: [
@@ -1199,6 +1221,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DartdocAt3 => Start {
                 bytes: [
@@ -1209,6 +1232,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DartdocAt4 => Start {
                 bytes: [
@@ -1219,6 +1243,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionIdentifierAt0 => Start {
                 bytes: [
@@ -1229,6 +1254,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionIdentifierAt1 => Start {
                 bytes: [
@@ -1239,6 +1265,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringsAt1
             | Pat::StringsAt1End
@@ -1254,6 +1281,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringInterpAt2 => Start {
                 bytes: [
@@ -1264,6 +1292,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringsAt2 | Pat::StringsAt3 | Pat::StringsAt5 | Pat::StringsAt7 => Start {
                 bytes: [
@@ -1274,6 +1303,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringsAt4At0 | Pat::StringsAt5At0 | Pat::StringsAt6At0 | Pat::StringsAt7At0 => {
                 Start {
@@ -1285,6 +1315,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::ExpressionAt4 => Start {
@@ -1296,6 +1327,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionAt5 => Start {
                 bytes: [
@@ -1306,6 +1338,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DirectiveAt2 => Start {
                 bytes: [
@@ -1316,6 +1349,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DirectiveAt3 | Pat::OperatorsAt0 => Start {
                 bytes: [
@@ -1326,6 +1360,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PunctuationAt2 => Start {
                 bytes: [
@@ -1336,6 +1371,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Annotations => Start {
                 bytes: [
@@ -1346,6 +1382,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KeywordsAt0 | Pat::KeywordsAt4 => Start {
                 bytes: [
@@ -1356,6 +1393,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt1 => Start {
                 bytes: [
@@ -1366,6 +1404,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt2 => Start {
                 bytes: [
@@ -1376,6 +1415,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt3 => Start {
                 bytes: [
@@ -1386,6 +1426,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt5 => Start {
                 bytes: [
@@ -1396,6 +1437,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt6 => Start {
                 bytes: [
@@ -1406,6 +1448,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt7 => Start {
                 bytes: [
@@ -1416,6 +1459,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt8 => Start {
                 bytes: [
@@ -1426,6 +1470,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::OperatorsAt1 => Start {
                 bytes: [
@@ -1436,6 +1481,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt2 => Start {
                 bytes: [
@@ -1446,6 +1492,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt3 => Start {
                 bytes: [
@@ -1456,6 +1503,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt4 | Pat::OperatorsAt7 => Start {
                 bytes: [
@@ -1466,6 +1514,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt5 => Start {
                 bytes: [
@@ -1476,6 +1525,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt6 | Pat::OperatorsAt9 => Start {
                 bytes: [
@@ -1486,6 +1536,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt8 => Start {
                 bytes: [
@@ -1496,6 +1547,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt10 => Start {
                 bytes: [
@@ -1506,6 +1558,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

@@ -1,7 +1,7 @@
 // Tests of the generator library's pattern analysis, run by `mise run check:rule-grammars`.
 import { expect, test } from "bun:test";
 
-import { canMatchEmpty, takesOneBlank } from "./rule-grammar.ts";
+import { canMatchEmpty, startOf, takesOneBlank } from "./rule-grammar.ts";
 
 test("a single blank, then a character that is not a blank, takes one blank", () => {
   expect(takesOneBlank("\\s-\\s")).toBe(true);
@@ -41,4 +41,16 @@ test("a match of only a lookahead, or an optional atom, can match the empty text
   expect(canMatchEmpty("a?")).toBe(true);
   expect(canMatchEmpty("(;)|[)}]")).toBe(false);
   expect(canMatchEmpty("\\b\\w+")).toBe(false);
+});
+
+test("an anchor, a negative lookahead or an optional atom can match where no byte follows", () => {
+  for (const regex of ["$", "\\z", "(?=$)", "(?!x)", "a?", "(;)|(?=[)}]|$)", "(\\w*)\\1"]) {
+    expect(startOf(regex).atEnd).toBe(true);
+  }
+});
+
+test("a lookahead that needs a byte cannot match where no byte follows", () => {
+  for (const regex of ["(?=<<)", "(?=\\n)", "(?=[)}])", "\\b\\w+", "(?<=\\{)(\\s+)"]) {
+    expect(startOf(regex).atEnd).toBe(false);
+  }
 });

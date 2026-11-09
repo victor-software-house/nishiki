@@ -1893,6 +1893,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::BodyJavaScriptEnd
             | Pat::BodyJsonEnd
@@ -1920,6 +1921,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsEnd | Pat::Frontmatter => Start {
                 bytes: [
@@ -1930,6 +1932,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagNameComponent => Start {
                 bytes: [
@@ -1940,6 +1943,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagNameCustom | Pat::TagNamePlain => Start {
                 bytes: [
@@ -1950,9 +1954,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagsEndNode
-            | Pat::TagsRawEnd
             | Pat::TagsLangScriptEnd
             | Pat::LangJsonEnd
             | Pat::LangModuleEnd
@@ -1966,6 +1970,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::TagsRawEnd => Start {
+                bytes: [
+                    0x1000_8000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::TagsLangStartAttributesEnd
             | Pat::TagsVoidEnd
@@ -1979,6 +1995,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesEvents => Start {
                 bytes: [
@@ -1989,6 +2006,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesEventsEnd | Pat::AttributesKeyvalueEnd => Start {
                 bytes: [
@@ -1999,6 +2017,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventEquals | Pat::KeyvalueEquals => Start {
                 bytes: [
@@ -2009,6 +2028,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolationAt0 => Start {
                 bytes: [
@@ -2019,6 +2039,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolationAt0End | Pat::AttributesInterpolatedEnd => Start {
                 bytes: [
@@ -2029,6 +2050,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributeLiteral | Pat::AttributeLiteralEnd => Start {
                 bytes: [
@@ -2039,6 +2061,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScript => Start {
                 bytes: [
@@ -2049,6 +2072,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptBare | Pat::ValueUnquoted => Start {
                 bytes: [
@@ -2059,6 +2083,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptDouble => Start {
                 bytes: [
@@ -2069,11 +2094,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::EventScriptDoubleEnd
-            | Pat::EventScriptSingleEnd
-            | Pat::ValueQuoted
-            | Pat::ValueQuotedEnd => Start {
+            Pat::EventScriptDoubleEnd | Pat::EventScriptSingleEnd | Pat::ValueQuotedEnd => Start {
                 bytes: [
                     0x0000_0084_0000_0000,
                     0x0000_0000_0000_0000,
@@ -2082,6 +2105,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::EventScriptDoubleRun => Start {
                 bytes: [
@@ -2092,6 +2116,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptDoubleLineComment
             | Pat::EventScriptDoubleBlockComment
@@ -2105,6 +2130,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptDoubleLineCommentEnd => Start {
                 bytes: [
@@ -2115,6 +2141,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptDoubleBlockCommentEnd => Start {
                 bytes: [
@@ -2125,6 +2152,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptSingle => Start {
                 bytes: [
@@ -2135,6 +2163,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptSingleRun => Start {
                 bytes: [
@@ -2145,6 +2174,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptSingleLineCommentEnd => Start {
                 bytes: [
@@ -2155,6 +2185,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EventScriptSingleBlockCommentEnd => Start {
                 bytes: [
@@ -2165,6 +2196,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesKeyvalue => Start {
                 bytes: [
@@ -2175,6 +2207,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::ValueQuoted => Start {
+                bytes: [
+                    0x0000_0084_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesInterpolated => Start {
                 bytes: [
@@ -2185,6 +2229,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagsGeneralEndEnd => Start {
                 bytes: [
@@ -2195,6 +2240,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EntityNamed
             | Pat::EntityDecimal
@@ -2208,6 +2254,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

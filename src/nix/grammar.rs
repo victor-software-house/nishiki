@@ -2432,6 +2432,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ParensAndContEnd
             | Pat::ListAndContEnd
@@ -2475,6 +2476,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ParensEnd | Pat::AttributeInheritAt0At0 => Start {
                 bytes: [
@@ -2485,6 +2487,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ListAndCont | Pat::List => Start {
                 bytes: [
@@ -2495,6 +2498,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ListEnd => Start {
                 bytes: [
@@ -2505,6 +2509,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringAt0 | Pat::StringAt0At0 | Pat::StringAt0At0End | Pat::StringAt0At0At0 => {
                 Start {
@@ -2516,6 +2521,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::Interpolation => Start {
@@ -2527,6 +2533,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolationEnd
             | Pat::AttrsetDefinitionAt0End
@@ -2544,6 +2551,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringAt1 | Pat::StringQuoted | Pat::StringQuotedEnd => Start {
                 bytes: [
@@ -2554,6 +2562,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringQuotedAt0 => Start {
                 bytes: [
@@ -2564,6 +2573,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionCont
             | Pat::FunctionDefinition
@@ -2584,6 +2594,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::StringAt2 => Start {
                 bytes: [
@@ -2594,6 +2605,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringAt3 => Start {
                 bytes: [
@@ -2604,6 +2616,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringAt4 => Start {
                 bytes: [
@@ -2614,6 +2627,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionForSureAt0 => Start {
                 bytes: [
@@ -2624,6 +2638,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionBodyFromColon
             | Pat::FunctionDefinitionBraceOpenedAt1End
@@ -2646,6 +2661,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::WithAssert => Start {
                 bytes: [
@@ -2656,6 +2672,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::WithAssertEnd
             | Pat::AttributeInheritEnd
@@ -2671,6 +2688,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttrsetForSureAt0 => Start {
                 bytes: [
@@ -2681,6 +2699,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttrsetForSureAt0At0 => Start {
                 bytes: [
@@ -2691,6 +2710,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AttrsetForSureAt0At0End
             | Pat::AttrsetDefinition
@@ -2711,6 +2731,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Whitespace => Start {
                 bytes: [
@@ -2721,6 +2742,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentAt0 => Start {
                 bytes: [
@@ -2731,6 +2753,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentAt0End => Start {
                 bytes: [
@@ -2741,6 +2764,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentAt1 => Start {
                 bytes: [
@@ -2751,6 +2775,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Illegal => Start {
                 bytes: [
@@ -2761,6 +2786,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributeInherit | Pat::LetAt1 | Pat::IfAt0 => Start {
                 bytes: [
@@ -2771,6 +2797,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BadReserved => Start {
                 bytes: [
@@ -2781,6 +2808,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AttributeNameSingle
             | Pat::AttributeNameAt0
@@ -2798,6 +2826,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AttrsetOrFunctionEnd | Pat::AttrsetOrFunctionAt3End => Start {
                 bytes: [
@@ -2808,6 +2837,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttrsetOrFunctionAt0 => Start {
                 bytes: [
@@ -2818,6 +2848,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributeNameAt1 | Pat::FunctionParameterAt0 | Pat::AttrsetOrFunctionAt3At0 => {
                 Start {
@@ -2829,6 +2860,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::AttributeBindFromEquals | Pat::AttrsetOrFunctionAt3At2 => Start {
@@ -2840,6 +2872,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Let => Start {
                 bytes: [
@@ -2850,6 +2883,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LetAt0 => Start {
                 bytes: [
@@ -2860,6 +2894,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::LetAt0End => Start {
                 bytes: [
@@ -2870,6 +2905,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::If => Start {
                 bytes: [
@@ -2880,6 +2916,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::IfAt0End => Start {
                 bytes: [
@@ -2890,6 +2927,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::OperatorUnary => Start {
                 bytes: [
@@ -2900,6 +2938,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorBinary => Start {
                 bytes: [
@@ -2910,6 +2949,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConstantsAt0 => Start {
                 bytes: [
@@ -2920,6 +2960,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ConstantsAt1 => Start {
                 bytes: [
@@ -2930,6 +2971,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ConstantsAt2 => Start {
                 bytes: [
@@ -2940,6 +2982,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::IfAt1 => Start {
                 bytes: [
@@ -2950,6 +2993,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::IfAt1End => Start {
                 bytes: [
@@ -2960,6 +3004,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::IfAt2 => Start {
                 bytes: [
@@ -2970,6 +3015,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttrsetOrFunctionAt1 => Start {
                 bytes: [
@@ -2980,6 +3026,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionHeaderTerminalArg
             | Pat::FunctionHeaderTerminalArgAt0
@@ -2992,6 +3039,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionParameterAt0End
             | Pat::FunctionParameterAt1End
@@ -3004,6 +3052,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionParameterDefault | Pat::AttrsetOrFunctionAt3At3 => Start {
                 bytes: [
@@ -3014,6 +3063,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttrsetOrFunctionAt3At1 => Start {
                 bytes: [
@@ -3024,6 +3074,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttrsetOrFunctionAt3At3At1 => Start {
                 bytes: [
@@ -3034,6 +3085,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributeInheritAt1 => Start {
                 bytes: [
@@ -3044,6 +3096,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

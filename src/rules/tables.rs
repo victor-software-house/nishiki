@@ -32,9 +32,8 @@ impl Place {
 /// The candidate patterns of one rule.
 pub(crate) struct Tables<G: Tabled> {
     /// The patterns that can match where no byte stands, after the line
-    /// feed or at the end of a last line without one: all of them, the end
-    /// pattern first, less those that need a second byte
-    /// ([`Grammar::pat_next`](super::Grammar::pat_next)).
+    /// feed or at the end of a last line without one
+    /// ([`Start::matches_at_end`]), the end pattern first.
     all: Box<[G::Pat]>,
     /// The candidates for each byte, away from the start of the line (the
     /// first 256), at it (the next 256) and inside a word (the next 256).
@@ -90,8 +89,10 @@ impl<G: Tabled> Tables<G> {
         }
         Tables {
             all: all
-                .into_iter()
-                .filter(|&pat| G::pat_next(pat).is_none())
+                .iter()
+                .zip(&starts)
+                .filter(|(_, start)| start.matches_at_end)
+                .map(|(&pat, _)| pat)
                 .collect(),
             by_byte: by_byte.into_boxed_slice(),
         }
@@ -355,6 +356,7 @@ mod tests {
             bytes: set,
             bol,
             wb,
+            matches_at_end: false,
         }
     }
 

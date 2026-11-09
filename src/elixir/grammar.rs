@@ -2202,6 +2202,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt0End
             | Pat::CoreSyntaxAt3At1End
@@ -2218,6 +2219,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::CoreSyntaxAt0
             | Pat::CoreSyntaxAt1
@@ -2232,6 +2234,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt0End | Pat::CoreSyntaxAt1End | Pat::CoreSyntaxAt2End => Start {
                 bytes: [
@@ -2242,6 +2245,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt0At0
             | Pat::CoreSyntaxAt0At1
@@ -2256,6 +2260,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt3End | Pat::CoreSyntaxAt4End => Start {
                 bytes: [
@@ -2266,6 +2271,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt1 => Start {
                 bytes: [
@@ -2276,6 +2282,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt2
             | Pat::CoreSyntaxAt27
@@ -2290,6 +2297,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt3 => Start {
                 bytes: [
@@ -2300,6 +2308,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt4 => Start {
                 bytes: [
@@ -2310,6 +2319,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt5End | Pat::RootAt7End => Start {
                 bytes: [
@@ -2320,6 +2330,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt7 => Start {
                 bytes: [
@@ -2330,6 +2341,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt3At1 | Pat::CoreSyntaxAt4At1 => Start {
                 bytes: [
@@ -2340,6 +2352,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt3At2 | Pat::CoreSyntaxAt4At2 => Start {
                 bytes: [
@@ -2350,6 +2363,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt5 | Pat::CoreSyntaxAt6 => Start {
                 bytes: [
@@ -2360,6 +2374,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt5End
             | Pat::CoreSyntaxAt6End
@@ -2373,6 +2388,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt7
             | Pat::CoreSyntaxAt8
@@ -2389,6 +2405,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedElixir | Pat::CoreSyntaxAt47At0 | Pat::CoreSyntaxAt48At0 => Start {
                 bytes: [
@@ -2399,6 +2416,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedElixirEnd
             | Pat::NestCurlyAndSelfAt0End
@@ -2412,6 +2430,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestCurlyAndSelfAt0 => Start {
                 bytes: [
@@ -2422,6 +2441,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EscapedChar => Start {
                 bytes: [
@@ -2432,6 +2452,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt9End | Pat::CoreSyntaxAt10End => Start {
                 bytes: [
@@ -2442,6 +2463,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt12End
             | Pat::CoreSyntaxAt28End
@@ -2456,6 +2478,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt13 => Start {
                 bytes: [
@@ -2466,6 +2489,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt14 => Start {
                 bytes: [
@@ -2476,6 +2500,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt16 => Start {
                 bytes: [
@@ -2486,6 +2511,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt17 | Pat::CoreSyntaxAt49 | Pat::CoreSyntaxAt50 => Start {
                 bytes: [
@@ -2496,6 +2522,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt19 | Pat::CoreSyntaxAt20 | Pat::CoreSyntaxAt54 => Start {
                 bytes: [
@@ -2506,6 +2533,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt21 => Start {
                 bytes: [
@@ -2516,6 +2544,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt22 | Pat::CoreSyntaxAt25 | Pat::CoreSyntaxAt26 => Start {
                 bytes: [
@@ -2526,6 +2555,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt23 | Pat::CoreSyntaxAt24 => Start {
                 bytes: [
@@ -2536,6 +2566,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt27End
             | Pat::CoreSyntaxAt29
@@ -2549,6 +2580,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt29End => Start {
                 bytes: [
@@ -2559,6 +2591,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt31End | Pat::CoreSyntaxAt33End | Pat::CoreSyntaxAt39End => Start {
                 bytes: [
@@ -2569,6 +2602,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt33
             | Pat::CoreSyntaxAt34
@@ -2590,6 +2624,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt35End | Pat::CoreSyntaxAt41End => Start {
                 bytes: [
@@ -2600,6 +2635,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt36End | Pat::CoreSyntaxAt42End => Start {
                 bytes: [
@@ -2610,6 +2646,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt37End | Pat::CoreSyntaxAt43End => Start {
                 bytes: [
@@ -2620,6 +2657,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt46 => Start {
                 bytes: [
@@ -2630,6 +2668,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt47 | Pat::CoreSyntaxAt48 => Start {
                 bytes: [
@@ -2640,6 +2679,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt47At0End | Pat::CoreSyntaxAt48At0End => Start {
                 bytes: [
@@ -2650,6 +2690,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt51 => Start {
                 bytes: [
@@ -2660,6 +2701,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt52 => Start {
                 bytes: [
@@ -2670,6 +2712,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt53 => Start {
                 bytes: [
@@ -2680,6 +2723,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt55 => Start {
                 bytes: [
@@ -2690,6 +2734,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt56 => Start {
                 bytes: [
@@ -2700,6 +2745,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt57 => Start {
                 bytes: [
@@ -2710,6 +2756,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt58 => Start {
                 bytes: [
@@ -2720,6 +2767,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt59 => Start {
                 bytes: [
@@ -2730,6 +2778,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt60 => Start {
                 bytes: [
@@ -2740,6 +2789,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt61 => Start {
                 bytes: [
@@ -2750,6 +2800,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt63 => Start {
                 bytes: [
@@ -2760,6 +2811,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt64 => Start {
                 bytes: [
@@ -2770,6 +2822,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt65 => Start {
                 bytes: [
@@ -2780,6 +2833,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt66 => Start {
                 bytes: [
@@ -2790,6 +2844,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt67 => Start {
                 bytes: [
@@ -2800,6 +2855,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CoreSyntaxAt68 => Start {
                 bytes: [
@@ -2810,6 +2866,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

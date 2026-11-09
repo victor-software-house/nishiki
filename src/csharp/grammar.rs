@@ -8350,6 +8350,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorEnd
             | Pat::PreprocessorIfOrElifEnd
@@ -8357,10 +8358,8 @@ impl Pat {
             | Pat::PreprocessorREnd
             | Pat::PreprocessorLineEnd
             | Pat::PreprocessorAppDirectiveEnd
-            | Pat::XmlAttributeAt0
             | Pat::CommentAt1At0
             | Pat::CommentAt1At0While
-            | Pat::TupleElement
             | Pat::SwitchStatementOrExpressionEnd
             | Pat::SwitchStatementOrExpressionAt1End
             | Pat::WithExpressionEnd
@@ -8369,32 +8368,25 @@ impl Pat {
             | Pat::NestedBeginAt0At1
             | Pat::NestedBeginAt0At2
             | Pat::NestedBeginAt0At3
-            | Pat::ExplicitAnonymousFunctionParameter
             | Pat::WhileStatementEnd
             | Pat::AnonymousMethodExpressionAt1End
             | Pat::ObjectCreationExpressionWithParametersEnd
-            | Pat::DeclarationExpressionLocal
             | Pat::ArrayCreationExpressionEnd
             | Pat::AnonymousObjectCreationExpressionEnd
             | Pat::InvocationExpressionEnd
             | Pat::ElementAccessExpressionEnd
-            | Pat::DeclarationExpressionTuple
             | Pat::ForStatementEnd
-            | Pat::LocalVariableDeclaration
             | Pat::ForeachStatementEnd
-            | Pat::ForeachStatementAt1At1
             | Pat::IfStatementEnd
             | Pat::ElsePartEnd
             | Pat::AwaitStatementEnd
             | Pat::UsingStatementEnd
             | Pat::TryBlockEnd
             | Pat::CatchClauseEnd
-            | Pat::CatchClauseAt0At0
             | Pat::FinallyClauseEnd
             | Pat::FixedStatementEnd
             | Pat::LockStatementEnd
             | Pat::LocalFunctionDeclarationEnd
-            | Pat::Parameter
             | Pat::AnonymousMethodExpressionAt0At2
             | Pat::TypePatternAt0
             | Pat::TypeSubpatternAt1End
@@ -8410,7 +8402,6 @@ impl Pat {
             | Pat::BaseClassConstructorCallEnd
             | Pat::EnumDeclarationEnd
             | Pat::InterfaceDeclarationEnd
-            | Pat::PropertyDeclaration
             | Pat::PropertyDeclarationEnd
             | Pat::PropertyAccessorsAt3End
             | Pat::PropertyAccessorsAt4End
@@ -8419,18 +8410,14 @@ impl Pat {
             | Pat::RecordDeclarationEnd
             | Pat::ConstructorDeclarationEnd
             | Pat::ConstructorInitializerEnd
-            | Pat::FieldDeclaration
             | Pat::EventDeclarationEnd
             | Pat::EventAccessorsAt2End
             | Pat::EventDeclarationAt4End
-            | Pat::IndexerDeclaration
             | Pat::IndexerDeclarationEnd
             | Pat::BracketedParameterListAt0
             | Pat::DestructorDeclarationEnd
-            | Pat::OperatorDeclaration
             | Pat::OperatorDeclarationEnd
             | Pat::ConversionOperatorDeclarationEnd
-            | Pat::MethodDeclaration
             | Pat::MethodDeclarationEnd => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
@@ -8440,6 +8427,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::PreprocessorCommentAt0 | Pat::PreprocessorCommentAt1 | Pat::CommentAt3 => Start {
                 bytes: [
@@ -8450,6 +8438,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorCommentAt1End | Pat::CommentAt3End | Pat::TypePointerSuffix => Start {
                 bytes: [
@@ -8460,6 +8449,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorDefineOrUndef => Start {
                 bytes: [
@@ -8470,6 +8460,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorIfOrElif | Pat::ConversionOperatorDeclaration => Start {
                 bytes: [
@@ -8480,6 +8471,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorExpressionAt0
             | Pat::TupleType
@@ -8517,6 +8509,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorExpressionAt0End
             | Pat::TupleTypeEnd
@@ -8553,6 +8546,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorExpressionAt1 => Start {
                 bytes: [
@@ -8563,6 +8557,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorExpressionAt2 => Start {
                 bytes: [
@@ -8573,6 +8568,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorElseOrEndif
             | Pat::PreprocessorEndregion
@@ -8591,6 +8587,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorWarningOrError => Start {
                 bytes: [
@@ -8601,6 +8598,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorRegion
             | Pat::PreprocessorR
@@ -8623,6 +8621,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorLoad
             | Pat::PreprocessorLine
@@ -8637,6 +8636,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorLoadAt0
             | Pat::PreprocessorRAt0
@@ -8667,6 +8667,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorLineAt0 => Start {
                 bytes: [
@@ -8677,6 +8678,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorLineAt1 | Pat::NestedPatternAndPunctuationCommaAt0 => Start {
                 bytes: [
@@ -8687,6 +8689,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PunctuationComma => Start {
                 bytes: [
@@ -8697,6 +8700,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorPragmaWarning
             | Pat::PreprocessorPragmaChecksum
@@ -8719,6 +8723,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorAppDirective => Start {
                 bytes: [
@@ -8729,6 +8734,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorAppDirectivePackageNameAt0
             | Pat::TypeNameAt2
@@ -8744,6 +8750,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorAppDirectivePackageNameAt1 => Start {
                 bytes: [
@@ -8754,6 +8761,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PreprocessorAppDirectiveInclude
             | Pat::TypeBuiltinInt
@@ -8777,6 +8785,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PreprocessorAppDirectiveSdk
             | Pat::TypeBuiltinSbyte
@@ -8798,8 +8807,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
-            Pat::PreprocessorAppDirectiveGeneric | Pat::LocalFunctionDeclaration => Start {
+            Pat::PreprocessorAppDirectiveGeneric => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -8808,6 +8818,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: true,
             },
             Pat::CommentAt0 | Pat::CommentAt1 | Pat::CommentAt2 => Start {
                 bytes: [
@@ -8818,6 +8829,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentAt0While | Pat::CommentAt2While => Start {
                 bytes: [
@@ -8828,6 +8840,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XmlComment
             | Pat::XmlCdata
@@ -8842,6 +8855,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XmlCommentEnd | Pat::ExpressionOperatorsAt5 => Start {
                 bytes: [
@@ -8852,6 +8866,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XmlCharacterEntityAt0 | Pat::XmlCharacterEntityAt1 => Start {
                 bytes: [
@@ -8862,6 +8877,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XmlCdataEnd
             | Pat::TypeArraySuffixEnd
@@ -8878,6 +8894,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XmlTagEnd => Start {
                 bytes: [
@@ -8888,6 +8905,31 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::XmlAttributeAt0
+            | Pat::TupleElement
+            | Pat::ExplicitAnonymousFunctionParameter
+            | Pat::DeclarationExpressionLocal
+            | Pat::DeclarationExpressionTuple
+            | Pat::LocalVariableDeclaration
+            | Pat::ForeachStatementAt1At1
+            | Pat::CatchClauseAt0At0
+            | Pat::Parameter
+            | Pat::PropertyDeclaration
+            | Pat::FieldDeclaration
+            | Pat::IndexerDeclaration
+            | Pat::OperatorDeclaration
+            | Pat::MethodDeclaration => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
             },
             Pat::XmlStringAt0 | Pat::XmlStringAt0End | Pat::CharLiteral => Start {
                 bytes: [
@@ -8898,6 +8940,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentAt1End => Start {
                 bytes: [
@@ -8908,6 +8951,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExternAliasDirectiveEnd
             | Pat::UsingDirectiveAt0End
@@ -8927,6 +8971,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExternAliasDirectiveAt0
             | Pat::TypeNameAt0
@@ -8971,6 +9016,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::UsingDirectiveAt0 | Pat::UsingDirectiveAt1 | Pat::UsingDirectiveAt2 => Start {
                 bytes: [
@@ -8981,6 +9027,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinBool
             | Pat::TypeBuiltinByte
@@ -8996,6 +9043,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinUshort
             | Pat::TypeBuiltinUint
@@ -9014,6 +9062,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinNuint
             | Pat::TypeBuiltinNint
@@ -9033,6 +9082,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinFloat
             | Pat::QueryExpression
@@ -9051,6 +9101,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinDouble
             | Pat::TypeBuiltinDecimal
@@ -9071,6 +9122,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinChar
             | Pat::ExpressionOperatorExpressionChecked
@@ -9090,6 +9142,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinObject
             | Pat::JoinOn
@@ -9108,6 +9161,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeBuiltinVoid
             | Pat::LanguageVariableAt1Value
@@ -9123,6 +9177,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::TypeArgumentsEnd | Pat::TypeParameterListEnd => Start {
                 bytes: [
@@ -9133,6 +9188,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypeArraySuffix
             | Pat::AttributeSection
@@ -9148,6 +9204,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypeNullableSuffix
             | Pat::ConditionalOperatorAt0
@@ -9161,6 +9218,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorAssignment
             | Pat::AssignmentOperatorsAt2
@@ -9179,6 +9237,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributeNamedArgumentEnd | Pat::DefaultArgumentEnd => Start {
                 bytes: [
@@ -9189,6 +9248,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypeOperatorExpressionTypeof
             | Pat::ThrowExpression
@@ -9206,6 +9266,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation
             | Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation
@@ -9222,6 +9283,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DoubleRawInterpolation
             | Pat::RawInterpolation
@@ -9254,6 +9316,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DoubleRawInterpolationEnd
             | Pat::RawInterpolationEnd
@@ -9282,6 +9345,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedStringEnd => Start {
                 bytes: [
@@ -9292,6 +9356,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringCharacterEscape | Pat::CharCharacterEscape => Start {
                 bytes: [
@@ -9302,6 +9367,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::VerbatimInterpolatedString => Start {
                 bytes: [
@@ -9312,6 +9378,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::WithExpression
             | Pat::WhereClause
@@ -9327,6 +9394,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ConditionalOperatorAt1
             | Pat::TupleLiteralElementEnd
@@ -9341,6 +9409,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AssignmentOperatorsAt0 => Start {
                 bytes: [
@@ -9351,6 +9420,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AssignmentOperatorsAt1 => Start {
                 bytes: [
@@ -9361,6 +9431,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AssignmentExpression => Start {
                 bytes: [
@@ -9371,6 +9442,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AssignmentExpressionEnd | Pat::VariableInitializerEnd => Start {
                 bytes: [
@@ -9381,6 +9453,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionOperatorsAt0 | Pat::ExpressionOperatorsAt2 | Pat::RelationalPattern => {
                 Start {
@@ -9392,6 +9465,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::ExpressionOperatorsAt1 => Start {
@@ -9403,6 +9477,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionOperatorsAt3 => Start {
                 bytes: [
@@ -9413,6 +9488,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionOperatorsAt4 => Start {
                 bytes: [
@@ -9423,6 +9499,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionOperatorsAt6 => Start {
                 bytes: [
@@ -9433,6 +9510,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionOperatorsAt7 => Start {
                 bytes: [
@@ -9443,6 +9521,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AwaitExpression
             | Pat::OrderingDirectionAscending
@@ -9460,6 +9539,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::QueryExpressionEnd
             | Pat::LetClauseEnd
@@ -9478,6 +9558,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::JoinClause => Start {
                 bytes: [
@@ -9488,6 +9569,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::GroupClause | Pat::GotoStatement => Start {
                 bytes: [
@@ -9498,6 +9580,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::IsExpressionEnd => Start {
                 bytes: [
@@ -9508,6 +9591,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DiscardPattern | Pat::NestedPatternAt0 => Start {
                 bytes: [
@@ -9518,6 +9602,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedBeginAt0 => Start {
                 bytes: [
@@ -9528,6 +9613,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedBeginAt0At4 => Start {
                 bytes: [
@@ -9538,6 +9624,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NumericLiteral => Start {
                 bytes: [
@@ -9548,6 +9635,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CharLiteralEnd | Pat::StringLiteralEnd => Start {
                 bytes: [
@@ -9558,6 +9646,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::VerbatimStringLiteral => Start {
                 bytes: [
@@ -9568,6 +9657,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CastedConstantPatternEnd
             | Pat::RelationalPatternEnd
@@ -9588,6 +9678,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedPattern7At0Async => Start {
                 bytes: [
@@ -9598,6 +9689,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedPattern7At0Static => Start {
                 bytes: [
@@ -9608,6 +9700,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AnonymousMethodExpressionAt0 => Start {
                 bytes: [
@@ -9618,6 +9711,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AnonymousMethodExpressionAt0End
             | Pat::AnonymousMethodExpressionAt0At1End
@@ -9631,6 +9725,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AnonymousMethodExpressionAt1 => Start {
                 bytes: [
@@ -9641,6 +9736,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ObjectCreationExpressionWithParameters
             | Pat::ObjectCreationExpressionWithNoParameters
@@ -9653,6 +9749,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NamedArgumentEnd | Pat::ArgumentAt1End => Start {
                 bytes: [
@@ -9663,6 +9760,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InvocationExpression => Start {
                 bytes: [
@@ -9673,6 +9771,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MemberAccessExpressionAt0 => Start {
                 bytes: [
@@ -9683,6 +9782,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MemberAccessExpressionAt1 => Start {
                 bytes: [
@@ -9693,6 +9793,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ElementAccessExpression => Start {
                 bytes: [
@@ -9703,6 +9804,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TupleDeconstructionAssignment => Start {
                 bytes: [
@@ -9713,6 +9815,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DoStatementEnd
             | Pat::GotoStatementEnd
@@ -9730,6 +9833,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ForStatementAt0At0 => Start {
                 bytes: [
@@ -9740,6 +9844,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LocalVariableDeclarationEnd => Start {
                 bytes: [
@@ -9750,6 +9855,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ForeachStatementAt1At2 => Start {
                 bytes: [
@@ -9760,6 +9866,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::YieldReturnStatement | Pat::YieldBreakStatement => Start {
                 bytes: [
@@ -9770,6 +9877,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
+            },
+            Pat::LocalFunctionDeclaration => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                bol: false,
+                wb: true,
+                matches_at_end: false,
             },
             Pat::GenericConstraints => Start {
                 bytes: [
@@ -9780,6 +9899,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GenericConstraintsEnd => Start {
                 bytes: [
@@ -9790,6 +9910,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypePatternAt0End => Start {
                 bytes: [
@@ -9800,6 +9921,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TypePatternAt1 => Start {
                 bytes: [
@@ -9810,6 +9932,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SwitchLabelEnd | Pat::SwitchLabelAt0End => Start {
                 bytes: [
@@ -9820,6 +9943,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SwitchLabelAt1End => Start {
                 bytes: [
@@ -9830,6 +9954,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SwitchExpressionAt1End | Pat::EnumDeclarationAt1At4End => Start {
                 bytes: [
@@ -9840,6 +9965,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SwitchExpressionAt2End => Start {
                 bytes: [
@@ -9850,6 +9976,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SwitchExpressionAt3End => Start {
                 bytes: [
@@ -9860,6 +9987,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDeclaration => Start {
                 bytes: [
@@ -9870,6 +9998,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDeclarationAt0 => Start {
                 bytes: [
@@ -9880,6 +10009,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ClassDeclarationAt0End
             | Pat::EnumDeclarationAt0End
@@ -9895,6 +10025,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BaseTypesEnd => Start {
                 bytes: [
@@ -9905,6 +10036,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EnumDeclaration | Pat::EnumDeclarationAt0 | Pat::EnumDeclarationAt0At1 => Start {
                 bytes: [
@@ -9915,6 +10047,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterfaceDeclaration | Pat::InterfaceDeclarationAt0 => Start {
                 bytes: [
@@ -9925,6 +10058,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PropertyAccessorsAt3 => Start {
                 bytes: [
@@ -9935,6 +10069,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::StructDeclaration | Pat::StructDeclarationAt0 => Start {
                 bytes: [
@@ -9945,6 +10080,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::UnionDeclaration | Pat::UnionDeclarationAt0 => Start {
                 bytes: [
@@ -9955,6 +10091,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RecordDeclaration | Pat::RecordDeclarationAt0 => Start {
                 bytes: [
@@ -9965,6 +10102,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConstructorDeclarationAt0End => Start {
                 bytes: [
@@ -9975,6 +10113,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DestructorDeclaration => Start {
                 bytes: [
@@ -9985,6 +10124,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

@@ -963,6 +963,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoundBrackets => Start {
                 bytes: [
@@ -973,6 +974,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RoundBracketsEnd => Start {
                 bytes: [
@@ -983,6 +985,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Tabs => Start {
                 bytes: [
@@ -993,6 +996,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TabsEnd => Start {
                 bytes: [
@@ -1003,6 +1007,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TabsAt0 => Start {
                 bytes: [
@@ -1013,6 +1018,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Spaces => Start {
                 bytes: [
@@ -1023,6 +1029,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpacesEnd => Start {
                 bytes: [
@@ -1033,6 +1040,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpacesAt0 => Start {
                 bytes: [
@@ -1043,6 +1051,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionHead => Start {
                 bytes: [
@@ -1053,6 +1062,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Comment => Start {
                 bytes: [
@@ -1063,6 +1073,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentEnd => Start {
                 bytes: [
@@ -1073,6 +1084,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::CommentAt0 => Start {
                 bytes: [
@@ -1083,6 +1095,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Control => Start {
                 bytes: [
@@ -1093,6 +1106,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Operators => Start {
                 bytes: [
@@ -1103,6 +1117,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DimName => Start {
                 bytes: [
@@ -1113,6 +1128,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Storage => Start {
                 bytes: [
@@ -1123,6 +1139,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Modifiers => Start {
                 bytes: [
@@ -1133,6 +1150,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Constants => Start {
                 bytes: [
@@ -1143,6 +1161,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::String | Pat::StringEnd | Pat::StringAt0 => Start {
                 bytes: [
@@ -1153,6 +1172,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DollarVariable => Start {
                 bytes: [
@@ -1163,6 +1183,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AspClasses => Start {
                 bytes: [
@@ -1173,6 +1194,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AspCollections => Start {
                 bytes: [
@@ -1183,6 +1205,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AspConstants => Start {
                 bytes: [
@@ -1193,6 +1216,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AspFunctions => Start {
                 bytes: [
@@ -1203,6 +1227,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AspEvents => Start {
                 bytes: [
@@ -1213,6 +1238,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AsType | Pat::FunctionCall => Start {
                 bytes: [
@@ -1223,6 +1249,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Functions => Start {
                 bytes: [
@@ -1233,6 +1260,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Numbers => Start {
                 bytes: [
@@ -1243,6 +1271,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::VbConstants => Start {
                 bytes: [
@@ -1253,6 +1282,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Variable => Start {
                 bytes: [
@@ -1263,6 +1293,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::JsOperators => Start {
                 bytes: [
@@ -1273,6 +1304,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

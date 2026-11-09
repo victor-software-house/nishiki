@@ -6387,6 +6387,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt1 => Start {
                 bytes: [
@@ -6397,6 +6398,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt3 => Start {
                 bytes: [
@@ -6407,6 +6409,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt4 | Pat::RootAt6 | Pat::RootAt8 => Start {
                 bytes: [
@@ -6417,6 +6420,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt5 | Pat::RootAt7 | Pat::RootAt9 => Start {
                 bytes: [
@@ -6427,6 +6431,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt10 => Start {
                 bytes: [
@@ -6437,6 +6442,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt11
             | Pat::RootAt35
@@ -6452,6 +6458,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt12 => Start {
                 bytes: [
@@ -6462,6 +6469,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt13 => Start {
                 bytes: [
@@ -6472,6 +6480,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt14 => Start {
                 bytes: [
@@ -6482,6 +6491,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt15 => Start {
                 bytes: [
@@ -6492,6 +6502,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt16 => Start {
                 bytes: [
@@ -6502,6 +6513,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt17 => Start {
                 bytes: [
@@ -6512,6 +6524,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt18 => Start {
                 bytes: [
@@ -6522,6 +6535,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt19 => Start {
                 bytes: [
@@ -6532,6 +6546,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt20 => Start {
                 bytes: [
@@ -6542,6 +6557,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt21 => Start {
                 bytes: [
@@ -6552,6 +6568,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt21End
             | Pat::Params
@@ -6579,6 +6596,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::RootAt22 | Pat::RootAt23 => Start {
                 bytes: [
@@ -6589,6 +6607,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt24 | Pat::RootAt25 => Start {
                 bytes: [
@@ -6599,6 +6618,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt26 => Start {
                 bytes: [
@@ -6609,6 +6629,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt26End
             | Pat::BracketsEnd
@@ -6633,6 +6654,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt27 => Start {
                 bytes: [
@@ -6643,6 +6665,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt28 => Start {
                 bytes: [
@@ -6653,6 +6676,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt29 => Start {
                 bytes: [
@@ -6663,6 +6687,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt30 | Pat::RootAt108 => Start {
                 bytes: [
@@ -6673,6 +6698,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt30End
             | Pat::ParensEnd
@@ -6699,6 +6725,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt30At0 | Pat::RootAt31At0 | Pat::RootAt32At0 => Start {
                 bytes: [
@@ -6709,6 +6736,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt30At0End | Pat::RootAt31At0End => Start {
                 bytes: [
@@ -6719,6 +6747,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Parens
             | Pat::RegexSubAt4
@@ -6734,6 +6763,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Braces
             | Pat::NestCurlyAndSelfAt0
@@ -6750,6 +6780,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BracesEnd
             | Pat::InterpolatedRubyAt0End
@@ -6774,6 +6805,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Brackets
             | Pat::RegexSubAt3
@@ -6789,6 +6821,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt31 | Pat::RootAt32 | Pat::RootAt33 => Start {
                 bytes: [
@@ -6799,6 +6832,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt34 => Start {
                 bytes: [
@@ -6809,6 +6843,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt35End | Pat::RootAt38 | Pat::RootAt38End => Start {
                 bytes: [
@@ -6819,6 +6854,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt35At0
             | Pat::RootAt38At0
@@ -6851,6 +6887,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt36End | Pat::RootAt39 | Pat::RootAt39End => Start {
                 bytes: [
@@ -6861,6 +6898,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedRubyAt0
             | Pat::InterpolatedRubyAt1
@@ -6876,6 +6914,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt37 | Pat::RootAt41End => Start {
                 bytes: [
@@ -6886,6 +6925,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt40 | Pat::RootAt40End => Start {
                 bytes: [
@@ -6896,6 +6936,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt41 => Start {
                 bytes: [
@@ -6906,6 +6947,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt42
             | Pat::RootAt43
@@ -6956,6 +6998,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt45End
             | Pat::NestLtgtREnd
@@ -6976,11 +7019,150 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::NestLtgtR
-            | Pat::NestLtgtI
-            | Pat::NestLtgt
-            | Pat::RootAt89
+            Pat::NestLtgtR | Pat::NestLtgtI | Pat::NestLtgt => Start {
+                bytes: [
+                    0x1000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt84 | Pat::RootAt84End => Start {
+                bytes: [
+                    0x2000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: true,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::YardComment
+            | Pat::YardParamTypes
+            | Pat::YardOption
+            | Pat::YardTag
+            | Pat::YardTypes
+            | Pat::YardDirective
+            | Pat::YardSee
+            | Pat::YardMacroAttribute
+            | Pat::YardContinuation => Start {
+                bytes: [
+                    0x0000_0009_0000_3e00,
+                    0x0000_0000_0000_0000,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                bol: true,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::YardCommentEnd
+            | Pat::YardParamTypesEnd
+            | Pat::YardOptionEnd
+            | Pat::YardTypesEnd
+            | Pat::YardDirectiveEnd
+            | Pat::YardSeeEnd
+            | Pat::YardMacroAttributeEnd
+            | Pat::RootAt89At0While
+            | Pat::RootAt90At0While
+            | Pat::RootAt91At0While
+            | Pat::RootAt92At0While
+            | Pat::RootAt93At0While
+            | Pat::RootAt94At0While
+            | Pat::RootAt95At0While
+            | Pat::RootAt96At0While
+            | Pat::RootAt97At0While
+            | Pat::RootAt98At0While
+            | Pat::RootAt99At0While
+            | Pat::RootAt100At0While
+            | Pat::RootAt101At0While
+            | Pat::RootAt102At0While
+            | Pat::RootAt103At0While
+            | Pat::RootAt104End
+            | Pat::RootAt105End => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                bol: true,
+                wb: false,
+                matches_at_end: true,
+            },
+            Pat::RootAt86 => Start {
+                bytes: [
+                    0x0000_0009_0000_0200,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt86At0End => Start {
+                bytes: [
+                    0x0000_0000_0000_0400,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt87 => Start {
+                bytes: [
+                    0x8000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: true,
+                matches_at_end: false,
+            },
+            Pat::RootAt88 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_8000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: true,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt88End | Pat::RootAt88At0End => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0200_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt88At0 => Start {
+                bytes: [
+                    0x1000_0002_0000_0000,
+                    0x0100_0000_0100_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt89
             | Pat::RootAt89At0
             | Pat::RootAt90
             | Pat::RootAt90At0
@@ -7019,127 +7201,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
-            },
-            Pat::RootAt84 | Pat::RootAt84End => Start {
-                bytes: [
-                    0x2000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: true,
-                wb: false,
-            },
-            Pat::YardComment
-            | Pat::YardParamTypes
-            | Pat::YardOption
-            | Pat::YardTag
-            | Pat::YardTypes
-            | Pat::YardDirective
-            | Pat::YardSee
-            | Pat::YardMacroAttribute
-            | Pat::YardContinuation => Start {
-                bytes: [
-                    0x0000_0009_0000_3e00,
-                    0x0000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: true,
-                wb: false,
-            },
-            Pat::YardCommentEnd
-            | Pat::YardParamTypesEnd
-            | Pat::YardOptionEnd
-            | Pat::YardTypesEnd
-            | Pat::YardDirectiveEnd
-            | Pat::YardSeeEnd
-            | Pat::YardMacroAttributeEnd
-            | Pat::RootAt89At0While
-            | Pat::RootAt90At0While
-            | Pat::RootAt91At0While
-            | Pat::RootAt92At0While
-            | Pat::RootAt93At0While
-            | Pat::RootAt94At0While
-            | Pat::RootAt95At0While
-            | Pat::RootAt96At0While
-            | Pat::RootAt97At0While
-            | Pat::RootAt98At0While
-            | Pat::RootAt99At0While
-            | Pat::RootAt100At0While
-            | Pat::RootAt101At0While
-            | Pat::RootAt102At0While
-            | Pat::RootAt103At0While
-            | Pat::RootAt104End
-            | Pat::RootAt105End => Start {
-                bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                bol: true,
-                wb: false,
-            },
-            Pat::RootAt86 => Start {
-                bytes: [
-                    0x0000_0009_0000_0200,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-            },
-            Pat::RootAt86At0End => Start {
-                bytes: [
-                    0x0000_0000_0000_0400,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-            },
-            Pat::RootAt87 => Start {
-                bytes: [
-                    0x8000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: true,
-            },
-            Pat::RootAt88 => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_8000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: true,
-                wb: false,
-            },
-            Pat::RootAt88End | Pat::RootAt88At0End => Start {
-                bytes: [
-                    0x0000_0000_0000_0000,
-                    0x0000_0200_0000_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
-            },
-            Pat::RootAt88At0 => Start {
-                bytes: [
-                    0x1000_0002_0000_0000,
-                    0x0100_0000_0100_0000,
-                    0x0000_0000_0000_0000,
-                    0x0000_0000_0000_0000,
-                ],
-                bol: false,
-                wb: false,
+                matches_at_end: true,
             },
             Pat::RootAt89End
             | Pat::RootAt90End
@@ -7164,6 +7226,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Heredoc => Start {
                 bytes: [
@@ -7174,8 +7237,9 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::RootAt104 | Pat::RootAt107 | Pat::RootAt115 => Start {
+            Pat::RootAt104 => Start {
                 bytes: [
                     0x2000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -7184,6 +7248,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::RootAt106 | Pat::RootAt106End => Start {
                 bytes: [
@@ -7194,6 +7259,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt106At0End => Start {
                 bytes: [
@@ -7204,6 +7270,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt106At1 | Pat::RootAt118 => Start {
                 bytes: [
@@ -7214,6 +7281,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::RootAt107 | Pat::RootAt115 => Start {
+                bytes: [
+                    0x2000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt109 => Start {
                 bytes: [
@@ -7224,6 +7303,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt110 => Start {
                 bytes: [
@@ -7234,6 +7314,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt111 => Start {
                 bytes: [
@@ -7244,6 +7325,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RootAt112 => Start {
                 bytes: [
@@ -7254,6 +7336,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt113 => Start {
                 bytes: [
@@ -7264,6 +7347,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt114 => Start {
                 bytes: [
@@ -7274,6 +7358,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt116 => Start {
                 bytes: [
@@ -7284,6 +7369,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt117 => Start {
                 bytes: [
@@ -7294,6 +7380,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt120 => Start {
                 bytes: [
@@ -7304,6 +7391,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt126 => Start {
                 bytes: [
@@ -7314,6 +7402,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt127 | Pat::RootAt127At0 | Pat::RootAt128 => Start {
                 bytes: [
@@ -7324,6 +7413,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RootAt127End => Start {
                 bytes: [
@@ -7334,353 +7424,8 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-        }
-    }
-}
-
-impl Pat {
-    /// The byte a match must have right after its first, where the pattern
-    /// fixes it: a here document opener's second `<`.
-    #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn next_byte(self) -> Option<u8> {
-        match self {
-            Pat::RootAt0
-            | Pat::RootAt1
-            | Pat::RootAt2
-            | Pat::RootAt3
-            | Pat::RootAt4
-            | Pat::RootAt5
-            | Pat::RootAt6
-            | Pat::RootAt7
-            | Pat::RootAt8
-            | Pat::RootAt9
-            | Pat::RootAt10
-            | Pat::RootAt11
-            | Pat::RootAt12
-            | Pat::RootAt13
-            | Pat::RootAt14
-            | Pat::RootAt15
-            | Pat::RootAt16
-            | Pat::RootAt17
-            | Pat::RootAt18
-            | Pat::RootAt19
-            | Pat::RootAt20
-            | Pat::RootAt21
-            | Pat::RootAt21End
-            | Pat::RootAt22
-            | Pat::RootAt23
-            | Pat::RootAt24
-            | Pat::RootAt25
-            | Pat::RootAt26
-            | Pat::RootAt26End
-            | Pat::RootAt27
-            | Pat::RootAt28
-            | Pat::RootAt29
-            | Pat::RootAt30
-            | Pat::RootAt30End
-            | Pat::RootAt30At0
-            | Pat::RootAt30At0End
-            | Pat::Parens
-            | Pat::ParensEnd
-            | Pat::Braces
-            | Pat::BracesEnd
-            | Pat::Brackets
-            | Pat::BracketsEnd
-            | Pat::RootAt31
-            | Pat::RootAt31End
-            | Pat::RootAt31At0
-            | Pat::RootAt31At0End
-            | Pat::Params
-            | Pat::RootAt32
-            | Pat::RootAt32End
-            | Pat::RootAt32At0
-            | Pat::RootAt32At0End
-            | Pat::RootAt33
-            | Pat::RootAt34
-            | Pat::RootAt35
-            | Pat::RootAt35End
-            | Pat::RootAt35At0
-            | Pat::RootAt36
-            | Pat::RootAt36End
-            | Pat::InterpolatedRubyAt0
-            | Pat::InterpolatedRubyAt0End
-            | Pat::NestCurlyAndSelfAt0
-            | Pat::NestCurlyAndSelfAt0End
-            | Pat::RootAt37
-            | Pat::RootAt38
-            | Pat::RootAt38End
-            | Pat::RootAt38At0
-            | Pat::RootAt39
-            | Pat::RootAt39End
-            | Pat::InterpolatedRubyAt1
-            | Pat::InterpolatedRubyAt2
-            | Pat::InterpolatedRubyAt3
-            | Pat::EscapedChar
-            | Pat::RootAt40
-            | Pat::RootAt40End
-            | Pat::RootAt41
-            | Pat::RootAt41End
-            | Pat::RegexSubAt2
-            | Pat::RegexSubAt3
-            | Pat::RegexSubAt3End
-            | Pat::RegexSubAt4
-            | Pat::RegexSubAt4End
-            | Pat::RegexSubAt5
-            | Pat::RegexSubAt5End
-            | Pat::RegexSubAt6
-            | Pat::RegexSubAt6End
-            | Pat::RootAt42
-            | Pat::RootAt42End
-            | Pat::NestCurlyR
-            | Pat::NestCurlyREnd
-            | Pat::RootAt43
-            | Pat::RootAt43End
-            | Pat::NestBracketsR
-            | Pat::NestBracketsREnd
-            | Pat::RootAt44
-            | Pat::RootAt44End
-            | Pat::NestParensR
-            | Pat::NestParensREnd
-            | Pat::RootAt45
-            | Pat::RootAt45End
-            | Pat::NestLtgtR
-            | Pat::NestLtgtREnd
-            | Pat::RootAt46
-            | Pat::RootAt46End
-            | Pat::RootAt47
-            | Pat::RootAt47End
-            | Pat::NestBracketsI
-            | Pat::NestBracketsIEnd
-            | Pat::RootAt48
-            | Pat::RootAt48End
-            | Pat::NestParensI
-            | Pat::NestParensIEnd
-            | Pat::RootAt49
-            | Pat::RootAt49End
-            | Pat::NestLtgtI
-            | Pat::NestLtgtIEnd
-            | Pat::RootAt50
-            | Pat::RootAt50End
-            | Pat::NestCurlyI
-            | Pat::NestCurlyIEnd
-            | Pat::RootAt51
-            | Pat::RootAt51End
-            | Pat::RootAt52
-            | Pat::RootAt52End
-            | Pat::RootAt52At0
-            | Pat::NestBrackets
-            | Pat::NestBracketsEnd
-            | Pat::RootAt53
-            | Pat::RootAt53End
-            | Pat::RootAt53At0
-            | Pat::NestParens
-            | Pat::NestParensEnd
-            | Pat::RootAt54
-            | Pat::RootAt54End
-            | Pat::RootAt54At0
-            | Pat::NestLtgt
-            | Pat::NestLtgtEnd
-            | Pat::RootAt55
-            | Pat::RootAt55End
-            | Pat::RootAt55At0
-            | Pat::NestCurly
-            | Pat::NestCurlyEnd
-            | Pat::RootAt56
-            | Pat::RootAt56End
-            | Pat::RootAt56At0
-            | Pat::RootAt57
-            | Pat::RootAt57End
-            | Pat::RootAt58
-            | Pat::RootAt58End
-            | Pat::RootAt59
-            | Pat::RootAt59End
-            | Pat::RootAt60
-            | Pat::RootAt60End
-            | Pat::RootAt61
-            | Pat::RootAt61End
-            | Pat::RootAt62
-            | Pat::RootAt62End
-            | Pat::RootAt62At0
-            | Pat::RootAt63
-            | Pat::RootAt63End
-            | Pat::RootAt63At0
-            | Pat::RootAt64
-            | Pat::RootAt64End
-            | Pat::RootAt64At0
-            | Pat::RootAt65
-            | Pat::RootAt65End
-            | Pat::RootAt65At0
-            | Pat::RootAt66
-            | Pat::RootAt66End
-            | Pat::RootAt66At0
-            | Pat::RootAt67
-            | Pat::RootAt67End
-            | Pat::RootAt68
-            | Pat::RootAt68End
-            | Pat::RootAt69
-            | Pat::RootAt69End
-            | Pat::RootAt70
-            | Pat::RootAt70End
-            | Pat::RootAt71
-            | Pat::RootAt71End
-            | Pat::RootAt72
-            | Pat::RootAt72End
-            | Pat::RootAt73
-            | Pat::RootAt73End
-            | Pat::RootAt73At0
-            | Pat::RootAt74
-            | Pat::RootAt74End
-            | Pat::RootAt74At0
-            | Pat::RootAt75
-            | Pat::RootAt75End
-            | Pat::RootAt75At0
-            | Pat::RootAt76
-            | Pat::RootAt76End
-            | Pat::RootAt76At0
-            | Pat::RootAt77
-            | Pat::RootAt77End
-            | Pat::RootAt77At0
-            | Pat::RootAt78
-            | Pat::RootAt78End
-            | Pat::RootAt78At0
-            | Pat::RootAt79
-            | Pat::RootAt79End
-            | Pat::RootAt79At0
-            | Pat::RootAt80
-            | Pat::RootAt80End
-            | Pat::RootAt80At0
-            | Pat::RootAt81
-            | Pat::RootAt81End
-            | Pat::RootAt81At0
-            | Pat::RootAt82
-            | Pat::RootAt82End
-            | Pat::RootAt82At0
-            | Pat::RootAt83
-            | Pat::RootAt84
-            | Pat::RootAt84End
-            | Pat::YardComment
-            | Pat::YardCommentEnd
-            | Pat::YardParamTypes
-            | Pat::YardParamTypesEnd
-            | Pat::YardOption
-            | Pat::YardOptionEnd
-            | Pat::YardTag
-            | Pat::YardTypes
-            | Pat::YardTypesEnd
-            | Pat::YardDirective
-            | Pat::YardDirectiveEnd
-            | Pat::YardSee
-            | Pat::YardSeeEnd
-            | Pat::YardMacroAttribute
-            | Pat::YardMacroAttributeEnd
-            | Pat::YardContinuation
-            | Pat::RootAt86
-            | Pat::RootAt86End
-            | Pat::RootAt86At0
-            | Pat::RootAt86At0End
-            | Pat::RootAt87
-            | Pat::RootAt88
-            | Pat::RootAt88End
-            | Pat::RootAt88At0
-            | Pat::RootAt88At0End
-            | Pat::RootAt89End
-            | Pat::RootAt89At0While
-            | Pat::Heredoc
-            | Pat::HeredocEnd
-            | Pat::RootAt90End
-            | Pat::RootAt90At0While
-            | Pat::RootAt91End
-            | Pat::RootAt91At0While
-            | Pat::RootAt92End
-            | Pat::RootAt92At0While
-            | Pat::RootAt93End
-            | Pat::RootAt93At0While
-            | Pat::RootAt94End
-            | Pat::RootAt94At0While
-            | Pat::RootAt95End
-            | Pat::RootAt95At0While
-            | Pat::RootAt96End
-            | Pat::RootAt96At0While
-            | Pat::RootAt97End
-            | Pat::RootAt97At0While
-            | Pat::RootAt98End
-            | Pat::RootAt98At0While
-            | Pat::RootAt99End
-            | Pat::RootAt99At0While
-            | Pat::RootAt100End
-            | Pat::RootAt100At0While
-            | Pat::RootAt101End
-            | Pat::RootAt101At0While
-            | Pat::RootAt102End
-            | Pat::RootAt102At0While
-            | Pat::RootAt103End
-            | Pat::RootAt103At0While
-            | Pat::RootAt104
-            | Pat::RootAt104End
-            | Pat::RootAt105
-            | Pat::RootAt105End
-            | Pat::RootAt106
-            | Pat::RootAt106End
-            | Pat::RootAt106At0
-            | Pat::RootAt106At0End
-            | Pat::RootAt106At0At0
-            | Pat::RootAt106At1
-            | Pat::RootAt107
-            | Pat::RootAt108
-            | Pat::RootAt109
-            | Pat::RootAt110
-            | Pat::RootAt111
-            | Pat::RootAt112
-            | Pat::RootAt113
-            | Pat::RootAt114
-            | Pat::RootAt115
-            | Pat::RootAt116
-            | Pat::RootAt117
-            | Pat::RootAt118
-            | Pat::RootAt119
-            | Pat::RootAt120
-            | Pat::RootAt121
-            | Pat::RootAt122
-            | Pat::RootAt123
-            | Pat::RootAt124
-            | Pat::RootAt125
-            | Pat::RootAt126
-            | Pat::RootAt127
-            | Pat::RootAt127End
-            | Pat::RootAt127At0
-            | Pat::RootAt128
-            | Pat::RootAt128End => None,
-            Pat::RootAt89
-            | Pat::RootAt89At0
-            | Pat::RootAt90
-            | Pat::RootAt90At0
-            | Pat::RootAt91
-            | Pat::RootAt91At0
-            | Pat::RootAt92
-            | Pat::RootAt92At0
-            | Pat::RootAt93
-            | Pat::RootAt93At0
-            | Pat::RootAt94
-            | Pat::RootAt94At0
-            | Pat::RootAt95
-            | Pat::RootAt95At0
-            | Pat::RootAt96
-            | Pat::RootAt96At0
-            | Pat::RootAt97
-            | Pat::RootAt97At0
-            | Pat::RootAt98
-            | Pat::RootAt98At0
-            | Pat::RootAt99
-            | Pat::RootAt99At0
-            | Pat::RootAt100
-            | Pat::RootAt100At0
-            | Pat::RootAt101
-            | Pat::RootAt101At0
-            | Pat::RootAt102
-            | Pat::RootAt102At0
-            | Pat::RootAt103
-            | Pat::RootAt103At0 => Some(b'<'),
         }
     }
 }

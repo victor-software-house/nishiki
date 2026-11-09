@@ -3735,6 +3735,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentBlockEnd | Pat::SelectorInnardsAt7 => Start {
                 bytes: [
@@ -3745,6 +3746,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EscapesAt0 | Pat::EscapesAt1 | Pat::EscapesAt2 => Start {
                 bytes: [
@@ -3755,6 +3757,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EscapesAt1End => Start {
                 bytes: [
@@ -3765,6 +3768,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::CombinatorInvalid => Start {
                 bytes: [
@@ -3775,6 +3779,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Selector => Start {
                 bytes: [
@@ -3785,6 +3790,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorEnd
             | Pat::StringAt0End
@@ -3837,6 +3843,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::Commas | Pat::LayerNameListAt1 | Pat::MediaQueryAt6 => Start {
                 bytes: [
@@ -3847,6 +3854,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CombinatorsAt1 => Start {
                 bytes: [
@@ -3857,6 +3865,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt4 => Start {
                 bytes: [
@@ -3867,6 +3876,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagNames => Start {
                 bytes: [
@@ -3877,6 +3887,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt6 => Start {
                 bytes: [
@@ -3887,6 +3898,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt8 => Start {
                 bytes: [
@@ -3897,6 +3909,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt9 | Pat::LayerNameListAt2 => Start {
                 bytes: [
@@ -3907,6 +3920,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt10 | Pat::NumericValuesAt0 => Start {
                 bytes: [
@@ -3917,6 +3931,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11 => Start {
                 bytes: [
@@ -3927,6 +3942,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11End => Start {
                 bytes: [
@@ -3937,6 +3953,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringAt0
             | Pat::FunctionalPseudoClassesAt1At1
@@ -3950,6 +3967,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StringAt1
             | Pat::FunctionalPseudoClassesAt1At2
@@ -3962,6 +3980,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11At2 => Start {
                 bytes: [
@@ -3972,6 +3991,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11At3 => Start {
                 bytes: [
@@ -3982,6 +4002,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11At5 => Start {
                 bytes: [
@@ -3992,6 +4013,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11At6 => Start {
                 bytes: [
@@ -4002,6 +4024,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11At7 => Start {
                 bytes: [
@@ -4012,6 +4035,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt11At8 => Start {
                 bytes: [
@@ -4022,6 +4046,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PseudoClasses
             | Pat::PseudoElements
@@ -4039,6 +4064,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionalPseudoClassesAt0End
             | Pat::FunctionsAt0End
@@ -4069,6 +4095,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionalPseudoClassesAt0At2 => Start {
                 bytes: [
@@ -4079,6 +4106,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PropertyValuesAt0
             | Pat::RuleList
@@ -4103,6 +4131,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PropertyValuesAt0End
             | Pat::RuleListEnd
@@ -4127,6 +4156,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionsAt0 | Pat::ColorKeywordsAt2 => Start {
                 bytes: [
@@ -4137,6 +4167,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ArithmeticOperators => Start {
                 bytes: [
@@ -4147,6 +4178,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionsAt1 => Start {
                 bytes: [
@@ -4157,6 +4189,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt2 => Start {
                 bytes: [
@@ -4167,6 +4200,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt2At0 => Start {
                 bytes: [
@@ -4177,6 +4211,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt3 | Pat::FunctionsAt9 | Pat::RuleListInnardsAt3 => Start {
                 bytes: [
@@ -4187,6 +4222,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt3At0 => Start {
                 bytes: [
@@ -4197,6 +4233,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt4 => Start {
                 bytes: [
@@ -4207,6 +4244,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt4At0 | Pat::MediaQueryAt8At4 => Start {
                 bytes: [
@@ -4217,6 +4255,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionsAt5 => Start {
                 bytes: [
@@ -4227,6 +4266,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt5At0 => Start {
                 bytes: [
@@ -4237,6 +4277,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionsAt6 => Start {
                 bytes: [
@@ -4247,6 +4288,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt6At0 => Start {
                 bytes: [
@@ -4257,6 +4299,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt7 => Start {
                 bytes: [
@@ -4267,6 +4310,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Url | Pat::UnicodeRange => Start {
                 bytes: [
@@ -4277,6 +4321,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::UrlAt0 | Pat::AtRulesAt6At0At0At3 => Start {
                 bytes: [
@@ -4287,6 +4332,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionsAt10 => Start {
                 bytes: [
@@ -4297,6 +4343,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FunctionsAt10At0 => Start {
                 bytes: [
@@ -4307,6 +4354,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PropertyKeywordsAt0 => Start {
                 bytes: [
@@ -4317,6 +4365,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PropertyKeywordsAt1 => Start {
                 bytes: [
@@ -4327,6 +4376,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PropertyKeywordsAt2 | Pat::PropertyNamesAt1 => Start {
                 bytes: [
@@ -4337,6 +4387,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PropertyKeywordsAt3 => Start {
                 bytes: [
@@ -4347,6 +4398,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::NumericValuesAt1 | Pat::NumericValuesAt2 | Pat::NumericValuesAt3 => Start {
                 bytes: [
@@ -4357,6 +4409,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ColorKeywordsAt0 => Start {
                 bytes: [
@@ -4367,6 +4420,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ColorKeywordsAt1 => Start {
                 bytes: [
@@ -4377,6 +4431,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ColorKeywordsAt3 => Start {
                 bytes: [
@@ -4387,6 +4442,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::PropertyValuesAt10 => Start {
                 bytes: [
@@ -4397,6 +4453,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionsAt4At3 => Start {
                 bytes: [
@@ -4407,6 +4464,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionNesting | Pat::MediaQueryAt8 | Pat::FeatureQuery => Start {
                 bytes: [
@@ -4417,6 +4475,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionalPseudoClassesAt1At0 => Start {
                 bytes: [
@@ -4427,6 +4486,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionalPseudoClassesAt1At1At1 | Pat::FunctionalPseudoClassesAt1At2At1 => {
                 Start {
@@ -4438,6 +4498,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::FunctionalPseudoClassesAt3At0 => Start {
@@ -4449,6 +4510,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FunctionalPseudoClassesAt3At1 => Start {
                 bytes: [
@@ -4459,6 +4521,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SelectorInnardsAt15 => Start {
                 bytes: [
@@ -4469,6 +4532,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AtRulesAt0 => Start {
                 bytes: [
@@ -4479,6 +4543,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt0At1
             | Pat::AtRulesAt1
@@ -4509,6 +4574,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt1End | Pat::RuleListInnardsAt9 | Pat::AtRulesAt14At0End => Start {
                 bytes: [
@@ -4519,6 +4585,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt1At3 => Start {
                 bytes: [
@@ -4529,6 +4596,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LayerImportAt0 | Pat::LayerImportAt1 => Start {
                 bytes: [
@@ -4539,6 +4607,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::LayerNameListAt3
             | Pat::FontFeaturesAt0At0At0
@@ -4557,6 +4626,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaQueryList => Start {
                 bytes: [
@@ -4567,6 +4637,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaQueryListEnd
             | Pat::MediaQueryEnd
@@ -4583,6 +4654,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaTypes => Start {
                 bytes: [
@@ -4593,6 +4665,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaQueryAt3 | Pat::FeatureQueryOperatorsAt2 => Start {
                 bytes: [
@@ -4603,6 +4676,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaQueryAt4 | Pat::FeatureQueryOperatorsAt1 => Start {
                 bytes: [
@@ -4613,6 +4687,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaQueryAt5 | Pat::FeatureQueryOperatorsAt0 => Start {
                 bytes: [
@@ -4623,6 +4698,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaFeatures => Start {
                 bytes: [
@@ -4633,6 +4709,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaFeatureKeywords => Start {
                 bytes: [
@@ -4643,6 +4720,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MediaQueryAt8At3 => Start {
                 bytes: [
@@ -4653,6 +4731,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SharedNamesAt0 => Start {
                 bytes: [
@@ -4663,6 +4742,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SharedNamesAt1 => Start {
                 bytes: [
@@ -4673,6 +4753,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::PropertyNamesAt0 => Start {
                 bytes: [
@@ -4683,6 +4764,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::RuleListInnardsAt7 => Start {
                 bytes: [
@@ -4693,6 +4775,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RuleListInnardsAt8End => Start {
                 bytes: [
@@ -4703,6 +4786,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt5At0End | Pat::AtRulesAt7At0End => Start {
                 bytes: [
@@ -4713,6 +4797,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt6At0At0 => Start {
                 bytes: [
@@ -4723,6 +4808,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AtRulesAt7At1At2 => Start {
                 bytes: [
@@ -4733,6 +4819,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt10End | Pat::AtRulesAt11End => Start {
                 bytes: [
@@ -4743,6 +4830,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AtRulesAt13End => Start {
                 bytes: [
@@ -4753,6 +4841,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

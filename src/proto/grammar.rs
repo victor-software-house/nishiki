@@ -614,6 +614,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsAt0End => Start {
                 bytes: [
@@ -624,6 +625,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsAt1End => Start {
                 bytes: [
@@ -634,6 +636,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::Syntax => Start {
                 bytes: [
@@ -644,6 +647,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Package => Start {
                 bytes: [
@@ -654,6 +658,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Import => Start {
                 bytes: [
@@ -664,6 +669,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OptionStmt | Pat::Oneof => Start {
                 bytes: [
@@ -674,6 +680,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OptionStmtEnd
             | Pat::ReservedEnd
@@ -688,6 +695,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Constants => Start {
                 bytes: [
@@ -698,6 +706,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Number => Start {
                 bytes: [
@@ -708,6 +717,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::String => Start {
                 bytes: [
@@ -718,6 +728,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::SubMsgOption => Start {
                 bytes: [
@@ -728,6 +739,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SubMsgOptionEnd
             | Pat::MessageEnd
@@ -742,6 +754,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Kv => Start {
                 bytes: [
@@ -752,6 +765,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KvEnd => Start {
                 bytes: [
@@ -762,6 +776,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Message => Start {
                 bytes: [
@@ -772,6 +787,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Reserved | Pat::Method => Start {
                 bytes: [
@@ -782,6 +798,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ReservedAt0 => Start {
                 bytes: [
@@ -792,6 +809,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Enum => Start {
                 bytes: [
@@ -802,6 +820,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::EnumAt3 => Start {
                 bytes: [
@@ -812,6 +831,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FieldOptions => Start {
                 bytes: [
@@ -822,6 +842,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FieldOptionsEnd => Start {
                 bytes: [
@@ -832,6 +853,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OptionName => Start {
                 bytes: [
@@ -842,6 +864,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Service => Start {
                 bytes: [
@@ -852,6 +875,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MethodEnd => Start {
                 bytes: [
@@ -862,6 +886,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RpcKeywords => Start {
                 bytes: [
@@ -872,6 +897,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Ident => Start {
                 bytes: [
@@ -882,6 +908,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Field => Start {
                 bytes: [
@@ -892,6 +919,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Mapfield => Start {
                 bytes: [
@@ -902,6 +930,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

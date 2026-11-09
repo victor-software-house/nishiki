@@ -2183,6 +2183,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MermaidCodeBlockEnd
             | Pat::ArchitectureEnd
@@ -2198,6 +2199,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::Architecture => Start {
                 bytes: [
@@ -2208,6 +2210,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ArchitectureAt0 => Start {
                 bytes: [
@@ -2218,6 +2221,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ArchitectureAt1 => Start {
                 bytes: [
@@ -2228,6 +2232,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ArchitectureAt2
             | Pat::ErDiagramAt2
@@ -2244,6 +2249,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ArchitectureAt3 => Start {
                 bytes: [
@@ -2254,6 +2260,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4Component | Pat::C4Container | Pat::C4Deployment | Pat::C4Dynamic => Start {
                 bytes: [
@@ -2264,6 +2271,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt1 | Pat::QuadrantChartAt1 => Start {
                 bytes: [
@@ -2274,6 +2282,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt2 | Pat::C4ComponentAt3 => Start {
                 bytes: [
@@ -2284,6 +2293,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt4
             | Pat::C4ComponentAt5
@@ -2298,6 +2308,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt6 | Pat::C4ComponentAt7 => Start {
                 bytes: [
@@ -2308,6 +2319,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt8 | Pat::C4ComponentAt9 => Start {
                 bytes: [
@@ -2318,6 +2330,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt10 => Start {
                 bytes: [
@@ -2328,6 +2341,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt11 | Pat::C4ComponentAt12 => Start {
                 bytes: [
@@ -2338,6 +2352,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt13 | Pat::GanttAt2 => Start {
                 bytes: [
@@ -2348,6 +2363,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt14
             | Pat::C4ComponentAt16
@@ -2364,6 +2380,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ComponentAt17 => Start {
                 bytes: [
@@ -2374,6 +2391,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4ContainerAt10 | Pat::C4ContainerAt11 => Start {
                 bytes: [
@@ -2384,6 +2402,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::C4DynamicAt8 | Pat::C4DynamicAt9 => Start {
                 bytes: [
@@ -2394,6 +2413,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagram => Start {
                 bytes: [
@@ -2404,6 +2424,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt1
             | Pat::ClassDiagramAt2
@@ -2417,6 +2438,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2End => Start {
                 bytes: [
@@ -2427,6 +2449,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2At1 | Pat::ClassDiagramAt7 | Pat::ClassDiagramAt8 => Start {
                 bytes: [
@@ -2437,6 +2460,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2At1End => Start {
                 bytes: [
@@ -2447,6 +2471,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2At1At1
             | Pat::ClassDiagramAt2At1At3
@@ -2464,6 +2489,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2At1At1End => Start {
                 bytes: [
@@ -2474,6 +2500,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2At1At2 | Pat::GitGraphAt4 => Start {
                 bytes: [
@@ -2484,6 +2511,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt2At1At5 | Pat::ClassDiagramAt6 => Start {
                 bytes: [
@@ -2494,6 +2522,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ClassDiagramAt3 | Pat::ClassDiagramAt4 | Pat::ClassDiagramAt5 => Start {
                 bytes: [
@@ -2504,6 +2533,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ErDiagram => Start {
                 bytes: [
@@ -2514,6 +2544,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ErDiagramAt1 | Pat::StateDiagramAt4 => Start {
                 bytes: [
@@ -2524,6 +2555,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Gantt | Pat::GitGraph => Start {
                 bytes: [
@@ -2534,6 +2566,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GanttAt1 | Pat::FlowchartAt3 | Pat::StateDiagramAt1 => Start {
                 bytes: [
@@ -2544,6 +2577,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GanttAt3 | Pat::SequenceDiagramAt1 => Start {
                 bytes: [
@@ -2554,6 +2588,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GanttAt5 | Pat::RequirementDiagramAt2 => Start {
                 bytes: [
@@ -2564,6 +2599,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GanttAt6 | Pat::GanttAt8 => Start {
                 bytes: [
@@ -2574,6 +2610,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GanttAt8At0 => Start {
                 bytes: [
@@ -2584,6 +2621,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GitGraphAt1At0 | Pat::RequirementDiagramAt1At0 => Start {
                 bytes: [
@@ -2594,6 +2632,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GitGraphAt1At1
             | Pat::GitGraphAt1At2
@@ -2607,6 +2646,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GitGraphAt3 => Start {
                 bytes: [
@@ -2617,6 +2657,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Flowchart => Start {
                 bytes: [
@@ -2627,6 +2668,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt2 | Pat::SequenceDiagram | Pat::StateDiagram => Start {
                 bytes: [
@@ -2637,6 +2679,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt4 => Start {
                 bytes: [
@@ -2647,6 +2690,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FlowchartAt5 | Pat::FlowchartAt9 => Start {
                 bytes: [
@@ -2657,6 +2701,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::FlowchartAt5End => Start {
                 bytes: [
@@ -2667,6 +2712,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt5At0 | Pat::StateDiagramAt6At0 | Pat::XyChartAt2At3At1 => Start {
                 bytes: [
@@ -2677,6 +2723,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt5At0End | Pat::FlowchartAt5At0At0End => Start {
                 bytes: [
@@ -2687,6 +2734,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt5At1 => Start {
                 bytes: [
@@ -2697,6 +2745,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt6 => Start {
                 bytes: [
@@ -2707,6 +2756,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt6End => Start {
                 bytes: [
@@ -2717,6 +2767,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt7 => Start {
                 bytes: [
@@ -2727,6 +2778,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt8 => Start {
                 bytes: [
@@ -2737,6 +2789,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt10 | Pat::FlowchartAt11 | Pat::FlowchartAt12 => Start {
                 bytes: [
@@ -2747,6 +2800,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt13 => Start {
                 bytes: [
@@ -2757,6 +2811,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt13At0 => Start {
                 bytes: [
@@ -2767,6 +2822,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::FlowchartAt13At1 | Pat::SequenceDiagramAt5 => Start {
                 bytes: [
@@ -2777,6 +2833,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Mindmap => Start {
                 bytes: [
@@ -2787,6 +2844,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MindmapAt1
             | Pat::MindmapAt2
@@ -2800,6 +2858,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MindmapAt3 => Start {
                 bytes: [
@@ -2810,6 +2869,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MindmapAt4 => Start {
                 bytes: [
@@ -2820,6 +2880,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::Pie => Start {
                 bytes: [
@@ -2830,6 +2891,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::QuadrantChart => Start {
                 bytes: [
@@ -2840,6 +2902,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::QuadrantChartAt2 => Start {
                 bytes: [
@@ -2850,6 +2913,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::QuadrantChartAt2At0 => Start {
                 bytes: [
@@ -2860,6 +2924,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::QuadrantChartAt3 => Start {
                 bytes: [
@@ -2870,6 +2935,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::QuadrantChartAt4 => Start {
                 bytes: [
@@ -2880,6 +2946,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagram => Start {
                 bytes: [
@@ -2890,6 +2957,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagramAt1 => Start {
                 bytes: [
@@ -2900,6 +2968,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagramAt1End => Start {
                 bytes: [
@@ -2910,6 +2979,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagramAt1At2 => Start {
                 bytes: [
@@ -2920,6 +2990,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagramAt1At3 => Start {
                 bytes: [
@@ -2930,6 +3001,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagramAt2At1 => Start {
                 bytes: [
@@ -2940,6 +3012,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RequirementDiagramAt3 | Pat::RequirementDiagramAt4 => Start {
                 bytes: [
@@ -2950,6 +3023,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt0 => Start {
                 bytes: [
@@ -2960,6 +3034,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt2 => Start {
                 bytes: [
@@ -2970,6 +3045,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt3 => Start {
                 bytes: [
@@ -2980,6 +3056,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt4 => Start {
                 bytes: [
@@ -2990,6 +3067,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt6 => Start {
                 bytes: [
@@ -3000,6 +3078,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt7 => Start {
                 bytes: [
@@ -3010,6 +3089,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt8 => Start {
                 bytes: [
@@ -3020,6 +3100,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::SequenceDiagramAt9 | Pat::SequenceDiagramAt10 => Start {
                 bytes: [
@@ -3030,6 +3111,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StateDiagramAt5 | Pat::StateDiagramAt7 => Start {
                 bytes: [
@@ -3040,6 +3122,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StateDiagramAt7At1 | Pat::StateDiagramAt8 => Start {
                 bytes: [
@@ -3050,6 +3133,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::StateDiagramAt10End => Start {
                 bytes: [
@@ -3060,6 +3144,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Journey => Start {
                 bytes: [
@@ -3070,6 +3155,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::JourneyAt1 => Start {
                 bytes: [
@@ -3080,6 +3166,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::JourneyAt2 => Start {
                 bytes: [
@@ -3090,6 +3177,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::JourneyAt2At0 => Start {
                 bytes: [
@@ -3100,6 +3188,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChart => Start {
                 bytes: [
@@ -3110,6 +3199,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt2 => Start {
                 bytes: [
@@ -3120,6 +3210,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt2At0 | Pat::XyChartAt2At3At0 => Start {
                 bytes: [
@@ -3130,6 +3221,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt2At3 => Start {
                 bytes: [
@@ -3140,6 +3232,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt2At3End => Start {
                 bytes: [
@@ -3150,6 +3243,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt2At3At2 => Start {
                 bytes: [
@@ -3160,6 +3254,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt2At3At3 => Start {
                 bytes: [
@@ -3170,6 +3265,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt3 => Start {
                 bytes: [
@@ -3180,6 +3276,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::XyChartAt4 => Start {
                 bytes: [
@@ -3190,6 +3287,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::MermaidCodeBlockWithAttributes => Start {
                 bytes: [
@@ -3200,6 +3298,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

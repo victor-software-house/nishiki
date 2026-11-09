@@ -1310,6 +1310,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedTextEnd
             | Pat::RubyFilterBody
@@ -1352,6 +1353,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::InterpolatedRubyAt0
             | Pat::InterpolatedRubyAt1
@@ -1368,6 +1370,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedRubyAt1End | Pat::NestCurlyAndSelfEnd => Start {
                 bytes: [
@@ -1378,6 +1381,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestCurlyAndSelf | Pat::TagAt3 => Start {
                 bytes: [
@@ -1388,6 +1392,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RubyFilter
             | Pat::JavascriptFilter
@@ -1409,6 +1414,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RubyFilterEnd
             | Pat::JavascriptFilterEnd
@@ -1431,6 +1437,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::Prolog => Start {
                 bytes: [
@@ -1441,6 +1448,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Script => Start {
                 bytes: [
@@ -1451,6 +1459,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConditionalComment => Start {
                 bytes: [
@@ -1461,6 +1470,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Comment => Start {
                 bytes: [
@@ -1471,6 +1481,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Tag => Start {
                 bytes: [
@@ -1481,6 +1492,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt0 | Pat::TagAt4At1 => Start {
                 bytes: [
@@ -1491,6 +1503,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt1 => Start {
                 bytes: [
@@ -1501,6 +1514,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt3End => Start {
                 bytes: [
@@ -1511,6 +1525,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Continuation => Start {
                 bytes: [
@@ -1521,6 +1536,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Rubyline => Start {
                 bytes: [
@@ -1531,6 +1547,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RubylineAt0
             | Pat::RubylineAt1
@@ -1545,6 +1562,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RubylineAt5 => Start {
                 bytes: [
@@ -1555,6 +1573,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt4 => Start {
                 bytes: [
@@ -1565,6 +1584,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt4End => Start {
                 bytes: [
@@ -1575,6 +1595,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt4At0 => Start {
                 bytes: [
@@ -1585,6 +1606,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt4At3 | Pat::TagAt4At3End => Start {
                 bytes: [
@@ -1595,6 +1617,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt4At3At0 | Pat::RubyEscapedChar => Start {
                 bytes: [
@@ -1605,6 +1628,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt5 => Start {
                 bytes: [
@@ -1615,6 +1639,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt5End => Start {
                 bytes: [
@@ -1625,6 +1650,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::InterpolatedRubyLine => Start {
                 bytes: [
@@ -1635,6 +1661,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagAt8 => Start {
                 bytes: [
@@ -1645,6 +1672,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Escape => Start {
                 bytes: [
@@ -1655,6 +1683,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::RubyStart => Start {
                 bytes: [
@@ -1665,6 +1694,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

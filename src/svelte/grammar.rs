@@ -2597,6 +2597,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::BodyJavaScriptEnd
             | Pat::BodyTypeScriptLineEnd
@@ -2621,6 +2622,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BodyTypeScriptLine | Pat::CommentsAt0At0 => Start {
                 bytes: [
@@ -2631,6 +2633,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BodyTypeScriptBlockWhile => Start {
                 bytes: [
@@ -2641,6 +2644,7 @@ impl Pat {
                 ],
                 bol: true,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::BodyTemplate => Start {
                 bytes: [
@@ -2651,6 +2655,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsEnd | Pat::CommentsAt0End | Pat::NestedAttributesKeyvalueGroup0At0 => {
                 Start {
@@ -2662,6 +2667,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::CommentsAt0 => Start {
@@ -2673,6 +2679,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At0 => Start {
                 bytes: [
@@ -2683,6 +2690,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At1 => Start {
                 bytes: [
@@ -2693,6 +2701,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At2 => Start {
                 bytes: [
@@ -2703,6 +2712,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At3 | Pat::TagsNameAt0 | Pat::TagsNameAt1 => {
                 Start {
@@ -2714,6 +2724,7 @@ impl Pat {
                     ],
                     bol: false,
                     wb: false,
+                    matches_at_end: false,
                 }
             }
             Pat::NestedSpecialTagsKeywordsGroup2At4 => Start {
@@ -2725,6 +2736,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At5 => Start {
                 bytes: [
@@ -2735,6 +2747,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At6 => Start {
                 bytes: [
@@ -2745,6 +2758,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedSpecialTagsKeywordsGroup2At7 => Start {
                 bytes: [
@@ -2755,6 +2769,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsKeywords => Start {
                 bytes: [
@@ -2765,6 +2780,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsVoid
             | Pat::DestructuringConstAt0
@@ -2780,6 +2796,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsVoidEnd
             | Pat::SpecialTagsModesAt0End
@@ -2806,6 +2823,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt1At1End | Pat::TagsGeneralEndEnd => Start {
                 bytes: [
@@ -2816,6 +2834,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DestructuringConstAt1 | Pat::DestructuringAt1 => Start {
                 bytes: [
@@ -2826,6 +2845,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt2At1End => Start {
                 bytes: [
@@ -2836,6 +2856,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt2At2 => Start {
                 bytes: [
@@ -2846,6 +2867,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt2At2End
             | Pat::SpecialTagsModesAt2At3
@@ -2859,6 +2881,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt3At0End => Start {
                 bytes: [
@@ -2869,6 +2892,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt3At1 => Start {
                 bytes: [
@@ -2879,6 +2903,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt3At1At1 => Start {
                 bytes: [
@@ -2889,6 +2914,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt3At1At1End => Start {
                 bytes: [
@@ -2899,6 +2925,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt3At1At2 => Start {
                 bytes: [
@@ -2909,6 +2936,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt3At1At3 | Pat::SpecialTagsModesAt5At1 => Start {
                 bytes: [
@@ -2919,6 +2947,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt4At0End => Start {
                 bytes: [
@@ -2929,6 +2958,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::SpecialTagsModesAt5At0 => Start {
                 bytes: [
@@ -2939,6 +2969,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedTagsNameAt2Group1At0
             | Pat::TagsNameAt2
@@ -2951,6 +2982,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedTagsNameAt2Group1At1 => Start {
                 bytes: [
@@ -2961,6 +2993,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::TagsNameAt3 | Pat::TagsNameAt4 => Start {
                 bytes: [
@@ -2971,8 +3004,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::TagsEndNode | Pat::TagsLangEnd | Pat::TagsLangAt0End => Start {
+            Pat::TagsEndNode | Pat::TagsLangAt0End => Start {
                 bytes: [
                     0x1000_8000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -2981,6 +3015,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::TagsLangEnd => Start {
+                bytes: [
+                    0x1000_8000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::TagsLangStartAttributesEnd
             | Pat::TagsVoidEnd
@@ -2994,6 +3040,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GenericsDoubleQuoted | Pat::GenericsSingleQuoted => Start {
                 bytes: [
@@ -3004,6 +3051,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GenericsDoubleQuotedEnd => Start {
                 bytes: [
@@ -3014,6 +3062,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::GenericsSingleQuotedEnd => Start {
                 bytes: [
@@ -3024,6 +3073,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesCommentsAt0 | Pat::AttributesCommentsAt1 => Start {
                 bytes: [
@@ -3034,6 +3084,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesCommentsAt1End => Start {
                 bytes: [
@@ -3044,6 +3095,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectivesKeywordsAt0 => Start {
                 bytes: [
@@ -3054,6 +3106,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectivesKeywordsAt1 => Start {
                 bytes: [
@@ -3064,6 +3117,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectivesKeywordsAt2 => Start {
                 bytes: [
@@ -3074,6 +3128,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectivesKeywordsAt3 => Start {
                 bytes: [
@@ -3084,6 +3139,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectivesTypesAssignedAt0 => Start {
                 bytes: [
@@ -3094,6 +3150,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::NestedAttributesDirectivesGroup5At1 => Start {
                 bytes: [
@@ -3104,6 +3161,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectives => Start {
                 bytes: [
@@ -3114,6 +3172,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesDirectivesEnd | Pat::AttributesKeyvalueEnd => Start {
                 bytes: [
@@ -3124,6 +3183,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesValueAt1 => Start {
                 bytes: [
@@ -3134,6 +3194,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::AttributesValueAt2 => Start {
                 bytes: [
@@ -3144,8 +3205,9 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::AttributesValueAt3 | Pat::AttributesValueAt3End => Start {
+            Pat::AttributesValueAt3 => Start {
                 bytes: [
                     0x0000_0084_0000_0000,
                     0x0000_0000_0000_0000,
@@ -3154,6 +3216,18 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::AttributesValueAt3End => Start {
+                bytes: [
+                    0x0000_0084_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::AttributesKeyvalue => Start {
                 bytes: [
@@ -3164,6 +3238,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesAttach | Pat::AttributesInterpolated => Start {
                 bytes: [
@@ -3174,6 +3249,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ScopeAt4End => Start {
                 bytes: [
@@ -3184,6 +3260,7 @@ impl Pat {
                 ],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }

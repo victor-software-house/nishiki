@@ -4346,16 +4346,17 @@ impl Pat {
                 bytes: [0x0000_0009_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt0End => Start {
                 bytes: [0x0000_0009_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1End
             | Pat::CompilerControlAt1At5End
             | Pat::CompilerControlAt1At6End
-            | Pat::Nested0At0
             | Pat::Nested1At0End
             | Pat::LiteralsStringAt0At0
             | Pat::DeclarationsFunctionEnd
@@ -4382,7 +4383,6 @@ impl Pat {
             | Pat::DeclarationsOperatorEnd
             | Pat::DeclarationsOperatorSwift2
             | Pat::DeclarationsOperatorSwift3
-            | Pat::DeclarationsOperatorAt2
             | Pat::DeclarationsPrecedencegroupEnd
             | Pat::DeclarationsProtocolProtocolEnd
             | Pat::DeclarationsInheritanceClauseEnd
@@ -4438,25 +4438,25 @@ impl Pat {
             | Pat::DeclarationsMacroEnd
             | Pat::DeclarationsProtocolProtocolInitializerEnd
             | Pat::DeclarationsProtocolAssociatedTypeEnd
-            | Pat::LiteralsStringAt1At3
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4At0
-            | Pat::DeclarationsGenericParameterClauseAt6At0
-            | Pat::LiteralsStringAt0At3
-            | Pat::Nested1At3 => Start {
+            | Pat::DeclarationsGenericParameterClauseAt6At0 => Start {
                 bytes: [0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::CompilerControlAt1At0 => Start {
                 bytes: [0x0000_0040_0000_0000, 0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At1
             | Pat::LiteralsBoolean => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At2
             | Pat::DeclarationsAvailableTypesAt3
@@ -4465,15 +4465,14 @@ impl Pat {
             | Pat::DeclarationsOperatorSwift2At3
             | Pat::DeclarationsPrecedencegroupAt0At2
             | Pat::DeclarationsPrecedencegroupAt0At3
-            | Pat::DeclarationsTypeAt0Actor
             | Pat::BuiltinGlobalFunctionsAt1
             | Pat::KeywordsAt4
             | Pat::KeywordsAt7
-            | Pat::KeywordsAt13Actor
-            | Pat::DeclarationsProtocolAssociatedType => Start {
+            | Pat::KeywordsAt13Actor => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At3
             | Pat::DeclarationsAvailableTypesCollectionTypeAt3
@@ -4481,10 +4480,10 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At4
             | Pat::DeclarationsInheritanceClauseAt0
-            | Pat::DeclarationsTypeAt0Class
             | Pat::DeclarationsTypeEnumEnumCaseClause
             | Pat::KeywordsAt13Class
             | Pat::KeywordsAt24
@@ -4492,39 +4491,55 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At5
-            | Pat::BuiltinGlobalFunctionsAt0
-            | Pat::DeclarationsTypealias => Start {
+            | Pat::BuiltinGlobalFunctionsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At5At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0020_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At6 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At6At0 => Start {
                 bytes: [0x5000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CompilerControlAt1At6At1
             | Pat::AttributesAt0At1At0 => Start {
                 bytes: [0x03ff_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
+            },
+            Pat::Nested0At0
+            | Pat::DeclarationsOperatorAt2
+            | Pat::LiteralsStringAt1At3
+            | Pat::LiteralsStringAt0At3
+            | Pat::Nested1At3 => Start {
+                bytes: [0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
             },
             Pat::Nested1At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsNumericAt0
             | Pat::LiteralsNumericAt9
@@ -4532,6 +4547,7 @@ impl Pat {
                 bytes: [0x03ff_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsNumericAt1
             | Pat::LiteralsNumericAt2
@@ -4543,28 +4559,30 @@ impl Pat {
                 bytes: [0x0001_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsNumericAt4 => Start {
                 bytes: [0x0000_6000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsNumericAt6 => Start {
                 bytes: [0x03ff_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsStringAt0
             | Pat::LiteralsStringAt0End
             | Pat::LiteralsStringAt1End
-            | Pat::LiteralsStringAt2End
             | Pat::LiteralsStringAt3
             | Pat::LiteralsStringAt3End
-            | Pat::LiteralsStringAt4End
             | Pat::LiteralsStringAt5End => Start {
                 bytes: [0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsStringAt0At1
             | Pat::LiteralsStringStringGutsAt0
@@ -4590,6 +4608,7 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsStringStringGutsAt2End
             | Pat::AttributesAt0End
@@ -4613,17 +4632,20 @@ impl Pat {
                 bytes: [0x0000_0200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsFunction
             | Pat::DeclarationsProtocolProtocolMethod => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: true,
             },
             Pat::CommentsAt0 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: true,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsAt1
             | Pat::CommentsNested
@@ -4632,11 +4654,11 @@ impl Pat {
             | Pat::CommentsAt5At0
             | Pat::CommentsAt5At1
             | Pat::CommentsAt5At2
-            | Pat::LiteralsRegularExpressionLiteralAt0End
             | Pat::LiteralsRegularExpressionLiteralAt1 => Start {
                 bytes: [0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsAt1End
             | Pat::CommentsNestedEnd
@@ -4647,11 +4669,13 @@ impl Pat {
                 bytes: [0x0000_0400_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CommentsAt5 => Start {
                 bytes: [0x0000_8001_0000_0200, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClause
             | Pat::DeclarationsGenericArgumentClause
@@ -4660,108 +4684,126 @@ impl Pat {
                 bytes: [0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseEnd => Start {
                 bytes: [0xc800_efbe_ffff_c1ff, 0xf800_0000_7800_0001, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericWhereClause
             | Pat::ConditionalsAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0080_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericWhereClauseRequirementListEnd => Start {
                 bytes: [0x4800_9000_0000_0400, 0x2800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinClassType => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_6002, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0001_0008, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_4000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_002d_e256, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinEnumTypeAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0002_2000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinProtocolTypeAt0
             | Pat::BuiltinTypesAt5 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0002, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinProtocolTypeAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_003c_b36e, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinProtocolTypeAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_002c_e2fe, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinStructTypeAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_042d_b7fe, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinStructTypeAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_040c_3052, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinTypealiasAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_006c_4a7e, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinTypesBuiltinTypealiasAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_00a1_0080, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AttributesAt0
-            | Pat::AttributesAt1
-            | Pat::AttributesAt2 => Start {
+            | Pat::AttributesAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::AttributesAt0At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x00d8_2200_0020_8000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AttributesAt0At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_8210_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AttributesAt0At2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0004_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::LiteralsStringAt1
-            | Pat::LiteralsStringAt2
             | Pat::LiteralsStringAt4
             | Pat::LiteralsStringAt5
             | Pat::LiteralsAt4
@@ -4770,18 +4812,18 @@ impl Pat {
             | Pat::LiteralsAt7
             | Pat::LiteralsRegularExpressionLiteralAt0
             | Pat::LiteralsRegularExpressionLiteralLineComment
-            | Pat::LiteralsRegularExpressionLiteralAt2
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => Start {
+            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Nested2At0
             | Pat::DeclarationsAvailableTypesAt13 => Start {
                 bytes: [0x8000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsFunctionInitializer
             | Pat::DeclarationsImport
@@ -4790,6 +4832,7 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsParameterClause
             | Pat::AttributesAt2At0
@@ -4810,11 +4853,11 @@ impl Pat {
                 bytes: [0x0000_0100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt0
             | Pat::DeclarationsParameterListAt1
             | Pat::DeclarationsImportAt0At0
-            | Pat::DeclarationsInheritanceClauseInheritedType
             | Pat::DeclarationsTypeIdentifier
             | Pat::DeclarationsTypeEnumEnumCase
             | Pat::DeclarationsTypeEnumAssociatedValuesAt1
@@ -4827,6 +4870,7 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::DeclarationsParameterListAt2
             | Pat::DeclarationsAvailableTypesCollectionTypeAt4
@@ -4840,22 +4884,30 @@ impl Pat {
                 bytes: [0x0400_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt2End
             | Pat::DeclarationsParameterListAt2At3End => Start {
                 bytes: [0x0000_1200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsParameterListAt2At0
             | Pat::DeclarationsFunctionSubscript
             | Pat::DeclarationsFunctionResultAt0
             | Pat::DeclarationsAvailableTypesAt5
-            | Pat::DeclarationsTypeAt0Struct
             | Pat::KeywordsAt13Struct => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
+            },
+            Pat::AttributesAt2 => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::CodeBlock
             | Pat::DeclarationsFunctionSubscriptAt6
@@ -4875,6 +4927,7 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::CodeBlockEnd
             | Pat::DeclarationsFunctionSubscriptAt6End
@@ -4894,6 +4947,7 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsFunctionResult
             | Pat::DeclarationsAvailableTypesAt11
@@ -4901,22 +4955,26 @@ impl Pat {
                 bytes: [0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt4
             | Pat::KeywordsAt9 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0014_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt7 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0004_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt8 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_020c_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt9
             | Pat::LiteralsAt3
@@ -4924,11 +4982,13 @@ impl Pat {
                 bytes: [0x0000_0000_0000_0000, 0x0000_4000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt10 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0008_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt12
             | Pat::DeclarationsTypeOperatorsAt0
@@ -4936,6 +4996,7 @@ impl Pat {
                 bytes: [0x0000_0040_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt14
             | Pat::Nested3At0
@@ -4943,21 +5004,22 @@ impl Pat {
                 bytes: [0x0000_4000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt15
             | Pat::DeclarationsOperatorSwift2At2
-            | Pat::DeclarationsPrecedencegroup
-            | Pat::DeclarationsProtocolProtocol
             | Pat::KeywordsAt13Precedencegroup
             | Pat::KeywordsAt13Protocol => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesAt16 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0011_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesTupleTypeEnd
             | Pat::DeclarationsAvailableTypesCollectionTypeEnd
@@ -4966,61 +5028,78 @@ impl Pat {
                 bytes: [0x4000_0200_0000_0000, 0x2800_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesCollectionType
             | Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsAvailableTypesCollectionTypeAt2
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_8000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::AsyncThrows => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0014_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
-            Pat::DeclarationsTypedVariableDeclaration
-            | Pat::KeywordsAt11 => Start {
+            Pat::DeclarationsTypedVariableDeclaration => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0040_1002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: true,
             },
             Pat::DeclarationsImportAt0At1
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => Start {
                 bytes: [0x0000_0010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsImportAt0At2
             | Pat::OperatorsAt1 => Start {
                 bytes: [0xf000_ec62_0000_0000, 0x5000_0000_4000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsOperator => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_8200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsTypesPrecedencegroupAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_0014_705e, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
+            },
+            Pat::DeclarationsPrecedencegroup
+            | Pat::DeclarationsProtocolProtocol => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0001_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: true,
             },
             Pat::DeclarationsPrecedencegroupAt0At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: true,
             },
             Pat::DeclarationsInheritanceClauseAt0End => Start {
                 bytes: [0x2000_0000_0000_0000, 0x2880_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsInheritanceClauseMoreTypes
             | Pat::DeclarationsTypeEnumMoreCases
@@ -5029,27 +5108,52 @@ impl Pat {
                 bytes: [0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::DeclarationsInheritanceClauseInheritedType => Start {
+                bytes: [0x0000_0000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
+                bol: false,
+                wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsTypeOperatorsAt1
             | Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x4000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
-            Pat::DeclarationsTypeEnumEnum
-            | Pat::KeywordsAt13Enum
-            | Pat::KeywordsAt13Extension
-            | Pat::DeclarationsExtensionExtension
-            | Pat::DeclarationsGenericParameterClauseAt3 => Start {
+            Pat::DeclarationsTypeAt0Class => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: true,
+            },
+            Pat::DeclarationsTypeAt0Struct => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: true,
+            },
+            Pat::DeclarationsTypeAt0Actor
+            | Pat::DeclarationsProtocolAssociatedType => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: true,
+            },
+            Pat::DeclarationsTypeEnumEnum => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: true,
             },
             Pat::DeclarationsTypeEnumEnumCaseClauseEnd
             | Pat::DeclarationsTypeEnumMoreCasesEnd => Start {
                 bytes: [0xffff_effe_ffff_c1ff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsTypeEnumAssociatedValuesAt1End
             | Pat::DeclarationsTypeEnumAssociatedValuesAt2End
@@ -5059,6 +5163,7 @@ impl Pat {
                 bytes: [0x0000_1200_0000_0000, 0x0000_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsTypeEnumRawValueAssignment
             | Pat::DeclarationsTypealiasAssignment
@@ -5067,6 +5172,22 @@ impl Pat {
                 bytes: [0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::LiteralsStringAt2
+            | Pat::LiteralsRegularExpressionLiteralAt2
+            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => Start {
+                bytes: [0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
+            },
+            Pat::LiteralsStringAt2End
+            | Pat::LiteralsStringAt4End => Start {
+                bytes: [0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::LiteralsStringAt3At0
             | Pat::LiteralsStringAt4At0
@@ -5074,47 +5195,62 @@ impl Pat {
                 bytes: [0x0000_0000_0000_2400, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::LiteralsRegularExpressionLiteralAt0End => Start {
+                bytes: [0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: false,
+                matches_at_end: true,
             },
             Pat::LiteralsRegularExpressionLiteralQuoteEnd => Start {
                 bytes: [0x0000_0000_0000_0400, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralCharacterProperties => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_1800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt5 => Start {
                 bytes: [0x0000_0010_0000_0000, 0x0000_0000_5000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt9 => Start {
                 bytes: [0x0000_4000_0000_0000, 0x0000_0000_1000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt12 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt13 => Start {
                 bytes: [0x8000_0c00_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0End
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::OperatorsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0202_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::Nested7At4
             | Pat::Nested8At2
@@ -5125,174 +5261,229 @@ impl Pat {
                 bytes: [0xffff_ffff_ffff_fbff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinFunctionsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0089_2248_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinFunctionsAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x00bd_f7fe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinFunctionsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0089_fe88_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinGlobalFunctionsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x04bd_62d2_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinGlobalFunctionsAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x008d_9632_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0020_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x006f_fbfe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x004a_8034_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::BuiltinPropertiesAt3 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x007f_e2fe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KeywordsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0088_02f8_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0204_004c_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0080_0260_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt5
             | Pat::Nested15At0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0004_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt6
             | Pat::KeywordsAt10 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt8 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
+            },
+            Pat::KeywordsAt11 => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0040_1002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt12 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0010_8002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
+            },
+            Pat::KeywordsAt13Enum
+            | Pat::KeywordsAt13Extension
+            | Pat::DeclarationsExtensionExtension
+            | Pat::DeclarationsGenericParameterClauseAt3 => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt14 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x000d_f25c_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt16 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0288_0250_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt17 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_0080_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt18 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0001_8240_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt19 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x00a0_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt20 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0010_0011_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::KeywordsAt21 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_0000_0008_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::KeywordsAt22 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x0000_0000_8000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ConditionalsAt0 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0008_02c0_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0 => Start {
                 bytes: [0x0000_0001_0000_3e00, 0x00d0_2200_0020_8000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt2 => Start {
                 bytes: [0xffff_edfe_ffff_c1ff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0
             | Pat::ExpressionsTrailingClosureAt0 => Start {
                 bytes: [0x0000_0008_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: true,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => Start {
                 bytes: [0x0000_0101_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => Start {
                 bytes: [0x0000_0001_0000_3e00, 0x0000_0000_0800_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsExtensionExtensionAt0End => Start {
                 bytes: [0x0400_0001_0000_3e00, 0x0880_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
+            },
+            Pat::DeclarationsTypealias => Start {
+                bytes: [0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
+                bol: false,
+                wb: true,
+                matches_at_end: true,
             },
             Pat::DeclarationsMacro => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: true,
             },
             Pat::AttributesAt0At3 => Start {
                 bytes: [0x0000_0400_0000_0000, 0x0020_4010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericWhereClauseRequirementListAt3End
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4End
@@ -5300,27 +5491,32 @@ impl Pat {
                 bytes: [0x4800_9001_0000_3e00, 0x2800_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseAt2 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseAt4 => Start {
                 bytes: [0x03ff_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 bol: false,
                 wb: true,
+                matches_at_end: false,
             },
             Pat::DeclarationsGenericParameterClauseAt6End
             | Pat::DeclarationsGenericParameterClauseAt6At0End => Start {
                 bytes: [0x4000_1000_0000_0000, 0x0080_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
             Pat::Nested1At1 => Start {
                 bytes: [0x0000_0000_0000_0000, 0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000],
                 bol: false,
                 wb: false,
+                matches_at_end: false,
             },
         }
     }
