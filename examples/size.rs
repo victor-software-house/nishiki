@@ -31,7 +31,8 @@ fn main() -> ExitCode {
         let mut state = State::default();
         for line in text.lines() {
             tokens.clear();
-            black_box(highlighter.line(line, &mut state, &mut tokens));
+            let report = highlighter.line(line, &mut state, &mut tokens);
+            black_box(&report);
             for token in &tokens {
                 black_box(highlighter.style(&theme, token.stack()));
             }

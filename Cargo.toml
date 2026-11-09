@@ -516,7 +516,7 @@ tolerance-percent = 2
 
 [workspace.metadata.size.tiers]
 # One small language: the shared engine with the least on top.
-json = { features = "nishiki/lang-json", text = 0, data = 0 }
+json = { features = "nishiki/lang-json", text = 334227, data = 52060 }
 # Every language of the default tier.
 all = { features = "nishiki/all", text = 0, data = 0 }
 
