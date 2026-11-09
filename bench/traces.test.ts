@@ -1,7 +1,7 @@
 // Tests of the trace reader and the diff parser, run by `mise run check:traces`.
 import { expect, test } from "bun:test";
 
-import { hunks, split } from "./traces.ts";
+import { hunks, pushes, split } from "./traces.ts";
 
 test("an added line whose text starts with ++ stays in its hunk", () => {
   const diff = ["diff --git a/x b/x", "--- a/x", "+++ b/x", "@@ -2,0 +3,2 @@", "++= 1", "+++ y", ""].join("\n");
@@ -25,4 +25,19 @@ test("a body that starts on the last row, with no line feed, is found", () => {
   const { fields, rest } = split("kind edits\nbase 0", /^base \d+$/);
   expect(fields.get("kind")).toBe("edits");
   expect(rest).toBe("base 0");
+});
+
+test("deltas that add up to the source make its pushes", () => {
+  const bytes = new TextEncoder().encode("aé");
+  expect(pushes("t", bytes, "deltas\n1 2\n")).toEqual([{ push: "a" }, { push: "é" }]);
+});
+
+test("deltas short of the source are an error", () => {
+  const bytes = new TextEncoder().encode("abc");
+  expect(() => pushes("t", bytes, "deltas\n1 1\n")).toThrow("t: the deltas do not add up to the source");
+});
+
+test("a delta past the source is an error", () => {
+  const bytes = new TextEncoder().encode("abc");
+  expect(() => pushes("t", bytes, "deltas\n2 2\n")).toThrow("t: a delta is not a length or runs past the source");
 });

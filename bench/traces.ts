@@ -346,6 +346,25 @@ export type Step = { push: string } | { replace: { start: number; end: number; t
  * trace), its steps, and the text they end with. */
 export type Trace = { name: string; kind: string; language: string; initial: string; steps: Step[]; final: string };
 
+/** The pushes that an append trace's body, `rest`, makes of its source's
+ * `bytes`.
+ * The deltas must add up to the source, as `bench/src/traces.rs` requires.
+ * Otherwise a replay would stream a prefix and score it against the whole file.
+ * A delta that splits a character fails in the fatal decoder. */
+export function pushes(name: string, bytes: Uint8Array, rest: string): Step[] {
+  const steps: Step[] = [];
+  let at = 0;
+  for (const length of rest.split(/\s+/).slice(1).filter((field) => field !== "").map(Number)) {
+    if (!Number.isInteger(length) || length < 0 || at + length > bytes.length) {
+      throw new Error(`${name}: a delta is not a length or runs past the source`);
+    }
+    steps.push({ push: decoder.decode(bytes.subarray(at, at + length)) });
+    at += length;
+  }
+  if (at !== bytes.length) throw new Error(`${name}: the deltas do not add up to the source`);
+  return steps;
+}
+
 /** Every trace of bench/traces/, sorted by kind and name. */
 export function loadTraces(): Trace[] {
   const out: Trace[] = [];
@@ -368,12 +387,7 @@ export function loadTraces(): Trace[] {
       }
       const { fields, rest } = split(trace, /^deltas$/);
       const bytes = readFileSync(join(root, fields.get("source") ?? ""));
-      const steps: Step[] = [];
-      let at = 0;
-      for (const length of rest.split(/\s+/).slice(1).filter((field) => field !== "").map(Number)) {
-        steps.push({ push: decoder.decode(bytes.subarray(at, at + length)) });
-        at += length;
-      }
+      const steps = pushes(name, bytes, rest);
       out.push({ name, kind, language: fields.get("language") ?? "", initial: "", steps, final: decoder.decode(bytes) });
     }
   }
