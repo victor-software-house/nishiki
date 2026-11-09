@@ -54,3 +54,21 @@ test("a lookahead that needs a byte cannot match where no byte follows", () => {
     expect(startOf(regex).atEnd).toBe(false);
   }
 });
+
+test("a lookbehind that needs a byte cannot match at the start of the line", () => {
+  for (const regex of ["(?<=\\.)foo", "(?<=\\w)x", "(?<=ab)x", "(?:(?<=,)|(?<=;))x"]) {
+    expect(startOf(regex).behind).toBe(true);
+  }
+  for (const regex of ["(?<=^|\\s)x", "(?<=\\.)?x", "x|(?<=\\.)y", "(?<!\\.)x"]) {
+    expect(startOf(regex).behind).toBe(false);
+  }
+});
+
+test("a lookbehind of one character with no word character cannot match inside a word", () => {
+  for (const regex of ["(?<=\\.)foo", "(?<=[,(])\\s*x", "(?<=\\{)(\\s+)"]) {
+    expect(startOf(regex).wb).toBe(true);
+  }
+  for (const regex of ["(?<=\\w)x", "(?<=[a.])x", "(?<=\\W)x", "(?<=..)x", "(?<=.)x"]) {
+    expect(startOf(regex).wb).toBe(false);
+  }
+});
