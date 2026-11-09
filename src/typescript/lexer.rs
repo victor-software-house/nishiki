@@ -524,6 +524,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// one.
     /// The line stops the same way where the node limit keeps the context out
     /// of the arena.
+    /// An embedder's end later on that line still takes the line back there,
+    /// so a `</script>` after the limit is not lexed as code (Kody, #618).
     pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
         if self.pos <= self.line_pos {
             let here = self.opened.iter().rev();
@@ -541,6 +543,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let Some(state) = self.arena.push(self.state, kind.code(), payload, stack) else {
             self.report.record(Limit::Nodes);
             self.stuck = true;
+            if let Some(halts) = self.halts {
+                self.halt = halts.end.first(self.bytes, self.pos, self.len);
+            }
             return false;
         };
         self.opened.push(Opened {

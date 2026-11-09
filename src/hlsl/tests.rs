@@ -117,6 +117,11 @@ fn a_semantic_follows_a_colon_and_at_most_one_blank() {
         "support.variable.semantic.sm4.hlsl"
     );
     assert_eq!(scope_of("float4 u : SV_Target8;", "SV_Target8"), "");
+    let long = format!("TEXCOORD{}", "1".repeat(60));
+    assert_eq!(
+        leaf(&format!("float2 uv : {long};"), &long),
+        "support.variable.semantic.hlsl"
+    );
 }
 
 #[test]

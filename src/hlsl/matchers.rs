@@ -253,22 +253,26 @@ impl Lexer<'_> {
     /// Every word of `digits` ends in a letter or `_`, so the word's trailing
     /// digits are all the `[0-9]*`.
     /// Giving back one of them would leave a digit before the `\b`.
+    /// The stem is folded without its digits, so a digit run of any length
+    /// still matches, as `[0-9]*` does (Kody, #612).
     fn semantic(&self, p: usize, alone: &[&[u8]], digits: &[&[u8]]) -> Option<usize> {
         if !self.after_colon(p) {
             return None;
         }
         let end = self.word_end(p);
+        let text = self.text(p, end);
         let mut letters = [0; words::LONGEST_FOLDED];
-        let len = case_fold::lower_into(self.text(p, end), &mut letters)?;
-        let lower = letters.get(..len)?;
-        if holds(alone, lower) {
+        if let Some(len) = case_fold::lower_into(text, &mut letters)
+            && holds(alone, letters.get(..len)?)
+        {
             return Some(end);
         }
-        let stem = lower
+        let stem = text
             .iter()
             .rposition(|b| !b.is_ascii_digit())
             .map_or(0, |last| last + 1);
-        holds(digits, lower.get(..stem)?).then_some(end)
+        let len = case_fold::lower_into(text.get(..stem)?, &mut letters)?;
+        holds(digits, letters.get(..len)?).then_some(end)
     }
 
     /// The lookbehind `(?<=:\s?)` at `p`: a `:` right before it, or a `:` and

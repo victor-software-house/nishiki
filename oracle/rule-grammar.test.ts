@@ -152,6 +152,9 @@ test("a run after a lookaround cannot move a match inside a word to the word's s
   expect(startOf("(?=b)\\w*\\b-", "any").wb).toBe(false);
   expect(startOf("(?<=a)\\w*\\b-", "any").wb).toBe(false);
   expect(startOf("(?=b)(?:\\w*)\\b-", "any").wb).toBe(false);
+  expect(startOf("(?:(?=b)|-)\\w*\\b-", "any").wb).toBe(false);
+  expect(startOf("(?:-?(?=b))\\w*\\b-", "any").wb).toBe(false);
+  expect(startOf("-?\\w*\\b-", "any").wb).toBe(true);
   expect(startOf("\\w*\\b-", "any").wb).toBe(true);
   expect(startOf("(?:\\w*)\\b-", "any").wb).toBe(true);
 });

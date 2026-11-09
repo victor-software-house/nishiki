@@ -498,7 +498,10 @@ resolver = "3"
 # The development dependencies that nishiki and its test members share.
 [workspace.dependencies]
 indoc = "2.0.8"
-# Path only, so cargo drops it from the published manifest.
+# nishiki itself, for the test and example members, declared once
+# (Kody, #609). Both entries are paths only, so cargo drops them from the
+# published manifest.
+nishiki = { path = "." }
 nishiki-alloc-count = { path = "nishiki-alloc-count" }
 
 # Line tables keep backtraces readable at a fraction of full debug info.

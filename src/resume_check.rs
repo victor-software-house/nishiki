@@ -69,6 +69,33 @@ fn assert_same_tokens_under(language: crate::Language, text: &str, limits: crate
     );
 }
 
+/// A script that closes on the line where the node limit keeps one of its
+/// contexts out of the arena still hands the line back to Svelte.
+/// The line after it then holds no script scope, at every limit from 1 to
+/// 400 (Kody, #618).
+#[cfg(feature = "lang-svelte")]
+#[test]
+fn a_script_closed_on_a_full_line_ends_there() {
+    let document = indoc::indoc! {"
+        <script>let a = [1, {c: 2}];</script><div/>
+        <div class=\"x\">y</div>
+    "};
+    for nodes in 1..400 {
+        let limits = crate::Limits {
+            nodes: Some(nodes),
+            ..crate::Limits::default()
+        };
+        let lines = scopes(crate::Language::Svelte, document, limits, false);
+        let after = lines.get(1).map_or(&[][..], Vec::as_slice);
+        assert!(
+            after
+                .iter()
+                .all(|token| !token.contains("source.js") && !token.contains("source.ts")),
+            "node limit {nodes}: {after:?}"
+        );
+    }
+}
+
 /// Every oracle fixture gives the same tokens whether a line takes the last
 /// line's rules over or builds them again.
 #[test]
