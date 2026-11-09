@@ -125,6 +125,7 @@ impl Grammar for Elixir {
 /// The sigil lists no patterns of its own beside HTML.
 impl rules::Embeds for Elixir {
     type End = TripleQuote;
+    const HALTS: bool = true;
 
     fn embed_halts(_: &rules::Embedding, _: &Arena) -> (TripleQuote, Option<rules::FnHalt>) {
         (TripleQuote, None)

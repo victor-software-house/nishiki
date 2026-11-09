@@ -272,6 +272,7 @@ impl Grammar for GraphQl {
 
 impl Embeds for GraphQl {
     type End = FnHalt;
+    const HALTS: bool = true;
 
     /// An interpolation ends at its `}`, and nothing comes after the
     /// embedded grammar.
