@@ -502,7 +502,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 continue;
             }
             let rule = G::rule_from_code(frame.kind);
-            let parent = self.top().content;
+            let parent = if G::BEGIN_STACKS {
+                G::begin_stack(self, rule).unwrap_or(self.top().content)
+            } else {
+                self.top().content
+            };
             let name = self.rule_name_path(parent, rule, frame.payload);
             self.frames.push(Frame {
                 rule,
