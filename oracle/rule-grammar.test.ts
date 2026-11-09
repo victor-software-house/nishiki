@@ -93,6 +93,10 @@ test("a back reference inside a lookahead that needs a byte cannot match where n
   expect(startOf("(?=(?><<[-~](\"?)(SQL)\\b\\1))", "any").atEnd).toBe(false);
 });
 
+test("a back reference behind a byte the match needs cannot match where no byte follows", () => {
+  expect(startOf("<(\\w*)\\1", "any").atEnd).toBe(false);
+});
+
 test("a back reference that can repeat an empty capture keeps a match where no byte follows", () => {
   expect(startOf("(a?)\\1", "any").atEnd).toBe(true);
   expect(startOf("(?:x|())\\1", "any").atEnd).toBe(true);
@@ -118,6 +122,13 @@ test("a \\G lets a match start anywhere only before the first item that consumes
   const hack = startOf("(?i)(\\\\)?\\bG(ender\\Gender|lobIterator)\\b", "any");
   expect(hack.any).toBe(false);
   expect(hack.atEnd).toBe(false);
+  expect(startOf("a\\Gb", "any").atEnd).toBe(false);
+  expect(startOf("x?\\G$", "any").atEnd).toBe(true);
+});
+
+test("a named back reference counts as empty where a numbered one does", () => {
+  expect(startOf("(?<n>a?)\\k<n>", "any").atEnd).toBe(true);
+  expect(startOf("(?=<<(?<n>x?)\\k<n>)", "any").atEnd).toBe(false);
 });
 
 test("an item before a \\b counts as safe inside a word only when a match there cannot start or can start earlier", () => {
@@ -135,4 +146,12 @@ test("a pattern kept out of words only because a match there can start earlier i
   expect(startOf("\\s*\\bx").inWordFirst).toBe(false);
   expect(startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])").inWordFirst).toBe(false);
   expect(startOf("a?\\b-").inWordFirst).toBe(false);
+});
+
+test("a run after a lookaround cannot move a match inside a word to the word's start", () => {
+  expect(startOf("(?=b)\\w*\\b-", "any").wb).toBe(false);
+  expect(startOf("(?<=a)\\w*\\b-", "any").wb).toBe(false);
+  expect(startOf("(?=b)(?:\\w*)\\b-", "any").wb).toBe(false);
+  expect(startOf("\\w*\\b-", "any").wb).toBe(true);
+  expect(startOf("(?:\\w*)\\b-", "any").wb).toBe(true);
 });

@@ -50,10 +50,22 @@ const range = (lo: number, hi: number): Set => {
 };
 const complement = (a: Set): Set => a.map((w) => ~w & 0xffffffffffffffffn);
 
-/** `safe` says that a match of the item cannot start inside a word, or, if
+/** The analysis of a regex fragment.
+ * `safe` says that a match of the item cannot start inside a word, or, if
  * it does, can start one byte earlier, so a scan that reaches the word's
- * start first never needs it. Left out, it follows from `set` and `wb`. */
-type Info = { set: Set; empty: Set | null; bol: boolean; any: boolean; wb: boolean; behind: boolean; safe?: boolean };
+ * start first never needs it. Left out, it follows from `set` and `wb`.
+ * `moves` says that `safe` holds only because a run of a class with every
+ * ASCII word character can move a match's start back to the word's start. */
+type Info = {
+  set: Set;
+  empty: Set | null;
+  bol: boolean;
+  any: boolean;
+  wb: boolean;
+  behind: boolean;
+  safe?: boolean;
+  moves?: boolean;
+};
 
 /** Whether a match of `item` that starts inside a word is impossible or can
  * start earlier: the item consumes no ASCII word character first, or passes
@@ -138,6 +150,7 @@ class RegexParser {
         branches.every((b) => b.behind),
       ),
       safe: branches.every(safeInWord),
+      moves: branches.some((b) => b.moves === true),
     };
   }
 
@@ -152,6 +165,10 @@ class RegexParser {
    * must match empty there.
    * In `(?:[-\w]*\\)?\bx` a match inside a word can start at the word's
    * start instead.
+   * That move fails after a zero-width item, which consumes nothing: a
+   * lookaround or an anchor that holds at the match's start inside the word
+   * need not hold at the word's start, as `(?=b)` in `(?=b)\w*\b-` does
+   * not on "ab-".
    * A `\G` counts toward `any` only while every item before it can match
    * empty.
    * A match starts at or after the search start, so a `\G` after a consumed
@@ -165,6 +182,8 @@ class RegexParser {
     let behind = false;
     let safe = true;
     let guarded = false;
+    let conditioned = false;
+    let moves = false;
     let any = false;
     while (this.pos < this.src.length && this.src[this.pos] !== "|" && this.src[this.pos] !== ")") {
       const item = this.quantified();
@@ -175,13 +194,16 @@ class RegexParser {
         if (item.bol) bol = true;
         if (item.wb && safe) wb = true;
         if (item.wb && safe) guarded = true;
-        if (!guarded && !safeInWord(item)) safe = false;
+        const safeHere = safeInWord(item) && !(item.moves === true && conditioned);
+        if (!guarded && !safeHere) safe = false;
+        if (!guarded && item.moves === true && safeHere) moves = true;
+        if (item.set.every((w) => w === 0n)) conditioned = true;
         if (item.behind && first) behind = true;
         if (item.empty === null) empty = null;
         else empty = intersect(empty, item.empty);
       }
     }
-    return { ...info(set, empty, bol, any, wb, behind), safe };
+    return { ...info(set, empty, bol, any, wb, behind), safe, moves };
   }
 
   /** An atom and its quantifiers. An interval can be optional three ways in
@@ -220,9 +242,11 @@ class RegexParser {
     // the word's start, with the same groups unless the pattern repeats one.
     const covers = intersect(ASCII_WORD(), complement(atom.set)).every((w) => w === 0n);
     const extends_ = this.runsStartEarlier && one && unbounded && covers && !this.refs;
-    const safe = extends_ || safeInWord(atom);
-    if (min === 0) return { ...info(atom.set, FULL(), false, atom.any), safe };
-    return { ...atom, safe };
+    const alone = safeInWord(atom);
+    const safe = extends_ || alone;
+    const moves = alone ? atom.moves === true : extends_;
+    if (min === 0) return { ...info(atom.set, FULL(), false, atom.any), safe, moves };
+    return { ...atom, safe, moves };
   }
 
   atom(): Info {
@@ -575,6 +599,10 @@ export function startOf(
   // A match where no byte follows takes the empty path, and none of its
   // lookaheads may need a byte, so that path's constraint is every byte.
   // A back reference or a call can match empty, so that parse lets them.
+  // Both parses run the same parser and differ only in how a reference
+  // counts as empty, so this one cannot fail where the first passed.
+  // Syntax handled only here would lose that, and its failure would escape
+  // the catch above.
   const end = new RegexParser(source, backref, true).parse();
   const atEnd = end.any || (end.empty !== null && end.empty.every((w) => w === 0xffffffffffffffffn));
   // Without that case a pattern that `wb` keeps out of words only because a
