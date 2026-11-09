@@ -9,11 +9,14 @@
 //! specific one replaces what it set.
 
 use std::cmp::Ordering;
-use std::hash::Hasher;
+use std::collections::HashMap;
 
 use super::{Color, FontStyle, RuleScope, Style, ThemeRule};
-use crate::arena::IdMap;
-use crate::fnv::Fnv;
+use crate::bytes;
+
+mod children;
+
+use children::Children;
 
 /// One resolved rule: its specificity and the attributes it sets.
 #[derive(Clone, Debug)]
@@ -92,36 +95,8 @@ fn scope_matches(scope: &str, selector: &str) -> bool {
     let (scope, selector) = (scope.as_bytes(), selector.as_bytes());
     scope
         .get(..selector.len())
-        .is_some_and(|head| same_bytes(head, selector))
+        .is_some_and(|head| bytes::same(head, selector))
         && scope.get(selector.len()).is_none_or(|&byte| byte == b'.')
-}
-
-/// Whether `a` and `b` hold the same bytes, compared in a loop.
-///
-/// Scope parts are a few bytes long.
-/// libc's `memcmp`, which `==` on strings calls, costs more there.
-/// Its count of instructions also follows where the strings lie, so styling
-/// would move with code layout.
-fn same_bytes(a: &[u8], b: &[u8]) -> bool {
-    if a.len() != b.len() {
-        return false;
-    }
-    for (x, y) in a.iter().zip(b) {
-        if x != y {
-            return false;
-        }
-    }
-    true
-}
-
-/// The key of the child of `parent` for `part`: the part's FNV-1a hash,
-/// mixed with the parent's index.
-/// Two children can share a key, so a lookup checks the parent and the part.
-fn child_key(parent: usize, part: &str) -> u64 {
-    let mut hasher = Fnv::default();
-    hasher.write(part.as_bytes());
-    let parent = u64::try_from(parent).unwrap_or(u64::MAX);
-    hasher.finish() ^ parent.wrapping_mul(0x9e37_79b9_7f4a_7c15)
 }
 
 /// One node: its own rule, the rules that need parent scopes, and where it
@@ -133,12 +108,8 @@ struct Node {
     /// `with_parents` and `main` in specificity order, filled once the trie
     /// is built.
     ordered: Vec<Rule>,
-    /// The node this one is a child of; the root's is itself.
-    parent: usize,
     /// The dot-separated part that leads here from the parent.
     part: Box<str>,
-    /// The next node whose [`child_key`] is this one's.
-    next: Option<usize>,
 }
 
 /// A rule as a theme file states it, one per selector.
@@ -206,19 +177,25 @@ fn parse(rules: &[ThemeRule]) -> Vec<Parsed> {
 }
 
 /// The resolved rules of a theme.
+///
+/// [`Children`] finds a node's child for a part, in a table whose lookups
+/// read a bounded number of slots whatever the theme.
 #[derive(Clone, Debug)]
 pub(super) struct Trie {
     nodes: Vec<Node>,
-    /// The first node of each [`child_key`].
-    /// The key is an integer, so a lookup compares no strings in libc.
-    children: IdMap<u64, usize>,
+    children: Children,
 }
+
+/// The child built for each parent and part while a trie is built.
+/// std's map draws a random key, so a theme cannot pick parts that collide.
+type Found<'a> = HashMap<(usize, &'a str), usize>;
 
 impl Trie {
     /// The theme's default style and its trie, from rules whose first entry
     /// sets the defaults.
     pub(super) fn build(rules: &[ThemeRule]) -> (Style, Trie) {
-        let mut parsed = parse(rules).into_iter().peekable();
+        let parsed = parse(rules);
+        let mut rules = parsed.iter().peekable();
         let mut defaults = Style {
             foreground: Color {
                 r: 0,
@@ -234,7 +211,7 @@ impl Trie {
             },
             font: FontStyle::NONE,
         };
-        while let Some(rule) = parsed.next_if(|rule| rule.scope.is_empty()) {
+        while let Some(rule) = rules.next_if(|rule| rule.scope.is_empty()) {
             defaults.font = rule.font_style.unwrap_or(defaults.font);
             defaults.foreground = rule.foreground.unwrap_or(defaults.foreground);
             defaults.background = rule.background.unwrap_or(defaults.background);
@@ -251,15 +228,20 @@ impl Trie {
                 main: empty,
                 with_parents: Vec::new(),
                 ordered: Vec::new(),
-                parent: 0,
                 part: Box::default(),
-                next: None,
             }],
-            children: IdMap::default(),
+            children: Children::build(&[]),
         };
-        for rule in parsed {
-            trie.insert(&rule);
+        let mut found = HashMap::new();
+        for rule in rules {
+            trie.insert(&mut found, rule);
         }
+        let mut entries: Vec<(usize, &str, usize)> = found
+            .into_iter()
+            .map(|((parent, part), child)| (parent, part, child))
+            .collect();
+        entries.sort_unstable_by_key(|&(_, _, child)| child);
+        trie.children = Children::build(&entries);
         for node in &mut trie.nodes {
             let mut ordered = node.with_parents.clone();
             ordered.push(node.main.clone());
@@ -269,13 +251,15 @@ impl Trie {
         (defaults, trie)
     }
 
-    fn insert(&mut self, rule: &Parsed) {
+    /// Adds `rule`'s scope to the trie.
+    /// `found` maps a parent and a part to the child built for them.
+    fn insert<'a>(&mut self, found: &mut Found<'a>, rule: &'a Parsed) {
         let mut node = 0;
         let mut depth = 0;
         if !rule.scope.is_empty() {
             for part in rule.scope.split('.') {
                 depth += 1;
-                node = self.child(node, part);
+                node = self.child(found, node, part);
             }
         }
         let target = &mut self.nodes[node];
@@ -302,44 +286,31 @@ impl Trie {
 
     /// The child of `node` for `part`, created from a copy of `node`'s rules
     /// when it does not exist yet.
-    fn child(&mut self, node: usize, part: &str) -> usize {
-        if let Some(child) = self.find(node, part) {
+    fn child<'a>(&mut self, found: &mut Found<'a>, node: usize, part: &'a str) -> usize {
+        if let Some(&child) = found.get(&(node, part)) {
             return child;
         }
-        let key = child_key(node, part);
         let child = self.nodes.len();
-        let next = self.children.insert(key, child);
+        found.insert((node, part), child);
         let parent = &self.nodes[node];
         let copy = Node {
             main: parent.main.clone(),
             with_parents: parent.with_parents.clone(),
             ordered: Vec::new(),
-            parent: node,
             part: part.into(),
-            next,
         };
         self.nodes.push(copy);
         child
     }
 
     /// The child of `node` for `part`, if the trie has one.
-    /// It follows the nodes that share the key, and checks the parent and
-    /// the part byte by byte.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: once Highlighter::style instantiated Theme::style in the crate, this stopped being inlined into apply, and colouring ran 4% more instructions"
     )]
     #[inline(always)]
     fn find(&self, node: usize, part: &str) -> Option<usize> {
-        let mut at = self.children.get(&child_key(node, part)).copied();
-        while let Some(index) = at {
-            let candidate = self.nodes.get(index)?;
-            if candidate.parent == node && same_bytes(candidate.part.as_bytes(), part.as_bytes()) {
-                return Some(index);
-            }
-            at = candidate.next;
-        }
-        None
+        self.children.find(&self.nodes, node, part)
     }
 
     /// Applies the rule for the innermost scope of `path`, outermost first,

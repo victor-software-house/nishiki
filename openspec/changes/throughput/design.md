@@ -168,9 +168,11 @@ The harness then needs github-dark, so both sides build with `json` too.
 `Highlighter::style(&mut self, theme: &Theme, stack: Stack) -> Style`.
 
 - The highlighter keeps a `Vec` of styles indexed by stack id, filled on first use.
-- A stack's style is its parent's cached style with one `apply` for its top scope.
+- A stack not styled yet goes through `Theme::style` once.
 - Each `Theme` gets a process-unique id when it is built, and a clone keeps it.
-  The cache drops its entries when it is called with another theme.
+- The cache keeps two such `Vec`s: one for the theme used last, one for the theme before it.
+  A renderer that styles each token with a light and a dark theme then hits on both.
+- A call with a third theme empties the older slot and fills it for that theme.
 - It allocates only when a new stack first appears, as the arena does.
 - `Theme::style` stays, for scopes that come from elsewhere.
 
@@ -178,7 +180,7 @@ Agreed with the streaming design on 2026-11-05 (`openspec/changes/streaming/`):
 
 - `Document` owns its theme and calls `Highlighter::style` for every token of each line it lexes.
 - Its reads are `&self`, through one crate-internal method, `cached_style(&self, theme: &Theme, stack: Stack) -> Option<Style>`.
-  It returns `None` for a stack not yet styled, and for a cache filled under another theme.
+  It returns `None` for a stack not yet styled, and for a theme in neither slot.
 - A binding's style table is indexed by stack id.
   New stacks appear as a document grows, so a batch carries the entries it first uses, and a theme change resends the table.
 - Either change can land first; the public method waits for the operator's approval with `Document`'s.
@@ -219,7 +221,8 @@ So the cache's surface is agreed with that design before its slice is sent.
 The lead brings both APIs to the operator together.
 
 Every slice keeps output unchanged: no `identity:` line, the oracle green, the Shiki differential at 0 for every language it touches.
-Every slice gates at one codegen unit: every row at or below 1.000, and a row above it gets a per-function split.
+The CI gate fails a row that rises more than 0.5% at one codegen unit.
+Review asks more of every slice: every row at or below 1.000, and a per-function split for a row above it.
 
 ### Collisions with language work in flight
 

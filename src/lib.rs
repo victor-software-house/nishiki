@@ -258,17 +258,6 @@ mod asm;
 mod astro;
 #[cfg(feature = "lang-bat")]
 mod bat;
-#[cfg(any(
-    feature = "lang-asm",
-    feature = "lang-astro",
-    feature = "lang-cmake",
-    feature = "lang-common-lisp",
-    feature = "lang-hlsl",
-    feature = "lang-html",
-    feature = "lang-pascal",
-    feature = "lang-postcss",
-    feature = "lang-tex"
-))]
 mod bytes;
 #[cfg(feature = "lang-c")]
 mod c;
@@ -324,6 +313,7 @@ mod elixir;
 mod emit;
 #[cfg(feature = "lang-erb")]
 mod erb;
+#[cfg(feature = "_rule-engine")]
 mod fnv;
 #[cfg(feature = "lang-gdscript")]
 mod gdscript;

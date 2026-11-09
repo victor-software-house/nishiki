@@ -227,6 +227,10 @@ impl Lexer<'_> {
     }
 
     /// The index in [`words::WORDS`] of the lowered `letters`.
+    ///
+    /// It compares words in a byte loop.
+    /// `Ord` on byte slices called libc's `memcmp`, whose count follows
+    /// where the words lie, and moved asm's Callgrind row by 0.5%.
     fn word_index(letters: &[u8]) -> Option<usize> {
         let mut low = 0;
         let mut high = words::ENDS.len();
@@ -238,7 +242,7 @@ impl Lexer<'_> {
                 .map_or(0, |&end| usize::from(end));
             let end = usize::from(*words::ENDS.get(mid)?);
             let word = words::WORDS.get(start..end)?;
-            match word.cmp(letters) {
+            match bytes::order(word, letters) {
                 std::cmp::Ordering::Less => low = mid + 1,
                 std::cmp::Ordering::Greater => high = mid,
                 std::cmp::Ordering::Equal => return Some(mid),
