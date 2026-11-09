@@ -18,10 +18,16 @@ pub(crate) fn rebuilds() -> bool {
     REBUILDS.with(Cell::get)
 }
 
-/// The scopes of each token of each line of `text`, innermost last.
-fn scopes(language: crate::Language, text: &str, rebuild: bool) -> Vec<Vec<String>> {
+/// The scopes of each token of each line of `text`, innermost last, lexed
+/// under `limits`.
+fn scopes(
+    language: crate::Language,
+    text: &str,
+    limits: crate::Limits,
+    rebuild: bool,
+) -> Vec<Vec<String>> {
     REBUILDS.with(|cell| cell.set(rebuild));
-    let mut highlighter = crate::Highlighter::new(language);
+    let mut highlighter = crate::Highlighter::new_with_limits(language, limits);
     let mut state = crate::State::default();
     let mut tokens = Vec::new();
     let lines = text
@@ -46,8 +52,13 @@ fn scopes(language: crate::Language, text: &str, rebuild: bool) -> Vec<Vec<Strin
 /// Asserts that `text` gives the same tokens whether a line takes the last
 /// line's rules over or builds them again.
 fn assert_same_tokens(language: crate::Language, text: &str) {
-    let resumed = scopes(language, text, false);
-    let rebuilt = scopes(language, text, true);
+    assert_same_tokens_under(language, text, crate::Limits::default());
+}
+
+/// Asserts the same as [`assert_same_tokens`], under `limits`.
+fn assert_same_tokens_under(language: crate::Language, text: &str, limits: crate::Limits) {
+    let resumed = scopes(language, text, limits, false);
+    let rebuilt = scopes(language, text, limits, true);
     let first = resumed.iter().zip(&rebuilt).position(|(a, b)| a != b);
     assert!(
         first.is_none(),
@@ -86,4 +97,34 @@ fn ruby_heredoc_calls_take_their_rules_over() {
         RUBY
     "};
     assert_same_tokens(crate::Language::Ruby, &call.repeat(300));
+}
+
+/// Svelte lines that end inside a style hand their rules on unchanged, even
+/// where the node limit keeps the style rule's new state out of the arena.
+/// Each limit from 1 to 400 stops the arena at another place in the document.
+#[cfg(feature = "lang-svelte")]
+#[test]
+fn embedded_lines_at_the_node_limit_take_their_rules_over() {
+    let document = indoc::indoc! {"
+        <style>
+          a {
+            color: red;
+            margin: 0
+              auto;
+          }
+          /* one
+             two */
+          @media (width > 1px) {
+            d { e: f }
+          }
+        </style>
+        <div class=\"b\">x</div>
+    "};
+    for nodes in 1..400 {
+        let limits = crate::Limits {
+            nodes: Some(nodes),
+            ..crate::Limits::default()
+        };
+        assert_same_tokens_under(crate::Language::Svelte, document, limits);
+    }
 }
