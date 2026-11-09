@@ -67,8 +67,10 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 /// Lexes `line` like [`lex`], for XML that another language embeds from
 /// [`start_embedded`].
 /// While no rule of XML is open, the line halts at the first such place:
+///
 /// - where `end` holds before the root's patterns;
 /// - or where `after` holds and none of them matches.
+///
 /// The second value is where.
 #[inline]
 pub(crate) fn lex_until(
