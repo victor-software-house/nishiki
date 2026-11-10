@@ -34,7 +34,7 @@ const COMPACT_FLOOR: usize = 4096;
 /// change the text and mark lines stale.
 /// [`Document::lex`] lexes the stale lines, so a caller can lex its viewport
 /// first and the rest later.
-/// [`Document::take_changes`] tells a renderer which lines to draw again.
+/// [`Document::take_changes`] gives a renderer the lines to draw again.
 ///
 /// Once the document is finished and lexed to its end, every line's tokens
 /// equal those [`Highlighter::line`] gives it.

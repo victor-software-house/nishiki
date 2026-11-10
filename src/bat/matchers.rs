@@ -5,7 +5,7 @@
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter, or how the matcher gives them back.
 //!
 //! `(?i)` compares words through [`crate::case_fold`], so `ſ`, the Kelvin sign,

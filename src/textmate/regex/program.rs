@@ -100,7 +100,7 @@ pub(super) struct Lead {
 
 impl Lead {
     /// The bytes `node` can start with, and the lead bytes of its second
-    /// character when [`second_bytes`] knows them.
+    /// character when [`second_bytes`] finds them.
     fn of(node: &Node) -> Lead {
         let mut first = [false; 256];
         let empty = first_bytes(node, &mut first);

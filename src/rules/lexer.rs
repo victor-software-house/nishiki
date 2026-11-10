@@ -223,7 +223,7 @@ impl<G: Grammar> Scratch<G> {
     }
 
     /// Sets what the next line's matchers start from ([`Grammar::Kept`]).
-    /// Batch tells its matchers there whether a Markdown fence embeds it.
+    /// Batch's matchers find there whether a Markdown fence embeds it.
     #[cfg(feature = "lang-bat")]
     pub(crate) fn set_kept(&mut self, kept: G::Kept) {
         self.kept = kept;
@@ -258,7 +258,7 @@ const CAPTURED_EOL: u32 = 1;
 /// Where the text of a scope name made at run time comes from.
 #[derive(Clone, Copy, Debug)]
 enum NameSource {
-    /// The bytes `start..end` of the line, spelled as `case` says.
+    /// The bytes `start..end` of the line, spelled as `case` sets.
     Line {
         start: usize,
         end: usize,
@@ -343,7 +343,7 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// The field is one reference to the caller's pair.
     /// It is as wide as the function pointer it replaced.
     /// A line that pops the rule that embeds the grammar drops them, since
-    /// that rule's end no longer applies ([`StopReason::PopHost`]).
+    /// that rule's end stops applying ([`StopReason::PopHost`]).
     halt: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
@@ -664,7 +664,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Goes on with the line like [`Lexer::resume_embedding`], for a grammar
     /// that another language embeds in turn.
-    /// A line that halts says where.
+    /// A line that halts records where.
     #[cfg(feature = "_halting-embedding")]
     pub(crate) fn resume_embedding_halting(mut self) -> (Finished, Stop) {
         let embedding = self.embed(Entry::Resume);
@@ -1091,7 +1091,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             .map_or("", |parent| self.arena.string(self.frames[parent].payload))
     }
 
-    /// Whether the line has the innermost rule's payload text just before `p`.
+    /// Whether the line has the innermost rule's payload text right before `p`.
     pub(crate) fn payload_before(&self, p: usize) -> bool {
         let text = self.arena.string(self.top().payload).as_bytes();
         !text.is_empty() && p >= text.len() && self.text(p - text.len(), p) == text
@@ -1932,7 +1932,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.yielded = Some((self.pos, language, self.anchor == Some(self.pos)));
     }
 
-    /// Whether `rule`, just opened above frame `before`, repeats a rule that
+    /// Whether `rule`, opened last above frame `before`, repeats a rule that
     /// opened at the same position without advancing.
     fn loops_below(&self, before: usize, rule: G::Rule) -> bool {
         let pos = self.pos;
@@ -2426,7 +2426,7 @@ mod tests {
 
     #[cfg(feature = "_embedding")]
     std::thread_local! {
-        /// How many times the engine asked [`Named`] to lex an embedded
+        /// How many times the engine had [`Named`] lex an embedded
         /// language its own way, on this test's thread.
         static ASKED: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
         /// The parent payload texts the engine gave [`Named`]'s end halt,
@@ -3037,7 +3037,7 @@ mod tests {
     /// JavaScript halts before it lexes anything after `%%`.
     /// So no match has ended since the one that opened the rule, and `\G`
     /// still holds where the grammar goes on: the `!` is named.
-    /// The engine asks [`Named`] first ([`Embeds::lex_embedded_until`]).
+    /// The engine tries [`Named`] first ([`Embeds::lex_embedded_until`]).
     /// It declines, and JavaScript's own `lex_until` halts.
     #[cfg(all(feature = "_embedding", feature = "lang-javascript"))]
     #[test]

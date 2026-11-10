@@ -25,7 +25,7 @@ impl Lexer<'_> {
     }
 
     /// The end of the run of `\S` characters from `i`.
-    /// Searches ask about the same run from every start inside it.
+    /// Searches read the same run from every start inside it.
     /// The last run is therefore kept, with its last `]`.
     fn non_space_end(&self, i: usize) -> usize {
         let (start, end, _) = self.x.run.get();

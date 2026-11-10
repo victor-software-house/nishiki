@@ -146,7 +146,7 @@ The walk builds the `Hir` as it goes.
 
 `Regex::build` checks that the widened pattern needs at least one character.
 That check moves from `analysis::width` on the clone to the `Hir`'s minimum length.
-A test checks that the two checks agree on every bundled grammar's patterns.
+A test checks that the two checks give the same answer on every bundled grammar's patterns.
 
 This removes `relax::widen` and the clone's drop.
 On CMake that is about 8.8 million instructions.

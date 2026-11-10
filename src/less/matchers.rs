@@ -4,7 +4,7 @@
 //! [`Lexer::capture`](crate::rules::Lexer::capture); the engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
-//! would. Where a quantifier could give characters back, the doc comment says
+//! would. Where a quantifier could give characters back, the doc comment shows
 //! why it cannot matter, or the matcher tries the shorter matches.
 
 mod atrules;
@@ -1027,8 +1027,8 @@ impl Lexer<'_> {
     ///
     /// Each end where `\b` holds is searched as written. When the text holds a
     /// capital, it is also searched lowered, for the words that ignore case
-    /// ([`find`]). The search stops at the first end that no longer word of
-    /// the table goes on from, in either spelling. No later end can then
+    /// ([`find`]). The search stops at the first end from which no word of
+    /// the table goes on, in either spelling. No later end can then
     /// match.
     fn table_word(&self, p: usize, table: &[Word]) -> Option<usize> {
         if !self.boundary(p) {

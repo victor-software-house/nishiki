@@ -7,9 +7,9 @@ That include now goes to the language's lexer when the language's feature is on 
 Before, only eleven languages took such a hand-off, and an include of another language's grammar matched nothing.
 
 `Grammars::hand_off` now accepts every language.
-So `Highlighter::for_grammar` no longer fails with "no grammar can hand a region to" a language.
+So `Highlighter::for_grammar` does not fail with "no grammar can hand a region to" a language.
 
-A list of rules that includes several such grammars no longer fails with "a list of rules includes two hand-offs".
+A list of rules that includes several such grammars does not fail with "a list of rules includes two hand-offs".
 One language takes the region: the one whose lexer also lexes the others' text, else the first.
 
 - A Markdown `php` fence goes to PHP's lexer, which reads its HTML too.

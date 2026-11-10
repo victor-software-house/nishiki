@@ -115,7 +115,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         }
     }
 
-    /// `[$_[:alnum:]]` just before `i`.
+    /// `[$_[:alnum:]]` right before `i`.
     pub(crate) fn alnum_before(&self, i: usize) -> bool {
         self.prev_char(i).is_some_and(is_alnum_char)
     }
@@ -142,7 +142,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// `[$_[:alpha:]][$_[:alnum:]]*` at `i`: its end.
     ///
-    /// Every rule asks for the name at the position.
+    /// Every rule reads the name at the position.
     /// The last answer is therefore kept.
     pub(crate) fn ident(&self, i: usize) -> Option<usize> {
         let (at, end) = self.last_ident.get();

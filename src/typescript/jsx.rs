@@ -454,7 +454,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The end of `jsx-tag-without-attributes-in-expression`: the position
-    /// where the lookahead for such a tag no longer holds.
+    /// where the lookahead for such a tag fails.
     pub(crate) fn jsx_expression_no_attributes_ends(&self, p: usize) -> bool {
         self.tag_without_attributes_at(p).is_none()
     }

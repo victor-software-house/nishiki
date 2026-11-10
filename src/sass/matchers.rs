@@ -5,7 +5,7 @@
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter, or what giving them back leaves to test.
 //! `\w`, `\s` and `\d` take non-ASCII characters, as in Oniguruma, through
 //! [`Chars`].
@@ -207,7 +207,7 @@ impl Lexer<'_> {
         i
     }
 
-    /// Whether the line has `text` just before `p`.
+    /// Whether the line has `text` right before `p`.
     fn starts_before(&self, p: usize, text: &[u8]) -> bool {
         p >= text.len() && self.starts(p - text.len(), text)
     }

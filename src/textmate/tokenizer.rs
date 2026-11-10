@@ -99,7 +99,7 @@ enum Entry {
     /// `anchored` when `\G` matches at the line's start, as a fence's `while`
     /// rule leaves it.
     /// `anchored_at_root` when it matches there only while the root rule is
-    /// the innermost open, as [`Line::anchored_at_root`] says.
+    /// the innermost open, as [`Line::anchored_at_root`] describes.
     Line {
         anchored: bool,
         anchored_at_root: bool,
@@ -348,8 +348,8 @@ fn svelte_script(grammar: &Grammar, language: crate::Language) -> Option<SvelteS
 /// Whether a hand-off frame is the innermost of `frames` and the rule that
 /// embeds its language took the line feed with its begin match.
 /// Then `\G` matches at the next line's start while the language has only
-/// its root open, as vscode-textmate's `beginRuleCapturedEOL` of that rule
-/// says.
+/// its root open, as that rule's `beginRuleCapturedEOL` marks in
+/// vscode-textmate.
 /// The hand-off frame stores no flag of its own.
 fn embedding_took_line_feed(frames: &[Frame]) -> bool {
     matches!(frames, [.., embedding, top] if top.rule == HANDED && embedding.eol)
@@ -2023,7 +2023,7 @@ impl Tokenizer<'_> {
     ///
     /// A language can stop at its root without advancing, as Less does at a
     /// `)` ([`Language::pops_host`]).
-    /// Then the rule that embeds it ends, as [`Tokenizer::pop_host`] says.
+    /// Then the rule that embeds it ends, as [`Tokenizer::pop_host`] describes.
     #[cold]
     #[inline(never)]
     fn run_language(

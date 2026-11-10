@@ -231,7 +231,7 @@ where
         self.at(from).is_ascii_uppercase().then_some(from + 1)
     }
 
-    /// `(<)([-.\w]+)` or `(</)([-.\w]+)`, as `open` says.
+    /// `(<)([-.\w]+)` or `(</)([-.\w]+)`, as `open` picks.
     pub(super) fn jsx_tag(&mut self, p: usize, open: &[u8]) -> Option<usize> {
         let from = self.lit(p, open)?;
         let end = self.tag_name_end(from);

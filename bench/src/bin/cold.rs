@@ -7,7 +7,7 @@
 //! The figure is a fresh process, not a cold disk.
 //!
 //! - A sample creates a highlighter, lexes the document's first line, then the
-//!   rest. It prints the three times, counted from just before the highlighter
+//!   rest. It prints the three times, counted from right before the highlighter
 //!   is created. Reading the file comes before that.
 //! - A theme sample times `Theme::from_json` on Shiki's github-dark.
 //! - A grammar sample times three steps on TypeScript's grammar from the

@@ -749,7 +749,7 @@ impl<const D: u8> Lexer<'_, D> {
         Some(e)
     }
 
-    /// Inside `{@link …}`: the link or description just after the tag.
+    /// Inside `{@link …}`: the link or description right after the tag.
     pub(crate) fn doc_inline_link_rules(&mut self, p: usize) -> Option<usize> {
         if p != self.anchor {
             return None;

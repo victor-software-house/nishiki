@@ -282,7 +282,7 @@ impl Regex {
     /// Compiles the pattern of `sketch` as one of `programs`, from the tree
     /// the sketch kept.
     ///
-    /// The tree is taken, so the sketch no longer holds it.
+    /// The tree is taken, so the sketch is left without it.
     /// The sketch's lock is poisoned if a thread panicked while holding it.
     /// A poisoned lock and an empty slot both mean `pattern` is parsed again.
     /// Neither one panics.

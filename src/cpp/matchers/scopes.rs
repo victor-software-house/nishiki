@@ -513,7 +513,7 @@ impl Lexer<'_> {
         self.word_ident(p)
     }
 
-    /// `\b(?<!(?:\W|^)(?:LIST))` at `e`, for function names: the name just
+    /// `\b(?<!(?:\W|^)(?:LIST))` at `e`, for function names: the name that
     /// matched is not one of the words.
     ///
     /// A word of the list that has no word character before it is the whole run

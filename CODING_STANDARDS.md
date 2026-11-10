@@ -187,7 +187,7 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - A module with submodules lives in `foo.rs` beside `foo/`, never `mod.rs`.
 - A file is named for the one concern it owns (`strings.rs`, `heredoc.rs`).
-  Names such as `misc.rs`, `utils.rs` or `decl2.rs` say nothing and are refused in review.
+  Names such as `misc.rs`, `utils.rs` or `decl2.rs` name no concern and are refused in review.
 - An item is `pub(crate)` unless the public API needs it.
 
 ### 3.2 No panics in library code
@@ -200,10 +200,10 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 - A lint exception is `#[expect(lint, reason = "…")]` on the smallest item.
   `#[allow]` is denied.
-- `as` is denied, except on a site whose `#[expect]` says why the conversion cannot lose data.
+- `as` is denied, except on a site whose `#[expect]` reason states why the conversion cannot lose data.
 - nishiki forbids unsafe code.
 - Test support that cannot be written safely lives in its own unpublished workspace crate.
-  [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html) asks the same for unsafe code: behind a safe API, in a separate crate with few dependencies.
+  [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html) sets the same rule for unsafe code: behind a safe API, in a separate crate with few dependencies.
   - Its crate docs justify the unsafe code.
   - Every unsafe block carries a `SAFETY:` comment.
   - Its tests run under Miri.
@@ -212,7 +212,7 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 
 ### 3.4 Comments carry the why
 
-- Doc comments say why, on the item.
+- Doc comments state why, on the item.
 - Comments are plain prose, as `AGENTS.md` "Documentation" item 3 sets out: short sentences, one claim each, concrete names.
   A comment that needs a second read is rewritten in review.
 - Inline prose inside a body is removed in review.
@@ -290,7 +290,7 @@ This holds for types, variants, fields, functions, locals, modules, files and te
   `Kind`, `Type`, `Info`, `Data`, `Item`, `Value`, `Helper`, `Util` or `Manager`.
 - A name never uses a coined word, or a rare word where a common one does.
 - To name a set of variants or fields, ask what they have in common, and name that.
-  - `LineKind` became `Freshness`: its variants say whether a line's tokens are final or may still change.
+  - `LineKind` became `Freshness`: its variants mark whether a line's tokens are final or may still change.
   - `TagInfo` became `TagClass`: it holds the category and the rule the HTML grammar gives a tag.
 - One concept keeps one word across languages.
   Every language's frame enum is its `Rule`, and a frame's field is `rule`.

@@ -38,7 +38,7 @@ pub(crate) struct Lexer<'a> {
 
 /// The regex `\w`, with non-ASCII bytes counted as word characters.
 /// A Unicode space is not one.
-/// [`Lexer::word_at`] and [`Lexer::word_before`] tell it apart.
+/// [`Lexer::word_at`] and [`Lexer::word_before`] distinguish it.
 pub(crate) fn is_word(b: u8) -> bool {
     is_ascii_word(b) || b >= 0x80
 }

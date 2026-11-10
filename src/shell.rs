@@ -65,7 +65,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// start of the line.
 ///
 /// `anchored` is set for a Markdown fence line.
-/// There the fence's `while` rule has matched the container prefix just before
+/// There the fence's `while` rule has matched the container prefix right before
 /// `start`.
 /// `\G` stays there for the line, as it does in Shiki.
 /// A shell document has no such rule, so `\G` matches nowhere at the start of

@@ -2,7 +2,7 @@
 //! The expression matches everything the pattern matches, and perhaps more.
 //! An automaton uses it to find where a match can start.
 //!
-//! What a plain expression cannot say is dropped or widened:
+//! What a plain expression cannot express is dropped or widened:
 //!
 //! - lookaround, `\A`, `\G` and `\b` become nothing;
 //! - a back-reference or a call matches any text;

@@ -327,7 +327,7 @@ pub(crate) enum Start {
     After(&'static [u8]),
     /// Anywhere: the rule cannot skip positions.
     Any,
-    /// Only where [`Pattern::anchored`] or [`Pattern::at_line_start`] say.
+    /// Only where [`Pattern::anchored`] or [`Pattern::at_line_start`] allow.
     Never,
 }
 

@@ -594,7 +594,7 @@ where
         }
     }
 
-    /// `(?<!\.)\.{3}` or `(?<!\.)\.{2}`, as `dots` says.
+    /// `(?<!\.)\.{3}` or `(?<!\.)\.{2}`, as `dots` picks.
     pub(super) fn slice(&self, p: usize, dots: &[u8]) -> Option<usize> {
         if self.prev(p) == Some(b'.') {
             return None;

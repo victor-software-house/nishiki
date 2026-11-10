@@ -4,11 +4,11 @@
 //! [`Lexer::capture`](crate::rules::Lexer::capture).
 //! The engine names them.
 //! The patterns that `source.css#…` brings in go to CSS's matchers instead.
-//! The `engine` module says how.
+//! The `engine` module shows how.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter, or the matcher tries the shorter matches.
 
 mod atrules;

@@ -549,7 +549,7 @@ use crate::scope::{Scopes, scopes};
 pub(super) const LONGEST: usize = ${Math.max(...sortedWords.map((word) => word.length))};
 
 /// The ${sortedWords.length} words of the registers and mnemonics, merged into [\`super::grammar::Pattern::Word\`], one after another.
-/// [\`ENDS\`] says where each ends.
+/// [\`ENDS\`] holds where each ends.
 pub(super) const WORDS: &[u8; ${blob.length}] = b"${blob}";
 
 /// Where each word of [\`WORDS\`] ends.
@@ -571,7 +571,7 @@ pub(super) const ALSO_IN: &[(&[u8], u8)] = &[${alsoIn.map(([word, index]) => `($
 /// Oniguruma accepts, lowercase, with \`ẞ\` read as \`ß\` and \`ﬅ\` as \`ﬆ\`, sorted
 /// by their bytes.
 /// Oniguruma folds such a character only inside one literal string of an
-/// expression, so the generator asked it for each spelling.
+/// expression, so the generator ran it on each spelling.
 pub(super) const SPELLINGS: [&[u8]; ${sortedSpellings.length}] = [${sortedSpellings.map(utf8).join(", ")}];
 
 /// Each spelling's owner: the index of the first merged pattern that accepts

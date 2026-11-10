@@ -271,7 +271,7 @@ where
         Some(end)
     }
 
-    /// The end of `word` at `p` with `\b` after it, but none asked before.
+    /// The end of `word` at `p` with `\b` after it, and no test before it.
     fn keyword_end(&self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.lit(p, word)?;
         self.boundary(end).then_some(end)

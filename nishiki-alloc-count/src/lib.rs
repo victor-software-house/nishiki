@@ -29,8 +29,8 @@
 //!   [`System`] unchanged and only counts.
 //! - An external crate could do the same. But nishiki depends on `memchr`
 //!   alone, and the operator chose no new dependency (2026-11-03).
-//! - Google's Rust style guide asks for unsafe code to sit behind a safe
-//!   abstraction in a separate crate with few dependencies. This is that crate.
+//! - Google's Rust style guide puts unsafe code behind a safe abstraction, in a
+//!   separate crate with few dependencies. This is that crate.
 //! - It is never published, it depends on nothing but `std`, and its tests run
 //!   under Miri.
 //!
@@ -68,7 +68,7 @@ pub struct CountingAllocator;
 pub struct Usage {
     /// Allocations, zeroed allocations and reallocations.
     pub allocations: usize,
-    /// Bytes asked for, each reallocation counted at its new size.
+    /// Bytes requested, each reallocation counted at its new size.
     pub bytes: usize,
     /// The most bytes held at once, above those held when the closure
     /// started.

@@ -251,7 +251,7 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 /// A [`BlankRuns::ToLast`] grammar tries those patterns at the run's last
 /// blank.
 /// It steps over a single blank by one byte, since that blank is the run's
-/// last and was just tried.
+/// last and has been tried.
 pub(crate) fn table_scan<G: Tabled>(
     lexer: &mut Lexer<'_, G>,
 ) -> Option<(usize, G::Pattern, usize)> {

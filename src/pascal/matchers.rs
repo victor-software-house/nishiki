@@ -5,7 +5,7 @@
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter.
 //! `\w`, `\s` and `\d` take non-ASCII characters, as in Oniguruma, through
 //! [`Chars`].
@@ -168,7 +168,7 @@ impl Lexer<'_> {
     /// `\s*(?=(?i:attribute|forward|external))` at `i`.
     ///
     /// Giving back a blank of `\s*` would put a blank where the lookahead
-    /// wants a letter.
+    /// needs a letter.
     fn ahead(&self, i: usize) -> Option<usize> {
         let end = self.space_end(i);
         words::PROTOTYPE_AHEAD

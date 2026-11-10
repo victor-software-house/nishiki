@@ -387,7 +387,7 @@ fn class_folds(class: Class, keep: impl Fn(&[u32]) -> bool) -> Node {
 /// alone and before the string's turn.
 /// The lookaheads checked between the string's characters all pass.
 /// For example, `(?i)[\w]+` and `(?i)(?:(?!--)[\w])*` match as before.
-/// They no longer try `ss` at every character they backtrack over.
+/// They do not try `ss` at every character they backtrack over.
 ///
 /// A capturing group keeps its strings.
 /// Without them, what it captures would differ.

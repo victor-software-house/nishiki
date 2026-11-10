@@ -805,7 +805,7 @@ impl<const D: u8> Lexer<'_, D> {
         (stop || tail).then(|| self.close_here(p))
     }
 
-    /// `(?<!^let|[^$._[:alnum:]]let|^var|…)`: the declaration keyword just
+    /// `(?<!^let|[^$._[:alnum:]]let|^var|…)`: the declaration keyword right
     /// before `p`.
     fn variable_word_before(&self, p: usize, which: DeclarationKeyword) -> bool {
         match which {

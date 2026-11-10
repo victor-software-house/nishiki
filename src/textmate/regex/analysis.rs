@@ -138,7 +138,7 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
 /// It can only when each match starts with one character or class, followed
 /// by something that consumes.
 ///
-/// The second character tells a fold string from the letter alone.
+/// The second character separates a fold string from the letter alone.
 /// An example is `i` followed by a combining mark.
 pub(super) fn second_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     match node {
@@ -242,7 +242,7 @@ fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
 }
 
 /// Whether a match can depend on more than the text and where the search
-/// starts: `\A` and `\G` read what the caller says about the document.
+/// starts: `\A` and `\G` read what the caller passes in about the document.
 pub(super) fn uses_context(node: &Node) -> bool {
     match node {
         Node::Anchor(Anchor::StartText | Anchor::Search) => true,

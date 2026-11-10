@@ -23,7 +23,7 @@ A generated name MAY change to the name design section 2.4 derives; `codegen --c
 ### Requirement: Generated names follow the naming rules
 
 Each generated identifier SHALL follow `CODING_STANDARDS.md` rule 3.9 and SHALL stay within 40 characters.
-The writer SHALL tell two equal names apart by the nearest enclosing repository key where their paths differ.
+The writer SHALL distinguish two equal names by the nearest enclosing repository key where their paths differ.
 Where no enclosing key differs, it SHALL add each pattern's place in its pattern list as a suffix.
 It SHALL NOT append a pattern's whole path.
 

@@ -31,7 +31,7 @@ enum Triple {
 pub(in crate::swift) struct Memo {
     /// Where the last `"""` of the line starts, once searched.
     triple: Cell<Triple>,
-    /// The hash count asked about last, and the last quote that has at least
+    /// The hash count searched for last, and the last quote that has at least
     /// that many hashes after it.
     quote: Cell<Option<(usize, Option<usize>)>>,
     /// The last search for text before `"""` that `\(` interrupts.
@@ -79,7 +79,7 @@ enum StringLiteral {
 
 impl Lexer<'_> {
     /// Whether `.` and then a character of `[]()\[_{}\p{L}\p{N}\p{M}]` stand
-    /// just before `p`: a member access, as in `a.0`, not a number.
+    /// right before `p`: a member access, as in `a.0`, not a number.
     fn member_dot_before(&self, p: usize) -> bool {
         self.prev_is(p, b'.') && self.char_before(p - 1).is_some_and(is_member_context)
     }
@@ -276,7 +276,7 @@ impl Lexer<'_> {
     /// that is not white space, then characters up to an interpolation, then
     /// `"""`.
     /// The star gives back to the last `"""` before the interpolation.
-    /// Every start in a run asks about the same stop.
+    /// Every start in a run searches for the same stop.
     /// The search is therefore kept.
     fn string_text_before_triple(&self, p: usize, literal: StringLiteral) -> Option<usize> {
         let (c, start) = self.char_at(p).filter(|_| p < self.lim())?;

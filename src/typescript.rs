@@ -110,7 +110,7 @@ impl Dialect {
     pub(crate) const SVELTE: u8 = 8;
 
     /// The dialect at position `index` among the four, whatever
-    /// [`Dialect::BARE`] and [`Dialect::SVELTE`] say.
+    /// [`Dialect::BARE`] and [`Dialect::SVELTE`] set.
     ///
     /// Evaluated at compile time for each `D` that [`line`] instantiates.
     /// So the arm of a dialect whose feature is off is never reached, and

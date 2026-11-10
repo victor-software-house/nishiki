@@ -8,7 +8,7 @@ fn is_octal(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// `\\(["'\\nrt]|(x\h{2})|(u\{\h+}))`: an escape the language knows.
+    /// `\\(["'\\nrt]|(x\h{2})|(u\{\h+}))`: an escape the language defines.
     /// The `\h+` stops at the first byte that is not hex, which must be `}`.
     pub(super) fn escape(&self, p: usize) -> Option<usize> {
         if self.at(p) != b'\\' {

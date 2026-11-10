@@ -92,7 +92,7 @@ Past them, it SHALL stop at the first line whose end state equals the end state 
 - **WHEN** an edit opens a block comment that later text closes
 - **THEN** lexing runs until the end states match again, and every line after keeps its tokens
 
-### Requirement: Lexing goes as far as the caller asks
+### Requirement: Lexing goes as far as the caller requests
 
 Mutations SHALL mark lines stale without lexing them.
 `lex` SHALL lex stale lines in order up to the line the caller names, or to the end.

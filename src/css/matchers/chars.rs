@@ -250,7 +250,7 @@ impl<G: CssLike> Lexer<'_, G> {
 
     /// The bits of the lists of [`WORDS`] that hold the text `from..to`,
     /// folded to lower case.
-    /// The patterns tried at one place ask about the same word, each for its
+    /// The patterns tried at one place look up the same word, each in its
     /// own list.
     /// The word is looked up once, among the words of its first byte
     /// ([`STARTS`]).

@@ -5,7 +5,7 @@ The engine's hand-off on main (approved by the lead, 2026-11-04).
 Sections 1, 2, 8 and 9 of the [`halt-contract` design][contract], made concrete for main after [#228][pr228] and [#325][pr325], with HAML as the first user.
 The `halt-contract` change's tasks for `Halts` and entries stay deferred; this needs neither.
 
-## 1. What HAML asks for
+## 1. What HAML needs
 
 HAML's includes of hand-lexed grammars fall into two shapes (Shiki's `haml` grammar, 4.4.3):
 

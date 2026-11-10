@@ -207,7 +207,7 @@ pub(crate) struct FenceOpen {
 
 /// The opening of a fence: leading whitespace, then a run of three or more
 /// backticks or tildes (`(^|\G)(\s*)(``{3,}|~{3,})\s*` in the grammar).
-/// Then comes either a language the grammar knows followed by its
+/// Then comes either a language the grammar names followed by its
 /// attributes, or the rest of the line as the info string.
 /// The info string may not hold a backtick.
 ///
@@ -589,7 +589,7 @@ fn trailing_space_start(cx: &Cx<'_>) -> usize {
 ///
 /// `blank_end` is where the text's trailing whitespace starts, found once
 /// per definition. A title's closer must have only whitespace after it, so
-/// it is the byte just before `blank_end`. Checking a title therefore costs
+/// it is the byte right before `blank_end`. Checking a title therefore costs
 /// the same wherever it opens, and a line of many openers stays linear.
 fn link_definition_tail(
     cx: &Cx<'_>,

@@ -47,9 +47,9 @@ impl Rule {
 /// What the array being read expects next, kept in its frame's payload.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum ArrayNext {
-    /// A value: the array has just opened or read a comma.
+    /// A value: the array has opened or read a comma.
     Value,
-    /// The comma after the value that has just ended.
+    /// The comma after the value that ended.
     Comma,
 }
 

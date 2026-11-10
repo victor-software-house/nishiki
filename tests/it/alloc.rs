@@ -34,7 +34,7 @@ fn lex(highlighter: &mut Highlighter, lines: &[String], tokens: &mut Vec<Token>)
 }
 
 /// The fixtures of `language` whose second pass allocated, as reports, or
-/// a report that a listed language no longer allocates.
+/// a report that a listed language does not allocate.
 fn second_pass_failures(language: Language) -> Vec<String> {
     let mut allocating = Vec::new();
     for fixture in fixtures(language.id()) {

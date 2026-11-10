@@ -58,7 +58,7 @@ impl Lexer<'_> {
     ///
     /// Every `/` the scan passes is the second character of a `\/` it took
     /// whole.
-    /// The scan from just after it therefore starts where this one has a
+    /// The scan from right after it therefore starts where this one has a
     /// boundary, and stops at the same `/` or at none.
     /// The last scan is kept, and a line of escaped slashes is scanned once.
     fn regexp_body_end(&self, p: usize) -> Option<usize> {

@@ -225,7 +225,7 @@ fn width_if(s: &[u8], i: usize, ascii: fn(u8) -> bool, class: fn(char) -> bool) 
 
 /// The width of the `\s` character at byte `i` of `s`, 0 when none starts
 /// there. Past the end is 0: a lexer that counts the line feed after the line
-/// as white space asks for it itself.
+/// as white space reads it itself.
 #[inline]
 pub(crate) fn space_width(s: &[u8], i: usize) -> usize {
     width_if(s, i, is_ascii_space, is_space)

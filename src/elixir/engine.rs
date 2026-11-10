@@ -31,7 +31,7 @@ pub(crate) struct Extra {
     /// found in.
     /// `fn` asks whether a `->` follows it, so a line of many `fn` would read
     /// the rest of the line at each.
-    /// It is `(usize::MAX, _)` until a matcher asks.
+    /// It is `(usize::MAX, _)` until a matcher first reads it.
     pub(super) last_arrow: Cell<(usize, Option<usize>)>,
 }
 

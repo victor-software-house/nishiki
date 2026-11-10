@@ -399,7 +399,7 @@ impl Lexer<'_> {
         self.field_tail(1, p + space)
     }
 
-    /// `(?i)(<<)([-\w]+)(>>)` and what [`After`] says follows it: a
+    /// `(?i)(<<)([-\w]+)(>>)` and what [`After`] lets follow it: a
     /// stereotype.
     pub(super) fn stereotype(&mut self, p: usize, after: After) -> Option<usize> {
         let open = self.lit(p, b"<<")?;

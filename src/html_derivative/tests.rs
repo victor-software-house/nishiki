@@ -1,7 +1,7 @@
 use crate::Language;
 use crate::test_support::{leaf, scopes_of};
 
-/// A tag that no HTML rule knows is html-derivative's own, not an invalid
+/// A tag that no HTML rule names is html-derivative's own, not an invalid
 /// tag, and its name is a plain tag name.
 #[test]
 fn an_unknown_tag_is_the_grammar_s_own() {
@@ -18,7 +18,7 @@ fn an_unknown_tag_is_the_grammar_s_own() {
     }
 }
 
-/// The tags HTML knows keep HTML's rules: a custom element stays one.
+/// The tags HTML names keep HTML's rules: a custom element stays one.
 #[test]
 fn a_custom_element_stays_custom() {
     assert_eq!(

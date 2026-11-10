@@ -80,7 +80,7 @@ pub(crate) struct Extra {
     /// The last run of ASCII identifier characters found, kept the same way.
     pub(crate) ascii_run: Cell<(usize, usize)>,
     /// What lookaheads over a whole run of the line found, kept so that a
-    /// search from inside the run asks once.
+    /// search from inside the run looks once.
     pub(crate) memo: Memo,
 }
 

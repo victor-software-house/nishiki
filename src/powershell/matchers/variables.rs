@@ -2,7 +2,7 @@
 //!
 //! Each variable pattern comes twice in the grammar.
 //! The copy for strings takes no members after the name, such as `.Count`.
-//! [`Members`] says which copy a matcher follows.
+//! [`Members`] marks which copy a matcher follows.
 
 use super::super::engine::Lexer;
 use super::is_name;

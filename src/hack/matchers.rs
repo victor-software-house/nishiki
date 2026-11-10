@@ -5,7 +5,7 @@
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter, or how the matcher gives them back.
 //! An expression that PHP's grammar spells the same way uses PHP's matcher,
 //! from [`crate::php_family`].
