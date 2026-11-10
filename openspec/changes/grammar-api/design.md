@@ -33,29 +33,40 @@ A Rust compiler turns a grammar's JSON into the engine's tables.
 It follows includes inside the grammar and interns scope names.
 It is written from scratch, with vscode-textmate's behaviour as the reference (invariant 1).
 
-An include of another grammar stays a scope name in the compiled tables.
+An include of another grammar stays a scope name in the compiled grammar.
 A compiled grammar therefore depends on no other grammar.
 
-The `Grammars` set a highlighter holds resolves that name when the tokenizer first reaches the include, as vscode-textmate's registry does.
+A linker resolves those names when a highlighter is built (operator, 2026-11-10).
 
-- Grammars that include each other load in any order, and each one's regions of the other get the other's scopes.
+- It takes the root grammar and the caller's `Grammars` set.
+- It writes one flat table that the tokenizer runs as it runs any table.
+- It follows grammars that include each other once each, so they load in any order.
 - An include whose grammar the set lacks matches nothing, as `oracle/engine-tables.ts` drops it.
-- The highlighter's scratch caches each resolved include, so the set is read once per include.
+- The tokenizer does not change, and keeps no set.
 
-The run-time path and the build-script path both call it.
+The run-time path and the build-script path both call the compiler.
 The TypeScript generator stays as its oracle.
 A test compares the two compilers' tables for every Shiki grammar, and the TypeScript generator retires once they are equal.
 
 ### 2. Grammars live for the process
 
-A compiled grammar is moved to the heap and leaked, so the engine keeps its `&'static Grammar`.
-
+A compiled grammar is moved to the heap and leaked.
 A process-wide set interns compiled grammars.
-Its key is the grammar's source, compared in full after a hash match.
-Loading the same source twice returns the first handle.
+
+- `Grammar::from_json` keys it on the JSON text, compared in full after a hash match.
+- `Grammar::from_bytes` keys it on the bytes, the same way.
+- Loading the same text twice returns the first handle.
+- One grammar loaded once from JSON and once from bytes gets two handles.
+  Their output is the same.
+
 A handle holds no link to another grammar, so one handle serves every `Grammars` set.
 
-Memory grows with each distinct grammar and stays until the process ends.
+A linked table is leaked too, so the engine keeps its `&'static Grammar`.
+A second process-wide cache interns linked tables.
+Its key is the root handle, the handles the link reached and the languages named for hand-offs.
+Building the same highlighter twice therefore links once.
+
+Memory grows with each distinct grammar and each distinct link, and stays until the process ends.
 The crate docs state it, and warn a service not to load grammars from untrusted input without its own bound.
 
 Alternatives considered:
@@ -71,33 +82,75 @@ No caller does today.
 
 ### 3. The build-script path writes bytes
 
-`Grammar::compile(json)` returns the compiled tables, with includes of other grammars kept as scope names.
-`to_bytes` writes them in nishiki's own format.
-A build script writes them to `OUT_DIR`.
+A build script calls `Grammar::from_json(json)?.to_bytes()` and writes the bytes to `OUT_DIR`.
 The crate loads them with `Grammar::from_bytes(include_bytes!(…))`.
+The bytes hold the compiled grammar, before linking.
 
-- The bytes open with a header that names the format version.
-  `from_bytes` refuses bytes from another version with an error.
-- `from_bytes` checks every length and every rule, pattern and scope index before it trusts the tables.
+- The bytes open with a 16-byte header:
+  - the magic `nishiki` and a zero byte;
+  - the format version, a little-endian `u32`;
+  - the length of the body, a little-endian `u32`.
+- The format version is its own counter, starting at 1.
+  Any change to the layout bumps it.
+  A release that keeps the layout keeps older bytes loadable.
+- `from_bytes` accepts only the current version.
+  Its error names the version found and the one expected.
+- The body holds little-endian `u32` counts and indices, and strings as a length then UTF-8.
+- `from_bytes` checks every count against the bytes left before it allocates.
+  It checks every rule, list, pattern, name and capture index against its table's length.
   Truncated or crafted bytes return `GrammarError`, never a panic or an out-of-range read.
 - Loading the bytes parses no JSON.
   Patterns still compile on first use, as they do today.
-- Generated Rust source was considered.
+
+Alternatives considered:
+
+- Generated Rust source.
   It would make the engine's table types public, and every engine change would then break the API.
+- A separate `Grammar::compile` that returns the compiled form without leaking it.
+  It adds a public type for a build script, a process that exits right after.
+- A header with the crate version.
+  It would refuse bytes from a release that changed nothing.
+- A checksum.
+  Crafted bytes pass it, and the checks above already refuse them.
 
 ### 4. Public API
 
-- `Grammar`: a `Copy` handle to a compiled grammar.
-  `Grammar::from_json(&str)` and `Grammar::from_bytes(&[u8])` return `Result<Grammar, GrammarError>`.
+Every item is behind the `textmate` feature, which turns on `json`.
+A program that never calls `from_json` does not link `serde_json`'s parser.
+
+- `Grammar`: a `Copy` handle to a compiled grammar, equal by address.
+  - `Grammar::from_json(&str)` and `Grammar::from_bytes(&[u8])` return `Result<Grammar, GrammarError>`.
+  - `Grammar::to_bytes` writes the bytes of decision 3.
+  - `Grammar::scope` gives the root scope, such as `source.zig`.
 - `Grammars`: the grammars an include can name, by scope.
-  An include may name a scope that a hand lexer covers, such as `source.css`.
-  Its region then goes to that lexer, as the engine's hand-offs do today.
-  A highlighter holds the set behind an `Arc`, since the tokenizer reads it only when an include is first reached.
-- `Highlighter::for_grammar(grammar, grammars)` and `Highlighter::for_grammar_with_limits(grammar, grammars, limits)`.
-- `GrammarError` names what failed: the JSON, a missing root scope, an unknown format version, malformed bytes.
+  - `new`, `insert`, which returns the grammar it replaced, and `get`.
+  - `FromIterator<Grammar>` and `Extend<Grammar>`.
+  - `hand_off(Language)` names a language to lex by hand.
+    A whole include of its scope goes to its lexer, even when the set holds that grammar.
+    An include of a part of a grammar, such as `source.ruby#escaped_char`, always resolves from the set.
+  - With no language named, an include goes to a hand lexer only when the set lacks its grammar.
+    A grammar in the set wins, since the caller loaded it on purpose.
+    The fidelity job of decision 5 relies on it, as it tests every Shiki grammar.
+- `Highlighter<S = Language>` takes a type parameter, `S: Syntax`.
+  - `Syntax` is a sealed trait, implemented for `Language` and `Grammar`.
+  - `Highlighter` alone still names `Highlighter<Language>`, with `new`, `new_with_limits` and `language`.
+  - `Highlighter<Grammar>` has `for_grammar(grammar, &grammars)` and `for_grammar_with_limits(grammar, &grammars, limits)`, and `grammar`.
+    Both link, so both return `Result<Highlighter<Grammar>, GrammarError>`.
+  - `line`, `limits`, `scopes` and `style` serve both.
+  - A defaulted type parameter is a minor change in Cargo's SemVer rules, so the release stays a patch.
+  - Each syntax's `line` is compiled in nishiki, not in the caller's crate.
+    The hand lexers' path then runs the same code as before.
+- `GrammarError`: an opaque struct, as `ThemeError` is, with `Display` and `Error::source`.
+  It names what failed: the JSON, a missing root scope, an unknown format version, malformed bytes, or a link the engine refuses.
   A pattern the engine cannot compile is not an error: it never matches, as in vscode-textmate.
 
-The exact names are settled in the implementation PR and recorded here.
+Alternatives considered for the highlighter:
+
+- One `Highlighter` that holds a language or a grammar.
+  `language()` would return `Option<Language>`, an API break.
+  Every line of every hand lexer would also take a branch, which the Callgrind gate sees.
+- A separate `GrammarHighlighter`.
+  Every public method would be written and documented twice.
 
 ### 5. Fidelity in CI
 
