@@ -11,4 +11,5 @@ rules:
   proposal:
     # ProseStyle.ChattyHeadings rejects a question heading, and OpenSpec
     # accepts any heading in a proposal.
-    - Use the headings `## Motivation` and `## Changes` in place of the template's `## Why` and `## What Changes`.
+    - Use the headings `## Motivation` and `## Changes`
+      in place of the template's `## Why` and `## What Changes`.
