@@ -1,6 +1,6 @@
 # Design
 
-This change fixes the first finding of [`default-matchers`][dm-design], section 2.4: Protocol Buffers' field pattern.
+This change fixes the first finding of [`default-matchers`][dm-design], section 2.5: Protocol Buffers' field pattern.
 [Its research][dm-research], section 4, has the measurements.
 
 ## 1. The finding
@@ -107,13 +107,17 @@ After the failure, the scan goes on at `r − k`, or at `p + 1` when that is lat
 `codegen/` proves `k` from the expression.
 When `k` has no bound, as for a `P` of `\w*`, it writes no skip.
 
-In the field pattern after fix 1, `P` takes nothing or one keyword from the run: `optional`, `repeated` or `required`.
-So `k` is 8.
-Without fix 1, `\.?` belongs to `P`, and `optional.` makes `k` 9.
+Fix 2's `k` for the field pattern assumes fix 1 is applied:
+
+- After fix 1, `P` takes nothing or one keyword from the run: `optional`, `repeated` or `required`.
+  So `k` is 8.
+- Without fix 1, `\.?` belongs to `P`, and `optional.` makes `k` 9.
 
 On `xoptional foo bar = 1`, start 0 fails and start 1 matches, as on the regex machine.
 A skip to the run's end would have missed that match.
 With the skip, the 12,001-byte line no longer reaches the limit, and the pattern needs no limit line.
+
+[The research of `default-matchers`][dm-research], section 4, has the results at 101 and 12,001 bytes before the fixes.
 
 ## 4. Before the fixes
 
