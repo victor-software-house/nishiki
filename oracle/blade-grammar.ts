@@ -20,6 +20,9 @@
 // The matchers that decide whether a pattern matches are written by hand in
 // src/blade/matchers.
 //
+// `RX_DUMP=<file>` also writes the expressions for oracle/onig.ts: those of
+// the copy of PHP, then those of Blade's own rules that its probe answers.
+//
 // Run with `bun run oracle/blade-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import blade from "@shikijs/langs@4.6.0/blade";
@@ -93,3 +96,42 @@ await generate({
   supportAllLists: false,
   htmlFirst: null,
 });
+
+/** Blade's own expressions that `blade::tests::probe` answers through
+ * src/html/blade.rs, by the path of their rule in the `blade` entry: the
+ * indices of its nested `patterns`, then the role. An id spells the path, so
+ * `BladeAt0At0End` is `#blade.patterns[0].patterns[0].end`. The injection's
+ * rules repeat two of them, `BladeAt0At0` and `BladeAt0At2At0`. */
+const own: [indices: number[], role: "begin" | "end" | "match"][] = [
+  [[0, 0], "begin"],
+  [[0, 0], "end"],
+  [[0, 2, 0], "match"],
+  [[1], "end"],
+  [[2], "end"],
+  [[3], "end"],
+  [[4], "end"],
+  [[9], "end"],
+  [[14], "begin"],
+];
+
+// With RX_DUMP set, the generator above writes the expressions of Blade's copy
+// of PHP. Blade's own expressions are added after them.
+if (Bun.env["RX_DUMP"]) {
+  const rows = own.map(([indices, role]) => {
+    const node = indices.reduce((at, index) => at.patterns![index]!, grammar.repository.blade!);
+    const captures =
+      role === "begin"
+        ? (node.beginCaptures ?? node.captures)
+        : role === "end"
+          ? (node.endCaptures ?? node.captures)
+          : node.captures;
+    const id = `Blade${indices.map((index) => `At${index}`).join("")}${role === "end" ? "End" : ""}`;
+    return JSON.stringify({
+      id,
+      regex: node[role],
+      groups: Object.keys(captures ?? {}).map(Number),
+    });
+  });
+  const dump = Bun.file(Bun.env["RX_DUMP"]);
+  await Bun.write(dump, `${await dump.text()}${rows.join("\n")}\n`);
+}

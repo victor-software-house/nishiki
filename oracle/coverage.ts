@@ -638,9 +638,7 @@ for (const waiver of waivers) {
   const probed = (await Bun.file(pieces).exists()) && (await import(pieces)).probe !== undefined;
   if (waiver.dropped && waiver.probe)
     failures.push(`the waiver for ${where} is for a dropped rule, which no probe answers`);
-  if (waiver.unprobed && (waiver.probe || waiver.dropped))
-    failures.push(`the waiver for ${where} is unprobed, so it names no probe and no dropped rule`);
-  if (probed && !waiver.probe && !waiver.dropped && !waiver.unprobed)
+  if (probed && !waiver.probe && !waiver.dropped)
     failures.push(`the waiver for ${where} names no oracle/onig.ts probe`);
   waived.set(keyOf(u), waiver.reason);
 }

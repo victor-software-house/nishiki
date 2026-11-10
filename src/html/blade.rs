@@ -1175,3 +1175,134 @@ pub(super) fn lex_php(
 ) -> (crate::limits::Finished, Option<crate::language::Stopped>) {
     unreachable!("Blade's PHP opens only in a Blade document")
 }
+
+/// Blade's own expressions, answered for `oracle/onig.ts` through the
+/// matchers above.
+/// `oracle/blade-grammar.ts` writes them with the same ids.
+#[cfg(test)]
+#[cfg(all(feature = "json", feature = "lang-blade"))]
+pub(crate) mod probe {
+    use super::{Blade, BladeRule, at, empty_tag};
+    use crate::arena::{Arena, ROOT};
+    use crate::html::engine::{Document, Lexer};
+    use crate::language::{Context, Line};
+    use crate::limits::{Limits, LineReport};
+    use crate::scratch::Scratch;
+    use crate::test_support::probe::{After, Anchor, Answer, Case};
+
+    /// One of Blade's own expressions, named by its rule's path in the
+    /// grammar's `blade` entry.
+    #[derive(Clone, Copy, Debug)]
+    pub(crate) enum Expression {
+        /// `^(\s*)(?=<\?(?![^?]*\?>))`, in `#blade.patterns[0].patterns[0]`
+        /// and the injection's `patterns[1]`.
+        BladeAt0At0,
+        /// `(?!\G)(\s*$\n)?`, the end of the same rules.
+        BladeAt0At0End,
+        /// `\G(\s*)((\?))(?=>)`, in `#blade.patterns[0].patterns[2]` and the
+        /// injection's `patterns[3]`.
+        BladeAt0At2At0,
+        /// `}}}`, the end of `{{{`.
+        BladeAt1End,
+        /// `}}`, the end of `{{`.
+        BladeAt2End,
+        /// `!!}`, the end of `{!!`.
+        BladeAt3End,
+        /// `}}`, the end of `@{{`.
+        BladeAt4End,
+        /// `(?<![0-9@-Z_a-z])(?=@(?i:end(?:php|setup))\b)`, the end of `@php`.
+        BladeAt9End,
+        /// `(:[-a-z]+)(=)(")`, a bound attribute.
+        BladeAt14,
+    }
+
+    impl Expression {
+        /// Every expression.
+        pub(crate) const ALL: [Expression; 9] = [
+            Expression::BladeAt0At0,
+            Expression::BladeAt0At0End,
+            Expression::BladeAt0At2At0,
+            Expression::BladeAt1End,
+            Expression::BladeAt2End,
+            Expression::BladeAt3End,
+            Expression::BladeAt4End,
+            Expression::BladeAt9End,
+            Expression::BladeAt14,
+        ];
+
+        /// Where the expression's match at the case's byte ends, with the
+        /// span of each capture group.
+        /// The injection's dispatch, [`at`], answers its patterns.
+        /// A rule's end answers through the rule.
+        pub(crate) fn answer(self, arena: &mut Arena, case: &Case<'_>) -> Answer {
+            let s = case.text.as_bytes();
+            let p = case.p;
+            let g = matches!(case.anchor, Anchor::G);
+            let end_of = |rule: BladeRule| {
+                let end = rule.php_end(s, p)?;
+                Some((end, vec![Some((p, end))]))
+            };
+            match self {
+                Expression::BladeAt0At0 => match at(s, p)? {
+                    (Blade::PhpWrap, end) => Some((end, vec![Some((p, end)), Some((p, end))])),
+                    _ => None,
+                },
+                Expression::BladeAt0At0End => wrap_end(arena, case),
+                Expression::BladeAt0At2At0 => {
+                    let question = empty_tag(s, p).filter(|_| g)?;
+                    let mark = Some((question, question + 1));
+                    Some((
+                        question + 1,
+                        vec![Some((p, question + 1)), Some((p, question)), mark, mark],
+                    ))
+                }
+                Expression::BladeAt1End => end_of(BladeRule::EchoTriple),
+                Expression::BladeAt2End => end_of(BladeRule::Echo),
+                Expression::BladeAt3End => end_of(BladeRule::EchoRaw),
+                Expression::BladeAt4End => end_of(BladeRule::EchoEscaped),
+                Expression::BladeAt9End => end_of(BladeRule::PhpSection),
+                Expression::BladeAt14 => match at(s, p)? {
+                    (Blade::Attribute(name), end) => Some((
+                        end,
+                        vec![
+                            Some((p, end)),
+                            Some((p, name)),
+                            Some((name, name + 1)),
+                            Some((name + 1, end)),
+                        ],
+                    )),
+                    _ => None,
+                },
+            }
+        }
+    }
+
+    /// The end of the rule around PHP that its line leaves open, on an HTML
+    /// lexer at the case's byte.
+    fn wrap_end(arena: &mut Arena, case: &Case<'_>) -> Answer {
+        let mut scratch = Scratch::default();
+        let limits = Limits::default();
+        let mut out = Vec::new();
+        let mut report = LineReport::default();
+        let state = crate::html::start_blade(arena, ROOT);
+        let mut cx = Context {
+            scratch: &mut scratch,
+            arena,
+            limits: &limits,
+            out: &mut out,
+            report: &mut report,
+            first_token: 0,
+        };
+        let line = Line {
+            text: case.text,
+            start: 0,
+            embedded: false,
+            anchored_at_root: false,
+        };
+        let mut lexer = Lexer::new(&mut cx, line, state, Document::Blade);
+        lexer.lf = matches!(case.after, After::LineFeed);
+        lexer.anchor = matches!(case.anchor, Anchor::G).then_some(case.p);
+        let hit = lexer.erb_wrap_end(case.p)?;
+        Some((hit.end, vec![Some((hit.start, hit.end))]))
+    }
+}

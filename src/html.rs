@@ -35,6 +35,9 @@ mod state;
 mod vue;
 mod words;
 
+#[cfg(test)]
+#[cfg(all(feature = "json", feature = "lang-blade"))]
+pub(crate) use blade::probe as blade_probe;
 #[cfg(feature = "lang-html-derivative")]
 pub(crate) use engine::GiveBack;
 pub(crate) use engine::Scratch;

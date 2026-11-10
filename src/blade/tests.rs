@@ -154,19 +154,49 @@ fn a_php_section_spans_lines() {
 
 #[cfg(feature = "json")]
 mod probe {
+    use std::fmt;
+
     use crate::blade::engine::Blade;
     use crate::blade::grammar::Pattern;
+    use crate::html::blade_probe::Expression;
     use crate::test_support::probe::{answer_cases, lexer};
+
+    /// An expression the probe answers: one of the copy of PHP, or one of
+    /// Blade's own rules, which the HTML engine matches.
+    #[derive(Clone, Copy)]
+    enum Probed {
+        /// A pattern of the copy of PHP.
+        Php(Pattern),
+        /// An expression of Blade's own rules.
+        Own(Expression),
+    }
+
+    /// The expression's id, as `oracle/onig.ts` names it.
+    impl fmt::Debug for Probed {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            match self {
+                Probed::Php(pattern) => pattern.fmt(f),
+                Probed::Own(expression) => expression.fmt(f),
+            }
+        }
+    }
 
     /// Answers the cases of `oracle/onig.ts` with Blade's matchers (see
     /// [`answer_cases`]).
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pattern::ALL, |arena, pattern, case| {
-            lexer::<Blade, _>(arena, case, |lexer| {
+        let probed: Vec<Probed> = Pattern::ALL
+            .iter()
+            .copied()
+            .map(Probed::Php)
+            .chain(Expression::ALL.map(Probed::Own))
+            .collect();
+        answer_cases(&probed, |arena, probed, case| match probed {
+            Probed::Php(pattern) => lexer::<Blade, _>(arena, case, |lexer| {
                 lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
-            })
+            }),
+            Probed::Own(expression) => expression.answer(arena, case),
         });
     }
 }
