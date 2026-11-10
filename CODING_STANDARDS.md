@@ -323,11 +323,9 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
   - a matcher's regex in the docs of a matchers module, in a `text` block or a code span, written with no whitespace;
   - a JSON string.
 - `bench/corpus/`, `oracle/inputs/` and `tests/oracle/` hold language text and the oracle's output, outside the bound.
-- Three exemptions are temporary, each until the change that removes it:
+- Two exemptions are temporary, each until the change that removes it:
   - the Bun scripts that write Rust, and the files they write, until rust-codegen moves each writer to Rust;
-  - the Swift matcher names, until the Swift generator moves to `codegen/` (rule-table-codegen design 2.4);
-  - the files the Copier template renders, until nishiki takes the template release that wraps them.
-    `check:line-width` fails once `.copier-answers.yml` records that release, so the list goes then.
+  - the Swift matcher names, until the Swift generator moves to `codegen/` (rule-table-codegen design 2.4).
 - A list puts one entry per line.
   Only a table of short numeric entries, such as byte ranges, packs several entries on a line.
 
