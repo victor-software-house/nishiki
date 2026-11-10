@@ -19,7 +19,9 @@ use super::state::Rule;
 use crate::Language;
 use crate::arena::Arena;
 use crate::language::{Halts, NO_HALTS};
-use crate::rules::{self, Act, Captures, Embedding, Embeds, FnHalt, Grammar, Payload, ScopeName};
+use crate::rules::{
+    self, Act, Captures, CarriedState, Embedding, Embeds, FnHalt, Grammar, ScopeName,
+};
 use crate::scope::Scopes;
 use crate::utf8::{char_len, is_continuation};
 
@@ -239,11 +241,11 @@ impl Grammar for GraphQl {
         rule.content()
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         if rule == Rule::Interpolation {
-            Payload::Embed(Language::JavaScript)
+            CarriedState::Embed(Language::JavaScript)
         } else {
-            Payload::None
+            CarriedState::None
         }
     }
 

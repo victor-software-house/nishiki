@@ -735,29 +735,24 @@ impl Rule {
     /// A rule whose end or name repeats a begin capture group carries that
     /// group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::BodyJavaScript => embedded!(JavaScript, "lang-javascript")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::BodyJson => {
-                embedded!(Json, "lang-json").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::BodyJson => embedded!(Json, "lang-json")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::BodyTypeScript | Rule::Frontmatter => embedded!(TypeScript, "lang-typescript")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::BodyCss => {
-                embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::BodyLess => {
-                embedded!(Less, "lang-less").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::BodyCss => embedded!(Css, "lang-css")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::BodyLess => embedded!(Less, "lang-less")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::BodyPostCss => embedded!(PostCss, "lang-postcss")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::BodySass => {
-                embedded!(Sass, "lang-sass").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::BodyScss => {
-                embedded!(Scss, "lang-scss").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::BodySass => embedded!(Sass, "lang-sass")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::BodyScss => embedded!(Scss, "lang-scss")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::Comments
             | Rule::NestedTagsStartNode
             | Rule::NestedTagsName
@@ -781,21 +776,20 @@ impl Rule {
             | Rule::TagsVoid
             | Rule::TagsStartAttributes
             | Rule::Text
-            | Rule::Root => rules::Payload::None,
+            | Rule::Root => rules::CarriedState::None,
             Rule::TagsRaw
             | Rule::AttributesEvents
             | Rule::EventScriptDouble
             | Rule::EventScriptSingle
             | Rule::AttributesKeyvalue
-            | Rule::ValueQuoted => rules::Payload::Backref(1),
+            | Rule::ValueQuoted => rules::CarriedState::Backref(1),
             Rule::InterpolationAt0
             | Rule::InterpolationAt0At0
             | Rule::AttributeLiteral
-            | Rule::AttributesInterpolated => {
-                embedded!(Tsx, "lang-tsx").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::LangNamed => rules::Payload::Backref(3),
-            Rule::TagsGeneralEnd | Rule::TagsGeneralStart => rules::Payload::Backref(2),
+            | Rule::AttributesInterpolated => embedded!(Tsx, "lang-tsx")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::LangNamed => rules::CarriedState::Backref(3),
+            Rule::TagsGeneralEnd | Rule::TagsGeneralStart => rules::CarriedState::Backref(2),
         }
     }
 

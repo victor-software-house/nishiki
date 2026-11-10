@@ -13,7 +13,7 @@
 // each list's words, written out, lowercased where the list ignores case.
 // One lookup answers every list of a table.
 //
-// The rules that include another grammar embed it (`Payload::Embed`).
+// The rules that include another grammar embed it (`CarriedState::Embed`).
 // The matchers that decide whether a pattern matches are written by hand.
 import {
   arms,
@@ -678,15 +678,15 @@ export async function generate(cfg: Family): Promise<void> {
     ]),
     "Rule",
   );
-  g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n${tooLong}    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+  g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n${tooLong}    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
   g += arms(
     ruleList.map((r): [string, string] => [
       r.id,
       r.embed
-        ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::Payload::None, rules::Payload::Embed)`
+        ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::CarriedState::None, rules::CarriedState::Embed)`
         : r.backref === null
-          ? "rules::Payload::None"
-          : `rules::Payload::Backref(${r.backref})`,
+          ? "rules::CarriedState::None"
+          : `rules::CarriedState::Backref(${r.backref})`,
     ]),
     "Rule",
   );

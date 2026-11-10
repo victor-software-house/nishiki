@@ -248,11 +248,11 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`,
+    r.backref === null ? "rules::CarriedState::None" : `rules::CarriedState::Backref(${r.backref})`,
   ]),
   "Rule",
 );

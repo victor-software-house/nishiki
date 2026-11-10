@@ -5,7 +5,9 @@ use std::cell::Cell;
 use super::grammar::{Pattern, Rule};
 use super::scope::S;
 pub(crate) use crate::rules::embedded;
-use crate::rules::{self, Act, Captures, Grammar, HasRuns, Payload, Runs, ScopeName, table_scan};
+use crate::rules::{
+    self, Act, Captures, CarriedState, Grammar, HasRuns, Runs, ScopeName, table_scan,
+};
 use crate::scope::Scopes;
 
 /// The Ruby lexer for one line.
@@ -83,7 +85,7 @@ impl Grammar for Ruby {
                   at a call on every rule opened and closed"
     )]
     #[inline(always)]
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

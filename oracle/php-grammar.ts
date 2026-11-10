@@ -3,7 +3,7 @@
 // through microsoft/vscode, MIT), with the generator that
 // oracle/php-family-grammar.ts shares with Hack.
 //
-// The rules that include another grammar embed it (`Payload::Embed`):
+// The rules that include another grammar embed it (`CarriedState::Embed`):
 // the heredocs and nowdocs tagged HTML, XML, SQL, JS, JSON or CSS, and the
 // strings that start with an SQL keyword.
 // A second root, `Fence`, serves a Markdown `php` fence, whose rule lists

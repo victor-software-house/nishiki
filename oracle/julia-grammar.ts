@@ -8,7 +8,7 @@
 //
 // A string macro named for Python, JavaScript, SQL or R includes that
 // language's grammar.
-// Its rule embeds the language (`Payload::Embed`), whose feature `lang-julia`
+// Its rule embeds the language (`CarriedState::Embed`), whose feature `lang-julia`
 // turns on.
 // The `cxx` macro includes `source.cpp#root_context`, a key the C++ grammar
 // lacks, so it adds no patterns.
@@ -351,11 +351,13 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A string macro that includes another language's grammar carries that language's state.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A string macro that includes another language's grammar carries that language's state.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    r.embed ? `rules::Payload::Embed(crate::Language::${r.embed})` : "rules::Payload::None",
+    r.embed
+      ? `rules::CarriedState::Embed(crate::Language::${r.embed})`
+      : "rules::CarriedState::None",
   ]),
   "Rule",
 );

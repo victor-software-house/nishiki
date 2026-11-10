@@ -452,7 +452,7 @@ impl Rule {
     /// What a rule carries from line to line: the begin capture group its end
     /// repeats, when it does.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::Nested0
@@ -466,14 +466,14 @@ impl Rule {
             | Rule::FunctionDefinition
             | Rule::FunctionDefinitionAt0
             | Rule::IdentifierQuoted
-            | Rule::RoxygenExample => rules::Payload::None,
+            | Rule::RoxygenExample => rules::CarriedState::None,
             Rule::MarkdownAt0
             | Rule::RawStringsAt0
             | Rule::RawStringsAt1
             | Rule::RawStringsAt2
             | Rule::RawStringsAt3
             | Rule::RawStringsAt4
-            | Rule::RawStringsAt5 => rules::Payload::Backref(1),
+            | Rule::RawStringsAt5 => rules::CarriedState::Backref(1),
         }
     }
 }

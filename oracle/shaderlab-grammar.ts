@@ -8,7 +8,7 @@
 //
 // A `CGPROGRAM` or `HLSLPROGRAM` block includes `#hlsl-embedded`: Shiki's
 // `source.hlsl`, then Unity's own patterns.
-// The block embeds HLSL (`Payload::Embed`), and lists Unity's patterns as its
+// The block embeds HLSL (`CarriedState::Embed`), and lists Unity's patterns as its
 // own after it (`Embeds::embeds_after_own`).
 // HLSL then halts where a Unity pattern starts and none of its own matches,
 // as vscode-textmate tries the patterns after an include.
@@ -312,13 +312,13 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line: the state of HLSL, when the\n    /// rule embeds it and its feature is on.\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line: the state of HLSL, when the\n    /// rule embeds it and its feature is on.\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   rules.map((r): [string, string] => [
     r.id,
     r.embeds
-      ? `rules::embedded!(Hlsl, "lang-hlsl").map_or(rules::Payload::None, rules::Payload::Embed)`
-      : "rules::Payload::None",
+      ? `rules::embedded!(Hlsl, "lang-hlsl").map_or(rules::CarriedState::None, rules::CarriedState::Embed)`
+      : "rules::CarriedState::None",
   ]),
   "Rule",
 );

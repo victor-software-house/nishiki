@@ -7,7 +7,7 @@ use crate::arena::Arena;
 use crate::php_family::halts::{quoted_to, sql_common};
 use crate::php_family::matchers::{is_name, is_name_start};
 pub(crate) use crate::rules::embedded;
-use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, NameCase, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The PHP lexer for one line.
@@ -69,7 +69,7 @@ impl Grammar for Php {
 
     const EMBEDS: bool = true;
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

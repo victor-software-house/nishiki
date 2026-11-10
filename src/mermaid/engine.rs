@@ -4,7 +4,7 @@ use std::convert::Infallible;
 
 use super::grammar::{Pattern, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Mermaid lexer for one line.
@@ -61,8 +61,8 @@ impl Grammar for Mermaid {
         rule.definition().content
     }
 
-    fn rule_payload(_: Rule) -> Payload {
-        Payload::None
+    fn rule_carried_state(_: Rule) -> CarriedState {
+        CarriedState::None
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

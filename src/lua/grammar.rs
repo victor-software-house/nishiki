@@ -762,7 +762,7 @@ impl Rule {
     /// state, when its feature is on. A rule whose end repeats a begin capture
     /// group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::RootAt0
             | Rule::CommentAt0
@@ -806,13 +806,13 @@ impl Rule {
             | Rule::CommentAt0At4
             | Rule::RootAt0At1
             | Rule::RootAt0At1At4
-            | Rule::Root => rules::Payload::None,
+            | Rule::Root => rules::CarriedState::None,
             Rule::CommentAt0At0 | Rule::StringAt4 | Rule::CommentAt0At1 => {
-                rules::Payload::Backref(1)
+                rules::CarriedState::Backref(1)
             }
-            Rule::StringAt3 => rules::Payload::Backref(2),
+            Rule::StringAt3 => rules::CarriedState::Backref(2),
             Rule::StringAt3At0 => {
-                embedded!(C, "lang-c").map_or(rules::Payload::None, rules::Payload::Embed)
+                embedded!(C, "lang-c").map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
         }
     }

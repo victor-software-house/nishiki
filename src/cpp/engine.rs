@@ -8,7 +8,7 @@ use super::grammar::{Nested, Pattern, Rule, Sc};
 use super::limits::{MAX_ENDS, MAX_NESTED};
 use super::matchers::{NEEDS, RAW_DELIMITER, RAW_DELIMITER_MAX};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The C++ lexer for one line.
@@ -124,7 +124,7 @@ impl Grammar for Cpp {
     const SOURCE: crate::scope::Scope = S::Source.scope();
     const GROUPS: usize = 128;
     const CAPTURED_EOL: bool = true;
-    const NAMED_PAYLOAD: usize = RAW_DELIMITER_MAX;
+    const LONGEST_NAMED_DELIMITER: usize = RAW_DELIMITER_MAX;
 
     fn scope(scope: Sc) -> ScopeName {
         match scope {
@@ -157,12 +157,12 @@ impl Grammar for Cpp {
         rule.definition().content
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         let delimiter = Self::delimited_name(rule).map(|_| RAW_DELIMITER);
         rule.definition()
             .backref
             .or(delimiter)
-            .map_or(Payload::None, Payload::Backref)
+            .map_or(CarriedState::None, CarriedState::Backref)
     }
 
     fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {

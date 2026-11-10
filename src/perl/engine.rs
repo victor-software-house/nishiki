@@ -6,7 +6,7 @@ use super::scope::S;
 use crate::arena::Arena;
 use crate::classes::{is_ascii_word, is_word};
 pub(crate) use crate::rules::embedded;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 use crate::utf8::{char_at, char_start};
 
@@ -70,7 +70,7 @@ impl Grammar for Perl {
 
     const EMBEDS: bool = true;
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

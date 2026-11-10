@@ -2,7 +2,7 @@
 
 use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Scala lexer for one line.
@@ -61,10 +61,10 @@ impl Grammar for Scala {
         rule.definition().content
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.definition()
             .backref
-            .map_or(Payload::None, Payload::Backref)
+            .map_or(CarriedState::None, CarriedState::Backref)
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

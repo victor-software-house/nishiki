@@ -2518,7 +2518,7 @@ impl Rule {
     /// A rule whose end repeats a begin capture group carries that group.
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::LineComment
@@ -2616,12 +2616,13 @@ impl Rule {
             | Rule::RootAt42
             | Rule::RootAt43
             | Rule::RootAt44
-            | Rule::HeredocAt0Indented => rules::Payload::None,
+            | Rule::HeredocAt0Indented => rules::CarriedState::None,
             Rule::PodAt1 | Rule::HeredocAt0At0 | Rule::HeredocAt8IndentedAt0 => {
-                embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
+                embedded!(Html, "lang-html")
+                    .map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
             Rule::RootAt3At5 | Rule::RootAt4At5 | Rule::RootAt6At0 | Rule::RootAt7At0 => {
-                rules::Payload::Backref(2)
+                rules::CarriedState::Backref(2)
             }
             Rule::RootAt5At9
             | Rule::RootAt6At2
@@ -2629,19 +2630,20 @@ impl Rule {
             | Rule::RootAt8
             | Rule::RootAt24
             | Rule::RootAt25
-            | Rule::RootAt28 => rules::Payload::Backref(1),
-            Rule::HeredocAt1IndentedAt0 | Rule::HeredocAt9IndentedAt0 => {
-                embedded!(Xml, "lang-xml").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::RootAt28 => rules::CarriedState::Backref(1),
+            Rule::HeredocAt1IndentedAt0 | Rule::HeredocAt9IndentedAt0 => embedded!(Xml, "lang-xml")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::HeredocAt2IndentedAt0 | Rule::HeredocAt10IndentedAt0 => {
-                embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
+                embedded!(Css, "lang-css")
+                    .map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
             Rule::HeredocAt3IndentedAt0 | Rule::HeredocAt11IndentedAt0 => {
                 embedded!(JavaScript, "lang-javascript")
-                    .map_or(rules::Payload::None, rules::Payload::Embed)
+                    .map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
             Rule::HeredocAt4IndentedAt0 | Rule::HeredocAt12IndentedAt0 => {
-                embedded!(Sql, "lang-sql").map_or(rules::Payload::None, rules::Payload::Embed)
+                embedded!(Sql, "lang-sql")
+                    .map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
             Rule::HeredocAt6Indented
             | Rule::HeredocAt6
@@ -2652,7 +2654,7 @@ impl Rule {
             | Rule::HeredocAt21Indented
             | Rule::HeredocAt21
             | Rule::HeredocAt22Indented
-            | Rule::HeredocAt22 => rules::Payload::Backref(6),
+            | Rule::HeredocAt22 => rules::CarriedState::Backref(6),
         }
     }
 

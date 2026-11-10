@@ -802,7 +802,7 @@ impl Rule {
     /// A string macro that includes another language's grammar carries that
     /// language's state.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::Array
@@ -828,11 +828,11 @@ impl Rule {
             | Rule::FunctionCall
             | Rule::CommentBlock
             | Rule::LineComment
-            | Rule::ForBlock => rules::Payload::None,
-            Rule::Py => rules::Payload::Embed(crate::Language::Python),
-            Rule::Js => rules::Payload::Embed(crate::Language::JavaScript),
-            Rule::RMacro => rules::Payload::Embed(crate::Language::R),
-            Rule::Sql => rules::Payload::Embed(crate::Language::Sql),
+            | Rule::ForBlock => rules::CarriedState::None,
+            Rule::Py => rules::CarriedState::Embed(crate::Language::Python),
+            Rule::Js => rules::CarriedState::Embed(crate::Language::JavaScript),
+            Rule::RMacro => rules::CarriedState::Embed(crate::Language::R),
+            Rule::Sql => rules::CarriedState::Embed(crate::Language::Sql),
         }
     }
 }

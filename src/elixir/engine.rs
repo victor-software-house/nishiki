@@ -11,7 +11,7 @@ use crate::arena::Arena;
 use crate::classes::is_space;
 use crate::language::Halt;
 pub(crate) use crate::rules::embedded;
-use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 use crate::utf8::multibyte_at;
 
@@ -89,7 +89,7 @@ impl Grammar for Elixir {
 
     const EMBEDS_ON_DEMAND: bool = true;
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

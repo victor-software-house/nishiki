@@ -137,7 +137,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// The begin pattern takes it in another group than the one the name
     /// reads.
     /// C++'s raw strings do this with a delimiter of more than 16 bytes.
-    const NAMED_PAYLOAD: usize = usize::MAX;
+    const LONGEST_NAMED_DELIMITER: usize = usize::MAX;
 
     /// The scope in the crate's shared numbering, or the name it makes
     /// from a capture group's text.
@@ -186,9 +186,9 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
         false
     }
     /// Whether the loop tests at each step whether the innermost rule embeds
-    /// another language ([`Payload::Embed`]). A rule that embeds hands its line
-    /// over when it opens, without this test. The test is for a grammar whose
-    /// line can come back into such a rule mid-line. Ruby needs it: an
+    /// another language ([`CarriedState::Embed`]). A rule that embeds hands its
+    /// line over when it opens, without this test. The test is for a grammar
+    /// whose line can come back into such a rule mid-line. Ruby needs it: an
     /// interpolation can close inside a heredoc, and an escape resumes it.
     const EMBEDS: bool = false;
     /// Whether the grammar lexes each line without its embedded languages first
@@ -198,8 +198,8 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     #[cfg(feature = "_embedding")]
     const EMBEDS_ON_DEMAND: bool = false;
     /// What a rule carries from line to line.
-    fn rule_payload(_rule: Self::Rule) -> Payload {
-        Payload::None
+    fn rule_carried_state(_rule: Self::Rule) -> CarriedState {
+        CarriedState::None
     }
     /// The prefix of a content scope that ends in the rule's payload text,
     /// for a rule whose content scope is named by it.
@@ -226,7 +226,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_name_after(_rule: Self::Rule) -> Scopes<Self::Scope> {
         Self::NO_SCOPES
     }
-    /// Where a rule that embeds a language ([`Payload::Embed`]) starts it.
+    /// Where a rule that embeds a language ([`CarriedState::Embed`]) starts it.
     ///
     /// It is the function that gives the language's state at one of its
     /// grammar's rules other than the root.
@@ -534,7 +534,7 @@ pub(crate) enum EndText {
     ParentPayload,
 }
 
-/// A grammar whose rules embed other languages ([`Payload::Embed`]).
+/// A grammar whose rules embed other languages ([`CarriedState::Embed`]).
 /// It marks where the embedding rule takes the line back.
 #[cfg(feature = "_embedding")]
 pub(crate) trait Embeds: Grammar {
@@ -766,8 +766,8 @@ impl<G: Embeds> Halt for ParentTextEnd<'_, G> {
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` whose rules embed other languages
-/// ([`Payload::Embed`]). The engine stops where the innermost rule embeds a
-/// language. That language lexes the text from there.
+/// ([`CarriedState::Embed`]). The engine stops where the innermost rule embeds
+/// a language. That language lexes the text from there.
 /// It stops where the halts from [`Embeds::embed_halts`] hold.
 /// The engine goes on from there.
 /// The rule's payload keeps the embedded language's state.
@@ -945,7 +945,7 @@ fn lex_again<G: Embeds>(
     let state = lex_embedding::<G>(&mut again, line, state, scratch);
     let state = steps.take_back(state);
     let rule = G::rule_from_code(cx.arena.frame(state).rule);
-    if matches!(G::rule_payload(rule), Payload::Embed(_)) {
+    if matches!(G::rule_carried_state(rule), CarriedState::Embed(_)) {
         scratch(cx.scratch).forget_resume();
     }
     steps.finish(state)
@@ -1380,7 +1380,7 @@ pub(crate) enum BlankRuns {
 
 /// What a rule carries from line to line.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Payload {
+pub(crate) enum CarriedState {
     /// Nothing.
     None,
     /// The text of a begin capture group, which the end pattern repeats.
@@ -1392,9 +1392,9 @@ pub(crate) enum Payload {
     Embed(crate::Language),
 }
 
-/// A 16-byte `Payload`, with a start function in it, cost Ruby 0.3% at one
+/// A 16-byte `CarriedState`, with a start function in it, cost Ruby 0.3% at one
 /// codegen unit.
-const _: () = assert!(size_of::<Payload>() <= 2);
+const _: () = assert!(size_of::<CarriedState>() <= 2);
 
 /// How a line whose grammar embeds other languages stopped.
 #[cfg(feature = "_embedding")]

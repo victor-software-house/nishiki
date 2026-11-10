@@ -8,7 +8,7 @@ use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
 use crate::arena::Arena;
 use crate::classes::{word_before, word_width};
-use crate::rules::{self, Act, Captures, FnHalt, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, FnHalt, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The ShaderLab lexer for one line.
@@ -88,7 +88,7 @@ impl Grammar for ShaderLab {
         rule.definition().content
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

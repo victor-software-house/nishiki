@@ -967,7 +967,7 @@ impl Rule {
     /// What a rule carries from line to line: the begin capture group its
     /// end repeats.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::BuiltinGetNodeShorthandBareMulti
@@ -986,10 +986,10 @@ impl Rule {
             | Rule::SquareBraces
             | Rule::RoundBraces
             | Rule::FunctionCall
-            | Rule::FunctionArguments => rules::Payload::None,
-            Rule::BuiltinGetNodeShorthandQuoted => rules::Payload::Backref(3),
-            Rule::NodepathObjectAt0 | Rule::NodepathFunctionAt0 => rules::Payload::Backref(1),
-            Rule::Strings => rules::Payload::Backref(2),
+            | Rule::FunctionArguments => rules::CarriedState::None,
+            Rule::BuiltinGetNodeShorthandQuoted => rules::CarriedState::Backref(3),
+            Rule::NodepathObjectAt0 | Rule::NodepathFunctionAt0 => rules::CarriedState::Backref(1),
+            Rule::Strings => rules::CarriedState::Backref(2),
         }
     }
 }

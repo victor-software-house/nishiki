@@ -8,7 +8,7 @@ use crate::arena::Arena;
 use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 use crate::rules::{
-    self, Act, Captures, Deferrals, Embedding, Embeds, FnHalt, Grammar, Payload, ScopeName,
+    self, Act, Captures, CarriedState, Deferrals, Embedding, Embeds, FnHalt, Grammar, ScopeName,
     table_scan,
 };
 use crate::scope::Scopes;
@@ -68,7 +68,7 @@ impl Grammar for Svelte {
         rule.while_pattern()
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

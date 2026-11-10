@@ -2048,7 +2048,7 @@ impl Rule {
     /// language's state, when its feature is on.
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::CommentsAt0
@@ -2125,16 +2125,14 @@ impl Rule {
             | Rule::LanguageAt18At1
             | Rule::XhpHtmlComments
             | Rule::XhpStringDoubleQuoted
-            | Rule::XhpStringSingleQuoted => rules::Payload::None,
+            | Rule::XhpStringSingleQuoted => rules::CarriedState::None,
             Rule::XhpTagElementName | Rule::HeredocAt0 | Rule::HeredocAt1 => {
-                rules::Payload::Backref(2)
+                rules::CarriedState::Backref(2)
             }
-            Rule::SqlStringDoubleQuoted | Rule::SqlStringSingleQuoted => {
-                embedded!(Sql, "lang-sql").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::Document => {
-                embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            Rule::SqlStringDoubleQuoted | Rule::SqlStringSingleQuoted => embedded!(Sql, "lang-sql")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::Document => embedded!(Html, "lang-html")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
         }
     }
 
