@@ -55,7 +55,9 @@ The four stand-ins did not exist yet in that run.
 
 ## Result
 
-[`report.md`][report] holds one row per language: the bytes compared, and the first differing byte where one exists.
+[`report.md`][report] holds one row per input: the bytes compared, and the first differing byte where one exists.
+It comes from a later run, after task 3.2 made the refused patterns compile.
+That run has 243 inputs: C# also runs on `oracle/inputs/csharp-coverage.cs`, which holds `/**` comments.
 Every row is equal.
 
 | Measure | Count |
