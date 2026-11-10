@@ -6,6 +6,10 @@
 pub(super) const TEXT_SYMBOL: u32 = 1 << 0;
 
 /// Every word of the lists, sorted by its bytes, end to end.
+#[expect(
+    clippy::disallowed_macros,
+    reason = "joins literal lines of whole words into one byte blob, which is not multiline text"
+)]
 pub(super) static WORD_BYTES: &[u8] = concat!(
     "textacutedbltextasciiacutetextasciibrevetextasciicarontextasciidieresistextasciigrave",
     "textasciimacrontextasteriskcenteredtextbahttextbardbltextbigcircletextblanktextborn",

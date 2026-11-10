@@ -11,6 +11,10 @@ pub(super) const OPERATOR: u32 = 1 << 2;
 pub(super) const FUNCTION: u32 = 1 << 3;
 
 /// Every word of the lists, sorted by its bytes, end to end.
+#[expect(
+    clippy::disallowed_macros,
+    reason = "joins literal lines of whole words into one byte blob, which is not multiline text"
+)]
 pub(super) static WORD_BYTES: &[u8] = concat!(
     "ArrownotBbbkBoxBumpeqCapCupDeltaDiamondDownarrowFinvGameGammaImJoinLambdaLbagLeftarrow",
     "LeftrightarrowLleftarrowLongleftarrowLongleftrightarrowLongmapsfromLongmapsto",

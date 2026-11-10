@@ -968,7 +968,7 @@ function wordFile(generator: string, wordLists: WordList[]): string {
     lines[lines.length - 1] += word;
   }
   const literals = lines.map((line) => `"${line}",`).join("\n");
-  w += `\n/// Every word of the lists, sorted by its bytes, end to end.\npub(super) static WORD_BYTES: &[u8] = concat!(\n${literals}\n).as_bytes();\n`;
+  w += `\n/// Every word of the lists, sorted by its bytes, end to end.\n#[expect(\n    clippy::disallowed_macros,\n    reason = "joins literal lines of whole words into one byte blob, which is not multiline text"\n)]\npub(super) static WORD_BYTES: &[u8] = concat!(\n${literals}\n).as_bytes();\n`;
   w += `\n/// Where each word of [\`WORD_BYTES\`] ends: word \`k\` runs from the end of word \`k - 1\` to \`WORD_ENDS[k]\`.\npub(super) static WORD_ENDS: [u16; ${ends.length}] = [${ends.join(", ")}];\n`;
   w += `\n/// The lists each word of [\`WORD_BYTES\`] belongs to, in the same order.\npub(super) static WORD_LISTS: [u32; ${ends.length}] = [${sorted.map(([, mask]) => hex(mask)).join(", ")}];\n`;
   return w;
