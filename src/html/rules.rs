@@ -194,7 +194,8 @@ impl Lexer<'_> {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => self.vue_name_stack(base, rule, carried),
+            | Rule::VueExpression
+            | Rule::VueComponent => self.vue_name_stack(base, rule, carried),
         }
     }
 
@@ -222,7 +223,8 @@ impl Lexer<'_> {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => self.vue_content_stack(name, rule, carried),
+            | Rule::VueExpression
+            | Rule::VueComponent => self.vue_content_stack(name, rule, carried),
             Rule::Cdata => self.path(name, &[S::InlineData]),
             Rule::StringCss => self.path(name, &[S::SourceCss]),
             Rule::StringJs => self.path(name, &[S::SourceJs]),
@@ -466,6 +468,7 @@ impl Lexer<'_> {
             | VueRule::CapitalizedAttrs
             | VueRule::ExprBare => base,
             VueRule::Comment | VueRule::CommentKv => self.path(base, &[S::VueComment]),
+            VueRule::Component => self.path(base, &[S::TextHtmlVue]),
             VueRule::SelfClosing => self.path(base, &[S::SelfClosingTag]),
             VueRule::TagStuff | VueRule::ScriptTagStuff | VueRule::StyleTagStuff => {
                 self.path(base, &[S::TagStuff])
@@ -568,7 +571,8 @@ impl Lexer<'_> {
             | VueRule::CapitalizedAttrs
             | VueRule::Directive
             | VueRule::ExprBare
-            | VueRule::Expr => {}
+            | VueRule::Expr
+            | VueRule::Component => {}
         }
     }
 
@@ -936,7 +940,8 @@ impl Lexer<'_> {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => self.vue_end_captures(top, hit),
+            | Rule::VueExpression
+            | Rule::VueComponent => self.vue_end_captures(top, hit),
             Rule::JsBlockComment
             | Rule::Root
             | Rule::DoctypeString
@@ -1192,7 +1197,8 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::VueDirective
         | Rule::VueExpressionString
         | Rule::VueExpressionBare
-        | Rule::VueExpression => Rule::StringPlain,
+        | Rule::VueExpression
+        | Rule::VueComponent => Rule::StringPlain,
     }
 }
 

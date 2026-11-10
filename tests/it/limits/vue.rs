@@ -1,6 +1,6 @@
 //! Hostile lines for Vue, under the default limits.
 
-use nishiki::{Highlighter, Language, Limit};
+use nishiki::{Highlighter, Language, Limit, Limits, State, Token};
 
 use super::lex;
 
@@ -42,4 +42,31 @@ fn hostile_vue_lines_finish_within_the_default_limits() {
             report.limits().collect::<Vec<_>>()
         );
     }
+}
+
+/// Each block in `lang="vue"` opens its component on the outer stack.
+/// Two thousand levels lex on the test thread, with no limits.
+/// The text inside has one `text.html.vue` per level.
+/// Every level closes.
+#[test]
+fn nested_vue_blocks_share_one_stack() {
+    let levels = 2_000;
+    let open = format!("{}x", "<a lang=\"vue\">".repeat(levels));
+    let close = "</a>".repeat(levels);
+    let mut highlighter = Highlighter::new_with_limits(Language::Vue, Limits::unlimited());
+    let (rows, state) = lex(&mut highlighter, &[&open, &close]);
+    assert!(rows.iter().all(|(_, report)| report.is_complete()));
+    let text = rows[0].0.last().copied().map(Token::stack);
+    let components = text.map_or(0, |stack| {
+        highlighter
+            .scopes(stack)
+            .filter(|&scope| scope == "text.html.vue")
+            .count()
+    });
+    assert_eq!(
+        components,
+        levels + 1,
+        "the root and one component per level"
+    );
+    assert_eq!(state, State::default(), "every block closed");
 }

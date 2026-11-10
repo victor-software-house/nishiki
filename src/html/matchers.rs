@@ -346,6 +346,13 @@ impl Lexer<'_> {
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_candidate(rule, p, cut),
+            Rule::VueComponent => {
+                if cfg!(feature = "lang-vue") {
+                    find(memchr(b'<', rest))
+                } else {
+                    None
+                }
+            }
             Rule::VueComment => {
                 if cfg!(feature = "lang-vue") {
                     find(memchr(b'-', rest))
@@ -540,7 +547,8 @@ impl Lexer<'_> {
             | Rule::VueExpressionBare
             | Rule::VueBody
             | Rule::VueBodyWhile
-            | Rule::VueExpression => self.vue_end_at(rule, p),
+            | Rule::VueExpression
+            | Rule::VueComponent => self.vue_end_at(rule, p),
         }
     }
 
@@ -622,7 +630,8 @@ impl Lexer<'_> {
             | Rule::BodyTemplate
             | Rule::VueElement
             | Rule::VueTemplateBody
-            | Rule::VueTemplateTagEnd => {
+            | Rule::VueTemplateTagEnd
+            | Rule::VueComponent => {
                 #[cfg(feature = "lang-vue")]
                 if self.document == Document::Vue
                     && let vue::Template::Done(found) = self.vue_template_patterns(rule, p)

@@ -638,7 +638,8 @@ impl Rule {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => return None,
+            | Rule::VueExpression
+            | Rule::VueComponent => return None,
         })
     }
 }

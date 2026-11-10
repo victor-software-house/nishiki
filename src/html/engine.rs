@@ -284,7 +284,7 @@ pub(crate) struct Scratch {
     /// Buffers of frames for HTML lexers that run while another holds
     /// `frames`, one for each level of nesting.
     /// One such lexer runs a heredoc's HTML inside a Blade document's PHP.
-    /// Another runs a Vue block in `lang="vue"` inside a component.
+    /// Another runs the HTML of a Markdown block in a Vue component.
     #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
     spare: Vec<Vec<Frame>>,
     chain: Vec<(u32, crate::arena::Frame)>,
@@ -858,7 +858,8 @@ impl<'a> Lexer<'a> {
                 | Rule::VueCapitalizedAttributes
                 | Rule::VueDirective
                 | Rule::VueExpressionString
-                | Rule::VueExpressionBare => self.search(),
+                | Rule::VueExpressionBare
+                | Rule::VueComponent => self.search(),
             };
             if let Some(at) = self.give_back_at(found.as_ref()) {
                 let content = self.top().content;
@@ -1832,7 +1833,6 @@ fn vue_start(arena: &mut Arena, lexed: vue_rules::Lexed, base: u32) -> u32 {
         Lexed::Json(_) => crate::json::start_embedded(arena, base),
         #[cfg(feature = "lang-toml")]
         Lexed::Toml => crate::toml::start_embedded(arena, base),
-        Lexed::Vue => super::start_vue_block(arena, base),
         Lexed::Expression => crate::typescript::start_expression(arena, base),
         Lexed::TypeParameters => crate::typescript::start_generic_attribute(arena, base),
         Lexed::StyleAttribute => crate::css::start_vue_style_attribute(arena, base),
@@ -1877,7 +1877,6 @@ fn vue_lex(
         Lexed::Json(dialect) => crate::json::lex_until(cx, dialect, line, state, &end, None),
         #[cfg(feature = "lang-toml")]
         Lexed::Toml => crate::toml::lex_until(cx, line, state, &end),
-        Lexed::Vue => super::lex_vue_until(cx, line, state, &end),
         Lexed::TypeParameters => crate::typescript::lex_until(
             cx,
             crate::typescript::Dialect::TypeScript,

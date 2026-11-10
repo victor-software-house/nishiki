@@ -705,6 +705,9 @@ impl Lexer<'_> {
                 if !self.after_gt(p) || !lang.has_grammar() {
                     return None;
                 }
+                if lang == Lang::Vue {
+                    return zero(Rule::VueComponent);
+                }
                 if lang.ends_at_script() && !self.script_end_ahead(p) {
                     return zero(Rule::VueBodyWhile);
                 }
@@ -1022,7 +1025,7 @@ impl Lexer<'_> {
     #[cold]
     #[inline(never)]
     pub(super) fn vue_template_patterns(&self, rule: Rule, p: usize) -> Template {
-        if rule == Rule::Root {
+        if rule == Rule::Root || rule == Rule::VueComponent {
             return Template::Done(self.vue_root_patterns(p));
         }
         let Some(rule) = rule.vue() else {
@@ -1058,7 +1061,8 @@ impl Lexer<'_> {
             | VueRule::Directive
             | VueRule::ExprString
             | VueRule::ExprBare
-            | VueRule::Expr => return Template::Done(None),
+            | VueRule::Expr
+            | VueRule::Component => return Template::Done(None),
         };
         if tag_stuff_first && self.g(p) {
             return Template::Done(Some(Hit::new(Pattern::Zero(Rule::VueTagStuff), p, p)));
@@ -1127,6 +1131,7 @@ impl Lexer<'_> {
             VueRule::Directive => self.vue_directive_end(p),
             VueRule::ExprString => (b == string_quote(self.top().carried)).then(|| one(1)),
             VueRule::ExprBare => bare_end(&self.s[..self.lim], p).then(zero),
+            VueRule::Component => self.starts(p, b"</").then(zero),
             VueRule::Body | VueRule::BodyWhile | VueRule::Expr => None,
         }
     }
@@ -1181,7 +1186,8 @@ impl Lexer<'_> {
             | VueRule::BodyWhile
             | VueRule::TemplateBody
             | VueRule::TemplateTagEnd
-            | VueRule::Expr => None,
+            | VueRule::Expr
+            | VueRule::Component => None,
         }
     }
 }
@@ -1211,8 +1217,6 @@ pub(super) enum Lexed {
     Json(crate::json::Dialect),
     #[cfg(feature = "lang-toml")]
     Toml,
-    /// A component: the block includes Vue's own root.
-    Vue,
     /// A TypeScript expression: a directive's value.
     Expression,
     /// TypeScript type parameters: the value of `generic`.
@@ -1257,8 +1261,7 @@ fn lexed(lang: Lang) -> Option<Lexed> {
         Lang::Json | Lang::Jsonc => None,
         #[cfg(not(feature = "lang-toml"))]
         Lang::Toml => None,
-        Lang::Vue => Some(Lexed::Vue),
-        Lang::Html | Lang::Pug | Lang::Stylus | Lang::Postcss | Lang::Json5 => None,
+        Lang::Vue | Lang::Html | Lang::Pug | Lang::Stylus | Lang::Postcss | Lang::Json5 => None,
     }
 }
 
@@ -1397,6 +1400,7 @@ pub(super) enum VueRule {
     ExprString,
     ExprBare,
     Expr,
+    Component,
 }
 
 impl Rule {
@@ -1427,6 +1431,7 @@ impl Rule {
             Rule::VueExpressionString => VueRule::ExprString,
             Rule::VueExpressionBare => VueRule::ExprBare,
             Rule::VueExpression => VueRule::Expr,
+            Rule::VueComponent => VueRule::Component,
             Rule::Root
             | Rule::Comment
             | Rule::Cdata
