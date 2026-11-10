@@ -50,6 +50,17 @@ const DFA_CACHE: usize = 1 << 22;
 /// The deepest grammar Shiki 4.6.0 bundles, `typst`, reaches 63.
 const MAX_DEPTH: usize = 256;
 
+/// How many entries flattening may visit, over every list of a grammar.
+///
+/// A rule's list holds the rules of the containers it includes.
+/// A chain of containers, each including the next, makes those lists grow
+/// with the square of the chain's length.
+/// The chain need not nest while it compiles, so [`MAX_DEPTH`] does not
+/// bound it.
+/// The grammar Shiki 4.6.0 bundles that visits the most, `typst`, visits
+/// 217,673, about a nineteenth of the bound.
+const MAX_FLATTEN_STEPS: usize = 1 << 22;
+
 /// The most hand-offs a grammar can hold.
 /// The tokenizer looks a list's hand-off up as a `u8`, one load a step.
 const MAX_HAND_OFFS: usize = 256;
@@ -74,6 +85,9 @@ pub(crate) enum LinkError {
     /// Rules include each other more than [`MAX_DEPTH`] deep, as a
     /// repository whose every entry includes the next does.
     TooDeep,
+    /// Following the includes visits more than [`MAX_FLATTEN_STEPS`] entries,
+    /// as a long chain of containers does.
+    TooLarge,
 }
 
 impl std::fmt::Display for LinkError {
@@ -95,6 +109,12 @@ impl std::fmt::Display for LinkError {
             LinkError::TooManyNames => f.write_str("the grammar names too many scopes"),
             LinkError::TooDeep => {
                 write!(f, "rules include each other more than {MAX_DEPTH} deep")
+            }
+            LinkError::TooLarge => {
+                write!(
+                    f,
+                    "following the includes visits more than {MAX_FLATTEN_STEPS} entries"
+                )
             }
         }
     }
@@ -200,7 +220,7 @@ pub(crate) fn link(
     if builder.too_deep {
         return Err(LinkError::TooDeep);
     }
-    builder.flatten();
+    builder.flatten()?;
     builder.finish(root_rule, &injections)
 }
 
@@ -618,20 +638,27 @@ impl<'a> Builder<'a> {
 
     /// Replaces every container in a list with the rules of its own list,
     /// each container once, so only rules that match are left.
-    fn flatten(&mut self) {
-        let flat: Vec<Vec<Entry>> = (0..self.rules.len())
-            .map(|id| {
-                let mut out = Vec::new();
-                let mut seen = HashSet::from([id]);
-                if let Some(rule) = self.rules.get(id) {
-                    expand(&self.rules, &rule.patterns, &mut out, &mut seen);
-                }
-                out
-            })
-            .collect();
+    ///
+    /// It fails past [`MAX_FLATTEN_STEPS`] entries visited.
+    fn flatten(&mut self) -> Result<(), LinkError> {
+        let mut budget = MAX_FLATTEN_STEPS;
+        let mut flat = Vec::with_capacity(self.rules.len());
+        for (id, rule) in self.rules.iter().enumerate() {
+            let mut out = Vec::new();
+            let mut seen = HashSet::from([id]);
+            expand(
+                &self.rules,
+                &rule.patterns,
+                &mut out,
+                &mut seen,
+                &mut budget,
+            )?;
+            flat.push(out);
+        }
         for (rule, patterns) in self.rules.iter_mut().zip(flat) {
             rule.patterns = patterns;
         }
+        Ok(())
     }
 
     /// Whether a rule reachable from `start` through the lists holds a
@@ -776,12 +803,21 @@ impl<'a> Builder<'a> {
 /// Appends the rules of `list` to `out`, with each container's own rules in
 /// its place, unless `seen` already holds it.
 ///
+/// Each entry visited takes one step from `budget`.
+/// It fails when the budget runs out.
+///
 /// It walks with a stack of its own.
 /// Containers can nest as deep as a repository chains entries.
 /// [`MAX_DEPTH`] does not bound that.
 /// A chain whose entries are compiled from the far end stays shallow while
 /// it compiles.
-fn expand(rules: &[Draft<'_>], list: &[Entry], out: &mut Vec<Entry>, seen: &mut HashSet<usize>) {
+fn expand(
+    rules: &[Draft<'_>],
+    list: &[Entry],
+    out: &mut Vec<Entry>,
+    seen: &mut HashSet<usize>,
+    budget: &mut usize,
+) -> Result<(), LinkError> {
     let mut stack: Vec<(&[Entry], usize)> = vec![(list, 0)];
     while let Some(top) = stack.last_mut() {
         let (entries, at) = *top;
@@ -790,6 +826,7 @@ fn expand(rules: &[Draft<'_>], list: &[Entry], out: &mut Vec<Entry>, seen: &mut 
             continue;
         };
         top.1 += 1;
+        *budget = budget.checked_sub(1).ok_or(LinkError::TooLarge)?;
         match entry {
             Entry::Rule(id)
                 if rules
@@ -805,6 +842,7 @@ fn expand(rules: &[Draft<'_>], list: &[Entry], out: &mut Vec<Entry>, seen: &mut 
             Entry::Rule(_) | Entry::HandOff(_) => out.push(entry),
         }
     }
+    Ok(())
 }
 
 /// The rule named `name` in `repository`.

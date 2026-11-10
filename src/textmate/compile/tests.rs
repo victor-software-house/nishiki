@@ -161,6 +161,24 @@ fn a_grammar_injects_itself_where_it_names_the_root() {
 /// A repository of `entries` rules, each including the next, and a root
 /// that includes the first.
 fn chain(entries: usize) -> String {
+    chain_with_root(entries, r##"{"include": "#r0"}"##)
+}
+
+/// The chain of [`chain`], with a root that includes every entry from the
+/// far end.
+/// Each entry then compiles after the one it includes, so the link never
+/// nests deep while it compiles.
+fn chain_from_far_end(entries: usize) -> String {
+    let includes: Vec<String> = (0..entries)
+        .rev()
+        .map(|i| format!(r##"{{"include": "#r{i}"}}"##))
+        .collect();
+    chain_with_root(entries, &includes.join(", "))
+}
+
+/// A repository of `entries` rules, each including the next, and a root
+/// whose patterns are `root`.
+fn chain_with_root(entries: usize, root: &str) -> String {
     let repository: Vec<String> = (0..entries)
         .map(|i| {
             format!(
@@ -170,7 +188,7 @@ fn chain(entries: usize) -> String {
         })
         .collect();
     format!(
-        r##"{{"scopeName": "source.a", "patterns": [{{"include": "#r0"}}], "repository": {{{}}}}}"##,
+        r#"{{"scopeName": "source.a", "patterns": [{root}], "repository": {{{}}}}}"#,
         repository.join(", ")
     )
 }
@@ -186,6 +204,19 @@ fn a_chain_of_includes_within_the_depth_bound_links() {
     let root = grammar(&chain(200));
     let tables = link(&root, &[], None).unwrap();
     assert_eq!(list_patterns(tables, tables.root).len(), 200);
+}
+
+#[test]
+fn a_long_chain_compiled_from_its_far_end_is_refused() {
+    let root = grammar(&chain_from_far_end(100_000));
+    assert_eq!(link(&root, &[], None).unwrap_err(), LinkError::TooLarge);
+}
+
+#[test]
+fn a_short_chain_compiled_from_its_far_end_links() {
+    let root = grammar(&chain_from_far_end(1_000));
+    let tables = link(&root, &[], None).unwrap();
+    assert_eq!(list_patterns(tables, tables.root).len(), 1_000);
 }
 
 #[cfg(feature = "lang-css")]
