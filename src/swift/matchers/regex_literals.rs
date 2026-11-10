@@ -111,7 +111,7 @@ enum Step {
 }
 
 /// The first alternative that starts a group with the options before a `:`.
-const GROUP_KINDS: [&[u8]; 17] = [
+const GROUP_NAMES: [&[u8]; 17] = [
     b"atomic",
     b"pla",
     b"positive_lookahead",
@@ -1378,14 +1378,14 @@ impl Lexer<'_> {
         Some(minor)
     }
 
-    /// What follows `(` in a group: `(\?)(?:…)` or `\*(kind):`, from `q`.
+    /// What follows `(` in a group: `(\?)(?:…)` or `\*(name):`, from `q`.
     fn group_head(&self, q: usize, spans: &mut Spans) -> Option<usize> {
         if self.at(q) == b'*' {
-            let kind = GROUP_KINDS
+            let name_end = GROUP_NAMES
                 .iter()
-                .find_map(|kind| self.lit(q + 1, kind).filter(|&end| self.at(end) == b':'))?;
-            spans.push(2, q, kind + 1);
-            return Some(kind + 1);
+                .find_map(|name| self.lit(q + 1, name).filter(|&end| self.at(end) == b':'))?;
+            spans.push(2, q, name_end + 1);
+            return Some(name_end + 1);
         }
         if self.at(q) != b'?' {
             return None;
@@ -1393,14 +1393,14 @@ impl Lexer<'_> {
         let r = q + 1;
         let mut found = *spans;
         found.push(3, q, r);
-        let end = self.group_kind(r, &mut found)?;
+        let end = self.group_alternatives(r, &mut found)?;
         found.push(2, q, end);
         *spans = found;
         Some(end)
     }
 
     /// The alternatives after `(?` in a group, from `r`.
-    fn group_kind(&self, r: usize, spans: &mut Spans) -> Option<usize> {
+    fn group_alternatives(&self, r: usize, spans: &mut Spans) -> Option<usize> {
         if b"!*:=>|".contains(&self.at(r)) && r < self.lim() {
             spans.push(4, r, r + 1);
             return Some(r + 1);

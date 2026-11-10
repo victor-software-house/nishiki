@@ -18,7 +18,7 @@ pub(in crate::swift) struct Memo {
 }
 
 /// The declaration keywords an import may name: `import struct A.B`.
-const IMPORT_KINDS: [&[u8]; 8] = [
+const IMPORT_KEYWORDS: [&[u8]; 8] = [
     b"typealias",
     b"struct",
     b"class",
@@ -906,8 +906,8 @@ impl Lexer<'_> {
         if !(self.g && p == self.pos) || self.at_statement_end(p) {
             return None;
         }
-        for kind in IMPORT_KINDS {
-            if let Some(end) = self.lit(p, kind) {
+        for keyword in IMPORT_KEYWORDS {
+            if let Some(end) = self.lit(p, keyword) {
                 let next = self.blank_end(end);
                 if next > end {
                     self.cap(1, p, end);

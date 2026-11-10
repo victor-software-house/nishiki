@@ -68,9 +68,9 @@ enum AfterMember {
     Allowed,
 }
 
-/// The two kinds of string whose text stops before an interpolation.
+/// The two string literals whose text stops before an interpolation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum StringKind {
+enum StringLiteral {
     /// `"""`, interpolated with `\(`.
     Plain,
     /// `#"""`, interpolated with `\#(`.
@@ -278,21 +278,21 @@ impl Lexer<'_> {
     /// The star gives back to the last `"""` before the interpolation.
     /// Every start in a run asks about the same stop.
     /// The search is therefore kept.
-    fn string_text_before_triple(&self, p: usize, kind: StringKind) -> Option<usize> {
+    fn string_text_before_triple(&self, p: usize, literal: StringLiteral) -> Option<usize> {
         let (c, start) = self.char_at(p).filter(|_| p < self.lim())?;
         if is_space(c) {
             return None;
         }
-        let cell = match kind {
-            StringKind::Raw => &self.x.literals.raw,
-            StringKind::Plain => &self.x.literals.plain,
+        let cell = match literal {
+            StringLiteral::Raw => &self.x.literals.raw,
+            StringLiteral::Plain => &self.x.literals.plain,
         };
         let found = match cell.get() {
             Some(known) if known.from <= start && start <= known.end => known,
             _ => {
-                let interpolation: &[u8] = match kind {
-                    StringKind::Raw => b"\\#(",
-                    StringKind::Plain => b"\\(",
+                let interpolation: &[u8] = match literal {
+                    StringLiteral::Raw => b"\\#(",
+                    StringLiteral::Plain => b"\\(",
                 };
                 let stop = (start..self.lim())
                     .find(|&i| self.starts(i, interpolation))
@@ -832,8 +832,8 @@ impl Lexer<'_> {
         let name = self.lit(p, b"#")?;
         let end = self.word_end(name);
         let word = self.text(name, end);
-        let kind = word.strip_suffix(b"Literal")?;
-        matches!(kind, b"color" | b"image" | b"file").then_some(end)
+        let object = word.strip_suffix(b"Literal")?;
+        matches!(object, b"color" | b"image" | b"file").then_some(end)
     }
 
     /// `\B#externalMacro\b`, for `LiteralsAt5`.
@@ -864,11 +864,11 @@ impl Lexer<'_> {
         self.cap(1, p, name);
         self.cap(2, name, paren);
         let accessor = self.space_end(paren);
-        let kind = accessor + 6;
-        let colon = self.space_end(kind);
-        let tail = self.text(accessor, kind);
+        let accessor_end = accessor + 6;
+        let colon = self.space_end(accessor_end);
+        let tail = self.text(accessor, accessor_end);
         if (tail == b"getter" || tail == b"setter") && self.at(colon) == b':' {
-            self.cap(3, accessor, kind);
+            self.cap(3, accessor, accessor_end);
             self.cap(4, colon, colon + 1);
             return Some(colon + 1);
         }
@@ -877,11 +877,11 @@ impl Lexer<'_> {
 
     /// `\S((?!\\#\().)*(?=""")`, for `LiteralsStringAt1At3`.
     pub(in crate::swift) fn rx_literals_string_at_1_at_3(&mut self, p: usize) -> Option<usize> {
-        self.string_text_before_triple(p, StringKind::Raw)
+        self.string_text_before_triple(p, StringLiteral::Raw)
     }
 
     /// `\S((?!\\\().)*(?=""")`, for `LiteralsStringAt0At3`.
     pub(in crate::swift) fn rx_literals_string_at_0_at_3(&mut self, p: usize) -> Option<usize> {
-        self.string_text_before_triple(p, StringKind::Plain)
+        self.string_text_before_triple(p, StringLiteral::Plain)
     }
 }
