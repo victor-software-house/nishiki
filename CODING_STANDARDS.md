@@ -316,7 +316,7 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
   - a URL, or an action pinned to a commit;
   - an import or a regex literal in TypeScript;
   - a Markdown table row;
-  - a regex in a matcher's docs, in a code block or a code span;
+  - a matcher's regex in the docs of a matchers module, in a `text` block or a code span, written with no whitespace;
   - a JSON string.
 - `bench/corpus/`, `oracle/inputs/` and `tests/oracle/` hold language text and the oracle's output, outside the bound.
 - Three exemptions are temporary, each until the change that removes it:
