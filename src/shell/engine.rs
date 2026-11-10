@@ -15,7 +15,7 @@
 
 use std::cell::Cell;
 
-use super::rules::{Act, Pat, rule_info};
+use super::rules::{Act, Pat, rule_definition};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
@@ -417,7 +417,7 @@ impl<'a> Lexer<'a> {
                 }
                 let rule = Rule::from_code(frame.rule);
                 let parent = lexer.top().content;
-                let name = lexer.path(parent, rule_info(rule).name);
+                let name = lexer.path(parent, rule_definition(rule).name);
                 lexer.frames.push(Frame {
                     rule,
                     enter: None,
@@ -790,10 +790,10 @@ impl<'a> Lexer<'a> {
             return;
         }
         self.flags.failed = false;
-        let info = rule_info(rule);
+        let definition = rule_definition(rule);
         let parent = self.top().content;
-        let name = self.path(parent, info.name);
-        let content = match info.content_delimiter {
+        let name = self.path(parent, definition.name);
+        let content = match definition.content_delimiter {
             Some(prefix) => {
                 self.name.clear();
                 self.name.push_str(prefix);
@@ -801,7 +801,7 @@ impl<'a> Lexer<'a> {
                     .push_str(self.arena.string(payload).trim_start_matches('.'));
                 self.spelled_path(name)
             }
-            None => self.path(name, info.content),
+            None => self.path(name, definition.content),
         };
         let state = self
             .arena
@@ -1122,7 +1122,7 @@ impl<'a> Lexer<'a> {
         halt: &dyn Halt,
         after: Option<&dyn Halt>,
     ) -> Option<(usize, Pat, usize)> {
-        let info = rule_info(self.top().rule);
+        let definition = rule_definition(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
         while p <= self.lim {
@@ -1134,9 +1134,9 @@ impl<'a> Lexer<'a> {
             let list: &[Pat] = if p < self.lim || self.nl {
                 let byte = if p < self.lim { self.s[p] } else { b'\n' };
                 let prev = if p > 0 { self.s[p - 1] } else { 0 };
-                info.candidates(p == self.pos, p == 0, prev, byte)
+                definition.candidates(p == self.pos, p == 0, prev, byte)
             } else {
-                &info.order
+                &definition.order
             };
             for &pat in list {
                 if full && matches!(pat.act(), Act::Begin(_) | Act::BeginChosen) {
@@ -1153,7 +1153,7 @@ impl<'a> Lexer<'a> {
                 self.halted = Some(p);
                 return None;
             }
-            if info.skip_blanks
+            if definition.skip_blanks
                 && p < self.lim
                 && matches!(self.s[p], b' ' | b'\t')
                 && p > 0
@@ -1176,8 +1176,8 @@ impl<'a> Lexer<'a> {
 
     /// The text that ends the innermost rule when it is a literal.
     pub(crate) fn top_end_lit(&self) -> (&'static [u8], Scopes<S>) {
-        let info = rule_info(self.top().rule);
-        (info.end_lit, info.end_scopes)
+        let definition = rule_definition(self.top().rule);
+        (definition.end_lit, definition.end_scopes)
     }
 
     /// The innermost rule.

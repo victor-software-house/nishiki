@@ -150,7 +150,7 @@ pub(crate) enum Pat {
     EndFi,
     EndBacktickComment,
     EndBacktickCommentLine,
-    /// The rule's own literal, `RuleInfo::end_lit`.
+    /// The rule's own literal, `RuleDefinition::end_lit`.
     EndLit,
 }
 
@@ -526,9 +526,9 @@ impl Pat {
     }
 }
 
-/// What a rule adds and tries.
+/// What a rule adds and tries: its definition of the shell's rule table.
 #[derive(Debug)]
-pub(crate) struct RuleInfo {
+pub(crate) struct RuleDefinition {
     /// Scopes of everything in the rule, begin and end included.
     pub(crate) name: Scopes<S>,
     /// Scopes of what lies between begin and end.
@@ -547,7 +547,7 @@ pub(crate) struct RuleInfo {
     /// [`with_tables`] places the end among them.
     pub(crate) order: Box<[Pat]>,
     /// For the byte before a position: which zero-width patterns can match
-    /// there, as a slot of [`RuleInfo::candidates`].
+    /// there, as a slot of [`RuleDefinition::candidates`].
     after: [u8; 256],
     /// Where the candidates for a position are in `arena`, by [`Self::slot`].
     index: Vec<(usize, usize)>,
@@ -558,7 +558,7 @@ pub(crate) struct RuleInfo {
     pub(crate) skip_blanks: bool,
 }
 
-impl RuleInfo {
+impl RuleDefinition {
     /// The patterns that can match at a position with `byte` and `prev` at and
     /// before it, in order.
     /// `first` is whether it is the first position of a search, and `bol`
@@ -788,8 +788,13 @@ fn flatten(groups: &[&[&[Pat]]]) -> Box<[Pat]> {
         .collect()
 }
 
-fn info(name: Scopes<S>, content: Scopes<S>, end: Option<Pat>, groups: &[&[&[Pat]]]) -> RuleInfo {
-    RuleInfo {
+fn definition(
+    name: Scopes<S>,
+    content: Scopes<S>,
+    end: Option<Pat>,
+    groups: &[&[&[Pat]]],
+) -> RuleDefinition {
+    RuleDefinition {
         name,
         content,
         content_delimiter: None,
@@ -812,43 +817,43 @@ fn lit(
     lit: &'static [u8],
     scopes: Scopes<S>,
     groups: &[&[&[Pat]]],
-) -> RuleInfo {
-    RuleInfo {
+) -> RuleDefinition {
+    RuleDefinition {
         end_lit: lit,
         end_scopes: scopes,
-        ..info(name, content, Some(Pat::EndLit), groups)
+        ..definition(name, content, Some(Pat::EndLit), groups)
     }
 }
 
-fn heredoc(prefix: &'static str, groups: &[&[&[Pat]]]) -> RuleInfo {
-    RuleInfo {
+fn heredoc(prefix: &'static str, groups: &[&[&[Pat]]]) -> RuleDefinition {
+    RuleDefinition {
         content_delimiter: Some(prefix),
-        ..info(S::NO_SCOPES, S::NO_SCOPES, Some(Pat::EndHeredoc), groups)
+        ..definition(S::NO_SCOPES, S::NO_SCOPES, Some(Pat::EndHeredoc), groups)
     }
 }
 
 #[expect(clippy::too_many_lines, reason = "one arm per rule, a table")]
-fn build(rule: Rule) -> RuleInfo {
+fn build(rule: Rule) -> RuleDefinition {
     const NORMAL: &[&[Pat]] = NORMAL_CONTEXT;
     const INITIAL: &[&[Pat]] = INITIAL_CONTEXT;
     const TYPICAL: &[&[Pat]] = TYPICAL_STATEMENTS;
     const LOGICAL: &[&[Pat]] = LOGICAL_CONTEXT;
     const OPTION: &[&[Pat]] = OPTION_CONTEXT;
     match rule {
-        Rule::Root | Rule::RetokInitial => info(S::NO_SCOPES, S::NO_SCOPES, None, &[INITIAL]),
-        Rule::Alias => info(
+        Rule::Root | Rule::RetokInitial => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[INITIAL]),
+        Rule::Alias => definition(
             scopes![S::MetaExpressionAssignmentAlias],
             S::NO_SCOPES,
             Some(Pat::EndAlias),
             &[NORMAL],
         ),
-        Rule::Argument => info(
+        Rule::Argument => definition(
             scopes![S::MetaArgument],
             S::NO_SCOPES,
             Some(Pat::EndArg),
             &[&[ARGUMENT_MATCH], NORMAL, &[LINE_CONTINUATION]],
         ),
-        Rule::ArithDouble => info(
+        Rule::ArithDouble => definition(
             scopes![S::MetaArithmetic],
             S::NO_SCOPES,
             Some(Pat::EndArithDouble),
@@ -872,7 +877,7 @@ fn build(rule: Rule) -> RuleInfo {
                 &[UNQUOTED],
             ],
         ),
-        Rule::Case => info(
+        Rule::Case => definition(
             scopes![S::MetaCase],
             S::NO_SCOPES,
             Some(Pat::EndCase),
@@ -881,13 +886,13 @@ fn build(rule: Rule) -> RuleInfo {
                 &[Pat::CaseDefault, Pat::CasePatternB, Pat::CaseBodyB],
             ]],
         ),
-        Rule::CasePattern => info(
+        Rule::CasePattern => definition(
             scopes![S::MetaCaseEntryPattern],
             S::NO_SCOPES,
             Some(Pat::EndCasePattern),
             &[&[CASE_CONTEXT, STRING, &[Pat::CaseChar]]],
         ),
-        Rule::CaseBody => info(
+        Rule::CaseBody => definition(
             scopes![S::MetaCaseEntryBody],
             S::NO_SCOPES,
             Some(Pat::EndCaseBody),
@@ -910,7 +915,7 @@ fn build(rule: Rule) -> RuleInfo {
             scopes![S::PunctuationDefinitionCharacterClass],
             &[&[&[Pat::Escape]]],
         ),
-        Rule::CommandStatement => info(
+        Rule::CommandStatement => definition(
             scopes![S::MetaStatementCommand],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
@@ -923,7 +928,7 @@ fn build(rule: Rule) -> RuleInfo {
                 HEREDOC,
             ]],
         ),
-        Rule::CommandName => info(
+        Rule::CommandName => definition(
             scopes![S::MetaStatementCommandName],
             S::NO_SCOPES,
             Some(Pat::EndCmdName),
@@ -935,13 +940,13 @@ fn build(rule: Rule) -> RuleInfo {
                 UNQUOTED,
             ]],
         ),
-        Rule::CommandQuotedDouble => info(
+        Rule::CommandQuotedDouble => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             Some(Pat::EndCmdQuotedDouble),
             &[&[&[Pat::ContinuationSingleB, Pat::ContinuationDoubleB]]],
         ),
-        Rule::CommandQuotedSingle => info(
+        Rule::CommandQuotedSingle => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             Some(Pat::EndCmdQuotedSingle),
@@ -981,21 +986,21 @@ fn build(rule: Rule) -> RuleInfo {
             ],
             &[],
         ),
-        Rule::ForIn => info(
+        Rule::ForIn => definition(
             scopes![S::MetaForIn],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[STRING, UNQUOTED], NORMAL],
         ),
-        Rule::For => info(
+        Rule::For => definition(
             scopes![S::MetaFor],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[ARITH_DOUBLE], NORMAL],
         ),
-        Rule::Function => RuleInfo {
+        Rule::Function => RuleDefinition {
             end_last: true,
-            ..info(
+            ..definition(
                 scopes![S::MetaFunction],
                 S::NO_SCOPES,
                 Some(Pat::EndFunction),
@@ -1056,13 +1061,13 @@ fn build(rule: Rule) -> RuleInfo {
             scopes![S::PunctuationDefinitionEvaluationBackticks],
             &[&[&[Pat::BtEscape, Pat::BacktickCommentB]], INITIAL],
         ),
-        Rule::BacktickComment => info(
+        Rule::BacktickComment => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             Some(Pat::EndBacktickComment),
             &[&[&[Pat::BacktickCommentLineB]]],
         ),
-        Rule::BacktickCommentLine => info(
+        Rule::BacktickCommentLine => definition(
             scopes![S::CommentLineNumberSign],
             S::NO_SCOPES,
             Some(Pat::EndBacktickCommentLine),
@@ -1082,25 +1087,25 @@ fn build(rule: Rule) -> RuleInfo {
             scopes![S::PunctuationDefinitionLogicalExpression],
             &[LOGICAL],
         ),
-        Rule::LoopFor => info(
+        Rule::LoopFor => definition(
             scopes![S::MetaScopeForInLoop],
             S::NO_SCOPES,
             Some(Pat::EndDone),
             &[INITIAL],
         ),
-        Rule::LoopWhile => info(
+        Rule::LoopWhile => definition(
             scopes![S::MetaScopeWhileLoop],
             S::NO_SCOPES,
             Some(Pat::EndDone),
             &[INITIAL],
         ),
-        Rule::LoopSelect => info(
+        Rule::LoopSelect => definition(
             scopes![S::MetaScopeSelectBlock],
             S::NO_SCOPES,
             Some(Pat::EndDone),
             &[INITIAL],
         ),
-        Rule::LoopIf => info(
+        Rule::LoopIf => definition(
             scopes![S::MetaScopeIfBlock],
             S::NO_SCOPES,
             Some(Pat::EndFi),
@@ -1113,7 +1118,7 @@ fn build(rule: Rule) -> RuleInfo {
             scopes![S::PunctuationDefinitionGroup],
             &[INITIAL],
         ),
-        Rule::Modified => info(
+        Rule::Modified => definition(
             scopes![S::MetaStatement, S::MetaExpressionAssignmentModified],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
@@ -1122,7 +1127,7 @@ fn build(rule: Rule) -> RuleInfo {
                 NORMAL,
             ],
         ),
-        Rule::NormalAssign => info(
+        Rule::NormalAssign => definition(
             scopes![S::MetaExpressionAssignment],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
@@ -1136,19 +1141,19 @@ fn build(rule: Rule) -> RuleInfo {
                 NORMAL,
             ],
         ),
-        Rule::EnvCommand => info(
+        Rule::EnvCommand => definition(
             scopes![S::MetaStatementCommandEnv],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[&[&[Pat::CmdNameB], LINE_CONTINUATION, OPTION_B, ARG_B, STRING]],
         ),
-        Rule::NormalStatement => info(
+        Rule::NormalStatement => definition(
             scopes![S::MetaStatement],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
             &[TYPICAL],
         ),
-        Rule::Option => info(
+        Rule::Option => definition(
             S::NO_SCOPES,
             scopes![S::StringUnquotedArgumentBare, S::ConstantOtherOptionBare],
             Some(Pat::EndOption),
@@ -1242,7 +1247,7 @@ fn build(rule: Rule) -> RuleInfo {
                 STRING,
             ]],
         ),
-        Rule::While => info(
+        Rule::While => definition(
             scopes![S::MetaWhile],
             S::NO_SCOPES,
             Some(Pat::EndStatement),
@@ -1252,21 +1257,21 @@ fn build(rule: Rule) -> RuleInfo {
                 &[STRING],
             ],
         ),
-        Rule::RetokArgument => info(
+        Rule::RetokArgument => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
             &[&[&[Pat::WildcardStar], VARIABLE, NUMERIC, &[Pat::BoolArg]]],
         ),
-        Rule::RetokOptions => info(S::NO_SCOPES, S::NO_SCOPES, None, &[&[&[Pat::ModOption]]]),
-        Rule::RetokString => info(S::NO_SCOPES, S::NO_SCOPES, None, &[&[STRING]]),
-        Rule::RetokArrayAccess => info(
+        Rule::RetokOptions => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[&[&[Pat::ModOption]]]),
+        Rule::RetokString => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[&[STRING]]),
+        Rule::RetokArrayAccess => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
             &[&[&[Pat::SpecialExpansion], STRING, VARIABLE]],
         ),
-        Rule::RetokHeredocRest => info(
+        Rule::RetokHeredocRest => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
@@ -1287,16 +1292,16 @@ fn build(rule: Rule) -> RuleInfo {
 ///
 /// `every_rule_fits_its_tables` checks both, so the fallbacks never apply.
 /// What each pattern needs is computed once, so the lists only look it up.
-fn with_tables(mut info: RuleInfo) -> RuleInfo {
+fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
     let mut order: Vec<Pat> = Vec::new();
-    if let Some(end) = info.end
-        && !info.end_last
+    if let Some(end) = definition.end
+        && !definition.end_last
     {
         order.push(end);
     }
-    order.extend(info.order.iter().copied());
-    if let Some(end) = info.end
-        && info.end_last
+    order.extend(definition.order.iter().copied());
+    if let Some(end) = definition.end
+        && definition.end_last
     {
         order.push(end);
     }
@@ -1320,7 +1325,7 @@ fn with_tables(mut info: RuleInfo) -> RuleInfo {
             masks.push(mask);
             masks.len() - 1
         };
-        info.after[usize::from(b)] = u8::try_from(slot).unwrap_or_default();
+        definition.after[usize::from(b)] = u8::try_from(slot).unwrap_or_default();
     }
     let classes: Vec<([bool; 256], Option<usize>)> = order
         .iter()
@@ -1341,7 +1346,7 @@ fn with_tables(mut info: RuleInfo) -> RuleInfo {
                 Start::After(_) => zero = zero_width.iter().position(|&(p, _)| p == pat),
                 Start::Any => class = [true; 256],
                 Start::Never => {
-                    if let Some(&b) = info.end_lit.first().filter(|_| pat == Pat::EndLit) {
+                    if let Some(&b) = definition.end_lit.first().filter(|_| pat == Pat::EndLit) {
                         class[usize::from(b)] = true;
                     }
                 }
@@ -1368,38 +1373,39 @@ fn with_tables(mut info: RuleInfo) -> RuleInfo {
                 let place = if let Some(&place) = known.get(&list) {
                     place
                 } else {
-                    let place = (info.arena.len(), list.len());
-                    info.arena.extend_from_slice(&list);
+                    let place = (definition.arena.len(), list.len());
+                    definition.arena.extend_from_slice(&list);
                     known.insert(list, place);
                     place
                 };
-                info.index.push(place);
+                definition.index.push(place);
             }
         }
     }
-    info.skip_blanks = !order.iter().any(|pat| matches!(pat.start(), Start::Any));
-    info.order = order.into_boxed_slice();
-    info
+    definition.skip_blanks = !order.iter().any(|pat| matches!(pat.start(), Start::Any));
+    definition.order = order.into_boxed_slice();
+    definition
 }
 
 /// Every rule's table, indexed by [`Rule::index`], built when first needed.
-static TABLE: [OnceLock<RuleInfo>; Rule::ALL.len()] = [const { OnceLock::new() }; Rule::ALL.len()];
+static TABLE: [OnceLock<RuleDefinition>; Rule::ALL.len()] =
+    [const { OnceLock::new() }; Rule::ALL.len()];
 
-/// The table of `rule`.
-pub(crate) fn rule_info(rule: Rule) -> &'static RuleInfo {
+/// The definition of `rule`.
+pub(crate) fn rule_definition(rule: Rule) -> &'static RuleDefinition {
     TABLE[rule.index()].get_or_init(move || with_tables(build(rule)))
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{Start, rule_info};
+    use super::{Start, rule_definition};
     use crate::shell::state::Rule;
 
     #[test]
     fn every_rule_fits_its_tables() {
         for &rule in Rule::ALL {
-            let info = rule_info(rule);
-            let zero_width = info
+            let definition = rule_definition(rule);
+            let zero_width = definition
                 .order
                 .iter()
                 .filter(|pat| matches!(pat.start(), Start::After(_)))
@@ -1408,7 +1414,11 @@ mod tests {
                 zero_width <= 8,
                 "{rule:?}: {zero_width} zero-width patterns"
             );
-            assert!(info.slots() <= 256, "{rule:?}: {} sets", info.slots());
+            assert!(
+                definition.slots() <= 256,
+                "{rule:?}: {} sets",
+                definition.slots()
+            );
         }
     }
 }

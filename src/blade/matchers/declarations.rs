@@ -360,13 +360,13 @@ impl Lexer<'_> {
         if let Some((default, _)) = default {
             self.cap(5, default.equals, default.equals + 1);
             match default.value {
-                Value::Null(to) => self.cap(6, default.from, to),
-                Value::Brackets(close) => {
+                DefaultValue::Null(to) => self.cap(6, default.from, to),
+                DefaultValue::Brackets(close) => {
                     self.cap(7, default.from, default.from + 1);
                     self.cap(8, default.from + 1, close);
                     self.cap(9, close, close + 1);
                 }
-                Value::Text(to) => self.cap(10, default.from, to),
+                DefaultValue::Text(to) => self.cap(10, default.from, to),
             }
         }
         Some(end)
@@ -388,27 +388,27 @@ impl Lexer<'_> {
         if let Some(to) = self.ilit(from, b"null")
             && let Some(end) = self.parameter_tail(to)
         {
-            return Some((default(Value::Null(to)), end));
+            return Some((default(DefaultValue::Null(to)), end));
         }
         if self.at(from) == b'['
             && let Some(close) = self.balanced(from + 1, true)
             && let Some(end) = self.parameter_tail(close + 1)
         {
-            return Some((default(Value::Brackets(close)), end));
+            return Some((default(DefaultValue::Brackets(close)), end));
         }
         let mut to = from;
         while to < self.lim() && self.space_at(to) == 0 {
             if self.starts(to, b"()")
                 && let Some(end) = self.parameter_tail(to + 2)
             {
-                return Some((default(Value::Text(to + 2)), end));
+                return Some((default(DefaultValue::Text(to + 2)), end));
             }
             to = self.char_end(to);
         }
         let mut to = from;
         loop {
             if let Some(end) = self.parameter_tail(to) {
-                return Some((default(Value::Text(to)), end));
+                return Some((default(DefaultValue::Text(to)), end));
             }
             if to >= self.lim() || self.space_at(to) > 0 {
                 return None;
@@ -733,12 +733,12 @@ struct Default {
     /// Where the value starts.
     from: usize,
     /// The value.
-    value: Value,
+    value: DefaultValue,
 }
 
 /// The value of an array parameter's default.
 #[derive(Clone, Copy)]
-enum Value {
+enum DefaultValue {
     /// `null`, ending at the value.
     Null(usize),
     /// `[…]`, with where its `]` stands.

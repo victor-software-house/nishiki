@@ -26,7 +26,7 @@ pub(super) enum Sigil {
 
 /// The value of an attribute selector.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Value {
+enum AttributeValue {
     /// The name group, ending here.
     Bare(usize),
     /// A string in `quote`s, whose closing one is at `close`.
@@ -279,19 +279,19 @@ impl Lexer<'_> {
     /// It is the name group, or a quoted string up to a quote that `\s*]`
     /// follows.
     /// The lazy `(.*?)` takes the first such quote.
-    fn attribute_value(&self, p: usize) -> Option<Value> {
+    fn attribute_value(&self, p: usize) -> Option<AttributeValue> {
         let quote = self.at(p);
         if quote == b'"' || quote == b'\'' {
             return self
                 .quote_bracket(quote, p + 1)
-                .map(|close| Value::Quoted { quote, close });
+                .map(|close| AttributeValue::Quoted { quote, close });
         }
         let mut at = p;
         while let Some(next) = self.name_unit(at, DotDollar::Allowed) {
             at = next;
         }
         self.spend(at - p);
-        (at > p).then_some(Value::Bare(at))
+        (at > p).then_some(AttributeValue::Bare(at))
     }
 
     /// The first `quote` at or after `from` that `\s*]` follows.
@@ -331,15 +331,15 @@ impl Lexer<'_> {
             let start = self.spaces(equals);
             if let Some(value) = self.attribute_value(start) {
                 let end = match value {
-                    Value::Bare(end) => end,
-                    Value::Quoted { close, .. } => close + 1,
+                    AttributeValue::Bare(end) => end,
+                    AttributeValue::Quoted { close, .. } => close + 1,
                 };
                 let bracket = self.spaces(end);
                 if self.at(bracket) == b']' {
                     self.cap(3, op, equals);
                     match value {
-                        Value::Bare(end) => self.cap(4, start, end),
-                        Value::Quoted { quote, close } => {
+                        AttributeValue::Bare(end) => self.cap(4, start, end),
+                        AttributeValue::Quoted { quote, close } => {
                             let first = if quote == b'"' { 5 } else { 9 };
                             self.cap(first, start, close + 1);
                             self.cap(first + 1, start, start + 1);
