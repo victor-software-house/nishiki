@@ -26,6 +26,13 @@ pub(crate) trait Sealed: Sized {
     /// itself.
     type Lexer: Copy + Debug;
 
+    /// The buffers the syntax keeps beside the highlighter's scratch.
+    ///
+    /// The scratch holds a field per language, so a language needs none.
+    /// A grammar a caller brings to the rule engine has no field there, and
+    /// keeps its buffers here.
+    type Buffers: Debug + Default;
+
     /// The state at the start of a document whose scopes sit on `base`.
     fn start(lexer: Self::Lexer, arena: &mut Arena, base: u32) -> u32;
 
@@ -48,6 +55,7 @@ impl Syntax for Language {}
 
 impl Sealed for Language {
     type Lexer = Language;
+    type Buffers = ();
 
     fn start(lexer: Language, arena: &mut Arena, base: u32) -> u32 {
         lexer.start(arena, base)
@@ -59,9 +67,13 @@ impl Sealed for Language {
         state: &mut State,
         out: &mut Vec<Token>,
     ) -> LineReport {
-        lex_line(highlighter, line, state, out, |language, cx, text, from| {
-            language.lex(cx, text, from)
-        })
+        lex_line(
+            highlighter,
+            line,
+            state,
+            out,
+            |language, (), cx, text, from| language.lex(cx, text, from),
+        )
     }
 }
 
@@ -79,6 +91,8 @@ impl Sealed for Language {
 pub struct Highlighter<S: Syntax = Language> {
     /// What the highlighter lexes with.
     lexer: S::Lexer,
+    /// The syntax's own buffers, which take no space for a [`Language`].
+    buffers: S::Buffers,
     /// Everything else the highlighter keeps.
     store: Store,
 }
@@ -174,6 +188,7 @@ impl<S: Syntax> Highlighter<S> {
         let start = S::start(lexer, &mut arena, ROOT);
         Highlighter {
             lexer,
+            buffers: S::Buffers::default(),
             store: Store {
                 limits,
                 arena,
@@ -214,6 +229,7 @@ impl<S: Syntax> Highlighter<S> {
         store.start = S::start(self.lexer, &mut store.arena, ROOT);
         store.scratch = Scratch::default();
         store.styles.forget();
+        self.buffers = S::Buffers::default();
     }
 
     /// Lexes `line`, which excludes its line ending, starting from `state`.
@@ -294,9 +310,13 @@ pub(crate) fn lex_line<S: Syntax>(
     line: &str,
     state: &mut State,
     out: &mut Vec<Token>,
-    lex: impl FnOnce(S::Lexer, &mut Context<'_>, Line<'_>, u32) -> u32,
+    lex: impl FnOnce(S::Lexer, &mut S::Buffers, &mut Context<'_>, Line<'_>, u32) -> u32,
 ) -> LineReport {
-    let Highlighter { lexer, store } = highlighter;
+    let Highlighter {
+        lexer,
+        buffers,
+        store,
+    } = highlighter;
     let mut report = LineReport::default();
     let from = if state.0 == ROOT {
         store.start
@@ -328,7 +348,7 @@ pub(crate) fn lex_line<S: Syntax>(
         embedded: false,
         anchored_at_root: false,
     };
-    let to = lex(*lexer, &mut cx, text, from);
+    let to = lex(*lexer, buffers, &mut cx, text, from);
     *state = State(if to == store.start { ROOT } else { to });
     report
 }
@@ -430,5 +450,13 @@ mod tests {
         for (cached, direct) in styles(&mut highlighter, &theme, "# a comment") {
             assert_eq!(cached, direct);
         }
+    }
+
+    /// A language keeps no buffers beside the scratch.
+    /// Its highlighter is then the size of the language and the store alone.
+    #[test]
+    fn a_language_highlighter_has_no_room_for_buffers() {
+        assert_eq!(size_of::<<Language as Sealed>::Buffers>(), 0);
+        assert_eq!(size_of::<Highlighter>(), size_of::<(Language, Store)>());
     }
 }

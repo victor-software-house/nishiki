@@ -100,6 +100,7 @@ impl Syntax for Table {}
 
 impl Sealed for Table {
     type Lexer = Table;
+    type Buffers = ();
 
     fn start(lexer: Table, arena: &mut Arena, base: u32) -> u32 {
         tokenizer::start(arena, lexer.0, base)
@@ -111,9 +112,13 @@ impl Sealed for Table {
         state: &mut State,
         out: &mut Vec<Token>,
     ) -> LineReport {
-        lex_line(highlighter, line, state, out, |table, cx, text, from| {
-            super::lex_linked(cx, table.0, text, from)
-        })
+        lex_line(
+            highlighter,
+            line,
+            state,
+            out,
+            |table, (), cx, text, from| super::lex_linked(cx, table.0, text, from),
+        )
     }
 }
 
