@@ -143,7 +143,12 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     On `a24a3823` the [coverage check][run-735-cov] passed.
     Its build failed on an inherited line width before the tests ran.
     On `46ef3042`, which holds both, the [oracle test][run-739-ci] passed.
-- [ ] 3.23 Blade: `blade`
+- [x] 3.23 Blade: `blade`
+  - 2026-11-10 UTC, [PR 743][pr743]: a written input added.
+    `blade` is complete with 36 waived units.
+    The 12 in Blade's own rules set `unprobed`.
+    Task 3.24 gives them probes.
+    On `ee3eae06`, which holds PR 743, the [oracle test][run-745-ci] and the [coverage check][run-745-cov] passed.
 - [ ] 3.24 Probe Blade's own rules
   - `oracle/blade-grammar.ts` gives ids only to Blade's copy of PHP.
     The hand engine answers the `#blade` rules and the injection rules outside `Pattern::ALL`.
@@ -234,3 +239,6 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr736]: https://github.com/victor-software-house/nishiki-archive/pull/736
 [run-735-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42898172630
 [run-739-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42907168855
+[pr743]: https://github.com/victor-software-house/nishiki-archive/pull/743
+[run-745-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42916505148
+[run-745-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42916504586
