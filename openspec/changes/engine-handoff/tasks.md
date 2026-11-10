@@ -67,8 +67,10 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
 
 - [ ] 2.1 Julia's table without engine copies → verify: its compiled size before and after
 - [ ] 2.2 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
-- [ ] 2.3 A capture whose rule includes a hand-lexed grammar hands its text off, as CoffeeScript's backticks do → verify: the `coffee/coffeescript-javascript-literals` fixture matches Shiki
-  - [#417][pr417] opened on 2026-11-04.
+- [x] 2.3 A capture whose rule includes a hand-lexed grammar hands its text off, as CoffeeScript's backticks do → verify: the `coffee/coffeescript-javascript-literals` fixture matches Shiki
+  - 2026-11-04: [#417][pr417] opened, and merged the same day.
+  - 2026-11-10: `oracle::every_language_matches_shiki` compares the `coffee/coffeescript-javascript-literals` fixture.
+    It passed on main at fab8c57c ([run][run-main-oracle]).
 - [x] 2.4 Hand off a region whose end pattern uses `\G`, as Shiki does.
   → verify: the grammar links with the language named through `Grammars::hand_off`, and its fixture matches Shiki
   - Moved from the `grammar-api` change when it was archived.
@@ -151,6 +153,7 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
 [pr381]: https://github.com/victor-software-house/nishiki-archive/pull/381
 [pr388]: https://github.com/victor-software-house/nishiki-archive/pull/388
 [pr417]: https://github.com/victor-software-house/nishiki-archive/pull/417
+[run-main-oracle]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42855984002
 [ci365]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837615709
 [ci366]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837614919
 [ci376]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837829593
