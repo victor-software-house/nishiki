@@ -21,8 +21,6 @@ const templateRendered = {
     ".github/workflows/secrets.yml",
     ".github/workflows/template.yml",
     ".rumdl.toml",
-    "mise-tasks/check/features.sh",
-    "mise-tasks/check/local.sh",
     "mise-tasks/check/repo.sh",
     "mise-tasks/hooks/lockfile.sh",
     "mise-tasks/hooks/secrets/history.sh",
