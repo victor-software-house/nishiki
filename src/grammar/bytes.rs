@@ -58,7 +58,7 @@ pub(super) fn write(grammar: &Compiled) -> Vec<u8> {
     let mut out = Vec::with_capacity(HEADER + body.0.len());
     out.extend_from_slice(MAGIC);
     out.extend_from_slice(&VERSION.to_le_bytes());
-    out.extend_from_slice(&number(body.0.len()).to_le_bytes());
+    out.extend_from_slice(&to_u32(body.0.len()).to_le_bytes());
     out.extend_from_slice(&body.0);
     out
 }
@@ -93,7 +93,7 @@ pub(super) fn read(bytes: &[u8]) -> Result<Compiled, Reason> {
 }
 
 /// `n` as the format's `u32`, or `u32::MAX` when it does not fit.
-fn number(n: usize) -> u32 {
+fn to_u32(n: usize) -> u32 {
     u32::try_from(n).unwrap_or(u32::MAX)
 }
 
@@ -203,7 +203,7 @@ impl Writer {
     }
 
     fn count(&mut self, n: usize) {
-        self.0.extend_from_slice(&number(n).to_le_bytes());
+        self.0.extend_from_slice(&to_u32(n).to_le_bytes());
     }
 }
 
@@ -368,7 +368,7 @@ fn check_shape(grammar: &Compiled, starts: &[usize]) -> Result<(), Reason> {
         .chain(grammar.repository.iter().map(|(_, id)| id))
         .chain(grammar.injections.iter().map(|(_, id)| id));
     for &id in top {
-        place(&mut depth, id, 1, HEADER)?;
+        set_depth(&mut depth, id, 1, HEADER)?;
     }
     for (id, rule) in grammar.rules.iter().enumerate() {
         let at = starts.get(id).copied().unwrap_or(HEADER);
@@ -379,7 +379,7 @@ fn check_shape(grammar: &Compiled, starts: &[usize]) -> Result<(), Reason> {
             if child <= id {
                 return Err(Reason::Malformed { at });
             }
-            place(&mut depth, child, level + 1, at)?;
+            set_depth(&mut depth, child, level + 1, at)?;
         }
     }
     Ok(())
@@ -388,7 +388,12 @@ fn check_shape(grammar: &Compiled, starts: &[usize]) -> Result<(), Reason> {
 /// Records that rule `id` sits at `level`, named from the rule at offset
 /// `at`.
 /// It fails when `id` is out of range, already named, or too deep.
-fn place(depth: &mut [Option<usize>], id: RuleId, level: usize, at: usize) -> Result<(), Reason> {
+fn set_depth(
+    depth: &mut [Option<usize>],
+    id: RuleId,
+    level: usize,
+    at: usize,
+) -> Result<(), Reason> {
     match depth.get_mut(id) {
         Some(slot @ None) if level <= MAX_DEPTH => {
             *slot = Some(level);

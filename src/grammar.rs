@@ -44,12 +44,12 @@ impl Grammar {
     ///
     /// When `json` is not JSON, or has no string `scopeName`.
     pub fn from_json(json: &str) -> Result<Grammar, GrammarError> {
-        if let Some(&compiled) = loaded().json.get(json) {
+        if let Some(&compiled) = loaded_grammars().json.get(json) {
             return Ok(Grammar(compiled));
         }
         let compiled = compile(json).map_err(|error| GrammarError(Reason::Compile(error)))?;
-        let mut loaded = loaded();
-        let interned = loaded
+        let mut grammars = loaded_grammars();
+        let interned = grammars
             .json
             .entry(json.into())
             .or_insert_with(|| Box::leak(Box::new(compiled)));
@@ -66,12 +66,12 @@ impl Grammar {
     /// When the bytes come from another format version, are cut short, or
     /// hold a length or index out of range.
     pub fn from_bytes(bytes: &[u8]) -> Result<Grammar, GrammarError> {
-        if let Some(&compiled) = loaded().bytes.get(bytes) {
+        if let Some(&compiled) = loaded_grammars().bytes.get(bytes) {
             return Ok(Grammar(compiled));
         }
         let compiled = bytes::read(bytes).map_err(GrammarError)?;
-        let mut loaded = loaded();
-        let interned = loaded
+        let mut grammars = loaded_grammars();
+        let interned = grammars
             .bytes
             .entry(bytes.into())
             .or_insert_with(|| Box::leak(Box::new(compiled)));
@@ -243,20 +243,20 @@ impl error::Error for GrammarError {
 
 /// The grammars loaded in this process, by the text they were loaded from.
 #[derive(Default)]
-struct Loaded {
+struct LoadedGrammars {
     json: HashMap<Box<str>, &'static Compiled>,
     bytes: HashMap<Box<[u8]>, &'static Compiled>,
 }
 
 /// Every grammar this process loaded.
-static LOADED: LazyLock<Mutex<Loaded>> = LazyLock::new(Mutex::default);
+static LOADED: LazyLock<Mutex<LoadedGrammars>> = LazyLock::new(Mutex::default);
 
 /// The loaded grammars, locked.
 ///
 /// Each change to the maps is one insert.
 /// A thread that panicked while it held the lock therefore left them whole.
 /// A poisoned lock is still read.
-fn loaded() -> MutexGuard<'static, Loaded> {
+fn loaded_grammars() -> MutexGuard<'static, LoadedGrammars> {
     LOADED.lock().unwrap_or_else(PoisonError::into_inner)
 }
 
@@ -274,7 +274,7 @@ struct LinkKey {
 }
 
 /// Every table this process linked, by what the link read.
-static LINKED: LazyLock<Mutex<HashMap<LinkKey, &'static textmate::Grammar>>> =
+static LINKED_TABLES: LazyLock<Mutex<HashMap<LinkKey, &'static textmate::Grammar>>> =
     LazyLock::new(Mutex::default);
 
 /// The engine's table for `root` linked with `grammars`, linked once per
@@ -282,13 +282,16 @@ static LINKED: LazyLock<Mutex<HashMap<LinkKey, &'static textmate::Grammar>>> =
 ///
 /// It links while it holds the lock, so two threads never leak two tables
 /// for one key.
-fn linked(root: Grammar, grammars: &Grammars) -> Result<&'static textmate::Grammar, GrammarError> {
+fn linked_table(
+    root: Grammar,
+    grammars: &Grammars,
+) -> Result<&'static textmate::Grammar, GrammarError> {
     let key = LinkKey {
         root,
         set: grammars.grammars.clone(),
         handed: grammars.handed.clone(),
     };
-    let mut cache = LINKED.lock().unwrap_or_else(PoisonError::into_inner);
+    let mut cache = LINKED_TABLES.lock().unwrap_or_else(PoisonError::into_inner);
     if let Some(&table) = cache.get(&key) {
         return Ok(table);
     }
@@ -356,7 +359,7 @@ impl Highlighter<Grammar> {
         grammars: &Grammars,
         limits: Limits,
     ) -> Result<Self, GrammarError> {
-        let table = linked(grammar, grammars)?;
+        let table = linked_table(grammar, grammars)?;
         Ok(Self::with_lexer(GrammarLexer { grammar, table }, limits))
     }
 
