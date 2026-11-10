@@ -13,7 +13,7 @@
   → verify: CI passes, and Identity shows no change
 - [ ] 2.2 The `codegen` and `format` features, `ToTokens` for `Grammar` and `Grammar::to_rust`, with doctests and a build-script example.
   → verify: the doctests and the example run in CI, and `check:size` shows no change for any tier
-- [ ] 2.3 `nishiki::unstable` and its cfg setup, with the docs.rs settings and a CI build with the cfg.
+- [ ] 2.3 `nishiki::unstable` and its cfg setup, with the docs.rs settings and a CI build with the cfg; `Payload` becomes `CarriedState`.
   → verify: the docs.rs preview shows the module with its badge, and the semver check runs without the cfg
 
 ## 3. The writer

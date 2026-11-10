@@ -63,4 +63,5 @@ The operator chose Rust for every generator (2026-11-10).
   `fence-stops.ts` becomes a check in `codegen/`.
 - `oracle/facts/`: three fact files, written by the scripts that keep measuring.
 - `tests/engine/grammars/`: the grammars of the 32 rule-engine languages it lacks.
+  Each family appends its grammars to `oracle/engine-grammars.ts` and their licences to `oracle/licences.ts`.
 - `AGENTS.md` and `CODING_STANDARDS.md`: the rule that Rust writes generated Rust, and the semver exemption of `nishiki::unstable`.

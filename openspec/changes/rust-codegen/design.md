@@ -28,7 +28,7 @@ Most of it is four features, each written several times:
 
 The shared files are [`oracle/rule-grammar.ts`][rule-grammar] (994 lines), [`oracle/rule-generator.ts`][rule-generator] (803) and `oracle/php-family-grammar.ts` (801).
 
-### 1.2 Every script, by what it asks
+### 1.2 Every script, by oracle
 
 A part that asks Shiki or Oniguruma stays JavaScript.
 A part that only reads grammars and writes Rust moves to Rust.
@@ -121,7 +121,8 @@ The operator chose these dependencies on 2026-11-10.
 - `impl quote::ToTokens for Grammar`, with `codegen`.
   The tokens are an expression of type `Grammar`, built in a `static` with no work at run time.
   A build script writes them to `OUT_DIR`, and the program reads them with `include!`, as the [Cargo book][cargo-build-scripts] shows.
-- `Grammar::to_rust(self) -> String`, with `format`.
+- `Grammar::to_rust(&self) -> String`, with `format`.
+  It borrows, as the API guidelines' `to_` prefix does ([C-CONV][c-conv]), so a caller can keep using the grammar.
   It returns a file that holds `pub static GRAMMAR: nishiki::Grammar = …;`, laid out by prettyplease.
   The program writes `mod demo { include!(concat!(env!("OUT_DIR"), "/demo.rs")); }` and uses `demo::GRAMMAR`.
 - Neither can fail, so neither has an `# Errors` section.
@@ -132,7 +133,9 @@ The operator chose these dependencies on 2026-11-10.
 The tokens name the unlinked model's types.
 They sit in a `#[doc(hidden)] pub mod __private`, outside the documented API.
 The tokens open with `const _: () = ::nishiki::__private::FORMAT_1;`.
-A program built with tokens from another nishiki version then fails to compile with a name that says why, instead of running wrong tables.
+A program built with tokens from another nishiki version then fails to compile.
+The missing name shows the cause, and no program runs with wrong tables.
+
 The build-script example writes the tokens on every build, so its tables always match the nishiki it links.
 
 ### 5.3 The unlinked model in a `static`
@@ -152,10 +155,10 @@ This refactor is its own first pull request, with no behaviour change.
 The rule engine becomes public under a cfg, as tokio does with `tokio_unstable`:
 
 - Cargo features unify across a dependency graph, so a cfg is the opt-in.
-  [tokio's docs][tokio-unstable-docs] say the flag lets a caller opt in to APIs that may break semver.
+  In [tokio's docs][tokio-unstable-docs], the flag is how a caller opts in to APIs that may break semver.
 - `nishiki::unstable` compiles only with `--cfg nishiki_unstable`.
   It holds the rule engine's `Grammar` trait, `Act`, the pattern definitions, the matcher signature, `RuleSyntax<G>` for `Highlighter<S: Syntax>`, and `unstable::codegen`.
-- Its module docs say it is exempt from semver and may change in any patch release.
+- Its module docs state that it is exempt from semver and may change in any patch release.
   `AGENTS.md` "Releases" gains the rule: items under `nishiki::unstable` never force a minor.
 - `[lints.rust] unexpected_cfgs = { level = "warn", check-cfg = ['cfg(nishiki_unstable)'] }`, as in [tokio's workspace manifest][tokio-check-cfg].
 - `[package.metadata.docs.rs]` adds `rustdoc-args = ["--cfg", "docsrs", "--cfg", "nishiki_unstable"]` and `rustc-args = ["--cfg", "nishiki_unstable"]`, as in [tokio's manifest][tokio-docs-rs].
@@ -243,7 +246,7 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
 | Output | Writer | Why |
 |:--|:--|:--|
 | Structured code: enums, `match` arms, rule tables, start tables | `quote`, laid out by `prettyplease` | syn and rust-analyzer build code this way, by the [research][research] |
-| Numeric tables: Unicode ranges, folds, word blobs | `numbers.rs`, which fills each line up to 100 columns | prettyplease fills only arrays of plain literals ([`simple_array`][prettyplease-array]); unicode-ident and ucd-generate write tables with a plain writer |
+| Numeric tables: Unicode ranges, folds, word blobs | `numbers.rs`, which fills each line up to 100 columns | prettyplease fills only arrays of plain literals ([`simple_array`][prettyplease-array]) |
 
 - prettyplease's output depends only on its version.
   rustfmt's output depends on the toolchain, so the system rustfmt never lays out a committed file.
@@ -268,8 +271,21 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
   No second JSON reader is written.
 - It reads each expression with the crate's parser, `regex::parse::parse`, and its tree, `regex::ast::Node`.
   Both become `pub(crate)` in a pull request that moves nothing else.
-- Its modules, each one job: `flatten.rs` (includes and pattern lists, with vscode-textmate's drop rule), `split.rs` (a `$N` scope name into one pattern per alternative), `starts.rs` (section 8.3), `tables.rs` (the typed model: `Rule`, `Pattern`, `Capture`, `ScopeName`, `Payload`), `names.rs` (identifiers such as `KwControl` and `RootAt3`), `matchers.rs` (section 5.5) and one writer per output file.
+- Its modules each do one job:
+
+  | Module | Job |
+  |:--|:--|
+  | `flatten.rs` | includes and pattern lists, with vscode-textmate's drop rule |
+  | `split.rs` | a `$N` scope name into one pattern per alternative |
+  | `starts.rs` | section 8.3 |
+  | `tables.rs` | the typed model: `Rule`, `Pattern`, `Capture`, `ScopeName`, `CarriedState` |
+  | `names.rs` | identifiers such as `KwControl` and `RootAt3` |
+  | `matchers.rs` | section 5.5 |
+  | one writer per output file | its file |
+
 - An act is `Match`, `Begin`, `End` or `While`, each with its own data, and every match on it is exhaustive.
+- `CarriedState` is what a rule carries from line to line: nothing, the text of a begin group its end repeats, or an embedded language's state.
+  The rule engine calls it `Payload` today, and task 2.3 renames it when it becomes public.
 
 ### 8.2 Per-language values
 
@@ -286,7 +302,7 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
 | `word_lists` | each list read from an expression, by pattern id and its bounds | `words` |
 | `backref_start` | `BackrefStart::Quote` or `BackrefStart::Any` | `startTable`'s argument |
 | `matchers` | `HandMatchers::All`, or the patterns with a hand matcher | every pattern, by hand |
-| `extra` | outputs that are code, each a function of the model | the six one-off outputs |
+| `added_outputs` | the files a language adds, each a function of the model | the six one-off outputs |
 
 - The values are Rust, so the compiler checks every field, and no second file format exists.
 - The six one-off outputs stay with their languages: C#'s `How` table, Swift's `dispatch.rs`, and C++'s, Julia's, Svelte's and CoffeeScript's.
@@ -298,7 +314,10 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
 
 - `starts.rs` ports `startOf`, `canMatchEmpty` and `takesOneBlank` from `oracle/rule-grammar.ts`.
   It reads the parser's tree instead of the expression's text.
-- It computes the same facts: the first-byte set, the places a match can start, whether it can match at the end, and whether it can take one blank.
+- It computes the same facts:
+  - the first-byte set, and the places a match can start;
+  - whether it can match at the end;
+  - whether it can take one blank.
 - The tree folds `(?i)` characters into classes of their orbits, which the TypeScript reader does not.
   A set can then gain the first byte of a character such as the Kelvin sign.
   Such a set is still sound, but it differs.
@@ -334,6 +353,7 @@ The stable surface of section 5.2 cannot fail.
   `format` adds 2 more ([research][research], section 5).
 - Default builds and `all` gain none.
 - `codegen/` adds `serde_json` and `serde` with `derive`, for the facts, in its own manifest only.
+  nishiki's own JSON reader is `pub(crate)` and built for grammars, so the facts use serde_json in `codegen/` alone.
 - The size and build time of each feature are measured on a box (task 1.2), and the numbers go here.
 
 ## 11. The proof
@@ -351,7 +371,10 @@ The stable surface of section 5.2 cannot fail.
 
 ### 12.1 Default matchers
 
-A throwaway branch, never pushed, swaps each hand matcher of Protocol Buffers, Zig and Lua for the default.
+A prototype branch, `research/default-matchers`, swaps each hand matcher of Protocol Buffers, Zig and Lua for the default.
+It is pushed with no pull request, so no CI runs.
+A research note links it at a pinned commit (`openspec/AGENTS.md` rule 7).
+
 Callgrind counts the lexing pass over each language's oracle fixtures, both ways, at one codegen unit (`bench/AGENTS.md` rule 12).
 The numbers go here when they land.
 
@@ -378,6 +401,7 @@ The numbers go here when they land.
 7. The last family deletes `oracle/rule-generator.ts`, `oracle/rule-grammar.ts`, `oracle/php-family-grammar.ts` and `check:rule-grammars`.
 8. The 7 word scripts and `fence-stops.ts` move into `codegen/`.
 
+[c-conv]: https://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html
 [prettyplease-array]: https://github.com/dtolnay/prettyplease/blob/49e50897b580a5b7591ead6ef73f3fe09e76d896/src/expr.rs
 [prost-format]: https://github.com/tokio-rs/prost/blob/b3f73911a2dca69a798fff418d35ed07e30edbc3/prost-build/src/config.rs
