@@ -13,7 +13,7 @@
 //! When the first run of a length fails strikethrough's check, no run of that
 //! length closes.
 
-use super::stops::{Kind, Step, Stops};
+use super::stops::{Opener, Step, Stops};
 use super::titles::{Shut, Titles};
 
 /// A delimiter whose runs open and close a span.
@@ -177,12 +177,12 @@ impl Runs {
     pub(crate) fn walk_long(
         &mut self,
         text: (usize, usize, usize),
-        kind: Kind,
+        opener: Opener,
         start: usize,
         mut step: impl FnMut(&mut Runs, usize) -> Step,
     ) -> Option<usize> {
         let mut stops = std::mem::take(&mut self.held.get_or_insert_with(Box::default).stops);
-        let found = stops.walk(text, kind, start, |q| step(self, q));
+        let found = stops.walk(text, opener, start, |q| step(self, q));
         self.held.get_or_insert_with(Box::default).stops = stops;
         found
     }

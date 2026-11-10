@@ -10,7 +10,7 @@
 use super::caps::Caps;
 use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
 use super::runs::{Closer, Delim, Open, Runs, Span};
-use super::stops::{Kind, PLAIN_STEPS, Step};
+use super::stops::{Opener, PLAIN_STEPS, Step};
 use super::text::Cx;
 use super::titles::Shut;
 
@@ -174,14 +174,14 @@ fn long_look_ahead(
     len: usize,
     emphasis: Emphasis,
 ) -> Option<usize> {
-    let kind = match (emphasis, mark) {
-        (Emphasis::Bold, b'*') => Kind::BoldStar,
-        (Emphasis::Bold, _) => Kind::BoldUnderscore,
-        (Emphasis::Italic, b'*') => Kind::ItalicStar,
-        (Emphasis::Italic, _) => Kind::ItalicUnderscore,
+    let opener = match (emphasis, mark) {
+        (Emphasis::Bold, b'*') => Opener::BoldStar,
+        (Emphasis::Bold, _) => Opener::BoldUnderscore,
+        (Emphasis::Italic, b'*') => Opener::ItalicStar,
+        (Emphasis::Italic, _) => Opener::ItalicUnderscore,
     };
     let text = (cx.line.as_ptr().addr(), cx.line.len(), cx.end);
-    runs.walk_long(text, kind, q, |runs, at| {
+    runs.walk_long(text, opener, q, |runs, at| {
         let next = emphasis_atom(cx, runs, at, mark, len, emphasis).unwrap_or(at);
         if next == at {
             return Step::Stop;
@@ -526,7 +526,7 @@ fn destination(
     cx: &Cx<'_>,
     runs: &mut Runs,
     open: usize,
-    kind: Destination,
+    owner: Destination,
     caps: &mut Caps,
 ) -> Option<usize> {
     caps.set(5, open, open + 1);
@@ -547,7 +547,7 @@ fn destination(
                 angle.set(8, start + 1, i);
             }
             angle.set(9, i, i + 1);
-            if let Some(end) = destination_tail(cx, runs, i + 1, kind, &mut angle) {
+            if let Some(end) = destination_tail(cx, runs, i + 1, owner, &mut angle) {
                 *caps = angle;
                 return Some(end);
             }
@@ -558,7 +558,7 @@ fn destination(
     if url_end > start {
         caps.set(10, start, url_end);
     }
-    destination_tail(cx, runs, url_end, kind, caps)
+    destination_tail(cx, runs, url_end, owner, caps)
 }
 
 /// `[\t ]*(title)?\s*(\))` after the destination, ending at the parenthesis.
@@ -571,7 +571,7 @@ fn destination_tail(
     cx: &Cx<'_>,
     runs: &mut Runs,
     p: usize,
-    kind: Destination,
+    owner: Destination,
     caps: &mut Caps,
 ) -> Option<usize> {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
@@ -583,7 +583,7 @@ fn destination_tail(
             _ => (18, Shut::Single),
         };
         let shut = title_close(open);
-        let i = match kind {
+        let i = match owner {
             Destination::Link => {
                 let mut i = at + 1;
                 while let Some(b) = cx.get(i) {
@@ -600,8 +600,9 @@ fn destination_tail(
         if cx.over() {
             return None;
         }
-        let closes =
-            cx.get(i) == Some(shut) && (kind == Destination::Link || i > at + 1) && fits(cx, i + 1);
+        let closes = cx.get(i) == Some(shut)
+            && (owner == Destination::Link || i > at + 1)
+            && fits(cx, i + 1);
         if closes {
             caps.set(first, at, i + 1);
             caps.set(first + 1, at, at + 1);
@@ -655,7 +656,7 @@ fn inline_link(
     runs: &mut Runs,
     p: usize,
     bang: bool,
-    kind: Destination,
+    owner: Destination,
     caps: &mut Caps,
 ) -> Option<usize> {
     let open = p + usize::from(bang);
@@ -674,7 +675,7 @@ fn inline_link(
     if cx.get(close + 1) != Some(b'(') {
         return None;
     }
-    destination(cx, runs, close + 1, kind, caps)
+    destination(cx, runs, close + 1, owner, caps)
 }
 
 /// `(!\[)(label)(])(\()…(\))`

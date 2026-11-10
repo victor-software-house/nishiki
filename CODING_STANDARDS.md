@@ -133,8 +133,8 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   - The embedding lexer adds that to its own count (`Steps::take_back`).
 - It counts only its own contexts against the depth limit.
   A pinned depth then gives it the same output wherever it is embedded.
-- A fence's `Kind` holds the embedded `Language`.
-  Markdown numbers the `Kind` codes of fences from `Language::ALL`.
+- A fence's `Container` holds the embedded `Language`.
+  Markdown numbers the `Container` codes of fences from `Language::ALL`.
   Adding a fence language is one entry in the fence table and its embedded scope in `rules::content_name`.
 
 ## 2. Speed

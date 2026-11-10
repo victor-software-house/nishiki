@@ -164,7 +164,7 @@ macro_rules! languages {
 
             /// The language's position in [`Language::ALL`]: its discriminant,
             /// since the enum and `ALL` list the rows in one order, which the
-            /// assertion below checks. Markdown numbers its fence kinds by it.
+            /// assertion below checks. Markdown numbers its fence containers by it.
             #[cfg(feature = "lang-markdown")]
             #[expect(
                 clippy::as_conversions,

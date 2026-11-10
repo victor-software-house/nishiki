@@ -9,7 +9,7 @@ const TAG: u16 = crate::tag::MARKDOWN;
 /// A container left open at the end of a line: a begin/end or begin/while rule
 /// of the Markdown grammar.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub(crate) enum Kind {
+pub(crate) enum Container {
     /// The document: outside every container.
     Base,
     /// `>` up to a line without `>`.
@@ -26,7 +26,7 @@ pub(crate) enum Kind {
     /// A fence of any other language up to the closing fence.
     /// The payload is the [`Fence`].
     FencePlain,
-    /// The lines inside a [`Kind::Fence`].
+    /// The lines inside a [`Container::Fence`].
     /// The embedded language's rules take them.
     /// The payload of an embedded body is the state of the embedded lexer.
     Body(Language),
@@ -50,13 +50,13 @@ pub(crate) enum Kind {
     /// A first line of dashes up to a line of the same dashes or `...`.
     /// The payload is the number of dashes.
     FrontMatter,
-    /// The YAML inside [`Kind::FrontMatter`].
+    /// The YAML inside [`Container::FrontMatter`].
     /// The payload is the YAML lexer's state.
     FrontMatterBody,
     /// A `<script>`, `<style>` or `<pre>` HTML block whose line does not close
     /// it, up to the line that does.
     HtmlRaw,
-    /// The lines inside [`Kind::HtmlRaw`] before the closing one.
+    /// The lines inside [`Container::HtmlRaw`] before the closing one.
     /// html-derivative takes them, and the payload is its state.
     HtmlRawBody,
     /// Any other HTML block, up to a blank line.
@@ -76,111 +76,111 @@ pub(crate) enum Kind {
     /// Without a PHP grammar, HTML therefore takes its body, as in Shiki.
     #[cfg(feature = "lang-html")]
     FencePhp,
-    /// The lines inside a [`Kind::FencePhp`].
+    /// The lines inside a [`Container::FencePhp`].
     /// The HTML lexer takes them under `meta.embedded.block.php`, and the
     /// payload is its state.
     #[cfg(feature = "lang-html")]
     BodyPhp,
 }
 
-impl Kind {
-    /// The `Kind` values whose code is their own, not a language's, in code
-    /// order.
-    /// A test checks that [`Kind::code`] agrees.
-    pub(super) const FIXED: &[Kind] = &[
-        Kind::Base,
-        Kind::Quote,
-        Kind::ListBullet,
-        Kind::ListOrdered,
-        Kind::FencePlain,
-        Kind::RawBlock,
-        Kind::Table,
-        Kind::Paragraph,
-        Kind::Comment,
-        Kind::BoldStar,
-        Kind::BoldUnder,
-        Kind::ItalicStar,
-        Kind::ItalicUnder,
-        Kind::FrontMatter,
-        Kind::FrontMatterBody,
-        Kind::HtmlRaw,
-        Kind::HtmlRawBody,
-        Kind::HtmlBlock,
-        Kind::HtmlInline,
-        Kind::HtmlWrap,
+impl Container {
+    /// The `Container` values whose code is their own, not a language's, in
+    /// code order.
+    /// A test checks that [`Container::code`] agrees.
+    pub(super) const FIXED: &[Container] = &[
+        Container::Base,
+        Container::Quote,
+        Container::ListBullet,
+        Container::ListOrdered,
+        Container::FencePlain,
+        Container::RawBlock,
+        Container::Table,
+        Container::Paragraph,
+        Container::Comment,
+        Container::BoldStar,
+        Container::BoldUnder,
+        Container::ItalicStar,
+        Container::ItalicUnder,
+        Container::FrontMatter,
+        Container::FrontMatterBody,
+        Container::HtmlRaw,
+        Container::HtmlRawBody,
+        Container::HtmlBlock,
+        Container::HtmlInline,
+        Container::HtmlWrap,
         #[cfg(feature = "lang-html")]
-        Kind::FencePhp,
+        Container::FencePhp,
         #[cfg(feature = "lang-html")]
-        Kind::BodyPhp,
+        Container::BodyPhp,
     ];
 
-    /// The `Kind` as a frame stores it: the Markdown tag in the high byte and
-    /// an index in the low one.
-    /// The index is the position in [`Kind::FIXED`].
+    /// The `Container` as a frame stores it: the Markdown tag in the high byte
+    /// and an index in the low one.
+    /// The index is the position in [`Container::FIXED`].
     /// After those come two codes per language, its fence then its body, in
     /// [`Language::ALL`] order.
     /// A new language therefore needs no code of its own.
     pub(crate) fn code(self) -> u16 {
         let low = match self {
-            Kind::Base => 0,
-            Kind::Quote => 1,
-            Kind::ListBullet => 2,
-            Kind::ListOrdered => 3,
-            Kind::FencePlain => 4,
-            Kind::RawBlock => 5,
-            Kind::Table => 6,
-            Kind::Paragraph => 7,
-            Kind::Comment => 8,
-            Kind::BoldStar => 9,
-            Kind::BoldUnder => 10,
-            Kind::ItalicStar => 11,
-            Kind::ItalicUnder => 12,
-            Kind::FrontMatter => 13,
-            Kind::FrontMatterBody => 14,
-            Kind::HtmlRaw => 15,
-            Kind::HtmlRawBody => 16,
-            Kind::HtmlBlock => 17,
-            Kind::HtmlInline => 18,
-            Kind::HtmlWrap => 19,
+            Container::Base => 0,
+            Container::Quote => 1,
+            Container::ListBullet => 2,
+            Container::ListOrdered => 3,
+            Container::FencePlain => 4,
+            Container::RawBlock => 5,
+            Container::Table => 6,
+            Container::Paragraph => 7,
+            Container::Comment => 8,
+            Container::BoldStar => 9,
+            Container::BoldUnder => 10,
+            Container::ItalicStar => 11,
+            Container::ItalicUnder => 12,
+            Container::FrontMatter => 13,
+            Container::FrontMatterBody => 14,
+            Container::HtmlRaw => 15,
+            Container::HtmlRawBody => 16,
+            Container::HtmlBlock => 17,
+            Container::HtmlInline => 18,
+            Container::HtmlWrap => 19,
             #[cfg(feature = "lang-html")]
-            Kind::FencePhp => 20,
+            Container::FencePhp => 20,
             #[cfg(feature = "lang-html")]
-            Kind::BodyPhp => 21,
-            Kind::Fence(lang) => Kind::FIXED.len() + 2 * lang.index(),
-            Kind::Body(lang) => Kind::FIXED.len() + 2 * lang.index() + 1,
+            Container::BodyPhp => 21,
+            Container::Fence(lang) => Container::FIXED.len() + 2 * lang.index(),
+            Container::Body(lang) => Container::FIXED.len() + 2 * lang.index() + 1,
         };
         TAG | low_byte(low)
     }
 
-    /// The `Kind` a frame's code stands for.
-    /// It is [`Kind::Base`] for a code that is not Markdown's.
-    pub(crate) fn from_code(code: u16) -> Kind {
+    /// The `Container` a frame's code stands for.
+    /// It is [`Container::Base`] for a code that is not Markdown's.
+    pub(crate) fn from_code(code: u16) -> Container {
         if code & 0xff00 != TAG {
-            return Kind::Base;
+            return Container::Base;
         }
         let low = usize::from(code & 0xff);
-        if let Some(&kind) = Kind::FIXED.get(low) {
-            return kind;
+        if let Some(&container) = Container::FIXED.get(low) {
+            return container;
         }
-        let pair = low - Kind::FIXED.len();
+        let pair = low - Container::FIXED.len();
         match Language::ALL.get(pair / 2) {
-            Some(&lang) if pair.is_multiple_of(2) => Kind::Fence(lang),
-            Some(&lang) => Kind::Body(lang),
-            None => Kind::Base,
+            Some(&lang) if pair.is_multiple_of(2) => Container::Fence(lang),
+            Some(&lang) => Container::Body(lang),
+            None => Container::Base,
         }
     }
 }
 
-/// The fixed kinds and a fence and a body per language must fit the low byte of
-/// a code.
-/// A language past the limit would otherwise share a code with another kind.
-/// Adding one that does not fit therefore fails the build.
+/// The fixed containers and a fence and a body per language must fit the low
+/// byte of a code.
+/// A language past the limit would otherwise share a code with another
+/// container. Adding one that does not fit therefore fails the build.
 const _: () = assert!(
-    Kind::FIXED.len() + 2 * Language::ALL.len() <= 0x100,
-    "the Markdown kind codes no longer fit one byte"
+    Container::FIXED.len() + 2 * Language::ALL.len() <= 0x100,
+    "the Markdown container codes no longer fit one byte"
 );
 
-/// The low byte of a `Kind` code.
+/// The low byte of a `Container` code.
 /// The assertion above keeps it below 0x100.
 #[expect(
     clippy::as_conversions,
@@ -229,14 +229,15 @@ mod tests {
     use super::*;
 
     #[test]
-    fn every_kind_round_trips_through_its_code() {
+    fn every_container_round_trips_through_its_code() {
         let languages = Language::ALL
             .iter()
-            .flat_map(|&lang| [Kind::Fence(lang), Kind::Body(lang)]);
-        let kinds: Vec<Kind> = Kind::FIXED.iter().copied().chain(languages).collect();
-        for (index, kind) in kinds.iter().enumerate() {
-            assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
-            assert_eq!(Kind::from_code(kind.code()), *kind);
+            .flat_map(|&lang| [Container::Fence(lang), Container::Body(lang)]);
+        let containers: Vec<Container> =
+            Container::FIXED.iter().copied().chain(languages).collect();
+        for (index, container) in containers.iter().enumerate() {
+            assert_eq!(usize::from(container.code() & 0xff), index, "{container:?}");
+            assert_eq!(Container::from_code(container.code()), *container);
         }
     }
 }
