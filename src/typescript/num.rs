@@ -1,8 +1,8 @@
 //! Numeric literals, tried in the grammar's order.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 const PERIOD: S = S::MetaDelimiterDecimalPeriod;
 const BIGINT: S = S::StorageTypeNumericBigint;
@@ -205,16 +205,16 @@ impl<const D: u8> Lexer<'_, D> {
         let scope = number.scope;
         let mut at = p;
         if let Some((a, b)) = number.period {
-            self.capture(Kind::Top, at, a, &[scope]);
-            self.capture(Kind::Top, a, b, &[scope, PERIOD]);
+            self.capture(Rule::Top, at, a, &[scope]);
+            self.capture(Rule::Top, a, b, &[scope, PERIOD]);
             at = b;
         }
         if let Some(a) = number.big {
-            self.capture(Kind::Top, at, a, &[scope]);
-            self.capture(Kind::Top, a, a + 1, &[scope, BIGINT]);
+            self.capture(Rule::Top, at, a, &[scope]);
+            self.capture(Rule::Top, a, a + 1, &[scope, BIGINT]);
             at = a + 1;
         }
-        self.capture(Kind::Top, at, number.end, &[scope]);
+        self.capture(Rule::Top, at, number.end, &[scope]);
         Some(number.end)
     }
 }

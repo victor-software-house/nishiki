@@ -1,10 +1,10 @@
 //! Types: annotations, generics, object and function types.
 
 use super::bytes::{Bytes, COMMENT_START, DIGIT, NAME_START, STRING_START};
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::look::Annotation;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     /// The `type` rule group.
@@ -92,13 +92,13 @@ impl<const D: u8> Lexer<'_, D> {
     fn type_string(&mut self, p: usize) -> Option<usize> {
         match self.byte(p) {
             b'\'' => self.open_token(
-                Kind::StrSingle,
+                Rule::StrSingle,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
             ),
             b'"' => self.open_token(
-                Kind::StrDouble,
+                Rule::StrDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
@@ -129,7 +129,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Kind::TypeParams,
+            Rule::TypeParams,
             p,
             p + 1,
             &[S::PunctuationDefinitionTypeparametersBegin],
@@ -140,14 +140,14 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'[' {
             return None;
         }
-        self.open_token(Kind::TypeTuple, p, p + 1, &[S::MetaBraceSquare])
+        self.open_token(Rule::TypeTuple, p, p + 1, &[S::MetaBraceSquare])
     }
 
     pub(crate) fn type_object(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'{' {
             return None;
         }
-        self.open_token(Kind::TypeObj, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Rule::TypeObj, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     fn type_operators(&mut self, p: usize) -> Option<usize> {
@@ -160,12 +160,12 @@ impl<const D: u8> Lexer<'_, D> {
         let b = self.byte(p);
         if b == b'&' || b == b'|' {
             let j = self.ws(p + 1);
-            let kind = if self.byte(j) == b'{' {
-                Kind::TypeOpObj
+            let rule = if self.byte(j) == b'{' {
+                Rule::TypeOpObj
             } else {
-                Kind::TypeOp
+                Rule::TypeOp
             };
-            return self.open_token(kind, p, p + 1, &[S::KeywordOperatorType]);
+            return self.open_token(rule, p, p + 1, &[S::KeywordOperatorType]);
         }
         if let Some(e) = self.kw(p, "keyof") {
             return self.token_rule(p, e, S::KeywordOperatorExpressionKeyof);
@@ -198,14 +198,14 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         let meta = S::MetaTypeInfer;
-        self.capture(Kind::Top, p, e, &[meta, S::KeywordOperatorExpressionInfer]);
-        self.capture(Kind::Top, e, j, &[meta]);
-        self.capture(Kind::Top, j, n, &[meta, S::EntityNameType]);
+        self.capture(Rule::Top, p, e, &[meta, S::KeywordOperatorExpressionInfer]);
+        self.capture(Rule::Top, e, j, &[meta]);
+        self.capture(Rule::Top, j, n, &[meta, S::EntityNameType]);
         let m = self.ws(n);
         if m > n && self.starts(m, "extends") && self.kw_after(m + "extends".len()) {
-            self.capture(Kind::Top, n, m, &[meta]);
+            self.capture(Rule::Top, n, m, &[meta]);
             self.capture(
-                Kind::Top,
+                Rule::Top,
                 m,
                 m + "extends".len(),
                 &[meta, S::KeywordOperatorExpressionExtends],
@@ -222,9 +222,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Kind::TypeCond, p, e, &[S::StorageModifier]);
-        self.finish(Kind::TypeCond, j);
-        self.push(Kind::TypeCond);
+        self.capture(Rule::TypeCond, p, e, &[S::StorageModifier]);
+        self.finish(Rule::TypeCond, j);
+        self.push(Rule::TypeCond);
         Some(j)
     }
 
@@ -244,25 +244,25 @@ impl<const D: u8> Lexer<'_, D> {
                 self.flush(p);
                 let meta = S::MetaTypeConstructor;
                 if let Some(a) = abstract_end {
-                    self.capture(Kind::Top, p, a, &[meta, S::StorageModifier]);
+                    self.capture(Rule::Top, p, a, &[meta, S::StorageModifier]);
                 }
-                self.capture(Kind::Top, start, e, &[meta, S::KeywordControlNew]);
-                self.push(Kind::TypeCtorTp);
+                self.capture(Rule::Top, start, e, &[meta, S::KeywordControlNew]);
+                self.push(Rule::TypeCtorTp);
                 return Some(e);
             }
             if self.byte(after) == b'(' && !self.full() {
                 self.flush(p);
                 if let Some(a) = abstract_end {
-                    self.capture(Kind::TypeCtor, p, a, &[S::StorageModifier]);
+                    self.capture(Rule::TypeCtor, p, a, &[S::StorageModifier]);
                 }
-                self.capture(Kind::TypeCtor, start, e, &[S::KeywordControlNew]);
-                self.finish(Kind::TypeCtor, after);
-                self.push(Kind::TypeCtor);
+                self.capture(Rule::TypeCtor, start, e, &[S::KeywordControlNew]);
+                self.finish(Rule::TypeCtor, after);
+                self.push(Rule::TypeCtor);
                 return Some(after);
             }
         }
         if self.byte(p) == b'(' && self.type_function_ahead(p) {
-            return self.open_empty(Kind::TypeFn, p);
+            return self.open_empty(Rule::TypeFn, p);
         }
         None
     }
@@ -289,7 +289,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'(' {
             return None;
         }
-        self.open_token(Kind::TypeParen, p, p + 1, &[S::MetaBraceRound])
+        self.open_token(Rule::TypeParen, p, p + 1, &[S::MetaBraceRound])
     }
 
     pub(crate) fn type_function_return_type(&mut self, p: usize) -> Option<usize> {
@@ -297,19 +297,19 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let j = self.ws(p + 2);
-        let kind = if self.eol(j) {
-            Kind::TypeFnRet2
+        let rule = if self.eol(j) {
+            Rule::TypeFnRet2
         } else {
-            Kind::TypeFnRet1
+            Rule::TypeFnRet1
         };
-        self.open_token(kind, p, p + 2, &[S::StorageTypeFunctionArrow])
+        self.open_token(rule, p, p + 2, &[S::StorageTypeFunctionArrow])
     }
 
     fn type_readonly(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "readonly")?;
         let j = self.ws(e);
         self.token(p, e, &[S::StorageModifier]);
-        self.finish(Kind::Top, j);
+        self.finish(Rule::Top, j);
         Some(j)
     }
 
@@ -321,10 +321,10 @@ impl<const D: u8> Lexer<'_, D> {
             let k = self.ws(a);
             if self.byte(k) == b'<' && !self.full() {
                 self.flush(p);
-                self.capture(Kind::Top, p, e, &[S::EntityNameTypeModule]);
-                self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
+                self.capture(Rule::Top, p, e, &[S::EntityNameTypeModule]);
+                self.capture(Rule::Top, j, a, &[Self::accessor_scope(j, a)]);
                 self.capture(
-                    Kind::Top,
+                    Rule::Top,
                     k,
                     k + 1,
                     &[
@@ -332,19 +332,19 @@ impl<const D: u8> Lexer<'_, D> {
                         S::PunctuationDefinitionTypeparametersBegin,
                     ],
                 );
-                self.push(Kind::TypeNameArgs);
+                self.push(Rule::TypeNameArgs);
                 return Some(k + 1);
             }
             self.flush(p);
-            self.capture(Kind::Top, p, e, &[S::EntityNameTypeModule]);
-            self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
+            self.capture(Rule::Top, p, e, &[S::EntityNameTypeModule]);
+            self.capture(Rule::Top, j, a, &[Self::accessor_scope(j, a)]);
             return Some(a);
         }
         if self.byte(j) == b'<' && !self.full() {
             self.flush(p);
-            self.capture(Kind::Top, p, e, &[S::EntityNameType]);
+            self.capture(Rule::Top, p, e, &[S::EntityNameType]);
             self.capture(
-                Kind::Top,
+                Rule::Top,
                 j,
                 j + 1,
                 &[
@@ -352,7 +352,7 @@ impl<const D: u8> Lexer<'_, D> {
                     S::PunctuationDefinitionTypeparametersBegin,
                 ],
             );
-            self.push(Kind::TypeNameArgs);
+            self.push(Rule::TypeNameArgs);
             return Some(j + 1);
         }
         self.token_rule(p, e, S::EntityNameType)
@@ -364,12 +364,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let j = self.ws(p + 1);
-        let kind = if self.eol(j) {
-            Kind::TypeAnn2
+        let rule = if self.eol(j) {
+            Rule::TypeAnn2
         } else {
-            Kind::TypeAnn1
+            Rule::TypeAnn1
         };
-        self.open_token(kind, p, p + 1, &[S::KeywordOperatorTypeAnnotation])
+        self.open_token(rule, p, p + 1, &[S::KeywordOperatorTypeAnnotation])
     }
 
     /// `(:)` of a parameter's type annotation.
@@ -378,7 +378,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Kind::ParamTypeAnn,
+            Rule::ParamTypeAnn,
             p,
             p + 1,
             &[S::KeywordOperatorTypeAnnotation],
@@ -425,9 +425,9 @@ impl<const D: u8> Lexer<'_, D> {
             if self.byte(j) == b':' {
                 self.token(p, e, &[S::EntityNameLabel]);
                 if let Some(at) = opt {
-                    self.capture(Kind::Top, at, at + 1, &[S::KeywordOperatorOptional]);
+                    self.capture(Rule::Top, at, at + 1, &[S::KeywordOperatorOptional]);
                 }
-                self.capture(Kind::Top, j, j + 1, &[S::PunctuationSeparatorLabel]);
+                self.capture(Rule::Top, j, j + 1, &[S::PunctuationSeparatorLabel]);
                 return Some(j + 1);
             }
         }
@@ -497,10 +497,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = modifier {
-            self.capture(Kind::Top, a, b, &[S::StorageModifier]);
+            self.capture(Rule::Top, a, b, &[S::StorageModifier]);
         }
         if let Some((a, b)) = rest {
-            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let name_scopes: &[S] = match (is_fn, this) {
             (true, true) => &[S::EntityNameFunction, S::VariableLanguageThis],
@@ -508,9 +508,9 @@ impl<const D: u8> Lexer<'_, D> {
             (false, true) => &[S::VariableParameter, S::VariableLanguageThis],
             (false, false) => &[S::VariableParameter],
         };
-        self.capture(Kind::Top, j, name_end, name_scopes);
+        self.capture(Rule::Top, j, name_end, name_scopes);
         if let Some(at) = opt {
-            self.capture(Kind::Top, at, at + 1, &[S::KeywordOperatorOptional]);
+            self.capture(Rule::Top, at, at + 1, &[S::KeywordOperatorOptional]);
         }
         Some(opt.map_or(name_end, |at| at + 1))
     }
@@ -526,7 +526,7 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.type_annotation(p))
             .or_else(|| {
                 self.starts(p, "...").then(|| {
-                    self.open_token(Kind::TypeSpread, p, p + 3, &[S::KeywordOperatorSpread])
+                    self.open_token(Rule::TypeSpread, p, p + 3, &[S::KeywordOperatorSpread])
                 })?
             })
             .or_else(|| self.punctuation_comma(p))
@@ -540,7 +540,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if matches!(self.prev_char(p), Some('&' | ':' | '|')) && self.byte(self.ws(p)) == b'{' {
-            return self.open_empty(Kind::RetObj, p);
+            return self.open_empty(Rule::RetObj, p);
         }
         self.type_predicate_operator(p).or_else(|| self.type_(p))
     }
@@ -551,14 +551,14 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.bytes.get(..p).is_some_and(|h| h.ends_with(b"=>")) && self.byte(self.ws(p)) == b'{'
         {
-            return self.open_empty(Kind::TypeFnRetObj, p);
+            return self.open_empty(Rule::TypeFnRetObj, p);
         }
         self.type_predicate_operator(p).or_else(|| self.type_(p))
     }
 
     pub(crate) fn arrow_return_type_body(&mut self, p: usize) -> Option<usize> {
         if self.prev_char(p) == Some(':') && self.byte(self.ws(p)) == b'{' {
-            return self.open_empty(Kind::ArrowRetObj, p);
+            return self.open_empty(Rule::ArrowRetObj, p);
         }
         self.type_predicate_operator(p).or_else(|| self.type_(p))
     }
@@ -589,10 +589,10 @@ impl<const D: u8> Lexer<'_, D> {
             if self.starts(m, "is") && self.kw_after(m + 2) {
                 self.flush(p);
                 if let Some((a, b)) = asserts {
-                    self.capture(Kind::Top, a, b, &[S::KeywordOperatorTypeAsserts]);
+                    self.capture(Rule::Top, a, b, &[S::KeywordOperatorTypeAsserts]);
                 }
                 self.capture(
-                    Kind::Top,
+                    Rule::Top,
                     j,
                     name_end,
                     if this {
@@ -601,7 +601,7 @@ impl<const D: u8> Lexer<'_, D> {
                         &[S::VariableParameter]
                     },
                 );
-                self.capture(Kind::Top, m, m + 2, &[S::KeywordOperatorExpressionIs]);
+                self.capture(Rule::Top, m, m + 2, &[S::KeywordOperatorExpressionIs]);
                 return Some(m + 2);
             }
         }
@@ -613,9 +613,9 @@ impl<const D: u8> Lexer<'_, D> {
                 && self.kw_after(name_end)
             {
                 self.flush(p);
-                self.capture(Kind::Top, p, e, &[S::KeywordOperatorTypeAsserts]);
+                self.capture(Rule::Top, p, e, &[S::KeywordOperatorTypeAsserts]);
                 self.capture(
-                    Kind::Top,
+                    Rule::Top,
                     k,
                     name_end,
                     if this {

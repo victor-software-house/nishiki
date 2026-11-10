@@ -7,7 +7,7 @@ use super::scope::S;
 /// The high byte that marks a frame as one of TypeScript's.
 const TAG: u16 = crate::tag::TYPESCRIPT;
 
-macro_rules! kinds {
+macro_rules! rules {
     ($($id:ident [$($name:expr),*] [$($content:expr),*];)*) => {
         /// An open context.
         /// The scopes in `names` apply to the context's begin and end tokens
@@ -15,31 +15,31 @@ macro_rules! kinds {
         /// Those in `content` apply only to what lies between begin and end.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u8)]
-        pub(crate) enum Kind { $($id),* }
+        pub(crate) enum Rule { $($id),* }
 
-        impl Kind {
-            /// Every `Kind`, indexed by discriminant.
-            const ALL: &[Kind] = &[$(Kind::$id),*];
+        impl Rule {
+            /// Every `Rule`, indexed by discriminant.
+            const ALL: &[Rule] = &[$(Rule::$id),*];
 
-            /// How many kinds there are.
+            /// How many rules there are.
             /// The count bounds the lexer's steps without advancing.
             #[cfg(debug_assertions)]
             pub(crate) const COUNT: usize = Self::ALL.len();
 
             /// The scopes of the begin and end tokens and of the content.
             pub(crate) const fn names(self) -> &'static [S] {
-                match self { $(Kind::$id => &[$($name),*]),* }
+                match self { $(Rule::$id => &[$($name),*]),* }
             }
 
             /// The scopes of the content only.
             pub(crate) const fn content(self) -> &'static [S] {
-                match self { $(Kind::$id => &[$($content),*]),* }
+                match self { $(Rule::$id => &[$($content),*]),* }
             }
         }
     };
 }
 
-kinds! {
+rules! {
     Top [] [];
     Started [] [];
     Script [] [];
@@ -217,13 +217,13 @@ kinds! {
     JsxEval [] [S::MetaEmbeddedExpression];
     JsxStrDouble [S::StringQuotedDouble] [];
     JsxStrSingle [S::StringQuotedSingle] [];
-    // Last, so that no other kind's code moves: placed among the entry
-    // kinds, it made every dialect run up to 0.15% more instructions.
+    // Last, so that no other rule's code moves: placed among the entry
+    // rules, it made every dialect run up to 0.15% more instructions.
     EntryTemplate [] [];
 }
 
-impl Kind {
-    /// The `Kind` as a frame stores it: the TypeScript tag in the high byte,
+impl Rule {
+    /// The `Rule` as a frame stores it: the TypeScript tag in the high byte,
     /// the discriminant in the low one.
     #[expect(
         clippy::as_conversions,
@@ -233,16 +233,16 @@ impl Kind {
         TAG | self as u16
     }
 
-    /// The `Kind` a frame's code names.
-    /// It is [`Kind::Top`] for a code that is not TypeScript's, such as the
+    /// The `Rule` a frame's code names.
+    /// It is [`Rule::Top`] for a code that is not TypeScript's, such as the
     /// empty state's.
-    pub(crate) fn from_code(code: u16) -> Kind {
+    pub(crate) fn from_code(code: u16) -> Rule {
         if code & 0xff00 != TAG {
-            return Kind::Top;
+            return Rule::Top;
         }
-        Kind::ALL
+        Rule::ALL
             .get(usize::from(code & 0xff))
             .copied()
-            .unwrap_or(Kind::Top)
+            .unwrap_or(Rule::Top)
     }
 }

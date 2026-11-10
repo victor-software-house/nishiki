@@ -1,8 +1,8 @@
 //! Comments: block, line and documentation comments.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     /// A block, documentation or line comment at `p`.
@@ -13,7 +13,7 @@ impl<const D: u8> Lexer<'_, D> {
             b'/' => {
                 if self.starts(p, "/**") && self.byte(p + "/**".len()) != b'/' {
                     return self.open_token(
-                        Kind::CommentDoc,
+                        Rule::CommentDoc,
                         p,
                         p + "/**".len(),
                         &[S::PunctuationDefinitionComment],
@@ -23,7 +23,7 @@ impl<const D: u8> Lexer<'_, D> {
                     return self.block_comment_begin(p);
                 }
                 if self.byte(p + 1) == b'/' {
-                    return self.line_comment_begin(p, p, Kind::CommentLine);
+                    return self.line_comment_begin(p, p, Rule::CommentLine);
                 }
                 None
             }
@@ -35,7 +35,7 @@ impl<const D: u8> Lexer<'_, D> {
                 while matches!(self.byte(j), b' ' | b'\t') {
                     j += 1;
                 }
-                (self.starts(j, "//")).then(|| self.line_comment_begin(p, j, Kind::CommentLine))?
+                (self.starts(j, "//")).then(|| self.line_comment_begin(p, j, Rule::CommentLine))?
             }
             _ => None,
         }
@@ -63,13 +63,13 @@ impl<const D: u8> Lexer<'_, D> {
         if self.starts(slashes, "//") {
             self.flush(p);
             self.capture(
-                Kind::Script,
+                Rule::Script,
                 p,
                 slashes,
                 &[S::PunctuationWhitespaceCommentLeading],
             );
             return self.open_token(
-                Kind::ScriptLineComment,
+                Rule::ScriptLineComment,
                 slashes,
                 slashes + "//".len(),
                 &[S::PunctuationDefinitionComment],
@@ -77,7 +77,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.starts(p, "/*") {
             return self.open_token(
-                Kind::ScriptBlockComment,
+                Rule::ScriptBlockComment,
                 p,
                 p + "/*".len(),
                 &[S::PunctuationDefinitionComment],
@@ -93,7 +93,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.capture(
-            Kind::CommentBlock,
+            Rule::CommentBlock,
             p,
             p + 2,
             &[S::PunctuationDefinitionComment],
@@ -104,7 +104,7 @@ impl<const D: u8> Lexer<'_, D> {
             let after = j + "@internal".len();
             if self.space_at(after) || self.starts(after, "*/") || after >= self.len {
                 self.capture(
-                    Kind::CommentBlock,
+                    Rule::CommentBlock,
                     j,
                     j + 1,
                     &[
@@ -113,7 +113,7 @@ impl<const D: u8> Lexer<'_, D> {
                     ],
                 );
                 self.capture(
-                    Kind::CommentBlock,
+                    Rule::CommentBlock,
                     j + 1,
                     after,
                     &[S::StorageTypeInternaldeclaration],
@@ -121,7 +121,7 @@ impl<const D: u8> Lexer<'_, D> {
                 e = after;
             }
         }
-        self.push(Kind::CommentBlock);
+        self.push(Rule::CommentBlock);
         Some(e)
     }
 
@@ -131,7 +131,7 @@ impl<const D: u8> Lexer<'_, D> {
         &mut self,
         start: usize,
         slashes: usize,
-        kind: Kind,
+        rule: Rule,
     ) -> Option<usize> {
         if self.full() {
             return None;
@@ -140,14 +140,14 @@ impl<const D: u8> Lexer<'_, D> {
         let line = S::CommentLineDoubleSlash;
         if slashes > start {
             self.capture(
-                kind,
+                rule,
                 start,
                 slashes,
                 &[S::PunctuationWhitespaceCommentLeading],
             );
         }
         self.capture(
-            kind,
+            rule,
             slashes,
             slashes + 2,
             &[line, S::PunctuationDefinitionComment],
@@ -157,9 +157,9 @@ impl<const D: u8> Lexer<'_, D> {
         if self.starts(j, "@internal") {
             let after = j + "@internal".len();
             if self.space_at(after) || after >= self.len {
-                self.capture(kind, e, j, &[line]);
+                self.capture(rule, e, j, &[line]);
                 self.capture(
-                    kind,
+                    rule,
                     j,
                     j + 1,
                     &[
@@ -169,7 +169,7 @@ impl<const D: u8> Lexer<'_, D> {
                     ],
                 );
                 self.capture(
-                    kind,
+                    rule,
                     j + 1,
                     after,
                     &[line, S::StorageTypeInternaldeclaration],
@@ -177,14 +177,14 @@ impl<const D: u8> Lexer<'_, D> {
                 e = after;
             }
         }
-        self.push(kind);
+        self.push(rule);
         Some(e)
     }
 
     /// `(^[\t ]+)?((//)…)` that runs to the start of the next line.
     pub(crate) fn single_line_comment_consuming_line_ending(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) == b'/' && self.byte(p + 1) == b'/' {
-            return self.line_comment_begin(p, p, Kind::CommentLineNl);
+            return self.line_comment_begin(p, p, Rule::CommentLineNl);
         }
         if Self::bol(p) && matches!(self.byte(p), b' ' | b'\t') {
             let mut j = p;
@@ -192,7 +192,7 @@ impl<const D: u8> Lexer<'_, D> {
                 j += 1;
             }
             if self.starts(j, "//") {
-                return self.line_comment_begin(p, j, Kind::CommentLineNl);
+                return self.line_comment_begin(p, j, Rule::CommentLineNl);
             }
         }
         None

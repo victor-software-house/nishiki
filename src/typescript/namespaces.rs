@@ -1,8 +1,8 @@
 //! Namespace and module declarations.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     #[expect(
@@ -26,10 +26,10 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Kind::NamespaceDecl, &pre);
-        self.capture(Kind::NamespaceDecl, k, e, &[S::StorageTypeNamespace]);
-        self.finish(Kind::NamespaceDecl, j);
-        self.push(Kind::NamespaceDecl);
+        self.prefix_tokens(Rule::NamespaceDecl, &pre);
+        self.capture(Rule::NamespaceDecl, k, e, &[S::StorageTypeNamespace]);
+        self.finish(Rule::NamespaceDecl, j);
+        self.push(Rule::NamespaceDecl);
         Some(j)
     }
 

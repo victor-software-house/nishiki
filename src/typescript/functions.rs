@@ -2,9 +2,9 @@
 
 use super::bytes::{BLANK, Bytes, NAME_START, STRING_START};
 use super::decl::Pattern;
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     /// `(async\s+)?(function)\b(?:\s*(\*))?(?:(?:\s+|(?<=\*))(ID))?\s*` at
@@ -49,23 +49,23 @@ impl<const D: u8> Lexer<'_, D> {
         })
     }
 
-    fn emit_function_head(&mut self, kind: Kind, head: &FunctionHead) {
+    fn emit_function_head(&mut self, rule: Rule, head: &FunctionHead) {
         if let Some((a, b)) = head.async_cap {
-            self.capture(kind, a, b, &[S::StorageModifierAsync]);
+            self.capture(rule, a, b, &[S::StorageModifierAsync]);
         }
-        self.capture(kind, head.kw.0, head.kw.1, &[S::StorageTypeFunction]);
+        self.capture(rule, head.kw.0, head.kw.1, &[S::StorageTypeFunction]);
         if let Some((a, b)) = head.star {
-            self.capture(kind, a, b, &[S::KeywordGeneratorAsterisk]);
+            self.capture(rule, a, b, &[S::KeywordGeneratorAsterisk]);
         }
         if let Some((a, b)) = head.name {
             self.capture(
-                kind,
+                rule,
                 a,
                 b,
                 &[S::MetaDefinitionFunction, S::EntityNameFunction],
             );
         }
-        self.finish(kind, head.end);
+        self.finish(rule, head.end);
     }
 
     pub(crate) fn function_declaration(&mut self, p: usize) -> Option<usize> {
@@ -75,9 +75,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Kind::FuncDecl, &pre);
-        self.emit_function_head(Kind::FuncDecl, &head);
-        self.push(Kind::FuncDecl);
+        self.prefix_tokens(Rule::FuncDecl, &pre);
+        self.emit_function_head(Rule::FuncDecl, &head);
+        self.push(Rule::FuncDecl);
         Some(head.end)
     }
 
@@ -90,8 +90,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.emit_function_head(Kind::FuncExpr, &head);
-        self.push(Kind::FuncExpr);
+        self.emit_function_head(Rule::FuncExpr, &head);
+        self.push(Rule::FuncExpr);
         Some(head.end)
     }
 
@@ -121,7 +121,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Kind::Params,
+            Rule::Params,
             p,
             p + 1,
             &[S::PunctuationDefinitionParametersBegin],
@@ -138,14 +138,14 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let k = self.ws(j + 1);
-        let kind = if self.eol(k) {
-            Kind::ReturnType2
+        let rule = if self.eol(k) {
+            Rule::ReturnType2
         } else {
-            Kind::ReturnType1
+            Rule::ReturnType1
         };
         self.flush(p);
-        self.capture(kind, j, j + 1, &[S::KeywordOperatorTypeAnnotation]);
-        self.push(kind);
+        self.capture(rule, j, j + 1, &[S::KeywordOperatorTypeAnnotation]);
+        self.push(rule);
         Some(j + 1)
     }
 
@@ -197,23 +197,23 @@ impl<const D: u8> Lexer<'_, D> {
             rest = Some((j, j + 3));
             j = self.ws(j + 3);
         }
-        let (kind, scope) = match self.byte(j) {
+        let (rule, scope) = match self.byte(j) {
             b'{' => (
-                Kind::ParamObjBind,
+                Rule::ParamObjBind,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
             b'[' => (
-                Kind::ParamArrBind,
+                Rule::ParamArrBind,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
             _ => return None,
         };
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.capture(kind, a, b, &[S::KeywordOperatorRest]);
+            self.capture(rule, a, b, &[S::KeywordOperatorRest]);
         }
-        self.capture(kind, j, j + 1, &[scope]);
-        self.push(kind);
+        self.capture(rule, j, j + 1, &[scope]);
+        self.push(rule);
         Some(j + 1)
     }
 
@@ -314,10 +314,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = modifier {
-            self.capture(Kind::Top, a, b, &[S::StorageModifier]);
+            self.capture(Rule::Top, a, b, &[S::StorageModifier]);
         }
         if let Some((a, b)) = rest {
-            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let scopes: &[S] = match (function, this) {
             (true, true) => &[S::EntityNameFunction, S::VariableLanguageThis],
@@ -325,9 +325,9 @@ impl<const D: u8> Lexer<'_, D> {
             (false, true) => &[S::VariableParameter, S::VariableLanguageThis],
             (false, false) => &[S::VariableParameter],
         };
-        self.capture(Kind::Top, j, name_end, scopes);
+        self.capture(Rule::Top, j, name_end, scopes);
         if let Some(at) = opt {
-            self.capture(Kind::Top, at, at + 1, &[S::KeywordOperatorOptional]);
+            self.capture(Rule::Top, at, at + 1, &[S::KeywordOperatorOptional]);
             return Some(at + 1);
         }
         Some(name_end)
@@ -361,20 +361,20 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
-        let (kind, scope) = match pattern {
+        let (rule, scope) = match pattern {
             Pattern::Object => (
-                Kind::ParamObjPattern,
+                Rule::ParamObjPattern,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
             Pattern::Array => (
-                Kind::ParamArrPattern,
+                Rule::ParamArrPattern,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
         };
-        self.capture(kind, j, j + 1, &[scope]);
-        self.push(kind);
+        self.capture(rule, j, j + 1, &[scope]);
+        self.push(rule);
         Some(j + 1)
     }
 
@@ -388,9 +388,9 @@ impl<const D: u8> Lexer<'_, D> {
         let e = self.ident(j)?;
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
-        self.capture(Kind::Top, j, e, &[S::VariableParameter]);
+        self.capture(Rule::Top, j, e, &[S::VariableParameter]);
         Some(e)
     }
 
@@ -399,7 +399,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if self.key_colon_ahead(p) {
-            return self.open_empty(Kind::ParamObjElem, p);
+            return self.open_empty(Rule::ParamObjElem, p);
         }
         self.parameter_pattern(p, Pattern::Object)
             .or_else(|| self.destructuring_parameter_rest(p))

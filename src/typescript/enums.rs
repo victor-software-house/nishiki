@@ -1,8 +1,8 @@
 //! Enum declarations.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     #[expect(
@@ -31,13 +31,13 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let n = self.ident(j)?;
         self.flush(p);
-        self.prefix_tokens(Kind::EnumDecl, &pre);
+        self.prefix_tokens(Rule::EnumDecl, &pre);
         if let Some((a, b)) = const_cap {
-            self.capture(Kind::EnumDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::EnumDecl, a, b, &[S::StorageModifier]);
         }
-        self.capture(Kind::EnumDecl, k, e, &[S::StorageTypeEnum]);
-        self.capture(Kind::EnumDecl, j, n, &[S::EntityNameTypeEnum]);
-        self.push(Kind::EnumDecl);
+        self.capture(Rule::EnumDecl, k, e, &[S::StorageTypeEnum]);
+        self.capture(Rule::EnumDecl, j, n, &[S::EntityNameTypeEnum]);
+        self.push(Rule::EnumDecl);
         Some(n)
     }
 
@@ -46,7 +46,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if self.byte(p) == b'{' {
-            return self.open_token(Kind::EnumBody, p, p + 1, &[S::PunctuationDefinitionBlock]);
+            return self.open_token(Rule::EnumBody, p, p + 1, &[S::PunctuationDefinitionBlock]);
         }
         None
     }
@@ -57,10 +57,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.id_start(p) {
             let e = self.ident(p)?;
-            return self.open_token(Kind::EnumMember, p, e, &[S::VariableOtherEnummember]);
+            return self.open_token(Rule::EnumMember, p, e, &[S::VariableOtherEnummember]);
         }
         if self.enum_key_ahead(p) {
-            return self.open_empty(Kind::EnumKey, p);
+            return self.open_empty(Rule::EnumKey, p);
         }
         self.punctuation_comma(p)
     }

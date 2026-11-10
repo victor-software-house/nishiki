@@ -6,8 +6,8 @@ use std::cell::Cell;
 use super::Dialect;
 use super::bytes::Bytes;
 use super::chars::is_alpha_char;
-use super::kind::Kind;
 use super::scope::S;
+use super::state::Rule;
 use crate::arena::{Arena, Frame};
 use crate::classes::is_ascii_space;
 use crate::language::{Context, Halt};
@@ -93,8 +93,8 @@ pub(crate) struct Halts<'a> {
 /// So a line clears it rather than filling a table per depth.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Opened {
-    /// The context's kind code.
-    kind: u16,
+    /// The context's rule code.
+    rule: u16,
     /// The line position where it was entered.
     enter: usize,
     /// The `\G` anchor in force before it began.
@@ -152,7 +152,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             opened: &mut scratch.opened,
             line_pos: from,
             anchor: usize::MAX,
-            first_line: frame.rule == Kind::Top.code() && frame.depth == 1,
+            first_line: frame.rule == Rule::Top.code() && frame.depth == 1,
             stuck: false,
             halts,
             halt: None,
@@ -169,7 +169,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         };
         lexer.spend(read);
         if lexer.first_line {
-            lexer.push(Kind::Started);
+            lexer.push(Rule::Started);
         }
         lexer
     }
@@ -232,7 +232,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// [`Lexer::close_here`]).
     ///
     /// So a run of steps at one position is at most the depth when the run
-    /// began plus the number of kinds.
+    /// began plus the number of rules.
     /// Debug builds assert that bound.
     ///
     /// `TextMate` keeps matching after a rule has consumed the newline, at the
@@ -264,7 +264,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             } else {
                 if still == 0 {
                     let depth = usize::try_from(self.frame.depth).unwrap_or(usize::MAX);
-                    bound = depth.saturating_add(Kind::COUNT);
+                    bound = depth.saturating_add(Rule::COUNT);
                 }
                 still += 1;
                 debug_assert!(
@@ -289,17 +289,17 @@ impl<'a, const D: u8> Lexer<'a, D> {
         if p > self.len
             || !matches!(
                 self.top(),
-                Kind::Top
-                    | Kind::Started
-                    | Kind::Script
-                    | Kind::Expression
-                    | Kind::EntryObjLit
-                    | Kind::EntryObjBind
-                    | Kind::EntryObjBindConst
-                    | Kind::EntryArrBind
-                    | Kind::EntryArrBindConst
-                    | Kind::EntryTypeParams
-                    | Kind::EntryTemplate
+                Rule::Top
+                    | Rule::Started
+                    | Rule::Script
+                    | Rule::Expression
+                    | Rule::EntryObjLit
+                    | Rule::EntryObjBind
+                    | Rule::EntryObjBindConst
+                    | Rule::EntryArrBind
+                    | Rule::EntryArrBindConst
+                    | Rule::EntryTypeParams
+                    | Rule::EntryTemplate
             )
             || !test.holds(self.bytes, p)
         {
@@ -379,30 +379,30 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// template ends at its backtick and reads `\` and `${`.
     fn body_end(&self, step: usize) -> Option<usize> {
         let rest = self.bytes.get(step..)?;
-        let kind = self.top();
+        let rule = self.top();
         let end = rest.len();
-        let found = if matches!(kind, Kind::CommentLine | Kind::CommentLineNl) {
+        let found = if matches!(rule, Rule::CommentLine | Rule::CommentLineNl) {
             end
-        } else if kind == Kind::CommentBlock {
+        } else if rule == Rule::CommentBlock {
             memchr::memchr(b'*', rest).unwrap_or(end)
-        } else if kind == Kind::ScriptLineComment {
+        } else if rule == Rule::ScriptLineComment {
             memchr::memchr(b'<', rest).unwrap_or(end)
-        } else if kind == Kind::ScriptBlockComment {
+        } else if rule == Rule::ScriptBlockComment {
             memchr::memchr2(b'*', b'<', rest).unwrap_or(end)
-        } else if kind == Kind::CommentDoc {
+        } else if rule == Rule::CommentDoc {
             let first = memchr::memchr3(b'*', b'@', b'[', rest).unwrap_or(end);
             memchr::memchr(b'{', &rest[..first]).unwrap_or(first)
-        } else if kind == Kind::StrSingle {
+        } else if rule == Rule::StrSingle {
             memchr::memchr2(b'\'', b'\\', rest).unwrap_or(end)
-        } else if kind == Kind::StrDouble {
+        } else if rule == Rule::StrDouble {
             memchr::memchr2(b'"', b'\\', rest).unwrap_or(end)
-        } else if matches!(kind, Kind::Template | Kind::TemplateType) {
+        } else if matches!(rule, Rule::Template | Rule::TemplateType) {
             memchr::memchr3(b'`', b'$', b'\\', rest).unwrap_or(end)
         } else {
             return None;
         };
         let mut target = step + found;
-        if matches!(kind, Kind::StrSingle | Kind::StrDouble) {
+        if matches!(rule, Rule::StrSingle | Rule::StrDouble) {
             let last = self.src.char_indices().next_back().map_or(0, |(i, _)| i);
             target = target.min(last);
         }
@@ -505,41 +505,41 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.emit(to, self.frame.stack);
     }
 
-    /// Emits `a..b` as a capture with `leaf` scopes inside the match of the
-    /// rule `kind`; the bytes before `a` carry the rule's own scopes.
-    pub(crate) fn capture(&mut self, kind: Kind, a: usize, b: usize, leaf: &[S]) {
-        let base = self.node(self.frame.stack, kind.names());
+    /// Emits `a..b` as a capture with `leaf` scopes inside the match of
+    /// `rule`; the bytes before `a` carry the rule's own scopes.
+    pub(crate) fn capture(&mut self, rule: Rule, a: usize, b: usize, leaf: &[S]) {
+        let base = self.node(self.frame.stack, rule.names());
         self.emit(a, base);
         let stack = self.node(base, leaf);
         self.emit(b, stack);
     }
 
-    /// Emits what is left of the match up to `to` with `leaf` inside the rule
-    /// `kind`.
+    /// Emits what is left of the match up to `to` with `leaf` inside
+    /// `rule`.
     /// This is the uncaptured part of a match that the rule scopes as a whole.
-    pub(crate) fn fill(&mut self, kind: Kind, to: usize, leaf: &[S]) {
-        self.capture(kind, self.pos, to, leaf);
+    pub(crate) fn fill(&mut self, rule: Rule, to: usize, leaf: &[S]) {
+        self.capture(rule, self.pos, to, leaf);
     }
 
-    /// Emits the rest of a match of the rule `kind` up to `to`.
-    pub(crate) fn finish(&mut self, kind: Kind, to: usize) {
-        self.capture(kind, to, to, &[]);
+    /// Emits the rest of a match of `rule` up to `to`.
+    pub(crate) fn finish(&mut self, rule: Rule, to: usize) {
+        self.capture(rule, to, to, &[]);
     }
 
     /// A match of a rule without scopes of its own: plain text up to `a`, then
     /// `a..b` with `leaf`.
     pub(crate) fn token(&mut self, a: usize, b: usize, leaf: &[S]) {
         self.flush(a);
-        self.capture(Kind::Top, a, b, leaf);
+        self.capture(Rule::Top, a, b, leaf);
     }
 
-    /// Opens `kind` at the end of its begin tokens; false when a limit keeps
+    /// Opens `rule` at the end of its begin tokens; false when a limit keeps
     /// it closed. Callers emit the begin tokens first.
-    pub(crate) fn push(&mut self, kind: Kind) -> bool {
-        self.push_with(kind, 0)
+    pub(crate) fn push(&mut self, rule: Rule) -> bool {
+        self.push_with(rule, 0)
     }
 
-    /// Opens `kind` carrying `payload`.
+    /// Opens `rule` carrying `payload`.
     ///
     /// `TextMate` refuses to open a context a second time at a position the
     /// line has not advanced past.
@@ -552,11 +552,11 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// [pull request 618]).
     ///
     /// [pull request 618]: https://github.com/victor-software-house/nishiki-archive/pull/618
-    pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
+    pub(crate) fn push_with(&mut self, rule: Rule, payload: u32) -> bool {
         if self.pos <= self.line_pos {
             let here = self.opened.iter().rev();
             let mut here = here.take_while(|opened| opened.enter == self.line_pos);
-            if here.any(|opened| opened.kind == kind.code()) {
+            if here.any(|opened| opened.rule == rule.code()) {
                 self.stuck = true;
                 return false;
             }
@@ -564,9 +564,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         if self.full() {
             return false;
         }
-        let outer = self.node(self.frame.stack, kind.names());
-        let stack = self.node(outer, kind.content());
-        let Some(state) = self.arena.push(self.state, kind.code(), payload, stack) else {
+        let outer = self.node(self.frame.stack, rule.names());
+        let stack = self.node(outer, rule.content());
+        let Some(state) = self.arena.push(self.state, rule.code(), payload, stack) else {
             self.report.record(Limit::Nodes);
             self.stuck = true;
             if let Some(halts) = self.halts {
@@ -575,7 +575,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             return false;
         };
         self.opened.push(Opened {
-            kind: kind.code(),
+            rule: rule.code(),
             enter: self.line_pos,
             anchor: self.anchor,
         });
@@ -590,12 +590,12 @@ impl<'a, const D: u8> Lexer<'a, D> {
     }
 
     /// The innermost open context.
-    pub(crate) fn top(&self) -> Kind {
-        let kind = Kind::from_code(self.frame.rule);
-        if kind == Kind::Started {
-            Kind::Top
+    pub(crate) fn top(&self) -> Rule {
+        let rule = Rule::from_code(self.frame.rule);
+        if rule == Rule::Started {
+            Rule::Top
         } else {
-            kind
+            rule
         }
     }
 
@@ -612,10 +612,10 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// Ends the innermost context where `end` matches: `a..b` carries the
     /// context's own scopes and `leaf`. Plain text before `a` stays inside.
     pub(crate) fn close(&mut self, a: usize, b: usize, leaf: &[S]) -> usize {
-        let kind = self.top();
+        let rule = self.top();
         self.flush(a);
         self.pop();
-        self.capture(kind, a, b, leaf);
+        self.capture(rule, a, b, leaf);
         b
     }
 
@@ -647,10 +647,10 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// A rule whose begin is the single token `a..b` with `leaf`: emits it and
-    /// opens `kind`.
+    /// opens `rule`.
     pub(crate) fn open_token(
         &mut self,
-        kind: Kind,
+        rule: Rule,
         a: usize,
         b: usize,
         leaf: &[S],
@@ -659,18 +659,18 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(a);
-        self.capture(kind, a, b, leaf);
-        self.push(kind);
+        self.capture(rule, a, b, leaf);
+        self.push(rule);
         Some(b)
     }
 
-    /// A zero-width begin at `p`: opens `kind` without emitting a token.
-    pub(crate) fn open_empty(&mut self, kind: Kind, p: usize) -> Option<usize> {
+    /// A zero-width begin at `p`: opens `rule` without emitting a token.
+    pub(crate) fn open_empty(&mut self, rule: Rule, p: usize) -> Option<usize> {
         if self.full() {
             return None;
         }
         self.flush(p);
-        self.push(kind);
+        self.push(rule);
         Some(p)
     }
 

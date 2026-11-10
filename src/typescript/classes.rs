@@ -1,8 +1,8 @@
 //! Classes, interfaces and their heritage clauses.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn class_declaration(&mut self, p: usize) -> Option<usize> {
@@ -28,12 +28,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Kind::ClassDecl, &pre);
+        self.prefix_tokens(Rule::ClassDecl, &pre);
         if let Some((a, b)) = abstract_cap {
-            self.capture(Kind::ClassDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::ClassDecl, a, b, &[S::StorageModifier]);
         }
-        self.capture(Kind::ClassDecl, k, e, &[S::StorageTypeClass]);
-        self.push(Kind::ClassDecl);
+        self.capture(Rule::ClassDecl, k, e, &[S::StorageTypeClass]);
+        self.push(Rule::ClassDecl);
         Some(e)
     }
 
@@ -65,10 +65,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = abstract_cap {
-            self.capture(Kind::ClassDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::ClassDecl, a, b, &[S::StorageModifier]);
         }
-        self.capture(Kind::ClassDecl, k, e, &[S::StorageTypeClass]);
-        self.push(Kind::ClassDecl);
+        self.capture(Rule::ClassDecl, k, e, &[S::StorageTypeClass]);
+        self.push(Rule::ClassDecl);
         Some(e)
     }
 
@@ -107,12 +107,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Kind::InterfaceDecl, &pre);
+        self.prefix_tokens(Rule::InterfaceDecl, &pre);
         if let Some((a, b)) = abstract_cap {
-            self.capture(Kind::InterfaceDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::InterfaceDecl, a, b, &[S::StorageModifier]);
         }
-        self.capture(Kind::InterfaceDecl, k, e, &[S::StorageTypeInterface]);
-        self.push(Kind::InterfaceDecl);
+        self.capture(Rule::InterfaceDecl, k, e, &[S::StorageTypeInterface]);
+        self.push(Rule::InterfaceDecl);
         Some(e)
     }
 
@@ -134,7 +134,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'{' {
             return None;
         }
-        self.open_token(Kind::ClassBody, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Rule::ClassBody, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     pub(crate) fn class_or_interface_heritage(&mut self, p: usize) -> Option<usize> {
@@ -145,7 +145,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.boundary(p) {
             return None;
         }
-        self.open_token(Kind::Heritage, p, e, &[S::StorageModifier])
+        self.open_token(Rule::Heritage, p, e, &[S::StorageModifier])
     }
 
     pub(crate) fn heritage_rules(&mut self, p: usize) -> Option<usize> {
@@ -167,7 +167,7 @@ impl<const D: u8> Lexer<'_, D> {
                 let k = self.ws(a);
                 if self.hash_ident_member_chain(k) {
                     self.token(p, e, &[S::EntityNameTypeModule]);
-                    self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
+                    self.capture(Rule::Top, j, a, &[Self::accessor_scope(j, a)]);
                     return Some(a);
                 }
             }

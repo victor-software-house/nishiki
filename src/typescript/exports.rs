@@ -1,8 +1,8 @@
 //! Export declarations and the statement keywords that end a declaration.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     /// An `export` declaration: `export as namespace Name`, `export (type)?
@@ -28,14 +28,14 @@ impl<const D: u8> Lexer<'_, D> {
                     && let Some(n) = self.ident(m)
                 {
                     self.token(p, e, &[S::KeywordControlExport]);
-                    self.capture(Kind::Top, j, j + 2, &[S::KeywordControlAs]);
+                    self.capture(Rule::Top, j, j + 2, &[S::KeywordControlAs]);
                     self.capture(
-                        Kind::Top,
+                        Rule::Top,
                         k,
                         k + "namespace".len(),
                         &[S::StorageTypeNamespace],
                     );
-                    self.capture(Kind::Top, m, n, &[S::EntityNameTypeModule]);
+                    self.capture(Rule::Top, m, n, &[S::EntityNameTypeModule]);
                     return Some(n);
                 }
             }
@@ -54,17 +54,17 @@ impl<const D: u8> Lexer<'_, D> {
         let eq = self.ws(after);
         if self.byte(eq) == b'=' && self.byte(eq + 1) != b'=' || self.byte(eq) == b'=' {
             self.flush(p);
-            self.capture(Kind::ExportDefault, p, e, &[S::KeywordControlExport]);
+            self.capture(Rule::ExportDefault, p, e, &[S::KeywordControlExport]);
             if let Some((a, b)) = type_cap {
-                self.capture(Kind::ExportDefault, a, b, &[S::KeywordControlType]);
+                self.capture(Rule::ExportDefault, a, b, &[S::KeywordControlType]);
             }
             self.capture(
-                Kind::ExportDefault,
+                Rule::ExportDefault,
                 eq,
                 eq + 1,
                 &[S::KeywordOperatorAssignment],
             );
-            self.push(Kind::ExportDefault);
+            self.push(Rule::ExportDefault);
             return Some(eq + 1);
         }
         let d = self.ws(after);
@@ -76,17 +76,17 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if let Some(d) = default_start {
             self.flush(p);
-            self.capture(Kind::ExportDefault, p, e, &[S::KeywordControlExport]);
+            self.capture(Rule::ExportDefault, p, e, &[S::KeywordControlExport]);
             if let Some((a, b)) = type_cap {
-                self.capture(Kind::ExportDefault, a, b, &[S::KeywordControlType]);
+                self.capture(Rule::ExportDefault, a, b, &[S::KeywordControlType]);
             }
             self.capture(
-                Kind::ExportDefault,
+                Rule::ExportDefault,
                 d,
                 d + "default".len(),
                 &[S::KeywordControlDefault],
             );
-            self.push(Kind::ExportDefault);
+            self.push(Rule::ExportDefault);
             return Some(d + 7);
         }
         let mut after = e;
@@ -109,11 +109,11 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Kind::Export, p, e, &[S::KeywordControlExport]);
+        self.capture(Rule::Export, p, e, &[S::KeywordControlExport]);
         if let Some((a, b)) = type_cap {
-            self.capture(Kind::Export, a, b, &[S::KeywordControlType]);
+            self.capture(Rule::Export, a, b, &[S::KeywordControlType]);
         }
-        self.push(Kind::Export);
+        self.push(Rule::Export);
         Some(after)
     }
 

@@ -1,9 +1,9 @@
 //! Members of classes, interfaces, type literals and object literals.
 
 use super::bytes::{ANY, BLANK, Bytes, MEMBER_START, STRING_START};
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 use crate::classes;
 
 /// The captures of a method's modifiers, kept inline.
@@ -56,8 +56,8 @@ impl<const D: u8> Lexer<'_, D> {
         if self.prev_char(p) == Some(':') && !self.full() {
             let j = self.ws(p);
             self.flush(p);
-            self.finish(Kind::ClassColon, j);
-            self.push(Kind::ClassColon);
+            self.finish(Rule::ClassColon, j);
+            self.push(Rule::ClassColon);
             return Some(j);
         }
         self.only(
@@ -252,10 +252,10 @@ impl<const D: u8> Lexer<'_, D> {
         {
             self.flush(p);
             for &(a, b, s) in prefix.caps.items() {
-                self.capture(Kind::Method, a, b, &[s]);
+                self.capture(Rule::Method, a, b, &[s]);
             }
-            self.capture(Kind::Method, k, k + "constructor".len(), &[S::StorageType]);
-            self.push(Kind::Method);
+            self.capture(Rule::Method, k, k + "constructor".len(), &[S::StorageType]);
+            self.push(Rule::Method);
             return Some(k + "constructor".len());
         }
         let mut sig = at;
@@ -277,16 +277,16 @@ impl<const D: u8> Lexer<'_, D> {
         if self.tp_paren(la).is_some() {
             self.flush(p);
             for &(a, b, s) in prefix.caps.items() {
-                self.capture(Kind::Method, a, b, &[s]);
+                self.capture(Rule::Method, a, b, &[s]);
             }
             if let Some((a, b)) = new_cap {
-                self.capture(Kind::Method, a, b, &[S::KeywordOperatorNew]);
+                self.capture(Rule::Method, a, b, &[S::KeywordOperatorNew]);
             }
             if let Some((a, b)) = star_cap {
-                self.capture(Kind::Method, a, b, &[S::KeywordGeneratorAsterisk]);
+                self.capture(Rule::Method, a, b, &[S::KeywordGeneratorAsterisk]);
             }
-            self.finish(Kind::Method, sig);
-            self.push(Kind::Method);
+            self.finish(Rule::Method, sig);
+            self.push(Rule::Method);
             return Some(sig);
         }
         let mut j = at;
@@ -307,16 +307,16 @@ impl<const D: u8> Lexer<'_, D> {
         if self.named_method_ahead(j) {
             self.flush(p);
             for &(a, b, s) in prefix.caps.items() {
-                self.capture(Kind::Method, a, b, &[s]);
+                self.capture(Rule::Method, a, b, &[s]);
             }
             if let Some((a, b)) = accessor {
-                self.capture(Kind::Method, a, b, &[S::StorageTypeProperty]);
+                self.capture(Rule::Method, a, b, &[S::StorageTypeProperty]);
             }
             if let Some((a, b)) = star {
-                self.capture(Kind::Method, a, b, &[S::KeywordGeneratorAsterisk]);
+                self.capture(Rule::Method, a, b, &[S::KeywordGeneratorAsterisk]);
             }
-            self.finish(Kind::Method, j);
-            self.push(Kind::Method);
+            self.finish(Rule::Method, j);
+            self.push(Rule::Method);
             return Some(j);
         }
         if accessor.is_some() {
@@ -329,13 +329,13 @@ impl<const D: u8> Lexer<'_, D> {
             if self.named_method_ahead(j) {
                 self.flush(p);
                 for &(a, b, s) in prefix.caps.items() {
-                    self.capture(Kind::Method, a, b, &[s]);
+                    self.capture(Rule::Method, a, b, &[s]);
                 }
                 if let Some((a, b)) = star {
-                    self.capture(Kind::Method, a, b, &[S::KeywordGeneratorAsterisk]);
+                    self.capture(Rule::Method, a, b, &[S::KeywordGeneratorAsterisk]);
                 }
-                self.finish(Kind::Method, j);
-                self.push(Kind::Method);
+                self.finish(Rule::Method, j);
+                self.push(Rule::Method);
                 return Some(j);
             }
         }
@@ -366,7 +366,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !matches!(self.byte(m), b'(' | b'<') {
             return None;
         }
-        self.open_empty(Kind::MethodName, p)
+        self.open_empty(Rule::MethodName, p)
     }
 
     pub(crate) fn method_name_rules(&mut self, p: usize) -> Option<usize> {
@@ -419,12 +419,12 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = readonly {
-            self.capture(Kind::Indexer, a, b, &[S::StorageModifier]);
+            self.capture(Rule::Indexer, a, b, &[S::StorageModifier]);
         }
-        self.capture(Kind::Indexer, o, o + 1, &[S::MetaBraceSquare]);
-        self.capture(Kind::Indexer, n0, n, &[S::VariableParameter]);
-        self.finish(Kind::Indexer, c);
-        self.push(Kind::Indexer);
+        self.capture(Rule::Indexer, o, o + 1, &[S::MetaBraceSquare]);
+        self.capture(Rule::Indexer, n0, n, &[S::VariableParameter]);
+        self.finish(Rule::Indexer, c);
+        self.push(Rule::Indexer);
         Some(c)
     }
 
@@ -475,21 +475,21 @@ impl<const D: u8> Lexer<'_, D> {
             }
             this.flush(p);
             if let Some((a, b)) = sign {
-                this.capture(Kind::IndexerMapped, a, b, &[S::KeywordOperatorTypeModifier]);
+                this.capture(Rule::IndexerMapped, a, b, &[S::KeywordOperatorTypeModifier]);
             }
             if let Some((a, b)) = readonly {
-                this.capture(Kind::IndexerMapped, a, b, &[S::StorageModifier]);
+                this.capture(Rule::IndexerMapped, a, b, &[S::StorageModifier]);
             }
-            this.capture(Kind::IndexerMapped, o, o + 1, &[S::MetaBraceSquare]);
-            this.capture(Kind::IndexerMapped, n0, n, &[S::EntityNameType]);
+            this.capture(Rule::IndexerMapped, o, o + 1, &[S::MetaBraceSquare]);
+            this.capture(Rule::IndexerMapped, n0, n, &[S::EntityNameType]);
             this.capture(
-                Kind::IndexerMapped,
+                Rule::IndexerMapped,
                 w,
                 w + 2,
                 &[S::KeywordOperatorExpressionIn],
             );
-            this.finish(Kind::IndexerMapped, after);
-            this.push(Kind::IndexerMapped);
+            this.finish(Rule::IndexerMapped, after);
+            this.push(Rule::IndexerMapped);
             Some(after)
         };
         if readonly.is_some()
@@ -520,10 +520,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = readonly {
-            self.capture(Kind::Field, a, b, &[S::StorageModifier]);
+            self.capture(Rule::Field, a, b, &[S::StorageModifier]);
         }
-        self.finish(Kind::Field, j);
-        self.push(Kind::Field);
+        self.finish(Rule::Field, j);
+        self.push(Rule::Field);
         Some(j)
     }
 
@@ -596,17 +596,17 @@ impl<const D: u8> Lexer<'_, D> {
             if self.named_fn_ahead(k) {
                 self.flush(p);
                 self.capture(
-                    Kind::Top,
+                    Rule::Top,
                     p,
                     e,
                     &[S::MetaDefinitionProperty, S::EntityNameFunction],
                 );
                 if let Some(at) = optional {
-                    self.capture(Kind::Top, at, at + 1, &[S::KeywordOperatorOptional]);
+                    self.capture(Rule::Top, at, at + 1, &[S::KeywordOperatorOptional]);
                 }
                 if let Some(at) = definite {
                     self.capture(
-                        Kind::Top,
+                        Rule::Top,
                         at,
                         at + 1,
                         &[S::KeywordOperatorDefiniteassignment],
@@ -632,29 +632,29 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.comment(p) {
             return Some(r);
         }
-        if let Some(r) = self.object_literal_method_declaration(p, Kind::ObjMethod) {
+        if let Some(r) = self.object_literal_method_declaration(p, Rule::ObjMethod) {
             return Some(r);
         }
         if self.byte(p) == b'[' {
-            return self.open_empty(Kind::ObjKeyBracket, p);
+            return self.open_empty(Rule::ObjKeyBracket, p);
         }
         if matches!(self.byte(p), b'"' | b'\'' | b'`') {
-            return self.open_empty(Kind::ObjKeyStr, p);
+            return self.open_empty(Rule::ObjKeyStr, p);
         }
         if self.number_end(p).is_some() {
-            return self.open_empty(Kind::ObjKeyNum, p);
+            return self.open_empty(Rule::ObjKeyNum, p);
         }
         if matches!(self.prev_char(p), Some(']' | '"' | '\'' | '`')) {
             let j = self.ws(p);
             if matches!(self.byte(j), b'(' | b'<') && !self.full() {
-                return self.open_empty(Kind::ObjMethodAfterKey, p);
+                return self.open_empty(Rule::ObjMethodAfterKey, p);
             }
         }
         if let Some(r) = self.object_member_key(p) {
             return Some(r);
         }
         if self.starts(p, "...") {
-            return self.open_token(Kind::ObjSpread, p, p + 3, &[S::KeywordOperatorSpread]);
+            return self.open_token(Rule::ObjSpread, p, p + 3, &[S::KeywordOperatorSpread]);
         }
         if let Some(e) = self.ident(p) {
             let j = self.ws(e);
@@ -664,8 +664,8 @@ impl<const D: u8> Lexer<'_, D> {
                 || self.starts(j, "/*")
             {
                 self.flush(p);
-                self.capture(Kind::ObjMember, p, e, &[S::VariableOtherReadwrite]);
-                self.finish(Kind::ObjMember, j);
+                self.capture(Rule::ObjMember, p, e, &[S::VariableOtherReadwrite]);
+                self.finish(Rule::ObjMember, j);
                 return Some(j);
             }
         }
@@ -675,7 +675,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(e) = self.ident(p) {
             let j = self.ws(e);
             if self.byte(j) == b'=' && !self.full() {
-                return self.open_empty(Kind::ObjInit, p);
+                return self.open_empty(Rule::ObjInit, p);
             }
         }
         if self.byte(p) == b':' {
@@ -690,7 +690,7 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn object_literal_method_declaration(
         &mut self,
         p: usize,
-        kind: Kind,
+        rule: Rule,
     ) -> Option<usize> {
         if !self.kw_before(p) || self.full() {
             return None;
@@ -725,16 +725,16 @@ impl<const D: u8> Lexer<'_, D> {
             if self.named_method_ahead(j) {
                 self.flush(p);
                 for &(a, b, s) in caps.items() {
-                    self.capture(kind, a, b, &[s]);
+                    self.capture(rule, a, b, &[s]);
                 }
                 if let Some((a, b)) = acc {
-                    self.capture(kind, a, b, &[S::StorageTypeProperty]);
+                    self.capture(rule, a, b, &[S::StorageTypeProperty]);
                 }
                 if let Some((a, b)) = star {
-                    self.capture(kind, a, b, &[S::KeywordGeneratorAsterisk]);
+                    self.capture(rule, a, b, &[S::KeywordGeneratorAsterisk]);
                 }
-                self.finish(kind, j);
-                self.push(kind);
+                self.finish(rule, j);
+                self.push(rule);
                 return Some(j);
             }
             if acc.is_none() {
@@ -745,8 +745,8 @@ impl<const D: u8> Lexer<'_, D> {
             let j = p;
             if self.named_method_ahead(j) {
                 self.flush(p);
-                self.finish(kind, j);
-                self.push(kind);
+                self.finish(rule, j);
+                self.push(rule);
                 return Some(j);
             }
         }
@@ -769,12 +769,12 @@ impl<const D: u8> Lexer<'_, D> {
             if self.byte(self.ws_comments(j)) == b':' {
                 self.flush(p);
                 self.capture(
-                    Kind::ObjMember,
+                    Rule::ObjMember,
                     p,
                     e,
                     &[S::MetaObjectLiteralKey, S::ConstantNumericDecimal],
                 );
-                self.capture(Kind::ObjMember, e, j, &[S::MetaObjectLiteralKey]);
+                self.capture(Rule::ObjMember, e, j, &[S::MetaObjectLiteralKey]);
                 return Some(j);
             }
         }
@@ -788,16 +788,16 @@ impl<const D: u8> Lexer<'_, D> {
         if self.fn_value_ahead(v) {
             self.flush(p);
             self.capture(
-                Kind::ObjMember,
+                Rule::ObjMember,
                 p,
                 e,
                 &[S::MetaObjectLiteralKey, S::EntityNameFunction],
             );
-            self.capture(Kind::ObjMember, e, j, &[S::MetaObjectLiteralKey]);
+            self.capture(Rule::ObjMember, e, j, &[S::MetaObjectLiteralKey]);
             return Some(j);
         }
         self.flush(p);
-        self.capture(Kind::ObjMember, p, j, &[S::MetaObjectLiteralKey]);
+        self.capture(Rule::ObjMember, p, j, &[S::MetaObjectLiteralKey]);
         Some(j)
     }
 
@@ -810,16 +810,16 @@ impl<const D: u8> Lexer<'_, D> {
                     let k = self.ws(c);
                     if matches!(self.byte(k), b',' | b'}') || self.eol(k) {
                         self.flush(p);
-                        self.capture(Kind::ObjMember, p, e, &[S::KeywordControlAs]);
-                        self.capture(Kind::ObjMember, j, c, &[S::StorageModifier]);
+                        self.capture(Rule::ObjMember, p, e, &[S::KeywordControlAs]);
+                        self.capture(Rule::ObjMember, j, c, &[S::StorageModifier]);
                         return Some(c);
                     }
                 }
                 if !self.full() {
                     self.flush(p);
-                    self.capture(Kind::ObjAs, p, e, &[S::KeywordControlAs]);
-                    self.finish(Kind::ObjAs, j);
-                    self.push(Kind::ObjAs);
+                    self.capture(Rule::ObjAs, p, e, &[S::KeywordControlAs]);
+                    self.finish(Rule::ObjAs, j);
+                    self.push(Rule::ObjAs);
                     return Some(j);
                 }
             }
@@ -828,9 +828,9 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.flush(p);
-                self.capture(Kind::ObjAs, p, e, &[S::KeywordControlSatisfies]);
-                self.finish(Kind::ObjAs, j);
-                self.push(Kind::ObjAs);
+                self.capture(Rule::ObjAs, p, e, &[S::KeywordControlSatisfies]);
+                self.finish(Rule::ObjAs, j);
+                self.push(Rule::ObjAs);
                 return Some(j);
             }
         }
@@ -839,7 +839,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn object_value_begin(&mut self, p: usize) -> Option<usize> {
         self.open_token(
-            Kind::ObjValue,
+            Rule::ObjValue,
             p,
             p + 1,
             &[S::MetaObjectLiteralKey, S::PunctuationSeparatorKeyValue],
@@ -891,9 +891,9 @@ impl<const D: u8> Lexer<'_, D> {
                 {
                     self.flush(p);
                     if e > j {
-                        self.capture(Kind::Top, j, e, &[S::StorageModifierAsync]);
+                        self.capture(Rule::Top, j, e, &[S::StorageModifierAsync]);
                     }
-                    self.push(Kind::ObjArrowGeneric);
+                    self.push(Rule::ObjArrowGeneric);
                     return Some(e);
                 }
             }
@@ -902,10 +902,10 @@ impl<const D: u8> Lexer<'_, D> {
                 if self.byte(k) == b'(' && self.paren_open_after(k + 1) {
                     self.flush(p);
                     if e > j {
-                        self.capture(Kind::Top, j, e, &[S::StorageModifierAsync]);
+                        self.capture(Rule::Top, j, e, &[S::StorageModifierAsync]);
                     }
-                    self.capture(Kind::ObjArrowParen, k, k + 1, &[S::MetaBraceRound]);
-                    self.push(Kind::ObjArrowParen);
+                    self.capture(Rule::ObjArrowParen, k, k + 1, &[S::MetaBraceRound]);
+                    self.push(Rule::ObjArrowParen);
                     return Some(k + 1);
                 }
             }
@@ -914,9 +914,9 @@ impl<const D: u8> Lexer<'_, D> {
                 if self.byte(k) == b'<' && self.eol(self.ws(k + 1)) {
                     self.flush(p);
                     if e > j {
-                        self.capture(Kind::Top, j, e, &[S::StorageModifierAsync]);
+                        self.capture(Rule::Top, j, e, &[S::StorageModifierAsync]);
                     }
-                    self.push(Kind::ObjArrowOpen);
+                    self.push(Rule::ObjArrowOpen);
                     return Some(e);
                 }
             }
@@ -925,8 +925,8 @@ impl<const D: u8> Lexer<'_, D> {
             let k = self.ws(p);
             if self.byte(k) == b'(' && self.paren_open_after(k + 1) && !self.full() {
                 self.flush(p);
-                self.capture(Kind::ObjArrowParen, k, k + 1, &[S::MetaBraceRound]);
-                self.push(Kind::ObjArrowParen);
+                self.capture(Rule::ObjArrowParen, k, k + 1, &[S::MetaBraceRound]);
+                self.push(Rule::ObjArrowParen);
                 return Some(k + 1);
             }
         }
@@ -958,7 +958,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if self.byte(p) == b'(' {
-            return self.open_token(Kind::ObjArrowParen, p, p + 1, &[S::MetaBraceRound]);
+            return self.open_token(Rule::ObjArrowParen, p, p + 1, &[S::MetaBraceRound]);
         }
         None
     }
