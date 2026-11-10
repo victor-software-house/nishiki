@@ -277,7 +277,44 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
 
 /// The bytes of `lines` whose stack differs from Shiki's, with a message for
 /// each of the first few.
+/// Blocks of languages the tables do not hold are left out, as
+/// [`unknown_fences`] finds them.
 fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize, usize, String) {
+    let found = compare(grammar, lines, scanners, &unknown_fences(grammar, lines));
+    (found.checked, found.missed, found.message)
+}
+
+/// The first byte whose scope stack differs from Shiki's.
+struct Difference {
+    /// The line, from 1.
+    line: usize,
+    /// The byte in the line, from 1.
+    column: usize,
+    expected: String,
+    actual: String,
+}
+
+/// What lexing a fixture's lines found against Shiki's stacks.
+struct Comparison {
+    /// The non-whitespace bytes compared.
+    checked: usize,
+    /// How many of them differ.
+    missed: usize,
+    /// A message for each of the first few lines that differ.
+    message: String,
+    first: Option<Difference>,
+    /// Every limit a line reached.
+    reached: Vec<Limit>,
+}
+
+/// Lexes `lines` and compares each non-whitespace byte with Shiki's stack.
+/// A line that `skip` marks is lexed but not compared.
+fn compare(
+    grammar: &'static Grammar,
+    lines: &[Line],
+    scanners: Scanners,
+    skip: &[bool],
+) -> Comparison {
     let mut highlighter = Highlighter::<Table>::with_lexer(Table(grammar), Limits::unlimited());
     highlighter.scratch_mut().textmate.no_scanner = scanners == Scanners::Off;
     let mut state = State::default();
@@ -285,17 +322,23 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
     let (mut checked, mut missed) = (0, 0);
     let mut message = String::new();
     let mut shown = 0;
-    let skip = unknown_fences(grammar, lines);
+    let mut first = None;
+    let mut reached: Vec<Limit> = Vec::new();
     for (number, line) in lines.iter().enumerate() {
         let mut out = Vec::new();
-        let _ = highlighter.line(&line.text, &mut state, &mut out);
+        let report = highlighter.line(&line.text, &mut state, &mut out);
+        for limit in report.limits() {
+            if !reached.contains(&limit) {
+                reached.push(limit);
+            }
+        }
         let mut actual: Vec<u32> = Vec::new();
         let mut start = 0;
         for token in &out {
             actual.extend((start..token.end).map(|_| token.stack.0));
             start = token.end;
         }
-        if skip[number] {
+        if skip.get(number).copied().unwrap_or(false) {
             continue;
         }
         let mut line_missed = 0;
@@ -316,6 +359,14 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
             if expected != got {
                 missed += 1;
                 line_missed += 1;
+                if first.is_none() {
+                    first = Some(Difference {
+                        line: number + 1,
+                        column: column + 1,
+                        expected: expected.to_owned(),
+                        actual: String::from(got),
+                    });
+                }
                 if line_missed == 1 && shown < 8 {
                     shown += 1;
                     let _ = write!(
@@ -331,7 +382,13 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
             }
         }
     }
-    (checked, missed, message)
+    Comparison {
+        checked,
+        missed,
+        message,
+        first,
+        reached,
+    }
 }
 
 fn check(grammar: &'static Grammar, language: &str, scanners: Scanners) {
@@ -1480,6 +1537,9 @@ mod survey {
         }
     }
 }
+
+#[cfg(feature = "json")]
+mod fidelity;
 
 #[cfg(feature = "json")]
 fn fixtures_in(dir: &Path) -> Vec<PathBuf> {
