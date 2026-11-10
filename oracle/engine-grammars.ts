@@ -4,7 +4,7 @@
 // Usage: bun oracle/engine-grammars.ts
 //
 // It writes:
-// - `<name>.json`: each grammar, as Shiki 4.6.0 ships it;
+// - `<name>.json`: each grammar, as Shiki 4.6.0 ships it, indented two spaces;
 // - `tables.json`: per table, its root scope, the grammars it links and the
 //   languages it hands regions to;
 // - `SOURCES.md`: each grammar's source, commit and licence.
@@ -109,7 +109,7 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 const names = [...grammars.keys()].sort();
 for (const name of names) {
-  writeFileSync(`${out}${name}.json`, `${JSON.stringify(grammars.get(name))}\n`);
+  writeFileSync(`${out}${name}.json`, `${JSON.stringify(grammars.get(name), null, 2)}\n`);
 }
 writeFileSync(`${out}tables.json`, `${JSON.stringify(linked, null, 2)}\n`);
 
