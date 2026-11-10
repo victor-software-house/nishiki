@@ -76,7 +76,7 @@ impl Grammar for PowerShell {
         lexer.matcher(pat, p)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Nested, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }

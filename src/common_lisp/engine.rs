@@ -190,7 +190,7 @@ impl Grammar for CommonLisp {
         lexer.matcher(pat, p)
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        lexer.retokenise(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        lexer.retokenise(nested, from, to, base);
     }
 }

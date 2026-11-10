@@ -119,8 +119,8 @@ impl Grammar for Astro {
 
     /// A capture group with patterns of its own: the patterns of its nested
     /// rule, run over the group.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
-        lexer.retokenise(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {
+        lexer.retokenise(nested, from, to, base);
         lexer.emit(to, base);
     }
 
@@ -128,8 +128,8 @@ impl Grammar for Astro {
     /// ([`Embeds::lex_nested`]).
     const DEFERS_NESTED: bool = true;
 
-    fn defers_nested(kind: Rule) -> Option<Language> {
-        (kind == Rule::NestedJavaScript).then_some(Language::JavaScript)
+    fn defers_nested(nested: Rule) -> Option<Language> {
+        (nested == Rule::NestedJavaScript).then_some(Language::JavaScript)
     }
 
     fn extra(kept: Self::Kept) -> Self::Extra {

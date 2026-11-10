@@ -108,7 +108,7 @@ impl Grammar for Julia {
         lexer.matcher(pat, p)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Infallible, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Infallible, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }

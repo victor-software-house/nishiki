@@ -118,15 +118,15 @@ impl Grammar for Matlab {
     /// Past [`MAX_NESTED`] groups lexed again around it, the text keeps the
     /// group's scopes alone.
     /// The line then reports the depth limit.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        let inner = lexer.path(base, kind.scopes);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        let inner = lexer.path(base, nested.scopes);
         if lexer.x.nested >= MAX_NESTED {
             lexer.record_depth();
             lexer.emit(to, inner);
             return;
         }
         lexer.x.nested += 1;
-        lexer.retokenise(kind.rule, from, to, inner);
+        lexer.retokenise(nested.rule, from, to, inner);
         lexer.x.nested -= 1;
     }
 }

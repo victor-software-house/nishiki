@@ -80,7 +80,7 @@ impl Grammar for R {
 
     /// The condition of `@examplesIf` is the one group lexed again.
     /// Its patterns record no group of their own, so it nests one level.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
-        lexer.tokenize_capture(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {
+        lexer.tokenize_capture(nested, from, to, base);
     }
 }

@@ -95,7 +95,7 @@ impl Grammar for CSharp {
         lexer.matcher(pat, p)
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        lexer.retokenise(kind.rule(), from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        lexer.retokenise(nested.rule(), from, to, base);
     }
 }

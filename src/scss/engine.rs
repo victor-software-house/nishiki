@@ -120,8 +120,8 @@ impl Grammar for Scss {
         }
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        match kind {
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        match nested {
             Nested::Rule(rule) => {
                 lexer.retokenise(rule, from, to, base);
                 lexer.emit(to, base);

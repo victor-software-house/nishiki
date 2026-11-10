@@ -99,14 +99,14 @@ impl Grammar for Perl {
     /// Past [`MAX_NESTED`] groups lexed again around it, the text keeps the
     /// scopes around it.
     /// The line then reports the depth limit.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {
         if lexer.x.nested >= MAX_NESTED {
             lexer.record_depth();
             lexer.emit(to, base);
             return;
         }
         lexer.x.nested += 1;
-        lexer.tokenize_capture(kind, from, to, base);
+        lexer.tokenize_capture(nested, from, to, base);
         lexer.x.nested -= 1;
     }
 }

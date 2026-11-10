@@ -7,8 +7,8 @@ impl Lexer<'_> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
     /// cursor at `to`.
     /// The text sits under the stack `base`.
-    pub(super) fn tokenize_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
-        self.retokenise(kind, from, to, base);
+    pub(super) fn tokenize_capture(&mut self, nested: Nested, from: usize, to: usize, base: u32) {
+        self.retokenise(nested, from, to, base);
         self.emit(to, base);
     }
 }

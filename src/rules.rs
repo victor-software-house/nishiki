@@ -258,7 +258,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// the stack `base`, and leaves the cursor at `to`.
     fn tokenize_nested(
         lexer: &mut Lexer<'_, Self>,
-        kind: Self::Nested,
+        nested: Self::Nested,
         from: usize,
         to: usize,
         base: u32,
@@ -327,14 +327,14 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// grammar ([`Grammar::defers_nested`]).
     /// Only a grammar that embeds languages ([`Embeds`]) sets it.
     const DEFERS_NESTED: bool = false;
-    /// The language that lexes the capture groups of kind `kind` again, if
-    /// one does.
+    /// The language that lexes the `nested` capture groups again, if one
+    /// does.
     /// The engine then emits such a group as one placeholder token and
     /// defers it.
     /// Where the line hands control back, [`Embeds::lex_nested`] lexes it in
     /// place of the placeholder.
     /// It is read only where [`Grammar::DEFERS_NESTED`] is set.
-    fn defers_nested(_kind: Self::Nested) -> Option<Language> {
+    fn defers_nested(_nested: Self::Nested) -> Option<Language> {
         None
     }
     /// Where the line being lexed notes its deferred capture groups, in the

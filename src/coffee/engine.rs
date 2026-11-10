@@ -152,8 +152,8 @@ macro_rules! dialect {
             /// ([`rules::Embeds::lex_nested`]).
             const DEFERS_NESTED: bool = true;
 
-            fn defers_nested(kind: Nested) -> Option<crate::Language> {
-                (kind == Rule::Javascript).then_some(crate::Language::JavaScript)
+            fn defers_nested(nested: Nested) -> Option<crate::Language> {
+                (nested == Rule::Javascript).then_some(crate::Language::JavaScript)
             }
 
             /// The deferrals' buffers go from line to line; the runs start empty.
@@ -188,12 +188,12 @@ macro_rules! dialect {
 
             fn tokenize_nested(
                 lexer: &mut Lexer<'_, $dialect>,
-                kind: Nested,
+                nested: Nested,
                 from: usize,
                 to: usize,
                 base: u32,
             ) {
-                lexer.retokenise(kind, from, to, base);
+                lexer.retokenise(nested, from, to, base);
                 lexer.emit(to, base);
             }
         }

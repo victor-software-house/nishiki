@@ -83,9 +83,9 @@ impl Grammar for Tex {
     /// Lexes the group again with its rule, under the stack the engine gives
     /// and the group's own scopes.
     /// TeX's tables name no such group, so the engine never calls it.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        let inner = lexer.path(base, kind.scopes);
-        lexer.retokenise(kind.rule, from, to, inner);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        let inner = lexer.path(base, nested.scopes);
+        lexer.retokenise(nested.rule, from, to, inner);
     }
 }
 

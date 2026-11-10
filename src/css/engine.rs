@@ -167,7 +167,7 @@ impl Grammar for Css {
         lexer.css_matcher(pat, p)
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        lexer.css_capture(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        lexer.css_capture(nested, from, to, base);
     }
 }

@@ -114,7 +114,7 @@ impl Grammar for Go {
         lexer.matcher(pat, p)
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
-        lexer.tokenize_capture(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {
+        lexer.tokenize_capture(nested, from, to, base);
     }
 }

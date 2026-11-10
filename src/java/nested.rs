@@ -28,8 +28,8 @@ impl Lexer<'_> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
     /// cursor at `to`.
     /// The text sits under the stack `base`.
-    pub(super) fn tokenize_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
-        match kind {
+    pub(super) fn tokenize_capture(&mut self, nested: Nested, from: usize, to: usize, base: u32) {
+        match nested {
             Nested::TypeChain => self.type_chain(from, to, base),
             Nested::Modifiers => self.modifier_words(from, to, base),
             Nested::Generics => self.generic_names(from, to, base),

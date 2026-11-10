@@ -112,8 +112,8 @@ impl Grammar for Svelte {
 
     /// A capture group with patterns of its own: the patterns of its nested
     /// rule, run over the group.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
-        lexer.retokenise(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {
+        lexer.retokenise(nested, from, to, base);
         lexer.emit(to, base);
     }
 
@@ -121,10 +121,10 @@ impl Grammar for Svelte {
     /// ([`Embeds::lex_nested`]).
     const DEFERS_NESTED: bool = true;
 
-    fn defers_nested(kind: Rule) -> Option<Language> {
-        if kind == Rule::NestedTypeScript {
+    fn defers_nested(nested: Rule) -> Option<Language> {
+        if nested == Rule::NestedTypeScript {
             Some(Language::TypeScript)
-        } else if kind == Rule::NestedMarkdown {
+        } else if nested == Rule::NestedMarkdown {
             crate::rules::embedded!(Markdown, "lang-markdown")
         } else {
             None

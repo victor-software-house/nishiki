@@ -1391,14 +1391,21 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// It does not run them under the groups around it.
     /// A group that starts past the match, in a lookahead, ends the groups, as
     /// in vscode-textmate.
-    fn emit_captures(&mut self, (table, nested): Captures<G>, base: u32, start: usize, end: usize) {
+    fn emit_captures(
+        &mut self,
+        (table, tokenized_groups): Captures<G>,
+        base: u32,
+        start: usize,
+        end: usize,
+    ) {
         self.caps[0] = Some((start, end));
         self.dirty = true;
         let mut stack = [(0_usize, 0_u32); NEST];
         let mut depth = 0;
         let (mut named, mut tokenized) = (0, 0);
         loop {
-            let (group, scopes, kind) = match (table.get(named), nested.get(tokenized)) {
+            let (group, scopes, nested) = match (table.get(named), tokenized_groups.get(tokenized))
+            {
                 (None, None) => break,
                 (Some(&(group, scopes)), Some(&(other, _))) if group <= other => {
                     named += 1;
@@ -1408,9 +1415,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     named += 1;
                     (group, scopes, None)
                 }
-                (_, Some(&(group, kind))) => {
+                (_, Some(&(group, nested))) => {
                     tokenized += 1;
-                    (group, G::NO_SCOPES, Some(kind))
+                    (group, G::NO_SCOPES, Some(nested))
                 }
             };
             let Some((from, to)) = self.caps[usize::from(group)] else {
@@ -1431,13 +1438,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             }
             let outer = if depth > 0 { stack[depth - 1].1 } else { base };
             self.emit(from, outer);
-            if let Some(kind) = kind {
+            if let Some(nested) = nested {
                 let named = table
                     .iter()
                     .find(|&&(number, _)| number == group)
                     .map_or(G::NO_SCOPES, |&(_, scopes)| scopes);
                 let inner = self.path(base, named);
-                self.nested(kind, from, to, inner);
+                self.nested(nested, from, to, inner);
                 continue;
             }
             if scopes.list.is_empty() {
@@ -1461,10 +1468,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The groups of the match being emitted are saved meanwhile, on a stack.
     /// The hook's matches, and the nested groups those emit in turn, then do
     /// not overwrite them.
-    fn nested(&mut self, kind: G::Nested, from: usize, to: usize, base: u32) {
+    fn nested(&mut self, nested: G::Nested, from: usize, to: usize, base: u32) {
         #[cfg(feature = "_embedding")]
         if G::DEFERS_NESTED
-            && let Some(language) = G::defers_nested(kind)
+            && let Some(language) = G::defers_nested(nested)
         {
             self.defer(language, from, to, base);
             return;
@@ -1474,7 +1481,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let dirty = self.dirty;
         self.caps[..G::GROUPS].fill(None);
         self.dirty = false;
-        G::tokenize_nested(self, kind, from, to, base);
+        G::tokenize_nested(self, nested, from, to, base);
         self.caps.copy_from_slice(&self.scratch.saved_caps[mark..]);
         self.scratch.saved_caps.truncate(mark);
         self.dirty = dirty;
@@ -2161,12 +2168,12 @@ mod tests {
 
         fn tokenize_nested(
             lexer: &mut Lexer<'_, Self>,
-            kind: Inside,
+            nested: Inside,
             from: usize,
             to: usize,
             base: u32,
         ) {
-            match kind {
+            match nested {
                 Inside::Again => lexer.retokenise(Root, from, to, base),
             }
         }
@@ -2702,12 +2709,12 @@ mod tests {
         /// build without the embedding engine.
         fn tokenize_nested(
             lexer: &mut Lexer<'_, Self>,
-            kind: Lexed,
+            nested: Lexed,
             _: usize,
             to: usize,
             base: u32,
         ) {
-            match kind {
+            match nested {
                 Lexed::Script => lexer.emit(to, base),
             }
         }
@@ -2736,8 +2743,8 @@ mod tests {
         }
 
         #[cfg(feature = "_embedding")]
-        fn defers_nested(kind: Lexed) -> Option<Language> {
-            match kind {
+        fn defers_nested(nested: Lexed) -> Option<Language> {
+            match nested {
                 #[cfg(feature = "lang-javascript")]
                 Lexed::Script => Some(Language::JavaScript),
                 #[cfg(not(feature = "lang-javascript"))]
@@ -3385,12 +3392,12 @@ mod tests {
 
             fn tokenize_nested(
                 lexer: &mut Lexer<'_, Self>,
-                kind: Inside,
+                nested: Inside,
                 from: usize,
                 to: usize,
                 base: u32,
             ) {
-                match kind {
+                match nested {
                     Inside::Again => lexer.retokenise(DeepRule::Shut, from, to, base),
                 }
             }
